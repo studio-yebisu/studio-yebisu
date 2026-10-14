@@ -1,0 +1,107 @@
+{
+  "artifact": "Studio Yebisu Desk",
+  "verified_on": "2026-10-13",
+  "stage": "interactive_local_prototype",
+  "scope": "複数の架空の制作を選び、次のタスクと状態を編集する、端末内保存のWeb UI。実際のプロジェクト状態は取得しない。",
+  "application": {
+    "mode": "manual_agent_application_of_read_skill_sources",
+    "description": "原典のSKILL.mdを読み、実装前の判断、実装、レビューへ直接適用した。スキルを紹介するだけでなく、具体的な設計・コード修正へ反映している。",
+    "installer_commands_run": [],
+    "global_skill_installation": false,
+    "automated_skill_runtime_claimed": false,
+    "independent_quality_benchmark_claimed": false
+  },
+  "skills": [
+    {
+      "name": "frontend-design",
+      "repository": "anthropics/skills",
+      "revision": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+      "source_url": "https://github.com/anthropics/skills/blob/dbd4588f9e1033efb41dad4bef2f7947c8993d44/skills/frontend-design/SKILL.md",
+      "license": "Apache-2.0 (skill-local LICENSE.txt)",
+      "applied_during": "before_implementation_and_visual_structure",
+      "decisions": [
+        { "principle": "対象者と画面の主な行動を先に定める", "application": "制作を選ぶ、次のタスクを確認する、状態を更新する、の3行動を中心に構成した。", "evidence": "README.md: ブリーフと実装前のデザイン方針" },
+        { "principle": "色・文字・配置を具体的な題材から選ぶ", "application": "白い制作机と青いフォルダーを基に、青灰の背景とサンセリフ本文を選択。紹介ページのクリーム色・大きなセリフ見出しを流用しなかった。", "evidence": "style.css: :root, .sidebar, .workspace, .next-card" },
+        { "principle": "装飾より利用者の作業を優先する", "application": "メトリクスを見せるだけのカードやグラフを置かず、次のタスクと選択中の制作に面積を使った。", "evidence": "index.html: .next-section and .workspace" }
+      ]
+    },
+    {
+      "name": "emil-design-eng",
+      "repository": "emilkowalski/skills",
+      "revision": "2d228630ba1446365f614a108cb8252f1feda202",
+      "source_url": "https://github.com/emilkowalski/skills/blob/2d228630ba1446365f614a108cb8252f1feda202/skills/emil-design-eng/SKILL.md",
+      "license": "MIT",
+      "applied_during": "interaction_implementation",
+      "decisions": [
+        { "principle": "頻繁な操作を演出で待たせない", "application": "検索・絞り込み・詳細選択・タスク完了を即座に反映し、項目ごとの入場アニメーションを設けなかった。", "evidence": "app.js: render, selectProject and change handlers" },
+        { "principle": "ポインターとキーボードの操作頻度を区別する", "application": "ポインターでボタンを押す場合だけ120msのtransformを返す。キーボードからの操作には移動演出を加えない。", "evidence": "style.css: .button and body[data-input=pointer]; app.js: pointerdown/keydown" },
+        { "principle": "動きを減らす設定と操作後の連続性", "application": "prefers-reduced-motionで移動トランジションを無効化し、タスク変更後には再生成された同じチェックボックスへフォーカスを戻す。", "evidence": "style.css: prefers-reduced-motion; app.js: render(focusId)" }
+      ]
+    },
+    {
+      "name": "web-design-guidelines",
+      "repository": "vercel-labs/agent-skills",
+      "revision": "063bee94c3f4df8453406c830b0a7df0f2860278",
+      "source_url": "https://github.com/vercel-labs/agent-skills/blob/063bee94c3f4df8453406c830b0a7df0f2860278/skills/web-design-guidelines/SKILL.md",
+      "license": "MIT stated in README; no LICENSE text in reviewed agent-skills tree",
+      "guidelines": {
+        "repository": "vercel-labs/web-interface-guidelines",
+        "revision": "434b7f91364665f2f733b310ec54809bf8f37937",
+        "source_url": "https://github.com/vercel-labs/web-interface-guidelines/blob/434b7f91364665f2f733b310ec54809bf8f37937/command.md",
+        "fetched_for_this_review": true
+      },
+      "applied_during": "implementation_and_code_review",
+      "decisions": [
+        { "principle": "入力の名前とエラーを関連付ける", "application": "各入力にlabel/nameを付け、エラーをaria-describedbyで関連付ける。保存時は最初の不正なフィールドへ移動する。", "evidence": "index.html: project-form/task-form; app.js: showErrors" },
+        { "principle": "状態をURLへ反映し、取り消せない操作を確認する", "application": "検索・状態・分野・選択中制作をURLフラグメントへ反映。リセットと未保存編集の破棄には確認ダイアログを設ける。", "evidence": "app.js: readRoute/writeRoute, askConfirm/requestClose" },
+        { "principle": "保存不能や検索0件も利用者が次へ進める状態にする", "application": "保存に失敗した場合は永続的な説明を表示。0件には条件解除ボタンを表示。日付はIntl、長文は折り返しを使用。", "evidence": "app.js: storageWarning/renderList; style.css: overflow-wrap" }
+      ]
+    },
+    {
+      "name": "fixing-accessibility",
+      "repository": "ibelick/ui-skills",
+      "revision": "9a0cb1e610e3a1a4f0f2723bf2e7680ac1b89cf5",
+      "source_url": "https://github.com/ibelick/ui-skills/blob/9a0cb1e610e3a1a4f0f2723bf2e7680ac1b89cf5/skills/fixing-accessibility/SKILL.md",
+      "license": "MIT",
+      "applied_during": "targeted_review_after_first_working_version",
+      "review": {
+        "scope": ["index.html", "app.js", "style.css"],
+        "changes": [
+          { "before": "<input id=\"project-title\" name=\"title\" autocomplete=\"off\">（タスク名も同様）", "issue": "必須がラベルの文字だけで、ネイティブの必須状態として伝わらなかった。", "after": "プロジェクト名とタスク名にrequiredを追加。カスタム検証のaria-invalidとフィールドエラーも維持。", "file": "index.html" },
+          { "before": "制作行のaria-labelは名前と詳細を開く、のみ。", "issue": "可視の状態やタスク進捗がボタンの読み上げ名に含まれなかった。", "after": "名前、状態、タスク総数と完了数を含む読み上げ名へ変更。", "file": "app.js" },
+          { "before": "divの一覧内にボタンを直接配置。", "issue": "制作・次のタスクの集まりがリストの意味を持たなかった。", "after": "ul/liへ局所変更し、ボタン・操作ID・見た目を維持。", "file": "index.html, app.js, style.css" }
+        ],
+        "retained_working_patterns": ["native dialog.showModalによるモーダル", "開いた起点を保存し閉じた後に復帰", "Tabで操作できるbutton/input/select", "visible focus", "エラーのaria-describedbyとlive status"],
+        "no_unrelated_redesign": true
+      }
+    }
+  ],
+  "verification": {
+    "automated": {
+      "command": "node examples/studio-desk/test_model.cjs",
+      "scope": "空白・長さ・日付・選択値の入力検証、複数条件検索、進捗、次タスク、保存往復、不正な保存データ",
+      "checks": 20,
+      "status": "passed"
+    },
+    "syntax": { "commands": ["node --check examples/studio-desk/app.js", "node --check examples/studio-desk/model.js"], "status": "passed" },
+    "live_browser": {
+      "reported_by": "parent_agent",
+      "passed": [
+        "デスクトップ初期表示の視覚確認",
+        "空の追加フォーム送信でフィールドエラーとタイトルへのフォーカス",
+        "架空プロジェクトの追加と編集保存",
+        "状態を進行中、優先度を高へ更新",
+        "タスク追加と完了チェック",
+        "再読み込み後にタイトル・状態・優先度・タスク完了を保持",
+        "未編集ダイアログでEscを押して閉じ、追加ボタンへフォーカス復帰",
+        "検索0件の空状態",
+        "リセット確認の初期フォーカスはキャンセル",
+        "リセット後に4件へ復帰し検索条件を解除",
+        "390x844の実viewportで水平オーバーフローなし",
+        "390x844で編集ダイアログが画面内に収まる",
+        "reduced-motionでボタンのtransitionが0秒"
+      ]
+    },
+    "not_claimed": ["正式なWCAG適合判定", "スクリーンリーダーでの実聴", "実機スマートフォンでの検証", "複数ブラウザ横断試験", "本番採用", "スキル適用前後の独立した品質比較"]
+  }
+}
