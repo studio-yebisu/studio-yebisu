@@ -1,0 +1,350 @@
+{
+  "id": "solidcraft-example",
+  "verified_at": "2026-10-15T05:33:51.881422+00:00",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "receipts": [
+      {
+        "phase": "Original parametric CAD commands, analytic expectations and regression checker guided by three upstream skills",
+        "receipt_sha256": "de2908aaa9407fd526f4ab620b4e64ca8280c9b451b2cc49b9bd54f3ca14dd30",
+        "execution_sha256": "a3c47517ebc1ea6ec6ebb65be2b46d838e851350ee4e38531b7b980ff7951741"
+      },
+      {
+        "phase": "Japanese case, real-output demo and Motion Reel explainer source",
+        "receipt_sha256": "ac0ff2806e1c53f12124cab4dbd5927dc5639226033afc9959c0464401ee5f69",
+        "execution_sha256": "e6911a31b359ec18ae6fc7f8aec44e92d764dd906b7b543fbe57c71d29ba0ed8"
+      }
+    ],
+    "receipt_published": false
+  },
+  "upstream": {
+    "repository": "bherbruck/solidcraft",
+    "commit": "16c49c3e860a954e9f27309927d6848bcba9c607",
+    "license_selected": "Apache-2.0",
+    "available_licenses": "MIT OR Apache-2.0",
+    "vendor_files_match_fixed_checkout": 18,
+    "checkout_line_endings": "Windows Git checkout bytes retained unchanged"
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 2,
+    "synthetic": true,
+    "sample_scope": "One original tray example with default and resized saved states",
+    "official_release": {
+      "version": "0.11.1",
+      "commit": "b01b9689c8999a4415b4a6daaa2f8aae8a1a2f25",
+      "release": "https://github.com/bherbruck/solidcraft/releases/tag/v0.11.1",
+      "archive": "solidcraft-0.11.1-windows-x64-portable.zip",
+      "archive_sha256": "6c5e285d3d6ee3bbdaa39de9019b5a36fd894c4a335f92de7193e1340996727d",
+      "official_checksum_matched": true,
+      "cli_sha256": "f239fddce0cc795a504b5c8c6723530c1ab829f90ea6c2bf0be6a1913b4684b7",
+      "server_info": {
+        "name": "solidcraft",
+        "title": "SolidCraft",
+        "version": "0.11.1"
+      },
+      "catalog_reference_and_release_are_separately_pinned": true,
+      "mode": "isolated headless MCP stdio",
+      "initial_timeline_count": 0,
+      "initial_body_count": 0,
+      "shared_gui_accessed": false
+    },
+    "tools": [
+      "SolidCraft0.11.1 headless MCP: inspect_design, batch, measure, screenshot, save, export, body_topology",
+      "SolidCraft0.11.1 CLI: eval, run --results",
+      "unmodified source solidcraft-checking/scripts/run.py build and sequential walk",
+      "Opus-authored independent analytic regression checker"
+    ],
+    "skill_application": "solidcraft-modeling numerical plan/staged batches/overshoot cutters/measure/image; solidcraft-editing parameter changes on the saved design; solidcraft-checking analytic volume/area/COM/bbox regression and sequential endpoint walk.",
+    "build_stages": 3,
+    "resize_cases": 1,
+    "sequential_walk_cases": 11,
+    "walk_distinct_final_shapes": 6,
+    "measurements": "examples/solidcraft-example/measurements.json",
+    "saved_design_step_stl_reopens": 6,
+    "timeline_errors_or_warnings": 0,
+    "body_count": 1,
+    "sketches": "none; primitive-only parametric model",
+    "analytic_tolerances": {
+      "volume_relative": 0.0002,
+      "area_relative": 0.0002,
+      "bbox_com_absolute_mm": "max(0.001,min(0.03,0.00015*bboxDiagonal))"
+    },
+    "top_images_and_agent_visual_review": {
+      "by": "production agent",
+      "human_approval": false,
+      "images_reviewed": [
+        "tray-default-iso.png",
+        "tray-default-top.png",
+        "tray-resized-iso.png",
+        "tray-resized-top.png"
+      ],
+      "observed": "Single open-top hard-edged tray; centered circular through-hole and continuous rim/floor visible in both states. Original model-tool PNGs unchanged."
+    },
+    "stl_checks": {
+      "default": {
+        "triangles": 268,
+        "undirected_edges": 402,
+        "every_edge_has_two_triangles": true,
+        "weld_rounding_mm": 1e-05,
+        "signed_volume_mm3": 46109.93665658421,
+        "analytic_tolerance_rel": 0.0002
+      },
+      "resized": {
+        "triangles": 316,
+        "undirected_edges": 474,
+        "every_edge_has_two_triangles": true,
+        "weld_rounding_mm": 1e-05,
+        "signed_volume_mm3": 69645.79189627692,
+        "analytic_tolerance_rel": 0.0002
+      }
+    },
+    "human_approval": false,
+    "manufacturing_tested": false
+  },
+  "browser": {
+    "modelStates": 2,
+    "imageViews": 4,
+    "states": [
+      {
+        "hole": "8 mm",
+        "image": "renders/tray-default-iso.png",
+        "loaded": true,
+        "metricsHidden": false,
+        "naturalWidth": 1280,
+        "selected": "tray-default",
+        "size": "120 × 80 × 18 mm",
+        "view": "iso",
+        "volume": "46,109.23 mm³"
+      },
+      {
+        "hole": "8 mm",
+        "image": "renders/tray-default-top.png",
+        "loaded": true,
+        "metricsHidden": false,
+        "naturalWidth": 1280,
+        "selected": "tray-default",
+        "size": "120 × 80 × 18 mm",
+        "view": "top",
+        "volume": "46,109.23 mm³"
+      },
+      {
+        "hole": "12 mm",
+        "image": "renders/tray-resized-top.png",
+        "loaded": true,
+        "metricsHidden": false,
+        "naturalWidth": 1280,
+        "selected": "tray-resized",
+        "size": "150 × 90 × 24 mm",
+        "view": "top",
+        "volume": "69,644.76 mm³"
+      },
+      {
+        "hole": "12 mm",
+        "image": "renders/tray-resized-iso.png",
+        "loaded": true,
+        "metricsHidden": false,
+        "naturalWidth": 1280,
+        "selected": "tray-resized",
+        "size": "150 × 90 × 24 mm",
+        "view": "iso",
+        "volume": "69,644.76 mm³"
+      }
+    ],
+    "keyboard": [
+      {
+        "key": "Home",
+        "hole": "8 mm",
+        "image": "renders/tray-default-iso.png",
+        "loaded": true,
+        "metricsHidden": false,
+        "naturalWidth": 1280,
+        "selected": "tray-default",
+        "size": "120 × 80 × 18 mm",
+        "view": "iso",
+        "volume": "46,109.23 mm³"
+      },
+      {
+        "key": "ArrowRight",
+        "hole": "12 mm",
+        "image": "renders/tray-resized-iso.png",
+        "loaded": true,
+        "metricsHidden": false,
+        "naturalWidth": 1280,
+        "selected": "tray-resized",
+        "size": "150 × 90 × 24 mm",
+        "view": "iso",
+        "volume": "69,644.76 mm³"
+      },
+      {
+        "key": "End",
+        "hole": "12 mm",
+        "image": "renders/tray-resized-iso.png",
+        "loaded": true,
+        "metricsHidden": false,
+        "naturalWidth": 1280,
+        "selected": "tray-resized",
+        "size": "150 × 90 × 24 mm",
+        "view": "iso",
+        "volume": "69,644.76 mm³"
+      },
+      {
+        "key": "ArrowLeft",
+        "hole": "8 mm",
+        "image": "renders/tray-default-iso.png",
+        "loaded": true,
+        "metricsHidden": false,
+        "naturalWidth": 1280,
+        "selected": "tray-default",
+        "size": "120 × 80 × 18 mm",
+        "view": "iso",
+        "volume": "46,109.23 mm³"
+      }
+    ],
+    "mobile": {
+      "clientWidth": 375,
+      "horizontalPageOverflow": false,
+      "imageNaturalWidth": 1280,
+      "imageWidth": 333,
+      "scrollWidth": 375,
+      "tableClientWidth": 335,
+      "tableScrollWidth": 348
+    },
+    "desktop": {
+      "clientWidth": 1265,
+      "horizontalPageOverflow": false,
+      "imageNaturalWidth": 1280,
+      "imageWidth": 655.4375,
+      "scrollWidth": 1265
+    },
+    "clipboardMatches": true,
+    "clipboardMethod": "OS clipboard readback, CRLF normalized to LF",
+    "downloadMatches": true,
+    "downloadedSha256": "3abdcea79540d99532e13330e82020ee461fc4623144c031774197b8e45dc730"
+  },
+  "video": {
+    "duration": 28,
+    "fps": 30,
+    "resolution": [
+      1280,
+      720
+    ],
+    "frame_count": 840,
+    "audio": "none",
+    "actual_assets": [
+      "renders/tray-default-iso.png",
+      "renders/tray-default-top.png",
+      "renders/tray-resized-iso.png",
+      "renders/tray-resized-top.png",
+      "measurements.json"
+    ],
+    "motion_reel_determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "4826d1ce8d81ed45902e73c68426b57197cd872bf1bfc968f8af489c788d20fd",
+      "afterOtherTimes": "4826d1ce8d81ed45902e73c68426b57197cd872bf1bfc968f8af489c788d20fd",
+      "freshPage": "4826d1ce8d81ed45902e73c68426b57197cd872bf1bfc968f8af489c788d20fd",
+      "match": true
+    },
+    "renderer_sha256": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "frames_contact_strip_review": {
+      "reviewed": true,
+      "reviewer": "production agent",
+      "human_approval": false,
+      "contact_frames": 14,
+      "continuous_strip_frames": 12,
+      "continuous_strip_at_seconds": 11.9,
+      "representative_stills_seconds": [
+        12,
+        22,
+        26
+      ],
+      "actual_decoded_mp4_frame_seconds": [
+        22
+      ],
+      "observations": [
+        "Original SolidCraft iso and top PNGs remain legible and agree with the selected actual dimensions and measurements.",
+        "Change scene shows all four before/after dimensions; separately fitted snapshots are explicitly not a common pixel scale.",
+        "Top scene uses recorded raster edges for hole and wall marks. Its wall measurement caption is explicitly limited to wall thickness.",
+        "Japanese title, measured values, save labels and three file rows are visible without overlap. The actual decoded MP4 at22 seconds was inspected.",
+        "Final content settles by24.5 seconds and remains readable through28 seconds; complete ending frame26 was inspected.",
+        "Native browser playback reached28 seconds, ended=true, error=null. Silent video; no audio stream."
+      ],
+      "qa_clarifications_after_opus_receipt": [
+        "Clarified that the top raster thickness error applies to walls, while floor thickness is supported by CAD geometry and analytic checks.",
+        "Brief distinguishes four decoded input PNGs from the three painted images in the video.",
+        "README local preview binds loopback; optional MCP registration grants only the example folder."
+      ]
+    },
+    "mp4_browser_playback": {
+      "currentTime": 28,
+      "duration": 28,
+      "ended": true,
+      "errorCode": null,
+      "paused": true,
+      "readyState": 4
+    }
+  },
+  "limitations": [
+    "Endpoint sequences tested; intermediate dimensions and other combinations are not exhaustively verified.",
+    "The web page views saved CAD results. It does not execute AI or arbitrary CAD edits in the browser.",
+    "STL is a tessellated mesh without parametric history; STEP reopens as a base solid; JSON retains editable parameters.",
+    "No physical manufacturing, strength, print, drain-flow or human approval claim. Video is silent.",
+    "Catalog reference source and official runtime release are separately pinned, not claimed to be the same build."
+  ],
+  "publication": {
+    "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=solidcraft-example",
+    "authorization": "User requested sequential publication of40 Opus5.5 examples to existing main and GitHub Pages."
+  },
+  "artifacts_sha256": {
+    "examples/solidcraft-example/app.js": "e1cf2bdd3586c47016d8adcbd06a6e6ea622494dd58b31faf21daac4b798e0bd",
+    "examples/solidcraft-example/cad/build.json": "5897b86802e66af5479f746a34814d7bf916533e267c364d6899b4e6956762ec",
+    "examples/solidcraft-example/cad/check_design.py": "10b3dd3c686172eba3fd2405ae304972aad89908d8fa5a4c8f3c6d71582adca9",
+    "examples/solidcraft-example/cad/expected.json": "1bf2ade5b097a738225409c35ac91264cb0847426e1594f437886e310c08c2dd",
+    "examples/solidcraft-example/cad/plan.md": "a6d15eb9d6c2a9cd3e0f2f34ae71d355cd6eb2d81ef2d4c933fad27766eda3ce",
+    "examples/solidcraft-example/cad/resize.json": "4ab2d883c386d8303bdb1fa0095b86e68613b56e8622bd271c2a4b26414d7856",
+    "examples/solidcraft-example/cad/walk.json": "c350e68f05d4ea8be01db2179b3a05c90879e525630b117920266f5923e0e41e",
+    "examples/solidcraft-example/index.html": "8c1e7d7ded68ec1242861ea35ad8e389f6dda217c626c7568588ad6554d6e596",
+    "examples/solidcraft-example/LICENSE": "767a52e95f072158a5a4f310d642105ed4d1a17b706dff9e373801d3ad976e93",
+    "examples/solidcraft-example/measurements.json": "ad07e9160686974dc0092fcace64f851ec0d41a38bb85bd566bd476404d6ca1c",
+    "examples/solidcraft-example/outputs/tray-default.json": "5154fad132ad9070dd4b085aa478bb34436f89b79b1aee349073abdf050f9dd9",
+    "examples/solidcraft-example/outputs/tray-default.step": "e223a4ed39ab6cd5ab52778a404358d2ea5478fca5108e524286c5199bb2b64b",
+    "examples/solidcraft-example/outputs/tray-default.stl": "a99a932edb4856afed76bff0f19800771a988a921c6bf922e036795df30b2d81",
+    "examples/solidcraft-example/outputs/tray-resized.json": "4da7a381f200c59ae93ba59180dd0ce1eef59403136e24f51ff967acf6f269ed",
+    "examples/solidcraft-example/outputs/tray-resized.step": "3abdcea79540d99532e13330e82020ee461fc4623144c031774197b8e45dc730",
+    "examples/solidcraft-example/outputs/tray-resized.stl": "0da764762b61f97b59ca8fb31e1ddfd7b80788b75976cf9e1793964f20de8598",
+    "examples/solidcraft-example/README.md": "4e6395e02f0f5901563080c3840599966b28a8c60ab1926c74d839fb2374ff53",
+    "examples/solidcraft-example/renders/tray-default-iso.png": "dc04af9a3e2bf313c148cb04eafbadb6e5553809af5973230b09da74ba43f0eb",
+    "examples/solidcraft-example/renders/tray-default-top.png": "ddc69b5ae81d9589dce6250c117f19e63450839a1359eb54fecc349510e14b68",
+    "examples/solidcraft-example/renders/tray-resized-iso.png": "b6f253dca2c2c2c83487d0e9a5f85603b11e9e3562c7ae3eb2e1e1b82041acb3",
+    "examples/solidcraft-example/renders/tray-resized-top.png": "b250c3adab3a57a55a76a86e46b9bfd7b480531d48b08c3080dbb272220242ac",
+    "examples/solidcraft-example/request.txt": "b1e1cf00743d40d0ba455abd1c2821ea8b7f11e44a325728026b1a8c3d7b702f",
+    "examples/solidcraft-example/samples.json": "419116511e1b1e68bdcd44997a84f64e94d415416c784be72077098aa79f59c9",
+    "examples/solidcraft-example/styles.css": "6c2b6001aac7dd40fed1dabc5145a470bca79f887806526ccbefee6f7f2c77f9",
+    "examples/solidcraft-example/vendor/solidcraft/docs/mcp.md": "d9d82677907192c85705a137b7a082fcd27db947abd801969003f128544f61c3",
+    "examples/solidcraft-example/vendor/solidcraft/LICENSE-APACHE": "eb3d7b5485466acbd81f2b496f595ab637d2792e268206b27d99e793bdb67549",
+    "examples/solidcraft-example/vendor/solidcraft/LICENSE-MIT": "44cca886556f909c92e8856945be1c55371698d06d052c6fe7cee7c6fb8e316f",
+    "examples/solidcraft-example/vendor/solidcraft/NOTICE": "c0358377f5b56965278d56864cc57fb28f454b23c0717244eb5669bf72e95ac9",
+    "examples/solidcraft-example/vendor/solidcraft/README.md": "23426c30795a82be29afeae75c6121f48dc77a8a85088ab61e74d05f5625e406",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/reference/porting.md": "d246fde9c4771a9d5af7909345b4e8bf9d1691312d6c34d50831b06387e36a4f",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/compare_step.py": "7a508c792216269ea9308449a3866bbb452497dea6644f159cf3812c12c70126",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/run.py": "63d8884361aa07b21817ddcec4b2c4a7c0f34b70ab075d07facac48fce41eba7",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/scb.py": "a6a4c699278f154c433f1f9649b2ad3c2f5742d543f4b75a06b6a23d619ade64",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/tests/test_compare_step.py": "910a57514b4c92df0108b67ba2851115e59975befcd956740f5a5b18a699e97f",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/tests/test_facts.py": "542d1afb6285cb271652a11f679ed4e9bf0eb70b16a4f42eeaf80f15f05b782a",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/tests/test_run.py": "6b193ddb27fb9b870f0bf46ccb383d8bca801d338ced8f15d2a0a1a8d65d4f2c",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/tests/test_scb.py": "30fb033a1f6b301f27741d029f83fd961ef93278fa20d87661927b954cb3f81b",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/SKILL.md": "564919b5905d6a55c31894b38c09e6ea1ce4304708fbe86ed15989608a691e62",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/templates/test_design.py": "73e09cd7fb2cf1e52dcbb9349d7e6ca6bed02a58b6c9cf1e19dd14739865bf94",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-editing/SKILL.md": "c0e76e9bcb1b5b3feb821127878e38d1aa78068241930be23b62d880648dd34c",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-modeling/reference.md": "2aeab14e61de9f0bcf4841dcc068edb61565054aa852fa2191fff45f542eb451",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-modeling/SKILL.md": "4a1aceadebf7ece14dec2850c5037c8430cb2c32f5d0a42f13074f81e5b2c6df",
+    "examples/solidcraft-example/video/brief.md": "445779aa7702a0d47362d7f638404c7b8259d58cd7edb3d8d25cdde3d431de05",
+    "examples/solidcraft-example/video/index.html": "013683437bdef71b2ba48e87ec58f4bf6db87bf85e5bf1f2ebbb30ed0cd7fc4b",
+    "media/solidcraft-example.mp4": "51620ec6dbbc9d106fd19d93230e7c0451988debdfba143f1160d682a0ed3bf4",
+    "media/solidcraft-example.webp": "3a5067a2f68f017dabb2e06ca2ceb2e2bd2542a98e4b70b8e37a7020f35690bc"
+  }
+}

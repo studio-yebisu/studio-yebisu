@@ -1,0 +1,204 @@
+{
+  "schema": "studio-yebisu/solidcraft-tray-expectations/1",
+  "status": "Analytic expectations written before any execution. They are not tool measurements. Execution is PENDING.",
+  "units": {"length": "mm", "area": "mm2", "volume": "mm3"},
+  "body": "Tray",
+  "fixed_parameters": {"wall": 3.0, "floor_thickness": 3.0},
+  "default_parameters": {"width": 120.0, "depth": 80.0, "height": 18.0, "hole_diameter": 8.0},
+  "ranges": {
+    "width": [120.0, 150.0],
+    "depth": [80.0, 90.0],
+    "height": [18.0, 24.0],
+    "hole_diameter": [8.0, 12.0]
+  },
+  "assumptions": [
+    "Ideal hard-edged solid: no fillets, chamfers or drafts. Density is uniform, so the centre of mass is the volume centroid.",
+    "The outer block spans x in [-W/2, W/2], y in [-D/2, D/2], z in [0, H]. solid.box length maps to X, width to Y, height to Z (to be confirmed by the bbox at the first inspect).",
+    "The pocket is the box (W-2t) x (D-2t) from z=f upward, open at z=H. The cutter extends 1 mm above z=H, so that 1 mm removes nothing.",
+    "The hole is the cylinder of radius r=d/2 on the Z axis through the floor, from z=0 to z=f. The cutter runs from z=-1 to z=f+1, and its extra length lies in air.",
+    "W=width, D=depth, H=height, d=hole_diameter, r=d/2, t=wall=3, f=floor_thickness=3. Valid while r < min(W,D)/2 - t, which holds over every tested state (r <= 6 < 37).",
+    "Logical face counts (block 6, pocket 11, final 12) count the hole bore as one cylindrical face. The checker reports them as advisory only."
+  ],
+  "formulas": {
+    "block": {
+      "volume": "W*D*H",
+      "area": "2*(W*D + W*H + D*H)",
+      "com_z": "H/2"
+    },
+    "pocket": {
+      "volume": "W*D*H - (W-2t)*(D-2t)*(H-f)",
+      "area": "2*W*D + 2*(W+D)*H + 2*((W-2t)+(D-2t))*(H-f)",
+      "com_z": "[W*D*H*(H/2) - (W-2t)*(D-2t)*(H-f)*((H+f)/2)] / volume"
+    },
+    "final": {
+      "volume": "W*D*H - (W-2t)*(D-2t)*(H-f) - pi*r^2*f",
+      "area": "2*W*D + 2*(W+D)*H + 2*((W-2t)+(D-2t))*(H-f) - 2*pi*r^2 + 2*pi*r*f",
+      "area_terms": "bottom W*D - pi*r^2; outer sides 2*(W+D)*H; top rim W*D - (W-2t)*(D-2t); inner walls 2*((W-2t)+(D-2t))*(H-f); pocket floor (W-2t)*(D-2t) - pi*r^2; hole bore 2*pi*r*f",
+      "com_z": "[W*D*H*(H/2) - (W-2t)*(D-2t)*(H-f)*((H+f)/2) - pi*r^2*f*(f/2)] / volume"
+    },
+    "com_xy": "x = y = 0: block, pocket and hole are all centred on the Z axis",
+    "bbox": "min [-W/2, -D/2, 0], max [W/2, D/2, H]: the rim stays at z=H, so the pocket and hole leave the outer envelope unchanged"
+  },
+  "tolerances": {
+    "volume_rel": 2e-4,
+    "area_rel": 2e-4,
+    "geometric_abs": "max(1e-3, min(0.03, 1.5e-4 * |bbox_max - bbox_min|)), applied to each coordinate of the COM and the bbox",
+    "basis": "solidcraft-checking template REL=2e-4 and its 1.5e-4 * size COM/bbox allowance (3x the documented 5e-5); the modeling reference reports analytic-vs-measured volume agreement of 0.001-0.01 %. Fixed before execution; not to be widened after a failure.",
+    "expectation_consistency": "check_design.py recomputes every value below from the formulas and requires agreement within max(1e-6, 1e-9*|value|)"
+  },
+  "states": {
+    "block_default": {
+      "stage": "block",
+      "parameters": {"width": 120.0, "depth": 80.0, "height": 18.0, "hole_diameter": 8.0},
+      "expected": {
+        "volume_mm3": 172800.0,
+        "area_mm2": 26400.0,
+        "center_of_mass": [0.0, 0.0, 9.0],
+        "bbox_min": [-60.0, -40.0, 0.0],
+        "bbox_max": [60.0, 40.0, 18.0],
+        "faces": 6
+      }
+    },
+    "pocket_default": {
+      "stage": "pocket",
+      "parameters": {"width": 120.0, "depth": 80.0, "height": 18.0, "hole_diameter": 8.0},
+      "expected": {
+        "volume_mm3": 46260.0,
+        "area_mm2": 32040.0,
+        "center_of_mass": [0.0, 0.0, 4.8968871595],
+        "bbox_min": [-60.0, -40.0, 0.0],
+        "bbox_max": [60.0, 40.0, 18.0],
+        "faces": 11
+      }
+    },
+    "default": {
+      "stage": "final",
+      "parameters": {"width": 120.0, "depth": 80.0, "height": 18.0, "hole_diameter": 8.0},
+      "area_terms_mm2": {
+        "bottom": 9549.734517543,
+        "outer_sides": 7200.0,
+        "top_rim": 1164.0,
+        "inner_walls": 5640.0,
+        "pocket_floor": 8385.734517543,
+        "hole_bore": 75.398223686
+      },
+      "expected": {
+        "volume_mm3": 46109.203552628,
+        "area_mm2": 32014.867258771,
+        "center_of_mass": [0.0, 0.0, 4.9079964062],
+        "bbox_min": [-60.0, -40.0, 0.0],
+        "bbox_max": [60.0, 40.0, 18.0],
+        "faces": 12
+      }
+    },
+    "width_max": {
+      "stage": "final",
+      "parameters": {"width": 150.0, "depth": 80.0, "height": 18.0, "hole_diameter": 8.0},
+      "expected": {
+        "volume_mm3": 56009.203552628,
+        "area_mm2": 38794.867258771,
+        "center_of_mass": [0.0, 0.0, 4.7394675962],
+        "bbox_min": [-75.0, -40.0, 0.0],
+        "bbox_max": [75.0, 40.0, 18.0],
+        "faces": 12
+      }
+    },
+    "depth_max": {
+      "stage": "final",
+      "parameters": {"width": 120.0, "depth": 90.0, "height": 18.0, "hole_diameter": 8.0},
+      "expected": {
+        "volume_mm3": 50609.203552628,
+        "area_mm2": 35074.867258771,
+        "center_of_mass": [0.0, 0.0, 4.7650187792],
+        "bbox_min": [-60.0, -45.0, 0.0],
+        "bbox_max": [60.0, 45.0, 18.0],
+        "faces": 12
+      }
+    },
+    "height_max": {
+      "stage": "final",
+      "parameters": {"width": 120.0, "depth": 80.0, "height": 24.0, "hole_diameter": 8.0},
+      "expected": {
+        "volume_mm3": 53093.203552628,
+        "area_mm2": 36670.867258771,
+        "center_of_mass": [0.0, 0.0, 7.0247749311],
+        "bbox_min": [-60.0, -40.0, 0.0],
+        "bbox_max": [60.0, 40.0, 24.0],
+        "faces": 12
+      }
+    },
+    "hole_max": {
+      "stage": "final",
+      "parameters": {"width": 120.0, "depth": 80.0, "height": 18.0, "hole_diameter": 12.0},
+      "expected": {
+        "volume_mm3": 45920.707993412,
+        "area_mm2": 31926.902664471,
+        "center_of_mass": [0.0, 0.0, 4.9219855674],
+        "bbox_min": [-60.0, -40.0, 0.0],
+        "bbox_max": [60.0, 40.0, 18.0],
+        "faces": 12
+      }
+    },
+    "all_max": {
+      "stage": "final",
+      "parameters": {"width": 150.0, "depth": 90.0, "height": 24.0, "hole_diameter": 12.0},
+      "area_terms_mm2": {
+        "bottom": 13386.902664471,
+        "outer_sides": 11520.0,
+        "top_rim": 1404.0,
+        "inner_walls": 9576.0,
+        "pocket_floor": 11982.902664471,
+        "hole_bore": 113.097335529
+      },
+      "expected": {
+        "volume_mm3": 69644.707993412,
+        "area_mm2": 47982.902664471,
+        "center_of_mass": [0.0, 0.0, 6.5801849874],
+        "bbox_min": [-75.0, -45.0, 0.0],
+        "bbox_max": [75.0, 45.0, 24.0],
+        "faces": 12
+      }
+    }
+  },
+  "sequences": {
+    "build": {
+      "script": "build.json",
+      "needs_design": false,
+      "start_parameters": null,
+      "scope": "Fresh empty headless session: block, pocket and hole stages at the default parameters only.",
+      "cases": [
+        {"label": "build-1-block", "inspect_index": 7, "state": "block_default"},
+        {"label": "build-2-pocket", "inspect_index": 9, "state": "pocket_default"},
+        {"label": "build-3-final", "inspect_index": 11, "state": "default"}
+      ]
+    },
+    "resize": {
+      "script": "resize.json",
+      "needs_design": true,
+      "start_parameters": "default_parameters",
+      "scope": "One edit of the saved default design: all four driving parameters changed together to 150/90/24/12 mm.",
+      "cases": [
+        {"label": "resize-all-max", "inspect_index": 4, "state": "all_max"}
+      ]
+    },
+    "walk": {
+      "script": "walk.json",
+      "needs_design": true,
+      "start_parameters": "default_parameters",
+      "scope": "Sequential walk on the saved default design. Each lower range endpoint equals the default, so each parameter goes to its upper endpoint and back to the default (lower endpoint) one at a time, then all four go to their upper endpoints together and are restored. Only these 11 states are tested. Values between the endpoints, and other combinations, are not tested or claimed.",
+      "cases": [
+        {"label": "walk-00-default-initial", "inspect_index": 0, "state": "default"},
+        {"label": "walk-01-width-150", "inspect_index": 2, "state": "width_max"},
+        {"label": "walk-02-width-120-default", "inspect_index": 4, "state": "default"},
+        {"label": "walk-03-depth-90", "inspect_index": 6, "state": "depth_max"},
+        {"label": "walk-04-depth-80-default", "inspect_index": 8, "state": "default"},
+        {"label": "walk-05-height-24", "inspect_index": 10, "state": "height_max"},
+        {"label": "walk-06-height-18-default", "inspect_index": 12, "state": "default"},
+        {"label": "walk-07-hole-12", "inspect_index": 14, "state": "hole_max"},
+        {"label": "walk-08-hole-8-default", "inspect_index": 16, "state": "default"},
+        {"label": "walk-09-all-max", "inspect_index": 21, "state": "all_max"},
+        {"label": "walk-10-all-restored-default", "inspect_index": 26, "state": "default"}
+      ]
+    }
+  }
+}

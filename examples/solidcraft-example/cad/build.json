@@ -1,0 +1,16 @@
+{
+  "commands": [
+    {"command": "parameters.add", "params": {"name": "width", "expression": "120 mm", "comment": "トレー外形の幅(X)。使える範囲 120〜150 mm、初期値 120 mm。確認は範囲端と初期値の逐次切り替えのみ", "favorite": true}},
+    {"command": "parameters.add", "params": {"name": "depth", "expression": "80 mm", "comment": "トレー外形の奥行(Y)。使える範囲 80〜90 mm、初期値 80 mm。確認は範囲端と初期値の逐次切り替えのみ", "favorite": true}},
+    {"command": "parameters.add", "params": {"name": "height", "expression": "18 mm", "comment": "トレー外形の高さ(Z、底面 z=0)。使える範囲 18〜24 mm、初期値 18 mm。確認は範囲端と初期値の逐次切り替えのみ", "favorite": true}},
+    {"command": "parameters.add", "params": {"name": "hole_diameter", "expression": "8 mm", "comment": "底中央の水抜き貫通穴の直径。使える範囲 8〜12 mm、初期値 8 mm。確認は範囲端と初期値の逐次切り替えのみ", "favorite": true}},
+    {"command": "parameters.add", "params": {"name": "wall", "expression": "3 mm", "comment": "側壁の厚さ。3 mm 固定。変更は確認範囲外", "favorite": false}},
+    {"command": "parameters.add", "params": {"name": "floor_thickness", "expression": "3 mm", "comment": "底の厚さ。3 mm 固定。変更は確認範囲外(floor は式の関数名なので別名にした)", "favorite": false}},
+    {"command": "solid.box", "params": {"name": "TrayBlock", "length": "width", "width": "depth", "height": "height", "center": [0, 0, "height / 2"], "operation": "new", "body_name": "Tray"}},
+    {"command": "document.inspect", "params": {"measure": true}},
+    {"command": "solid.box", "params": {"name": "Pocket", "length": "width - 2 * wall", "width": "depth - 2 * wall", "height": "height - floor_thickness + 1 mm", "center": [0, 0, "(height + floor_thickness + 1 mm) / 2"], "operation": "cut", "targets": ["Tray"]}},
+    {"command": "document.inspect", "params": {"measure": true}},
+    {"command": "solid.cylinder", "params": {"name": "DrainHole", "diameter": "hole_diameter", "height": "floor_thickness + 2 mm", "base": [0, 0, -1], "axis": "Z", "operation": "cut", "targets": ["Tray"]}},
+    {"command": "document.inspect", "params": {"measure": true}}
+  ]
+}
