@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "effect_id": "VFX_Yebisu_Guard",
+  "role": "single guard reaction on the defender at the moment a blow is blocked (frequent, about 0.5 s)",
+  "style": "stylized action-game energy guard, original synthetic design",
+  "dominant_shape": "a shallow convex guard disc standing beside the defender on the attacker's side (+X), yawed (0,58,0) so it reads as a vertical ellipse; outline first, then a flowing blue face that splits into six plate sectors",
+  "palette": {
+    "core": [240, 248, 255],
+    "body": [70, 150, 255],
+    "dark": [25, 45, 110],
+    "matter": [125, 160, 210]
+  },
+  "delivery": {"kind": "self"},
+  "anchor": "body",
+  "beats": [
+    {"frame": 2, "name": "raise (earliest readable)", "expect": "A thin pale arc on the +X side of the dummy, open at the top: the lower half of the outline drawing itself up both sides. No fill and no white star yet."},
+    {"frame": 5, "name": "contact", "expect": "A short white anamorphic star at chest height on the disc with a small blue bloom under it; the outline is closed and the blue face is appearing behind the star. The star is the brightest thing in the frame."},
+    {"frame": 10, "name": "body takes over", "expect": "The white star is gone. The blue face keeps its bright rim and thin centre; a ripple ring spreads from the contact point and the mottled noise has moved compared with f5. Head and torso of the dummy readable beside and through the disc."},
+    {"frame": 16, "name": "gaps open", "expect": "The face is eroded into holes and six plate sectors with dark gaps between them are visible, the widest gap at the top under the contact point; the sectors are saturated blue with dimmer navy edges, no brighter than the f10 face and never near-white; blue-grey chips appear."},
+    {"frame": 18, "name": "exit start", "expect": "The whole face and ripples are gone; only the separating blue plate sectors and chips remain."},
+    {"frame": 23, "name": "exit midpoint (last intentional residue)", "expect": "Sectors are visibly farther from the disc centre than at f16, tilted differently from each other, the same blue but dimmer (fading) and more eroded; still readable as a modest blue tail; chips are below the contact height."},
+    {"frame": 30, "name": "clear", "expect": "No effect pixels remain; the dummy stands alone on the stage."}
+  ],
+  "layer_plan": [
+    {"name": "0:Guard plane", "role": "invisible pivot: places the disc at +X of the defender and yaws it (0,58,0) so every plane layer shares one tilted plane", "primitive": "None renderer pivot", "exit": "no pixels; node life ends at absolute f28"},
+    {"name": "0:Guard plane/0:Outline draw", "role": "anticipation: thin shield outline rising from the bottom up both sides (angle sweep 180->0 / 180->360)", "primitive": "Ring (no texture, angle_start/angle_end easing)", "exit": "fades from f4, gone by absolute f7"},
+    {"name": "0:Guard plane/1:Guard face", "role": "body: convex blue disc with pale rim and thin centre in fixed Ring vertex colours (no colour animation); the noise mask flows round and outward, small give under the blow, then erodes into holes with a pale edge and fades", "primitive": "Ring (fixed outer/center/inner colours) + alpha T_NoiseTile02 scroll + EaseInQuadratic cutoff + edge", "exit": "eroded and faded, gone by absolute f18"},
+    {"name": "0:Guard plane/2:Face ripple", "role": "body motion: two ripple rings spreading over the face from the contact point (born f5 and f8)", "primitive": "tilted_ring (Ring, Fixed in the plane)", "exit": "gone by absolute f18"},
+    {"name": "0:Guard plane/3:Plate shard 1", "role": "exit break-up: 46-degree sector centred at 30 degrees; fixed Ring vertex colours (saturated blue band, dimmer navy outer/inner edge, emissive 1.0, below the face's value); separates, tumbles, dims by fade and erosion (no colour animation)", "primitive": "Ring sector (fixed outer/center/inner colours) + travel + spin + cutoff", "exit": "born f13, gone by absolute f28"},
+    {"name": "0:Guard plane/4:Plate shard 2", "role": "exit break-up: sector centred at 90 degrees", "primitive": "Ring sector + travel + spin + cutoff", "exit": "born f13, gone by absolute f28"},
+    {"name": "0:Guard plane/5:Plate shard 3", "role": "exit break-up: sector centred at 150 degrees", "primitive": "Ring sector + travel + spin + cutoff", "exit": "born f13, gone by absolute f28"},
+    {"name": "0:Guard plane/6:Plate shard 4", "role": "exit break-up: sector centred at 210 degrees", "primitive": "Ring sector + travel + spin + cutoff", "exit": "born f13, gone by absolute f28"},
+    {"name": "0:Guard plane/7:Plate shard 5", "role": "exit break-up: sector centred at 270 degrees", "primitive": "Ring sector + travel + spin + cutoff", "exit": "born f13, gone by absolute f28"},
+    {"name": "0:Guard plane/8:Plate shard 6", "role": "exit break-up: sector centred at 330 degrees", "primitive": "Ring sector + travel + spin + cutoff", "exit": "born f13, gone by absolute f28"},
+    {"name": "1:Contact point", "role": "invisible unrotated pivot at the contact's world position so spray boxes stay in world axes", "primitive": "None renderer pivot", "exit": "no pixels; node life ends at absolute f29"},
+    {"name": "1:Contact point/0:Contact glint", "role": "contact: short white star of the blocked blow (core value)", "primitive": "flash (Sprite T_Flare01)", "exit": "gone by absolute f8"},
+    {"name": "1:Contact point/1:Contact bloom", "role": "contact support: small blue bloom under the star so the contact is white over blue, not a white disc", "primitive": "glow (Sprite T_Glow01)", "exit": "gone by absolute f12"},
+    {"name": "1:Contact point/2:Deflect sparks", "role": "secondary: six short glints deflected back toward the attacker (+X) and up, eased out", "primitive": "radial_sparks (Sprite T_Spark01) with spray", "exit": "gone by absolute f14"},
+    {"name": "1:Contact point/3:Plate chips", "role": "matter: seven small alpha-blended blue-grey chips spread over the plate at the break, falling", "primitive": "debris (Sprite T_Shard01, Blend) with a 0.4 spawn sphere", "exit": "born f13, gone by absolute f29"}
+  ],
+  "acceptance": [
+    "f2: the outline is an open arc (lower part only) beside the dummy, not a closed ring and not a filled disc",
+    "f4-f8: the white contact star is the brightest element and is gone by f9; no white mass remains at f10",
+    "f10: the dummy's head and torso stay readable; the disc sits beside the character (attacker side), not over it",
+    "f5 vs f10 vs f14: the face visibly changes (ripple at a different radius, noise moved, holes appearing); it is not a static disc that only fades",
+    "f16: at least four dark gaps divide the plate into separate pieces",
+    "f13-f23: plate pieces are saturated blue with dimmer edges, never near-white and never brighter than the f10 face; the f4-f8 contact star stays the single brightest event",
+    "f23: pieces are farther from the disc centre than at f16, tilted differently, dimmer and more eroded but still a visible blue tail; chips below contact height",
+    "f30: nothing of the effect remains",
+    "In greyscale the order reads: white star > pale rim and outline > blue face > navy pieces and chips"
+  ],
+  "avoid": [
+    "A tinted solid disc or dome covering the dummy",
+    "A held barrier that stays up after the reaction; anything still visible at f30",
+    "An attack-style blast: a large or long white flash, a big shock ring, smoke",
+    "A recolour of the Shield Dome sphere and its fragments",
+    "Sparks or chips sprayed evenly in all directions like fireworks",
+    "Plate pieces popping in brighter or bigger than the face they replace"
+  ]
+}

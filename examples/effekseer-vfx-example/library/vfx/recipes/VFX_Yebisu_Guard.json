@@ -1,0 +1,911 @@
+{
+  "id": "VFX_Yebisu_Guard",
+  "name": "Yebisu Guard",
+  "category": "hit",
+  "element": "arcane",
+  "duration": 0.5,
+  "loop": false,
+  "attach": "body",
+  "peak": 0.08,
+  "impact": 0.25,
+  "light": [
+    0.6,
+    0.8,
+    1
+  ],
+  "seed": 1729,
+  "layers": [
+    {
+      "name": "Guard plane",
+      "renderer": "None",
+      "life": 28,
+      "position": [
+        0.6,
+        0.05,
+        0
+      ],
+      "rotation": [
+        0,
+        58,
+        0
+      ],
+      "children": [
+        {
+          "name": "Outline draw",
+          "renderer": "Ring",
+          "color": [
+            200,
+            232,
+            255,
+            235
+          ],
+          "life": 7,
+          "delay": 0,
+          "billboard": "Fixed",
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "ring": {
+            "vertices": 96,
+            "outer": [
+              0.79,
+              0
+            ],
+            "inner": [
+              0.72,
+              0
+            ],
+            "center_ratio": 0.5,
+            "outer_color": [
+              255,
+              255,
+              255,
+              0
+            ],
+            "center_color": [
+              255,
+              255,
+              255,
+              255
+            ],
+            "inner_color": [
+              255,
+              255,
+              255,
+              0
+            ],
+            "angle_start": [
+              180,
+              0
+            ],
+            "angle_end": [
+              180,
+              360
+            ],
+            "angle_easing": "EaseOutCubic"
+          },
+          "size": 1,
+          "size_curve": [
+            [
+              0,
+              0.92
+            ],
+            [
+              100,
+              1
+            ]
+          ],
+          "fade_in": 0,
+          "fade_out": 3,
+          "emissive": 1.6,
+          "material_profile": "vfx/materials/M_Additive.vfxmat.json"
+        },
+        {
+          "name": "Guard face",
+          "renderer": "Ring",
+          "life": 14,
+          "delay": 4,
+          "billboard": "Fixed",
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "ring": {
+            "vertices": 96,
+            "outer": [
+              0.74,
+              0
+            ],
+            "inner": [
+              0.03,
+              0.08
+            ],
+            "center_ratio": 0.75,
+            "outer_color": [
+              215,
+              238,
+              255,
+              255
+            ],
+            "center_color": [
+              80,
+              150,
+              255,
+              185
+            ],
+            "inner_color": [
+              45,
+              105,
+              235,
+              45
+            ]
+          },
+          "size": 1,
+          "size_curve": [
+            [
+              0,
+              0.86
+            ],
+            [
+              22,
+              1.05
+            ],
+            [
+              45,
+              1
+            ],
+            [
+              100,
+              1.03
+            ]
+          ],
+          "alpha_texture": "vfx/textures/processed/T_NoiseTile02.png",
+          "alpha_scroll": [
+            0.03,
+            -0.05
+          ],
+          "cutoff": {
+            "start": 0.05,
+            "end": 0.9,
+            "easing": "EaseInQuadratic"
+          },
+          "edge": {
+            "color": [
+              190,
+              230,
+              255,
+              255
+            ],
+            "threshold": 0.05,
+            "scaling": 1.5
+          },
+          "fade_in": 1,
+          "fade_out": 5,
+          "emissive": 1.2,
+          "material_profile": "vfx/materials/M_Additive.vfxmat.json"
+        },
+        {
+          "name": "Face ripple",
+          "renderer": "Ring",
+          "color": [
+            150,
+            205,
+            255,
+            190
+          ],
+          "life": 10,
+          "delay": 5,
+          "billboard": "Fixed",
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "ring": {
+            "outer": [
+              1,
+              0
+            ],
+            "inner": {
+              "start": [
+                0.78,
+                0
+              ],
+              "end": [
+                0.97,
+                0
+              ]
+            },
+            "center_ratio": 0.8,
+            "outer_color": [
+              150,
+              205,
+              255,
+              95
+            ],
+            "center_color": [
+              150,
+              205,
+              255,
+              190
+            ],
+            "inner_color": [
+              150,
+              205,
+              255,
+              0
+            ]
+          },
+          "size": 0.62,
+          "size_curve": [
+            [
+              0,
+              0.12
+            ],
+            [
+              35,
+              0.72
+            ],
+            [
+              100,
+              1
+            ]
+          ],
+          "fade_in": 0,
+          "fade_out": 7.0,
+          "count": 2,
+          "interval": 3,
+          "position": [
+            0,
+            0.15,
+            0.05
+          ],
+          "emissive": 1.3,
+          "material_profile": "vfx/materials/M_Additive.vfxmat.json"
+        },
+        {
+          "name": "Plate shard 1",
+          "renderer": "Ring",
+          "life": 15,
+          "delay": 13,
+          "billboard": "Fixed",
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "ring": {
+            "vertices": 72,
+            "outer": [
+              0.72,
+              0
+            ],
+            "inner": [
+              0.2,
+              0.06
+            ],
+            "center_ratio": 0.6,
+            "outer_color": [
+              30,
+              70,
+              190,
+              120
+            ],
+            "center_color": [
+              60,
+              125,
+              255,
+              190
+            ],
+            "inner_color": [
+              20,
+              45,
+              130,
+              30
+            ],
+            "angle_start": 7,
+            "angle_end": 53
+          },
+          "travel": {
+            "end": [
+              -0.16999999999999998,
+              0.23444863728670917,
+              0.08
+            ],
+            "easing": "EaseOutCubic"
+          },
+          "spin": [
+            0.9,
+            -1.3,
+            0
+          ],
+          "alpha_texture": "vfx/textures/processed/T_NoiseTile02.png",
+          "cutoff": {
+            "start": 0.05,
+            "end": 0.85,
+            "easing": "EaseInQuadratic"
+          },
+          "fade_in": 1,
+          "fade_out": 6,
+          "emissive": 1,
+          "material_profile": "vfx/materials/M_Additive.vfxmat.json"
+        },
+        {
+          "name": "Plate shard 2",
+          "renderer": "Ring",
+          "life": 15,
+          "delay": 13,
+          "billboard": "Fixed",
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "ring": {
+            "vertices": 72,
+            "outer": [
+              0.68,
+              0
+            ],
+            "inner": [
+              0.2,
+              0.06
+            ],
+            "center_ratio": 0.6,
+            "outer_color": [
+              30,
+              70,
+              190,
+              120
+            ],
+            "center_color": [
+              60,
+              125,
+              255,
+              190
+            ],
+            "inner_color": [
+              20,
+              45,
+              130,
+              30
+            ],
+            "angle_start": 67,
+            "angle_end": 113
+          },
+          "travel": {
+            "end": [
+              -0.42,
+              -0.05999999999999997,
+              0.08
+            ],
+            "easing": "EaseOutCubic"
+          },
+          "spin": [
+            -0.9,
+            1.3,
+            0
+          ],
+          "alpha_texture": "vfx/textures/processed/T_NoiseTile02.png",
+          "cutoff": {
+            "start": 0.05,
+            "end": 0.85,
+            "easing": "EaseInQuadratic"
+          },
+          "fade_in": 1,
+          "fade_out": 6,
+          "emissive": 1,
+          "material_profile": "vfx/materials/M_Additive.vfxmat.json"
+        },
+        {
+          "name": "Plate shard 3",
+          "renderer": "Ring",
+          "life": 15,
+          "delay": 13,
+          "billboard": "Fixed",
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "ring": {
+            "vertices": 72,
+            "outer": [
+              0.74,
+              0
+            ],
+            "inner": [
+              0.2,
+              0.06
+            ],
+            "center_ratio": 0.6,
+            "outer_color": [
+              30,
+              70,
+              190,
+              120
+            ],
+            "center_color": [
+              60,
+              125,
+              255,
+              190
+            ],
+            "inner_color": [
+              20,
+              45,
+              130,
+              30
+            ],
+            "angle_start": 127,
+            "angle_end": 173
+          },
+          "travel": {
+            "end": [
+              -0.14999999999999997,
+              -0.3198076211353316,
+              0.08
+            ],
+            "easing": "EaseOutCubic"
+          },
+          "spin": [
+            0.9,
+            -1.3,
+            0
+          ],
+          "alpha_texture": "vfx/textures/processed/T_NoiseTile02.png",
+          "cutoff": {
+            "start": 0.05,
+            "end": 0.85,
+            "easing": "EaseInQuadratic"
+          },
+          "fade_in": 1,
+          "fade_out": 6,
+          "emissive": 1,
+          "material_profile": "vfx/materials/M_Additive.vfxmat.json"
+        },
+        {
+          "name": "Plate shard 4",
+          "renderer": "Ring",
+          "life": 15,
+          "delay": 13,
+          "billboard": "Fixed",
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "ring": {
+            "vertices": 72,
+            "outer": [
+              0.7,
+              0
+            ],
+            "inner": [
+              0.2,
+              0.06
+            ],
+            "center_ratio": 0.6,
+            "outer_color": [
+              30,
+              70,
+              190,
+              120
+            ],
+            "center_color": [
+              60,
+              125,
+              255,
+              190
+            ],
+            "inner_color": [
+              20,
+              45,
+              130,
+              30
+            ],
+            "angle_start": 187,
+            "angle_end": 233
+          },
+          "travel": {
+            "end": [
+              0.19000000000000006,
+              -0.38908965343808666,
+              0.08
+            ],
+            "easing": "EaseOutCubic"
+          },
+          "spin": [
+            -0.9,
+            1.3,
+            0
+          ],
+          "alpha_texture": "vfx/textures/processed/T_NoiseTile02.png",
+          "cutoff": {
+            "start": 0.05,
+            "end": 0.85,
+            "easing": "EaseInQuadratic"
+          },
+          "fade_in": 1,
+          "fade_out": 6,
+          "emissive": 1,
+          "material_profile": "vfx/materials/M_Additive.vfxmat.json"
+        },
+        {
+          "name": "Plate shard 5",
+          "renderer": "Ring",
+          "life": 15,
+          "delay": 13,
+          "billboard": "Fixed",
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "ring": {
+            "vertices": 72,
+            "outer": [
+              0.73,
+              0
+            ],
+            "inner": [
+              0.2,
+              0.06
+            ],
+            "center_ratio": 0.6,
+            "outer_color": [
+              30,
+              70,
+              190,
+              120
+            ],
+            "center_color": [
+              60,
+              125,
+              255,
+              190
+            ],
+            "inner_color": [
+              20,
+              45,
+              130,
+              30
+            ],
+            "angle_start": 247,
+            "angle_end": 293
+          },
+          "travel": {
+            "end": [
+              0.45,
+              -0.06000000000000008,
+              0.08
+            ],
+            "easing": "EaseOutCubic"
+          },
+          "spin": [
+            0.9,
+            -1.3,
+            0
+          ],
+          "alpha_texture": "vfx/textures/processed/T_NoiseTile02.png",
+          "cutoff": {
+            "start": 0.05,
+            "end": 0.85,
+            "easing": "EaseInQuadratic"
+          },
+          "fade_in": 1,
+          "fade_out": 6,
+          "emissive": 1,
+          "material_profile": "vfx/materials/M_Additive.vfxmat.json"
+        },
+        {
+          "name": "Plate shard 6",
+          "renderer": "Ring",
+          "life": 15,
+          "delay": 13,
+          "billboard": "Fixed",
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "ring": {
+            "vertices": 72,
+            "outer": [
+              0.66,
+              0
+            ],
+            "inner": [
+              0.2,
+              0.06
+            ],
+            "center_ratio": 0.6,
+            "outer_color": [
+              30,
+              70,
+              190,
+              120
+            ],
+            "center_color": [
+              60,
+              125,
+              255,
+              190
+            ],
+            "inner_color": [
+              20,
+              45,
+              130,
+              30
+            ],
+            "angle_start": 307,
+            "angle_end": 353
+          },
+          "travel": {
+            "end": [
+              0.16000000000000014,
+              0.21712812921102032,
+              0.08
+            ],
+            "easing": "EaseOutCubic"
+          },
+          "spin": [
+            -0.9,
+            1.3,
+            0
+          ],
+          "alpha_texture": "vfx/textures/processed/T_NoiseTile02.png",
+          "cutoff": {
+            "start": 0.05,
+            "end": 0.85,
+            "easing": "EaseInQuadratic"
+          },
+          "fade_in": 1,
+          "fade_out": 6,
+          "emissive": 1,
+          "material_profile": "vfx/materials/M_Additive.vfxmat.json"
+        }
+      ],
+      "material_profile": "vfx/materials/M_Additive.vfxmat.json"
+    },
+    {
+      "name": "Contact point",
+      "renderer": "None",
+      "life": 29,
+      "position": [
+        0.64,
+        0.2,
+        0.03
+      ],
+      "children": [
+        {
+          "name": "Contact glint",
+          "texture": "vfx/textures/processed/T_Flare01.png",
+          "color": [
+            240,
+            248,
+            255,
+            255
+          ],
+          "life": 4,
+          "delay": 4,
+          "size": 1.2,
+          "size_curve": [
+            [
+              0,
+              0.55
+            ],
+            [
+              25,
+              1
+            ],
+            [
+              100,
+              0.15
+            ]
+          ],
+          "rotation": [
+            0,
+            0,
+            15
+          ],
+          "fade_in": 0,
+          "fade_out": 2.4,
+          "emissive": 1.6,
+          "material_profile": "vfx/materials/M_Additive.vfxmat.json"
+        },
+        {
+          "name": "Contact bloom",
+          "texture": "vfx/textures/processed/T_Glow01.png",
+          "color": [
+            110,
+            175,
+            255,
+            160
+          ],
+          "life": 8,
+          "delay": 4,
+          "size": 0.7,
+          "size_curve": [
+            [
+              0,
+              0.25
+            ],
+            [
+              18,
+              1
+            ],
+            [
+              100,
+              1.25
+            ]
+          ],
+          "billboard": "Billboard",
+          "fade_in": 0,
+          "fade_out": 6.4,
+          "material_profile": "vfx/materials/M_Additive.vfxmat.json"
+        },
+        {
+          "name": "Deflect sparks",
+          "texture": "vfx/textures/processed/T_Spark01.png",
+          "color": [
+            235,
+            246,
+            255,
+            255
+          ],
+          "color_end": [
+            90,
+            160,
+            255,
+            255
+          ],
+          "count": 6,
+          "life": [
+            6,
+            10
+          ],
+          "delay": 4,
+          "billboard": "DirectionalBillboard",
+          "spawn": {
+            "shape": "Sphere",
+            "radius": [
+              0,
+              0.05
+            ],
+            "rotate": false
+          },
+          "travel": {
+            "end": [
+              [
+                0.25,
+                0.75
+              ],
+              [
+                -0.05,
+                0.45
+              ],
+              [
+                -0.25,
+                0.35
+              ]
+            ],
+            "easing": "EaseOutCubic"
+          },
+          "scale_start": [
+            0.04,
+            [
+              0.18,
+              0.32
+            ],
+            1
+          ],
+          "scale_end": [
+            0.012,
+            0.036,
+            1
+          ],
+          "easing": "EaseInQuadratic",
+          "forces": [],
+          "fade_in": 0,
+          "fade_out": 3,
+          "emissive": 1.5,
+          "material_profile": "vfx/materials/M_Additive.vfxmat.json"
+        },
+        {
+          "name": "Plate chips",
+          "texture": "vfx/textures/processed/T_Shard01.png",
+          "color": [
+            125,
+            160,
+            210,
+            255
+          ],
+          "color_end": [
+            75,
+            96,
+            126,
+            255
+          ],
+          "count": 7,
+          "life": [
+            12,
+            16
+          ],
+          "delay": 13,
+          "blend": "Blend",
+          "rotation": [
+            0,
+            0,
+            [
+              -180,
+              180
+            ]
+          ],
+          "spin": [
+            0,
+            0,
+            [
+              -12,
+              12
+            ]
+          ],
+          "size": [
+            0.05,
+            0.1
+          ],
+          "size_end": [
+            0.04000000000000001,
+            0.08000000000000002
+          ],
+          "forces": [
+            {
+              "type": "Gravity",
+              "gravity": [
+                0,
+                -0.002,
+                0
+              ]
+            }
+          ],
+          "fade_in": 0,
+          "fade_out": 6,
+          "spawn": {
+            "shape": "Sphere",
+            "radius": [
+              0,
+              0.4
+            ],
+            "rotate": false
+          },
+          "travel": {
+            "end": [
+              [
+                0.15,
+                0.9
+              ],
+              [
+                -0.45,
+                0.15
+              ],
+              [
+                -0.2,
+                0.45
+              ]
+            ],
+            "easing": "EaseOutCubic"
+          },
+          "material_profile": "vfx/materials/M_Alpha.vfxmat.json"
+        }
+      ],
+      "material_profile": "vfx/materials/M_Additive.vfxmat.json"
+    }
+  ],
+  "design": "A thin outline draws up a guard disc beside the defender, a short white star marks the blocked blow, the blue face ripples and erodes, then splits into six plate pieces and small chips that are gone by f30.",
+  "delivery": {
+    "kind": "self"
+  }
+}

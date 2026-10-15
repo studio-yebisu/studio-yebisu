@@ -1,0 +1,101 @@
+{
+  "format": "input-output",
+  "synthetic": true,
+  "title": "架空のガードの依頼と、Godotで描画した結果",
+  "note": "依頼は作例のために書いた架空のものです。出力は、原典スキルでビルドしたEffekseerの効果をGodotで実際に描画したフレームの説明です。効果は1つだけで、別の試行例は含みません。パスはこのファイルのあるフォルダからの相対パスです。",
+  "samples": [
+    {
+      "id": "yebisu-guard",
+      "label": "受け止めた瞬間の、青い防御ヒット（VFX_Yebisu_Guard）",
+      "input": "架空のアクションゲームで、攻撃を受け止めた瞬間だけ出る青い防御ヒット。約0.5秒。薄い盾の輪郭→短い白い接点→青い面の波紋→隙間を開けた破片→消失。キャラクターを隠さない。一回のガード反応。",
+      "output": "0.5秒（60FPSで30フレーム）の効果 VFX_Yebisu_Guard。防御する側のダミーの横、攻撃が来る側に、縦長の楕円に見える盾の面が立ちます。\nf2〜f3：薄い輪郭が下から両側へ伸びる。\nf4〜f5：輪郭がほぼ一周し、f5で受け止めた位置に短い白い星。\nf6〜f8：白い星の下に青い面。いちばん明るい数フレーム。\nf9〜f12：星は消え、青い面に波紋が広がり、模様が流れる。ダミーは面の横と奥に見える。\nf13〜f17：面が穴のあいた形に崩れ、暗い隙間で6枚の青い破片に分かれ、小さな欠片も出る。\nf18〜f29：破片が離れながら向きを変え、薄れて消える。\nf30：何も残らない（終了後のf36も空）。\n15層、粒子の上限27、乱数の種1729。Godot 4.7（Forward+）と公式EffekseerForGodot4 1.80.5.1で描画。レシピを見ていない別のAIがshipと判定し、原典の effect-verify で verified: true。人による承認や実機での性能確認ではありません。",
+      "effect_id": "VFX_Yebisu_Guard",
+      "duration_seconds": 0.5,
+      "recipe_frames": 30,
+      "fps": 60,
+      "seed": 1729,
+      "layers": 15,
+      "particle_budget": 27,
+      "placement": "防御する側（Godotの舞台の左のダミー PLAYER）の横、攻撃が来る側。面は (0,58,0) だけ回して縦長の楕円に見せる",
+      "phases": [
+        {"from": 0, "to": 1, "name": "開始前", "description": "効果のない舞台と同じ画像"},
+        {"from": 2, "to": 3, "name": "輪郭", "description": "薄い盾の輪郭が下から両側へ伸びる"},
+        {"from": 4, "to": 5, "name": "接点", "description": "輪郭がほぼ一周し、f5で短い白い星"},
+        {"from": 6, "to": 8, "name": "接点から青い面へ", "description": "白い星の下に青い面。いちばん明るい"},
+        {"from": 9, "to": 12, "name": "波紋", "description": "青い面に波紋と流れる模様"},
+        {"from": 13, "to": 17, "name": "割れる", "description": "穴のあく崩れ方と、隙間を挟んだ6枚の破片"},
+        {"from": 18, "to": 23, "name": "破片", "description": "破片が離れ、向きを変え、薄くなる"},
+        {"from": 24, "to": 29, "name": "消えていく", "description": "残った破片と欠片が薄れる"},
+        {"from": 30, "to": 30, "name": "消失", "description": "効果は残っていない"}
+      ],
+      "keyframes": [
+        {"frame": 2, "seconds": 0.033, "label": "輪郭が伸びる", "image": "assets/frames/guard-f002.png"},
+        {"frame": 6, "seconds": 0.1, "label": "白い接点", "image": "assets/frames/guard-f006.png"},
+        {"frame": 10, "seconds": 0.167, "label": "青い面の波紋", "image": "assets/frames/guard-f010.png"},
+        {"frame": 16, "seconds": 0.267, "label": "隙間が開く", "image": "assets/frames/guard-f016.png"},
+        {"frame": 23, "seconds": 0.383, "label": "離れる破片", "image": "assets/frames/guard-f023.png"},
+        {"frame": 30, "seconds": 0.5, "label": "何も残らない", "image": "assets/frames/guard-f030.png"}
+      ],
+      "rounds": [
+        {"round": 1, "change": "最初のレシピ", "observed": "f16〜f23で破片が白く光り、接点の後に2回目の白い出来事に見えた"},
+        {"round": 2, "change": "Ringは時間で変わる色を使わず固定の頂点色で描くため、破片の頂点色そのものを青と紺に変えた", "observed": "f16の破片は青くなり、白い星だけが最も明るい出来事になった"},
+        {"round": 3, "change": "青い面のレシピに残っていた、効かない色の指定を削除し、説明を実際の描かれ方に合わせた", "observed": "2回目と3回目の32枚のフレームはすべて同じ画像"}
+      ],
+      "before_after": {
+        "frame": 16,
+        "before": "assets/first-pass-f016.png",
+        "after": "assets/frames/guard-f016.png",
+        "note": "どちらもGodotの実際の描画。1回目は破片が白く、最終は青い"
+      },
+      "renderer": {
+        "platform": "Windows x64",
+        "godot": "4.7 stable, Forward+",
+        "plugin": "EffekseerForGodot4 1.80.5.1（公式）",
+        "core": "Effekseer Core 1.80.7",
+        "dotnet": "9.0.20",
+        "captured_frames": "f0〜f30 と f36、1280×800のPNG、標準の舞台（standard/default）"
+      },
+      "review": {
+        "kind": "独立したAIレビュー（人による承認ではない）",
+        "verdict": "ship",
+        "scale": "0〜3",
+        "scores": {"read": 2, "timing": 3, "layering": 3, "shape_change": 3, "motion": 2, "placement": 3, "tail": 3, "identity": 2},
+        "optional_improvement": "f2〜f4に、ごく薄い楕円の全体を見せると、最初の輪郭が盾だと分かりやすい",
+        "effect_verify": true,
+        "evidence_id": "1baab471467543aaa685f60514924a1b"
+      },
+      "runtime_api": {
+        "script": "原典の TestApi.gd",
+        "checks": 12,
+        "failures": 0,
+        "not_exercised": ["飛び道具", "ビーム", "実機での性能"]
+      },
+      "limitations": [
+        "依頼・ゲーム・ダミーは架空",
+        "明るい背景では、光を足して描く部分が淡く見える",
+        "実際のゲームへの組み込みと端末での性能は未確認",
+        "動画は無音"
+      ],
+      "artifacts": {
+        "recipe": "library/vfx/src/VFX_Yebisu_Guard.py",
+        "brief": "library/vfx/briefs/VFX_Yebisu_Guard.json",
+        "resolved_recipe": "library/vfx/recipes/VFX_Yebisu_Guard.json",
+        "efkefc": "library/vfx/effects/VFX_Yebisu_Guard.efkefc",
+        "efk": "library/vfx/exports/VFX_Yebisu_Guard.efk",
+        "manifest": "library/vfx/vfx_manifest.json",
+        "clip": "assets/guard-real-render.mp4",
+        "contact_sheet": "assets/guard-contact-sheet.png",
+        "keyframe_sheet": "assets/guard-keyframes.png",
+        "capture_manifest": "capture-manifest.json"
+      },
+      "upstream": {
+        "repository": "kanaworksai-hue/effekseer-vfx-skill",
+        "commit": "c28919890f0483c0f968a884ea03979803d3b528",
+        "skill_version": "0.2.0",
+        "license": "MIT",
+        "skill": "vendor/effekseer-vfx/SKILL.md",
+        "reviewer_skill": "vendor/vfx-review/SKILL.md"
+      }
+    }
+  ]
+}
