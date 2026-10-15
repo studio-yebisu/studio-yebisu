@@ -184,7 +184,9 @@
       h('nav', {class: 'article-crumbs', 'aria-label': 'パンくず'},
         h('a', {href: './'}, 'トップ'),
         h('a', {href: './#' + encodeURIComponent(item.category || 'catalog')}, categoryLabel(item.category))),
-      h('h1', {class: 'article-title'}, item.id === 'brief-to-demo' ? ['ひと言を、', h('br'), '作れる依頼に。'] : (item.title || item.id)),
+      h('h1', {class: 'article-title'}, Array.isArray(item.title_lines) && item.title_lines.length
+        ? item.title_lines.flatMap((line, index) => [index ? h('br') : null, line])
+        : item.id === 'brief-to-demo' ? ['ひと言を、', h('br'), '作れる依頼に。'] : (item.title || item.id)),
       h('p', {class: 'article-lead'}, item.summary || ''),
       h('dl', {class: 'article-facts'},
         h('dt', {}, '分野'), h('dd', {}, categoryLabel(item.category)),
