@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; font-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
+  <title>解説動画のソース：『探しやすくして』を、確かめられる検索にする</title>
+  <link rel="stylesheet" href="scene.css">
+</head>
+<body>
+  <div class="viewport">
+    <div class="holder" id="holder">
+      <div class="stage" id="stage" role="img" aria-label="解説動画：架空の依頼から用語と完成条件を決め、検索語「ＵＩ」と「UI　設計」で変更前と変更後の実際の結果を比べ、3回の失敗と成功の記録を示し、持ち帰れるファイルを並べる28秒の映像。">
+        <div class="box" id="box"></div>
+      </div>
+    </div>
+  </div>
+  <div class="controls" id="controls" hidden>
+    <button type="button" id="play" aria-pressed="false">再生</button>
+    <input type="range" id="scrub" min="0" max="28" step="0.0333333" value="0" aria-label="時刻（秒）">
+    <output id="time" for="scrub">0.00秒</output>
+    <div class="chapters" role="group" aria-label="場面へ移動">
+      <button type="button" data-at="0">1 依頼</button>
+      <button type="button" data-at="4.5">2 ＵＩ</button>
+      <button type="button" data-at="10.5">3 UI　設計</button>
+      <button type="button" data-at="16.5">4 記録</button>
+      <button type="button" data-at="22.5">5 持ち帰る</button>
+    </div>
+    <p class="hint">プレビューです。書き出しでは、この操作の欄は表示しません。名前・タグ・件数・テストの数は <a href="../results.json">results.json</a> と <a href="../tdd-history.json">tdd-history.json</a> から読み込みます。<a href="../index.html">作例のページへ戻る</a></p>
+  </div>
+  <script src="scene.js"></script>
+</body>
+</html>

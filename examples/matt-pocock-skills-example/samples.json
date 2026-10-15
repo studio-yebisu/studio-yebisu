@@ -1,0 +1,52 @@
+{
+  "format": "input-output",
+  "synthetic": true,
+  "samples": [
+    {
+      "id": "wide-ui",
+      "label": "全角でもタグまで探す",
+      "input": "検索語: ＵＩ / 分野: all",
+      "output": "変更前 0件 → 変更後 3件。UI設計ノート、配色ラボ、カードの動き",
+      "query": "ＵＩ",
+      "category": "all",
+      "before_ids": [],
+      "after_ids": [
+        "ui-notes",
+        "color-lab",
+        "motion-cards"
+      ]
+    },
+    {
+      "id": "and-query",
+      "label": "語を足して1件へ絞る",
+      "input": "検索語: UI　設計 / 分野: all",
+      "output": "変更前 0件 → 変更後 1件。UI設計ノート",
+      "query": "UI　設計",
+      "category": "all",
+      "before_ids": [],
+      "after_ids": [
+        "ui-notes"
+      ]
+    },
+    {
+      "id": "slides-only",
+      "label": "空語で分野だけを選ぶ",
+      "input": "検索語: （空） / 分野: slides",
+      "output": "変更前 6件 → 変更後 2件。発表ストーリー、スライド設計",
+      "query": "",
+      "category": "slides",
+      "before_ids": [
+        "ui-notes",
+        "color-lab",
+        "slide-story",
+        "slide-layout",
+        "motion-cards",
+        "agent-check"
+      ],
+      "after_ids": [
+        "slide-story",
+        "slide-layout"
+      ]
+    }
+  ]
+}

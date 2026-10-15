@@ -1,0 +1,373 @@
+{
+  "synthetic": true,
+  "executed_at": "2026-10-15T06:11:24.383Z",
+  "node": "v24.18.0",
+  "command": "node audit.mjs",
+  "status": "passed",
+  "checks": 18,
+  "new_array_and_no_input_mutation": true,
+  "checks_detail": [
+    {
+      "id": "empty",
+      "query": "",
+      "category": "all",
+      "expected": [
+        "ui-notes",
+        "color-lab",
+        "slide-story",
+        "slide-layout",
+        "motion-cards",
+        "agent-check"
+      ],
+      "actual": [
+        "ui-notes",
+        "color-lab",
+        "slide-story",
+        "slide-layout",
+        "motion-cards",
+        "agent-check"
+      ],
+      "passed": true
+    },
+    {
+      "id": "spaces",
+      "query": " 　\t ",
+      "category": "all",
+      "expected": [
+        "ui-notes",
+        "color-lab",
+        "slide-story",
+        "slide-layout",
+        "motion-cards",
+        "agent-check"
+      ],
+      "actual": [
+        "ui-notes",
+        "color-lab",
+        "slide-story",
+        "slide-layout",
+        "motion-cards",
+        "agent-check"
+      ],
+      "passed": true
+    },
+    {
+      "id": "wide-ui",
+      "query": "ＵＩ",
+      "category": "all",
+      "expected": [
+        "ui-notes",
+        "color-lab",
+        "motion-cards"
+      ],
+      "actual": [
+        "ui-notes",
+        "color-lab",
+        "motion-cards"
+      ],
+      "passed": true
+    },
+    {
+      "id": "mixed-case",
+      "query": "ｕＩ",
+      "category": "all",
+      "expected": [
+        "ui-notes",
+        "color-lab",
+        "motion-cards"
+      ],
+      "actual": [
+        "ui-notes",
+        "color-lab",
+        "motion-cards"
+      ],
+      "passed": true
+    },
+    {
+      "id": "and-query",
+      "query": "UI　設計",
+      "category": "all",
+      "expected": [
+        "ui-notes"
+      ],
+      "actual": [
+        "ui-notes"
+      ],
+      "passed": true
+    },
+    {
+      "id": "cross-fields",
+      "query": "UI 色",
+      "category": "all",
+      "expected": [
+        "color-lab"
+      ],
+      "actual": [
+        "color-lab"
+      ],
+      "passed": true
+    },
+    {
+      "id": "repeated-space",
+      "query": " ui   設計 ",
+      "category": "all",
+      "expected": [
+        "ui-notes"
+      ],
+      "actual": [
+        "ui-notes"
+      ],
+      "passed": true
+    },
+    {
+      "id": "slides-only",
+      "query": "",
+      "category": "slides",
+      "expected": [
+        "slide-story",
+        "slide-layout"
+      ],
+      "actual": [
+        "slide-story",
+        "slide-layout"
+      ],
+      "passed": true
+    },
+    {
+      "id": "combined",
+      "query": "UI",
+      "category": "motion",
+      "expected": [
+        "motion-cards"
+      ],
+      "actual": [
+        "motion-cards"
+      ],
+      "passed": true
+    },
+    {
+      "id": "unknown-category",
+      "query": "",
+      "category": "unknown",
+      "expected": [],
+      "actual": [],
+      "passed": true
+    },
+    {
+      "id": "category-not-keyword",
+      "query": "slides",
+      "category": "all",
+      "expected": [],
+      "actual": [],
+      "passed": true
+    },
+    {
+      "id": "id-not-keyword",
+      "query": "ui-notes",
+      "category": "all",
+      "expected": [],
+      "actual": [],
+      "passed": true
+    },
+    {
+      "id": "tag-only",
+      "query": "設計",
+      "category": "all",
+      "expected": [
+        "ui-notes",
+        "slide-layout"
+      ],
+      "actual": [
+        "ui-notes",
+        "slide-layout"
+      ],
+      "passed": true
+    },
+    {
+      "id": "title-only",
+      "query": "レビュー",
+      "category": "all",
+      "expected": [
+        "agent-check"
+      ],
+      "actual": [
+        "agent-check"
+      ],
+      "passed": true
+    },
+    {
+      "id": "all-terms-required",
+      "query": "UI 発表",
+      "category": "all",
+      "expected": [],
+      "actual": [],
+      "passed": true
+    },
+    {
+      "id": "kana-out-of-scope",
+      "query": "かーど",
+      "category": "all",
+      "expected": [],
+      "actual": [],
+      "passed": true
+    },
+    {
+      "id": "nfkc-halfwidth-kana",
+      "query": "ｶｰﾄﾞ",
+      "category": "all",
+      "expected": [
+        "motion-cards"
+      ],
+      "actual": [
+        "motion-cards"
+      ],
+      "passed": true
+    },
+    {
+      "id": "markup-is-text",
+      "query": "<img src=x>",
+      "category": "all",
+      "expected": [],
+      "actual": [],
+      "passed": true
+    }
+  ],
+  "samples": [
+    {
+      "id": "wide-ui",
+      "label": "全角でもタグまで探す",
+      "query": "ＵＩ",
+      "category": "all",
+      "before": [],
+      "after": [
+        {
+          "id": "ui-notes",
+          "title": "UI設計ノート",
+          "category": "ui-ux",
+          "tags": [
+            "レイアウト",
+            "設計"
+          ]
+        },
+        {
+          "id": "color-lab",
+          "title": "配色ラボ",
+          "category": "ui-ux",
+          "tags": [
+            "UI",
+            "色"
+          ]
+        },
+        {
+          "id": "motion-cards",
+          "title": "カードの動き",
+          "category": "motion",
+          "tags": [
+            "アニメーション",
+            "UI"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "and-query",
+      "label": "語を足して1件へ絞る",
+      "query": "UI　設計",
+      "category": "all",
+      "before": [],
+      "after": [
+        {
+          "id": "ui-notes",
+          "title": "UI設計ノート",
+          "category": "ui-ux",
+          "tags": [
+            "レイアウト",
+            "設計"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "slides-only",
+      "label": "空語で分野だけを選ぶ",
+      "query": "",
+      "category": "slides",
+      "before": [
+        {
+          "id": "ui-notes",
+          "title": "UI設計ノート",
+          "category": "ui-ux",
+          "tags": [
+            "レイアウト",
+            "設計"
+          ]
+        },
+        {
+          "id": "color-lab",
+          "title": "配色ラボ",
+          "category": "ui-ux",
+          "tags": [
+            "UI",
+            "色"
+          ]
+        },
+        {
+          "id": "slide-story",
+          "title": "発表ストーリー",
+          "category": "slides",
+          "tags": [
+            "構成",
+            "発表"
+          ]
+        },
+        {
+          "id": "slide-layout",
+          "title": "スライド設計",
+          "category": "slides",
+          "tags": [
+            "レイアウト",
+            "設計"
+          ]
+        },
+        {
+          "id": "motion-cards",
+          "title": "カードの動き",
+          "category": "motion",
+          "tags": [
+            "アニメーション",
+            "UI"
+          ]
+        },
+        {
+          "id": "agent-check",
+          "title": "レビュー手帳",
+          "category": "agents",
+          "tags": [
+            "テスト",
+            "開発"
+          ]
+        }
+      ],
+      "after": [
+        {
+          "id": "slide-story",
+          "title": "発表ストーリー",
+          "category": "slides",
+          "tags": [
+            "構成",
+            "発表"
+          ]
+        },
+        {
+          "id": "slide-layout",
+          "title": "スライド設計",
+          "category": "slides",
+          "tags": [
+            "レイアウト",
+            "設計"
+          ]
+        }
+      ]
+    }
+  ]
+}

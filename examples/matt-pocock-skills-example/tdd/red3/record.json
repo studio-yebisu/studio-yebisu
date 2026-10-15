@@ -1,0 +1,16 @@
+{
+  "phase": "red3",
+  "executed_at": "2026-10-15T06:10:39.229314+00:00",
+  "command": "node --test --test-reporter=tap search.test.mjs",
+  "node": "v24.18.0",
+  "exit_code": 1,
+  "tests": 4,
+  "pass": 3,
+  "fail": 1,
+  "source_sha256": {
+    "search.mjs": "7578edc4969c31a9b51d8a9091e0941e2c4e99259207b9c52ecc6562a47889fa",
+    "search.test.mjs": "779f49e1e3d53ae395d8ca0732705620742954259f878db1be7642861061b392",
+    "entries.json": "84d3cdc5f000d30347aaf6b00692976669180a6ca1337a2858dab81c4522f3e3"
+  },
+  "tap": "TAP version 13\n# Subtest: 空の検索語は掲載順の全件を返す\nok 1 - 空の検索語は掲載順の全件を返す\n  ---\n  duration_ms: 1.0042\n  type: 'test'\n  ...\n# Subtest: 全角の検索語ＵＩは表題かタグにUIを持つ掲載項目を掲載順で返す\nok 2 - 全角の検索語ＵＩは表題かタグにUIを持つ掲載項目を掲載順で返す\n  ---\n  duration_ms: 0.1648\n  type: 'test'\n  ...\n# Subtest: 全角空白で区切った検索語UI　設計はすべての語を表題かタグに持つ掲載項目だけを返す\nok 3 - 全角空白で区切った検索語UI　設計はすべての語を表題かタグに持つ掲載項目だけを返す\n  ---\n  duration_ms: 0.6309\n  type: 'test'\n  ...\n# Subtest: 空の検索語で分野slidesを選ぶとその分野の掲載項目だけを掲載順で返す\nnot ok 4 - 空の検索語で分野slidesを選ぶとその分野の掲載項目だけを掲載順で返す\n  ---\n  duration_ms: 0.814\n  type: 'test'\n  location: 'fixture\\\\search.test.mjs:19:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly deep-equal:\n    + actual - expected\n    \n      [\n    +   'ui-notes',\n    +   'color-lab',\n        'slide-story',\n        'slide-layout',\n    +   'motion-cards',\n    +   'agent-check'\n      ]\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected:\n    0: 'slide-story'\n    1: 'slide-layout'\n  actual:\n    0: 'ui-notes'\n    1: 'color-lab'\n    2: 'slide-story'\n    3: 'slide-layout'\n    4: 'motion-cards'\n    5: 'agent-check'\n  operator: 'deepStrictEqual'\n  stack: |-\n    TestContext.<anonymous> (file:///fixture/search.test.mjs:20:10)\n    Test.runInAsyncScope (node:async_hooks:227:14)\n    Test.run (node:internal/test_runner/test:1325:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:911:18)\n    Test.postRun (node:internal/test_runner/test:1465:19)\n    Test.run (node:internal/test_runner/test:1390:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)\n  ...\n1..4\n# tests 4\n# suites 0\n# pass 3\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 67.7781\n"
+}

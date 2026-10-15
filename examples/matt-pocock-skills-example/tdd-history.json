@@ -1,0 +1,120 @@
+{
+  "synthetic": true,
+  "description": "制作時に親工程が実Nodeで実行した記録。閲覧時には再実行しない。REDのexit1は意図した期待IDとの不一致。",
+  "human_approved": false,
+  "seam_user_confirmation": false,
+  "runs": [
+    {
+      "phase": "baseline",
+      "executed_at": "2026-10-15T06:05:52.126864+00:00",
+      "command": "node --test --test-reporter=tap search.test.mjs",
+      "node": "v24.18.0",
+      "exit_code": 0,
+      "tests": 1,
+      "pass": 1,
+      "fail": 0,
+      "source_sha256": {
+        "search.mjs": "a75f6f90423cdbda771bcd16e898111aaea7df29e8331422e38cb8678ca241e1",
+        "search.test.mjs": "67821cca46e9bdcd7014bff6be9b8eb3078240602899f0746c1e8e70d73e4445",
+        "entries.json": "84d3cdc5f000d30347aaf6b00692976669180a6ca1337a2858dab81c4522f3e3"
+      },
+      "tap": "TAP version 13\n# Subtest: 空の検索語は掲載順の全件を返す\nok 1 - 空の検索語は掲載順の全件を返す\n  ---\n  duration_ms: 0.7854\n  type: 'test'\n  ...\n1..1\n# tests 1\n# suites 0\n# pass 1\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 61.0017\n"
+    },
+    {
+      "phase": "red1",
+      "executed_at": "2026-10-15T06:06:31.833272+00:00",
+      "command": "node --test --test-reporter=tap search.test.mjs",
+      "node": "v24.18.0",
+      "exit_code": 1,
+      "tests": 2,
+      "pass": 1,
+      "fail": 1,
+      "source_sha256": {
+        "search.mjs": "a75f6f90423cdbda771bcd16e898111aaea7df29e8331422e38cb8678ca241e1",
+        "search.test.mjs": "c474d103e30665b7bd70b45f9e0da7a27153232bd53dfb9720649d955bd214d1",
+        "entries.json": "84d3cdc5f000d30347aaf6b00692976669180a6ca1337a2858dab81c4522f3e3"
+      },
+      "tap": "TAP version 13\n# Subtest: 空の検索語は掲載順の全件を返す\nok 1 - 空の検索語は掲載順の全件を返す\n  ---\n  duration_ms: 0.7931\n  type: 'test'\n  ...\n# Subtest: 全角の検索語ＵＩは表題かタグにUIを持つ掲載項目を掲載順で返す\nnot ok 2 - 全角の検索語ＵＩは表題かタグにUIを持つ掲載項目を掲載順で返す\n  ---\n  duration_ms: 0.7784\n  type: 'test'\n  location: 'fixture\\\\search.test.mjs:11:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly deep-equal:\n    + actual - expected\n    \n    + []\n    - [\n    -   'ui-notes',\n    -   'color-lab',\n    -   'motion-cards'\n    - ]\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected:\n    0: 'ui-notes'\n    1: 'color-lab'\n    2: 'motion-cards'\n  actual:\n  operator: 'deepStrictEqual'\n  stack: |-\n    TestContext.<anonymous> (file:///fixture/search.test.mjs:12:10)\n    Test.runInAsyncScope (node:async_hooks:227:14)\n    Test.run (node:internal/test_runner/test:1325:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:911:18)\n    Test.postRun (node:internal/test_runner/test:1465:19)\n    Test.run (node:internal/test_runner/test:1390:12)\n    async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3)\n  ...\n1..2\n# tests 2\n# suites 0\n# pass 1\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 62.6897\n"
+    },
+    {
+      "phase": "green1",
+      "executed_at": "2026-10-15T06:07:43.358413+00:00",
+      "command": "node --test --test-reporter=tap search.test.mjs",
+      "node": "v24.18.0",
+      "exit_code": 0,
+      "tests": 2,
+      "pass": 2,
+      "fail": 0,
+      "source_sha256": {
+        "search.mjs": "7075bf47328804cc1ca988467f78d67a54c1ce886eb842b6420998079015a03a",
+        "search.test.mjs": "c474d103e30665b7bd70b45f9e0da7a27153232bd53dfb9720649d955bd214d1",
+        "entries.json": "84d3cdc5f000d30347aaf6b00692976669180a6ca1337a2858dab81c4522f3e3"
+      },
+      "tap": "TAP version 13\n# Subtest: 空の検索語は掲載順の全件を返す\nok 1 - 空の検索語は掲載順の全件を返す\n  ---\n  duration_ms: 0.9483\n  type: 'test'\n  ...\n# Subtest: 全角の検索語ＵＩは表題かタグにUIを持つ掲載項目を掲載順で返す\nok 2 - 全角の検索語ＵＩは表題かタグにUIを持つ掲載項目を掲載順で返す\n  ---\n  duration_ms: 0.1449\n  type: 'test'\n  ...\n1..2\n# tests 2\n# suites 0\n# pass 2\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 66.1953\n"
+    },
+    {
+      "phase": "red2",
+      "executed_at": "2026-10-15T06:08:26.735567+00:00",
+      "command": "node --test --test-reporter=tap search.test.mjs",
+      "node": "v24.18.0",
+      "exit_code": 1,
+      "tests": 3,
+      "pass": 2,
+      "fail": 1,
+      "source_sha256": {
+        "search.mjs": "7075bf47328804cc1ca988467f78d67a54c1ce886eb842b6420998079015a03a",
+        "search.test.mjs": "1199e93048596667059a40cceb51198d4d703343ea06344eca841e3b2db4d2d2",
+        "entries.json": "84d3cdc5f000d30347aaf6b00692976669180a6ca1337a2858dab81c4522f3e3"
+      },
+      "tap": "TAP version 13\n# Subtest: 空の検索語は掲載順の全件を返す\nok 1 - 空の検索語は掲載順の全件を返す\n  ---\n  duration_ms: 0.9311\n  type: 'test'\n  ...\n# Subtest: 全角の検索語ＵＩは表題かタグにUIを持つ掲載項目を掲載順で返す\nok 2 - 全角の検索語ＵＩは表題かタグにUIを持つ掲載項目を掲載順で返す\n  ---\n  duration_ms: 0.1203\n  type: 'test'\n  ...\n# Subtest: 全角空白で区切った検索語UI　設計はすべての語を表題かタグに持つ掲載項目だけを返す\nnot ok 3 - 全角空白で区切った検索語UI　設計はすべての語を表題かタグに持つ掲載項目だけを返す\n  ---\n  duration_ms: 1.2144\n  type: 'test'\n  location: 'fixture\\\\search.test.mjs:15:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly deep-equal:\n    + actual - expected\n    \n    + []\n    - [\n    -   'ui-notes'\n    - ]\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected:\n    0: 'ui-notes'\n  actual:\n  operator: 'deepStrictEqual'\n  stack: |-\n    TestContext.<anonymous> (file:///fixture/search.test.mjs:16:10)\n    Test.runInAsyncScope (node:async_hooks:227:14)\n    Test.run (node:internal/test_runner/test:1325:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:911:18)\n    Test.postRun (node:internal/test_runner/test:1465:19)\n    Test.run (node:internal/test_runner/test:1390:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)\n  ...\n1..3\n# tests 3\n# suites 0\n# pass 2\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 65.4101\n"
+    },
+    {
+      "phase": "green2",
+      "executed_at": "2026-10-15T06:09:22.972149+00:00",
+      "command": "node --test --test-reporter=tap search.test.mjs",
+      "node": "v24.18.0",
+      "exit_code": 0,
+      "tests": 3,
+      "pass": 3,
+      "fail": 0,
+      "source_sha256": {
+        "search.mjs": "7578edc4969c31a9b51d8a9091e0941e2c4e99259207b9c52ecc6562a47889fa",
+        "search.test.mjs": "1199e93048596667059a40cceb51198d4d703343ea06344eca841e3b2db4d2d2",
+        "entries.json": "84d3cdc5f000d30347aaf6b00692976669180a6ca1337a2858dab81c4522f3e3"
+      },
+      "tap": "TAP version 13\n# Subtest: 空の検索語は掲載順の全件を返す\nok 1 - 空の検索語は掲載順の全件を返す\n  ---\n  duration_ms: 0.8791\n  type: 'test'\n  ...\n# Subtest: 全角の検索語ＵＩは表題かタグにUIを持つ掲載項目を掲載順で返す\nok 2 - 全角の検索語ＵＩは表題かタグにUIを持つ掲載項目を掲載順で返す\n  ---\n  duration_ms: 0.1292\n  type: 'test'\n  ...\n# Subtest: 全角空白で区切った検索語UI　設計はすべての語を表題かタグに持つ掲載項目だけを返す\nok 3 - 全角空白で区切った検索語UI　設計はすべての語を表題かタグに持つ掲載項目だけを返す\n  ---\n  duration_ms: 0.5493\n  type: 'test'\n  ...\n1..3\n# tests 3\n# suites 0\n# pass 3\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 60.2508\n"
+    },
+    {
+      "phase": "red3",
+      "executed_at": "2026-10-15T06:10:39.229314+00:00",
+      "command": "node --test --test-reporter=tap search.test.mjs",
+      "node": "v24.18.0",
+      "exit_code": 1,
+      "tests": 4,
+      "pass": 3,
+      "fail": 1,
+      "source_sha256": {
+        "search.mjs": "7578edc4969c31a9b51d8a9091e0941e2c4e99259207b9c52ecc6562a47889fa",
+        "search.test.mjs": "779f49e1e3d53ae395d8ca0732705620742954259f878db1be7642861061b392",
+        "entries.json": "84d3cdc5f000d30347aaf6b00692976669180a6ca1337a2858dab81c4522f3e3"
+      },
+      "tap": "TAP version 13\n# Subtest: 空の検索語は掲載順の全件を返す\nok 1 - 空の検索語は掲載順の全件を返す\n  ---\n  duration_ms: 1.0042\n  type: 'test'\n  ...\n# Subtest: 全角の検索語ＵＩは表題かタグにUIを持つ掲載項目を掲載順で返す\nok 2 - 全角の検索語ＵＩは表題かタグにUIを持つ掲載項目を掲載順で返す\n  ---\n  duration_ms: 0.1648\n  type: 'test'\n  ...\n# Subtest: 全角空白で区切った検索語UI　設計はすべての語を表題かタグに持つ掲載項目だけを返す\nok 3 - 全角空白で区切った検索語UI　設計はすべての語を表題かタグに持つ掲載項目だけを返す\n  ---\n  duration_ms: 0.6309\n  type: 'test'\n  ...\n# Subtest: 空の検索語で分野slidesを選ぶとその分野の掲載項目だけを掲載順で返す\nnot ok 4 - 空の検索語で分野slidesを選ぶとその分野の掲載項目だけを掲載順で返す\n  ---\n  duration_ms: 0.814\n  type: 'test'\n  location: 'fixture\\\\search.test.mjs:19:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly deep-equal:\n    + actual - expected\n    \n      [\n    +   'ui-notes',\n    +   'color-lab',\n        'slide-story',\n        'slide-layout',\n    +   'motion-cards',\n    +   'agent-check'\n      ]\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected:\n    0: 'slide-story'\n    1: 'slide-layout'\n  actual:\n    0: 'ui-notes'\n    1: 'color-lab'\n    2: 'slide-story'\n    3: 'slide-layout'\n    4: 'motion-cards'\n    5: 'agent-check'\n  operator: 'deepStrictEqual'\n  stack: |-\n    TestContext.<anonymous> (file:///fixture/search.test.mjs:20:10)\n    Test.runInAsyncScope (node:async_hooks:227:14)\n    Test.run (node:internal/test_runner/test:1325:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:911:18)\n    Test.postRun (node:internal/test_runner/test:1465:19)\n    Test.run (node:internal/test_runner/test:1390:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)\n  ...\n1..4\n# tests 4\n# suites 0\n# pass 3\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 67.7781\n"
+    },
+    {
+      "phase": "green3",
+      "executed_at": "2026-10-15T06:11:23.861567+00:00",
+      "command": "node --test --test-reporter=tap search.test.mjs",
+      "node": "v24.18.0",
+      "exit_code": 0,
+      "tests": 4,
+      "pass": 4,
+      "fail": 0,
+      "source_sha256": {
+        "search.mjs": "a0e3fafbcef2f7d3df1460a1276de5c110bd884ec6e2cceef1c356487aa9e84c",
+        "search.test.mjs": "779f49e1e3d53ae395d8ca0732705620742954259f878db1be7642861061b392",
+        "entries.json": "84d3cdc5f000d30347aaf6b00692976669180a6ca1337a2858dab81c4522f3e3"
+      },
+      "tap": "TAP version 13\n# Subtest: 空の検索語は掲載順の全件を返す\nok 1 - 空の検索語は掲載順の全件を返す\n  ---\n  duration_ms: 0.8576\n  type: 'test'\n  ...\n# Subtest: 全角の検索語ＵＩは表題かタグにUIを持つ掲載項目を掲載順で返す\nok 2 - 全角の検索語ＵＩは表題かタグにUIを持つ掲載項目を掲載順で返す\n  ---\n  duration_ms: 0.1407\n  type: 'test'\n  ...\n# Subtest: 全角空白で区切った検索語UI　設計はすべての語を表題かタグに持つ掲載項目だけを返す\nok 3 - 全角空白で区切った検索語UI　設計はすべての語を表題かタグに持つ掲載項目だけを返す\n  ---\n  duration_ms: 0.589\n  type: 'test'\n  ...\n# Subtest: 空の検索語で分野slidesを選ぶとその分野の掲載項目だけを掲載順で返す\nok 4 - 空の検索語で分野slidesを選ぶとその分野の掲載項目だけを掲載順で返す\n  ---\n  duration_ms: 0.102\n  type: 'test'\n  ...\n1..4\n# tests 4\n# suites 0\n# pass 4\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 55.8925\n"
+    }
+  ]
+}

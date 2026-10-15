@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>再利用する依頼文 | Matt Pocock Skillsの作例</title>
+<style>body{max-width:900px;margin:40px auto;padding:0 24px;background:#f8f6f0;color:#161616;font:18px/1.8 'Yu Gothic UI',Meiryo,sans-serif}a{color:#23448c}pre{font:inherit;white-space:pre-wrap;overflow-wrap:anywhere;border:1px solid #aaa;padding:24px;background:#fffef9}h1{font-size:30px}</style></head>
+<body><a href="index.html#request">作例へ戻る</a><h1>再利用する依頼文</h1><p>【】を自分の依頼と対象に置き換えて、スキルを読めるコーディングエージェントへ渡します。</p><pre id="request-text">Matt Pocock Skills（mattpocock/skills、固定コミット 49dd158d1076134a641b33efb035946536778336）の skills/engineering/domain-modeling/SKILL.md と GLOSSARY-FORMAT.md、skills/engineering/codebase-design/SKILL.md、skills/engineering/tdd/SKILL.md と tests.md・mocking.md を読んでから、既存の検索機能を直してください。
+
+元の依頼：【例：UIでもｕｉでも探せて、タグも見てほしい。言葉を足したら絞れて、分野でも選べると便利。】
+対象の関数とファイル：【例：search.mjs の searchEntries(entries, query, { category })】
+テストの実行コマンド：【例：node --test search.test.mjs】
+
+進め方：
+1. 依頼の言葉のうち読み方が分かれるものを挙げ、GLOSSARY.md に用語として決めてください。実装の詳細は GLOSSARY.md に書かず、仕様の文書に書いてください。
+2. 曖昧な点ごとに決め方と対象外を書き、データに対する期待値を、実装と同じ計算ではなく固定の値で書いてください。決められない点は推測で埋めず、私に質問してください。
+3. テストを置く公開の境界（seam）を提案し、それぞれ捉えるものと捉えないものを1行で書いて、テストを書く前に私の確認を待ってください。
+4. 確認したseamで新しいテストを1件だけ足して実行し、期待値の不一致で失敗することを確かめてから、通るだけの最小の変更をしてください。これを1段ずつ繰り返し、次の段を先回りして実装しないでください。整理し直し（リファクタリング）はこの繰り返しに含めず、別に提案してください。
+5. 各段の実行コマンド、終了コード、テスト数・成功・失敗の数を、実際の出力から記録してください。
+
+報告では、決めた用語と仕様、各段の失敗と成功の記録、変更したファイル、試していない入力と対象外を分けて書いてください。
+</pre></body></html>
