@@ -1,0 +1,345 @@
+{
+  "format": "input-output",
+  "note": "3件とも、この作例のために書いた静的なサンプルです。AIや外部サービスは実行していません。start_ms・end_ms・now_ms はサンプル値で、実行速度の計測ではありません。",
+  "samples": [
+    {
+      "id": "completed",
+      "label": "完了した実行",
+      "input": "「固定版のQuartzからSKILL.mdとLICENSEを読み、日本語の紹介文を3文で作る」という依頼を受けたエージェントの実行ログ（5段）を渡しました。",
+      "output": "5段すべてが完了と表示されます。どの段を選んでも、その段が受け取った入力と返した出力をJSONで確かめられます。最後の「紹介文を書く」段の出力に、できた3文が入っています。",
+      "fixture": {
+        "run_id": "run_sample_a1",
+        "agent": "source-reader",
+        "request": "固定版のQuartzからSKILL.mdとLICENSEを読み、日本語の紹介文を3文で作る",
+        "outcome": "ok",
+        "headline": "予定した5段がすべて完了しました。",
+        "focus_step": "a1-write",
+        "now_ms": 5400,
+        "plan": [
+          "依頼を読む",
+          "SKILL.mdを取得",
+          "ライセンスを確認",
+          "紹介文を書く",
+          "下書きを保存"
+        ],
+        "steps": [
+          {
+            "id": "a1-plan",
+            "label": "依頼を読む",
+            "type": "model",
+            "tool": null,
+            "start_ms": 0,
+            "end_ms": 640,
+            "status": "ok",
+            "note": "依頼から、読むファイルと書く分量を決めた段です。",
+            "input": {
+              "request": "固定版のQuartzからSKILL.mdとLICENSEを読み、日本語の紹介文を3文で作る",
+              "source": {
+                "repository": "arla6ka/skills",
+                "commit": "1aaaa1b47ba5a18b47b0ebcac684ade460c6823f"
+              }
+            },
+            "output": {
+              "plan": [
+                "SKILL.mdを取得",
+                "ライセンスを確認",
+                "紹介文を書く",
+                "下書きを保存"
+              ],
+              "length": "3文"
+            }
+          },
+          {
+            "id": "a1-fetch",
+            "label": "SKILL.mdを取得",
+            "type": "tool",
+            "tool": "fetch_file",
+            "start_ms": 640,
+            "end_ms": 1900,
+            "status": "ok",
+            "note": "固定版のコミットとパスを指定して、原典のSKILL.mdを読んだ段です。",
+            "input": {
+              "repository": "arla6ka/skills",
+              "commit": "1aaaa1b47ba5a18b47b0ebcac684ade460c6823f",
+              "path": "systems/quartz/SKILL.md"
+            },
+            "output": {
+              "status": 200,
+              "name": "quartz",
+              "sections": [
+                "Setup",
+                "Steps",
+                "Global rules",
+                "Anti-slop",
+                "Tokens",
+                "Components",
+                "Blocks"
+              ]
+            }
+          },
+          {
+            "id": "a1-license",
+            "label": "ライセンスを確認",
+            "type": "tool",
+            "tool": "read_license",
+            "start_ms": 1900,
+            "end_ms": 2480,
+            "status": "ok",
+            "note": "紹介してよい条件を、原典のLICENSEから確かめた段です。",
+            "input": {
+              "repository": "arla6ka/skills",
+              "commit": "1aaaa1b47ba5a18b47b0ebcac684ade460c6823f"
+            },
+            "output": {
+              "status": 200,
+              "license": "MIT",
+              "holder": "Arlan Marat",
+              "year": 2026
+            }
+          },
+          {
+            "id": "a1-write",
+            "label": "紹介文を書く",
+            "type": "model",
+            "tool": null,
+            "start_ms": 2480,
+            "end_ms": 5060,
+            "status": "ok",
+            "note": "前の2段の出力だけを材料にして、紹介文を書いた段です。",
+            "input": {
+              "facts": {
+                "name": "Quartz",
+                "for": "AIの実行画面と開発者向けツール",
+                "parts": [
+                  "Timeline",
+                  "Status",
+                  "JSON view",
+                  "Button"
+                ],
+                "license": "MIT"
+              },
+              "language": "ja",
+              "length": "3文"
+            },
+            "output": {
+              "draft": [
+                "Quartzは、AIの実行画面や開発者向けツールのためのデザインシステムです。",
+                "白と黒を基本に、警告と失敗だけを暖かい色で示し、状態を色ではなく言葉で書きます。",
+                "Timeline・Status・JSON viewなどの部品と、AIが画面を作るときに従うSKILL.mdが付いています。"
+              ]
+            }
+          },
+          {
+            "id": "a1-save",
+            "label": "下書きを保存",
+            "type": "tool",
+            "tool": "save_draft",
+            "start_ms": 5060,
+            "end_ms": 5400,
+            "status": "ok",
+            "note": "書いた紹介文を下書きとして残した段です。このサンプルでは実際のファイルは作られていません。",
+            "input": {
+              "path": "drafts/quartz.md",
+              "lines": 3
+            },
+            "output": {
+              "saved": true,
+              "path": "drafts/quartz.md"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "tool-failed",
+      "label": "ツールが失敗した実行",
+      "input": "同じ依頼で、SKILL.mdを取りに行くツールに「quartz/SKILL.md」という誤ったパスを渡してしまった実行ログ（3段で停止）を渡しました。",
+      "output": "3段目「SKILL.mdを取得」が失敗として赤く示され、残りの3段は実行されなかったと表示されます。その段の入力の path と、出力の 404 を並べて見ると、呼び出し側のパス指定が原因だと分かります。",
+      "fixture": {
+        "run_id": "run_sample_b2",
+        "agent": "source-reader",
+        "request": "固定版のQuartzからSKILL.mdとLICENSEを読み、日本語の紹介文を3文で作る",
+        "outcome": "fail",
+        "headline": "3段目「SKILL.mdを取得」でツールが失敗し、そこで止まりました。",
+        "focus_step": "b2-fetch",
+        "now_ms": 2050,
+        "plan": [
+          "依頼を読む",
+          "固定版を確かめる",
+          "SKILL.mdを取得",
+          "ライセンスを確認",
+          "紹介文を書く",
+          "下書きを保存"
+        ],
+        "steps": [
+          {
+            "id": "b2-plan",
+            "label": "依頼を読む",
+            "type": "model",
+            "tool": null,
+            "start_ms": 0,
+            "end_ms": 610,
+            "status": "ok",
+            "note": "依頼から、読むファイルと書く分量を決めた段です。ここまでは完了しています。",
+            "input": {
+              "request": "固定版のQuartzからSKILL.mdとLICENSEを読み、日本語の紹介文を3文で作る",
+              "source": {
+                "repository": "arla6ka/skills",
+                "ref": "1aaaa1b"
+              }
+            },
+            "output": {
+              "plan": [
+                "固定版を確かめる",
+                "SKILL.mdを取得",
+                "ライセンスを確認",
+                "紹介文を書く",
+                "下書きを保存"
+              ],
+              "skill_path": "quartz/SKILL.md"
+            }
+          },
+          {
+            "id": "b2-commit",
+            "label": "固定版を確かめる",
+            "type": "tool",
+            "tool": "resolve_commit",
+            "start_ms": 610,
+            "end_ms": 1320,
+            "status": "ok",
+            "note": "短いコミットIDを、完全なIDに確かめた段です。ここまでは完了しています。",
+            "input": {
+              "repository": "arla6ka/skills",
+              "ref": "1aaaa1b"
+            },
+            "output": {
+              "found": true,
+              "commit": "1aaaa1b47ba5a18b47b0ebcac684ade460c6823f"
+            }
+          },
+          {
+            "id": "b2-fetch",
+            "label": "SKILL.mdを取得",
+            "type": "tool",
+            "tool": "fetch_file",
+            "start_ms": 1320,
+            "end_ms": 2050,
+            "status": "fail",
+            "note": "入力の path に systems/ が抜けています。出力の 404 と合わせて見ると、原因はファイルの有無ではなく、1段目で決めたパスの指定だと分かります。",
+            "input": {
+              "repository": "arla6ka/skills",
+              "commit": "1aaaa1b47ba5a18b47b0ebcac684ade460c6823f",
+              "path": "quartz/SKILL.md"
+            },
+            "output": {
+              "status": 404,
+              "error": "path_not_found",
+              "message": "このコミットに quartz/SKILL.md はありません",
+              "checked_path": "quartz/SKILL.md"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "waiting-input",
+      "label": "入力を待っている実行",
+      "input": "紹介したいスキルの名前だけが渡され、原典URLがまだない依頼のサンプル実行ログを渡しました。4段目で不足するURLの入力を待っています。",
+      "output": "4段目「原典URLを待つ」が入力待ちと表示されます。入力と出力のJSONには不足している項目が source_url だと書かれ、次の原典確認は始まっていません。",
+      "fixture": {
+        "run_id": "run_sample_c3",
+        "agent": "brief-reader",
+        "request": "紹介したいスキルの資料を整理し、原典の確認へ進む",
+        "outcome": "waiting",
+        "headline": "4段目「原典URLを待つ」で、不足している入力を待っています。",
+        "focus_step": "c3-input",
+        "now_ms": 9600,
+        "plan": [
+          "依頼を読む",
+          "渡された資料を確認",
+          "不足する入力を整理",
+          "原典URLを待つ",
+          "原典を確認する"
+        ],
+        "steps": [
+          {
+            "id": "c3-plan",
+            "label": "依頼を読む",
+            "type": "model",
+            "tool": null,
+            "start_ms": 0,
+            "end_ms": 580,
+            "status": "ok",
+            "note": "依頼から、紹介する対象と読む資料を整理した段です。",
+            "input": {
+              "request": "このスキルを紹介する作例を作りたい",
+              "skill_name": "紹介したいスキル"
+            },
+            "output": {
+              "goal": "原典から用途と使い方を確かめる",
+              "needs": [
+                "source_url"
+              ]
+            }
+          },
+          {
+            "id": "c3-check",
+            "label": "渡された資料を確認",
+            "type": "tool",
+            "tool": "list_inputs",
+            "start_ms": 580,
+            "end_ms": 1460,
+            "status": "ok",
+            "note": "渡された資料を確認しました。名前はありますが、原典URLは含まれていません。",
+            "input": {
+              "skill_name": "紹介したいスキル",
+              "attachments": []
+            },
+            "output": {
+              "name_present": true,
+              "source_url": null
+            }
+          },
+          {
+            "id": "c3-missing",
+            "label": "不足する入力を整理",
+            "type": "model",
+            "tool": null,
+            "start_ms": 1460,
+            "end_ms": 1990,
+            "status": "ok",
+            "note": "名前から別のスキルを選んでしまわないよう、原典URLが必要だと整理した段です。",
+            "input": {
+              "name_present": true,
+              "source_url": null
+            },
+            "output": {
+              "missing": [
+                "source_url"
+              ],
+              "next_step": "原典URLを待つ"
+            }
+          },
+          {
+            "id": "c3-input",
+            "label": "原典URLを待つ",
+            "type": "input",
+            "tool": "request_input",
+            "start_ms": 1990,
+            "end_ms": null,
+            "status": "waiting",
+            "note": "原典URLがまだ渡されていないため待っています。URLが届くと、原典の確認へ進めます。この画面は待機状態を示すサンプルです。",
+            "input": {
+              "field": "source_url",
+              "question": "紹介するスキルの原典URLを教えてください"
+            },
+            "output": {
+              "waiting_for": "source_url",
+              "answer": null
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
