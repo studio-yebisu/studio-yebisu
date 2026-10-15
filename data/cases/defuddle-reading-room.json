@@ -1,0 +1,152 @@
+{
+  "id": "defuddle-reading-room",
+  "title": "ページの本文だけを、Markdownで読む",
+  "title_lines": [
+    "ページの本文だけを、",
+    "Markdownで読む"
+  ],
+  "category": "research",
+  "summary": "Defuddleは、Webページから記事の本文・タイトル・著者を見つけ、ナビや広告、関連記事の案内を外して、HTMLやMarkdownで返すライブラリです。架空の読書会の案内・保存手順・検索画面のテストの3記事を書き、固定版のDefuddleをブラウザーの中で動かして、元のページと取り出したMarkdownを見比べる作例を作りました。日時や人数などの条件が残ったか、本文の外の文言が入っていないかも、取り出した結果から照らし合わせます。",
+  "model": "claude-opus-5-5",
+  "status": "published",
+  "demo": "examples/defuddle-reading-room/index.html",
+  "video": "media/defuddle-reading-room.mp4",
+  "poster": "media/defuddle-reading-room.webp",
+  "skill": "examples/defuddle-reading-room/vendor/defuddle/README.md",
+  "skill_label": "原典のREADME",
+  "skill_description": "本文抽出ライブラリの使い方",
+  "samples": "examples/defuddle-reading-room/samples.json",
+  "sample_format": "input-output",
+  "samples_title": "3つの架空記事と、取り出したMarkdown",
+  "samples_intro": "入力は、この作例のために書いたナビ・広告・本文・関連記事・フッター付きの架空HTMLです。出力は固定版DefuddleのNode APIで抽出したMarkdownを、そのまま保存しています。文章・画面・動画はOpus 5.5で制作し、本文の抽出はDefuddleのコードで行っています。",
+  "demo_description": "3つの記事から一つを選び「本文を取り出す」を押すと、同梱のDefuddleがこのブラウザーの中で動き、元のページの見え方の横に、取り出したタイトル・著者・Markdownが並びます。本文の条件が残ったかと、広告や関連記事の文言が入っていないかを、取り出した結果から調べて表示します。Markdownのコピーと.mdの保存もできます。矢印キーで記事を選び、Enterで取り出せます。",
+  "demo_note": "読み込むのは、この作例のために書いた3つのHTMLだけです。ネットからページを取得したり、AIや外部のサービスに接続したりすることはありません。任意のURLを入力する機能もありません。",
+  "request_intro": "Node.jsを使えるAIのコーディングエージェントに、次の文章を渡します。【】の部分を自分のページと条件に置き換えて使ってください。",
+  "request": "Defuddle（kepano/defuddle、固定コミット 556d74e8c8fd68c49912d4b11a4ae9ec04d7b2b5）で、手元のHTMLから記事の本文をMarkdownにしてください。\n\n使い方：Node.jsでは、jsdomなどで作ったDocumentと元のURLを Defuddle(document, url, { markdown: true, useAsync: false, removeImages: true }) に渡します。useAsync:false にして、外部サービスで補う機能は使わないでください。\n\n入力：【HTMLファイルのパスと、そのページのURL】\n残るべき条件：【日付・数値・手順など、本文に必ず残ってほしい語句】\n入らないでほしい文言：【広告・関連記事・購読の案内など、本文の外にある文の一部】\n\n出力は title・author・content（Markdown）にしてください。残るべき条件と入らないでほしい文言について、content に文字どおり含まれるか・含まれないかを一つずつ示してください。見つからない語句があれば、補わずにそのまま報告してください。",
+  "video_note": "28秒、音声なし。画面の撮影は使わず、入力の架空のページを構造の図で描き、制作時に保存したDefuddleの出力（Markdown）を引用して、条件が残ったかと、本文の外の文言が含まれないかを示しています。",
+  "video_source": "examples/defuddle-reading-room/video/index.html",
+  "skill_license": "examples/defuddle-reading-room/vendor/defuddle/LICENSE",
+  "applied_skills": [
+    {
+      "name": "Defuddle（原典のAPI）",
+      "source": "https://github.com/kepano/defuddle/blob/556d74e8c8fd68c49912d4b11a4ae9ec04d7b2b5/README.md",
+      "applied": "固定版のREADMEのUsage（Browser・Node.js）、Options、Response、Bundles、Third-party servicesを読んで組んだ。Markdownへの変換はfull版とNode版に入っているため、ブラウザーではfull版のバンドルを読み込み、DOMParserで作ったDocumentを new Defuddle(document, {url, markdown: true, useAsync: false, removeImages: true}).parse() に渡した。READMEにあるとおり、本文が取れないページで外部APIへ切り替える機能は useAsync:false で止められるので、必ずfalseにした。画像を使わない記事なので removeImages を付けた。返す値のうち title・author・content だけを文字として表示し、parseTime は性能の指標として出していない。保存用の実出力は、Node API（jsdomのDocumentとURLを await Defuddle(document, url, options) に渡す形）で3件実際に作った。ブラウザーでも3件を実行し、本文・タイトル・著者がNode版と一致すること、指定の10条件が残り、本文外の3文言が各出力に含まれないことを確認した。Node版は内部で parseAsync() を呼ぶが、useAsync:false の分岐により外部APIでの補完は無効になっている。Defuddleは SKILL.md を持たないライブラリで、作例でもスキル文書は作っていない。"
+    },
+    {
+      "name": "Motion Reel",
+      "source": "https://github.com/studio-yebisu/motion-reel/tree/56198544e69201b1c202e0c00fb90b568a729824",
+      "applied": "解説動画のソースを、window.seek(秒)がその時刻の完成した画面だけを描く契約で書いた。motionConfig（28秒・30fps・1280×720・posterTime 22・audioEventsなし）、renderConfigのサイズとFPSの反映、フォントと ../samples.json・../extraction-results.json の読み込みを待つ motionReady、書き出し中のプレビュー停止に従った。撮影画像は使わず、入力の構造は samples.json のHTMLから描いた図にして、そう画面に書いた。タイトル・著者・オプション・Markdownの各行は保存した実出力から引用し、条件が残ったかは保存した content から調べ直して描く。実出力がない場合は動画を描かず、motionReady を失敗させる。統合側でMP4を書き出し、コンタクトシート・代表フレーム・連続フレームを確認した。ブラウザーでは28秒の終端まで再生。任意時刻の描画は異なる順番と新しいページで同じ画像になった。"
+    }
+  ],
+  "steps": [
+    {
+      "title": "原典を固定する",
+      "body": "kepano/defuddle のコミット 556d74e（v0.19.5、MIT）を固定し、README・LICENSE・package.json・package-lock.jsonを上流から保持しました。そのソースとlockfileでtypes・Node・ブラウザー版をビルドし、full版の生成バイトを変えずに同梱しています。第三者の利用条件は、同梱したライブラリから THIRD_PARTY_NOTICES.txt にまとめました。"
+    },
+    {
+      "title": "READMEを読む",
+      "body": "ブラウザーとNode.jsの使い方、オプション、返す値、3つのバンドルの違い、外部サービスの説明を読みました。Markdownへの変換はfull版とNode版に入っていること、useAsync:false で外部APIへの切り替えを止められることを、作例の決まりにしています。"
+    },
+    {
+      "title": "架空の記事を3つ書く",
+      "body": "読書会の案内、記録ノートの保存手順、検索画面のテストの3記事を、ナビ・広告・本文・関連記事・フッターがある小さなHTMLとして書きました。本文には日時や人数などの条件を、本文の外には「広告枠だけの文章」「関連記事だけの案内」「購読登録だけの案内」を置いています。外部の画像・スクリプト・フォントは入れていません。"
+    },
+    {
+      "title": "その場で取り出す画面を作る",
+      "body": "記事を選んで「本文を取り出す」を押すと、同梱のDefuddleがブラウザーの中で動きます。元のページはスクリプトを止めた枠で見せ、取り出したタイトル・著者・Markdownは文字として表示します。取り出したあとで、条件が残ったかと本文の外の文言が入っていないかを、結果の文字列から調べて出します。記事を切り替えると、前の結果は消えます。"
+    },
+    {
+      "title": "実出力を保存する",
+      "body": "同じ3記事を固定版のNode APIで抽出し、実際のMarkdownを samples.json と extraction-results.json に保存しました。ブラウザーでもクリックやEnterで実行し、3件の本文・タイトル・著者をNodeの実出力と照合しています。本文の指定10条件の残存と、本文外の3文言の除去を各記事で確かめました。コピーした内容と保存した.mdも実出力と一致しています。"
+    },
+    {
+      "title": "使い方を28秒の動画にする",
+      "body": "Motion Reel の時間の契約に沿って、本文以外も混ざったHTML、Defuddleに渡すオプション、保存した実際のMarkdown、条件の照らし合わせ、読書メモへのコピーの順にコードで組みました。入力のページは構造の図として描いています。"
+    }
+  ],
+  "limitations": [
+    "読み込むのは、作例のために書いた3つの小さなHTMLだけです。任意のURLやファイルを入れる機能はなく、ネットからページを取得しません。",
+    "3つの記事は架空です。読書会・アプリ・検索画面のテストは実在せず、日時や人数も実在の情報ではありません。",
+    "この3記事で取り出せても、インターネット上のどのページでも同じように本文を取り出せるとは限りません。原典のREADMEにも、Defuddleはまだ開発中だと書かれています。",
+    "Markdownにすると、元のページの色・配置・文字の大きさは残りません。残るのは見出し・段落・リストなどの文章の構造です。",
+    "照らし合わせは、決めた語句がMarkdownに文字どおり含まれるかを調べるだけです。ほかの文の抜けや読みやすさは判定しません。",
+    "useAsync:false のため、本文がHTMLにないページで外部APIから補う機能は試していません。CLI、HTMLでの出力、数式や脚注の変換も試していません。",
+    "解説動画は音声なしです。"
+  ],
+  "sources": [
+    {
+      "label": "Defuddle README（kepano/defuddle、固定版）",
+      "url": "https://github.com/kepano/defuddle/blob/556d74e8c8fd68c49912d4b11a4ae9ec04d7b2b5/README.md"
+    },
+    {
+      "label": "Defuddle のソース（固定版）",
+      "url": "https://github.com/kepano/defuddle/tree/556d74e8c8fd68c49912d4b11a4ae9ec04d7b2b5"
+    },
+    {
+      "label": "Defuddle LICENSE（MIT、固定版から作例に同梱）",
+      "url": "examples/defuddle-reading-room/vendor/defuddle/LICENSE"
+    },
+    {
+      "label": "バンドルに含まれるライブラリの利用条件",
+      "url": "examples/defuddle-reading-room/vendor/defuddle/THIRD_PARTY_NOTICES.txt"
+    },
+    {
+      "label": "保存したDefuddleの実出力（extraction-results.json）",
+      "url": "examples/defuddle-reading-room/extraction-results.json"
+    },
+    {
+      "label": "Motion Reel（Studio Yebisu、MIT）",
+      "url": "https://github.com/studio-yebisu/motion-reel/tree/56198544e69201b1c202e0c00fb90b568a729824"
+    },
+    {
+      "label": "作例の再現手順（README）",
+      "url": "examples/defuddle-reading-room/README.md"
+    },
+    {
+      "label": "この作例の制作・確認記録",
+      "url": "data/production/defuddle-reading-room.json"
+    }
+  ],
+  "license": "MIT",
+  "license_note": "この作例の画面構成・文言・架空の記事・映像ソースは Studio Yebisu の独自制作で、MIT License です。vendor/defuddle/ の Defuddle は上流の MIT License（Copyright (c) 2025 Steph Ango (@kepano)）で、LICENSE を同梱しています。バンドルに含まれる turndown・mathml-to-latex・temml・@xmldom/xmldom の利用条件は、同梱の THIRD_PARTY_NOTICES.txt にまとめています。",
+  "catalog_entry": {
+    "id": "resource-defuddle",
+    "name": "Defuddle",
+    "category": "research",
+    "kind": "ライブラリ・CLI",
+    "summary": "Webページの本文を抽出し、読みやすいHTMLやMarkdownへ変換する。Markdownでは元のページの色や配置は残らず、見出し・段落・リストが残る。",
+    "use_case": "ページのナビゲーションや脇の情報を除き、記事本文を調査用に読みたいとき。",
+    "tags": [
+      "Web",
+      "情報収集",
+      "ライブラリ・CLI"
+    ],
+    "workflow": [
+      "公開ページのURLまたはHTMLを渡す",
+      "本文を抽出してMarkdownへ変換する",
+      "見出し、リンク、本文の抜けを原ページと比べる"
+    ],
+    "requirements": [
+      "Node.jsなど、選ぶ実行方式の環境",
+      "取得できる公開ページまたは手元のHTML"
+    ],
+    "license": "MIT",
+    "license_url": "https://github.com/kepano/defuddle/blob/556d74e8c8fd68c49912d4b11a4ae9ec04d7b2b5/LICENSE",
+    "license_note": "ライブラリはMIT。取得した文章・画像の権利はページの権利者に帰属します。",
+    "source_url": "https://github.com/kepano/defuddle/tree/556d74e8c8fd68c49912d4b11a4ae9ec04d7b2b5",
+    "guide_url": "case.html?id=defuddle-reading-room",
+    "example_url": "examples/defuddle-reading-room/index.html",
+    "image": "media/defuddle-reading-room.webp",
+    "readme_url": "https://github.com/kepano/defuddle/blob/556d74e8c8fd68c49912d4b11a4ae9ec04d7b2b5/README.md",
+    "source_repository": "kepano/defuddle",
+    "source_commit": "556d74e8c8fd68c49912d4b11a4ae9ec04d7b2b5",
+    "source_path": "",
+    "source_project": "curated",
+    "source_note": "公開リポジトリのREADMEと利用条件を確認し、用途と最初の試し方を日本語で整理しました。原典は確認時のコミットへ固定しています。作例で渡したのは架空の3記事の手元のHTMLだけで、インターネット上のすべてのページで本文を取り出せることは確かめていません。",
+    "prompt": "Defuddle の原典（https://github.com/kepano/defuddle/tree/556d74e8c8fd68c49912d4b11a4ae9ec04d7b2b5）を読んで、次を進めてください。\n公開されている技術記事1本をMarkdownにしてください。元URLを残し、見出し・コード・リンクの抜けがないか原文と照合してください。\n入力、出力、実行した検証、未確認の点を記録してください。",
+    "verification_stage": "runtime-reviewed",
+    "verification": "Opus 5.5で架空の3記事・抽出デモ・映像を制作。固定版DefuddleをNode/ブラウザーで各3件実行し、本文・タイトル・著者が一致。指定10条件の残存、本文外の3文言の除去を各記事で確認。切替時のリセット・キーボード・コピー・.md保存と390px/1280px表示を確認。28秒の無音動画付き。",
+    "reviewed_on": "2026-10-15"
+  },
+  "updated_on": "2026-10-15"
+}

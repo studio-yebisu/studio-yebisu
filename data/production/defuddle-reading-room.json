@@ -1,0 +1,231 @@
+{
+  "id": "defuddle-reading-room",
+  "verified_at": "2026-10-15T01:51:55.842927+00:00",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "private_receipt_sha256": "56cfa3f4b60c2e6addafa5e5af07284a9345993010c7525c4e68276c12759939",
+    "receipt_published": false
+  },
+  "upstream": {
+    "repository": "kepano/defuddle",
+    "commit": "556d74e8c8fd68c49912d4b11a4ae9ec04d7b2b5",
+    "version": "0.19.5",
+    "license": "MIT with bundled dependency notices",
+    "source_files_verified_unchanged": [
+      "README.md",
+      "LICENSE",
+      "package.json",
+      "package-lock.json"
+    ],
+    "browser_bundle_matches_fixed_build": true,
+    "build": [
+      "npm ci --ignore-scripts",
+      "npm run build:types",
+      "npm run build:node",
+      "npm run build:js"
+    ]
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 3,
+    "engines": [
+      "Fixed Node API with jsdom Document",
+      "Fixed full UMD bundle with DOMParser Document"
+    ],
+    "options": {
+      "markdown": true,
+      "useAsync": false,
+      "removeImages": true
+    },
+    "inputs": [
+      {
+        "id": "reading",
+        "fixture": "fixtures/reading.html",
+        "input_sha256": "121afbb5ecadc8f4f97a22f1b1603772157827c12da8caa494155b6046ecf974",
+        "kept": [
+          "10月24日14時",
+          "定員8人",
+          "申込は前日18時まで",
+          "参加無料"
+        ],
+        "removed": [
+          "広告枠だけの文章",
+          "関連記事だけの案内",
+          "購読登録だけの案内"
+        ]
+      },
+      {
+        "id": "operation",
+        "fixture": "fixtures/operation.html",
+        "input_sha256": "eff751fdd8ac94360f37f95a6b1f1815def354dd652c89bba34d3ffc300be629",
+        "kept": [
+          "保存ボタンを押すと、変更内容がノートに保存されます",
+          "画面の入力は残ります",
+          "ディスクには書き込まれません"
+        ],
+        "removed": [
+          "広告枠だけの文章",
+          "関連記事だけの案内",
+          "購読登録だけの案内"
+        ]
+      },
+      {
+        "id": "research",
+        "fixture": "fixtures/research.html",
+        "input_sha256": "c4e4aeec3f7adb4ee6b558610befe6c381d96383e46b3e4c65e63b0bcab1a8ba",
+        "kept": [
+          "8人中6人が旧画面より使いやすいと答えました",
+          "一人5分",
+          "実務での効果は未検証です"
+        ],
+        "removed": [
+          "広告枠だけの文章",
+          "関連記事だけの案内",
+          "購読登録だけの案内"
+        ]
+      }
+    ],
+    "browser_node_comparison": {
+      "status": "passed",
+      "browser_and_node": [
+        {
+          "id": "reading",
+          "title_author_content_match": true,
+          "content_sha256": "25480a9e4d9b5b94f32243c0fd6af18d18dd436ff772c97cef7ff15faed6f1c1",
+          "kept": 4,
+          "removed": 3
+        },
+        {
+          "id": "operation",
+          "title_author_content_match": true,
+          "content_sha256": "95be1e92a1211339da505f54f6d71bc0a319b429171c732bfae607707b7fa828",
+          "kept": 3,
+          "removed": 3
+        },
+        {
+          "id": "research",
+          "title_author_content_match": true,
+          "content_sha256": "55758d1395b572bbdee836806bd0e6e51fd57229bdb595be63d83bf1e7baa8e9",
+          "kept": 3,
+          "removed": 3
+        }
+      ],
+      "download_matches_content": true,
+      "clipboard_matches_content": true,
+      "clipboard_scope": "Browser session clipboard readback after copy button"
+    },
+    "preserved_conditions": 10,
+    "boilerplate_phrases_checked_per_sample": 3
+  },
+  "browser": {
+    "requested_widths": [
+      390,
+      1280
+    ],
+    "horizontal_page_overflow": false,
+    "button_and_enter_execute_original_library": true,
+    "radio_arrow_selection": true,
+    "selection_clears_result": true,
+    "copy_readback_matches": true,
+    "downloaded_markdown_matches_node_output": true,
+    "hidden_state_final_check": "passed",
+    "controls": {
+      "requestedWidths": [
+        390,
+        1280
+      ],
+      "horizontalPageOverflow": false,
+      "metadataHiddenBeforeExtract": true,
+      "emptyAndCopyDisabledBeforeExtract": true,
+      "selectionClearsResult": true,
+      "samples": [
+        "reading",
+        "operation",
+        "research"
+      ],
+      "buttonAndEnter": true,
+      "radioArrowNavigation": true,
+      "copyMatchesBrowserClipboard": true,
+      "markdownDownloadMatchesNodeResult": true,
+      "finalMobile": {
+        "characters": 470,
+        "passed": true,
+        "scrollWidth": 375,
+        "width": 375
+      },
+      "console": []
+    }
+  },
+  "video": {
+    "render": {
+      "file": "video.mp4",
+      "sha256": "557a1f611863838c043ac076e0d4856cf5d03355782dde00b13a431f89988919",
+      "width": 1280,
+      "height": 720,
+      "fps": 30,
+      "frameCount": 840,
+      "duration": 28,
+      "hasAudio": false
+    },
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "b4e12428e74eb0fa5900b0a66f805379c8b3a7d4b3a97eea4e7b643edce2259c",
+      "afterOtherTimes": "b4e12428e74eb0fa5900b0a66f805379c8b3a7d4b3a97eea4e7b643edce2259c",
+      "freshPage": "b4e12428e74eb0fa5900b0a66f805379c8b3a7d4b3a97eea4e7b643edce2259c",
+      "match": true
+    },
+    "contact_sheet_reviewed": true,
+    "representative_frames_reviewed": true,
+    "mp4_browser_playback": {
+      "currentTime": 28,
+      "duration": 28,
+      "ended": true,
+      "errorCode": null
+    }
+  },
+  "scope": {
+    "synthetic_articles": true,
+    "external_websites_exercised": false,
+    "third_party_fallback": false,
+    "live_ai_in_browser": false,
+    "markdown_extraction_ai_generated": false,
+    "creative_work_by_opus": [
+      "Original synthetic HTML",
+      "Japanese guide",
+      "Interactive example composition",
+      "Editable motion composition"
+    ],
+    "third_party_human_review": false,
+    "literal_phrase_checks_are_not_completeness_guarantees": true
+  },
+  "artifacts_sha256": {
+    "examples/defuddle-reading-room/app.js": "b2602d6578506e7c5cd8a60724b4249f2d7bcc881d1c228effe904b57fb5b55d",
+    "examples/defuddle-reading-room/extraction-results.json": "f2b971ff7072f4cd4f1bc9b2c928fcf8f101e4af00be50f4c80f24cb2c2ff3f2",
+    "examples/defuddle-reading-room/index.html": "a44659f159f775835195aa9250332a808f9585a290eba3449538b7f7db98a6a7",
+    "examples/defuddle-reading-room/README.md": "37adcb3e111dbdbbecdd4b3a8973dbb17db1c5b6a9bf12bdd97dba5fa153c233",
+    "examples/defuddle-reading-room/samples.json": "c47564403d365a11e654955cb0c9165fd2a2edd955bdfba452e468c339162c2c",
+    "examples/defuddle-reading-room/styles.css": "ff803e35b7eb26ad45d40445700f918c4e6b081b2955260a0035e7c640f82b5e",
+    "examples/defuddle-reading-room/fixtures/operation.html": "eff751fdd8ac94360f37f95a6b1f1815def354dd652c89bba34d3ffc300be629",
+    "examples/defuddle-reading-room/fixtures/reading.html": "121afbb5ecadc8f4f97a22f1b1603772157827c12da8caa494155b6046ecf974",
+    "examples/defuddle-reading-room/fixtures/research.html": "c4e4aeec3f7adb4ee6b558610befe6c381d96383e46b3e4c65e63b0bcab1a8ba",
+    "examples/defuddle-reading-room/video/index.html": "eca6541e3fd5a9737c086dfec55794a861f2c9633ae5e786396acfff6f6c92b0",
+    "examples/defuddle-reading-room/video/scene.js": "f093bdb280c987f89a0c3a7cadcba52e997bbd98c2f4e5132396168b2606d702",
+    "examples/defuddle-reading-room/vendor/defuddle/defuddle.full.js": "f7b3907452a33759f0c72106c4bc338886edf2f458e3f3baf8202df138940394",
+    "examples/defuddle-reading-room/vendor/defuddle/LICENSE": "d39837f3db4f086b4ec44d2808216d3be7785a177afa995642becfdc654aba70",
+    "examples/defuddle-reading-room/vendor/defuddle/package-lock.json": "99cfb5fc71a2d3652a7b3163d2f3c4e9578de038521a4cc37fcfd5f400a9c598",
+    "examples/defuddle-reading-room/vendor/defuddle/package.json": "f888d1d2f29c79c842c40b833384644b95560a46c1eadceacce3e3f7a894761b",
+    "examples/defuddle-reading-room/vendor/defuddle/README.md": "64f28649cc83bf874343020fa51baf2ec72c4df4e9369d4a5bbad386b96cdbb7",
+    "examples/defuddle-reading-room/vendor/defuddle/THIRD_PARTY_NOTICES.txt": "5dd4fd503b4189e700fe2bc61994597487990658343a07947f087fd679d8b7b4",
+    "examples/defuddle-reading-room/vendor/defuddle/UPSTREAM.json": "31fe4d64dc69ef8dbd703e92fc2351789b5a2e1dac7cc93d3cd3a264057721d7",
+    "media/defuddle-reading-room.mp4": "557a1f611863838c043ac076e0d4856cf5d03355782dde00b13a431f89988919",
+    "media/defuddle-reading-room.webp": "43dcaba1128d21f97c596540343ed65ef6e55505f6cdf662016bd14c6b793619"
+  },
+  "publication": {
+    "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=defuddle-reading-room",
+    "authorization": "User requested Opus 5.5 examples, short explanatory videos and sequential application to the existing public site."
+  }
+}

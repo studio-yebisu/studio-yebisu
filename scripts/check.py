@@ -49,10 +49,11 @@ def main():
         for key in ('source_url', 'guide_url', 'license_url', 'image', 'skill_download', 'example_url'):
             if entry.get(key):
                 local_file(entry[key])
-        if entry.get('verification_stage') == 'source-reviewed':
+        if entry.get('verification_stage') in ('source-reviewed', 'runtime-reviewed'):
             assert re.fullmatch(r'[0-9a-f]{40}', entry.get('source_commit', '')), 'Curated source is not pinned'
             assert entry['source_commit'] in entry['source_url'], 'Curated URL does not point to the reviewed commit'
             assert entry['source_commit'] in entry['license_url'], 'License does not point to the reviewed commit'
+        if entry.get('verification_stage') == 'source-reviewed':
             assert entry.get('workflow') and entry.get('requirements'), 'Curated guide is incomplete'
             assert not entry.get('example_url') and not entry.get('image'), 'Source review cannot claim a new example'
             assert entry.get('source_note') and entry.get('license_note'), 'Curated provenance or conditions missing'
@@ -69,6 +70,7 @@ def main():
         proof = json.loads(proof_path.read_text('utf-8'))
         assert proof['model']['requested'] == 'claude-opus-5-5', 'Unexpected production model'
         assert proof['model']['reported'] == ['claude-opus-5-5'], 'Production model lacks execution proof'
+        assert proof['upstream']['commit'] == entry['source_commit'], 'Runtime proof refers to another upstream version'
         assert proof['runtime']['status'] == 'passed', 'Resource runtime proof is incomplete'
         assert proof['runtime']['sample_count'] > 0, 'Executed resource has no real sample'
         assert proof.get('artifacts_sha256'), 'Resource artifact hashes missing'
