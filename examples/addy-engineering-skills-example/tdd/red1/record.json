@@ -1,0 +1,25 @@
+{
+  "phase": "red1",
+  "executed_at": "2026-10-15T07:10:09.890608+00:00",
+  "node": "v24.18.0",
+  "command": "node --test --test-reporter=tap tasks.test.mjs",
+  "exit_code": 1,
+  "tests": 4,
+  "pass": 3,
+  "fail": 1,
+  "syntax_checked": [
+    "tasks.mjs",
+    "app.mjs"
+  ],
+  "sources_sha256": {
+    "app.mjs": "1b8f15a86480b04ed3f5907b7ba21d33c13f19303cfedc216cb37e2ececd32d8",
+    "index.html": "437e4410156f2d46eeac244485ec6a376f1dcc712550035138b001ddb4cf478b",
+    "package.json": "0dc60c3b9374544047ae4777284c4bd2d914389c40f76b7cfab6208396e98d5f",
+    "seed.json": "a33fbe59dce8b1f03725b5354202ce45be34c388ecf10cd49bacb380fc21a5d0",
+    "SPEC.md": "fd269de149998d33b0e9de8d5f0403ff9d1b5e6c8e2e27e07a986d301d26bb62",
+    "style.css": "336b1205ff7f6592f930c1dc3b6a16f81540fad47ff872ee32ffd98972709078",
+    "tasks.mjs": "dece309284407c8277f84ee63dac61a2e1568a65303de7d35344ce4c5968d39c",
+    "tasks.test.mjs": "dd65f124815d17051ccf351a68a58077f48955d33a986bcf032dde382eff267a"
+  },
+  "tap": "TAP version 13\n# Subtest: 未完了を選ぶと既存の並び順で4件が返る\nok 1 - 未完了を選ぶと既存の並び順で4件が返る\n  ---\n  duration_ms: 0.7922\n  type: 'test'\n  ...\n# Subtest: 追加したTODOは空白を除いた名前になり完了を切り替えられる\nok 2 - 追加したTODOは空白を除いた名前になり完了を切り替えられる\n  ---\n  duration_ms: 0.1693\n  type: 'test'\n  ...\n# Subtest: 空の名前は既存どおり拒む\nok 3 - 空の名前は既存どおり拒む\n  ---\n  duration_ms: 0.7207\n  type: 'test'\n  ...\n# Subtest: 未完了で期限2026-10-15までを選ぶと当日を含み翌日以降と期限なしを除いた2件が返る\nnot ok 4 - 未完了で期限2026-10-15までを選ぶと当日を含み翌日以降と期限なしを除いた2件が返る\n  ---\n  duration_ms: 0.7348\n  type: 'test'\n  location: 'fixture\\\\tasks.test.mjs:19:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly deep-equal:\n    + actual - expected\n    \n      [\n        'proposal',\n        'sample',\n    +   'publish',\n    +   'idea'\n      ]\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected:\n    0: 'proposal'\n    1: 'sample'\n  actual:\n    0: 'proposal'\n    1: 'sample'\n    2: 'publish'\n    3: 'idea'\n  operator: 'deepStrictEqual'\n  stack: |-\n    TestContext.<anonymous> (file:///fixture/tasks.test.mjs:20:10)\n    Test.runInAsyncScope (node:async_hooks:227:14)\n    Test.run (node:internal/test_runner/test:1325:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:911:18)\n    Test.postRun (node:internal/test_runner/test:1465:19)\n    Test.run (node:internal/test_runner/test:1390:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)\n  ...\n1..4\n# tests 4\n# suites 0\n# pass 3\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 60.4152\n"
+}

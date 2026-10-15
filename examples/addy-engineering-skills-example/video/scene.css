@@ -1,0 +1,80 @@
+/* Studio Yebisu original reel styles. MIT. No CSS animation or transition: seek() sets every frame. */
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#f6f2e8;color:#191919}
+.viewport{position:fixed;inset:0;overflow:hidden;background:#f6f2e8}
+.preview .viewport{bottom:9rem}
+.holder{position:absolute;left:0;top:0;width:1280px;height:720px;transform-origin:0 0}
+.stage{position:absolute;inset:0;overflow:hidden;background:#f6f2e8;font:400 28px/1.5 'Yu Gothic UI','Yu Gothic',Meiryo,sans-serif;color:#191919}
+.m{font-family:'Yu Mincho','YuMincho','Hiragino Mincho ProN',serif;font-weight:600}
+.code{font-family:Consolas,'BIZ UDGothic',monospace}
+.abs{position:absolute}
+.scene{position:absolute;inset:0}
+.brand{left:72px;top:36px;font-size:24px;font-weight:700;color:#8c2c0b}
+.kicker{left:96px;top:104px;font-size:26px;font-weight:700;color:#8c2c0b}
+.title{left:96px;top:144px;width:1088px;font-size:44px;line-height:1.3}
+.caption{left:96px;top:586px;width:1088px;font-size:24px;color:#57564f;border-left:4px solid #8c2c0b;padding-left:16px}
+.progress{left:96px;top:652px;width:1088px;height:44px;display:flex;gap:16px}
+.progress div{flex:1;border-top:2px solid #c7c1b6;padding-top:6px;font-size:24px;color:#57564f;white-space:nowrap}
+.progress div.on{border-top:6px solid #191919;padding-top:2px;color:#191919;font-weight:700}
+/* 1 request */
+.quote{left:96px;top:144px;width:1088px;font-size:48px;line-height:1.35}
+.quote-rest{left:96px;top:290px;width:1088px;font-size:28px;color:#57564f}
+.rule-head{left:96px;top:380px;font-size:28px;font-weight:700}
+.chip{top:428px;width:340px;height:112px;border:2px solid #191919;background:#fffdf7;padding:16px 20px;font-size:30px;font-weight:700;display:flex;align-items:center;gap:16px}
+.chip span{font-size:26px;color:#8c2c0b}
+/* 2 filter */
+.inputs{left:96px;top:144px;font-size:40px}
+.rows{left:96px;top:236px;width:760px}
+.row{position:relative;height:76px;border-top:1px solid #c7c1b6;background:#fffdf7;display:grid;grid-template-columns:1fr 200px 120px;align-items:center;padding:0 20px;font-size:32px}
+.row .d{font-size:26px;color:#57564f}
+.row .v{font-size:24px;font-weight:700;text-align:right}
+.row .strike{position:absolute;left:16px;top:37px;width:600px;height:3px;background:#8c2c0b;transform-origin:0 50%}
+.count-box{left:912px;top:236px;width:272px;height:304px;border:2px solid #191919;background:#fffdf7;padding:20px 24px}
+.count-box .l{font-size:24px;color:#57564f}
+.count-n{left:24px;top:76px;font-size:120px;line-height:1}
+.count-sub{left:24px;top:224px;font-size:24px;color:#57564f}
+/* 3 line */
+.axis{left:120px;top:470px;width:820px;height:3px;background:#191919;transform-origin:0 50%}
+.tick{top:486px;width:240px;margin-left:-120px;text-align:center;font-size:26px}
+.cut{top:250px;width:4px;height:236px;margin-left:-2px;background:#8c2c0b;transform-origin:50% 100%}
+.cut-label{top:210px;width:420px;margin-left:-210px;text-align:center;font-size:26px;font-weight:700;color:#8c2c0b}
+.card{top:272px;width:232px;margin-left:-116px;min-height:180px;border:2px solid #191919;background:#fffdf7;padding:14px 16px}
+.card.out{border-style:dashed;border-color:#57564f;background:#f6f2e8}
+.card .t{font-size:28px;line-height:1.3}
+.card .r{margin-top:10px;font-size:24px;font-weight:700}
+.card.out .r{color:#57564f}
+.nodate{left:984px;top:456px;width:232px;border-top:3px dashed #57564f;padding-top:12px;text-align:center;font-size:26px;color:#57564f}
+/* 4 tests */
+.runs{left:96px;top:236px;width:1088px;display:flex;gap:22px}
+.run{width:200px;height:196px;border:2px solid #191919;background:#fffdf7;padding:14px 16px}
+.run.red{border-style:dashed;border-color:#8c2c0b}
+.run .p{font-size:30px}
+.run .sq{display:flex;gap:6px;margin:14px 0}
+.run .sq span{width:28px;height:28px;background:#191919;color:#fffdf7;font-size:22px;line-height:28px;text-align:center}
+.run .sq span.f{background:#fffdf7;color:#8c2c0b;border:2px solid #8c2c0b;line-height:24px}
+.run .s{font-size:24px;font-weight:700}
+.mut{left:96px;top:464px;width:1088px;height:96px;border-top:2px solid #191919;display:flex;align-items:center;gap:24px;font-size:30px}
+.mut .k{font-size:24px;color:#57564f;width:220px}
+.mut .c{font-size:34px;padding:2px 12px;border:2px solid #191919;background:#fffdf7}
+.mut .bad{font-weight:700;color:#8c2c0b}
+.mut .ok{font-weight:700}
+/* 5 take away */
+.files{left:96px;top:240px;width:1088px;display:flex;gap:24px}
+.file{flex:1;height:200px;border:2px solid #191919;background:#fffdf7;padding:20px 24px;box-shadow:inset 0 -6px 0 #8c2c0b}
+.file .n{font-size:34px}
+.file .x{margin-top:12px;font-size:26px;color:#57564f}
+.facts{left:96px;top:480px;display:flex;gap:16px}
+.facts span{font-size:28px;font-weight:700;border:2px solid #191919;padding:6px 16px}
+.failure{position:absolute;left:96px;top:300px;width:1088px;font-size:32px;color:#8c2c0b}
+/* preview controls, never shown while rendering */
+.controls{position:fixed;left:0;right:0;bottom:0;min-height:9rem;display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;padding:12px 16px;background:#191919;color:#f6f2e8;font:16px/1.5 'Yu Gothic UI',Meiryo,sans-serif}
+.controls[hidden]{display:none}
+.controls button{font:inherit;min-height:44px;padding:0 12px;border:1px solid #f6f2e8;border-radius:0;background:#191919;color:#f6f2e8;cursor:pointer}
+.controls button:focus-visible,.controls input:focus-visible,.controls a:focus-visible{outline:3px solid #e9a07f;outline-offset:2px}
+.controls input{flex:1;min-width:160px}
+.controls .chapters{display:flex;flex-wrap:wrap;gap:8px}
+.controls .hint{flex-basis:100%;margin:0;font-size:14px}
+.controls a{color:#f6f2e8}
+
+/* Review: avoid isolated Japanese characters without changing the recorded input. */
+.quote,.file .x{white-space:pre-line}.card .t{text-wrap:balance}

@@ -1,0 +1,76 @@
+{
+  "format": "input-output",
+  "synthetic": true,
+  "samples": [
+    {
+      "id": "due-open",
+      "label": "未完了を指定日まで",
+      "input": "状態:open / 期限:2026-10-15",
+      "output": "変更前4件 → 変更後2件。企画を見直す、作例を確認する",
+      "options": {
+        "status": "open",
+        "cutoff": "2026-10-15"
+      },
+      "before_ids": [
+        "proposal",
+        "sample",
+        "publish",
+        "idea"
+      ],
+      "after_ids": [
+        "proposal",
+        "sample"
+      ]
+    },
+    {
+      "id": "due-all",
+      "label": "完了も含めて指定日まで",
+      "input": "状態:all / 期限:2026-10-15",
+      "output": "変更前6件 → 変更後4件。企画を見直す、作例を確認する、依頼文を整理する、先週のメモを片づける",
+      "options": {
+        "status": "all",
+        "cutoff": "2026-10-15"
+      },
+      "before_ids": [
+        "proposal",
+        "sample",
+        "publish",
+        "idea",
+        "brief",
+        "memo"
+      ],
+      "after_ids": [
+        "proposal",
+        "sample",
+        "brief",
+        "memo"
+      ]
+    },
+    {
+      "id": "no-cutoff",
+      "label": "期限の条件を外す",
+      "input": "状態:all / 期限:指定なし",
+      "output": "変更前6件 → 変更後6件。企画を見直す、作例を確認する、公開の準備をする、次のアイデアを考える、依頼文を整理する、先週のメモを片づける",
+      "options": {
+        "status": "all",
+        "cutoff": null
+      },
+      "before_ids": [
+        "proposal",
+        "sample",
+        "publish",
+        "idea",
+        "brief",
+        "memo"
+      ],
+      "after_ids": [
+        "proposal",
+        "sample",
+        "publish",
+        "idea",
+        "brief",
+        "memo"
+      ]
+    }
+  ]
+}

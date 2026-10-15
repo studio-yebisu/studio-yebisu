@@ -1,0 +1,533 @@
+{
+  "synthetic": true,
+  "status": "passed",
+  "node": "v24.18.0",
+  "timezone": "Asia/Tokyo",
+  "timezoneOffset": -540,
+  "command": "node audit.mjs",
+  "executed_at": "2026-10-15T07:16:28.464Z",
+  "checks": 36,
+  "details": [
+    {
+      "id": "F1-open",
+      "input": {
+        "status": "open",
+        "cutoff": "2026-10-15"
+      },
+      "expected": [
+        "proposal",
+        "sample"
+      ],
+      "actual": [
+        "proposal",
+        "sample"
+      ],
+      "passed": true
+    },
+    {
+      "id": "F2-all",
+      "input": {
+        "status": "all",
+        "cutoff": "2026-10-15"
+      },
+      "expected": [
+        "proposal",
+        "sample",
+        "brief",
+        "memo"
+      ],
+      "actual": [
+        "proposal",
+        "sample",
+        "brief",
+        "memo"
+      ],
+      "passed": true
+    },
+    {
+      "id": "F3-done",
+      "input": {
+        "status": "done",
+        "cutoff": "2026-10-15"
+      },
+      "expected": [
+        "brief",
+        "memo"
+      ],
+      "actual": [
+        "brief",
+        "memo"
+      ],
+      "passed": true
+    },
+    {
+      "id": "F4-null",
+      "input": {
+        "status": "all",
+        "cutoff": null
+      },
+      "expected": [
+        "proposal",
+        "sample",
+        "publish",
+        "idea",
+        "brief",
+        "memo"
+      ],
+      "actual": [
+        "proposal",
+        "sample",
+        "publish",
+        "idea",
+        "brief",
+        "memo"
+      ],
+      "passed": true
+    },
+    {
+      "id": "F5-empty",
+      "input": {
+        "status": "all",
+        "cutoff": ""
+      },
+      "expected": [
+        "proposal",
+        "sample",
+        "publish",
+        "idea",
+        "brief",
+        "memo"
+      ],
+      "actual": [
+        "proposal",
+        "sample",
+        "publish",
+        "idea",
+        "brief",
+        "memo"
+      ],
+      "passed": true
+    },
+    {
+      "id": "F6-omitted",
+      "input": {
+        "status": "all"
+      },
+      "expected": [
+        "proposal",
+        "sample",
+        "publish",
+        "idea",
+        "brief",
+        "memo"
+      ],
+      "actual": [
+        "proposal",
+        "sample",
+        "publish",
+        "idea",
+        "brief",
+        "memo"
+      ],
+      "passed": true
+    },
+    {
+      "id": "F7-inclusive",
+      "input": {
+        "status": "all",
+        "cutoff": "2026-10-14"
+      },
+      "expected": [
+        "proposal",
+        "memo"
+      ],
+      "actual": [
+        "proposal",
+        "memo"
+      ],
+      "passed": true
+    },
+    {
+      "id": "F8-empty-result",
+      "input": {
+        "status": "all",
+        "cutoff": "2026-10-07"
+      },
+      "expected": [],
+      "actual": [],
+      "passed": true
+    },
+    {
+      "id": "F9-upper",
+      "input": {
+        "status": "all",
+        "cutoff": "9999-12-31"
+      },
+      "expected": [
+        "proposal",
+        "sample",
+        "publish",
+        "brief",
+        "memo"
+      ],
+      "actual": [
+        "proposal",
+        "sample",
+        "publish",
+        "brief",
+        "memo"
+      ],
+      "passed": true
+    },
+    {
+      "id": "status-regression",
+      "input": {
+        "status": "done"
+      },
+      "expected": [
+        "brief",
+        "memo"
+      ],
+      "actual": [
+        "brief",
+        "memo"
+      ],
+      "passed": true
+    },
+    {
+      "id": "invalid-0",
+      "input": {
+        "cutoff": "2026-02-30"
+      },
+      "expected": "RangeError INVALID_CUTOFF",
+      "actual": "RangeError INVALID_CUTOFF",
+      "empty_input_also_rejects": true,
+      "passed": true
+    },
+    {
+      "id": "invalid-1",
+      "input": {
+        "cutoff": "2026-02-29"
+      },
+      "expected": "RangeError INVALID_CUTOFF",
+      "actual": "RangeError INVALID_CUTOFF",
+      "empty_input_also_rejects": true,
+      "passed": true
+    },
+    {
+      "id": "invalid-2",
+      "input": {
+        "cutoff": "1900-02-29"
+      },
+      "expected": "RangeError INVALID_CUTOFF",
+      "actual": "RangeError INVALID_CUTOFF",
+      "empty_input_also_rejects": true,
+      "passed": true
+    },
+    {
+      "id": "invalid-3",
+      "input": {
+        "cutoff": "2026-13-01"
+      },
+      "expected": "RangeError INVALID_CUTOFF",
+      "actual": "RangeError INVALID_CUTOFF",
+      "empty_input_also_rejects": true,
+      "passed": true
+    },
+    {
+      "id": "invalid-4",
+      "input": {
+        "cutoff": "2026-00-10"
+      },
+      "expected": "RangeError INVALID_CUTOFF",
+      "actual": "RangeError INVALID_CUTOFF",
+      "empty_input_also_rejects": true,
+      "passed": true
+    },
+    {
+      "id": "invalid-5",
+      "input": {
+        "cutoff": "2026-04-31"
+      },
+      "expected": "RangeError INVALID_CUTOFF",
+      "actual": "RangeError INVALID_CUTOFF",
+      "empty_input_also_rejects": true,
+      "passed": true
+    },
+    {
+      "id": "invalid-6",
+      "input": {
+        "cutoff": "0999-12-31"
+      },
+      "expected": "RangeError INVALID_CUTOFF",
+      "actual": "RangeError INVALID_CUTOFF",
+      "empty_input_also_rejects": true,
+      "passed": true
+    },
+    {
+      "id": "invalid-7",
+      "input": {
+        "cutoff": "10000-01-01"
+      },
+      "expected": "RangeError INVALID_CUTOFF",
+      "actual": "RangeError INVALID_CUTOFF",
+      "empty_input_also_rejects": true,
+      "passed": true
+    },
+    {
+      "id": "invalid-8",
+      "input": {
+        "cutoff": "2026-1-5"
+      },
+      "expected": "RangeError INVALID_CUTOFF",
+      "actual": "RangeError INVALID_CUTOFF",
+      "empty_input_also_rejects": true,
+      "passed": true
+    },
+    {
+      "id": "invalid-9",
+      "input": {
+        "cutoff": "2026/10/15"
+      },
+      "expected": "RangeError INVALID_CUTOFF",
+      "actual": "RangeError INVALID_CUTOFF",
+      "empty_input_also_rejects": true,
+      "passed": true
+    },
+    {
+      "id": "invalid-10",
+      "input": {
+        "cutoff": " 2026-10-15"
+      },
+      "expected": "RangeError INVALID_CUTOFF",
+      "actual": "RangeError INVALID_CUTOFF",
+      "empty_input_also_rejects": true,
+      "passed": true
+    },
+    {
+      "id": "invalid-11",
+      "input": {
+        "cutoff": "2026-10-15 "
+      },
+      "expected": "RangeError INVALID_CUTOFF",
+      "actual": "RangeError INVALID_CUTOFF",
+      "empty_input_also_rejects": true,
+      "passed": true
+    },
+    {
+      "id": "invalid-12",
+      "input": {
+        "cutoff": "2026-10-15T00:00"
+      },
+      "expected": "RangeError INVALID_CUTOFF",
+      "actual": "RangeError INVALID_CUTOFF",
+      "empty_input_also_rejects": true,
+      "passed": true
+    },
+    {
+      "id": "invalid-13",
+      "input": {
+        "cutoff": 20261015
+      },
+      "expected": "RangeError INVALID_CUTOFF",
+      "actual": "RangeError INVALID_CUTOFF",
+      "empty_input_also_rejects": true,
+      "passed": true
+    },
+    {
+      "id": "invalid-14",
+      "input": {
+        "cutoff": 0
+      },
+      "expected": "RangeError INVALID_CUTOFF",
+      "actual": "RangeError INVALID_CUTOFF",
+      "empty_input_also_rejects": true,
+      "passed": true
+    },
+    {
+      "id": "invalid-15",
+      "input": {
+        "cutoff": false
+      },
+      "expected": "RangeError INVALID_CUTOFF",
+      "actual": "RangeError INVALID_CUTOFF",
+      "empty_input_also_rejects": true,
+      "passed": true
+    },
+    {
+      "id": "invalid-16",
+      "input": {
+        "cutoff": []
+      },
+      "expected": "RangeError INVALID_CUTOFF",
+      "actual": "RangeError INVALID_CUTOFF",
+      "empty_input_also_rejects": true,
+      "passed": true
+    },
+    {
+      "id": "invalid-17",
+      "input": {
+        "cutoff": {}
+      },
+      "expected": "RangeError INVALID_CUTOFF",
+      "actual": "RangeError INVALID_CUTOFF",
+      "empty_input_also_rejects": true,
+      "passed": true
+    },
+    {
+      "id": "valid-2024-02-29",
+      "input": {
+        "cutoff": "2024-02-29",
+        "tasks": [
+          {
+            "id": "feb28",
+            "title": "閏日前",
+            "dueDate": "2024-02-28",
+            "done": false
+          },
+          {
+            "id": "leap",
+            "title": "閏日",
+            "dueDate": "2024-02-29",
+            "done": false
+          },
+          {
+            "id": "march",
+            "title": "翌月",
+            "dueDate": "2024-03-01",
+            "done": false
+          }
+        ]
+      },
+      "expected": [
+        "feb28",
+        "leap"
+      ],
+      "actual": [
+        "feb28",
+        "leap"
+      ],
+      "passed": true
+    },
+    {
+      "id": "valid-2000-02-29",
+      "input": {
+        "cutoff": "2000-02-29",
+        "tasks": [
+          {
+            "id": "feb28",
+            "title": "閏日前",
+            "dueDate": "2024-02-28",
+            "done": false
+          },
+          {
+            "id": "leap",
+            "title": "閏日",
+            "dueDate": "2024-02-29",
+            "done": false
+          },
+          {
+            "id": "march",
+            "title": "翌月",
+            "dueDate": "2024-03-01",
+            "done": false
+          }
+        ]
+      },
+      "expected": [],
+      "actual": [],
+      "passed": true
+    },
+    {
+      "id": "valid-1000-01-01",
+      "input": {
+        "cutoff": "1000-01-01",
+        "tasks": [
+          {
+            "id": "feb28",
+            "title": "閏日前",
+            "dueDate": "2024-02-28",
+            "done": false
+          },
+          {
+            "id": "leap",
+            "title": "閏日",
+            "dueDate": "2024-02-29",
+            "done": false
+          },
+          {
+            "id": "march",
+            "title": "翌月",
+            "dueDate": "2024-03-01",
+            "done": false
+          }
+        ]
+      },
+      "expected": [],
+      "actual": [],
+      "passed": true
+    },
+    {
+      "id": "valid-9999-12-31",
+      "input": {
+        "cutoff": "9999-12-31",
+        "tasks": [
+          {
+            "id": "feb28",
+            "title": "閏日前",
+            "dueDate": "2024-02-28",
+            "done": false
+          },
+          {
+            "id": "leap",
+            "title": "閏日",
+            "dueDate": "2024-02-29",
+            "done": false
+          },
+          {
+            "id": "march",
+            "title": "翌月",
+            "dueDate": "2024-03-01",
+            "done": false
+          }
+        ]
+      },
+      "expected": [
+        "feb28",
+        "leap",
+        "march"
+      ],
+      "actual": [
+        "feb28",
+        "leap",
+        "march"
+      ],
+      "passed": true
+    },
+    {
+      "id": "empty-title",
+      "expected": "INVALID_TITLE",
+      "actual": "INVALID_TITLE",
+      "passed": true
+    },
+    {
+      "id": "long-title",
+      "expected": "INVALID_TITLE",
+      "actual": "INVALID_TITLE",
+      "passed": true
+    },
+    {
+      "id": "duplicate",
+      "expected": "DUPLICATE_ID",
+      "actual": "DUPLICATE_ID",
+      "passed": true
+    },
+    {
+      "id": "unknown",
+      "expected": "UNKNOWN_TASK",
+      "actual": "UNKNOWN_TASK",
+      "passed": true
+    }
+  ],
+  "existing_add_toggle_verified": true
+}

@@ -1,0 +1,507 @@
+{
+  "id": "addy-engineering-skills-example",
+  "verified_at": "2026-10-15T08:16:46.809640+00:00",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "receipts": [
+      {
+        "phase": "spec",
+        "receipt_sha256": "61fb123ff62a4b3b4522665525df34648fead79d63c71933c9e15ff6b0643f86",
+        "execution_sha256": "f8973c1782236103dfd35cd015c519069a0548dcb3477a793fab61b56d7a2214"
+      },
+      {
+        "phase": "red1",
+        "receipt_sha256": "c277fb8210860edeab7b399cea82161ba07f54cde0c2a0d87c75385295cef8cf",
+        "execution_sha256": "a35724defd7cad489b0559e54def510a6f39441f1061734922bbdb429daa1847"
+      },
+      {
+        "phase": "green1",
+        "receipt_sha256": "f618aa51e7c6f4e76d2ee2d8cb05573263b9853265d8c759eee2638ae414d99a",
+        "execution_sha256": "7e2e12e2809ec283d78e367d656242e3c6a136aef0f2c734bae441e497bcbef0"
+      },
+      {
+        "phase": "red2",
+        "receipt_sha256": "e1a7fe69264229ba0281c31e4433bfc0e6f12dbf73f4e522dba59dd2fbb38d03",
+        "execution_sha256": "f260fffac8dbea96dcee7c67af53c41e6a11ffaa916fbfdd046c75f59fdf6d74"
+      },
+      {
+        "phase": "green2",
+        "receipt_sha256": "81d7cc9d6f7e78ecdf650fe710d589487653c83fa310ce34ff5e1072d648bd08",
+        "execution_sha256": "b34d434ad4f0b707bd889ebbad088b8ac014663bd77e8150a442da62f9ce446f"
+      },
+      {
+        "phase": "site",
+        "receipt_sha256": "56590569544e8f9633dc53937374c7d500dd8823257c003483cfe26fbd870de6",
+        "execution_sha256": "fd96e5b5ae740bc5eb24cd10ce9985ac866cce47c78683c6fce5297dc1ec2524"
+      }
+    ],
+    "receipt_published": false
+  },
+  "upstream": {
+    "repository": "addyosmani/agent-skills",
+    "commit": "aeac41d4d005999432bb7312f7ff06383a91d59d",
+    "license": "MIT",
+    "copyright": "2025 Addy Osmani",
+    "vendor_files_match_fixed_checkout": 12
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 3,
+    "synthetic": true,
+    "entries": 6,
+    "node": "v24.18.0",
+    "baseline_pass": 3,
+    "red_green_cycles": 2,
+    "red_each_failures": 1,
+    "final_tests": 5,
+    "final_pass": 5,
+    "acceptance_checks": 36,
+    "timezones": {
+      "status": "passed",
+      "offsets_differ": true,
+      "same_outcomes": true,
+      "zones": [
+        {
+          "name": "Pacific/Kiritimati",
+          "offset_minutes": -840,
+          "checks": 36
+        },
+        {
+          "name": "America/Los_Angeles",
+          "offset_minutes": 420,
+          "checks": 36
+        }
+      ]
+    },
+    "mutation": {
+      "status": "caught",
+      "executed_at": "2026-10-15T07:16:29.255269+00:00",
+      "change": "task.dueDate <= cutoff -> task.dueDate < cutoff",
+      "command": "node --test --test-reporter=tap tasks.test.mjs",
+      "mutant_exit_code": 1,
+      "mutant_failures": 1,
+      "restored_exit_code": 0,
+      "restored_tests_pass": 5,
+      "original_sha256": "70a83eab0b989dfd3eed97c353f7486091dc640beed6159345d57c7a337e5f50",
+      "mutant_sha256": "8fd9988b94c98c6bfbf1a209367e6204a7fd73c9751694c81311b2373e645ad2",
+      "restored_sha256": "70a83eab0b989dfd3eed97c353f7486091dc640beed6159345d57c7a337e5f50",
+      "caught_by": "期限の指定日までの未完了TODOを当日を含めて表示する",
+      "human_approval": false
+    },
+    "all_retained_stage_sources_match_hashes": true,
+    "scope": "Selected upstream skills with agent-defined synthetic assumptions, CLI increments and later browser checks; not the full human stage-approval workflow",
+    "human_approval": false,
+    "source_history": "examples/addy-engineering-skills-example/tdd-history.json",
+    "results": "examples/addy-engineering-skills-example/results.json"
+  },
+  "independent_review": {
+    "author": "Claude Opus 5.5",
+    "reviewer": "Codex parent, different AI author/reviewer roles; no child review agent",
+    "axes": [
+      "correctness",
+      "readability",
+      "architecture",
+      "security",
+      "performance"
+    ],
+    "required": 0,
+    "critical": 0,
+    "scope": "Original TODO code/tests/spec and DOM wiring; guide and video excluded",
+    "human_approval": false,
+    "source": "examples/addy-engineering-skills-example/core-review.json"
+  },
+  "browser": {
+    "initial": {
+      "count": "6件 / 全6件",
+      "ids": [
+        "proposal",
+        "sample",
+        "publish",
+        "idea",
+        "brief",
+        "memo"
+      ]
+    },
+    "presets": [
+      {
+        "count": "2件 / 全6件",
+        "cutoff": "2026-10-15",
+        "hash": "#due-open",
+        "ids": [
+          "proposal",
+          "sample"
+        ],
+        "origin": "例「未完了を指定日まで」と同じ入力です。この場で計算した2件は、制作時に Node v24.18.0 で保存した結果（results.json）と同じ並びです。",
+        "status": "open"
+      },
+      {
+        "count": "4件 / 全6件",
+        "cutoff": "2026-10-15",
+        "hash": "#due-all",
+        "ids": [
+          "proposal",
+          "sample",
+          "brief",
+          "memo"
+        ],
+        "origin": "例「完了も含めて指定日まで」と同じ入力です。この場で計算した4件は、制作時に Node v24.18.0 で保存した結果（results.json）と同じ並びです。",
+        "status": "all"
+      },
+      {
+        "count": "6件 / 全6件",
+        "cutoff": "",
+        "hash": "#no-cutoff",
+        "ids": [
+          "proposal",
+          "sample",
+          "publish",
+          "idea",
+          "brief",
+          "memo"
+        ],
+        "origin": "例「期限の条件を外す」と同じ入力です。この場で計算した6件は、制作時に Node v24.18.0 で保存した結果（results.json）と同じ並びです。",
+        "status": "all"
+      }
+    ],
+    "undatedAdd": {
+      "count": "2件 / 全7件",
+      "ids": [
+        "proposal",
+        "sample"
+      ],
+      "origin": "追加や完了の切り替えをした後の一覧です。このページのメモリー上の結果で、保存した記録とは比べていません。再読込すると合成データ6件に戻ります。"
+    },
+    "toggle": {
+      "count": "1件 / 全7件",
+      "cutoff": "2026-10-15",
+      "ids": [
+        "proposal"
+      ]
+    },
+    "datedAdd": {
+      "count": "2件 / 全8件",
+      "ids": [
+        "proposal",
+        "new-2"
+      ]
+    },
+    "clear": {
+      "count": "5件 / 全8件",
+      "hasInjectedB": false,
+      "ids": [
+        "proposal",
+        "publish",
+        "idea",
+        "new-1",
+        "new-2"
+      ],
+      "markupLiteral": "追加の確認 <b>文字</b>期限なし"
+    },
+    "keepEdits": "8件 / 全8件",
+    "blankTitle": "名前を1〜80文字で入力してください。",
+    "empty": {
+      "count": "0件 / 全8件",
+      "empty": "該当するTODOはありません。",
+      "visible": true
+    },
+    "invalid": {
+      "count": "8件 / 全8件",
+      "hidden": false,
+      "invalid": "true",
+      "message": "期限の日付は1000〜9999年の実在する日を入れてください。いまは期限の条件を使わず、状態の絞り込みだけで表示しています。",
+      "rangeUnderflow": true,
+      "value": "0999-12-31"
+    },
+    "validAgain": {
+      "count": "8件 / 全8件",
+      "errorHidden": true,
+      "focus": "cutoff",
+      "focusVisible": true
+    },
+    "keyboard": {
+      "active": "cutoff",
+      "outline": "solid",
+      "outlineWidth": "3px",
+      "visible": true
+    },
+    "keyboardDateChange": {
+      "count": "6件 / 全8件",
+      "value": "2027-10-15"
+    },
+    "keyboardDelete": {
+      "count": "8件 / 全8件",
+      "value": ""
+    },
+    "keyboardPreset": "2件 / 全6件",
+    "keyboardToggle": "1件 / 全6件",
+    "typedYear": {
+      "count": "4件 / 全6件",
+      "error": "期限の日付は1000〜9999年の実在する日を入れてください。いまは期限の条件を使わず、状態の絞り込みだけで表示しています。",
+      "underflow": true,
+      "value": "0999-01-01",
+      "visible": true
+    },
+    "widths": [
+      {
+        "client": 305,
+        "count": "6件 / 全6件",
+        "filters": [
+          {
+            "id": "status",
+            "left": 16,
+            "right": 289
+          },
+          {
+            "id": "cutoff",
+            "left": 16,
+            "right": 289
+          },
+          {
+            "id": "cutoff-clear",
+            "left": 16,
+            "right": 174.921875
+          }
+        ],
+        "overflow": false,
+        "scroll": 305,
+        "width": 320
+      },
+      {
+        "client": 753,
+        "count": "6件 / 全6件",
+        "filters": [
+          {
+            "id": "status",
+            "left": 16,
+            "right": 116
+          },
+          {
+            "id": "cutoff",
+            "left": 132,
+            "right": 283
+          },
+          {
+            "id": "cutoff-clear",
+            "left": 299,
+            "right": 457.921875
+          }
+        ],
+        "overflow": false,
+        "scroll": 753,
+        "width": 768
+      },
+      {
+        "client": 1009,
+        "count": "6件 / 全6件",
+        "filters": [
+          {
+            "id": "status",
+            "left": 40.5,
+            "right": 140.5
+          },
+          {
+            "id": "cutoff",
+            "left": 156.5,
+            "right": 307.5
+          },
+          {
+            "id": "cutoff-clear",
+            "left": 323.5,
+            "right": 482.421875
+          }
+        ],
+        "overflow": false,
+        "scroll": 1009,
+        "width": 1024
+      },
+      {
+        "client": 1425,
+        "count": "6件 / 全6件",
+        "filters": [
+          {
+            "id": "status",
+            "left": 248.5,
+            "right": 348.5
+          },
+          {
+            "id": "cutoff",
+            "left": 364.5,
+            "right": 515.5
+          },
+          {
+            "id": "cutoff-clear",
+            "left": 531.5,
+            "right": 690.421875
+          }
+        ],
+        "overflow": false,
+        "scroll": 1425,
+        "width": 1440
+      }
+    ],
+    "mobileTaskLayout": {
+      "addRight": 289,
+      "client": 305,
+      "labels": [
+        {
+          "right": 273,
+          "text": "企画を見直す"
+        },
+        {
+          "right": 273,
+          "text": "作例を確認する"
+        },
+        {
+          "right": 273,
+          "text": "公開の準備をする"
+        },
+        {
+          "right": 273,
+          "text": "次のアイデアを考える"
+        }
+      ],
+      "scroll": 305,
+      "width": 320
+    },
+    "reloadCount": "6件 / 全6件",
+    "console": [],
+    "copy": {
+      "osClipboardMatches": true,
+      "characters": 1590
+    },
+    "request_page_utf8_matches": true,
+    "accessibility": {
+      "ax_control_names_observed": 23,
+      "keyboard_tab_steps": 30,
+      "native_calendar_inner_focus_uses_browser_indicator": true,
+      "screen_reader_axe_full_audit": false
+    },
+    "source_preview": {
+      "time": "22.53秒",
+      "console": []
+    }
+  },
+  "video": {
+    "duration": 28,
+    "fps": 30,
+    "width": 1280,
+    "height": 720,
+    "frames": 840,
+    "audio": false,
+    "sha256": "b86b4256a883834104122ab2a560e8910dabc6e244bf83056d30064a304d2dc0",
+    "render_errors": [],
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "a408f78b8c21daf89925777a0e0ecf495d4d7d6ca776039a60df83c2d01f1c99",
+      "afterOtherTimes": "a408f78b8c21daf89925777a0e0ecf495d4d7d6ca776039a60df83c2d01f1c99",
+      "freshPage": "a408f78b8c21daf89925777a0e0ecf495d4d7d6ca776039a60df83c2d01f1c99",
+      "match": true
+    },
+    "contact_stills": 14,
+    "strip_frames": 12,
+    "representative_frames_reviewed": [
+      2,
+      8,
+      22,
+      26
+    ],
+    "actual_mp4_decoded_frame_seconds": 14,
+    "final_hold_seconds": 3.6,
+    "playback": {
+      "final": {
+        "currentTime": 28,
+        "duration": 28,
+        "ended": true,
+        "error": null,
+        "paused": true,
+        "videoHeight": 720,
+        "videoWidth": 1280
+      },
+      "logs": []
+    },
+    "human_approval": false,
+    "renderer_fixed_commit": "56198544e69201b1c202e0c00fb90b568a729824"
+  },
+  "production_adjustments": [
+    "Parent fixed orphaned Japanese line breaks and corrected the description of private assertCutoff helper; core code/tests remained Opus authored.",
+    "Browser checks ran after both CLI increments due temporary connection unavailability.",
+    "Historical unchecked plans and core review retain their original timestamps/scope.",
+    "Private model logs, orchestration skill, bookmarks, and fixture Git remain excluded.",
+    "Adjusted only the copied baseline HTML article-backlink from two to three parent segments for its nested public folder. Executed baseline code/test/data and private original HTML were preserved."
+  ],
+  "artifacts_sha256": {
+    "examples/addy-engineering-skills-example/acceptance-main.json": "97cd8c57fe9f50cc06f4fff699bbe6851425fa4a98d347d60d1d659db38122b3",
+    "examples/addy-engineering-skills-example/app.mjs": "0e70a5ebfc68fe6613389b67fd175b2d67a92922379c33a3c50ef6033dba4459",
+    "examples/addy-engineering-skills-example/changes.diff": "6d5390141c13d706803b565a7781fa1df8804032beb2a7d3d7fe73f53af69cb1",
+    "examples/addy-engineering-skills-example/core-review.json": "c8ccc2098e4c3fd10e7f9f580d8644ede2e938d4ed8186b220f801d680ea276d",
+    "examples/addy-engineering-skills-example/guide.mjs": "6a71a698d0f973ec6425b9fa5a2e438b2438d891bbbc247f9538b8c4b2320b6a",
+    "examples/addy-engineering-skills-example/index.html": "ff0aee7e10dd22b77b9463e692be68c4e272c31ecae838f962fb7df4b6678071",
+    "examples/addy-engineering-skills-example/input.md": "dc43ee86b555a8e7cbc3db619e9c10f55c90831a48a7e5041578bef0b64d3160",
+    "examples/addy-engineering-skills-example/LICENSE": "fb74b9b6e529197ce24b127b687e4e349cf46864059da001a3d9d63db39cdb19",
+    "examples/addy-engineering-skills-example/mutation.json": "6b58a4d5145d3ef8fe45e8a1aea4ab3b876c20ac6b180a92e6d5fa701c1cc92f",
+    "examples/addy-engineering-skills-example/package.json": "0dc60c3b9374544047ae4777284c4bd2d914389c40f76b7cfab6208396e98d5f",
+    "examples/addy-engineering-skills-example/README.md": "4931246ac6c9dadd981bde15d1ca4b65cae3748c05d62d50e3f383e058dcde8a",
+    "examples/addy-engineering-skills-example/request.html": "8103bafa55a57e032da6b27ee1eb51dccebd5c32851e1fac510224bfa30e2e54",
+    "examples/addy-engineering-skills-example/request.txt": "44aafc6d99a96f9812444dbd5213670b9e04398db84a06296968c8c31003d000",
+    "examples/addy-engineering-skills-example/results.json": "a865255498a18cba79b57d0bbbdea69b14580ceac2d244b3005c15dda73ec3d1",
+    "examples/addy-engineering-skills-example/samples.json": "54cf39027542dd89c165f8a473e85fad19db993b99ad6a1561fc476736f66ca4",
+    "examples/addy-engineering-skills-example/seed.json": "a33fbe59dce8b1f03725b5354202ce45be34c388ecf10cd49bacb380fc21a5d0",
+    "examples/addy-engineering-skills-example/SPEC.md": "fd269de149998d33b0e9de8d5f0403ff9d1b5e6c8e2e27e07a986d301d26bb62",
+    "examples/addy-engineering-skills-example/style.css": "20cb99b3f8ec746ce4f3263bcc496b41cbbe1acf38ddeb3f4dc6c68772fd09c0",
+    "examples/addy-engineering-skills-example/tasks.mjs": "70a83eab0b989dfd3eed97c353f7486091dc640beed6159345d57c7a337e5f50",
+    "examples/addy-engineering-skills-example/tasks.test.mjs": "154078d03107110de7ed6e060f08823b2b2dd1076b9db5e42b95e6b500dff902",
+    "examples/addy-engineering-skills-example/tdd-history.json": "730c400952c14f6c00d46cc3a6f8571f74fe189067b25f0ae9ab022d7023f2d3",
+    "examples/addy-engineering-skills-example/timezones.json": "a4019b0f62d7c4bb38298c9134d2b89aedc8d24596d82b1fed93afea583586e2",
+    "examples/addy-engineering-skills-example/baseline/app.mjs": "1b8f15a86480b04ed3f5907b7ba21d33c13f19303cfedc216cb37e2ececd32d8",
+    "examples/addy-engineering-skills-example/baseline/index.html": "9b935c6d7f4b557d1f08fe7c6304fe43a9db87119a957846af798913ef299eef",
+    "examples/addy-engineering-skills-example/baseline/package.json": "0dc60c3b9374544047ae4777284c4bd2d914389c40f76b7cfab6208396e98d5f",
+    "examples/addy-engineering-skills-example/baseline/seed.json": "a33fbe59dce8b1f03725b5354202ce45be34c388ecf10cd49bacb380fc21a5d0",
+    "examples/addy-engineering-skills-example/baseline/style.css": "336b1205ff7f6592f930c1dc3b6a16f81540fad47ff872ee32ffd98972709078",
+    "examples/addy-engineering-skills-example/baseline/tasks.mjs": "dece309284407c8277f84ee63dac61a2e1568a65303de7d35344ce4c5968d39c",
+    "examples/addy-engineering-skills-example/baseline/tasks.test.mjs": "4d6c0e9734e27841bc6f14d83a0de65b4a42e8c1468a1725a1facb397e4a12a5",
+    "examples/addy-engineering-skills-example/plan/plan.md": "60ad4589d3c59a9aa492c8620adc79f8e85980752be86be9add3e2cb71f6757d",
+    "examples/addy-engineering-skills-example/plan/todo.md": "959e3d2f567340b509b9ecb793c7a460a284d8ef1e9e5bbc1a5672c9ffc93cc1",
+    "examples/addy-engineering-skills-example/video/index.html": "1b1de10ba64bcc6094b899544d5c3d0c185e06f5483fba0ec6c64afa74ad1932",
+    "examples/addy-engineering-skills-example/video/scene.css": "79bdac9db84cd4b68fe77ddbbb0622f08e27c2fb56039c2244fa25be259d8638",
+    "examples/addy-engineering-skills-example/video/scene.js": "0dba92249fcf2b6231f3b35979dda6fda005c6c675376613fcce8dcaa30d5343",
+    "examples/addy-engineering-skills-example/vendor/addy-agent-skills/LICENSE": "6f202f8bd568cd730dbb2b0d1f8e243bc74c2fa1f64dbce9b2c7ea08bd5c9fd7",
+    "examples/addy-engineering-skills-example/vendor/addy-agent-skills/README.md": "b74ab722eeee706ff1c5c3ee55f5f2328368ec28c6368900bc80b857b5bc6b72",
+    "examples/addy-engineering-skills-example/vendor/addy-agent-skills/references/accessibility-checklist.md": "61c759d94d52296231f5f310b92b401f56c44e4430dc3cc95ebac5d7b1d5ffac",
+    "examples/addy-engineering-skills-example/vendor/addy-agent-skills/references/definition-of-done.md": "d1c75d2ae65d2c7a9cd01f93fa8de63e00e75f2fe5d08be224d576157054dcee",
+    "examples/addy-engineering-skills-example/vendor/addy-agent-skills/references/testing-patterns.md": "f0bf05acd0edcadc27297ad5b74f104c8103ccfedba1a05cd6d6ae4af8364c56",
+    "examples/addy-engineering-skills-example/vendor/addy-agent-skills/skills/code-review-and-quality/SKILL.md": "2db1e850379f255fd3091ef278cde24cd6c7d2ba23e360cc52ea522c40d4396e",
+    "examples/addy-engineering-skills-example/vendor/addy-agent-skills/skills/frontend-ui-engineering/SKILL.md": "29a3e53d57c0a128831a20730ae874a8c4fda40c001fcdc15f8e9ad4b5f72f1b",
+    "examples/addy-engineering-skills-example/vendor/addy-agent-skills/skills/incremental-implementation/SKILL.md": "df66536610071727feae1ca95f3c391c248ad828041750ccd3699cce763aa00b",
+    "examples/addy-engineering-skills-example/vendor/addy-agent-skills/skills/planning-and-task-breakdown/SKILL.md": "ed0f90cc5951ddd4bcab7f871f64efec93a49af9279ef93bc470da77ad8da3f7",
+    "examples/addy-engineering-skills-example/vendor/addy-agent-skills/skills/spec-driven-development/SKILL.md": "c4b97ce3d7f24be0e67fd612c7595f65504872e3a9f8d338d098b2363fdb66ef",
+    "examples/addy-engineering-skills-example/vendor/addy-agent-skills/skills/test-driven-development/SKILL.md": "a3aa6ba95638497025577469eda10ed17918698209615aeafbc26f131bf2469d",
+    "examples/addy-engineering-skills-example/vendor/addy-agent-skills/skills/using-agent-skills/SKILL.md": "30787ef2c77bf1a4729fffed0f6523ba6fcbe81bdc436b36371b78c21394d3c3",
+    "examples/addy-engineering-skills-example/tdd/baseline/record.json": "3cb81db46b05fa289b7c058d9e0a15c8d1837df2cbdcbf8e6879035f8d226b26",
+    "examples/addy-engineering-skills-example/tdd/baseline/seed.json": "a33fbe59dce8b1f03725b5354202ce45be34c388ecf10cd49bacb380fc21a5d0",
+    "examples/addy-engineering-skills-example/tdd/baseline/tasks.mjs": "dece309284407c8277f84ee63dac61a2e1568a65303de7d35344ce4c5968d39c",
+    "examples/addy-engineering-skills-example/tdd/baseline/tasks.test.mjs": "4d6c0e9734e27841bc6f14d83a0de65b4a42e8c1468a1725a1facb397e4a12a5",
+    "examples/addy-engineering-skills-example/tdd/green1/record.json": "8f79a90e8164f85111d9c80d126ad9b267a3d0af2dde0c51f199b6626d1cf789",
+    "examples/addy-engineering-skills-example/tdd/green1/seed.json": "a33fbe59dce8b1f03725b5354202ce45be34c388ecf10cd49bacb380fc21a5d0",
+    "examples/addy-engineering-skills-example/tdd/green1/tasks.mjs": "23b9708a164fc280fcdec20078c22bdd609cf9d3c1621b5cb177bb249cf0d647",
+    "examples/addy-engineering-skills-example/tdd/green1/tasks.test.mjs": "dd65f124815d17051ccf351a68a58077f48955d33a986bcf032dde382eff267a",
+    "examples/addy-engineering-skills-example/tdd/green2/record.json": "0bd66784afc4a491e042a6b511baf39aa91a591187d6b126fcecb5beea178050",
+    "examples/addy-engineering-skills-example/tdd/green2/seed.json": "a33fbe59dce8b1f03725b5354202ce45be34c388ecf10cd49bacb380fc21a5d0",
+    "examples/addy-engineering-skills-example/tdd/green2/tasks.mjs": "70a83eab0b989dfd3eed97c353f7486091dc640beed6159345d57c7a337e5f50",
+    "examples/addy-engineering-skills-example/tdd/green2/tasks.test.mjs": "154078d03107110de7ed6e060f08823b2b2dd1076b9db5e42b95e6b500dff902",
+    "examples/addy-engineering-skills-example/tdd/red1/record.json": "a39fb858b4ca35fcc76bbbec722352c7117cbdcac098890e370976b7bcc98e32",
+    "examples/addy-engineering-skills-example/tdd/red1/seed.json": "a33fbe59dce8b1f03725b5354202ce45be34c388ecf10cd49bacb380fc21a5d0",
+    "examples/addy-engineering-skills-example/tdd/red1/tasks.mjs": "dece309284407c8277f84ee63dac61a2e1568a65303de7d35344ce4c5968d39c",
+    "examples/addy-engineering-skills-example/tdd/red1/tasks.test.mjs": "dd65f124815d17051ccf351a68a58077f48955d33a986bcf032dde382eff267a",
+    "examples/addy-engineering-skills-example/tdd/red2/record.json": "f80085f60e5e42b1269b2ed7c80cb516abf0ef3e5e9b9b3bd812b4e96a4fd03c",
+    "examples/addy-engineering-skills-example/tdd/red2/seed.json": "a33fbe59dce8b1f03725b5354202ce45be34c388ecf10cd49bacb380fc21a5d0",
+    "examples/addy-engineering-skills-example/tdd/red2/tasks.mjs": "23b9708a164fc280fcdec20078c22bdd609cf9d3c1621b5cb177bb249cf0d647",
+    "examples/addy-engineering-skills-example/tdd/red2/tasks.test.mjs": "154078d03107110de7ed6e060f08823b2b2dd1076b9db5e42b95e6b500dff902",
+    "data/cases/addy-engineering-skills-example.json": "4937dacc9e418b0a2c3d726e35f079c7661da2c519c50bee5e5707e8f893669a",
+    "media/addy-engineering-skills-example.mp4": "b86b4256a883834104122ab2a560e8910dabc6e244bf83056d30064a304d2dc0",
+    "media/addy-engineering-skills-example.webp": "2abb51d5257855f125a1a24062dc156c5e4b39a85a465a31b144d483a8d108d8"
+  }
+}

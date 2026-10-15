@@ -1,0 +1,423 @@
+diff --git a/SPEC.md b/SPEC.md
+new file mode 100644
+index 0000000..1d3649b
+--- /dev/null
++++ b/SPEC.md
+@@ -0,0 +1,192 @@
++# Spec: 工房のTODO — 期限の絞り込み
++
++> 合成データの作例。架空の工房のTODO6件（`seed.json`）と既存コードは制作担当が用意したもので、実在の顧客や業務のTODOではない。
++> この仕様は人との対話や段階承認を経ていない。曖昧な点は `input.md` の「制作担当の事前の決め方」で制作担当が決めたものを採用し、残りは本書の「未確認の確認事項」に挙げる。
++
++## 1. Objective（目的）
++
++工房のTODO一覧で、「期限が指定日まで」のTODOだけを表示できるようにする。今日やるべきこと・遅れていることを、既存の状態の絞り込みと組み合わせて一目で確認するため。
++
++- 利用者: このページを開いた閲覧者（ログインなし、1人で使う想定）。
++- 追加する能力は **期限の絞り込み1つだけ**。不正な日付の検証はこの絞り込みの入力契約の一部で、独立した機能ではない。
++- 成功の姿: 指定日（当日を含む）までに期限があるTODOが入力順のまま表示され、指定を外すと従来どおり全件に戻り、既存の追加・完了切替・状態の絞り込みは変わらない。
++
++### 制作担当が決めた前提（人への確認は行っていない）
++
++| # | 曖昧だった点 | 決定 |
++|---|---|---|
++| A1 | 「期限で絞り込む」の意味 | 期限が指定日 **以前（当日を含む）** のTODO。範囲指定や「指定日ちょうど」は扱わない |
++| A2 | 日付の形 | `YYYY-MM-DD` の暦日文字列。時刻・タイムゾーンは持たない |
++| A3 | 基準日 | 自動の「今日」ではなく、入力された暦日。作例の代表値は `2026-10-15` |
++| A4 | 受け付ける範囲 | 年1000〜9999のグレゴリオ暦で実在する日だけ（閏年を含めて判定） |
++| A5 | 期限なしのTODO | 期限の絞り込み中だけ除外。絞り込みなしなら従来どおり表示 |
++| A6 | 状態との関係 | 状態（すべて/未完了/完了）の絞り込みと同時に効く（AND） |
++| A7 | 並び | 入力順を保つ。期限順に並べ替えない |
++| A8 | 指定なし | `cutoff` が `null`・空文字・省略なら絞り込みなし |
++| A9 | 不正な指定 | `RangeError('INVALID_CUTOFF')` を投げる |
++| A10 | TODO側の `dueDate` | 既存の入力契約（有効な暦日文字列か `null`）を維持。TODO側を検証する新APIは作らない |
++| A11 | 保存 | ページ内のメモリーのみ。再読込で合成6件に戻る |
++
++### 許可する振る舞い
++
++- `selectTasks(tasks, {status, cutoff})` の既存の `cutoff` 引数（現状は未使用）を有効にする。
++- 一覧の絞り込み欄に、期限の指定日を入れる日付入力を1つ加える。入力を空にすれば全件に戻る。
++- 不正な指定日を受けたとき、画面で日本語の案内を出す（後述 UI-4）。
++
++### 除外する振る舞い
++
++- 期限順の並べ替え、範囲（開始〜終了）指定、「今日」「今週」などの自動基準日、相対日付
++- 期限超過の強調表示、通知、リマインダー
++- サーバー、認証、共有、課金、永続保存（localStorage を含む）
++- TODO側 `dueDate` の検証API、`seed.json` の変更、編集・削除機能
++- 依存パッケージの追加、ビルド工程の追加、URLへの絞り込み状態の保存
++
++## 2. Tech Stack
++
++- Node.js 24 の組み込み `node:test` / `node:assert/strict`（依存なし）
++- ブラウザーのES modules（`app.mjs`）、素のHTML/CSS、既存のCSP（`script-src 'self'` ほか）を維持
++- `package.json` は `"type": "module"`、依存なし
++
++## 3. Commands（既存のもののみ）
++
++`lab/` で実行する。いずれも `package.json` に既にある。
++
++```
++Test:   npm test            # = node --test tasks.test.mjs
++Check:  npm run check       # = node --check tasks.mjs && node --check app.mjs
++```
++
++- Lint/format の仕組みは存在しない。追加しない（`npm run check` は構文確認のみ）。
++- ブラウザー確認用の開発サーバーコマンドは存在しない。`app.mjs` は `fetch('seed.json')` を使うため `file://` では動かない。静的配信の方法は親が実行時に選び、使ったコマンドを記録する（「未確認の確認事項」U1）。
++
++## 4. Project Structure
++
++```
++lab/
++  SPEC.md          → この仕様（本書）
++  tasks.mjs        → 純粋関数。selectTasks / addTask / toggleTask。期限の絞り込みと検証もここ
++  tasks.test.mjs   → node:test の単体テスト。新しいテストもここへ追加
++  app.mjs          → 画面の配線（DOM、イベント、描画）。判定ロジックは持たない
++  index.html       → 画面の骨組み。絞り込み欄に日付入力を加える
++  style.css        → 既存トークン。新しい色やトークンは原則追加しない
++  seed.json        → 合成6件。変更しない
++  package.json     → 変更しない
++```
++
++変更が見込まれるのは `tasks.mjs`、`tasks.test.mjs`、`app.mjs`、`index.html` の4つ。`style.css` は既存の `.filters` のレイアウトで足りなければ最小限だけ触る。
++
++## 5. Code Style
++
++既存の `tasks.mjs` の書き方に合わせる（下は既存コードそのまま）。
++
++```js
++export function addTask(tasks, {id, title, dueDate = null}) {
++  const trimmed = title.trim();
++  if (!trimmed || trimmed.length > 80) throw new RangeError('INVALID_TITLE');
++  if (tasks.some(task => task.id === id)) throw new RangeError('DUPLICATE_ID');
++  return [...tasks, {id, title: trimmed, dueDate, done: false}];
++}
++```
++
++- 2スペース字下げ、シングルクォート、セミコロンあり、アロー関数。
++- 入力は変更せず、新しい配列を返す（`filter` / `map` / スプレッド）。
++- 不正入力は `RangeError` に大文字スネークのコード（`INVALID_CUTOFF`）を載せる。メッセージに日本語文は入れず、画面側で日本語へ置き換える。
++- 暦日は文字列のまま扱う。`new Date('YYYY-MM-DD')` を現地時刻へ変換して比較しない。4桁年でゼロ埋めされた `YYYY-MM-DD` は文字列比較で時系列順になるため、比較は文字列で足りる。
++- 画面への文字は `textContent` で入れる（既存どおり。`innerHTML` を使わない）。
++- テスト名は日本語で、期待する振る舞いを文で書く（既存の `'未完了を選ぶと既存の並び順で4件が返る'` に合わせる）。
++
++## 6. Testing Strategy
++
++- フレームワーク: `node:test` + `node:assert/strict`。場所は `tasks.test.mjs` のみ。
++- 単体テスト（`selectTasks` の純粋関数）で受入条件 F・V・R を確認する。新しい振る舞いのテストは、実装前に実行して失敗（RED）を確認し、実装後に成功（GREEN）を確認する。
++- 画面（UI-1〜UI-5）は自動テストを足さず、親がブラウザーで実際に操作して確認する。
++- カバレッジの数値目標は置かない。代わりに下の受入条件をすべてテストか実操作で確認する。
++- 既存の3テストは削除・弱体化しない。
++
++## 7. Boundaries
++
++- **Always**
++  - 実装より先に失敗するテストを書き、実際に失敗を見てから実装する
++  - コミット前に `npm test` と `npm run check` を実行し、両方成功させる
++  - 既存の追加・完了切替・状態の絞り込み・表示・並びを保つ
++  - 不正な `cutoff` を検証する（年範囲と実在日）
++- **Ask first（この制作では制作担当の事前決定で扱う）**
++  - 人の段階承認は行わない。ユーザーは可逆な設計判断と順次掲載を承認済みで、段階ごとの確認を求めないよう指示している。
++  - 例外として、新たな支出・外部アカウント・秘密情報が必要になった場合だけ、その点を明示して止める。この作例では発生しない見込み。
++  - 依存の追加、`package.json`・`seed.json` の変更、仕様外の機能追加は「確認」ではなく **行わない**。必要になったら本書を先に更新し、理由を残す。
++- **Never**
++  - APIキー・秘密情報をコミットする
++  - サーバー、認証、通知、課金、共有、永続保存を追加する
++  - 失敗するテストを消す・飛ばす、期待値を実装に合わせて書き換える
++  - `lab/` 外（スタジオのroot、`scripts/`、`skills/`、upstream）を変更する
++  - 実行していないコマンドの結果を「成功」と書く
++
++## 8. Success Criteria（受入条件）
++
++代表データは `seed.json` の6件（id: proposal 10-14 未完了 / sample 10-15 未完了 / publish 10-16 未完了 / idea 期限なし 未完了 / brief 10-15 完了 / memo 10-08 完了、年はすべて2026）。
++
++### F: 絞り込み
++
++| # | 入力 | 期待するid（この順） |
++|---|---|---|
++| F1 | status `open`, cutoff `2026-10-15` | `proposal`, `sample` |
++| F2 | status `all`, cutoff `2026-10-15` | `proposal`, `sample`, `brief`, `memo` |
++| F3 | status `done`, cutoff `2026-10-15` | `brief`, `memo` |
++| F4 | status `all`, cutoff `null` | 6件すべて（入力順） |
++| F5 | status `all`, cutoff `''` | 6件すべて |
++| F6 | status `all`, cutoff 省略 | 6件すべて（既存呼び出しと同じ） |
++| F7 | status `all`, cutoff `2026-10-14` | `proposal`, `memo`（当日を含む） |
++| F8 | status `all`, cutoff `2026-10-07` | 空配列 |
++| F9 | status `all`, cutoff `9999-12-31` | 期限なしの `idea` を除く5件 |
++
++- F10: どの場合も引数の配列と要素を変更せず、新しい配列を返す（呼び出し後も `seed` は6件・内容同一）。
++
++### V: 不正な指定日（すべて `RangeError`、message `INVALID_CUTOFF`）
++
++| # | cutoff | 理由 |
++|---|---|---|
++| V1 | `2026-02-30` | 実在しない日 |
++| V2 | `2026-02-29` | 閏年でない |
++| V3 | `1900-02-29` | 100で割り切れ400で割り切れない年 |
++| V4 | `2026-13-01`, `2026-00-10`, `2026-04-31` | 月・日の範囲外 |
++| V5 | `0999-12-31`, `10000-01-01` | 年の範囲外 |
++| V6 | `2026-1-5`, `2026/10/15`, ` 2026-10-15`, `2026-10-15T00:00` | 形式違い（前後の空白も受け付けない） |
++| V7 | `20261015`（数値）, `{}` | 文字列・`null` 以外 |
++
++- 受け付ける境界: `2024-02-29`, `2000-02-29`, `1000-01-01`, `9999-12-31` は例外を投げない。
++- V8: 判定結果が実行環境のタイムゾーンに左右されない（`Date` の現地時刻変換に依存しない）。
++
++### R: 既存操作の維持
++
++- R1: 既存の3テストが無変更で通る。
++- R2: `addTask` の名前trim、空白のみ・80文字超の拒否、重複idの拒否、`toggleTask` の挙動は変わらない。
++- R3: 状態の絞り込みだけ（cutoffなし）の結果は変更前と同じ。
++
++### UI: 画面（ブラウザーでの実操作で確認）
++
++- UI-1: 絞り込み欄に「期限（この日まで）」のラベル付き日付入力がある。`min="1000-01-01" max="9999-12-31"`。初期値は空で、初期表示は6件。
++- UI-2: 状態「未完了」＋期限 `2026-10-15` で2件（企画を見直す、作例を確認する）が表示され、件数表示が `2件 / 全6件`。
++- UI-3: 日付入力を空にすると、選択中の状態の絞り込みだけに戻る（「すべて」なら6件）。
++- UI-4: 不正な指定日を受けたときは画面が止まらず、絞り込み欄の近くに「期限の日付は1000〜9999年の実在する日を入れてください。」を表示し、期限の絞り込みを外した状態（状態の絞り込みのみ）で一覧を出す。有効な日付か空に直すと案内は消える。
++- UI-5: 期限の絞り込み中でも完了切替・追加ができ、絞り込みは維持される。期限なしで追加したTODOは、絞り込み中は一覧に出ず全件数だけ増える。0件のときは既存の「該当するTODOはありません。」が出る。
++- UI-6: キーボードだけで日付入力に到達・入力・消去でき、フォーカス表示が見える。幅480px以下でも絞り込み欄が横にはみ出さない。
++- UI-7: CSPを含む `index.html` の既存の `<head>` 設定を変えず、コンソールにエラーが出ない。
++
++### 完成の基準（Definition of Done をこの作例に合わせたもの）
++
++- 上の受入条件をすべてテストまたは実操作で確認し、その実結果（出力やスクリーンショット）が残っている。
++- 新しい振る舞いのテストは、実装前に失敗し実装後に成功したことを実際に見ている。
++- `npm test` と `npm run check` が成功。デバッグ出力・コメントアウトした残骸・仕様外の変更がない。
++- 外部入力は日付文字列だけで、検証され、表示は `textContent`。
++- ロールバックは `lab/` のgitで該当コミットを戻せば足りる。静的ページのためログ・計測は追加しない。
++- 人によるレビュー・承認は行っていない。代わりに親がテスト実行・ブラウザー確認・コードレビューを行い、その実結果だけを記事に使う。
++
++## 9. 未確認の確認事項（Open Questions）
++
++人の判断を待つ問いはない。以下は親が実行して確かめる項目。
++
++- U1: ブラウザー確認の静的配信の方法（既存コマンドがないため）。使ったコマンドを記録する。
++- U2: 実際のブラウザーで、日付入力に年 `0999` などの範囲外を手入力したとき `value` に何が入るか。`''` になるなら UI-4 は画面からは起こらず、単体テストの V のみで担保される。そのことを記事で正直に書く。
++- U3: `npm test` を異なるタイムゾーン（例: PowerShell で `$env:TZ='Pacific/Kiritimati'; npm test` と `$env:TZ='America/Los_Angeles'; npm test`）で実行し、結果が同じか（V8）。Windows上のNode 24で `TZ` が効くかも含めて確かめる。
++- U4: 既存の `selectTasks` は `all`/`done` 以外の status を「未完了」として扱う。この挙動は今回の範囲外として変えない。レビューで指摘が出ても別件として記録する。
++- U5: 既存の `addTask` は `dueDate` を検証しない（A10 のとおり維持）。不正な `dueDate` を持つTODOがあった場合の絞り込み結果は未定義のままとする。
+diff --git a/app.mjs b/app.mjs
+index 373e4e3..cc324af 100644
+--- a/app.mjs
++++ b/app.mjs
+@@ -3,8 +3,16 @@ const el = id => document.getElementById(id);
+ let tasks = [];
+ let nextId = 1;
+ function showError(message) {el('error').textContent=message;el('error').hidden=!message;}
++function showCutoffError(message) {el('cutoff-error').textContent=message;el('cutoff-error').hidden=!message;el('cutoff').setAttribute('aria-invalid',String(!!message));}
+ function render() {
+-  const visible=selectTasks(tasks,{status:el('status').value});
++  let visible;
++  try {visible=selectTasks(tasks,{status:el('status').value,cutoff:el('cutoff').value||null});showCutoffError('');}
++  catch (error) {
++    if (error.message!=='INVALID_CUTOFF') throw error;
++    visible=selectTasks(tasks,{status:el('status').value});
++    showCutoffError('期限の日付は1000〜9999年の実在する日を入れてください。いまは期限の条件を使わず、状態の絞り込みだけで表示しています。');
++  }
++  el('cutoff-clear').disabled=!el('cutoff').value;
+   el('tasks').replaceChildren();
+   for (const task of visible) {
+     const item=document.createElement('li');item.dataset.id=task.id;
+@@ -21,6 +29,8 @@ function render() {
+   el('empty').hidden=visible.length>0;
+ }
+ el('status').addEventListener('change',render);
++el('cutoff').addEventListener('input',render);
++el('cutoff-clear').addEventListener('click',()=>{el('cutoff').value='';render();el('cutoff').focus();});
+ el('add-form').addEventListener('submit',event=>{
+   event.preventDefault();
+   try {tasks=addTask(tasks,{id:'new-'+nextId,title:el('title').value,dueDate:el('due').value||null});nextId++;el('add-form').reset();showError('');render();el('title').focus();}
+diff --git a/index.html b/index.html
+index dcbec2e..ad9aac0 100644
+--- a/index.html
++++ b/index.html
+@@ -1 +1 @@
+-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'self'"><title>工房のTODO | 期限の絞り込み作例</title><link rel="stylesheet" href="style.css"></head><body><main><p class="eyebrow">STUDIO YEBISU / 合成データの作例</p><h1>工房のTODO</h1><p>このページの中だけで動きます。再読込すると合成データ6件に戻ります。</p><section aria-labelledby="list-title"><h2 id="list-title">やること</h2><div class="filters"><label>状態<select id="status"><option value="all">すべて</option><option value="open">未完了</option><option value="done">完了</option></select></label></div><p id="count" role="status" aria-live="polite"></p><p id="empty" hidden>該当するTODOはありません。</p><ul id="tasks" aria-label="TODO一覧"></ul></section><section aria-labelledby="add-title"><h2 id="add-title">TODOを追加</h2><form id="add-form"><label>名前<input id="title" maxlength="80" required></label><label>期限（任意）<input id="due" type="date" min="1000-01-01" max="9999-12-31"></label><button>追加する</button></form><p id="error" role="alert" hidden></p></section><p><a href="../../case.html?id=addy-engineering-skills-example">作例の記事へ</a></p></main><script type="module" src="app.mjs"></script></body></html>
+\ No newline at end of file
++<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'self'"><title>工房のTODO | 期限の絞り込み作例</title><link rel="stylesheet" href="style.css"></head><body><main><p class="eyebrow">STUDIO YEBISU / 合成データの作例</p><h1>工房のTODO</h1><p>このページの中だけで動きます。再読込すると合成データ6件に戻ります。</p><section aria-labelledby="list-title"><h2 id="list-title">やること</h2><div class="filters"><label>状態<select id="status"><option value="all">すべて</option><option value="open">未完了</option><option value="done">完了</option></select></label><label>期限（この日まで）<input id="cutoff" type="date" min="1000-01-01" max="9999-12-31" aria-describedby="cutoff-error"></label><button type="button" id="cutoff-clear" disabled>期限の指定を外す</button></div><p id="cutoff-error" role="alert" hidden></p><p id="count" role="status" aria-live="polite"></p><p id="empty" hidden>該当するTODOはありません。</p><ul id="tasks" aria-label="TODO一覧"></ul></section><section aria-labelledby="add-title"><h2 id="add-title">TODOを追加</h2><form id="add-form"><label>名前<input id="title" maxlength="80" required></label><label>期限（任意）<input id="due" type="date" min="1000-01-01" max="9999-12-31"></label><button>追加する</button></form><p id="error" role="alert" hidden></p></section><p><a href="../../case.html?id=addy-engineering-skills-example">作例の記事へ</a></p></main><script type="module" src="app.mjs"></script></body></html>
+\ No newline at end of file
+diff --git a/style.css b/style.css
+index 8ae96b9..d502fc5 100644
+--- a/style.css
++++ b/style.css
+@@ -1,3 +1,3 @@
+ /* Studio Yebisu existing fixture tokens, MIT */
+ :root{--paper:#f6f2e8;--surface:#fffdf7;--ink:#191919;--muted:#57564f;--line:#c7c1b6;--accent:#8c2c0b;--gap:.5rem}
+-*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:18px/1.6 'Yu Gothic UI',Meiryo,sans-serif}main{max-width:960px;margin:0 auto;padding:2rem 1rem}h1{font:600 2.5rem/1.3 'Yu Mincho',serif;margin:.5rem 0}h2{font-size:1.5rem}.eyebrow{color:var(--accent);font-weight:700;font-size:.875rem}section{margin:2rem 0}.filters,form{display:flex;align-items:end;gap:1rem;flex-wrap:wrap}label{display:grid;gap:.5rem}input,select,button{font:inherit;min-height:44px;padding:.5rem .75rem;border:1px solid var(--ink);border-radius:0;background:var(--surface);max-width:100%}button{background:var(--accent);color:white;cursor:pointer}a{color:var(--accent)}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}ul{list-style:none;padding:0}#tasks>li{border-top:1px solid var(--line);background:var(--surface);padding:1rem;display:flex;align-items:center;gap:1rem}#tasks label{display:flex;align-items:center;gap:1rem;flex:1;min-width:0;overflow-wrap:anywhere}#tasks input{min-height:24px;width:24px;flex-shrink:0}#tasks time,#tasks .no-date{white-space:nowrap;color:var(--muted);font-size:1rem}#tasks .done{text-decoration:line-through;color:var(--muted)}#error{color:var(--accent);font-weight:700}[hidden]{display:none!important}@media(max-width:480px){form,label{width:100%}#tasks>li{align-items:start;flex-direction:column;gap:.5rem}#tasks time,#tasks .no-date{margin-left:40px}}
++*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:18px/1.6 'Yu Gothic UI',Meiryo,sans-serif}main{max-width:960px;margin:0 auto;padding:2rem 1rem}h1{font:600 2.5rem/1.3 'Yu Mincho',serif;margin:.5rem 0}h2{font-size:1.5rem}.eyebrow{color:var(--accent);font-weight:700;font-size:.875rem}section{margin:2rem 0}.filters,form{display:flex;align-items:end;gap:1rem;flex-wrap:wrap}label{display:grid;gap:.5rem}input,select,button{font:inherit;min-height:44px;padding:.5rem .75rem;border:1px solid var(--ink);border-radius:0;background:var(--surface);max-width:100%}button{background:var(--accent);color:white;cursor:pointer}button:disabled{background:var(--surface);color:var(--muted);border-color:var(--line);cursor:default}a{color:var(--accent)}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}ul{list-style:none;padding:0}#tasks>li{border-top:1px solid var(--line);background:var(--surface);padding:1rem;display:flex;align-items:center;gap:1rem}#tasks label{display:flex;align-items:center;gap:1rem;flex:1;min-width:0;overflow-wrap:anywhere}#tasks input{min-height:24px;width:24px;flex-shrink:0}#tasks time,#tasks .no-date{white-space:nowrap;color:var(--muted);font-size:1rem}#tasks .done{text-decoration:line-through;color:var(--muted)}#error,#cutoff-error{color:var(--accent);font-weight:700}[hidden]{display:none!important}@media(max-width:480px){form,label{width:100%}#tasks>li{align-items:start;flex-direction:column;gap:.5rem}#tasks time,#tasks .no-date{margin-left:40px}}
+diff --git a/tasks.mjs b/tasks.mjs
+index 7f0721b..b0fc892 100644
+--- a/tasks.mjs
++++ b/tasks.mjs
+@@ -1,6 +1,17 @@
+ // Studio Yebisu synthetic existing TODO. MIT.
++function assertCutoff(cutoff) {
++  const match = typeof cutoff === 'string' && /^(\d{4})-(\d{2})-(\d{2})$/.exec(cutoff);
++  if (!match) throw new RangeError('INVALID_CUTOFF');
++  const [year, month, day] = match.slice(1).map(Number);
++  const leap = year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0);
++  const days = [31, leap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month - 1];
++  if (year < 1000 || !days || day < 1 || day > days) throw new RangeError('INVALID_CUTOFF');
++}
++
+ export function selectTasks(tasks, {status = 'all', cutoff = null} = {}) {
+-  return tasks.filter(task => status === 'all' || task.done === (status === 'done'));
++  if (cutoff !== null && cutoff !== '') assertCutoff(cutoff);
++  return tasks.filter(task => (status === 'all' || task.done === (status === 'done'))
++    && (!cutoff || (task.dueDate !== null && task.dueDate <= cutoff)));
+ }
+ 
+ export function addTask(tasks, {id, title, dueDate = null}) {
+diff --git a/tasks.test.mjs b/tasks.test.mjs
+index 1ca7921..87aacbe 100644
+--- a/tasks.test.mjs
++++ b/tasks.test.mjs
+@@ -16,3 +16,9 @@ test('追加したTODOは空白を除いた名前になり完了を切り替え
+ test('空の名前は既存どおり拒む', () => {
+   assert.throws(()=>addTask(seed,{id:'new',title:'  '}), {name:'RangeError',message:'INVALID_TITLE'});
+ });
++test('未完了で期限2026-10-15までを選ぶと当日を含み翌日以降と期限なしを除いた2件が返る', () => {
++  assert.deepEqual(selectTasks(seed, {status:'open', cutoff:'2026-10-15'}).map(task=>task.id), ['proposal','sample']);
++});
++test('実在しない期限2026-02-30を指定するとINVALID_CUTOFFのRangeErrorで拒む', () => {
++  assert.throws(()=>selectTasks(seed,{status:'all',cutoff:'2026-02-30'}), {name:'RangeError',message:'INVALID_CUTOFF'});
++});
+diff --git a/tasks/plan.md b/tasks/plan.md
+new file mode 100644
+index 0000000..0d15630
+--- /dev/null
++++ b/tasks/plan.md
+@@ -0,0 +1,59 @@
++# Implementation Plan: 工房のTODO — 期限の絞り込み
++
++> 合成データの作例。元は `lab/SPEC.md`。この計画は人のレビュー・承認を経ていない。ユーザーが事前に可逆な内部判断と順次掲載を任せているため、制作担当（親）の検証で次へ進む。これを人の承認とは呼ばない。
++
++## Overview
++
++既存の `selectTasks(tasks, {status, cutoff})` の未使用の `cutoff` を有効にし、既存の画面の絞り込み欄から「期限（この日まで）」で選べるようにする。2つの小さな増分に分ける。1つ目で有効な暦日による絞り込みを画面まで通し、2つ目で実在しない暦日を `RangeError('INVALID_CUTOFF')` で拒む。
++
++## Architecture Decisions
++
++- 新しい関数・モジュールは作らない。`selectTasks` の既存の `cutoff` 引数を有効にする（SPEC §1「許可する振る舞い」）。
++- 暦日は `YYYY-MM-DD` の文字列のまま比較する。`Date` へ変換しない（SPEC §5, V8）。
++- 判定は `tasks.mjs` の純粋関数だけが持つ。`app.mjs` は入力値を渡し、`RangeError` を日本語の案内へ置き換えるだけ（SPEC §4）。
++- 増分の順は依存に従う。検証は絞り込みの入力契約なので、絞り込みが先にあることが前提。1つ目の終了時点でも、画面の日付入力は有効な日付か空しか渡さないため、動く状態を保てる。
++- 既存の3テスト（`runtime/baseline.json` で3件成功を親が実行済み）は変えない。新しいテストは末尾へ追加する。
++
++## Dependency Graph
++
++```
++selectTasks の cutoff（tasks.mjs）
++    ├── 画面の日付入力と配線（index.html / app.mjs）   … Task 1
++    └── 暦日の検証と画面の案内（tasks.mjs / app.mjs）  … Task 2
++```
++
++## Task List
++
++詳細と完了の印は `tasks/todo.md`。
++
++### Phase 1: 有効な暦日の絞り込み
++- [ ] Task 1: 期限の絞り込みを既存の画面まで通す
++
++### Checkpoint: Task 1 後
++- [ ] `npm test` と `npm run check` が成功（親が実行）
++- [ ] ブラウザーで UI-1〜UI-3 を実操作で確認（親が実行）
++- [ ] commit
++- [ ] 制作担当（親）の検証で次へ。人の承認ではない
++
++### Phase 2: 不正な暦日の拒否
++- [ ] Task 2: 実在しない暦日を `INVALID_CUTOFF` で拒む
++
++### Checkpoint: Task 2 後
++- [ ] `npm test` と `npm run check` が成功（親が実行）
++- [ ] ブラウザーで UI-4 を確認、または U2 の結果により画面から到達できないことを記録（親が実行）
++- [ ] commit
++
++この2つの後に、親が境界・回帰の確認（SPEC §8 の残りの F/V/R、UI-5〜UI-7、U3）とコードレビューを別の段階で行う。この計画のタスクには含めない。
++
++## Risks and Mitigations
++
++| Risk | Impact | Mitigation |
++|---|---|---|
++| 最小実装で `cutoff` 省略・`null`・`''` の全件表示が壊れる | High | 既存テスト1（cutoff省略）が守る。`null`/`''` は後の境界の段階で F4/F5 として足す |
++| 期限なし（`null`）の扱いを誤り、`idea` が残る | Med | RED1 のテストが `idea` を除いた期待値を持つ |
++| Task 1 の間は不正な cutoff が文字列比較で素通りする | Low | 画面の日付入力からは来ない。Task 2 で塞ぐまでの一時的な状態として明記 |
++| `Date` 変換でタイムゾーンにより日付がずれる | Med | 文字列比較の方針。U3 を親が別のTZで実行して確かめる |
++
++## Open Questions
++
++人の判断を待つ問いはない。SPEC §9 の U1〜U5 は親が実行して確かめる。
+diff --git a/tasks/todo.md b/tasks/todo.md
+new file mode 100644
+index 0000000..9a5ab8e
+--- /dev/null
++++ b/tasks/todo.md
+@@ -0,0 +1,68 @@
++# TODO: 期限の絞り込み
++
++> 計画は `tasks/plan.md`。チェックは親が実際に実行・確認した後だけ付ける。
++
++## Task 1: 期限の絞り込みを既存の画面まで通す
++
++**Description:** `selectTasks` の `cutoff` を有効にし、期限が指定日以前（当日を含む）のTODOだけを入力順で返す。期限なしは絞り込み中だけ除く。既存の絞り込み欄に「期限（この日まで）」の日付入力を1つ足し、`app.mjs` から `cutoff` を渡す。
++
++**Acceptance criteria:**
++- [ ] RED1 テスト（status `open`、cutoff `2026-10-15` → `['proposal','sample']`）が実装前に失敗し、実装後に成功する（F1）
++- [ ] 既存の3テストが無変更で成功する（R1）
++- [ ] 画面で UI-1〜UI-3 が成り立つ（初期6件、未完了＋2026-10-15で `2件 / 全6件`、空に戻すと状態の絞り込みだけ）
++
++**Verification:**
++- [ ] RED: `npm test` で RED1 だけが失敗し、既存3件は成功（親が実行）
++- [ ] GREEN: `npm test` が全件成功（親が実行）
++- [ ] Check: `npm run check`（構文確認。ビルド工程は存在しない）
++- [ ] Manual: ブラウザーで UI-1〜UI-3（親が実行）
++
++**Dependencies:** None
++
++**Files likely touched:**
++- `tasks.test.mjs`（RED1 を追加済み）
++- `tasks.mjs`
++- `app.mjs`
++- `index.html`
++
++**Estimated scope:** Medium（4ファイル。各数行）
++
++## Checkpoint: Task 1 後
++- [ ] `npm test` / `npm run check` 成功
++- [ ] UI-1〜UI-3 を実操作で確認
++- [ ] commit
++- [ ] 制作担当（親）の検証で Task 2 へ。人の承認ではない
++
++## Task 2: 実在しない暦日を `INVALID_CUTOFF` で拒む
++
++**Description:** `cutoff` が `null`・`''`・省略以外のとき、`YYYY-MM-DD` 形式・年1000〜9999・閏年を含む実在日かを `Date` なしで確かめ、外れたら `RangeError('INVALID_CUTOFF')` を投げる。画面は例外を受けたら絞り込み欄の近くに日本語の案内を出し、状態の絞り込みだけで一覧を出す。
++
++**Acceptance criteria:**
++- [ ] 不正な暦日（代表 `2026-02-30`）のテストが実装前に失敗し、実装後に `RangeError` / `INVALID_CUTOFF` で成功する（V1）
++- [ ] Task 1 までの全テストが成功したまま（F1・R1）
++- [ ] 画面で UI-4 が成り立つ、または U2 により画面から到達できないことを記録する
++
++**Verification:**
++- [ ] RED: `npm test` で新しいテストだけが失敗（親が実行）
++- [ ] GREEN: `npm test` が全件成功（親が実行）
++- [ ] Check: `npm run check`
++- [ ] Manual: ブラウザーで UI-4 / U2（親が実行）
++
++**Dependencies:** Task 1
++
++**Files likely touched:**
++- `tasks.test.mjs`
++- `tasks.mjs`
++- `app.mjs`
++- `index.html`（案内の表示先）
++
++**Estimated scope:** Medium（4ファイル）
++
++## Checkpoint: Task 2 後
++- [ ] `npm test` / `npm run check` 成功
++- [ ] UI-4 または U2 の結果を記録
++- [ ] commit
++
++## この計画の外（親が後の段階で行う）
++- 境界・回帰: SPEC §8 の F2〜F10、V2〜V8 と受け付ける境界、R2/R3、UI-5〜UI-7、U3
++- コードレビュー

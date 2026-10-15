@@ -1,0 +1,131 @@
+{
+  "synthetic": true,
+  "runs": [
+    {
+      "phase": "baseline",
+      "executed_at": "2026-10-15T07:05:57.635021+00:00",
+      "node": "v24.18.0",
+      "command": "node --test --test-reporter=tap tasks.test.mjs",
+      "exit_code": 0,
+      "tests": 3,
+      "pass": 3,
+      "fail": 0,
+      "syntax_checked": [
+        "tasks.mjs",
+        "app.mjs"
+      ],
+      "sources_sha256": {
+        "app.mjs": "1b8f15a86480b04ed3f5907b7ba21d33c13f19303cfedc216cb37e2ececd32d8",
+        "index.html": "437e4410156f2d46eeac244485ec6a376f1dcc712550035138b001ddb4cf478b",
+        "package.json": "0dc60c3b9374544047ae4777284c4bd2d914389c40f76b7cfab6208396e98d5f",
+        "seed.json": "a33fbe59dce8b1f03725b5354202ce45be34c388ecf10cd49bacb380fc21a5d0",
+        "style.css": "336b1205ff7f6592f930c1dc3b6a16f81540fad47ff872ee32ffd98972709078",
+        "tasks.mjs": "dece309284407c8277f84ee63dac61a2e1568a65303de7d35344ce4c5968d39c",
+        "tasks.test.mjs": "4d6c0e9734e27841bc6f14d83a0de65b4a42e8c1468a1725a1facb397e4a12a5"
+      },
+      "tap": "TAP version 13\n# Subtest: 未完了を選ぶと既存の並び順で4件が返る\nok 1 - 未完了を選ぶと既存の並び順で4件が返る\n  ---\n  duration_ms: 0.8939\n  type: 'test'\n  ...\n# Subtest: 追加したTODOは空白を除いた名前になり完了を切り替えられる\nok 2 - 追加したTODOは空白を除いた名前になり完了を切り替えられる\n  ---\n  duration_ms: 0.1985\n  type: 'test'\n  ...\n# Subtest: 空の名前は既存どおり拒む\nok 3 - 空の名前は既存どおり拒む\n  ---\n  duration_ms: 0.2748\n  type: 'test'\n  ...\n1..3\n# tests 3\n# suites 0\n# pass 3\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 62.821\n"
+    },
+    {
+      "phase": "red1",
+      "executed_at": "2026-10-15T07:10:09.890608+00:00",
+      "node": "v24.18.0",
+      "command": "node --test --test-reporter=tap tasks.test.mjs",
+      "exit_code": 1,
+      "tests": 4,
+      "pass": 3,
+      "fail": 1,
+      "syntax_checked": [
+        "tasks.mjs",
+        "app.mjs"
+      ],
+      "sources_sha256": {
+        "app.mjs": "1b8f15a86480b04ed3f5907b7ba21d33c13f19303cfedc216cb37e2ececd32d8",
+        "index.html": "437e4410156f2d46eeac244485ec6a376f1dcc712550035138b001ddb4cf478b",
+        "package.json": "0dc60c3b9374544047ae4777284c4bd2d914389c40f76b7cfab6208396e98d5f",
+        "seed.json": "a33fbe59dce8b1f03725b5354202ce45be34c388ecf10cd49bacb380fc21a5d0",
+        "SPEC.md": "fd269de149998d33b0e9de8d5f0403ff9d1b5e6c8e2e27e07a986d301d26bb62",
+        "style.css": "336b1205ff7f6592f930c1dc3b6a16f81540fad47ff872ee32ffd98972709078",
+        "tasks.mjs": "dece309284407c8277f84ee63dac61a2e1568a65303de7d35344ce4c5968d39c",
+        "tasks.test.mjs": "dd65f124815d17051ccf351a68a58077f48955d33a986bcf032dde382eff267a"
+      },
+      "tap": "TAP version 13\n# Subtest: 未完了を選ぶと既存の並び順で4件が返る\nok 1 - 未完了を選ぶと既存の並び順で4件が返る\n  ---\n  duration_ms: 0.7922\n  type: 'test'\n  ...\n# Subtest: 追加したTODOは空白を除いた名前になり完了を切り替えられる\nok 2 - 追加したTODOは空白を除いた名前になり完了を切り替えられる\n  ---\n  duration_ms: 0.1693\n  type: 'test'\n  ...\n# Subtest: 空の名前は既存どおり拒む\nok 3 - 空の名前は既存どおり拒む\n  ---\n  duration_ms: 0.7207\n  type: 'test'\n  ...\n# Subtest: 未完了で期限2026-10-15までを選ぶと当日を含み翌日以降と期限なしを除いた2件が返る\nnot ok 4 - 未完了で期限2026-10-15までを選ぶと当日を含み翌日以降と期限なしを除いた2件が返る\n  ---\n  duration_ms: 0.7348\n  type: 'test'\n  location: 'fixture\\\\tasks.test.mjs:19:1'\n  failureType: 'testCodeFailure'\n  error: |-\n    Expected values to be strictly deep-equal:\n    + actual - expected\n    \n      [\n        'proposal',\n        'sample',\n    +   'publish',\n    +   'idea'\n      ]\n    \n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected:\n    0: 'proposal'\n    1: 'sample'\n  actual:\n    0: 'proposal'\n    1: 'sample'\n    2: 'publish'\n    3: 'idea'\n  operator: 'deepStrictEqual'\n  stack: |-\n    TestContext.<anonymous> (file:///fixture/tasks.test.mjs:20:10)\n    Test.runInAsyncScope (node:async_hooks:227:14)\n    Test.run (node:internal/test_runner/test:1325:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:911:18)\n    Test.postRun (node:internal/test_runner/test:1465:19)\n    Test.run (node:internal/test_runner/test:1390:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)\n  ...\n1..4\n# tests 4\n# suites 0\n# pass 3\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 60.4152\n"
+    },
+    {
+      "phase": "green1",
+      "executed_at": "2026-10-15T07:12:24.163592+00:00",
+      "node": "v24.18.0",
+      "command": "node --test --test-reporter=tap tasks.test.mjs",
+      "exit_code": 0,
+      "tests": 4,
+      "pass": 4,
+      "fail": 0,
+      "syntax_checked": [
+        "tasks.mjs",
+        "app.mjs"
+      ],
+      "sources_sha256": {
+        "app.mjs": "ad982a1905f57c1cf580c2301cb5529c410287abf3e98578f60af3fc90adca64",
+        "index.html": "4015dbfbb24cdcb78d1feb5990abb583bd0eadccc131327356b2f8efec72db3a",
+        "package.json": "0dc60c3b9374544047ae4777284c4bd2d914389c40f76b7cfab6208396e98d5f",
+        "seed.json": "a33fbe59dce8b1f03725b5354202ce45be34c388ecf10cd49bacb380fc21a5d0",
+        "SPEC.md": "fd269de149998d33b0e9de8d5f0403ff9d1b5e6c8e2e27e07a986d301d26bb62",
+        "style.css": "b836009ed2144839d754dd4993349eaa467e10109760a69007ba2a12af6e5444",
+        "tasks.mjs": "23b9708a164fc280fcdec20078c22bdd609cf9d3c1621b5cb177bb249cf0d647",
+        "tasks.test.mjs": "dd65f124815d17051ccf351a68a58077f48955d33a986bcf032dde382eff267a"
+      },
+      "tap": "TAP version 13\n# Subtest: 未完了を選ぶと既存の並び順で4件が返る\nok 1 - 未完了を選ぶと既存の並び順で4件が返る\n  ---\n  duration_ms: 0.8256\n  type: 'test'\n  ...\n# Subtest: 追加したTODOは空白を除いた名前になり完了を切り替えられる\nok 2 - 追加したTODOは空白を除いた名前になり完了を切り替えられる\n  ---\n  duration_ms: 0.18\n  type: 'test'\n  ...\n# Subtest: 空の名前は既存どおり拒む\nok 3 - 空の名前は既存どおり拒む\n  ---\n  duration_ms: 0.7603\n  type: 'test'\n  ...\n# Subtest: 未完了で期限2026-10-15までを選ぶと当日を含み翌日以降と期限なしを除いた2件が返る\nok 4 - 未完了で期限2026-10-15までを選ぶと当日を含み翌日以降と期限なしを除いた2件が返る\n  ---\n  duration_ms: 0.106\n  type: 'test'\n  ...\n1..4\n# tests 4\n# suites 0\n# pass 4\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 65.8463\n"
+    },
+    {
+      "phase": "red2",
+      "executed_at": "2026-10-15T07:13:29.909486+00:00",
+      "node": "v24.18.0",
+      "command": "node --test --test-reporter=tap tasks.test.mjs",
+      "exit_code": 1,
+      "tests": 5,
+      "pass": 4,
+      "fail": 1,
+      "syntax_checked": [
+        "tasks.mjs",
+        "app.mjs"
+      ],
+      "sources_sha256": {
+        "app.mjs": "ad982a1905f57c1cf580c2301cb5529c410287abf3e98578f60af3fc90adca64",
+        "index.html": "4015dbfbb24cdcb78d1feb5990abb583bd0eadccc131327356b2f8efec72db3a",
+        "package.json": "0dc60c3b9374544047ae4777284c4bd2d914389c40f76b7cfab6208396e98d5f",
+        "seed.json": "a33fbe59dce8b1f03725b5354202ce45be34c388ecf10cd49bacb380fc21a5d0",
+        "SPEC.md": "fd269de149998d33b0e9de8d5f0403ff9d1b5e6c8e2e27e07a986d301d26bb62",
+        "style.css": "b836009ed2144839d754dd4993349eaa467e10109760a69007ba2a12af6e5444",
+        "tasks.mjs": "23b9708a164fc280fcdec20078c22bdd609cf9d3c1621b5cb177bb249cf0d647",
+        "tasks.test.mjs": "154078d03107110de7ed6e060f08823b2b2dd1076b9db5e42b95e6b500dff902"
+      },
+      "tap": "TAP version 13\n# Subtest: 未完了を選ぶと既存の並び順で4件が返る\nok 1 - 未完了を選ぶと既存の並び順で4件が返る\n  ---\n  duration_ms: 0.7847\n  type: 'test'\n  ...\n# Subtest: 追加したTODOは空白を除いた名前になり完了を切り替えられる\nok 2 - 追加したTODOは空白を除いた名前になり完了を切り替えられる\n  ---\n  duration_ms: 0.1724\n  type: 'test'\n  ...\n# Subtest: 空の名前は既存どおり拒む\nok 3 - 空の名前は既存どおり拒む\n  ---\n  duration_ms: 0.3155\n  type: 'test'\n  ...\n# Subtest: 未完了で期限2026-10-15までを選ぶと当日を含み翌日以降と期限なしを除いた2件が返る\nok 4 - 未完了で期限2026-10-15までを選ぶと当日を含み翌日以降と期限なしを除いた2件が返る\n  ---\n  duration_ms: 0.0928\n  type: 'test'\n  ...\n# Subtest: 実在しない期限2026-02-30を指定するとINVALID_CUTOFFのRangeErrorで拒む\nnot ok 5 - 実在しない期限2026-02-30を指定するとINVALID_CUTOFFのRangeErrorで拒む\n  ---\n  duration_ms: 0.3675\n  type: 'test'\n  location: 'fixture\\\\tasks.test.mjs:22:1'\n  failureType: 'testCodeFailure'\n  error: 'Missing expected exception (RangeError).'\n  code: 'ERR_ASSERTION'\n  name: 'AssertionError'\n  expected:\n    name: 'RangeError'\n    message: 'INVALID_CUTOFF'\n  operator: 'throws'\n  stack: |-\n    TestContext.<anonymous> (file:///fixture/tasks.test.mjs:23:10)\n    Test.runInAsyncScope (node:async_hooks:227:14)\n    Test.run (node:internal/test_runner/test:1325:25)\n    Test.processPendingSubtests (node:internal/test_runner/test:911:18)\n    Test.postRun (node:internal/test_runner/test:1465:19)\n    Test.run (node:internal/test_runner/test:1390:12)\n    async Test.processPendingSubtests (node:internal/test_runner/test:911:7)\n  ...\n1..5\n# tests 5\n# suites 0\n# pass 4\n# fail 1\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 62.3287\n"
+    },
+    {
+      "phase": "green2",
+      "executed_at": "2026-10-15T07:16:28.013175+00:00",
+      "node": "v24.18.0",
+      "command": "node --test --test-reporter=tap tasks.test.mjs",
+      "exit_code": 0,
+      "tests": 5,
+      "pass": 5,
+      "fail": 0,
+      "syntax_checked": [
+        "tasks.mjs",
+        "app.mjs"
+      ],
+      "sources_sha256": {
+        "app.mjs": "0e70a5ebfc68fe6613389b67fd175b2d67a92922379c33a3c50ef6033dba4459",
+        "index.html": "9b2980dbf71942e74fe78ad1b73b1d211e51a1982f44f511b2f43812c0310fba",
+        "package.json": "0dc60c3b9374544047ae4777284c4bd2d914389c40f76b7cfab6208396e98d5f",
+        "seed.json": "a33fbe59dce8b1f03725b5354202ce45be34c388ecf10cd49bacb380fc21a5d0",
+        "SPEC.md": "fd269de149998d33b0e9de8d5f0403ff9d1b5e6c8e2e27e07a986d301d26bb62",
+        "style.css": "8dda0c5a654ba941386374b4f0875919a6f82b8365e437cd5bc3ecccc2b7c316",
+        "tasks.mjs": "70a83eab0b989dfd3eed97c353f7486091dc640beed6159345d57c7a337e5f50",
+        "tasks.test.mjs": "154078d03107110de7ed6e060f08823b2b2dd1076b9db5e42b95e6b500dff902"
+      },
+      "tap": "TAP version 13\n# Subtest: 未完了を選ぶと既存の並び順で4件が返る\nok 1 - 未完了を選ぶと既存の並び順で4件が返る\n  ---\n  duration_ms: 0.8043\n  type: 'test'\n  ...\n# Subtest: 追加したTODOは空白を除いた名前になり完了を切り替えられる\nok 2 - 追加したTODOは空白を除いた名前になり完了を切り替えられる\n  ---\n  duration_ms: 0.1623\n  type: 'test'\n  ...\n# Subtest: 空の名前は既存どおり拒む\nok 3 - 空の名前は既存どおり拒む\n  ---\n  duration_ms: 0.2939\n  type: 'test'\n  ...\n# Subtest: 未完了で期限2026-10-15までを選ぶと当日を含み翌日以降と期限なしを除いた2件が返る\nok 4 - 未完了で期限2026-10-15までを選ぶと当日を含み翌日以降と期限なしを除いた2件が返る\n  ---\n  duration_ms: 0.1597\n  type: 'test'\n  ...\n# Subtest: 実在しない期限2026-02-30を指定するとINVALID_CUTOFFのRangeErrorで拒む\nok 5 - 実在しない期限2026-02-30を指定するとINVALID_CUTOFFのRangeErrorで拒む\n  ---\n  duration_ms: 0.1247\n  type: 'test'\n  ...\n1..5\n# tests 5\n# suites 0\n# pass 5\n# fail 0\n# cancelled 0\n# skipped 0\n# todo 0\n# duration_ms 58.6871\n"
+    }
+  ],
+  "human_approval": false,
+  "browser_checkpoint": "pending; supported browser currently unavailable"
+}

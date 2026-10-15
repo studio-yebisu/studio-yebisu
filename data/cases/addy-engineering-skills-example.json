@@ -1,0 +1,250 @@
+{
+  "id": "addy-engineering-skills-example",
+  "title": "TODOの期限の絞り込みを、仕様から先に作る",
+  "title_lines": [
+    "TODOの期限の絞り込みを、",
+    "仕様から先に作る"
+  ],
+  "category": "development",
+  "summary": "TODOアプリの状態と期限を選ぶと、指定日までのTODOだけを表示します。Addy Osmani の Agent Skillsを読み、仕様を先に書き、2つの増分を失敗するテストから実装しました。合成6件で未完了4件→2件になる作例と、仕様・コード・テスト、28秒の無音解説動画を公開します。テスト5件、別の受入36条件、条件反転の検出、元のTODO差分のAIレビュー、実画面と動画再生を確認しました。",
+  "model": "claude-opus-5-5",
+  "status": "published",
+  "demo": "examples/addy-engineering-skills-example/index.html",
+  "video": "media/addy-engineering-skills-example.mp4",
+  "poster": "media/addy-engineering-skills-example.webp",
+  "skill": "examples/addy-engineering-skills-example/vendor/addy-agent-skills/skills/spec-driven-development/SKILL.md",
+  "skill_label": "原典の spec-driven-development SKILL.md（固定コミット aeac41d）",
+  "skill_description": "コードより先に、6つの領域の仕様と受入条件を書いてから計画へ進むための手順",
+  "samples": "examples/addy-engineering-skills-example/samples.json",
+  "sample_format": "input-output",
+  "samples_title": "架空のTODO6件に、3つの条件をかけた結果",
+  "samples_intro": "入力は、状態（すべて・未完了・完了）と期限の指定日です。結果の「変更前」は期限の条件をかける前（状態の絞り込みだけ）の件数、「変更後」は期限の条件をかけた後の件数と名前で、変更後の tasks.mjs の selectTasks を制作時に Node v24.18.0 で実行して保存した記録（results.json）から作っています。作例のページでは同じ条件をリンクから開き、その場の計算が記録と同じ並びかを表示します。",
+  "demo_description": "状態の選択と期限の日付を変えると、同梱の tasks.mjs の selectTasks がその場で一覧を絞り込みます。TODOの追加と完了の切り替えもでき、入力はページのメモリーにだけ置かれ、再読込すると合成データ6件に戻ります。「未完了を指定日まで」「完了も含めて指定日まで」「期限の条件を外す」の3つの例は #due-open・#due-all・#no-cutoff のリンクで直接開け、その場の計算が保存した記録と同じ並びかを表示します。追加や切り替えをした後の一覧は、記録とは比べないその場の結果として表示を分けます。確かめたことと未確認のこと、依頼文のコピー、ファイルの一覧もあります。",
+  "demo_note": "同梱のtasks.mjsとapp.mjsを実行するページです。AIや外部サービスは動かず、入力はメモリーだけに置かれ、再読込で合成6件へ戻ります。Nodeのテスト記録は制作時の保存結果です。3リンク・追加・完了・範囲外の年・解除とキーボードを実操作しました。",
+  "request_intro": "Addy Osmani の Agent Skills のファイルを読めるコーディングエージェントに、次の文章を渡します。【】を自分の依頼と対象に置き換えてください。スキル集のインストールは必須ではなく、固定コミットの必要なファイルを読ませれば足ります。この作例では手順1の確認を制作担当の事前の決定で代え、人の確認はしていませんが、依頼文では原典どおり確認を待つ形にしています。",
+  "request": "Addy Osmani の Agent Skills（addyosmani/agent-skills、固定コミット aeac41d4d005999432bb7312f7ff06383a91d59d）から、次のファイルを読んでから作業してください。スキルを1つずつ入れる方法ではリポジトリ直下の references/ が付いてこないため、下の参照ファイルもリポジトリから直接読んでください。\n- skills/using-agent-skills/SKILL.md（工程に合うスキルの選び方）\n- skills/spec-driven-development/SKILL.md と references/definition-of-done.md\n- skills/planning-and-task-breakdown/SKILL.md\n- skills/incremental-implementation/SKILL.md\n- skills/test-driven-development/SKILL.md と references/testing-patterns.md\n- skills/code-review-and-quality/SKILL.md\n- 画面を変えるときは skills/frontend-ui-engineering/SKILL.md と references/accessibility-checklist.md\n\n依頼：【例：小さなTODOアプリへ期限の絞り込みを追加して。まず仕様と完成条件を整理し、実装後に境界値と既存操作も確認してほしい。】\n対象のフォルダとファイル：【例：todo/ の tasks.mjs・app.mjs・index.html】\nテストと確認のコマンド：【例：npm test と npm run check】\n変えてはいけないもの：【例：依存パッケージ、保存の方法、既存の追加と完了の切り替え】\n\n進め方：\n1. コードはまだ書かず、SPEC.md に仕様だけを書いてください。目的・コマンド・ファイル構成・コードの書き方・テストの方針・境界（必ず行う／先に聞く／行わない）の6つを含め、曖昧な点は推測で埋めずに前提として並べ、入力と期待値を固定した受入条件と、未確認の点を分けてください。書いたら止まり、私の確認を待ってください。\n2. 確認のあと、tasks/plan.md と tasks/todo.md に、画面まで通る小さな増分ごとの計画を作り、各増分に受入条件と確認方法を付けてください。\n3. 増分ごとに、新しいテストを先に足して実行し、狙いどおりの理由で失敗するのを確かめてから、通るだけの最小の変更をしてください。全テストと確認コマンドが成功してから commit し、次の増分へ進んでください。\n4. 全増分のあと、境界値（例：当日、前日、翌日、期限なし、実在しない日付、別のタイムゾーン）と既存の操作を確かめてください。さらに、追加した条件を1か所わざと反転してテストが失敗することを確かめ、元に戻してください。\n5. 正しさ・読みやすさ・設計・セキュリティ・性能の5つの観点で差分をレビューし、指摘と対応を書いてください。\n6. 画面を変えた場合は、ラベル、見出しの順、キーボード操作とフォーカスの見え方、色だけに頼らない表示、0件と入力エラーの表示、幅320・768・1024・1440pxを実際のブラウザーで確かめてください。確かめられなければ「未確認」と書いてください。\n\n報告では、各段の実行コマンド・終了コード・テストの成功数と失敗数を実際の出力から書き、確かめたことと未確認のこと、人が承認したことと承認していないことを分けてください。",
+  "video_note": "28秒・1280×720・30fps・840フレーム、音声なし。実入力と保存した実行結果から描画しています。14枚のコンタクトシート、12枚の連続フレーム、代表表示、実MP4の14秒のデコード画像を確認し、実ブラウザーで28秒の終端まで再生しました。16.8秒は異なる移動順と新しいページで同じPNGでした。同じ環境での技術検査と制作担当の確認で、人の承認ではありません。",
+  "video_source": "examples/addy-engineering-skills-example/video/index.html",
+  "skill_license": "examples/addy-engineering-skills-example/vendor/addy-agent-skills/LICENSE",
+  "applied_skills": [
+    {
+      "name": "using-agent-skills（Addy Agent Skills、工程の振り分け）",
+      "source": "https://github.com/addyosmani/agent-skills/blob/aeac41d4d005999432bb7312f7ff06383a91d59d/skills/using-agent-skills/SKILL.md",
+      "applied": "依頼を「既存アプリへの機能追加」と見て、Skill Discovery の木から spec-driven-development → planning-and-task-breakdown → incremental-implementation と test-driven-development → code-review-and-quality の順を選び、画面の変更には frontend-ui-engineering を足した。前提を表に出す規則に従い、曖昧な点を SPEC.md の A1〜A11 に並べ、既存コードで気づいた食い違い（未使用の cutoff 引数、status の既存の扱い、dueDate を検証しない addTask、日付入力から INVALID_CUTOFF に届くか）を推測で埋めずに U1〜U5 に残した。ただし「Correct me now」と人に問う形にはしておらず、決めたのは制作担当。interview-me・idea-refine は対話がないため使わず、browser-testing-with-devtools の Chrome DevTools MCP は導入も使用もしていない。"
+    },
+    {
+      "name": "spec-driven-development（Addy Agent Skills）",
+      "source": "https://github.com/addyosmani/agent-skills/blob/aeac41d4d005999432bb7312f7ff06383a91d59d/skills/spec-driven-development/SKILL.md",
+      "applied": "コードを書く前に、別のモデル呼び出しで SPEC.md だけを書いた。Phase 0 で依頼が「期限の絞り込み」1つの能力だと確かめ、能力の地図は作らずに Phase 1 へ進んだ。Objective・Commands・Project Structure・Code Style・Testing Strategy・Boundaries の6領域を書き、Commands は package.json に実在する2つだけ、Code Style は既存の addTask の実例で示した。受入条件は F1〜F10（絞り込み）、V1〜V8（不正な日付と受け付ける境界）、R1〜R3（既存操作）、UI-1〜UI-7（画面）として入力と期待値を固定し、references/definition-of-done.md を作例向けの完成の基準にした。原典は仕様を書いたら止まって人の承認を待つよう求めるが、この作例では人の承認をしておらず、制作担当の事前の決定と制作担当による仕様の確認で代えた。"
+    },
+    {
+      "name": "planning-and-task-breakdown・incremental-implementation（Addy Agent Skills）",
+      "source": "https://github.com/addyosmani/agent-skills/blob/aeac41d4d005999432bb7312f7ff06383a91d59d/skills/planning-and-task-breakdown/SKILL.md",
+      "applied": "仕様から、有効な暦日の絞り込み、暦日の検証という2つの増分と受入条件・確認方法を計画した。公開APIや新規モジュールを増やさず、既存selectTasksのcutoffを有効にし、暦日の検証だけを非公開assertCutoffへ分けた。各増分はCLI検証後にコミットした。当時ブラウザー接続がなく、UI確認は全増分後にまとめて行った。plan/は実行前の原本で、チェックを後付けして段階確認したと見せていない。"
+    },
+    {
+      "name": "test-driven-development（Addy Agent Skills）",
+      "source": "https://github.com/addyosmani/agent-skills/blob/aeac41d4d005999432bb7312f7ff06383a91d59d/skills/test-driven-development/SKILL.md",
+      "applied": "増分ごとに新しいテストを1件だけ足し、実装前に実行して狙いどおりの理由で失敗するのを確かめてから、通るだけの変更をした。RED1 は期待した2件に publish と idea が余る ERR_ASSERTION、RED2 は例外が投げられない Missing expected exception で、どちらも構文や読み込みの失敗ではない。記録（Node v24.18.0）は baseline 3件成功、red1 4件中1件失敗 → green1 4件成功、red2 5件中1件失敗 → green2 5件成功。テストの期待値は実装に合わせて書き換えていない。境界と既存操作の36条件は tasks.test.mjs に足さず、制作側の別の確認スクリプトで実行し、Asia/Tokyo・UTC+14・UTC−7 で同じ結果だった（スクリプトは同梱していない）。"
+    },
+    {
+      "name": "code-review-and-quality（Addy Agent Skills、条件反転と元のTODO差分のAIレビュー）",
+      "source": "https://github.com/addyosmani/agent-skills/blob/aeac41d4d005999432bb7312f7ff06383a91d59d/skills/code-review-and-quality/SKILL.md",
+      "applied": "「追加した条件を1つ反転してテストを走らせ、元に戻す」という実験の規則に従い、task.dueDate <= cutoff を < に変えてテストを実行した。期限2026-10-15までの未完了2件を確かめるテストが失敗し（1件失敗）、元のファイルに戻すと5件すべて成功、戻したファイルのハッシュが元と一致した。さらに、Opus著者とは別のCodex親がテストと仕様、元のTODO差分とDOMの配線を読み、正しさ・読みやすさ・設計・セキュリティ・性能の5つの観点でレビューした。Critical/Requiredの指摘は0件。紹介用のguideと動画はレビュー対象外で、人の最終承認を受けたとは扱わない。"
+    },
+    {
+      "name": "frontend-ui-engineering（Addy Agent Skills、＋ accessibility-checklist）",
+      "source": "https://github.com/addyosmani/agent-skills/blob/aeac41d4d005999432bb7312f7ff06383a91d59d/skills/frontend-ui-engineering/SKILL.md",
+      "applied": "提供された2つの既存公開画面から階層と操作密度を参照し、既存の配色・書体・4px尺度を保った。ラベル・見出し順・フォーカス・文字による選択状態・0件・日付エラー・コピー成功/失敗を用意。実ブラウザーで320/768/1024/1440px、30回のTab移動、Enterで例選択、Spaceで完了、日付のキー変更と消去、追加/完了/解除、OSコピー1590文字と依頼文別ページを確認。0999年を実際にタイプして案内と回復を観測した。アクセシビリティツリーの名前/構造とコンソール警告を確認し、観測した警告は0。NVDA/JAWSやaxe、WCAG全項目の適合審査は実施していない。"
+    },
+    {
+      "name": "Motion Reel",
+      "source": "https://github.com/studio-yebisu/motion-reel/tree/56198544e69201b1c202e0c00fb90b568a729824",
+      "applied": "元の実入力・結果JSON・テスト履歴・条件反転記録を検証してから、純時間のseekで描画する28秒の編集ソースをOpusが制作。motionReadyで素材/フォントを待ち、書き出し中はタイマーを止めた。1280×720/30fps/840枚/無音MP4を実レンダーし、contact14枚・strip12枚・代表と実MP4フレームを確認。冒頭と末尾の孤立文字だけ親が意味の区切りに直して再書き出し。16.8秒は移動順とfreshpageで同じPNG。実ブラウザーで28秒終端・errorなし、編集プレビューの22.53秒操作も確認した。人の承認ではない。"
+    }
+  ],
+  "steps": [
+    {
+      "title": "原典を固定し、必要なスキルだけを読む",
+      "body": "addyosmani/agent-skills のコミット aeac41d を固定しました。スキル集はインストールせず、使う7つのスキルのフォルダと、リポジトリ直下の references/ にある参照ファイル3つを読み、作例の vendor/ に同梱しました。原典の README は、スキルを1つずつ入れる方法では直下の references/ が付いてこないと注意しています。"
+    },
+    {
+      "title": "using-agent-skills で、工程の順を選ぶ",
+      "body": "依頼を「既存アプリへの機能追加」と見て、仕様 → 計画 → テストから進める実装 → レビューの順を選び、画面の変更には frontend-ui-engineering を足しました。全25のスキルのうち、対話を前提にするものやブラウザーの操作ツールを使うものは使っていません。"
+    },
+    {
+      "title": "コードより先に、仕様だけを書く",
+      "body": "別のモデル呼び出しで SPEC.md だけを書きました。目的・コマンド・ファイル構成・コードの書き方・テストの方針・境界の6つの領域、当日を含む・期限なしは除く・状態と同時に効くといった前提、入力と期待値を固定した受入条件、未確認の点です。決めたのは制作担当で、人の承認はしていません。"
+    },
+    {
+      "title": "計画を、2つの小さな増分に分ける",
+      "body": "有効な日付での絞り込みを画面まで通す増分と、実在しない日付を拒む増分に分け、それぞれに受入条件と確認方法を付けました。公開APIは増やさず、既存の selectTasks の使われていなかった cutoff 引数を有効にしています。暦日の検証は、同じファイルの非公開関数 assertCutoff に分けました。"
+    },
+    {
+      "title": "失敗を見てから通す、を2回",
+      "body": "増分ごとに新しいテストを1件足して実行し、狙いどおりの理由で失敗するのを見てから、通るだけの変更をしました。記録は 3件成功 → 1件失敗 → 4件成功 → 1件失敗 → 5件成功で、各段のファイルを tdd/ に残しています。"
+    },
+    {
+      "title": "境界値と既存操作を、別に36条件確かめる",
+      "body": "当日・前日・期限なし・閏年・年の範囲・形式違い・型違い、追加と完了の切り替えなど36条件を別の確認で実行し、すべて期待どおりでした。タイムゾーンを UTC+14 と UTC−7 に変えても同じ36の結果です。"
+    },
+    {
+      "title": "条件をわざと反転して、テストが気づくか試す",
+      "body": "比較の <= を < に変えると、期限の当日を確かめるテストが1件失敗しました。元に戻すと5件すべて成功します。元のTODO差分の5軸AIレビューは修正必須0件でした。紹介用の画面と映像は、別途、動作・視覚を確認しました（このコードレビューの対象外）。"
+    },
+    {
+      "title": "動くページと、28秒の動画のソースにする",
+      "body": "同じtasks.mjsを実行するページに、3つの例と記録照合、依頼文のコピーを付けました。3プリセット・追加/完了/解除・0件・不正な年・キー操作・4画面幅とOSコピーを実操作。実結果を使う28秒の無音MP4はフレームを見て、終端まで再生しました。"
+    }
+  ],
+  "limitations": [
+    "依頼・合成データ6件・既存のコードは、この作例のために作った架空のものです。",
+    "仕様と計画は制作担当が事前に決めました。原典の spec-driven-development が求める人の承認、利用者への聞き取り、段階ごとの人の確認はしていません。原典の25のスキルや全工程を適用したわけではありません。",
+    "テスト・受入確認・条件の反転は、制作時に Node v24.18.0 で実行した自動の確認です。ページを開くたびに再実行してはいません。36条件の受入確認に使った制作側のスクリプトは同梱していません。",
+    "ページで新しく入れた条件や、追加・切り替えをした後の一覧は、その場の計算で、制作時の記録とは比べていません。",
+    "期限順の並べ替え、範囲の指定、自動の「今日」、期限超過の強調、通知、保存、共有は扱っていません。",
+    "スキル集のインストールの手順そのものは試していません。",
+    "画面確認は全増分後に実施しました。各増分の時点のブラウザー確認を済ませたとは扱いません。",
+    "支援技術向けの名前・構造と警告ログは観察しましたが、NVDA/JAWS、axe、全WCAG項目の適合審査は未実施です。",
+    "元のTODO差分の5軸レビューはOpus著者とは別のCodex親によるAIレビューで、必須指摘0件。紹介用guideと動画は別の制作担当の動作・視覚確認です。人の承認や全入力・大規模データの保証ではありません。"
+  ],
+  "sources": [
+    {
+      "label": "Addy Osmani Agent Skills のソース（addyosmani/agent-skills、固定コミット）",
+      "url": "https://github.com/addyosmani/agent-skills/tree/aeac41d4d005999432bb7312f7ff06383a91d59d"
+    },
+    {
+      "label": "Agent Skills README（固定コミット、入れ方と references/ の注意）",
+      "url": "https://github.com/addyosmani/agent-skills/blob/aeac41d4d005999432bb7312f7ff06383a91d59d/README.md"
+    },
+    {
+      "label": "using-agent-skills SKILL.md（固定コミット）",
+      "url": "https://github.com/addyosmani/agent-skills/blob/aeac41d4d005999432bb7312f7ff06383a91d59d/skills/using-agent-skills/SKILL.md"
+    },
+    {
+      "label": "spec-driven-development SKILL.md（固定コミット）",
+      "url": "https://github.com/addyosmani/agent-skills/blob/aeac41d4d005999432bb7312f7ff06383a91d59d/skills/spec-driven-development/SKILL.md"
+    },
+    {
+      "label": "planning-and-task-breakdown SKILL.md（固定コミット）",
+      "url": "https://github.com/addyosmani/agent-skills/blob/aeac41d4d005999432bb7312f7ff06383a91d59d/skills/planning-and-task-breakdown/SKILL.md"
+    },
+    {
+      "label": "incremental-implementation SKILL.md（固定コミット）",
+      "url": "https://github.com/addyosmani/agent-skills/blob/aeac41d4d005999432bb7312f7ff06383a91d59d/skills/incremental-implementation/SKILL.md"
+    },
+    {
+      "label": "test-driven-development SKILL.md（固定コミット）",
+      "url": "https://github.com/addyosmani/agent-skills/blob/aeac41d4d005999432bb7312f7ff06383a91d59d/skills/test-driven-development/SKILL.md"
+    },
+    {
+      "label": "code-review-and-quality SKILL.md（固定コミット）",
+      "url": "https://github.com/addyosmani/agent-skills/blob/aeac41d4d005999432bb7312f7ff06383a91d59d/skills/code-review-and-quality/SKILL.md"
+    },
+    {
+      "label": "frontend-ui-engineering SKILL.md（固定コミット）",
+      "url": "https://github.com/addyosmani/agent-skills/blob/aeac41d4d005999432bb7312f7ff06383a91d59d/skills/frontend-ui-engineering/SKILL.md"
+    },
+    {
+      "label": "accessibility-checklist.md（固定コミット）",
+      "url": "https://github.com/addyosmani/agent-skills/blob/aeac41d4d005999432bb7312f7ff06383a91d59d/references/accessibility-checklist.md"
+    },
+    {
+      "label": "Agent Skills LICENSE（MIT、固定コミットから作例に同梱）",
+      "url": "examples/addy-engineering-skills-example/vendor/addy-agent-skills/LICENSE"
+    },
+    {
+      "label": "作例の仕様（SPEC.md）",
+      "url": "examples/addy-engineering-skills-example/SPEC.md"
+    },
+    {
+      "label": "作例の計画（plan/plan.md）",
+      "url": "examples/addy-engineering-skills-example/plan/plan.md"
+    },
+    {
+      "label": "変更後のコード（tasks.mjs）",
+      "url": "examples/addy-engineering-skills-example/tasks.mjs"
+    },
+    {
+      "label": "最後のテスト（tasks.test.mjs）",
+      "url": "examples/addy-engineering-skills-example/tasks.test.mjs"
+    },
+    {
+      "label": "テストの実行記録（tdd-history.json）",
+      "url": "examples/addy-engineering-skills-example/tdd-history.json"
+    },
+    {
+      "label": "受入確認の記録（acceptance-main.json）",
+      "url": "examples/addy-engineering-skills-example/acceptance-main.json"
+    },
+    {
+      "label": "タイムゾーン別の確認（timezones.json）",
+      "url": "examples/addy-engineering-skills-example/timezones.json"
+    },
+    {
+      "label": "条件の反転の記録（mutation.json）",
+      "url": "examples/addy-engineering-skills-example/mutation.json"
+    },
+    {
+      "label": "3つの例の結果（results.json）",
+      "url": "examples/addy-engineering-skills-example/results.json"
+    },
+    {
+      "label": "架空の既存コードからの変更差分",
+      "url": "examples/addy-engineering-skills-example/changes.diff"
+    },
+    {
+      "label": "作例の再現手順（README）",
+      "url": "examples/addy-engineering-skills-example/README.md"
+    },
+    {
+      "label": "Motion Reel（Studio Yebisu、MIT）",
+      "url": "https://github.com/studio-yebisu/motion-reel/tree/56198544e69201b1c202e0c00fb90b568a729824"
+    },
+    {
+      "label": "元のTODO差分の5軸AIレビュー（範囲と実行根拠）",
+      "url": "examples/addy-engineering-skills-example/core-review.json"
+    }
+  ],
+  "license": "MIT",
+  "license_note": "この作例の画面構成・文言・依頼文・合成データ・コード・テスト・記録・映像ソースは Studio Yebisu の独自制作で、MIT License（Copyright (c) 2026 Studio Yebisu）です。vendor/addy-agent-skills/ は Addy Osmani の Agent Skills の固定コミット aeac41d から選んだ README・LICENSE と、using-agent-skills・spec-driven-development・planning-and-task-breakdown・incremental-implementation・test-driven-development・code-review-and-quality・frontend-ui-engineering の SKILL.md、references/ の definition-of-done.md・testing-patterns.md・accessibility-checklist.md を同梱したもので、上流の MIT License（Copyright (c) 2025 Addy Osmani）に従います。上流の画像は使っていません。",
+  "catalog_entry": {
+    "id": "resource-addy-engineering-skills",
+    "name": "Addy Osmani Agent Skills",
+    "category": "development",
+    "kind": "スキル",
+    "summary": "仕様、実装、テスト、レビューなど、開発の各工程に使う小さな手順をまとめたスキル集。",
+    "use_case": "AIにコードを書かせる際に、先に仕様を固め、検証まで進めたいとき。",
+    "tags": [
+      "実装",
+      "テスト",
+      "レビュー",
+      "Agent Skills"
+    ],
+    "workflow": [
+      "依頼の工程に合うスキルを選ぶ",
+      "仕様・実装・検証の入出力をそろえる",
+      "変更と実行した確認をレビューする"
+    ],
+    "requirements": [
+      "対象リポジトリの開発・テスト環境",
+      "今回必要なスキルだけを選ぶ"
+    ],
+    "license": "MIT",
+    "license_url": "https://github.com/addyosmani/agent-skills/blob/aeac41d4d005999432bb7312f7ff06383a91d59d/LICENSE",
+    "license_note": "MIT。対象プロジェクトの契約と指示を優先し、スキルの工程を目的に合わせます。",
+    "source_url": "https://github.com/addyosmani/agent-skills/tree/aeac41d4d005999432bb7312f7ff06383a91d59d",
+    "guide_url": "case.html?entry=resource-addy-engineering-skills",
+    "readme_url": "https://github.com/addyosmani/agent-skills/blob/aeac41d4d005999432bb7312f7ff06383a91d59d/README.md",
+    "source_repository": "addyosmani/agent-skills",
+    "source_commit": "aeac41d4d005999432bb7312f7ff06383a91d59d",
+    "source_path": "",
+    "source_project": "curated",
+    "source_note": "公開リポジトリのREADMEと利用条件を確認し、用途と最初の試し方を日本語で整理しました。スキルは入口または代表の本文も参照しています。原典は確認時のコミットへ固定しています。",
+    "prompt": "Addy Osmani Agent Skills の原典（https://github.com/addyosmani/agent-skills/tree/aeac41d4d005999432bb7312f7ff06383a91d59d）を読んで、次を進めてください。\n小さなTODOアプリへ期限の絞り込みを追加してください。まず仕様と完成条件を整理し、実装後に境界値と既存操作を確認してください。\n入力、出力、実行した検証、未確認の点を記録してください。",
+    "verification_stage": "runtime-reviewed",
+    "verification": "Opus5.5で合成TODO6件に仕様→計画→2実RED/GREENを適用。実Nodeで最後5/5、別の36条件はUTC+9/+14/-7で同じ結果。<=を<へ変えると1件失敗、復元で5件成功。元差分の別AI5軸レビューは必須0件。3プリセット、追加/完了/解除、0件、0999年、キー、320/768/1024/1440px、OSコピー1590文字を実確認。28秒無音MP4を実レンダー・フレーム確認・終端再生。人の承認、全25スキルの完全適用、インストール、実スクリーンリーダー/axe/適合審査は未実施。",
+    "reviewed_on": "2026-10-15"
+  },
+  "updated_on": "2026-10-15"
+}
