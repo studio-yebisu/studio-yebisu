@@ -1,0 +1,75 @@
+{
+  "format": "input-output",
+  "samples": [
+    {
+      "id": "all",
+      "label": "すべての催し（#all）",
+      "input": "対象「すべて」、検索語なし",
+      "input_file": "events.json",
+      "conditions": {
+        "audience": "all",
+        "query": ""
+      },
+      "output": "6件を日付順に表示：11月7日 えほんを囲む、土曜の朝／11月13日 夜の読書室｜短編を持ち寄る／11月14日 本の修理を、ひと針から／11月21日 親子でつくる、紙のしおり／11月22日 まちの記憶を話す会／11月28日 小さな詩の朗読会",
+      "expected_ids": [
+        "e01",
+        "e02",
+        "e03",
+        "e04",
+        "e05",
+        "e06"
+      ],
+      "link": "index.html#all",
+      "actual_ids": [
+        "e01",
+        "e02",
+        "e03",
+        "e04",
+        "e05",
+        "e06"
+      ],
+      "actual_result_file": "results.json"
+    },
+    {
+      "id": "children",
+      "label": "子ども向けの催し（#children）",
+      "input": "対象「子ども」、検索語なし",
+      "input_file": "events.json",
+      "conditions": {
+        "audience": "children",
+        "query": ""
+      },
+      "output": "2件：11月7日（土）10:30〜11:00 えほんを囲む、土曜の朝（読書の間・申込不要）／11月21日（土）10:00〜11:00 親子でつくる、紙のしおり（作業の間・申込不要）",
+      "expected_ids": [
+        "e01",
+        "e04"
+      ],
+      "link": "index.html#children",
+      "actual_ids": [
+        "e01",
+        "e04"
+      ],
+      "actual_result_file": "results.json"
+    },
+    {
+      "id": "reading",
+      "label": "「短編」を含む催し（#reading）",
+      "input": "対象「すべて」、検索「短編」",
+      "input_file": "events.json",
+      "conditions": {
+        "audience": "all",
+        "query": "短編"
+      },
+      "output": "1件：11月13日（金）18:00〜19:30 夜の読書室｜短編を持ち寄る（奥の小部屋・窓口で申込（架空））",
+      "expected_ids": [
+        "e02"
+      ],
+      "link": "index.html#reading",
+      "actual_ids": [
+        "e02"
+      ],
+      "actual_result_file": "results.json"
+    }
+  ],
+  "note": "催しは合成データ。制作依頼は input.md。expected_ids は期待値で、actual_ids は events.mjs を実行した results.json と一致。ブラウザーの同じ3条件も6件・2件・1件に一致。検索「読書」は会場にも一致して4件。詳しい確認範囲と未実施項目は verification.json。"
+}

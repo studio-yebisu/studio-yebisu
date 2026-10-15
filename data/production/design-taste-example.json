@@ -1,0 +1,879 @@
+{
+  "id": "design-taste-example",
+  "verified_at": "2026-10-15T15:42:05.588125+00:00",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "receipts": [
+      {
+        "phase": "plan",
+        "receipt_sha256": "75b16ae47a4d0872b29137bbf38cdf0050fced5ed0ec59c80f536ce6a9d0c0a4",
+        "execution_sha256": "4b977b047bb021c679540683e02a97bea3a45982d1c869c9be9ba9f35999924f",
+        "prompt_sha256": "fa6e7eeb445b9c184b90c40ad8db995c19b4114d9b3f606dec9298a60b76de87"
+      },
+      {
+        "phase": "implement",
+        "receipt_sha256": "74467aa313bde449be3a75bf03bb58630b47b36ca409818a0e373ae11325b15d",
+        "execution_sha256": "f79ffda1e4fdb333dae18d8b9ed0b36baf56bdb5551bf1b253c9c442f6571309",
+        "prompt_sha256": "b67f1374726ed99788f43d776dd27a9b1c98db5307b9ee4cf549a8add3cc591c"
+      },
+      {
+        "phase": "video",
+        "receipt_sha256": "ea365b6263413ca5f5d6e08f68a8a957033cbf02e04f2ec42eb7f225151c5279",
+        "execution_sha256": "e34bb3adc6f90cc322047a3a91fd07d72ea7c6e90461452e70da4afc2c15d27c",
+        "prompt_sha256": "611b0c5f9b7af112d8e8f62a33c3b74715246c25d8e4c4828db786a023d0acb8"
+      }
+    ],
+    "receipt_published": false
+  },
+  "upstream": {
+    "repository": "madebymustafa/design-taste",
+    "commit": "c4a6bff0871eb4b15371b0e7d2751628b0ed4608",
+    "license": "MIT",
+    "copyright": "2026 Mustafa",
+    "scope": "Selected five skill texts plus original README and LICENSE; no upstream media or example copied. Not the full24-skill installer.",
+    "vendor_files": [
+      {
+        "path": "README.md",
+        "sha256": "434f11a1a53cbc0c0b9e60509d57a16a079759edcd6e29e1c3db6c43e3e7585b",
+        "matches_fixed_git_blob": true
+      },
+      {
+        "path": "LICENSE",
+        "sha256": "7a0f09be6768f60fd7c01ecab6af369614c224061ffc76792ef06881493bb4a2",
+        "matches_fixed_git_blob": true
+      },
+      {
+        "path": "skills/design-taste/SKILL.md",
+        "sha256": "c848bbddfdea89962da7b90faf53e033e9b2a8c1944f5dc98dbd78aeb758489f",
+        "matches_fixed_git_blob": true
+      },
+      {
+        "path": "skills/japanese-minimal/SKILL.md",
+        "sha256": "7b96ba5a48afd7d4e69f79f589f95e4fa6874384db0762c6d90b5cad0e1a6465",
+        "matches_fixed_git_blob": true
+      },
+      {
+        "path": "skills/taste-accessibility/SKILL.md",
+        "sha256": "4d293f850d91330f98812ec6a36110ddbd9d2337f58719d32e9731a4ea519558",
+        "matches_fixed_git_blob": true
+      },
+      {
+        "path": "skills/taste-typography/SKILL.md",
+        "sha256": "8c9ce32d56237ade84985868db6cc5753082987a9cd1e67d0e2bbb8bc2e3e648",
+        "matches_fixed_git_blob": true
+      },
+      {
+        "path": "skills/taste-ux-copy/SKILL.md",
+        "sha256": "7a17e03e158ace46461e1ce046f79e2e1c0d63c65f8155f4ff2fa0161be6b40f",
+        "matches_fixed_git_blob": true
+      }
+    ]
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 3,
+    "scope": "Five written design skills applied to a real synthetic six-event input, pre-code plan, actual HTML/CSS/JS filter and native participation UI; executed Node21 and browser6/2/1 presets.",
+    "human_approval": false
+  },
+  "node": {
+    "scope": "Selected pure filter semantics, six fixed calendar weekdays, source/data hash and input immutability; browser appearance, accessibility and human approval are separate.",
+    "node_version": "v24.18.0",
+    "source_sha256": {
+      "events.json": "7c1e1bc2087ea36c11aba4c6b66469c73b13266820491e2726c26ffc27e07ea7",
+      "events.mjs": "6b95b4e0baf05f7835d92e4bb1e574c7612b857104fc068735e26924e5897b8e",
+      "app.mjs": "677ebbb16348a8d051ceac3248a1c9dff4e1fcf86a9712086a60d22be480044e"
+    },
+    "checks": [
+      {
+        "name": "all",
+        "input": {},
+        "expected_ids": [
+          "e01",
+          "e02",
+          "e03",
+          "e04",
+          "e05",
+          "e06"
+        ],
+        "actual_ids": [
+          "e01",
+          "e02",
+          "e03",
+          "e04",
+          "e05",
+          "e06"
+        ],
+        "passed": true
+      },
+      {
+        "name": "children",
+        "input": {
+          "audience": "children"
+        },
+        "expected_ids": [
+          "e01",
+          "e04"
+        ],
+        "actual_ids": [
+          "e01",
+          "e04"
+        ],
+        "passed": true
+      },
+      {
+        "name": "adults",
+        "input": {
+          "audience": "adults"
+        },
+        "expected_ids": [
+          "e02",
+          "e03"
+        ],
+        "actual_ids": [
+          "e02",
+          "e03"
+        ],
+        "passed": true
+      },
+      {
+        "name": "everyone",
+        "input": {
+          "audience": "everyone"
+        },
+        "expected_ids": [
+          "e05",
+          "e06"
+        ],
+        "actual_ids": [
+          "e05",
+          "e06"
+        ],
+        "passed": true
+      },
+      {
+        "name": "short-story",
+        "input": {
+          "query": "短編"
+        },
+        "expected_ids": [
+          "e02"
+        ],
+        "actual_ids": [
+          "e02"
+        ],
+        "passed": true
+      },
+      {
+        "name": "place-is-searched",
+        "input": {
+          "query": "読書"
+        },
+        "expected_ids": [
+          "e01",
+          "e02",
+          "e05",
+          "e06"
+        ],
+        "actual_ids": [
+          "e01",
+          "e02",
+          "e05",
+          "e06"
+        ],
+        "passed": true
+      },
+      {
+        "name": "audience-and-query",
+        "input": {
+          "audience": "children",
+          "query": "短編"
+        },
+        "expected_ids": [],
+        "actual_ids": [],
+        "passed": true
+      },
+      {
+        "name": "trim-wide-spaces",
+        "input": {
+          "query": "　短編　"
+        },
+        "expected_ids": [
+          "e02"
+        ],
+        "actual_ids": [
+          "e02"
+        ],
+        "passed": true
+      },
+      {
+        "name": "empty-after-normalize",
+        "input": {
+          "query": "　 "
+        },
+        "expected_ids": [
+          "e01",
+          "e02",
+          "e03",
+          "e04",
+          "e05",
+          "e06"
+        ],
+        "actual_ids": [
+          "e01",
+          "e02",
+          "e03",
+          "e04",
+          "e05",
+          "e06"
+        ],
+        "passed": true
+      },
+      {
+        "name": "no-result",
+        "input": {
+          "query": "該当しない語"
+        },
+        "expected_ids": [],
+        "actual_ids": [],
+        "passed": true
+      },
+      {
+        "name": "date-is-not-searched",
+        "input": {
+          "query": "2026"
+        },
+        "expected_ids": [],
+        "actual_ids": [],
+        "passed": true
+      },
+      {
+        "name": "literal-html-query",
+        "input": {
+          "query": "<img src=x onerror=alert(1)>"
+        },
+        "expected_ids": [],
+        "actual_ids": [],
+        "passed": true
+      },
+      {
+        "name": "synthetic-nfkc-lowercase-12",
+        "input": {
+          "query": "abc"
+        },
+        "expected_ids": [
+          "normalization-only"
+        ],
+        "actual_ids": [
+          "normalization-only"
+        ],
+        "passed": true,
+        "synthetic": true
+      },
+      {
+        "name": "synthetic-nfkc-lowercase-13",
+        "input": {
+          "query": "　ａｂｃ　"
+        },
+        "expected_ids": [
+          "normalization-only"
+        ],
+        "actual_ids": [
+          "normalization-only"
+        ],
+        "passed": true,
+        "synthetic": true
+      },
+      {
+        "name": "no-cross-field-substring",
+        "input": {
+          "query": "bc"
+        },
+        "expected_ids": [],
+        "actual_ids": [],
+        "passed": true,
+        "synthetic": true
+      },
+      {
+        "name": "fixed-calendar-e01",
+        "input": {
+          "date": "2026-11-07"
+        },
+        "expected_weekday": "土",
+        "actual_weekday": "土",
+        "passed": true
+      },
+      {
+        "name": "fixed-calendar-e02",
+        "input": {
+          "date": "2026-11-13"
+        },
+        "expected_weekday": "金",
+        "actual_weekday": "金",
+        "passed": true
+      },
+      {
+        "name": "fixed-calendar-e03",
+        "input": {
+          "date": "2026-11-14"
+        },
+        "expected_weekday": "土",
+        "actual_weekday": "土",
+        "passed": true
+      },
+      {
+        "name": "fixed-calendar-e04",
+        "input": {
+          "date": "2026-11-21"
+        },
+        "expected_weekday": "土",
+        "actual_weekday": "土",
+        "passed": true
+      },
+      {
+        "name": "fixed-calendar-e05",
+        "input": {
+          "date": "2026-11-22"
+        },
+        "expected_weekday": "日",
+        "actual_weekday": "日",
+        "passed": true
+      },
+      {
+        "name": "fixed-calendar-e06",
+        "input": {
+          "date": "2026-11-28"
+        },
+        "expected_weekday": "土",
+        "actual_weekday": "土",
+        "passed": true
+      }
+    ],
+    "passed": 21,
+    "failed": 0,
+    "human_approval": false
+  },
+  "browser": {
+    "stage": "candidate-browser",
+    "presets": [
+      {
+        "id": "all",
+        "audience": "all",
+        "query": "",
+        "status": "例「すべての催し」の条件（対象「すべて」、検索語なし）で、6件中6件を表示しています。",
+        "titles": [
+          "えほんを囲む、土曜の朝",
+          "夜の読書室｜短編を持ち寄る",
+          "本の修理を、ひと針から",
+          "親子でつくる、紙のしおり",
+          "まちの記憶を話す会",
+          "小さな詩の朗読会"
+        ]
+      },
+      {
+        "id": "children",
+        "audience": "children",
+        "query": "",
+        "status": "例「子ども向けの催し」の条件（対象「子ども」、検索語なし）で、6件中2件を表示しています。",
+        "titles": [
+          "えほんを囲む、土曜の朝",
+          "親子でつくる、紙のしおり"
+        ]
+      },
+      {
+        "id": "reading",
+        "audience": "all",
+        "query": "短編",
+        "status": "例「「短編」を含む催し」の条件（対象「すべて」、検索「短編」）で、6件中1件を表示しています。",
+        "titles": [
+          "夜の読書室｜短編を持ち寄る"
+        ]
+      }
+    ],
+    "widths": [
+      {
+        "client": 305,
+        "minimumControlHeight": 44,
+        "scroll": 305,
+        "width": 320
+      },
+      {
+        "client": 360,
+        "minimumControlHeight": 44,
+        "scroll": 360,
+        "width": 375
+      },
+      {
+        "client": 753,
+        "minimumControlHeight": 44,
+        "scroll": 753,
+        "width": 768
+      },
+      {
+        "client": 1265,
+        "minimumControlHeight": 44,
+        "scroll": 1265,
+        "width": 1280
+      }
+    ],
+    "human_approval": false,
+    "participation": {
+      "open": true,
+      "text": "図書室の窓口でお申し込みいただく想定です。この作例では申込を受け付けていません。"
+    },
+    "normalized": {
+      "active": "q",
+      "count": 1
+    },
+    "and_empty": {
+      "count": 0,
+      "emptyVisible": true,
+      "reason": "「短編」を含む、対象が「子ども」の催しは、十一月の一覧にありません。検索は催しの名前・説明・会場の文字だけを見ていて、日付や時刻は含みません。"
+    },
+    "empty_reset": {
+      "active": "listing-title",
+      "count": 6
+    },
+    "literal_query": {
+      "count": 0,
+      "insertedImage": false,
+      "reason": "「<img src=x onerror=alert(1)>」を含む催しは、十一月の一覧にありません。検索は催しの名前・説明・会場の文字だけを見ていて、日付や時刻は含みません。"
+    },
+    "copy_status": "依頼文をコピーしました。AIとの会話に貼り付けて、【】の部分を書き換えてください。",
+    "clipboard_matches": true,
+    "source_sha256": {
+      "index.html": "6812757fd874a4751fdc6863f1ea4e90235603adca8faa95af88f519b831cdaa",
+      "style.css": "87e9ce2b2b7add02a2074b8fefe27f5bdad44c930bfa306682d5bbbd04be0d1b",
+      "app.mjs": "677ebbb16348a8d051ceac3248a1c9dff4e1fcf86a9712086a60d22be480044e",
+      "events.mjs": "6b95b4e0baf05f7835d92e4bb1e574c7612b857104fc068735e26924e5897b8e",
+      "events.json": "7c1e1bc2087ea36c11aba4c6b66469c73b13266820491e2726c26ffc27e07ea7",
+      "request.txt": "2638aeb14dea9d44638d4e4fa4d80f2c66a6a941a9657d67d26a9b6c6b6530cb"
+    },
+    "contrast": {
+      "method": "Computed CSS colors of rendered text nodes; not glyph-by-glyph accessibility certification",
+      "pairs": [
+        {
+          "background": [
+            244,
+            241,
+            234
+          ],
+          "foreground": [
+            51,
+            48,
+            43
+          ],
+          "ratio": 11.65,
+          "sample": "一覧へ移動"
+        },
+        {
+          "background": [
+            179,
+            57,
+            42
+          ],
+          "foreground": [
+            244,
+            241,
+            234
+          ],
+          "ratio": 5.27,
+          "sample": "余"
+        },
+        {
+          "background": [
+            244,
+            241,
+            234
+          ],
+          "foreground": [
+            98,
+            92,
+            83
+          ],
+          "ratio": 5.86,
+          "sample": "架空の図書室"
+        },
+        {
+          "background": [
+            236,
+            232,
+            223
+          ],
+          "foreground": [
+            51,
+            48,
+            43
+          ],
+          "ratio": 10.74,
+          "sample": "Design Taste（madebymustafa/d"
+        },
+        {
+          "background": [
+            51,
+            48,
+            43
+          ],
+          "foreground": [
+            244,
+            241,
+            234
+          ],
+          "ratio": 11.65,
+          "sample": "依頼文をコピー"
+        }
+      ]
+    },
+    "skip": {
+      "hash": "#main",
+      "targetTop": 0
+    },
+    "keyboard": [
+      {
+        "id": "aud",
+        "outline": "solid",
+        "tag": "SELECT",
+        "text": "すべて\n                子ども\n      "
+      },
+      {
+        "id": "q",
+        "outline": "solid",
+        "tag": "INPUT",
+        "text": ""
+      },
+      {
+        "id": "",
+        "outline": "solid",
+        "tag": "A",
+        "text": "一覧の下"
+      },
+      {
+        "id": "",
+        "outline": "solid",
+        "tag": "A",
+        "text": "一覧へ移動"
+      },
+      {
+        "id": "aud",
+        "outline": "solid"
+      },
+      {
+        "id": "aud",
+        "outline": "solid"
+      },
+      {
+        "id": "reset",
+        "outline": "solid"
+      }
+    ],
+    "keyboard_select": {
+      "audience": "children",
+      "count": 2
+    },
+    "native_home": {
+      "audience": "all",
+      "count": 6
+    },
+    "native_down": {
+      "audience": "children",
+      "count": 2
+    },
+    "media": {
+      "animation": "none",
+      "bodyBackground": "rgb(244, 241, 234)",
+      "dark": true,
+      "reduce": true,
+      "transition": "0s"
+    },
+    "text200": {
+      "client": 1265,
+      "controls": [
+        {
+          "height": 88,
+          "id": "q",
+          "width": 236.25
+        },
+        {
+          "height": 88,
+          "id": "aud",
+          "width": 236.25
+        },
+        {
+          "height": 130,
+          "id": "reset",
+          "width": 236.25
+        }
+      ],
+      "count": 2,
+      "rootPx": "32px",
+      "scroll": 1265
+    },
+    "console_errors": [],
+    "source_scope": "Function modules/data/style unchanged from executed browser candidate; guide-only prose and video added below the original event UI.",
+    "event_ui_prefix_sha256": "05f3d3e4580f539e4a1829ec7f40143aefdde0a796861eb9909996b7534bbc45"
+  },
+  "motion_reel": {
+    "commit": "56198544e69201b1c202e0c00fb90b568a729824",
+    "files": {
+      "SKILL.md": {
+        "installed_sha256": "12b0f28750aefe43569692ffe13261a00e45b1441763ee5c757a7f789917419d",
+        "git_blob_sha256": "12b0f28750aefe43569692ffe13261a00e45b1441763ee5c757a7f789917419d",
+        "lf_normalized_match": true
+      },
+      "scripts/render.mjs": {
+        "installed_sha256": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+        "git_blob_sha256": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+        "lf_normalized_match": true
+      }
+    }
+  },
+  "explanation": {
+    "video": {
+      "file": "video.mp4",
+      "sha256": "ee2a143ea3178a7732ddb451f76182cf47bd979b02207d7afed664247c5acb97",
+      "width": 1280,
+      "height": 720,
+      "fps": 30,
+      "frameCount": 780,
+      "duration": 26,
+      "hasAudio": false
+    },
+    "determinism": {
+      "frame": 468,
+      "seconds": 15.6,
+      "first": "83a4252232b33ac80c80a87821afe3f597c5f32d6d4cfc68627b43f89e63a92b",
+      "afterOtherTimes": "83a4252232b33ac80c80a87821afe3f597c5f32d6d4cfc68627b43f89e63a92b",
+      "freshPage": "83a4252232b33ac80c80a87821afe3f597c5f32d6d4cfc68627b43f89e63a92b",
+      "match": true
+    },
+    "errors": [],
+    "artifact": "media/design-taste-example.mp4"
+  },
+  "video_review": {
+    "verified_at": "2026-10-15T15:42:04.888186+00:00",
+    "video_sha256": "ee2a143ea3178a7732ddb451f76182cf47bd979b02207d7afed664247c5acb97",
+    "render_label": "final-v2",
+    "agent_visual_review": true,
+    "human_approval": false,
+    "full_decode_passed": true,
+    "native_playback": {
+      "duration": 26,
+      "ended": true,
+      "error": null,
+      "height": 720,
+      "paused": true,
+      "time": 26,
+      "width": 1280
+    },
+    "native_playback_start": {
+      "duration": 26,
+      "ended": false,
+      "error": null,
+      "paused": false,
+      "time": 0.058082
+    },
+    "source_editor_scenes": [
+      {
+        "clock": "4.6 / 26.0 秒",
+        "label": "2／5　デザインの方向",
+        "missing": 0
+      },
+      {
+        "clock": "9.6 / 26.0 秒",
+        "label": "3／5　対象で絞る",
+        "missing": 0
+      },
+      {
+        "clock": "15.6 / 26.0 秒",
+        "label": "4／5　参加方法を開く",
+        "missing": 0
+      },
+      {
+        "clock": "21.6 / 26.0 秒",
+        "label": "5／5　依頼文で試す",
+        "missing": 0
+      }
+    ],
+    "representative_seconds": [
+      2,
+      12,
+      18,
+      24,
+      25.966667
+    ],
+    "contact_frames": 13,
+    "motion_strip_frames": 12,
+    "additional_transition_strips": [
+      {
+        "start": 9.2,
+        "frames": 12,
+        "fps": 30
+      },
+      {
+        "start": 15.2,
+        "frames": 12,
+        "fps": 30
+      }
+    ],
+    "findings": [
+      {
+        "time": 2,
+        "finding": "Input date-time ran into the intended gutter before the title.",
+        "revision": "Only the date-time column was widened228 to244px; full-size v2 frame has readable separation.",
+        "resolved": true
+      }
+    ],
+    "visual_notes": [
+      "Event titles e01 and e04, real children selector/count and e01 participation text are legible at720p.",
+      "The two saved-state cuts cross-fade briefly; settled states hold for reading. They are not recorded clicks.",
+      "Input six rows are an overview, not a requirement to read every data field within4seconds. Main message and reuse location remain large.",
+      "The final CTA is fully visible through the final decoded frame.",
+      "Scene2 through5 representative stills remain byte-identical after the input-table-only spacing correction."
+    ],
+    "unchanged_reviewed_still_seconds_after_correction": [
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      24
+    ],
+    "review_files_sha256": {
+      "contact.png": "3db97297c6e7e03de158c2fdb00a0ac03e2cacf88ff6700be2b0bdcace0503fe",
+      "cut-09.png": "acabee7b53d7d31ca96ccd4273585307f6459982bbfa6c5c434127ab0aa0f4a8",
+      "cut-15.png": "4576779ce7ea6b2c0d88b0bc509c90a5a49bd0229a588b4d9d4c05f83470afa4",
+      "final.png": "aabfceab4d31324af46946a2f4057e8306ef8552e3bf14b0e2d16ff2ced978a8",
+      "poster.png": "f88994e86e205a2bf751408537c1d58314d63ee8de95769f39a0b0b6e78f9137",
+      "strip.png": "300823c74ee4e2810c5ac5edb607c632c19af16e102f0a35141b7e54e7d74aed"
+    },
+    "audio": "Silent; no audio stream. No listening or loudness claim."
+  },
+  "captures": {
+    "method": "Actual browser screenshots after executing this example; edited explainer uses saved stills, not a continuous operation recording.",
+    "input": "events.json",
+    "synthetic_data": true,
+    "source_sha256": {
+      "index.html": "6812757fd874a4751fdc6863f1ea4e90235603adca8faa95af88f519b831cdaa",
+      "style.css": "87e9ce2b2b7add02a2074b8fefe27f5bdad44c930bfa306682d5bbbd04be0d1b",
+      "app.mjs": "677ebbb16348a8d051ceac3248a1c9dff4e1fcf86a9712086a60d22be480044e",
+      "events.mjs": "6b95b4e0baf05f7835d92e4bb1e574c7612b857104fc068735e26924e5897b8e",
+      "events.json": "7c1e1bc2087ea36c11aba4c6b66469c73b13266820491e2726c26ffc27e07ea7",
+      "request.txt": "2638aeb14dea9d44638d4e4fa4d80f2c66a6a941a9657d67d26a9b6c6b6530cb"
+    },
+    "captures": [
+      {
+        "file": "assets/all.png",
+        "width": 1280,
+        "height": 900,
+        "audience": "all",
+        "query": "",
+        "matching_count": 6,
+        "note": "All six rows exist; this 900px viewport shows the heading/count and first two rows. e02 participation remains open.",
+        "sha256": "8d890737651b49d53ea850f775b7d85e92a8a76080207c8d463bb885764b6236"
+      },
+      {
+        "file": "assets/children.png",
+        "width": 1280,
+        "height": 900,
+        "audience": "children",
+        "query": "",
+        "matching_count": 2,
+        "note": "Both e01 and e04 shown, participation closed.",
+        "sha256": "1e7c5407a0a9a0f35a26782cef19d3fb349c984933a3a8fb53626b327ccdbf33"
+      },
+      {
+        "file": "assets/participation.png",
+        "width": 1280,
+        "height": 900,
+        "audience": "children",
+        "query": "",
+        "matching_count": 2,
+        "note": "e01 participation open; e04 remains the second result.",
+        "sha256": "7feb76fc9b8a4652c91749079c559d0877bde9d7fe7d7d6a9ed94e4d441c246d"
+      },
+      {
+        "file": "assets/mobile.png",
+        "width": 320,
+        "height": 1100,
+        "audience": "children",
+        "query": "",
+        "matching_count": 2,
+        "note": "320px-wide viewport; header, controls and e01 participation visible; e04 is below the captured viewport.",
+        "sha256": "23c97eab9615652d77bbafeda7af38f6a3e5d157dedb48bd841724edbd85be84"
+      }
+    ]
+  },
+  "limitations": [
+    "Scoped browser checks and agent visual review are not full WCAG or human approval.",
+    "Text200 is temporary root font-size200% at1280px, not browser zoom or a complete magnification assessment.",
+    "System fonts vary by device; fixed light scheme only.",
+    "Saved actual screenshots edited into a silent explainer, not continuous operation recording.",
+    "No no-skill comparison or measured usability improvement."
+  ],
+  "publication": {
+    "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=design-taste-example",
+    "authorization": "User requested sequential publication of40 examples to this existing main and Pages."
+  },
+  "parent_technical_adjustments": [
+    {
+      "file": "video/style.css",
+      "change": "Input table date-time column228px to244px; retain16px gutter before titles with the measured system font.",
+      "reason": "Full-size actual frame2s showed date-time text consuming the column gutter. No narrative, screenshots or input values changed.",
+      "previous_render": "final-v1",
+      "new_render": "final-v2"
+    }
+  ],
+  "artifacts_sha256": {
+    "data/cases/design-taste-example.json": "8409d9ed6ade7bff28038fe162740e0b428be92d153043b179d7b6109d055b18",
+    "examples/design-taste-example/app.mjs": "677ebbb16348a8d051ceac3248a1c9dff4e1fcf86a9712086a60d22be480044e",
+    "examples/design-taste-example/assets/all.png": "8d890737651b49d53ea850f775b7d85e92a8a76080207c8d463bb885764b6236",
+    "examples/design-taste-example/assets/children.png": "1e7c5407a0a9a0f35a26782cef19d3fb349c984933a3a8fb53626b327ccdbf33",
+    "examples/design-taste-example/assets/mobile.png": "23c97eab9615652d77bbafeda7af38f6a3e5d157dedb48bd841724edbd85be84",
+    "examples/design-taste-example/assets/participation.png": "7feb76fc9b8a4652c91749079c559d0877bde9d7fe7d7d6a9ed94e4d441c246d",
+    "examples/design-taste-example/captures.json": "0820340b81347870d7da369768f0fc70d69bb2cb83a50cb6d65c76a27ce4aedc",
+    "examples/design-taste-example/design-plan.md": "42d509ad744be03111f3feccc705d5598a19724c047e5a909b1b5d912561454e",
+    "examples/design-taste-example/events.json": "7c1e1bc2087ea36c11aba4c6b66469c73b13266820491e2726c26ffc27e07ea7",
+    "examples/design-taste-example/events.mjs": "6b95b4e0baf05f7835d92e4bb1e574c7612b857104fc068735e26924e5897b8e",
+    "examples/design-taste-example/index.html": "a5e05af5218fd8e16e7b74ed516fe6604e6218684901b8cdec42093b4f170182",
+    "examples/design-taste-example/input.md": "b0c8e7be7709bcfb3e6d70c9ef61ffbd2e24a4cad733ddfa47f7dcd48f9a8457",
+    "examples/design-taste-example/LICENSE": "fb74b9b6e529197ce24b127b687e4e349cf46864059da001a3d9d63db39cdb19",
+    "examples/design-taste-example/README.md": "ad4b701733c99fa39153d028c61c4382cc60c79ba9f71466e98d7a440f24e1d2",
+    "examples/design-taste-example/render.py": "cbeeb2f687e5e6ff2e8ec14dfe41e3b00ca83a1b5572802569eb143ba6603709",
+    "examples/design-taste-example/request.html": "5e7b0c02fe21a9a2ee6daa211e651ad5235e12cae85f40c41756dfdd199a041c",
+    "examples/design-taste-example/request.txt": "2638aeb14dea9d44638d4e4fa4d80f2c66a6a941a9657d67d26a9b6c6b6530cb",
+    "examples/design-taste-example/results.json": "6aec12d04495f4f347cd3e2fdbbde8bbe15924935cb189a4d895a8a83c6becac",
+    "examples/design-taste-example/samples.json": "8c8b93acd070cb0b0a1919141f6fc58920c3708542295f70dbaac53c4103b1be",
+    "examples/design-taste-example/source.zip": "91fefb97e7138b5506f45925be83b1c1662eb79d49eb36dcdf738956562dcef3",
+    "examples/design-taste-example/style.css": "87e9ce2b2b7add02a2074b8fefe27f5bdad44c930bfa306682d5bbbd04be0d1b",
+    "examples/design-taste-example/validation.json": "d63705ec8b2aabc4aa1dda676ab543d62d690895b22c2bbed8f6ffbe7349aefa",
+    "examples/design-taste-example/vendor/design-taste/LICENSE": "7a0f09be6768f60fd7c01ecab6af369614c224061ffc76792ef06881493bb4a2",
+    "examples/design-taste-example/vendor/design-taste/README.md": "434f11a1a53cbc0c0b9e60509d57a16a079759edcd6e29e1c3db6c43e3e7585b",
+    "examples/design-taste-example/vendor/design-taste/skills/design-taste/SKILL.md": "c848bbddfdea89962da7b90faf53e033e9b2a8c1944f5dc98dbd78aeb758489f",
+    "examples/design-taste-example/vendor/design-taste/skills/japanese-minimal/SKILL.md": "7b96ba5a48afd7d4e69f79f589f95e4fa6874384db0762c6d90b5cad0e1a6465",
+    "examples/design-taste-example/vendor/design-taste/skills/taste-accessibility/SKILL.md": "4d293f850d91330f98812ec6a36110ddbd9d2337f58719d32e9731a4ea519558",
+    "examples/design-taste-example/vendor/design-taste/skills/taste-typography/SKILL.md": "8c9ce32d56237ade84985868db6cc5753082987a9cd1e67d0e2bbb8bc2e3e648",
+    "examples/design-taste-example/vendor/design-taste/skills/taste-ux-copy/SKILL.md": "7a17e03e158ace46461e1ce046f79e2e1c0d63c65f8155f4ff2fa0161be6b40f",
+    "examples/design-taste-example/verification.json": "7e35c0f7fe3e34c64558112146e0d4e36c23706d61c437607db7a2400d2005a2",
+    "examples/design-taste-example/verify.mjs": "3db2d770e47fccbf3813fe06aa0c35f9220546a9664e43078c62a41c2939207c",
+    "examples/design-taste-example/video/film.js": "7d126ef52bf62830ddc9838dcb73a84b7e0adab4a681e7c4f5334c2a356cfd47",
+    "examples/design-taste-example/video/index.html": "78f1bd5578ec9cef2aef33c206ddebb7076a515bcd556f335ea942040b8a14d6",
+    "examples/design-taste-example/video/README.md": "cfb7ffa2a4d0e85cccffbc947f2acbed0f49dc941ae60c2d3b071ce1a3544d1c",
+    "examples/design-taste-example/video/review/contact.png": "3db97297c6e7e03de158c2fdb00a0ac03e2cacf88ff6700be2b0bdcace0503fe",
+    "examples/design-taste-example/video/review/cut-09.png": "acabee7b53d7d31ca96ccd4273585307f6459982bbfa6c5c434127ab0aa0f4a8",
+    "examples/design-taste-example/video/review/cut-15.png": "4576779ce7ea6b2c0d88b0bc509c90a5a49bd0229a588b4d9d4c05f83470afa4",
+    "examples/design-taste-example/video/review/final.png": "aabfceab4d31324af46946a2f4057e8306ef8552e3bf14b0e2d16ff2ced978a8",
+    "examples/design-taste-example/video/review/poster.png": "f88994e86e205a2bf751408537c1d58314d63ee8de95769f39a0b0b6e78f9137",
+    "examples/design-taste-example/video/review/strip.png": "300823c74ee4e2810c5ac5edb607c632c19af16e102f0a35141b7e54e7d74aed",
+    "examples/design-taste-example/video/storyboard.json": "5f0a848dd26b8e5673684edb7196d89a5a5629f19076682b7f15b99b6cb71cb3",
+    "examples/design-taste-example/video/style.css": "fe0caed979df520a32db8f1420da02b5cceb1d1417e529a9b614fdf748266c39",
+    "media/design-taste-example.mp4": "ee2a143ea3178a7732ddb451f76182cf47bd979b02207d7afed664247c5acb97",
+    "media/design-taste-example.webp": "b56460726c9f6eb899518927c6ad40e34e72883bc2017b37aea4b0bbf198c408"
+  }
+}

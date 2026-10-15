@@ -1,0 +1,430 @@
+/* 余白図書室（架空）— 保存した実画面で解説する26秒の無音動画
+   動く値（位置・倍率・不透明度）はすべて film.js が seek(t) の t から書く。
+   CSSのアニメーションと transition は使わない。 */
+
+:root {
+  --paper: #F4F1EA;
+  --paper-tone: #ECE8DF;
+  --ink: #33302B;
+  --ink-soft: #625C53;   /* 文字に使う灰 */
+  --ash: #8A8378;        /* 罫線だけ */
+  --seal: #B3392A;
+
+  --mincho: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "BIZ UDPMincho", serif;
+  --gothic: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "BIZ UDPGothic", "Meiryo", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--paper-tone);
+  color: var(--ink);
+  font-family: var(--gothic);
+  font-weight: 400;
+}
+
+p {
+  margin: 0;
+}
+
+/* 720pの画面。film.js が表示領域に合わせて縮尺だけを決める */
+.viewport {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1280px;
+  height: 720px;
+  overflow: hidden;
+  transform-origin: 0 0;
+  background: var(--paper);
+  outline: 1px solid var(--ash);
+}
+
+/* 書き出し：操作を出さず、画面いっぱいに置く */
+html.is-render body {
+  display: block;
+  background: var(--paper);
+}
+
+html.is-render .viewport {
+  position: fixed;
+  inset: 0;
+}
+
+html.is-render .stage {
+  outline: none;
+}
+
+html.is-render .controls {
+  display: none;
+}
+
+/* 常に出す編集の表示 */
+.chrome {
+  position: absolute;
+  color: var(--ink-soft);
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.chrome-top-left { left: 64px; top: 36px; }
+.chrome-top-right { right: 64px; top: 36px; }
+.chrome-bottom-left { left: 64px; top: 660px; }
+.chrome-bottom-right { right: 64px; top: 660px; }
+
+.rule-seal {
+  display: inline-block;
+  width: 20px;
+  height: 2px;
+  margin-right: 12px;
+  vertical-align: middle;
+  background: var(--seal);
+}
+
+/* 保存した実画面の窓：罫線一本で囲み、角丸と影は使わない */
+.shot {
+  position: absolute;
+  overflow: hidden;
+  background: var(--paper);
+  outline: 1px solid var(--ash);
+}
+
+.shot img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  max-width: none;
+  transform-origin: 0 0;
+}
+
+.shot-main { left: 480px; top: 96px; width: 736px; height: 520px; }
+.shot-filter { left: 64px; top: 292px; width: 380px; height: 324px; }
+.shot-mobile { left: 64px; top: 244px; width: 380px; height: 372px; }
+
+/* 参加方法の本文以外を紙の色で薄くする */
+.dim {
+  position: absolute;
+  background: rgba(244, 241, 234, 0.62);
+}
+
+.tag {
+  position: absolute;
+  top: 624px;
+  color: var(--ink-soft);
+  font-size: 16px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.tag-main { left: 480px; }
+.tag-filter,
+.tag-mobile { left: 64px; }
+
+/* 場面ごとの文字 */
+.scene {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.caption {
+  position: absolute;
+  left: 64px;
+  top: 96px;
+  width: 380px;
+}
+
+.head {
+  font-family: var(--mincho);
+  font-size: 34px;
+  line-height: 1.45;
+  white-space: nowrap;
+}
+
+.sub {
+  margin-top: 14px;
+  font-size: 19px;
+  line-height: 1.7;
+  white-space: nowrap;
+}
+
+.label {
+  color: var(--ink-soft);
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.em {
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: transparent;
+}
+
+/* 1　入力データの行 */
+.input {
+  position: absolute;
+  left: 480px;
+  top: 96px;
+  width: 736px;
+}
+
+.input-rows {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--ash);
+}
+
+.input-rows li {
+  display: grid;
+  grid-template-columns: 48px 244px minmax(0, 1fr) 88px;
+  column-gap: 16px;
+  align-items: baseline;
+  padding: 13px 0;
+  border-top: 1px solid var(--ash);
+}
+
+.input-rows .id {
+  color: var(--ink-soft);
+  font-size: 16px;
+}
+
+.input-rows .when {
+  font-size: 17px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.input-rows .title {
+  font-family: var(--mincho);
+  font-size: 21px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.input-rows .aud {
+  color: var(--ink-soft);
+  font-size: 16px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.input-note {
+  margin-top: 22px;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* 2　方向の三点 */
+.points {
+  position: absolute;
+  left: 64px;
+  top: 300px;
+  width: 380px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--ash);
+}
+
+.points li {
+  position: relative;
+  padding: 14px 0 14px 20px;
+  border-top: 1px solid var(--ash);
+  font-size: 18px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.points .mark {
+  position: absolute;
+  left: 0;
+  top: 15px;
+  width: 3px;
+  height: 25px;
+  background: var(--seal);
+  opacity: 0;
+}
+
+.sw {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 4px;
+  vertical-align: -3px;
+  outline: 1px solid var(--ash);
+  outline-offset: -1px;
+}
+
+.sw-paper { background: var(--paper); }
+.sw-ink { background: var(--ink); }
+.sw-seal { background: var(--seal); margin-right: 12px; }
+
+/* 5　依頼文 */
+.request {
+  position: absolute;
+  left: 480px;
+  top: 96px;
+  width: 736px;
+}
+
+.req-quote {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 2px 0 2px 24px;
+  border-left: 1px solid var(--ash);
+}
+
+.req-quote p {
+  font-size: 19px;
+  line-height: 1.75;
+}
+
+.req-where-label {
+  margin-top: 30px;
+}
+
+.req-where {
+  margin-top: 6px;
+  font-size: 20px;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.cta {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--ash);
+  font-family: var(--mincho);
+  font-size: 34px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.cta span {
+  text-decoration-line: underline;
+  text-decoration-color: var(--seal);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.28em;
+}
+
+.cta-note {
+  margin-top: 16px;
+  color: var(--ink-soft);
+  font-size: 16px;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+/* プレビューの操作：720pの画面の外 */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  padding: 12px 24px 16px;
+  background: var(--paper);
+  border-top: 1px solid var(--ash);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.controls button {
+  min-height: 44px;
+  padding: 0 16px;
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.controls button:hover {
+  color: var(--seal);
+  border-color: var(--seal);
+}
+
+.controls button[aria-current="step"] {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.controls :focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.scrub {
+  display: flex;
+  flex: 1 1 320px;
+  align-items: center;
+  gap: 12px;
+}
+
+.scrub label {
+  color: var(--ink-soft);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.scrub input {
+  flex: 1 1 auto;
+  min-width: 120px;
+  height: 44px;
+  margin: 0;
+  accent-color: var(--ink);
+}
+
+.scrub output {
+  min-width: 8.5em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.scenes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.film-status:empty {
+  display: none;
+}
+
+.film-status {
+  flex-basis: 100%;
+}
+
+.noscript {
+  padding: 16px 24px;
+}

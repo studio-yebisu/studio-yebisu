@@ -1,0 +1,314 @@
+{
+  "title": "Design Taste の作例：余白図書室（架空）十一月の催し — 26秒の解説",
+  "kind": "silent edited explainer built from saved actual browser screenshots; not a continuous interaction recording",
+  "author": "Studio Yebisu (edit source written by Opus 5.5, claude-opus-5-5)",
+  "format": {
+    "duration": 26,
+    "fps": 30,
+    "frames": 780,
+    "width": 1280,
+    "height": 720,
+    "audio": "none",
+    "poster_time": 13,
+    "final_frame_time": 25.9667
+  },
+  "message": "AIが読むデザインの指示書で、方向を1つに決めてから、実際の入力で使える一覧を作る。",
+  "audience": "AIに読ませるデザインのスキルを探している日本語の視聴者",
+  "sources": {
+    "capture_manifest": "../captures.json",
+    "images": [
+      {
+        "file": "../assets/all.png",
+        "size": [
+          1280,
+          900
+        ],
+        "state": "対象「すべて」・検索なし。6件すべて存在するが、この画面内に見えるのは先頭2件まで（e03 の日付が下端にかかる）。e02 の参加方法が開いている。"
+      },
+      {
+        "file": "../assets/children.png",
+        "size": [
+          1280,
+          900
+        ],
+        "state": "対象「子ども」。6件中2件（e01・e04）、参加方法は閉じている。"
+      },
+      {
+        "file": "../assets/participation.png",
+        "size": [
+          1280,
+          900
+        ],
+        "state": "対象「子ども」。e01 の参加方法が開いている。e04 は2件目のまま。"
+      },
+      {
+        "file": "../assets/mobile.png",
+        "size": [
+          320,
+          1100
+        ],
+        "state": "320px幅、対象「子ども」。e01 の参加方法が開いている。e04 は画面の下で写っていない。"
+      }
+    ],
+    "data": [
+      "../events.json",
+      "../results.json",
+      "../request.txt"
+    ]
+  },
+  "persistent_labels": {
+    "editorial": [
+      "Design Taste の作例",
+      "保存した実画面で解説・無音",
+      "架空の図書室",
+      "場面番号（例：3／5　対象で絞る）"
+    ]
+  },
+  "scenes": [
+    {
+      "id": "input",
+      "start": 0,
+      "end": 4,
+      "message": "Design Taste は、AIが画面を作る前に読む文章の指示書。入力は架空の図書室の合成6件。",
+      "editorial_text": [
+        "AIが画面を作る前に／読む、デザインの指示書",
+        "生成APIではなく、AIが読む文章。／24のうち5つを読み、計画してから実装。",
+        "入力データ：events.json（架空の図書室・合成の6件）",
+        "名前・日時・対象・会場・本文・参加方法は、変えずに使います。"
+      ],
+      "data_text": "events.json の id・date・start–end・title・audience_label を6行の文字で表示（画面の再現ではなく入力データの一覧）",
+      "screenshots": [],
+      "motion": "6行を0.35秒から0.18秒ずつずらして出す。"
+    },
+    {
+      "id": "direction",
+      "start": 4,
+      "end": 9,
+      "message": "5つのスキルを読み、スタイルは japanese-minimal の1つだけに決めた。",
+      "editorial_text": [
+        "デザインの方向を／1つに決める",
+        "5つを読んで、スタイルは／japanese-minimal の1つだけ。",
+        "紙・墨・印の赤の3色（色見本）",
+        "明朝の見出し、縦書きは1か所",
+        "日付と時刻の列、罫線で区切る行"
+      ],
+      "screenshots": [
+        {
+          "file": "../assets/all.png",
+          "time": [
+            4.0,
+            5.2
+          ],
+          "camera": [
+            640,
+            450,
+            0.575
+          ],
+          "visible_source": [
+            0,
+            -2,
+            1280,
+            902
+          ],
+          "purpose": "広い画面の配置（左に絞り込み、右に一覧）を見せる全体。文字を読ませる場面ではない。"
+        },
+        {
+          "file": "../assets/all.png",
+          "time": [
+            6.0,
+            6.9
+          ],
+          "camera": [
+            340,
+            215,
+            1.2
+          ],
+          "visible_source": [
+            33,
+            -2,
+            647,
+            432
+          ],
+          "purpose": "印「余」、縦書きの「二〇二六年 十一月」、明朝の見出し「十一月の催し」と架空の注記。"
+        },
+        {
+          "file": "../assets/all.png",
+          "time": [
+            7.8,
+            9.0
+          ],
+          "camera": [
+            726,
+            470,
+            1.3
+          ],
+          "visible_source": [
+            443,
+            270,
+            1009,
+            670
+          ],
+          "purpose": "日付と時刻の列、罫線で区切った e01 の行と e02 の頭。"
+        }
+      ],
+      "motion": "全体（4.0–5.2）→ 見出しへ寄る（5.2–6.0）→ 行へ移る（6.9–7.8）。左の三点は窓に映っている点だけが墨になり、赤の短い線がつく。"
+    },
+    {
+      "id": "filter",
+      "start": 9,
+      "end": 15,
+      "message": "対象「子ども」で6件から2件。残るのは e01 と e04。",
+      "editorial_text": [
+        "対象「子ども」で／6件から2件へ",
+        "対象の欄だけを変えた保存画面。／残るのは e01 と e04 の2件。"
+      ],
+      "screenshots": [
+        {
+          "file": "../assets/all.png → ../assets/children.png",
+          "time": [
+            9.0,
+            9.6
+          ],
+          "camera": [
+            726,
+            470,
+            1.3
+          ],
+          "purpose": "同じ位置のまま保存画面を切り替える編集。2行目が e02 から e04 に変わる。操作の録画ではない。"
+        },
+        {
+          "file": "../assets/children.png",
+          "time": [
+            10.5,
+            15.0
+          ],
+          "camera": [
+            726,
+            585,
+            1.3
+          ],
+          "visible_source": [
+            443,
+            385,
+            1009,
+            785
+          ],
+          "purpose": "2件の題名「えほんを囲む、土曜の朝」「親子でつくる、紙のしおり」と日時・対象を読める大きさで。"
+        },
+        {
+          "file": "../assets/children.png",
+          "time": [
+            9.4,
+            15.0
+          ],
+          "camera": [
+            180,
+            581,
+            1.3
+          ],
+          "visible_source": [
+            34,
+            456,
+            326,
+            706
+          ],
+          "purpose": "左の窓：対象の欄「子ども」と件数「6件中2件を表示しています」。"
+        }
+      ],
+      "motion": "切り替え後、9.7–10.5 に2件目まで下へ移る。10.3–10.7 に「2件」へ赤の下線。"
+    },
+    {
+      "id": "details",
+      "start": 15,
+      "end": 21,
+      "message": "参加方法を開くと、入力の本文がそのまま出る。320px幅でも欠けない。",
+      "editorial_text": [
+        "参加方法を開く",
+        "閉じた行にも要約を表示。開くと、／入力の本文がそのまま出ます。"
+      ],
+      "actual_text_in_screenshot": "参加方法：申込不要／当日、会場へお越しください。これは架空の案内で、実際の参加はできません。（e01）",
+      "screenshots": [
+        {
+          "file": "../assets/children.png → ../assets/participation.png",
+          "time": [
+            15.0,
+            15.5
+          ],
+          "camera": [
+            726,
+            585,
+            1.3
+          ],
+          "purpose": "同じ位置のまま保存画面を切り替える編集。e01 の参加方法が開いた状態の画面になる。"
+        },
+        {
+          "file": "../assets/participation.png",
+          "time": [
+            16.5,
+            21.0
+          ],
+          "camera": [
+            903,
+            515,
+            1.28
+          ],
+          "visible_source": [
+            616,
+            312,
+            1190,
+            718
+          ],
+          "purpose": "e01 の要約「参加方法：申込不要」と本文。16.6–17.1 にほかの部分を紙の色で薄くする。"
+        },
+        {
+          "file": "../assets/mobile.png",
+          "time": [
+            17.8,
+            21.0
+          ],
+          "camera": "[160, 900, 1.2] → [160, 945, 1.2]",
+          "visible_source": [
+            2,
+            790,
+            318,
+            1100
+          ],
+          "purpose": "左の窓：320px幅で日時・題名・対象・会場・参加方法の本文が欠けずに並ぶ。2件目はこの下で写っていない。"
+        }
+      ],
+      "motion": "15.6–16.5 に本文へ横に移る。17.9–18.9 に320px幅の窓を本文まで下げる。"
+    },
+    {
+      "id": "request",
+      "start": 21,
+      "end": 26,
+      "message": "依頼文の【】を書き換えれば、自分の催しで試せる。作例ページでAIは動かない。",
+      "editorial_text": [
+        "依頼文で、／自分の催しに試す",
+        "【】を書き換えてAIに渡します。／作例ページでAIは動きません。",
+        "コピーする場所",
+        "作例ページの下「依頼文で試す」の［依頼文をコピー］／またはテキスト（request.txt）",
+        "依頼文をコピーして、自分の催しで試す",
+        "原典：madebymustafa/design-taste（MIT）固定コミット c4a6bff"
+      ],
+      "quoted_text": {
+        "source": "../request.txt",
+        "note": "短い抜粋。「…」は省略した部分。文言は変えていない。",
+        "lines": [
+          "…の5つの SKILL.md（…）を読んでから、次の催し一覧のページを作ってください。",
+          "主催と利用者：【図書室や集会所などの名前、実在か架空か、主な利用者】",
+          "進め方：最初に design read を一行で書き、スタイルは japanese-minimal の1つだけにする。"
+        ]
+      },
+      "screenshots": [],
+      "motion": "抜粋 21.4–22.0、コピーする場所 22.4–22.9、最後の案内 23.4–23.9。25.9667（最後の枠）まで全部を表示。コピーの操作は見せない。"
+    }
+  ],
+  "not_claimed": [
+    "スキルを使わない場合との比較や、品質・速さの数値",
+    "人による承認、アクセシビリティ全体の適合",
+    "実在の図書館・催し・申込",
+    "Design Taste がAPIやアプリとして画面を生成すること"
+  ],
+  "verification": "実レンダー・代表フレーム・連続フレーム・任意時刻一致・全デコード・ブラウザー終端再生を確認。範囲と人の承認の有無は ../verification.json。"
+}

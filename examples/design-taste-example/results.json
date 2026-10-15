@@ -1,0 +1,50 @@
+{
+  "scope": "Saved actual execution of the same filterEvents module used by the page",
+  "node_version": "v24.18.0",
+  "source_sha256": {
+    "events.json": "7c1e1bc2087ea36c11aba4c6b66469c73b13266820491e2726c26ffc27e07ea7",
+    "events.mjs": "6b95b4e0baf05f7835d92e4bb1e574c7612b857104fc068735e26924e5897b8e",
+    "app.mjs": "677ebbb16348a8d051ceac3248a1c9dff4e1fcf86a9712086a60d22be480044e"
+  },
+  "presets": [
+    {
+      "id": "all",
+      "input": {
+        "audience": "all",
+        "query": ""
+      },
+      "count": 6,
+      "event_ids": [
+        "e01",
+        "e02",
+        "e03",
+        "e04",
+        "e05",
+        "e06"
+      ]
+    },
+    {
+      "id": "children",
+      "input": {
+        "audience": "children",
+        "query": ""
+      },
+      "count": 2,
+      "event_ids": [
+        "e01",
+        "e04"
+      ]
+    },
+    {
+      "id": "reading",
+      "input": {
+        "audience": "all",
+        "query": "短編"
+      },
+      "count": 1,
+      "event_ids": [
+        "e02"
+      ]
+    }
+  ]
+}

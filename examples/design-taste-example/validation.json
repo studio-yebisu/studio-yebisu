@@ -1,0 +1,277 @@
+{
+  "scope": "Selected pure filter semantics, six fixed calendar weekdays, source/data hash and input immutability; browser appearance, accessibility and human approval are separate.",
+  "node_version": "v24.18.0",
+  "source_sha256": {
+    "events.json": "7c1e1bc2087ea36c11aba4c6b66469c73b13266820491e2726c26ffc27e07ea7",
+    "events.mjs": "6b95b4e0baf05f7835d92e4bb1e574c7612b857104fc068735e26924e5897b8e",
+    "app.mjs": "677ebbb16348a8d051ceac3248a1c9dff4e1fcf86a9712086a60d22be480044e"
+  },
+  "checks": [
+    {
+      "name": "all",
+      "input": {},
+      "expected_ids": [
+        "e01",
+        "e02",
+        "e03",
+        "e04",
+        "e05",
+        "e06"
+      ],
+      "actual_ids": [
+        "e01",
+        "e02",
+        "e03",
+        "e04",
+        "e05",
+        "e06"
+      ],
+      "passed": true
+    },
+    {
+      "name": "children",
+      "input": {
+        "audience": "children"
+      },
+      "expected_ids": [
+        "e01",
+        "e04"
+      ],
+      "actual_ids": [
+        "e01",
+        "e04"
+      ],
+      "passed": true
+    },
+    {
+      "name": "adults",
+      "input": {
+        "audience": "adults"
+      },
+      "expected_ids": [
+        "e02",
+        "e03"
+      ],
+      "actual_ids": [
+        "e02",
+        "e03"
+      ],
+      "passed": true
+    },
+    {
+      "name": "everyone",
+      "input": {
+        "audience": "everyone"
+      },
+      "expected_ids": [
+        "e05",
+        "e06"
+      ],
+      "actual_ids": [
+        "e05",
+        "e06"
+      ],
+      "passed": true
+    },
+    {
+      "name": "short-story",
+      "input": {
+        "query": "短編"
+      },
+      "expected_ids": [
+        "e02"
+      ],
+      "actual_ids": [
+        "e02"
+      ],
+      "passed": true
+    },
+    {
+      "name": "place-is-searched",
+      "input": {
+        "query": "読書"
+      },
+      "expected_ids": [
+        "e01",
+        "e02",
+        "e05",
+        "e06"
+      ],
+      "actual_ids": [
+        "e01",
+        "e02",
+        "e05",
+        "e06"
+      ],
+      "passed": true
+    },
+    {
+      "name": "audience-and-query",
+      "input": {
+        "audience": "children",
+        "query": "短編"
+      },
+      "expected_ids": [],
+      "actual_ids": [],
+      "passed": true
+    },
+    {
+      "name": "trim-wide-spaces",
+      "input": {
+        "query": "　短編　"
+      },
+      "expected_ids": [
+        "e02"
+      ],
+      "actual_ids": [
+        "e02"
+      ],
+      "passed": true
+    },
+    {
+      "name": "empty-after-normalize",
+      "input": {
+        "query": "　 "
+      },
+      "expected_ids": [
+        "e01",
+        "e02",
+        "e03",
+        "e04",
+        "e05",
+        "e06"
+      ],
+      "actual_ids": [
+        "e01",
+        "e02",
+        "e03",
+        "e04",
+        "e05",
+        "e06"
+      ],
+      "passed": true
+    },
+    {
+      "name": "no-result",
+      "input": {
+        "query": "該当しない語"
+      },
+      "expected_ids": [],
+      "actual_ids": [],
+      "passed": true
+    },
+    {
+      "name": "date-is-not-searched",
+      "input": {
+        "query": "2026"
+      },
+      "expected_ids": [],
+      "actual_ids": [],
+      "passed": true
+    },
+    {
+      "name": "literal-html-query",
+      "input": {
+        "query": "<img src=x onerror=alert(1)>"
+      },
+      "expected_ids": [],
+      "actual_ids": [],
+      "passed": true
+    },
+    {
+      "name": "synthetic-nfkc-lowercase-12",
+      "input": {
+        "query": "abc"
+      },
+      "expected_ids": [
+        "normalization-only"
+      ],
+      "actual_ids": [
+        "normalization-only"
+      ],
+      "passed": true,
+      "synthetic": true
+    },
+    {
+      "name": "synthetic-nfkc-lowercase-13",
+      "input": {
+        "query": "　ａｂｃ　"
+      },
+      "expected_ids": [
+        "normalization-only"
+      ],
+      "actual_ids": [
+        "normalization-only"
+      ],
+      "passed": true,
+      "synthetic": true
+    },
+    {
+      "name": "no-cross-field-substring",
+      "input": {
+        "query": "bc"
+      },
+      "expected_ids": [],
+      "actual_ids": [],
+      "passed": true,
+      "synthetic": true
+    },
+    {
+      "name": "fixed-calendar-e01",
+      "input": {
+        "date": "2026-11-07"
+      },
+      "expected_weekday": "土",
+      "actual_weekday": "土",
+      "passed": true
+    },
+    {
+      "name": "fixed-calendar-e02",
+      "input": {
+        "date": "2026-11-13"
+      },
+      "expected_weekday": "金",
+      "actual_weekday": "金",
+      "passed": true
+    },
+    {
+      "name": "fixed-calendar-e03",
+      "input": {
+        "date": "2026-11-14"
+      },
+      "expected_weekday": "土",
+      "actual_weekday": "土",
+      "passed": true
+    },
+    {
+      "name": "fixed-calendar-e04",
+      "input": {
+        "date": "2026-11-21"
+      },
+      "expected_weekday": "土",
+      "actual_weekday": "土",
+      "passed": true
+    },
+    {
+      "name": "fixed-calendar-e05",
+      "input": {
+        "date": "2026-11-22"
+      },
+      "expected_weekday": "日",
+      "actual_weekday": "日",
+      "passed": true
+    },
+    {
+      "name": "fixed-calendar-e06",
+      "input": {
+        "date": "2026-11-28"
+      },
+      "expected_weekday": "土",
+      "actual_weekday": "土",
+      "passed": true
+    }
+  ],
+  "passed": 21,
+  "failed": 0,
+  "human_approval": false
+}

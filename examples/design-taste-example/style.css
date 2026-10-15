@@ -1,0 +1,700 @@
+/* 余白図書室（架空）— japanese-minimal を読みやすさ優先で調整した一枚 */
+
+:root {
+  --paper: #F4F1EA;
+  --paper-tone: #ECE8DF;
+  --ink: #33302B;
+  --ink-soft: #625C53;   /* 文字に使う灰。原典の #8A8378 から調整 */
+  --ash: #8A8378;        /* 罫線だけ。文字には使わない */
+  --seal: #B3392A;
+
+  --mincho: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "BIZ UDPMincho", serif;
+  --gothic: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "BIZ UDPGothic", "Meiryo", sans-serif;
+
+  --gutter: clamp(1.25rem, 5vw, 3rem);
+  --measure: 38em;
+  --target: 2.75rem;     /* 44px */
+  --ease: 200ms ease;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--gothic);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--mincho);
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: var(--seal);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+  transition: color var(--ease);
+}
+
+a:hover {
+  color: var(--seal);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+[tabindex="-1"]:focus {
+  outline: none;
+}
+
+[tabindex="-1"]:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* スキップリンク：フォーカスしたときだけ見せる */
+.skip-link {
+  position: absolute;
+  top: 0.75rem;
+  left: var(--gutter);
+  z-index: 10;
+  padding: 0.5rem 1rem;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+/* 印：ワードマークとフッターの二か所だけ */
+.seal {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  background: var(--seal);
+  color: var(--paper);
+  border-radius: 2px;
+  font-family: var(--mincho);
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+/* ヘッダー：操作を押し出さないよう詰める */
+.site-header {
+  padding: 1.25rem var(--gutter) 0;
+}
+
+.wordmark {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+}
+
+.wordmark-name {
+  font-family: var(--mincho);
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+}
+
+.wordmark-note {
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+}
+
+main {
+  padding: 0 var(--gutter);
+}
+
+/* 見出しと縦書き（一か所だけ） */
+.intro {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  padding: clamp(1.75rem, 5vw, 3rem) 0 clamp(1.75rem, 4vw, 2.5rem);
+}
+
+.vertical {
+  flex: none;
+  writing-mode: vertical-rl;
+  font-family: var(--mincho);
+  font-size: 1rem;
+  line-height: 1;
+  letter-spacing: 0.25em;
+  color: var(--ink-soft);
+  padding-top: 0.5rem;
+}
+
+.intro-text {
+  max-width: 34em;
+}
+
+h1 {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+}
+
+.fiction {
+  margin-top: 1rem;
+  max-width: var(--measure);
+}
+
+/* 絞り込みと一覧 */
+.events-layout {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.finder h2,
+.listing h2 {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.finder-fields {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.375rem;
+  min-width: 0;
+}
+
+.field label {
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  line-height: 1.5;
+}
+
+input[type="search"],
+select,
+.request-text {
+  width: 100%;
+  min-height: var(--target);
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--ink-soft);
+  border-radius: 2px;
+  font: inherit;
+  line-height: 1.5;
+}
+
+.field-reset {
+  align-self: end;
+}
+
+input[type="search"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+.button-line,
+.button-ink {
+  min-height: var(--target);
+  padding: 0.5rem 1.25rem;
+  border-radius: 2px;
+  line-height: 1.5;
+  transition: color var(--ease), border-color var(--ease);
+}
+
+.button-line {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+}
+
+.button-line:hover {
+  color: var(--seal);
+  border-color: var(--seal);
+}
+
+.button-ink {
+  background: var(--ink);
+  color: var(--paper);
+  border: 1px solid var(--ink);
+}
+
+.button-ink:hover {
+  opacity: 0.85;
+}
+
+.finder-fields:disabled .field,
+.finder-fields:disabled button {
+  opacity: 0.6;
+}
+
+.status {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ash);
+  max-width: var(--measure);
+}
+
+.notice-plain {
+  margin-top: 1rem;
+  max-width: var(--measure);
+}
+
+/* 一覧：罫線の行。日付が目で追う索引になる */
+.events {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--ash);
+}
+
+.event {
+  display: grid;
+  gap: 0.5rem;
+  padding: 1.5rem 0 1.25rem;
+  border-top: 1px solid var(--ash);
+}
+
+.event-when {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.75rem;
+}
+
+.event-day {
+  white-space: nowrap;
+}
+
+.event-date {
+  font-family: var(--mincho);
+  font-size: 1.5rem;
+  line-height: 1.4;
+}
+
+.event-weekday,
+.event-time {
+  font-size: 1rem;
+}
+
+.event-body {
+  display: grid;
+  gap: 0.5rem;
+  max-width: var(--measure);
+}
+
+.event-title {
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+.event-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  margin: 0;
+}
+
+.event-meta div {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.event-meta dt {
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+}
+
+.event-meta dd {
+  margin: 0;
+}
+
+.event-details summary {
+  display: list-item;
+  min-height: var(--target);
+  padding: 0.5625rem 0;
+  cursor: pointer;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.event-details summary::marker {
+  color: var(--ink-soft);
+}
+
+.event-details summary:hover {
+  color: var(--seal);
+}
+
+.event-details p {
+  padding: 0.25rem 0 0.5rem 1rem;
+  border-left: 1px solid var(--ash);
+}
+
+.empty {
+  display: grid;
+  gap: 0.75rem;
+  justify-items: start;
+  padding: 1.5rem 0;
+  max-width: var(--measure);
+}
+
+.empty-title {
+  font-family: var(--mincho);
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+/* 解説：一覧の下に置く */
+.about {
+  margin-top: 6rem;
+  padding: 3rem 0 4rem;
+  border-top: 1px solid var(--ash);
+}
+
+.about h2 {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  line-height: 1.4;
+}
+
+.about-lead {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  max-width: var(--measure);
+}
+
+.about-part {
+  margin-top: 4rem;
+}
+
+.about-part h3 {
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+.about-part > p {
+  max-width: var(--measure);
+}
+
+.about-part > p + p,
+.about-part > ul + p {
+  margin-top: 1rem;
+}
+
+.about-note {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.link-rows,
+.scope-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 48em;
+}
+
+.link-rows li,
+.scope-list li {
+  display: grid;
+  gap: 0.25rem 1.5rem;
+  padding: 0.875rem 0;
+  border-top: 1px solid var(--ash);
+}
+
+.link-rows li:last-child,
+.scope-list li:last-child {
+  border-bottom: 1px solid var(--ash);
+}
+
+.link-rows a,
+.skill-rows a,
+.request-links a {
+  text-decoration-color: var(--ink-soft);
+}
+
+.link-rows a {
+  justify-self: start;
+  padding: 0.5rem 0;
+}
+
+.link-rows span {
+  color: var(--ink-soft);
+}
+
+.tag {
+  display: inline-block;
+  margin-right: 0.75rem;
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+}
+
+.skill-rows {
+  margin: 0;
+  max-width: 60em;
+  border-bottom: 1px solid var(--ash);
+}
+
+.skill-rows > div {
+  display: grid;
+  gap: 0.5rem 2rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--ash);
+}
+
+.skill-rows dt {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 0.125rem;
+  font-family: var(--mincho);
+  font-size: 1.125rem;
+}
+
+.skill-rows dt span {
+  color: var(--ink-soft);
+  font-family: var(--gothic);
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+}
+
+.skill-rows dd {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  max-width: var(--measure);
+}
+
+.request-label {
+  display: block;
+  margin-top: 1.5rem;
+  margin-bottom: 0.375rem;
+  color: var(--ink-soft);
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+}
+
+.request-text {
+  display: block;
+  max-width: 46em;
+  background: var(--paper-tone);
+  line-height: 1.8;
+  resize: vertical;
+}
+
+.copy-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  margin-top: 1rem;
+}
+
+.copy-status {
+  max-width: var(--measure);
+}
+
+.request-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-top: 1rem;
+}
+
+.request-links a {
+  display: inline-block;
+  padding: 0.5rem 0;
+}
+
+/* 依頼文だけのページ（request.html） */
+.request-page {
+  max-width: 52rem;
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
+
+.request-page h1 {
+  margin-top: 1.5rem;
+}
+
+.request-back a {
+  display: inline-block;
+  padding: 0.5rem 0;
+}
+
+/* フッター：二つ目の印 */
+.site-footer {
+  padding: 0 var(--gutter);
+}
+
+.footer-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding: 2.5rem 0 3rem;
+  border-top: 1px solid var(--ash);
+  color: var(--ink-soft);
+}
+
+.footer-text {
+  display: grid;
+  gap: 0.5rem;
+  max-width: var(--measure);
+}
+
+/* 中くらいの幅：操作を横に並べ、一覧は日付の列と本文の二段 */
+@media (min-width: 40rem) {
+  .finder-fields {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) auto;
+    align-items: end;
+  }
+
+  .event {
+    grid-template-columns: 9rem minmax(0, 1fr);
+    column-gap: 2rem;
+  }
+
+  .event-when {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .link-rows li {
+    grid-template-columns: 12rem minmax(0, 1fr);
+    align-items: baseline;
+  }
+
+  .skill-rows > div {
+    grid-template-columns: 13rem minmax(0, 1fr);
+  }
+}
+
+/* 広い画面：12列の非対称。左3列に絞り込み、1列空けて右8列に一覧 */
+@media (min-width: 64rem) {
+  main,
+  .site-header,
+  .site-footer {
+    max-width: 80rem;
+    margin-inline: auto;
+  }
+
+  .events-layout {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 2rem;
+  }
+
+  .finder {
+    grid-column: 1 / span 3;
+    align-self: start;
+  }
+
+  .finder-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .field-reset {
+    justify-self: start;
+  }
+
+  .listing {
+    grid-column: 5 / span 8;
+  }
+
+  .about {
+    margin-top: 10rem;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 2rem;
+  }
+
+  .about > * {
+    grid-column: 2 / span 10;
+  }
+
+  .about > h2,
+  .about > .about-lead {
+    grid-column: 1 / span 8;
+  }
+}
+
+/* 十分な高さがあるときだけ、絞り込みを画面に残す */
+@media (min-width: 64rem) and (min-height: 40rem) {
+  .finder {
+    position: sticky;
+    top: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}

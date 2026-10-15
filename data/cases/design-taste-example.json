@@ -1,0 +1,192 @@
+{
+  "id": "design-taste-example",
+  "title": "画面の方針を一つ選んで、催しの一覧に。",
+  "title_lines": [
+    "画面の方針を一つ選んで、",
+    "催しの一覧に。"
+  ],
+  "category": "ui-ux",
+  "summary": "Design Taste は、AIが画面を作る前に読む、文章で書かれたデザインの指針（Agent Skills）で、画面を生成するAPIやサービスではありません。Opus 5.5 が固定版の24のスキルのうち design-taste・japanese-minimal・taste-accessibility・taste-typography・taste-ux-copy の5つを読み、架空の「余白図書室」の十一月の催し6件を、対象と語句で絞り込み、各行の参加方法を開ける一覧にしました。紙・墨・印の赤、罫線の行、明朝とゴシック、縦書き1か所を使い、原典の薄い灰の文字と小さいラベルは、読みやすさのために調整しています。図書室と催しは架空です。",
+  "model": "claude-opus-5-5",
+  "status": "published",
+  "demo": "examples/design-taste-example/index.html",
+  "video": "media/design-taste-example.mp4",
+  "poster": "media/design-taste-example.webp",
+  "skill": "examples/design-taste-example/vendor/design-taste/skills/design-taste/SKILL.md",
+  "skill_label": "原典のSKILL.md（design-taste、コアの指針）",
+  "skill_description": "画面の目的と利用者を先に読み、AIにありがちな見た目を避けて、文字・色・配置の方針を決めるための文章の指針",
+  "samples": "examples/design-taste-example/samples.json",
+  "sample_format": "input-output",
+  "samples_title": "実入力と結果",
+  "samples_intro": "入力は実際の制作依頼（input.md）と合成の催し6件（events.json）。3条件の期待値と、events.mjs を実行した結果は6件・2件・1件で一致しました。例のリンクで実際の検索欄と対象へ条件を入れ、同じ結果を確かめられます。",
+  "demo_description": "架空の図書室の催し6件を、対象（すべて／子ども／おとな／どなたでも）と、名前・説明・会場の語句で絞り込めます。各行には日付・曜日・時刻・対象・会場・参加方法の要約が出ていて、参加方法は開いて全文を読めます。3つの例のリンクで、条件を実際の欄に入れて計算し直します。一覧の下に、5つのスキルをこの画面でどう使い、どこを調整したか、入力データ、依頼文があります。",
+  "demo_note": "絞り込みはブラウザーの中でその場に計算するだけで、送信・保存・申込はしません。余白図書室と催しは作例用の架空のデータで、実際には参加できません。ページを開いてもAIは動きません。",
+  "request_intro": "Design Taste の原典を固定コミットで読める環境で、AIに次の文章を渡します。【】の部分を自分の催しと条件に置き換えて使ってください。",
+  "request": "Design Taste（madebymustafa/design-taste、固定コミット c4a6bff0871eb4b15371b0e7d2751628b0ed4608）の skills/ にある design-taste・japanese-minimal・taste-accessibility・taste-typography・taste-ux-copy の5つの SKILL.md（https://github.com/madebymustafa/design-taste/tree/c4a6bff0871eb4b15371b0e7d2751628b0ed4608/skills）を読んでから、次の催し一覧のページを作ってください。\n\n主催と利用者：【図書室や集会所などの名前、実在か架空か、主な利用者】\n催しのデータ：【ファイル名と項目（名前・日付・開始と終了の時刻・対象・会場・説明・参加方法）、変えてはいけない項目】\n絞り込み：【対象の分類と、検索に使う項目】\n条件：【送信・予約・保存をするかどうか、使ってよい色・書体・素材】\n\n進め方：最初に design read を一行で書き、スタイルは japanese-minimal の1つだけにする。紙・墨・印の赤、罫線の一覧、明朝とゴシック、縦書き1か所を使い、本文は16px以上、ラベルは14px以上にする。コントラストが4.5:1に届かない色は文字に使わず濃い色へ調整し、原典のどの指示を適用し、どれを調整したかを記録する。検索欄・select・details はネイティブの要素を使い、キーボードだけで操作できるようにする。0件のときは理由と解除の操作を出し、検索語をHTMLとして解釈しない。\n\n確認：絞り込みの結果を期待する値と照らし、320px幅で日時・対象・参加方法が欠けないか、フォーカスが見えるか、文字のコントラストを実際のブラウザーで確かめる。確かめた点と、確かめていない点（スクリーンリーダー、人の承認など）を分けて報告する。",
+  "video_note": "26秒・720p・30fps・無音。実際に動かした一覧の保存画面を使い、入力→方針→子ども向け2件→参加方法→依頼文の順に説明します。操作を連続して録画したものではありません。",
+  "video_source": "examples/design-taste-example/video/index.html",
+  "skill_license": "examples/design-taste-example/vendor/design-taste/LICENSE",
+  "applied_skills": [
+    {
+      "name": "design-taste",
+      "source": "https://github.com/madebymustafa/design-taste/blob/c4a6bff0871eb4b15371b0e7d2751628b0ed4608/skills/design-taste/SKILL.md",
+      "applied": "実装の前に、利用者と用途を一行の design read にした（近所の親子・おとな・来館者が、催しを探し、日時を読み、参加方法を開く一覧。japanese-minimal、紙と墨と印の赤）。never list に従い、グラデーション、中央のバッジと2つのボタンのヒーロー、カード三つ並び、絵文字、影、大きな角丸を使っていない。広い画面では12列のうち左3列に絞り込み、1列空けて右8列に一覧を置く非対称の配置にし、各行は罫線で区切った。調整：3〜7remの大きな見出しとCTAの考え方は、道具としての一覧には合わないため使わず、h1は2〜3.5remにした。§7の事前チェックはコードを読む範囲で行い、画面での確認は別の工程に分けている。"
+    },
+    {
+      "name": "japanese-minimal",
+      "source": "https://github.com/madebymustafa/design-taste/blob/c4a6bff0871eb4b15371b0e7d2751628b0ed4608/skills/japanese-minimal/SKILL.md",
+      "applied": "スタイルはこの1つだけを選んだ。紙#F4F1EA・墨#33302B・印の赤#B3392A、箱ではなく罫線の目録行、明朝の見出しとゴシックの本文。縦書きは見出し横の「二〇二六年 十一月」1か所（読み上げの重複を避けて装飾扱い）、印「余」はワードマークとフッターの2か所。赤は印と本文中のリンクの下線だけで、角丸は2px以下、影はない。調整：原典の灰#8A8378は文字にするとコントラストが4.5:1に届かないため罫線だけに使い、文字の灰は#625C53にした。10〜11px・字間0.18emのラベルは日本語の読みやすさのため14px・0.08emに、Shippori Mincho などのWebフォントは依頼に従い端末の明朝とゴシックにした。検索欄を最初の画面に入れるため、20vh以上のヒーローの余白と各部のフェードは使わず、160pxの間は広い画面の一覧と解説の間だけにした。"
+    },
+    {
+      "name": "taste-accessibility",
+      "source": "https://github.com/madebymustafa/design-taste/blob/c4a6bff0871eb4b15371b0e7d2751628b0ed4608/skills/taste-accessibility/SKILL.md",
+      "applied": "h1は一つで、見出しは h1→h2→h3 と飛ばさない。先頭にフォーカス時に見えるスキップリンク、header・main・名前付きの section・footer を置いた。検索・対象・参加方法には自作の部品ではなく、ネイティブの input type=search・select・details/summary を使い、ラベルは欄の上に常に表示して for で結びつけた。フォーカスは墨の2pxの枠と2pxの間隔、入力欄・select・ボタン・summary は高さ44px以上。件数の表示は role=status で、入力中にフォーカスを動かさない。検索語や催しの文字はすべて textContent で入れ、HTMLとして解釈しない。prefers-reduced-motion で色の変化も止める。調整：明るい配色だけで、ダークモードは用意していない。スクリーンリーダーでの確認と人による承認は行っていない。"
+    },
+    {
+      "name": "taste-typography",
+      "source": "https://github.com/madebymustafa/design-taste/blob/c4a6bff0871eb4b15371b0e7d2751628b0ed4608/skills/taste-typography/SKILL.md",
+      "applied": "書体は明朝とゴシックの2種類、太さは400と600の2つに限った。h1は clamp(2rem, 6vw, 3.5rem)、日付は明朝1.5remにして目で追う索引にし、曜日と時刻・本文はゴシック16px、ラベルは14px。本文の幅は38em以内で、すべての文字の大きさを rem で指定した。斜体と擬似太字、両端揃えは使っていない。調整：日本語の本文なので、行送りは原典の1.55〜1.7ではなく1.8にし、等幅の書体は使っていない。"
+    },
+    {
+      "name": "taste-ux-copy",
+      "source": "https://github.com/madebymustafa/design-taste/blob/c4a6bff0871eb4b15371b0e7d2751628b0ed4608/skills/taste-ux-copy/SKILL.md",
+      "applied": "図書室の案内らしい平明な文体に決め、感嘆符と最上級の言い方を使わない。ボタンは動詞で書いた（条件を解除、依頼文をコピー、ページを再読み込み）。0件のときは、何が（条件に合う催しはありません）・なぜ（検索語と対象、検索は名前・説明・会場だけを見ること）・次の操作（条件を解除して6件を表示）の順に出す。データの読み込みに失敗したときも、起きたことと再読み込みの方法を書き、成功したように見せない。架空であることを見出しの直下と参加方法の本文で明示した。調整：原典の英語の例にある、読み手へ呼びかける文体は使っていない。"
+    }
+  ],
+  "steps": [
+    {
+      "title": "原典を固定して読む",
+      "body": "madebymustafa/design-taste のコミット c4a6bff（MIT）を固定し、24のスキルのうち使う5つの SKILL.md と README・LICENSE を変更せずに vendor/design-taste/ へ置きました。コアの design-taste、スタイルの japanese-minimal、補助の taste-accessibility・taste-typography・taste-ux-copy を読んでいます。"
+    },
+    {
+      "title": "実際の依頼とデータを固定する",
+      "body": "依頼（input.md）には、利用者、用途、色、機能、320px での完成条件を書きました。催しは合成の6件（events.json）で、名前・日時・分類・会場・本文・参加方法を変えていません。検索「読書」は会場「読書の間」にも一致して4件になるため、1件の例には「短編」を使います。"
+    },
+    {
+      "title": "デザイン計画を先に書く",
+      "body": "実装の前に、design read、構成、文字、色とコントラストの見込み、機能、絞り込みの決まり、320px の並び、原典の適用と調整を design-plan.md にまとめました。灰の文字、小さいラベル、Webフォント、大きなヒーローの余白、フェードは、ここで調整を決めています。"
+    },
+    {
+      "title": "一覧と絞り込みを作る",
+      "body": "HTML・CSS・JavaScript だけで、外部のフォント・画像・ライブラリを使わずに作りました。絞り込みは DOM に触れない events.mjs の filterEvents にまとめ、画面はネイティブの検索欄・select・details で操作します。曜日は日付を暦の日付として計算し、端末のタイムゾーンに依存しません。"
+    },
+    {
+      "title": "解説と依頼文を一覧の下に置く",
+      "body": "最初の画面は一覧と絞り込みにし、5つのスキルの適用と調整、素材、確認の範囲、依頼文は同じページの下へ置きました。依頼文はコピーのボタンのほか、request.html と request.txt でも読めます。"
+    },
+    {
+      "title": "実行と実画面を確かめて動画にする",
+      "body": "関数と曜日の21条件、ブラウザーの6件・2件・1件、0件解除・参加方法・実コピー、320〜1280pxの4幅、キーボード選択、実色コントラストを確認。1280pxでルート文字200%も測定しました。保存した実画面から26秒の無音解説を作り、全デコード・任意時刻一致・代表フレームと連続フレーム・実MP4再生を確認。スクリーンリーダーと人の承認は未実施です。"
+    }
+  ],
+  "limitations": [
+    "余白図書室と催し6件は作例用の架空のデータです。実在の図書館の催しではなく、申込や参加はできません。",
+    "使ったのは Design Taste の24のスキルのうち5つだけです。ほかのスタイルや、色・動き・コードの補助スキルは使っていません。",
+    "スキルを使わずに作った場合との比較はしていません。見た目や使いやすさがどれだけ変わったかは測っていません。",
+    "原典の指示の一部（文字の灰、10〜11pxのラベル、Webフォント、20vh以上の余白、フェード、本文の行送り）は、読みやすさと依頼の条件に合わせて意図して変えています。",
+    "書体は端末に入っている明朝とゴシックを使うため、環境によって文字の形と幅が変わります。",
+    "明るい配色だけで、ダークモードはありません。",
+    "スクリーンリーダーでの読み上げと人による承認は行っていません。自動の確認やスクリーンショットは、アクセシビリティ全体への適合を示すものではありません。",
+    "Design Taste は文章の指針で、画面を自動で作る機能はありません。同じ依頼でも、作る人やAIによって結果は変わります。"
+  ],
+  "sources": [
+    {
+      "label": "Design Taste skills/design-taste/SKILL.md（madebymustafa/design-taste、固定版）",
+      "url": "https://github.com/madebymustafa/design-taste/blob/c4a6bff0871eb4b15371b0e7d2751628b0ed4608/skills/design-taste/SKILL.md"
+    },
+    {
+      "label": "japanese-minimal/SKILL.md（固定版）",
+      "url": "https://github.com/madebymustafa/design-taste/blob/c4a6bff0871eb4b15371b0e7d2751628b0ed4608/skills/japanese-minimal/SKILL.md"
+    },
+    {
+      "label": "taste-accessibility/SKILL.md（固定版）",
+      "url": "https://github.com/madebymustafa/design-taste/blob/c4a6bff0871eb4b15371b0e7d2751628b0ed4608/skills/taste-accessibility/SKILL.md"
+    },
+    {
+      "label": "taste-typography/SKILL.md（固定版）",
+      "url": "https://github.com/madebymustafa/design-taste/blob/c4a6bff0871eb4b15371b0e7d2751628b0ed4608/skills/taste-typography/SKILL.md"
+    },
+    {
+      "label": "taste-ux-copy/SKILL.md（固定版）",
+      "url": "https://github.com/madebymustafa/design-taste/blob/c4a6bff0871eb4b15371b0e7d2751628b0ed4608/skills/taste-ux-copy/SKILL.md"
+    },
+    {
+      "label": "Design Taste README（固定版）",
+      "url": "https://github.com/madebymustafa/design-taste/blob/c4a6bff0871eb4b15371b0e7d2751628b0ed4608/README.md"
+    },
+    {
+      "label": "Design Taste LICENSE（MIT、固定版から作例に同梱）",
+      "url": "examples/design-taste-example/vendor/design-taste/LICENSE"
+    },
+    {
+      "label": "作例の入力データ（events.json、合成の6件）",
+      "url": "examples/design-taste-example/events.json"
+    },
+    {
+      "label": "作例の制作依頼（input.md）",
+      "url": "examples/design-taste-example/input.md"
+    },
+    {
+      "label": "作例のデザイン計画（design-plan.md）",
+      "url": "examples/design-taste-example/design-plan.md"
+    },
+    {
+      "label": "作例の説明と再現手順（README）",
+      "url": "examples/design-taste-example/README.md"
+    },
+    {
+      "label": "実行・ブラウザー・映像の確認範囲",
+      "url": "examples/design-taste-example/verification.json"
+    },
+    {
+      "label": "保存した実画面の状態とハッシュ",
+      "url": "examples/design-taste-example/captures.json"
+    },
+    {
+      "label": "編集できるソース一式（ZIP）",
+      "url": "examples/design-taste-example/source.zip"
+    }
+  ],
+  "license": "MIT",
+  "license_note": "この作例の画面・CSS・JavaScript・文言・記録は Studio Yebisu の2026年の独自制作で、MIT License（Copyright (c) 2026 Studio Yebisu）です。vendor/design-taste/ の5つの SKILL.md と README は上流の MIT License（Copyright (c) 2026 Mustafa）で、固定コミットのファイルを変更せずに LICENSE とともに同梱しています。書体は利用者の端末のもので、同梱していません。",
+  "catalog_entry": {
+    "id": "resource-design-taste",
+    "name": "Design Taste",
+    "category": "ui-ux",
+    "kind": "スキル",
+    "summary": "画面の目的に合う表現方針を選び、スタイル別の指針を実装へ落とす。",
+    "use_case": "雰囲気の指示だけでは画面が似通ってしまうとき、文字・余白・配色の方針を具体化する。",
+    "tags": [
+      "UI",
+      "デザイン",
+      "Agent Skills"
+    ],
+    "workflow": [
+      "利用者と画面の役割を決める",
+      "共通スキルと用途に合うスタイルの指針を読む",
+      "実装後の画面をブラウザーで確認する"
+    ],
+    "requirements": [
+      "Agent Skillsを読める環境",
+      "実装するアプリの技術構成"
+    ],
+    "license": "MIT",
+    "license_url": "https://github.com/madebymustafa/design-taste/blob/c4a6bff0871eb4b15371b0e7d2751628b0ed4608/LICENSE",
+    "license_note": "スキルはMIT。デモやリンク先のフォント・画像は、それぞれの条件も確認してください。",
+    "source_url": "https://github.com/madebymustafa/design-taste/tree/c4a6bff0871eb4b15371b0e7d2751628b0ed4608/skills/design-taste",
+    "guide_url": "case.html?id=design-taste-example",
+    "example_url": "examples/design-taste-example/index.html#events",
+    "image": "media/design-taste-example.webp",
+    "readme_url": "https://github.com/madebymustafa/design-taste/blob/c4a6bff0871eb4b15371b0e7d2751628b0ed4608/README.md",
+    "source_repository": "madebymustafa/design-taste",
+    "source_commit": "c4a6bff0871eb4b15371b0e7d2751628b0ed4608",
+    "source_path": "skills/design-taste",
+    "source_project": "curated",
+    "source_note": "公開リポジトリのREADMEと利用条件を確認し、用途と最初の試し方を日本語で整理しました。スキルは入口または代表の本文も参照しています。原典は確認時のコミットへ固定しています。作例で使ったのは24のスキルのうち、design-taste・japanese-minimal・taste-accessibility・taste-typography・taste-ux-copy の5つです。",
+    "prompt": "Design Taste（madebymustafa/design-taste、固定コミット c4a6bff0871eb4b15371b0e7d2751628b0ed4608）の skills/ にある design-taste・japanese-minimal・taste-accessibility・taste-typography・taste-ux-copy の5つの SKILL.md（https://github.com/madebymustafa/design-taste/tree/c4a6bff0871eb4b15371b0e7d2751628b0ed4608/skills）を読んでから、次の催し一覧のページを作ってください。\n\n主催と利用者：【図書室や集会所などの名前、実在か架空か、主な利用者】\n催しのデータ：【ファイル名と項目（名前・日付・開始と終了の時刻・対象・会場・説明・参加方法）、変えてはいけない項目】\n絞り込み：【対象の分類と、検索に使う項目】\n条件：【送信・予約・保存をするかどうか、使ってよい色・書体・素材】\n\n進め方：最初に design read を一行で書き、スタイルは japanese-minimal の1つだけにする。紙・墨・印の赤、罫線の一覧、明朝とゴシック、縦書き1か所を使い、本文は16px以上、ラベルは14px以上にする。コントラストが4.5:1に届かない色は文字に使わず濃い色へ調整し、原典のどの指示を適用し、どれを調整したかを記録する。検索欄・select・details はネイティブの要素を使い、キーボードだけで操作できるようにする。0件のときは理由と解除の操作を出し、検索語をHTMLとして解釈しない。\n\n確認：絞り込みの結果を期待する値と照らし、320px幅で日時・対象・参加方法が欠けないか、フォーカスが見えるか、文字のコントラストを実際のブラウザーで確かめる。確かめた点と、確かめていない点（スクリーンリーダー、人の承認など）を分けて報告する。",
+    "verification_stage": "runtime-reviewed",
+    "verification": "固定版の5つの指針を実入力へ適用。絞り込みと曜日21条件、ブラウザー6/2/1件・操作・4幅・実色を確認。保存した実画面から26秒の無音解説を実レンダーして再生。範囲と未実施項目は確認記録。人の承認・全アクセシビリティ適合とは区別。",
+    "reviewed_on": "2026-10-15"
+  },
+  "updated_on": "2026-10-16"
+}
