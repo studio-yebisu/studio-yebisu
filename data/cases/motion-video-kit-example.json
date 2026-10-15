@@ -35,13 +35,13 @@
     {
       "name": "Motion Reel",
       "source": "https://github.com/studio-yebisu/motion-reel/tree/56198544e69201b1c202e0c00fb90b568a729824",
-      "applied": "本編（20秒・60fps・1920×1080・posterTime 14.2）と解説（22秒・30fps・1280×720）を、window.seek(秒) がその時刻の完成した画面だけを描く契約で書いた。motionConfig（audioEvents なし）、renderConfig のサイズとFPSの反映、フォントの準備を待つ motionReady、書き出し中のプレビュー停止に従い、タイマー・CSSアニメーション・乱数・前フレームの積算を使っていない。解説は本編のMP4から書き出したフレームの読み込みとデコードを待ち、1枚でも欠ければ motionReady を失敗させる。部品の検証ページは Motion Reel で書き出し、同じ時刻を別の順序と新しいページで描いた一致が記録された（同じ実行環境内）。"
+      "applied": "本編（20秒・60fps・1920×1080・posterTime 13）と解説（22秒・30fps・1280×720）を、window.seek(秒) がその時刻の完成した画面だけを描く契約で書いた。motionConfig（audioEvents なし）、renderConfig のサイズとFPSの反映、フォントの準備を待つ motionReady、書き出し中のプレビュー停止に従い、タイマー・CSSアニメーション・乱数・前フレームの積算を使っていない。解説は本編のMP4から書き出したフレームの読み込みとデコードを待ち、1枚でも欠ければ motionReady を失敗させる。部品の検証ページは Motion Reel で書き出し、同じ時刻を別の順序と新しいページで描いた一致が記録された（同じ実行環境内）。"
     }
   ],
   "steps": [
     {
       "title": "原典を固定して読む",
-      "body": "echris6/motion-video-kit のコミット e4b1c00（MIT）を固定し、business-motion-film の SKILL.md・references・scripts（frozen-time・loudness・contact-sheet）と README・LICENSE を変更せずに vendor/ へ置きました。SKILL.md の工程表に従い、絵コンテとレビューに必要な参照資料を読んでいます。"
+      "body": "echris6/motion-video-kit のコミット e4b1c00（MIT）を固定し、business-motion-film の SKILL.md・選択した参照資料・scripts（frozen-time・loudness・contact-sheet）と README・LICENSE を変更せずに vendor/ へ置きました。SKILL.md の工程表に従い、絵コンテとレビューに必要な参照資料を読んでいます。"
     },
     {
       "title": "ブリーフと絵コンテを書く",
@@ -53,7 +53,7 @@
     },
     {
       "title": "部品を変えずに本編を組む",
-      "body": "検証した部品のファイルには手を入れず、時刻とデータだけを渡して8つの場面を組みました。結果の枠の中身は、この映像の最初のフレームを描く関数の出力そのものです。CTAのボタンの文字は96pxにして、スマートフォンの大きさでも読めるようにしました。"
+      "body": "検証した部品のファイルには手を入れず、時刻とデータだけを渡して8つの場面を組みました。結果の枠の中身は、表紙と同じ cover() が描く構図です（選択線の重ね描きを除き、先頭フレーム全体の完全な画像一致ではありません）。CTAのボタンの文字は96pxにして、スマートフォンの大きさでも読めるようにしました。"
     },
     {
       "title": "解説映像と記事を作る",
@@ -129,7 +129,7 @@
     ],
     "workflow": [
       "伝える内容と参考を整理し、構成を決める",
-      "HTML・GSAPなどでシーンを制作する",
+      "HTML/SVGとJavaScriptで場面を制作し、Motion Reelで書き出す",
       "書き出した映像を見て、修正点を反映する"
     ],
     "requirements": [
