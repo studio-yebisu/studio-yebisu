@@ -1,0 +1,9 @@
+sequenceDiagram
+    participant user as 利用者
+    participant api as 受付API
+    participant store as 保存先
+    user->>api: 申込を送る
+    api->>api: 内容を検証
+    api->>store: 申込を保存
+    store-->>api: 保存結果
+    api-->>user: 受付結果

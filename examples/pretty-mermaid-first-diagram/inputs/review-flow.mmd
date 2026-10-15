@@ -1,0 +1,6 @@
+flowchart LR
+    input([申込を入力]) --> check[内容を確認]
+    check --> judge{不備はあるか}
+    judge -->|不備あり| input
+    judge -->|問題なし| save[(申込を保存)]
+    save --> notify([完了を通知])

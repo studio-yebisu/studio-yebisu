@@ -23,13 +23,25 @@ def main():
     renderer = args.renderer or home / 'skills/motion-reel/scripts/render.mjs'
     if not renderer.is_file():
         raise SystemExit('Install Motion Reel or pass --renderer pointing to its render.mjs.')
-    project = ROOT / 'examples' / args.id / 'video'
+    case_root = ROOT / 'examples' / args.id
+    project = case_root / 'video'
     if not (project / 'index.html').is_file():
         raise SystemExit('The case has no finished video source.')
     stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')
     output = ROOT / '.local/renders' / f'{args.id}-{stamp}'
     source_hashes = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in project.iterdir() if p.is_file()}
-    subprocess.run(['node', str(renderer), '--project', str(project), '--out', str(output), '--video', '--step', '2', '--strip-at', '11.9'], cwd=ROOT, check=True)
+    # The installed renderer serves only its project root. Retain the case's URL
+    # layout so video sources can load ../samples.json and ../assets/ unchanged.
+    render_project = ROOT / '.local/render-sources' / f'{args.id}-{stamp}'
+    shutil.copytree(case_root, render_project, ignore=shutil.ignore_patterns('node_modules', '__pycache__', '*.pyc', '.git', '.local', '.venv'))
+    entry = (project / 'index.html').read_text('utf-8')
+    if re.search(r'<base\b', entry, re.I):
+        raise SystemExit('Video source already defines a base URL; adapt the render entry explicitly.')
+    entry, count = re.subn(r'(<head\b[^>]*>)', r'\1\n  <base href="video/">', entry, count=1, flags=re.I)
+    if count != 1:
+        raise SystemExit('Video source has no head for its render entry.')
+    (render_project / 'index.html').write_text(entry, 'utf-8')
+    subprocess.run(['node', str(renderer), '--project', str(render_project), '--out', str(output), '--video', '--step', '2', '--strip-at', '11.9'], cwd=ROOT, check=True)
     if source_hashes != {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in project.iterdir() if p.is_file()}:
         raise SystemExit('Video source changed during rendering. Originals retained; nothing published.')
     capture = json.loads((output / 'capture.json').read_text('utf-8'))
@@ -47,7 +59,7 @@ def main():
     reviews = ROOT / 'reviews'
     reviews.mkdir(exist_ok=True)
     shutil.copy2(output / 'contact.png', reviews / (args.id + '-contact.png'))
-    (ROOT / '.local/latest-render.json').write_text(json.dumps({'id': args.id, 'output': str(output), 'video': capture['video'], 'determinism': capture['determinism']}, ensure_ascii=False, indent=2) + '\n', 'utf-8')
+    (ROOT / '.local/latest-render.json').write_text(json.dumps({'id': args.id, 'output': str(output), 'render_project': str(render_project), 'video': capture['video'], 'determinism': capture['determinism']}, ensure_ascii=False, indent=2) + '\n', 'utf-8')
     print(json.dumps({'video': str(destination), 'poster': str(poster), 'contact': str(reviews / (args.id + '-contact.png')), 'originals': str(output)}, ensure_ascii=False))
 
 

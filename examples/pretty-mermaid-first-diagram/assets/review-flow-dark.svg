@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 956.2399999999999 234.87" width="956.2399999999999" height="234.87" style="--bg:#0d1117;--fg:#e6edf3;--line:#3d444d;--accent:#4493f8;--muted:#9198a1;background:var(--bg)">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Yu%20Gothic:wght@400;500;600;700&amp;display=swap');
+  text { font-family: 'Yu Gothic', system-ui, sans-serif; }
+  svg {
+    /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
+    --_text:          var(--fg);
+    --_text-sec:      var(--muted, color-mix(in srgb, var(--fg) 60%, var(--bg)));
+    --_text-muted:    var(--muted, color-mix(in srgb, var(--fg) 40%, var(--bg)));
+    --_text-faint:    color-mix(in srgb, var(--fg) 25%, var(--bg));
+    --_line:          var(--line, color-mix(in srgb, var(--fg) 50%, var(--bg)));
+    --_arrow:         var(--accent, color-mix(in srgb, var(--fg) 85%, var(--bg)));
+    --_node-fill:     var(--surface, color-mix(in srgb, var(--fg) 3%, var(--bg)));
+    --_node-stroke:   var(--border, color-mix(in srgb, var(--fg) 20%, var(--bg)));
+    --_group-fill:    var(--bg);
+    --_group-hdr:     color-mix(in srgb, var(--fg) 5%, var(--bg));
+    --_inner-stroke:  color-mix(in srgb, var(--fg) 12%, var(--bg));
+    --_key-badge:     color-mix(in srgb, var(--fg) 10%, var(--bg));
+  }
+</style>
+<defs>
+  <marker id="arrowhead" markerWidth="8" markerHeight="5" refX="7" refY="2.5" orient="auto">
+    <polygon points="0 0, 8 2.5, 0 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+  <marker id="arrowhead-start" markerWidth="8" markerHeight="5" refX="1" refY="2.5" orient="auto-start-reverse">
+    <polygon points="8 0, 0 2.5, 8 5" fill="var(--_arrow)" stroke="var(--_arrow)" stroke-width="0.75" stroke-linejoin="round" />
+  </marker>
+</defs>
+<polyline class="edge" data-from="input" data-to="check" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="156.05,111.285 184.05,111.285 184.05,90.71000000000001 196.05,90.71000000000001" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="check" data-to="judge" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="312.1,90.71000000000001 340.1,90.71000000000001 340.1,91.62333333333333 377.9116666666667,91.62333333333333" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="judge" data-to="input" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="不備あり" points="377.9116666666667,143.24666666666667 340.1,143.24666666666667 340.1,144.16 242.93,144.16 242.93,123.58500000000001 156.05,123.58500000000001" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="judge" data-to="save" data-style="solid" data-arrow-start="false" data-arrow-end="true" data-label="問題なし" points="506.97,117.435 644.14,117.435" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<polyline class="edge" data-from="save" data-to="notify" data-style="solid" data-arrow-start="false" data-arrow-end="true" points="760.1899999999999,117.435 800.1899999999999,117.435" fill="none" stroke="var(--_line)" stroke-width="1" marker-end="url(#arrowhead)" />
+<g class="edge-label" data-from="judge" data-to="input" data-label="不備あり">
+  <rect x="250.92999999999998" y="128.16" width="65.17" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="283.515" y="143.31" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">不備あり</text>
+</g>
+<g class="edge-label" data-from="judge" data-to="save" data-label="問題なし">
+  <rect x="542.97" y="101.435" width="65.17" height="30.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="1" />
+  <text x="575.5550000000001" y="116.58500000000001" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-sec)" dy="3.8499999999999996">問題なし</text>
+</g>
+<g class="node" data-id="input" data-label="申込を入力" data-shape="stadium">
+  <rect x="40" y="98.985" width="116.05" height="36.900000000000006" rx="18.450000000000003" ry="18.450000000000003" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="98.025" y="117.435" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">申込を入力</text>
+</g>
+<g class="node" data-id="check" data-label="内容を確認" data-shape="rectangle">
+  <rect x="196.05" y="72.25999999999999" width="116.05" height="36.900000000000006" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="254.07500000000002" y="90.71" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">内容を確認</text>
+</g>
+<g class="node" data-id="judge" data-label="不備はあるか" data-shape="diamond">
+  <polygon points="429.535,40 506.97,117.435 429.535,194.87 352.1,117.435" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="429.535" y="117.435" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">不備はあるか</text>
+</g>
+<g class="node" data-id="save" data-label="申込を保存" data-shape="cylinder">
+  <rect x="644.14" y="98.985" width="116.05" height="36.900000000000006" fill="var(--_node-fill)" stroke="none" />
+  <line x1="644.14" y1="98.985" x2="644.14" y2="135.885" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <line x1="760.1899999999999" y1="98.985" x2="760.1899999999999" y2="135.885" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <ellipse cx="702.165" cy="135.885" rx="58.025" ry="7" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <ellipse cx="702.165" cy="98.985" rx="58.025" ry="7" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="702.165" y="117.435" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">申込を保存</text>
+</g>
+<g class="node" data-id="notify" data-label="完了を通知" data-shape="stadium">
+  <rect x="800.1899999999999" y="98.985" width="116.05" height="36.900000000000006" rx="18.450000000000003" ry="18.450000000000003" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <text x="858.2149999999999" y="117.435" text-anchor="middle" font-size="13" font-weight="500" fill="var(--_text)" dy="4.55">完了を通知</text>
+</g>
+</svg>

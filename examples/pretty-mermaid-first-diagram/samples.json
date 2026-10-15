@@ -1,0 +1,61 @@
+{
+  "format": "input-output",
+  "synthetic": true,
+  "samples": [
+    {
+      "id": "flow",
+      "label": "申込の確認フロー",
+      "input": "flowchart LR\n    input([申込を入力]) --> check[内容を確認]\n    check --> judge{不備はあるか}\n    judge -->|不備あり| input\n    judge -->|問題なし| save[(申込を保存)]\n    save --> notify([完了を通知])\n",
+      "output": "申込の入力から完了の通知までを、左から右へ描いた流れ図。判定で不備があれば入力へ戻り、問題がなければ保存して完了を通知する。",
+      "stem": "review-flow",
+      "svg_light": "assets/review-flow-light.svg",
+      "svg_dark": "assets/review-flow-dark.svg",
+      "png": "assets/review-flow-light.png",
+      "ascii_file": "assets/review-flow.txt",
+      "relationships": [
+        "申込を入力 → 内容を確認",
+        "内容を確認 → 不備はあるか",
+        "不備はあるか →（不備あり）申込を入力へ戻る",
+        "不備はあるか →（問題なし）申込を保存",
+        "申込を保存 → 完了を通知"
+      ]
+    },
+    {
+      "id": "sequence",
+      "label": "申込を受け付けるやり取り",
+      "input": "sequenceDiagram\n    participant user as 利用者\n    participant api as 受付API\n    participant store as 保存先\n    user->>api: 申込を送る\n    api->>api: 内容を検証\n    api->>store: 申込を保存\n    store-->>api: 保存結果\n    api-->>user: 受付結果\n",
+      "output": "利用者・受付API・保存先の3者が、申込を受け付けるまでのやり取りを上から順に描いたシーケンス図。受付APIは図の題材で、APIそのものは作っていない。",
+      "stem": "request-sequence",
+      "svg_light": "assets/request-sequence-light.svg",
+      "svg_dark": "assets/request-sequence-dark.svg",
+      "png": "assets/request-sequence-light.png",
+      "ascii_file": "assets/request-sequence.txt",
+      "relationships": [
+        "利用者 → 受付API：申込を送る",
+        "受付API → 受付API：内容を検証（自分への矢印）",
+        "受付API → 保存先：申込を保存",
+        "保存先 ⇢ 受付API：保存結果（点線の返答）",
+        "受付API ⇢ 利用者：受付結果（点線の返答）"
+      ]
+    },
+    {
+      "id": "state",
+      "label": "ジョブの状態",
+      "input": "stateDiagram-v2\n    [*] --> 待機\n    待機 --> 実行中: 開始\n    実行中 --> 完了: 成功\n    実行中 --> 失敗: 失敗\n    失敗 --> 待機: 再試行\n    完了 --> [*]\n",
+      "output": "ジョブが待機・実行中・完了・失敗の間を移る状態遷移図。失敗したジョブは、再試行で待機へ戻る。",
+      "stem": "job-state",
+      "svg_light": "assets/job-state-light.svg",
+      "svg_dark": "assets/job-state-dark.svg",
+      "png": "assets/job-state-light.png",
+      "ascii_file": "assets/job-state.txt",
+      "relationships": [
+        "開始点 → 待機",
+        "待機 →（開始）実行中",
+        "実行中 →（成功）完了",
+        "実行中 →（失敗）失敗",
+        "失敗 →（再試行）待機へ戻る",
+        "完了 → 終了点"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,394 @@
+{
+  "id": "pretty-mermaid-first-diagram",
+  "verified_at": "2026-10-15T01:34:32.017743+00:00",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "private_receipt_sha256": "c4ba512021696440fa8915a552d8c06a62a8ca20b2f07778a26cf654ec9b8e8c",
+    "receipt_published": false
+  },
+  "upstream": {
+    "repository": "imxv/Pretty-mermaid-skills",
+    "commit": "e234ab73c2992f03c36db04fd55ebb90abca9c45",
+    "license": "MIT",
+    "files_verified_unchanged": 7
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 3,
+    "original_cli_calls": 12,
+    "formats": [
+      "SVG github-light",
+      "SVG github-dark",
+      "PNG width 1200",
+      "ASCII color none"
+    ],
+    "source_inputs_match_saved_samples": true,
+    "original_outputs_unchanged": true,
+    "diagrams": [
+      {
+        "input": "inputs/review-flow.mmd",
+        "input_sha256": "ee51291f54acef83cf28819b9b45ce806f2b570877082c0d695b1afcbf4852d3",
+        "outputs": [
+          {
+            "path": "assets/review-flow-light.svg",
+            "sha256": "154bc3f929fa79dbe24bf456d9c280b63a3dd2d9eba44490657b9c468c918af8",
+            "bytes": 6684,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/review-flow.mmd",
+              "--output",
+              "assets/review-flow-light.svg",
+              "--font",
+              "Yu Gothic",
+              "--theme",
+              "github-light"
+            ]
+          },
+          {
+            "path": "assets/review-flow-dark.svg",
+            "sha256": "ab0f2ef7cb6b9e75a2e889c250d548b5b37481193d439dae254cf43fb5969c9e",
+            "bytes": 6684,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/review-flow.mmd",
+              "--output",
+              "assets/review-flow-dark.svg",
+              "--font",
+              "Yu Gothic",
+              "--theme",
+              "github-dark"
+            ]
+          },
+          {
+            "path": "assets/review-flow-light.png",
+            "sha256": "8e439384f1e4d622f074fdf6627f8f741255afb39e18cce5671909756bb220ae",
+            "bytes": 22587,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/review-flow.mmd",
+              "--output",
+              "assets/review-flow-light.png",
+              "--font",
+              "Yu Gothic",
+              "--theme",
+              "github-light",
+              "--format",
+              "png",
+              "--width",
+              "1200"
+            ]
+          },
+          {
+            "path": "assets/review-flow.txt",
+            "sha256": "16a5907479aefaba6ade888a0be53bfd62fb47204beb2979ed2394967ad3a09b",
+            "bytes": 1071,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/review-flow.mmd",
+              "--output",
+              "assets/review-flow.txt",
+              "--font",
+              "Yu Gothic",
+              "--format",
+              "ascii",
+              "--color-mode",
+              "none"
+            ]
+          }
+        ]
+      },
+      {
+        "input": "inputs/request-sequence.mmd",
+        "input_sha256": "3e18b411974f89d6d0e6a6dfc1986f9c49bac736d7c528ea410bf8853ceaec02",
+        "outputs": [
+          {
+            "path": "assets/request-sequence-light.svg",
+            "sha256": "823238abfec4681b4998e1f6b695e5c5adcd65b98a30b59d926f77652f71322a",
+            "bytes": 5335,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/request-sequence.mmd",
+              "--output",
+              "assets/request-sequence-light.svg",
+              "--font",
+              "Yu Gothic",
+              "--theme",
+              "github-light"
+            ]
+          },
+          {
+            "path": "assets/request-sequence-dark.svg",
+            "sha256": "c1b49e5710a7050015c3fe1d3523517664980df890fa36666270847c45528b79",
+            "bytes": 5335,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/request-sequence.mmd",
+              "--output",
+              "assets/request-sequence-dark.svg",
+              "--font",
+              "Yu Gothic",
+              "--theme",
+              "github-dark"
+            ]
+          },
+          {
+            "path": "assets/request-sequence-light.png",
+            "sha256": "3d06eb1393bc4c8f4d9c0d75aeb10aa5c04fd1fba65ddf91a5e310eb09ea4c77",
+            "bytes": 40534,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/request-sequence.mmd",
+              "--output",
+              "assets/request-sequence-light.png",
+              "--font",
+              "Yu Gothic",
+              "--theme",
+              "github-light",
+              "--format",
+              "png",
+              "--width",
+              "1200"
+            ]
+          },
+          {
+            "path": "assets/request-sequence.txt",
+            "sha256": "cd79468bceba87863d7c0e39cfb49d8d43e3f10f73930bf9122f42462b37f8a2",
+            "bytes": 1267,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/request-sequence.mmd",
+              "--output",
+              "assets/request-sequence.txt",
+              "--font",
+              "Yu Gothic",
+              "--format",
+              "ascii",
+              "--color-mode",
+              "none"
+            ]
+          }
+        ]
+      },
+      {
+        "input": "inputs/job-state.mmd",
+        "input_sha256": "bdab2daa6988447da25f1a0be9b2e50cbdba5e89d0fedca5d5be5a9aeea24c09",
+        "outputs": [
+          {
+            "path": "assets/job-state-light.svg",
+            "sha256": "4102e681a7f35b0f035a25ce627e890b0f9146eabf3c35f404bfeaa4b3a0e16c",
+            "bytes": 7311,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/job-state.mmd",
+              "--output",
+              "assets/job-state-light.svg",
+              "--font",
+              "Yu Gothic",
+              "--theme",
+              "github-light"
+            ]
+          },
+          {
+            "path": "assets/job-state-dark.svg",
+            "sha256": "4921bbfaacee30cb5a30bc3ae69b8ab2418b366c11b6365971e7fe52c551cab6",
+            "bytes": 7311,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/job-state.mmd",
+              "--output",
+              "assets/job-state-dark.svg",
+              "--font",
+              "Yu Gothic",
+              "--theme",
+              "github-dark"
+            ]
+          },
+          {
+            "path": "assets/job-state-light.png",
+            "sha256": "f8aa969d4c85550de9369abe13acac807e58c03b56315f83ccea984be14e7f8e",
+            "bytes": 64394,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/job-state.mmd",
+              "--output",
+              "assets/job-state-light.png",
+              "--font",
+              "Yu Gothic",
+              "--theme",
+              "github-light",
+              "--format",
+              "png",
+              "--width",
+              "1200"
+            ]
+          },
+          {
+            "path": "assets/job-state.txt",
+            "sha256": "93b30f9b1ce767d91d46edbfeabee7b730366cebdcdf2a23bcbc88f19ce4b931",
+            "bytes": 1130,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/job-state.mmd",
+              "--output",
+              "assets/job-state.txt",
+              "--font",
+              "Yu Gothic",
+              "--format",
+              "ascii",
+              "--color-mode",
+              "none"
+            ]
+          }
+        ]
+      }
+    ],
+    "labels_and_relationships_compared": true
+  },
+  "browser": {
+    "requested_widths": [
+      390,
+      1280
+    ],
+    "horizontal_page_overflow": false,
+    "sample_switching": true,
+    "themes": [
+      "light",
+      "dark",
+      "both"
+    ],
+    "keyboard_end": true,
+    "source_to_relationship_selection": true,
+    "downloaded_png_matches_cli_output": true,
+    "controls": {
+      "requestedWidths": [
+        390,
+        1280
+      ],
+      "horizontalPageOverflow": false,
+      "mobileFlow": {
+        "baseImageWidth": 900,
+        "zoomedImageWidth": 1350,
+        "viewportWidth": 307,
+        "pageWidth": 375,
+        "scrollWidth": 375
+      },
+      "diagrams": [
+        "flow",
+        "sequence",
+        "state"
+      ],
+      "themes": [
+        "light",
+        "dark",
+        "both"
+      ],
+      "keyboardDiagramEnd": true,
+      "keyboardThemeEnd": true,
+      "sourceToRelationship": true,
+      "pngDownload": "request-sequence-light.png",
+      "console": []
+    }
+  },
+  "video": {
+    "render": {
+      "file": "video.mp4",
+      "sha256": "ee1aa5d7f8142548215b0d3e6221bdae9a303ae9f2d158595c4f39e5dca6421b",
+      "width": 1280,
+      "height": 720,
+      "fps": 30,
+      "frameCount": 840,
+      "duration": 28,
+      "hasAudio": false
+    },
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "1fa3d81f35adb0e32f03c3cdebb59d8b45f8d0bf95b92aa8a10bd4e202937677",
+      "afterOtherTimes": "1fa3d81f35adb0e32f03c3cdebb59d8b45f8d0bf95b92aa8a10bd4e202937677",
+      "freshPage": "1fa3d81f35adb0e32f03c3cdebb59d8b45f8d0bf95b92aa8a10bd4e202937677",
+      "match": true
+    },
+    "contact_sheet_reviewed": true,
+    "representative_frames_reviewed": true,
+    "mp4_browser_playback": {
+      "currentTime": 28,
+      "duration": 28,
+      "ended": true,
+      "errorCode": null
+    }
+  },
+  "scope": {
+    "synthetic_diagrams": true,
+    "live_ai_in_demo": false,
+    "live_renderer_in_demo": false,
+    "backend_api_implemented": false,
+    "third_party_human_review": false,
+    "japanese_ascii_alignment": "Misalignment observed; SVG/PNG available",
+    "svg_external_font_reference": "Upstream output retains Google Fonts import; not removed from downloadable output"
+  },
+  "artifacts_sha256": {
+    "examples/pretty-mermaid-first-diagram/app.js": "e64bc8991ff9a65723aa909ae4504fe15d78ed4417e640b7eb508bdbc32804ae",
+    "examples/pretty-mermaid-first-diagram/index.html": "faf228419edac8bfc38360ceb1e7b6cfb92b3542391e69e88d1d6eba688169b3",
+    "examples/pretty-mermaid-first-diagram/README.md": "2fd794e5e845d46b9145ff3a02b16a227dc5f81e6fd43e0604e1efb21df6c9ba",
+    "examples/pretty-mermaid-first-diagram/samples.json": "c17a56e06783f397627718c1322bc1ec388b3292c7b9d3a7b1b3b69bba5b08c7",
+    "examples/pretty-mermaid-first-diagram/styles.css": "279c292a636c588951814403a96c4ed41186d81277528869a9cb870af0257056",
+    "examples/pretty-mermaid-first-diagram/assets/job-state-dark.svg": "4921bbfaacee30cb5a30bc3ae69b8ab2418b366c11b6365971e7fe52c551cab6",
+    "examples/pretty-mermaid-first-diagram/assets/job-state-light.png": "f8aa969d4c85550de9369abe13acac807e58c03b56315f83ccea984be14e7f8e",
+    "examples/pretty-mermaid-first-diagram/assets/job-state-light.svg": "4102e681a7f35b0f035a25ce627e890b0f9146eabf3c35f404bfeaa4b3a0e16c",
+    "examples/pretty-mermaid-first-diagram/assets/job-state.txt": "93b30f9b1ce767d91d46edbfeabee7b730366cebdcdf2a23bcbc88f19ce4b931",
+    "examples/pretty-mermaid-first-diagram/assets/request-sequence-dark.svg": "c1b49e5710a7050015c3fe1d3523517664980df890fa36666270847c45528b79",
+    "examples/pretty-mermaid-first-diagram/assets/request-sequence-light.png": "3d06eb1393bc4c8f4d9c0d75aeb10aa5c04fd1fba65ddf91a5e310eb09ea4c77",
+    "examples/pretty-mermaid-first-diagram/assets/request-sequence-light.svg": "823238abfec4681b4998e1f6b695e5c5adcd65b98a30b59d926f77652f71322a",
+    "examples/pretty-mermaid-first-diagram/assets/request-sequence.txt": "cd79468bceba87863d7c0e39cfb49d8d43e3f10f73930bf9122f42462b37f8a2",
+    "examples/pretty-mermaid-first-diagram/assets/review-flow-dark.svg": "ab0f2ef7cb6b9e75a2e889c250d548b5b37481193d439dae254cf43fb5969c9e",
+    "examples/pretty-mermaid-first-diagram/assets/review-flow-light.png": "8e439384f1e4d622f074fdf6627f8f741255afb39e18cce5671909756bb220ae",
+    "examples/pretty-mermaid-first-diagram/assets/review-flow-light.svg": "154bc3f929fa79dbe24bf456d9c280b63a3dd2d9eba44490657b9c468c918af8",
+    "examples/pretty-mermaid-first-diagram/assets/review-flow.txt": "16a5907479aefaba6ade888a0be53bfd62fb47204beb2979ed2394967ad3a09b",
+    "examples/pretty-mermaid-first-diagram/inputs/job-state.mmd": "bdab2daa6988447da25f1a0be9b2e50cbdba5e89d0fedca5d5be5a9aeea24c09",
+    "examples/pretty-mermaid-first-diagram/inputs/request-sequence.mmd": "3e18b411974f89d6d0e6a6dfc1986f9c49bac736d7c528ea410bf8853ceaec02",
+    "examples/pretty-mermaid-first-diagram/inputs/review-flow.mmd": "ee51291f54acef83cf28819b9b45ce806f2b570877082c0d695b1afcbf4852d3",
+    "examples/pretty-mermaid-first-diagram/video/index.html": "a7439420862657949fd5a0554d8a703171ab70cbc50c215984c65bdf7c7011bd",
+    "examples/pretty-mermaid-first-diagram/video/scene.js": "5d0664379d1d1d64c0ab9dd552690ca8d5dc0394aea3ef72e191ef5e44bf4383",
+    "examples/pretty-mermaid-first-diagram/vendor/pretty-mermaid/LICENSE": "b50552aaf8b4945519b0e954bbc0aa62e5068eff967765d430cae214371c2a06",
+    "examples/pretty-mermaid-first-diagram/vendor/pretty-mermaid/README.md": "4f9d4668a3aab251fceea9bb18f1b6f791835fd944fdd1a46136f73ae6b94f5e",
+    "examples/pretty-mermaid-first-diagram/vendor/pretty-mermaid/README_JA.md": "ab15d35bd08b7eb1d94a4c57afc8b40b5d27c78ebdbcb6e84b10f3855f8028fc",
+    "examples/pretty-mermaid-first-diagram/vendor/pretty-mermaid/SKILL.md": "582960ad40f583d5b0b9bf9cdd244a231d3e6dd833ee0e8fdf5ba8896c12107d",
+    "examples/pretty-mermaid-first-diagram/vendor/pretty-mermaid/UPSTREAM.json": "2df78e651091ace5ed7376220a7dbac40cc588a371ed0d6cf978f4bb5f0ef704",
+    "examples/pretty-mermaid-first-diagram/vendor/pretty-mermaid/references/api_reference.md": "0fcd7b51d583aa011ca47325ca54297cb86392ac80088e9683c4e54b3214feab",
+    "examples/pretty-mermaid-first-diagram/vendor/pretty-mermaid/references/DIAGRAM_TYPES.md": "1c7133060ca14fe579ff8d465ce3701e99ef295f494fec031017300426bee9a7",
+    "examples/pretty-mermaid-first-diagram/vendor/pretty-mermaid/references/THEMES.md": "74177801fc252d22f521821db5e840e1fd5eb29c22939853ea2c6609f1c1c268",
+    "media/pretty-mermaid-first-diagram.mp4": "ee1aa5d7f8142548215b0d3e6221bdae9a303ae9f2d158595c4f39e5dca6421b",
+    "media/pretty-mermaid-first-diagram.webp": "6a8417d44f9ea293fd7276524e773973260518da62a2ce97369932755c3ef18b"
+  },
+  "publication": {
+    "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=pretty-mermaid-first-diagram",
+    "authorization": "User requested Opus 5.5 examples, short explanatory videos and sequential application to the existing public site."
+  }
+}
