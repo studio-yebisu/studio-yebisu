@@ -30,6 +30,7 @@ def main():
                     raise ValueError(f'Missing catalog_entry field: {key}')
             by_id[entry['id']] = entry
     catalog['entries'] = list(by_id.values())
+    catalog['updated_on'] = max([catalog.get('updated_on', '')] + [case.get('updated_on', '') for case in cases])
     (target / 'data/catalog.json').write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + '\n', 'utf-8')
     if (ROOT / 'integrations').is_dir():
         shutil.copytree(ROOT / 'integrations', target / 'guides', dirs_exist_ok=True)

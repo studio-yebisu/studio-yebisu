@@ -158,8 +158,23 @@
         demo ? h('a', {href: demo + '#' + encodeURIComponent(sample.id)}, 'このブリーフをデモで全部見る') : null));
   }
 
+  function samplePairRow(sample, demo) {
+    const value = data => typeof data === 'string' ? h('p', {}, data) : h('pre', {class: 'sample-value', tabindex: '0'}, JSON.stringify(data, null, 2));
+    return h('li', {class: 'sample'},
+      h('div', {class: 'sample-in'}, h('span', {class: 'sample-label'}, sample.label || sample.id),
+        h('span', {class: 'sample-label'}, '入力'), value(sample.input)),
+      h('div', {class: 'sample-out'}, h('span', {class: 'sample-label'}, '結果'), value(sample.output),
+        demo ? h('a', {href: demo + '#' + encodeURIComponent(sample.id)}, 'この作例を開く') : null));
+  }
+
   async function renderCase(item) {
-    const extras = CASE_EXTRAS[item.id] || {};
+    const extras = {
+      ...(CASE_EXTRAS[item.id] || {}),
+      ...(item.video_note ? {videoNote: item.video_note} : {}),
+      ...(safeHref(item.video_source) ? {videoSource: safeHref(item.video_source)} : {}),
+      ...(safeHref(item.skill_license) ? {skillLicense: safeHref(item.skill_license)} : {})
+    };
+    const pairs = item.sample_format === 'input-output';
     const demo = safeHref(item.demo);
     const skill = safeHref(item.skill);
     const samplesUrl = safeHref(item.samples);
@@ -184,9 +199,9 @@
     if (demo) {
       add('demo', 'デモ',
         h('div', {class: 'demo-callout'},
-          h('p', {}, '実際の依頼を選ぶと、選ばれた分野、読むスキル、できあがったブリーフが並びます。依頼文のコピーとJSONの保存もできます。'),
+          h('p', {}, item.demo_description || '実際の依頼を選ぶと、選ばれた分野、読むスキル、できあがったブリーフが並びます。依頼文のコピーとJSONの保存もできます。'),
           h('a', {class: 'btn btn-ink', href: demo}, 'デモを開く')),
-        h('p', {class: 'd-note'}, 'デモに表示されるのは、事前に制作したサンプルです。ページ上でAIを実行することはありません。'));
+        h('p', {class: 'd-note'}, item.demo_note || 'デモに表示されるのは、事前に制作したサンプルです。ページ上でAIを実行することはありません。'));
     }
 
     let samples = [];
@@ -197,14 +212,14 @@
       } catch (_) { samples = []; }
     }
     if (samples.length) {
-      add('examples', samples.length + 'つの依頼と、できたブリーフ',
-        h('p', {}, 'どれも依頼の文はそのまま残し、成果物から分野を選んでいます。依頼にない日時や名前は書かず、仮の条件として分けました。'),
-        h('ol', {class: 'samples'}, samples.map(sample => sampleRow(sample, demo))));
+      add('examples', item.samples_title || (pairs ? '実入力と結果' : samples.length + 'つの依頼と、できたブリーフ'),
+        h('p', {}, item.samples_intro || (pairs ? '作例で使った入力と、表示する結果です。' : 'どれも依頼の文はそのまま残し、成果物から分野を選んでいます。依頼にない日時や名前は書かず、仮の条件として分けました。')),
+        h('ol', {class: 'samples'}, samples.map(sample => pairs ? samplePairRow(sample, demo) : sampleRow(sample, demo))));
     }
 
     if (item.request) {
       add('prompt', 'AIへの頼み方',
-        h('p', {}, 'SKILL.mdを読み込めるAIに、次の文章を渡します。最後の「依頼：」の部分を、自分の言葉に置き換えて使ってください。'),
+        h('p', {}, item.request_intro || 'SKILL.mdを読み込めるAIに、次の文章を渡します。最後の「依頼：」の部分を、自分の言葉に置き換えて使ってください。'),
         promptBlock(item.request, '依頼文の例'));
     }
 
@@ -225,8 +240,8 @@
 
     const downloads = [
       skill && ['スキル（SKILL.md）', 'AIに読ませる手順書', skill],
-      extras.skillLicense && ['スキルのライセンス', 'MIT License', extras.skillLicense],
-      samplesUrl && ['3件のブリーフ（JSON）', 'デモで表示しているサンプル', samplesUrl],
+      extras.skillLicense && ['スキルのライセンス', '原典の利用条件', extras.skillLicense],
+      samplesUrl && [pairs ? '実入力と結果（JSON）' : samples.length + '件のブリーフ（JSON）', 'デモで表示しているサンプル', samplesUrl],
       ['この作例の記録（JSON）', '手順・使ったスキル・出典', 'data/cases/' + encodeURIComponent(item.id) + '.json'],
       extras.videoSource && ['映像のソース', 'ブラウザで開いて再生・確認できます', extras.videoSource]
     ].filter(Boolean);
@@ -241,7 +256,7 @@
     const sources = (item.sources || []).map(source => [source.label, safeHref(source.url)]).filter(([, url]) => url);
     add('sources', '出典とライセンス',
       sources.length ? h('div', {class: 'd-links'}, sources.map(([label, url]) => h('a', {href: url}, h('span', {}, label || url), h('small', {}, url.replace(/^https?:\/\//, ''))))) : null,
-      h('p', {class: 'd-note'}, (item.license ? 'この作例のスキル・サンプル・映像ソースは ' + item.license + ' License です。' : '') + '外部の原典は、それぞれのライセンスに従います。'));
+      h('p', {class: 'd-note'}, item.license_note || ((item.license ? 'この作例のスキル・サンプル・映像ソースは ' + item.license + ' License です。' : '') + '外部の原典は、それぞれのライセンスに従います。')));
 
     const tocNav = h('nav', {class: 'toc', 'aria-label': '目次'},
       h('p', {}, '目次'),

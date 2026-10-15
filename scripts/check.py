@@ -50,12 +50,22 @@ def main():
         video = json.loads(result)
         assert float(video['format']['duration']) >= 20, 'Explainer is too short'
         assert any(s.get('width', 0) >= 960 for s in video['streams']), 'Video resolution is too low'
-        samples = json.loads((DIST / case['samples']).read_text('utf-8'))['samples']
-        assert len(samples) == 3
+        sample_data = json.loads((DIST / case['samples']).read_text('utf-8'))
+        samples = sample_data['samples']
+        assert samples, f'No samples for {case["id"]}'
+        sample_ids = [sample['id'] for sample in samples]
+        assert len(sample_ids) == len(set(sample_ids)), f'Duplicate sample ids: {case["id"]}'
+        sample_format = case.get('sample_format', 'brief')
+        assert sample_format in ('brief', 'input-output'), f'Unknown sample format: {sample_format}'
         for sample in samples:
-            brief = sample['brief']
-            for key in ('request', 'category', 'goal', 'inputs', 'skill_refs', 'deliverables', 'acceptance'):
-                assert brief.get(key), f'Missing brief field {key}'
+            if sample_format == 'input-output':
+                assert sample_data.get('format') == sample_format
+                for key in ('label', 'input', 'output'):
+                    assert sample.get(key), f'Missing sample field {key}'
+            else:
+                brief = sample['brief']
+                for key in ('request', 'category', 'goal', 'inputs', 'skill_refs', 'deliverables', 'acceptance'):
+                    assert brief.get(key), f'Missing brief field {key}'
     forbidden = [p for p in DIST.rglob('*') if '.local' in p.parts or '.git' in p.parts or 'workspace' in p.parts]
     assert not forbidden, 'Private workspace leaked into publication'
     print(json.dumps({'status': 'passed', 'catalog_entries': len(ids), 'cases': len(cases), 'html_pages': len(list(DIST.rglob('*.html')))}, ensure_ascii=False))

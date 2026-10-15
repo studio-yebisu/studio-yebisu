@@ -28,6 +28,10 @@ description: Studio Yebisu向けに紹介したいAIスキルやURLを調べ、�
 
 新しい紹介先をカタログにも追加するときは、記事JSONの `catalog_entry` に既存 `data/catalog.json` と同じ形の項目を入れる。サイト生成時に統合され、共有カタログの無関係な編集中データを公開へ巻き込まない。
 
+ブリーフ以外の作例では記事に `sample_format: "input-output"` を指定し、サンプルJSONを `{"format":"input-output","samples":[{"id":"...","label":"...","input":"実入力","output":"結果"}]}` の形にする。機械で読む実データも同じ項目へ加えられる。記事の `demo_description`、`samples_title`、`samples_intro`、`request_intro` でその作例の使い方を説明する。`video_note`・`video_source`・`skill_license`・`license_note` には対応する映像ソースと利用条件を指定する。従来のブリーフ形式も使える。
+
+記事の `updated_on` は掲載内容を更新した日付（YYYY-MM-DD）。再現手順と今回確認した範囲を記事に記し、モデルの実行根拠・原典の固定版・実成果のハッシュ・確認結果は `data/production/<id>.json` に要点だけ残せる。
+
 `data/cases/<id>.json`に記録し、`python scripts/pipeline.py publish <id>` で検査とサイト生成を通す。ここまでのpublishはローカル反映。`--deploy`は依頼で承認済みの公開先だけに使う。公開後は実際のURLと動画・作例が開くことを確認する。
 
 自動公開のstage対象はその一件の記事・作例・動画・固有スキル・制作記録だけ。共通画面や他の記事の変更を含める場合は、その依頼の対象を限定して別に扱う。既存のstageや未公開commitがあれば、所有者の作業を巻き込むpushを行わない。
