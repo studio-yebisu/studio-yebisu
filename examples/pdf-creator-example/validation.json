@@ -1,0 +1,178 @@
+{
+  "status": "technical-and-agent-visual-reviewed",
+  "checked_at": "2026-10-15T21:19:52.079608+00:00",
+  "source_sha256": "d06c4d2d3b7eb0f8dd9b65d2bfafdb142cecdc5647de4a63a575a89b7ad3ff57",
+  "upstream_converter_sha256": "943ffdd4f570f2b461708b297d06a5490bf64bbf6a979e2b5c41f8c1cf8fd0ed",
+  "backend": "chrome",
+  "text_extractor": "Poppler pdftotext -enc UTF-8 -layout, including PDF ActualText; comparisons remove whitespace only",
+  "input_facts_found": [
+    "紙からはじめる、小さな展示",
+    "2026年11月14日（土）",
+    "13:30",
+    "14:00",
+    "16:00",
+    "12",
+    "無料",
+    "A5",
+    "ノート",
+    "鉛筆",
+    "ペン",
+    "任意",
+    "階段",
+    "申込窓口",
+    "13:30",
+    "14:00",
+    "14:15",
+    "15:15",
+    "15:50",
+    "16:00"
+  ],
+  "variants": [
+    {
+      "id": "paper",
+      "page_count": 1,
+      "size_mm": [
+        210,
+        297
+      ],
+      "pdf_sha256": "1bd80a231764d32644aad6eb0dd52f4b2222c506a07d28491bbb018c36d4bf7e",
+      "text_facts_match": true,
+      "fonts": [
+        {
+          "page": 1,
+          "name": "/AAAAAA+NotoSansJP-Thin",
+          "subtype": "/Type0",
+          "descendant_subtype": "/CIDFontType2",
+          "embedded": true,
+          "true_type": true,
+          "to_unicode": true
+        },
+        {
+          "page": 1,
+          "name": "/BAAAAA+NotoSansJP-Thin",
+          "subtype": "/Type0",
+          "descendant_subtype": "/CIDFontType2",
+          "embedded": true,
+          "true_type": true,
+          "to_unicode": true
+        },
+        {
+          "page": 1,
+          "name": "/CAAAAA+NotoSansJP-Thin",
+          "subtype": "/Type0",
+          "descendant_subtype": "/CIDFontType2",
+          "embedded": true,
+          "true_type": true,
+          "to_unicode": true
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "x0": 41.24999828125,
+          "x1": 545.7149728368752,
+          "top": 40.75199830199995,
+          "bottom": 826.0919655795,
+          "width": 594.95996,
+          "height": 841.91998
+        }
+      ]
+    },
+    {
+      "id": "phone",
+      "page_count": 2,
+      "size_mm": [
+        148,
+        210
+      ],
+      "pdf_sha256": "efa76ef682c8833669d4f97f23fe35a4ffd955229acba3048c49f977505d4b82",
+      "text_facts_match": true,
+      "fonts": [
+        {
+          "page": 1,
+          "name": "/AAAAAA+NotoSansJP-Thin",
+          "subtype": "/Type0",
+          "descendant_subtype": "/CIDFontType2",
+          "embedded": true,
+          "true_type": true,
+          "to_unicode": true
+        },
+        {
+          "page": 1,
+          "name": "/BAAAAA+NotoSansJP-Thin",
+          "subtype": "/Type0",
+          "descendant_subtype": "/CIDFontType2",
+          "embedded": true,
+          "true_type": true,
+          "to_unicode": true
+        },
+        {
+          "page": 1,
+          "name": "/CAAAAA+NotoSansJP-Thin",
+          "subtype": "/Type0",
+          "descendant_subtype": "/CIDFontType2",
+          "embedded": true,
+          "true_type": true,
+          "to_unicode": true
+        },
+        {
+          "page": 2,
+          "name": "/BAAAAA+NotoSansJP-Thin",
+          "subtype": "/Type0",
+          "descendant_subtype": "/CIDFontType2",
+          "embedded": true,
+          "true_type": true,
+          "to_unicode": true
+        },
+        {
+          "page": 2,
+          "name": "/CAAAAA+NotoSansJP-Thin",
+          "subtype": "/Type0",
+          "descendant_subtype": "/CIDFontType2",
+          "embedded": true,
+          "true_type": true,
+          "to_unicode": true
+        }
+      ],
+      "geometry": [
+        {
+          "page": 1,
+          "x0": 28.4999988125,
+          "x1": 387.59997177500054,
+          "top": 35.615998516000104,
+          "bottom": 562.7399765525,
+          "width": 420,
+          "height": 594.95996
+        },
+        {
+          "page": 2,
+          "x0": 28.4999988125,
+          "x1": 387.374983859375,
+          "top": 35.48999852125007,
+          "bottom": 492.23997949000005,
+          "width": 420,
+          "height": 594.95996
+        }
+      ]
+    }
+  ],
+  "punctuation_warnings": [],
+  "tables": "No tables in this specific source; border gate not applicable. No claims about table rendering.",
+  "agent_visual_review": true,
+  "human_approval": false,
+  "limitations": [
+    "Coordinate/text checks are not proof of painted content; inspect all page PNGs.",
+    "Only this original Japanese source, two fixed page formats and Chrome backend were exercised.",
+    "macOS Preview, Adobe Reader, physical printing, comprehensive Japanese line-breaking and human approval not verified."
+  ],
+  "markdown_blocks_checked": {
+    "paper": 29,
+    "phone": 29
+  },
+  "visual_review": {
+    "all_pages": 3,
+    "method": "Read each original130dpi Poppler self-check page PNG against original Markdown after final-v4; additionally generated deliberate100dpi public page assets.",
+    "findings": "Complete source blocks and factual text match Poppler extraction with whitespace normalization only. All paragraphs/lists intact; no boxes/clipping/orphan headings observed. Phone agenda naturally continues items4–6 on page2. Final repeated no-signup sentence removed to avoid A4 two-character widow; warning near top retained.",
+    "scope": "Agent review; not human approval or full Japanese typography/reader compatibility certification."
+  }
+}

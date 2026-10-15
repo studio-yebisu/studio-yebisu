@@ -1,0 +1,374 @@
+{
+  "stage": "runtime-and-agent-visual-reviewed",
+  "pdf": {
+    "status": "technical-and-agent-visual-reviewed",
+    "checked_at": "2026-10-15T21:19:52.079608+00:00",
+    "source_sha256": "d06c4d2d3b7eb0f8dd9b65d2bfafdb142cecdc5647de4a63a575a89b7ad3ff57",
+    "upstream_converter_sha256": "943ffdd4f570f2b461708b297d06a5490bf64bbf6a979e2b5c41f8c1cf8fd0ed",
+    "backend": "chrome",
+    "text_extractor": "Poppler pdftotext -enc UTF-8 -layout, including PDF ActualText; comparisons remove whitespace only",
+    "input_facts_found": [
+      "紙からはじめる、小さな展示",
+      "2026年11月14日（土）",
+      "13:30",
+      "14:00",
+      "16:00",
+      "12",
+      "無料",
+      "A5",
+      "ノート",
+      "鉛筆",
+      "ペン",
+      "任意",
+      "階段",
+      "申込窓口",
+      "13:30",
+      "14:00",
+      "14:15",
+      "15:15",
+      "15:50",
+      "16:00"
+    ],
+    "variants": [
+      {
+        "id": "paper",
+        "page_count": 1,
+        "size_mm": [
+          210,
+          297
+        ],
+        "pdf_sha256": "1bd80a231764d32644aad6eb0dd52f4b2222c506a07d28491bbb018c36d4bf7e",
+        "text_facts_match": true,
+        "fonts": [
+          {
+            "page": 1,
+            "name": "/AAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          },
+          {
+            "page": 1,
+            "name": "/BAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          },
+          {
+            "page": 1,
+            "name": "/CAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          }
+        ],
+        "geometry": [
+          {
+            "page": 1,
+            "x0": 41.24999828125,
+            "x1": 545.7149728368752,
+            "top": 40.75199830199995,
+            "bottom": 826.0919655795,
+            "width": 594.95996,
+            "height": 841.91998
+          }
+        ]
+      },
+      {
+        "id": "phone",
+        "page_count": 2,
+        "size_mm": [
+          148,
+          210
+        ],
+        "pdf_sha256": "efa76ef682c8833669d4f97f23fe35a4ffd955229acba3048c49f977505d4b82",
+        "text_facts_match": true,
+        "fonts": [
+          {
+            "page": 1,
+            "name": "/AAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          },
+          {
+            "page": 1,
+            "name": "/BAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          },
+          {
+            "page": 1,
+            "name": "/CAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          },
+          {
+            "page": 2,
+            "name": "/BAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          },
+          {
+            "page": 2,
+            "name": "/CAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          }
+        ],
+        "geometry": [
+          {
+            "page": 1,
+            "x0": 28.4999988125,
+            "x1": 387.59997177500054,
+            "top": 35.615998516000104,
+            "bottom": 562.7399765525,
+            "width": 420,
+            "height": 594.95996
+          },
+          {
+            "page": 2,
+            "x0": 28.4999988125,
+            "x1": 387.374983859375,
+            "top": 35.48999852125007,
+            "bottom": 492.23997949000005,
+            "width": 420,
+            "height": 594.95996
+          }
+        ]
+      }
+    ],
+    "punctuation_warnings": [],
+    "tables": "No tables in this specific source; border gate not applicable. No claims about table rendering.",
+    "agent_visual_review": true,
+    "human_approval": false,
+    "limitations": [
+      "Coordinate/text checks are not proof of painted content; inspect all page PNGs.",
+      "Only this original Japanese source, two fixed page formats and Chrome backend were exercised.",
+      "macOS Preview, Adobe Reader, physical printing, comprehensive Japanese line-breaking and human approval not verified."
+    ],
+    "markdown_blocks_checked": {
+      "paper": 29,
+      "phone": 29
+    },
+    "visual_review": {
+      "all_pages": 3,
+      "method": "Read each original130dpi Poppler self-check page PNG against original Markdown after final-v4; additionally generated deliberate100dpi public page assets.",
+      "findings": "Complete source blocks and factual text match Poppler extraction with whitespace normalization only. All paragraphs/lists intact; no boxes/clipping/orphan headings observed. Phone agenda naturally continues items4–6 on page2. Final repeated no-signup sentence removed to avoid A4 two-character widow; warning near top retained.",
+      "scope": "Agent review; not human approval or full Japanese typography/reader compatibility certification."
+    }
+  },
+  "browser": {
+    "case": "pdf-creator-example",
+    "checked_at": "2026-10-15T21:22:15.565Z",
+    "variants": [
+      {
+        "download": "outputs/atelier-a4.pdf",
+        "id": "paper",
+        "images": [
+          {
+            "height": 1170,
+            "src": "assets/paper-page-1.png",
+            "width": 827
+          }
+        ],
+        "source_check": "ブラウザで読み込んだ原稿のSHA-256は、manifest の記録（source_sha256）と一致しました。",
+        "status": "「A4で配る」：210×297mm・全1ページ。manifest に記録された事前生成のPDFと、全ページの画像を表示しています。",
+        "url": "http://127.0.0.1:8857/index.html#paper"
+      },
+      {
+        "download": "outputs/atelier-phone.pdf",
+        "id": "phone",
+        "images": [
+          {
+            "height": 827,
+            "src": "assets/phone-page-1.png",
+            "width": 584
+          },
+          {
+            "height": 827,
+            "src": "assets/phone-page-2.png",
+            "width": 584
+          }
+        ],
+        "source_check": "ブラウザで読み込んだ原稿のSHA-256は、manifest の記録（source_sha256）と一致しました。",
+        "status": "「細いページで読む」：148×210mm・全2ページ。manifest に記録された事前生成のPDFと、全ページの画像を表示しています。",
+        "url": "http://127.0.0.1:8857/index.html#phone"
+      }
+    ],
+    "widths": [
+      {
+        "body_font": "17px",
+        "client": 305,
+        "images": [
+          {
+            "right": 285,
+            "width": 265
+          },
+          {
+            "right": 285,
+            "width": 265
+          }
+        ],
+        "scroll": 305,
+        "viewport": 320
+      },
+      {
+        "body_font": "17px",
+        "client": 360,
+        "images": [
+          {
+            "right": 340,
+            "width": 320
+          },
+          {
+            "right": 340,
+            "width": 320
+          }
+        ],
+        "scroll": 360,
+        "viewport": 375
+      },
+      {
+        "body_font": "17px",
+        "client": 753,
+        "images": [
+          {
+            "right": 600.5,
+            "width": 448
+          },
+          {
+            "right": 600.5,
+            "width": 448
+          }
+        ],
+        "scroll": 753,
+        "viewport": 768
+      },
+      {
+        "body_font": "17px",
+        "client": 1265,
+        "images": [
+          {
+            "right": 856.5,
+            "width": 448
+          },
+          {
+            "right": 856.5,
+            "width": 448
+          }
+        ],
+        "scroll": 1265,
+        "viewport": 1280
+      }
+    ],
+    "agent_visual_review": true,
+    "human_approval": false,
+    "keyboard": {
+      "active": "細いページで読む148×210mm・mobile",
+      "outline": "rgb(183, 91, 62) solid 3px",
+      "outlineOffset": "3px",
+      "status": "「細いページで読む」：148×210mm・全2ページ。manifest に記録された事前生成のPDFと、全ページの画像を表示しています。",
+      "url": "http://127.0.0.1:8857/index.html#phone"
+    },
+    "console_errors": [],
+    "status": "passed",
+    "verified_at": "2026-10-15T21:24:46.703387+00:00",
+    "scope": "Native browser paper/phone switch, keyboard Enter and visible focus, all3 actual page images, both actual PDF downloads, sourceSHA check,4 viewport widths. No reader/print/accessibility certification.",
+    "downloads": [
+      {
+        "id": "paper",
+        "sha256": "1bd80a231764d32644aad6eb0dd52f4b2222c506a07d28491bbb018c36d4bf7e",
+        "bytes_match": true
+      },
+      {
+        "id": "phone",
+        "sha256": "efa76ef682c8833669d4f97f23fe35a4ffd955229acba3048c49f977505d4b82",
+        "bytes_match": true
+      }
+    ]
+  },
+  "video": {
+    "verified_at": "2026-10-15T21:38:44.336631+00:00",
+    "video_sha256": "e9a0135e172c70daacf06407df47cb971a34ec1b822a3b2c18eaddf06f3d634f",
+    "agent_visual_review": true,
+    "human_approval": false,
+    "full_decode_passed": true,
+    "native_start": {
+      "duration": 28,
+      "ended": false,
+      "error": null,
+      "paused": false,
+      "readyState": 4,
+      "time": 0.087859
+    },
+    "native_playback": {
+      "duration": 28,
+      "ended": true,
+      "error": null,
+      "paused": true,
+      "readyState": 4,
+      "time": 28
+    },
+    "editor": {
+      "play_enabled": true,
+      "position": 14,
+      "status": "準備完了：PNG 3枚と原稿の sha256、ページ数・寸法、抜粋の行を manifest・元ファイルと照合しました",
+      "time": "14.00 / 28.00 秒"
+    },
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "afbe531e874e8f43deba92467cb05e811d42980a732de58be351751ace32f07b",
+      "afterOtherTimes": "afbe531e874e8f43deba92467cb05e811d42980a732de58be351751ace32f07b",
+      "freshPage": "afbe531e874e8f43deba92467cb05e811d42980a732de58be351751ace32f07b",
+      "match": true
+    },
+    "reviewed": "14 representative frames/contact,13.5s poster,12-frame camera strip at11.1,4 MP4 cut strips,20s native frame and final frame. Native MP4 at0.088splaying ->28s ended, no seeks or media errors.",
+    "notes": [
+      "All3 real PDF pages represented; held crops preserve same date/time, complete fictional notice, agenda4–6 and all3 items including optional item.",
+      "Caption/title/crop labels readable, meaningful content not clipped or overlapped in reviewed frames.",
+      "Film is28s720p30fps840frames, silent; edits actual savedPDF page images, not continuous screen recording.",
+      "Only sampled same-environment pixel determinism is demonstrated; no all-OS/font or human approval claim."
+    ],
+    "remaining": []
+  },
+  "production_contributions": {
+    "Opus5.5": "Japanese Markdown, document CSS, practical example/guide/request and editable movie source.",
+    "production_editor": "Original event facts, genuine original converter API execution and Japanese/Windows/static-font adapter, one redundant-sentence trim, small guide/layout corrections, actual PDF/browser/video review and publication."
+  },
+  "motion_reel": {
+    "name": "Studio Yebisu Motion Reel rendering runtime",
+    "license": "MIT",
+    "copyright": "2026 Studio Yebisu",
+    "source": "Exact previously executed installed tool files, pinned by SHA256.",
+    "files_sha256": {
+      "render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+      "audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+      "package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+      "package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+      "LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd"
+    },
+    "dependency_lock": "Playwright1.64.0/playwright-core1.64.0; registry.npmjs.org; Apache-2.0. Dependencies used locally but not included in the public source archive."
+  }
+}

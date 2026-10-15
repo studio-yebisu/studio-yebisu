@@ -1,0 +1,653 @@
+{
+  "id": "pdf-creator-example",
+  "verified_at": "2026-10-15T21:38:45.009998+00:00",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "receipts": [
+      {
+        "phase": "implement",
+        "receipt_sha256": "09929cb8dadc910cb61bd13e38017267913e6135faebe2b2ef0325093b900fa8",
+        "execution_sha256": "579d785bd298bdd450b9bd1d049ddcb5a0a81a53e89c5ffd8237c026c6545e48",
+        "prompt_sha256": "82f0ff3c038d88f0ca1f2550f66a701b05072d3b5e11da2fc4bc92eb18fad077"
+      },
+      {
+        "phase": "video",
+        "receipt_sha256": "a74beea3a579f9ed34e4644c35f72fa3986a01eb14467cdfc65d35987bbb31ba",
+        "execution_sha256": "4289729532c731d60585e2514bd57df4718f1a60399b81456c0b0594bd91ae86",
+        "prompt_sha256": "87afd9a914daf59451680aa4331752cffbdaab5cb20a3827f25519d45585c9b4"
+      }
+    ],
+    "receipt_published": false
+  },
+  "upstream": {
+    "repository": "daymade/claude-code-skills",
+    "commit": "e37b50c323cf99471f18ac17a11c923bb96ce2ba",
+    "source_path": "daymade-docs/pdf-creator",
+    "license": "MIT",
+    "copyright": "2025 daymade",
+    "files_sha256": {
+      "LICENSE": "945fb5acb5c4bc9af45b54b9a02be060f5dfca5e0a77244e8aa567de63aed5d1",
+      "README.md": "f6f189d8c37b33473aa01e804911dfaf0f50b5bbe830917e37496e635c14f5dc",
+      "daymade-docs/pdf-creator/SKILL.md": "0364326f99c613f85102003aa298ccc3698124a3b92da97412ef597430de3ac9",
+      "daymade-docs/pdf-creator/scripts/batch_convert.py": "ffa2fddf360f723ad2fbbfbc0f5aff2595dbfb42dcc0644091ffa6feffc8639c",
+      "daymade-docs/pdf-creator/scripts/check_table_borders.py": "f6aeb1ad7146fd81bef6cdef7a69dc1eabe86b80d7b82ac9187efcb518c04910",
+      "daymade-docs/pdf-creator/scripts/md_to_pdf.py": "943ffdd4f570f2b461708b297d06a5490bf64bbf6a979e2b5c41f8c1cf8fd0ed",
+      "daymade-docs/pdf-creator/scripts/tests/test_backend_routing.py": "aedb0d9e3e0daab5e33de5b9cbf44f4d5e4e746925c29700963bc66f31e2dfff",
+      "daymade-docs/pdf-creator/scripts/tests/test_cjk_code_blocks.py": "7c15cbf025b1c5ded5d63f36e0ef66fd55401b2aa1cebf9b0453676263753447",
+      "daymade-docs/pdf-creator/scripts/tests/test_cjk_tables.py": "75b96fee34358f84e5d02b716049a4980b9e3f252f48bef402bae69db49aa723",
+      "daymade-docs/pdf-creator/scripts/tests/test_list_rendering.py": "808973c8763ea6e4256caf315724e2a1302859bfbc3438edf56c3aa88fc1dbe1",
+      "daymade-docs/pdf-creator/scripts/tests/test_self_check_preview.py": "d2517ae9f66b63b01e5216159c1cdbbd3243812b63a97f0db1e65437ca36e25f",
+      "daymade-docs/pdf-creator/scripts/tests/test_table_border_check.py": "164ec43aefcd079e44b0d87512436dcce3bdafc0425f3f7f00b1c1961f97580a",
+      "daymade-docs/pdf-creator/scripts/tests/test_typography_lint.py": "2436f34d8bfb88ecd4064662f20b12a27322ecbd24eae0b6a53beb0838daf9db",
+      "daymade-docs/pdf-creator/themes/cjk-auto.css": "40ee771ca9cb7f4ac8bda669e8f542eea00eb52499fe7b9f3a918434704cb044",
+      "daymade-docs/pdf-creator/themes/default.css": "3e55ab6752461ff01c4ec03441d8957386454954f46ca1482a431d8a49c2cae9",
+      "daymade-docs/pdf-creator/themes/mobile.css": "f2d0a25663de14805074289679a991baa7d8a7c56e15a7619019870aebbee496",
+      "daymade-docs/pdf-creator/themes/warm-terra-menu.css": "33c1a72ddcbb14fb5db11efa539d81c123ae9ef0b02712c811ff84b4f1228ba2",
+      "daymade-docs/pdf-creator/themes/warm-terra.css": "b7c5878ad6841569e5d3c25106cbd8b19e4618d47b7bcaca6aa6899d2a137b20"
+    }
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 2,
+    "scope": "Original fixed PDF Creator markdown_to_pdf API executed twice, with declared Japanese/Windows/static-font adapter. Same Markdown to two real PDFs. Full3-page and scoped browser/download checks.",
+    "human_approval": false
+  },
+  "pdf": {
+    "status": "technical-and-agent-visual-reviewed",
+    "checked_at": "2026-10-15T21:19:52.079608+00:00",
+    "source_sha256": "d06c4d2d3b7eb0f8dd9b65d2bfafdb142cecdc5647de4a63a575a89b7ad3ff57",
+    "upstream_converter_sha256": "943ffdd4f570f2b461708b297d06a5490bf64bbf6a979e2b5c41f8c1cf8fd0ed",
+    "backend": "chrome",
+    "text_extractor": "Poppler pdftotext -enc UTF-8 -layout, including PDF ActualText; comparisons remove whitespace only",
+    "input_facts_found": [
+      "紙からはじめる、小さな展示",
+      "2026年11月14日（土）",
+      "13:30",
+      "14:00",
+      "16:00",
+      "12",
+      "無料",
+      "A5",
+      "ノート",
+      "鉛筆",
+      "ペン",
+      "任意",
+      "階段",
+      "申込窓口",
+      "13:30",
+      "14:00",
+      "14:15",
+      "15:15",
+      "15:50",
+      "16:00"
+    ],
+    "variants": [
+      {
+        "id": "paper",
+        "page_count": 1,
+        "size_mm": [
+          210,
+          297
+        ],
+        "pdf_sha256": "1bd80a231764d32644aad6eb0dd52f4b2222c506a07d28491bbb018c36d4bf7e",
+        "text_facts_match": true,
+        "fonts": [
+          {
+            "page": 1,
+            "name": "/AAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          },
+          {
+            "page": 1,
+            "name": "/BAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          },
+          {
+            "page": 1,
+            "name": "/CAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          }
+        ],
+        "geometry": [
+          {
+            "page": 1,
+            "x0": 41.24999828125,
+            "x1": 545.7149728368752,
+            "top": 40.75199830199995,
+            "bottom": 826.0919655795,
+            "width": 594.95996,
+            "height": 841.91998
+          }
+        ]
+      },
+      {
+        "id": "phone",
+        "page_count": 2,
+        "size_mm": [
+          148,
+          210
+        ],
+        "pdf_sha256": "efa76ef682c8833669d4f97f23fe35a4ffd955229acba3048c49f977505d4b82",
+        "text_facts_match": true,
+        "fonts": [
+          {
+            "page": 1,
+            "name": "/AAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          },
+          {
+            "page": 1,
+            "name": "/BAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          },
+          {
+            "page": 1,
+            "name": "/CAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          },
+          {
+            "page": 2,
+            "name": "/BAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          },
+          {
+            "page": 2,
+            "name": "/CAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          }
+        ],
+        "geometry": [
+          {
+            "page": 1,
+            "x0": 28.4999988125,
+            "x1": 387.59997177500054,
+            "top": 35.615998516000104,
+            "bottom": 562.7399765525,
+            "width": 420,
+            "height": 594.95996
+          },
+          {
+            "page": 2,
+            "x0": 28.4999988125,
+            "x1": 387.374983859375,
+            "top": 35.48999852125007,
+            "bottom": 492.23997949000005,
+            "width": 420,
+            "height": 594.95996
+          }
+        ]
+      }
+    ],
+    "punctuation_warnings": [],
+    "tables": "No tables in this specific source; border gate not applicable. No claims about table rendering.",
+    "agent_visual_review": true,
+    "human_approval": false,
+    "limitations": [
+      "Coordinate/text checks are not proof of painted content; inspect all page PNGs.",
+      "Only this original Japanese source, two fixed page formats and Chrome backend were exercised.",
+      "macOS Preview, Adobe Reader, physical printing, comprehensive Japanese line-breaking and human approval not verified."
+    ],
+    "markdown_blocks_checked": {
+      "paper": 29,
+      "phone": 29
+    },
+    "visual_review": {
+      "all_pages": 3,
+      "method": "Read each original130dpi Poppler self-check page PNG against original Markdown after final-v4; additionally generated deliberate100dpi public page assets.",
+      "findings": "Complete source blocks and factual text match Poppler extraction with whitespace normalization only. All paragraphs/lists intact; no boxes/clipping/orphan headings observed. Phone agenda naturally continues items4–6 on page2. Final repeated no-signup sentence removed to avoid A4 two-character widow; warning near top retained.",
+      "scope": "Agent review; not human approval or full Japanese typography/reader compatibility certification."
+    }
+  },
+  "pdf_build": {
+    "source": "inputs/event.md",
+    "source_sha256": "d06c4d2d3b7eb0f8dd9b65d2bfafdb142cecdc5647de4a63a575a89b7ad3ff57",
+    "upstream_converter_sha256": "943ffdd4f570f2b461708b297d06a5490bf64bbf6a979e2b5c41f8c1cf8fd0ed",
+    "backend": "chrome",
+    "variants": [
+      {
+        "id": "paper",
+        "file": "atelier-a4.pdf",
+        "backend": "chrome",
+        "base_theme": "warm-terra",
+        "override": "themes/japanese-a4.css",
+        "override_sha256": "222abc320c970b16c9538aacce178beb018c141b92772ab24c2c6c2d556fcc0e",
+        "bytes": 63663,
+        "pdf_sha256": "1bd80a231764d32644aad6eb0dd52f4b2222c506a07d28491bbb018c36d4bf7e",
+        "upstream_api_executed": true,
+        "isolated_chrome_calls": 1
+      },
+      {
+        "id": "phone",
+        "file": "atelier-phone.pdf",
+        "backend": "chrome",
+        "base_theme": "mobile",
+        "override": "themes/japanese-phone.css",
+        "override_sha256": "f16a4cc8fb06e2e7dad0a0aa3a7c9268215db5712d6606be506a92927f4197b4",
+        "bytes": 64484,
+        "pdf_sha256": "efa76ef682c8833669d4f97f23fe35a4ffd955229acba3048c49f977505d4b82",
+        "upstream_api_executed": true,
+        "isolated_chrome_calls": 1
+      }
+    ],
+    "font": {
+      "source_sha256": "5113756f8a3b5d01b2211025e267c50121e3b36f465b7bbaf3cdaf4c3430bfd0",
+      "license": "SIL OFL1.1; FONT-OFL.txt",
+      "instances": [
+        {
+          "weight": 400,
+          "sha256": "3d707227de3fe2889c3eef64c4243162fb2dfbd154333b35fb0af3ed74f85455",
+          "static_true_type": true,
+          "full_font_distributed": false
+        },
+        {
+          "weight": 700,
+          "sha256": "964f706534de8cae7d4a54e7565d6ee92661220e7f4fea953ddef35d17169ca0",
+          "static_true_type": true,
+          "full_font_distributed": false
+        },
+        {
+          "weight": 800,
+          "sha256": "637b7d830cb4b7f69d38b711e94ebe548dec87d8d467767f25f6686fa276f75c",
+          "static_true_type": true,
+          "full_font_distributed": false
+        }
+      ]
+    },
+    "adapter": [
+      "Append case-specific Japanese CSS after original theme/CJK patch",
+      "Create temporary static400/700/800 TrueType font instances from installed OFL Noto Sans JP; embed via transient data CSS to avoid Chrome Type3 variable-font output",
+      "Change generated HTML root language zh-CN to ja",
+      "Discover installed Chrome explicitly",
+      "Add disposable Chrome profile and Japanese locale only to its own subprocess",
+      "Read text subprocess output/input as UTF-8; explicit UTF-8 Poppler metadata/text and raw PDF dates"
+    ],
+    "verification": "PDF creation is complete. Page images, extracted text, embedded fonts and visual layout require separate inspection. No tables in this source; table-border gate not applicable."
+  },
+  "tools": {
+    "tools": {
+      "python": "3.13.7",
+      "pypandoc_binary": "1.17",
+      "pandoc": "pandoc 3.9",
+      "Chrome": "155.0.8059.41",
+      "Poppler": "pdftoppm version 26.07.0",
+      "fonttools": "4.67.0"
+    },
+    "font": {
+      "family": "Noto Sans JP",
+      "version": "Version 2.04;241114210129;non-release",
+      "copyright": "© 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'.",
+      "license": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This Font Software is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the SIL Open Font License for the specific language, permissions and limitations governing your use of this Font Software.",
+      "license_url": "http://scripts.sil.org/OFL",
+      "fsType": 0,
+      "installed_font_sha256": "5113756f8a3b5d01b2211025e267c50121e3b36f465b7bbaf3cdaf4c3430bfd0",
+      "full_font_redistributed": false
+    },
+    "converter": "Fixed upstream markdown_to_pdf API with documented Japanese/Windows adapter; no replacement conversion API."
+  },
+  "browser": {
+    "case": "pdf-creator-example",
+    "checked_at": "2026-10-15T21:22:15.565Z",
+    "variants": [
+      {
+        "download": "outputs/atelier-a4.pdf",
+        "id": "paper",
+        "images": [
+          {
+            "height": 1170,
+            "src": "assets/paper-page-1.png",
+            "width": 827
+          }
+        ],
+        "source_check": "ブラウザで読み込んだ原稿のSHA-256は、manifest の記録（source_sha256）と一致しました。",
+        "status": "「A4で配る」：210×297mm・全1ページ。manifest に記録された事前生成のPDFと、全ページの画像を表示しています。",
+        "url": "http://127.0.0.1:8857/index.html#paper"
+      },
+      {
+        "download": "outputs/atelier-phone.pdf",
+        "id": "phone",
+        "images": [
+          {
+            "height": 827,
+            "src": "assets/phone-page-1.png",
+            "width": 584
+          },
+          {
+            "height": 827,
+            "src": "assets/phone-page-2.png",
+            "width": 584
+          }
+        ],
+        "source_check": "ブラウザで読み込んだ原稿のSHA-256は、manifest の記録（source_sha256）と一致しました。",
+        "status": "「細いページで読む」：148×210mm・全2ページ。manifest に記録された事前生成のPDFと、全ページの画像を表示しています。",
+        "url": "http://127.0.0.1:8857/index.html#phone"
+      }
+    ],
+    "widths": [
+      {
+        "body_font": "17px",
+        "client": 305,
+        "images": [
+          {
+            "right": 285,
+            "width": 265
+          },
+          {
+            "right": 285,
+            "width": 265
+          }
+        ],
+        "scroll": 305,
+        "viewport": 320
+      },
+      {
+        "body_font": "17px",
+        "client": 360,
+        "images": [
+          {
+            "right": 340,
+            "width": 320
+          },
+          {
+            "right": 340,
+            "width": 320
+          }
+        ],
+        "scroll": 360,
+        "viewport": 375
+      },
+      {
+        "body_font": "17px",
+        "client": 753,
+        "images": [
+          {
+            "right": 600.5,
+            "width": 448
+          },
+          {
+            "right": 600.5,
+            "width": 448
+          }
+        ],
+        "scroll": 753,
+        "viewport": 768
+      },
+      {
+        "body_font": "17px",
+        "client": 1265,
+        "images": [
+          {
+            "right": 856.5,
+            "width": 448
+          },
+          {
+            "right": 856.5,
+            "width": 448
+          }
+        ],
+        "scroll": 1265,
+        "viewport": 1280
+      }
+    ],
+    "agent_visual_review": true,
+    "human_approval": false,
+    "keyboard": {
+      "active": "細いページで読む148×210mm・mobile",
+      "outline": "rgb(183, 91, 62) solid 3px",
+      "outlineOffset": "3px",
+      "status": "「細いページで読む」：148×210mm・全2ページ。manifest に記録された事前生成のPDFと、全ページの画像を表示しています。",
+      "url": "http://127.0.0.1:8857/index.html#phone"
+    },
+    "console_errors": [],
+    "status": "passed",
+    "verified_at": "2026-10-15T21:24:46.703387+00:00",
+    "scope": "Native browser paper/phone switch, keyboard Enter and visible focus, all3 actual page images, both actual PDF downloads, sourceSHA check,4 viewport widths. No reader/print/accessibility certification.",
+    "downloads": [
+      {
+        "id": "paper",
+        "sha256": "1bd80a231764d32644aad6eb0dd52f4b2222c506a07d28491bbb018c36d4bf7e",
+        "bytes_match": true
+      },
+      {
+        "id": "phone",
+        "sha256": "efa76ef682c8833669d4f97f23fe35a4ffd955229acba3048c49f977505d4b82",
+        "bytes_match": true
+      }
+    ]
+  },
+  "parent_adjustments": {
+    "recorded_at": "2026-10-15T21:19:12.713370+00:00",
+    "original_opus_preserved": "history/opus-implement-delivery",
+    "source_edit": {
+      "before_sha256": "fe592a550174fb21fd74f34077bb090ee85be7953e1411a5d04502aa3d469a9f",
+      "after_sha256": "d06c4d2d3b7eb0f8dd9b65d2bfafdb142cecdc5647de4a63a575a89b7ad3ff57",
+      "reason": "Remove only the redundant final no-signup sentence, which created a two-character final line on A4. The same warning remains near the top; every authoritative JSON fact remains."
+    },
+    "adapter_changes": [
+      "Windows pdfinfo localized dates were not UTF8; explicit UTF8/rawdates fixed the original lint stage. Failed final-v1 retained.",
+      "Installed variable NotoSansJP made Chrome Type3 glyph fonts. Build adapter now creates transient static400/700/800 TrueType instances with fonttools4.67.0 before the original API. Successful final-v2/v3 outputs and failed validation retained.",
+      "Text comparison uses Poppler UTF8 ActualText, not raw glyph-only extraction; all output fonts are separately checked as embedded TrueType."
+    ],
+    "content_policy": "No change to upstream files, original event facts, Opus theme overrides or web interface.",
+    "guide_adjustments": {
+      "at": "2026-10-15T21:23:54.938029+00:00",
+      "changes": [
+        "Move technical metadata below actual page images so download -> preview is direct. No change to app calculations/selection or PDFs.",
+        "Replace pending reproduction/QA descriptions with actual observed scope, static-font/UTF8 adapters and source contribution.",
+        "Clarify relative-file network reads rather than claiming no communications."
+      ],
+      "before_sha256": {
+        "index.html": "dd359671229bab546c758e0934d8b65afcb4ca4f730e2fe425095bd0c1c41512",
+        "README.md": "ffc65f1a48c2424791569366fc6c485e65a3afaa5750f2befeff392a9e41b593",
+        "samples.json": "d155401091c79189cedc19e8d4a9507fa04728db412fbd3fef31cf7b23a38025"
+      },
+      "after_sha256": {
+        "index.html": "cdcfc752730d3d762d8d93209059d1befb16c2304737a8ec372af87e79ee5851",
+        "README.md": "f344b255f4cdd8b8ebab13af4dc83c6ec16900587feac25251a03f69863d815d",
+        "samples.json": "4f96780379ea1b0c70c8fd12424bbf72531dabf3a6ab9c72581c9de88ba1ca98"
+      }
+    }
+  },
+  "production_contributions": {
+    "Opus5.5": "Japanese Markdown, document CSS, practical example/guide/request and editable movie source.",
+    "production_editor": "Original event facts, genuine original converter API execution and Japanese/Windows/static-font adapter, one redundant-sentence trim, small guide/layout corrections, actual PDF/browser/video review and publication."
+  },
+  "motion_reel": {
+    "name": "Studio Yebisu Motion Reel rendering runtime",
+    "license": "MIT",
+    "copyright": "2026 Studio Yebisu",
+    "source": "Exact previously executed installed tool files, pinned by SHA256.",
+    "files_sha256": {
+      "render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+      "audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+      "package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+      "package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+      "LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd"
+    },
+    "dependency_lock": "Playwright1.64.0/playwright-core1.64.0; registry.npmjs.org; Apache-2.0. Dependencies used locally but not included in the public source archive."
+  },
+  "explanation": {
+    "video": {
+      "file": "video.mp4",
+      "sha256": "e9a0135e172c70daacf06407df47cb971a34ec1b822a3b2c18eaddf06f3d634f",
+      "width": 1280,
+      "height": 720,
+      "fps": 30,
+      "frameCount": 840,
+      "duration": 28,
+      "hasAudio": false
+    },
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "afbe531e874e8f43deba92467cb05e811d42980a732de58be351751ace32f07b",
+      "afterOtherTimes": "afbe531e874e8f43deba92467cb05e811d42980a732de58be351751ace32f07b",
+      "freshPage": "afbe531e874e8f43deba92467cb05e811d42980a732de58be351751ace32f07b",
+      "match": true
+    },
+    "errors": [],
+    "blockedExternalRequests": []
+  },
+  "video_review": {
+    "verified_at": "2026-10-15T21:38:44.336631+00:00",
+    "video_sha256": "e9a0135e172c70daacf06407df47cb971a34ec1b822a3b2c18eaddf06f3d634f",
+    "agent_visual_review": true,
+    "human_approval": false,
+    "full_decode_passed": true,
+    "native_start": {
+      "duration": 28,
+      "ended": false,
+      "error": null,
+      "paused": false,
+      "readyState": 4,
+      "time": 0.087859
+    },
+    "native_playback": {
+      "duration": 28,
+      "ended": true,
+      "error": null,
+      "paused": true,
+      "readyState": 4,
+      "time": 28
+    },
+    "editor": {
+      "play_enabled": true,
+      "position": 14,
+      "status": "準備完了：PNG 3枚と原稿の sha256、ページ数・寸法、抜粋の行を manifest・元ファイルと照合しました",
+      "time": "14.00 / 28.00 秒"
+    },
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "afbe531e874e8f43deba92467cb05e811d42980a732de58be351751ace32f07b",
+      "afterOtherTimes": "afbe531e874e8f43deba92467cb05e811d42980a732de58be351751ace32f07b",
+      "freshPage": "afbe531e874e8f43deba92467cb05e811d42980a732de58be351751ace32f07b",
+      "match": true
+    },
+    "reviewed": "14 representative frames/contact,13.5s poster,12-frame camera strip at11.1,4 MP4 cut strips,20s native frame and final frame. Native MP4 at0.088splaying ->28s ended, no seeks or media errors.",
+    "notes": [
+      "All3 real PDF pages represented; held crops preserve same date/time, complete fictional notice, agenda4–6 and all3 items including optional item.",
+      "Caption/title/crop labels readable, meaningful content not clipped or overlapped in reviewed frames.",
+      "Film is28s720p30fps840frames, silent; edits actual savedPDF page images, not continuous screen recording.",
+      "Only sampled same-environment pixel determinism is demonstrated; no all-OS/font or human approval claim."
+    ],
+    "remaining": []
+  },
+  "publication": {
+    "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=pdf-creator-example",
+    "authorization": "User requested sequential publication of40 examples to existing main and GitHub Pages."
+  },
+  "artifacts_sha256": {
+    "data/cases/pdf-creator-example.json": "1e242f7a53bc9e9ffdc3bb86415b25b0c7ea44d5028883838928c5bba4102ab0",
+    "examples/pdf-creator-example/app.mjs": "abe09d73d8970c270eecdc5db874ca89eeb01c4b5bb94bb9c7213499cfacfd1b",
+    "examples/pdf-creator-example/assets/paper-page-1.png": "34622a711d32bedadde8378a09ede60d229f7c263e415251f623ea1da14ee78b",
+    "examples/pdf-creator-example/assets/phone-page-1.png": "6fce887c5a9fd7e265c2264d72675203bd9e5774153bc1d0cea64bcc883a0f18",
+    "examples/pdf-creator-example/assets/phone-page-2.png": "f06cc351b7ecd5c7a65dcc356e3450ba31114e72dbfffde54bb393280680a5b2",
+    "examples/pdf-creator-example/build_pdfs.py": "7acf1564f06032e01fdd06e78f572f18cd88dcfd378bb0e401ed3646b966a9be",
+    "examples/pdf-creator-example/FONT-OFL.txt": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9",
+    "examples/pdf-creator-example/index.html": "af7632bd5cfa47ab4bab345a11a3d13144f718e05c78c2c2ad53f8e749881ffe",
+    "examples/pdf-creator-example/input.md": "6e7a9ee22c260d5bfb69d47584af144c977fd4ae0177299ca6cb72e0e7b3cd54",
+    "examples/pdf-creator-example/inputs/event.json": "ff4229371dc93d96321dc96dc1661973c8881c64c8008986f43b9f159ada7d90",
+    "examples/pdf-creator-example/inputs/event.md": "d06c4d2d3b7eb0f8dd9b65d2bfafdb142cecdc5647de4a63a575a89b7ad3ff57",
+    "examples/pdf-creator-example/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
+    "examples/pdf-creator-example/outputs/atelier-a4.pdf": "1bd80a231764d32644aad6eb0dd52f4b2222c506a07d28491bbb018c36d4bf7e",
+    "examples/pdf-creator-example/outputs/atelier-phone.pdf": "efa76ef682c8833669d4f97f23fe35a4ffd955229acba3048c49f977505d4b82",
+    "examples/pdf-creator-example/outputs/manifest.json": "364c33af5dd15e41e18cab95b5a6efad9d4b89d254dfda4aebde1bd007bfe6ad",
+    "examples/pdf-creator-example/README.md": "01d45c127be6974ab191c4935be92028a6f0db8df8af5534b1a5538081615009",
+    "examples/pdf-creator-example/render.py": "4b925a51ae7c80f72c7573fd7d9ac853915956bc5854177da86b00a6d77f4fc8",
+    "examples/pdf-creator-example/request.txt": "10337529e3ae914faaf2522c6012e0d330d2fa2fa486e10aecc28566b043f38c",
+    "examples/pdf-creator-example/samples.json": "4f96780379ea1b0c70c8fd12424bbf72531dabf3a6ab9c72581c9de88ba1ca98",
+    "examples/pdf-creator-example/source.zip": "975e0ac38098fab62a57a1764d76b4025c297f81ad112f6180f32ed2611ece8e",
+    "examples/pdf-creator-example/style.css": "8930d47ecfb30b88d4447f79f8a7244b38cc21c492da01bfcaff9627df149087",
+    "examples/pdf-creator-example/themes/japanese-a4.css": "222abc320c970b16c9538aacce178beb018c141b92772ab24c2c6c2d556fcc0e",
+    "examples/pdf-creator-example/themes/japanese-phone.css": "f16a4cc8fb06e2e7dad0a0aa3a7c9268215db5712d6606be506a92927f4197b4",
+    "examples/pdf-creator-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/pdf-creator-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/pdf-creator-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/pdf-creator-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/pdf-creator-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "examples/pdf-creator-example/validation.json": "62a77a034acfbd65326e4ee6981c0b8a1b7e0a2e9f410b5ee0ebe1473946361d",
+    "examples/pdf-creator-example/vendor/pdf-creator/daymade-docs/pdf-creator/scripts/batch_convert.py": "ffa2fddf360f723ad2fbbfbc0f5aff2595dbfb42dcc0644091ffa6feffc8639c",
+    "examples/pdf-creator-example/vendor/pdf-creator/daymade-docs/pdf-creator/scripts/check_table_borders.py": "f6aeb1ad7146fd81bef6cdef7a69dc1eabe86b80d7b82ac9187efcb518c04910",
+    "examples/pdf-creator-example/vendor/pdf-creator/daymade-docs/pdf-creator/scripts/md_to_pdf.py": "943ffdd4f570f2b461708b297d06a5490bf64bbf6a979e2b5c41f8c1cf8fd0ed",
+    "examples/pdf-creator-example/vendor/pdf-creator/daymade-docs/pdf-creator/scripts/tests/test_backend_routing.py": "aedb0d9e3e0daab5e33de5b9cbf44f4d5e4e746925c29700963bc66f31e2dfff",
+    "examples/pdf-creator-example/vendor/pdf-creator/daymade-docs/pdf-creator/scripts/tests/test_cjk_code_blocks.py": "7c15cbf025b1c5ded5d63f36e0ef66fd55401b2aa1cebf9b0453676263753447",
+    "examples/pdf-creator-example/vendor/pdf-creator/daymade-docs/pdf-creator/scripts/tests/test_cjk_tables.py": "75b96fee34358f84e5d02b716049a4980b9e3f252f48bef402bae69db49aa723",
+    "examples/pdf-creator-example/vendor/pdf-creator/daymade-docs/pdf-creator/scripts/tests/test_list_rendering.py": "808973c8763ea6e4256caf315724e2a1302859bfbc3438edf56c3aa88fc1dbe1",
+    "examples/pdf-creator-example/vendor/pdf-creator/daymade-docs/pdf-creator/scripts/tests/test_self_check_preview.py": "d2517ae9f66b63b01e5216159c1cdbbd3243812b63a97f0db1e65437ca36e25f",
+    "examples/pdf-creator-example/vendor/pdf-creator/daymade-docs/pdf-creator/scripts/tests/test_table_border_check.py": "164ec43aefcd079e44b0d87512436dcce3bdafc0425f3f7f00b1c1961f97580a",
+    "examples/pdf-creator-example/vendor/pdf-creator/daymade-docs/pdf-creator/scripts/tests/test_typography_lint.py": "2436f34d8bfb88ecd4064662f20b12a27322ecbd24eae0b6a53beb0838daf9db",
+    "examples/pdf-creator-example/vendor/pdf-creator/daymade-docs/pdf-creator/SKILL.md": "0364326f99c613f85102003aa298ccc3698124a3b92da97412ef597430de3ac9",
+    "examples/pdf-creator-example/vendor/pdf-creator/daymade-docs/pdf-creator/themes/cjk-auto.css": "40ee771ca9cb7f4ac8bda669e8f542eea00eb52499fe7b9f3a918434704cb044",
+    "examples/pdf-creator-example/vendor/pdf-creator/daymade-docs/pdf-creator/themes/default.css": "3e55ab6752461ff01c4ec03441d8957386454954f46ca1482a431d8a49c2cae9",
+    "examples/pdf-creator-example/vendor/pdf-creator/daymade-docs/pdf-creator/themes/mobile.css": "f2d0a25663de14805074289679a991baa7d8a7c56e15a7619019870aebbee496",
+    "examples/pdf-creator-example/vendor/pdf-creator/daymade-docs/pdf-creator/themes/warm-terra-menu.css": "33c1a72ddcbb14fb5db11efa539d81c123ae9ef0b02712c811ff84b4f1228ba2",
+    "examples/pdf-creator-example/vendor/pdf-creator/daymade-docs/pdf-creator/themes/warm-terra.css": "b7c5878ad6841569e5d3c25106cbd8b19e4618d47b7bcaca6aa6899d2a137b20",
+    "examples/pdf-creator-example/vendor/pdf-creator/LICENSE": "945fb5acb5c4bc9af45b54b9a02be060f5dfca5e0a77244e8aa567de63aed5d1",
+    "examples/pdf-creator-example/vendor/pdf-creator/README.md": "f6f189d8c37b33473aa01e804911dfaf0f50b5bbe830917e37496e635c14f5dc",
+    "examples/pdf-creator-example/verification.json": "fd73eb809cab316daf9903785c36e4bd9552b1c237408fa097ceb51347521a82",
+    "examples/pdf-creator-example/video/index.html": "95469e1a2420dbae3f442929afbefcd7a8d813c73f32c8e084530500b8473693",
+    "examples/pdf-creator-example/video/README.md": "e6df08ac43ecb7a7ef5f0d51bca7bacb66c1bb37a1bab6192cca39e707e42e90",
+    "examples/pdf-creator-example/video/review/contact.png": "ff22382d78696c67522421ae630452c10a0eb629b45d1fa9cd3f90ad4fd7c53e",
+    "examples/pdf-creator-example/video/review/cut-01.png": "e9226a6b97f04e82e2922a6cb9a0df2774d2b9c4f648ac7f55b80fc11e14e145",
+    "examples/pdf-creator-example/video/review/cut-02.png": "d9deefa72652cf1c6653a5000e3271b4ca7c7ee5af06b0aac38449b3f12a2346",
+    "examples/pdf-creator-example/video/review/cut-03.png": "b25c0f97cad6b7cd006148b94dc5a33a1ef674ccf961d0acfd1ac0843dd7360c",
+    "examples/pdf-creator-example/video/review/cut-04.png": "8ee5eb372b08cda40b956de2535686757e65c984dbdce3e9789deeb5cca41f60",
+    "examples/pdf-creator-example/video/review/final.png": "b27f82989800ffbe10a7e8773ca467bd57200f929215b47c922ac0cf88a6f640",
+    "examples/pdf-creator-example/video/review/poster.png": "d239bb65985ca8ad8bc7f72ea53b4eead8b8894433d12622ce72ac792ef2e130",
+    "examples/pdf-creator-example/video/review/stills/frame-000000.png": "6843b4258daeece621a8fbb1e3c60fd49c449eb2a5ee82513bdd10a483b1d7b2",
+    "examples/pdf-creator-example/video/review/stills/frame-000001.png": "e50148f313ad77596ac7193625f142d4e0839c02d735d2bad193ba1fb6962cbf",
+    "examples/pdf-creator-example/video/review/stills/frame-000002.png": "4e6e605ec0590cb29cac97fd8176e1c91aae5107a5cbc8faa9e64a8b32b31382",
+    "examples/pdf-creator-example/video/review/stills/frame-000003.png": "49f029ccae7b194180400e59b3897a1af5e476c39aca2a549c49ecda60e7be56",
+    "examples/pdf-creator-example/video/review/stills/frame-000004.png": "c4487d9ea7d80f391e97dfa1d04be58ef9224de061c5ebb29bed36a158a9d047",
+    "examples/pdf-creator-example/video/review/stills/frame-000005.png": "c4487d9ea7d80f391e97dfa1d04be58ef9224de061c5ebb29bed36a158a9d047",
+    "examples/pdf-creator-example/video/review/stills/frame-000006.png": "9894599d34a79ba4e93e737182217d199b3be10d230c187160d090f8e52d6dc1",
+    "examples/pdf-creator-example/video/review/stills/frame-000007.png": "5b6e2c70219c658d9cf86054fb3f876926dcfdf584f7e73496ce72b3c4f6ccd3",
+    "examples/pdf-creator-example/video/review/stills/frame-000008.png": "5b6e2c70219c658d9cf86054fb3f876926dcfdf584f7e73496ce72b3c4f6ccd3",
+    "examples/pdf-creator-example/video/review/stills/frame-000009.png": "6bc47dd0b9bbf2eda9524f8dfcf63796c29b7f9681b3e76d417ea18659d1bd48",
+    "examples/pdf-creator-example/video/review/stills/frame-000010.png": "b6a98e2aae130bcec4fd0764eaed8d1de3c132602a2f826e137b26e1f06e0036",
+    "examples/pdf-creator-example/video/review/stills/frame-000011.png": "b6a98e2aae130bcec4fd0764eaed8d1de3c132602a2f826e137b26e1f06e0036",
+    "examples/pdf-creator-example/video/review/stills/frame-000012.png": "fd6061a472dc4773272f615c4ed0210680fccef2a57972305a5c78e000fca0e5",
+    "examples/pdf-creator-example/video/review/stills/frame-000013.png": "fd6061a472dc4773272f615c4ed0210680fccef2a57972305a5c78e000fca0e5",
+    "examples/pdf-creator-example/video/review/strip.png": "8287a5ed9c7bae33bd1728ff1fbcee239b44f509d9c5de5494ae3cbfc5ecdecf",
+    "examples/pdf-creator-example/video/storyboard.json": "0ca374d6cc98471675dd1ead206d729cea9c8fa40ac709722dda8c61c0308c8c",
+    "examples/pdf-creator-example/video/video.css": "00ccfd322b368e940bdae14e18caac8ffd6b04f1f60bed3d0751c8c8073750a4",
+    "examples/pdf-creator-example/video/video.js": "440babe175195f2f7c041734befa025912d655176009dea8b3c8d1e92f3a3d40",
+    "media/pdf-creator-example.mp4": "e9a0135e172c70daacf06407df47cb971a34ec1b822a3b2c18eaddf06f3d634f",
+    "media/pdf-creator-example.webp": "7c4cdc3f4173ea114138f6e7c5e3e4e5fb8ec9d05d1d401d240aa7a4110d571a"
+  }
+}

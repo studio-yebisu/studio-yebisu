@@ -1,0 +1,27 @@
+{
+  "format": "input-output",
+  "samples": [
+    {
+      "id": "paper",
+      "label": "A4で配る",
+      "input": "inputs/event.md（両方の版で共通）＋ 原典テーマ warm-terra ＋ themes/japanese-a4.css、backend chrome",
+      "output": "原典APIとChromeで実生成。210×297mm・1ページ。同じMarkdownの全テキストブロックをPoppler抽出と照合し、全ページ画像と埋め込みTrueTypeを確認。",
+      "url": "examples/pdf-creator-example/index.html#paper",
+      "actual_pdf": "outputs/atelier-a4.pdf",
+      "actual_page_count": 1,
+      "pdf_sha256": "1bd80a231764d32644aad6eb0dd52f4b2222c506a07d28491bbb018c36d4bf7e",
+      "source_sha256": "d06c4d2d3b7eb0f8dd9b65d2bfafdb142cecdc5647de4a63a575a89b7ad3ff57"
+    },
+    {
+      "id": "phone",
+      "label": "細いページで読む",
+      "input": "inputs/event.md（両方の版で共通）＋ 原典テーマ mobile ＋ themes/japanese-phone.css、backend chrome",
+      "output": "原典APIとChromeで実生成。148×210mm・2ページ。同じMarkdownの全テキストブロックをPoppler抽出と照合し、全ページ画像と埋め込みTrueTypeを確認。",
+      "url": "examples/pdf-creator-example/index.html#phone",
+      "actual_pdf": "outputs/atelier-phone.pdf",
+      "actual_page_count": 2,
+      "pdf_sha256": "efa76ef682c8833669d4f97f23fe35a4ffd955229acba3048c49f977505d4b82",
+      "source_sha256": "d06c4d2d3b7eb0f8dd9b65d2bfafdb142cecdc5647de4a63a575a89b7ad3ff57"
+    }
+  ]
+}

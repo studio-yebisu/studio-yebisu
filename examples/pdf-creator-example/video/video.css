@@ -1,0 +1,410 @@
+/*
+ * PDF Creator 作例 — 解説映像のスタイル
+ * Copyright (c) 2026 Studio Yebisu. MIT License.
+ * 配色はPDFの warm-terra テーマ（#d97756）と紙の色に合わせる。外部フォントは読み込まない。
+ * 場面の位置はすべて論理ステージ 1280×720 の座標。時間による変化は video.js の seek だけが決める。
+ */
+
+:root {
+  --bg: #1d1916;
+  --card: #2a231f;
+  --card-line: rgba(244, 237, 228, 0.14);
+  --ink: #f4ede4;
+  --muted: #bfae9e;
+  --terra: #d97756;
+  --terra-soft: #e9a58a;
+  --font: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'YuGothic', 'Meiryo', system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  transition: none !important;
+  animation: none !important;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+}
+
+/* ---- プレビューの外枠（書き出し時は隠す） ---- */
+
+.preview {
+  max-width: 1328px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.preview-head h1 {
+  margin: 0 0 8px;
+  font-size: 24px;
+  line-height: 1.4;
+}
+
+.preview-head p {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.frame {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+  outline: 1px solid var(--card-line);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin-top: 14px;
+}
+
+.controls button {
+  min-width: 112px;
+  padding: 8px 18px;
+  border: 1px solid var(--terra);
+  border-radius: 4px;
+  background: var(--terra);
+  color: #1d1916;
+  font: 700 16px/1.4 var(--font);
+  cursor: pointer;
+}
+
+.controls button:disabled {
+  border-color: var(--card-line);
+  background: transparent;
+  color: var(--muted);
+  cursor: not-allowed;
+}
+
+.controls input[type='range'] {
+  flex: 1 1 320px;
+  accent-color: var(--terra);
+}
+
+.controls output {
+  min-width: 132px;
+  font: 16px/1.4 var(--font);
+  font-variant-numeric: tabular-nums;
+}
+
+.controls #status,
+.status-static {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+
+.controls #status.is-error {
+  color: var(--terra-soft);
+}
+
+.files {
+  margin-top: 28px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.files h2 {
+  margin: 0 0 4px;
+  color: var(--ink);
+  font-size: 18px;
+}
+
+.files ul {
+  margin: 0 0 8px;
+  padding-left: 1.2em;
+}
+
+.files a {
+  color: var(--terra-soft);
+}
+
+/* ---- 書き出し時：ステージだけを原寸で置く ---- */
+
+html.is-render,
+html.is-render body {
+  overflow: hidden;
+}
+
+html.is-render .preview {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+html.is-render .preview-head,
+html.is-render .controls,
+html.is-render .files,
+html.is-render noscript {
+  display: none;
+}
+
+html.is-render .frame {
+  outline: none;
+}
+
+/* ---- ステージ ---- */
+
+.stage {
+  position: relative;
+  overflow: hidden;
+  transform-origin: 0 0;
+  background: var(--bg);
+}
+
+#plates {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+}
+
+.layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1280px;
+  height: 720px;
+  overflow: hidden;
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+
+.layer p,
+.layer h2,
+.layer pre {
+  margin: 0;
+}
+
+.brief {
+  position: absolute;
+  left: 60px;
+  top: 16px;
+  width: 1160px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.brief-name {
+  color: var(--terra-soft);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.brief-notes {
+  display: flex;
+  gap: 10px;
+}
+
+.chip {
+  padding: 1px 12px;
+  border: 1px solid var(--card-line);
+  border-radius: 999px;
+  color: var(--muted);
+}
+
+.credit {
+  position: absolute;
+  right: 60px;
+  top: 684px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.scene {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1280px;
+  height: 720px;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.scene > * {
+  position: absolute;
+}
+
+.title {
+  left: 60px;
+  top: 60px;
+  width: 1160px;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+}
+
+.caption {
+  left: 60px;
+  top: 582px;
+  width: 1160px;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.source {
+  left: 60px;
+  top: 684px;
+  max-width: 820px;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.4;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* 原稿・依頼文の抜粋：暗いカードで、白い紙のPDF画像と区別する */
+.src-card {
+  padding: 18px 24px 20px;
+  border: 1px solid var(--card-line);
+  border-radius: 6px;
+  background: var(--card);
+}
+
+.card-label {
+  margin-bottom: 10px !important;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.excerpt {
+  font-family: var(--font);
+  font-size: 20px;
+  line-height: 1.65;
+  white-space: normal;
+}
+
+.excerpt .line {
+  display: flex;
+  gap: 14px;
+}
+
+.excerpt .no {
+  flex: 0 0 30px;
+  color: var(--muted);
+  font-size: 18px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.excerpt .text {
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* s1 */
+.s1-md { left: 60px; top: 146px; width: 660px; }
+.s1-pick { left: 800px; top: 140px; color: var(--muted); font-size: 18px; line-height: 1.5; }
+.arrow { color: var(--terra); font-size: 36px; line-height: 1; }
+.s1-arrow-a { left: 740px; top: 228px; }
+.s1-arrow-b { left: 740px; top: 418px; }
+
+.purpose {
+  left: 800px;
+  width: 420px;
+  padding: 18px 24px 20px;
+  border-left: 4px solid var(--terra);
+  background: var(--card);
+}
+
+.s1-a { top: 176px; }
+.s1-b { top: 366px; }
+
+.purpose-label {
+  margin-bottom: 8px !important;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.purpose-meta {
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1.55;
+}
+
+/* s2 */
+.s2-chip { left: 0; top: 140px; width: 1280px; text-align: center; font-size: 20px; line-height: 1.5; }
+.s2-chip > span { padding: 3px 16px; border: 1px solid var(--card-line); border-radius: 999px; color: var(--muted); }
+.page-label { top: 540px; text-align: center; font-size: 20px; line-height: 1.5; }
+.s2-label-paper { left: 192px; width: 400px; }
+.s2-label-phone { left: 580px; width: 500px; }
+
+/* s3 */
+.crop-label { color: var(--muted); font-size: 20px; line-height: 1.5; white-space: nowrap; }
+.s3-label-paper { left: 60px; top: 138px; }
+.s3-label-phone { left: 760px; top: 344px; }
+
+.s3-tag {
+  left: 760px;
+  top: 178px;
+  width: 465px;
+  padding: 10px 16px;
+  border-left: 4px solid var(--terra);
+  background: var(--card);
+  font-size: 22px;
+  line-height: 1.5;
+}
+
+.s3-tag p:first-child { color: var(--terra-soft); font-weight: 700; }
+
+/* s4 */
+.s4-label-crop { left: 64px; top: 134px; }
+.s4-head { left: 600px; top: 132px; width: 620px; color: var(--muted); font-size: 18px; line-height: 1.5; }
+.s4-head .s4-head-main { margin-bottom: 2px; color: var(--ink); font-size: 24px; font-weight: 700; }
+.num { top: 516px; width: 100px; text-align: center; font-size: 20px; line-height: 1.3; font-variant-numeric: tabular-nums; }
+.s4-num-paper { left: 645px; }
+.s4-num-phone1 { left: 835px; }
+.s4-num-phone2 { left: 984px; }
+.group { top: 544px; color: var(--muted); text-align: center; font-size: 18px; line-height: 1.3; }
+.s4-group-paper { left: 600px; width: 191px; }
+.s4-group-phone { left: 818px; width: 284px; }
+
+/* s5 */
+.s5-req { left: 60px; top: 146px; width: 660px; }
+.s5-head { left: 760px; top: 146px; color: var(--muted); font-size: 20px; line-height: 1.5; }
+.file { left: 904px; width: 320px; }
+.file-name { font-size: 22px; font-weight: 700; line-height: 1.4; overflow-wrap: anywhere; }
+.file-meta { color: var(--muted); font-size: 20px; line-height: 1.5; }
+.s5-row1 { top: 226px; }
+.s5-row2 { top: 352px; }
+.s5-row3 { top: 461px; }
+
+.md-icon {
+  left: 760px;
+  top: 452px;
+  width: 60px;
+  height: 76px;
+  border: 1px solid var(--card-line);
+  border-top: 4px solid var(--terra);
+  border-radius: 3px;
+  background: var(--card);
+  color: var(--muted);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 72px;
+  text-align: center;
+}
