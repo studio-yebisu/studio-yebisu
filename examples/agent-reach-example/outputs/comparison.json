@@ -1,0 +1,205 @@
+{
+  "title": "Agent Reach 根拠比較：紹介投稿・固定原典・今回の実取得",
+  "updated_on": "2026-10-16",
+  "summary": "第三者の紹介投稿1件と、固定コミットのAgent Reach原典を読み比べ、原典が定める範囲、今回この環境で実際に読めた範囲、まだ確かめていない範囲を8枚に分けました。doctorの判定はGitHub・Xともwarnのままで、実際の読み取りはその後に別の手順で成功しています。",
+  "source_commit": "94f06c1969dfc1834001269d79d3ad0972d9dee6",
+  "items": [
+    {
+      "id": "source-scope",
+      "category": "source",
+      "label": "紹介投稿の一文と、原典が受け持つ範囲",
+      "finding": "紹介投稿は、Hermes Agent向けに10件の道具を並べた中の1件目として、Agent ReachをYouTube・X・Reddit・GitHub・Webの調査に使うものと紹介しています。固定版の原典では、Agent Reachは読み取りそのものを行う本体ではなく、接続方法の選定・インストール・状態確認（doctor）・経路の案内を受け持つ層で、実際の読み取りはghやtwitter-cliなど既存のCLI・APIが直接行うと書かれています。",
+      "basis": "READMEの設計方針の節と、SKILL.mdの経路表（GitHubはreferences/dev.md、Xはreferences/social.mdへ振り分け）を照合しました。紹介投稿は第三者による用途の説明として扱い、機能や条件の根拠には使っていません。",
+      "evidence": [
+        {
+          "label": "紹介投稿（第三者・本文は転載していません）",
+          "url": "https://x.com/BentoBoiNFT/status/2110111219172712922"
+        },
+        {
+          "label": "README：設計方針（能力層であり、読み取りは上流ツールが行う）",
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/94f06c1969dfc1834001269d79d3ad0972d9dee6/README.md#L197-L201"
+        },
+        {
+          "label": "README：読み取りと検索はAgentが上流ツールを直接呼ぶ",
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/94f06c1969dfc1834001269d79d3ad0972d9dee6/README.md#L226"
+        },
+        {
+          "label": "SKILL.md：経路表",
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/94f06c1969dfc1834001269d79d3ad0972d9dee6/agent_reach/skill/SKILL.md#L46-L56"
+        }
+      ],
+      "caution": "紹介投稿が挙げた5分野は原典の経路表にも含まれますが、分野ごとに必要なCLIや認証が違います。「調査に使える」という紹介を、5分野すべてがそのまま読めるという意味には取りません。"
+    },
+    {
+      "id": "source-auth",
+      "category": "source",
+      "label": "Xの単一投稿は「設定なしで読める」と言い切れない",
+      "finding": "READMEの対応表では、Twitter/Xの「単一投稿を読む」が「装好即用（入れればすぐ使える）」の列にあります。一方で同じREADMEの注記、SKILL.md、references/social.mdは、twitterコマンドを実行する前にTWITTER_AUTH_TOKENとTWITTER_CT0を同じシェルか子プロセスへ明示的に渡す必要があるとしています。channels/twitter.pyのtwitter_cli_child_envも、保存済みの値を1回の子プロセス用に渡す作りです。",
+      "basis": "対応表の短い表記より、実行条件を具体的に書いた注記・skill・接続コードを優先しました。今回の実行もこの条件に従い、既存の明示的な認証設定を使っています。",
+      "evidence": [
+        {
+          "label": "README：対応表のTwitter/Xの行",
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/94f06c1969dfc1834001269d79d3ad0972d9dee6/README.md#L113"
+        },
+        {
+          "label": "README：twitter実行前に環境変数が必要という注記",
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/94f06c1969dfc1834001269d79d3ad0972d9dee6/README.md#L127-L129"
+        },
+        {
+          "label": "SKILL.md：Twitterの認証の注意",
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/94f06c1969dfc1834001269d79d3ad0972d9dee6/agent_reach/skill/SKILL.md#L82-L85"
+        },
+        {
+          "label": "references/social.md：認証の前提条件",
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/94f06c1969dfc1834001269d79d3ad0972d9dee6/agent_reach/skill/references/social.md#L81-L91"
+        },
+        {
+          "label": "channels/twitter.py：twitter_cli_child_env",
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/94f06c1969dfc1834001269d79d3ad0972d9dee6/agent_reach/channels/twitter.py#L12-L31"
+        },
+        {
+          "label": "README：Cookieを使う場合は専用アカウントを勧める注意",
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/94f06c1969dfc1834001269d79d3ad0972d9dee6/README.md#L261-L267"
+        }
+      ],
+      "caution": "原典は、認証情報を利用者が手作業で書き出したものに限り、ブラウザーからの自動読み取りに頼らないよう求めています。Cookieは完全なログイン権限に相当し、READMEはアカウント制限のおそれから専用アカウントの利用を勧めています。"
+    },
+    {
+      "id": "source-license",
+      "category": "source",
+      "label": "MITが及ぶのはAgent Reach自体のコードと文書まで",
+      "finding": "固定版のLICENSEはMIT License、著作権表示はCopyright (c) 2025 Agent Eyesです。この作例では原典54ファイルを書き換えずに同梱し、この表示を保っています。",
+      "basis": "固定コミットのLICENSE本文を読み、gh APIで取得した原典6ファイルの本文がGit上の同じファイルとSHA-256で一致することを確かめました。",
+      "evidence": [
+        {
+          "label": "LICENSE：MIT Licenseと著作権表示",
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/94f06c1969dfc1834001269d79d3ad0972d9dee6/LICENSE#L1-L3"
+        },
+        {
+          "label": "保存した実行記録（LICENSE取得の終了コードとSHA-256）",
+          "url": "outputs/collection.json"
+        }
+      ],
+      "caution": "MITはAgent Reachの条件です。X・GitHubなど接続先サービスの規約、ghやtwitter-cliなど別のCLIのライセンス、第三者の投稿の権利には及びません。紹介投稿の本文・動画・画像は同梱していません。"
+    },
+    {
+      "id": "runtime-doctor",
+      "category": "runtime",
+      "label": "doctorの判定はGitHub・Xともwarnのまま",
+      "finding": "最初に実行したagent-reach doctor --jsonは終了コード0で、GitHubとTwitter/Xはどちらもstatus: warn、active_backend: nullでした。この固定版のdoctorは、CLIと認証設定が見つかっても実際のログイン確認や内容の取得をしないため、この2つをokにはしません。",
+      "basis": "channels/github.pyは認証設定を検出しても「実時間では確認していない」としてwarnを返し、channels/twitter.pyはokのときだけactive_backendを設定します。SKILL.mdも、active_backend: nullは実時間の検証をしていないという意味で、バックエンドが無いという意味ではないと説明しています。",
+      "evidence": [
+        {
+          "label": "保存した実行記録（doctorの判定）",
+          "url": "outputs/collection.json"
+        },
+        {
+          "label": "channels/github.py：認証設定があってもwarn",
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/94f06c1969dfc1834001269d79d3ad0972d9dee6/agent_reach/channels/github.py#L137-L141"
+        },
+        {
+          "label": "channels/twitter.py：okのときだけactive_backendを設定",
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/94f06c1969dfc1834001269d79d3ad0972d9dee6/agent_reach/channels/twitter.py#L67-L71"
+        },
+        {
+          "label": "channels/twitter.py：認証設定があってもtwitter statusを実行しない",
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/94f06c1969dfc1834001269d79d3ad0972d9dee6/agent_reach/channels/twitter.py#L98-L103"
+        },
+        {
+          "label": "SKILL.md：動く前にdoctorを実行し、nullの意味を確認する",
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/94f06c1969dfc1834001269d79d3ad0972d9dee6/agent_reach/skill/SKILL.md#L32-L36"
+        }
+      ],
+      "caution": "このwarnは「読めない」という判定ではありませんが、「読める」という保証でもありません。後の実取得が成功しても、doctorの記録はwarnのまま残しています。"
+    },
+    {
+      "id": "runtime-github",
+      "category": "runtime",
+      "label": "固定版の原典6ファイルをgh APIで実際に読んだ",
+      "finding": "gh 2.96.0のgh apiで、リポジトリ情報とコミット情報に続き、固定コミットのREADME.md・LICENSE・SKILL.md・references/dev.md・references/social.md・channels/twitter.pyの6ファイルを取得しました。8回の呼び出しはすべて終了コード0で、6ファイルの本文はGit上の同じファイルとSHA-256が一致しました。",
+      "basis": "references/dev.mdが示すgh apiの読み取りを、ref指定で固定コミットに向けて使いました。各呼び出しの終了コードと出力のSHA-256は実行記録に残しています。",
+      "evidence": [
+        {
+          "label": "保存した実行記録（gh apiの8回の呼び出し）",
+          "url": "outputs/collection.json"
+        },
+        {
+          "label": "references/dev.md：gh apiの使い方",
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/94f06c1969dfc1834001269d79d3ad0972d9dee6/agent_reach/skill/references/dev.md#L47-L49"
+        }
+      ],
+      "caution": "読んだのはこの6ファイルと2件のメタ情報だけです。Issue・PR・コード検索・非公開リポジトリは試していません。ghは既存のログイン設定のまま動かしており、未ログイン時の挙動は確認していません。"
+    },
+    {
+      "id": "runtime-x",
+      "category": "runtime",
+      "label": "公開投稿1件を既存の明示認証で実際に読んだ",
+      "finding": "twitter-cli 0.8.5でtwitter tweet 2110111219172712922 -n 1 --jsonを実行し、終了コード0、ok: true、返ってきた投稿IDが対象と一致、本文が空でないことを確認しました。返ってきた対象投稿は1件です。",
+      "basis": "原典のtwitter_cli_child_envで既存の設定から子プロセス用の環境を組み、本物のtwitter-cliのコマンド入口を起動しました。呼び出し側ではブラウザーCookieの自動読み取りだけを無効にし、認証の検証処理と返ってきた出力には手を加えていません。設定は読み取り専用で参照し、新しいログインやアカウント作成はしていません。",
+      "evidence": [
+        {
+          "label": "保存した実行記録（投稿の取得結果）",
+          "url": "outputs/collection.json"
+        },
+        {
+          "label": "読んだ公開投稿（第三者・本文は転載していません）",
+          "url": "https://x.com/BentoBoiNFT/status/2110111219172712922"
+        },
+        {
+          "label": "channels/twitter.py：子プロセス用の認証環境",
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/94f06c1969dfc1834001269d79d3ad0972d9dee6/agent_reach/channels/twitter.py#L12-L31"
+        },
+        {
+          "label": "references/social.md：単一投稿を読むコマンド",
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/94f06c1969dfc1834001269d79d3ad0972d9dee6/agent_reach/skill/references/social.md#L99-L100"
+        }
+      ],
+      "caution": "実行中にClientTransactionの初期化に関する警告を受け取りました。今回は終了コード・ok: true・ID一致・非空の本文の4点で成功と判断しましたが、この警告がいつでも無害だとは判断していません。返信・引用投稿・動画・リンク先の記事は使っていません。"
+    },
+    {
+      "id": "unknown-platforms",
+      "category": "unknown",
+      "label": "YouTube・Reddit・Webは今回読んでいない",
+      "finding": "紹介投稿が挙げた5分野のうち、実際に読んだのはGitHubとXだけです。YouTube・Reddit・Webの読み取りは実行していません。",
+      "basis": "READMEの対応表はYouTubeとWebを設定不要としていますが、Redditは設定不要の経路がなくログインが必要としています。分野ごとに条件が違うため、実行していない分野は記述だけで判定していません。",
+      "evidence": [
+        {
+          "label": "README：対応プラットフォームの表",
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/94f06c1969dfc1834001269d79d3ad0972d9dee6/README.md#L104-L123"
+        },
+        {
+          "label": "references/social.md：Redditはログインが必要",
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/94f06c1969dfc1834001269d79d3ad0972d9dee6/agent_reach/skill/references/social.md#L219-L221"
+        },
+        {
+          "label": "保存した実行記録（未確認の一覧）",
+          "url": "outputs/collection.json"
+        }
+      ],
+      "caution": "doctorの結果からも、これらの分野がいま読めるかどうかは判断していません。必要なときは分野ごとに、doctor → 実際の読み取り → IDと本文の確認をやり直してください。"
+    },
+    {
+      "id": "unknown-claims",
+      "category": "unknown",
+      "label": "Hermesでの動作・全面無料・速度は確かめていない",
+      "finding": "Hermes Agentの中でAgent Reachを動かすこと、全プラットフォームが無料・認証不要で使えること、取得の速さや常に使えることは、いずれも今回確かめていません。",
+      "basis": "紹介投稿はHermes向けの紹介で、READMEは全ツールの無料をうたっていますが、今回の実行はHermesではなく既存のPython環境で、GitHubとXを1回ずつ読んだだけです。実行記録の時刻は記録用で、速度の測定ではありません。",
+      "evidence": [
+        {
+          "label": "紹介投稿（Hermes向けの紹介・第三者）",
+          "url": "https://x.com/BentoBoiNFT/status/2110111219172712922"
+        },
+        {
+          "label": "README：無料・プライバシーなどの説明",
+          "url": "https://github.com/Panniantong/Agent-Reach/blob/94f06c1969dfc1834001269d79d3ad0972d9dee6/README.md#L92-L100"
+        },
+        {
+          "label": "保存した実行記録（実行環境と未確認の一覧）",
+          "url": "outputs/collection.json"
+        }
+      ],
+      "caution": "1つの分野で読めたことを、ほかの分野・別の環境・別の日にも読めることの根拠にはしません。料金や規約は各サービスの最新の条件を確認してください。"
+    }
+  ],
+  "scope_note": "この比較は2026-10-15（UTC）に制作側で1回実行した記録に基づきます。読んだのはgh APIによる固定版の原典6ファイルと、twitter-cliによる公開投稿1件だけです。YouTube・Reddit・Webの読み取り、Hermes Agent内での実行、速度や料金の検証はしていません。紹介投稿の本文・引用・返信・動画・数値は転載していません。"
+}

@@ -1,0 +1,163 @@
+{
+  "title": "URLから、根拠メモへ：Agent Reach 作例の編集動画",
+  "message": "URLを渡す→接続確認→実際に読む→根拠を分ける→日本語メモを持ち帰る",
+  "audience": "公開URLから根拠つきの調査メモを作りたい日本語の利用者",
+  "format": {
+    "duration": 28,
+    "fps": 30,
+    "frames": 840,
+    "width": 1280,
+    "height": 720,
+    "posterTime": 13.5,
+    "audio": "silent",
+    "audioEvents": []
+  },
+  "nature": "保存結果ビューアの実際のスクリーンショット5枚と、保存済みのメモ・比較データ・実行記録を素材に編集した説明動画。連続した画面録画ではない。新しい取得・AIの実行・ダウンロードは映像内で行っていない。端末画面・進行表示・ブラウザー枠・URLバーは作っていない。",
+  "persistentLabels": [
+    "実取得をもとにした編集動画 ／ 無音（右上・全編）",
+    "各時刻の素材名（左下・全編）",
+    "工程の見出し：1 URLを渡す → 2 接続確認 → 3 実際に読む → 4 根拠を分ける → 5 メモを持ち帰る（上部・全編）"
+  ],
+  "rendering": "Canvas 2D 1枚。window.seek(秒)ごとにCanvasを初期化し、全レイヤーを時刻だけから描き直す。実画面は元画像の座標で、表示先と同じ縦横比に切り抜いて描く（伸縮なし）。数値・判定・見出しは保存データから読み、素材一覧のSHA-256と寸法が一致しない場合はエラーを表示して描画しない。",
+  "scenes": [
+    {
+      "id": "url",
+      "start": 0,
+      "end": 4,
+      "enter": "題字は0秒から表示。実画面の入力欄が0.2–0.8秒でフェードイン、ラベルが1.0秒と1.4秒、説明が1.9秒から。切り抜きは4秒かけてわずかに寄る。",
+      "exit": "3.65–4.0秒でフェードアウト（紙色へ）。",
+      "purpose": "使う人が公開URLを2つ渡すところから始まることを示す。",
+      "captions": [
+        "URLから、根拠メモへ",
+        "GitHub原典",
+        "X紹介投稿",
+        "まず、公開URLを2つ渡す",
+        "固定版のGitHubリポジトリと、それを紹介した第三者のX投稿"
+      ],
+      "assets": [
+        {"path": "assets/desk-all.png", "crop": "入力した公開URLの2行（元画像 x100–1150, y355–565 付近）"}
+      ]
+    },
+    {
+      "id": "doctor",
+      "start": 4,
+      "end": 9,
+      "enter": "4.0–4.5秒で場面と見出し。4.5–6.2秒で実行結果の表全体からdoctor：GitHub／doctor：Xの欄へ寄る。6.2秒から両欄をwarnの色で囲む。①は5.6秒、②と矢印は6.9秒から。",
+      "exit": "8.65–9.0秒でフェードアウト。",
+      "purpose": "接続確認（doctor）の判定はwarnのまま記録し、実際の読み取りは別の手順で行うことを示す。warnを緑やokに変えない。",
+      "captions": [
+        "接続の確認と、実取得は分ける",
+        "warn GitHub",
+        "warn X",
+        "どちらも active_backend: null",
+        "warnは「読めない」でも「読める保証」でもない",
+        "① 接続確認（doctor）／判定は warn のまま記録する",
+        "② 実際に読む／gh API と twitter-cli で直接読む"
+      ],
+      "assets": [
+        {"path": "assets/desk-facts.png", "crop": "保存された実行結果の表 → doctor：GitHub／doctor：Xの欄（元画像 x602–1162, y94–246 まで寄る）"},
+        {"path": "outputs/collection.json", "fields": ["doctor.github.status", "doctor.twitter.status", "doctor.*.active_backend"]}
+      ]
+    },
+    {
+      "id": "read",
+      "start": 9,
+      "end": 14,
+      "enter": "9.0–9.7秒で見出しと実画面。数値は9.8秒・10.3秒、注記は11.0秒から。切り抜きは9.2–13.8秒でゆっくり寄る。",
+      "exit": "13.65–14.0秒でフェードアウト。ポスター（13.5秒）は全要素が表示された状態。",
+      "purpose": "今回この環境で実際に読めた範囲を、件数と確認条件で示す。速度の比較ではない。",
+      "captions": [
+        "原典6ファイル・公開投稿1件を実取得",
+        "6 原典ファイル／gh API・Git上とSHA-256一致",
+        "1 対象の公開投稿／twitter-cli 0.8.5・ID一致・本文あり",
+        "gh api 8回・twitter-cli 1回、すべて終了コード0",
+        "結果は今回の2つのURLの範囲だけ。記録の時刻は速度の測定ではない",
+        "投稿の本文は転載していない"
+      ],
+      "assets": [
+        {"path": "assets/desk-facts.png", "crop": "原典の照合（6ファイル）と紹介投稿（対象1件・本文あり）の欄（元画像 x90–650, y222–374 付近）"},
+        {"path": "outputs/collection.json", "fields": ["repository.files_verified", "post.returned_target_posts", "post.body_present", "post.body_republished", "executions[].command[0]", "executions[].exit_code", "versions.twitter_cli"]}
+      ]
+    },
+    {
+      "id": "sort",
+      "start": 14,
+      "end": 21,
+      "enter": "14.0秒から見出しと「原典で確認」の実画面。16.0秒に「今回実際に読んだ」、18.0秒に「未確認」の実画面へ0.3秒で切り替え、押された絞り込みボタンを囲む。下の3枠は各時刻に色が入り、説明は各0.2秒後から。",
+      "exit": "20.65–21.0秒でフェードアウト。",
+      "purpose": "8枚の根拠を、原典で確認・実取得・未確認に分けたことを実際の絞り込み画面で示す。未確認（YouTube・Reddit・Web、Hermes内の実行、無料、速度）を成功のように見せない。",
+      "captions": [
+        "根拠8枚を、3つに分ける",
+        "原典で確認 3件／実取得 3件／未確認 2件",
+        "原典で確認＝固定版の原典に書いてあること／README・SKILL.md・接続コードを照合（14.0–16.0秒）",
+        "実取得＝今回この環境で実際に読めたこと／doctorのwarnは書き換えずに残す（16.0–18.0秒）",
+        "YouTube・Reddit・Webは今回未確認／Hermes内での実行・無料・速度も確かめていない（18.0–21.0秒）"
+      ],
+      "assets": [
+        {"path": "assets/desk-source.png", "crop": "絞り込みボタンとカード見出し（元画像 x95–1155, y409–611 付近）"},
+        {"path": "assets/desk-runtime.png", "crop": "同じ範囲"},
+        {"path": "assets/desk-unknown.png", "crop": "同じ範囲"},
+        {"path": "outputs/comparison.json", "fields": ["items[].category"]},
+        {"path": "outputs/collection.json", "fields": ["unverified"]}
+      ]
+    },
+    {
+      "id": "memo",
+      "start": 21,
+      "end": 28,
+      "enter": "21.0秒から見出し。21.2秒に実画面のメモ操作部、21.8秒に「メモを開く・保存する」、22.3秒にメモの内容。23.9–24.3秒にこれらが消え、24.2秒から実際のメモの見出しを紙面として表示し、24.9秒から根拠と未確認の見出しに印をつける。右の3段は24.7・24.95・25.2秒、出典は25.4秒から。",
+      "exit": "退場なし。26.0–28.0秒は全要素が静止して読める状態のまま終わる（暗転なし）。",
+      "purpose": "制作時に作成済みの実際の調査メモを、根拠と未確認を添えて持ち帰れることを示す。ダウンロード完了の表示は作らない。",
+      "captions": [
+        "根拠と未確認を添えて、メモで持ち帰る",
+        "メモを開く・保存する",
+        "制作時に作成済みの実ファイル（outputs/research-note.md）",
+        "入力URL・固定版・doctorと実取得の結果・手順・未確認の点を1つのメモに",
+        "outputs/research-note.md ／ 実際の見出し",
+        "2つのURL ↓ 根拠を分ける ↓ 日本語メモ",
+        "原典3・実取得3・未確認2を添えて",
+        "原典：Agent Reach @ 94f06c1（MIT License, © 2025 Agent Eyes）／ 映像・メモ：© 2026 Studio Yebisu（MIT）"
+      ],
+      "assets": [
+        {"path": "assets/desk-all.png", "crop": "メモのダウンロード・開くリンクの部分（元画像 x100–1150, y568–692 付近）"},
+        {"path": "outputs/research-note.md", "fields": ["# 見出し", "## 見出し8件"]},
+        {"path": "outputs/collection.json", "fields": ["repository.commit", "repository.license", "repository.copyright"]}
+      ]
+    }
+  ],
+  "provenance": {
+    "manifest": "outputs/movie-materials.json",
+    "screenshots": [
+      {"path": "assets/desk-all.png", "width": 1265, "height": 889, "sha256": "cbad90b6ce553344d26ee1d317f339bcaf51d3019971face4c2e1c87513ac950"},
+      {"path": "assets/desk-facts.png", "width": 1265, "height": 889, "sha256": "72871eaea1ef3c8a24f1d8acbe963b400728de4c8bb15b25b8bef2b17ec259b8"},
+      {"path": "assets/desk-source.png", "width": 1265, "height": 889, "sha256": "fc747c5926a92a9b223bf403a1fcdabfd334236cf1903d3fc1e2e49c78dc47c9"},
+      {"path": "assets/desk-runtime.png", "width": 1265, "height": 889, "sha256": "1948e444897c9f7391ea58520cb364e790fbb625e23ccc496d07b168f1a5eec9"},
+      {"path": "assets/desk-unknown.png", "width": 1265, "height": 889, "sha256": "28917ac95f0f2cf03652ee7f35d42ae28683a3729fbf1f07eaf459779065f996"}
+    ],
+    "screenshotNote": "保存結果ビューアを実際に開いたブラウザーのスクリーンショット。連続した画面録画ではない。",
+    "memo": {"path": "outputs/research-note.md", "sha256": "98c07c4974d2e7383491a2747326061134d62e47884c75596f97cf9ca3cf3867"},
+    "comparison": {"path": "outputs/comparison.json", "sha256": "0d55869f65a244500c7fd1d066542ead98fe88edc1502599f78a08c93a24c096"},
+    "collection": {"path": "outputs/collection.json", "sha256": "9b4ce217252e415d358e2799b2e8ea83c0d88a6e4376d0a274b8ea55b920194a"},
+    "notIncluded": "紹介投稿の本文・引用・返信・動画・画像・数値、ほかのツールの画面。"
+  },
+  "scope": {
+    "actuallyRead": "gh APIで固定版の原典6ファイル、twitter-cli 0.8.5で公開投稿1件（2026-10-15 UTC、制作側で1回）",
+    "doctor": "GitHub・Xともwarn／active_backend: null のまま。後の成功で書き換えていない。",
+    "notVerified": [
+      "YouTube・Reddit・Webの読み取り",
+      "Hermes Agent内での実行",
+      "全プラットフォームの無料利用・認証不要",
+      "取得の速さや常に使えること",
+      "メモ保存時のブラウザー標準のファイル保存イベント"
+    ]
+  },
+  "pendingChecks": [
+    "同梱レンダラーによる実際の描画（静止画・コンタクトシート・連続フレーム）は未実施",
+    "描画されたフレームの文字の収まり・読む時間・切り抜き位置の目視確認は未実施",
+    "ネイティブのMP4書き出し（840フレーム・無音）と再生確認は未実施",
+    "同じ時刻の再描画一致の記録は未実施",
+    "320px幅でのプレビュー表示の確認は未実施",
+    "人による承認は未実施"
+  ],
+  "human_approval": false
+}

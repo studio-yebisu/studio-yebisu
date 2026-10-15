@@ -1,0 +1,181 @@
+{
+  "collected_at": "2026-10-15T22:06:48.980720+00:00",
+  "repository": {
+    "name": "Panniantong/Agent-Reach",
+    "commit": "94f06c1969dfc1834001269d79d3ad0972d9dee6",
+    "url": "https://github.com/Panniantong/Agent-Reach/tree/94f06c1969dfc1834001269d79d3ad0972d9dee6",
+    "license": "MIT",
+    "copyright": "2025 Agent Eyes",
+    "files_verified": 6
+  },
+  "post": {
+    "url": "https://x.com/BentoBoiNFT/status/2110111219172712922",
+    "id": "2110111219172712922",
+    "author": "BentoBoiNFT",
+    "created_at": "2026-10-13T20:51:33+00:00",
+    "returned_target_posts": 1,
+    "body_present": true,
+    "body_republished": false,
+    "scope": "公開投稿の本文を取得。返信本文・引用投稿・添付動画・リンク先記事は作例に使用していません。"
+  },
+  "doctor": {
+    "github": {
+      "status": "warn",
+      "active_backend": null,
+      "backends": [
+        "gh CLI"
+      ]
+    },
+    "twitter": {
+      "status": "warn",
+      "active_backend": null,
+      "backends": [
+        "twitter-cli",
+        "OpenCLI",
+        "bird CLI (legacy)"
+      ]
+    }
+  },
+  "executions": [
+    {
+      "step": "doctor",
+      "command": [
+        "agent-reach",
+        "doctor",
+        "--json"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-15T22:06:23.958517+00:00",
+      "finished_at": "2026-10-15T22:06:43.357924+00:00",
+      "stdout_sha256": "7fa1c32e097c0bce1c877275e7b935bd6a12d3a125335b6885be2255ed5122e3"
+    },
+    {
+      "step": "repo",
+      "command": [
+        "gh",
+        "api",
+        "repos/Panniantong/Agent-Reach"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-15T22:06:43.358234+00:00",
+      "finished_at": "2026-10-15T22:06:43.819084+00:00",
+      "stdout_sha256": "296dada0358e9c3d2e4e40a784ff8db09d8950ff9a436537de5f60bd346b5659"
+    },
+    {
+      "step": "commit",
+      "command": [
+        "gh",
+        "api",
+        "repos/Panniantong/Agent-Reach/commits/94f06c1969dfc1834001269d79d3ad0972d9dee6"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-15T22:06:43.819443+00:00",
+      "finished_at": "2026-10-15T22:06:44.264200+00:00",
+      "stdout_sha256": "26d87edfdac02a69f35a66e943aa40779fa37c35f450ee9f60e553b1d26038be"
+    },
+    {
+      "step": "source-README-md-3",
+      "command": [
+        "gh",
+        "api",
+        "repos/Panniantong/Agent-Reach/contents/README.md?ref=94f06c1969dfc1834001269d79d3ad0972d9dee6"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-15T22:06:44.264498+00:00",
+      "finished_at": "2026-10-15T22:06:44.669604+00:00",
+      "stdout_sha256": "b59ca5523d7488b2025bf2467e2520b2b84a7b8e468ce8a57cbd23ae0d2e700a"
+    },
+    {
+      "step": "source-LICENSE-4",
+      "command": [
+        "gh",
+        "api",
+        "repos/Panniantong/Agent-Reach/contents/LICENSE?ref=94f06c1969dfc1834001269d79d3ad0972d9dee6"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-15T22:06:44.670134+00:00",
+      "finished_at": "2026-10-15T22:06:45.100383+00:00",
+      "stdout_sha256": "5e1bbd734be874ef05cd855903ecd6c8e7546d301cf82552b4cfeff4e2e5b30c"
+    },
+    {
+      "step": "source-SKILL-md-5",
+      "command": [
+        "gh",
+        "api",
+        "repos/Panniantong/Agent-Reach/contents/agent_reach/skill/SKILL.md?ref=94f06c1969dfc1834001269d79d3ad0972d9dee6"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-15T22:06:45.100747+00:00",
+      "finished_at": "2026-10-15T22:06:45.651686+00:00",
+      "stdout_sha256": "391058ceffe764302b3a8034e46cbe2b4ba040f66dbb6939922dc1c51cec6fe3"
+    },
+    {
+      "step": "source-dev-md-6",
+      "command": [
+        "gh",
+        "api",
+        "repos/Panniantong/Agent-Reach/contents/agent_reach/skill/references/dev.md?ref=94f06c1969dfc1834001269d79d3ad0972d9dee6"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-15T22:06:45.652047+00:00",
+      "finished_at": "2026-10-15T22:06:46.113896+00:00",
+      "stdout_sha256": "4f30e99a890a9d81ff0b7a74be91f7b1776e6723bd5d0e3af2ea696652578696"
+    },
+    {
+      "step": "source-social-md-7",
+      "command": [
+        "gh",
+        "api",
+        "repos/Panniantong/Agent-Reach/contents/agent_reach/skill/references/social.md?ref=94f06c1969dfc1834001269d79d3ad0972d9dee6"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-15T22:06:46.114297+00:00",
+      "finished_at": "2026-10-15T22:06:46.580206+00:00",
+      "stdout_sha256": "7d16718e7377141fc08d3b4869146cf7f7c784f3aad4508049df3dbcfa36ab69"
+    },
+    {
+      "step": "source-twitter-py-8",
+      "command": [
+        "gh",
+        "api",
+        "repos/Panniantong/Agent-Reach/contents/agent_reach/channels/twitter.py?ref=94f06c1969dfc1834001269d79d3ad0972d9dee6"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-15T22:06:46.580588+00:00",
+      "finished_at": "2026-10-15T22:06:46.979322+00:00",
+      "stdout_sha256": "597ab8ea0b771385791f53aa77be549e15fa76bdb34fed2b76d81cc072383dba"
+    },
+    {
+      "step": "post",
+      "command": [
+        "twitter",
+        "tweet",
+        "2110111219172712922",
+        "-n",
+        "1",
+        "--json"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-15T22:06:47.125008+00:00",
+      "finished_at": "2026-10-15T22:06:48.980720+00:00",
+      "stdout_sha256": "4e476f54a42f28be062b233d653982c0da8bb40d18634de8d3fd7fb3f27d980b"
+    }
+  ],
+  "versions": {
+    "agent_reach_installed": "1.5.0",
+    "twitter_cli": "0.8.5",
+    "executed_agent_reach_source": "94f06c1969dfc1834001269d79d3ad0972d9dee6",
+    "python": "3.13.7",
+    "gh_version": "gh version 2.96.0 (2026-07-02)"
+  },
+  "credential_handling": "既存の明示設定を子プロセスにだけ渡し、設定はread_onlyで参照。twitter-cliの自動ブラウザーCookie取得だけを呼出側で禁止。原典・認証検証・返答内容は書き換えていません。",
+  "warning": "ClientTransaction初期化の警告を受信しましたが、exit0・ok:true・対象IDと非空本文を確認しました。警告を全般的に無害と判断するものではありません。",
+  "unverified": [
+    "YouTube/Reddit/Webやその他の実取得",
+    "全プラットフォームの無料利用・認証不要",
+    "Hermes Agent内での実行",
+    "添付動画・リンク先記事・返信の検証",
+    "取得速度や常時利用の保証"
+  ],
+  "human_approval": false
+}

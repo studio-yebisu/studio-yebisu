@@ -1,0 +1,798 @@
+{
+  "id": "agent-reach-example",
+  "verified_at": "2026-10-15T22:41:01.986355+00:00",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "receipts": [
+      {
+        "phase": "implement",
+        "receipt_sha256": "2840a2beae3990c87f7009d599543ef6c4766251779bdb1ed1ad937d0200565b",
+        "execution_sha256": "8c86eb9d279d0b453b718f5f228c4dabcdf32097e0da827abc16595231310f0d",
+        "prompt_sha256": "1e2669ad1c2b0653ad4afc60ec29fe1e964a478708cbc47900ac24647c969698"
+      },
+      {
+        "phase": "video",
+        "receipt_sha256": "4c44b9e063af782d877f7e67e8f4a4321ae54b9aa672c7e2a548a6c6867e2d78",
+        "execution_sha256": "1293e8ffbaa3cd6e3f9b30bac71a21b82a90fef4101aadd9565948734d676c8f",
+        "prompt_sha256": "37b086813a8732df681b59b695f73bb1066de3c4ccbf234d41fe74cb81a20d41"
+      }
+    ],
+    "receipt_published": false
+  },
+  "upstream": {
+    "repository": "Panniantong/Agent-Reach",
+    "commit": "94f06c1969dfc1834001269d79d3ad0972d9dee6",
+    "license": "MIT",
+    "copyright": "2025 Agent Eyes",
+    "files_sha256": {
+      "LICENSE": "e94c131ac1c2f78cfd8f7e69da354c0ff58e4e54071697703d56856c036de402",
+      "README.md": "7b723bcd4e5992c37ad1c25c3a2badd89c723a105b787fde9d1aa19a215f7ff7",
+      "pyproject.toml": "b74f8bcb8442e5386028f1aebb091861d6b230058fbed0d7000860ccc847534d",
+      "agent_reach/__init__.py": "46e5bdeb6202ac629098d931b49525adb85b859ba21ebde95ff0db27617e2ab4",
+      "agent_reach/backends/__init__.py": "3c4f9224d20b020b0e54bb539c707370cef59937d68c6a441797b5ae672d5667",
+      "agent_reach/backends/opencli.py": "7ef04df9bb739b23d0c80534a7a143e7ec982c1a0699af2f10708d8014876342",
+      "agent_reach/channels/__init__.py": "2f4630cc6a0b5b9d7a597aa02fb2d7f809cd171335c623b2f9bfdb28ec7b94f3",
+      "agent_reach/channels/_opencli_site.py": "f12896f94aa672bc8d4d08d7e51bbbc34cacbf0f12b4519f31447332cb5b945c",
+      "agent_reach/channels/base.py": "5eaa803fd593acb7bee8bb29ef33ef373f101ea1e346bc0a9a3b304efd2073c0",
+      "agent_reach/channels/bilibili.py": "0117e8055bf1b7acab3f1800104155b60fffa9bceacdc07c573cb0f1d691f64a",
+      "agent_reach/channels/boss.py": "daa5496f163479314814022f13a2bd8949e3b851ea18e297d01e81de644f5e2d",
+      "agent_reach/channels/exa_search.py": "63c85f659442a7d48704a9c8d9a67ad723cd24326344d565978a805ff5d647c6",
+      "agent_reach/channels/facebook.py": "bf4760cfe0edcc8454404399eb133cd774b248fa208a9289c4daab6c2e3cbe63",
+      "agent_reach/channels/github.py": "442cc56755a4fa60ad6c8fad59ce4b703f1233a8bec3d2d19fb12ddd2a2f9d6f",
+      "agent_reach/channels/instagram.py": "ea713be88caac5389c22a814da3f5b5e010ec53f531aaff2d7b459139f2ce731",
+      "agent_reach/channels/linkedin.py": "7e752c083cc62c6750ea3ccfd3533182661ba1aad4f71fac1a3257d26b8adc47",
+      "agent_reach/channels/mcporter.py": "56a19db49d1a8abcc099adb37282af75d3cdbf2cfd5aa830aaffd1f7ae72b17c",
+      "agent_reach/channels/reddit.py": "5018079ee6752d9242dd96227afffe72c3267f0aa4a1b48c62745f000c401cf0",
+      "agent_reach/channels/rss.py": "bb8d24e4705dd86abcf0ead333c19306df735fc54bb2d2c03390d5aa3614bbda",
+      "agent_reach/channels/twitter.py": "97180dfbff13c3327309649b8a74668b534e642adeacb0cf170705e796ffe0c1",
+      "agent_reach/channels/v2ex.py": "df334a13ba7004ce517b7046e7625211efbe0eb35a7f5db4551cc29254c4e662",
+      "agent_reach/channels/web.py": "d59271dcf9e2ab94f7ae927f0c1a13e9c4308b116de13e1a617a0c4582a7b8e3",
+      "agent_reach/channels/xiaohongshu.py": "e323aed7163f048c32716e36f8a096b6bcded6424cf793ba544df6edca33ac6a",
+      "agent_reach/channels/xiaoyuzhou.py": "bf7503e3c745d2d1de3421c7e55d555948890be2292420417c49b9c4033eae04",
+      "agent_reach/channels/xueqiu.py": "d9c03c3934ad2381f61a621d4a6dc57b439c0b16e506b275a8b9a944e6794ee9",
+      "agent_reach/channels/youtube.py": "b7b9869dd732d65810b2699ccdf9c6c0e3aed2194bded9f7ccd3552b51607565",
+      "agent_reach/cli.py": "b7b104c7b4d207331aa4d0862cfd9c992dee7606e952ac55638c3396b69a374f",
+      "agent_reach/config.py": "55c66ab71ed856f171aae6475edf4916005a0a39a4cbde1e630aa2be7b33cdf1",
+      "agent_reach/cookie_extract.py": "57ac723501fb980a6d9147a64b2b79dee13a5397b84f342e5619e8e7cf5de6ba",
+      "agent_reach/core.py": "5ad4744d62276cb63a7ab0a678c2b2b1a4bb56a56b57bba18da5015f43f27d79",
+      "agent_reach/doctor.py": "84bb212880e138eb404576162dffd4f2ced442d60a75694ed272e2fa750db851",
+      "agent_reach/guides/setup-exa.md": "3671600cdbee522cb9ea4f6c2f9d4535bb0dbab347ffe14dbc9fcbe883a5c9dc",
+      "agent_reach/guides/setup-groq.md": "9bb9b04a20d895dcf8293b4f1588d5f4aed99d7fa3c1fb7ad9d30035405290cc",
+      "agent_reach/guides/setup-reddit.md": "90fe5919b2b39fb5c88a73484143d68279abe14b0fb77612dd0015efecfa3f44",
+      "agent_reach/guides/setup-twitter.md": "32f842e2703bd5f37522a2dd37dc876885452a46becd4796f209ef9e4956844c",
+      "agent_reach/guides/setup-xiaohongshu.md": "5db860c7ef7e955a441ebd7dcee9306bfce5476efaf712d292829cb2863c0758",
+      "agent_reach/integrations/__init__.py": "8b084a9f378124b2b1a51563bf3c22444eb7ff33692017da28b2136ae56987ed",
+      "agent_reach/integrations/mcp_server.py": "b113eeb6ebe64b3488be02058fd02642765c01d1c4495ceb1286de4d93b4a3fe",
+      "agent_reach/probe.py": "8f9c19ccda841b7a84647aa333536e85ca392e8f2c509cd12e50e49c85484a09",
+      "agent_reach/scripts/transcribe_xiaoyuzhou.sh": "569317a6e5f24f84192067d951da93a50542fa14285d07557a3bbeb366bdc3fc",
+      "agent_reach/skill/SKILL.md": "0df9cd22ade17b77cc3698a14f1224c4aad9df5d533a1878dbe5df11b62f8377",
+      "agent_reach/skill/SKILL_en.md": "b0c2f6ed398921f6b61b9998a46af506c5732bed76bc8451e97d691ba91ab118",
+      "agent_reach/skill/references/career.md": "ade444ac499e55f02c84bd663253a28cebc1eefc7f56c7248dc6792841fbe53e",
+      "agent_reach/skill/references/dev.md": "f6f91107557eacf1d28a023d597eb5a61353a8a6ede286c3c0a4888d274df9fe",
+      "agent_reach/skill/references/finance.md": "c0cf89af1119d81890f6797ff9e8154a00ee08c17141e7d18c1b09658a916551",
+      "agent_reach/skill/references/search.md": "23bfc54a3b85847ac7c1e12d6dbb0913d6fa3bb89a706d79e2b36396a8a8ef5d",
+      "agent_reach/skill/references/social.md": "e2e6451eb931effd4f63ea407fbb109bea1e98de34bd703c52753ad0cc7025b3",
+      "agent_reach/skill/references/video.md": "167ce732382c664eea63b884685dc085caa27cd69820138f7eeb91b0162efac8",
+      "agent_reach/skill/references/web.md": "b238fc897975a693d7bb262600ca2ea69cd13a4892e870d346dbe375c880b303",
+      "agent_reach/transcribe.py": "ffae0728d3426f67ca6748819fa49949d8eaeb96757f6687b5e4c691be98ee5e",
+      "agent_reach/utils/paths.py": "36ce072629bef1306004d7034676cad055ee53dc5dd78710437c9f3769b108ec",
+      "agent_reach/utils/process.py": "211c1e25c458373f02cb4a81e9e4146490c58073a97610e8b7800567aea00645",
+      "agent_reach/utils/text.py": "6faf82ba308cb300377a14de66207c88284a3f3372facd5bfc2a412fdb93f3ae",
+      "agent_reach/utils/url.py": "a5ad76ecc4ca641d497b01cc7e90f573c137d2e7acac4c45ade519b6a461e0e8"
+    }
+  },
+  "runtime": {
+    "status": "passed",
+    "scope": "Fixed doctor + gh API for6 pinned source files + twitter-cli0.8.5 for1 public target post, and shipped collector reproduction. Actual credentials reused privately; automatic browser-cookie extraction disabled only.",
+    "human_approval": false,
+    "sample_count": 3
+  },
+  "collection": {
+    "collected_at": "2026-10-15T22:06:48.980720+00:00",
+    "repository": {
+      "name": "Panniantong/Agent-Reach",
+      "commit": "94f06c1969dfc1834001269d79d3ad0972d9dee6",
+      "url": "https://github.com/Panniantong/Agent-Reach/tree/94f06c1969dfc1834001269d79d3ad0972d9dee6",
+      "license": "MIT",
+      "copyright": "2025 Agent Eyes",
+      "files_verified": 6
+    },
+    "post": {
+      "url": "https://x.com/BentoBoiNFT/status/2110111219172712922",
+      "id": "2110111219172712922",
+      "author": "BentoBoiNFT",
+      "created_at": "2026-10-13T20:51:33+00:00",
+      "returned_target_posts": 1,
+      "body_present": true,
+      "body_republished": false,
+      "scope": "公開投稿の本文を取得。返信本文・引用投稿・添付動画・リンク先記事は作例に使用していません。"
+    },
+    "doctor": {
+      "github": {
+        "status": "warn",
+        "active_backend": null,
+        "backends": [
+          "gh CLI"
+        ]
+      },
+      "twitter": {
+        "status": "warn",
+        "active_backend": null,
+        "backends": [
+          "twitter-cli",
+          "OpenCLI",
+          "bird CLI (legacy)"
+        ]
+      }
+    },
+    "executions": [
+      {
+        "step": "doctor",
+        "command": [
+          "agent-reach",
+          "doctor",
+          "--json"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-15T22:06:23.958517+00:00",
+        "finished_at": "2026-10-15T22:06:43.357924+00:00",
+        "stdout_sha256": "7fa1c32e097c0bce1c877275e7b935bd6a12d3a125335b6885be2255ed5122e3"
+      },
+      {
+        "step": "repo",
+        "command": [
+          "gh",
+          "api",
+          "repos/Panniantong/Agent-Reach"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-15T22:06:43.358234+00:00",
+        "finished_at": "2026-10-15T22:06:43.819084+00:00",
+        "stdout_sha256": "296dada0358e9c3d2e4e40a784ff8db09d8950ff9a436537de5f60bd346b5659"
+      },
+      {
+        "step": "commit",
+        "command": [
+          "gh",
+          "api",
+          "repos/Panniantong/Agent-Reach/commits/94f06c1969dfc1834001269d79d3ad0972d9dee6"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-15T22:06:43.819443+00:00",
+        "finished_at": "2026-10-15T22:06:44.264200+00:00",
+        "stdout_sha256": "26d87edfdac02a69f35a66e943aa40779fa37c35f450ee9f60e553b1d26038be"
+      },
+      {
+        "step": "source-README-md-3",
+        "command": [
+          "gh",
+          "api",
+          "repos/Panniantong/Agent-Reach/contents/README.md?ref=94f06c1969dfc1834001269d79d3ad0972d9dee6"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-15T22:06:44.264498+00:00",
+        "finished_at": "2026-10-15T22:06:44.669604+00:00",
+        "stdout_sha256": "b59ca5523d7488b2025bf2467e2520b2b84a7b8e468ce8a57cbd23ae0d2e700a"
+      },
+      {
+        "step": "source-LICENSE-4",
+        "command": [
+          "gh",
+          "api",
+          "repos/Panniantong/Agent-Reach/contents/LICENSE?ref=94f06c1969dfc1834001269d79d3ad0972d9dee6"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-15T22:06:44.670134+00:00",
+        "finished_at": "2026-10-15T22:06:45.100383+00:00",
+        "stdout_sha256": "5e1bbd734be874ef05cd855903ecd6c8e7546d301cf82552b4cfeff4e2e5b30c"
+      },
+      {
+        "step": "source-SKILL-md-5",
+        "command": [
+          "gh",
+          "api",
+          "repos/Panniantong/Agent-Reach/contents/agent_reach/skill/SKILL.md?ref=94f06c1969dfc1834001269d79d3ad0972d9dee6"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-15T22:06:45.100747+00:00",
+        "finished_at": "2026-10-15T22:06:45.651686+00:00",
+        "stdout_sha256": "391058ceffe764302b3a8034e46cbe2b4ba040f66dbb6939922dc1c51cec6fe3"
+      },
+      {
+        "step": "source-dev-md-6",
+        "command": [
+          "gh",
+          "api",
+          "repos/Panniantong/Agent-Reach/contents/agent_reach/skill/references/dev.md?ref=94f06c1969dfc1834001269d79d3ad0972d9dee6"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-15T22:06:45.652047+00:00",
+        "finished_at": "2026-10-15T22:06:46.113896+00:00",
+        "stdout_sha256": "4f30e99a890a9d81ff0b7a74be91f7b1776e6723bd5d0e3af2ea696652578696"
+      },
+      {
+        "step": "source-social-md-7",
+        "command": [
+          "gh",
+          "api",
+          "repos/Panniantong/Agent-Reach/contents/agent_reach/skill/references/social.md?ref=94f06c1969dfc1834001269d79d3ad0972d9dee6"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-15T22:06:46.114297+00:00",
+        "finished_at": "2026-10-15T22:06:46.580206+00:00",
+        "stdout_sha256": "7d16718e7377141fc08d3b4869146cf7f7c784f3aad4508049df3dbcfa36ab69"
+      },
+      {
+        "step": "source-twitter-py-8",
+        "command": [
+          "gh",
+          "api",
+          "repos/Panniantong/Agent-Reach/contents/agent_reach/channels/twitter.py?ref=94f06c1969dfc1834001269d79d3ad0972d9dee6"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-15T22:06:46.580588+00:00",
+        "finished_at": "2026-10-15T22:06:46.979322+00:00",
+        "stdout_sha256": "597ab8ea0b771385791f53aa77be549e15fa76bdb34fed2b76d81cc072383dba"
+      },
+      {
+        "step": "post",
+        "command": [
+          "twitter",
+          "tweet",
+          "2110111219172712922",
+          "-n",
+          "1",
+          "--json"
+        ],
+        "exit_code": 0,
+        "started_at": "2026-10-15T22:06:47.125008+00:00",
+        "finished_at": "2026-10-15T22:06:48.980720+00:00",
+        "stdout_sha256": "4e476f54a42f28be062b233d653982c0da8bb40d18634de8d3fd7fb3f27d980b"
+      }
+    ],
+    "versions": {
+      "agent_reach_installed": "1.5.0",
+      "twitter_cli": "0.8.5",
+      "executed_agent_reach_source": "94f06c1969dfc1834001269d79d3ad0972d9dee6",
+      "python": "3.13.7",
+      "gh_version": "gh version 2.96.0 (2026-07-02)"
+    },
+    "credential_handling": "既存の明示設定を子プロセスにだけ渡し、設定はread_onlyで参照。twitter-cliの自動ブラウザーCookie取得だけを呼出側で禁止。原典・認証検証・返答内容は書き換えていません。",
+    "warning": "ClientTransaction初期化の警告を受信しましたが、exit0・ok:true・対象IDと非空本文を確認しました。警告を全般的に無害と判断するものではありません。",
+    "unverified": [
+      "YouTube/Reddit/Webやその他の実取得",
+      "全プラットフォームの無料利用・認証不要",
+      "Hermes Agent内での実行",
+      "添付動画・リンク先記事・返信の検証",
+      "取得速度や常時利用の保証"
+    ],
+    "human_approval": false
+  },
+  "verification": {
+    "id": "agent-reach-example",
+    "verified_at": "2026-10-15T22:41:01.710378+00:00",
+    "stage": "runtime-and-agent-visual-reviewed",
+    "source_commit": "94f06c1969dfc1834001269d79d3ad0972d9dee6",
+    "collection": "outputs/collection.json",
+    "data_checks": {
+      "checked_at": "2026-10-15T22:23:45.033904+00:00",
+      "upstream_files_byte_identical": 54,
+      "source_commit": "94f06c1969dfc1834001269d79d3ad0972d9dee6",
+      "real_collection_frozen": true,
+      "target_post_id_match_and_nonempty": true,
+      "doctor_warn_preserved": true,
+      "evidence_counts": {
+        "source": 3,
+        "runtime": 3,
+        "unknown": 2
+      },
+      "sample_count": 3,
+      "collector_reproduction_passed": true,
+      "original_post_not_republished": true,
+      "human_approval": false,
+      "agent_semantic_review": "separate, not inferred from assertions"
+    },
+    "semantic_review": {
+      "checked_at": "2026-10-15T22:26:28.852530+00:00",
+      "agent_semantic_review": true,
+      "human_approval": false,
+      "reviewed": [
+        "All8 Japanese findings against actual public post, original fixed README/skill/references and channel code. Source-line anchors checked for architecture, auth, doctor, read command, Reddit and license.",
+        "Primary acquisition is10 real commands: doctor,8 gh API calls,1 target post call. A separate shipped-collector reproduction also succeeded. Only the primary snapshot is published; no raw post/body, metrics, reply, media or private save provenance.",
+        "warn/null preserved for both platforms; success limited to6 source bodies and1 target post with matchingID/nonemptybody. Hermes/otherplatforms/free/speed not exercised.",
+        "Actual desktop evidence screenshots,375 mobile screen and four viewport bounds checked. UI filters3/3/2/8 and keyboardfocus3px, controlled503 hiding result cards, real memo opened from page and HTTPbytes match.",
+        "Native IAB file-save event and clipboard readback could not be observed and are not recorded as successful. The app exposes an ordinary open-memo link.",
+        "Opus source delivery archived before parent schema/wording/link corrections. No upstream source changed."
+      ],
+      "unresolved_blockers": []
+    },
+    "browser": {
+      "checked_at": "2026-10-15T22:24:49.162629+00:00",
+      "status": "passed",
+      "scope": "Saved-result viewer: four filters, actual memo link/body, 4 widths, keyboard focus and controlled data failure. Native file-save and clipboard readback are not confirmed.",
+      "filters": [
+        {
+          "count": "「原典で確認」の3件を表示しています（全8件）。",
+          "hash": "#source",
+          "pressed": "source",
+          "visible": [
+            "card-source-scope",
+            "card-source-auth",
+            "card-source-license"
+          ]
+        },
+        {
+          "count": "「今回実際に読んだ」の3件を表示しています（全8件）。",
+          "hash": "#runtime",
+          "outline": "3px",
+          "pressed": "runtime",
+          "visible": [
+            "card-runtime-doctor",
+            "card-runtime-github",
+            "card-runtime-x"
+          ]
+        },
+        {
+          "count": "「未確認」の2件を表示しています（全8件）。",
+          "hash": "#unknown",
+          "pressed": "unknown",
+          "visible": [
+            "card-unknown-platforms",
+            "card-unknown-claims"
+          ]
+        },
+        {
+          "count": "全8件を表示しています。",
+          "hash": "#all",
+          "pressed": "all",
+          "visible": [
+            "card-source-scope",
+            "card-source-auth",
+            "card-source-license",
+            "card-runtime-doctor",
+            "card-runtime-github",
+            "card-runtime-x",
+            "card-unknown-platforms",
+            "card-unknown-claims"
+          ]
+        }
+      ],
+      "widths": [
+        {
+          "body": 305,
+          "font": "17px",
+          "scroll": 305,
+          "visible_cards": 8,
+          "width": 320
+        },
+        {
+          "body": 360,
+          "font": "17px",
+          "scroll": 360,
+          "visible_cards": 8,
+          "width": 375
+        },
+        {
+          "body": 753,
+          "font": "17px",
+          "scroll": 753,
+          "visible_cards": 8,
+          "width": 768
+        },
+        {
+          "body": 1265,
+          "font": "17px",
+          "scroll": 1265,
+          "visible_cards": 8,
+          "width": 1280
+        }
+      ],
+      "initial_facts": "固定コミット\n94f06c1969dfc1834001269d79d3ad0972d9dee6\n取得日時\n2026-10-15 22:06 UTC\n日本時間 2026年10月16日 07:06\ndoctor：GitHub\nwarn\nactive_backend: null\ndoctor：X\nwarn\nactive_backend: null\n原典の照合\n6ファイル\ngh APIで取得し、Git上の本文とSHA-256一致（MIT）\n紹介投稿\n対象 1件・本文あり\nID 2110111219172712922・本文は転載していません",
+      "memo_open": {
+        "url": "outputs/research-note.md",
+        "body_matches_markdown": true,
+        "sha256": "98c07c4974d2e7383491a2747326061134d62e47884c75596f97cf9ca3cf3867"
+      },
+      "copy_action": {
+        "ui_status": "依頼文をコピーしました。",
+        "clipboard_readback_confirmed": false
+      },
+      "error_state_verified": true,
+      "console_errors": [],
+      "agent_visual_review": true,
+      "human_approval": false,
+      "screenshots": {
+        "desk-all.png": "cbad90b6ce553344d26ee1d317f339bcaf51d3019971face4c2e1c87513ac950",
+        "desk-facts.png": "72871eaea1ef3c8a24f1d8acbe963b400728de4c8bb15b25b8bef2b17ec259b8",
+        "desk-runtime.png": "1948e444897c9f7391ea58520cb364e790fbb625e23ccc496d07b168f1a5eec9",
+        "desk-source.png": "fc747c5926a92a9b223bf403a1fcdabfd334236cf1903d3fc1e2e49c78dc47c9",
+        "desk-unknown.png": "28917ac95f0f2cf03652ee7f35d42ae28683a3729fbf1f07eaf459779065f996"
+      },
+      "screenshot_encoding": "Native browser screenshot bytes were JPEG; re-encoded PNG losslessly at identical pixels and dimensions. Original returned bytes private."
+    },
+    "download": {
+      "sha256": "98c07c4974d2e7383491a2747326061134d62e47884c75596f97cf9ca3cf3867",
+      "bytes": 7453,
+      "method": "HTTP content equality and native open-memo navigation. IAB download-event capture timed out; no native file-save confirmation claimed.",
+      "native_file_save_confirmed": false
+    },
+    "video": {
+      "video_sha256": "dd1495434d1488c182ad08fd61e1a32757ca0f04fa1942929c158d60f27faaf3",
+      "poster_sha256": "7b3b0efbbd8a1e1775db14a6b0134005d777bb020ab5890fa73888de6b3bf7a2",
+      "poster_from_mp4_seconds": 13.5,
+      "full_decode_passed": true,
+      "review_files": [
+        "contact.png",
+        "poster.png",
+        "strip.png",
+        "stills/frame-000000.png",
+        "stills/frame-000001.png",
+        "stills/frame-000002.png",
+        "stills/frame-000003.png",
+        "stills/frame-000004.png",
+        "stills/frame-000005.png",
+        "stills/frame-000006.png",
+        "stills/frame-000007.png",
+        "stills/frame-000008.png",
+        "stills/frame-000009.png",
+        "stills/frame-000010.png",
+        "stills/frame-000011.png",
+        "stills/frame-000012.png",
+        "stills/frame-000013.png",
+        "cut-01.png",
+        "cut-02.png",
+        "cut-03.png",
+        "cut-04.png",
+        "final.png",
+        "zoom.png"
+      ],
+      "render_label": "final-v1",
+      "bundled_renderer_executed": true,
+      "reviewed_at": "2026-10-15T22:41:01.602249+00:00",
+      "agent_visual_review": true,
+      "human_approval": false,
+      "review_scope": [
+        "14 representative frames/contact sheet and13.5second poster: inputURLs, doctorwarn separate from realreads,6sourcefiles/1post,3/3/2 evidence, actualmemo headings and finalhold.",
+        "Full-size poster and finalframe readable; screen crops and warning highlights correspond to genuine captured outputs.",
+        "12-frame camera strip at8.1s, encoded-MP4 zoom5.3s and four cut strips at3.85/8.85/13.85/20.85s. Brief pale chapter transitions are intentional; finalhold26–28s stable.",
+        "Native MP4 was automatically playing at3.749426s when first sampled, then reached28s ended/errornull without seeking. Sourceeditor loadedready and keyboard-scrubbed to14s. This is not human approval."
+      ],
+      "native_playback": {
+        "time": 28,
+        "ended": true,
+        "error": null,
+        "first_observed_seconds": 3.749426,
+        "no_manual_seek": true
+      },
+      "source_editor": {
+        "play_enabled": true,
+        "position": 14,
+        "readout": "14.00 / 28.00 秒",
+        "status": "14.00秒を表示しています",
+        "ready_status": "準備完了：28秒・無音の編集動画です。実際の画面と保存データから描画しています。"
+      },
+      "determinism": {
+        "frame": 504,
+        "seconds": 16.8,
+        "first": "8c85ef1028a5be6e452509af83db7f49e6a2e0b387b9c8318a742f2458600b84",
+        "afterOtherTimes": "8c85ef1028a5be6e452509af83db7f49e6a2e0b387b9c8318a742f2458600b84",
+        "freshPage": "8c85ef1028a5be6e452509af83db7f49e6a2e0b387b9c8318a742f2458600b84",
+        "match": true
+      },
+      "audio": "silent; no audio track",
+      "remaining": [
+        "No human artistic approval or all-environment guarantee.",
+        "Other ratios and audio not exercised."
+      ]
+    },
+    "motion_reel": {
+      "name": "Studio Yebisu Motion Reel rendering runtime",
+      "license": "MIT",
+      "copyright": "2026 Studio Yebisu",
+      "files_sha256": {
+        "render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+        "audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+        "package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+        "package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+        "LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd"
+      },
+      "dependency_lock": "Playwright1.64.0/playwright-core1.64.0; npm registry; Apache-2.0. Dependencies not bundled."
+    },
+    "production_contributions": {
+      "Opus5.5": "Applied original routing/verification guidance to actual two-URL input, Japanese evidence comparison and Markdown memo, usable saved-result viewer/guide/request, editable short movie source.",
+      "production_editor": "Fixed source and real doctor/gh/twitter execution, read-only authentication adapter, bounded collector reproduction, source/content/browser/movie review and publication. Parent corrections are listed separately."
+    },
+    "parent_adjustments": {
+      "updated_at": "2026-10-15T22:19:12.757772+00:00",
+      "changes": [
+        {
+          "file": "samples.json",
+          "reason": "Normalize delivered array/title to required input-output wrapper and label; actual sample content preserved."
+        },
+        {
+          "file": "prepared article",
+          "reason": "Use full existing same-ID catalog entry object, as site schema requires."
+        },
+        {
+          "file": "request.txt + article request",
+          "reason": "Provide the fixed Agent Reach URL before the three target-input fields."
+        },
+        {
+          "file": "index.html",
+          "reason": "は、この環境で実際に実行し、原典6ファイルの一致と公開投稿のID・非空本文を確認しました。"
+        },
+        {
+          "file": "README.md",
+          "reason": "実際に実行した読み取りを再現する補助コマンドを同梱しています。"
+        },
+        {
+          "file": "README.md",
+          "reason": "この補助コマンドの既定経路を、この環境で実行済みです。原典6ファイルの一致・公開投稿のIDと非空本文・doctorのwarnを再確認しました。"
+        },
+        {
+          "file": "outputs/research-note.md",
+          "reason": "**XのCookieは手作業で書き出したものに限る。**"
+        },
+        {
+          "file": "index.html",
+          "reason": "Add a standard open-memo link as well as download so the actual Markdown is viewable directly in browsers."
+        },
+        {
+          "file": "assets/desk-*.png",
+          "reason": "Re-encode native JPEG bytes returned by browser API as PNG without changing image pixels/dimensions; originals archived privately."
+        },
+        {
+          "file": "prepared article title_lines",
+          "reason": "Include Agent Reach in the public heading so the resource is identifiable from the article."
+        },
+        {
+          "file": "samples.json sample IDs/URLs",
+          "reason": "Site builder uses sample.id as the fragment. Point the three sample links to actual existing result-card DOM IDs instead of unhandled arbitrary fragments. Text, real results and film material unchanged."
+        },
+        {
+          "file": "app.mjs asynchronous card fragment handling",
+          "reason": "After saved-data rendering, scroll the actual result card into view for article sample links. Filter/result content, screenshot pixels/material hashes and film unchanged."
+        }
+      ],
+      "original_opus_files_archived": true,
+      "upstream_unmodified": true
+    },
+    "human_approval": false,
+    "article_result_links": {
+      "status": "passed",
+      "sample_cards": [
+        {
+          "hash": "#card-runtime-github",
+          "heading": "固定版の原典6ファイルをgh APIで実際に読んだ",
+          "target_exists": true,
+          "top": -0.21875
+        },
+        {
+          "hash": "#card-runtime-x",
+          "heading": "公開投稿1件を既存の明示認証で実際に読んだ",
+          "target_exists": true,
+          "top": -0.21875
+        },
+        {
+          "hash": "#card-runtime-doctor",
+          "heading": "doctorの判定はGitHub・Xともwarnのまま",
+          "target_exists": true,
+          "top": 0.171875
+        }
+      ],
+      "demo_visible_card_count": 8,
+      "scope": "Native article-to-demo and3 result links; asynchronous card fragments reach the actual target heading."
+    }
+  },
+  "explanation": {
+    "video": {
+      "file": "video.mp4",
+      "sha256": "dd1495434d1488c182ad08fd61e1a32757ca0f04fa1942929c158d60f27faaf3",
+      "width": 1280,
+      "height": 720,
+      "fps": 30,
+      "frameCount": 840,
+      "duration": 28,
+      "hasAudio": false
+    },
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "8c85ef1028a5be6e452509af83db7f49e6a2e0b387b9c8318a742f2458600b84",
+      "afterOtherTimes": "8c85ef1028a5be6e452509af83db7f49e6a2e0b387b9c8318a742f2458600b84",
+      "freshPage": "8c85ef1028a5be6e452509af83db7f49e6a2e0b387b9c8318a742f2458600b84",
+      "match": true
+    },
+    "errors": [],
+    "blockedExternalRequests": []
+  },
+  "video_review": {
+    "video_sha256": "dd1495434d1488c182ad08fd61e1a32757ca0f04fa1942929c158d60f27faaf3",
+    "poster_sha256": "7b3b0efbbd8a1e1775db14a6b0134005d777bb020ab5890fa73888de6b3bf7a2",
+    "poster_from_mp4_seconds": 13.5,
+    "full_decode_passed": true,
+    "review_files": [
+      "contact.png",
+      "poster.png",
+      "strip.png",
+      "stills/frame-000000.png",
+      "stills/frame-000001.png",
+      "stills/frame-000002.png",
+      "stills/frame-000003.png",
+      "stills/frame-000004.png",
+      "stills/frame-000005.png",
+      "stills/frame-000006.png",
+      "stills/frame-000007.png",
+      "stills/frame-000008.png",
+      "stills/frame-000009.png",
+      "stills/frame-000010.png",
+      "stills/frame-000011.png",
+      "stills/frame-000012.png",
+      "stills/frame-000013.png",
+      "cut-01.png",
+      "cut-02.png",
+      "cut-03.png",
+      "cut-04.png",
+      "final.png",
+      "zoom.png"
+    ],
+    "render_label": "final-v1",
+    "bundled_renderer_executed": true,
+    "reviewed_at": "2026-10-15T22:41:01.602249+00:00",
+    "agent_visual_review": true,
+    "human_approval": false,
+    "review_scope": [
+      "14 representative frames/contact sheet and13.5second poster: inputURLs, doctorwarn separate from realreads,6sourcefiles/1post,3/3/2 evidence, actualmemo headings and finalhold.",
+      "Full-size poster and finalframe readable; screen crops and warning highlights correspond to genuine captured outputs.",
+      "12-frame camera strip at8.1s, encoded-MP4 zoom5.3s and four cut strips at3.85/8.85/13.85/20.85s. Brief pale chapter transitions are intentional; finalhold26–28s stable.",
+      "Native MP4 was automatically playing at3.749426s when first sampled, then reached28s ended/errornull without seeking. Sourceeditor loadedready and keyboard-scrubbed to14s. This is not human approval."
+    ],
+    "native_playback": {
+      "time": 28,
+      "ended": true,
+      "error": null,
+      "first_observed_seconds": 3.749426,
+      "no_manual_seek": true
+    },
+    "source_editor": {
+      "play_enabled": true,
+      "position": 14,
+      "readout": "14.00 / 28.00 秒",
+      "status": "14.00秒を表示しています",
+      "ready_status": "準備完了：28秒・無音の編集動画です。実際の画面と保存データから描画しています。"
+    },
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "8c85ef1028a5be6e452509af83db7f49e6a2e0b387b9c8318a742f2458600b84",
+      "afterOtherTimes": "8c85ef1028a5be6e452509af83db7f49e6a2e0b387b9c8318a742f2458600b84",
+      "freshPage": "8c85ef1028a5be6e452509af83db7f49e6a2e0b387b9c8318a742f2458600b84",
+      "match": true
+    },
+    "audio": "silent; no audio track",
+    "remaining": [
+      "No human artistic approval or all-environment guarantee.",
+      "Other ratios and audio not exercised."
+    ]
+  },
+  "publication": {
+    "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=agent-reach-example",
+    "authorization": "User requested sequential publication of40 examples to existing main and Pages."
+  },
+  "artifacts_sha256": {
+    "data/cases/agent-reach-example.json": "edd4637a398c170179df4c93fccfb202a6a50e3c6a6ea5fb0525a6d8249fa233",
+    "examples/agent-reach-example/app.mjs": "2dfad93ba76b8be1c3ad3322731a3672cf9a92144d89ebeffc493ddfc9192398",
+    "examples/agent-reach-example/assets/desk-all.png": "cbad90b6ce553344d26ee1d317f339bcaf51d3019971face4c2e1c87513ac950",
+    "examples/agent-reach-example/assets/desk-facts.png": "72871eaea1ef3c8a24f1d8acbe963b400728de4c8bb15b25b8bef2b17ec259b8",
+    "examples/agent-reach-example/assets/desk-runtime.png": "1948e444897c9f7391ea58520cb364e790fbb625e23ccc496d07b168f1a5eec9",
+    "examples/agent-reach-example/assets/desk-source.png": "fc747c5926a92a9b223bf403a1fcdabfd334236cf1903d3fc1e2e49c78dc47c9",
+    "examples/agent-reach-example/assets/desk-unknown.png": "28917ac95f0f2cf03652ee7f35d42ae28683a3729fbf1f07eaf459779065f996",
+    "examples/agent-reach-example/collect.py": "d9d07c14643ac99c4c0f71eef19fd1b4efed14b1d137d3dbd5e75be5f792c9a2",
+    "examples/agent-reach-example/index.html": "6f51b8ea87f7fdc384e6f36d7389d77afd2802311126464928cf5986216bc94a",
+    "examples/agent-reach-example/inputs/brief.json": "22f1ff9f153d35f5635a1aa883d41144aa8c833259c14250050a7e1c703c7ba6",
+    "examples/agent-reach-example/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
+    "examples/agent-reach-example/outputs/collection.json": "9b4ce217252e415d358e2799b2e8ea83c0d88a6e4376d0a274b8ea55b920194a",
+    "examples/agent-reach-example/outputs/comparison.json": "0d55869f65a244500c7fd1d066542ead98fe88edc1502599f78a08c93a24c096",
+    "examples/agent-reach-example/outputs/movie-materials.json": "cd5d6ac4f5521a9aaee20bae6899c53586e34e92f2f704d755fd256cc0eeec37",
+    "examples/agent-reach-example/outputs/research-note.md": "98c07c4974d2e7383491a2747326061134d62e47884c75596f97cf9ca3cf3867",
+    "examples/agent-reach-example/README.md": "4ca7502227735868484ecae5eac63e935c6b0a4badda81ca8db2e8edb0487b5c",
+    "examples/agent-reach-example/render.py": "bddec64ea2853683d0767c9ac00d2e747688fd32dab3aed1c5605731bc93f919",
+    "examples/agent-reach-example/request.txt": "7f05bab841846f820d0a0a166e234ad5ed0b45475893931d696ba00733fb64fe",
+    "examples/agent-reach-example/samples.json": "e632f4cec2731879911b7e9e0eb7e976068dff989d589192dfaaab149057d601",
+    "examples/agent-reach-example/source.zip": "07f567ab442905ac10db47b1a4d6baed8dc5895f78cc42a9fbd3a45e28b76f84",
+    "examples/agent-reach-example/style.css": "93b73fff2af6e5c3333ed9cf999578fdbff63d1d7bfd2e0405a8c4ef04d51f9d",
+    "examples/agent-reach-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/agent-reach-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/agent-reach-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/agent-reach-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/agent-reach-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/__init__.py": "46e5bdeb6202ac629098d931b49525adb85b859ba21ebde95ff0db27617e2ab4",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/backends/__init__.py": "3c4f9224d20b020b0e54bb539c707370cef59937d68c6a441797b5ae672d5667",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/backends/opencli.py": "7ef04df9bb739b23d0c80534a7a143e7ec982c1a0699af2f10708d8014876342",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/channels/__init__.py": "2f4630cc6a0b5b9d7a597aa02fb2d7f809cd171335c623b2f9bfdb28ec7b94f3",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/channels/_opencli_site.py": "f12896f94aa672bc8d4d08d7e51bbbc34cacbf0f12b4519f31447332cb5b945c",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/channels/base.py": "5eaa803fd593acb7bee8bb29ef33ef373f101ea1e346bc0a9a3b304efd2073c0",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/channels/bilibili.py": "0117e8055bf1b7acab3f1800104155b60fffa9bceacdc07c573cb0f1d691f64a",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/channels/boss.py": "daa5496f163479314814022f13a2bd8949e3b851ea18e297d01e81de644f5e2d",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/channels/exa_search.py": "63c85f659442a7d48704a9c8d9a67ad723cd24326344d565978a805ff5d647c6",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/channels/facebook.py": "bf4760cfe0edcc8454404399eb133cd774b248fa208a9289c4daab6c2e3cbe63",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/channels/github.py": "442cc56755a4fa60ad6c8fad59ce4b703f1233a8bec3d2d19fb12ddd2a2f9d6f",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/channels/instagram.py": "ea713be88caac5389c22a814da3f5b5e010ec53f531aaff2d7b459139f2ce731",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/channels/linkedin.py": "7e752c083cc62c6750ea3ccfd3533182661ba1aad4f71fac1a3257d26b8adc47",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/channels/mcporter.py": "56a19db49d1a8abcc099adb37282af75d3cdbf2cfd5aa830aaffd1f7ae72b17c",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/channels/reddit.py": "5018079ee6752d9242dd96227afffe72c3267f0aa4a1b48c62745f000c401cf0",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/channels/rss.py": "bb8d24e4705dd86abcf0ead333c19306df735fc54bb2d2c03390d5aa3614bbda",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/channels/twitter.py": "97180dfbff13c3327309649b8a74668b534e642adeacb0cf170705e796ffe0c1",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/channels/v2ex.py": "df334a13ba7004ce517b7046e7625211efbe0eb35a7f5db4551cc29254c4e662",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/channels/web.py": "d59271dcf9e2ab94f7ae927f0c1a13e9c4308b116de13e1a617a0c4582a7b8e3",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/channels/xiaohongshu.py": "e323aed7163f048c32716e36f8a096b6bcded6424cf793ba544df6edca33ac6a",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/channels/xiaoyuzhou.py": "bf7503e3c745d2d1de3421c7e55d555948890be2292420417c49b9c4033eae04",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/channels/xueqiu.py": "d9c03c3934ad2381f61a621d4a6dc57b439c0b16e506b275a8b9a944e6794ee9",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/channels/youtube.py": "b7b9869dd732d65810b2699ccdf9c6c0e3aed2194bded9f7ccd3552b51607565",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/cli.py": "b7b104c7b4d207331aa4d0862cfd9c992dee7606e952ac55638c3396b69a374f",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/config.py": "55c66ab71ed856f171aae6475edf4916005a0a39a4cbde1e630aa2be7b33cdf1",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/cookie_extract.py": "57ac723501fb980a6d9147a64b2b79dee13a5397b84f342e5619e8e7cf5de6ba",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/core.py": "5ad4744d62276cb63a7ab0a678c2b2b1a4bb56a56b57bba18da5015f43f27d79",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/doctor.py": "84bb212880e138eb404576162dffd4f2ced442d60a75694ed272e2fa750db851",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/guides/setup-exa.md": "3671600cdbee522cb9ea4f6c2f9d4535bb0dbab347ffe14dbc9fcbe883a5c9dc",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/guides/setup-groq.md": "9bb9b04a20d895dcf8293b4f1588d5f4aed99d7fa3c1fb7ad9d30035405290cc",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/guides/setup-reddit.md": "90fe5919b2b39fb5c88a73484143d68279abe14b0fb77612dd0015efecfa3f44",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/guides/setup-twitter.md": "32f842e2703bd5f37522a2dd37dc876885452a46becd4796f209ef9e4956844c",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/guides/setup-xiaohongshu.md": "5db860c7ef7e955a441ebd7dcee9306bfce5476efaf712d292829cb2863c0758",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/integrations/__init__.py": "8b084a9f378124b2b1a51563bf3c22444eb7ff33692017da28b2136ae56987ed",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/integrations/mcp_server.py": "b113eeb6ebe64b3488be02058fd02642765c01d1c4495ceb1286de4d93b4a3fe",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/probe.py": "8f9c19ccda841b7a84647aa333536e85ca392e8f2c509cd12e50e49c85484a09",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/scripts/transcribe_xiaoyuzhou.sh": "569317a6e5f24f84192067d951da93a50542fa14285d07557a3bbeb366bdc3fc",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/skill/references/career.md": "ade444ac499e55f02c84bd663253a28cebc1eefc7f56c7248dc6792841fbe53e",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/skill/references/dev.md": "f6f91107557eacf1d28a023d597eb5a61353a8a6ede286c3c0a4888d274df9fe",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/skill/references/finance.md": "c0cf89af1119d81890f6797ff9e8154a00ee08c17141e7d18c1b09658a916551",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/skill/references/search.md": "23bfc54a3b85847ac7c1e12d6dbb0913d6fa3bb89a706d79e2b36396a8a8ef5d",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/skill/references/social.md": "e2e6451eb931effd4f63ea407fbb109bea1e98de34bd703c52753ad0cc7025b3",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/skill/references/video.md": "167ce732382c664eea63b884685dc085caa27cd69820138f7eeb91b0162efac8",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/skill/references/web.md": "b238fc897975a693d7bb262600ca2ea69cd13a4892e870d346dbe375c880b303",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/skill/SKILL.md": "0df9cd22ade17b77cc3698a14f1224c4aad9df5d533a1878dbe5df11b62f8377",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/skill/SKILL_en.md": "b0c2f6ed398921f6b61b9998a46af506c5732bed76bc8451e97d691ba91ab118",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/transcribe.py": "ffae0728d3426f67ca6748819fa49949d8eaeb96757f6687b5e4c691be98ee5e",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/utils/paths.py": "36ce072629bef1306004d7034676cad055ee53dc5dd78710437c9f3769b108ec",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/utils/process.py": "211c1e25c458373f02cb4a81e9e4146490c58073a97610e8b7800567aea00645",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/utils/text.py": "6faf82ba308cb300377a14de66207c88284a3f3372facd5bfc2a412fdb93f3ae",
+    "examples/agent-reach-example/vendor/agent-reach/agent_reach/utils/url.py": "a5ad76ecc4ca641d497b01cc7e90f573c137d2e7acac4c45ade519b6a461e0e8",
+    "examples/agent-reach-example/vendor/agent-reach/LICENSE": "e94c131ac1c2f78cfd8f7e69da354c0ff58e4e54071697703d56856c036de402",
+    "examples/agent-reach-example/vendor/agent-reach/pyproject.toml": "b74f8bcb8442e5386028f1aebb091861d6b230058fbed0d7000860ccc847534d",
+    "examples/agent-reach-example/vendor/agent-reach/README.md": "7b723bcd4e5992c37ad1c25c3a2badd89c723a105b787fde9d1aa19a215f7ff7",
+    "examples/agent-reach-example/verification.json": "af2b6d508633a562372c423b915d83b32015e027c1d66e29e54ec76f5dc3678c",
+    "examples/agent-reach-example/video/index.html": "cca975de0fa3006d2e4073a2f741c2d1d164378c69f6ac36ec8c7dc1774fbada",
+    "examples/agent-reach-example/video/README.md": "225add828f028b8bc133deec0dad3d2cd929f049ed51dd9c5e2424a2ef76a8c3",
+    "examples/agent-reach-example/video/review/contact.png": "448093e264755cd3035bd7360ba7421a2e53e372a0125fd42e7627884fa855f6",
+    "examples/agent-reach-example/video/review/cut-01.png": "b179fd1c358ef314c22ea3a67f576ca2acfc0a5581c8ad5ab6197965949c7f52",
+    "examples/agent-reach-example/video/review/cut-02.png": "0ede6a2af9e6f82107adb441c6f9bf18ff42582b3d2fd0c20f82ed42a186e5af",
+    "examples/agent-reach-example/video/review/cut-03.png": "353150b99980cce52f8dcbdec8af6601500f9fd16f1a67269eca5345bfd1e887",
+    "examples/agent-reach-example/video/review/cut-04.png": "80fed21c2b42b3ecf85a3004b18878a0222e62146712a3bd45d2c6df94b734ea",
+    "examples/agent-reach-example/video/review/final.png": "dc84ebcc5a29fc277e7903367b401c44d59ac9fd656c40efdccaef881ab02695",
+    "examples/agent-reach-example/video/review/poster.png": "9738c7f6117ff0bc1f3cb0e1d05feefe4631d5a83e8d28d3abbf10f777f26997",
+    "examples/agent-reach-example/video/review/stills/frame-000000.png": "cc84f2465b435d9f6685486d9ffdfa5825e278f6fd154e4cb76f2c07560c6b5e",
+    "examples/agent-reach-example/video/review/stills/frame-000001.png": "448c55df28f3f22b9b075fa8ce97f27eb1c25f6c190bf117683397e63483ad2a",
+    "examples/agent-reach-example/video/review/stills/frame-000002.png": "d006dc9b8335ef72e64ebb4a54cb2314baf1028738e6ffb546db0349ae16f68a",
+    "examples/agent-reach-example/video/review/stills/frame-000003.png": "0bd44e8b19a763b7704fce9abe88e80c743370e38f3a7b727cea34443abc8d14",
+    "examples/agent-reach-example/video/review/stills/frame-000004.png": "b5904e1ef0ec0043a6faa22a7c42386fee3ac692bb8953399e0fe3edb57c5586",
+    "examples/agent-reach-example/video/review/stills/frame-000005.png": "b930aa5b8f5b27d1faf8b1085009eb19df679c2f8c6bec41936c9d46713115e9",
+    "examples/agent-reach-example/video/review/stills/frame-000006.png": "8044d2df334416ad0dc29240fd37b1929c0e9d73d97009dac2d63399336ffac5",
+    "examples/agent-reach-example/video/review/stills/frame-000007.png": "6d1f605194af7aeba6aebd6607178ebdc87918efbeb0a5f40e23d1e801890243",
+    "examples/agent-reach-example/video/review/stills/frame-000008.png": "abae2ea98925748efd9f1bc8b411f9e86b91dd85c164a0f7746f99d2b0e1a3e3",
+    "examples/agent-reach-example/video/review/stills/frame-000009.png": "19d1115f969cc08bdec5bd3e136caef8c10070d56f74516bb28d8c0a81df8dfc",
+    "examples/agent-reach-example/video/review/stills/frame-000010.png": "5c1b24175f0336131878f0f1821ac83e1f54140e817bf37c7d347ba7790c026b",
+    "examples/agent-reach-example/video/review/stills/frame-000011.png": "200109758caf06fd81f43ceb56580556d2c6523c8344bba253c9c5cf3234e2b5",
+    "examples/agent-reach-example/video/review/stills/frame-000012.png": "9b6aca5e5f863d9c7b792a03667b01d6546223936c24669a37b5815c1b1567fd",
+    "examples/agent-reach-example/video/review/stills/frame-000013.png": "09787138e5c2a5b487aef71ae5cad11b7444abf6091ab3a7d8cd89fa4c03d12d",
+    "examples/agent-reach-example/video/review/strip.png": "0c375253d24ac0896104b180fd359accd17cd5760149d15e052db323855bc6fc",
+    "examples/agent-reach-example/video/review/zoom.png": "45fe37ba906547cd775141f605fb76d1ee7c64d883bdb9c3d6cdff00109c4374",
+    "examples/agent-reach-example/video/storyboard.json": "60ed915ba413d0808c69cc443bf629477bd003d77301fefb92c4f13ef652ddc5",
+    "examples/agent-reach-example/video/video.css": "f0d17433fb8ccdc9790e5db2b19029801bd752972167c651dee8f889046b9176",
+    "examples/agent-reach-example/video/video.js": "d7857aad26091f44954aabd4abd590aefec7df427094696277543b035b80ffde",
+    "media/agent-reach-example.mp4": "dd1495434d1488c182ad08fd61e1a32757ca0f04fa1942929c158d60f27faaf3",
+    "media/agent-reach-example.webp": "7b3b0efbbd8a1e1775db14a6b0134005d777bb020ab5890fa73888de6b3bf7a2"
+  }
+}

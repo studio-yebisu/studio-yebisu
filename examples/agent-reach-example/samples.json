@@ -1,0 +1,26 @@
+{
+  "format": "input-output",
+  "samples": [
+    {
+      "id": "card-runtime-github",
+      "input": "公開リポジトリ Panniantong/Agent-Reach の固定コミット 94f06c1969dfc1834001269d79d3ad0972d9dee6。gh api の ref 指定で README.md・LICENSE・SKILL.md・references/dev.md・references/social.md・channels/twitter.py を読む。",
+      "output": "8回の gh api 呼び出し（リポジトリ・コミット情報と6ファイル）はすべて終了コード0。6ファイルの本文はGit上の同じファイルとSHA-256が一致。LICENSEはMIT License、Copyright (c) 2025 Agent Eyes。MITはAgent Reachの条件で、接続先サービスや別のCLI、第三者の投稿には及ばない。Issue・PR・コード検索・非公開リポジトリは試していない。",
+      "url": "examples/agent-reach-example/index.html#card-runtime-github",
+      "label": "固定版の原典6ファイルとライセンスを読む"
+    },
+    {
+      "id": "card-runtime-x",
+      "input": "公開投稿 https://x.com/BentoBoiNFT/status/2110111219172712922 。twitter-cli 0.8.5 で twitter tweet 2110111219172712922 -n 1 --json を実行し、認証は既存の設定から子プロセスにだけ渡す。ブラウザーCookieの自動読み取りは無効。",
+      "output": "終了コード0、ok: true、返ってきたIDが対象と一致、本文あり、対象投稿は1件。ClientTransaction初期化の警告を受け取ったが、この4点でこの1回の成功と判断（警告がいつでも無害とは判断していない）。投稿はHermes向けの10件紹介で、Agent ReachをYouTube・X・Reddit・GitHub・Webの調査用途として挙げている。本文・返信・引用・動画・数値は転載していない。",
+      "url": "examples/agent-reach-example/index.html#card-runtime-x",
+      "label": "公開投稿1件を既存の明示認証で読む"
+    },
+    {
+      "id": "card-runtime-doctor",
+      "input": "読み取りの前に agent-reach doctor --json を実行し、GitHubとTwitter/Xの判定を確認する。",
+      "output": "doctorは終了コード0で、GitHub・Xともstatus: warn、active_backend: null。この固定版のdoctorは実際のログイン確認や取得をしないため、CLIと認証設定があってもokにはならない。その後のgh apiとtwitter-cliでの読み取りは別途成功したが、doctorの記録はwarnのまま残した。warnは「読めない」でも「読める保証」でもない。",
+      "url": "examples/agent-reach-example/index.html#card-runtime-doctor",
+      "label": "doctorのwarnと、その後の実際の読み取りを分けて記録する"
+    }
+  ]
+}
