@@ -1,0 +1,142 @@
+{
+  "id": "diagram-design-example",
+  "title": "よりみちラボの問い合わせ対応（顧客・受付・専門担当）",
+  "kind": "static-semantic-audit",
+  "about": "diagrams/intake.html に手で書いたSVGの、工程・矢印・ラベルの記録です。依頼文の各文が図のどの工程と矢印になったかを対応づけています。業務を実行したり、図を自動で作ったりする仕組みではありません。座標はSVGのviewBox（1280×720）の単位です。",
+  "synthetic": true,
+  "source": {
+    "input": "request.txt",
+    "diagram_html": "diagrams/intake.html",
+    "svg_export": "diagrams/intake.svg",
+    "png_export": "diagrams/intake.png",
+    "canonical": "diagrams/intake.html",
+    "export_note": "SVGとPNGはHTMLから書き出すファイルです。SVGは原典の scripts/export_svg.py（--system-fonts）、PNGはブラウザーでSVG要素だけを撮影します。手で書いたSVGファイルや、描き直した画像は使いません。"
+  },
+  "skill": {
+    "name": "Diagram Design",
+    "repository": "cathrynlavery/diagram-design",
+    "commit": "d97c5c7477e54cee17cfa6459190610da0643a05",
+    "skill_metadata_version": "2.6",
+    "plugin_manifest_version": "2.6.99",
+    "license": "MIT",
+    "read": [
+      "vendor/diagram-design/SKILL.md",
+      "vendor/diagram-design/references/type-swimlane.md",
+      "vendor/diagram-design/references/semantic-patterns.md",
+      "vendor/diagram-design/references/style-guide.md",
+      "vendor/diagram-design/references/primitives-core.md",
+      "vendor/diagram-design/references/layout-budget.md",
+      "vendor/diagram-design/references/output-spec.md",
+      "vendor/diagram-design/references/export.md",
+      "vendor/diagram-design/assets/template.html"
+    ],
+    "role": "スキルは図の選び方・配色・文字・矢印の規則を書いた手順書です。図はその手順に沿って、制作者（Opus 5.5）がHTMLとSVGを直接書きました。スキルに図を自動で描く機能はありません。"
+  },
+  "choices": {
+    "type": "swimlane",
+    "type_reason": "読む人が知りたいのは、3者の間で仕事がどう受け渡されるかです。段（レーン）を担当にすると、どの工程が誰のものか、段をまたぐ矢印で受け渡しが見えます。",
+    "semantic_pattern": null,
+    "semantic_pattern_reason": "semantic-patterns.md の9つを確認しました。完了・戻りがあっても、主役は1つの対象の状態の移り変わりではなく担当の間の受け渡しなので、Lifecycle phase map（状態遷移図）は選んでいません。待ち行列・権限の境界などの型にも当たらないため、型を通さずスイムレーンを直接選びました。",
+    "not_a_table": "表にすると「3情報を確認する→不足ならC2→確認へ戻る」「未解決ならR3へ戻る」が、行の並び順の外にある飛び先として「次へ」の欄に文字で書かれるだけになります。読む人は行を探して戻り先を見つける必要があり、戻り道が2本あることも、段をまたぐ受け渡しが何回あるかも見えません。図では破線の戻り道と段をまたぐ矢印を目で追えます。",
+    "size_preset": "doc-wide",
+    "viewBox": "0 0 1280 720",
+    "audience": "mixed",
+    "detail": "balanced",
+    "font_source": "system",
+    "skin": "Studio Yebisu（design-profile.md）。保存したプロファイルや印は作っていません。",
+    "type_sizes_px": {
+      "title": 28,
+      "node_name": 16,
+      "lane_name": 16,
+      "sublabel_ja": 12,
+      "branch_label_ja": 12,
+      "chip_ja": 12,
+      "step_id_mono": 12,
+      "legend_ja": 12
+    },
+    "split": false,
+    "split_reason": "工程9・矢印10・段3で、1枚の上限（工程9・矢印12・段5）に収まるため、全体図と詳細図に分けていません。"
+  },
+  "budget": {
+    "nodes": {"used": 9, "max": 9},
+    "edges": {"used": 10, "max": 12},
+    "lanes": {"used": 3, "max": 5},
+    "accent_elements": {"used": 2, "max": 2, "which": ["R5", "E09"]},
+    "callouts": {"used": 0, "max": 2},
+    "sublabels": {"used": 4, "on": ["R2", "R3", "C3", "R5"]}
+  },
+  "lanes": [
+    {"id": "customer", "code": "C", "name": "顧客", "duties": "送る・補足・確認", "element_id": "lane-customer", "y": [116, 276], "nodes": ["C1", "C2", "C3"]},
+    {"id": "intake", "code": "R", "name": "受付", "duties": "確認・連絡・記録", "element_id": "lane-intake", "y": [276, 436], "nodes": ["R1", "R2", "R3", "R4", "R5"]},
+    {"id": "specialist", "code": "S", "name": "専門担当", "duties": "調査・回答案", "element_id": "lane-specialist", "y": [436, 596], "nodes": ["S1"]}
+  ],
+  "nodes": [
+    {"id": "C1", "lane": "customer", "kind": "step", "name": "問い合わせを送る", "sublabel": null, "element_id": "node-C1", "bbox": {"x": 184, "y": 156, "w": 160, "h": 80}, "facts": ["F1"]},
+    {"id": "R1", "lane": "intake", "kind": "step", "name": "チケットを作る", "sublabel": null, "element_id": "node-R1", "bbox": {"x": 184, "y": 316, "w": 160, "h": 80}, "facts": ["F2"]},
+    {"id": "R2", "lane": "intake", "kind": "decision", "chip": "判断", "name": "3情報を確認する", "sublabel": "困りごと・利用日・返信先", "element_id": "node-R2", "bbox": {"x": 384, "y": 316, "w": 176, "h": 80}, "facts": ["F3"]},
+    {"id": "C2", "lane": "customer", "kind": "step", "name": "情報を補足する", "sublabel": null, "element_id": "node-C2", "bbox": {"x": 384, "y": 156, "w": 176, "h": 80}, "facts": ["F5"]},
+    {"id": "R3", "lane": "intake", "kind": "step", "name": "専門担当へ渡す", "sublabel": "初回も、未解決の時も", "element_id": "node-R3", "bbox": {"x": 624, "y": 316, "w": 144, "h": 80}, "facts": ["F7", "F12"]},
+    {"id": "S1", "lane": "specialist", "kind": "step", "name": "調べて回答案を作る", "sublabel": null, "element_id": "node-S1", "bbox": {"x": 632, "y": 476, "w": 240, "h": 80}, "facts": ["F8"]},
+    {"id": "R4", "lane": "intake", "kind": "step", "name": "顧客へ回答する", "sublabel": null, "element_id": "node-R4", "bbox": {"x": 816, "y": 316, "w": 144, "h": 80}, "facts": ["F9"]},
+    {"id": "C3", "lane": "customer", "kind": "decision", "chip": "判断", "name": "解決を確認する", "sublabel": "解決した／未解決", "element_id": "node-C3", "bbox": {"x": 896, "y": 156, "w": 160, "h": 80}, "facts": ["F10", "F12"]},
+    {"id": "R5", "lane": "intake", "kind": "complete", "chip": "完了", "focal": true, "name": "対応記録を残す", "sublabel": "記録して完了", "element_id": "node-R5", "bbox": {"x": 1072, "y": 316, "w": 144, "h": 80}, "facts": ["F11"]}
+  ],
+  "edges": [
+    {"id": "E01", "from": "C1", "to": "R1", "kind": "handoff", "cross_lane": true, "style": "solid", "label": null, "element_id": "edge-E01", "points": [[264, 236], [264, 316]], "ports": {"from": "bottom", "to": "top"}, "facts": ["F1", "F2"]},
+    {"id": "E02", "from": "R1", "to": "R2", "kind": "flow", "cross_lane": false, "style": "solid", "label": null, "element_id": "edge-E02", "points": [[344, 356], [384, 356]], "ports": {"from": "right", "to": "left"}, "facts": ["F3"]},
+    {"id": "E03", "from": "R2", "to": "C2", "kind": "branch", "branch": "不足あり", "cross_lane": true, "style": "solid", "label": "不足あり：追加を依頼", "element_id": "edge-E03", "label_element_id": "label-E03", "points": [[444, 316], [444, 236]], "ports": {"from": "top", "to": "bottom"}, "label_mask": {"x": 308, "y": 248, "w": 128, "h": 16, "side": "left", "gap_px": 8}, "facts": ["F4"]},
+    {"id": "E04", "from": "C2", "to": "R2", "kind": "return", "cross_lane": true, "style": "dashed", "label": "確認へ戻る", "element_id": "edge-E04", "label_element_id": "label-E04", "points": [[500, 236], [500, 316]], "ports": {"from": "bottom", "to": "top"}, "label_mask": {"x": 508, "y": 248, "w": 68, "h": 16, "side": "right", "gap_px": 8}, "facts": ["F6"]},
+    {"id": "E05", "from": "R2", "to": "R3", "kind": "branch", "branch": "揃った", "cross_lane": false, "style": "solid", "label": "揃った", "element_id": "edge-E05", "label_element_id": "label-E05", "points": [[560, 356], [624, 356]], "ports": {"from": "right", "to": "left"}, "label_mask": {"x": 568, "y": 332, "w": 48, "h": 16, "side": "above", "gap_px": 8}, "facts": ["F7"]},
+    {"id": "E06", "from": "R3", "to": "S1", "kind": "handoff", "cross_lane": true, "style": "solid", "label": null, "element_id": "edge-E06", "points": [[696, 396], [696, 476]], "ports": {"from": "bottom", "to": "top"}, "facts": ["F7", "F12"]},
+    {"id": "E07", "from": "S1", "to": "R4", "kind": "handoff", "cross_lane": true, "style": "solid", "label": null, "element_id": "edge-E07", "points": [[848, 476], [848, 396]], "ports": {"from": "top", "to": "bottom"}, "facts": ["F8", "F9"]},
+    {"id": "E08", "from": "R4", "to": "C3", "kind": "handoff", "cross_lane": true, "style": "solid", "label": null, "element_id": "edge-E08", "points": [[928, 316], [928, 236]], "ports": {"from": "top", "to": "bottom"}, "facts": ["F9"]},
+    {"id": "E09", "from": "C3", "to": "R5", "kind": "branch", "branch": "解決した", "cross_lane": true, "style": "accent", "focal": true, "label": "解決した", "element_id": "edge-E09", "label_element_id": "label-E09", "points": [[1056, 196], [1144, 196], [1144, 316]], "elbow_radius": 8, "ports": {"from": "right", "to": "top"}, "label_mask": {"x": 1068, "y": 172, "w": 56, "h": 16, "side": "above", "gap_px": 8}, "facts": ["F10", "F11"]},
+    {"id": "E10", "from": "C3", "to": "R3", "kind": "return", "branch": "未解決", "cross_lane": true, "style": "dashed", "label": "未解決なら戻す", "element_id": "edge-E10", "label_element_id": "label-E10", "points": [[896, 196], [696, 196], [696, 316]], "elbow_radius": 8, "ports": {"from": "left", "to": "top"}, "label_mask": {"x": 752, "y": 172, "w": 96, "h": 16, "side": "above", "gap_px": 8}, "facts": ["F12"]}
+  ],
+  "unlabeled_edges": {
+    "edges": ["E01", "E02", "E06", "E07", "E08"],
+    "reason": "SKILL.md の「取り除けるラベルはないか」に従い、出発点と行き先の工程名で意味が決まる矢印にはラベルを付けていません。ラベルは分かれ道（E03・E05・E09・E10）と戻り道（E04）だけです。"
+  },
+  "facts": [
+    {"id": "P1", "text": "架空の共同作業スペース「よりみちラボ」の問い合わせ業務を、新しく入る受付スタッフへ説明したい。", "maps_to": {"svg": ["intake-heading"], "note": "図の題名と副題。読む人は新しい受付スタッフ（mixed）。"}},
+    {"id": "P2", "text": "顧客・受付・専門担当の3者で、誰がどこまで担当するかを図で示す。", "maps_to": {"lanes": ["customer", "intake", "specialist"]}},
+    {"id": "F1", "text": "顧客が問い合わせを送る。", "maps_to": {"nodes": ["C1"], "edges": ["E01"]}},
+    {"id": "F2", "text": "受付はチケットを作り、", "maps_to": {"nodes": ["R1"], "edges": ["E01"]}},
+    {"id": "F3", "text": "困っていること・利用日・返信先の3情報を確認する。", "maps_to": {"nodes": ["R2"], "edges": ["E02"], "note": "3情報はR2の補足の行に「困りごと・利用日・返信先」と書いています。"}},
+    {"id": "F4", "text": "不足があれば受付が追加情報を依頼し、", "maps_to": {"edges": ["E03"], "owner": "intake", "note": "受付の段のR2から出る矢印。ラベル「不足あり：追加を依頼」。"}},
+    {"id": "F5", "text": "顧客が補足して", "maps_to": {"nodes": ["C2"]}},
+    {"id": "F6", "text": "内容確認へ戻る。", "maps_to": {"edges": ["E04"], "note": "破線でR2へ戻る。ラベル「確認へ戻る」。チケットを作り直す（R1）には戻りません。"}},
+    {"id": "F7", "text": "情報が揃ったら受付が専門担当へ引き継ぐ。", "maps_to": {"nodes": ["R3"], "edges": ["E05", "E06"], "owner": "intake"}},
+    {"id": "F8", "text": "専門担当が調べて回答案を作り、", "maps_to": {"nodes": ["S1"], "edges": ["E07"]}},
+    {"id": "F9", "text": "受付が顧客へ回答する。", "maps_to": {"nodes": ["R4"], "edges": ["E07", "E08"], "owner": "intake"}},
+    {"id": "F10", "text": "顧客が解決を確認した後、", "maps_to": {"nodes": ["C3"], "edges": ["E09"]}},
+    {"id": "F11", "text": "受付が対応記録を残して完了とする。", "maps_to": {"nodes": ["R5"], "owner": "intake", "note": "完了の印はR5だけ。R5へ入る矢印はE09（解決した）だけです。"}},
+    {"id": "F12", "text": "未解決なら専門担当へ戻す。", "maps_to": {"nodes": ["R3"], "edges": ["E10", "E06"], "owner": "intake", "assumption": "A1"}},
+    {"id": "K1", "text": "日数や自動処理、架空の達成率は足さない。", "maps_to": {"none": true, "note": "図に所要日数・期限・自動で動く工程・数値の指標は描いていません。"}},
+    {"id": "O1", "text": "独立して開けるHTMLと編集可能なSVGにする。", "maps_to": {"files": ["diagrams/intake.html", "diagrams/intake.svg"]}},
+    {"id": "O2", "text": "担当者・分岐・差戻し・完了条件を残し、", "maps_to": {"lanes": ["customer", "intake", "specialist"], "decisions": ["R2", "C3"], "returns": ["E04", "E10"], "completion": ["E09", "R5"]}},
+    {"id": "O3", "text": "スマホでは図の中を横にスクロールして読めるようにする。", "maps_to": {"html": ".diagram-container { overflow-x: auto } と svg { min-width: 1280px }。印刷では幅の固定を外し、図全体を縮めて収めます。"}}
+  ],
+  "assumptions": [
+    {"id": "A1", "text": "「未解決なら専門担当へ戻す」の主語は書かれていません。受付が顧客と専門担当の両方と連絡を取る唯一の担当なので、受付が戻すと読み、未解決の矢印（E10）を受付の工程R3「専門担当へ渡す」へつなぎました。顧客が専門担当へ直接連絡する線は描いていません。"},
+    {"id": "A2", "text": "「3情報を確認する」と「不足があるか」は同じ工程の判断として、R2の1つにまとめました。"},
+    {"id": "A3", "text": "「追加情報を依頼する」は受付から顧客への受け渡しなので、工程の箱ではなく、受付の段のR2から出る矢印E03のラベルにしました。担当は矢印の出発点の段（受付）で読めます。"},
+    {"id": "A4", "text": "「専門担当へ引き継ぐ」と「未解決なら専門担当へ戻す」は、どちらも受付が専門担当へ渡す同じ工程なので、R3の1つにまとめ、補足の行に「初回も、未解決の時も」と書きました。"}
+  ],
+  "routes": [
+    {"id": "route-main", "name": "基本の流れ", "nodes": ["C1", "R1", "R2", "R3", "S1", "R4", "C3", "R5"], "edges": ["E01", "E02", "E05", "E06", "E07", "E08", "E09"]},
+    {"id": "route-missing", "name": "情報が足りないとき", "nodes": ["R2", "C2", "R2"], "edges": ["E03", "E04"]},
+    {"id": "route-unresolved", "name": "解決しなかったとき", "nodes": ["C3", "R3", "S1", "R4", "C3"], "edges": ["E10", "E06", "E07", "E08"]},
+    {"id": "route-complete", "name": "完了の条件", "nodes": ["C3", "R5"], "edges": ["E09"], "conditions": ["顧客が解決を確認した（C3 → 解決した）", "受付が対応記録を残した（R5）"]}
+  ],
+  "criteria": [
+    {"id": "Q1", "rule": "どの工程も、ちょうど1つの段（担当）に置く。", "how_to_check": "nodes[].lane と、SVGの node-* の座標が lanes[].y の範囲に入ることを照らし合わせる。"},
+    {"id": "Q2", "rule": "分かれ道は R2 と C3 の2か所。どちらも出ていく矢印が2本で、どちらにもラベルがある。", "how_to_check": "R2 → E03（不足あり）・E05（揃った）、C3 → E09（解決した）・E10（未解決）。"},
+    {"id": "Q3", "rule": "戻り道は破線の2本で、どちらも前の工程に入る。", "how_to_check": "E04 は C2 → R2、E10 は C3 → R3。"},
+    {"id": "Q4", "rule": "完了の印は R5 だけで、R5 へ入る矢印は E09（解決した）だけ。", "how_to_check": "edges[].to が R5 のものを数える。"},
+    {"id": "Q5", "rule": "段をまたぐ矢印は、どれも片方の端が受付の工程。", "how_to_check": "cross_lane が true の8本（E01・E03・E04・E06・E07・E08・E09・E10）の from / to を見る。"},
+    {"id": "Q6", "rule": "日数・自動処理・達成率を描かない。", "how_to_check": "SVGの文字に、日数・時間・％・自動の語がないこと。"},
+    {"id": "Q7", "rule": "SKILL.md §6 の矢印の規則：直角だけ・角の半径8・同じ辺の付け根は12px以上離す・矢印を重ねない・関係のない箱の裏を通らない・ラベルの下地は線から6〜10px・あとに描く箱がラベルの下地に重ならない。", "how_to_check": "原典の scripts/verify-geometry.py。ただしこの検査が下地として見つけるのは高さ8〜14pxの長方形で、日本語用に高さ16pxにした下地は対象外です。下地と線の間（8px）と、箱との重なりがないことは label_mask の値で示しています。"}
+  ],
+  "authoring_check": "上の criteria は、制作時に制作者がSVGの座標とIDを手で照らし合わせたものです。原典の self_check.py・verify-geometry.py の実行、ブラウザーでの表示、SVG・PNGの書き出しは、このファイルとは別の工程で行います。"
+}
