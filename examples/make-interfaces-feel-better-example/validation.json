@@ -1,0 +1,81 @@
+{
+  "status": "passed",
+  "command": "node verify.mjs",
+  "scope": "Actual shared export module and synthetic 3-clip input; UI/motion not tested by this command",
+  "conditions": 8,
+  "results": [
+    {
+      "id": "all",
+      "input": {
+        "ids": [
+          "c01",
+          "c02",
+          "c03"
+        ],
+        "include_notes": true
+      },
+      "observed": {
+        "count": 3,
+        "seconds": 370,
+        "time": "06:10"
+      },
+      "output": "outputs/all.json",
+      "status": "passed"
+    },
+    {
+      "id": "two",
+      "input": {
+        "ids": [
+          "c02",
+          "c03"
+        ],
+        "include_notes": true
+      },
+      "observed": {
+        "count": 2,
+        "seconds": 275,
+        "time": "04:35"
+      },
+      "output": "outputs/two.json",
+      "status": "passed"
+    },
+    {
+      "id": "one",
+      "input": {
+        "ids": [
+          "c02"
+        ],
+        "include_notes": true
+      },
+      "observed": {
+        "count": 1,
+        "seconds": 190,
+        "time": "03:10"
+      },
+      "output": "outputs/one.json",
+      "status": "passed"
+    },
+    {
+      "id": "notes-off",
+      "status": "passed",
+      "notes_present": false,
+      "output": "outputs/no-notes.json"
+    },
+    {
+      "id": "empty-rejected",
+      "status": "passed"
+    },
+    {
+      "id": "empty-summary",
+      "status": "passed"
+    },
+    {
+      "id": "input-order-and-duplicates",
+      "status": "passed"
+    },
+    {
+      "id": "input-immutable",
+      "status": "passed"
+    }
+  ]
+}

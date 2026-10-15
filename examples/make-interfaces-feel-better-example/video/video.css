@@ -1,0 +1,92 @@
+/* Studio Yebisu original explainer film, 2026. MIT License.
+   Native layout is always 1280×720; video.js scales the whole stage.
+   No CSS transitions or animations: every state comes from seek(t). */
+:root{
+  color-scheme:light;
+  --paper:#ebe8de;--page:#f1f0e9;--card:#fffefa;--ink:#292d2a;--muted:#586254;--forest:#375846;--line:#c9cdc3;--rule:#d7d9ce;
+  --sans:system-ui,"Yu Gothic UI","Yu Gothic","Hiragino Sans","Noto Sans CJK JP",sans-serif;
+  --mono:"BIZ UDGothic",ui-monospace,Consolas,"Yu Gothic",monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--page);color:var(--ink);font-family:var(--sans)}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+:focus-visible{outline:2px solid var(--forest);outline-offset:3px}
+
+/* Preview shell (removed in render mode) */
+.preview-head{max-width:1312px;margin:0 auto;padding:16px 16px 8px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:4px 16px;font-size:14px;color:var(--muted)}
+.preview-head p{margin:0}
+.preview-head a{display:inline-flex;align-items:center;min-height:44px;color:#354e42;text-underline-offset:4px}
+.preview{max-width:1312px;margin:0 auto;padding:0 16px 24px}
+.stage-box{position:relative;width:1280px;height:720px;overflow:hidden;box-shadow:0 0 0 1px var(--line)}
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin-top:12px;font-size:15px}
+.controls button{min-height:44px;min-width:104px;padding:0 18px;font:600 15px var(--sans);color:#fff;background:var(--forest);border:0;border-radius:9px;cursor:pointer}
+.controls button:disabled{opacity:.5;cursor:not-allowed}
+.scrub{flex:1 1 220px;display:flex;align-items:center;min-height:44px}
+.scrub input{width:100%;margin:0;accent-color:var(--forest)}
+.controls output{min-width:10ch;font-variant-numeric:tabular-nums}
+.silent{color:var(--muted)}
+.preview-status{margin:8px 0 0;font-size:14px;line-height:1.7;color:var(--ink)}
+.preview-status:empty{display:none}
+
+/* Render mode: the document is exactly the film size */
+.is-render,.is-render body{width:var(--film-w);height:var(--film-h);overflow:hidden;background:var(--paper)}
+.is-render .preview{max-width:none;margin:0;padding:0}
+.is-render .stage-box{width:var(--film-w);height:var(--film-h);box-shadow:none}
+
+/* Film stage */
+.stage{position:absolute;left:0;top:0;width:1280px;height:720px;overflow:hidden;transform-origin:0 0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-kerning:normal;-webkit-font-smoothing:antialiased}
+.frame{position:absolute;left:492px;top:92px;width:732px;height:524px;overflow:hidden;background:var(--page);border-radius:14px;box-shadow:0 0 0 1px var(--line)}
+.frame-images img{position:absolute;left:0;top:0;max-width:none;transform-origin:0 0;user-select:none}
+.mark{position:absolute;left:0;top:0;pointer-events:none;visibility:hidden}
+.mark-tint{border-radius:6px;background:rgba(55,88,70,.1);box-shadow:inset 0 0 0 1.5px rgba(55,88,70,.55)}
+.mark-ring{border-radius:10px;box-shadow:0 0 0 2.5px var(--forest)}
+
+.scene{position:absolute;inset:0;pointer-events:none}
+.scene>*{position:absolute;margin:0}
+.line{display:block}
+.tag{font-size:18px;line-height:24px;color:var(--muted);letter-spacing:.02em;white-space:nowrap}
+.h{font-size:52px;line-height:1.3;font-weight:600;letter-spacing:-.01em;text-wrap:balance}
+.h-close{font-size:48px}
+.copy{font-size:26px;line-height:40px;font-weight:500;word-break:auto-phrase}
+.note{font-size:18px;line-height:24px;color:var(--muted)}
+
+/* Scene 1: before, text left / frame right */
+#s1-tag,#s2-tag{left:492px;top:56px;width:732px}
+#s1-h,#s2-h{left:56px;top:56px;width:396px}
+#s1-copy,#s2-copy{left:56px;top:216px;width:396px}
+
+/* Scene 2: measurement under the shortened frame */
+#s2-measure-label{left:492px;top:452px;width:732px}
+#s2-measure-value{left:492px;top:484px;width:732px}
+
+/* Scene 3: wide frame below a one-line heading */
+#s3-h{left:56px;top:56px;width:1168px}
+#s3-copy{left:56px;top:140px;width:1168px}
+#s3-tag{left:56px;top:232px;width:1168px}
+
+/* Scene 4: wide shallow frame above, heading and real output below */
+#s4-tag{left:56px;top:56px;width:1168px}
+#s4-h{left:56px;top:352px;width:544px}
+#s4-copy{left:56px;top:504px;width:544px}
+.json-card{left:640px;top:352px;width:584px;height:264px;padding:18px 22px;background:var(--card);border-radius:12px;box-shadow:0 0 0 1px var(--rule)}
+.json-label{margin:0 0 12px;font-size:20px;line-height:28px;color:var(--muted)}
+.json-lines{font-family:var(--mono);font-size:26px;line-height:32px;color:var(--ink)}
+.json-line{white-space:pre}
+.json-gap{width:56px;height:0;margin:5px 0;border-top:2px dotted var(--line)}
+
+/* Scene 5: reusable request, frame on the right */
+#s5-tag{left:668px;top:56px;width:556px}
+#s5-h{left:56px;top:56px;width:572px}
+.cues{left:56px;top:209px;width:572px;padding:0;list-style:none;font-size:26px;font-weight:500}
+.cues li{display:flex;align-items:center;gap:16px;height:44px;border-bottom:1px solid var(--line)}
+.cue-num{width:22px;color:var(--forest);font-weight:600;font-variant-numeric:tabular-nums}
+#s5-check{left:56px;top:365px;width:572px}
+#s5-close{left:56px;top:417px;width:572px}
+#s5-note{left:56px;top:568px;width:1168px}
+
+/* Persistent footer inside the 56px margins */
+.film-foot{position:absolute;left:56px;top:640px;width:1168px;margin:0;display:flex;justify-content:space-between;gap:24px;font-size:18px;line-height:24px;color:var(--muted)}
+
+/* Each seek paints the original decoded PNGs into one reset bitmap plane. */
+.frame-images canvas{position:absolute;left:0;top:0;pointer-events:none}

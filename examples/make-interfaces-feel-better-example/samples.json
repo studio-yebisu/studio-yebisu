@@ -1,0 +1,99 @@
+{
+  "format": "input-output",
+  "samples": [
+    {
+      "id": "all",
+      "label": "見本 all：c01・c02・c03 の3件を選ぶ",
+      "input": "c01・c02・c03 にチェック、制作メモを含める：オン",
+      "output": "export.mjs で決まる結果：3件・370秒・06:10。atelier-delivery.json に3件を入力順で、メモ原文付きで書き出す。実moduleの計算・実画面・実ダウンロードで同じ結果を確認済み。",
+      "url": "examples/make-interfaces-feel-better-example/index.html#all",
+      "ids": [
+        "c01",
+        "c02",
+        "c03"
+      ],
+      "include_notes": true,
+      "expected": {
+        "count": 3,
+        "seconds": 370,
+        "time": "06:10"
+      },
+      "module_output": "examples/make-interfaces-feel-better-example/outputs/all.json",
+      "browser_execution": "passed",
+      "observed": {
+        "count": 3,
+        "seconds": 370,
+        "time": "06:10"
+      },
+      "actual": {
+        "count": 3,
+        "seconds": 370,
+        "time": "06:10"
+      },
+      "actual_output": "outputs/all.json",
+      "actual_sha256": "a95ccf7b7fe0f91002d8503066dde3e9cc4bcb00aadd00c95a09ea89d98ba0bf"
+    },
+    {
+      "id": "two",
+      "label": "見本 two：c01 を外して c02・c03 の2件を選ぶ",
+      "input": "c02・c03 にチェック（c01 は外す）、制作メモを含める：オン",
+      "output": "export.mjs で決まる結果：2件・275秒・04:35。atelier-delivery.json に c02・c03 を入力順で、メモ原文付きで書き出す。実moduleの計算・実画面・実ダウンロードで同じ結果を確認済み。",
+      "url": "examples/make-interfaces-feel-better-example/index.html#two",
+      "ids": [
+        "c02",
+        "c03"
+      ],
+      "include_notes": true,
+      "expected": {
+        "count": 2,
+        "seconds": 275,
+        "time": "04:35"
+      },
+      "module_output": "examples/make-interfaces-feel-better-example/outputs/two.json",
+      "browser_execution": "passed",
+      "observed": {
+        "count": 2,
+        "seconds": 275,
+        "time": "04:35"
+      },
+      "actual": {
+        "count": 2,
+        "seconds": 275,
+        "time": "04:35"
+      },
+      "actual_output": "outputs/two.json",
+      "actual_sha256": "48e9c2708d4f953ffc6400430e6b0e6c3b5d793666ef26bd45c7a91627ef394b"
+    },
+    {
+      "id": "one",
+      "label": "見本 one：c02 の1件だけを選ぶ",
+      "input": "c02 だけにチェック、制作メモを含める：オン",
+      "output": "export.mjs で決まる結果：1件・190秒・03:10。atelier-delivery.json に c02 だけを、メモ原文付きで書き出す。実moduleの計算・実画面・実ダウンロードで同じ結果を確認済み。",
+      "url": "examples/make-interfaces-feel-better-example/index.html#one",
+      "ids": [
+        "c02"
+      ],
+      "include_notes": true,
+      "expected": {
+        "count": 1,
+        "seconds": 190,
+        "time": "03:10"
+      },
+      "module_output": "examples/make-interfaces-feel-better-example/outputs/one.json",
+      "browser_execution": "passed",
+      "observed": {
+        "count": 1,
+        "seconds": 190,
+        "time": "03:10"
+      },
+      "actual": {
+        "count": 1,
+        "seconds": 190,
+        "time": "03:10"
+      },
+      "actual_output": "outputs/one.json",
+      "actual_sha256": "bcde922c201d270bb0a3f9ad1f5949bac8c3085a06d4a0a7d6bb3f8945f96be7"
+    }
+  ],
+  "verification": "3見本は実module実行と実ブラウザーで一致。修正前後4種類の本物のダウンロードも参照バイトと一致。詳細は verification.json。"
+}

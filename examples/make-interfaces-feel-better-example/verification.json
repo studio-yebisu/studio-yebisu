@@ -1,0 +1,685 @@
+{
+  "stage": "runtime-and-agent-visual-reviewed",
+  "human_approval": false,
+  "node": {
+    "status": "passed",
+    "command": "node verify.mjs",
+    "scope": "Actual shared export module and synthetic 3-clip input; UI/motion not tested by this command",
+    "conditions": 8,
+    "results": [
+      {
+        "id": "all",
+        "input": {
+          "ids": [
+            "c01",
+            "c02",
+            "c03"
+          ],
+          "include_notes": true
+        },
+        "observed": {
+          "count": 3,
+          "seconds": 370,
+          "time": "06:10"
+        },
+        "output": "outputs/all.json",
+        "status": "passed"
+      },
+      {
+        "id": "two",
+        "input": {
+          "ids": [
+            "c02",
+            "c03"
+          ],
+          "include_notes": true
+        },
+        "observed": {
+          "count": 2,
+          "seconds": 275,
+          "time": "04:35"
+        },
+        "output": "outputs/two.json",
+        "status": "passed"
+      },
+      {
+        "id": "one",
+        "input": {
+          "ids": [
+            "c02"
+          ],
+          "include_notes": true
+        },
+        "observed": {
+          "count": 1,
+          "seconds": 190,
+          "time": "03:10"
+        },
+        "output": "outputs/one.json",
+        "status": "passed"
+      },
+      {
+        "id": "notes-off",
+        "status": "passed",
+        "notes_present": false,
+        "output": "outputs/no-notes.json"
+      },
+      {
+        "id": "empty-rejected",
+        "status": "passed"
+      },
+      {
+        "id": "empty-summary",
+        "status": "passed"
+      },
+      {
+        "id": "input-order-and-duplicates",
+        "status": "passed"
+      },
+      {
+        "id": "input-immutable",
+        "status": "passed"
+      }
+    ]
+  },
+  "browser": {
+    "presets": [
+      {
+        "id": "all",
+        "count": "3",
+        "ids": [
+          "c01",
+          "c02",
+          "c03"
+        ],
+        "notes": true,
+        "time": "06:10",
+        "totals_width": 79
+      },
+      {
+        "id": "two",
+        "count": "2",
+        "ids": [
+          "c02",
+          "c03"
+        ],
+        "notes": true,
+        "time": "04:35",
+        "totals_width": 79
+      },
+      {
+        "id": "one",
+        "count": "1",
+        "ids": [
+          "c02"
+        ],
+        "notes": true,
+        "time": "03:10",
+        "totals_width": 79
+      }
+    ],
+    "widths": [
+      {
+        "button": {
+          "bottom": 479.65625,
+          "height": 48,
+          "left": 35,
+          "right": 230.390625,
+          "top": 431.65625,
+          "width": 195.390625,
+          "x": 35,
+          "y": 431.65625
+        },
+        "client": 305,
+        "labels": [
+          {
+            "bottom": 173.375,
+            "height": 104.1875,
+            "top": 69.1875,
+            "width": 235
+          },
+          {
+            "bottom": 277.5625,
+            "height": 104.1875,
+            "top": 173.375,
+            "width": 235
+          },
+          {
+            "bottom": 359.65625,
+            "height": 82.09375,
+            "top": 277.5625,
+            "width": 235
+          },
+          {
+            "bottom": 419.65625,
+            "height": 48,
+            "top": 371.65625,
+            "width": 235
+          }
+        ],
+        "scroll": 305,
+        "width": 320
+      },
+      {
+        "button": {
+          "bottom": 435.46875,
+          "height": 48,
+          "left": 35,
+          "right": 230.390625,
+          "top": 387.46875,
+          "width": 195.390625,
+          "x": 35,
+          "y": 387.46875
+        },
+        "client": 360,
+        "labels": [
+          {
+            "bottom": 151.28125,
+            "height": 82.09375,
+            "top": 69.1875,
+            "width": 290
+          },
+          {
+            "bottom": 233.375,
+            "height": 82.09375,
+            "top": 151.28125,
+            "width": 290
+          },
+          {
+            "bottom": 315.46875,
+            "height": 82.09375,
+            "top": 233.375,
+            "width": 290
+          },
+          {
+            "bottom": 375.46875,
+            "height": 48,
+            "top": 327.46875,
+            "width": 290
+          }
+        ],
+        "scroll": 360,
+        "width": 375
+      },
+      {
+        "button": {
+          "bottom": 445.5,
+          "height": 48,
+          "left": 57.5,
+          "right": 260.890625,
+          "top": 397.5,
+          "width": 203.390625,
+          "x": 57.5,
+          "y": 397.5
+        },
+        "client": 753,
+        "labels": [
+          {
+            "bottom": 161.3125,
+            "height": 82.09375,
+            "top": 79.21875,
+            "width": 638
+          },
+          {
+            "bottom": 243.40625,
+            "height": 82.09375,
+            "top": 161.3125,
+            "width": 638
+          },
+          {
+            "bottom": 325.5,
+            "height": 82.09375,
+            "top": 243.40625,
+            "width": 638
+          },
+          {
+            "bottom": 385.5,
+            "height": 48,
+            "top": 337.5,
+            "width": 638
+          }
+        ],
+        "scroll": 753,
+        "width": 768
+      },
+      {
+        "button": {
+          "bottom": 445.46875,
+          "height": 48,
+          "left": 313.5,
+          "right": 516.890625,
+          "top": 397.46875,
+          "width": 203.390625,
+          "x": 313.5,
+          "y": 397.46875
+        },
+        "client": 1265,
+        "labels": [
+          {
+            "bottom": 161.28125,
+            "height": 82.09375,
+            "top": 79.1875,
+            "width": 638
+          },
+          {
+            "bottom": 243.375,
+            "height": 82.09375,
+            "top": 161.28125,
+            "width": 638
+          },
+          {
+            "bottom": 325.46875,
+            "height": 82.09375,
+            "top": 243.375,
+            "width": 638
+          },
+          {
+            "bottom": 385.46875,
+            "height": 48,
+            "top": 337.46875,
+            "width": 638
+          }
+        ],
+        "scroll": 1265,
+        "width": 1280
+      }
+    ],
+    "human_approval": false,
+    "initial": {
+      "button_width": 203,
+      "count": "3",
+      "labels": [
+        {
+          "bottom": 161.28125,
+          "height": 82.09375,
+          "top": 79.1875,
+          "width": 638
+        },
+        {
+          "bottom": 243.375,
+          "height": 82.09375,
+          "top": 161.28125,
+          "width": 638
+        },
+        {
+          "bottom": 325.46875,
+          "height": 82.09375,
+          "top": 243.375,
+          "width": 638
+        },
+        {
+          "bottom": 385.46875,
+          "height": 48,
+          "top": 337.46875,
+          "width": 638
+        }
+      ],
+      "panel": {
+        "bottom": 570.46875,
+        "height": 570.5,
+        "left": 284.5,
+        "right": 980.5,
+        "top": -0.03125,
+        "width": 696,
+        "x": 284.5,
+        "y": -0.03125
+      },
+      "time": "06:10",
+      "totals": {
+        "numeric": "tabular-nums",
+        "width": 79
+      }
+    },
+    "row_click": {
+      "c01": false,
+      "count": "2",
+      "icon_reset_transition": "0s",
+      "status": "書き出した後に選択か設定を変えました。今の内容で渡すには、もう一度書き出してください。",
+      "time": "04:35"
+    },
+    "focus": {
+      "active": "clip-c02",
+      "count": "2",
+      "offset": "3px",
+      "outline": "rgb(55, 88, 70) solid 2px"
+    },
+    "empty": {
+      "active": "clip-c03",
+      "count": "0",
+      "disabled": true,
+      "reason": "0件のため書き出せません。カットを1件以上選んでください。",
+      "select_all": true,
+      "time": "00:00"
+    },
+    "keyboard_restore_focus": {
+      "active": "select-all",
+      "notes": false
+    },
+    "restored": {
+      "active": "export",
+      "count": "3",
+      "notes": false,
+      "time": "06:10"
+    },
+    "handoff": {
+      "button_width": 203,
+      "count": "2",
+      "panel": {
+        "bottom": 509.46875,
+        "height": 570.5,
+        "left": 284.5,
+        "right": 980.5,
+        "top": -61.03125,
+        "width": 696,
+        "x": 284.5,
+        "y": -61.03125
+      },
+      "scrollY": 496,
+      "state": "done",
+      "status": "atelier-delivery.json（2件・メモあり）をブラウザーへ渡しました。保存できたかはブラウザーのダウンロード表示で確かめてください。",
+      "time": "04:35"
+    },
+    "console_errors_normal": [],
+    "motion_method": {
+      "browser_animation_panel": false,
+      "method": "Private copy with transition durations1500/3000ms instead of150/300ms; explicit hold-state class. Production source untouched."
+    },
+    "busy_fixture_ready_width": 203,
+    "controlled_busy": {
+      "busy": "true",
+      "label": "JSONを準備中",
+      "state": "busy",
+      "status": "ブラウザー内でJSONを準備しています。",
+      "visible": "visible",
+      "width": 203
+    },
+    "controlled_busy_done": {
+      "busy": "false",
+      "state": "done",
+      "status": "atelier-delivery.json（3件・メモあり）をブラウザーへ渡しました。保存できたかはブラウザーのダウンロード表示で確かめてください。",
+      "width": 203
+    },
+    "controlled_export_error": {
+      "busy": "false",
+      "state": "error",
+      "status": "書き出せませんでした：QA controlled object URL failure。選択を確かめて、もう一度押してください。",
+      "width": 203
+    },
+    "controlled_load_error": {
+      "count": "–",
+      "disabled": true,
+      "error_visible": true,
+      "reason": "入力 clips.json を読み込めませんでした（HTTP 503）。仮のカットは表示していません。このフォルダーをローカルサーバー（例：python -m http.server 8000）で開いているか確かめてから、もう一度読み込んでください。",
+      "rows": 0,
+      "status": "入力を読み込めていないため、書き出せません。"
+    },
+    "controlled_retry": {
+      "active": "clip-c01",
+      "count": "3",
+      "disabled": false,
+      "error_hidden": true,
+      "rows": 3,
+      "time": "06:10"
+    },
+    "reduced_before": {
+      "button_transition": "0s",
+      "icon_transition": "0s",
+      "matches": true
+    },
+    "reduced_done": {
+      "filter": "blur(0px)",
+      "opacity": "1",
+      "scale": "1",
+      "state": "done",
+      "status": "atelier-delivery.json（3件・メモあり）をブラウザーへ渡しました。保存できたかはブラウザーのダウンロード表示で確かめてください。"
+    },
+    "slow_active_start": {
+      "duration": "1.5s",
+      "held": true,
+      "scale": "0.989877"
+    },
+    "slow_active_end": {
+      "background": "rgb(41, 70, 55)",
+      "duration": "1.5s",
+      "scale": "0.96"
+    },
+    "slow_icon_start": {
+      "check": {
+        "filter": "blur(3.66838px)",
+        "opacity": "0.0829048",
+        "scale": "0.312179"
+      },
+      "download": {
+        "filter": "blur(0.331619px)",
+        "opacity": "0.917095",
+        "scale": "0.937821"
+      },
+      "duration": "3s",
+      "state": "done"
+    },
+    "slow_icon_end": {
+      "check": {
+        "filter": "blur(0px)",
+        "opacity": "1",
+        "scale": "1"
+      },
+      "download": {
+        "filter": "blur(4px)",
+        "opacity": "0",
+        "scale": "0.25"
+      },
+      "state": "done"
+    },
+    "contrast_colors": {
+      "button_background": "rgb(55, 88, 70)",
+      "button_text": "rgb(255, 255, 255)",
+      "ink": "rgb(41, 45, 42)",
+      "muted": "rgb(88, 98, 84)",
+      "page": "rgb(41, 45, 42)",
+      "page_background": "rgb(241, 240, 233)",
+      "panel": "rgb(255, 254, 250)"
+    },
+    "contrast_ratios": {
+      "ink": 13.844,
+      "muted": 6.325,
+      "button_text": 7.934,
+      "page": 12.229
+    },
+    "status": "passed",
+    "verified_at": "2026-10-15T20:21:15.997665+00:00",
+    "download_checks": [
+      {
+        "id": "all",
+        "phase": "after-production",
+        "matches": true,
+        "bytes": 560,
+        "sha256": "a95ccf7b7fe0f91002d8503066dde3e9cc4bcb00aadd00c95a09ea89d98ba0bf",
+        "reference": "outputs/all.json"
+      },
+      {
+        "id": "no-notes",
+        "phase": "after-production",
+        "matches": true,
+        "bytes": 370,
+        "sha256": "406c968b4a9c2f7d624365ec7998c0de86a1b6d6f5d0a431c710ea2e2e70cdee",
+        "reference": "outputs/no-notes.json"
+      },
+      {
+        "id": "two",
+        "phase": "after-production",
+        "matches": true,
+        "bytes": 399,
+        "sha256": "48e9c2708d4f953ffc6400430e6b0e6c3b5d793666ef26bd45c7a91627ef394b",
+        "reference": "outputs/two.json"
+      },
+      {
+        "id": "one",
+        "phase": "after-production",
+        "matches": true,
+        "bytes": 252,
+        "sha256": "bcde922c201d270bb0a3f9ad1f5949bac8c3085a06d4a0a7d6bb3f8945f96be7",
+        "reference": "outputs/one.json"
+      },
+      {
+        "id": "two-repeat",
+        "phase": "after-production",
+        "matches": true,
+        "bytes": 399,
+        "sha256": "48e9c2708d4f953ffc6400430e6b0e6c3b5d793666ef26bd45c7a91627ef394b",
+        "reference": "outputs/two.json"
+      },
+      {
+        "id": "busy-all",
+        "phase": "controlled-fixture",
+        "matches": true,
+        "bytes": 560,
+        "sha256": "a95ccf7b7fe0f91002d8503066dde3e9cc4bcb00aadd00c95a09ea89d98ba0bf",
+        "reference": "outputs/all.json"
+      },
+      {
+        "id": "reduced-all",
+        "phase": "after-production",
+        "matches": true,
+        "bytes": 560,
+        "sha256": "a95ccf7b7fe0f91002d8503066dde3e9cc4bcb00aadd00c95a09ea89d98ba0bf",
+        "reference": "outputs/all.json"
+      },
+      {
+        "id": "slow-all",
+        "phase": "controlled-fixture",
+        "matches": true,
+        "bytes": 560,
+        "sha256": "a95ccf7b7fe0f91002d8503066dde3e9cc4bcb00aadd00c95a09ea89d98ba0bf",
+        "reference": "outputs/all.json"
+      },
+      {
+        "id": "before-all",
+        "phase": "before-production",
+        "matches": true,
+        "bytes": 560,
+        "sha256": "a95ccf7b7fe0f91002d8503066dde3e9cc4bcb00aadd00c95a09ea89d98ba0bf",
+        "reference": "outputs/all.json"
+      },
+      {
+        "id": "before-two",
+        "phase": "before-production",
+        "matches": true,
+        "bytes": 399,
+        "sha256": "48e9c2708d4f953ffc6400430e6b0e6c3b5d793666ef26bd45c7a91627ef394b",
+        "reference": "outputs/two.json"
+      },
+      {
+        "id": "before-one",
+        "phase": "before-production",
+        "matches": true,
+        "bytes": 252,
+        "sha256": "bcde922c201d270bb0a3f9ad1f5949bac8c3085a06d4a0a7d6bb3f8945f96be7",
+        "reference": "outputs/one.json"
+      },
+      {
+        "id": "before-no-notes",
+        "phase": "before-production",
+        "matches": true,
+        "bytes": 370,
+        "sha256": "406c968b4a9c2f7d624365ec7998c0de86a1b6d6f5d0a431c710ea2e2e70cdee",
+        "reference": "outputs/no-notes.json"
+      }
+    ],
+    "agent_visual_review": true,
+    "limitations": [
+      "Scoped checks and agent visual observation are not full accessibility certification or human approval.",
+      "Browser Animations panel/Animation.setPlaybackRate unavailable;10x transition durations and a hold class in a private copy provide a10%-speed equivalent inspection.",
+      "Busy/error checks use disclosed controlled fixtures. The normal preparation interval is too short to claim a separately visible waiting duration.",
+      "Initial global-rAF fixture interfered with the driver and was discarded; accepted busy fixture changes only one private awaited checkpoint.",
+      "macOS, screen reader and all environments not tested."
+    ],
+    "fixture_scope": "Controlled private copies only; these fault/slow fixtures are not part of the public application or film assets."
+  },
+  "video": {
+    "verified_at": "2026-10-15T20:50:01.082821+00:00",
+    "video_sha256": "e46bb7f31253d038e6349a1a12250377597bb0beca0d5fad847f8a18a9798b5c",
+    "agent_visual_review": true,
+    "human_approval": false,
+    "full_decode_passed": true,
+    "native_playback": {
+      "duration": 28,
+      "ended": true,
+      "error": null,
+      "paused": true,
+      "readyState": 4,
+      "time": 28
+    },
+    "native_start": {
+      "duration": 28,
+      "ended": false,
+      "error": null,
+      "paused": true,
+      "readyState": 1,
+      "time": 0
+    },
+    "first_open_playing": {
+      "duration": 28,
+      "ended": false,
+      "error": null,
+      "paused": false,
+      "readyState": 4,
+      "time": 5.358099
+    },
+    "editor": {
+      "final": {
+        "canvas": {
+          "bottom": 473.8781051635742,
+          "height": 439.2562255859375,
+          "left": 659.4718627929688,
+          "right": 1195.0562744140625,
+          "top": 34.62187957763672,
+          "width": 535.5844116210938,
+          "x": 659.4718627929688,
+          "y": 34.62187957763672
+        },
+        "clock": "28.0 / 28.0 秒",
+        "play_enabled": true,
+        "status": ""
+      },
+      "mid": {
+        "clock": "14.0 / 28.0 秒",
+        "slider": "14",
+        "status": ""
+      }
+    },
+    "reviewed": "14 representative frames/contact sheet,13.5s poster,12-frame all-to-two switch strip,3 MP4 cut strips and final frame. Native MP4 opened at0 and reached28 ended without seek actions or media errors.",
+    "notes": [
+      "Captions, real screenshot crops, focus/44px guidance and actual2-clip JSON excerpt are legible in the reviewed frames.",
+      "Images are rendered through a reset CPU bitmap plane; original Opus camera/timing/captions preserved.",
+      "Silent film; no audio stream. Edited screenshots, not continuous operation recording.",
+      "Pixel reproducibility only demonstrated at the sampled probe in the same environment, not all OS/font combinations."
+    ],
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "a8c5e89f236dc62bb570e301efade308309778e3384d51856aafabe3163111a3",
+      "afterOtherTimes": "a8c5e89f236dc62bb570e301efade308309778e3384d51856aafabe3163111a3",
+      "freshPage": "a8c5e89f236dc62bb570e301efade308309778e3384d51856aafabe3163111a3",
+      "match": true
+    },
+    "remaining": []
+  },
+  "production_contributions": {
+    "Opus5.5": "Fixed-skill quick review, improved UI, Japanese guide/article/reusable prompt, editable explainer composition.",
+    "production_editor": "Synthetic input and before screen/shared export module, actual execution, scoped technical/copy corrections, visual/technical verification, renderer packaging and publication."
+  },
+  "video_tool": {
+    "name": "Studio Yebisu Motion Reel rendering runtime",
+    "license": "MIT",
+    "copyright": "2026 StudioYebisu",
+    "source": "Exact installed tool files, pinned by SHA256; no unverified remote revision claimed.",
+    "files_sha256": {
+      "render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+      "audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+      "package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+      "package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+      "LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd"
+    },
+    "dependency_lock": "Playwright1.64.0/playwright-core1.64.0 from registry.npmjs.org, Apache-2.0. Dependencies installed for execution but not redistributed in the source archive."
+  }
+}
