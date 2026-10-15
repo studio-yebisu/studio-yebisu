@@ -289,8 +289,8 @@
     }
 
     const downloads = [
-      skill && ['スキル（SKILL.md）', 'AIに読ませる手順書', skill],
-      extras.skillLicense && ['スキルのライセンス', '原典の利用条件', extras.skillLicense],
+      skill && [item.skill_label || 'スキル（SKILL.md）', item.skill_description || 'AIに読ませる手順書', skill],
+      extras.skillLicense && ['原典のライセンス', '紹介するスキル・ツールの利用条件', extras.skillLicense],
       samplesUrl && [pairs ? '実入力と結果（JSON）' : samples.length + '件のブリーフ（JSON）', 'デモで表示しているサンプル', samplesUrl],
       ['この作例の記録（JSON）', '手順・使ったスキル・出典', 'data/cases/' + encodeURIComponent(item.id) + '.json'],
       extras.videoSource && ['映像のソース', 'ブラウザで開いて再生・確認できます', extras.videoSource]

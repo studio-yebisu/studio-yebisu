@@ -1,0 +1,151 @@
+{
+  "id": "yomiyasu-before-after",
+  "title": "推敲の前と後を読み比べる",
+  "title_lines": [
+    "推敲の前と後を",
+    "読み比べる"
+  ],
+  "category": "writing",
+  "summary": "yomiyasuは、AIが書いた日本語の主述関係や不自然な言い回しを、主張・数値・条件・言い切りの強さを保って整える推敲スキルです。架空の機能のお知らせ・保存操作の説明・調査メモの3件をOpus 5.5で推敲し、原文と推敲後、変えたところの理由、残した条件を並べて読める作例を作りました。",
+  "model": "claude-opus-5-5",
+  "status": "published",
+  "demo": "examples/yomiyasu-before-after/index.html",
+  "video": "media/yomiyasu-before-after.mp4",
+  "poster": "media/yomiyasu-before-after.webp",
+  "skill": "examples/yomiyasu-before-after/vendor/yomiyasu/SKILL.md",
+  "samples": "examples/yomiyasu-before-after/samples.json",
+  "sample_format": "input-output",
+  "samples_title": "3件の原文と推敲後",
+  "samples_intro": "入力はこの作例のために用意した架空の文章で、結果はyomiyasuを読んだOpus 5.5の出力をそのまま保存したものです。直したのは名詞を重ねた言い回しなどの箇所だけで、自然な文はそのまま残しています。",
+  "demo_description": "3件を切り替え、原文と推敲後を並べて読めます。直した箇所には校正の印と番号が付き、残した条件を選ぶと推敲後の該当する箇所を囲みます。左右の矢印・Home・Endで文章を移れます。推敲後のコピーと、1件ずつのJSONの保存もできます。",
+  "demo_note": "表示するのは、制作時に推敲して保存した結果です。ページ上でAIを実行することはありません。文章と調査データはすべて架空です。",
+  "request_intro": "yomiyasuのSKILL.mdを読み込めるAIに、次の文章を渡します。【】の部分を自分の文章と用途に置き換えて使ってください。",
+  "request": "yomiyasuのSKILL.mdと、文書に合うreferences（業務文書ならdomains/business.md、gemini-syntax.md、slop-catalog.md）を読んでから、次の日本語を推敲してください。\n\n守ること：主張、比重、言い切りの強さ、文の働きを変えない。原文にない主体・条件・数値・効果を足さない。常体・敬体は原文のまま。直す必要のない文は変えない。\n\n用途と読み手：【誰が、誰に、何のために書いた文章か】\n残すべき条件：【数値・期限・例外・否定など、必ず残す事実の一覧】\n原文：【推敲する文章】\n\n出力は、SKILL.mdの出力フォーマットどおり「書き直した本文」と「変えたところ」（元の表現 → 書き直し後の表現と短い理由）にしてください。確かめたい点があれば2点までにしてください。最後に、残すべき条件を一つずつ、推敲後のどの語句に残ったかを引用して示してください。",
+  "video_note": "28秒、音声なし。画面の撮影は使わず、保存操作の説明の原文と推敲後を引用し、言い換えを校正線で、残した条件を囲みで示しています。",
+  "video_source": "examples/yomiyasu-before-after/video/index.html",
+  "skill_license": "examples/yomiyasu-before-after/vendor/yomiyasu/LICENSE",
+  "applied_skills": [
+    {
+      "name": "yomiyasu",
+      "source": "https://github.com/nanaism/yomiyasu/blob/60bf877acebc86651e0b67d70112a66245f87758/skills/yomiyasu/SKILL.md",
+      "applied": "固定版のSKILL.mdの最優先ルール（主張・比重・言い切りの強さ・文の働き）、文書の立場と文末、情報の不増補、主語と目的語の明確化を読み、3件とも業務文書として references/domains/business.md を適用した。gemini-syntax.md の原則1（「〜を行う」より対象と動詞を直接つなぐ）と原則6、slop-catalog.md の硬い漢語の項に沿って、「実装を実施しました」「反映が実現されます」「再起動を実施する」「検証が行われていません」を動詞に戻した。完了の報告（実装しました）、システムの動作の説明（表示されません）、依頼（ご利用ください）、推量（可能性はあると考えています）の文末はそれぞれ保ち、原文に主体のない検証には主語を補っていない。お知らせの「なお」以降、操作説明の3文目、調査メモの3文目は自然な文なので変えていない。制作後に同梱のリンターと差分スクリプトを3件それぞれへ一度ずつ実行した。リンターの指摘はなく、差分が挙げた否定の言い換え・接続表現・文末の分類を原文と照合した。原文との照合では、管理者だけという対象、9月30日以前の除外、保存に失敗した場合の例外、人数・試用時間・未確認という限定を保っている。機械の指摘を点数や意味保証として扱っていない。"
+    },
+    {
+      "name": "Motion Reel",
+      "source": "https://github.com/studio-yebisu/motion-reel/tree/56198544e69201b1c202e0c00fb90b568a729824",
+      "applied": "解説動画のソースを、window.seek(秒)がその時刻の完成した画面だけを描く契約で書いた。motionConfig（28秒・30fps・1280×720・posterTime 20.8・audioEventsなし）、renderConfigのサイズとFPSの反映、フォントの準備を待つmotionReady、書き出し中のプレビュー停止に従った。撮影画像は使わず、samples.json の原文と推敲後を正確に引用し、図形と文字の動きで描いた。MP4を実際に書き出し、コンタクトシートと代表フレームを読み、ブラウザーで28秒の終端まで再生した。異なる順番や新しいページで同じ時刻を描画した場合に画像が一致した。"
+    }
+  ],
+  "steps": [
+    {
+      "title": "原典を固定する",
+      "body": "nanaism/yomiyasu のコミット 60bf877 から、skills/yomiyasu の SKILL.md・references・scripts と、ルートの README・LICENSE・UNICODE-LICENSE.txt を、変更せずに作例の vendor/yomiyasu/ に置きました。"
+    },
+    {
+      "title": "SKILL.mdと参照資料を読む",
+      "body": "意味の保持の4点（主張・比重・言い切りの強さ・文の働き）、文書の立場と文末、情報を足さない決まりを読み、3件とも業務文書として domains/business.md を選びました。言い換えの判断には gemini-syntax.md と slop-catalog.md を使っています。"
+    },
+    {
+      "title": "架空の文章3件を推敲する",
+      "body": "機能のお知らせ、保存操作の説明、調査メモの3件について、用途と読み手、残すべき条件を決めてからOpus 5.5で推敲しました。直したのは「〜を実施する」「〜が実現されます」「〜が行われていません」のような名詞を重ねた言い回しと、可能の意味にも読める「得られました」です。自然な文は変えていません。"
+    },
+    {
+      "title": "残すべき条件を照らし合わせる",
+      "body": "残すべき14の条件を、推敲後の引用と一つずつ照合し、samples.json に記録しました。同梱の lint と diff も3件へそれぞれ一度実行しています。差分が挙げた「行われません→表示されません」や「によって→と」などは原文と読み比べ、否定や例外を残した言い換えと判断しました。ツールの結果は見直し候補として扱い、意味保持の自動保証や品質点数は表示していません。"
+    },
+    {
+      "title": "読み比べる画面を作る",
+      "body": "原文と推敲後を並べ、直した箇所に校正の印と番号を付けました。変えたところの理由と残した条件を下に並べ、条件を選ぶと推敲後の該当する語句を囲みます。紙と墨の色に、校正の赤茶を一色だけ加えています。"
+    },
+    {
+      "title": "使い方を28秒の動画にする",
+      "body": "Motion Reel の時間の契約に沿って、渡すもの、変わる言い回し、残した条件、変えなかった言い切りの強さの順にコードで組みました。保存操作の説明の文が、校正線を引かれて同じ文の中で言い換わる様子を見せています。"
+    }
+  ],
+  "limitations": [
+    "表示するのは制作時に保存した3件の結果です。ページ上でAIを実行したり、自分の文章を推敲したりする機能はありません。",
+    "文章と調査データはすべて架空です。調査メモの人数や時間は、実在の試用の結果ではありません。",
+    "3件とも敬体の業務文書です。技術記事向けの tech.md やエッセイ向けの essay.md の指針は試していません。",
+    "同梱のリンターと差分スクリプトは3件に実行していますが、指摘は見直し候補です。意味や文脈の保持を自動で保証するものではありません。",
+    "「残した条件」は制作時に原文と引用を照らし合わせた記録で、第三者によるレビューや意味保持の自動保証ではありません。",
+    "推敲の結果は、同じ依頼でも実行ごとに変わることがあります。",
+    "解説動画は音声なしです。"
+  ],
+  "sources": [
+    {
+      "label": "yomiyasu SKILL.md（nanaism/yomiyasu、固定版）",
+      "url": "https://github.com/nanaism/yomiyasu/blob/60bf877acebc86651e0b67d70112a66245f87758/skills/yomiyasu/SKILL.md"
+    },
+    {
+      "label": "yomiyasu のスキルと参照資料（固定版）",
+      "url": "https://github.com/nanaism/yomiyasu/tree/60bf877acebc86651e0b67d70112a66245f87758/skills/yomiyasu"
+    },
+    {
+      "label": "yomiyasu README（固定版）",
+      "url": "https://github.com/nanaism/yomiyasu/blob/60bf877acebc86651e0b67d70112a66245f87758/README.md"
+    },
+    {
+      "label": "yomiyasu LICENSE（MIT、固定版から作例に同梱）",
+      "url": "examples/yomiyasu-before-after/vendor/yomiyasu/LICENSE"
+    },
+    {
+      "label": "Unicode由来データの許諾通知（Unicode License V3、作例に同梱）",
+      "url": "examples/yomiyasu-before-after/vendor/yomiyasu/UNICODE-LICENSE.txt"
+    },
+    {
+      "label": "Motion Reel（Studio Yebisu、MIT）",
+      "url": "https://github.com/studio-yebisu/motion-reel/tree/56198544e69201b1c202e0c00fb90b568a729824"
+    },
+    {
+      "label": "作例の再現手順（README）",
+      "url": "examples/yomiyasu-before-after/README.md"
+    },
+    {
+      "label": "この作例の制作・確認記録",
+      "url": "data/production/yomiyasu-before-after.json"
+    }
+  ],
+  "license": "MIT",
+  "license_note": "この作例の画面構成・文言・サンプル・映像ソースは Studio Yebisu の独自制作で、MIT License です。vendor/yomiyasu/ の yomiyasu は上流の MIT License（Copyright (c) 2026 nanaism）で、LICENSE を同梱しています。検査スクリプトに含まれる Unicode 由来のデータには、同梱の UNICODE-LICENSE.txt（Unicode License V3）の通知が適用されます。",
+  "catalog_entry": {
+    "id": "resource-yomiyasu",
+    "name": "yomiyasu",
+    "category": "writing",
+    "kind": "スキル",
+    "summary": "主張と条件を保ち、AIが書いた日本語の主述関係や不自然な表現を整える。",
+    "use_case": "技術記事、仕様書、PR説明などの日本語を読みやすく推敲したいとき。",
+    "tags": [
+      "文章",
+      "推敲",
+      "Agent Skills"
+    ],
+    "workflow": [
+      "原文と読者・用途を渡す",
+      "意味や言い切りの強さを保って推敲する",
+      "原文との差分で、主張・条件・比重が変わっていないか確認する"
+    ],
+    "requirements": [
+      "Agent Skillsを読める環境",
+      "推敲する原文と対象の読者"
+    ],
+    "license": "MIT",
+    "license_url": "https://github.com/nanaism/yomiyasu/blob/60bf877acebc86651e0b67d70112a66245f87758/LICENSE",
+    "license_note": "コードと文書はMIT。同梱Unicode由来データは別の許諾通知を確認してください。",
+    "source_url": "https://github.com/nanaism/yomiyasu/tree/60bf877acebc86651e0b67d70112a66245f87758/skills/yomiyasu",
+    "guide_url": "case.html?id=yomiyasu-before-after",
+    "example_url": "examples/yomiyasu-before-after/index.html",
+    "image": "media/yomiyasu-before-after.webp",
+    "skill_download": "examples/yomiyasu-before-after/vendor/yomiyasu/SKILL.md",
+    "readme_url": "https://github.com/nanaism/yomiyasu/blob/60bf877acebc86651e0b67d70112a66245f87758/README.md",
+    "source_repository": "nanaism/yomiyasu",
+    "source_commit": "60bf877acebc86651e0b67d70112a66245f87758",
+    "source_path": "skills/yomiyasu",
+    "source_project": "curated",
+    "source_note": "公開リポジトリのREADMEと利用条件を確認し、用途と最初の試し方を日本語で整理しました。スキルは入口または代表の本文も参照しています。原典は確認時のコミットへ固定しています。",
+    "prompt": "yomiyasu の原典（https://github.com/nanaism/yomiyasu/tree/60bf877acebc86651e0b67d70112a66245f87758/skills/yomiyasu）を読んで、次を進めてください。\n次に渡す日本語の技術説明を推敲してください。主張、数値、条件、言い切りの強さを保ち、変えた箇所と理由を短く示してください。\n入力、出力、実行した検証、未確認の点を記録してください。",
+    "verification_stage": "runtime-reviewed",
+    "verification": "Opus 5.5がyomiyasuの固定版を読んで架空の日本語3件を推敲。原典lint/diffを各1回実行し、14条件と引用を照合。3例の切替・条件強調・コピー・JSON保存と390px/1280px表示を確認。28秒の無音動画付き。閲覧時のAI接続はありません。",
+    "reviewed_on": "2026-10-15"
+  },
+  "updated_on": "2026-10-15"
+}

@@ -1,5 +1,6 @@
 """Check user-facing artifacts and links in the generated publication."""
 from html.parser import HTMLParser
+import hashlib
 import json
 from pathlib import Path
 import subprocess
@@ -57,6 +58,23 @@ def main():
             assert entry.get('source_note') and entry.get('license_note'), 'Curated provenance or conditions missing'
     cases = json.loads((DIST / 'data/cases.json').read_text('utf-8'))['cases']
     assert cases, 'No finished case'
+    case_entries = {case.get('catalog_entry', {}).get('id'): case for case in cases if case.get('catalog_entry')}
+    for entry in catalog['entries']:
+        if entry.get('verification_stage') != 'runtime-reviewed':
+            continue
+        case = case_entries.get(entry['id'])
+        assert case, 'Executed resource has no finished case'
+        assert entry.get('source_commit'), 'Executed resource lost its fixed source'
+        proof_path = DIST / 'data/production' / (case['id'] + '.json')
+        proof = json.loads(proof_path.read_text('utf-8'))
+        assert proof['model']['requested'] == 'claude-opus-5-5', 'Unexpected production model'
+        assert proof['model']['reported'] == ['claude-opus-5-5'], 'Production model lacks execution proof'
+        assert proof['runtime']['status'] == 'passed', 'Resource runtime proof is incomplete'
+        assert proof['runtime']['sample_count'] > 0, 'Executed resource has no real sample'
+        assert proof.get('artifacts_sha256'), 'Resource artifact hashes missing'
+        for relative, expected in proof['artifacts_sha256'].items():
+            local_file(relative)
+            assert hashlib.sha256((DIST / relative).read_bytes()).hexdigest() == expected, f'Artifact changed since verification: {relative}'
     for case in cases:
         for key in ('demo', 'video', 'poster', 'skill', 'samples'):
             local_file(case[key])
@@ -82,7 +100,7 @@ def main():
                     assert brief.get(key), f'Missing brief field {key}'
     forbidden = [p for p in DIST.rglob('*') if '.local' in p.parts or '.git' in p.parts or 'workspace' in p.parts]
     assert not forbidden, 'Private workspace leaked into publication'
-    print(json.dumps({'status': 'passed', 'catalog_entries': len(ids), 'categories': len(category_ids), 'curated_resources': sum(e.get('verification_stage') == 'source-reviewed' for e in catalog['entries']), 'cases': len(cases), 'html_pages': len(list(DIST.rglob('*.html')))}, ensure_ascii=False))
+    print(json.dumps({'status': 'passed', 'catalog_entries': len(ids), 'categories': len(category_ids), 'curated_resources': sum(e.get('verification_stage') in ('source-reviewed', 'runtime-reviewed') for e in catalog['entries']), 'new_resources_with_examples': sum(e.get('verification_stage') == 'runtime-reviewed' for e in catalog['entries']), 'cases': len(cases), 'html_pages': len(list(DIST.rglob('*.html')))}, ensure_ascii=False))
 
 
 if __name__ == '__main__':
