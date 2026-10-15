@@ -10,6 +10,8 @@ def main():
     skill_home = Path(os.environ.get('CODEX_HOME', str(Path.home() / '.codex'))) / 'skills'
     skill_home.mkdir(parents=True, exist_ok=True)
     target = ROOT / 'skills/studio-yebisu'
+    if not (target / 'SKILL.md').is_file():
+        raise SystemExit('The local production skill is not bundled with the public checkout.')
     link = skill_home / 'studio-yebisu'
     if link.exists():
         if link.resolve() != target.resolve():

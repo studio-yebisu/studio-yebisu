@@ -99,8 +99,7 @@ def main():
             output.append(entry)
         snapshots.append({'project': category, 'repository': project['repository'], 'commit': commit, 'source_file': source_file, 'records': len(records), 'data_sha256': hashlib.sha256(git(folder, 'show', f'{ref}:{source_file}')).hexdigest(), 'scope': 'Committed catalog snapshot; upstream licenses and original runtime checks retained as reported. Not a new runtime audit.'})
     for identifier, name, summary, use in [
-        ('brief-to-demo', 'ひと言から、作れる依頼へ', '短い依頼を、目的・入力・制作スキル・完成条件が揃うブリーフにする。', '作例づくりの前に、AIへ渡す依頼を具体化する。'),
-        ('studio-yebisu', 'Studio Yebisu 統括スキル', 'ネタの調査から分野の選択、作例・解説動画・統合サイトへの掲載をつなぐ。', '紹介したいスキルやURLを、作例付きの記事にする。')]:
+        ('brief-to-demo', 'ひと言から、作れる依頼へ', '短い依頼を、目的・入力・制作スキル・完成条件が揃うブリーフにする。', '作例づくりの前に、AIへ渡す依頼を具体化する。')]:
         output.append({'id': 'agents-' + identifier, 'name': name, 'category': 'agents', 'kind': 'スキル', 'summary': summary, 'use_case': use, 'tags': ['Studio Yebisu', '日本語', '作例制作'], 'license': 'MIT', 'license_url': 'LICENSE', 'source_url': f'skills/{identifier}/SKILL.md', 'guide_url': 'case.html?id=brief-to-demo', 'example_url': 'examples/brief-to-demo/index.html', 'skill_download': f'skills/{identifier}/SKILL.md', 'prompt': f'${identifier} を使って、このスキルの使い方が分かる作例を制作してください。', 'verification': '今回の一件に実際に適用', 'source_project': 'agents'})
     today = datetime.now(ZoneInfo('Asia/Tokyo')).date().isoformat()
     write('data/catalog.json', {'updated_on': today, 'categories': [{'id':p['id'], 'label':p['label'], 'description':p['description']} for p in config['projects']], 'entries': output})

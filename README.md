@@ -2,7 +2,7 @@
 
 AIスキルを、用途・実作例・使い方から選ぶ日本語サイト。UI・UX、AIスライド、モーション、エージェント・便利スキルを一つの入口で扱います。
 
-[統合サイト](https://studio-yebisu.github.io/studio-yebisu/) · [最初の作例](https://studio-yebisu.github.io/studio-yebisu/case.html?id=brief-to-demo) · [統括スキル](skills/studio-yebisu/SKILL.md)
+[統合サイト](https://studio-yebisu.github.io/studio-yebisu/) · [最初の作例](https://studio-yebisu.github.io/studio-yebisu/case.html?id=brief-to-demo)
 
 ## 一つのCodexプロジェクトから使う
 
@@ -20,9 +20,9 @@ python scripts/workspace.py
 - [AIスライド](https://github.com/studio-yebisu/awesome-codex-ppt-skills-ja)
 - [モーション](https://github.com/studio-yebisu/awesome-claude-motion-design-ja)
 
-## 「これどう？」から掲載へ
+## 紹介内容を追加する
 
-紹介したいURLや使い方を添えて、`$studio-yebisu` に依頼します。分野の選択、原典の確認、制作ブリーフ、実作例、短い説明動画、サイト反映をつなぎます。制作の既定はユーザー指定の **Claude Opus 5.5** です。
+原典の確認、制作ブリーフ、実作例、短い説明動画を揃え、記事データをサイトへ反映します。制作の既定は **Claude Opus 5.5** です。
 
 ```powershell
 python scripts/pipeline.py new example-id --source https://example.com/skill --category agents

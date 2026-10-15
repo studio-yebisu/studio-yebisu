@@ -37,6 +37,8 @@ def main():
     catalog = json.loads((DIST / 'data/catalog.json').read_text('utf-8'))
     ids = [e['id'] for e in catalog['entries']]
     assert len(ids) == len(set(ids)), 'Duplicate catalog ids'
+    assert 'agents-studio-yebisu' not in ids, 'Internal orchestrator leaked into the catalog'
+    assert not (DIST / 'skills/studio-yebisu').exists(), 'Internal orchestrator was distributed'
     for entry in catalog['entries']:
         for key in ('source_url', 'guide_url', 'license_url', 'image', 'skill_download', 'example_url'):
             if entry.get(key):

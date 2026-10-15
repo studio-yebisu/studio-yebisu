@@ -27,11 +27,6 @@
       "applied": "固定版のSKILL.mdの全体ルールとAnti-slop、Timeline・JSON view・Status・Button・Badge・Data list・Segmented control・Panelの資料、PageHeaderのコードを読んでから組んだ。body に quartz クラスと QuartzPortalProvider、部品は vendor/quartz/ui の実物を直接読み込み、作例側のCSSは Tailwind と Quartz の styles.css の読み込みだけにした。Timelineは資料の規則どおりPanelに入れず白い作業面のまま置き、時間はミリ秒で渡して単位の選択を部品に任せた。待機中の段は status=\"waiting\" と短い待ちの言葉、失敗は失敗の段だけに付けた。JSON viewには段の名前を付けた label を渡し、10行未満の出力なので toolbar を外した。状態は色ではなく Status の言葉で書き、一画面に塗りの主ボタンを置かず、保存は secondary のボタンにした。"
     },
     {
-      "name": "studio-yebisu",
-      "source": "skills/studio-yebisu/SKILL.md",
-      "applied": "Xの投稿は発見元として扱い、作者の公式GitHubの固定版コミットでSKILL.md・部品のコード・LICENSEを確かめた。紹介できる能力（デザインシステム全体とCLI導入）と、この作例で試した範囲（8つの部品と静的なサンプル）を分けて書いた。brief-to-demo の方針に沿って、実入力（サンプル実行ログ）と表示結果を samples.json で対にし、サンプルだけを表示するページにAIが動いている表示を付けなかった。カタログへは catalog_entry として追加した。"
-    },
-    {
       "name": "Motion Reel",
       "source": "https://github.com/studio-yebisu/motion-reel/tree/56198544e69201b1c202e0c00fb90b568a729824",
       "applied": "解説動画のソースを、window.seek(秒)がその時刻の完成した画面だけを描く契約で書いた。motionConfig（28秒・30fps・1280×720・posterTime 14・音声なし）、renderConfigのサイズ反映、撮影画像の読み込みを待つ motionReady、書き出し中のプレビュー停止に従った。実画面の場面には作例を撮影した画像を使い、画面を描き直した図は使っていない。統合側のレンダラーでMP4を書き出し、コンタクトシート・実フレーム・ブラウザで終端までの再生を確認した。任意時刻を異なる順に描画しても、同じ画像になる検査が通った。"
