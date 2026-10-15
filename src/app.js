@@ -1,13 +1,9 @@
-/* Studio Yebisu — catalog page. Loads data/catalog.json and data/cases.json (relative paths). */
+/* Studio Yebisu — catalog page. Loads data/catalog.json and data/cases.json (relative paths).
+   Categories come only from catalog.categories (fallback: data/categories.json), so adding or
+   removing a category needs no change here. */
 (() => {
   'use strict';
 
-  const CATEGORY_DEFAULTS = {
-    'ui-ux': {label: 'UI・UX', description: '画面を設計し、操作を整える。'},
-    slides: {label: 'AIスライド', description: '原稿から、伝わる日本語資料へ。'},
-    motion: {label: 'モーション', description: '文字と図形で、使い方を見せる。'},
-    agents: {label: 'エージェント・便利スキル', description: '調べる、整理する、手を動かす。'}
-  };
   const STATUS_LABELS = {draft: '制作中', produced: '制作済み', rendered: '動画を書き出し済み', reviewed: '確認済み', published: '掲載済み'};
   const VIDEO_EXT = /\.(mp4|webm|mov|m4v)(\?|#|$)/i;
 
@@ -80,7 +76,9 @@
 
   /* ---------- State ---------- */
 
-  const state = {entries: [], categories: {}, q: '', cat: 'all', kind: 'all', loaded: false};
+  // Lookup tables keyed by data ids use null prototypes so ids such as "constructor" stay plain keys.
+  const table = () => Object.create(null);
+  const state = {entries: [], categories: table(), categoryList: [], totals: table(), caseByEntry: table(), q: '', cat: 'all', kind: 'all', loaded: false};
 
   const list = $('[data-entries]');
   const status = $('[data-status]');
@@ -88,9 +86,55 @@
   const errorBox = $('[data-error]');
   const search = $('[data-search]');
   const catDesc = $('[data-cat-desc]');
+  const catSelect = $('[data-cat-select]');
+  const fieldMap = $('[data-field-map]');
 
   function categoryLabel(id) {
-    return (state.categories[id] && state.categories[id].label) || (CATEGORY_DEFAULTS[id] && CATEGORY_DEFAULTS[id].label) || id || '分類なし';
+    return (state.categories[id] && state.categories[id].label) || id || '分類なし';
+  }
+
+  function sourceLabel(entry) {
+    const id = entry.source_project;
+    if (id === 'curated') return 'Studio Yebisu 原典確認済みの紹介';
+    if (!id) return 'Studio Yebisu 統合カタログ';
+    return state.categories[id] ? 'Studio Yebisu ' + categoryLabel(id) + 'のカタログ' : String(id);
+  }
+
+  // Categories in data order, grouped by `group` in order of first appearance.
+  function groupedCategories() {
+    const groups = [];
+    for (const category of state.categoryList) {
+      const name = category.group || '';
+      let group = groups.find(item => item.name === name);
+      if (!group) groups.push(group = {name, items: []});
+      group.items.push(category);
+    }
+    return groups;
+  }
+
+  async function readCategories(data, entries) {
+    let source = Array.isArray(data.categories) ? data.categories : [];
+    if (!source.length) {
+      try {
+        const extra = await loadJSON('data/categories.json');
+        source = Array.isArray(extra.categories) ? extra.categories : [];
+      } catch (_) { source = []; }
+    }
+    const result = [];
+    const seen = new Set();
+    for (const category of source) {
+      if (!category || typeof category.id !== 'string' || !category.id || seen.has(category.id)) continue;
+      seen.add(category.id);
+      result.push(category);
+    }
+    // An entry whose category is not listed still gets an option, so nothing becomes unreachable.
+    for (const entry of entries) {
+      if (entry.category && !seen.has(entry.category)) {
+        seen.add(entry.category);
+        result.push({id: String(entry.category), label: String(entry.category)});
+      }
+    }
+    return result;
   }
 
   function matchesQuery(entry, terms) {
@@ -110,6 +154,38 @@
     list.setAttribute('aria-busy', 'true');
   }
 
+  function renderFieldMap() {
+    fieldMap.replaceChildren(...groupedCategories().map(group => h('div', {class: 'field-group'},
+      group.name ? h('h3', {class: 'field-group-name'}, group.name, h('span', {}, group.items.length + '分野')) : null,
+      h('ul', {class: 'field-list'}, group.items.map(category => {
+        const count = state.totals[category.id] || 0;
+        return h('li', {}, h('a', {class: 'field-link' + (count ? '' : ' is-empty'), href: '#' + encodeURIComponent(category.id), 'data-cat-link': category.id},
+          h('span', {class: 'field-name'}, category.label || category.id),
+          h('span', {class: 'field-count'}, String(count), h('span', {class: 'sr-only'}, '件')),
+          category.description ? h('span', {class: 'field-desc'}, category.description) : null));
+      })))));
+    fieldMap.removeAttribute('aria-busy');
+  }
+
+  function renderCategorySelect() {
+    const option = category => h('option', {value: category.id, 'data-label': category.label || category.id}, category.label || category.id);
+    catSelect.replaceChildren(
+      h('option', {value: 'all', 'data-label': 'すべての分野'}, 'すべての分野'),
+      ...groupedCategories().flatMap(group => group.name
+        ? [h('optgroup', {label: group.name}, group.items.map(option))]
+        : group.items.map(option)));
+  }
+
+  function caseHref(entry) {
+    const item = state.caseByEntry[entry.id];
+    return item ? 'case.html?id=' + encodeURIComponent(item.id) : null;
+  }
+
+  function caseBadge(entry) {
+    const href = caseHref(entry);
+    return href ? h('a', {class: 'entry-case', href}, '制作した作例あり') : null;
+  }
+
   function buildRow(entry) {
     const skill = isSkill(entry);
     const open = h('button', {type: 'button', class: 'entry-open', 'aria-haspopup': 'dialog', onclick: () => openDetail(entry, open)}, entry.name || entry.id);
@@ -126,7 +202,8 @@
     const li = h('li', {class: 'entry ' + (skill ? 'is-skill' : 'is-support') + (thumb ? ' has-thumb' : '')},
       h('p', {class: 'entry-meta'},
         h('span', {class: 'entry-kind'}, h('span', {class: 'mark ' + (skill ? 'mark-skill' : 'mark-support'), 'aria-hidden': 'true'}), entry.kind || 'その他'),
-        h('span', {}, categoryLabel(entry.category))),
+        h('span', {}, categoryLabel(entry.category)),
+        caseBadge(entry)),
       h('h3', {class: 'entry-name'}, open),
       entry.summary ? h('p', {class: 'entry-summary'}, entry.summary) : null,
       entry.use_case ? h('p', {class: 'entry-use'}, '使いどころ：', entry.use_case) : null,
@@ -153,10 +230,12 @@
     }
 
     // Live counts: each filter shows how many results it would give with the other filters kept.
-    for (const el of $$('[data-cat-buttons] [data-count-for]')) {
-      const cat = el.dataset.countFor;
-      el.textContent = String(state.entries.filter(e => matchesQuery(e, terms) && matchesKind(e, state.kind) && matchesCat(e, cat)).length);
+    const pool = state.entries.filter(e => matchesQuery(e, terms) && matchesKind(e, state.kind));
+    for (const option of catSelect.options) {
+      const cat = option.value;
+      option.textContent = option.dataset.label + '（' + pool.filter(e => matchesCat(e, cat)).length + '）';
     }
+    catSelect.value = state.cat;
     for (const el of $$('[data-kind-count]')) {
       const kind = el.dataset.kindCount;
       el.textContent = String(state.entries.filter(e => matchesQuery(e, terms) && matchesCat(e, state.cat) && matchesKind(e, kind)).length);
@@ -165,27 +244,39 @@
     const parts = [];
     if (state.cat !== 'all') parts.push(categoryLabel(state.cat));
     if (state.kind === 'skill') parts.push('スキルのみ');
-    if (state.kind === 'support') parts.push('ライブラリ・ツールのみ');
+    if (state.kind === 'support') parts.push('ツール・教材など');
     if (state.q.trim()) parts.push('「' + state.q.trim() + '」');
     status.replaceChildren(
       h('span', {}, h('strong', {}, String(shown)), '件を表示'),
       h('span', {}, '全' + state.entries.length + '件中' + (parts.length ? '、' + parts.join('、') : '')),
-      shown ? h('span', {}, 'うちスキル' + shownSkills + '件、ライブラリ・ツール' + (shown - shownSkills) + '件') : null);
+      shown ? h('span', {}, 'うちスキル' + shownSkills + '件、ツール・教材など' + (shown - shownSkills) + '件') : null);
 
     empty.hidden = shown !== 0;
     if (!shown) {
-      $('[data-empty-detail]').textContent = state.entries.length
-        ? '別の言葉で探すか、分野と種類の絞り込みを外してください。'
-        : 'まだ掲載しているものがありません。';
+      $('[data-empty-detail]').textContent = !state.entries.length
+        ? 'まだ掲載しているものがありません。'
+        : state.cat !== 'all' && !state.totals[state.cat]
+          ? 'この分野には、まだ掲載している項目がありません。ほかの分野を選ぶか、絞り込みを外してください。'
+          : '別の言葉で探すか、分野と種類の絞り込みを外してください。';
     }
 
-    const info = state.cat !== 'all' && (state.categories[state.cat] || CATEGORY_DEFAULTS[state.cat]);
+    const info = state.cat !== 'all' && state.categories[state.cat];
     catDesc.hidden = !info;
-    if (info) catDesc.textContent = categoryLabel(state.cat) + '　' + (info.description || '');
+    if (info) {
+      catDesc.replaceChildren(
+        info.group ? h('span', {class: 'category-group'}, info.group) : null,
+        h('strong', {}, categoryLabel(state.cat)),
+        info.description ? h('span', {}, info.description) : null,
+        h('span', {class: 'category-total'}, '掲載' + (state.totals[state.cat] || 0) + '件'));
+    }
 
-    for (const button of $$('[data-cat]')) button.setAttribute('aria-pressed', String(button.dataset.cat === state.cat));
+    const filtered = state.cat !== 'all' || state.kind !== 'all' || Boolean(state.q.trim());
+    for (const button of $$('.toolbar [data-reset]')) button.hidden = !filtered;
     for (const button of $$('[data-kind]')) button.setAttribute('aria-pressed', String(button.dataset.kind === state.kind));
-    for (const link of $$('[data-cat-link]')) link.setAttribute('aria-current', String(link.dataset.catLink === state.cat));
+    for (const link of $$('[data-cat-link]')) {
+      if (link.dataset.catLink === state.cat) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    }
   }
 
   function scrollToCatalog() {
@@ -195,15 +286,16 @@
   }
 
   function selectCategory(cat, options = {}) {
-    state.cat = CATEGORY_DEFAULTS[cat] || state.categories[cat] ? cat : 'all';
+    state.cat = state.categories[cat] ? cat : 'all';
     applyFilters();
-    if (options.updateHash) history.replaceState(null, '', state.cat === 'all' ? '#catalog' : '#' + state.cat);
+    if (options.updateHash) history.replaceState(null, '', state.cat === 'all' ? '#catalog' : '#' + encodeURIComponent(state.cat));
     if (options.scroll) scrollToCatalog();
   }
 
   function categoryFromHash() {
-    const id = decodeURIComponent(location.hash.replace(/^#/, ''));
-    return CATEGORY_DEFAULTS[id] || state.categories[id] ? id : null;
+    let id = '';
+    try { id = decodeURIComponent(location.hash.replace(/^#/, '')); } catch (_) { return null; }
+    return state.categories[id] ? id : null;
   }
 
   /* ---------- Detail dialog ---------- */
@@ -235,20 +327,24 @@
   function mediaBlock(entry) {
     const src = safeHref(entry.image);
     if (!src) return null;
+    const produced = Boolean(caseHref(entry));
     const figure = h('figure', {class: 'd-media'});
     const media = VIDEO_EXT.test(src)
-      ? h('video', {src, controls: true, preload: 'none', playsinline: true, 'aria-label': (entry.name || '') + 'の作例動画'})
-      : h('img', {src, alt: (entry.name || '') + 'の作例画像', loading: 'lazy', decoding: 'async'});
+      ? h('video', {src, controls: true, preload: 'none', playsinline: true, 'aria-label': (entry.name || '') + (produced ? 'の作例動画' : 'の動画')})
+      : h('img', {src, alt: (entry.name || '') + (produced ? 'の作例画像' : 'の紹介画像'), loading: 'lazy', decoding: 'async'});
     media.addEventListener('error', () => figure.classList.add('is-missing'));
     figure.append(media);
     return figure;
   }
 
   function linkList(entry) {
+    const produced = caseHref(entry);
+    const selfPage = 'case.html?entry=' + encodeURIComponent(entry.id);
     const items = [
       ['原典', entry.source_url],
-      ['使い方の案内', entry.guide_url],
-      ['作例', entry.example_url],
+      ['使い方の案内', entry.guide_url === produced ? null : entry.guide_url],
+      ['制作した作例の記事', produced],
+      [produced ? '作例を開く' : '掲載元の見本', entry.example_url === selfPage ? null : entry.example_url],
       ['スキルをダウンロード', entry.skill_download]
     ].map(([label, url]) => [label, safeHref(url)]).filter(([, url]) => url);
     if (!items.length) return null;
@@ -261,32 +357,45 @@
 
   function conditions(entry) {
     const license = safeHref(entry.license_url);
+    const source = safeHref(entry.source_url);
+    const produced = caseHref(entry);
+    const category = state.categories[entry.category];
     return h('dl', {class: 'd-facts'},
+      h('dt', {}, '分野'),
+      h('dd', {}, categoryLabel(entry.category), category && category.group ? '（' + category.group + '）' : null),
       h('dt', {}, 'ライセンス'),
-      h('dd', {}, license ? h('a', {href: license}, entry.license || 'ライセンスを見る') : (entry.license || '原典で確認してください')),
+      h('dd', {}, license ? h('a', {href: license}, entry.license || 'ライセンスを見る') : (entry.license || '原典で確認してください'), entry.license_note ? h('p', {class: 'd-note'}, entry.license_note) : null),
       h('dt', {}, '確認状況'),
       h('dd', {}, entry.verification || '記載なし'),
+      h('dt', {}, '原典'),
+      h('dd', {}, source ? h('a', {href: source}, source.replace(/^https?:\/\//, '')) : '記載なし'),
+      h('dt', {}, '作例'),
+      h('dd', {}, produced ? h('a', {href: produced}, '制作した作例の記事があります') : entry.verification_stage === 'source-reviewed' ? '紹介のみ（作例は未制作）' : entry.example_url || entry.image ? '掲載元の作例・見本を参照できます' : 'この統合サイトの作例記事は未掲載'),
       h('dt', {}, '掲載元'),
-      h('dd', {}, categoryLabel(entry.source_project || entry.category) + 'のカタログ'));
+      h('dd', {}, sourceLabel(entry)));
   }
 
   function openDetail(entry, opener) {
     lastOpener = opener || document.activeElement;
     const skill = isSkill(entry);
     const links = linkList(entry);
-    dialogBody.replaceChildren(
+    const blocks = [
       h('p', {class: 'd-meta'},
         h('span', {class: 'entry-kind'}, h('span', {class: 'mark ' + (skill ? 'mark-skill' : 'mark-support'), 'aria-hidden': 'true'}), entry.kind || 'その他'),
-        h('span', {}, categoryLabel(entry.category))),
+        h('span', {}, categoryLabel(entry.category)),
+        caseBadge(entry)),
       h('h2', {id: 'detail-title', class: 'd-title'}, entry.name || entry.id),
       entry.summary ? h('p', {class: 'd-summary'}, entry.summary) : null,
       mediaBlock(entry),
       entry.use_case ? h('section', {class: 'd-section'}, h('h3', {}, '使いどころ'), h('p', {}, entry.use_case)) : null,
+      Array.isArray(entry.workflow) && entry.workflow.length ? h('section', {class: 'd-section'}, h('h3', {}, '最初の試し方'), h('ol', {class: 'd-list'}, entry.workflow.map(step => h('li', {}, step)))) : null,
+      Array.isArray(entry.requirements) && entry.requirements.length ? h('section', {class: 'd-section'}, h('h3', {}, '使う環境'), h('ul', {class: 'd-list'}, entry.requirements.map(requirement => h('li', {}, requirement)))) : null,
       h('section', {class: 'd-section'}, h('h3', {}, 'AIへの頼み方'), promptBlock(entry)),
       h('section', {class: 'd-section'}, h('h3', {}, '使う条件'), conditions(entry)),
       links ? h('section', {class: 'd-section'}, h('h3', {}, 'リンク'), links) : null,
       Array.isArray(entry.tags) && entry.tags.length ? h('ul', {class: 'tags', 'aria-label': 'タグ'}, entry.tags.map(tag => h('li', {}, tag))) : null,
-      h('div', {class: 'd-cta'}, h('a', {class: 'btn btn-line', href: 'case.html?entry=' + encodeURIComponent(entry.id)}, 'この項目のページを開く')));
+      h('div', {class: 'd-cta'}, h('a', {class: 'btn btn-line', href: 'case.html?entry=' + encodeURIComponent(entry.id)}, 'この項目のページを開く'))];
+    dialogBody.replaceChildren(...blocks.filter(Boolean));
     if (typeof dialog.showModal === 'function') dialog.showModal();
     else dialog.setAttribute('open', '');
     document.body.classList.add('has-dialog');
@@ -321,29 +430,32 @@
     showPlaceholders();
     try {
       const data = await loadJSON('data/catalog.json');
-      const entries = Array.isArray(data) ? data : (Array.isArray(data.entries) ? data.entries : []);
-      state.categories = {};
-      for (const category of Array.isArray(data.categories) ? data.categories : []) {
-        if (category && category.id) state.categories[category.id] = category;
-      }
-      state.entries = entries.filter(entry => entry && (entry.id || entry.name));
+      const entries = (Array.isArray(data) ? data : (Array.isArray(data.entries) ? data.entries : []))
+        .filter(entry => entry && (entry.id || entry.name));
+      state.categoryList = await readCategories(Array.isArray(data) ? {} : data, entries);
+      state.categories = table();
+      for (const category of state.categoryList) state.categories[category.id] = category;
+      state.entries = entries;
       for (const entry of state.entries) {
-        entry._text = norm([entry.name, entry.summary, entry.use_case, (entry.tags || []).join(' '), entry.kind].join(' '));
+        const category = state.categories[entry.category];
+        entry._text = norm([entry.name, entry.summary, entry.use_case, (entry.tags || []).join(' '), entry.kind,
+          category && category.label, category && category.group].join(' '));
       }
       state.loaded = true;
 
-      const totals = {all: state.entries.length};
-      for (const entry of state.entries) totals[entry.category] = (totals[entry.category] || 0) + 1;
-      $('[data-total]').textContent = String(totals.all);
-      for (const el of $$('[data-index-list] [data-count-for]')) el.textContent = String(totals[el.dataset.countFor] || 0);
-      for (const link of $$('[data-cat-link]')) {
-        const info = state.categories[link.dataset.catLink];
-        if (info && info.description) $('.index-desc', link).textContent = info.description;
-      }
+      state.totals = table();
+      for (const entry of state.entries) state.totals[entry.category] = (state.totals[entry.category] || 0) + 1;
+      const skills = state.entries.filter(isSkill).length;
+      for (const el of $$('[data-total]')) el.textContent = String(state.entries.length);
+      for (const el of $$('[data-cat-total]')) el.textContent = String(state.categoryList.length);
+      for (const el of $$('[data-kind-total]')) el.textContent = String(el.dataset.kindTotal === 'skill' ? skills : state.entries.length - skills);
       if (data.updated_on) $('[data-updated]').textContent = data.updated_on;
 
+      renderFieldMap();
+      renderCategorySelect();
       const fromHash = categoryFromHash();
       if (fromHash) state.cat = fromHash;
+      else if (!state.categories[state.cat]) state.cat = 'all';
       renderCatalog();
       if (fromHash) scrollToCatalog();
     } catch (error) {
@@ -351,19 +463,38 @@
       list.removeAttribute('aria-busy');
       status.textContent = 'カタログを読み込めませんでした。';
       errorBox.hidden = false;
+      fieldMap.replaceChildren(h('p', {class: 'field-error'}, '分野の一覧を読み込めませんでした。下のカタログから読み込み直せます。'));
+      fieldMap.removeAttribute('aria-busy');
     }
   }
 
-  async function loadCases() {
+  async function loadCases(catalogReady) {
     let cases = [];
     try {
       const data = await loadJSON('data/cases.json');
-      cases = Array.isArray(data) ? data : (Array.isArray(data.cases) ? data.cases : []);
+      cases = (Array.isArray(data) ? data : (Array.isArray(data.cases) ? data.cases : [])).filter(item => item && item.id);
     } catch (_) {
       return; // The feature band already holds the first case as static text.
     }
-    const feature = cases.find(item => item && item.id === 'brief-to-demo') || cases[0];
+    await catalogReady; // Category labels and catalog rows come from the catalog.
+    for (const el of $$('[data-case-total]')) el.textContent = String(cases.length);
+    for (const item of cases) {
+      const entryId = item.catalog_entry && item.catalog_entry.id;
+      if (entryId) state.caseByEntry[entryId] = item;
+    }
+    for (const entry of state.entries) {
+      if (!state.caseByEntry[entry.id] && typeof entry.guide_url === 'string') {
+        const match = /^case\.html\?id=([a-z0-9._-]+)(?:[&#]|$)/i.exec(entry.guide_url.trim());
+        const item = match && cases.find(c => c.id === match[1]);
+        if (item) state.caseByEntry[entry.id] = item;
+      }
+      const meta = entry._row && $('.entry-meta', entry._row);
+      if (meta && state.caseByEntry[entry.id] && !$('.entry-case', meta)) meta.append(caseBadge(entry));
+    }
+
+    const feature = cases.find(item => item.id === 'brief-to-demo') || cases[0];
     if (feature) {
+      if (feature.category) $('[data-feature-cat]').textContent = categoryLabel(feature.category);
       if (feature.title) {
         const title = $('[data-feature-title]');
         if (feature.id === 'brief-to-demo') title.replaceChildren('ひと言を、', h('br'), '作れる依頼に。');
@@ -403,19 +534,18 @@
     search.focus({preventScroll: true});
   });
 
-  for (const button of $$('[data-cat]')) {
-    button.addEventListener('click', () => selectCategory(button.dataset.cat, {updateHash: true}));
-  }
+  catSelect.addEventListener('change', () => selectCategory(catSelect.value, {updateHash: true}));
   for (const button of $$('[data-kind]')) {
     button.addEventListener('click', () => { state.kind = button.dataset.kind; applyFilters(); });
   }
-  for (const link of $$('[data-cat-link]')) {
-    link.addEventListener('click', event => {
-      event.preventDefault();
-      history.pushState(null, '', '#' + link.dataset.catLink);
-      selectCategory(link.dataset.catLink, {scroll: true});
-    });
-  }
+  // The field map is rebuilt from data, so its links are handled by delegation.
+  fieldMap.addEventListener('click', event => {
+    const link = event.target.closest('[data-cat-link]');
+    if (!link || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    history.pushState(null, '', '#' + encodeURIComponent(link.dataset.catLink));
+    selectCategory(link.dataset.catLink, {scroll: true});
+  });
   window.addEventListener('hashchange', () => {
     const cat = categoryFromHash();
     if (cat) selectCategory(cat, {scroll: true});
@@ -425,14 +555,17 @@
     selectCategory(cat || 'all');
   });
 
-  $('[data-reset]').addEventListener('click', () => {
-    state.q = ''; state.cat = 'all'; state.kind = 'all';
-    search.value = '';
-    $('[data-search-mirror]').value = '';
-    history.replaceState(null, '', '#catalog');
-    applyFilters();
-    search.focus();
-  });
+  for (const button of $$('[data-reset]')) {
+    button.addEventListener('click', () => {
+      state.q = ''; state.cat = 'all'; state.kind = 'all';
+      search.value = '';
+      $('[data-search-mirror]').value = '';
+      history.replaceState(null, '', '#catalog');
+      applyFilters();
+      search.focus();
+      announce('絞り込みをすべて外しました。');
+    });
+  }
   $('[data-retry]').addEventListener('click', loadCatalog);
 
   document.addEventListener('keydown', event => {
@@ -443,6 +576,5 @@
     search.focus();
   });
 
-  loadCatalog();
-  loadCases();
+  loadCases(loadCatalog());
 })();

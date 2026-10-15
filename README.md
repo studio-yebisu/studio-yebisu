@@ -1,6 +1,6 @@
 # Studio Yebisu
 
-AIスキルを、用途・実作例・使い方から選ぶ日本語サイト。UI・UX、AIスライド、モーション、エージェント・便利スキルを一つの入口で扱います。
+AIスキルとツールを、用途・使い方・実作例から選ぶ日本語サイト。画面・資料・映像の制作に加え、調査、文章、知識整理、音声、3D、ゲーム、開発、自動化、学習などを一つの入口で扱います。
 
 [統合サイト](https://studio-yebisu.github.io/studio-yebisu/) · [最初の作例](https://studio-yebisu.github.io/studio-yebisu/case.html?id=brief-to-demo)
 
@@ -47,6 +47,10 @@ python scripts/serve.py
 ブラウザーで `http://127.0.0.1:8856/` を開きます。
 
 カタログの更新は `python scripts/sync_catalog.py`。既存3プロジェクトの固定したコミットから取り込みます。取り込んだ版と範囲は [data/import-manifest.json](data/import-manifest.json) に記録します。
+
+分野は [data/categories.json](data/categories.json) の16分野。既存リポジトリの対応は `data/projects.json` として独立しています。原典を確認した追加紹介40件は [data/curated-resources.json](data/curated-resources.json) に保持し、同期で消さずにサイト生成時に統合します。各項目に用途、試し方、依頼文、必要な環境、利用条件、固定コミットを記録します。[紹介の追加方法](docs/CURATION.md)を参照してください。
+
+紹介の原典確認と、実際の制作・実行確認は別です。2026-10-15時点の追加40件は紹介段階で、作例・動画は未制作です。制作した2件は作例一覧から開けます。
 
 ## 最初の一件
 

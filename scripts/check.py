@@ -3,6 +3,8 @@ from html.parser import HTMLParser
 import json
 from pathlib import Path
 import subprocess
+import re
+from catalog import load_categories
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -37,12 +39,22 @@ def main():
     catalog = json.loads((DIST / 'data/catalog.json').read_text('utf-8'))
     ids = [e['id'] for e in catalog['entries']]
     assert len(ids) == len(set(ids)), 'Duplicate catalog ids'
+    assert catalog['categories'] == load_categories(), 'Published categories differ from the canonical taxonomy'
+    category_ids = {category['id'] for category in catalog['categories']}
+    assert all(entry['category'] in category_ids for entry in catalog['entries']), 'Unknown entry category'
     assert 'agents-studio-yebisu' not in ids, 'Internal orchestrator leaked into the catalog'
     assert not (DIST / 'skills/studio-yebisu').exists(), 'Internal orchestrator was distributed'
     for entry in catalog['entries']:
         for key in ('source_url', 'guide_url', 'license_url', 'image', 'skill_download', 'example_url'):
             if entry.get(key):
                 local_file(entry[key])
+        if entry.get('verification_stage') == 'source-reviewed':
+            assert re.fullmatch(r'[0-9a-f]{40}', entry.get('source_commit', '')), 'Curated source is not pinned'
+            assert entry['source_commit'] in entry['source_url'], 'Curated URL does not point to the reviewed commit'
+            assert entry['source_commit'] in entry['license_url'], 'License does not point to the reviewed commit'
+            assert entry.get('workflow') and entry.get('requirements'), 'Curated guide is incomplete'
+            assert not entry.get('example_url') and not entry.get('image'), 'Source review cannot claim a new example'
+            assert entry.get('source_note') and entry.get('license_note'), 'Curated provenance or conditions missing'
     cases = json.loads((DIST / 'data/cases.json').read_text('utf-8'))['cases']
     assert cases, 'No finished case'
     for case in cases:
@@ -70,7 +82,7 @@ def main():
                     assert brief.get(key), f'Missing brief field {key}'
     forbidden = [p for p in DIST.rglob('*') if '.local' in p.parts or '.git' in p.parts or 'workspace' in p.parts]
     assert not forbidden, 'Private workspace leaked into publication'
-    print(json.dumps({'status': 'passed', 'catalog_entries': len(ids), 'cases': len(cases), 'html_pages': len(list(DIST.rglob('*.html')))}, ensure_ascii=False))
+    print(json.dumps({'status': 'passed', 'catalog_entries': len(ids), 'categories': len(category_ids), 'curated_resources': sum(e.get('verification_stage') == 'source-reviewed' for e in catalog['entries']), 'cases': len(cases), 'html_pages': len(list(DIST.rglob('*.html')))}, ensure_ascii=False))
 
 
 if __name__ == '__main__':

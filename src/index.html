@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Studio Yebisu｜作例から選ぶ、日本語のAIスキル案内</title>
-  <meta name="description" content="UI・UX、AIスライド、モーション、エージェントの4分野から、使えるAIスキルを探せる日本語の案内です。何ができるか、AIへの頼み方、実際の作例、利用条件をまとめています。">
+  <title>Studio Yebisu｜作例のあるAIスキルとツールの日本語カタログ</title>
+  <meta name="description" content="画面づくりから調査、学習まで、用途の分野ごとにAIスキルとライブラリ・ツールを探せる日本語カタログです。原典・ライセンス・確認状況・AIへの頼み方を項目ごとにまとめ、実際に制作した作例は記事と動画で紹介しています。">
   <meta name="color-scheme" content="light">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -14,6 +14,7 @@
   <header class="masthead">
     <a class="wordmark" href="./" aria-label="Studio Yebisu トップ">Studio Yebisu</a>
     <nav class="masthead-nav" aria-label="ページ内">
+      <a href="#fields">分野</a>
       <a href="#catalog">カタログ</a>
       <a href="#feature">作例</a>
       <a href="#howto">頼み方</a>
@@ -22,10 +23,10 @@
 
   <main id="main">
     <section class="hero" aria-labelledby="hero-title">
-      <p class="hero-side" aria-hidden="true">日本語のAIスキル案内</p>
+      <p class="hero-side" aria-hidden="true">用途から探すAIの道具箱</p>
       <div class="hero-copy">
-        <h1 id="hero-title" class="hero-title">使えるAIスキルを、<br>作例から選ぶ。</h1>
-        <p class="hero-lead">画面づくり、スライド、動画、日々の作業。何ができるか、AIにどう頼むか、実際に作ったもの、使う条件をひとつずつ確かめられます。</p>
+        <h1 id="hero-title" class="hero-title">使えるAIの道具を、<br>用途から選ぶ。</h1>
+        <p class="hero-lead">デザイン、調べもの、文章、音声、3D。使いどころとAIへの頼み方を、日本語でまとめています。制作した作例は、実際の画面や短い動画でも確かめられます。</p>
         <form class="hero-search" role="search" data-search-form>
           <label for="hero-q" class="hero-search-label">やりたいことで探す</label>
           <div class="hero-search-row">
@@ -34,20 +35,37 @@
           </div>
         </form>
       </div>
-      <nav class="hero-index" aria-label="分野から選ぶ">
-        <p class="hero-index-total"><span data-total>—</span><span>件を4分野で掲載</span></p>
-        <ol class="index-list" data-index-list>
-          <li><a class="index-link" href="#ui-ux" data-cat-link="ui-ux"><span class="index-name">UI・UX</span><span class="index-count" data-count-for="ui-ux">—</span><span class="index-desc">画面を設計し、操作を整える。</span></a></li>
-          <li><a class="index-link" href="#slides" data-cat-link="slides"><span class="index-name">AIスライド</span><span class="index-count" data-count-for="slides">—</span><span class="index-desc">原稿から、伝わる日本語資料へ。</span></a></li>
-          <li><a class="index-link" href="#motion" data-cat-link="motion"><span class="index-name">モーション</span><span class="index-count" data-count-for="motion">—</span><span class="index-desc">文字と図形で、使い方を見せる。</span></a></li>
-          <li><a class="index-link" href="#agents" data-cat-link="agents"><span class="index-name">エージェント・便利スキル</span><span class="index-count" data-count-for="agents">—</span><span class="index-desc">調べる、整理する、手を動かす。</span></a></li>
-        </ol>
-      </nav>
+      <aside class="hero-ledger" aria-label="掲載の内訳">
+        <p class="ledger-total"><span data-total>—</span><span>件を掲載</span></p>
+        <dl class="ledger-facts">
+          <div><dt>分野</dt><dd data-cat-total>—</dd></div>
+          <div><dt>スキル</dt><dd data-kind-total="skill">—</dd></div>
+          <div><dt>ツール・教材など</dt><dd data-kind-total="support">—</dd></div>
+          <div><dt>作例の記事</dt><dd data-case-total>—</dd></div>
+        </dl>
+        <p class="ledger-note">原典を確認した紹介から、実際に制作した作例まで。確認した範囲は、それぞれの項目に記載しています。</p>
+      </aside>
+    </section>
+
+    <section id="fields" class="fields" aria-labelledby="fields-title" tabindex="-1">
+      <header class="fields-head">
+        <h2 id="fields-title" class="fields-title">分野から選ぶ</h2>
+        <p class="fields-note"><span data-cat-total>—</span>分野から、やりたいことに近いものを選んでください。数字は掲載件数です。</p>
+      </header>
+      <div class="field-map" data-field-map aria-busy="true">
+        <div class="field-group is-placeholder" aria-hidden="true">
+          <p class="field-group-name"><span></span></p>
+          <ul class="field-list">
+            <li><span class="field-skel"></span></li><li><span class="field-skel"></span></li><li><span class="field-skel"></span></li><li><span class="field-skel"></span></li>
+            <li><span class="field-skel"></span></li><li><span class="field-skel"></span></li><li><span class="field-skel"></span></li><li><span class="field-skel"></span></li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <section id="feature" class="feature" aria-labelledby="feature-title" data-feature>
       <div class="feature-text">
-        <p class="feature-kicker">最初の作例　エージェント・便利スキル</p>
+        <p class="feature-kicker">制作した作例　<span data-feature-cat>エージェント</span></p>
         <h2 id="feature-title" class="feature-title" data-feature-title>ひと言を、<br>作れる依頼に。</h2>
         <p class="feature-summary" data-feature-summary>「イベント受付を使いやすくしたい」のような短い依頼を、目的・渡す素材・読むスキル・完成条件がそろった制作ブリーフに整えるスキルです。</p>
         <div class="feature-actions">
@@ -77,24 +95,24 @@
             <label for="q">キーワード</label>
             <input id="q" type="search" autocomplete="off" placeholder="例：デザイン、PowerPoint、Remotion" data-search aria-describedby="result-status">
           </div>
-          <fieldset class="filter" data-cat-filter>
-            <legend>分野</legend>
-            <div class="filter-row" data-cat-buttons>
-              <button type="button" data-cat="all" aria-pressed="true">すべて<span class="filter-count" data-count-for="all"></span></button>
-              <button type="button" data-cat="ui-ux" aria-pressed="false">UI・UX<span class="filter-count" data-count-for="ui-ux"></span></button>
-              <button type="button" data-cat="slides" aria-pressed="false">AIスライド<span class="filter-count" data-count-for="slides"></span></button>
-              <button type="button" data-cat="motion" aria-pressed="false">モーション<span class="filter-count" data-count-for="motion"></span></button>
-              <button type="button" data-cat="agents" aria-pressed="false">エージェント<span class="filter-count" data-count-for="agents"></span></button>
+          <div class="field-select">
+            <label for="cat">分野</label>
+            <div class="select-wrap">
+              <select id="cat" data-cat-select aria-describedby="cat-hint">
+                <option value="all">すべての分野</option>
+              </select>
             </div>
-          </fieldset>
+            <p id="cat-hint" class="field-hint">（ ）内は、いまのキーワードと種類で当てはまる件数です。</p>
+          </div>
           <fieldset class="filter" data-kind-filter>
             <legend>種類</legend>
             <div class="filter-row">
               <button type="button" data-kind="all" aria-pressed="true">すべて</button>
               <button type="button" data-kind="skill" aria-pressed="false"><span class="mark mark-skill" aria-hidden="true"></span>スキル<span class="filter-count" data-kind-count="skill"></span></button>
-              <button type="button" data-kind="support" aria-pressed="false"><span class="mark mark-support" aria-hidden="true"></span>ライブラリ・ツール<span class="filter-count" data-kind-count="support"></span></button>
+              <button type="button" data-kind="support" aria-pressed="false"><span class="mark mark-support" aria-hidden="true"></span>ツール・教材など<span class="filter-count" data-kind-count="support"></span></button>
             </div>
           </fieldset>
+          <button type="button" class="toolbar-reset" data-reset hidden>絞り込みをすべて外す</button>
         </div>
       </div>
 
@@ -137,7 +155,7 @@
         </li>
         <li>
           <h3>依頼文と条件を確かめる</h3>
-          <p>詳細を開くと、使いどころ、依頼文の例、ライセンスと動作の確認状況が読めます。依頼文はコピーしてそのままAIに渡せます。</p>
+          <p>詳細を開くと、使いどころ、依頼文の例、原典、ライセンス、確認状況が読めます。紹介のみの項目は動作を保証するものではないので、原典の説明を読んでから使ってください。</p>
         </li>
         <li>
           <h3>完成条件で結果を見る</h3>
@@ -153,7 +171,7 @@
       <p>掲載しているスキルやライブラリの説明は、それぞれの原典をもとに日本語でまとめたものです。使うときは原典のライセンスと最新の説明を確かめてください。</p>
       <p class="colophon-updated">カタログ更新日　<span data-updated>—</span></p>
     </div>
-    <nav class="colophon-projects" aria-label="分野ごとの案内">
+    <nav class="colophon-projects" aria-label="専門の案内サイト">
       <a href="https://studio-yebisu.github.io/awesome-claude-ui-ux-design-ja/">UI・UX</a>
       <a href="https://studio-yebisu.github.io/awesome-codex-ppt-skills-ja/">AIスライド</a>
       <a href="https://studio-yebisu.github.io/awesome-claude-motion-design-ja/">モーション</a>

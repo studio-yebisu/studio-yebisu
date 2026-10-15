@@ -6,6 +6,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+from catalog import load_categories
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -16,7 +17,7 @@ def main():
     new = sub.add_parser('new')
     new.add_argument('id')
     new.add_argument('--source', required=True)
-    new.add_argument('--category', choices=['ui-ux', 'slides', 'motion', 'agents'], required=True)
+    new.add_argument('--category', choices=[item['id'] for item in load_categories()], required=True)
     publish = sub.add_parser('publish')
     publish.add_argument('id')
     publish.add_argument('--deploy', action='store_true')

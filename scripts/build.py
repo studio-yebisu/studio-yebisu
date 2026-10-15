@@ -2,6 +2,7 @@
 import json
 from pathlib import Path
 import shutil
+from catalog import build_catalog
 
 ROOT = Path(__file__).resolve().parents[1]
 INTERNAL_SKILLS = {'studio-yebisu'}
@@ -33,21 +34,9 @@ def main():
             shutil.copy2(p, dest)
     for folder in ('data', 'examples', 'media', 'skills'):
         shutil.copytree(ROOT / folder, target / folder, dirs_exist_ok=True, ignore=publication_ignore)
-    catalog = json.loads((ROOT / 'data/catalog.json').read_text('utf-8'))
-    by_id = {entry['id']: entry for entry in catalog['entries']}
-    for case in cases:
-        if case.get('catalog_entry'):
-            entry = case['catalog_entry']
-            if entry.get('category') not in {category['id'] for category in catalog['categories']}:
-                raise ValueError('Unknown case catalog category')
-            for key in ('id', 'name', 'summary', 'kind', 'source_url', 'license'):
-                if not entry.get(key):
-                    raise ValueError(f'Missing catalog_entry field: {key}')
-            by_id[entry['id']] = entry
-    catalog['entries'] = list(by_id.values())
+    catalog = build_catalog(cases)
     if any(entry['id'] == 'agents-' + name for entry in catalog['entries'] for name in INTERNAL_SKILLS):
         raise ValueError('An internal skill was added to the public catalog')
-    catalog['updated_on'] = max([catalog.get('updated_on', '')] + [case.get('updated_on', '') for case in cases])
     (target / 'data/catalog.json').write_text(json.dumps(catalog, ensure_ascii=False, indent=2) + '\n', 'utf-8')
     if (ROOT / 'integrations').is_dir():
         shutil.copytree(ROOT / 'integrations', target / 'guides', dirs_exist_ok=True)

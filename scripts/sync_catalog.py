@@ -102,7 +102,10 @@ def main():
         ('brief-to-demo', 'ひと言から、作れる依頼へ', '短い依頼を、目的・入力・制作スキル・完成条件が揃うブリーフにする。', '作例づくりの前に、AIへ渡す依頼を具体化する。')]:
         output.append({'id': 'agents-' + identifier, 'name': name, 'category': 'agents', 'kind': 'スキル', 'summary': summary, 'use_case': use, 'tags': ['Studio Yebisu', '日本語', '作例制作'], 'license': 'MIT', 'license_url': 'LICENSE', 'source_url': f'skills/{identifier}/SKILL.md', 'guide_url': 'case.html?id=brief-to-demo', 'example_url': 'examples/brief-to-demo/index.html', 'skill_download': f'skills/{identifier}/SKILL.md', 'prompt': f'${identifier} を使って、このスキルの使い方が分かる作例を制作してください。', 'verification': '今回の一件に実際に適用', 'source_project': 'agents'})
     today = datetime.now(ZoneInfo('Asia/Tokyo')).date().isoformat()
-    write('data/catalog.json', {'updated_on': today, 'categories': [{'id':p['id'], 'label':p['label'], 'description':p['description']} for p in config['projects']], 'entries': output})
+    # Physical specialist projects and browsing categories are independent. New
+    # curated entries remain in their own source file and survive a snapshot sync.
+    from catalog import load_categories
+    write('data/catalog.json', {'updated_on': today, 'categories': load_categories(), 'entries': output})
     write('data/import-manifest.json', {'updated_on': today, 'sources': snapshots})
     print(json.dumps({'entries': len(output), 'categories': {p['id']: sum(e['category'] == p['id'] for e in output) for p in config['projects']}}, ensure_ascii=False))
 
