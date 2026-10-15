@@ -1,0 +1,72 @@
+{
+  "format": "input-output",
+  "samples": [
+    {
+      "id": "studio-intro",
+      "label": "Studio Yebisu のサイト紹介（20秒・無音）",
+      "input": "Studio Yebisuの公開サイトを紹介する20秒の短いコード動画を作ってください。目的は「AIスキルを用途から選び、実作例を見て試せるサイト」だと伝え、最後に既存サイトの作例へ誘導することです。\n\n確認済みの事実：用途ごとに紹介を選べる。実制作済みの記事には入力と出力、依頼文、出典、確認した範囲、短い動画がある。全紹介先に実作例があるわけではない。保存・アカウント・制作代行・価格・実績・速度や品質の保証はない。\n条件：「作例を見る」が唯一のCTA。画面は紹介用の再構成だと明記。紙色 #F6F3EB・文字 #17282B・アクセント #0B615E・補助の黄 #F1BE47。第三者の素材を使わない。音なし。20秒・1920×1080・60fps。frame0 は完成した構図。最終CTAは2秒以上。3Dは使わない。",
+      "input_file": "input.md",
+      "output": "20秒・1920×1080・60fps・無音のMP4。8つの構図を、モーションのカードを囲む1本の輪郭がつなぎ、最後に「作例を見る」のボタンになる。画面は紹介用に再構成した模式図。",
+      "output_files": {
+        "video": "film.mp4",
+        "editable_source": "film/index.html",
+        "module": "film/film.mjs",
+        "components": "components.mjs",
+        "brief": "BRIEF.md",
+        "storyboard": "storyboard.md",
+        "storyboard_data": "storyboard.json"
+      },
+      "spec": {
+        "duration": 20,
+        "width": 1920,
+        "height": 1080,
+        "fps": 60,
+        "audio": false,
+        "posterTime": 13
+      },
+      "scenes": [
+        {
+          "id": "S01",
+          "start": 0,
+          "title": "表紙"
+        },
+        {
+          "id": "S02",
+          "start": 2.4,
+          "title": "カードの接写"
+        },
+        {
+          "id": "S03",
+          "start": 4.2,
+          "title": "紹介の一覧"
+        },
+        {
+          "id": "S04",
+          "start": 6.55,
+          "title": "作例記事の模式図"
+        },
+        {
+          "id": "S05",
+          "start": 8.3,
+          "title": "依頼文の引用"
+        },
+        {
+          "id": "S06",
+          "start": 11.35,
+          "title": "入力と結果"
+        },
+        {
+          "id": "S07",
+          "start": 14.4,
+          "title": "依頼文の節"
+        },
+        {
+          "id": "S08",
+          "start": 16.85,
+          "title": "作例を見る"
+        }
+      ],
+      "note": "入力全文は input.md。input欄は実入力の抜粋。全編の実測と独立AIレビューは review-summary.json。人の承認は未実施。"
+    }
+  ]
+}

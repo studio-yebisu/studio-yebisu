@@ -1,0 +1,191 @@
+{
+  "title": "Studio Yebisu サイト紹介（20秒・無音）",
+  "author": "claude-opus-5-5",
+  "stage": "rendered-and-agent-reviewed",
+  "status": "実MP4の書き出し・任意時刻一致・別担当AIの全編確認・ブラウザー再生を確認。実測値と確認範囲は review-summary.json。人による承認は未実施。",
+  "source": "film/film.mjs",
+  "duration": 20,
+  "fps": 60,
+  "width": 1920,
+  "height": 1080,
+  "frames": 1200,
+  "posterTime": 13,
+  "audio": false,
+  "palette": {
+    "paper": "#F6F3EB",
+    "face": "#FBF9F3",
+    "ink": "#17282B",
+    "teal": "#0B615E",
+    "ochre": "#F1BE47"
+  },
+  "persistent": {
+    "outline": "SelectionFrame 1本（4px、ティール、周を回る黄土の線分 6%・0.3周/秒）",
+    "rail": "左の手順の線と黄土の点（2.50秒から。最後に曲がって「作例を見る」の左端へ）",
+    "quote": "入力の引用「20秒の短いコード動画を／作ってください。」（input.md より）。6.74秒に記事の入力の枠へ入り、大写し・帯へ縮尺だけを変えて運ぶ。次の節へ送る際は輪郭の通過位置ごとに消す",
+    "resultMiniature": "結果の枠の中身は 表紙と同じ cover() の構図（選択線を除く。全フレームの完全な画像一致ではない）。6.60秒に記事の結果の枠で組み上がり、S06 では中身を持ったまま着いて 11.65–14.10 秒に完成した状態で読める（1.00→1.02 の寄り）",
+    "labels": [
+      "紹介用に再構成した画面（全フレーム）",
+      "作例記事の模式図（6.81–16.55）"
+    ]
+  },
+  "scenes": [
+    {
+      "id": "S01",
+      "start": 0,
+      "end": 2.4,
+      "title": "表紙",
+      "mechanism": "一つの主役（表紙と同じ cover() の構図 で完成）",
+      "readableFrom": 0,
+      "readableTo": 2.1
+    },
+    {
+      "id": "S02",
+      "start": 2.4,
+      "end": 4.2,
+      "title": "カードの接写",
+      "mechanism": "選ぶと広がる",
+      "readableFrom": 3.3,
+      "readableTo": 3.95
+    },
+    {
+      "id": "S03",
+      "start": 4.2,
+      "end": 6.55,
+      "title": "紹介の一覧（作例付きは一部）",
+      "mechanism": "選ぶと広がる",
+      "readableFrom": 4.56,
+      "readableTo": 5.6
+    },
+    {
+      "id": "S04",
+      "start": 6.55,
+      "end": 8.3,
+      "title": "作例記事の模式図（入力に実際の依頼文、結果に 表紙と同じ cover() の構図）",
+      "mechanism": "結果が組み上がる",
+      "readableFrom": 7.02,
+      "readableTo": 8.1
+    },
+    {
+      "id": "S05",
+      "start": 8.3,
+      "end": 11.35,
+      "title": "依頼文の引用",
+      "mechanism": "選ぶと広がる（入力の枠が引用ごと広がる）",
+      "readableFrom": 8.65,
+      "readableTo": 11.15
+    },
+    {
+      "id": "S06",
+      "start": 11.35,
+      "end": 14.4,
+      "title": "入力と結果",
+      "mechanism": "結果（この映像の 表紙と同じ cover() の構図）が中身を持ったまま着く",
+      "readableFrom": 11.65,
+      "readableTo": 14.1
+    },
+    {
+      "id": "S07",
+      "start": 14.4,
+      "end": 16.85,
+      "title": "依頼文の節",
+      "mechanism": "同じ記事を上へ送る・残る道筋",
+      "readableFrom": 14.78,
+      "readableTo": 16.4
+    },
+    {
+      "id": "S08",
+      "start": 16.85,
+      "end": 20,
+      "title": "作例を見る",
+      "mechanism": "残る道筋の終点",
+      "readableFrom": 17.1,
+      "readableTo": 20
+    }
+  ],
+  "transitions": [
+    {
+      "id": "T1",
+      "from": "S01",
+      "to": "S02",
+      "start": 2.1,
+      "end": 2.7,
+      "carried": "カードと輪郭、カード名"
+    },
+    {
+      "id": "T2",
+      "from": "S02",
+      "to": "S03",
+      "start": 3.95,
+      "end": 4.48,
+      "carried": "輪郭（→一覧の外枠）、黄土（→帯）、カード名（→帯の見出し）"
+    },
+    {
+      "id": "T3",
+      "from": "S03",
+      "to": "S04",
+      "start": 5.6,
+      "end": 6.81,
+      "carried": "輪郭（印 → 記事の外枠）、外枠の面"
+    },
+    {
+      "id": "T4",
+      "from": "S04",
+      "to": "S05",
+      "start": 8.1,
+      "end": 8.65,
+      "carried": "入力の枠と、その中の引用（縮尺だけが変わる）、輪郭"
+    },
+    {
+      "id": "T5",
+      "from": "S05",
+      "to": "S06",
+      "start": 11.05,
+      "end": 11.65,
+      "carried": "引用（→帯、消さない）、輪郭（→入力と結果をまとめて囲む）、結果の中身（表紙の構図、着く前から在る）"
+    },
+    {
+      "id": "T6",
+      "from": "S06",
+      "to": "S07",
+      "start": 14.1,
+      "end": 14.7,
+      "carried": "輪郭（入力と結果 → 依頼文をコピー）、手順の線"
+    },
+    {
+      "id": "T7",
+      "from": "S07",
+      "to": "S08",
+      "start": 16.4,
+      "end": 17.12,
+      "carried": "輪郭（→作例を見る）、手順の線（→ボタンの左端）"
+    }
+  ],
+  "components": {
+    "file": "components.mjs",
+    "used": [
+      "selectionFrame",
+      "materializeFrame",
+      "trackRect",
+      "cover()（lab/lab.mjs）"
+    ],
+    "reviewed": "部品2つを単独で書き出し、別担当のAIが評価して両方 KEEP（lab/measurements.json）。人の承認ではない。本編では変更せず、時刻とデータだけを渡す。"
+  },
+  "sourceScope": {
+    "upstream": "echris6/motion-video-kit @ e4b1c0004080fe6a0deb883631bad5eba1e5f339, business-motion-film",
+    "read": [
+      "SKILL.md",
+      "references/motion-grammar.md",
+      "references/launch-film-notes.md",
+      "references/quality-bar.md",
+      "references/gauntlet.md",
+      "references/critic-prompts.md"
+    ],
+    "notApplied": [
+      "audio.md・loudness.sh（無音版）",
+      "AI素材の生成",
+      "Three.js・3D"
+    ],
+    "referenceFilms": "原典の28本の参考映像は見ていない。同梱の文章分析だけを読んで機構を選んだ。"
+  },
+  "verification": "review-summary.json"
+}
