@@ -1,0 +1,221 @@
+{
+  "title": "原文と、残す条件を渡す：Humanizer 作例の編集動画",
+  "message": "原文・読み手・残す条件を渡す → 具体的な事実がない一文は削る → 対象と除外はそのまま残す → 答えを先にし、できないこと・不確実さも残す → 初稿・点検・最終稿を読み比べ、ファイルで持ち帰る",
+  "audience": "Humanizerを初めて使う日本語の利用者。何を渡し、何が削られ、何が残り、結果をどこで比べて保存するかを知りたい人",
+  "format": {
+    "duration": 28,
+    "fps": 30,
+    "frames": 840,
+    "width": 1280,
+    "height": 720,
+    "aspect": "16:9（横長）のみ。ほかの比率は余白つきの縮小表示で、配置は作り直していない",
+    "posterTime": 13.5,
+    "audio": "silent",
+    "audioEvents": []
+  },
+  "nature": "制作時に保存した推敲結果（outputs/revisions.json）と入力（inputs/jobs.json）から引用を取り出し、保存結果ビューアの実際のスクリーンショット2枚を切り抜いて編集した説明動画。連続した画面録画ではない。映像内でAIの実行・文章の生成・入力の動き・進行表示・ダウンロード処理は行っていない。端末画面・ブラウザー枠・URLバー・AI検出の点数・成功表示は作っていない。",
+  "persistentLabels": [
+    "28秒・無音 ／ 架空の製品文（右上・全編、20px）",
+    "工程の見出し：1 渡す → 2 削る → 3 残す → 4 答えを先に → 5 読み比べる（上部・全編、20px）",
+    "各時刻の素材名（左下・全編、20px）と「Studio Yebisu 作例」（右下）"
+  ],
+  "typography": {
+    "fonts": "OSの日本語フォントのみ（明朝：ヒラギノ明朝・游明朝ほか、ゴシック：ヒラギノ角ゴ・游ゴシック・メイリオほか、等幅：Consolasほか）。外部フォント・画像なし",
+    "sizes": "見出し48–56px、引用30–36px、本文・説明24–26px、ラベルと札20px。安全余白は上下左右64px",
+    "colors": "紙 #faf8f2、墨 #24342b、削除 #b34d36（下地 #f6e3dc）、保持 #23634a（下地 #dcebe2）。作例ページのstyle.cssと同じ値"
+  },
+  "rendering": "Canvas 2D 1枚。window.seek(秒)ごとにCanvasの幅・高さを設定し直して内容と状態を初期化し、全レイヤーを時刻だけから描き直す。タイマー・乱数・CSSアニメーション・前フレームの積算に依存しない。引用は保存データの該当フィールドから読み、打ち直さない。素材一覧のSHA-256・寸法と一致しない、または引用が見つからない場合は、エラーを表示して動画を描かない。",
+  "continuity": [
+    "原文の紙片（0.7–4.15秒）が、そのまま大きな一枚に広がる（4.15–4.9秒）。紙片の中で削る一文に先に下地が敷かれ（4.0–4.3秒）、その一文だけが大きな引用として残る。",
+    "引用に取り消し線（5.4–6.0秒）→ 引用が消え、一枚が見出しだけの高さに縮む（9.3–9.8秒）＝行ごと削除。",
+    "同じ一枚の見出しが「原文」から「最終稿」へ、上端の罫が墨から緑へ変わり（9.8–10.15秒）、残した2文が入って10.3–15.6秒の間その位置に留まる。",
+    "実際の画面を大きく見せたあと左へ縮め（24.4–25.1秒）、画面内のダウンロードボタンからファイル名を取り出して右の一覧へ置く（24.85–25.4秒）。"
+  ],
+  "scenes": [
+    {
+      "id": "pass",
+      "start": 0,
+      "end": 4,
+      "message": "Humanizerには、原文・読み手・残す条件の3つを渡す",
+      "enter": "「Humanizer」と説明は0秒から表示。「原文と、残す条件を渡す」は0.15秒、原文の紙片0.7秒、読み手1.0秒、残す条件1.3秒、下の札1.9秒から。",
+      "exit": "4.0–4.4秒で題字・読み手・残す条件・札が退く。原文の紙片だけが次の場面へ続く。",
+      "captions": {
+        "editorial": [
+          "Humanizer",
+          "AIエージェントが読んで従う、Markdownのスキル",
+          "原文と、残す条件を渡す",
+          "原文 ／ 第1段落／全3段落",
+          "読み手",
+          "残す条件 ／ 6項目",
+          "制作時に保存した結果"
+        ],
+        "fromData": [
+          {"text": "本質的に、探す体験の未来が変わります。これは単なる検索の追加ではなく、知識との新しい対話です。", "source": "inputs/jobs.json jobs[id=japanese].input の第1段落"},
+          {"text": "新機能を初めて読む。誇張は削り、日時・対象・例外・否定を保つ。", "source": "inputs/jobs.json jobs[id=japanese].reader_context の先頭2文"},
+          {"text": "開始日・対象プラン・ショートカット・対象と除外・ベータ期間・履歴の扱い", "source": "inputs/jobs.json jobs[id=japanese].facts[].label（項目名だけ。17項目全部は出さない）"},
+          {"text": "例：日本語への適用例", "source": "inputs/jobs.json jobs[id=japanese].label"},
+          {"text": "架空の製品「Mado Notes」", "source": "inputs/jobs.json product（全角括弧より前）"}
+        ]
+      },
+      "assets": [
+        {"path": "inputs/jobs.json", "fields": ["fictional", "product", "jobs[id=japanese].input", "jobs[id=japanese].reader_context", "jobs[id=japanese].facts[].label"]}
+      ]
+    },
+    {
+      "id": "cut",
+      "start": 4,
+      "end": 10,
+      "message": "具体的な事実がない一文を、行ごと削る（否定文をすべて悪いとは言わない）",
+      "enter": "4.0–4.3秒に紙片の中の該当文へ削除の下地。4.15–4.9秒に紙片が全幅の一枚へ広がり、紙片の本文は4.35–4.6秒で退く。見出し4.3秒、引用4.8秒、印の札5.0秒、取り消し線5.4–6.0秒、「最終稿では削除」5.8秒、変更理由6.0秒から。",
+      "exit": "9.3–9.7秒で見出し・理由が退き、引用は9.3–9.6秒で消え、一枚が見出しの高さへ縮む（9.3–9.8秒）。",
+      "readingHold": "変更理由（38字）は6.0–9.3秒の約3.3秒、引用は4.8–9.3秒の約4.5秒表示。",
+      "captions": {
+        "editorial": [
+          "具体的な事実がない一文を削る",
+          "最終稿では削除",
+          "保存された変更理由",
+          "「XではなくY」の対比（作例ビューアapp.mjsと同じ訳）"
+        ],
+        "fromData": [
+          {"text": "これは単なる検索の追加ではなく、知識との新しい対話です。", "source": "outputs/revisions.json jobs[id=japanese].marks[pattern=Not X but Y].quote（changes[].before と一致、after は空）"},
+          {"text": "§1 Not X but Y", "source": "outputs/revisions.json jobs[id=japanese].marks[].section・pattern"},
+          {"text": "誰も主張していない否定と、裏付けのない「新しい対話」でできた文なので削除しました。", "source": "outputs/revisions.json jobs[id=japanese].changes[before=上の引用].reason"}
+        ]
+      },
+      "assets": [
+        {"path": "outputs/revisions.json", "fields": ["jobs[id=japanese].marks", "jobs[id=japanese].changes", "jobs[id=japanese].final（削除した文が含まれないことの確認）"]}
+      ]
+    },
+    {
+      "id": "keep",
+      "start": 10,
+      "end": 16,
+      "message": "対象と除外の2文は、否定も含めてそのまま残す",
+      "enter": "見出し9.9秒。一枚が最終稿の高さへ広がり（9.85–10.4秒）、1文目10.2秒、2文目10.55秒。緑の括弧10.9–11.5秒、緑の下地11.0–11.4秒、右上の条件札11.6秒、「残した条件」11.8秒、保存された説明12.0秒、文字列の一致12.6秒。",
+      "exit": "15.6–16.0秒で一枚ごと退く。ポスター（13.5秒）は全要素が表示された状態。",
+      "readingHold": "残した2文は10.2/10.55–15.6秒の約5秒以上表示。",
+      "captions": {
+        "editorial": [
+          "対象と除外は、そのまま残す",
+          "最終稿 ／ 日本語への適用例",
+          "残した条件",
+          "原文と最終稿で同じ文字列（否定の「含まれません」を含む）"
+        ],
+        "fromData": [
+          {"text": "検索の対象はノート本文だけです。", "source": "outputs/revisions.json jobs[id=japanese].facts[label=対象と除外].final_quote の1文目"},
+          {"text": "添付ファイルとアーカイブ済みのノートは対象に含まれません。", "source": "同 final_quote の2文目"},
+          {"text": "残した条件 japanese-4：対象と除外", "source": "同 facts[].id・label"},
+          {"text": "本文だけが対象であることと、2つの除外を、続く2文のまま残しています。", "source": "同 facts[].note"}
+        ],
+        "computedCheck": "source_quote と final_quote が同じ文字列で、原文（input）と最終稿（final）の両方に含まれることを読み込み時に確かめる。意味が同じことの保証ではない。"
+      },
+      "assets": [
+        {"path": "outputs/revisions.json", "fields": ["jobs[id=japanese].final", "jobs[id=japanese].facts[id=japanese-4]"]},
+        {"path": "inputs/jobs.json", "fields": ["jobs[id=japanese].facts[id=japanese-4].source_quote"]}
+      ]
+    },
+    {
+      "id": "answer",
+      "start": 16,
+      "end": 22,
+      "message": "答えを先に。できないこと（cannot reopen）と、範囲・不確実さ（Large・may）も残す",
+      "enter": "見出し16.0秒、質問16.3秒、削った決まり文句16.8秒（取り消し線17.1–17.8秒）、最終稿の1文目17.6秒、最後の文18.4秒、Large・mayの下線18.9–19.3秒、保存された説明19.2秒。",
+      "exit": "21.6–22.0秒で退く。",
+      "captions": {
+        "editorial": [
+          "答えを先に。できないこと・不確実さも残す",
+          "利用者の質問",
+          "削った決まり文句",
+          "最終稿の1文目",
+          "最終稿の最後の文"
+        ],
+        "fromData": [
+          {"text": "Can support reopen the same download?", "source": "inputs/jobs.json jobs[id=reply].reader_context の引用符内の最後の文"},
+          {"text": "Great question!", "source": "outputs/revisions.json jobs[id=reply].changes[after=''かつsections に22].before"},
+          {"text": "I hope this helps!", "source": "同上"},
+          {"text": "Support cannot reopen an expired download link.", "source": "outputs/revisions.json jobs[id=reply].facts[id=reply-1].final_quote（final の先頭と一致）"},
+          {"text": "Large workspaces may take a few minutes to prepare.", "source": "outputs/revisions.json jobs[id=reply].facts[id=reply-4].final_quote（final の末尾と一致、Large・may を含むことを確認）"},
+          {"text": "再開できない／時間の限定と不確実性", "source": "同 facts[].label"},
+          {"text": "大きいworkspaceに限ること、「may」の不確実さ、「a few minutes」をそのまま残しています。", "source": "同 facts[id=reply-4].note"}
+        ]
+      },
+      "assets": [
+        {"path": "inputs/jobs.json", "fields": ["jobs[id=reply].label", "jobs[id=reply].reader_context"]},
+        {"path": "outputs/revisions.json", "fields": ["jobs[id=reply].changes", "jobs[id=reply].facts", "jobs[id=reply].final"]}
+      ],
+      "note": "保存結果ビューアの画面ではなく、保存データの引用を組版して見せる場面。"
+    },
+    {
+      "id": "compare",
+      "start": 22,
+      "end": 28,
+      "message": "保存結果ビューアで初稿・点検・最終稿を読み比べ、revisions.md と revisions.json を持ち帰る",
+      "enter": "見出し22.0秒、実画面22.1–22.6秒。囲みと札は22.5・22.9・23.3秒。24.25–24.45秒に囲みが消え、24.4–25.1秒で実画面が左へ縮む。右の説明24.7秒、ダウンロードボタンの実画面24.6–24.9秒、ファイル名がボタンから一覧へ24.85–25.4秒、左の説明24.9–25.45秒、注記25.2–25.5秒。",
+      "exit": "退場なし。25.5–28.0秒（約2.5秒）は全要素が静止して読める状態のまま終わる（暗転なし）。",
+      "captions": {
+        "editorial": [
+          "初稿・点検・最終稿を読み比べる",
+          "削った文（番号つき）",
+          "残した条件の位置",
+          "初稿と点検を開く",
+          "保存結果ビューアの実際の画面（日本語への適用例）",
+          "タブで3件を切り替える（件数は revisions.json の jobs の数。タブ自体はこのスクリーンショットに写っていない）",
+          "初稿と点検は「初稿と点検を見る」から",
+          "残した条件を選ぶと、最終稿の位置が緑に",
+          "持ち帰るファイル（制作時に保存済み）",
+          "revisions.md ／ 推敲メモ（同じ内容を日本語で）",
+          "revisions.json ／ 結果データ（印・初稿・点検・最終稿・理由）",
+          "outputs/ にある実ファイルです。"
+        ],
+        "fromData": [
+          {"text": "ページを開いてもAIは実行されません。", "source": "outputs/revisions.json scope_note の該当文"}
+        ]
+      },
+      "assets": [
+        {"path": "assets/desk-japanese.png", "crop": "原文・最終稿の2欄と「最終稿をコピー」「初稿と点検を見る」（元画像 x40–1210, y180–622）。囲み：削除箇所 x64–592,y240–302／緑の残した条件 x650–1180,y278–372／初稿と点検を見る x54–193,y573–615"},
+        {"path": "assets/desk-top.png", "crop": "「推敲メモをダウンロード revisions.md」「結果データをダウンロード revisions.json」の2ボタン（元画像 x18–390, y372–446、1.25倍）"},
+        {"path": "outputs/revisions.md", "use": "映像には描かない。持ち帰るファイルとして示すため、読み込み時にSHA-256で実在と一致を確かめる"}
+      ],
+      "note": "ダウンロードの実行・進行表示・完了表示は作らない。ファイル名はスクリーンショット内のボタン表記の位置から一覧へ移す演出で、新しい取得や生成ではない。"
+    }
+  ],
+  "provenance": {
+    "manifest": "outputs/movie-materials.json",
+    "screenshotsUsed": [
+      {"path": "assets/desk-japanese.png", "width": 1265, "height": 712, "sha256": "edb53d3653383cea36b996668fad2525580055645f5674b9542882557cfc93c3"},
+      {"path": "assets/desk-top.png", "width": 1265, "height": 712, "sha256": "eb24f2518a2cffb410426c6daea146b9b6d7175504c2333a4afa9aab81df95b3"}
+    ],
+    "screenshotsNotUsed": [
+      {"path": "assets/desk-reply.png", "sha256": "7dbb3e60a114a894ff936c8c528abcad0f6bddcfe77ea70f16ac77496e5102c3", "reason": "英語の返信は保存データの引用を組版して読みやすさを優先したため"},
+      {"path": "assets/desk-mobile.png", "sha256": "3957a1d1a128cd199aa7e1e08e730c3793c9e45e5d0bdc978a030ff716394312", "reason": "横長1280×720の構成に使わないため"}
+    ],
+    "screenshotNote": "素材一覧の記載どおり、保存結果ビューアを実際に開いたブラウザーのスクリーンショット。連続した画面録画ではない。ファイルは改変せず、Canvas上で切り抜いて描くだけ。",
+    "results": {"path": "outputs/revisions.json", "sha256": "a4ac78dd0169100f2ecfbcdec3858cc0787f482be99105c9ad97dd5a67346c30"},
+    "inputs": {"path": "inputs/jobs.json", "sha256": "ed4eb6896cac0c62381f7f472b84280e554d4b2af77d05dfcbcc6e802873250c"},
+    "memo": {"path": "outputs/revisions.md", "sha256": "148c6a92e08538eb2413c1b02d05156283f0e459328d31d89747b3e57b8a5d51"},
+    "hashCheck": "video.js が読み込み時に、上の各ファイルのSHA-256（とスクリーンショットの寸法）を素材一覧と照合する。",
+    "notIncluded": "外部フォント・外部画像・ロゴ・音声・生成画像・Humanizer原典の本文。"
+  },
+  "scope": {
+    "results": "Claude Opus 5.5 が制作時に固定版Humanizer 3.1.0のSKILL.mdを読み、架空の製品文3件（英語2件・日本語1件）に適用して保存した出力。この動画を描くときにAIは実行しない。",
+    "shownOfSeventeen": "残す条件17項目のうち、映像で本文を引用するのは日本語の例の「対象と除外」と、英語の返信の「再開できない」「時間の限定と不確実性」の3項目。日本語の例の6項目は名前だけ示す。",
+    "notClaimed": [
+      "AI検出の結果や点数",
+      "意味が同じであることの保証",
+      "日本語全般・ほかの文体・長い文書での効果",
+      "人による校閲・承認",
+      "読み手による評価や推薦",
+      "ダウンロードの完了やブラウザーの保存イベント"
+    ]
+  },
+  "pendingChecks": [
+    "同梱レンダラー（render.py）による実際の描画（静止画・全体シート・連続フレーム）は未実施",
+    "描画されたフレームでの文字の収まり・重なり・読む時間・切り抜きと囲みの位置の目視確認は未実施（切り抜き座標はスクリーンショットを見て決めた値で、描画結果では未確認）",
+    "ネイティブのMP4書き出し（840フレーム・無音）と、全デコード・通し再生の確認は未実施",
+    "同じ時刻を別の順序と新しいページで描いたときの一致の記録は未実施",
+    "Windows以外のOS・別の日本語フォントでの文字幅の確認は未実施",
+    "プレビュー画面（320px幅を含む）の操作とキーボード操作の確認は未実施",
+    "人による承認は未実施"
+  ],
+  "human_approval": false
+}

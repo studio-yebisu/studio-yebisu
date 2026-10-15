@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Humanizer作例：原文と、残す条件を渡す（28秒・無音の編集動画）｜Studio Yebisu</title>
+  <meta name="description" content="Humanizerに渡すもの（原文・読み手・残す条件）、削った中身のない一文、そのまま残した対象と除外、答えを先にしたサポート返信、保存結果の読み比べ方を、制作時に保存した結果と実際の画面で説明する28秒・無音の編集動画です。">
+  <link rel="stylesheet" href="video.css">
+  <script type="module" src="video.js"></script>
+</head>
+<body>
+  <main class="page">
+    <header class="head">
+      <p class="eyebrow">Humanizer 作例 ／ 編集動画（28秒・無音）</p>
+      <h1>原文と、残す条件を渡す</h1>
+      <p class="lede">制作時に保存した推敲結果（<code>outputs/revisions.json</code>）と、保存結果ビューアの実際のスクリーンショットを素材に編集した説明動画です。連続した画面録画ではありません。この画面は保存済みの素材を描くだけで、AIの実行や文章の書き直しはしません。文章はすべて架空の製品「Mado Notes」のものです。</p>
+    </header>
+
+    <div id="stage" class="stage">
+      <canvas id="film" width="1280" height="720" role="img" aria-label="Humanizerの作例を説明する28秒・無音の編集動画。日本語の例で、原文・読み手・残す条件の3つを渡すこと、具体的な事実がない一文「これは単なる検索の追加ではなく、知識との新しい対話です。」を削ったこと、対象と除外の2文「検索の対象はノート本文だけです。」「添付ファイルとアーカイブ済みのノートは対象に含まれません。」をそのまま残したことを示します。続いて英語のサポート返信で、答え「Support cannot reopen an expired download link.」を最初の文にし、「Large workspaces may take a few minutes to prepare.」の範囲と不確実さを残したことを示し、最後に保存結果ビューアの実際の画面と、持ち帰るファイルrevisions.mdとrevisions.jsonを示します。">Humanizerに渡すもの、削った一文、残した条件、保存結果の読み比べ方を説明する編集動画です。表示にはCanvasに対応したブラウザーが必要です。</canvas>
+    </div>
+
+    <div class="controls">
+      <button id="play" type="button" aria-pressed="false" disabled>再生</button>
+      <input id="scrub" type="range" min="0" max="28" step="0.1" value="13.5" aria-label="再生位置（秒）" disabled>
+      <output id="time" for="scrub">13.5 / 28.0 秒</output>
+    </div>
+    <p id="status" class="status" role="status" aria-live="polite">素材を読み込んでいます…</p>
+    <noscript><p class="status">JavaScriptが無効のため、動画を描画できません。内容は <a href="../outputs/revisions.md">推敲メモ（outputs/revisions.md）</a> で読めます。</p></noscript>
+
+    <ul class="links">
+      <li><a href="../index.html#japanese">作例ページの「日本語への適用例」へ戻る</a></li>
+      <li><a href="../outputs/revisions.md">推敲メモ（revisions.md）を開く</a></li>
+      <li><a href="../outputs/revisions.json">結果データ（revisions.json）を開く</a></li>
+    </ul>
+    <p class="credit">制作時の保存結果をもとにした編集動画・無音。Humanizer 3.1.0（MIT License, © 2025 Siqi Chen）。映像の構成・文字・コード：© 2026 Studio Yebisu（MIT License）。人による校閲・承認、AI検出の結果、日本語全般での効果を示すものではありません。</p>
+  </main>
+</body>
+</html>
