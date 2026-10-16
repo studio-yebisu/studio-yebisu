@@ -1,0 +1,16 @@
+Codebase Memory MCP（DeusData/codebase-memory-mcp v0.12.0、ソース固定コミット ec6427c38176efcd37b28682e82f2491afda94be）で、小さなPythonリポジトリの呼び出し関係を実際に調べてください。公式Windowsリリースのzipは checksums.txt とビルド証明で確かめ、install・フック・全体設定の変更・ほかのCBMセッションの終了はしないでください。
+
+入力：fixture/ の架空のワークショップ注文リポジトリ（app.main → service.submit_order → validate_order・calculate_total・save_receipt）、sample_order.json（2席×1,200円）、変更用の storage_revised.py。
+
+手順：
+1. fixture を新しい空の作業ディレクトリへコピーし、元は変えない。コピーで app.py を実行し、指定したディレクトリに書かれた領収JSONの合計2,400円を読む。
+2. cli index_repository（mode full）で索引を作り、list_projects で実際の名前を確かめ、get_graph_schema と index_status を読む。
+3. search_graph で submit_order を探し、返ったパスと行を実ソースと照合し、get_code_snippet の本文を読む。
+4. query_graph と trace_path（outbound・深さ4）の実際の応答に submit_order から3関数への辺があることを、ソースの呼び出し式と並べて確かめる。
+5. コピーの storage.py だけを差し替えて audit_receipt を加え、再索引前の応答を保存してから手で index_repository をやり直し、save_receipt → audit_receipt と監査JSONを確かめる。
+
+保存：実際の応答JSONを outputs/runs.json と samples.json に、日本語の結果メモを outputs/result.md に書く。標準出力・標準エラーの全文は作業ディレクトリに残し、公開側ではコピーのパスを fixture/、キャッシュを <private-cache> に置き換える。閲覧ページは保存結果を読むだけにする。
+
+完了条件：辺・行・領収JSON・監査JSONが実データで確かめられること。応答の失敗や不一致があれば、出力を書かずに終了コード1で止める。
+
+範囲外：MCPプロトコル経由の動作、CBM Lens、ブラウザAI、意味検索、大きなリポジトリ、速さ・トークン量。静的な呼び出し関係は実行時の記録ではない。

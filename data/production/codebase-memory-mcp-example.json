@@ -1,0 +1,502 @@
+{
+  "id": "codebase-memory-mcp-example",
+  "verified_at": "2026-10-16T01:59:44.466482+00:00",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "receipts": [
+      {
+        "phase": "implement",
+        "receipt_sha256": "71817b206f21a6ef424d4a0226ce85e9d0e9f87466d2a0a74550927054e1e61b",
+        "execution_sha256": "cd638397fe894726409694e0567fda57b4ab123e0cd18f0671e854e151622dfb",
+        "prompt_sha256": "cb7cf2ed30a39db7c07ff4eb43cef35d9c18734f3d6b42d32ff820c5af18ba6a"
+      },
+      {
+        "phase": "video",
+        "receipt_sha256": "77e8ac35d1872717184a7e5cb137d31cc01fefc36548812922ac8b0ab0a81c82",
+        "execution_sha256": "b1464b3c45c3dec576511650bf802bd6a4bfda8de4dbb6cea4e3531016717aee",
+        "prompt_sha256": "0e2717de3b3e9096f31273ff557ff88456ede16bfacc4d4fddb5ba933f12089d"
+      }
+    ],
+    "receipt_published": false
+  },
+  "upstream": {
+    "repository": "DeusData/codebase-memory-mcp",
+    "commit": "ec6427c38176efcd37b28682e82f2491afda94be",
+    "version": "0.12.0",
+    "license": "MIT",
+    "copyright": "2025 DeusData",
+    "previous_catalog_commit": "8df0639c6268afe9888979e72b9797aa2cc1de7c",
+    "update_reason": "Official Windows v0.12.0 and exact tagged source, released after source-only catalog review.",
+    "release_url": "https://github.com/DeusData/codebase-memory-mcp/releases/tag/v0.12.0",
+    "archive_sha256": "0675af7894d293cb755e85f1f471b4b8dd401988f03ad183b3d3d74788517165",
+    "executable_sha256": "770597e6f08871b2903a15229754dd3600c1966c0eb71b08fc82fa8e047626cf",
+    "attestation_verified": true,
+    "attested_source_commit": "ec6427c38176efcd37b28682e82f2491afda94be",
+    "signer_workflow": "DeusData/codebase-memory-mcp/.github/workflows/_build.yml",
+    "archive_members": [
+      "codebase-memory-mcp.exe",
+      "LICENSE",
+      "install.ps1",
+      "THIRD_PARTY_NOTICES.md"
+    ],
+    "binary_redistributed": false,
+    "files_sha256": {
+      "LICENSE": "1f58f9911dc5e3bcb96de28bb28e7b6bb7eb323952d29569c5d7214a152146bb",
+      "README.md": "72cab3ba5a2669b8b37ee038ffb1b47261199945f48295521ce2a695b3cf3c2b",
+      "SECURITY.md": "12b343aa168914a515eb5eac4af7334878d2d9661cb25aaff9f83136f6e983d7",
+      "THIRD_PARTY.md": "7374b2e2158d8a2c9bd411b120dcbda6cdc1e333e945fbfd3b27bcd6e29f27e8",
+      "docs/CONFIGURATION.md": "88baacfdea5f41ac5920721b93b80534a0d7634ff9ce37430dbe4ebe5894e5da",
+      "scripts/README.md": "fd103da3f88593984d6ea03757096cf493ea7fe4bf430552373dd79fe6fef75a"
+    },
+    "release_member_selection_hash_match": true,
+    "release_selection_sha256": "a612d0243a16f021978699a2f96af574985d54c6afeb73e11b6cd7a1ac432d5a"
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 3,
+    "scope": "公式 v0.12.0 のネイティブ CLI（codebase-memory-mcp cli）で、バックエンドのツールを1回ずつ実行した結果です。MCP プロトコル経由の動作、CBM Lens、ブラウザAI、意味検索は使っていません。呼び出し関係は索引に記録された静的な関係で、実行時に記録したトレースではありません。fixture/ は架空の小さなリポジトリで、変更（storage_revised.py への差し替え）は実行用コピーにだけ加えました。パスの fixture/ は実行用コピーを指します。",
+    "human_approval": false
+  },
+  "verification": {
+    "id": "codebase-memory-mcp-example",
+    "verified_at": "2026-10-16T01:59:44.268083+00:00",
+    "stage": "runtime-and-agent-visual-reviewed",
+    "source_commit": "ec6427c38176efcd37b28682e82f2491afda94be",
+    "data_checks": {
+      "status": "passed",
+      "sample_count": 3,
+      "verified_at": "2026-10-16T01:34:26.928925+00:00",
+      "native_tool_calls": 18,
+      "all_public_tool_payloads_equal_real_private_stdout_after_path_normalization": true,
+      "all_samples_equal_actual_requests_and_responses": true,
+      "source_definition_line": 8,
+      "source_internal_edges_before": [
+        [
+          "main",
+          "submit_order"
+        ],
+        [
+          "submit_order",
+          "calculate_total"
+        ],
+        [
+          "submit_order",
+          "save_receipt"
+        ],
+        [
+          "submit_order",
+          "validate_order"
+        ]
+      ],
+      "source_internal_edges_after": [
+        [
+          "main",
+          "submit_order"
+        ],
+        [
+          "save_receipt",
+          "audit_receipt"
+        ],
+        [
+          "submit_order",
+          "calculate_total"
+        ],
+        [
+          "submit_order",
+          "save_receipt"
+        ],
+        [
+          "submit_order",
+          "validate_order"
+        ]
+      ],
+      "query_rows_before": 6,
+      "query_rows_stale": 6,
+      "query_rows_after": 7,
+      "new_edge_after_manual_reindex_only": true,
+      "base_and_revised_total_jpy": 2400,
+      "actual_audit_consistent": true,
+      "original_fixture_hashes_unchanged": true,
+      "upstream_release_archive_executable_attestation_match": true,
+      "scope": "公式 v0.12.0 のネイティブ CLI（codebase-memory-mcp cli）で、バックエンドのツールを1回ずつ実行した結果です。MCP プロトコル経由の動作、CBM Lens、ブラウザAI、意味検索は使っていません。呼び出し関係は索引に記録された静的な関係で、実行時に記録したトレースではありません。fixture/ は架空の小さなリポジトリで、変更（storage_revised.py への差し替え）は実行用コピーにだけ加えました。パスの fixture/ は実行用コピーを指します。",
+      "human_approval": false,
+      "remaining": [
+        "MCP protocol, Lens, browser AI, semantic search, large repositories and speed/token claims untested.",
+        "Static call edges are not observed runtime traces or completeness guarantees."
+      ]
+    },
+    "environment": {
+      "python": "3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "binary_release": "v0.12.0",
+      "scope": "Native Windows amd64 CLI, original stdlib-only Python fixture. MCP protocol, Lens, browser AI, semantic search and runtime tracing not exercised."
+    },
+    "semantic_review": {
+      "agent_semantic_review": true,
+      "human_approval": false,
+      "verified": [
+        "Actual18CLIresponses compared to saved payloads with path normalization only;14 sample tool payloads compared to DOM.",
+        "SourceAST cross-check:4 internal edges before,5 after, actualnewedge onlyafter manualreindex.",
+        "Realfixtureexecution is separate from staticCALLS; actualreceipts2400before/after andconsistenttrueaudit.",
+        "No original fixture edits, modelinference, realpayment/reservation, MCPprotocol, Lens/semanticsearch or speedclaims."
+      ],
+      "unresolved_blockers": []
+    },
+    "browser": {
+      "status": "passed",
+      "sample_count": 3,
+      "agent_visual_review": true,
+      "human_approval": false,
+      "responsive_widths": [
+        320,
+        375,
+        390,
+        430,
+        844,
+        1280
+      ],
+      "responsive_states": 18,
+      "final_update_panel_rechecked_widths": [
+        320,
+        390,
+        1280
+      ],
+      "all_dom_tool_payloads_equal_actual_saved_outputs": true,
+      "dom_tool_payloads": 14,
+      "root_overflow": false,
+      "primary_targets_min44": true,
+      "input_font_px": 16,
+      "keyboard": "NativeArrowRight,Home,End changed selected panel andfocus;3px focus outline",
+      "initial_hash": "#update after reload showed update only after data ready",
+      "failure": "Controlled503 hides allresults and showsretry; native retry restores3/3 and update hash",
+      "clipboard": "UI promise reports success; clipboard API readback differed from request, so actual copied text not verified",
+      "scope": [
+        "Windows IAB Chromium desktop and emulated viewport sizes, not physical iOS/Safari/VoiceOver.",
+        "Agent visual inspection and runtime assertions are not human aesthetic approval."
+      ],
+      "screenshots": [
+        {
+          "path": "assets/screen-find.png",
+          "source": "Studio Yebisu native IAB Chromium screenshot; no content edits",
+          "description": "Actual search definition and source: service.py line8",
+          "pixels": [
+            1265,
+            889
+          ],
+          "sha256": "73d15f0646acc428e6cd0567ff1815287b9e92540b56af317e5136a4a064907e"
+        },
+        {
+          "path": "assets/screen-trace.png",
+          "source": "Studio Yebisu native IAB Chromium screenshot; no content edits",
+          "description": "Actual three direct static calls and source lines",
+          "pixels": [
+            1265,
+            889
+          ],
+          "sha256": "5ca593a986bca647f70b7ca82a2fa3126f8fa8c9e904764804bc331bdbe3940d"
+        },
+        {
+          "path": "assets/screen-update.png",
+          "source": "Studio Yebisu native IAB Chromium screenshot; no content edits",
+          "description": "Actual no/no/yes comparison and6/6/7 query rows",
+          "pixels": [
+            1265,
+            889
+          ],
+          "sha256": "9aa17607a918077e761f14a3c0b290c6ecaba81f733c03602d10de64c35871aa"
+        },
+        {
+          "path": "assets/screen-phone.png",
+          "source": "Studio Yebisu native IAB Chromium screenshot; no content edits",
+          "description": "Actual390px mobile first screen; saved-result label and three actions",
+          "pixels": [
+            375,
+            812
+          ],
+          "sha256": "d5915010dcfde9a6bff1dd29e05d4ae7d9ebe5c8ddcc79cbff55a7041916600f"
+        }
+      ]
+    },
+    "video": {
+      "video_sha256": "e23dd21a40a5b684f3d5c12484d1238f02eb23c98e3e30a046cbf44eb7a8e8cd",
+      "poster_sha256": "b9b7b6b3cfb4a30ee8862fdfa422e54571531c5c69523c938f4d83aa641f0c39",
+      "poster_from_mp4_seconds": 13.5,
+      "full_decode_passed": true,
+      "review_files": [
+        "contact.png",
+        "poster.png",
+        "strip.png",
+        "stills/frame-000000.png",
+        "stills/frame-000001.png",
+        "stills/frame-000002.png",
+        "stills/frame-000003.png",
+        "stills/frame-000004.png",
+        "stills/frame-000005.png",
+        "stills/frame-000006.png",
+        "stills/frame-000007.png",
+        "stills/frame-000008.png",
+        "stills/frame-000009.png",
+        "stills/frame-000010.png",
+        "stills/frame-000011.png",
+        "stills/frame-000012.png",
+        "stills/frame-000013.png",
+        "cut-01.png",
+        "cut-02.png",
+        "cut-03.png",
+        "cut-04.png",
+        "cut-05.png",
+        "final.png"
+      ],
+      "render_label": "final-v1",
+      "bundled_renderer_executed": true,
+      "reviewed_at": "2026-10-16T01:59:44.183300+00:00",
+      "agent_visual_review": true,
+      "human_approval": false,
+      "review_scope": [
+        "Inspected14framecontact, full13.5sstatic-callposter,18sstale/20sreindexedcomparisons,finalframe,8.1s12framestrip,16.1sinitialstripandfive12frameMP4stripsat3.85/9.85/15.85/18.85/21.85. No clipping or accumulated drawing observed. Brief empty interiors at scene cuts are whole-content fades.",
+        "Findactualscreen crop aligns with8lineagreementanddefinitionmark. Large labels give actualsourcefacts.",
+        "Staticdiagram separates3callees with no implied ordering; actualmain->submit_order andservice.py9/10/18 calllines; static-not-runtimecaption visible.",
+        "Update dashedunindexed audit_receipt becomes solid aftermanualindex; actualquery6/6/7 andactualscreenscomparison. Source15callline/19definition match.",
+        "Actual2400receipt andconsistenttrueaudit labelled separatePythonexecutiononfictionalorder, not agraphtrace oractualpayment.",
+        "Finalrealphonecrop highlights saved-result label; actualfixedcommit fits. Nativeeditor14sready,375pxrootfit/play48.6px/scrub44px.",
+        "NativeMP4observedinitialbuffering0s/paused/ready1 thenautomaticplaybackended28s/ready4/errornull withoutmanualseek.",
+        "28s720p30fps840frames silent,noaudiotrack. PhysicaliOS/otherratios/humanaestheticapproval nottested."
+      ],
+      "native_playback": {
+        "time": 28,
+        "ended": true,
+        "error": null,
+        "first_observed_seconds": 0,
+        "initial_ready_state": 1,
+        "initial_paused": true,
+        "no_manual_seek": true
+      },
+      "source_editor": {
+        "canvas": [
+          1280,
+          720
+        ],
+        "play_enabled": true,
+        "position": 14,
+        "status": "14.00 / 28.00 秒 ・ 準備完了（保存済みの結果から描画・無音）"
+      },
+      "determinism": {
+        "frame": 504,
+        "seconds": 16.8,
+        "first": "9f061d2074e9953ac94207ceb485a7f5eb8cda8b36dde7b6789c8fdd456c25f6",
+        "afterOtherTimes": "9f061d2074e9953ac94207ceb485a7f5eb8cda8b36dde7b6789c8fdd456c25f6",
+        "freshPage": "9f061d2074e9953ac94207ceb485a7f5eb8cda8b36dde7b6789c8fdd456c25f6",
+        "match": true
+      },
+      "audio": "silent; no audio track",
+      "unresolved_blockers": [],
+      "remaining": [
+        "Other aspect ratios, physicaliOS/Safari andhumanartisticapproval untested."
+      ]
+    },
+    "motion_reel": {
+      "name": "Studio Yebisu Motion Reel rendering runtime",
+      "license": "MIT",
+      "copyright": "2026 Studio Yebisu",
+      "files_sha256": {
+        "render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+        "audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+        "package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+        "package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+        "LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd"
+      },
+      "dependency_lock": "Playwright1.64.0 npm registry Apache-2.0; dependencies not distributed."
+    },
+    "production_contributions": {
+      "Opus5.5": "Read fixed official documentation and brief-to-demo; authored original fixture, CLI bridge, Japanese guide, saved-result viewer and editable film.",
+      "production_editor": "Verified official release checksum/build attestation and exact source, adapted Windows encoding/actual CLI payload shape and grouped search format, executed genuine tools and original fixture, compared source/raw output/DOM, adjusted mobile layout, reviewed film and scoped authorized publication. Full model histories remain private."
+    },
+    "parent_adjustments": {
+      "changes": [
+        "Use Python -X utf8 for isolated child output onWindows.",
+        "Respect actual CLI schema: rawenvelope flag,format in toolJSON,indexwithoutformat,list_projects formatting viaflag.",
+        "Decode v0.12 grouped search rows by explicit cols/groups/qn_rule; rawresponses retained unchanged apartfrom documentedpaths.",
+        "Use existing-safe local userprofile cache and create rendezvous directory; nopermissionweakening/globalintegration/foreignprocessstop.",
+        "Shorten mobilehero, move scope/four facts to native details, shorten derivedtablabels, hide numberbadge below360px and fold changedsource so comparisonappears first.",
+        "Document actuallyverifiedrelease and reproducible private-directory setup."
+      ],
+      "unchanged": "Originalfictional fixtures andrawtoolpayloadmeaning unchanged.",
+      "human_approval": false
+    },
+    "human_approval": false
+  },
+  "explanation": {
+    "video": {
+      "file": "video.mp4",
+      "sha256": "e23dd21a40a5b684f3d5c12484d1238f02eb23c98e3e30a046cbf44eb7a8e8cd",
+      "width": 1280,
+      "height": 720,
+      "fps": 30,
+      "frameCount": 840,
+      "duration": 28,
+      "hasAudio": false
+    },
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "9f061d2074e9953ac94207ceb485a7f5eb8cda8b36dde7b6789c8fdd456c25f6",
+      "afterOtherTimes": "9f061d2074e9953ac94207ceb485a7f5eb8cda8b36dde7b6789c8fdd456c25f6",
+      "freshPage": "9f061d2074e9953ac94207ceb485a7f5eb8cda8b36dde7b6789c8fdd456c25f6",
+      "match": true
+    },
+    "errors": [],
+    "blockedExternalRequests": []
+  },
+  "video_review": {
+    "video_sha256": "e23dd21a40a5b684f3d5c12484d1238f02eb23c98e3e30a046cbf44eb7a8e8cd",
+    "poster_sha256": "b9b7b6b3cfb4a30ee8862fdfa422e54571531c5c69523c938f4d83aa641f0c39",
+    "poster_from_mp4_seconds": 13.5,
+    "full_decode_passed": true,
+    "review_files": [
+      "contact.png",
+      "poster.png",
+      "strip.png",
+      "stills/frame-000000.png",
+      "stills/frame-000001.png",
+      "stills/frame-000002.png",
+      "stills/frame-000003.png",
+      "stills/frame-000004.png",
+      "stills/frame-000005.png",
+      "stills/frame-000006.png",
+      "stills/frame-000007.png",
+      "stills/frame-000008.png",
+      "stills/frame-000009.png",
+      "stills/frame-000010.png",
+      "stills/frame-000011.png",
+      "stills/frame-000012.png",
+      "stills/frame-000013.png",
+      "cut-01.png",
+      "cut-02.png",
+      "cut-03.png",
+      "cut-04.png",
+      "cut-05.png",
+      "final.png"
+    ],
+    "render_label": "final-v1",
+    "bundled_renderer_executed": true,
+    "reviewed_at": "2026-10-16T01:59:44.183300+00:00",
+    "agent_visual_review": true,
+    "human_approval": false,
+    "review_scope": [
+      "Inspected14framecontact, full13.5sstatic-callposter,18sstale/20sreindexedcomparisons,finalframe,8.1s12framestrip,16.1sinitialstripandfive12frameMP4stripsat3.85/9.85/15.85/18.85/21.85. No clipping or accumulated drawing observed. Brief empty interiors at scene cuts are whole-content fades.",
+      "Findactualscreen crop aligns with8lineagreementanddefinitionmark. Large labels give actualsourcefacts.",
+      "Staticdiagram separates3callees with no implied ordering; actualmain->submit_order andservice.py9/10/18 calllines; static-not-runtimecaption visible.",
+      "Update dashedunindexed audit_receipt becomes solid aftermanualindex; actualquery6/6/7 andactualscreenscomparison. Source15callline/19definition match.",
+      "Actual2400receipt andconsistenttrueaudit labelled separatePythonexecutiononfictionalorder, not agraphtrace oractualpayment.",
+      "Finalrealphonecrop highlights saved-result label; actualfixedcommit fits. Nativeeditor14sready,375pxrootfit/play48.6px/scrub44px.",
+      "NativeMP4observedinitialbuffering0s/paused/ready1 thenautomaticplaybackended28s/ready4/errornull withoutmanualseek.",
+      "28s720p30fps840frames silent,noaudiotrack. PhysicaliOS/otherratios/humanaestheticapproval nottested."
+    ],
+    "native_playback": {
+      "time": 28,
+      "ended": true,
+      "error": null,
+      "first_observed_seconds": 0,
+      "initial_ready_state": 1,
+      "initial_paused": true,
+      "no_manual_seek": true
+    },
+    "source_editor": {
+      "canvas": [
+        1280,
+        720
+      ],
+      "play_enabled": true,
+      "position": 14,
+      "status": "14.00 / 28.00 秒 ・ 準備完了（保存済みの結果から描画・無音）"
+    },
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "9f061d2074e9953ac94207ceb485a7f5eb8cda8b36dde7b6789c8fdd456c25f6",
+      "afterOtherTimes": "9f061d2074e9953ac94207ceb485a7f5eb8cda8b36dde7b6789c8fdd456c25f6",
+      "freshPage": "9f061d2074e9953ac94207ceb485a7f5eb8cda8b36dde7b6789c8fdd456c25f6",
+      "match": true
+    },
+    "audio": "silent; no audio track",
+    "unresolved_blockers": [],
+    "remaining": [
+      "Other aspect ratios, physicaliOS/Safari andhumanartisticapproval untested."
+    ]
+  },
+  "publication": {
+    "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=codebase-memory-mcp-example",
+    "authorization": "User requested sequential publication of40 cases to existing main and Pages."
+  },
+  "artifacts_sha256": {
+    "data/cases/codebase-memory-mcp-example.json": "2e72098d848801ed75d18734149e270e37e7fcc42ad321aeb1cf5a252d005c9d",
+    "examples/codebase-memory-mcp-example/app.mjs": "6d2e75673a593fa225afb89707a66c2e98b47750c973c3157c403cb3f9d41d1a",
+    "examples/codebase-memory-mcp-example/assets/screen-find.png": "73d15f0646acc428e6cd0567ff1815287b9e92540b56af317e5136a4a064907e",
+    "examples/codebase-memory-mcp-example/assets/screen-phone.png": "d5915010dcfde9a6bff1dd29e05d4ae7d9ebe5c8ddcc79cbff55a7041916600f",
+    "examples/codebase-memory-mcp-example/assets/screen-trace.png": "5ca593a986bca647f70b7ca82a2fa3126f8fa8c9e904764804bc331bdbe3940d",
+    "examples/codebase-memory-mcp-example/assets/screen-update.png": "9aa17607a918077e761f14a3c0b290c6ecaba81f733c03602d10de64c35871aa",
+    "examples/codebase-memory-mcp-example/fixture/app.py": "dd7b8550687cb74b29d92f371c0df391126540273fb5354da0628fe7c7e32695",
+    "examples/codebase-memory-mcp-example/fixture/pricing.py": "795f125daf3b8e5369f6870b19f0736b5516c5926718064970bc3ec165ada2ad",
+    "examples/codebase-memory-mcp-example/fixture/sample_order.json": "7e142dcdce067a80bb4f4c20ebded83331200ad1191d0bff42b14c3899a19754",
+    "examples/codebase-memory-mcp-example/fixture/service.py": "2a35508af631110afc1e9aaea0dc7c8a00cb26f6de0632784869a0b1a166aafc",
+    "examples/codebase-memory-mcp-example/fixture/storage.py": "b849317607b3d81fb2f20aaca9b2c4cd2b2a18023a933ede97df29727c85118e",
+    "examples/codebase-memory-mcp-example/fixture/storage_revised.py": "c2c37eb7a4fc8393620c9bd1f2a835495253c590d9d0f9b02b643c800bd0a458",
+    "examples/codebase-memory-mcp-example/fixture/validation.py": "fec5144c30d03ff583b2a93533c04383d7ccdf4c3dee76c5bdba9e6460cd9b63",
+    "examples/codebase-memory-mcp-example/index.html": "3495969bcd28a607a54d583c707e6ea08a4889d50869fa15953f537c388e589d",
+    "examples/codebase-memory-mcp-example/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
+    "examples/codebase-memory-mcp-example/outputs/result.md": "fafb2c95f6e5c4e627a9161e319a507030b80d7a825662c89f5556dfdf5329b0",
+    "examples/codebase-memory-mcp-example/outputs/runs.json": "966b504b3c23eb151e8bee15617cecc469875c64cb2310a295f761071c8d3d63",
+    "examples/codebase-memory-mcp-example/README.md": "610dfe897627c511d22fdaefeadf6809f67594692aef479547244ecfba685003",
+    "examples/codebase-memory-mcp-example/render.py": "18708e8c318fe564a1b6edcb586ccf11e8fcbf9c06c0d6c052244d6bea9f723d",
+    "examples/codebase-memory-mcp-example/request.txt": "aefcae60fd1fcd5dec2b0daf8c4624c1d42e7f5664eaa9881998fbfd8860c05a",
+    "examples/codebase-memory-mcp-example/samples.json": "d1a900836696a8d25a73e2bffa5b2b65f82c3b92cd18692f33e5648ffc3f9498",
+    "examples/codebase-memory-mcp-example/source.zip": "dfa70ef26100b85d53c5e23305d8940e2563e11da4aac1633625bd190d9d7569",
+    "examples/codebase-memory-mcp-example/style.css": "5632f35d2ad61a94ba1bb4cd5ff4b88e79e23937cc1713f1355937f71ef0fb73",
+    "examples/codebase-memory-mcp-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/codebase-memory-mcp-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/codebase-memory-mcp-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/codebase-memory-mcp-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/codebase-memory-mcp-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "examples/codebase-memory-mcp-example/vendor/codebase-memory-mcp/docs/CONFIGURATION.md": "88baacfdea5f41ac5920721b93b80534a0d7634ff9ce37430dbe4ebe5894e5da",
+    "examples/codebase-memory-mcp-example/vendor/codebase-memory-mcp/LICENSE": "1f58f9911dc5e3bcb96de28bb28e7b6bb7eb323952d29569c5d7214a152146bb",
+    "examples/codebase-memory-mcp-example/vendor/codebase-memory-mcp/README.md": "72cab3ba5a2669b8b37ee038ffb1b47261199945f48295521ce2a695b3cf3c2b",
+    "examples/codebase-memory-mcp-example/vendor/codebase-memory-mcp/scripts/README.md": "fd103da3f88593984d6ea03757096cf493ea7fe4bf430552373dd79fe6fef75a",
+    "examples/codebase-memory-mcp-example/vendor/codebase-memory-mcp/SECURITY.md": "12b343aa168914a515eb5eac4af7334878d2d9661cb25aaff9f83136f6e983d7",
+    "examples/codebase-memory-mcp-example/vendor/codebase-memory-mcp/THIRD_PARTY.md": "7374b2e2158d8a2c9bd411b120dcbda6cdc1e333e945fbfd3b27bcd6e29f27e8",
+    "examples/codebase-memory-mcp-example/verification.json": "bce3f78bddbca47a9d522efcff35beff7df10062cddab4cf26890083ec5a7f0d",
+    "examples/codebase-memory-mcp-example/video/index.html": "8b35a54a0049bf0b4f58d6454ed2baf7f15645c09afa1027ad7b8ef0f6939f8a",
+    "examples/codebase-memory-mcp-example/video/README.md": "ae2c5750f323ec2d479e09c1a2324b2e6147a9f8346908d3cbcf0eb037d2931c",
+    "examples/codebase-memory-mcp-example/video/review/contact.png": "4616eb14ad53682abd978c17399cdb413d676e63cda0b1908b0fb8b7699b2e52",
+    "examples/codebase-memory-mcp-example/video/review/cut-01.png": "6b29ec2a4f11aacc9ce8965902f3ac150044f3be70f24d93759ce958733ba542",
+    "examples/codebase-memory-mcp-example/video/review/cut-02.png": "8582b3a93d9332e669b2e9262d5d058e1d7aebaecb7640f0f4c021f8afb104f0",
+    "examples/codebase-memory-mcp-example/video/review/cut-03.png": "17aa9f7eec290763f72ab4ae49396c5134731069d3701b133689f2b3e94efedd",
+    "examples/codebase-memory-mcp-example/video/review/cut-04.png": "32a3e5854af5e20483c843384d4d8637ce7b7bbb71d209862632b813077465a1",
+    "examples/codebase-memory-mcp-example/video/review/cut-05.png": "60db82f6fcb831e1432df826eb07e45cda79fed8306a2fbdc5ecbc64619f743a",
+    "examples/codebase-memory-mcp-example/video/review/final.png": "bd32eb6d9c4306d7e06362f3a5dc656ba52414e70dbde1a4b1c726de861c04cd",
+    "examples/codebase-memory-mcp-example/video/review/poster.png": "3570d879db26bebc59ae82c3f132b21f216ef2af377cfa7b11d101657f3eb136",
+    "examples/codebase-memory-mcp-example/video/review/stills/frame-000000.png": "9209797aa0a78d1eaeeb0e822a1b6afb0504cbc5e72b24df34517e303b28499a",
+    "examples/codebase-memory-mcp-example/video/review/stills/frame-000001.png": "dac0bc60763d922b4487522e60eb0a7c761beef4b6ab40055a6cb8fda5983848",
+    "examples/codebase-memory-mcp-example/video/review/stills/frame-000002.png": "c74fe235718082f42650a75ac4178bf404da1206f7e0f7b29817b67e9978c150",
+    "examples/codebase-memory-mcp-example/video/review/stills/frame-000003.png": "fbd56c444e0ab0525931cba786eeb327d0c680753033ab114cd37ebf0ceda656",
+    "examples/codebase-memory-mcp-example/video/review/stills/frame-000004.png": "d16619a1bff701424ca319058ad0b4046413e233e53c654acfbcdca6f54ffc1d",
+    "examples/codebase-memory-mcp-example/video/review/stills/frame-000005.png": "496450ed5c373175f74e2f6fde743eaf768133e433c8cfb0c31f3c89e4b08026",
+    "examples/codebase-memory-mcp-example/video/review/stills/frame-000006.png": "37c1c78970a04d599fca1aee46e81b42f64df0052f634a6be9965f99bf9d759e",
+    "examples/codebase-memory-mcp-example/video/review/stills/frame-000007.png": "3570d879db26bebc59ae82c3f132b21f216ef2af377cfa7b11d101657f3eb136",
+    "examples/codebase-memory-mcp-example/video/review/stills/frame-000008.png": "5843c3bf3ba3758a2c72b67af32d0d9353cebfeec5bf9e2bddec08436136add3",
+    "examples/codebase-memory-mcp-example/video/review/stills/frame-000009.png": "64b320a2071022cccf89a061872e6aca1a90de1440b701b82f6cc95404de935b",
+    "examples/codebase-memory-mcp-example/video/review/stills/frame-000010.png": "0c516a35c94ade1be0477f34cf9b4e0900381aebc2cb67de8e4130f987d9485e",
+    "examples/codebase-memory-mcp-example/video/review/stills/frame-000011.png": "58f42be2c31d4bde15360a8aee6f986297c97703da22856ee6b88000ee1de3c9",
+    "examples/codebase-memory-mcp-example/video/review/stills/frame-000012.png": "865b8e9a9643fef531371ce5a96aa7caeadb28dd03404d35295c8d652a8ac7d5",
+    "examples/codebase-memory-mcp-example/video/review/stills/frame-000013.png": "d3c37800c49786be51fd8985fb7b9be8cec633e193b6b26a85831de78479ad5d",
+    "examples/codebase-memory-mcp-example/video/review/strip.png": "acdda26f617887add72d4893ef6f67032363530957d089e0fe0c0aacfc73e9a0",
+    "examples/codebase-memory-mcp-example/video/storyboard.json": "569c6540e500ec29a6227f5b04fad7ae003b58e6352e8bfda7a9427622fc80be",
+    "examples/codebase-memory-mcp-example/video/video.css": "efcbe45fefb8e24cb6a7a211fe38d5b6d51dc19ef5707891878ebc9aa1332975",
+    "examples/codebase-memory-mcp-example/video/video.js": "45c62ef556824fae1007171560ff5cadbf76a84001794806f1b27a5e959967cc",
+    "examples/codebase-memory-mcp-example/workflow.py": "7d28b88e337ca9f211eff2b67fd5b42bdadef2535ec698e55c530fad0a58ce23",
+    "media/codebase-memory-mcp-example.mp4": "e23dd21a40a5b684f3d5c12484d1238f02eb23c98e3e30a046cbf44eb7a8e8cd",
+    "media/codebase-memory-mcp-example.webp": "b9b7b6b3cfb4a30ee8862fdfa422e54571531c5c69523c938f4d83aa641f0c39"
+  }
+}

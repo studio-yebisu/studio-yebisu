@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Codebase Memory MCP作例：コードを索引して、関数と呼び出しを探す（28秒・無音の編集動画）｜Studio Yebisu</title>
+  <meta name="description" content="Codebase Memory MCP の公式 CLI で架空の注文リポジトリを索引した保存結果から、関数の定義と行、静的な呼び出し関係、変更後に手で索引し直した前後、架空の注文を実際に実行した領収を、実際のビューア画面とともに説明する28秒・無音の編集動画です。">
+  <link rel="stylesheet" href="video.css">
+  <script type="module" src="video.js"></script>
+</head>
+<body>
+  <main class="page">
+    <header class="head">
+      <p class="eyebrow">Codebase Memory MCP 作例 ／ 編集動画（28秒・無音）</p>
+      <h1>コードを索引して、関数と呼び出しを探す</h1>
+      <p class="lede">公式 CLI（v0.12.0）で実行して保存した結果（<code>outputs/runs.json</code>）と、作例ビューアの実際のスクリーンショットを素材に編集した説明動画です。連続した画面録画ではありません。この画面は保存済みの素材を描くだけで、CLI・Python・AIは動きません。</p>
+    </header>
+
+    <div id="stage" class="stage">
+      <canvas id="film" width="1280" height="720" role="img" aria-label="Codebase Memory MCPの作例を説明する28秒・無音の編集動画。保存済みの実行結果を読み込むと、内容の説明に置き換わります。">関数の定義を探し、静的な呼び出し関係をたどり、変更後に手で索引し直すまでを説明する編集動画です。表示にはCanvasに対応したブラウザーが必要です。</canvas>
+    </div>
+
+    <div class="controls">
+      <button id="play" type="button" aria-pressed="false" disabled>再生</button>
+      <input id="scrub" type="range" min="0" max="28" step="0.01" value="13.5" aria-label="再生位置（秒）" disabled>
+    </div>
+    <p id="status" class="status">13.50 / 28.00 秒 ・ 素材を読み込んでいます…</p>
+    <p id="announce" class="visually-hidden" role="status" aria-live="polite"></p>
+    <noscript><p class="status">JavaScriptが無効のため、動画を描画できません。内容は <a href="../outputs/result.md">結果メモ（outputs/result.md）</a> で読めます。</p></noscript>
+
+    <ul class="links">
+      <li><a href="../index.html#find">作例ページの「探す」へ戻る</a></li>
+      <li><a href="../index.html#update">「変える」の再索引の前後を見る</a></li>
+      <li><a href="../outputs/result.md">結果メモ（result.md）を開く</a></li>
+      <li><a href="../outputs/runs.json">実行結果（runs.json）を開く</a></li>
+    </ul>
+    <p class="credit">保存済みの CLI 結果をもとにした編集動画・無音。注文・金額・ワークショップ名は作例用の架空データです。画面は Studio Yebisu が撮影した作例ビューアの実際のスクリーンショットで、Codebase Memory MCP 本体の画面ではありません。Codebase Memory MCP v0.12.0（MIT License, © 2025 DeusData）。映像の構成・文字・コード：© 2026 Studio Yebisu（MIT License）。</p>
+  </main>
+</body>
+</html>
