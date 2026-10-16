@@ -1,0 +1,57 @@
+{
+  "title": "Browser Use作例：架空の検索画面を、事前に決めた6状態の手順で操作し、条件・結果・画面を残す",
+  "request": "ローカルのサンプル検索画面を開き、検索と絞り込みを操作してください。画面上の結果を確認し、操作手順と結果を記録してください。入力、出力、実行した検証、未確認の点を記録してください。",
+  "category": "research",
+  "audience": "ブラウザー操作の自動化を初めて試す、日本語で読みたい開発者・制作担当",
+  "goal": "固定版 browser-use の Actor API（Element.fill・select_option・check・click と読み取り専用の Page.evaluate・Page.screenshot）で、架空の検索画面「まちの作業席」を事前に決めた6状態の手順どおりに操作し、各状態で実際に読み取った条件・結果の全項目・画面を入力と照合して保存し、スマホで読み比べて選んだ状態をJSONで保存できるようにする",
+  "inputs": [
+    "input/workspaces.json（架空の作業席12件：ID・名前・エリア・1時間の料金・土曜・電源・説明文）",
+    "input/scenarios.json（6状態の手順：API・セレクター・値と期待するID）",
+    "browser-use/browser-use 固定コミット c75e8476e26d18b7617643bc2ae082fae8eae431（配布版 0.13.11）のソース（同梱の原典ファイルと、インストールする固定ZIP）",
+    "インストール済みの Google Chrome"
+  ],
+  "skill_refs": [
+    "skills/brief-to-demo/SKILL.md",
+    "https://github.com/browser-use/browser-use/blob/c75e8476e26d18b7617643bc2ae082fae8eae431/skills/open-source/SKILL.md",
+    "https://github.com/browser-use/browser-use/blob/c75e8476e26d18b7617643bc2ae082fae8eae431/skills/open-source/references/actor.md",
+    "https://github.com/browser-use/browser-use/blob/c75e8476e26d18b7617643bc2ae082fae8eae431/skills/open-source/references/browser.md"
+  ],
+  "deliverables": [
+    "fixture.html・fixture.js・fixture.css（操作する架空の検索画面。入力JSONだけを読む）",
+    "run_browser.py（Browser Use の Actor API で操作・照合・記録する CLI）",
+    "requirements.txt（固定コミットの browser-use）",
+    "outputs/browser-run.json と outputs/captures/S01.png〜S06.png（制作側の実行で作る記録と画面）",
+    "index.html・app.js・style.css（保存した記録を読むスマホ優先の閲覧ページ）",
+    "outputs/method.md（操作と照合の方法）",
+    "README.md・request.txt"
+  ],
+  "steps": [
+    "架空の作業席12件と、6状態の手順・期待するIDを入力に固定する",
+    "入力だけを読み、ボタンで絞り込み・リセットで全件に戻る静的な検索画面を作る",
+    "作例専用の仮想環境に固定版 browser-use を uv で入れ、作例フォルダを 127.0.0.1 で配る",
+    "run_browser.py が入力を検証し、送信・同期・拡張を止めた設定で既存の Chrome を専用プロファイルで起動し、6状態を順に操作する",
+    "各状態で DOM を読み取り、条件・結果の全項目・件数を入力と照合し、画面を PNG で保存して、すべて通ったときだけ JSON を書く",
+    "閲覧ページで入力と記録を取得して一致を確かめ、6状態を選んで操作・条件・結果・画面を読み、選んだ状態を JSON で保存する"
+  ],
+  "acceptance": [
+    "run_browser.py が Agent・LLM・Cloud・API キー・既存プロファイルを使わず、Actor API の fill・select_option・check・click だけで操作する",
+    "S02 は12件（説明文に「電源なし」のある W04・W08 を含む）、S03 は W01・W02・W04・W11、S04 は W01・W11、S05 は0件、S06 は12件で、各結果の全項目が入力と一致する",
+    "入力の形・操作の組み合わせ・期待するIDの整合が外れたとき、入力や期待値を変えずに起動前に止まる",
+    "照合が一つでも外れたら成功の JSON を書かず、既にある出力と画像を上書きしない",
+    "記録に入力の SHA-256・原典のコミット・Python と browser-use の版・成功した操作の回数・6状態の操作・条件・結果・画像の SHA-256 と大きさが入り、時刻・手元のパス・ポート・認証情報が入らない",
+    "検索画面が、読み込み前と失敗時に操作部品を無効にし、失敗時は結果を隠して再読み込みを出し、出力の JSON がなくても動く",
+    "閲覧ページが入力と記録の形・固定コミット・SHA-256・操作と結果の一致を確かめ、合わなければ理由と再読み込みを出し、内蔵の代わりのデータを使わない",
+    "初期表示は S04 で、状態のボタンを押したときだけ見出しへ移動する。選んだ状態の JSON（browser-use-example-S04.json など）のダウンロードを要求できる",
+    "320・375・390・430px縦、844px横、1280pxで横スクロールがなく、操作部品が44px以上、入力欄が16px以上"
+  ],
+  "assumptions": [
+    "「ローカルのサンプル検索画面」は、実在のサービスではなく、架空の作業席12件の静的な画面で表す",
+    "「検索と絞り込みを操作」は、事前に決めた6状態の手順で表し、LLM に次の操作を判断させない。Browser Use の自律エージェントの能力は確かめない",
+    "上流のスキルが既定として勧める ChatBrowserUse と API キーは使わず、Actor API の直接操作だけを使う",
+    "ブラウザーはインストール済みの Google Chrome を使い、uvx browser-use install による Chromium の導入はしない",
+    "allowed_domains はブラウザーの移動先を限る設定で、OS 全体の通信遮断やオフラインの保証とはしない",
+    "依存パッケージの版は固定ソースの pyproject.toml に従い、実際に入った版は制作側の実行後に記録する",
+    "ページは保存した記録を読むだけで、ブラウザー内で Python・Browser Use・AI を動かさない",
+    "解説動画は約28秒・無音で後日制作する"
+  ]
+}

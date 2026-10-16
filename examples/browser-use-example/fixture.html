@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#faf6ee">
+<title>まちの作業席（架空データ）｜Browser Use作例の検索画面</title>
+<meta name="description" content="Browser Useの操作APIで操作した、架空の作業席12件の検索画面です。実在の施設紹介や予約サービスではありません。">
+<link rel="stylesheet" href="fixture.css">
+<script src="fixture.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#results-heading">結果へ移動</a>
+
+<header class="top">
+  <a class="back" href="index.html">← 操作の記録へ</a>
+  <div class="title-row">
+    <h1>まちの作業席</h1>
+    <p class="fiction">架空データ</p>
+  </div>
+  <p class="notice">名称・料金・設備はこの作例だけの架空の内容です。実在の施設紹介・予約ではありません。</p>
+  <p id="result-count" class="count" role="status" aria-live="polite">読み込み中</p>
+</header>
+
+<main id="main">
+  <form id="search-form" class="search" role="search" aria-label="作業席を探す" novalidate>
+    <div class="field field-keyword">
+      <label for="search">キーワード</label>
+      <input id="search" name="q" type="search" autocomplete="off" enterkeyhint="search" placeholder="例：電源　窓際" disabled>
+    </div>
+    <div class="field">
+      <label for="area">エリア</label>
+      <select id="area" name="area" disabled>
+        <option value="">すべて</option>
+        <option value="恵比寿">恵比寿</option>
+        <option value="渋谷">渋谷</option>
+        <option value="代官山">代官山</option>
+        <option value="目黒">目黒</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="budget">1時間の予算</label>
+      <select id="budget" name="budget" disabled>
+        <option value="">指定なし</option>
+        <option value="500">500円以内</option>
+        <option value="800">800円以内</option>
+        <option value="1000">1,000円以内</option>
+      </select>
+    </div>
+    <fieldset class="checks">
+      <legend>設備・曜日</legend>
+      <label class="check" for="saturday"><input type="checkbox" id="saturday" name="saturday" disabled><span>土曜に使える</span></label>
+      <label class="check" for="power"><input type="checkbox" id="power" name="power" disabled><span>電源あり</span></label>
+    </fieldset>
+    <div class="buttons">
+      <button type="submit" id="apply" class="btn btn-main" disabled>この条件で探す</button>
+      <button type="button" id="reset" class="btn btn-quiet" disabled>条件をリセット</button>
+    </div>
+  </form>
+  <p class="rule">キーワードは名前・エリア・説明文の<strong>文字</strong>で探します。説明文の「電源なし」も「電源」に一致します。電源の有無で絞るときは「電源あり」を選んでください。</p>
+
+  <section class="results-area" aria-labelledby="results-heading">
+    <h2 id="results-heading" tabindex="-1">結果</h2>
+    <p id="load-status" class="load-status" data-state="loading">一覧を読み込んでいます…</p>
+    <div id="load-error" class="load-error" hidden>
+      <p id="load-error-text"></p>
+      <button type="button" id="retry" class="btn btn-main">もう一度読み込む</button>
+    </div>
+    <p id="empty" class="empty" hidden>条件に合う作業席はありません。条件を変えるか、「条件をリセット」を押してください。</p>
+    <div id="results" class="grid" data-revision="0" hidden></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p>Studio Yebisu の作例用に作った架空の検索画面です。MIT License（Copyright (c) 2026 Studio Yebisu）。</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,49 @@
+Browser Use（browser-use/browser-use 固定コミット c75e8476e26d18b7617643bc2ae082fae8eae431、配布版 0.13.11、MIT）の Actor API（Browser・Page・Element の直接操作）を使い、手元で配る自作の検索画面を、事前に決めた手順どおりに操作して、各状態の条件・結果・画面を記録する Python スクリプトを書いて、実際に実行してください。結果はスマホで読める日本語のページで見られるようにしてください。
+
+読む原典（固定版）
+・スキル：https://github.com/browser-use/browser-use/blob/c75e8476e26d18b7617643bc2ae082fae8eae431/skills/open-source/SKILL.md
+・Actor API：https://github.com/browser-use/browser-use/blob/c75e8476e26d18b7617643bc2ae082fae8eae431/skills/open-source/references/actor.md
+・Browser の設定：https://github.com/browser-use/browser-use/blob/c75e8476e26d18b7617643bc2ae082fae8eae431/skills/open-source/references/browser.md
+・実装：browser_use/actor/page.py・browser_use/actor/element.py・browser_use/browser/session.py・browser_use/browser/profile.py・browser_use/config.py
+
+入力（ここを差し替える。JSONで渡す）
+・架空か実在か：
+・一覧の項目（12件程度）：ID、名前、エリア、料金、曜日や設備の有無、説明文
+・検索画面の部品：キーワード欄、選択肢（エリア・予算など）、チェックボックス、「この条件で探す」ボタン、「条件をリセット」ボタンと、それぞれの id
+・状態ごとの手順（6つ程度）：使う操作（fill・select_option・check・click）、セレクター、値、期待するIDの並び。条件は前の状態から引き継ぐか：
+
+検索画面に求めること
+・入力のJSONだけを読む静的なページ。取得失敗や形の違いでは結果を隠し、操作部品を無効にして「もう一度読み込む」を出す。代わりのデータは使わない。
+・読み込みの状態を #load-status の data-state（loading・ready・error）で示し、ready まで操作部品を無効にする。
+・絞り込みはボタンを押したときだけ行い、リセットは押した時点で全件に戻す。
+・結果カードに ID・名前・エリア・料金・設備の表示と data 属性を出し、件数と0件の案内を出す。
+・キーワードは文字の一致にとどめ、設備の判定とは書かない（「電源なし」の説明文が「電源」に一致することを画面で説明する）。
+
+スクリプトで守ること
+・browser_use を読み込む前に ANONYMIZED_TELEMETRY=false、BROWSER_USE_CLOUD_SYNC=false、BROWSER_USE_DISABLE_EXTENSIONS=true、BROWSER_USE_SETUP_LOGGING=false、BROWSER_USE_CONFIG_DIR=専用の作業フォルダ を設定する。
+・Agent・Agent.run・LLM・ChatBrowserUse・get_element_by_prompt・extract_content・Cloud・APIキー・既存のChromeプロファイルは使わない。.env も読まない。
+・Browser(headless=True、executable_path=既存のChrome、user_data_dir=作業フォルダ内の新しいプロファイル、enable_default_extensions=False、allowed_domains=[配信元]、permissions=[]、accept_downloads=False、auto_download_pdfs=False、window_size と viewport を 1280×900、keep_alive=False) で起動し、エラーでも最後に stop() を呼ぶ。Chromium の自動ダウンロードはしない。
+・--base-url は http://127.0.0.1:<port> か http://localhost:<port> だけを受け付け、認証情報・パス・クエリ・他のホストは拒否する。
+・入力を Pydantic v2 で厳密に確かめ、操作は決めた API とセレクターの組み合わせだけを許す。手順から求めた条件で期待するIDになるかを起動前に確かめ、合わなければ入力を変えずに止まる。
+・get_elements_by_css_selector はすぐ返るので、短い間隔・上限つきで問い合わせ直し、ちょうど1件の要素だけを操作する。決め打ちの待ち時間で済ませない。
+・各状態で Element.fill・select_option・check・click を手順の順に呼び、成功したあとに記録する。JavaScript で値を入れたり DOM を書き換えたりしない。Page.evaluate は DOM の読み取りだけに使う。
+・各状態のあと、結果のID・全項目・件数・0件の表示・フォームの値を読み取り、入力と1項目ずつ照合する。期待するIDは判定にだけ使い、記録には実際に読んだ値を使う。
+・Page.screenshot(format='png') の画像を保存し、SHA-256 と PNG の幅・高さを記録する。
+・既にある出力と画像は上書きしない。すべて通ったときだけ JSON を書く。時刻・手元のパス・ポート・環境変数・認証情報は書かない。
+
+出力
+・実行記録のJSON：原典のリポジトリとコミット、入力のSHA-256、範囲（Actor API・事前の手順・Agent と LLM なし）、Python と browser-use の版、成功した操作の回数、状態ごとの操作・条件・結果の全項目・件数・期待するID・画像の情報。
+・状態ごとのPNG画像。
+
+ページでできること（要らないものは消す）
+・状態のボタンを選ぶと、実行した操作・読み取った条件・結果・実行時の画面が並ぶ。0件の状態は失敗ではないと分かるようにする。
+・入力と実行記録を取得して、形・固定コミット・入力のSHA-256・操作と結果の一致を確かめ、合わなければ理由と「もう一度読み込む」を出す。内蔵の代わりのデータは使わない。
+・選んだ状態をJSONで保存する。
+・320px幅のスマホから1280px幅のパソコンまで、横スクロールなしで使える。操作部品は44px以上、入力欄の文字は16px以上。外部のフォント・CDN・計測・AIの呼び出しは使わない。
+
+書かないこと
+・事前に決めた手順の実行を、AIが自分で判断して操作したように書かない。Browser Use の自律エージェントの能力を確かめたとは書かない。
+・架空の一覧を、実在の施設・料金・予約のように書かない。
+・allowed_domains を、OS全体の通信の遮断やオフラインの保証として書かない。
+
+最後に、作ったファイル、実際に実行した確認とその出力、まだ確かめていない点を分けて書いてください。

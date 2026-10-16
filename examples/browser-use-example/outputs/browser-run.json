@@ -1,0 +1,917 @@
+{
+  "format": "studio-yebisu-browser-run-v1",
+  "title": "まちの作業席",
+  "fictional": true,
+  "source": {
+    "repository": "browser-use/browser-use",
+    "commit": "c75e8476e26d18b7617643bc2ae082fae8eae431",
+    "distribution_version": "0.13.11",
+    "license": "MIT",
+    "copyright": "Copyright (c) 2024 Gregor Zunic"
+  },
+  "inputs_sha256": {
+    "input/workspaces.json": "06b640998c2754eff15473cb21ac9bbbe9fb94efa8eef1959c7a4193c16807df",
+    "input/scenarios.json": "00ef5dfcb66017b1431bb7ed62d64ead7426a07af8878c156c782e50a2d08116"
+  },
+  "scope": {
+    "method": "Browser Use の Actor API（上流の文書では legacy direct control）で、ローカルの架空の検索画面を直接操作",
+    "steps": "input/scenarios.json に事前に書いた6状態の手順を、この順に1回ずつ実行",
+    "data": "架空データ。実在の施設・予約・料金ではない",
+    "agent_run": false,
+    "llm_calls": 0,
+    "not_exercised": "Agent.run・LLM による操作の判断・ChatBrowserUse・Browser Use Cloud・既存の Chrome プロファイル",
+    "network_note": "allowed_domains はブラウザーの移動先を起動時に指定したローカル配信元1件に限る設定で、OS全体の通信を遮断するものではない"
+  },
+  "runtime": {
+    "python": "3.12.9",
+    "browser_use": "0.13.11",
+    "browser_product": "Chrome/155.0.8059.41",
+    "headless": true,
+    "agent_run": false,
+    "llm_constructed": false,
+    "llm_calls": 0,
+    "action_success_counts": {
+      "fill": 2,
+      "select_option": 2,
+      "check": 2,
+      "click": 5
+    },
+    "api_calls": {
+      "Browser.new_page": 1,
+      "Browser.start": 1,
+      "Element.check": 2,
+      "Element.click": 5,
+      "Element.fill": 2,
+      "Element.select_option": 2,
+      "Page.evaluate": 12,
+      "Page.get_elements_by_css_selector": 12,
+      "Page.get_url": 1,
+      "Page.screenshot": 6,
+      "Page.set_viewport_size": 1
+    }
+  },
+  "fixture": {
+    "url": "fixture.html",
+    "title": "まちの作業席（架空データ）｜Browser Use作例の検索画面",
+    "viewport": {
+      "width": 1280,
+      "height": 900
+    }
+  },
+  "scenarios": [
+    {
+      "id": "S01",
+      "label": "一覧を開く",
+      "actions": [],
+      "conditions": {
+        "keyword": "",
+        "area": "",
+        "budget": "",
+        "saturday": false,
+        "power": false
+      },
+      "results": [
+        {
+          "id": "W01",
+          "name": "こもれびラウンジ",
+          "area": "恵比寿",
+          "hourly_yen": 700,
+          "saturday": true,
+          "power": true,
+          "description": "電源と静かな窓際席。短い資料づくりに。",
+          "text": {
+            "price": "700円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W02",
+          "name": "路地のワーク卓",
+          "area": "恵比寿",
+          "hourly_yen": 500,
+          "saturday": false,
+          "power": true,
+          "description": "電源と広い共同卓。平日の作業向け。",
+          "text": {
+            "price": "500円",
+            "saturday": "土曜：休み",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W03",
+          "name": "青い屋根の書斎",
+          "area": "恵比寿",
+          "hourly_yen": 1000,
+          "saturday": true,
+          "power": true,
+          "description": "電源と個別ブース。通話は専用室で。",
+          "text": {
+            "price": "1,000円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W04",
+          "name": "月曜のテーブル",
+          "area": "恵比寿",
+          "hourly_yen": 450,
+          "saturday": true,
+          "power": false,
+          "description": "読書向け。電源なし、持参した本と静かに過ごす。",
+          "text": {
+            "price": "450円",
+            "saturday": "土曜：利用可",
+            "power": "電源：なし"
+          }
+        },
+        {
+          "id": "W05",
+          "name": "川辺のデスク",
+          "area": "渋谷",
+          "hourly_yen": 650,
+          "saturday": true,
+          "power": true,
+          "description": "電源とモニター席。企画の下書きに。",
+          "text": {
+            "price": "650円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W06",
+          "name": "白い階段",
+          "area": "渋谷",
+          "hourly_yen": 800,
+          "saturday": false,
+          "power": true,
+          "description": "電源と打ち合わせ席。平日のみ利用。",
+          "text": {
+            "price": "800円",
+            "saturday": "土曜：休み",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W07",
+          "name": "森の編集室",
+          "area": "代官山",
+          "hourly_yen": 750,
+          "saturday": true,
+          "power": true,
+          "description": "電源と静音席。文章やデザインの作業に。",
+          "text": {
+            "price": "750円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W08",
+          "name": "スケッチの庭",
+          "area": "代官山",
+          "hourly_yen": 550,
+          "saturday": true,
+          "power": false,
+          "description": "紙のスケッチ向け。電源なしの屋内席。",
+          "text": {
+            "price": "550円",
+            "saturday": "土曜：利用可",
+            "power": "電源：なし"
+          }
+        },
+        {
+          "id": "W09",
+          "name": "みなとのノート",
+          "area": "目黒",
+          "hourly_yen": 600,
+          "saturday": true,
+          "power": true,
+          "description": "電源と広めの机。勉強と資料読み向け。",
+          "text": {
+            "price": "600円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W10",
+          "name": "細い坂の会議机",
+          "area": "目黒",
+          "hourly_yen": 1200,
+          "saturday": true,
+          "power": true,
+          "description": "電源と予約制会議室。複数人の相談向け。",
+          "text": {
+            "price": "1,200円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W11",
+          "name": "朝のアトリエ",
+          "area": "恵比寿",
+          "hourly_yen": 800,
+          "saturday": true,
+          "power": true,
+          "description": "電源と明るい机。土曜も制作作業に。",
+          "text": {
+            "price": "800円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W12",
+          "name": "夜のポケット",
+          "area": "渋谷",
+          "hourly_yen": 900,
+          "saturday": true,
+          "power": true,
+          "description": "電源と夜間席。短い集中作業向け。",
+          "text": {
+            "price": "900円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        }
+      ],
+      "result_count": 12,
+      "count_text": "該当 12件",
+      "empty_visible": false,
+      "empty_text": null,
+      "expected_ids": [
+        "W01",
+        "W02",
+        "W03",
+        "W04",
+        "W05",
+        "W06",
+        "W07",
+        "W08",
+        "W09",
+        "W10",
+        "W11",
+        "W12"
+      ],
+      "screenshot": {
+        "src": "captures/S01.png",
+        "sha256": "5631f7815432f0f716dcb2d760a64fa5cf1169c76260adea448f81b4a3084ca2",
+        "width": 1280,
+        "height": 900
+      },
+      "status": "passed"
+    },
+    {
+      "id": "S02",
+      "label": "「電源」の文字を検索",
+      "actions": [
+        {
+          "api": "fill",
+          "call": "Element.fill",
+          "selector": "#search",
+          "value": "電源"
+        },
+        {
+          "api": "click",
+          "call": "Element.click",
+          "selector": "#apply"
+        }
+      ],
+      "conditions": {
+        "keyword": "電源",
+        "area": "",
+        "budget": "",
+        "saturday": false,
+        "power": false
+      },
+      "results": [
+        {
+          "id": "W01",
+          "name": "こもれびラウンジ",
+          "area": "恵比寿",
+          "hourly_yen": 700,
+          "saturday": true,
+          "power": true,
+          "description": "電源と静かな窓際席。短い資料づくりに。",
+          "text": {
+            "price": "700円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W02",
+          "name": "路地のワーク卓",
+          "area": "恵比寿",
+          "hourly_yen": 500,
+          "saturday": false,
+          "power": true,
+          "description": "電源と広い共同卓。平日の作業向け。",
+          "text": {
+            "price": "500円",
+            "saturday": "土曜：休み",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W03",
+          "name": "青い屋根の書斎",
+          "area": "恵比寿",
+          "hourly_yen": 1000,
+          "saturday": true,
+          "power": true,
+          "description": "電源と個別ブース。通話は専用室で。",
+          "text": {
+            "price": "1,000円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W04",
+          "name": "月曜のテーブル",
+          "area": "恵比寿",
+          "hourly_yen": 450,
+          "saturday": true,
+          "power": false,
+          "description": "読書向け。電源なし、持参した本と静かに過ごす。",
+          "text": {
+            "price": "450円",
+            "saturday": "土曜：利用可",
+            "power": "電源：なし"
+          }
+        },
+        {
+          "id": "W05",
+          "name": "川辺のデスク",
+          "area": "渋谷",
+          "hourly_yen": 650,
+          "saturday": true,
+          "power": true,
+          "description": "電源とモニター席。企画の下書きに。",
+          "text": {
+            "price": "650円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W06",
+          "name": "白い階段",
+          "area": "渋谷",
+          "hourly_yen": 800,
+          "saturday": false,
+          "power": true,
+          "description": "電源と打ち合わせ席。平日のみ利用。",
+          "text": {
+            "price": "800円",
+            "saturday": "土曜：休み",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W07",
+          "name": "森の編集室",
+          "area": "代官山",
+          "hourly_yen": 750,
+          "saturday": true,
+          "power": true,
+          "description": "電源と静音席。文章やデザインの作業に。",
+          "text": {
+            "price": "750円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W08",
+          "name": "スケッチの庭",
+          "area": "代官山",
+          "hourly_yen": 550,
+          "saturday": true,
+          "power": false,
+          "description": "紙のスケッチ向け。電源なしの屋内席。",
+          "text": {
+            "price": "550円",
+            "saturday": "土曜：利用可",
+            "power": "電源：なし"
+          }
+        },
+        {
+          "id": "W09",
+          "name": "みなとのノート",
+          "area": "目黒",
+          "hourly_yen": 600,
+          "saturday": true,
+          "power": true,
+          "description": "電源と広めの机。勉強と資料読み向け。",
+          "text": {
+            "price": "600円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W10",
+          "name": "細い坂の会議机",
+          "area": "目黒",
+          "hourly_yen": 1200,
+          "saturday": true,
+          "power": true,
+          "description": "電源と予約制会議室。複数人の相談向け。",
+          "text": {
+            "price": "1,200円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W11",
+          "name": "朝のアトリエ",
+          "area": "恵比寿",
+          "hourly_yen": 800,
+          "saturday": true,
+          "power": true,
+          "description": "電源と明るい机。土曜も制作作業に。",
+          "text": {
+            "price": "800円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W12",
+          "name": "夜のポケット",
+          "area": "渋谷",
+          "hourly_yen": 900,
+          "saturday": true,
+          "power": true,
+          "description": "電源と夜間席。短い集中作業向け。",
+          "text": {
+            "price": "900円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        }
+      ],
+      "result_count": 12,
+      "count_text": "該当 12件",
+      "empty_visible": false,
+      "empty_text": null,
+      "expected_ids": [
+        "W01",
+        "W02",
+        "W03",
+        "W04",
+        "W05",
+        "W06",
+        "W07",
+        "W08",
+        "W09",
+        "W10",
+        "W11",
+        "W12"
+      ],
+      "screenshot": {
+        "src": "captures/S02.png",
+        "sha256": "7c8eed0a57486202102a2201c1eaad13150faf2d0d4168039ea5daf17948adca",
+        "width": 1280,
+        "height": 900
+      },
+      "status": "passed"
+    },
+    {
+      "id": "S03",
+      "label": "恵比寿・800円以内に絞る",
+      "actions": [
+        {
+          "api": "select_option",
+          "call": "Element.select_option",
+          "selector": "#area",
+          "value": "恵比寿"
+        },
+        {
+          "api": "select_option",
+          "call": "Element.select_option",
+          "selector": "#budget",
+          "value": "800"
+        },
+        {
+          "api": "click",
+          "call": "Element.click",
+          "selector": "#apply"
+        }
+      ],
+      "conditions": {
+        "keyword": "電源",
+        "area": "恵比寿",
+        "budget": "800",
+        "saturday": false,
+        "power": false
+      },
+      "results": [
+        {
+          "id": "W01",
+          "name": "こもれびラウンジ",
+          "area": "恵比寿",
+          "hourly_yen": 700,
+          "saturday": true,
+          "power": true,
+          "description": "電源と静かな窓際席。短い資料づくりに。",
+          "text": {
+            "price": "700円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W02",
+          "name": "路地のワーク卓",
+          "area": "恵比寿",
+          "hourly_yen": 500,
+          "saturday": false,
+          "power": true,
+          "description": "電源と広い共同卓。平日の作業向け。",
+          "text": {
+            "price": "500円",
+            "saturday": "土曜：休み",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W04",
+          "name": "月曜のテーブル",
+          "area": "恵比寿",
+          "hourly_yen": 450,
+          "saturday": true,
+          "power": false,
+          "description": "読書向け。電源なし、持参した本と静かに過ごす。",
+          "text": {
+            "price": "450円",
+            "saturday": "土曜：利用可",
+            "power": "電源：なし"
+          }
+        },
+        {
+          "id": "W11",
+          "name": "朝のアトリエ",
+          "area": "恵比寿",
+          "hourly_yen": 800,
+          "saturday": true,
+          "power": true,
+          "description": "電源と明るい机。土曜も制作作業に。",
+          "text": {
+            "price": "800円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        }
+      ],
+      "result_count": 4,
+      "count_text": "該当 4件",
+      "empty_visible": false,
+      "empty_text": null,
+      "expected_ids": [
+        "W01",
+        "W02",
+        "W04",
+        "W11"
+      ],
+      "screenshot": {
+        "src": "captures/S03.png",
+        "sha256": "31e669a23bedc4a0f5138a2aa8c91bd6db9e2ecb38383813bb1c7ad3655cd4d2",
+        "width": 1280,
+        "height": 900
+      },
+      "status": "passed"
+    },
+    {
+      "id": "S04",
+      "label": "土曜・電源ありを条件にする",
+      "actions": [
+        {
+          "api": "check",
+          "call": "Element.check",
+          "selector": "#saturday"
+        },
+        {
+          "api": "check",
+          "call": "Element.check",
+          "selector": "#power"
+        },
+        {
+          "api": "click",
+          "call": "Element.click",
+          "selector": "#apply"
+        }
+      ],
+      "conditions": {
+        "keyword": "電源",
+        "area": "恵比寿",
+        "budget": "800",
+        "saturday": true,
+        "power": true
+      },
+      "results": [
+        {
+          "id": "W01",
+          "name": "こもれびラウンジ",
+          "area": "恵比寿",
+          "hourly_yen": 700,
+          "saturday": true,
+          "power": true,
+          "description": "電源と静かな窓際席。短い資料づくりに。",
+          "text": {
+            "price": "700円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W11",
+          "name": "朝のアトリエ",
+          "area": "恵比寿",
+          "hourly_yen": 800,
+          "saturday": true,
+          "power": true,
+          "description": "電源と明るい机。土曜も制作作業に。",
+          "text": {
+            "price": "800円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        }
+      ],
+      "result_count": 2,
+      "count_text": "該当 2件",
+      "empty_visible": false,
+      "empty_text": null,
+      "expected_ids": [
+        "W01",
+        "W11"
+      ],
+      "screenshot": {
+        "src": "captures/S04.png",
+        "sha256": "627e9d9b2cbaf393d7faaf82d2b16fba2902874ac4affde7778cb6d41926b090",
+        "width": 1280,
+        "height": 900
+      },
+      "status": "passed"
+    },
+    {
+      "id": "S05",
+      "label": "該当なしを確認する",
+      "actions": [
+        {
+          "api": "fill",
+          "call": "Element.fill",
+          "selector": "#search",
+          "value": "存在しない条件"
+        },
+        {
+          "api": "click",
+          "call": "Element.click",
+          "selector": "#apply"
+        }
+      ],
+      "conditions": {
+        "keyword": "存在しない条件",
+        "area": "恵比寿",
+        "budget": "800",
+        "saturday": true,
+        "power": true
+      },
+      "results": [],
+      "result_count": 0,
+      "count_text": "該当 0件",
+      "empty_visible": true,
+      "empty_text": "条件に合う作業席はありません。条件を変えるか、「条件をリセット」を押してください。",
+      "expected_ids": [],
+      "screenshot": {
+        "src": "captures/S05.png",
+        "sha256": "e6f3a06394787ba48b77673af357b5dda049516b097272563172fddd671d9234",
+        "width": 1280,
+        "height": 900
+      },
+      "status": "passed"
+    },
+    {
+      "id": "S06",
+      "label": "条件をリセットする",
+      "actions": [
+        {
+          "api": "click",
+          "call": "Element.click",
+          "selector": "#reset"
+        }
+      ],
+      "conditions": {
+        "keyword": "",
+        "area": "",
+        "budget": "",
+        "saturday": false,
+        "power": false
+      },
+      "results": [
+        {
+          "id": "W01",
+          "name": "こもれびラウンジ",
+          "area": "恵比寿",
+          "hourly_yen": 700,
+          "saturday": true,
+          "power": true,
+          "description": "電源と静かな窓際席。短い資料づくりに。",
+          "text": {
+            "price": "700円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W02",
+          "name": "路地のワーク卓",
+          "area": "恵比寿",
+          "hourly_yen": 500,
+          "saturday": false,
+          "power": true,
+          "description": "電源と広い共同卓。平日の作業向け。",
+          "text": {
+            "price": "500円",
+            "saturday": "土曜：休み",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W03",
+          "name": "青い屋根の書斎",
+          "area": "恵比寿",
+          "hourly_yen": 1000,
+          "saturday": true,
+          "power": true,
+          "description": "電源と個別ブース。通話は専用室で。",
+          "text": {
+            "price": "1,000円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W04",
+          "name": "月曜のテーブル",
+          "area": "恵比寿",
+          "hourly_yen": 450,
+          "saturday": true,
+          "power": false,
+          "description": "読書向け。電源なし、持参した本と静かに過ごす。",
+          "text": {
+            "price": "450円",
+            "saturday": "土曜：利用可",
+            "power": "電源：なし"
+          }
+        },
+        {
+          "id": "W05",
+          "name": "川辺のデスク",
+          "area": "渋谷",
+          "hourly_yen": 650,
+          "saturday": true,
+          "power": true,
+          "description": "電源とモニター席。企画の下書きに。",
+          "text": {
+            "price": "650円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W06",
+          "name": "白い階段",
+          "area": "渋谷",
+          "hourly_yen": 800,
+          "saturday": false,
+          "power": true,
+          "description": "電源と打ち合わせ席。平日のみ利用。",
+          "text": {
+            "price": "800円",
+            "saturday": "土曜：休み",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W07",
+          "name": "森の編集室",
+          "area": "代官山",
+          "hourly_yen": 750,
+          "saturday": true,
+          "power": true,
+          "description": "電源と静音席。文章やデザインの作業に。",
+          "text": {
+            "price": "750円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W08",
+          "name": "スケッチの庭",
+          "area": "代官山",
+          "hourly_yen": 550,
+          "saturday": true,
+          "power": false,
+          "description": "紙のスケッチ向け。電源なしの屋内席。",
+          "text": {
+            "price": "550円",
+            "saturday": "土曜：利用可",
+            "power": "電源：なし"
+          }
+        },
+        {
+          "id": "W09",
+          "name": "みなとのノート",
+          "area": "目黒",
+          "hourly_yen": 600,
+          "saturday": true,
+          "power": true,
+          "description": "電源と広めの机。勉強と資料読み向け。",
+          "text": {
+            "price": "600円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W10",
+          "name": "細い坂の会議机",
+          "area": "目黒",
+          "hourly_yen": 1200,
+          "saturday": true,
+          "power": true,
+          "description": "電源と予約制会議室。複数人の相談向け。",
+          "text": {
+            "price": "1,200円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W11",
+          "name": "朝のアトリエ",
+          "area": "恵比寿",
+          "hourly_yen": 800,
+          "saturday": true,
+          "power": true,
+          "description": "電源と明るい机。土曜も制作作業に。",
+          "text": {
+            "price": "800円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        },
+        {
+          "id": "W12",
+          "name": "夜のポケット",
+          "area": "渋谷",
+          "hourly_yen": 900,
+          "saturday": true,
+          "power": true,
+          "description": "電源と夜間席。短い集中作業向け。",
+          "text": {
+            "price": "900円",
+            "saturday": "土曜：利用可",
+            "power": "電源：あり"
+          }
+        }
+      ],
+      "result_count": 12,
+      "count_text": "該当 12件",
+      "empty_visible": false,
+      "empty_text": null,
+      "expected_ids": [
+        "W01",
+        "W02",
+        "W03",
+        "W04",
+        "W05",
+        "W06",
+        "W07",
+        "W08",
+        "W09",
+        "W10",
+        "W11",
+        "W12"
+      ],
+      "screenshot": {
+        "src": "captures/S06.png",
+        "sha256": "5d15c387e3ed1ef8a6f21f4294fc04531886c15407387aeeb6bb3e66a229264d",
+        "width": 1280,
+        "height": 900
+      },
+      "status": "passed"
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "format": "studio-yebisu-browser-scenarios-v1",
+  "scope": "事前に記述した6状態の操作手順。LLMが次の操作を判断した履歴ではありません。",
+  "scenarios": [
+    {
+      "id": "S01",
+      "label": "一覧を開く",
+      "actions": [],
+      "expected_ids": [
+        "W01",
+        "W02",
+        "W03",
+        "W04",
+        "W05",
+        "W06",
+        "W07",
+        "W08",
+        "W09",
+        "W10",
+        "W11",
+        "W12"
+      ]
+    },
+    {
+      "id": "S02",
+      "label": "「電源」の文字を検索",
+      "actions": [
+        {
+          "api": "fill",
+          "selector": "#search",
+          "value": "電源"
+        },
+        {
+          "api": "click",
+          "selector": "#apply"
+        }
+      ],
+      "expected_ids": [
+        "W01",
+        "W02",
+        "W03",
+        "W04",
+        "W05",
+        "W06",
+        "W07",
+        "W08",
+        "W09",
+        "W10",
+        "W11",
+        "W12"
+      ]
+    },
+    {
+      "id": "S03",
+      "label": "恵比寿・800円以内に絞る",
+      "actions": [
+        {
+          "api": "select_option",
+          "selector": "#area",
+          "value": "恵比寿"
+        },
+        {
+          "api": "select_option",
+          "selector": "#budget",
+          "value": "800"
+        },
+        {
+          "api": "click",
+          "selector": "#apply"
+        }
+      ],
+      "expected_ids": [
+        "W01",
+        "W02",
+        "W04",
+        "W11"
+      ]
+    },
+    {
+      "id": "S04",
+      "label": "土曜・電源ありを条件にする",
+      "actions": [
+        {
+          "api": "check",
+          "selector": "#saturday"
+        },
+        {
+          "api": "check",
+          "selector": "#power"
+        },
+        {
+          "api": "click",
+          "selector": "#apply"
+        }
+      ],
+      "expected_ids": [
+        "W01",
+        "W11"
+      ]
+    },
+    {
+      "id": "S05",
+      "label": "該当なしを確認する",
+      "actions": [
+        {
+          "api": "fill",
+          "selector": "#search",
+          "value": "存在しない条件"
+        },
+        {
+          "api": "click",
+          "selector": "#apply"
+        }
+      ],
+      "expected_ids": []
+    },
+    {
+      "id": "S06",
+      "label": "条件をリセットする",
+      "actions": [
+        {
+          "api": "click",
+          "selector": "#reset"
+        }
+      ],
+      "expected_ids": [
+        "W01",
+        "W02",
+        "W03",
+        "W04",
+        "W05",
+        "W06",
+        "W07",
+        "W08",
+        "W09",
+        "W10",
+        "W11",
+        "W12"
+      ]
+    }
+  ]
+}

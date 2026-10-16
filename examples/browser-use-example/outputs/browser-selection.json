@@ -1,0 +1,96 @@
+{
+  "format": "studio-yebisu-browser-selection-v1",
+  "source": {
+    "repository": "browser-use/browser-use",
+    "commit": "c75e8476e26d18b7617643bc2ae082fae8eae431",
+    "distribution_version": "0.13.11",
+    "license": "MIT",
+    "copyright": "Copyright (c) 2024 Gregor Zunic"
+  },
+  "inputs_sha256": {
+    "input/workspaces.json": "06b640998c2754eff15473cb21ac9bbbe9fb94efa8eef1959c7a4193c16807df",
+    "input/scenarios.json": "00ef5dfcb66017b1431bb7ed62d64ead7426a07af8878c156c782e50a2d08116"
+  },
+  "scope": {
+    "method": "Browser Use の Actor API（上流の文書では legacy direct control）で、ローカルの架空の検索画面を直接操作",
+    "steps": "input/scenarios.json に事前に書いた6状態の手順を、この順に1回ずつ実行",
+    "data": "架空データ。実在の施設・予約・料金ではない",
+    "agent_run": false,
+    "llm_calls": 0,
+    "not_exercised": "Agent.run・LLM による操作の判断・ChatBrowserUse・Browser Use Cloud・既存の Chrome プロファイル",
+    "network_note": "allowed_domains はブラウザーの移動先を起動時に指定したローカル配信元1件に限る設定で、OS全体の通信を遮断するものではない"
+  },
+  "selected": {
+    "id": "S04",
+    "label": "土曜・電源ありを条件にする",
+    "actions": [
+      {
+        "api": "check",
+        "call": "Element.check",
+        "selector": "#saturday"
+      },
+      {
+        "api": "check",
+        "call": "Element.check",
+        "selector": "#power"
+      },
+      {
+        "api": "click",
+        "call": "Element.click",
+        "selector": "#apply"
+      }
+    ],
+    "conditions": {
+      "keyword": "電源",
+      "area": "恵比寿",
+      "budget": "800",
+      "saturday": true,
+      "power": true
+    },
+    "results": [
+      {
+        "id": "W01",
+        "name": "こもれびラウンジ",
+        "area": "恵比寿",
+        "hourly_yen": 700,
+        "saturday": true,
+        "power": true,
+        "description": "電源と静かな窓際席。短い資料づくりに。",
+        "text": {
+          "price": "700円",
+          "saturday": "土曜：利用可",
+          "power": "電源：あり"
+        }
+      },
+      {
+        "id": "W11",
+        "name": "朝のアトリエ",
+        "area": "恵比寿",
+        "hourly_yen": 800,
+        "saturday": true,
+        "power": true,
+        "description": "電源と明るい机。土曜も制作作業に。",
+        "text": {
+          "price": "800円",
+          "saturday": "土曜：利用可",
+          "power": "電源：あり"
+        }
+      }
+    ],
+    "result_count": 2,
+    "count_text": "該当 2件",
+    "empty_visible": false,
+    "empty_text": null,
+    "expected_ids": [
+      "W01",
+      "W11"
+    ],
+    "screenshot": {
+      "src": "captures/S04.png",
+      "sha256": "627e9d9b2cbaf393d7faaf82d2b16fba2902874ac4affde7778cb6d41926b090",
+      "width": 1280,
+      "height": 900
+    },
+    "status": "passed"
+  }
+}
