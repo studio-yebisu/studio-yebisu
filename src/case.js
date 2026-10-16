@@ -1,6 +1,10 @@
-/* Studio Yebisu — article page. case.html?id=<case-id> or case.html?entry=<catalog-id>. */
+/* Studio Yebisu — article page. case.html?id=<case-id> (produced case) or case.html?entry=<catalog-id>
+   (catalog item: a source guide, or a pointer to its produced case). Data comes only from relative
+   paths under data/. Every value is written as text; links pass through SY.safeHref. */
 (() => {
   'use strict';
+
+  const {$, h, safeHref, isExternal, displayUrl, lineNodes, loadJSON, announce, setTabbar} = window.SY;
 
   const STATUS_LABELS = {draft: '制作中', produced: '制作済み', rendered: '動画を書き出し済み', reviewed: '確認済み', published: '掲載済み'};
   const MODEL_LABELS = {'claude-opus-5-5': 'Claude Opus 5.5'};
@@ -14,72 +18,105 @@
   };
   const VIDEO_EXT = /\.(mp4|webm|mov|m4v)(\?|#|$)/i;
   const ID_PATTERN = /^[a-z0-9][a-z0-9._-]{0,99}$/i;
+  const CASE_LINK = /^case\.html\?id=([a-z0-9._-]+)(?:[&#]|$)/i;
+  // Samples longer than this open in a <details> so one sample cannot fill several screens.
+  const LONG_SAMPLE = 900;
 
-  const $ = (selector, root = document) => root.querySelector(selector);
   const root = $('[data-root]');
+  let uid = 0;
+  const nextId = prefix => prefix + '-' + (++uid);
 
-  function h(tag, attrs, ...children) {
-    const el = document.createElement(tag);
-    for (const [key, value] of Object.entries(attrs || {})) {
-      if (value === null || value === undefined || value === false) continue;
-      if (key === 'class') el.className = value;
-      else if (key.startsWith('on')) el.addEventListener(key.slice(2), value);
-      else el.setAttribute(key, value === true ? '' : value);
-    }
-    for (const child of children.flat()) {
-      if (child === null || child === undefined || child === false) continue;
-      el.append(child instanceof Node ? child : document.createTextNode(String(child)));
-    }
-    return el;
+  /* ---------- Text helpers ---------- */
+
+  const sentences = text => String(text || '').trim().match(/[^。]+(?:。|$)/g) || [];
+
+  // Lead = the first sentences up to a short paragraph; the rest stays one tap away.
+  function splitLead(text, min = 70) {
+    const parts = sentences(text);
+    let lead = '';
+    let index = 0;
+    while (index < parts.length && (lead.length < min || index === 0)) lead += parts[index++];
+    const rest = parts.slice(index).join('');
+    return rest.length < 40 ? [lead + rest, ''] : [lead, rest];
   }
 
-  function safeHref(value) {
-    if (typeof value !== 'string') return null;
-    const url = value.trim();
-    if (!url) return null;
-    if (/^https?:\/\//i.test(url)) return url;
-    if (/^[a-z][a-z0-9+.-]*:/i.test(url) || url.startsWith('//')) return null;
-    return url;
+  function videoType(url) {
+    if (/\.mp4(\?|#|$)/i.test(url) || /\.m4v(\?|#|$)/i.test(url)) return 'video/mp4';
+    if (/\.webm(\?|#|$)/i.test(url)) return 'video/webm';
+    if (/\.mov(\?|#|$)/i.test(url)) return 'video/quicktime';
+    return null;
   }
 
-  async function loadJSON(url) {
-    const response = await fetch(url, {cache: 'no-cache'});
-    if (!response.ok) throw new Error(url + ' ' + response.status);
-    return response.json();
+  /* ---------- Copy ---------- */
+
+  function selectText(el) {
+    const selection = window.getSelection();
+    if (!selection) return;
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    selection.removeAllRanges();
+    selection.addRange(range);
   }
 
-  const announcer = $('[data-announce]');
-  function announce(message) {
-    announcer.textContent = '';
-    setTimeout(() => { announcer.textContent = message; }, 30);
-  }
-
-  async function copyText(text, button) {
+  // Success is reported only after the clipboard accepted the text.
+  async function copyText(text, pre, button, hint, expand) {
     let ok = false;
-    try {
-      if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(text); ok = true; }
-    } catch (_) { ok = false; }
-    if (!ok) {
-      const area = h('textarea', {class: 'sr-only', readonly: true});
-      area.value = text;
-      document.body.append(area);
-      area.select();
-      try { ok = document.execCommand('copy'); } catch (_) { ok = false; }
-      area.remove();
+    if (navigator.clipboard && window.isSecureContext) {
+      try { await navigator.clipboard.writeText(text); ok = true; } catch (_) { ok = false; }
     }
-    const original = button.dataset.label || button.textContent;
-    button.dataset.label = original;
-    button.textContent = ok ? 'コピーしました' : 'コピーできませんでした';
-    announce(ok ? 'コピーしました。' : 'コピーできませんでした。文章を選択してコピーしてください。');
+    if (!ok) {
+      // Older browsers: select the visible text and use the native copy command.
+      selectText(pre);
+      try { ok = document.execCommand('copy'); } catch (_) { ok = false; }
+      if (ok) window.getSelection().removeAllRanges();
+    }
+    const label = button.dataset.label || button.textContent;
+    button.dataset.label = label;
     clearTimeout(button._reset);
-    button._reset = setTimeout(() => { button.textContent = original; }, 2200);
+    if (ok) {
+      hint.hidden = true;
+      button.textContent = 'コピーしました';
+      announce('依頼文をコピーしました。');
+      button._reset = setTimeout(() => { button.textContent = label; }, 2200);
+    } else {
+      // Leave the full text open and selected so it can be copied from the system menu.
+      expand();
+      selectText(pre);
+      button.textContent = 'コピーできませんでした';
+      hint.hidden = false;
+      hint.textContent = '文を長押しして選択・コピーしてください（パソコンではドラッグして選択）。';
+      button._reset = setTimeout(() => { button.textContent = label; }, 4000);
+    }
   }
 
   function promptBlock(text, label) {
-    const copy = h('button', {type: 'button', class: 'btn btn-ink', onclick: () => copyText(text, copy)}, '依頼文をコピー');
-    return h('div', {class: 'prompt'},
-      h('pre', {tabindex: '0', 'aria-label': label}, text),
-      h('div', {class: 'prompt-bar'}, h('span', {class: 'prompt-label'}, label), copy));
+    const preId = nextId('prompt-text');
+    const pre = h('pre', {class: 'prompt-text', id: preId, tabindex: '0', 'aria-label': label}, text);
+    const hint = h('p', {class: 'prompt-hint', role: 'status'});
+    hint.hidden = true;
+    const box = h('div', {class: 'prompt'});
+    const long = text.split('\n').length > 10 || text.length > 420;
+    let toggle = null;
+    const setExpanded = open => {
+      box.classList.toggle('is-collapsed', !open);
+      if (toggle) {
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.textContent = open ? '短く表示' : '全文を表示';
+      }
+    };
+    if (long) {
+      toggle = h('button', {type: 'button', class: 'text-btn prompt-toggle', 'aria-controls': preId, 'aria-expanded': 'false'}, '全文を表示');
+      toggle.addEventListener('click', () => setExpanded(toggle.getAttribute('aria-expanded') !== 'true'));
+      setExpanded(false);
+    }
+    const copy = h('button', {type: 'button', class: 'btn btn-ink prompt-copy'}, '依頼文をコピー');
+    copy.addEventListener('click', () => copyText(text, pre, copy, hint, () => setExpanded(true)));
+    box.append(...[
+      h('div', {class: 'prompt-bar'}, h('span', {class: 'prompt-label'}, label), copy),
+      pre,
+      toggle ? h('div', {class: 'prompt-foot'}, toggle) : null,
+      hint].filter(Boolean));
+    return box;
   }
 
   /* ---------- Catalog and categories ---------- */
@@ -112,12 +149,13 @@
     return catalogPromise;
   }
 
+  // null means the file could not be read (as opposed to an empty list).
   async function loadCases() {
     try {
       const data = await loadJSON('data/cases.json');
       return (Array.isArray(data) ? data : (Array.isArray(data.cases) ? data.cases : [])).filter(item => item && item.id);
     } catch (_) {
-      return [];
+      return null;
     }
   }
 
@@ -137,82 +175,158 @@
     nav.replaceChildren(...list.map(category => h('a', {href: './#' + encodeURIComponent(category.id)}, category.label || category.id)));
   }
 
+  /* ---------- Page frame ---------- */
+
   function show(...nodes) {
-    root.replaceChildren(...nodes);
+    root.replaceChildren(...nodes.filter(Boolean));
     root.removeAttribute('aria-busy');
+    // The content did not exist when the browser tried the #fragment, so jump to it now.
+    const id = location.hash.slice(1);
+    const target = /^[a-z][a-z0-9-]*$/i.test(id) ? document.getElementById(id) : null;
+    if (target && root.contains(target)) target.scrollIntoView({block: 'start'});
   }
 
-  function showState(title, body) {
+  function showState(title, body, options = {}) {
     document.title = title + '｜Studio Yebisu';
     show(h('div', {class: 'page-state'},
       h('h1', {class: 'empty-title'}, title),
       h('p', {}, body),
-      h('a', {class: 'btn btn-ink', href: './#catalog'}, 'カタログを開く')));
+      h('div', {class: 'actions'},
+        options.retry ? h('button', {type: 'button', class: 'btn btn-ink', onclick: () => location.reload()}, 'もう一度読み込む') : null,
+        h('a', {class: 'btn ' + (options.retry ? 'btn-line' : 'btn-ink'), href: './#catalog'}, 'カタログを開く'),
+        h('a', {class: 'btn btn-line', href: './#cases'}, '作例の一覧を見る'))));
   }
 
-  function section(id, title, ...children) {
-    return h('section', {class: 'a-section', id, 'aria-labelledby': id + '-title'}, h('h2', {id: id + '-title'}, title), ...children);
+  function crumbs(category) {
+    return h('nav', {class: 'crumbs', 'aria-label': 'パンくず'},
+      h('ol', {},
+        h('li', {}, h('a', {href: './'}, 'トップ')),
+        h('li', {}, h('a', {href: categoryHref(category)}, categoryLabel(category)))));
+  }
+
+  function facts(pairs) {
+    const rows = pairs.filter(pair => pair && pair[1] !== null && pair[1] !== undefined && pair[1] !== '');
+    if (!rows.length) return null;
+    return h('dl', {class: 'facts'}, rows.map(([term, value]) => h('div', {}, h('dt', {}, term), h('dd', {}, value))));
+  }
+
+  // Sections register a short label for the table of contents.
+  function article() {
+    const toc = [];
+    const sections = [];
+    return {
+      add(id, title, short, ...children) {
+        toc.push([id, short || title]);
+        sections.push(h('section', {class: 'a-section', id, 'aria-labelledby': id + '-title'}, h('h2', {id: id + '-title'}, title), ...children));
+      },
+      body(lead) {
+        return h('div', {class: 'article-body'},
+          toc.length > 1 ? h('nav', {class: 'toc', 'aria-label': '目次'},
+            h('p', {class: 'toc-title'}, '目次'),
+            h('ol', {}, toc.map(([id, label]) => h('li', {}, h('a', {href: '#' + id}, label))))) : null,
+          h('div', {class: 'article-main'}, lead, sections));
+      }
+    };
+  }
+
+  function linkList(items) {
+    return h('ul', {class: 'd-links'}, items.map(([label, url]) => h('li', {},
+      h('a', {href: url}, h('span', {class: 'd-link-label'}, label || displayUrl(url)), h('small', {}, isExternal(url) ? displayUrl(url) : 'このサイト内')))));
   }
 
   /* ---------- Produced case ---------- */
 
   async function findCase(id) {
-    const found = (await loadCases()).find(item => item.id === id);
-    if (found) return found;
+    const cases = await loadCases();
+    const found = cases && cases.find(item => item.id === id);
+    if (found) return {item: found};
     try {
       const single = await loadJSON('data/cases/' + encodeURIComponent(id) + '.json');
-      if (single && single.id === id) return single;
-    } catch (_) { /* not found */ }
-    return null;
+      if (single && single.id === id) return {item: single};
+    } catch (_) { /* not found or unreadable */ }
+    return {item: null, failed: cases === null};
+  }
+
+  function skillName(item) {
+    if (item.catalog_entry && item.catalog_entry.name) return item.catalog_entry.name;
+    const first = Array.isArray(item.applied_skills) && item.applied_skills[0];
+    return (first && first.name) || '';
+  }
+
+  function titleLines(item) {
+    if (Array.isArray(item.title_lines) && item.title_lines.length) return item.title_lines.map(String);
+    if (item.id === 'brief-to-demo') return ['ひと言を、', '作れる依頼に。'];
+    return [item.title || item.id];
   }
 
   function videoBlock(item, extras) {
     const video = safeHref(item.video);
     if (!video) return null;
     const poster = safeHref(item.poster);
-    const figure = h('figure');
-    const player = h('video', {controls: true, preload: 'metadata', playsinline: true, poster, 'aria-label': (item.title || '') + 'の解説動画'},
-      h('source', {src: video, type: 'video/mp4'}));
+    const type = videoType(video);
+    const player = h('video', {controls: true, preload: 'none', playsinline: true, poster, width: '1280', height: '720', 'aria-label': (item.title || item.id) + 'の解説動画'},
+      h('source', {src: video, type}),
+      h('a', {href: video}, '動画を開く'));
+    const frame = h('div', {class: 'video-frame'}, player);
     const fail = () => {
       if (!player.isConnected) return;
-      player.replaceWith(h('p', {class: 'video-fallback'}, '動画を読み込めませんでした。時間をおいて開き直してください。'));
+      player.replaceWith(h('p', {class: 'video-fallback'}, 'このページでは動画を再生できませんでした。下の「動画を大きく見る」から直接開けます。'));
     };
     player.addEventListener('error', fail);
     $('source', player).addEventListener('error', fail);
-    figure.append(player, h('figcaption', {},
-      h('span', {}, extras.videoNote || '使い方の解説動画'),
-      h('span', {}, h('a', {href: video, download: ''}, 'MP4を保存'), extras.videoSource ? ['　', h('a', {href: extras.videoSource}, '映像のソースを開く')] : null)));
-    return h('div', {class: 'article-video'}, figure);
+    const [noteLead, noteRest] = splitLead(extras.videoNote || '使い方の解説動画', 50);
+    return h('section', {class: 'article-video', id: 'video', 'aria-label': '解説動画'},
+      h('figure', {},
+        frame,
+        h('figcaption', {},
+          h('p', {class: 'video-note'}, noteLead),
+          noteRest ? h('details', {class: 'more-text'}, h('summary', {}, '動画の説明をすべて読む'), h('p', {}, noteRest)) : null,
+          h('p', {class: 'video-links'},
+            h('a', {href: video}, '動画を大きく見る'),
+            h('a', {href: video, download: ''}, 'MP4を保存'),
+            extras.videoSource ? h('a', {href: extras.videoSource}, '映像のソースを開く') : null))));
   }
 
-  function sampleRow(sample, demo) {
+  function briefSample(sample, demo) {
     const brief = sample.brief || {};
     const route = sample.route || {};
-    const skills = (route.skills || []).map(skill => skill.name).filter(Boolean);
+    const skills = (route.skills || []).map(skill => skill && skill.name).filter(Boolean);
     const acceptance = (brief.acceptance || []).slice(0, 3);
     const assumptions = (brief.assumptions || []).slice(0, 1);
     return h('li', {class: 'sample'},
-      h('div', {class: 'sample-in'},
-        h('span', {class: 'sample-label'}, '入力　' + (sample.label || '')),
-        h('q', {}, brief.request || '')),
-      h('div', {class: 'sample-out'},
-        h('dl', {},
+      h('div', {class: 'sample-part'},
+        h('p', {class: 'sample-label'}, '入力', sample.label ? '　' + sample.label : null),
+        h('p', {class: 'sample-quote'}, h('q', {}, brief.request || ''))),
+      h('div', {class: 'sample-part'},
+        h('p', {class: 'sample-label'}, 'できたブリーフ'),
+        h('dl', {class: 'sample-facts'},
           h('dt', {}, '題名'), h('dd', {}, brief.title || ''),
           h('dt', {}, '分野'), h('dd', {}, route.category_label || categoryLabel(brief.category)),
           h('dt', {}, '読むスキル'), h('dd', {}, skills.join('、') || (brief.skill_refs || []).join('、')),
           h('dt', {}, '目的'), h('dd', {}, brief.goal || ''),
-          h('dt', {}, '完成条件'), h('dd', {}, h('ul', {}, acceptance.map(text => h('li', {}, text)))),
-          assumptions.length ? [h('dt', {}, '仮の条件'), h('dd', {}, assumptions[0])] : null),
-        demo ? h('a', {href: demo + '#' + encodeURIComponent(sample.id)}, 'このブリーフをデモで全部見る') : null));
+          h('dt', {}, '完成条件'), h('dd', {}, h('ul', {class: 'checks'}, acceptance.map(text => h('li', {}, text)))),
+          assumptions.length ? [h('dt', {}, '仮の条件'), h('dd', {}, assumptions[0])] : null)),
+      demo && sample.id ? h('a', {class: 'sample-link', href: demo + '#' + encodeURIComponent(sample.id)}, 'このブリーフをデモで全部見る') : null);
   }
 
-  function samplePairRow(sample, demo) {
-    const value = data => typeof data === 'string' ? h('p', {}, data) : h('pre', {class: 'sample-value', tabindex: '0'}, JSON.stringify(data, null, 2));
+  function sampleValue(data, label) {
+    const isText = typeof data === 'string';
+    const text = isText ? data : JSON.stringify(data, null, 2);
+    if (typeof text !== 'string') return h('p', {class: 'd-note'}, '記録がありません。');
+    const body = isText
+      ? h('p', {class: 'sample-text'}, text)
+      : h('pre', {class: 'sample-code', tabindex: '0', 'aria-label': label + '（JSON）'}, text);
+    if (text.length <= LONG_SAMPLE) return body;
+    const size = isText ? text.length + '字' : 'JSON・' + text.split('\n').length + '行';
+    return h('details', {class: 'sample-more'}, h('summary', {}, label + 'の全文を開く（' + size + '）'), body);
+  }
+
+  function pairSample(sample, demo) {
     return h('li', {class: 'sample'},
-      h('div', {class: 'sample-in'}, h('span', {class: 'sample-label'}, sample.label || sample.id),
-        h('span', {class: 'sample-label'}, '入力'), value(sample.input)),
-      h('div', {class: 'sample-out'}, h('span', {class: 'sample-label'}, '結果'), value(sample.output),
-        demo ? h('a', {href: demo + '#' + encodeURIComponent(sample.id)}, 'この作例を開く') : null));
+      h('h3', {class: 'sample-title'}, sample.label || sample.id || ''),
+      h('div', {class: 'sample-part'}, h('p', {class: 'sample-label'}, '入力'), sampleValue(sample.input, '入力')),
+      h('div', {class: 'sample-part is-output'}, h('p', {class: 'sample-label'}, '結果'), sampleValue(sample.output, '結果')),
+      demo && sample.id ? h('a', {class: 'sample-link', href: demo + '#' + encodeURIComponent(sample.id)}, 'この作例をデモで開く') : null);
   }
 
   async function renderCase(item) {
@@ -224,35 +338,12 @@
     };
     const pairs = item.sample_format === 'input-output';
     const demo = safeHref(item.demo);
+    const video = safeHref(item.video);
     const skill = safeHref(item.skill);
     const samplesUrl = safeHref(item.samples);
+    const hasRequest = typeof item.request === 'string' && item.request.trim();
+    const skillTitle = skillName(item);
     document.title = (item.title || item.id) + '｜Studio Yebisu';
-
-    const head = h('header', {class: 'article-head'},
-      h('nav', {class: 'article-crumbs', 'aria-label': 'パンくず'},
-        h('a', {href: './'}, 'トップ'),
-        h('a', {href: categoryHref(item.category)}, categoryLabel(item.category))),
-      h('h1', {class: 'article-title'}, Array.isArray(item.title_lines) && item.title_lines.length
-        ? item.title_lines.flatMap((line, index) => [index ? h('br') : null, line])
-        : item.id === 'brief-to-demo' ? ['ひと言を、', h('br'), '作れる依頼に。'] : (item.title || item.id)),
-      h('p', {class: 'article-lead'}, item.summary || ''),
-      h('dl', {class: 'article-facts'},
-        h('dt', {}, '分野'), h('dd', {}, categoryLabel(item.category)),
-        item.model ? [h('dt', {}, '制作モデル'), h('dd', {}, MODEL_LABELS[item.model] || item.model)] : null,
-        item.status ? [h('dt', {}, '状態'), h('dd', {}, STATUS_LABELS[item.status] || item.status)] : null,
-        item.license ? [h('dt', {}, 'ライセンス'), h('dd', {}, item.license)] : null));
-
-    const toc = [];
-    const sections = [];
-    const add = (id, title, ...children) => { toc.push([id, title]); sections.push(section(id, title, ...children)); };
-
-    if (demo) {
-      add('demo', 'デモ',
-        h('div', {class: 'demo-callout'},
-          h('p', {}, item.demo_description || '実際の依頼を選ぶと、選ばれた分野、読むスキル、できあがったブリーフが並びます。依頼文のコピーとJSONの保存もできます。'),
-          h('a', {class: 'btn btn-ink', href: demo}, 'デモを開く')),
-        h('p', {class: 'd-note'}, item.demo_note || 'デモに表示されるのは、事前に制作したサンプルです。ページ上でAIを実行することはありません。'));
-    }
 
     let samples = [];
     if (samplesUrl) {
@@ -261,25 +352,65 @@
         samples = Array.isArray(data.samples) ? data.samples : [];
       } catch (_) { samples = []; }
     }
-    if (samples.length) {
-      add('examples', item.samples_title || (pairs ? '実入力と結果' : samples.length + 'つの依頼と、できたブリーフ'),
-        h('p', {}, item.samples_intro || (pairs ? '作例で使った入力と、表示する結果です。' : 'どれも依頼の文はそのまま残し、成果物から分野を選んでいます。依頼にない日時や名前は書かず、仮の条件として分けました。')),
-        h('ol', {class: 'samples'}, samples.map(sample => pairs ? samplePairRow(sample, demo) : sampleRow(sample, demo))));
+
+    const [lead, rest] = splitLead(item.summary);
+    const head = h('header', {class: 'article-head'},
+      crumbs(item.category),
+      h('p', {class: 'card-meta'},
+        h('span', {class: 'card-cat'}, categoryLabel(item.category)),
+        skillTitle ? h('span', {}, skillTitle) : null,
+        h('span', {}, '制作した作例')),
+      h('h1', {class: 'article-title'}, lineNodes(titleLines(item), 'tl')),
+      lead ? h('p', {class: 'article-lead'}, lead) : null,
+      rest ? h('details', {class: 'more-text'}, h('summary', {}, '概要の続きを読む'), h('p', {}, rest)) : null,
+      demo || hasRequest ? h('div', {class: 'actions'},
+        demo ? h('a', {class: 'btn btn-ink', href: demo}, 'デモを開く') : null,
+        hasRequest ? h('a', {class: 'btn btn-line', href: '#prompt'}, '依頼文を見る') : null) : null,
+      facts([
+        ['分野', categoryLabel(item.category)],
+        ['制作モデル', item.model ? MODEL_LABELS[item.model] || item.model : null],
+        ['状態', item.status ? STATUS_LABELS[item.status] || item.status : null],
+        ['ライセンス', item.license || null],
+        ['更新日', item.updated_on || null]
+      ]));
+
+    const page = article();
+
+    if (demo) {
+      page.add('demo', 'デモ', 'デモ',
+        h('div', {class: 'demo-callout'},
+          h('p', {}, item.demo_description || '実際の依頼を選ぶと、選ばれた分野、読むスキル、できあがったブリーフが並びます。依頼文のコピーとJSONの保存もできます。'),
+          h('a', {class: 'btn btn-ink', href: demo}, 'デモを開く')),
+        h('p', {class: 'd-note'}, item.demo_note || 'デモに表示されるのは、事前に制作したサンプルです。ページ上でAIを実行することはありません。'));
     }
 
-    if (item.request) {
-      add('prompt', 'AIへの頼み方',
+    if (samples.length) {
+      page.add('examples', item.samples_title || (pairs ? '実入力と結果' : samples.length + 'つの依頼と、できたブリーフ'), '入力と結果',
+        h('p', {}, item.samples_intro || (pairs ? '作例で使った入力と、表示する結果です。' : 'どれも依頼の文はそのまま残し、成果物から分野を選んでいます。依頼にない日時や名前は書かず、仮の条件として分けました。')),
+        h('ol', {class: 'samples'}, samples.map(sample => pairs ? pairSample(sample, demo) : briefSample(sample, demo))));
+    } else if (samplesUrl) {
+      page.add('examples', '実入力と結果', '入力と結果',
+        h('p', {}, 'サンプルのファイルを読み込めませんでした。'),
+        h('p', {}, h('a', {href: samplesUrl}, 'サンプルのファイルを直接開く')));
+    }
+
+    if (hasRequest) {
+      page.add('prompt', 'AIへの頼み方', '依頼文',
         h('p', {}, item.request_intro || 'SKILL.mdを読み込めるAIに、次の文章を渡します。最後の「依頼：」の部分を、自分の言葉に置き換えて使ってください。'),
         promptBlock(item.request, '依頼文の例'));
     }
 
+    if (Array.isArray(item.limitations) && item.limitations.length) {
+      page.add('limits', 'できないことと注意', '注意点', h('ul', {class: 'limits'}, item.limitations.map(text => h('li', {}, text))));
+    }
+
     if (Array.isArray(item.steps) && item.steps.length) {
-      add('method', '制作の方法',
+      page.add('method', '制作の方法', '制作の方法',
         h('ol', {class: 'steps'}, item.steps.map(step => h('li', {}, h('h3', {}, step.title || ''), h('p', {}, step.body || '')))));
     }
 
     if (Array.isArray(item.applied_skills) && item.applied_skills.length) {
-      add('skills', '使ったスキルと、使い方',
+      page.add('skills', '使ったスキルと、使い方', '使ったスキル',
         h('dl', {class: 'applied'}, item.applied_skills.map(applied => {
           const source = safeHref(applied.source);
           return h('div', {},
@@ -295,34 +426,36 @@
       ['この作例の記録（JSON）', '手順・使ったスキル・出典', 'data/cases/' + encodeURIComponent(item.id) + '.json'],
       extras.videoSource && ['映像のソース', 'ブラウザで開いて再生・確認できます', extras.videoSource]
     ].filter(Boolean);
-    add('downloads', 'ダウンロード',
-      h('div', {class: 'downloads'}, downloads.map(([label, note, href]) =>
-        h('a', {href, download: /\.(md|json)$/i.test(href) || /LICENSE$/.test(href) ? '' : null}, h('strong', {}, label), h('span', {}, note)))));
+    page.add('downloads', 'ダウンロード', 'ダウンロード',
+      h('ul', {class: 'downloads'}, downloads.map(([label, note, href]) => h('li', {},
+        h('a', {href, download: /\.(md|json)$/i.test(href) || /LICENSE[^/]*$/.test(href) ? '' : null}, h('strong', {}, label), h('span', {}, note))))));
 
-    if (Array.isArray(item.limitations) && item.limitations.length) {
-      add('limits', 'できないことと注意', h('ul', {class: 'limits'}, item.limitations.map(text => h('li', {}, text))));
-    }
-
-    const sources = (item.sources || []).map(source => [source.label, safeHref(source.url)]).filter(([, url]) => url);
-    add('sources', '出典とライセンス',
-      sources.length ? h('div', {class: 'd-links'}, sources.map(([label, url]) => h('a', {href: url}, h('span', {}, label || url), h('small', {}, url.replace(/^https?:\/\//, ''))))) : null,
+    const sources = (item.sources || []).map(source => [source && source.label, safeHref(source && source.url)]).filter(([, url]) => url);
+    page.add('sources', '出典とライセンス', '出典',
+      sources.length ? linkList(sources) : null,
       h('p', {class: 'd-note'}, item.license_note || ((item.license ? 'この作例のスキル・サンプル・映像ソースは ' + item.license + ' License です。' : '') + '外部の原典は、それぞれのライセンスに従います。')));
 
-    const tocNav = h('nav', {class: 'toc', 'aria-label': '目次'},
-      h('p', {}, '目次'),
-      h('ol', {}, toc.map(([id, title]) => h('li', {}, h('a', {href: '#' + id}, title)))));
+    setTabbar([
+      ['作例一覧', './#cases', 'list'],
+      video ? ['動画', '#video', 'cases'] : null,
+      demo ? ['デモ', demo, 'demo'] : null,
+      hasRequest ? ['依頼文', '#prompt', 'prompt'] : null
+    ]);
 
-    show(head, videoBlock(item, extras), h('div', {class: 'article-body'}, tocNav, h('div', {class: 'article-main'}, sections)));
+    show(head, videoBlock(item, extras), page.body(null));
   }
 
-  /* ---------- Imported catalog entry ---------- */
+  /* ---------- Catalog entry (source guide) ---------- */
 
-  // A catalog entry counts as produced only when a Studio Yebisu case points to it.
+  // A catalog entry counts as produced only when a Studio Yebisu case points to it. If cases.json is
+  // unreadable, an entry whose guide_url is a case article still links there.
   function caseForEntry(entry, cases) {
-    const direct = cases.find(item => item.catalog_entry && item.catalog_entry.id === entry.id);
+    const direct = cases && cases.find(item => item.catalog_entry && item.catalog_entry.id === entry.id);
     if (direct) return direct;
-    const match = typeof entry.guide_url === 'string' && /^case\.html\?id=([a-z0-9._-]+)(?:[&#]|$)/i.exec(entry.guide_url.trim());
-    return match ? cases.find(item => item.id === match[1]) || null : null;
+    const match = typeof entry.guide_url === 'string' && CASE_LINK.exec(entry.guide_url.trim());
+    if (!match) return null;
+    if (!cases) return {id: match[1]};
+    return cases.find(item => item.id === match[1]) || null;
   }
 
   function renderEntry(entry, produced) {
@@ -330,6 +463,7 @@
     const skill = String(entry.kind || '').trim() === 'スキル';
     const category = categories[entry.category];
     const caseHref = produced ? 'case.html?id=' + encodeURIComponent(produced.id) : null;
+    const sourceOnly = !produced && entry.verification_stage === 'source-reviewed';
     const image = safeHref(entry.image);
     let media = null;
     if (image) {
@@ -361,55 +495,57 @@
       ['スキルをダウンロード', entry.skill_download]
     ].map(([label, url]) => [label, safeHref(url)]).filter(([, url]) => url);
 
+    const stage = caseHref ? '作例の記事あり'
+      : sourceOnly ? '紹介のみ'
+      : entry.example_url || entry.image ? '掲載元の見本あり' : null;
+    const useAnchor = entry.use_case ? '#use' : Array.isArray(entry.workflow) && entry.workflow.length ? '#workflow' : null;
+
     const head = h('header', {class: 'article-head'},
-      h('nav', {class: 'article-crumbs', 'aria-label': 'パンくず'},
-        h('a', {href: './'}, 'トップ'),
-        h('a', {href: categoryHref(entry.category)}, categoryLabel(entry.category))),
-      h('div', {},
-        h('p', {class: 'd-meta'},
-          h('span', {class: 'entry-kind'}, h('span', {class: 'mark ' + (skill ? 'mark-skill' : 'mark-support'), 'aria-hidden': 'true'}), entry.kind || 'その他'),
-          h('span', {}, categoryLabel(entry.category)),
-          caseHref ? h('a', {class: 'entry-case', href: caseHref}, '制作した作例あり') : null),
-        h('h1', {class: 'article-title article-title-entry'}, entry.name || entry.id)),
-      h('p', {class: 'article-lead'}, entry.summary || ''),
-      h('dl', {class: 'article-facts'},
-        h('dt', {}, '分野'), h('dd', {}, h('a', {href: categoryHref(entry.category)}, categoryLabel(entry.category)), category && category.group ? '（' + category.group + '）' : null),
-        h('dt', {}, '種類'), h('dd', {}, entry.kind || 'その他'),
-        h('dt', {}, '作例'), h('dd', {}, caseHref ? h('a', {href: caseHref}, '制作した作例の記事あり') : entry.verification_stage === 'source-reviewed' ? '紹介のみ（作例は未制作）' : entry.example_url || entry.image ? '掲載元の作例・見本あり' : 'この統合サイトの記事は未掲載')));
+      crumbs(entry.category),
+      h('p', {class: 'card-meta'},
+        h('span', {class: 'entry-kind'}, h('span', {class: 'mark ' + (skill ? 'mark-skill' : 'mark-support'), 'aria-hidden': 'true'}), entry.kind || 'その他'),
+        h('span', {}, categoryLabel(entry.category)),
+        stage ? h('span', {class: caseHref ? 'entry-case' : 'stage'}, stage) : null),
+      h('h1', {class: 'article-title article-title-entry'}, entry.name || entry.id),
+      entry.summary ? h('p', {class: 'article-lead'}, entry.summary) : null,
+      h('div', {class: 'actions'},
+        caseHref ? h('a', {class: 'btn btn-ink', href: caseHref}, '作例の記事を読む') : null,
+        h('a', {class: 'btn ' + (caseHref ? 'btn-line' : 'btn-ink'), href: '#prompt'}, '依頼文を見る'),
+        source ? h('a', {class: 'btn btn-line', href: source}, '原典を開く') : null),
+      entry.verification ? h('p', {class: 'status-note'}, h('strong', {}, '確認状況'), entry.verification) : null);
 
-    const toc = [];
-    const sections = [];
-    const add = (id, title, ...children) => { toc.push([id, title]); sections.push(section(id, title, ...children)); };
-
-    if (entry.use_case) add('use', '使いどころ', h('p', {}, entry.use_case));
-    if (Array.isArray(entry.workflow) && entry.workflow.length) add('workflow', '最初の試し方', h('ol', {class: 'd-list'}, entry.workflow.map(step => h('li', {}, step))));
-    if (Array.isArray(entry.requirements) && entry.requirements.length) add('requirements', '使う環境', h('ul', {class: 'd-list'}, entry.requirements.map(requirement => h('li', {}, requirement))));
-    add('prompt', 'AIへの頼み方',
+    const page = article();
+    if (entry.use_case) page.add('use', '使いどころ', '使いどころ', h('p', {}, entry.use_case));
+    if (Array.isArray(entry.workflow) && entry.workflow.length) page.add('workflow', '最初の試し方', '試し方', h('ol', {class: 'd-list'}, entry.workflow.map(step => h('li', {}, step))));
+    if (Array.isArray(entry.requirements) && entry.requirements.length) page.add('requirements', '使う環境', '使う環境', h('ul', {class: 'd-list'}, entry.requirements.map(requirement => h('li', {}, requirement))));
+    page.add('prompt', 'AIへの頼み方', '依頼文',
       promptBlock(prompt, hasPrompt ? '依頼文の例' : '依頼文のひな形'),
       hasPrompt ? null : h('p', {class: 'd-note'}, 'この項目には依頼文の例がまだないため、原典を読んでから使うためのひな形を表示しています。'));
-    add('conditions', '分類・確認状況・ライセンス',
+    page.add('conditions', '分類・確認状況・ライセンス', '条件',
       h('dl', {class: 'd-facts'},
-        h('dt', {}, '分野'), h('dd', {}, categoryLabel(entry.category), category && category.description ? h('span', {class: 'd-note d-inline'}, category.description) : null),
-        h('dt', {}, '確認状況'), h('dd', {}, entry.verification || '記載なし'),
-        h('dt', {}, '原典'), h('dd', {}, source ? h('a', {href: source}, source.replace(/^https?:\/\//, '')) : '記載なし'),
-        h('dt', {}, 'ライセンス'), h('dd', {}, license ? h('a', {href: license}, entry.license || 'ライセンスを見る') : (entry.license || '原典で確認してください')),
-        h('dt', {}, '作例'), h('dd', {}, caseHref
+        h('div', {}, h('dt', {}, '分野'), h('dd', {}, h('a', {href: categoryHref(entry.category)}, categoryLabel(entry.category)), category && category.group ? '（' + category.group + '）' : null, category && category.description ? h('span', {class: 'd-note d-inline'}, category.description) : null)),
+        h('div', {}, h('dt', {}, '種類'), h('dd', {}, entry.kind || 'その他')),
+        h('div', {}, h('dt', {}, '確認状況'), h('dd', {}, entry.verification || '記載なし')),
+        h('div', {}, h('dt', {}, '原典'), h('dd', {}, source ? h('a', {class: 'url', href: source}, displayUrl(source)) : '記載なし')),
+        h('div', {}, h('dt', {}, 'ライセンス'), h('dd', {}, license ? h('a', {href: license}, entry.license || 'ライセンスを見る') : (entry.license || '原典で確認してください'))),
+        h('div', {}, h('dt', {}, '作例'), h('dd', {}, caseHref
           ? h('a', {href: caseHref}, produced.title || 'Studio Yebisuで制作した作例')
-          : entry.verification_stage === 'source-reviewed' ? '紹介のみで、作例・動画は未制作です。' : entry.example_url || entry.image ? '掲載元の作例・見本を参照できます。確認した範囲は上記の記録をご覧ください。' : 'この統合サイトの制作記事は未掲載です。')),
+          : sourceOnly ? '紹介のみで、作例・動画は未制作です。' : entry.example_url || entry.image ? '掲載元の作例・見本を参照できます。確認した範囲は上記の記録をご覧ください。' : 'この統合サイトの制作記事は未掲載です。'))),
       entry.license_note ? h('p', {class: 'd-note'}, entry.license_note) : null);
-    if (links.length) {
-      add('links', 'リンク', h('div', {class: 'd-links'}, links.map(([label, url]) =>
-        h('a', {href: url}, h('span', {}, label), h('small', {}, /^https?:/i.test(url) ? url.replace(/^https?:\/\//, '') : 'このサイト内')))));
-    }
-    if (Array.isArray(entry.tags) && entry.tags.length) add('tags', 'タグ', h('ul', {class: 'tags'}, entry.tags.map(tag => h('li', {}, tag))));
-    add('source-note', '出典について',
+    if (links.length) page.add('links', 'リンク', 'リンク', linkList(links));
+    if (Array.isArray(entry.tags) && entry.tags.length) page.add('tags', 'タグ', 'タグ', h('ul', {class: 'tags'}, entry.tags.map(tag => h('li', {}, tag))));
+    page.add('source-note', '出典について', '出典',
       h('p', {}, entry.source_note || ('この項目は、' + sourceLabel(entry) + 'に掲載している情報です。説明は原典をもとに日本語でまとめています。最新の内容と利用条件は原典で確かめてください。')),
-      h('div', {class: 'd-cta'}, h('a', {class: 'btn btn-line', href: categoryHref(entry.category)}, categoryLabel(entry.category) + 'の一覧に戻る')));
+      h('div', {class: 'actions'}, h('a', {class: 'btn btn-line', href: categoryHref(entry.category)}, categoryLabel(entry.category) + 'の一覧に戻る')));
 
-    show(head, h('div', {class: 'article-body'},
-      h('nav', {class: 'toc', 'aria-label': '目次'}, h('p', {}, '目次'), h('ol', {},
-        toc.map(([id, title]) => h('li', {}, h('a', {href: '#' + id}, title))))),
-      h('div', {class: 'article-main'}, media, sections)));
+    setTabbar([
+      ['一覧', categoryHref(entry.category), 'list'],
+      useAnchor ? ['使い方', useAnchor, 'guide'] : null,
+      ['依頼文', '#prompt', 'prompt'],
+      source ? ['原典', source, 'source'] : null
+    ]);
+
+    show(head, page.body(media));
   }
 
   /* ---------- Route ---------- */
@@ -424,10 +560,11 @@
     catalog.then(data => renderFooterCategories(data.categories)).catch(() => {});
 
     if (caseId) {
-      if (!ID_PATTERN.test(caseId)) return showState('作例が見つかりません', 'URLの作例名が正しくありません。カタログから選び直してください。');
-      const [item] = await Promise.all([findCase(caseId), catalog.catch(() => null)]);
-      if (!item) return showState('作例が見つかりません', '「' + caseId + '」という作例はまだ掲載されていません。カタログから選び直してください。');
-      return renderCase(item);
+      if (!ID_PATTERN.test(caseId)) return showState('作例が見つかりません', 'URLの作例名が正しくありません。作例の一覧かカタログから選び直してください。');
+      const [found] = await Promise.all([findCase(caseId), catalog.catch(() => null)]);
+      if (found.item) return renderCase(found.item);
+      if (found.failed) return showState('作例を読み込めませんでした', '通信状態を確かめてから、もう一度読み込んでください。', {retry: true});
+      return showState('作例が見つかりません', '「' + caseId + '」という作例はまだ掲載されていません。作例の一覧かカタログから選び直してください。');
     }
 
     if (entryId) {
@@ -437,15 +574,15 @@
       try {
         [{entries}, cases] = await Promise.all([catalog, loadCases()]);
       } catch (_) {
-        return showState('カタログを読み込めませんでした', '通信状態を確かめてから、ページを再読み込みしてください。');
+        return showState('カタログを読み込めませんでした', '通信状態を確かめてから、もう一度読み込んでください。', {retry: true});
       }
       const entry = entries.find(item => item && item.id === entryId);
       if (!entry) return showState('項目が見つかりません', '「' + entryId + '」はカタログにありません。名前が変わった可能性があります。カタログから探し直してください。');
       return renderEntry(entry, caseForEntry(entry, cases));
     }
 
-    showState('表示する作例が選ばれていません', 'カタログか作例の一覧から、見たいものを選んでください。');
+    showState('表示する作例が選ばれていません', '作例の一覧かカタログから、見たいものを選んでください。');
   }
 
-  start().catch(() => showState('ページを表示できませんでした', '時間をおいて、もう一度開いてください。'));
+  start().catch(() => showState('ページを表示できませんでした', '時間をおいて、もう一度開いてください。', {retry: true}));
 })();
