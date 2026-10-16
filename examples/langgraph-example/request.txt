@@ -1,0 +1,17 @@
+LangGraph（langchain-ai/langgraph 固定コミット d4149cc1f5384364d1a21092b4c2f582a6e7af8f、langgraph 1.2.15）を使い、機材の貸出申請を処理する Python の StateGraph を作って、実際に実行してください。
+
+入力：inputs/requests.json（架空の申請3件、単価表、期待値）。各申請の項目は applicant・event・start_date・end_date・items（sku と quantity）です。
+
+処理：
+1. validate ノードで、必須5項目の空欄、YYYY-MM-DD 形式の日付、貸出日が返却日より後でないこと、単価表にない sku、1未満の数量を調べる。
+2. add_conditional_edges で、不備があれば needs_input ノードに進めて終了する（interrupt しない）。不備がなければ estimate へ進める。
+3. estimate で「数量×単価」を合計する（日数は掛けない）。合計が30,000円以上なら budget_flag を true にする。
+4. review ノードで interrupt を呼び、申請・見積・budget_flag を payload にして止める。金額に関係なく、完全な申請はすべて止める。interrupt より前に副作用を置かない。
+5. checkpointer に InMemorySaver を使い、申請ごとに固定の thread_id を付ける。同じプロセスの同じグラフに Command(resume=テスト値) を渡して再開し、approved と comment を state に残す。
+6. finalize で日本語の要約を作る。
+
+保存：再開前・後の get_state と get_state_history（古い順）を outputs/runs.json に、入力と最終 state の対を samples.json に、結果メモを outputs/result.md に書く。
+
+完了条件：通常の8,000円が承認、返却日のない申請が needs_input（missing_fields は end_date だけ、interrupt 0件）、高額の36,000円が差し戻しになり、3件とも期待値と一致すること。一致しなければ出力を書かずに失敗すること。
+
+範囲：規則だけで動く処理なので、LLM や API キーは使いません。テスト値は人の承認ではありません。実際に人が確認するには、回答する画面と、プロセスを再起動しても残る保存先（例：Postgres のチェックポインター）が別に必要です。

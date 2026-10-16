@@ -1,0 +1,1243 @@
+{
+  "fictional": true,
+  "framework": {
+    "name": "LangGraph",
+    "version": "1.2.15",
+    "commit": "d4149cc1f5384364d1a21092b4c2f582a6e7af8f",
+    "packages": {
+      "langgraph": "1.2.15",
+      "langgraph-checkpoint": "4.3.0",
+      "langgraph-prebuilt": "1.1.0",
+      "langgraph-sdk": "0.4.7"
+    }
+  },
+  "scope_note": "氏名・催し・単価・判定基準はこの作例の架空入力。承認・差し戻しはプログラムから渡すテスト値で、人による承認・実予約・送信・決済ではない。 チェックポイントは InMemorySaver のメモリ上だけで、同じ Python プロセス内で停止と再開を行った。ノードは決まった規則の Python 関数で、LLM・外部 API は使っていない。",
+  "rules": {
+    "price_basis": "各品目の一申請あたり架空単価。日数掛けは行わない。",
+    "catalog": [
+      {
+        "sku": "camera",
+        "name": "カメラ",
+        "unit_yen": 6000
+      },
+      {
+        "sku": "tripod",
+        "name": "三脚",
+        "unit_yen": 1000
+      },
+      {
+        "sku": "light",
+        "name": "照明",
+        "unit_yen": 4000
+      }
+    ],
+    "budget_review_from_yen": 30000,
+    "required_fields": [
+      "applicant",
+      "event",
+      "start_date",
+      "end_date",
+      "items"
+    ],
+    "all_complete_requests_pause_for_review": true
+  },
+  "jobs": [
+    {
+      "id": "approved",
+      "label": "通常の申請",
+      "thread_id": "studio-yebisu-langgraph-example-approved",
+      "input": {
+        "applicant": "広報係・青木（架空）",
+        "event": "はじめての撮影会",
+        "start_date": "2026-11-08",
+        "end_date": "2026-11-08",
+        "items": [
+          {
+            "sku": "camera",
+            "quantity": 1
+          },
+          {
+            "sku": "tripod",
+            "quantity": 2
+          }
+        ]
+      },
+      "test_resume": {
+        "approved": true,
+        "comment": "テスト入力：内容を確認し、貸出可とする。"
+      },
+      "pause": {
+        "interrupts": [
+          {
+            "id": "592f4fe7a3d7b70a2b0cdcc6fd589aef",
+            "value": {
+              "question": "この見積で貸し出してよいか、approved（true/false）と comment で回答してください。",
+              "job_id": "approved",
+              "request": {
+                "applicant": "広報係・青木（架空）",
+                "event": "はじめての撮影会",
+                "start_date": "2026-11-08",
+                "end_date": "2026-11-08",
+                "items": [
+                  {
+                    "sku": "camera",
+                    "quantity": 1
+                  },
+                  {
+                    "sku": "tripod",
+                    "quantity": 2
+                  }
+                ]
+              },
+              "line_items": [
+                {
+                  "sku": "camera",
+                  "name": "カメラ",
+                  "quantity": 1,
+                  "unit_yen": 6000,
+                  "subtotal_yen": 6000
+                },
+                {
+                  "sku": "tripod",
+                  "name": "三脚",
+                  "quantity": 2,
+                  "unit_yen": 1000,
+                  "subtotal_yen": 2000
+                }
+              ],
+              "total_yen": 8000,
+              "budget_flag": false,
+              "budget_review_from_yen": 30000,
+              "context": "架空の申請。この作例ではスクリプトがテスト値で再開します。"
+            },
+            "response_schema": {
+              "additionalProperties": false,
+              "description": "interrupt の再開値の型。LangGraph が Command(resume=...) の値をこの型で検証する。",
+              "properties": {
+                "approved": {
+                  "title": "Approved",
+                  "type": "boolean"
+                },
+                "comment": {
+                  "title": "Comment",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "approved",
+                "comment"
+              ],
+              "title": "ReviewDecision",
+              "type": "object"
+            }
+          }
+        ],
+        "state": {
+          "values": {
+            "job_id": "approved",
+            "request": {
+              "applicant": "広報係・青木（架空）",
+              "event": "はじめての撮影会",
+              "start_date": "2026-11-08",
+              "end_date": "2026-11-08",
+              "items": [
+                {
+                  "sku": "camera",
+                  "quantity": 1
+                },
+                {
+                  "sku": "tripod",
+                  "quantity": 2
+                }
+              ]
+            },
+            "status": "awaiting_review",
+            "missing_fields": [],
+            "input_errors": [],
+            "line_items": [
+              {
+                "sku": "camera",
+                "name": "カメラ",
+                "quantity": 1,
+                "unit_yen": 6000,
+                "subtotal_yen": 6000
+              },
+              {
+                "sku": "tripod",
+                "name": "三脚",
+                "quantity": 2,
+                "unit_yen": 1000,
+                "subtotal_yen": 2000
+              }
+            ],
+            "total_yen": 8000,
+            "budget_flag": false,
+            "needs_review": true
+          },
+          "next": [
+            "review"
+          ]
+        }
+      },
+      "after_resume": {
+        "values": {
+          "job_id": "approved",
+          "request": {
+            "applicant": "広報係・青木（架空）",
+            "event": "はじめての撮影会",
+            "start_date": "2026-11-08",
+            "end_date": "2026-11-08",
+            "items": [
+              {
+                "sku": "camera",
+                "quantity": 1
+              },
+              {
+                "sku": "tripod",
+                "quantity": 2
+              }
+            ]
+          },
+          "status": "approved",
+          "missing_fields": [],
+          "input_errors": [],
+          "line_items": [
+            {
+              "sku": "camera",
+              "name": "カメラ",
+              "quantity": 1,
+              "unit_yen": 6000,
+              "subtotal_yen": 6000
+            },
+            {
+              "sku": "tripod",
+              "name": "三脚",
+              "quantity": 2,
+              "unit_yen": 1000,
+              "subtotal_yen": 2000
+            }
+          ],
+          "total_yen": 8000,
+          "budget_flag": false,
+          "needs_review": true,
+          "review": {
+            "approved": true,
+            "comment": "テスト入力：内容を確認し、貸出可とする。"
+          },
+          "summary": "見積合計 8,000円（予算確認の基準 30,000円 未満）。確認待ちで一時停止し、同じ thread に渡されたテスト回答（approved=true）で再開して「承認」で終了しました。コメント：テスト入力：内容を確認し、貸出可とする。"
+        },
+        "next": []
+      },
+      "final": {
+        "job_id": "approved",
+        "request": {
+          "applicant": "広報係・青木（架空）",
+          "event": "はじめての撮影会",
+          "start_date": "2026-11-08",
+          "end_date": "2026-11-08",
+          "items": [
+            {
+              "sku": "camera",
+              "quantity": 1
+            },
+            {
+              "sku": "tripod",
+              "quantity": 2
+            }
+          ]
+        },
+        "status": "approved",
+        "missing_fields": [],
+        "input_errors": [],
+        "line_items": [
+          {
+            "sku": "camera",
+            "name": "カメラ",
+            "quantity": 1,
+            "unit_yen": 6000,
+            "subtotal_yen": 6000
+          },
+          {
+            "sku": "tripod",
+            "name": "三脚",
+            "quantity": 2,
+            "unit_yen": 1000,
+            "subtotal_yen": 2000
+          }
+        ],
+        "total_yen": 8000,
+        "budget_flag": false,
+        "needs_review": true,
+        "review": {
+          "approved": true,
+          "comment": "テスト入力：内容を確認し、貸出可とする。"
+        },
+        "summary": "見積合計 8,000円（予算確認の基準 30,000円 未満）。確認待ちで一時停止し、同じ thread に渡されたテスト回答（approved=true）で再開して「承認」で終了しました。コメント：テスト入力：内容を確認し、貸出可とする。"
+      },
+      "end_state": {
+        "values": {
+          "job_id": "approved",
+          "request": {
+            "applicant": "広報係・青木（架空）",
+            "event": "はじめての撮影会",
+            "start_date": "2026-11-08",
+            "end_date": "2026-11-08",
+            "items": [
+              {
+                "sku": "camera",
+                "quantity": 1
+              },
+              {
+                "sku": "tripod",
+                "quantity": 2
+              }
+            ]
+          },
+          "status": "approved",
+          "missing_fields": [],
+          "input_errors": [],
+          "line_items": [
+            {
+              "sku": "camera",
+              "name": "カメラ",
+              "quantity": 1,
+              "unit_yen": 6000,
+              "subtotal_yen": 6000
+            },
+            {
+              "sku": "tripod",
+              "name": "三脚",
+              "quantity": 2,
+              "unit_yen": 1000,
+              "subtotal_yen": 2000
+            }
+          ],
+          "total_yen": 8000,
+          "budget_flag": false,
+          "needs_review": true,
+          "review": {
+            "approved": true,
+            "comment": "テスト入力：内容を確認し、貸出可とする。"
+          },
+          "summary": "見積合計 8,000円（予算確認の基準 30,000円 未満）。確認待ちで一時停止し、同じ thread に渡されたテスト回答（approved=true）で再開して「承認」で終了しました。コメント：テスト入力：内容を確認し、貸出可とする。"
+        },
+        "next": []
+      },
+      "checkpoints": [
+        {
+          "step": -1,
+          "source": "input",
+          "values": {},
+          "next": [
+            "__start__"
+          ],
+          "interrupt_ids": [],
+          "created_at": "2026-10-16T00:14:02.936027+00:00"
+        },
+        {
+          "step": 0,
+          "source": "loop",
+          "values": {
+            "job_id": "approved",
+            "request": {
+              "applicant": "広報係・青木（架空）",
+              "event": "はじめての撮影会",
+              "start_date": "2026-11-08",
+              "end_date": "2026-11-08",
+              "items": [
+                {
+                  "sku": "camera",
+                  "quantity": 1
+                },
+                {
+                  "sku": "tripod",
+                  "quantity": 2
+                }
+              ]
+            }
+          },
+          "next": [
+            "validate"
+          ],
+          "interrupt_ids": [],
+          "created_at": "2026-10-16T00:14:02.936978+00:00"
+        },
+        {
+          "step": 1,
+          "source": "loop",
+          "values": {
+            "job_id": "approved",
+            "request": {
+              "applicant": "広報係・青木（架空）",
+              "event": "はじめての撮影会",
+              "start_date": "2026-11-08",
+              "end_date": "2026-11-08",
+              "items": [
+                {
+                  "sku": "camera",
+                  "quantity": 1
+                },
+                {
+                  "sku": "tripod",
+                  "quantity": 2
+                }
+              ]
+            },
+            "status": "validated",
+            "missing_fields": [],
+            "input_errors": []
+          },
+          "next": [
+            "estimate"
+          ],
+          "interrupt_ids": [],
+          "created_at": "2026-10-16T00:14:02.937526+00:00"
+        },
+        {
+          "step": 2,
+          "source": "loop",
+          "values": {
+            "job_id": "approved",
+            "request": {
+              "applicant": "広報係・青木（架空）",
+              "event": "はじめての撮影会",
+              "start_date": "2026-11-08",
+              "end_date": "2026-11-08",
+              "items": [
+                {
+                  "sku": "camera",
+                  "quantity": 1
+                },
+                {
+                  "sku": "tripod",
+                  "quantity": 2
+                }
+              ]
+            },
+            "status": "awaiting_review",
+            "missing_fields": [],
+            "input_errors": [],
+            "line_items": [
+              {
+                "sku": "camera",
+                "name": "カメラ",
+                "quantity": 1,
+                "unit_yen": 6000,
+                "subtotal_yen": 6000
+              },
+              {
+                "sku": "tripod",
+                "name": "三脚",
+                "quantity": 2,
+                "unit_yen": 1000,
+                "subtotal_yen": 2000
+              }
+            ],
+            "total_yen": 8000,
+            "budget_flag": false,
+            "needs_review": true
+          },
+          "next": [
+            "review"
+          ],
+          "interrupt_ids": [
+            "592f4fe7a3d7b70a2b0cdcc6fd589aef"
+          ],
+          "created_at": "2026-10-16T00:14:02.937968+00:00"
+        },
+        {
+          "step": 3,
+          "source": "loop",
+          "values": {
+            "job_id": "approved",
+            "request": {
+              "applicant": "広報係・青木（架空）",
+              "event": "はじめての撮影会",
+              "start_date": "2026-11-08",
+              "end_date": "2026-11-08",
+              "items": [
+                {
+                  "sku": "camera",
+                  "quantity": 1
+                },
+                {
+                  "sku": "tripod",
+                  "quantity": 2
+                }
+              ]
+            },
+            "status": "approved",
+            "missing_fields": [],
+            "input_errors": [],
+            "line_items": [
+              {
+                "sku": "camera",
+                "name": "カメラ",
+                "quantity": 1,
+                "unit_yen": 6000,
+                "subtotal_yen": 6000
+              },
+              {
+                "sku": "tripod",
+                "name": "三脚",
+                "quantity": 2,
+                "unit_yen": 1000,
+                "subtotal_yen": 2000
+              }
+            ],
+            "total_yen": 8000,
+            "budget_flag": false,
+            "needs_review": true,
+            "review": {
+              "approved": true,
+              "comment": "テスト入力：内容を確認し、貸出可とする。"
+            }
+          },
+          "next": [
+            "finalize"
+          ],
+          "interrupt_ids": [],
+          "created_at": "2026-10-16T00:14:02.940219+00:00"
+        },
+        {
+          "step": 4,
+          "source": "loop",
+          "values": {
+            "job_id": "approved",
+            "request": {
+              "applicant": "広報係・青木（架空）",
+              "event": "はじめての撮影会",
+              "start_date": "2026-11-08",
+              "end_date": "2026-11-08",
+              "items": [
+                {
+                  "sku": "camera",
+                  "quantity": 1
+                },
+                {
+                  "sku": "tripod",
+                  "quantity": 2
+                }
+              ]
+            },
+            "status": "approved",
+            "missing_fields": [],
+            "input_errors": [],
+            "line_items": [
+              {
+                "sku": "camera",
+                "name": "カメラ",
+                "quantity": 1,
+                "unit_yen": 6000,
+                "subtotal_yen": 6000
+              },
+              {
+                "sku": "tripod",
+                "name": "三脚",
+                "quantity": 2,
+                "unit_yen": 1000,
+                "subtotal_yen": 2000
+              }
+            ],
+            "total_yen": 8000,
+            "budget_flag": false,
+            "needs_review": true,
+            "review": {
+              "approved": true,
+              "comment": "テスト入力：内容を確認し、貸出可とする。"
+            },
+            "summary": "見積合計 8,000円（予算確認の基準 30,000円 未満）。確認待ちで一時停止し、同じ thread に渡されたテスト回答（approved=true）で再開して「承認」で終了しました。コメント：テスト入力：内容を確認し、貸出可とする。"
+          },
+          "next": [],
+          "interrupt_ids": [],
+          "created_at": "2026-10-16T00:14:02.940602+00:00"
+        }
+      ],
+      "checks": {
+        "expected_status": "approved",
+        "interrupt_count": 1,
+        "expected_values_match": true
+      }
+    },
+    {
+      "id": "missing",
+      "label": "返却日のない申請",
+      "thread_id": "studio-yebisu-langgraph-example-missing",
+      "input": {
+        "applicant": "企画係・木村（架空）",
+        "event": "展示記録",
+        "start_date": "2026-11-10",
+        "end_date": "",
+        "items": [
+          {
+            "sku": "camera",
+            "quantity": 1
+          }
+        ]
+      },
+      "test_resume": null,
+      "pause": null,
+      "after_resume": null,
+      "final": {
+        "job_id": "missing",
+        "request": {
+          "applicant": "企画係・木村（架空）",
+          "event": "展示記録",
+          "start_date": "2026-11-10",
+          "end_date": "",
+          "items": [
+            {
+              "sku": "camera",
+              "quantity": 1
+            }
+          ]
+        },
+        "status": "needs_input",
+        "missing_fields": [
+          "end_date"
+        ],
+        "input_errors": [],
+        "summary": "返却日（end_date）が空です。見積と確認待ちには進まず、追加入力を求めて終了しました。"
+      },
+      "end_state": {
+        "values": {
+          "job_id": "missing",
+          "request": {
+            "applicant": "企画係・木村（架空）",
+            "event": "展示記録",
+            "start_date": "2026-11-10",
+            "end_date": "",
+            "items": [
+              {
+                "sku": "camera",
+                "quantity": 1
+              }
+            ]
+          },
+          "status": "needs_input",
+          "missing_fields": [
+            "end_date"
+          ],
+          "input_errors": [],
+          "summary": "返却日（end_date）が空です。見積と確認待ちには進まず、追加入力を求めて終了しました。"
+        },
+        "next": []
+      },
+      "checkpoints": [
+        {
+          "step": -1,
+          "source": "input",
+          "values": {},
+          "next": [
+            "__start__"
+          ],
+          "interrupt_ids": [],
+          "created_at": "2026-10-16T00:14:02.941881+00:00"
+        },
+        {
+          "step": 0,
+          "source": "loop",
+          "values": {
+            "job_id": "missing",
+            "request": {
+              "applicant": "企画係・木村（架空）",
+              "event": "展示記録",
+              "start_date": "2026-11-10",
+              "end_date": "",
+              "items": [
+                {
+                  "sku": "camera",
+                  "quantity": 1
+                }
+              ]
+            }
+          },
+          "next": [
+            "validate"
+          ],
+          "interrupt_ids": [],
+          "created_at": "2026-10-16T00:14:02.942204+00:00"
+        },
+        {
+          "step": 1,
+          "source": "loop",
+          "values": {
+            "job_id": "missing",
+            "request": {
+              "applicant": "企画係・木村（架空）",
+              "event": "展示記録",
+              "start_date": "2026-11-10",
+              "end_date": "",
+              "items": [
+                {
+                  "sku": "camera",
+                  "quantity": 1
+                }
+              ]
+            },
+            "status": "needs_input",
+            "missing_fields": [
+              "end_date"
+            ],
+            "input_errors": []
+          },
+          "next": [
+            "needs_input"
+          ],
+          "interrupt_ids": [],
+          "created_at": "2026-10-16T00:14:02.942624+00:00"
+        },
+        {
+          "step": 2,
+          "source": "loop",
+          "values": {
+            "job_id": "missing",
+            "request": {
+              "applicant": "企画係・木村（架空）",
+              "event": "展示記録",
+              "start_date": "2026-11-10",
+              "end_date": "",
+              "items": [
+                {
+                  "sku": "camera",
+                  "quantity": 1
+                }
+              ]
+            },
+            "status": "needs_input",
+            "missing_fields": [
+              "end_date"
+            ],
+            "input_errors": [],
+            "summary": "返却日（end_date）が空です。見積と確認待ちには進まず、追加入力を求めて終了しました。"
+          },
+          "next": [],
+          "interrupt_ids": [],
+          "created_at": "2026-10-16T00:14:02.943150+00:00"
+        }
+      ],
+      "checks": {
+        "expected_status": "needs_input",
+        "interrupt_count": 0,
+        "expected_values_match": true
+      }
+    },
+    {
+      "id": "rejected",
+      "label": "高額の申請",
+      "thread_id": "studio-yebisu-langgraph-example-rejected",
+      "input": {
+        "applicant": "制作係・佐藤（架空）",
+        "event": "発表会の配信",
+        "start_date": "2026-11-15",
+        "end_date": "2026-11-15",
+        "items": [
+          {
+            "sku": "camera",
+            "quantity": 4
+          },
+          {
+            "sku": "light",
+            "quantity": 3
+          }
+        ]
+      },
+      "test_resume": {
+        "approved": false,
+        "comment": "テスト入力：機材数と予算を見直すため差し戻す。"
+      },
+      "pause": {
+        "interrupts": [
+          {
+            "id": "59ac70d220fa71177180538085a45441",
+            "value": {
+              "question": "この見積で貸し出してよいか、approved（true/false）と comment で回答してください。",
+              "job_id": "rejected",
+              "request": {
+                "applicant": "制作係・佐藤（架空）",
+                "event": "発表会の配信",
+                "start_date": "2026-11-15",
+                "end_date": "2026-11-15",
+                "items": [
+                  {
+                    "sku": "camera",
+                    "quantity": 4
+                  },
+                  {
+                    "sku": "light",
+                    "quantity": 3
+                  }
+                ]
+              },
+              "line_items": [
+                {
+                  "sku": "camera",
+                  "name": "カメラ",
+                  "quantity": 4,
+                  "unit_yen": 6000,
+                  "subtotal_yen": 24000
+                },
+                {
+                  "sku": "light",
+                  "name": "照明",
+                  "quantity": 3,
+                  "unit_yen": 4000,
+                  "subtotal_yen": 12000
+                }
+              ],
+              "total_yen": 36000,
+              "budget_flag": true,
+              "budget_review_from_yen": 30000,
+              "context": "架空の申請。この作例ではスクリプトがテスト値で再開します。"
+            },
+            "response_schema": {
+              "additionalProperties": false,
+              "description": "interrupt の再開値の型。LangGraph が Command(resume=...) の値をこの型で検証する。",
+              "properties": {
+                "approved": {
+                  "title": "Approved",
+                  "type": "boolean"
+                },
+                "comment": {
+                  "title": "Comment",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "approved",
+                "comment"
+              ],
+              "title": "ReviewDecision",
+              "type": "object"
+            }
+          }
+        ],
+        "state": {
+          "values": {
+            "job_id": "rejected",
+            "request": {
+              "applicant": "制作係・佐藤（架空）",
+              "event": "発表会の配信",
+              "start_date": "2026-11-15",
+              "end_date": "2026-11-15",
+              "items": [
+                {
+                  "sku": "camera",
+                  "quantity": 4
+                },
+                {
+                  "sku": "light",
+                  "quantity": 3
+                }
+              ]
+            },
+            "status": "awaiting_review",
+            "missing_fields": [],
+            "input_errors": [],
+            "line_items": [
+              {
+                "sku": "camera",
+                "name": "カメラ",
+                "quantity": 4,
+                "unit_yen": 6000,
+                "subtotal_yen": 24000
+              },
+              {
+                "sku": "light",
+                "name": "照明",
+                "quantity": 3,
+                "unit_yen": 4000,
+                "subtotal_yen": 12000
+              }
+            ],
+            "total_yen": 36000,
+            "budget_flag": true,
+            "needs_review": true
+          },
+          "next": [
+            "review"
+          ]
+        }
+      },
+      "after_resume": {
+        "values": {
+          "job_id": "rejected",
+          "request": {
+            "applicant": "制作係・佐藤（架空）",
+            "event": "発表会の配信",
+            "start_date": "2026-11-15",
+            "end_date": "2026-11-15",
+            "items": [
+              {
+                "sku": "camera",
+                "quantity": 4
+              },
+              {
+                "sku": "light",
+                "quantity": 3
+              }
+            ]
+          },
+          "status": "rejected",
+          "missing_fields": [],
+          "input_errors": [],
+          "line_items": [
+            {
+              "sku": "camera",
+              "name": "カメラ",
+              "quantity": 4,
+              "unit_yen": 6000,
+              "subtotal_yen": 24000
+            },
+            {
+              "sku": "light",
+              "name": "照明",
+              "quantity": 3,
+              "unit_yen": 4000,
+              "subtotal_yen": 12000
+            }
+          ],
+          "total_yen": 36000,
+          "budget_flag": true,
+          "needs_review": true,
+          "review": {
+            "approved": false,
+            "comment": "テスト入力：機材数と予算を見直すため差し戻す。"
+          },
+          "summary": "見積合計 36,000円（予算確認の基準 30,000円 以上）。確認待ちで一時停止し、同じ thread に渡されたテスト回答（approved=false）で再開して「差し戻し」で終了しました。コメント：テスト入力：機材数と予算を見直すため差し戻す。"
+        },
+        "next": []
+      },
+      "final": {
+        "job_id": "rejected",
+        "request": {
+          "applicant": "制作係・佐藤（架空）",
+          "event": "発表会の配信",
+          "start_date": "2026-11-15",
+          "end_date": "2026-11-15",
+          "items": [
+            {
+              "sku": "camera",
+              "quantity": 4
+            },
+            {
+              "sku": "light",
+              "quantity": 3
+            }
+          ]
+        },
+        "status": "rejected",
+        "missing_fields": [],
+        "input_errors": [],
+        "line_items": [
+          {
+            "sku": "camera",
+            "name": "カメラ",
+            "quantity": 4,
+            "unit_yen": 6000,
+            "subtotal_yen": 24000
+          },
+          {
+            "sku": "light",
+            "name": "照明",
+            "quantity": 3,
+            "unit_yen": 4000,
+            "subtotal_yen": 12000
+          }
+        ],
+        "total_yen": 36000,
+        "budget_flag": true,
+        "needs_review": true,
+        "review": {
+          "approved": false,
+          "comment": "テスト入力：機材数と予算を見直すため差し戻す。"
+        },
+        "summary": "見積合計 36,000円（予算確認の基準 30,000円 以上）。確認待ちで一時停止し、同じ thread に渡されたテスト回答（approved=false）で再開して「差し戻し」で終了しました。コメント：テスト入力：機材数と予算を見直すため差し戻す。"
+      },
+      "end_state": {
+        "values": {
+          "job_id": "rejected",
+          "request": {
+            "applicant": "制作係・佐藤（架空）",
+            "event": "発表会の配信",
+            "start_date": "2026-11-15",
+            "end_date": "2026-11-15",
+            "items": [
+              {
+                "sku": "camera",
+                "quantity": 4
+              },
+              {
+                "sku": "light",
+                "quantity": 3
+              }
+            ]
+          },
+          "status": "rejected",
+          "missing_fields": [],
+          "input_errors": [],
+          "line_items": [
+            {
+              "sku": "camera",
+              "name": "カメラ",
+              "quantity": 4,
+              "unit_yen": 6000,
+              "subtotal_yen": 24000
+            },
+            {
+              "sku": "light",
+              "name": "照明",
+              "quantity": 3,
+              "unit_yen": 4000,
+              "subtotal_yen": 12000
+            }
+          ],
+          "total_yen": 36000,
+          "budget_flag": true,
+          "needs_review": true,
+          "review": {
+            "approved": false,
+            "comment": "テスト入力：機材数と予算を見直すため差し戻す。"
+          },
+          "summary": "見積合計 36,000円（予算確認の基準 30,000円 以上）。確認待ちで一時停止し、同じ thread に渡されたテスト回答（approved=false）で再開して「差し戻し」で終了しました。コメント：テスト入力：機材数と予算を見直すため差し戻す。"
+        },
+        "next": []
+      },
+      "checkpoints": [
+        {
+          "step": -1,
+          "source": "input",
+          "values": {},
+          "next": [
+            "__start__"
+          ],
+          "interrupt_ids": [],
+          "created_at": "2026-10-16T00:14:02.944051+00:00"
+        },
+        {
+          "step": 0,
+          "source": "loop",
+          "values": {
+            "job_id": "rejected",
+            "request": {
+              "applicant": "制作係・佐藤（架空）",
+              "event": "発表会の配信",
+              "start_date": "2026-11-15",
+              "end_date": "2026-11-15",
+              "items": [
+                {
+                  "sku": "camera",
+                  "quantity": 4
+                },
+                {
+                  "sku": "light",
+                  "quantity": 3
+                }
+              ]
+            }
+          },
+          "next": [
+            "validate"
+          ],
+          "interrupt_ids": [],
+          "created_at": "2026-10-16T00:14:02.944372+00:00"
+        },
+        {
+          "step": 1,
+          "source": "loop",
+          "values": {
+            "job_id": "rejected",
+            "request": {
+              "applicant": "制作係・佐藤（架空）",
+              "event": "発表会の配信",
+              "start_date": "2026-11-15",
+              "end_date": "2026-11-15",
+              "items": [
+                {
+                  "sku": "camera",
+                  "quantity": 4
+                },
+                {
+                  "sku": "light",
+                  "quantity": 3
+                }
+              ]
+            },
+            "status": "validated",
+            "missing_fields": [],
+            "input_errors": []
+          },
+          "next": [
+            "estimate"
+          ],
+          "interrupt_ids": [],
+          "created_at": "2026-10-16T00:14:02.944753+00:00"
+        },
+        {
+          "step": 2,
+          "source": "loop",
+          "values": {
+            "job_id": "rejected",
+            "request": {
+              "applicant": "制作係・佐藤（架空）",
+              "event": "発表会の配信",
+              "start_date": "2026-11-15",
+              "end_date": "2026-11-15",
+              "items": [
+                {
+                  "sku": "camera",
+                  "quantity": 4
+                },
+                {
+                  "sku": "light",
+                  "quantity": 3
+                }
+              ]
+            },
+            "status": "awaiting_review",
+            "missing_fields": [],
+            "input_errors": [],
+            "line_items": [
+              {
+                "sku": "camera",
+                "name": "カメラ",
+                "quantity": 4,
+                "unit_yen": 6000,
+                "subtotal_yen": 24000
+              },
+              {
+                "sku": "light",
+                "name": "照明",
+                "quantity": 3,
+                "unit_yen": 4000,
+                "subtotal_yen": 12000
+              }
+            ],
+            "total_yen": 36000,
+            "budget_flag": true,
+            "needs_review": true
+          },
+          "next": [
+            "review"
+          ],
+          "interrupt_ids": [
+            "59ac70d220fa71177180538085a45441"
+          ],
+          "created_at": "2026-10-16T00:14:02.945113+00:00"
+        },
+        {
+          "step": 3,
+          "source": "loop",
+          "values": {
+            "job_id": "rejected",
+            "request": {
+              "applicant": "制作係・佐藤（架空）",
+              "event": "発表会の配信",
+              "start_date": "2026-11-15",
+              "end_date": "2026-11-15",
+              "items": [
+                {
+                  "sku": "camera",
+                  "quantity": 4
+                },
+                {
+                  "sku": "light",
+                  "quantity": 3
+                }
+              ]
+            },
+            "status": "rejected",
+            "missing_fields": [],
+            "input_errors": [],
+            "line_items": [
+              {
+                "sku": "camera",
+                "name": "カメラ",
+                "quantity": 4,
+                "unit_yen": 6000,
+                "subtotal_yen": 24000
+              },
+              {
+                "sku": "light",
+                "name": "照明",
+                "quantity": 3,
+                "unit_yen": 4000,
+                "subtotal_yen": 12000
+              }
+            ],
+            "total_yen": 36000,
+            "budget_flag": true,
+            "needs_review": true,
+            "review": {
+              "approved": false,
+              "comment": "テスト入力：機材数と予算を見直すため差し戻す。"
+            }
+          },
+          "next": [
+            "finalize"
+          ],
+          "interrupt_ids": [],
+          "created_at": "2026-10-16T00:14:02.947055+00:00"
+        },
+        {
+          "step": 4,
+          "source": "loop",
+          "values": {
+            "job_id": "rejected",
+            "request": {
+              "applicant": "制作係・佐藤（架空）",
+              "event": "発表会の配信",
+              "start_date": "2026-11-15",
+              "end_date": "2026-11-15",
+              "items": [
+                {
+                  "sku": "camera",
+                  "quantity": 4
+                },
+                {
+                  "sku": "light",
+                  "quantity": 3
+                }
+              ]
+            },
+            "status": "rejected",
+            "missing_fields": [],
+            "input_errors": [],
+            "line_items": [
+              {
+                "sku": "camera",
+                "name": "カメラ",
+                "quantity": 4,
+                "unit_yen": 6000,
+                "subtotal_yen": 24000
+              },
+              {
+                "sku": "light",
+                "name": "照明",
+                "quantity": 3,
+                "unit_yen": 4000,
+                "subtotal_yen": 12000
+              }
+            ],
+            "total_yen": 36000,
+            "budget_flag": true,
+            "needs_review": true,
+            "review": {
+              "approved": false,
+              "comment": "テスト入力：機材数と予算を見直すため差し戻す。"
+            },
+            "summary": "見積合計 36,000円（予算確認の基準 30,000円 以上）。確認待ちで一時停止し、同じ thread に渡されたテスト回答（approved=false）で再開して「差し戻し」で終了しました。コメント：テスト入力：機材数と予算を見直すため差し戻す。"
+          },
+          "next": [],
+          "interrupt_ids": [],
+          "created_at": "2026-10-16T00:14:02.947434+00:00"
+        }
+      ],
+      "checks": {
+        "expected_status": "rejected",
+        "interrupt_count": 1,
+        "expected_values_match": true
+      }
+    }
+  ]
+}

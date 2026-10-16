@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>止める。確かめる。続きを動かす。｜LangGraph 作例（保存済みの実行結果）</title>
+<meta name="description" content="架空の機材貸出申請3件を LangGraph の StateGraph で実際に処理し、確認待ちの停止とテスト回答による再開まで保存した結果を読むページです。">
+<link rel="stylesheet" href="style.css">
+<script type="module" src="app.mjs"></script>
+</head>
+<body>
+<a class="skip" href="#cases">3件の結果へ移動</a>
+
+<header class="hero wrap">
+  <p class="eyebrow">LangGraph 作例 · 架空の機材貸出申請</p>
+  <h1><span>止める。</span><span>確かめる。</span><span>続きを動かす。</span></h1>
+  <p class="lead">貸出申請を<strong>確認待ちで止め、回答を渡して再開</strong>。LangGraphで動かした3件の入力と結果を読み比べられます。</p>
+  <p class="scope-line">架空の申請 · 保存済みの実行結果 · 承認はテスト値</p>
+  <details class="scope-details">
+  <summary>作例の範囲について</summary>
+  <ul class="facts">
+    <li><strong>保存済みの実行結果</strong><span><code>python workflow.py</code> が書き出したJSONを読んで表示しています。このページはPythonもAIも動かしません。</span></li>
+    <li><strong>承認はテスト値</strong><span>再開時の回答は、入力ファイルに書いた値をスクリプトが渡したものです。人の承認ではありません。</span></li>
+    <li><strong>架空の入力</strong><span>名前・催し・単価・基準額は作例用です。予約・通知・決済はしていません。</span></li>
+  </ul>
+  </details>
+</header>
+
+<main>
+  <section id="cases" class="cases wrap" aria-labelledby="cases-title">
+    <h2 id="cases-title">3件の申請を切り替える</h2>
+    <p id="load-status" class="load-status" role="status">保存済みの実行結果（outputs/runs.json）を読み込んでいます。</p>
+    <noscript><p class="load-status is-error">表示にはJavaScriptが必要です。生のファイルは <a href="outputs/runs.json">outputs/runs.json</a>・<a href="inputs/requests.json">inputs/requests.json</a>・<a href="outputs/result.md">outputs/result.md</a> から開けます。</p></noscript>
+
+    <div class="tabs" role="tablist" aria-labelledby="cases-title">
+      <button type="button" class="tab" role="tab" id="tab-approved" data-case="approved" aria-controls="approved" aria-selected="true" tabindex="0"><span class="tab-label">通常の申請</span><span class="tab-result">読み込み中</span></button>
+      <button type="button" class="tab" role="tab" id="tab-missing" data-case="missing" aria-controls="missing" aria-selected="false" tabindex="-1"><span class="tab-label">返却日のない申請</span><span class="tab-result">読み込み中</span></button>
+      <button type="button" class="tab" role="tab" id="tab-rejected" data-case="rejected" aria-controls="rejected" aria-selected="false" tabindex="-1"><span class="tab-label">高額の申請</span><span class="tab-result">読み込み中</span></button>
+    </div>
+
+    <section class="panel" role="tabpanel" id="approved" aria-labelledby="tab-approved">
+      <p class="panel-wait">保存済みの結果を読み込むと、ここに表示します。</p>
+    </section>
+    <section class="panel" role="tabpanel" id="missing" aria-labelledby="tab-missing" hidden>
+      <p class="panel-wait">保存済みの結果を読み込むと、ここに表示します。</p>
+    </section>
+    <section class="panel" role="tabpanel" id="rejected" aria-labelledby="tab-rejected" hidden>
+      <p class="panel-wait">保存済みの結果を読み込むと、ここに表示します。</p>
+    </section>
+  </section>
+
+  <section id="files" class="wrap block" aria-labelledby="files-title">
+    <h2 id="files-title">ファイルを持ち帰る</h2>
+    <p>表示している内容の元ファイルです。押すとそのまま保存できます。</p>
+    <ul class="downloads">
+      <li><a href="inputs/requests.json" download="requests.json"><strong>入力</strong><span>inputs/requests.json</span></a><p>架空の申請3件・単価表・期待値</p></li>
+      <li><a href="outputs/runs.json" download="runs.json"><strong>実行結果</strong><span>outputs/runs.json</span></a><p>停止時の interrupt、再開前後の get_state、全チェックポイント</p></li>
+      <li><a href="outputs/result.md" download="result.md"><strong>結果メモ</strong><span>outputs/result.md</span></a><p>実行結果から書き出した日本語のまとめ</p></li>
+      <li><a href="workflow.py" download="workflow.py"><strong>ソース</strong><span>workflow.py</span></a><p>StateGraph・InMemorySaver・interrupt・Command を使う実装</p></li>
+    </ul>
+    <p class="aside">保存せずにブラウザで開く：<a href="inputs/requests.json">requests.json</a> · <a href="outputs/runs.json">runs.json</a> · <a href="outputs/result.md">result.md</a> · <a href="workflow.py">workflow.py</a> · <a href="samples.json">samples.json</a></p>
+  </section>
+
+  <section id="request" class="wrap block" aria-labelledby="request-title">
+    <h2 id="request-title">同じ作りを依頼する</h2>
+    <p>LangGraph の固定版を読めるAIエージェントや開発者に、そのまま渡せる依頼文です。申請の項目や単価表を自分のものに置き換えても使えます。</p>
+    <label class="field-label" for="request-text">依頼文（読み取り専用）</label>
+    <textarea id="request-text" class="request-text" readonly rows="16" spellcheck="false">LangGraph（langchain-ai/langgraph 固定コミット d4149cc1f5384364d1a21092b4c2f582a6e7af8f、langgraph 1.2.15）を使い、機材の貸出申請を処理する Python の StateGraph を作って、実際に実行してください。
+
+入力：inputs/requests.json（架空の申請3件、単価表、期待値）。各申請の項目は applicant・event・start_date・end_date・items（sku と quantity）です。
+
+処理：
+1. validate ノードで、必須5項目の空欄、YYYY-MM-DD 形式の日付、貸出日が返却日より後でないこと、単価表にない sku、1未満の数量を調べる。
+2. add_conditional_edges で、不備があれば needs_input ノードに進めて終了する（interrupt しない）。不備がなければ estimate へ進める。
+3. estimate で「数量×単価」を合計する（日数は掛けない）。合計が30,000円以上なら budget_flag を true にする。
+4. review ノードで interrupt を呼び、申請・見積・budget_flag を payload にして止める。金額に関係なく、完全な申請はすべて止める。interrupt より前に副作用を置かない。
+5. checkpointer に InMemorySaver を使い、申請ごとに固定の thread_id を付ける。同じプロセスの同じグラフに Command(resume=テスト値) を渡して再開し、approved と comment を state に残す。
+6. finalize で日本語の要約を作る。
+
+保存：再開前・後の get_state と get_state_history（古い順）を outputs/runs.json に、入力と最終 state の対を samples.json に、結果メモを outputs/result.md に書く。
+
+完了条件：通常の8,000円が承認、返却日のない申請が needs_input（missing_fields は end_date だけ、interrupt 0件）、高額の36,000円が差し戻しになり、3件とも期待値と一致すること。一致しなければ出力を書かずに失敗すること。
+
+範囲：規則だけで動く処理なので、LLM や API キーは使いません。テスト値は人の承認ではありません。実際に人が確認するには、回答する画面と、プロセスを再起動しても残る保存先（例：Postgres のチェックポインター）が別に必要です。
+</textarea>
+    <div class="copy-row">
+      <button type="button" id="copy-request" class="button">依頼文をコピー</button>
+      <a class="button button--quiet" href="request.txt" download="request.txt">request.txt を保存</a>
+    </div>
+    <p id="copy-status" class="copy-status" role="status"></p>
+  </section>
+
+  <section id="rerun" class="wrap block" aria-labelledby="rerun-title">
+    <h2 id="rerun-title">手元で実行し直す</h2>
+    <p>このページから実行はできません。結果を作り直すときは、Python 3.10 以上で、この作例のフォルダから次を順に実行します。APIキーやアカウントは不要です。</p>
+    <ol class="commands">
+      <li><p>仮想環境を作って有効にする</p>
+        <pre><code>python -m venv .venv</code></pre>
+        <p class="aside">有効化：Windows（PowerShell）は <code>.venv\Scripts\Activate.ps1</code>、macOS・Linux は <code>source .venv/bin/activate</code></p></li>
+      <li><p>固定版の4パッケージと依存を入れる</p>
+        <pre><code>python -m pip install -r requirements.lock.txt ./vendor/langgraph/libs/checkpoint ./vendor/langgraph/libs/prebuilt ./vendor/langgraph/libs/sdk-py ./vendor/langgraph/libs/langgraph</code></pre></li>
+      <li><p>グラフを実行して結果を書き出す</p>
+        <pre><code>python workflow.py</code></pre></li>
+      <li><p>このページを開く</p>
+        <pre><code>python -m http.server 8000</code></pre>
+        <p class="aside">ブラウザで <code>http://127.0.0.1:8000/</code> を開きます。file:// で直接開くとJSONを読み込めません。</p></li>
+    </ol>
+  </section>
+<section class="wrap block" aria-labelledby="movie-title"><h2 id="movie-title">28秒で、止めて再開する流れを見る</h2><p>実行結果と作例画面を使う、無音の編集動画です。承認はテスト回答、申請と単価は架空です。</p><video controls playsinline preload="none" poster="../../media/langgraph-example.webp" style="width:100%;height:auto" aria-label="機材貸出申請をLangGraphで分岐・中断・再開する流れ。28秒・無音"><source src="../../media/langgraph-example.mp4" type="video/mp4"><a href="../../media/langgraph-example.mp4">MP4を開く</a></video><p class="aside"><a href="../../media/langgraph-example.mp4">動画を大きく見る</a> · <a href="video/index.html">動画の編集ソース</a> · <a href="source.zip">作例・入力と結果・動画のソース一式</a> · <a href="verification.json">実行と確認の範囲</a></p></section>
+</main>
+
+<footer class="footer wrap">
+  <p>作例のコード・文章・データ：MIT License（Copyright (c) 2026 Studio Yebisu）。同梱した LangGraph の原典：MIT License（Copyright (c) 2024 LangChain, Inc.）、<a href="vendor/langgraph/LICENSE">LICENSE</a> と各パッケージの LICENSE をそのまま残しています。</p>
+  <p>原典：<a href="https://github.com/langchain-ai/langgraph/tree/d4149cc1f5384364d1a21092b4c2f582a6e7af8f">langchain-ai/langgraph（固定コミット d4149cc）</a> · 制作ブリーフの手順：<a href="../../skills/brief-to-demo/SKILL.md">brief-to-demo</a> · <a href="README.md">README</a></p>
+</footer>
+</body>
+</html>

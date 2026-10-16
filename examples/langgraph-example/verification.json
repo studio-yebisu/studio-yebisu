@@ -1,0 +1,354 @@
+{
+  "id": "langgraph-example",
+  "verified_at": "2026-10-16T00:40:22.113106+00:00",
+  "stage": "runtime-and-agent-visual-reviewed",
+  "source_commit": "d4149cc1f5384364d1a21092b4c2f582a6e7af8f",
+  "data_checks": {
+    "checked_at": "2026-10-16T00:14:03.050816+00:00",
+    "status": "passed",
+    "sample_count": 3,
+    "summary": [
+      {
+        "id": "approved",
+        "status": "approved",
+        "total_yen": 8000,
+        "interrupt_count": 1,
+        "checkpoints": 6
+      },
+      {
+        "id": "missing",
+        "status": "needs_input",
+        "total_yen": null,
+        "interrupt_count": 0,
+        "checkpoints": 4
+      },
+      {
+        "id": "rejected",
+        "status": "rejected",
+        "total_yen": 36000,
+        "interrupt_count": 1,
+        "checkpoints": 6
+      }
+    ],
+    "installed_runtime_files_equal_fixed_source": 157,
+    "source_files_unchanged": 172,
+    "input_sha256": "8c4a878099191da6e92891b77711f261676e750d3604e20d03de83f560a9b22a",
+    "output_sha256": "d5bc61f421cbde99f2f60446a3418d7a5f81df92a4fe4f75b6db9306475360f4",
+    "sample_sha256": "0cda3abee1f5dcd2aa9bc44718f34a199457cb97e743cf3d674213be189f7725",
+    "workflow_sha256": "c2fcb28f4920804c517b92bb4aeed68f933e2e8b3d8dd51dd2d42382e3af5142",
+    "external_connections_attempted": 0,
+    "human_approval": false,
+    "scope": "Actual deterministic StateGraph/conditional edges/interrupt/Command resume/checkpoints, memory-only within one process and scripted test replies. No model inference, external reservation or production service."
+  },
+  "environment": {
+    "checked_at": "2026-10-16T00:04:11.327213+00:00",
+    "python": "Python 3.13.7",
+    "versions": {
+      "langgraph": "1.2.15",
+      "langgraph-checkpoint": "4.3.0",
+      "langgraph-prebuilt": "1.1.0",
+      "langgraph-sdk": "0.4.7",
+      "pydantic": "2.14.1",
+      "langchain-core": "1.6.11"
+    },
+    "registry_dependencies": 34,
+    "registry_lock_sha256": "81ceafda86a4d97d390bb73babc26599db81fac9a2f6c633221f242b720130de",
+    "all_fixed_runtime_source_blobs_unchanged": true
+  },
+  "semantic_review": {
+    "reviewed_at": "2026-10-16T00:20:35.777012+00:00",
+    "agent_semantic_review": true,
+    "human_approval": false,
+    "reviewed": [
+      "Read original three inputs, actual final states and result.md. Camera6000+tripod1000*2=8000; camera6000*4+light4000*3=36000. The missing end_date takes needs_input without review or cost.",
+      "Inspected actual five node definitions, conditional edge, compiled StateGraph, InMemorySaver, invoke, typed interrupt and Command resume. Review payload constructed before interrupt without side effects. Same graph/config reused within one process; get_state_history saved actual checkpoints.",
+      "Both complete cases pause; budget_flag only marks >=30000 and does not cause automatic rejection. Approved/rejected outcomes are supplied scripted test values. JSON and visible labels preserve that distinction.",
+      "Actual installation from fixed vendored source and157 installed runtime files match blobs. Three real graph runs passed with network-connect guard and tracing env removed. No LLM inference, external approval, reservation, production persistence or human evaluation.",
+      "Native three tabs, all end states and checkpoints, keyboard/focus, raw details, six widths, async fragment, controlled503/no placeholder results. Actual screenshots inspected. Clipboard readback unconfirmed."
+    ],
+    "unresolved_blockers": []
+  },
+  "browser": {
+    "checked_at": "2026-10-16T00:20:35.776730+00:00",
+    "status": "passed",
+    "sample_count": 3,
+    "full_saved_end_states_and_all_checkpoints_equal_actual_runs": true,
+    "tabs": [
+      {
+        "id": "approved",
+        "status": "approved"
+      },
+      {
+        "id": "missing",
+        "status": "needs_input"
+      },
+      {
+        "id": "rejected",
+        "status": "rejected"
+      }
+    ],
+    "keyboard": {
+      "keyboardHome": {
+        "focused": "tab-approved",
+        "outline": "3px",
+        "selected": "tab-approved"
+      },
+      "keyboardRight": {
+        "focused": "tab-missing",
+        "outline": "3px",
+        "selected": "tab-missing"
+      },
+      "keyboardEnd": {
+        "focused": "tab-rejected",
+        "outline": "3px",
+        "selected": "tab-rejected"
+      }
+    },
+    "widths": [
+      {
+        "client": 305,
+        "inputFont": "17px",
+        "scroll": 305,
+        "tabs": [
+          {
+            "height": 147,
+            "width": 84.328125
+          },
+          {
+            "height": 147,
+            "width": 84.328125
+          },
+          {
+            "height": 147,
+            "width": 84.34375
+          }
+        ],
+        "width": 320
+      },
+      {
+        "client": 360,
+        "inputFont": "17px",
+        "scroll": 360,
+        "tabs": [
+          {
+            "height": 123,
+            "width": 102.65625
+          },
+          {
+            "height": 123,
+            "width": 102.671875
+          },
+          {
+            "height": 123,
+            "width": 102.65625
+          }
+        ],
+        "width": 375
+      },
+      {
+        "client": 375,
+        "inputFont": "17px",
+        "scroll": 375,
+        "tabs": [
+          {
+            "height": 123,
+            "width": 107.65625
+          },
+          {
+            "height": 123,
+            "width": 107.671875
+          },
+          {
+            "height": 123,
+            "width": 107.65625
+          }
+        ],
+        "width": 390
+      },
+      {
+        "client": 415,
+        "inputFont": "17px",
+        "scroll": 415,
+        "tabs": [
+          {
+            "height": 123,
+            "width": 121
+          },
+          {
+            "height": 123,
+            "width": 121
+          },
+          {
+            "height": 123,
+            "width": 121
+          }
+        ],
+        "width": 430
+      },
+      {
+        "client": 753,
+        "inputFont": "17px",
+        "scroll": 753,
+        "tabs": [
+          {
+            "height": 73.5,
+            "width": 233.65625
+          },
+          {
+            "height": 73.5,
+            "width": 233.671875
+          },
+          {
+            "height": 73.5,
+            "width": 233.671875
+          }
+        ],
+        "width": 768
+      },
+      {
+        "client": 1265,
+        "inputFont": "17px",
+        "scroll": 1265,
+        "tabs": [
+          {
+            "height": 73.5,
+            "width": 238.65625
+          },
+          {
+            "height": 73.5,
+            "width": 238.671875
+          },
+          {
+            "height": 73.5,
+            "width": 238.671875
+          }
+        ],
+        "width": 1280
+      }
+    ],
+    "raw_details_open": true,
+    "controlled_http503": {
+      "error": true,
+      "links": 3,
+      "results": 0,
+      "text": "outputs/runs.json を読み込めませんでした（HTTP 503）。 生のファイル：outputs/runs.json · inputs/requests.json · outputs/result.md"
+    },
+    "fragment": {
+      "hash": "#missing",
+      "selected": "tab-missing",
+      "top": 15.921875,
+      "visible": true
+    },
+    "console_errors": [],
+    "copy": {
+      "ui_status": "コピーしました。",
+      "clipboard_readback_confirmed": false
+    },
+    "agent_visual_review": true,
+    "human_approval": false,
+    "scope": "Windows IAB Chromium at six viewport widths; no physical iPhone or Safari test. Saved-run viewer, not live Python/AI."
+  },
+  "video": {
+    "video_sha256": "1642089afb4f309a72e5af2fb3e42eda8846cfc623e76c65737fe499daaa3309",
+    "poster_sha256": "7f3fe0d0b15d25c5c79365889de5297d3f577100058e634f68829553a6e6dda0",
+    "poster_from_mp4_seconds": 13.5,
+    "full_decode_passed": true,
+    "review_files": [
+      "contact.png",
+      "poster.png",
+      "strip.png",
+      "stills/frame-000000.png",
+      "stills/frame-000001.png",
+      "stills/frame-000002.png",
+      "stills/frame-000003.png",
+      "stills/frame-000004.png",
+      "stills/frame-000005.png",
+      "stills/frame-000006.png",
+      "stills/frame-000007.png",
+      "stills/frame-000008.png",
+      "stills/frame-000009.png",
+      "stills/frame-000010.png",
+      "stills/frame-000011.png",
+      "stills/frame-000012.png",
+      "stills/frame-000013.png",
+      "cut-01.png",
+      "cut-02.png",
+      "cut-03.png",
+      "cut-04.png",
+      "final.png"
+    ],
+    "render_label": "final-v1",
+    "bundled_renderer_executed": true,
+    "reviewed_at": "2026-10-16T00:40:22.003040+00:00",
+    "agent_visual_review": true,
+    "human_approval": false,
+    "review_scope": [
+      "Inspected14-frame contact sheet, full13.5s poster,18s partial/20s completed alternative routes, final frame,8.1s12-frame strip and four12-frame cut strips at3.85/9.85/15.85/21.85. Whole-scene fades have brief empty interiors at exact boundaries, without accumulated drawing or visible clipping.",
+      "Poster: supplied approved=true test answer and finalapproved/8000, real next=[] after completion, same-process InMemorySaver note. Review stop and same node resume are shown with large readable labels.",
+      "Alternative paths: missing end_date -> needs_input -> END with0interrupts;36000 flagged only, rejected because test answer false. Large20s caption explicitly distinguishes budget flag from rejection.",
+      "Final real screenshot crop rings identify review and8000 in the actual viewer; large matching values and real saved output filenames carry the message. Stable final layout fromabout24.85s. No fake live AI or continuous screen-recording claim.",
+      "Canvas arbitrary16.8s matches after other times and on fresh page; MP4 fully decoded. Native MP4 played from0.10725 to28s ended without manual seeking/error. Native source editor ready and14s seek worked.",
+      "28s720p30fps840frames, silent/noaudio track. System fonts in this Windows environment; other fonts, ratios, physical iOS and artistic human approval untested."
+    ],
+    "native_playback": {
+      "time": 28,
+      "ended": true,
+      "error": null,
+      "first_observed_seconds": 0.10725,
+      "no_manual_seek": true
+    },
+    "source_editor": {
+      "play_enabled": true,
+      "position": 14,
+      "status": "準備完了：28秒・無音の編集動画です。保存済みの実行結果と実際の画面から描画しています。"
+    },
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "8779fef43aea57db3dc0b1337503ab4b1a4bcdec456ccf1b6c4835ee5e09f4ca",
+      "afterOtherTimes": "8779fef43aea57db3dc0b1337503ab4b1a4bcdec456ccf1b6c4835ee5e09f4ca",
+      "freshPage": "8779fef43aea57db3dc0b1337503ab4b1a4bcdec456ccf1b6c4835ee5e09f4ca",
+      "match": true
+    },
+    "audio": "silent; no audio track",
+    "remaining": [
+      "No human artistic approval or all-environment guarantee.",
+      "Other aspect ratios, audio and physical iOS not exercised."
+    ]
+  },
+  "motion_reel": {
+    "name": "Studio Yebisu Motion Reel rendering runtime",
+    "license": "MIT",
+    "copyright": "2026 Studio Yebisu",
+    "files_sha256": {
+      "render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+      "audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+      "package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+      "package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+      "LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd"
+    },
+    "dependency_lock": "Playwright1.64.0, npm registry, Apache-2.0. Dependencies not distributed."
+  },
+  "production_contributions": {
+    "Opus5.5": "Read fixed LangGraph API and brief-to-demo; authored original workflow, Japanese guide, saved-run viewer and editable film. Actual deterministic Python framework execution was performed afterwards.",
+    "production_editor": "Original three fictional requests/rules, fixed package installation and identity checks, actual graph runs and network guard, result/browser/film review, scoped authorized publication. Full model receipts remain private."
+  },
+  "parent_adjustments": {
+    "changes": [
+      {
+        "files": [
+          "index.html",
+          "style.css"
+        ],
+        "reason": "The first native screenshot showed only long introductory scope notices. The lead is now short, full notices remain in a native disclosure with a visible scope line, and the three tabs use a phone grid. Actual workflow and output unchanged."
+      },
+      {
+        "files": [
+          "app.mjs"
+        ],
+        "reason": "Preserve browser shortcuts with Control, Meta or Alt when handling Home/End and arrow keys inside the tablist."
+      }
+    ]
+  },
+  "human_approval": false
+}

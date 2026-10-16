@@ -1,0 +1,174 @@
+{
+  "format": "input-output",
+  "samples": [
+    {
+      "id": "approved",
+      "label": "通常の申請",
+      "input": {
+        "applicant": "広報係・青木（架空）",
+        "event": "はじめての撮影会",
+        "start_date": "2026-11-08",
+        "end_date": "2026-11-08",
+        "items": [
+          {
+            "sku": "camera",
+            "quantity": 1
+          },
+          {
+            "sku": "tripod",
+            "quantity": 2
+          }
+        ]
+      },
+      "output": {
+        "job_id": "approved",
+        "request": {
+          "applicant": "広報係・青木（架空）",
+          "event": "はじめての撮影会",
+          "start_date": "2026-11-08",
+          "end_date": "2026-11-08",
+          "items": [
+            {
+              "sku": "camera",
+              "quantity": 1
+            },
+            {
+              "sku": "tripod",
+              "quantity": 2
+            }
+          ]
+        },
+        "status": "approved",
+        "missing_fields": [],
+        "input_errors": [],
+        "line_items": [
+          {
+            "sku": "camera",
+            "name": "カメラ",
+            "quantity": 1,
+            "unit_yen": 6000,
+            "subtotal_yen": 6000
+          },
+          {
+            "sku": "tripod",
+            "name": "三脚",
+            "quantity": 2,
+            "unit_yen": 1000,
+            "subtotal_yen": 2000
+          }
+        ],
+        "total_yen": 8000,
+        "budget_flag": false,
+        "needs_review": true,
+        "review": {
+          "approved": true,
+          "comment": "テスト入力：内容を確認し、貸出可とする。"
+        },
+        "summary": "見積合計 8,000円（予算確認の基準 30,000円 未満）。確認待ちで一時停止し、同じ thread に渡されたテスト回答（approved=true）で再開して「承認」で終了しました。コメント：テスト入力：内容を確認し、貸出可とする。"
+      }
+    },
+    {
+      "id": "missing",
+      "label": "返却日のない申請",
+      "input": {
+        "applicant": "企画係・木村（架空）",
+        "event": "展示記録",
+        "start_date": "2026-11-10",
+        "end_date": "",
+        "items": [
+          {
+            "sku": "camera",
+            "quantity": 1
+          }
+        ]
+      },
+      "output": {
+        "job_id": "missing",
+        "request": {
+          "applicant": "企画係・木村（架空）",
+          "event": "展示記録",
+          "start_date": "2026-11-10",
+          "end_date": "",
+          "items": [
+            {
+              "sku": "camera",
+              "quantity": 1
+            }
+          ]
+        },
+        "status": "needs_input",
+        "missing_fields": [
+          "end_date"
+        ],
+        "input_errors": [],
+        "summary": "返却日（end_date）が空です。見積と確認待ちには進まず、追加入力を求めて終了しました。"
+      }
+    },
+    {
+      "id": "rejected",
+      "label": "高額の申請",
+      "input": {
+        "applicant": "制作係・佐藤（架空）",
+        "event": "発表会の配信",
+        "start_date": "2026-11-15",
+        "end_date": "2026-11-15",
+        "items": [
+          {
+            "sku": "camera",
+            "quantity": 4
+          },
+          {
+            "sku": "light",
+            "quantity": 3
+          }
+        ]
+      },
+      "output": {
+        "job_id": "rejected",
+        "request": {
+          "applicant": "制作係・佐藤（架空）",
+          "event": "発表会の配信",
+          "start_date": "2026-11-15",
+          "end_date": "2026-11-15",
+          "items": [
+            {
+              "sku": "camera",
+              "quantity": 4
+            },
+            {
+              "sku": "light",
+              "quantity": 3
+            }
+          ]
+        },
+        "status": "rejected",
+        "missing_fields": [],
+        "input_errors": [],
+        "line_items": [
+          {
+            "sku": "camera",
+            "name": "カメラ",
+            "quantity": 4,
+            "unit_yen": 6000,
+            "subtotal_yen": 24000
+          },
+          {
+            "sku": "light",
+            "name": "照明",
+            "quantity": 3,
+            "unit_yen": 4000,
+            "subtotal_yen": 12000
+          }
+        ],
+        "total_yen": 36000,
+        "budget_flag": true,
+        "needs_review": true,
+        "review": {
+          "approved": false,
+          "comment": "テスト入力：機材数と予算を見直すため差し戻す。"
+        },
+        "summary": "見積合計 36,000円（予算確認の基準 30,000円 以上）。確認待ちで一時停止し、同じ thread に渡されたテスト回答（approved=false）で再開して「差し戻し」で終了しました。コメント：テスト入力：機材数と予算を見直すため差し戻す。"
+      }
+    }
+  ]
+}

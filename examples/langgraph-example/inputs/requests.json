@@ -1,0 +1,120 @@
+{
+  "fictional": true,
+  "project": "架空の地域ワークショップ機材室",
+  "scope_note": "氏名・催し・単価・判定基準はこの作例の架空入力。承認・差し戻しはプログラムから渡すテスト値で、人による承認・実予約・送信・決済ではない。",
+  "rules": {
+    "price_basis": "各品目の一申請あたり架空単価。日数掛けは行わない。",
+    "catalog": [
+      {
+        "sku": "camera",
+        "name": "カメラ",
+        "unit_yen": 6000
+      },
+      {
+        "sku": "tripod",
+        "name": "三脚",
+        "unit_yen": 1000
+      },
+      {
+        "sku": "light",
+        "name": "照明",
+        "unit_yen": 4000
+      }
+    ],
+    "budget_review_from_yen": 30000,
+    "required_fields": [
+      "applicant",
+      "event",
+      "start_date",
+      "end_date",
+      "items"
+    ],
+    "all_complete_requests_pause_for_review": true
+  },
+  "jobs": [
+    {
+      "id": "approved",
+      "label": "通常の申請",
+      "request": {
+        "applicant": "広報係・青木（架空）",
+        "event": "はじめての撮影会",
+        "start_date": "2026-11-08",
+        "end_date": "2026-11-08",
+        "items": [
+          {
+            "sku": "camera",
+            "quantity": 1
+          },
+          {
+            "sku": "tripod",
+            "quantity": 2
+          }
+        ]
+      },
+      "test_resume": {
+        "approved": true,
+        "comment": "テスト入力：内容を確認し、貸出可とする。"
+      },
+      "expected": {
+        "status": "approved",
+        "total_yen": 8000,
+        "needs_review": true,
+        "budget_flag": false
+      }
+    },
+    {
+      "id": "missing",
+      "label": "返却日のない申請",
+      "request": {
+        "applicant": "企画係・木村（架空）",
+        "event": "展示記録",
+        "start_date": "2026-11-10",
+        "end_date": "",
+        "items": [
+          {
+            "sku": "camera",
+            "quantity": 1
+          }
+        ]
+      },
+      "test_resume": null,
+      "expected": {
+        "status": "needs_input",
+        "missing_fields": [
+          "end_date"
+        ],
+        "interrupt_count": 0
+      }
+    },
+    {
+      "id": "rejected",
+      "label": "高額の申請",
+      "request": {
+        "applicant": "制作係・佐藤（架空）",
+        "event": "発表会の配信",
+        "start_date": "2026-11-15",
+        "end_date": "2026-11-15",
+        "items": [
+          {
+            "sku": "camera",
+            "quantity": 4
+          },
+          {
+            "sku": "light",
+            "quantity": 3
+          }
+        ]
+      },
+      "test_resume": {
+        "approved": false,
+        "comment": "テスト入力：機材数と予算を見直すため差し戻す。"
+      },
+      "expected": {
+        "status": "rejected",
+        "total_yen": 36000,
+        "needs_review": true,
+        "budget_flag": true
+      }
+    }
+  ]
+}
