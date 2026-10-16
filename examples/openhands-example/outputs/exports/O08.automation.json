@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "kind": "automation",
+  "spec": {
+    "name": "文字をそのまま保存",
+    "trigger": {
+      "type": "cron",
+      "schedule": "0 9 * * 6",
+      "timezone": "Asia/Tokyo"
+    },
+    "enabled": false,
+    "prompt": "「<script>alert(\"架空\")</script>」と {{form.repository}} と改行\nを、そのまま原稿の文字として保存する。実行・送信しない。",
+    "repository": "https://example.invalid/sakura/bookclub.git",
+    "model": null,
+    "timeout": 300,
+    "branch": "demo",
+    "plugins": [],
+    "timezone": "Asia/Tokyo"
+  }
+}

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>OpenHands 作例・解説動画の編集ソース（28秒・無音）｜Studio Yebisu</title>
+<meta name="description" content="架空の自動化の設定を、固定版 OpenHands Agent Canvas 1.27.1 の実際の書き出し・読み込みAPIで点検した保存記録と、閲覧ページの実画面から描く28秒・無音の映像の編集ソースです。">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#3d1a44">
+<link rel="stylesheet" href="video.css">
+</head>
+<body>
+<main id="editor" data-state="loading">
+  <header class="chrome intro">
+    <p class="kicker">Studio Yebisu ・ OpenHands Agent Canvas 作例</p>
+    <h1>解説動画の編集ソース</h1>
+    <p class="lede">自動化の設定を、持ち運ぶ前に点検する。時刻の無い設定が原典の読み込みで止まる（O03）→ 理由の文 → 時刻だけ足した別の呼び出しで形が通る（O04）→ 形が通っても cron は未検証（O06）→ 8設定の結果。28秒・無音・1280×720 の映像を、照合した実行記録から描きます。ファイル名・JSON の行・原典の誤り・件数は、すべて素材の JSON から読みます。</p>
+    <p class="note">連続した画面録画ではありません。保存した実行記録と、閲覧ページを撮影した無加工の JPEG から組み立てた映像です。この画面では OpenHands・エージェント・AI は動きません。</p>
+  </header>
+
+  <p id="editor-status" class="chrome status" role="status" aria-live="polite" data-state="loading">素材8件を読み込み、SHA-256 と実行記録を照合しています…</p>
+
+  <div id="error-box" class="chrome failure" role="alert" hidden>
+    <p class="failure-title">素材の照合に失敗したため、映像を描きません。</p>
+    <p id="error-text"></p>
+    <button id="retry" type="button" hidden>素材をもう一度読み込む</button>
+  </div>
+
+  <figure id="stage" class="stage" hidden>
+    <canvas id="film" width="1280" height="720" role="img" aria-label="OpenHands Agent Canvas 作例の解説動画。架空の自動化の設定を、固定版 1.27.1 の原典の書き出し関数で .automation.json にした実ファイルを示し、cron なのに schedule の無い入力（O03）が原典の読み込みで spec.trigger.schedule: required for a scheduled trigger という誤りで止まったこと、schedule に 0 9 * * 6 だけを足した別の呼び出し（O04）は形が通り、ファイルを保存できること、not-a-cron という時刻（O06）も形は通り cron の書き方は確かめていないこと、参照先が2件の設定（O07）は先頭の1件だけがファイルに入ることを見せ、8設定のうち6件が形の検査を通り2件が止まったことを、閲覧ページの実画面とともに見せる28秒の無音映像。">この映像の表示には canvas に対応したブラウザーが必要です。</canvas>
+  </figure>
+
+  <section class="chrome controls" aria-label="再生と時刻">
+    <div class="buttons">
+      <button id="play" type="button" aria-pressed="false" disabled>再生</button>
+      <button id="reset" type="button" disabled>0.0秒に戻す</button>
+      <span class="mute">無音</span>
+    </div>
+    <div class="scrub">
+      <label for="time">時刻を動かす（0〜28秒）</label>
+      <input id="time" type="range" min="0" max="28" step="0.1" value="0" disabled>
+    </div>
+    <output id="time-label" for="time" aria-live="off">0.0 / 28.0 秒 ・ 停止中</output>
+  </section>
+
+  <section class="chrome info" aria-labelledby="scenes-heading">
+    <h2 id="scenes-heading">場面</h2>
+    <p class="hint">押すと、その場面の読みやすい時刻で止まります。「戻す」は最後に選んだ時刻へ戻ります。</p>
+    <ol id="scene-list" class="scene-list"></ol>
+  </section>
+
+  <section class="chrome info" aria-labelledby="assets-heading">
+    <h2 id="assets-heading">素材8件の SHA-256 照合</h2>
+    <p id="asset-summary">照合はまだ終わっていません。</p>
+    <ol id="asset-list" class="asset-list"></ol>
+  </section>
+
+  <section class="chrome info" aria-labelledby="links-heading">
+    <h2 id="links-heading">記録と原典</h2>
+    <ul class="links">
+      <li><a href="../index.html#O03">作例ページへ戻る（O03 から8件を読む）</a></li>
+      <li><a href="../outputs/automation-runs.json">8件の実行記録の全文 outputs/automation-runs.json</a></li>
+      <li><a href="../outputs/exports/O04.automation.json">書き出した実ファイルの例 outputs/exports/O04.automation.json</a></li>
+      <li><a href="../outputs/method.md">手順と読み方 outputs/method.md</a></li>
+      <li><a href="README.md">この映像ソースの README（書き出し手順と確認の状態）</a></li>
+      <li><a href="storyboard.json">場面の設計と素材のハッシュ storyboard.json</a></li>
+      <li><a href="https://github.com/OpenHands/OpenHands/blob/e4775b4ba61a83ba80af5f7b0b826201b8e8ea05/src/utils/automation-export.ts">原典の入出力API src/utils/automation-export.ts（固定コミット e4775b4）</a></li>
+    </ul>
+    <p class="note">書き出した MP4 は、制作側の書き出しと確認が終わった後に作例ページへ掲載します。この時点では未作成です。</p>
+  </section>
+
+  <section class="chrome info" aria-labelledby="scope-heading">
+    <h2 id="scope-heading">この映像が示す範囲</h2>
+    <p>固定版 OpenHands/OpenHands（コミット e4775b4ba61a83ba80af5f7b0b826201b8e8ea05・Agent Canvas 1.27.1）の、改変していない serializeAutomation・getAutomationExportFilename・parseAutomationFile・AutomationFileValidationError と、hasAutomationInterface・getImportExportSpec を Node v24.18.0 で呼び、架空の8つの設定を書き出し・読み込みした記録です。ファイルの封筒は、原典の package-lock.json が固定する @openhands/extensions 0.30.0 の実物の interface manifest を、原典の審査が通したものです。</p>
+    <p>形が通った6件は、ファイルの形の検査を通っただけです。動く自動化・登録した予定・品質の点数ではありません。O04 は O03 と schedule の1か所だけが違う、実行前に固定した別の入力で、AI が直したものではありません。O06 の not-a-cron が通ったのは、原典が schedule を空でない文字列かだけで見るためで、cron の書き方や実行の時刻は確かめていません。O07 の書き出しには参照先の先頭の1件だけが入ります。</p>
+    <p>Agent Canvas のアプリ・サーバー、エージェントやモデルの実行、予定の登録、Webhook の配信、リポジトリの取得、OpenHands Cloud は使っていません。参照先の example.invalid はすべて架空です。</p>
+    <details>
+      <summary>原典・版・ライセンス</summary>
+      <ul class="links">
+        <li>OpenHands：OpenHands/OpenHands 1.27.1（コミット e4775b4ba61a83ba80af5f7b0b826201b8e8ea05）。MIT License（Copyright © 2025 OpenHands contributors）。<a href="../vendor/openhands/LICENSE">全文</a></li>
+        <li>@openhands/extensions 0.30.0：MIT License。<a href="../vendor/extensions/LICENSE">全文</a></li>
+        <li>作例のコード・文章・架空の入力、閲覧ページ、この映像ソース：MIT License（Copyright (c) 2026 Studio Yebisu）。<a href="../LICENSE">全文</a></li>
+        <li>書き出しに使う Motion Reel のレンダラー：MIT License（Copyright (c) 2026 StudioYebisu）。<a href="../tools/motion-reel/LICENSE">全文</a></li>
+      </ul>
+    </details>
+  </section>
+</main>
+<script src="video.js"></script>
+</body>
+</html>

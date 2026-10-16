@@ -1,0 +1,65 @@
+{
+  "title": "自動化の設定を、持ち運ぶ前に点検する — OpenHands Agent Canvas の自動化ファイル入出力を原典の関数で試す",
+  "request": "OpenHands Agent Canvas の自動化を、架空のデータで実際に動かして紹介したい。アプリやエージェント、モデルは使わず、自動化の設定を持ち運べるファイルに書き出して読み込む部分を、原典の関数そのもので確かめ、誤りの読み方と取りこぼしが分かる作例にする。",
+  "category": "development",
+  "audience": "Agent Canvas の自動化を別の環境へ持ち運びたい開発者、.automation.json の形と読み込み検査の範囲を先に知りたい人",
+  "goal": "架空の自動化の設定が、固定版 Agent Canvas の serializeAutomation と parseAutomationFile で実際にどう書き出され、どの形なら読み込めて、何が誤りとして返り、何が書き出しで落ちるかを、実際のファイルと原典の誤りの文とともに読めるようにする",
+  "inputs": [
+    "input/automation-settings.json：制作側が実行前に固定した、架空の O01〜O08 の設定（サービス側の形4件と .automation.json の形4件）。参照先はすべて example.invalid",
+    "input/expected.json：実行前に決めた、形が通る件・止まる件・止まる件の理由の一部（実結果を得た後の照合だけに使う）",
+    "vendor/openhands/ の原典12ファイル（固定コミット e4775b4・Agent Canvas 1.27.1・無改変・MIT）",
+    "vendor/extensions/ の @openhands/extensions 0.30.0 の29ファイル（原典の package-lock.json が固定する npm の tgz から無改変・MIT）と vendor-lock.json"
+  ],
+  "skill_refs": [
+    "skills/brief-to-demo/SKILL.md",
+    "https://github.com/OpenHands/OpenHands/blob/e4775b4ba61a83ba80af5f7b0b826201b8e8ea05/src/utils/automation-export.ts",
+    "https://github.com/OpenHands/OpenHands/blob/e4775b4ba61a83ba80af5f7b0b826201b8e8ea05/src/manifests/automation-interface.ts",
+    "https://github.com/OpenHands/OpenHands/blob/e4775b4ba61a83ba80af5f7b0b826201b8e8ea05/src/manifests/interface-validation.ts",
+    "https://github.com/OpenHands/OpenHands/blob/e4775b4ba61a83ba80af5f7b0b826201b8e8ea05/package-lock.json",
+    "tools/motion-reel/render.mjs（Motion Reel の制作基準を、後の動画の工程で適用する予定）"
+  ],
+  "deliverables": [
+    "run.mjs と loader.mjs：Node 24 だけで動く実行CLI（npm の導入・通信・子プロセスなし）",
+    "outputs/automation-runs.json：8件の入力・書き出したファイル・付いた名前・読み戻した設定・2回目の読み戻し・原典の誤り・実データからの観察・期待との照合・確認の一覧（制作側の実行後にできる）",
+    "outputs/exports/Oxx.automation.json：形が通った件の、原典が書き出したファイル（制作側の実行後にできる）",
+    "index.html・style.css・app.js：保存した記録を照合してから読むスマホ優先のページ",
+    "README.md・outputs/method.md・request.txt：手順・読み方・再現・限界",
+    "video/index.html：実結果から作る短い解説動画の編集ソース（28秒・無音・編集可能なソース）"
+  ],
+  "steps": [
+    "原典12ファイル・依存29ファイル・ロック・入力のハッシュを照合し、原典の package-lock.json が依存を同じ integrity で固定していることを確かめる",
+    "照合の後でだけ、原典の .ts を Node の型除去で読み込み、hasAutomationInterface() と getImportExportSpec() を同梱の interface.json と比べる",
+    "export-roundtrip の4件は serializeAutomation → JSON の文字列 → parseAutomationFile、import の4件は parseAutomationFile にそのまま渡す",
+    "形が通った件は、もう一度書き出して読み戻し、ファイルと設定が同じか確かめる。止まった件は AutomationFileValidationError の issues をそのまま残す",
+    "書き出しで外れた項目、event の条件、落ちた参照先、cron の形でない時刻、文字の保持を実データから記録する",
+    "実結果を得た後で期待と照合し、全確認が通ったときだけ記録と6つのファイルを1回書く",
+    "ページで8件を切り替え、O03 と O04 を比べ、O06 と O07 の注意を読み、ファイルと記録を保存する"
+  ],
+  "acceptance": [
+    "O01・O02・O04・O06・O07・O08 は形が通り、O03・O05 は止まる（実行前の期待。実結果で確かめる）",
+    "止まった件の理由は、原典の parseAutomationFile が実際に返した issues の行として読め、日本語の読み方が添えてある",
+    "O03 と O04 の入力の違いが spec.trigger.schedule の1か所だけであることを、ページで確かめられる",
+    "O06 では cron の形でない schedule が通ること、O07 では2件目の参照先が落ちることが、注意として目立つ",
+    "形が通った件の .automation.json を保存でき、中身が outputs/exports/ の同じ件のファイルと同じ",
+    "記録が無い・壊れている・ハッシュや固定版が違うときは、結果を出さずに理由と再読み込みだけを出す",
+    "320px から1280px まで横スクロールがなく、操作部品は44px以上、入力欄の文字は16px以上"
+  ],
+  "assumptions": [
+    "架空の設定は制作側が実行前に固定したもので、実在のリポジトリ・予定・認証情報は含まない",
+    "形が通ったことは、動く自動化・登録した予定・品質の点数・内容の正しさや安全性の確認ではない",
+    "Agent Canvas のアプリ・サーバー、エージェント、モデル、スケジューラー、Webhook、リポジトリの取得、Cloud は使わない",
+    "上流への PR はしないため、原典の開発者向けの全体テストは行わない",
+    "実行と照合、ブラウザーでの確認、動画の書き出し、公開は制作側（親の工程）が後で行う"
+  ],
+  "production_result": {
+    "status": "technical_qa_complete",
+    "actual_cases": 8,
+    "runtime_checks": 107,
+    "independent_checks": 155,
+    "file_shape_accepted": 6,
+    "file_shape_rejected": 2,
+    "fresh_record_and_six_portable_files_byte_identical": true,
+    "video": "28seconds/silent/840frames; native playback and frame review checked",
+    "human_approval": false
+  }
+}

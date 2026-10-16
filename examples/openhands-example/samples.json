@@ -1,0 +1,62 @@
+{
+  "format": "input-output",
+  "notice": "記事は要点の表示。実デモとoutputs/automation-runs.jsonに全入力・原典の実結果、outputs/exports/に6つの実ファイルがあります。",
+  "samples": [
+    {
+      "id": "O01",
+      "label": "土曜の準備を、設定ファイルへ",
+      "input": "架空の読書会の準備メモ。土曜9時・Asia/Tokyo、enabled:falseの設定を渡す。",
+      "output": "設定の形が通った。実ファイル outputs/exports/O01.automation.json を保存。 enabled:falseのまま。予定の登録・実行はしていない。",
+      "demo_hash": "#O01"
+    },
+    {
+      "id": "O02",
+      "label": "イベント条件をそのまま保存",
+      "input": "githubのevent条件。onにpull_request.opened/labeled、filterに文字列を渡す。",
+      "output": "設定の形が通った。実ファイル outputs/exports/O02.automation.json を保存。 enabled:falseのまま。予定の登録・実行はしていない。",
+      "demo_hash": "#O02"
+    },
+    {
+      "id": "O03",
+      "label": "時刻のない設定は止まる",
+      "input": "cron設定からspec.trigger.scheduleだけを外したファイルを読み込む。",
+      "output": "設定の形を受け付けなかった。\nspec.trigger.schedule: required for a scheduled trigger",
+      "demo_hash": "#O03"
+    },
+    {
+      "id": "O04",
+      "label": "時刻を一つ戻して再確認",
+      "input": "O03と同じ入力にschedule「0 9 * * 6」だけを戻す。別のAPI呼び出し。",
+      "output": "設定の形が通った。実ファイル outputs/exports/O04.automation.json を保存。 enabled:falseのまま。予定の登録・実行はしていない。",
+      "demo_hash": "#O04"
+    },
+    {
+      "id": "O05",
+      "label": "複数の不備をまとめて読む",
+      "input": "version/kind/trigger.type/enabled/timeout/pluginsに6つの不備を入れる。",
+      "output": "設定の形を受け付けなかった。\nversion: expected 1\nkind: expected \"automation\"\nspec.trigger.type: expected one of \"cron\", \"schedule\", or \"event\"\nspec.enabled: expected a boolean\nspec.timeout: expected a positive integer\nspec.plugins: expected an array of non-empty strings",
+      "demo_hash": "#O05"
+    },
+    {
+      "id": "O06",
+      "label": "形が通っても、時刻は未検証",
+      "input": "scheduleへcronの式ではない「not-a-cron」を渡す。",
+      "output": "設定の形が通った。実ファイル outputs/exports/O06.automation.json を保存。 not-a-cronも受け付けた。原典のこの検査はcronの文法や実行時刻を確かめない。 enabled:falseのまま。予定の登録・実行はしていない。",
+      "demo_hash": "#O06"
+    },
+    {
+      "id": "O07",
+      "label": "持ち出せる参照先は先頭だけ",
+      "input": "参照先2件と、古いrepository/branchを含む架空設定を書き出す。",
+      "output": "設定の形が通った。実ファイル outputs/exports/O07.automation.json を保存。 先頭のprimary.git/release-demoだけが残り、secondaryと古い参照先は入らない。 enabled:falseのまま。予定の登録・実行はしていない。",
+      "demo_hash": "#O07"
+    },
+    {
+      "id": "O08",
+      "label": "タグや波かっこも、ただの文字",
+      "input": "scriptタグ・{{form.repository}}・改行を含む日本語のpromptを渡す。",
+      "output": "設定の形が通った。実ファイル outputs/exports/O08.automation.json を保存。 タグ・波かっこ・改行は元の文字のまま保持。 enabled:falseのまま。予定の登録・実行はしていない。",
+      "demo_hash": "#O08"
+    }
+  ]
+}

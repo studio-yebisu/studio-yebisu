@@ -1,0 +1,2148 @@
+{
+  "format": "studio-yebisu-openhands-automation-runs-v1",
+  "notice": "架空の8つの自動化の設定（実行前に固定）を、固定版 OpenHands Agent Canvas の自動化ファイルの入出力APIで書き出し・読み戻した実行記録。形の検査であり、Agent Canvas のアプリ・サーバー、エージェント・モデル、予定の登録、Webhook、リポジトリの取得、Cloud は使っていない。example.invalid の参照先は架空で、取得していない。",
+  "upstream": {
+    "repository": "OpenHands/OpenHands",
+    "commit": "e4775b4ba61a83ba80af5f7b0b826201b8e8ea05",
+    "version": "1.27.1",
+    "license": "MIT",
+    "vendor_lock_sha256": "34149d29d4d4cb0181f41f0b8ac998a5c8baa0c3e13e0af341338eae1dddea02",
+    "files": [
+      {
+        "path": "vendor/openhands/LICENSE",
+        "sha256": "e1d1fa9f3a8d7bef24449d488fcd8f00f8f272cac297bb9bed161eb6175b876a",
+        "bytes": 1096,
+        "git_blob_sha1": "f6f60f52368bcc96f82fbe59ec65049c2c3af9db"
+      },
+      {
+        "path": "vendor/openhands/README.md",
+        "sha256": "ba3c3b5c271353eb44d78feb1e1d991146a23d68c83cd3dc5351c46e369978a0",
+        "bytes": 12877,
+        "git_blob_sha1": "0af61b0b5aa2776f3034180d869e7d2682055bac"
+      },
+      {
+        "path": "vendor/openhands/package-lock.json",
+        "sha256": "977687fdaa67871f5681a565f2d6c3b3edbb85b78012ef82c498e297ecd85ee3",
+        "bytes": 794687,
+        "git_blob_sha1": "e84241c152d4151b42303a56d0c1657c60e1d827"
+      },
+      {
+        "path": "vendor/openhands/package.json",
+        "sha256": "9dba677b3a922a795a3eafafca38dbb32f3e9a6856bff43f1a66671ea77984a3",
+        "bytes": 9709,
+        "git_blob_sha1": "2a635c2a10c24b0187e8499dc22cbe1eabd5f395"
+      },
+      {
+        "path": "vendor/openhands/src/manifests/automation-interface.ts",
+        "sha256": "470a15da8d2003e5657a6ace96cd902986cd1e6588847e78ed7fc798bed85f10",
+        "bytes": 8123,
+        "git_blob_sha1": "a349fa7cabfd6e12690c6bc0635bdc3dd5bd6d0d"
+      },
+      {
+        "path": "vendor/openhands/src/manifests/interface-validation.ts",
+        "sha256": "c899605c731b2dad1a52334f9228a38057913105dd93e57aa90b658412f75a7b",
+        "bytes": 24202,
+        "git_blob_sha1": "86d6efb38b24c83cad8d489d3f5a96200a57f982"
+      },
+      {
+        "path": "vendor/openhands/src/manifests/manifest-registry.ts",
+        "sha256": "054920c34d0477c53000b12b328153a4e467efd1ab3c0b3fbc40f39ff43b0022",
+        "bytes": 1545,
+        "git_blob_sha1": "1d5afd1fa4f016fc6738efc6bac8cdb9cafb414f"
+      },
+      {
+        "path": "vendor/openhands/src/manifests/manifest-sources.ts",
+        "sha256": "14f24f4c7589fd0de8c1125d60453a05acc9b2ebfcee57d0f1b377218ffa6882",
+        "bytes": 1391,
+        "git_blob_sha1": "9cd410d5c3e1973522ba0e8f396ded29fc743aad"
+      },
+      {
+        "path": "vendor/openhands/src/manifests/manifest-validation.ts",
+        "sha256": "67b03f707a2db624f1421b334abc19fa308b3e89bf8a273b8745a3370970f8af",
+        "bytes": 26277,
+        "git_blob_sha1": "2234301371873b41b08d5306cbfe849258b87ede"
+      },
+      {
+        "path": "vendor/openhands/src/manifests/types.ts",
+        "sha256": "be32b6029115dfd06a609589496dd73359e162bb48ab24af75112c2a9aa50d7f",
+        "bytes": 18490,
+        "git_blob_sha1": "e15919fb039904d6418ef482f3a72ec934ee263c"
+      },
+      {
+        "path": "vendor/openhands/src/types/automation.ts",
+        "sha256": "16829d64cebd174578673dbaaa51d3920613b64ea4f6b4480c26c0d50dea8a89",
+        "bytes": 10127,
+        "git_blob_sha1": "4aec50e19a548ee47a658b1a4ca6901f82e5c87a"
+      },
+      {
+        "path": "vendor/openhands/src/utils/automation-export.ts",
+        "sha256": "ce125242c5ed8424d7b59486029a36df89422fd06b36d2ee7196448c44f3e5c3",
+        "bytes": 8227,
+        "git_blob_sha1": "fdfbd1417187c33a02092e4a03986584d360abe0"
+      }
+    ]
+  },
+  "dependency": {
+    "name": "@openhands/extensions",
+    "version": "0.30.0",
+    "license": "MIT",
+    "resolved": "https://registry.npmjs.org/@openhands/extensions/-/extensions-0.30.0.tgz",
+    "integrity": "sha512-lPyH0iqSow+ARTX4cumR75e3BJmuqpj2YbKm1cqDcI1SQDXfDTr+/wSVH9dQsOmddEP4Zn+uMoLXpKSO/moonA==",
+    "archive_sha256": "8a5eb885cc2bdb9170bc9a561aa5bcab52f8d662ac9fd38b69769b0f5f538356",
+    "source": "vendor/openhands/package-lock.json が固定する npm の tgz から、automations/index.js から届くファイルと package.json・LICENSE を改変せずに置いたもの",
+    "files": [
+      {
+        "path": "vendor/extensions/LICENSE",
+        "sha256": "fe425248fc51d1d1805ab1442ba8add98d770ad8a132051eaac8c93d7eee3ebe",
+        "bytes": 1066,
+        "npm_member": "package/LICENSE"
+      },
+      {
+        "path": "vendor/extensions/automations/bundle-index.js",
+        "sha256": "b7f66d72aecd5551af641c4649f9052695bec035b2d728783a53e8fbf6dd984f",
+        "bytes": 622276,
+        "npm_member": "package/automations/bundle-index.js"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog-index.js",
+        "sha256": "1776495d66aa91d3edc4a24c5ea2b29c3247a2509182186aea6b0c75ca3758af",
+        "bytes": 2573,
+        "npm_member": "package/automations/catalog-index.js"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/custom-automation/manifest.json",
+        "sha256": "a4fd614b39386c3ef0c6ad80549839fd79b054bec72816df5fd18d1ac6bb9c5a",
+        "bytes": 8307,
+        "npm_member": "package/automations/catalog/custom-automation/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/github-agents-md-maintainer/manifest.json",
+        "sha256": "e21957c6d108bf354a11ff1591340823149f77a2472ab9158204ff9810a1aa5b",
+        "bytes": 4667,
+        "npm_member": "package/automations/catalog/github-agents-md-maintainer/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/github-delivery-watchdog/manifest.json",
+        "sha256": "20994d591da78ab9d6d892dcb1575aea0b126ff46bccf9bd51bd15a4b80d40f2",
+        "bytes": 2731,
+        "npm_member": "package/automations/catalog/github-delivery-watchdog/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/github-issue-to-pr/manifest.json",
+        "sha256": "bfced75c8bb5898202c881cc2aa99c5acea5ba5400a08cf09a2ee55c4a3b75b4",
+        "bytes": 4209,
+        "npm_member": "package/automations/catalog/github-issue-to-pr/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/github-issue-triage/manifest.json",
+        "sha256": "f446e830a45106b69d8baf0b9f32d6326d1d1c7eab773f48ceed35ffb4c2dfea",
+        "bytes": 2389,
+        "npm_member": "package/automations/catalog/github-issue-triage/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/github-pr-reviewer/manifest.json",
+        "sha256": "e83bfc70fe56e817fdc904f7470e3315ff9ec709183651e94f338a133c68ab9b",
+        "bytes": 7855,
+        "npm_member": "package/automations/catalog/github-pr-reviewer/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/github-repo-monitor/manifest.json",
+        "sha256": "0b72861d22a8ad0ba4f45a455759d6a0bcb600e6422ebae5132e58d2b5d634ff",
+        "bytes": 3265,
+        "npm_member": "package/automations/catalog/github-repo-monitor/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/github-stale-ci-pr-closer/manifest.json",
+        "sha256": "574ca7d924cd72c276336df85524b5675d58b2271a82209db769df31e9cb556d",
+        "bytes": 2318,
+        "npm_member": "package/automations/catalog/github-stale-ci-pr-closer/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/gitlab-issue-to-mr/manifest.json",
+        "sha256": "2e5298f8bb47f3d9cac6f11b6e672d65084da5bbf6eabccdeb8d130e45350ae9",
+        "bytes": 6004,
+        "npm_member": "package/automations/catalog/gitlab-issue-to-mr/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/incident-retrospective-drafter/manifest.json",
+        "sha256": "52eeb22178f50b646a0c57b0dcabea706e97063264c94e1dfd91e57bad4d5398",
+        "bytes": 3921,
+        "npm_member": "package/automations/catalog/incident-retrospective-drafter/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/jira-issue-to-bitbucket-pr/manifest.json",
+        "sha256": "276b7b48da01bd1240cee57c62f7759467210de0069b49fcfafea995af15ec20",
+        "bytes": 2429,
+        "npm_member": "package/automations/catalog/jira-issue-to-bitbucket-pr/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/jira-issue-to-gitlab-mr/manifest.json",
+        "sha256": "76900601f6cdfed1baf7d8af9c0aa6c996b4666870bfbcbfc50f55b05b4deab3",
+        "bytes": 2834,
+        "npm_member": "package/automations/catalog/jira-issue-to-gitlab-mr/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/jira-issue-to-pr/manifest.json",
+        "sha256": "b89f7e2e5a95b7d9cb0722965e136a0e0d93db8bf7bff5d16a5efd0dac03ecd9",
+        "bytes": 2103,
+        "npm_member": "package/automations/catalog/jira-issue-to-pr/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/linear-issue-to-bitbucket-pr/manifest.json",
+        "sha256": "12bc47d48eb97e018b85627ab05bb51173f66e0a3ef12b12e2f505cc7c3a133d",
+        "bytes": 1402,
+        "npm_member": "package/automations/catalog/linear-issue-to-bitbucket-pr/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/linear-issue-to-github-pr/manifest.json",
+        "sha256": "07bd0ecab6a740a3887c1f31f386bbe01c7584f3ecddcbdb9dec83fb1336e5ce",
+        "bytes": 1384,
+        "npm_member": "package/automations/catalog/linear-issue-to-github-pr/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/linear-issue-to-gitlab-mr/manifest.json",
+        "sha256": "e326846e04c59189ab3cecc33e84f868429a526c6b2cc116841c0652ab0db9fe",
+        "bytes": 1388,
+        "npm_member": "package/automations/catalog/linear-issue-to-gitlab-mr/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/linear-triage-assistant/manifest.json",
+        "sha256": "e4e14ac985fbf9a4f71b673e0f932a152681bcae16e956f4f240b74e66f78e1b",
+        "bytes": 899,
+        "npm_member": "package/automations/catalog/linear-triage-assistant/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/news-digest/manifest.json",
+        "sha256": "a57f359aeef0bca0f6eec2ca2db81d77536429ee58d100374bbda1ca3b9ac4c2",
+        "bytes": 4463,
+        "npm_member": "package/automations/catalog/news-digest/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/qa-changes/manifest.json",
+        "sha256": "655b7a36b4eae299d8f88ebe26360f0ac8f4955add4e6903944ea04669655a51",
+        "bytes": 5539,
+        "npm_member": "package/automations/catalog/qa-changes/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/research-brief-writer/manifest.json",
+        "sha256": "4572e20966622308211730aa3cc4f2a16b634702ad88ab38b0ef3b34154f31d4",
+        "bytes": 948,
+        "npm_member": "package/automations/catalog/research-brief-writer/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/slack-channel-monitor/manifest.json",
+        "sha256": "da2493d6f0251d4e130864977ae9ea4f1b50870b148e1b4f5ee3f9aba89035a2",
+        "bytes": 1179,
+        "npm_member": "package/automations/catalog/slack-channel-monitor/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/slack-standup-digest/manifest.json",
+        "sha256": "ef37a2f4896ed212fd14c13c3f70f55522851cf156c70b3db831bef059144976",
+        "bytes": 864,
+        "npm_member": "package/automations/catalog/slack-standup-digest/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/catalog/upstream-fork-sync/manifest.json",
+        "sha256": "c9cbf72837cc121a20254416a7a4db9362064597f1d18cbb9ab0e19021869c16",
+        "bytes": 3732,
+        "npm_member": "package/automations/catalog/upstream-fork-sync/manifest.json"
+      },
+      {
+        "path": "vendor/extensions/automations/index.js",
+        "sha256": "dfb250312c4d887b8bdc34a8b213afdd6c0eede9e8daace9ed9747bc15834719",
+        "bytes": 1656,
+        "npm_member": "package/automations/index.js"
+      },
+      {
+        "path": "vendor/extensions/automations/interface.json",
+        "sha256": "4cc8f205979320d9615511b1f3fa2147680602dda3e2f19f1c4472496622d906",
+        "bytes": 5294,
+        "npm_member": "package/automations/interface.json"
+      },
+      {
+        "path": "vendor/extensions/package.json",
+        "sha256": "bd6de4ff14096d310e7740bd5da928c29b0256c1470d0d0dddf65fd4867b668f",
+        "bytes": 2292,
+        "npm_member": "package/package.json"
+      }
+    ]
+  },
+  "input_sha256": {
+    "input/automation-settings.json": "e982b4ca83fd92d9f012a44e98f35dc58b9dfc48a95eede6bb7daff57ce0be6b",
+    "input/expected.json": "d2e9892831156aa52d87eff81b7b28ce15caaafbde900d828a8763d66064d460",
+    "vendor-lock.json": "34149d29d4d4cb0181f41f0b8ac998a5c8baa0c3e13e0af341338eae1dddea02"
+  },
+  "runtime": {
+    "node": "v24.18.0",
+    "typescript": "strip",
+    "packages_installed": 0,
+    "network": false,
+    "module_resolution": [
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/custom-automation/manifest.json",
+        "to": "vendor/extensions/automations/catalog/custom-automation/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/github-agents-md-maintainer/manifest.json",
+        "to": "vendor/extensions/automations/catalog/github-agents-md-maintainer/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/github-delivery-watchdog/manifest.json",
+        "to": "vendor/extensions/automations/catalog/github-delivery-watchdog/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/github-issue-to-pr/manifest.json",
+        "to": "vendor/extensions/automations/catalog/github-issue-to-pr/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/github-issue-triage/manifest.json",
+        "to": "vendor/extensions/automations/catalog/github-issue-triage/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/github-pr-reviewer/manifest.json",
+        "to": "vendor/extensions/automations/catalog/github-pr-reviewer/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/github-repo-monitor/manifest.json",
+        "to": "vendor/extensions/automations/catalog/github-repo-monitor/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/github-stale-ci-pr-closer/manifest.json",
+        "to": "vendor/extensions/automations/catalog/github-stale-ci-pr-closer/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/gitlab-issue-to-mr/manifest.json",
+        "to": "vendor/extensions/automations/catalog/gitlab-issue-to-mr/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/incident-retrospective-drafter/manifest.json",
+        "to": "vendor/extensions/automations/catalog/incident-retrospective-drafter/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/jira-issue-to-bitbucket-pr/manifest.json",
+        "to": "vendor/extensions/automations/catalog/jira-issue-to-bitbucket-pr/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/jira-issue-to-gitlab-mr/manifest.json",
+        "to": "vendor/extensions/automations/catalog/jira-issue-to-gitlab-mr/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/jira-issue-to-pr/manifest.json",
+        "to": "vendor/extensions/automations/catalog/jira-issue-to-pr/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/linear-issue-to-bitbucket-pr/manifest.json",
+        "to": "vendor/extensions/automations/catalog/linear-issue-to-bitbucket-pr/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/linear-issue-to-github-pr/manifest.json",
+        "to": "vendor/extensions/automations/catalog/linear-issue-to-github-pr/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/linear-issue-to-gitlab-mr/manifest.json",
+        "to": "vendor/extensions/automations/catalog/linear-issue-to-gitlab-mr/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/linear-triage-assistant/manifest.json",
+        "to": "vendor/extensions/automations/catalog/linear-triage-assistant/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/news-digest/manifest.json",
+        "to": "vendor/extensions/automations/catalog/news-digest/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/qa-changes/manifest.json",
+        "to": "vendor/extensions/automations/catalog/qa-changes/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/research-brief-writer/manifest.json",
+        "to": "vendor/extensions/automations/catalog/research-brief-writer/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/slack-channel-monitor/manifest.json",
+        "to": "vendor/extensions/automations/catalog/slack-channel-monitor/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/slack-standup-digest/manifest.json",
+        "to": "vendor/extensions/automations/catalog/slack-standup-digest/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/catalog-index.js",
+        "specifier": "./catalog/upstream-fork-sync/manifest.json",
+        "to": "vendor/extensions/automations/catalog/upstream-fork-sync/manifest.json"
+      },
+      {
+        "from": "vendor/extensions/automations/index.js",
+        "specifier": "./bundle-index.js",
+        "to": "vendor/extensions/automations/bundle-index.js"
+      },
+      {
+        "from": "vendor/extensions/automations/index.js",
+        "specifier": "./catalog-index.js",
+        "to": "vendor/extensions/automations/catalog-index.js"
+      },
+      {
+        "from": "vendor/extensions/automations/index.js",
+        "specifier": "./interface.json",
+        "to": "vendor/extensions/automations/interface.json"
+      },
+      {
+        "from": "vendor/openhands/src/manifests/automation-interface.ts",
+        "specifier": "./interface-validation",
+        "to": "vendor/openhands/src/manifests/interface-validation.ts"
+      },
+      {
+        "from": "vendor/openhands/src/manifests/automation-interface.ts",
+        "specifier": "./manifest-sources",
+        "to": "vendor/openhands/src/manifests/manifest-sources.ts"
+      },
+      {
+        "from": "vendor/openhands/src/manifests/automation-interface.ts",
+        "specifier": "@openhands/extensions/automations",
+        "to": "vendor/extensions/automations/index.js"
+      },
+      {
+        "from": "vendor/openhands/src/manifests/interface-validation.ts",
+        "specifier": "./types",
+        "to": "vendor/openhands/src/manifests/types.ts"
+      },
+      {
+        "from": "vendor/openhands/src/manifests/manifest-registry.ts",
+        "specifier": "./manifest-validation",
+        "to": "vendor/openhands/src/manifests/manifest-validation.ts"
+      },
+      {
+        "from": "vendor/openhands/src/manifests/manifest-sources.ts",
+        "specifier": "./manifest-registry",
+        "to": "vendor/openhands/src/manifests/manifest-registry.ts"
+      },
+      {
+        "from": "vendor/openhands/src/manifests/manifest-sources.ts",
+        "specifier": "@openhands/extensions/automations",
+        "to": "vendor/extensions/automations/index.js"
+      },
+      {
+        "from": "vendor/openhands/src/manifests/manifest-validation.ts",
+        "specifier": "./types",
+        "to": "vendor/openhands/src/manifests/types.ts"
+      },
+      {
+        "from": "vendor/openhands/src/utils/automation-export.ts",
+        "specifier": "#/manifests/automation-interface",
+        "to": "vendor/openhands/src/manifests/automation-interface.ts"
+      }
+    ],
+    "console_warnings": []
+  },
+  "api_entrypoints": [
+    {
+      "name": "serializeAutomation",
+      "source": "vendor/openhands/src/utils/automation-export.ts"
+    },
+    {
+      "name": "getAutomationExportFilename",
+      "source": "vendor/openhands/src/utils/automation-export.ts"
+    },
+    {
+      "name": "parseAutomationFile",
+      "source": "vendor/openhands/src/utils/automation-export.ts"
+    },
+    {
+      "name": "AutomationFileValidationError",
+      "source": "vendor/openhands/src/utils/automation-export.ts"
+    },
+    {
+      "name": "hasAutomationInterface",
+      "source": "vendor/openhands/src/manifests/automation-interface.ts"
+    },
+    {
+      "name": "getImportExportSpec",
+      "source": "vendor/openhands/src/manifests/automation-interface.ts"
+    }
+  ],
+  "interface": {
+    "admitted": true,
+    "envelope": {
+      "fileKind": "automation",
+      "fileVersion": 1,
+      "filenameSuffix": ".automation.json",
+      "importDefaults": {
+        "repoProvider": "github",
+        "placeholderEventSource": "agent-canvas-import"
+      }
+    },
+    "source": "vendor/extensions/automations/index.js の AUTOMATION_INTERFACE（interface.json）を、原典の validateInterfaceManifest が審査して通したもの"
+  },
+  "results": [
+    {
+      "id": "O01",
+      "label": "土曜の準備を、設定ファイルへ",
+      "mode": "export-roundtrip",
+      "input": {
+        "id": "weekly-qa",
+        "name": "読書会・週次メモ",
+        "trigger": {
+          "type": "cron",
+          "schedule": "0 9 * * 6",
+          "timezone": "Asia/Tokyo"
+        },
+        "enabled": false,
+        "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+        "model": null,
+        "timeout": 300,
+        "repository": "https://example.invalid/sakura/bookclub.git",
+        "branch": "demo",
+        "plugins": [],
+        "timezone": "Asia/Tokyo",
+        "created_at": "2026-10-01T00:00:00Z",
+        "last_run": null
+      },
+      "accepted": true,
+      "file": {
+        "version": 1,
+        "kind": "automation",
+        "spec": {
+          "name": "読書会・週次メモ",
+          "trigger": {
+            "type": "cron",
+            "schedule": "0 9 * * 6",
+            "timezone": "Asia/Tokyo"
+          },
+          "enabled": false,
+          "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+          "repository": "https://example.invalid/sakura/bookclub.git",
+          "model": null,
+          "timeout": 300,
+          "branch": "demo",
+          "plugins": [],
+          "timezone": "Asia/Tokyo"
+        }
+      },
+      "file_path": "outputs/exports/O01.automation.json",
+      "file_sha256": "5e1ae14b8273237d308dceb6fdad445ce7c6e5e210f4e3b6cadcee951d7a5aa3",
+      "filename": "weekly-qa.automation.json",
+      "filename_source": {
+        "id": "weekly-qa",
+        "name": "読書会・週次メモ"
+      },
+      "parsed": {
+        "name": "読書会・週次メモ",
+        "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+        "trigger": {
+          "type": "cron",
+          "schedule": "0 9 * * 6",
+          "timezone": "Asia/Tokyo"
+        },
+        "enabled": false,
+        "repository": "https://example.invalid/sakura/bookclub.git",
+        "model": null,
+        "timeout": 300,
+        "branch": "demo",
+        "plugins": [],
+        "timezone": "Asia/Tokyo"
+      },
+      "roundtrip": {
+        "steps": [
+          "serializeAutomation(input)",
+          "JSON.stringify → JSON.parse",
+          "parseAutomationFile → parsed",
+          "serializeAutomation(parsed)",
+          "JSON.stringify → JSON.parse",
+          "parseAutomationFile → reparsed"
+        ],
+        "reparsed": {
+          "name": "読書会・週次メモ",
+          "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+          "trigger": {
+            "type": "cron",
+            "schedule": "0 9 * * 6",
+            "timezone": "Asia/Tokyo"
+          },
+          "enabled": false,
+          "repository": "https://example.invalid/sakura/bookclub.git",
+          "model": null,
+          "timeout": 300,
+          "branch": "demo",
+          "plugins": [],
+          "timezone": "Asia/Tokyo"
+        },
+        "error": null,
+        "reparsed_equals_parsed": true,
+        "reserialized_equals_file": true,
+        "reserialized_sha256": "5e1ae14b8273237d308dceb6fdad445ce7c6e5e210f4e3b6cadcee951d7a5aa3"
+      },
+      "error": null,
+      "observations": {
+        "source_enabled": {
+          "value": false,
+          "type": "boolean"
+        },
+        "file_keys": [
+          "version",
+          "kind",
+          "spec"
+        ],
+        "spec_keys": [
+          "name",
+          "trigger",
+          "enabled",
+          "prompt",
+          "repository",
+          "model",
+          "timeout",
+          "branch",
+          "plugins",
+          "timezone"
+        ],
+        "removed_from_input": [
+          "id",
+          "created_at",
+          "last_run"
+        ],
+        "enabled": false,
+        "model": {
+          "present": true,
+          "value": null
+        },
+        "timeout": {
+          "input": 300,
+          "parsed": 300
+        },
+        "trigger": {
+          "type": "cron",
+          "timezone": "Asia/Tokyo",
+          "spec_timezone": "Asia/Tokyo"
+        },
+        "schedule": {
+          "value": "0 9 * * 6",
+          "input_value": "0 9 * * 6",
+          "whitespace_fields": 5,
+          "accepted_by_parser": true,
+          "cron_grammar_validated": false
+        },
+        "prompt": {
+          "unchanged": true,
+          "code_points": 60,
+          "contains": {
+            "script_tag": false,
+            "template_braces": false,
+            "newline": false
+          }
+        }
+      }
+    },
+    {
+      "id": "O02",
+      "label": "イベント条件をそのまま保存",
+      "mode": "export-roundtrip",
+      "input": {
+        "id": "event-review",
+        "name": "架空PRの確認",
+        "trigger": {
+          "type": "event",
+          "source": "github",
+          "on": [
+            "pull_request.opened",
+            "pull_request.labeled"
+          ],
+          "filter": "action == 'opened'"
+        },
+        "enabled": false,
+        "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+        "model": null,
+        "timeout": 300,
+        "repository": "https://example.invalid/sakura/bookclub.git",
+        "branch": "demo",
+        "plugins": [],
+        "timezone": "Asia/Tokyo",
+        "created_at": "2026-10-01T00:00:00Z",
+        "last_run": null
+      },
+      "accepted": true,
+      "file": {
+        "version": 1,
+        "kind": "automation",
+        "spec": {
+          "name": "架空PRの確認",
+          "trigger": {
+            "type": "event",
+            "source": "github",
+            "on": [
+              "pull_request.opened",
+              "pull_request.labeled"
+            ],
+            "filter": "action == 'opened'"
+          },
+          "enabled": false,
+          "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+          "repository": "https://example.invalid/sakura/bookclub.git",
+          "model": null,
+          "timeout": 300,
+          "branch": "demo",
+          "plugins": [],
+          "timezone": "Asia/Tokyo"
+        }
+      },
+      "file_path": "outputs/exports/O02.automation.json",
+      "file_sha256": "20bdab79d7eb258aafbc3c832ad2b437d7ada06be2162fd74da2590c71910275",
+      "filename": "pr.automation.json",
+      "filename_source": {
+        "id": "event-review",
+        "name": "架空PRの確認"
+      },
+      "parsed": {
+        "name": "架空PRの確認",
+        "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+        "trigger": {
+          "type": "event",
+          "source": "github",
+          "on": [
+            "pull_request.opened",
+            "pull_request.labeled"
+          ],
+          "filter": "action == 'opened'"
+        },
+        "enabled": false,
+        "repository": "https://example.invalid/sakura/bookclub.git",
+        "model": null,
+        "timeout": 300,
+        "branch": "demo",
+        "plugins": [],
+        "timezone": "Asia/Tokyo"
+      },
+      "roundtrip": {
+        "steps": [
+          "serializeAutomation(input)",
+          "JSON.stringify → JSON.parse",
+          "parseAutomationFile → parsed",
+          "serializeAutomation(parsed)",
+          "JSON.stringify → JSON.parse",
+          "parseAutomationFile → reparsed"
+        ],
+        "reparsed": {
+          "name": "架空PRの確認",
+          "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+          "trigger": {
+            "type": "event",
+            "source": "github",
+            "on": [
+              "pull_request.opened",
+              "pull_request.labeled"
+            ],
+            "filter": "action == 'opened'"
+          },
+          "enabled": false,
+          "repository": "https://example.invalid/sakura/bookclub.git",
+          "model": null,
+          "timeout": 300,
+          "branch": "demo",
+          "plugins": [],
+          "timezone": "Asia/Tokyo"
+        },
+        "error": null,
+        "reparsed_equals_parsed": true,
+        "reserialized_equals_file": true,
+        "reserialized_sha256": "20bdab79d7eb258aafbc3c832ad2b437d7ada06be2162fd74da2590c71910275"
+      },
+      "error": null,
+      "observations": {
+        "source_enabled": {
+          "value": false,
+          "type": "boolean"
+        },
+        "file_keys": [
+          "version",
+          "kind",
+          "spec"
+        ],
+        "spec_keys": [
+          "name",
+          "trigger",
+          "enabled",
+          "prompt",
+          "repository",
+          "model",
+          "timeout",
+          "branch",
+          "plugins",
+          "timezone"
+        ],
+        "removed_from_input": [
+          "id",
+          "created_at",
+          "last_run"
+        ],
+        "enabled": false,
+        "model": {
+          "present": true,
+          "value": null
+        },
+        "timeout": {
+          "input": 300,
+          "parsed": 300
+        },
+        "trigger": {
+          "type": "event",
+          "timezone": null,
+          "spec_timezone": "Asia/Tokyo"
+        },
+        "event": {
+          "source": "github",
+          "on": [
+            "pull_request.opened",
+            "pull_request.labeled"
+          ],
+          "filter": "action == 'opened'",
+          "on_unchanged": true,
+          "filter_unchanged": true,
+          "webhook_delivered": false
+        },
+        "prompt": {
+          "unchanged": true,
+          "code_points": 60,
+          "contains": {
+            "script_tag": false,
+            "template_braces": false,
+            "newline": false
+          }
+        }
+      }
+    },
+    {
+      "id": "O03",
+      "label": "時刻のない設定は止まる",
+      "mode": "import",
+      "input": {
+        "version": 1,
+        "kind": "automation",
+        "spec": {
+          "name": "読書会・週次メモ",
+          "trigger": {
+            "type": "cron",
+            "timezone": "Asia/Tokyo"
+          },
+          "enabled": false,
+          "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+          "model": null,
+          "timeout": 300,
+          "repository": "https://example.invalid/sakura/bookclub.git",
+          "branch": "demo",
+          "plugins": [],
+          "timezone": "Asia/Tokyo"
+        }
+      },
+      "accepted": false,
+      "file": null,
+      "file_path": null,
+      "file_sha256": null,
+      "filename": null,
+      "filename_source": null,
+      "parsed": null,
+      "roundtrip": null,
+      "error": {
+        "name": "AutomationFileValidationError",
+        "message": "spec.trigger.schedule: required for a scheduled trigger",
+        "issues": [
+          "spec.trigger.schedule: required for a scheduled trigger"
+        ]
+      },
+      "observations": {
+        "source_enabled": {
+          "value": false,
+          "type": "boolean"
+        },
+        "issue_count": 1,
+        "issue_paths": [
+          "spec.trigger.schedule"
+        ],
+        "repair": {
+          "role": "broken",
+          "partner": "O04",
+          "input_diff": [
+            {
+              "path": "spec.trigger.schedule",
+              "change": "added",
+              "after": "0 9 * * 6"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "O04",
+      "label": "時刻を一つ戻して再確認",
+      "mode": "import",
+      "input": {
+        "version": 1,
+        "kind": "automation",
+        "spec": {
+          "name": "読書会・週次メモ",
+          "trigger": {
+            "type": "cron",
+            "timezone": "Asia/Tokyo",
+            "schedule": "0 9 * * 6"
+          },
+          "enabled": false,
+          "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+          "model": null,
+          "timeout": 300,
+          "repository": "https://example.invalid/sakura/bookclub.git",
+          "branch": "demo",
+          "plugins": [],
+          "timezone": "Asia/Tokyo"
+        }
+      },
+      "accepted": true,
+      "file": {
+        "version": 1,
+        "kind": "automation",
+        "spec": {
+          "name": "読書会・週次メモ",
+          "trigger": {
+            "type": "cron",
+            "schedule": "0 9 * * 6",
+            "timezone": "Asia/Tokyo"
+          },
+          "enabled": false,
+          "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+          "repository": "https://example.invalid/sakura/bookclub.git",
+          "model": null,
+          "timeout": 300,
+          "branch": "demo",
+          "plugins": [],
+          "timezone": "Asia/Tokyo"
+        }
+      },
+      "file_path": "outputs/exports/O04.automation.json",
+      "file_sha256": "5e1ae14b8273237d308dceb6fdad445ce7c6e5e210f4e3b6cadcee951d7a5aa3",
+      "filename": "O04.automation.json",
+      "filename_source": {
+        "id": "O04",
+        "name": "読書会・週次メモ"
+      },
+      "parsed": {
+        "name": "読書会・週次メモ",
+        "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+        "trigger": {
+          "type": "cron",
+          "schedule": "0 9 * * 6",
+          "timezone": "Asia/Tokyo"
+        },
+        "enabled": false,
+        "repository": "https://example.invalid/sakura/bookclub.git",
+        "model": null,
+        "timeout": 300,
+        "branch": "demo",
+        "plugins": [],
+        "timezone": "Asia/Tokyo"
+      },
+      "roundtrip": {
+        "steps": [
+          "parseAutomationFile(input) → parsed",
+          "serializeAutomation(parsed)",
+          "JSON.stringify → JSON.parse",
+          "parseAutomationFile → reparsed",
+          "serializeAutomation(reparsed)"
+        ],
+        "reparsed": {
+          "name": "読書会・週次メモ",
+          "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+          "trigger": {
+            "type": "cron",
+            "schedule": "0 9 * * 6",
+            "timezone": "Asia/Tokyo"
+          },
+          "enabled": false,
+          "repository": "https://example.invalid/sakura/bookclub.git",
+          "model": null,
+          "timeout": 300,
+          "branch": "demo",
+          "plugins": [],
+          "timezone": "Asia/Tokyo"
+        },
+        "error": null,
+        "reparsed_equals_parsed": true,
+        "reserialized_equals_file": true,
+        "reserialized_sha256": "5e1ae14b8273237d308dceb6fdad445ce7c6e5e210f4e3b6cadcee951d7a5aa3"
+      },
+      "error": null,
+      "observations": {
+        "source_enabled": {
+          "value": false,
+          "type": "boolean"
+        },
+        "file_keys": [
+          "version",
+          "kind",
+          "spec"
+        ],
+        "spec_keys": [
+          "name",
+          "trigger",
+          "enabled",
+          "prompt",
+          "repository",
+          "model",
+          "timeout",
+          "branch",
+          "plugins",
+          "timezone"
+        ],
+        "enabled": false,
+        "model": {
+          "present": true,
+          "value": null
+        },
+        "timeout": {
+          "input": 300,
+          "parsed": 300
+        },
+        "trigger": {
+          "type": "cron",
+          "timezone": "Asia/Tokyo",
+          "spec_timezone": "Asia/Tokyo"
+        },
+        "schedule": {
+          "value": "0 9 * * 6",
+          "input_value": "0 9 * * 6",
+          "whitespace_fields": 5,
+          "accepted_by_parser": true,
+          "cron_grammar_validated": false
+        },
+        "prompt": {
+          "unchanged": true,
+          "code_points": 60,
+          "contains": {
+            "script_tag": false,
+            "template_braces": false,
+            "newline": false
+          }
+        },
+        "repair": {
+          "role": "repaired",
+          "partner": "O03",
+          "input_diff": [
+            {
+              "path": "spec.trigger.schedule",
+              "change": "added",
+              "after": "0 9 * * 6"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "O05",
+      "label": "複数の不備をまとめて読む",
+      "mode": "import",
+      "input": {
+        "version": "2.0",
+        "kind": "other",
+        "spec": {
+          "name": "読書会・週次メモ",
+          "trigger": {
+            "type": "manual",
+            "timezone": "Asia/Tokyo",
+            "schedule": "0 9 * * 6"
+          },
+          "enabled": "false",
+          "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+          "model": null,
+          "timeout": 0,
+          "repository": "https://example.invalid/sakura/bookclub.git",
+          "branch": "demo",
+          "plugins": [
+            ""
+          ],
+          "timezone": "Asia/Tokyo"
+        }
+      },
+      "accepted": false,
+      "file": null,
+      "file_path": null,
+      "file_sha256": null,
+      "filename": null,
+      "filename_source": null,
+      "parsed": null,
+      "roundtrip": null,
+      "error": {
+        "name": "AutomationFileValidationError",
+        "message": "version: expected 1\nkind: expected \"automation\"\nspec.trigger.type: expected one of \"cron\", \"schedule\", or \"event\"\nspec.enabled: expected a boolean\nspec.timeout: expected a positive integer\nspec.plugins: expected an array of non-empty strings",
+        "issues": [
+          "version: expected 1",
+          "kind: expected \"automation\"",
+          "spec.trigger.type: expected one of \"cron\", \"schedule\", or \"event\"",
+          "spec.enabled: expected a boolean",
+          "spec.timeout: expected a positive integer",
+          "spec.plugins: expected an array of non-empty strings"
+        ]
+      },
+      "observations": {
+        "source_enabled": {
+          "value": "false",
+          "type": "string"
+        },
+        "issue_count": 6,
+        "issue_paths": [
+          "version",
+          "kind",
+          "spec.trigger.type",
+          "spec.enabled",
+          "spec.timeout",
+          "spec.plugins"
+        ]
+      }
+    },
+    {
+      "id": "O06",
+      "label": "形が通っても、時刻は未検証",
+      "mode": "import",
+      "input": {
+        "version": 1,
+        "kind": "automation",
+        "spec": {
+          "name": "読書会・週次メモ",
+          "trigger": {
+            "type": "cron",
+            "timezone": "Asia/Tokyo",
+            "schedule": "not-a-cron"
+          },
+          "enabled": false,
+          "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+          "model": null,
+          "timeout": 300,
+          "repository": "https://example.invalid/sakura/bookclub.git",
+          "branch": "demo",
+          "plugins": [],
+          "timezone": "Asia/Tokyo"
+        }
+      },
+      "accepted": true,
+      "file": {
+        "version": 1,
+        "kind": "automation",
+        "spec": {
+          "name": "読書会・週次メモ",
+          "trigger": {
+            "type": "cron",
+            "schedule": "not-a-cron",
+            "timezone": "Asia/Tokyo"
+          },
+          "enabled": false,
+          "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+          "repository": "https://example.invalid/sakura/bookclub.git",
+          "model": null,
+          "timeout": 300,
+          "branch": "demo",
+          "plugins": [],
+          "timezone": "Asia/Tokyo"
+        }
+      },
+      "file_path": "outputs/exports/O06.automation.json",
+      "file_sha256": "bf2864c7505aa8d4535f902b6b133e835ecba61a8f10e4664da948f1235c2157",
+      "filename": "O06.automation.json",
+      "filename_source": {
+        "id": "O06",
+        "name": "読書会・週次メモ"
+      },
+      "parsed": {
+        "name": "読書会・週次メモ",
+        "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+        "trigger": {
+          "type": "cron",
+          "schedule": "not-a-cron",
+          "timezone": "Asia/Tokyo"
+        },
+        "enabled": false,
+        "repository": "https://example.invalid/sakura/bookclub.git",
+        "model": null,
+        "timeout": 300,
+        "branch": "demo",
+        "plugins": [],
+        "timezone": "Asia/Tokyo"
+      },
+      "roundtrip": {
+        "steps": [
+          "parseAutomationFile(input) → parsed",
+          "serializeAutomation(parsed)",
+          "JSON.stringify → JSON.parse",
+          "parseAutomationFile → reparsed",
+          "serializeAutomation(reparsed)"
+        ],
+        "reparsed": {
+          "name": "読書会・週次メモ",
+          "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+          "trigger": {
+            "type": "cron",
+            "schedule": "not-a-cron",
+            "timezone": "Asia/Tokyo"
+          },
+          "enabled": false,
+          "repository": "https://example.invalid/sakura/bookclub.git",
+          "model": null,
+          "timeout": 300,
+          "branch": "demo",
+          "plugins": [],
+          "timezone": "Asia/Tokyo"
+        },
+        "error": null,
+        "reparsed_equals_parsed": true,
+        "reserialized_equals_file": true,
+        "reserialized_sha256": "bf2864c7505aa8d4535f902b6b133e835ecba61a8f10e4664da948f1235c2157"
+      },
+      "error": null,
+      "observations": {
+        "source_enabled": {
+          "value": false,
+          "type": "boolean"
+        },
+        "file_keys": [
+          "version",
+          "kind",
+          "spec"
+        ],
+        "spec_keys": [
+          "name",
+          "trigger",
+          "enabled",
+          "prompt",
+          "repository",
+          "model",
+          "timeout",
+          "branch",
+          "plugins",
+          "timezone"
+        ],
+        "enabled": false,
+        "model": {
+          "present": true,
+          "value": null
+        },
+        "timeout": {
+          "input": 300,
+          "parsed": 300
+        },
+        "trigger": {
+          "type": "cron",
+          "timezone": "Asia/Tokyo",
+          "spec_timezone": "Asia/Tokyo"
+        },
+        "schedule": {
+          "value": "not-a-cron",
+          "input_value": "not-a-cron",
+          "whitespace_fields": 1,
+          "accepted_by_parser": true,
+          "cron_grammar_validated": false
+        },
+        "prompt": {
+          "unchanged": true,
+          "code_points": 60,
+          "contains": {
+            "script_tag": false,
+            "template_braces": false,
+            "newline": false
+          }
+        }
+      }
+    },
+    {
+      "id": "O07",
+      "label": "持ち出せる参照先は先頭だけ",
+      "mode": "export-roundtrip",
+      "input": {
+        "id": "two-repositories",
+        "name": "2つの参照先を含む設定",
+        "trigger": {
+          "type": "cron",
+          "schedule": "0 9 * * 6",
+          "timezone": "Asia/Tokyo"
+        },
+        "enabled": false,
+        "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+        "model": null,
+        "timeout": 300,
+        "repository": "https://example.invalid/sakura/bookclub.git",
+        "branch": "demo",
+        "plugins": [],
+        "timezone": "Asia/Tokyo",
+        "created_at": "2026-10-01T00:00:00Z",
+        "last_run": null,
+        "repositories": [
+          {
+            "url": "https://example.invalid/sakura/primary.git",
+            "ref": "release-demo"
+          },
+          {
+            "url": "https://example.invalid/sakura/secondary.git",
+            "ref": "extra-demo"
+          }
+        ]
+      },
+      "accepted": true,
+      "file": {
+        "version": 1,
+        "kind": "automation",
+        "spec": {
+          "name": "2つの参照先を含む設定",
+          "trigger": {
+            "type": "cron",
+            "schedule": "0 9 * * 6",
+            "timezone": "Asia/Tokyo"
+          },
+          "enabled": false,
+          "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+          "repository": "https://example.invalid/sakura/primary.git",
+          "model": null,
+          "timeout": 300,
+          "branch": "release-demo",
+          "plugins": [],
+          "timezone": "Asia/Tokyo"
+        }
+      },
+      "file_path": "outputs/exports/O07.automation.json",
+      "file_sha256": "0c9e37bf825e502f7f96b15c881fbed2c271b21e36e00624dcb2220d69fe98a1",
+      "filename": "2.automation.json",
+      "filename_source": {
+        "id": "two-repositories",
+        "name": "2つの参照先を含む設定"
+      },
+      "parsed": {
+        "name": "2つの参照先を含む設定",
+        "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+        "trigger": {
+          "type": "cron",
+          "schedule": "0 9 * * 6",
+          "timezone": "Asia/Tokyo"
+        },
+        "enabled": false,
+        "repository": "https://example.invalid/sakura/primary.git",
+        "model": null,
+        "timeout": 300,
+        "branch": "release-demo",
+        "plugins": [],
+        "timezone": "Asia/Tokyo"
+      },
+      "roundtrip": {
+        "steps": [
+          "serializeAutomation(input)",
+          "JSON.stringify → JSON.parse",
+          "parseAutomationFile → parsed",
+          "serializeAutomation(parsed)",
+          "JSON.stringify → JSON.parse",
+          "parseAutomationFile → reparsed"
+        ],
+        "reparsed": {
+          "name": "2つの参照先を含む設定",
+          "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+          "trigger": {
+            "type": "cron",
+            "schedule": "0 9 * * 6",
+            "timezone": "Asia/Tokyo"
+          },
+          "enabled": false,
+          "repository": "https://example.invalid/sakura/primary.git",
+          "model": null,
+          "timeout": 300,
+          "branch": "release-demo",
+          "plugins": [],
+          "timezone": "Asia/Tokyo"
+        },
+        "error": null,
+        "reparsed_equals_parsed": true,
+        "reserialized_equals_file": true,
+        "reserialized_sha256": "0c9e37bf825e502f7f96b15c881fbed2c271b21e36e00624dcb2220d69fe98a1"
+      },
+      "error": null,
+      "observations": {
+        "source_enabled": {
+          "value": false,
+          "type": "boolean"
+        },
+        "file_keys": [
+          "version",
+          "kind",
+          "spec"
+        ],
+        "spec_keys": [
+          "name",
+          "trigger",
+          "enabled",
+          "prompt",
+          "repository",
+          "model",
+          "timeout",
+          "branch",
+          "plugins",
+          "timezone"
+        ],
+        "removed_from_input": [
+          "id",
+          "created_at",
+          "last_run",
+          "repositories"
+        ],
+        "enabled": false,
+        "model": {
+          "present": true,
+          "value": null
+        },
+        "timeout": {
+          "input": 300,
+          "parsed": 300
+        },
+        "trigger": {
+          "type": "cron",
+          "timezone": "Asia/Tokyo",
+          "spec_timezone": "Asia/Tokyo"
+        },
+        "schedule": {
+          "value": "0 9 * * 6",
+          "input_value": "0 9 * * 6",
+          "whitespace_fields": 5,
+          "accepted_by_parser": true,
+          "cron_grammar_validated": false
+        },
+        "prompt": {
+          "unchanged": true,
+          "code_points": 60,
+          "contains": {
+            "script_tag": false,
+            "template_braces": false,
+            "newline": false
+          }
+        },
+        "repositories": {
+          "source": [
+            {
+              "url": "https://example.invalid/sakura/primary.git",
+              "ref": "release-demo"
+            },
+            {
+              "url": "https://example.invalid/sakura/secondary.git",
+              "ref": "extra-demo"
+            }
+          ],
+          "deprecated_top_level": {
+            "repository": "https://example.invalid/sakura/bookclub.git",
+            "branch": "demo"
+          },
+          "exported": {
+            "repository": "https://example.invalid/sakura/primary.git",
+            "branch": "release-demo"
+          },
+          "dropped": [
+            {
+              "url": "https://example.invalid/sakura/secondary.git",
+              "ref": "extra-demo"
+            }
+          ],
+          "deprecated_overridden": true,
+          "fetched": false
+        }
+      }
+    },
+    {
+      "id": "O08",
+      "label": "タグや波かっこも、ただの文字",
+      "mode": "export-roundtrip",
+      "input": {
+        "id": "literal-text",
+        "name": "文字をそのまま保存",
+        "trigger": {
+          "type": "cron",
+          "schedule": "0 9 * * 6",
+          "timezone": "Asia/Tokyo"
+        },
+        "enabled": false,
+        "prompt": "「<script>alert(\"架空\")</script>」と {{form.repository}} と改行\nを、そのまま原稿の文字として保存する。実行・送信しない。",
+        "model": null,
+        "timeout": 300,
+        "repository": "https://example.invalid/sakura/bookclub.git",
+        "branch": "demo",
+        "plugins": [],
+        "timezone": "Asia/Tokyo",
+        "created_at": "2026-10-01T00:00:00Z",
+        "last_run": null
+      },
+      "accepted": true,
+      "file": {
+        "version": 1,
+        "kind": "automation",
+        "spec": {
+          "name": "文字をそのまま保存",
+          "trigger": {
+            "type": "cron",
+            "schedule": "0 9 * * 6",
+            "timezone": "Asia/Tokyo"
+          },
+          "enabled": false,
+          "prompt": "「<script>alert(\"架空\")</script>」と {{form.repository}} と改行\nを、そのまま原稿の文字として保存する。実行・送信しない。",
+          "repository": "https://example.invalid/sakura/bookclub.git",
+          "model": null,
+          "timeout": 300,
+          "branch": "demo",
+          "plugins": [],
+          "timezone": "Asia/Tokyo"
+        }
+      },
+      "file_path": "outputs/exports/O08.automation.json",
+      "file_sha256": "bc5bf6e8407c2912abaa720589f64f3526f2e52ca99c03b26de205a673e0498c",
+      "filename": "literal-text.automation.json",
+      "filename_source": {
+        "id": "literal-text",
+        "name": "文字をそのまま保存"
+      },
+      "parsed": {
+        "name": "文字をそのまま保存",
+        "prompt": "「<script>alert(\"架空\")</script>」と {{form.repository}} と改行\nを、そのまま原稿の文字として保存する。実行・送信しない。",
+        "trigger": {
+          "type": "cron",
+          "schedule": "0 9 * * 6",
+          "timezone": "Asia/Tokyo"
+        },
+        "enabled": false,
+        "repository": "https://example.invalid/sakura/bookclub.git",
+        "model": null,
+        "timeout": 300,
+        "branch": "demo",
+        "plugins": [],
+        "timezone": "Asia/Tokyo"
+      },
+      "roundtrip": {
+        "steps": [
+          "serializeAutomation(input)",
+          "JSON.stringify → JSON.parse",
+          "parseAutomationFile → parsed",
+          "serializeAutomation(parsed)",
+          "JSON.stringify → JSON.parse",
+          "parseAutomationFile → reparsed"
+        ],
+        "reparsed": {
+          "name": "文字をそのまま保存",
+          "prompt": "「<script>alert(\"架空\")</script>」と {{form.repository}} と改行\nを、そのまま原稿の文字として保存する。実行・送信しない。",
+          "trigger": {
+            "type": "cron",
+            "schedule": "0 9 * * 6",
+            "timezone": "Asia/Tokyo"
+          },
+          "enabled": false,
+          "repository": "https://example.invalid/sakura/bookclub.git",
+          "model": null,
+          "timeout": 300,
+          "branch": "demo",
+          "plugins": [],
+          "timezone": "Asia/Tokyo"
+        },
+        "error": null,
+        "reparsed_equals_parsed": true,
+        "reserialized_equals_file": true,
+        "reserialized_sha256": "bc5bf6e8407c2912abaa720589f64f3526f2e52ca99c03b26de205a673e0498c"
+      },
+      "error": null,
+      "observations": {
+        "source_enabled": {
+          "value": false,
+          "type": "boolean"
+        },
+        "file_keys": [
+          "version",
+          "kind",
+          "spec"
+        ],
+        "spec_keys": [
+          "name",
+          "trigger",
+          "enabled",
+          "prompt",
+          "repository",
+          "model",
+          "timeout",
+          "branch",
+          "plugins",
+          "timezone"
+        ],
+        "removed_from_input": [
+          "id",
+          "created_at",
+          "last_run"
+        ],
+        "enabled": false,
+        "model": {
+          "present": true,
+          "value": null
+        },
+        "timeout": {
+          "input": 300,
+          "parsed": 300
+        },
+        "trigger": {
+          "type": "cron",
+          "timezone": "Asia/Tokyo",
+          "spec_timezone": "Asia/Tokyo"
+        },
+        "schedule": {
+          "value": "0 9 * * 6",
+          "input_value": "0 9 * * 6",
+          "whitespace_fields": 5,
+          "accepted_by_parser": true,
+          "cron_grammar_validated": false
+        },
+        "prompt": {
+          "unchanged": true,
+          "code_points": 84,
+          "contains": {
+            "script_tag": true,
+            "template_braces": true,
+            "newline": true
+          }
+        }
+      }
+    }
+  ],
+  "summary": {
+    "total": 8,
+    "accepted": 6,
+    "rejected": 2
+  },
+  "oracle_comparison": {
+    "source": "input/expected.json（実行の前に固定。実結果を得た後の照合だけに使い、結果・誤り・観察の作成には使っていない）",
+    "accepted_ids": {
+      "expected": [
+        "O01",
+        "O02",
+        "O04",
+        "O06",
+        "O07",
+        "O08"
+      ],
+      "actual": [
+        "O01",
+        "O02",
+        "O04",
+        "O06",
+        "O07",
+        "O08"
+      ]
+    },
+    "rejected_ids": {
+      "expected": [
+        "O03",
+        "O05"
+      ],
+      "actual": [
+        "O03",
+        "O05"
+      ]
+    },
+    "issue_substrings": [
+      {
+        "id": "O03",
+        "substrings": [
+          {
+            "substring": "spec.trigger.schedule: required for a scheduled trigger",
+            "found": true
+          }
+        ],
+        "issue_count": 1
+      },
+      {
+        "id": "O05",
+        "substrings": [
+          {
+            "substring": "version: expected 1",
+            "found": true
+          },
+          {
+            "substring": "kind: expected \"automation\"",
+            "found": true
+          },
+          {
+            "substring": "spec.trigger.type: expected one of",
+            "found": true
+          },
+          {
+            "substring": "spec.enabled: expected a boolean",
+            "found": true
+          },
+          {
+            "substring": "spec.timeout: expected a positive integer",
+            "found": true
+          },
+          {
+            "substring": "spec.plugins: expected an array of non-empty strings",
+            "found": true
+          }
+        ],
+        "issue_count": 6
+      }
+    ],
+    "counts": {
+      "expected": {
+        "total": 8,
+        "accepted": 6,
+        "rejected": 2
+      },
+      "actual": {
+        "total": 8,
+        "accepted": 6,
+        "rejected": 2
+      }
+    }
+  },
+  "verification": {
+    "status": "passed",
+    "checks": [
+      {
+        "name": "原典12ファイルの SHA-256・バイト数・Git blob が vendor-lock.json と一致",
+        "passed": true
+      },
+      {
+        "name": "@openhands/extensions 0.30.0 の29ファイルの SHA-256・バイト数・npm の中の位置が vendor-lock.json と一致",
+        "passed": true
+      },
+      {
+        "name": "vendor-lock.json の SHA-256、固定版（repository・commit・version・license）と依存の記録が一致",
+        "passed": true
+      },
+      {
+        "name": "原典の package.json と package-lock.json が @openhands/extensions 0.30.0 を同じ resolved・integrity で固定",
+        "passed": true
+      },
+      {
+        "name": "入力2ファイルの SHA-256 が実行前に固定した値と一致",
+        "passed": true
+      },
+      {
+        "name": "入力が O01〜O08 の8件で、試し方が export-roundtrip か import",
+        "passed": true
+      },
+      {
+        "name": "入力のURLはすべて架空の example.invalid（取得しない）",
+        "passed": true
+      },
+      {
+        "name": "hasAutomationInterface() が true（同梱パッケージの interface manifest が原典の審査を通った）",
+        "passed": true
+      },
+      {
+        "name": "読み込み中に interface manifest を拒否する警告が出ていない",
+        "passed": true
+      },
+      {
+        "name": "getImportExportSpec() が同梱の interface.json の importExport と一致",
+        "passed": true
+      },
+      {
+        "name": "封筒が fileVersion 1（数値）・fileKind \"automation\"・filenameSuffix \".automation.json\"",
+        "passed": true
+      },
+      {
+        "name": "同じ入力で2回目に呼んでも、8件の結果がすべて同じ",
+        "passed": true
+      },
+      {
+        "name": "原典を呼んだ後も、入力の内容が変わっていない",
+        "passed": true
+      },
+      {
+        "name": "読み込み補助が解決したのは同梱の原典とパッケージのファイル（と Node の組み込み）だけ",
+        "passed": true
+      },
+      {
+        "name": "「#/」・拡張子なし相対 import・@openhands/extensions/automations をそれぞれ原典のまま解決した",
+        "passed": true
+      },
+      {
+        "name": "O01: 書き出したファイルの最上位が version・kind・spec の3つ",
+        "passed": true
+      },
+      {
+        "name": "O01: 封筒が version 1（数値）・kind \"automation\"",
+        "passed": true
+      },
+      {
+        "name": "O01: ファイル名が原典の接尾辞 .automation.json で終わり、フォルダーを含まない",
+        "passed": true
+      },
+      {
+        "name": "O01: もう一度書き出して読み直しても、ファイルの bytes と設定が同じ",
+        "passed": true
+      },
+      {
+        "name": "O01: enabled は false のまま（予定の登録・実行はしていない）",
+        "passed": true
+      },
+      {
+        "name": "O01: model の null がファイルと読み戻しに残る",
+        "passed": true
+      },
+      {
+        "name": "O01: timeout が入力と同じ",
+        "passed": true
+      },
+      {
+        "name": "O01: name と prompt が入力と1文字も違わない",
+        "passed": true
+      },
+      {
+        "name": "O01: ファイルと読み戻しに id・created_at・last_run・repositories が無い",
+        "passed": true
+      },
+      {
+        "name": "O01: 元の設定の id・created_at・last_run は書き出しで外れた",
+        "passed": true
+      },
+      {
+        "name": "O01: schedule と timezone が入力と同じ",
+        "passed": true
+      },
+      {
+        "name": "O02: 書き出したファイルの最上位が version・kind・spec の3つ",
+        "passed": true
+      },
+      {
+        "name": "O02: 封筒が version 1（数値）・kind \"automation\"",
+        "passed": true
+      },
+      {
+        "name": "O02: ファイル名が原典の接尾辞 .automation.json で終わり、フォルダーを含まない",
+        "passed": true
+      },
+      {
+        "name": "O02: もう一度書き出して読み直しても、ファイルの bytes と設定が同じ",
+        "passed": true
+      },
+      {
+        "name": "O02: enabled は false のまま（予定の登録・実行はしていない）",
+        "passed": true
+      },
+      {
+        "name": "O02: model の null がファイルと読み戻しに残る",
+        "passed": true
+      },
+      {
+        "name": "O02: timeout が入力と同じ",
+        "passed": true
+      },
+      {
+        "name": "O02: name と prompt が入力と1文字も違わない",
+        "passed": true
+      },
+      {
+        "name": "O02: ファイルと読み戻しに id・created_at・last_run・repositories が無い",
+        "passed": true
+      },
+      {
+        "name": "O02: 元の設定の id・created_at・last_run は書き出しで外れた",
+        "passed": true
+      },
+      {
+        "name": "O03: 誤りは原典の AutomationFileValidationError で、message は issues の改行つなぎ",
+        "passed": true
+      },
+      {
+        "name": "O03: 形が通らなかったので、ファイルも名前も読み戻しも作っていない",
+        "passed": true
+      },
+      {
+        "name": "O04: 書き出したファイルの最上位が version・kind・spec の3つ",
+        "passed": true
+      },
+      {
+        "name": "O04: 封筒が version 1（数値）・kind \"automation\"",
+        "passed": true
+      },
+      {
+        "name": "O04: ファイル名が原典の接尾辞 .automation.json で終わり、フォルダーを含まない",
+        "passed": true
+      },
+      {
+        "name": "O04: もう一度書き出して読み直しても、ファイルの bytes と設定が同じ",
+        "passed": true
+      },
+      {
+        "name": "O04: enabled は false のまま（予定の登録・実行はしていない）",
+        "passed": true
+      },
+      {
+        "name": "O04: model の null がファイルと読み戻しに残る",
+        "passed": true
+      },
+      {
+        "name": "O04: timeout が入力と同じ",
+        "passed": true
+      },
+      {
+        "name": "O04: name と prompt が入力と1文字も違わない",
+        "passed": true
+      },
+      {
+        "name": "O04: ファイルと読み戻しに id・created_at・last_run・repositories が無い",
+        "passed": true
+      },
+      {
+        "name": "O04: schedule と timezone が入力と同じ",
+        "passed": true
+      },
+      {
+        "name": "O05: 誤りは原典の AutomationFileValidationError で、message は issues の改行つなぎ",
+        "passed": true
+      },
+      {
+        "name": "O05: 形が通らなかったので、ファイルも名前も読み戻しも作っていない",
+        "passed": true
+      },
+      {
+        "name": "O06: 書き出したファイルの最上位が version・kind・spec の3つ",
+        "passed": true
+      },
+      {
+        "name": "O06: 封筒が version 1（数値）・kind \"automation\"",
+        "passed": true
+      },
+      {
+        "name": "O06: ファイル名が原典の接尾辞 .automation.json で終わり、フォルダーを含まない",
+        "passed": true
+      },
+      {
+        "name": "O06: もう一度書き出して読み直しても、ファイルの bytes と設定が同じ",
+        "passed": true
+      },
+      {
+        "name": "O06: enabled は false のまま（予定の登録・実行はしていない）",
+        "passed": true
+      },
+      {
+        "name": "O06: model の null がファイルと読み戻しに残る",
+        "passed": true
+      },
+      {
+        "name": "O06: timeout が入力と同じ",
+        "passed": true
+      },
+      {
+        "name": "O06: name と prompt が入力と1文字も違わない",
+        "passed": true
+      },
+      {
+        "name": "O06: ファイルと読み戻しに id・created_at・last_run・repositories が無い",
+        "passed": true
+      },
+      {
+        "name": "O06: schedule と timezone が入力と同じ",
+        "passed": true
+      },
+      {
+        "name": "O07: 書き出したファイルの最上位が version・kind・spec の3つ",
+        "passed": true
+      },
+      {
+        "name": "O07: 封筒が version 1（数値）・kind \"automation\"",
+        "passed": true
+      },
+      {
+        "name": "O07: ファイル名が原典の接尾辞 .automation.json で終わり、フォルダーを含まない",
+        "passed": true
+      },
+      {
+        "name": "O07: もう一度書き出して読み直しても、ファイルの bytes と設定が同じ",
+        "passed": true
+      },
+      {
+        "name": "O07: enabled は false のまま（予定の登録・実行はしていない）",
+        "passed": true
+      },
+      {
+        "name": "O07: model の null がファイルと読み戻しに残る",
+        "passed": true
+      },
+      {
+        "name": "O07: timeout が入力と同じ",
+        "passed": true
+      },
+      {
+        "name": "O07: name と prompt が入力と1文字も違わない",
+        "passed": true
+      },
+      {
+        "name": "O07: ファイルと読み戻しに id・created_at・last_run・repositories が無い",
+        "passed": true
+      },
+      {
+        "name": "O07: 元の設定の id・created_at・last_run は書き出しで外れた",
+        "passed": true
+      },
+      {
+        "name": "O07: schedule と timezone が入力と同じ",
+        "passed": true
+      },
+      {
+        "name": "O08: 書き出したファイルの最上位が version・kind・spec の3つ",
+        "passed": true
+      },
+      {
+        "name": "O08: 封筒が version 1（数値）・kind \"automation\"",
+        "passed": true
+      },
+      {
+        "name": "O08: ファイル名が原典の接尾辞 .automation.json で終わり、フォルダーを含まない",
+        "passed": true
+      },
+      {
+        "name": "O08: もう一度書き出して読み直しても、ファイルの bytes と設定が同じ",
+        "passed": true
+      },
+      {
+        "name": "O08: enabled は false のまま（予定の登録・実行はしていない）",
+        "passed": true
+      },
+      {
+        "name": "O08: model の null がファイルと読み戻しに残る",
+        "passed": true
+      },
+      {
+        "name": "O08: timeout が入力と同じ",
+        "passed": true
+      },
+      {
+        "name": "O08: name と prompt が入力と1文字も違わない",
+        "passed": true
+      },
+      {
+        "name": "O08: ファイルと読み戻しに id・created_at・last_run・repositories が無い",
+        "passed": true
+      },
+      {
+        "name": "O08: 元の設定の id・created_at・last_run は書き出しで外れた",
+        "passed": true
+      },
+      {
+        "name": "O08: schedule と timezone が入力と同じ",
+        "passed": true
+      },
+      {
+        "name": "O01: 毎週土曜9時（0 9 * * 6・Asia/Tokyo）の cron がファイルに残る",
+        "passed": true
+      },
+      {
+        "name": "O02: event の source・on の配列・filter が、ファイルと読み戻しでそのまま",
+        "passed": true
+      },
+      {
+        "name": "O03/O04: 入力の違いは spec.trigger.schedule の追加1か所だけ",
+        "passed": true
+      },
+      {
+        "name": "O04: 読み戻した schedule が、足した値と同じ",
+        "passed": true
+      },
+      {
+        "name": "O05: 入力の enabled は真偽値ではなく文字列",
+        "passed": true
+      },
+      {
+        "name": "O06: cron の形でない schedule がそのまま形を通った（原典は空でない文字列かだけを見る）",
+        "passed": true
+      },
+      {
+        "name": "O07: 書き出した参照先は、先頭の1件の url と ref だけ",
+        "passed": true
+      },
+      {
+        "name": "O07: 2件目の参照先はファイルに残らない",
+        "passed": true
+      },
+      {
+        "name": "O07: 古い repository・branch は先頭の参照先で上書きされた",
+        "passed": true
+      },
+      {
+        "name": "O08: 入力の prompt に <script> タグ・{{form.repository}}・改行がある",
+        "passed": true
+      },
+      {
+        "name": "O08: その prompt がファイル・読み戻し・2回目の読み戻しで同じ文字のまま",
+        "passed": true
+      },
+      {
+        "name": "件数が実行前の期待と一致",
+        "passed": true
+      },
+      {
+        "name": "形が通った件が実行前の期待と一致",
+        "passed": true
+      },
+      {
+        "name": "止まった件が実行前の期待と一致",
+        "passed": true
+      },
+      {
+        "name": "O03: 実行前に決めた理由の一部が、すべて原典の issues にある",
+        "passed": true
+      },
+      {
+        "name": "O03: 原典の issues と実行前の理由が1行ずつ対応する（1件）",
+        "passed": true
+      },
+      {
+        "name": "O05: 実行前に決めた理由の一部が、すべて原典の issues にある",
+        "passed": true
+      },
+      {
+        "name": "O05: 原典の issues と実行前の理由が1行ずつ対応する（6件）",
+        "passed": true
+      },
+      {
+        "name": "実行前の修復の組が O03 と O04",
+        "passed": true
+      },
+      {
+        "name": "実行前に決めた non_grammar_validation の O06 は形が通った",
+        "passed": true
+      },
+      {
+        "name": "実行前に決めた first_repository_only の O07 は形が通った",
+        "passed": true
+      },
+      {
+        "name": "実行前に決めた literal_text の O08 は形が通った",
+        "passed": true
+      },
+      {
+        "name": "形が通った数・止まった数が実行前の期待と一致",
+        "passed": true
+      },
+      {
+        "name": "実行の後も原典とパッケージの41ファイルとロックが同じ",
+        "passed": true
+      },
+      {
+        "name": "記録に手元の絶対パスが含まれない",
+        "passed": true
+      }
+    ],
+    "total": 107
+  }
+}

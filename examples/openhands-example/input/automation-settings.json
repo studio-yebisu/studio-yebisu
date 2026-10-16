@@ -1,0 +1,226 @@
+{
+  "format": "studio-yebisu-openhands-settings-v1",
+  "fictional": true,
+  "notice": "All configurations and example.invalid repositories are fictional, frozen by production before execution. No real tasks, private history, credentials, schedules or network requests.",
+  "cases": [
+    {
+      "id": "O01",
+      "label": "土曜の準備を、設定ファイルへ",
+      "mode": "export-roundtrip",
+      "input": {
+        "id": "weekly-qa",
+        "name": "読書会・週次メモ",
+        "trigger": {
+          "type": "cron",
+          "schedule": "0 9 * * 6",
+          "timezone": "Asia/Tokyo"
+        },
+        "enabled": false,
+        "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+        "model": null,
+        "timeout": 300,
+        "repository": "https://example.invalid/sakura/bookclub.git",
+        "branch": "demo",
+        "plugins": [],
+        "timezone": "Asia/Tokyo",
+        "created_at": "2026-10-01T00:00:00Z",
+        "last_run": null
+      },
+      "note": "Disabled fictional weekly configuration; no schedule is registered."
+    },
+    {
+      "id": "O02",
+      "label": "イベント条件をそのまま保存",
+      "mode": "export-roundtrip",
+      "input": {
+        "id": "event-review",
+        "name": "架空PRの確認",
+        "trigger": {
+          "type": "event",
+          "source": "github",
+          "on": [
+            "pull_request.opened",
+            "pull_request.labeled"
+          ],
+          "filter": "action == 'opened'"
+        },
+        "enabled": false,
+        "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+        "model": null,
+        "timeout": 300,
+        "repository": "https://example.invalid/sakura/bookclub.git",
+        "branch": "demo",
+        "plugins": [],
+        "timezone": "Asia/Tokyo",
+        "created_at": "2026-10-01T00:00:00Z",
+        "last_run": null
+      },
+      "note": "Preserve event array and filter as text; no webhook is delivered."
+    },
+    {
+      "id": "O03",
+      "label": "時刻のない設定は止まる",
+      "mode": "import",
+      "input": {
+        "version": 1,
+        "kind": "automation",
+        "spec": {
+          "name": "読書会・週次メモ",
+          "trigger": {
+            "type": "cron",
+            "timezone": "Asia/Tokyo"
+          },
+          "enabled": false,
+          "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+          "model": null,
+          "timeout": 300,
+          "repository": "https://example.invalid/sakura/bookclub.git",
+          "branch": "demo",
+          "plugins": [],
+          "timezone": "Asia/Tokyo"
+        }
+      },
+      "note": "A scheduled trigger without schedule is invalid."
+    },
+    {
+      "id": "O04",
+      "label": "時刻を一つ戻して再確認",
+      "mode": "import",
+      "input": {
+        "version": 1,
+        "kind": "automation",
+        "spec": {
+          "name": "読書会・週次メモ",
+          "trigger": {
+            "type": "cron",
+            "timezone": "Asia/Tokyo",
+            "schedule": "0 9 * * 6"
+          },
+          "enabled": false,
+          "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+          "model": null,
+          "timeout": 300,
+          "repository": "https://example.invalid/sakura/bookclub.git",
+          "branch": "demo",
+          "plugins": [],
+          "timezone": "Asia/Tokyo"
+        }
+      },
+      "note": "Only trigger.schedule differs from O03; an independent parser call."
+    },
+    {
+      "id": "O05",
+      "label": "複数の不備をまとめて読む",
+      "mode": "import",
+      "input": {
+        "version": "2.0",
+        "kind": "other",
+        "spec": {
+          "name": "読書会・週次メモ",
+          "trigger": {
+            "type": "manual",
+            "timezone": "Asia/Tokyo",
+            "schedule": "0 9 * * 6"
+          },
+          "enabled": "false",
+          "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+          "model": null,
+          "timeout": 0,
+          "repository": "https://example.invalid/sakura/bookclub.git",
+          "branch": "demo",
+          "plugins": [
+            ""
+          ],
+          "timezone": "Asia/Tokyo"
+        }
+      },
+      "note": "Unsupported envelope/type, enabled type, timeout and plugin are actual parser failures."
+    },
+    {
+      "id": "O06",
+      "label": "形が通っても、時刻は未検証",
+      "mode": "import",
+      "input": {
+        "version": 1,
+        "kind": "automation",
+        "spec": {
+          "name": "読書会・週次メモ",
+          "trigger": {
+            "type": "cron",
+            "timezone": "Asia/Tokyo",
+            "schedule": "not-a-cron"
+          },
+          "enabled": false,
+          "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+          "model": null,
+          "timeout": 300,
+          "repository": "https://example.invalid/sakura/bookclub.git",
+          "branch": "demo",
+          "plugins": [],
+          "timezone": "Asia/Tokyo"
+        }
+      },
+      "note": "The parser only requires a nonempty schedule string; no scheduler or cron grammar validation runs."
+    },
+    {
+      "id": "O07",
+      "label": "持ち出せる参照先は先頭だけ",
+      "mode": "export-roundtrip",
+      "input": {
+        "id": "two-repositories",
+        "name": "2つの参照先を含む設定",
+        "trigger": {
+          "type": "cron",
+          "schedule": "0 9 * * 6",
+          "timezone": "Asia/Tokyo"
+        },
+        "enabled": false,
+        "prompt": "架空の読書会の準備メモを作成してください。未確定の予定は未確定と書き、公開や送信は行わず、下書きとして保存してください。",
+        "model": null,
+        "timeout": 300,
+        "repository": "https://example.invalid/sakura/bookclub.git",
+        "branch": "demo",
+        "plugins": [],
+        "timezone": "Asia/Tokyo",
+        "created_at": "2026-10-01T00:00:00Z",
+        "last_run": null,
+        "repositories": [
+          {
+            "url": "https://example.invalid/sakura/primary.git",
+            "ref": "release-demo"
+          },
+          {
+            "url": "https://example.invalid/sakura/secondary.git",
+            "ref": "extra-demo"
+          }
+        ]
+      },
+      "note": "Original serializer selects only first repositories entry; do not imply lossless two-repository backup."
+    },
+    {
+      "id": "O08",
+      "label": "タグや波かっこも、ただの文字",
+      "mode": "export-roundtrip",
+      "input": {
+        "id": "literal-text",
+        "name": "文字をそのまま保存",
+        "trigger": {
+          "type": "cron",
+          "schedule": "0 9 * * 6",
+          "timezone": "Asia/Tokyo"
+        },
+        "enabled": false,
+        "prompt": "「<script>alert(\"架空\")</script>」と {{form.repository}} と改行\nを、そのまま原稿の文字として保存する。実行・送信しない。",
+        "model": null,
+        "timeout": 300,
+        "repository": "https://example.invalid/sakura/bookclub.git",
+        "branch": "demo",
+        "plugins": [],
+        "timezone": "Asia/Tokyo",
+        "created_at": "2026-10-01T00:00:00Z",
+        "last_run": null
+      },
+      "note": "The original parser retains literal text. Viewer uses textContent; not a security or sanitization guarantee."
+    }
+  ]
+}

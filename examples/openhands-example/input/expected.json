@@ -1,0 +1,35 @@
+{
+  "case_count": 8,
+  "accepted_ids": [
+    "O01",
+    "O02",
+    "O04",
+    "O06",
+    "O07",
+    "O08"
+  ],
+  "rejected_ids": [
+    "O03",
+    "O05"
+  ],
+  "issue_substrings": {
+    "O03": [
+      "spec.trigger.schedule: required for a scheduled trigger"
+    ],
+    "O05": [
+      "version: expected 1",
+      "kind: expected \"automation\"",
+      "spec.trigger.type: expected one of",
+      "spec.enabled: expected a boolean",
+      "spec.timeout: expected a positive integer",
+      "spec.plugins: expected an array of non-empty strings"
+    ]
+  },
+  "repair_pair": [
+    "O03",
+    "O04"
+  ],
+  "non_grammar_validation": "O06",
+  "first_repository_only": "O07",
+  "literal_text": "O08"
+}

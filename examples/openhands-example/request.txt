@@ -1,0 +1,37 @@
+架空の自動化の設定を、固定版 OpenHands Agent Canvas の自動化ファイルの入出力APIで持ち運べる .automation.json に書き出し、原典の読み込み検査で形を確かめる作例を作ってください。実際に書き出したファイル・読み戻した結果・原典が返した誤りをそのまま JSON に保存し、スマホで読める日本語のページで、形が通ったか止まったか、誤りの理由、直した再確認、書き出しで落ちる項目を確かめられるようにしてください。
+
+読む原典（固定版 OpenHands/OpenHands e4775b4ba61a83ba80af5f7b0b826201b8e8ea05・Agent Canvas 1.27.1・MIT）
+・入出力API（serializeAutomation・getAutomationExportFilename・parseAutomationFile・AutomationFileValidationError）：https://github.com/OpenHands/OpenHands/blob/e4775b4ba61a83ba80af5f7b0b826201b8e8ea05/src/utils/automation-export.ts
+・ファイルの封筒（hasAutomationInterface・getImportExportSpec）：https://github.com/OpenHands/OpenHands/blob/e4775b4ba61a83ba80af5f7b0b826201b8e8ea05/src/manifests/automation-interface.ts
+・interface manifest の審査（validateInterfaceManifest）：https://github.com/OpenHands/OpenHands/blob/e4775b4ba61a83ba80af5f7b0b826201b8e8ea05/src/manifests/interface-validation.ts
+・依存の固定（@openhands/extensions 0.30.0・MIT）：https://github.com/OpenHands/OpenHands/blob/e4775b4ba61a83ba80af5f7b0b826201b8e8ea05/package-lock.json
+・LICENSE：https://github.com/OpenHands/OpenHands/blob/e4775b4ba61a83ba80af5f7b0b826201b8e8ea05/LICENSE
+
+入力（ここを差し替える。実行の前に固定し、結果を見てから変えない）
+・架空の設定：名前・きっかけ（cron の時刻か event の条件）・enabled・prompt・model・timeout・参照先・plugins・timezone。参照先は example.invalid のような取得されない架空のURLにし、実在のリポジトリ・認証情報・個人の予定は使わない
+・試し方：設定から書き出して読み戻す export-roundtrip と、ファイルをそのまま読む import。この作例では O01〜O08 の8件（毎週土曜9時の無効な設定・event の条件・時刻の欠けたファイルと時刻だけ戻したファイル・6つの不備・cron の形でない時刻・2つの参照先・タグや波かっこを含む文）
+・期待：形が通る件と止まる件、止まる件の理由の一部を、実行の前に別のファイルへ書く
+
+進め方
+1. 原典12ファイル・依存の29ファイル・ロック・入力の SHA-256（原典は Git blob も）を照合してから、Node 24 の型除去で原典の .ts をそのまま読み込む。npm の導入はしない。読み込みの補助は「#/」と原典内の拡張子なし相対 import を .ts へ、@openhands/extensions/automations を同梱した実物の index.js へ解決するだけにし、原典の関数や manifest を置き換えない
+2. hasAutomationInterface() が true になり、getImportExportSpec() が同梱パッケージの interface.json と同じであることを確かめる
+3. export-roundtrip では serializeAutomation で書き出し、getAutomationExportFilename で名前を付け、JSON の文字列にしてから parseAutomationFile で読み戻す。import では parseAutomationFile にそのまま渡し、通ったら書き出してもう一度読み戻す
+4. 止まったら AutomationFileValidationError の name・message・issues をそのまま残す。それ以外の例外が出たら止める
+5. 書き出しで外れた項目、event の条件、2つ目の参照先が落ちること、cron の形でない時刻が通ること、文がそのまま残ることを、実データから記録する
+6. 結果を得た後でだけ期待のファイルと照らし合わせる。すべての確認が通ったときだけ outputs/automation-runs.json と、形が通った件の outputs/exports/O01.automation.json などを1回書く。既にある記録は上書きしない。絶対パス・時刻・認証情報は書かない
+
+ページでできること
+・8件を選び、形が通ったか止まったか、原典の誤りの行とその読み方を先に読む。O03（時刻が無くて止まる）と O04（時刻だけ戻して通る）を行き来できる
+・O06（cron の形でない時刻でも形は通る）と O07（2つ目の参照先が落ちる）の注意を目立たせる
+・書き出したファイル・入力・1件の記録の JSON は折りたたみで全文を開ける
+・記録・入力・ロックを取得し、固定版・SHA-256・8件・確認の合否を照合してから表示する。合わなければ理由と「もう一度読み込む」だけを出す
+・形が通った件の .automation.json と、選んだ1件の記録を保存し、この依頼文をコピーする
+・320px幅のスマホから1280px幅のパソコンまで横スクロールなし。操作部品は44px以上、入力欄の文字は16px以上。外部のフォント・CDN・計測・AI の呼び出しは使わない
+
+書かないこと
+・形が通った件を、動く自動化・登録した予定・品質の点数として書かない
+・parseAutomationFile が通したことを、cron の正しさ・実行の時刻・安全性・内容の正しさの確認として書かない
+・書き出したファイルを、参照先が複数ある設定の完全な控えとして書かない
+・Agent Canvas のアプリやサーバー、エージェントやモデルの実行、予定の登録、Webhook の配信、リポジトリの取得、Cloud との連携を動かしたように書かない
+
+最後に、作ったファイル、実際に実行したコマンドとその結果、まだ確かめていない点を分けて書いてください。
