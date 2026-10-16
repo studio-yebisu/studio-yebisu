@@ -1,0 +1,194 @@
+{
+  "id": "motion-primitives-example",
+  "title": "Motion Primitives作例：検索結果の開閉を、動きを抑えても同じ文で読める形にする",
+  "title_lines": [
+    "Motion Primitivesで、",
+    "検索結果を、",
+    "小さく開く"
+  ],
+  "category": "motion",
+  "summary": "架空の手順書6件を検索し、Motion Primitivesの実際のAccordionで1件だけ開閉する作例です。動きを抑えても同じ本文を読め、現在の検索・開閉状態をJSONへ保存できます。",
+  "model": "claude-opus-5-5",
+  "status": "published",
+  "demo": "examples/motion-primitives-example/index.html",
+  "video": "media/motion-primitives-example.mp4",
+  "poster": "media/motion-primitives-example.webp",
+  "skill": "examples/motion-primitives-example/src/app.tsx",
+  "skill_label": "検索と開閉のReactソース",
+  "skill_description": "Agent Skill の SKILL.md や Markdown の手順書ではなく、この作例の実装そのものです。input/articles.json を読み込んで形を確かめ、NFKC と小文字にそろえた語の AND で6件を絞り、原典から写した Motion Primitives の Accordion・AccordionItem・AccordionTrigger・AccordionContent を expandedValue と onValueChange で制御します。OS とページの両方の動きの設定を見て transition を切り替え、今の表示を JSON で保存します。原典を写した部品は src/accordion.tsx です。",
+  "samples": "examples/motion-primitives-example/samples.json",
+  "sample_format": "input-output",
+  "samples_title": "検索・開閉・動きの設定ごとの、操作と画面の状態",
+  "samples_intro": "制作側で実際に行った操作と、その時の画面から読み取った結果12組です。デモを開いたら、各入力の操作を手動で試してください。HTTP503は制作時の検証サーバーで起こしたエラー、OSの動きを減らす設定はCDPでの模擬です。実際に保存した表示JSONも出典から開けます。",
+  "demo_description": "架空の手順書6件を検索して、Motion Primitives の Accordion で結果を開閉する画面です。「書き出し」で検索すると2件になり、1件を開く・別の1件に切り替える・閉じるを試せます。「動きを抑える」をオンにすると、同じ文と操作のまま開閉が0秒になり、OS の設定とページの設定のどちらで抑えているかも表示します。一致しない語ではリセットで全件に戻せます。今の表示を JSON で保存でき、入力データ・ソース・ライセンスを開け、依頼文もコピーできます。",
+  "demo_note": "検索と開閉は、開いたブラウザーの中でその場で動きます。手順書は保存済みの input/articles.json で、作例用に書いた架空の6件です。AI、サーバー検索、API、アカウントは使いません。",
+  "request_intro": "同じ作りを自分の画面で試すときの依頼文です。Motion Primitives の固定版を読めるAIエージェントや開発者に渡してください。手順書と検索の対象は自分のものに置き換えます。",
+  "request": "Motion Primitives（ibelick/motion-primitives 固定コミット 120f64f6ca60348e251f929e9c81f11ccbe45eda）の Accordion を使い、小さな検索ヘルプ画面に「検索結果を開いた場所が分かる小さな動き」を付けてください。検索や操作の邪魔をせず、動きを減らしても同じ文を読めることが条件です。\n\n入力：作例用に書いた架空のアプリ「しおり工房」の手順書6件（input/articles.json）。「書き出し」を含むのは「PDFを書き出す」と「画像を書き出す」の2件だけにします。\n\n部品：components/core/accordion.tsx と lib/utils.ts を写し、読み込み先の変更と、ボタン・パネルに id と aria 属性を渡す最小限の追加だけにする。npm パッケージとしては入れない。開く1件は Accordion の expandedValue と onValueChange でアプリ側の状態として持つ。React 18.3.1・motion 11.12.0 などの版を固定し、esbuild で1つのスクリプトにまとめる。\n\n画面：スマホ幅を基準に、検索欄と結果を最初に見せる。入力欄は16px以上、ボタンとリンクは44px以上。「検索」を押したときだけ結果を絞り、開いていた結果は閉じる。0件のときは全件に戻す操作を出す。見出しのボタンは aria-expanded と aria-controls を持ち、パネルは見出しで名前の付いた region にする。↑↓・Home・End で見出しの間を移動できる。\n\n動き：OSの「動きを減らす」設定か、ページの「動きを抑える」がオンなら開閉を0秒にし、文と操作は変えない。\n\n記録：今の検索語・一致したid・開いたid・動きの設定・表示中の手順書をJSONで保存できるようにする。原典と改変点、ビルドとブラウザーで実際にした操作、未確認の点を残し、約28秒の無音で編集できる動画を作る。\n",
+  "applied_skills": [
+    {
+      "name": "brief-to-demo",
+      "source": "skills/brief-to-demo/SKILL.md",
+      "applied": "掲載項目の依頼「既存の検索画面に結果の開閉アニメーションを1つ追加し、動きを減らす設定でも内容を読める」と、利用者の言葉「検索結果を開いた場所が分かる小さな動き。検索・操作の邪魔をせず、動きを減らしても読める」を、目的「6件を『書き出し』で2件に絞り、実際の Accordion で開く・切り替える・閉じるが、動きを抑えても同じ文と操作で成り立つことをブラウザーで確かめる」の一つに絞りました（brief.json）。カテゴリは motion です。既存の検索画面の代わりに架空のアプリ「しおり工房」の検索ヘルプを作ること、Tailwind をビルドせず部品が付ける3つのクラスだけを自前の CSS で定義すること、0.18秒は見た目の設定で測定値ではないことを assumptions に分けています。完了条件は、6件→2件、1件以下だけが開く、aria-expanded と aria-controls と region の対応、0件からのリセット、OS とページのどちらで動きを抑えても同じ文と操作、保存した JSON がその時の状態と一致、各画面幅で横スクロールなし、と実際の画面から書き出した約28秒の動画です。動画は「元の依頼 → 選んだ部品と作り → 実際の結果」で組む前提にしました。"
+    },
+    {
+      "name": "Motion Primitives（Accordion）",
+      "source": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/app/docs/accordion/page.mdx",
+      "applied": "部品集であり SKILL.md や npm パッケージではありません。固定版の README・LICENCE.md・app/docs/accordion/page.mdx（Component API と Manual の導入手順）・accordion-basic.tsx・accordion-variant.tsx と、components/core/accordion.tsx・lib/utils.ts のソースを読みました。Manual の手順どおり accordion.tsx を写し、cn の読み込み先を vendor の utils.ts に変え、AccordionTrigger に id・aria-controls（と包みから渡す value）、AccordionContent に id・role・aria-labelledby を通す追加と、AccordionItem の isValidElement に型を付ける変更だけを加えました。Provider の制御／非制御、toggleItem、MotionConfig transition、AnimatePresence initial={false}、height と opacity の variants は原典のままです。page.mdx の API にある expandedValue と onValueChange で開く1件をアプリ側で持ち、transition に通常 0.18秒 easeOut、動きを抑えるときは0秒を渡しています。AccordionItem は直接の子に value を差し込むため、見出しの h3 は包みのコンポーネントで受けて実際の AccordionTrigger に渡しています。制作側で型検査とビルド、原典の実部品を使う15操作状態を実行しました。入力6件→検索2件、開閉・切替・キー・全角/AND・0件/リセット・手動/OS模擬のreduce・JSON保存・503再試行を元入力とDOMと保存ファイルで照合。一般的なdivのaria-orientationは外しています。"
+    },
+    {
+      "name": "Motion Reel",
+      "source": "examples/motion-primitives-example/tools/motion-reel/render.mjs",
+      "applied": "実画面4枚と実際の検索・開閉・保存結果から、Opus5.5が編集できる28秒の無音動画を制作。840フレーム、代表/連続フレーム、別順と新ページで同時刻の描画一致、全デコードと実MP4の終端を確認しました。"
+    }
+  ],
+  "steps": [
+    {
+      "title": "架空の手順書を6件書く",
+      "body": "作例用のアプリ「しおり工房」の手順書を input/articles.json に書きました。準備・確認・整理・共有・書き出しの具体的な手順で、「書き出し」を含むのは「PDFを書き出す」と「画像を書き出す」の2件だけです。"
+    },
+    {
+      "title": "原典の Accordion を写す",
+      "body": "固定コミットの components/core/accordion.tsx と lib/utils.ts を vendor/motion-primitives/ に原文のまま保存（accordion.original.tsx・utils.ts）し、src/accordion.tsx に組み込みました。cn の読み込み先、ボタンとパネルへの id・aria 属性の受け渡し、型を補い、一般的なdivの aria-orientation は外しています。差分も同梱しています。"
+    },
+    {
+      "title": "押したときだけ検索する",
+      "body": "検索語と題名・分類・要約・本文・タグを NFKC と小文字にそろえ、空白で区切った語の AND で絞ります。入力中の語は「検索」を押すまで結果に反映せず、検索のたびに開いていた結果を閉じます。0件では全件に戻すボタンを出します。"
+    },
+    {
+      "title": "開く1件をアプリが持つ",
+      "body": "Accordion の expandedValue と onValueChange で、開いている id を React の状態にしました。見出しのボタンは aria-expanded と、開いているときだけ aria-controls を持ち、パネルはボタンで名前の付いた region です。見出しの間は ↑↓・Home・End でも移動できます。"
+    },
+    {
+      "title": "動きを抑えても同じ文にする",
+      "body": "OS の prefers-reduced-motion を開いている間も追い、ページの「動きを抑える」と合わせて、どちらかがオンなら transition を0秒にします。見出し・本文・タグ・操作は同じで、表示はどちらの設定で抑えているかを分けて示します。"
+    },
+    {
+      "title": "今の表示を保存する",
+      "body": "「この表示をJSONで保存」で、検索語・一致した id・開いている id・動きの設定・表示中の手順書を、その時の React の状態から作ってブラウザーのダウンロードに渡します。画面にも同じ状態を data 属性で出しています。"
+    }
+  ],
+  "limitations": [
+    "手順書は作例用に書いた架空の6件です。実在の製品やサービスの操作ではなく、大量の文書での検索の速さや精度は試していません。",
+    "検索は語の部分一致の AND だけです。表記ゆれ（「書出し」など）、同義語、順位付けには対応していません。",
+    "確かめる対象は Motion Primitives の Accordion 1つだけです。ほかの部品、ライブラリ全体、原典の CLI での導入は対象にしていません。",
+    "原典はベータとされているため、固定したコミットと依存の版（react 18.3.1・motion 11.12.0 ほか）での内容です。新しい版では API や動きが変わる可能性があります。",
+    "原典の部品は Tailwind CSS のクラスを前提にしています。この作例は Tailwind をビルドせず、部品が付ける relative・overflow-hidden・group だけを自前の CSS で定義しています。",
+    "開閉の0.18秒は見た目の設定です。応答時間や表示速度を測った値ではありません。",
+    "実機の iPhone Safari、VoiceOver などの読み上げソフト、ハードウェアの安全領域では確かめていません。",
+    "Windows IAB Chromiumで確認しました。OSのreduce設定はCDPで模擬したもので、実機iOSの設定やVoiceOverを確認した結果ではありません。自動照合と制作担当の視覚確認は人による審美的承認ではありません。"
+  ],
+  "sources": [
+    {
+      "label": "Motion Primitives（固定コミット 120f64f）",
+      "url": "https://github.com/ibelick/motion-primitives/tree/120f64f6ca60348e251f929e9c81f11ccbe45eda"
+    },
+    {
+      "label": "Motion Primitives README（固定版）",
+      "url": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/README.md"
+    },
+    {
+      "label": "Motion Primitives LICENCE.md（固定版）",
+      "url": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/LICENCE.md"
+    },
+    {
+      "label": "components/core/accordion.tsx（固定版）",
+      "url": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/accordion.tsx"
+    },
+    {
+      "label": "lib/utils.ts（固定版）",
+      "url": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/lib/utils.ts"
+    },
+    {
+      "label": "Accordion の説明と Component API（page.mdx・固定版）",
+      "url": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/app/docs/accordion/page.mdx"
+    },
+    {
+      "label": "accordion-basic.tsx（固定版）",
+      "url": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/app/docs/accordion/accordion-basic.tsx"
+    },
+    {
+      "label": "accordion-variant.tsx（固定版）",
+      "url": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/app/docs/accordion/accordion-variant.tsx"
+    },
+    {
+      "label": "実際の操作と結果",
+      "url": "examples/motion-primitives-example/outputs/operations.json"
+    },
+    {
+      "label": "日本語の実行メモ",
+      "url": "examples/motion-primitives-example/outputs/result.md"
+    },
+    {
+      "label": "実際に保存した表示状態",
+      "url": "examples/motion-primitives-example/outputs/downloaded-state.json"
+    },
+    {
+      "label": "元の入力6件",
+      "url": "examples/motion-primitives-example/input/articles.json"
+    },
+    {
+      "label": "原典からの変更差分",
+      "url": "examples/motion-primitives-example/vendor/motion-primitives/accordion-adapter.patch"
+    },
+    {
+      "label": "依存の固定版と表記",
+      "url": "examples/motion-primitives-example/dependency-versions.json"
+    },
+    {
+      "label": "実行と映像の確認範囲",
+      "url": "examples/motion-primitives-example/verification.json"
+    },
+    {
+      "label": "作例と動画のソース一式",
+      "url": "examples/motion-primitives-example/source.zip"
+    }
+  ],
+  "license": "MIT（作例）",
+  "license_note": "作例のコード・文章・架空の手順書は MIT License（Copyright (c) 2026 Studio Yebisu）。Motion Primitives は MIT License（Copyright (c) 2024 ibelick）で、写した accordion.tsx・utils.ts と LICENCE.md を vendor/motion-primitives/ に原文のまま置いています。画面のスクリプトに含まれる React・Motion・clsx・tailwind-merge などの依存パッケージは、それぞれのライセンスに従い、ライセンス文を vendor/dependency-licenses/ に同梱します。",
+  "skill_license": "examples/motion-primitives-example/vendor/motion-primitives/LICENCE.md",
+  "video_note": "28秒・720p・30fps・無音。実画面と実際の操作結果を使う編集動画です。連続操作の録画や開閉速度の計測ではありません。OSの動きを減らす設定はブラウザー内で模擬し、実機iOSは未確認です。",
+  "video_source": "examples/motion-primitives-example/video/index.html",
+  "updated_on": "2026-10-16",
+  "verification_stage": "runtime-reviewed",
+  "guide_url": "case.html?id=motion-primitives-example",
+  "catalog_entry": {
+    "id": "resource-motion-primitives",
+    "name": "Motion Primitives",
+    "category": "motion",
+    "kind": "ライブラリ",
+    "summary": "MotionとTailwind CSSを使った、動きのあるUI部品集。",
+    "use_case": "タブ切替、文字表示、状態変化などの小さな動きをWeb画面へ加えたいとき。",
+    "tags": [
+      "アニメーション",
+      "コード動画",
+      "ライブラリ"
+    ],
+    "workflow": [
+      "画面で伝えたい状態変化を選ぶ",
+      "対応する部品を対象のReact画面へ組み込む",
+      "操作と動きを減らす設定で表示を確認する"
+    ],
+    "requirements": [
+      "React と Motion の実行環境（この作例は react 18.3.1・motion 11.12.0 に固定し、esbuild で1つのスクリプトにまとめる）",
+      "部品のソースを写して読み込み先を直す形式。npm パッケージとしての導入、アカウント、APIキーは不要（原典の CLI での導入はこの作例では使っていない）",
+      "原典の部品は Tailwind CSS のクラスを前提にしている。Tailwind を使わない場合は、部品が付けるクラスを自分の CSS で定義する"
+    ],
+    "license": "MIT",
+    "license_url": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/LICENCE.md",
+    "license_note": "MIT。原典ではベータとされているため、使う部品と版を固定して確認します。",
+    "source_url": "https://github.com/ibelick/motion-primitives/tree/120f64f6ca60348e251f929e9c81f11ccbe45eda",
+    "guide_url": "case.html?id=motion-primitives-example",
+    "readme_url": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/README.md",
+    "source_repository": "ibelick/motion-primitives",
+    "source_commit": "120f64f6ca60348e251f929e9c81f11ccbe45eda",
+    "source_path": "",
+    "source_project": "curated",
+    "source_note": "固定原典とMITを確認し、実際のAccordionソースを写して必要な属性を補い、自作6件の検索画面で実行しました。変更差分と実入力・出力を残しています。",
+    "prompt": "Motion Primitives（ibelick/motion-primitives 固定コミット 120f64f6ca60348e251f929e9c81f11ccbe45eda）の Accordion を使い、小さな検索ヘルプ画面に「検索結果を開いた場所が分かる小さな動き」を付けてください。検索や操作の邪魔をせず、動きを減らしても同じ文を読めることが条件です。\n\n入力：作例用に書いた架空のアプリ「しおり工房」の手順書6件（input/articles.json）。「書き出し」を含むのは「PDFを書き出す」と「画像を書き出す」の2件だけにします。\n\n部品：components/core/accordion.tsx と lib/utils.ts を写し、読み込み先の変更と、ボタン・パネルに id と aria 属性を渡す最小限の追加だけにする。npm パッケージとしては入れない。開く1件は Accordion の expandedValue と onValueChange でアプリ側の状態として持つ。React 18.3.1・motion 11.12.0 などの版を固定し、esbuild で1つのスクリプトにまとめる。\n\n画面：スマホ幅を基準に、検索欄と結果を最初に見せる。入力欄は16px以上、ボタンとリンクは44px以上。「検索」を押したときだけ結果を絞り、開いていた結果は閉じる。0件のときは全件に戻す操作を出す。見出しのボタンは aria-expanded と aria-controls を持ち、パネルは見出しで名前の付いた region にする。↑↓・Home・End で見出しの間を移動できる。\n\n動き：OSの「動きを減らす」設定か、ページの「動きを抑える」がオンなら開閉を0秒にし、文と操作は変えない。\n\n記録：今の検索語・一致したid・開いたid・動きの設定・表示中の手順書をJSONで保存できるようにする。原典と改変点、ビルドとブラウザーで実際にした操作、未確認の点を残し、約28秒の無音で編集できる動画を作る。\n",
+    "verification_stage": "runtime-reviewed",
+    "verification": "固定版の実AccordionをReact18.3.1/Motion11.12.0で動かし、6件→2件、15操作状態と18画面状態、同じ本文/JSON保存/503復帰/実clipboard一致を照合。28秒無音動画を確認。OSreduceは模擬、実機iOSと他の部品は未確認。",
+    "reviewed_on": "2026-10-16",
+    "example_url": "examples/motion-primitives-example/index.html",
+    "image": "media/motion-primitives-example.webp"
+  }
+}

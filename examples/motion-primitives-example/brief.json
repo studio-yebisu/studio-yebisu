@@ -1,0 +1,55 @@
+{
+  "title": "しおり工房 検索ヘルプ：検索結果の開閉を、動きを抑えても読める形にする",
+  "request": "検索結果を開いた場所が分かる小さな動き。検索・操作の邪魔をせず、動きを減らしても読める",
+  "category": "motion",
+  "audience": "React の画面に小さな開閉の動きを足したい開発者・デザイナーと、それを AI エージェントに頼む人",
+  "goal": "6件の架空の手順書を「書き出し」で検索して2件に絞り、Motion Primitives の実際の Accordion で1件を開く・切り替える・閉じる操作が、動きを抑えても同じ文と操作で成り立つことを、ブラウザーで操作して確かめられるようにする",
+  "inputs": [
+    "input/articles.json：作例用に書いた架空のアプリ「しおり工房」の手順書6件（export-pdf・export-images・input-materials・review-comment・name-files・share-link）。「書き出し」を含むのは export-pdf と export-images の2件だけ",
+    "原典 ibelick/motion-primitives 固定コミット 120f64f6ca60348e251f929e9c81f11ccbe45eda の components/core/accordion.tsx と lib/utils.ts（制作側が vendor/motion-primitives/ に原文のまま保存）",
+    "固定した依存：react 18.3.1・react-dom 18.3.1・motion 11.12.0・framer-motion 11.12.0・clsx 2.1.1・tailwind-merge 2.6.0、ビルドは esbuild"
+  ],
+  "skill_refs": [
+    "skills/brief-to-demo/SKILL.md",
+    "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/accordion.tsx",
+    "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/app/docs/accordion/page.mdx",
+    "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/app/docs/accordion/accordion-basic.tsx",
+    "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/app/docs/accordion/accordion-variant.tsx",
+    "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/LICENCE.md"
+  ],
+  "deliverables": [
+    "index.html と assets/app.js：ブラウザー内で検索と開閉をする静的な画面（サーバー検索・AIなし）",
+    "src/accordion.tsx：原典の Accordion を写し、読み込み先と id・aria 属性の受け渡しだけを加えたもの",
+    "src/app.tsx：検索・制御された開閉・動きの設定・JSON保存の React ソース",
+    "README.md と request.txt",
+    "約28秒の無音の動画と、その編集できる元ページ（制作側が実際の画面から作る）"
+  ],
+  "steps": [
+    "6件の手順書を JSON に書き、「書き出し」が2件だけに含まれることを確かめる",
+    "原典の accordion.tsx を写し、cn の読み込み先を vendor の utils.ts に変え、ボタンに id・aria-controls、パネルに id・role・aria-labelledby を渡せるようにする",
+    "input/articles.json を同じサイトから読み込み、形を確かめてから表示する。失敗したら理由と再読み込みを出す",
+    "「検索」を押したときだけ、NFKC と小文字にそろえた語の AND で、題名・分類・要約・本文・タグを絞る",
+    "Accordion の expandedValue と onValueChange で開く1件を持ち、検索のたびに閉じる",
+    "OSの動きを減らす設定と、ページの「動きを抑える」のどちらかで、開閉の transition を0秒にする",
+    "今の表示を JSON で保存できるようにし、制作側が実際のブラウザーで操作して状態を記録する",
+    "記録した実際の画面から「元の依頼 → 選んだ部品と作り → 実際の結果」の順に約28秒の動画を組む"
+  ],
+  "acceptance": [
+    "読み込み後に6件が並び、「書き出し」で検索すると export-pdf と export-images の2件だけになり、件数の表示も2件になる",
+    "1件目の見出しを押すと本文が開き、2件目を押すと1件目が閉じて2件目が開き、同じ見出しをもう一度押すと閉じる。開いているのは常に1件以下",
+    "見出しのボタンの aria-expanded が開閉に合わせて変わり、aria-controls が表示中のパネルの id を指し、パネルは見出しで名前の付いた region になる",
+    "一致しない語では0件と全件に戻すボタンが出て、リセットで6件と空の検索欄に戻る",
+    "「動きを抑える」をオンにしても、OSの設定で動きを減らしても、同じ見出し・本文・タグ・操作が出て、開閉は0秒で切り替わる。表示はOSとページのどちらの設定かを分けて示す",
+    "「この表示をJSONで保存」で、検索語・一致したid・開いたid・動きの設定・表示中の手順書が、その時の状態どおりに保存される",
+    "320・375・390・430px の縦向き、横向き、1280px で横スクロールが出ず、入力欄は16px以上、ボタンは44px以上ある",
+    "約28秒の無音の動画が、実際の画面の操作から書き出されている"
+  ],
+  "assumptions": [
+    "既存の検索画面の代わりに、作例用の架空のアプリ「しおり工房」の小さな検索ヘルプを作る。手順書の文も作例のために書いたもので、実在の製品の操作ではない",
+    "Motion Primitives は npm パッケージや Agent Skill ではなく、部品のソースを写して使う部品集として扱う。原典の CLI での導入は使わない",
+    "原典の部品は Tailwind CSS のクラスを前提にしているが、この作例は Tailwind をビルドせず、部品が付ける relative・overflow-hidden・group だけを自前の CSS で定義する",
+    "開閉の 0.18 秒（easeOut）は見た目の設定で、測った応答時間や性能の値ではない",
+    "原典はベータとされているため、コミットと依存の版を固定する。ほかの部品やライブラリ全体は対象にしない",
+    "実機の iPhone Safari と読み上げソフトでの確認は、この作例の範囲に含めない"
+  ]
+}

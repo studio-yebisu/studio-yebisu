@@ -1,0 +1,98 @@
+--- a/vendor/motion-primitives/accordion.original.tsx
++++ b/src/accordion.tsx
+@@ -7,7 +7,7 @@
+   Variant,
+   MotionConfig,
+ } from 'motion/react';
+-import { cn } from '@/lib/utils';
++import { cn } from '../vendor/motion-primitives/utils';
+ import React, { createContext, useContext, useState, ReactNode } from 'react';
+ 
+ export type AccordionContextType = {
+@@ -84,7 +84,7 @@
+ }: AccordionProps) {
+   return (
+     <MotionConfig transition={transition}>
+-      <div className={cn('relative', className)} aria-orientation='vertical'>
++      <div className={cn('relative', className)}>
+         <AccordionProvider
+           variants={variants}
+           expandedValue={expandedValue}
+@@ -103,6 +103,12 @@
+   className?: string;
+ };
+ 
++// Studio Yebisu: the props AccordionItem injects into each child, typed for strict TypeScript.
++type AccordionItemInjectedProps = {
++  value?: React.Key;
++  expanded?: boolean;
++};
++
+ function AccordionItem({ value, children, className }: AccordionItemProps) {
+   const { expandedValue } = useAccordion();
+   const isExpanded = value === expandedValue;
+@@ -113,7 +119,7 @@
+       {...(isExpanded ? { 'data-expanded': '' } : {'data-closed': ''})}
+     >
+       {React.Children.map(children, (child) => {
+-        if (React.isValidElement(child)) {
++        if (React.isValidElement<AccordionItemInjectedProps>(child)) {
+           return React.cloneElement(child, {
+             ...child.props,
+             value,
+@@ -129,11 +135,17 @@
+ export type AccordionTriggerProps = {
+   children: ReactNode;
+   className?: string;
++  // Studio Yebisu: id / aria-controls for the button, and the value a wrapper forwards.
++  id?: string;
++  'aria-controls'?: string;
++  value?: React.Key;
+ };
+ 
+ function AccordionTrigger({
+   children,
+   className,
++  id,
++  'aria-controls': ariaControls,
+   ...props
+ }: AccordionTriggerProps) {
+   const { toggleItem, expandedValue } = useAccordion();
+@@ -145,6 +157,8 @@
+       onClick={() => value !== undefined && toggleItem(value)}
+       aria-expanded={isExpanded}
+       type='button'
++      id={id}
++      aria-controls={ariaControls}
+       className={cn('group', className)}
+       {...(isExpanded ? { 'data-expanded': '' } : {'data-closed': ''})}
+     >
+@@ -156,11 +170,18 @@
+ export type AccordionContentProps = {
+   children: ReactNode;
+   className?: string;
++  // Studio Yebisu: lets the panel be a region labelled by its trigger.
++  id?: string;
++  role?: React.AriaRole;
++  'aria-labelledby'?: string;
+ };
+ 
+ function AccordionContent({
+   children,
+   className,
++  id,
++  role,
++  'aria-labelledby': ariaLabelledBy,
+   ...props
+ }: AccordionContentProps) {
+   const { expandedValue, variants } = useAccordion();
+@@ -186,6 +207,9 @@
+           exit='collapsed'
+           variants={combinedVariants}
+           className={className}
++          id={id}
++          role={role}
++          aria-labelledby={ariaLabelledBy}
+         >
+           {children}
+         </motion.div>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>28秒の解説動画の元ページ — しおり工房 検索ヘルプ（Motion Primitives 作例）</title>
+<link rel="stylesheet" href="video.css">
+</head>
+<body>
+<header class="intro">
+  <p class="eyebrow">Studio Yebisu · Motion Primitives 作例</p>
+  <h1>探して、ひとつ開く。28秒の解説動画の元ページ</h1>
+  <p>6件の架空の手順書を「書き出し」で2件に絞り、原典の Accordion で1件を開いて切り替え、動きを抑えても同じ本文が残り、その状態を JSON で保存するまでを、実画面のキャプチャと実際の記録から組み直した無音の映像です。続けて録画したものではありません。</p>
+</header>
+
+<figure class="stage">
+  <canvas id="film" width="1280" height="720" tabindex="0" role="img"
+    aria-label="解説動画の画面。左に6件の手順書カード、右に実画面の切り抜き。検索で2件に絞り、PDFの手順書を開き、画像の手順書へ切り替え、動きを抑えても同じ本文が出ること、保存したJSONの中身を順に示します。"></canvas>
+  <figcaption>架空の手順書・実画面からの編集・無音。画面の切り替えは編集によるもので、実際の開閉の速さを写したものではありません。</figcaption>
+</figure>
+
+<section class="controls" aria-label="再生の操作">
+  <button id="play" type="button" aria-pressed="false" disabled>再生</button>
+  <div class="scrub">
+    <label for="time">再生位置（0〜28秒）</label>
+    <input id="time" type="range" min="0" max="28" step="0.1" value="0" disabled aria-describedby="keys">
+  </div>
+  <output id="clock" for="time">0.0秒 / 28.0秒</output>
+</section>
+<p id="keys" class="hint">画面か本文にフォーカスがあるとき：Space で再生／一時停止、Home・End で先頭・末尾、PageUp・PageDown で2秒ずつ移動。スライダーでは ← → で0.1秒ずつ動きます。</p>
+<p id="status" class="status" role="status" data-state="loading">素材を読み込んでいます…</p>
+
+<section class="scenes" aria-labelledby="scenes-title">
+  <h2 id="scenes-title">場面</h2>
+  <ol>
+    <li><span class="time">0〜4秒</span> 依頼と、6件の手順書。最初の実画面（スマホ幅）。</li>
+    <li><span class="time">4〜8秒</span> 「書き出し」で検索すると、6件が2件に。</li>
+    <li><span class="time">8〜14秒</span> 原典の Accordion で PDF の1件だけを開く（expandedValue = "export-pdf"）。</li>
+    <li><span class="time">14〜18秒</span> 画像の見出しを押すと、開く1件が切り替わる。</li>
+    <li><span class="time">18〜23秒</span> 通常・ページの設定・OS の設定（CDPで模擬）で、同じ2段落。0秒は設定値です。</li>
+    <li><span class="time">23〜28秒</span> 保存した JSON の抜粋と、試す順番「検索 → 開閉 → JSON保存」。</li>
+  </ol>
+</section>
+
+<nav class="links" aria-label="関連するファイル">
+  <h2>関連するファイル</h2>
+  <ul>
+    <li><a href="../index.html">デモを開く（実際に検索・開閉できる画面）</a></li>
+    <li><a href="../../../case.html?id=motion-primitives-example">記事を読む（完成した動画と確認範囲）</a></li>
+    <li><a href="../render.py">書き出しの手順（render.py）</a></li>
+    <li><a href="storyboard.json">場面の設計（storyboard.json）</a></li>
+    <li><a href="README.md">この映像の説明（README.md）</a></li>
+    <li><a href="../input/articles.json">入力データ（input/articles.json）</a></li>
+    <li><a href="../outputs/operations.json">操作の記録（outputs/operations.json）</a></li>
+  </ul>
+</nav>
+
+<footer class="foot">
+  <p>プレビューとMP4は別の成果物です。完成版と確認範囲は記事を参照。</p>
+  <p>映像のコードと文章：MIT License, Copyright (c) 2026 Studio Yebisu。画面内の部品は Motion Primitives（MIT License, Copyright (c) 2024 ibelick）を写して改変したものです。</p>
+</footer>
+
+<script src="video.js"></script>
+</body>
+</html>

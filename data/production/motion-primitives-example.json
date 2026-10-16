@@ -1,0 +1,579 @@
+{
+  "id": "motion-primitives-example",
+  "verified_at": "2026-10-16T09:08:18.270610+00:00",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "receipts": [
+      {
+        "phase": "implement",
+        "receipt_sha256": "c2189bdbbb046d430150c04e7df9729d19781292d817b6c335bf39501caf96c0",
+        "execution_sha256": "363b10c8b027329761786fe73deb4d0dd4d2e55cd2cdef87d7c81c2fc52a68e7",
+        "prompt_sha256": "7aa1ba512dbc296ea05f88c13c084e8fdf270083794909a4ebc064cd82677fc0"
+      },
+      {
+        "phase": "video",
+        "receipt_sha256": "55bcbf634e8a2b0f331a60459fd8fdb05955c88df94583a702e8877bc3e478bc",
+        "execution_sha256": "4d56b931842b4165af46168a2243a72d67b7a31825043a874843815a48423f01",
+        "prompt_sha256": "7dfa35facc8c676888c431929668f4c8e4909f570c7b69f36f0f729fd3638a68"
+      }
+    ],
+    "receipt_published": false
+  },
+  "upstream": {
+    "repository": "ibelick/motion-primitives",
+    "commit": "120f64f6ca60348e251f929e9c81f11ccbe45eda",
+    "license": "MIT",
+    "archive_sha256": "a67b0968c29db21c6b5bc314006ab74b2474c65cee9079c985303c84474c9bc1",
+    "files_sha256": {
+      "accordion-basic.tsx": "f599cc966f9702df0a54278763d16bdddbf48fdbff4ef669e8ab8084a4e8947a",
+      "accordion-docs.mdx": "937ecde7a7c0133d136074fe75d78593ecb2937e3448f55fd099efbb120fc6f1",
+      "accordion-variant.tsx": "16d4cfa4f906598917e1f0b8c6ae33611eb3fce8baa2889636f905904c911c3a",
+      "accordion.original.tsx": "5de8206a53d083d3c5d4503fc4d203efaed734ea904de4fd77b33c1ebc991b7c",
+      "LICENCE.md": "f668f5ef3635eb906f10b1eea9a32e449eb6e1a183ab6879ef6d56c0980dd2f3",
+      "README.md": "104fe086b717c6e68274965445d49e7b433b5ec5e0c13bc9056804e74e39d69a",
+      "utils.ts": "9304a861c8673bee09e0f12de31773abbde503b02e59dfd74763ddec2e37cf05"
+    },
+    "usage": "Actual copied-and-adapted Accordion component; vendor originals preserved byte-for-byte. Adapter diff and runtime bundle metadata recorded after model delivery."
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 12,
+    "scope": "6fictional original guides; local browser search/open/switch/close/reset/download and controlled503retry, not a full library or physicaliOS audit.",
+    "human_approval": false
+  },
+  "verification": {
+    "id": "motion-primitives-example",
+    "verified_at": "2026-10-16T09:08:17.873880+00:00",
+    "stage": "runtime-and-agent-visual-reviewed",
+    "source_commit": "120f64f6ca60348e251f929e9c81f11ccbe45eda",
+    "data_checks": {
+      "status": "passed",
+      "checked_at": "2026-10-16T08:40:41.455309+00:00",
+      "input_records": 6,
+      "search_results": 2,
+      "sample_count": 12,
+      "native_states": 15,
+      "input_sha256": "de566f099b82a5bf7e192d913e76d140fbc46564a1a386c185845f5880104771",
+      "download_matches_input_and_visible_state": true,
+      "same_body_under_normal_manual_and_os_reduce": true,
+      "os_reduced_motion_emulated": true,
+      "actual_upstream_accordion_executed": true,
+      "AI_or_backend_used": false,
+      "scope": "6fictional original guides; local browser search/open/switch/close/reset/download and controlled503retry, not a full library or physicaliOS audit.",
+      "human_approval": false
+    },
+    "environment": {
+      "versions": {
+        "python": "Python 3.13.7",
+        "node": "v24.18.0",
+        "npm": "11.16.0",
+        "ffmpeg": "ffmpeg version 8.1.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers"
+      },
+      "upstream_runtime_versions_matched": true,
+      "runtime_packages": 10,
+      "build_platform": "Windows",
+      "physical_ios_tested": false
+    },
+    "build": {
+      "checked_at": "2026-10-16T08:32:17.238919+00:00",
+      "typecheck_exit": 0,
+      "build_exit": 0,
+      "bundle_bytes": 300658,
+      "bundle_sha256": "ad850327f6fc235b43f7314abf2240b3bb620c01f80b53c50d44d7ed43a629b3",
+      "source_files_sha256": {
+        "src/app.tsx": "78d6af8756985a6855f22154e950a9b7f7549eb539fab4ded76ce4203d67015e",
+        "src/accordion.tsx": "f15dbb7ca6e5866b145aa4f2ed532a5d0c5cd78d876397e7157ffe8af79b3eb3",
+        "input/articles.json": "de566f099b82a5bf7e192d913e76d140fbc46564a1a386c185845f5880104771",
+        "vendor/motion-primitives/utils.ts": "9304a861c8673bee09e0f12de31773abbde503b02e59dfd74763ddec2e37cf05",
+        "package.json": "380950f70a53ef530a1040ed8bbcb24d4754f40385867a398234d56f86257d45",
+        "package-lock.json": "79d7c77cad8eb735fa916fcc7963bed7a588772ae8599bded839103d47a3ef07",
+        "tsconfig.json": "a6f50a7b3bc14bc9d42d69578eec8a2f148ecc100235c1d4afb5f2f02a3a33cc",
+        "build.mjs": "a1bf436afb6ba57734a97b5ac2ad4b1c0b951873f84b24a093ab9b65414454e5"
+      },
+      "bundle_inputs": 347,
+      "actual_modules": {
+        "motion": true,
+        "react": true,
+        "actual_adapted_accordion": true,
+        "framer_motion_embedded_in_motion": true,
+        "standalone_framer_motion_package": false
+      },
+      "runtime_executed": true,
+      "bundle_note": "motion11.12.0 distributes the imported Framer Motion implementation inside its own dist/es/framer-motion path. The separately locked framer-motion package is installed but not imported into this bundle."
+    },
+    "browser": {
+      "status": "passed",
+      "verified_at": "2026-10-16T08:43:26.513048+00:00",
+      "native_operations": 15,
+      "responsive_states": 18,
+      "widths": [
+        320,
+        375,
+        390,
+        430,
+        844,
+        1280
+      ],
+      "page_horizontal_overflow": false,
+      "minimum_primary_target_px": 44,
+      "minimum_input_font_px": 16,
+      "keyboard": [
+        "Enter",
+        "Space",
+        "Home",
+        "End",
+        "ArrowDown",
+        "ArrowUp"
+      ],
+      "keyboard_focus_outline_px": 3,
+      "os_reduce_emulated_via_CDP": true,
+      "media_emulation_reset": true,
+      "same_original_body_under_three_modes": true,
+      "controlled503_retry": true,
+      "clipboard_readback_matches": true,
+      "JSON_download_matches_input_and_state": true,
+      "screens": [
+        {
+          "name": "phone",
+          "file": "phone.png",
+          "sha256": "cd55ec9d08ee2d789f33728b24892742eae3d3247952b41e4f6c9fc426f02461",
+          "pixels": [
+            375,
+            812
+          ],
+          "capture_viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "state": {
+            "query": "",
+            "rows": 6,
+            "scrollY": 0
+          },
+          "same_pixel_conversion": true
+        },
+        {
+          "name": "search",
+          "file": "search.png",
+          "sha256": "dadfdc3cf639896c7d2722fa6535a1f212e3838845f5ac6b4541bffd041bd095",
+          "pixels": [
+            1265,
+            889
+          ],
+          "capture_viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "state": {
+            "query": "書き出し",
+            "results": {
+              "height": 435.859375,
+              "width": 768,
+              "x": 248.5,
+              "y": 588.34375
+            },
+            "rows": 2,
+            "scrollY": 0
+          },
+          "same_pixel_conversion": true
+        },
+        {
+          "name": "pdf",
+          "file": "pdf.png",
+          "sha256": "a58aeb709a8bc507d1a89201a2eef8da3c7bcf6cd857a451d808d42e79333995",
+          "pixels": [
+            1265,
+            2023
+          ],
+          "capture_viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "state": {
+            "body": [
+              "「ファイル」メニューの「書き出し」から「PDF」を選びます。印刷に回すときは「塗り足し3mmを含める」をオンにし、画面で読んでもらうだけなら「見開きでまとめる」を選ぶと、閲覧アプリで本のようにめくれます。",
+              "作る前に「ページ範囲」を確かめてください。表紙だけ差し替えるときは「1」、本文だけなら「2-」と入力します。できたPDFは作業ファイルと同じフォルダーに、日付の付いた名前で保存されます。"
+            ],
+            "expanded": "export-pdf",
+            "query": "書き出し",
+            "row": {
+              "height": 289.640625,
+              "width": 768,
+              "x": 256,
+              "y": 626.84375
+            },
+            "scrollY": 0
+          },
+          "same_pixel_conversion": true
+        },
+        {
+          "name": "images",
+          "file": "images.png",
+          "sha256": "872d021f27e7ee8dbbd9a9316ef35d63fc49f42726c1d58a9e6512320897de7d",
+          "pixels": [
+            1265,
+            2023
+          ],
+          "capture_viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "state": {
+            "body": [
+              "「ファイル」メニューの「書き出し」から「画像」を選び、形式を決めます。文字や線が多いページはPNG、写真が中心のページはJPEGにすると、にじみとファイルの重さのつり合いを取りやすくなります。",
+              "「長辺のピクセル数」で大きさをそろえます。告知用なら1600、確認用の小さな見本なら800が目安です。複数のページを選ぶと、ページ番号の付いた画像が1つのフォルダーにまとめて保存されます。"
+            ],
+            "expanded": "export-images",
+            "query": "書き出し",
+            "row": {
+              "height": 289.640625,
+              "width": 768,
+              "x": 256,
+              "y": 741.828125
+            },
+            "scrollY": 0
+          },
+          "same_pixel_conversion": true
+        }
+      ],
+      "agent_visual_review": true,
+      "human_approval": false,
+      "physical_iOS_tested": false,
+      "screenreader_tested": false,
+      "visual_scope": "Inspected actual390px firstscreen (search and two resultcards visible after compactcopy), desktopsearch andfullpagePDF/images screens. No clippedlabels oroverlappingcontent observed. Nativebodyparagraphs independentlymatchinput. Actualscreenshotpixels differ from requestedbrowserviewport duebrowsercapturearea; manifestrecordsactualpixels."
+    },
+    "semantic_review": {
+      "reviewed_at": "2026-10-16T08:45:22.129847+00:00",
+      "agent_semantic_review": true,
+      "human_approval": false,
+      "unresolved_blockers": [],
+      "findings": [
+        "Viewer clearlylabels fictionalguides; realexecutionissixrecordlocalbrowsersearch/accordion, notthefictionalPDFexportproduct.",
+        "Actualrecordbodymatchesoriginalsixrecordfixture; Normal/manualreduce/OSreduceemulationshowidenticalPDFparagraphs.",
+        "Nativequery6→2/open/switch/close/keys/NFKC/AND/empty/reset/export and503retry; clipboardreadbackmatch.",
+        "Upstreamoriginals/notice and10dependencylicenses preserved; actualadapter usesMotionPackage11.12.0 withitsFramerMotionimplementation; nofakeAPIlogs.",
+        "OSpreferencewasCDPemulatedper-tabandreset;physicaliOS/VoiceOver/hardwareSafeAreaunverified.",
+        "Reviewedcontactof4actualscreens; Phone390searchstart225px/results497px, beforepolish379/698px. Humanartisticapprovalnotclaimed."
+      ]
+    },
+    "video": {
+      "video_sha256": "8281f3b565322dd9646f1620bbcaa447165bc4e5e745b5f22a0bb3b314ef45dd",
+      "poster_sha256": "27a98844ff26fe79f8c7f39fc3a14f5c9dd5c83c215150765e1b38cd8be54a22",
+      "poster_from_mp4_seconds": 13.5,
+      "full_decode_passed": true,
+      "review_files": [
+        "contact.png",
+        "poster.png",
+        "strip.png",
+        "stills/frame-000000.png",
+        "stills/frame-000001.png",
+        "stills/frame-000002.png",
+        "stills/frame-000003.png",
+        "stills/frame-000004.png",
+        "stills/frame-000005.png",
+        "stills/frame-000006.png",
+        "stills/frame-000007.png",
+        "stills/frame-000008.png",
+        "stills/frame-000009.png",
+        "stills/frame-000010.png",
+        "stills/frame-000011.png",
+        "stills/frame-000012.png",
+        "stills/frame-000013.png",
+        "cut-01.png",
+        "cut-02.png",
+        "cut-03.png",
+        "cut-04.png",
+        "cut-05.png",
+        "final.png"
+      ],
+      "render_label": "final-v1",
+      "bundled_renderer_executed": true,
+      "reviewed_at": "2026-10-16T09:08:17.764035+00:00",
+      "agent_visual_review": true,
+      "human_approval": false,
+      "native_playback": {
+        "duration": 28,
+        "ended": true,
+        "error": null,
+        "paused": true,
+        "ready": 4,
+        "time": 28,
+        "first_observed_seconds": 0,
+        "initial_paused": true,
+        "initial_ready_state": 0,
+        "no_manual_seek": true
+      },
+      "source_editor": {
+        "client": 360,
+        "play_enabled": true,
+        "position": 14,
+        "range_font": "16px",
+        "range_height": 44,
+        "scroll": 360,
+        "active_button": "一時停止",
+        "paused_button": "再生"
+      },
+      "determinism": {
+        "frame": 504,
+        "seconds": 16.8,
+        "first": "81ea2b58d7123bf2432988b721c8c00ca5fc2a0420be3075c68ad834228e0937",
+        "afterOtherTimes": "81ea2b58d7123bf2432988b721c8c00ca5fc2a0420be3075c68ad834228e0937",
+        "freshPage": "81ea2b58d7123bf2432988b721c8c00ca5fc2a0420be3075c68ad834228e0937",
+        "match": true
+      },
+      "audio": "silent; no audio track",
+      "unresolved_blockers": [],
+      "review_scope": [
+        "Inspected14frame contact, full12sposter,20sreducepanel/actualfirstparagraphhighlight,26ssaveJSON+phone,finalMP4frame; dataandcroppedactualscreensmatchobservednativebody/IDs.",
+        "Inspectedsource12framestrip13.9 andfiveactualMP412framestrips3.85/7.85/13.85/17.85/22.85. Screenscrossfadeandslidewithpersistentleftsourcecards/count/footer; nofullframeflash oraccumulatedclipobserved.",
+        "Reducepanel explicitlylabels0.18s and0s assettings andOSasCDPemulation. Screenshotisnormalmodebodycrop, captionmakesitclear; sameparagraphverifiedfrom3actualstates.",
+        "Phoneinitialscreen islabelledinitialdisplay; savedJSONactuallyhasmanualreduce=true. Filmdoesnotclaimcontinuousrecordingoractualcomponenttiming.",
+        "FinalframeholdsJSONand3stepCTA; labelsfit; briefcontentfadesretaincontext.",
+        "NativeMP4loadedat0/paused/ready0 andsubsequentlyadvancedto28/ended/ready4/errornullwithoutmanualseek.",
+        "375pxeditor rootfits,44pxrangefont16, nativeHome+7PageUp→14; buttonlabelnowPausewhileplaying/Playpaused.",
+        "Agentframeinspectionandtechnicalchecksarenothumanaestheticapproval."
+      ],
+      "remaining": [
+        "PhysicaliOS/Safari/VoiceOver, otheraspectratios andhumanartisticapproval untested."
+      ]
+    },
+    "motion_reel": {
+      "name": "Motion Reel",
+      "files_sha256": {
+        "render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+        "audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+        "package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+        "package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+        "LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd"
+      },
+      "license": "MIT",
+      "source": "https://github.com/studio-yebisu/awesome-claude-motion-design-ja",
+      "runtime_use": "Editable local HTML/canvas composition rendered by bundled local Chromium/FFmpeg tool. Not a generated live UI."
+    },
+    "parent_adjustments": {
+      "updated_at": "2026-10-16T08:37:41.148554+00:00",
+      "changes": [
+        "Shortened hero, search help and effective-motion status so results appear earlier on phones; retained full explanation below.",
+        "Removed aria-orientation from the generic accordion div; retained actual upstream state/motion implementation.",
+        "Collected all10 installed runtime dependency notices; bundle metadata identifies actual included modules.",
+        "Video editor play button now says Pause while playing, matching the actual aria-pressed state; render-only canvas/timeline unchanged."
+      ],
+      "before_sha256": {
+        "src/app.tsx": "0aab0056c3d7608916355bb9c356d8845e6eeba1f604db728dab7955f2ec1622",
+        "src/accordion.tsx": "65ddd2de40c3d949a88395811be4edb85caf6bbe7804b22aa2ee6af7a679e45b"
+      },
+      "after_sha256": {
+        "src/app.tsx": "78d6af8756985a6855f22154e950a9b7f7549eb539fab4ded76ce4203d67015e",
+        "src/accordion.tsx": "f15dbb7ca6e5866b145aa4f2ed532a5d0c5cd78d876397e7157ffe8af79b3eb3"
+      },
+      "upstream_and_original_input_changed": false,
+      "human_approval": false,
+      "video_editor_label_patch": {
+        "before_sha256": "e39dc61d9397f955ca64100d82ef6e6855fdbf2297123fc05924483ada6825cd",
+        "after_sha256": "35849f8790261381241a3a53d58940a2417938dec34b28d35aca11555a45c488"
+      }
+    },
+    "human_approval": false,
+    "production_contributions": {
+      "Opus5.5": "Read and applied brief-to-demo, fixed upstream component API and MotionReel; delivered original6guidefixture, liveReactsearch/actualAccordionadapter, Japaneseguide andeditable28secondfilm. Completed exactmodel receipts cover retained source review and final delivery.",
+      "production_editor": "Preserved interrupted partialdelivery privately, verified successful exactmodel receipt, bundled realReact/Motion runtime with licenses, compactedphonelayout, executed actualnativebrowseroperations, comparedinput/DOM/download/normal+reducedmodes, reviewedactualfilm andscopedpublication.",
+      "publication_additions": "After render, only rootREADME/currentQA, demoMP4section, verification, ZIP and publicarticle/proof are added. Five rendered video source files and film data/screens are preserved."
+    }
+  },
+  "explanation": {
+    "video": {
+      "file": "video.mp4",
+      "sha256": "8281f3b565322dd9646f1620bbcaa447165bc4e5e745b5f22a0bb3b314ef45dd",
+      "width": 1280,
+      "height": 720,
+      "fps": 30,
+      "frameCount": 840,
+      "duration": 28,
+      "hasAudio": false
+    },
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "81ea2b58d7123bf2432988b721c8c00ca5fc2a0420be3075c68ad834228e0937",
+      "afterOtherTimes": "81ea2b58d7123bf2432988b721c8c00ca5fc2a0420be3075c68ad834228e0937",
+      "freshPage": "81ea2b58d7123bf2432988b721c8c00ca5fc2a0420be3075c68ad834228e0937",
+      "match": true
+    },
+    "errors": [],
+    "blockedExternalRequests": []
+  },
+  "video_review": {
+    "video_sha256": "8281f3b565322dd9646f1620bbcaa447165bc4e5e745b5f22a0bb3b314ef45dd",
+    "poster_sha256": "27a98844ff26fe79f8c7f39fc3a14f5c9dd5c83c215150765e1b38cd8be54a22",
+    "poster_from_mp4_seconds": 13.5,
+    "full_decode_passed": true,
+    "review_files": [
+      "contact.png",
+      "poster.png",
+      "strip.png",
+      "stills/frame-000000.png",
+      "stills/frame-000001.png",
+      "stills/frame-000002.png",
+      "stills/frame-000003.png",
+      "stills/frame-000004.png",
+      "stills/frame-000005.png",
+      "stills/frame-000006.png",
+      "stills/frame-000007.png",
+      "stills/frame-000008.png",
+      "stills/frame-000009.png",
+      "stills/frame-000010.png",
+      "stills/frame-000011.png",
+      "stills/frame-000012.png",
+      "stills/frame-000013.png",
+      "cut-01.png",
+      "cut-02.png",
+      "cut-03.png",
+      "cut-04.png",
+      "cut-05.png",
+      "final.png"
+    ],
+    "render_label": "final-v1",
+    "bundled_renderer_executed": true,
+    "reviewed_at": "2026-10-16T09:08:17.764035+00:00",
+    "agent_visual_review": true,
+    "human_approval": false,
+    "native_playback": {
+      "duration": 28,
+      "ended": true,
+      "error": null,
+      "paused": true,
+      "ready": 4,
+      "time": 28,
+      "first_observed_seconds": 0,
+      "initial_paused": true,
+      "initial_ready_state": 0,
+      "no_manual_seek": true
+    },
+    "source_editor": {
+      "client": 360,
+      "play_enabled": true,
+      "position": 14,
+      "range_font": "16px",
+      "range_height": 44,
+      "scroll": 360,
+      "active_button": "一時停止",
+      "paused_button": "再生"
+    },
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "81ea2b58d7123bf2432988b721c8c00ca5fc2a0420be3075c68ad834228e0937",
+      "afterOtherTimes": "81ea2b58d7123bf2432988b721c8c00ca5fc2a0420be3075c68ad834228e0937",
+      "freshPage": "81ea2b58d7123bf2432988b721c8c00ca5fc2a0420be3075c68ad834228e0937",
+      "match": true
+    },
+    "audio": "silent; no audio track",
+    "unresolved_blockers": [],
+    "review_scope": [
+      "Inspected14frame contact, full12sposter,20sreducepanel/actualfirstparagraphhighlight,26ssaveJSON+phone,finalMP4frame; dataandcroppedactualscreensmatchobservednativebody/IDs.",
+      "Inspectedsource12framestrip13.9 andfiveactualMP412framestrips3.85/7.85/13.85/17.85/22.85. Screenscrossfadeandslidewithpersistentleftsourcecards/count/footer; nofullframeflash oraccumulatedclipobserved.",
+      "Reducepanel explicitlylabels0.18s and0s assettings andOSasCDPemulation. Screenshotisnormalmodebodycrop, captionmakesitclear; sameparagraphverifiedfrom3actualstates.",
+      "Phoneinitialscreen islabelledinitialdisplay; savedJSONactuallyhasmanualreduce=true. Filmdoesnotclaimcontinuousrecordingoractualcomponenttiming.",
+      "FinalframeholdsJSONand3stepCTA; labelsfit; briefcontentfadesretaincontext.",
+      "NativeMP4loadedat0/paused/ready0 andsubsequentlyadvancedto28/ended/ready4/errornullwithoutmanualseek.",
+      "375pxeditor rootfits,44pxrangefont16, nativeHome+7PageUp→14; buttonlabelnowPausewhileplaying/Playpaused.",
+      "Agentframeinspectionandtechnicalchecksarenothumanaestheticapproval."
+    ],
+    "remaining": [
+      "PhysicaliOS/Safari/VoiceOver, otheraspectratios andhumanartisticapproval untested."
+    ]
+  },
+  "publication": {
+    "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=motion-primitives-example",
+    "authorization": "User requested sequential publication of40cases toexistingmain andPages."
+  },
+  "artifacts_sha256": {
+    "data/cases/motion-primitives-example.json": "6ba9ca0d6ddd0c827b694a314a7190e7a280b3583eb6dfb65b41f73de2f18641",
+    "examples/motion-primitives-example/assets/app.js": "ad850327f6fc235b43f7314abf2240b3bb620c01f80b53c50d44d7ed43a629b3",
+    "examples/motion-primitives-example/assets/app.js.LEGAL.txt": "c0c3d146fbeae282d92f7024daffdadb51ed00304f8ccc7a962f17e6d225c097",
+    "examples/motion-primitives-example/assets/bundle-meta.json": "397a1aa4e477e28b4dd15636bb4ca5f69a09fd5ee3a53ddd9ddc42bc9567dd66",
+    "examples/motion-primitives-example/brief.json": "be4b51e24a920c9492106a684bf59edc095a179daa38b1d66eed8b1da13fc1be",
+    "examples/motion-primitives-example/build.mjs": "a1bf436afb6ba57734a97b5ac2ad4b1c0b951873f84b24a093ab9b65414454e5",
+    "examples/motion-primitives-example/dependency-versions.json": "f01c6e283bb4d6b1752b0d96845e3b72749ed83603a599a9e3e1aca092c24f55",
+    "examples/motion-primitives-example/index.html": "d24ad3088e66ebd1206d0207755aa151f288f03c40a6cc2ecd1f6949f5904d4a",
+    "examples/motion-primitives-example/input/articles.json": "de566f099b82a5bf7e192d913e76d140fbc46564a1a386c185845f5880104771",
+    "examples/motion-primitives-example/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
+    "examples/motion-primitives-example/outputs/downloaded-state.json": "d4e218264c3e346ba769d42082f13b9c104bb86ca008442759ee529f92fdd95b",
+    "examples/motion-primitives-example/outputs/operations.json": "d324ae5005c14b97ac140d1c19fee3576ac5ca51b06aa5cee17b0a4974e89bed",
+    "examples/motion-primitives-example/outputs/result.md": "edb44b4e9c09660dc6411fe06bc2d395302f283ed016ae0b016ed11ccea79ef6",
+    "examples/motion-primitives-example/package-lock.json": "79d7c77cad8eb735fa916fcc7963bed7a588772ae8599bded839103d47a3ef07",
+    "examples/motion-primitives-example/package.json": "380950f70a53ef530a1040ed8bbcb24d4754f40385867a398234d56f86257d45",
+    "examples/motion-primitives-example/README.md": "9627a75d437e9983c61559b5aa0019a91dad3bd67dae41f4734d4611e2c63c5f",
+    "examples/motion-primitives-example/render.py": "f921918498b7201e5260fe650466535e48b7c54239c344554da2e426c27bc53e",
+    "examples/motion-primitives-example/request.txt": "caa9770b47f84731642b47d0065d29f1bd8da451b419d7608451e7a559284eb6",
+    "examples/motion-primitives-example/samples.json": "5a907436e13f604905fd2a48c88171709b8c85c483d57855ee64ca57edb5025d",
+    "examples/motion-primitives-example/source.zip": "6accc8cf6ed5d13fcd8d6d2824761aaf49eec33b0b6731b905651b020ae7dfa2",
+    "examples/motion-primitives-example/src/accordion.tsx": "f15dbb7ca6e5866b145aa4f2ed532a5d0c5cd78d876397e7157ffe8af79b3eb3",
+    "examples/motion-primitives-example/src/app.tsx": "78d6af8756985a6855f22154e950a9b7f7549eb539fab4ded76ce4203d67015e",
+    "examples/motion-primitives-example/style.css": "3f0c2596375fd5fbd2165e112757a99823d67411dc8cdd5ea0c875b1773ae46b",
+    "examples/motion-primitives-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/motion-primitives-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/motion-primitives-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/motion-primitives-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/motion-primitives-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "examples/motion-primitives-example/tsconfig.json": "a6f50a7b3bc14bc9d42d69578eec8a2f148ecc100235c1d4afb5f2f02a3a33cc",
+    "examples/motion-primitives-example/vendor/dependency-licenses/clsx/license": "9a9edad7baae52622bddf3c15b2ef8a33d2c89f2d25408ad13e8a7481c6b0c97",
+    "examples/motion-primitives-example/vendor/dependency-licenses/framer-motion/LICENSE.md": "5ff46083b88563822b0560dd6221ab89d2f74bc97a52d4c97a75020fd62c6f32",
+    "examples/motion-primitives-example/vendor/dependency-licenses/js-tokens/LICENSE": "2213d91c606205c71eb051a199478cdc2adde945893404d7f1421436dd6d5cc1",
+    "examples/motion-primitives-example/vendor/dependency-licenses/loose-envify/LICENSE": "4eb7543b08d955a6d23fcc224601d43ff566e775be918805e26210d7f6eb4893",
+    "examples/motion-primitives-example/vendor/dependency-licenses/motion/LICENSE.md": "835262a9cbe18af107043fab492b1922dd5ecc8db76f22f95149bc0143ac9847",
+    "examples/motion-primitives-example/vendor/dependency-licenses/react/LICENSE": "52412d7bc7ce4157ea628bbaacb8829e0a9cb3c58f57f99176126bc8cf2bfc85",
+    "examples/motion-primitives-example/vendor/dependency-licenses/react-dom/LICENSE": "52412d7bc7ce4157ea628bbaacb8829e0a9cb3c58f57f99176126bc8cf2bfc85",
+    "examples/motion-primitives-example/vendor/dependency-licenses/scheduler/LICENSE": "52412d7bc7ce4157ea628bbaacb8829e0a9cb3c58f57f99176126bc8cf2bfc85",
+    "examples/motion-primitives-example/vendor/dependency-licenses/tailwind-merge/LICENSE.md": "d4c70c7ce38cea8778f0aed3fc0bef0a9dbd27f13bd8b6773cbd6d37941971e5",
+    "examples/motion-primitives-example/vendor/dependency-licenses/tslib/CopyrightNotice.txt": "da16ddb65f8ca390998fb99223d0112498b56b45784d00afd77ff8ce1ac4de8b",
+    "examples/motion-primitives-example/vendor/dependency-licenses/tslib/LICENSE.txt": "210b19e543130388c68654b7497e967119ce17145f66ab7d85688fbd70f08751",
+    "examples/motion-primitives-example/vendor/motion-primitives/accordion-adapter.patch": "435f2bcb62749829a6ce5dee78c69f5464776dafa9a281f7d4899c6e9c6d2f0c",
+    "examples/motion-primitives-example/vendor/motion-primitives/accordion-basic.tsx": "f599cc966f9702df0a54278763d16bdddbf48fdbff4ef669e8ab8084a4e8947a",
+    "examples/motion-primitives-example/vendor/motion-primitives/accordion-docs.mdx": "937ecde7a7c0133d136074fe75d78593ecb2937e3448f55fd099efbb120fc6f1",
+    "examples/motion-primitives-example/vendor/motion-primitives/accordion-variant.tsx": "16d4cfa4f906598917e1f0b8c6ae33611eb3fce8baa2889636f905904c911c3a",
+    "examples/motion-primitives-example/vendor/motion-primitives/accordion.original.tsx": "5de8206a53d083d3c5d4503fc4d203efaed734ea904de4fd77b33c1ebc991b7c",
+    "examples/motion-primitives-example/vendor/motion-primitives/LICENCE.md": "f668f5ef3635eb906f10b1eea9a32e449eb6e1a183ab6879ef6d56c0980dd2f3",
+    "examples/motion-primitives-example/vendor/motion-primitives/README.md": "104fe086b717c6e68274965445d49e7b433b5ec5e0c13bc9056804e74e39d69a",
+    "examples/motion-primitives-example/vendor/motion-primitives/utils.ts": "9304a861c8673bee09e0f12de31773abbde503b02e59dfd74763ddec2e37cf05",
+    "examples/motion-primitives-example/verification.json": "74c979a89c5cfc57e9f8b957a29eb936a14e1360e133b2576d3c2045388d47a4",
+    "examples/motion-primitives-example/video/assets/images.png": "872d021f27e7ee8dbbd9a9316ef35d63fc49f42726c1d58a9e6512320897de7d",
+    "examples/motion-primitives-example/video/assets/pdf.png": "a58aeb709a8bc507d1a89201a2eef8da3c7bcf6cd857a451d808d42e79333995",
+    "examples/motion-primitives-example/video/assets/phone.png": "cd55ec9d08ee2d789f33728b24892742eae3d3247952b41e4f6c9fc426f02461",
+    "examples/motion-primitives-example/video/assets/screen-manifest.json": "9ec0e70758aefd8cf614fadc8012beeb123db1805bfcde4090df0f510d3407d2",
+    "examples/motion-primitives-example/video/assets/search.png": "dadfdc3cf639896c7d2722fa6535a1f212e3838845f5ac6b4541bffd041bd095",
+    "examples/motion-primitives-example/video/index.html": "42ffde2b9e14398ef0b611b669cfa919bfecd4d7c062daed3c09492c78f79a95",
+    "examples/motion-primitives-example/video/README.md": "7a55888faec9cdded5cf2d40484013bfebf99373917e2c3e8c0355f53a7f9ae1",
+    "examples/motion-primitives-example/video/review/contact.png": "1e82c616fbc493b40d1b0ef394e88485ce7254a43ae33d2141bd46e52be41881",
+    "examples/motion-primitives-example/video/review/cut-01.png": "def6eb2a3af6b5737b98b1cbce8d92a1c199a1d1f4bd8c5d5fcff7ba609c6ef4",
+    "examples/motion-primitives-example/video/review/cut-02.png": "8218c25aedc4a9da6d1afca57cbcfcaa52d51a7d0e94901dfcbfb0fafbbad88f",
+    "examples/motion-primitives-example/video/review/cut-03.png": "aee72cb61679840a77c879cbe6e96f021234c4faf4b18e89a1c5af7998dfb3b0",
+    "examples/motion-primitives-example/video/review/cut-04.png": "d2c0ef7c19c159d4b0aae6ecdf7c65ef42fc38375a0fb789e5edcc473ad3b93c",
+    "examples/motion-primitives-example/video/review/cut-05.png": "d6bd99c2355f89e3193ec1530ad9bbe522c503eb0d84805f57114db3bea7a57a",
+    "examples/motion-primitives-example/video/review/final.png": "7f228af6e4b5bbc3fda120a3bcd6904f05add748ef20f5918b1ca78bc54280ad",
+    "examples/motion-primitives-example/video/review/poster.png": "451b7359af63d060b24a3d899140260f928e2d42e000c36afaf9f3e623bef8e1",
+    "examples/motion-primitives-example/video/review/stills/frame-000000.png": "e822bb7e963767727b1675c9cb54cda468d95d06f5152170d86d0fd5185b0cc9",
+    "examples/motion-primitives-example/video/review/stills/frame-000001.png": "21bfb045cc04683ba5ec202a81dbac0895f1662a47c130b33e81fec5240d277c",
+    "examples/motion-primitives-example/video/review/stills/frame-000002.png": "e40139d8e1fc5f83c4a819e9c0ca95d133fc7a715457a1596c279d5e597ebe70",
+    "examples/motion-primitives-example/video/review/stills/frame-000003.png": "6b3d00799f70f4cd3c727abbe351cec0ca1137227e4ae3e2eb85b5392e558f24",
+    "examples/motion-primitives-example/video/review/stills/frame-000004.png": "1aa2e331458f9673d80904a7db4d658087eb77bf45f5d90295141ea2aee93a50",
+    "examples/motion-primitives-example/video/review/stills/frame-000005.png": "451b7359af63d060b24a3d899140260f928e2d42e000c36afaf9f3e623bef8e1",
+    "examples/motion-primitives-example/video/review/stills/frame-000006.png": "451b7359af63d060b24a3d899140260f928e2d42e000c36afaf9f3e623bef8e1",
+    "examples/motion-primitives-example/video/review/stills/frame-000007.png": "d7a38dab89f318e4312f436f0e733a87bea93193cdac86ef09f2a9b831e07507",
+    "examples/motion-primitives-example/video/review/stills/frame-000008.png": "81ea2b58d7123bf2432988b721c8c00ca5fc2a0420be3075c68ad834228e0937",
+    "examples/motion-primitives-example/video/review/stills/frame-000009.png": "c4e0f968f8bdfab4c2e2e54cff385d1d9023d8eeb88d2da6344253d1545914b1",
+    "examples/motion-primitives-example/video/review/stills/frame-000010.png": "03af83e4f9f539c0b35ccb72b59021f5046d9dbb35585a881b314e951f6dafee",
+    "examples/motion-primitives-example/video/review/stills/frame-000011.png": "7001980ed320f765aa5b72b407ac334877969551a0eb65cafdf782b41f2be079",
+    "examples/motion-primitives-example/video/review/stills/frame-000012.png": "08ffe8fc6bc6c3856a8382d43dd4d9aece2a83f1f6c08c5b4a77405b01ec216c",
+    "examples/motion-primitives-example/video/review/stills/frame-000013.png": "10cd449efcbcb94e535732cb6f91b022d841aee0fd9d364ced413a5c59442078",
+    "examples/motion-primitives-example/video/review/strip.png": "375325c802e9ca25e537224f2240827313a6e2a9d1304e36d856dcdb755b18c8",
+    "examples/motion-primitives-example/video/storyboard.json": "3accfc2fbf895061acd250216ebdb812f4aa000bb29817a6b773c8ec8a5f8c00",
+    "examples/motion-primitives-example/video/video.css": "13e6dda692ca20911a9590b9be150f81b9713182538d55c4eadf7baafde19138",
+    "examples/motion-primitives-example/video/video.js": "35849f8790261381241a3a53d58940a2417938dec34b28d35aca11555a45c488",
+    "media/motion-primitives-example.mp4": "8281f3b565322dd9646f1620bbcaa447165bc4e5e745b5f22a0bb3b314ef45dd",
+    "media/motion-primitives-example.webp": "27a98844ff26fe79f8c7f39fc3a14f5c9dd5c83c215150765e1b38cd8be54a22"
+  }
+}
