@@ -1,0 +1,62 @@
+{
+  "format": "input-output",
+  "notice": "記事では入力と実結果の要点を短く表示。全ファイル本文・原典API/CLI/Gitの実結果は実デモとoutputs/memory-runs.jsonで確認できます。",
+  "samples": [
+    {
+      "id": "L01",
+      "label": "必要な詳細だけを更新",
+      "input": "bookclub/schedule.mdへ、終了後に連絡事項を5分確認する予定を追記。",
+      "output": "commit成功。 原典CLI終了コード0。\nHEAD：進んだ。stageの変更：残らない。",
+      "demo_hash": "#L01"
+    },
+    {
+      "id": "L02",
+      "label": "詳細への案内を消すと止まる",
+      "input": "schedule.mdを更新したまま、詳細への案内bookclub/MEMORY.mdを削除。",
+      "output": "commit停止。 原典CLI終了コード1。\nbookclub/reading.md: missing required index bookclub/MEMORY.md\nbookclub/schedule.md: missing required index bookclub/MEMORY.md\nHEAD：変更なし。stageの変更：2件を保持。",
+      "demo_hash": "#L02"
+    },
+    {
+      "id": "L03",
+      "label": "案内を戻して再検査",
+      "input": "L02と同じ内容にbookclub/MEMORY.mdだけを戻す。別の新しいリポジトリで確認。",
+      "output": "commit成功。 原典CLI終了コード0。\nHEAD：進んだ。stageの変更：残らない。",
+      "demo_hash": "#L03"
+    },
+    {
+      "id": "L04",
+      "label": "901文字のファイルを止める",
+      "input": "bookclub/schedule.mdを901コードポイントに。1ファイルの上限は900。",
+      "output": "commit停止。 原典CLI終了コード1。\nbookclub/schedule.md: 901 characters exceeds 900 from maxFileCharacters\nHEAD：変更なし。stageの変更：1件を保持。",
+      "demo_hash": "#L04"
+    },
+    {
+      "id": "L05",
+      "label": "3階層の記憶を止める",
+      "input": "bookclub/archive/2025/notes.mdなどを追加して深さ3に。各階層の案内は存在。上限は2。",
+      "output": "commit停止。 原典CLI終了コード1。\nbookclub/archive/2025/MEMORY.md: depth 3 exceeds maxDepth 2\nbookclub/archive/2025/notes.md: depth 3 exceeds maxDepth 2\nHEAD：変更なし。stageの変更：4件を保持。",
+      "demo_hash": "#L05"
+    },
+    {
+      "id": "L06",
+      "label": "常時読む記憶の合計を止める",
+      "input": "ルート直下のMarkdownの合計を1201コードポイントに。合計上限は1200。",
+      "output": "commit停止。 原典CLI終了コード1。\ncore memory: 1201 characters exceeds 1200 from maxCoreMemoryCharacters\nHEAD：変更なし。stageの変更：3件を保持。",
+      "demo_hash": "#L06"
+    },
+    {
+      "id": "L07",
+      "label": "保護した方針の変更を止める",
+      "input": "初期方針で保護したpersona.mdの方針を書き換える。",
+      "output": "commit停止。 原典CLI終了コード1。\npersona.md: read-only file cannot be created, changed or removed\nHEAD：変更なし。stageの変更：2件を保持。",
+      "demo_hash": "#L07"
+    },
+    {
+      "id": "L08",
+      "label": "上限を勝手に変えると止まる",
+      "input": ".memfs.config.jsonの1ファイル上限を900から1100へ変更。初期方針は変えずに検査。",
+      "output": "commit停止。 原典CLI終了コード1。\n.memfs.config.json is protected and requires human approval to change\nHEAD：変更なし。stageの変更：2件を保持。 初期方針を使う検査APIのエラーは0件でも、原典CLIは設定変更を止めた。",
+      "demo_hash": "#L08"
+    }
+  ]
+}

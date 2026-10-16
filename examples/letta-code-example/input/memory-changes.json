@@ -1,0 +1,196 @@
+{
+  "format": "studio-yebisu-letta-memory-changes-v1",
+  "fictional": true,
+  "notice": "Production-authored fictional book-club memory and initial policy, frozen before execution. No personal history or real agent memory. Policy is deliberately stricter than upstream defaults.",
+  "trusted_policy": {
+    "version": 1,
+    "maxDepth": 2,
+    "maxFileCharacters": 900,
+    "maxCoreMemoryCharacters": 1200,
+    "readOnlyFiles": [
+      "persona.md"
+    ]
+  },
+  "cases": [
+    {
+      "id": "L01",
+      "label": "必要な詳細だけを更新",
+      "accepted_files": {
+        "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+        "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+        "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+        "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。\n",
+        "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+        ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+      },
+      "proposed_files": {
+        "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+        "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+        "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+        "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。終了後に連絡事項を5分確認する。\n",
+        "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+        ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+      },
+      "expected_commit_success": true,
+      "expected_reason": "有効な子indexと短い記憶ファイル"
+    },
+    {
+      "id": "L02",
+      "label": "詳細への案内を消すと止まる",
+      "accepted_files": {
+        "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+        "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+        "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+        "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。\n",
+        "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+        ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+      },
+      "proposed_files": {
+        "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+        "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+        "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。終了後に連絡事項を5分確認する。\n",
+        "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+        ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+      },
+      "expected_commit_success": false,
+      "expected_reason": "missing required index bookclub/MEMORY.md"
+    },
+    {
+      "id": "L03",
+      "label": "案内を戻して再検査",
+      "accepted_files": {
+        "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+        "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+        "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+        "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。\n",
+        "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+        ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+      },
+      "proposed_files": {
+        "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+        "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+        "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+        "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。終了後に連絡事項を5分確認する。\n",
+        "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+        ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+      },
+      "expected_commit_success": true,
+      "expected_reason": "L02と同じ内容で子indexだけ復元"
+    },
+    {
+      "id": "L04",
+      "label": "901文字のファイルを止める",
+      "accepted_files": {
+        "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+        "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+        "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+        "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。\n",
+        "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+        ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+      },
+      "proposed_files": {
+        "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+        "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+        "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+        "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\nああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ",
+        "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+        ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+      },
+      "expected_commit_success": false,
+      "expected_reason": "901 characters exceeds 900"
+    },
+    {
+      "id": "L05",
+      "label": "3階層の記憶を止める",
+      "accepted_files": {
+        "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+        "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+        "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+        "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。\n",
+        "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+        ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+      },
+      "proposed_files": {
+        "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+        "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+        "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+        "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。終了後に連絡事項を5分確認する。\n",
+        "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+        ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n",
+        "bookclub/archive/MEMORY.md": "# 過去回\n\n2025/MEMORY.md から過去回を読む。\n",
+        "bookclub/archive/2025/MEMORY.md": "# 2025年\n\nnotes.md に過去回の手がかり。\n",
+        "bookclub/archive/2025/notes.md": "---\nname: 過去回\ndescription: 架空の過去回を調べるときの詳細\n---\n参加者は架空。作品の進め方だけを記録。\n"
+      },
+      "expected_commit_success": false,
+      "expected_reason": "depth 3 exceeds maxDepth 2"
+    },
+    {
+      "id": "L06",
+      "label": "常時読む記憶の合計を止める",
+      "accepted_files": {
+        "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+        "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+        "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+        "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。\n",
+        "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+        ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+      },
+      "proposed_files": {
+        "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+        "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+        "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+        "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。終了後に連絡事項を5分確認する。\n",
+        "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+        ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n",
+        "orientation.md": "---\nname: 毎回の案内\ndescription: 毎回参照する架空の案内\n---\n\n方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方",
+        "daily.md": "---\nname: 毎回の案内\ndescription: 毎回参照する架空の案内\n---\n\n方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方"
+      },
+      "expected_commit_success": false,
+      "expected_reason": "core memory: 1201 characters exceeds 1200"
+    },
+    {
+      "id": "L07",
+      "label": "保護した方針の変更を止める",
+      "accepted_files": {
+        "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+        "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+        "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+        "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。\n",
+        "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+        ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+      },
+      "proposed_files": {
+        "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+        "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n全員に結末を先に説明する。\n",
+        "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+        "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。終了後に連絡事項を5分確認する。\n",
+        "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+        ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+      },
+      "expected_commit_success": false,
+      "expected_reason": "persona.md: read-only file cannot be created, changed or removed"
+    },
+    {
+      "id": "L08",
+      "label": "上限を勝手に変えると止まる",
+      "accepted_files": {
+        "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+        "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+        "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+        "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。\n",
+        "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+        ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+      },
+      "proposed_files": {
+        "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+        "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+        "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+        "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。終了後に連絡事項を5分確認する。\n",
+        "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+        ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 1100,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+      },
+      "expected_commit_success": false,
+      "expected_reason": ".memfs.config.json is protected and requires human approval to change"
+    }
+  ]
+}

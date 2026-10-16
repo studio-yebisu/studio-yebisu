@@ -1,0 +1,63 @@
+{
+  "title": "記憶の変更を、保存前に点検する — Letta Code の記憶検査を実際の Git で通す",
+  "request": "Letta Code の記憶まわりの機能を、架空のデータで実際に動かして紹介したい。会話やモデルは使わず、記憶ファイルを編集して保存する前の検査を、本物の Git の commit で確かめられる作例にする。",
+  "category": "agents",
+  "audience": "エージェントの記憶をファイルと Git で管理したい開発者、Letta Code の MemFS の決まりを先に知りたい人",
+  "goal": "記憶ファイルを編集して stage した変更が、固定版 Letta Code の検査で commit できるか止まるかを、原典の診断文・HEAD・stage の実際の状態とともに読めるようにする",
+  "inputs": [
+    "input/memory-changes.json：制作側が実行前に固定した、架空の「さくら読書会」の記憶（ルートの MEMORY.md・persona.md・bookclub/ の案内と詳細・.memfs.config.json）と、L01〜L08 の8つの変更",
+    "初期方針：version 1・maxDepth 2・maxFileCharacters 900・maxCoreMemoryCharacters 1200・readOnlyFiles に persona.md（原典の既定より厳しい架空の方針）",
+    "input/expected.json：実行前に決めた commit の成否と理由の一部（実結果を得た後の照合だけに使う）",
+    "vendor/letta-code/ の原典8ファイル（固定コミット 316e4c0・0.34.14・無改変）と vendor-lock.json"
+  ],
+  "skill_refs": [
+    "skills/brief-to-demo/SKILL.md",
+    "https://github.com/letta-ai/letta-code/blob/316e4c0545b549c453e0f85cc81d3540404eff74/src/skills/builtin/initializing-memory/SKILL.md",
+    "https://github.com/letta-ai/letta-code/blob/316e4c0545b549c453e0f85cc81d3540404eff74/src/memory-constraints.ts",
+    "https://github.com/letta-ai/letta-code/blob/316e4c0545b549c453e0f85cc81d3540404eff74/src/memory-frontmatter.ts",
+    "https://github.com/letta-ai/letta-code/blob/316e4c0545b549c453e0f85cc81d3540404eff74/src/agent/memory-constraints.ts",
+    "https://github.com/letta-ai/letta-code/blob/316e4c0545b549c453e0f85cc81d3540404eff74/src/agent/memory-format.ts",
+    "tools/motion-reel/render.mjs（Motion Reel の制作基準を適用）"
+  ],
+  "deliverables": [
+    "run.mjs と loader.mjs：Node 24 と Git だけで動く実行CLI（npm の導入なし）",
+    "outputs/memory-runs.json：8件の入力・検査APIの結果・frontmatter の結果・原典CLIと git commit の stdout/stderr/終了コード・HEAD と stage の前後・確認の一覧（制作側の実行後にできる）",
+    "index.html・style.css・app.js：保存した記録を照合してから読むスマホ優先のページ",
+    "README.md・outputs/method.md・request.txt：手順・読み方・再現・限界",
+    "video/index.html：実結果から作る短い解説動画の編集ソース（後の工程）"
+  ],
+  "steps": [
+    "原典8ファイル・ロック・入力のハッシュを照合してから、原典の .ts を Node の型除去で読み込む",
+    "8件それぞれに新しい非公開リポジトリを作り、accepted_files で基準の commit を作る",
+    "原典の MEMORY_CONSTRAINTS_VALIDATOR_SCRIPT をそのまま .git/letta-memory-constraints.cjs に書き、2行の pre-commit から呼ぶ",
+    "proposed_files を書き、名前を指定して stage する",
+    "検査API（初期方針・root-marker・HEAD を基準）と frontmatter の検査を呼び、原典CLIを直接1回、続けて実際に git commit する",
+    "止まった件は HEAD が変わらず stage が残ること、通った件は HEAD が進み stage が空になることを確かめる",
+    "実結果を得た後で期待と照合し、全確認が通ったときだけ記録を1回書く",
+    "ページで8件を切り替え、L02 と L03 を比べ、1件の JSON を保存する"
+  ],
+  "acceptance": [
+    "L01 と L03 は commit され、L02・L04・L05・L06・L07・L08 は止まる（実行前の期待。実結果で確かめる）",
+    "止まった件の理由は、原典の pre-commit が実際に出した行として読める",
+    "L02 と L03 の違いが bookclub/MEMORY.md の1ファイルだけであることを、ページで確かめられる",
+    "L08 では検査API（初期方針）がエラーを返さず、原典の検査スクリプトが設定の保護で止めたことが分かる",
+    "記録が無い・壊れている・ハッシュや固定版が違うときは、結果を出さずに理由と再読み込みだけを出す",
+    "320px から1280px まで横スクロールがなく、操作部品は44px以上"
+  ],
+  "assumptions": [
+    "架空の記憶と初期方針は制作側が実行前に固定したもので、実際のエージェントの記憶や採用された方針ではない",
+    "initializing-memory SKILL.md からは Harness Constraints・ルートを案内にする構造・9. Verify の構造の確認だけを使い、/init の流れ（履歴の検出と分析・利用者への質問・サブエージェント・別モデル）は実行しない",
+    "frontmatter の検査は原典の pre-commit スクリプトに含まれないため、APIとして別に呼ぶ",
+    "実行と照合、動画の書き出し、公開は制作側（親の工程）が後で行う"
+  ],
+  "production_result": {
+    "status": "technical_qa_complete",
+    "actual_cases": 8,
+    "runtime_checks": 208,
+    "successful_commits": 2,
+    "expected_blocked_commits": 6,
+    "fresh_cli_record_byte_identical": true,
+    "video": "28seconds/silent/840frames; native playback and frame review checked",
+    "human_approval": false
+  }
+}

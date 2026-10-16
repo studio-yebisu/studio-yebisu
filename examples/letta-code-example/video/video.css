@@ -1,0 +1,272 @@
+/*
+ * Studio Yebisu — Letta Code 作例・解説動画の編集ソース
+ * Copyright (c) 2026 Studio Yebisu. MIT License.
+ * Warm paper, deep evergreen and ink, rust for attention — the same palette as the viewer page.
+ * System fonts only. No web fonts, CDN or CSS animation. The film itself is drawn on the canvas by video.js.
+ */
+:root {
+  --paper: #f4eee2;
+  --paper-raised: #fbf8f2;
+  --paper-sunk: #ebe3d3;
+  --ink: #1c211f;
+  --ink-soft: #4f5753;
+  --evergreen: #1f3d33;
+  --evergreen-soft: #dfe8e2;
+  --rust: #a84a24;
+  --rust-soft: #f4e0d4;
+  --line: #d6ccb8;
+  --sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Noto Sans JP", Meiryo, system-ui, sans-serif;
+  --serif: "Hiragino Mincho ProN", "Yu Mincho", YuMincho, "Noto Serif JP", serif;
+  --mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--paper);
+}
+
+body {
+  margin: 0;
+  min-width: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+[hidden] { display: none !important; }
+
+a { color: var(--evergreen); text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+
+:focus-visible {
+  outline: 3px solid var(--rust);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Editor column: safe-area aware gutters, zoom allowed, no viewport units. */
+#editor {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding:
+    max(16px, env(safe-area-inset-top))
+    max(16px, env(safe-area-inset-right))
+    max(28px, env(safe-area-inset-bottom))
+    max(16px, env(safe-area-inset-left));
+}
+
+.intro { display: grid; gap: 4px; }
+.kicker { margin: 0; color: var(--evergreen); font-weight: 700; font-size: 14px; letter-spacing: 0.04em; }
+h1 { margin: 0; font-family: var(--serif); color: var(--ink); font-size: 26px; line-height: 1.3; }
+@media (min-width: 720px) { h1 { font-size: 34px; } }
+h2 { margin: 0 0 8px; color: var(--evergreen); font-size: 20px; line-height: 1.4; }
+.lede { margin: 4px 0 0; max-width: 46rem; }
+.note { margin: 0; color: var(--ink-soft); font-size: 15px; }
+
+.status {
+  margin: 0;
+  padding: 10px 14px;
+  border-left: 5px solid var(--evergreen);
+  background: var(--paper-raised);
+  border-radius: 8px;
+  font-weight: 600;
+}
+.status[data-state="ready"] { border-left-color: var(--evergreen); background: var(--evergreen-soft); }
+.status[data-state="error"] { border-left-color: var(--rust); color: var(--rust); }
+
+.failure {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+  padding: 12px 16px;
+  border-left: 6px solid var(--rust);
+  background: var(--rust-soft);
+  border-radius: 10px;
+}
+.failure p { margin: 0; }
+.failure-title { font-weight: 800; color: var(--rust); }
+
+.stage { margin: 0; min-width: 0; }
+
+/* The 16:9 stage scales the whole composition with the column; the backing store stays at renderConfig size. */
+#film {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px 20px;
+  min-width: 0;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+button {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px 18px;
+  border: 2px solid var(--evergreen);
+  border-radius: 999px;
+  background: var(--paper-raised);
+  color: var(--evergreen);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+button:disabled { opacity: 0.45; cursor: not-allowed; }
+#play:not(:disabled) { min-width: 7.5em; background: var(--evergreen); color: var(--paper-raised); }
+#play[aria-pressed="true"] { background: var(--paper-raised); color: var(--evergreen); }
+#retry { border-color: var(--rust); color: var(--rust); }
+
+.mute {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: var(--paper-sunk);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.scrub {
+  display: grid;
+  flex: 1 1 16rem;
+  min-width: 0;
+}
+.scrub label { font-size: 14px; font-weight: 700; color: var(--ink-soft); }
+
+input[type="range"] {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  margin: 0;
+  font: inherit;
+  font-size: 16px;
+  accent-color: var(--evergreen);
+}
+
+output {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--evergreen);
+}
+
+.info {
+  padding: 16px;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  min-width: 0;
+}
+.info p { margin: 0 0 8px; }
+.info p:last-child { margin-bottom: 0; }
+.hint { color: var(--ink-soft); font-size: 15px; }
+
+.scene-list {
+  display: grid;
+  gap: 8px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.scene-list button {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  width: 100%;
+  border-radius: 12px;
+  border-width: 1px;
+  border-color: var(--line);
+  color: var(--ink);
+  text-align: left;
+  font-weight: 600;
+}
+.scene-time {
+  color: var(--rust);
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+}
+
+.links {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding-left: 1.2em;
+}
+/* File/navigation links are touch targets, including the direct MP4. */
+.links a { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; max-width: 100%; }
+.link-note { color: var(--ink-soft); font-size: 15px; }
+
+details { margin-top: 12px; }
+summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  font-weight: 700;
+  color: var(--evergreen);
+  cursor: pointer;
+}
+.asset-list {
+  display: grid;
+  gap: 10px;
+  margin: 8px 0 0;
+  padding-left: 1.4em;
+}
+.asset-list code { font-family: var(--mono); font-size: 13px; }
+.asset-list .digest { color: var(--ink-soft); overflow-wrap: anywhere; word-break: break-all; }
+.bytes { color: var(--ink-soft); font-size: 14px; }
+.verdict { font-weight: 800; color: var(--ink-soft); }
+.verdict.is-ok { color: var(--evergreen); }
+.verdict.is-ng { color: var(--rust); }
+
+/* Renderer (window.__MOTION_RENDER__): only the canvas, at the exact composition size. */
+html.is-render,
+html.is-render body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+}
+html.is-render #editor {
+  display: block;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+html.is-render .chrome { display: none !important; }
+html.is-render #film {
+  max-width: none;
+  aspect-ratio: auto;
+  border: 0;
+  border-radius: 0;
+}

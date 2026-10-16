@@ -1,0 +1,4487 @@
+{
+  "format": "studio-yebisu-letta-memory-runs-v1",
+  "notice": "架空の読書会の記憶と初期方針（実行前に固定）を使った、固定版 Letta Code の記憶検査の実行記録。エージェントとの会話・モデルの推論・Cloud・同期・/init・個人の記憶は使っていない。",
+  "upstream": {
+    "repository": "letta-ai/letta-code",
+    "commit": "316e4c0545b549c453e0f85cc81d3540404eff74",
+    "version": "0.34.14",
+    "license": "Apache-2.0",
+    "vendor_lock_sha256": "a62fbf74fa35f609756adf4b9ef2bbfcfe7e46cfd291058be455601bbc8d4d57",
+    "files": [
+      {
+        "path": "vendor/letta-code/LICENSE",
+        "sha256": "036e78b9d7dd33ae5b378fdda973b4aad7901c8d8371a0ae40fae1f6659a89d0",
+        "bytes": 11092,
+        "git_blob_sha1": "e72f5de5dd5610ee3fee7feb791ebff246cc931e"
+      },
+      {
+        "path": "vendor/letta-code/README.md",
+        "sha256": "61811b022086eeb9d0bdab91cce960f193e9b1bec544c36f64cf6a1f5eb9382c",
+        "bytes": 9696,
+        "git_blob_sha1": "5da89d29425cfde7be255eac40bdb92a3e7309c2"
+      },
+      {
+        "path": "vendor/letta-code/package.json",
+        "sha256": "8af11365f625f99f4621d960d509a414c1c088de61daa1e030a275d9c2993584",
+        "bytes": 9599,
+        "git_blob_sha1": "09b9704b5fc6131a093182fd88ac449857e1af48"
+      },
+      {
+        "path": "vendor/letta-code/src/agent/memory-constraints.ts",
+        "sha256": "590958b1fb1ef18938bfe4f81d17850cf309ecab5a4f65c7f4ba79d7205e6692",
+        "bytes": 8402,
+        "git_blob_sha1": "4de08d3913333de338e3480f51f80299c97b4891"
+      },
+      {
+        "path": "vendor/letta-code/src/agent/memory-format.ts",
+        "sha256": "d06c0d5eb4a206ac35a2f673910782ef3c846155405aa443d315dbaf3ef77a47",
+        "bytes": 1278,
+        "git_blob_sha1": "62e53080848e1a98ba3722d852d7a21fde1e8594"
+      },
+      {
+        "path": "vendor/letta-code/src/memory-constraints.ts",
+        "sha256": "8a1dd24323b4c89315a9daa0a5f33802235b18088f53021a1626247e317f5da7",
+        "bytes": 10689,
+        "git_blob_sha1": "873f8f1418d53fcbaaa8bcab6107ba6d43a6cb23"
+      },
+      {
+        "path": "vendor/letta-code/src/memory-frontmatter.ts",
+        "sha256": "01010a6e79bb34b08345433ff352e5c52e2eed26051fe8960ed8470de082327c",
+        "bytes": 4132,
+        "git_blob_sha1": "d8fc8ad3bbeed96b19bd0ce9418e03891c494474"
+      },
+      {
+        "path": "vendor/letta-code/src/skills/builtin/initializing-memory/SKILL.md",
+        "sha256": "a2cbf8919b6b3b8acd0a56b22a05a05f75a3c6fe8eb64f4fed5952fea737b79c",
+        "bytes": 19145,
+        "git_blob_sha1": "bac20a0314625e5f2d9a603c6d722636ea53eb7b"
+      }
+    ]
+  },
+  "input_sha256": {
+    "input/memory-changes.json": "852d6c0708eb9c42d31f71ad6fc6f8fcb95849d0d1eb72f4094e60a3e20311e0",
+    "input/expected.json": "0f61d8dd6a58b99100759421295ea24a7436a32cb91304111c78b0cb5227a1a8",
+    "vendor-lock.json": "a62fbf74fa35f609756adf4b9ef2bbfcfe7e46cfd291058be455601bbc8d4d57"
+  },
+  "trusted_policy": {
+    "version": 1,
+    "maxDepth": 2,
+    "maxFileCharacters": 900,
+    "maxCoreMemoryCharacters": 1200,
+    "readOnlyFiles": [
+      "persona.md"
+    ]
+  },
+  "runtime": {
+    "node": "v24.18.0",
+    "typescript": "strip",
+    "git": "git version 2.55.0.windows.3",
+    "platform": "win32",
+    "arch": "x64",
+    "packages_installed": 0,
+    "module_resolution": [
+      {
+        "from": "vendor/letta-code/src/memory-constraints.ts",
+        "specifier": "./memory-frontmatter",
+        "to": "vendor/letta-code/src/memory-frontmatter.ts"
+      },
+      {
+        "from": "vendor/letta-code/src/agent/memory-constraints.ts",
+        "specifier": "@/memory-constraints",
+        "to": "vendor/letta-code/src/memory-constraints.ts"
+      }
+    ],
+    "child_env_keys": [
+      "COMSPEC",
+      "GIT_AUTHOR_DATE",
+      "GIT_CEILING_DIRECTORIES",
+      "GIT_COMMITTER_DATE",
+      "GIT_CONFIG_GLOBAL",
+      "GIT_CONFIG_NOSYSTEM",
+      "GIT_TERMINAL_PROMPT",
+      "HOME",
+      "LANG",
+      "LANGUAGE",
+      "LC_ALL",
+      "PATH",
+      "PATHEXT",
+      "SYSTEMROOT",
+      "TEMP",
+      "TMP",
+      "TMPDIR",
+      "USERPROFILE",
+      "WINDIR",
+      "XDG_CONFIG_HOME"
+    ]
+  },
+  "validator_script": {
+    "source": "vendor/letta-code/src/agent/memory-constraints.ts の MEMORY_CONSTRAINTS_VALIDATOR_SCRIPT（実行時の文字列をそのまま書いたもの）",
+    "written_to": ".git/letta-memory-constraints.cjs",
+    "hook": {
+      "path": ".git/hooks/pre-commit",
+      "text": "#!/bin/sh\nexec node .git/letta-memory-constraints.cjs --layout root-marker\n"
+    },
+    "sha256": "9b815cf928feecc4e830095325983a5ab83d7f284f915807e8de61bbbe075829",
+    "bytes": 15506
+  },
+  "api_entrypoints": [
+    {
+      "name": "parseMemoryConstraintsConfig",
+      "source": "vendor/letta-code/src/memory-constraints.ts"
+    },
+    {
+      "name": "validateMemoryTreeConstraints",
+      "source": "vendor/letta-code/src/memory-constraints.ts"
+    },
+    {
+      "name": "validateMemoryFileFrontmatter",
+      "source": "vendor/letta-code/src/memory-frontmatter.ts（memory-constraints.ts から再export）"
+    },
+    {
+      "name": "detectMemoryFormat",
+      "source": "vendor/letta-code/src/agent/memory-format.ts"
+    },
+    {
+      "name": "isProjectedMemoryPath",
+      "source": "vendor/letta-code/src/agent/memory-format.ts"
+    },
+    {
+      "name": "MEMORY_CONSTRAINTS_VALIDATOR_SCRIPT",
+      "source": "vendor/letta-code/src/agent/memory-constraints.ts"
+    }
+  ],
+  "results": [
+    {
+      "id": "L01",
+      "label": "必要な詳細だけを更新",
+      "input": {
+        "accepted_files": {
+          "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+          "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+          "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+          "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。\n",
+          "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+          ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+        },
+        "proposed_files": {
+          "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+          "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+          "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+          "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。終了後に連絡事項を5分確認する。\n",
+          "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+          ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+        }
+      },
+      "repository": {
+        "directory": "repos/L01",
+        "branch": "main",
+        "hooks_path": ".git/hooks",
+        "hooks_dir_empty_before_baseline": true,
+        "local_config": [
+          "core.repositoryformatversion=0",
+          "core.filemode=false",
+          "core.bare=false",
+          "core.logallrefupdates=true",
+          "core.symlinks=false",
+          "core.ignorecase=true",
+          "core.autocrlf=false",
+          "core.hookspath=.git/hooks",
+          "user.name=Studio Yebisu fictional memory",
+          "user.email=fictional@example.invalid",
+          "commit.gpgsign=false"
+        ],
+        "validator": {
+          "path": ".git/letta-memory-constraints.cjs",
+          "sha256": "9b815cf928feecc4e830095325983a5ab83d7f284f915807e8de61bbbe075829",
+          "bytes": 15506
+        },
+        "hook": {
+          "path": ".git/hooks/pre-commit",
+          "text": "#!/bin/sh\nexec node .git/letta-memory-constraints.cjs --layout root-marker\n",
+          "sha256": "b5cbbd73e753cfa683ab7b89cbea54f43dcadc73500e6f84df645c2f9e6987ae"
+        }
+      },
+      "baseline": {
+        "commit": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "tree": "4867fa1a56a01dd4116ef8be99fb6982485fccfc",
+        "exit_code": 0,
+        "files": [
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "2fd5109069aff1e4658abafa32a455e252fa7ca3",
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "path": "persona.md"
+          }
+        ]
+      },
+      "change": {
+        "removed": [],
+        "written": [
+          "bookclub/schedule.md"
+        ],
+        "staged_name_status": [
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          }
+        ]
+      },
+      "unicode": {
+        "files": {
+          "MEMORY.md": {
+            "code_points": 72,
+            "utf16_units": 72,
+            "utf8_bytes": 156
+          },
+          "bookclub/MEMORY.md": {
+            "code_points": 53,
+            "utf16_units": 53,
+            "utf8_bytes": 101
+          },
+          "bookclub/reading.md": {
+            "code_points": 88,
+            "utf16_units": 88,
+            "utf8_bytes": 198
+          },
+          "bookclub/schedule.md": {
+            "code_points": 99,
+            "utf16_units": 99,
+            "utf8_bytes": 207
+          },
+          "persona.md": {
+            "code_points": 69,
+            "utf16_units": 69,
+            "utf8_bytes": 147
+          }
+        },
+        "root_markdown_code_points": 141
+      },
+      "skill_structure": {
+        "note": "initializing-memory SKILL.md 9. Verify の「foo.md と foo/ を並べない」条件を stage のパスへ当てはめた Studio Yebisu の照合。原典のコードではない。",
+        "stem_conflicts": []
+      },
+      "api": {
+        "trusted_config": {
+          "version": 1,
+          "maxDepth": 2,
+          "maxFileCharacters": 900,
+          "maxCoreMemoryCharacters": 1200,
+          "readOnlyFiles": [
+            "persona.md"
+          ]
+        },
+        "trusted_config_source": "HEAD:.memfs.config.json（基準の commit）",
+        "layout": "root-marker",
+        "require_root_marker": true,
+        "accepted_tree": "HEAD a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "tree": {
+          "errors": [],
+          "thrown": null
+        },
+        "staged_config": {
+          "differs_from_trusted": false,
+          "parsed": {
+            "version": 1,
+            "maxDepth": 2,
+            "maxFileCharacters": 900,
+            "maxCoreMemoryCharacters": 1200,
+            "readOnlyFiles": [
+              "persona.md"
+            ]
+          },
+          "error": null
+        },
+        "memory_format": "memfs-v2",
+        "markdown_paths": [
+          "MEMORY.md",
+          "bookclub/MEMORY.md",
+          "bookclub/reading.md",
+          "bookclub/schedule.md",
+          "persona.md"
+        ],
+        "projected_paths": [
+          "MEMORY.md",
+          "bookclub/MEMORY.md",
+          "bookclub/reading.md",
+          "bookclub/schedule.md",
+          "persona.md"
+        ],
+        "not_projected_paths": [],
+        "frontmatter": [
+          {
+            "path": "MEMORY.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "bookclub/MEMORY.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "bookclub/reading.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "bookclub/schedule.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "persona.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          }
+        ]
+      },
+      "cli": {
+        "command": "node .git/letta-memory-constraints.cjs --layout root-marker",
+        "exit_code": 0,
+        "signal": null,
+        "stdout": "",
+        "stderr": "",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "reported_errors": [],
+        "head_unchanged": true,
+        "stage_unchanged": true
+      },
+      "git_commit": {
+        "command": "git commit -m \"Fixture attempt L01\"",
+        "exit_code": 0,
+        "signal": null,
+        "stdout": "[main 7947f42] Fixture attempt L01\n 1 file changed, 1 insertion(+), 1 deletion(-)\n",
+        "stderr": "",
+        "stdout_sha256": "65bdcaaebba2e7d1e076ec0d1fea2a32e8035752ea54ee947e9e85b709c7dddc",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "head_before": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "head_after": "7947f42b29fa834f49df7a3f9ba223cdab1bfd75",
+        "head_changed": true,
+        "parent_after": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "stage_before": [
+          {
+            "mode": "100644",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "stage": 0,
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "stage": 0,
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "stage": 0,
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "stage": 0,
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "object": "a69159d992a3d50b320b51ce87400fbef757fb09",
+            "stage": 0,
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "stage": 0,
+            "path": "persona.md"
+          }
+        ],
+        "stage_after": [
+          {
+            "mode": "100644",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "stage": 0,
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "stage": 0,
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "stage": 0,
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "stage": 0,
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "object": "a69159d992a3d50b320b51ce87400fbef757fb09",
+            "stage": 0,
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "stage": 0,
+            "path": "persona.md"
+          }
+        ],
+        "stage_retained": false,
+        "staged_changes_before": [
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          }
+        ],
+        "staged_changes_after": [],
+        "status_before": [
+          {
+            "xy": "M ",
+            "path": "bookclub/schedule.md"
+          }
+        ],
+        "status_after": [],
+        "reported_errors": []
+      },
+      "committed": true,
+      "head_files_after": [
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+          "path": ".memfs.config.json"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+          "path": "MEMORY.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+          "path": "bookclub/MEMORY.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+          "path": "bookclub/reading.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "a69159d992a3d50b320b51ce87400fbef757fb09",
+          "path": "bookclub/schedule.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+          "path": "persona.md"
+        }
+      ],
+      "reason_ja": "commit が作られました。原典の検査は理由を返していません。HEAD は a1dffad から 7947f42 へ進み、stage に残った変更はありません。",
+      "reason_basis": "git commit の終了コード0、HEAD の変化、空の stage"
+    },
+    {
+      "id": "L02",
+      "label": "詳細への案内を消すと止まる",
+      "input": {
+        "accepted_files": {
+          "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+          "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+          "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+          "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。\n",
+          "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+          ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+        },
+        "proposed_files": {
+          "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+          "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+          "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。終了後に連絡事項を5分確認する。\n",
+          "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+          ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+        }
+      },
+      "repository": {
+        "directory": "repos/L02",
+        "branch": "main",
+        "hooks_path": ".git/hooks",
+        "hooks_dir_empty_before_baseline": true,
+        "local_config": [
+          "core.repositoryformatversion=0",
+          "core.filemode=false",
+          "core.bare=false",
+          "core.logallrefupdates=true",
+          "core.symlinks=false",
+          "core.ignorecase=true",
+          "core.autocrlf=false",
+          "core.hookspath=.git/hooks",
+          "user.name=Studio Yebisu fictional memory",
+          "user.email=fictional@example.invalid",
+          "commit.gpgsign=false"
+        ],
+        "validator": {
+          "path": ".git/letta-memory-constraints.cjs",
+          "sha256": "9b815cf928feecc4e830095325983a5ab83d7f284f915807e8de61bbbe075829",
+          "bytes": 15506
+        },
+        "hook": {
+          "path": ".git/hooks/pre-commit",
+          "text": "#!/bin/sh\nexec node .git/letta-memory-constraints.cjs --layout root-marker\n",
+          "sha256": "b5cbbd73e753cfa683ab7b89cbea54f43dcadc73500e6f84df645c2f9e6987ae"
+        }
+      },
+      "baseline": {
+        "commit": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "tree": "4867fa1a56a01dd4116ef8be99fb6982485fccfc",
+        "exit_code": 0,
+        "files": [
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "2fd5109069aff1e4658abafa32a455e252fa7ca3",
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "path": "persona.md"
+          }
+        ]
+      },
+      "change": {
+        "removed": [
+          "bookclub/MEMORY.md"
+        ],
+        "written": [
+          "bookclub/schedule.md"
+        ],
+        "staged_name_status": [
+          {
+            "status": "D",
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          }
+        ]
+      },
+      "unicode": {
+        "files": {
+          "MEMORY.md": {
+            "code_points": 72,
+            "utf16_units": 72,
+            "utf8_bytes": 156
+          },
+          "bookclub/reading.md": {
+            "code_points": 88,
+            "utf16_units": 88,
+            "utf8_bytes": 198
+          },
+          "bookclub/schedule.md": {
+            "code_points": 99,
+            "utf16_units": 99,
+            "utf8_bytes": 207
+          },
+          "persona.md": {
+            "code_points": 69,
+            "utf16_units": 69,
+            "utf8_bytes": 147
+          }
+        },
+        "root_markdown_code_points": 141
+      },
+      "skill_structure": {
+        "note": "initializing-memory SKILL.md 9. Verify の「foo.md と foo/ を並べない」条件を stage のパスへ当てはめた Studio Yebisu の照合。原典のコードではない。",
+        "stem_conflicts": []
+      },
+      "api": {
+        "trusted_config": {
+          "version": 1,
+          "maxDepth": 2,
+          "maxFileCharacters": 900,
+          "maxCoreMemoryCharacters": 1200,
+          "readOnlyFiles": [
+            "persona.md"
+          ]
+        },
+        "trusted_config_source": "HEAD:.memfs.config.json（基準の commit）",
+        "layout": "root-marker",
+        "require_root_marker": true,
+        "accepted_tree": "HEAD a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "tree": {
+          "errors": [
+            "bookclub/reading.md: missing required index bookclub/MEMORY.md",
+            "bookclub/schedule.md: missing required index bookclub/MEMORY.md"
+          ],
+          "thrown": null
+        },
+        "staged_config": {
+          "differs_from_trusted": false,
+          "parsed": {
+            "version": 1,
+            "maxDepth": 2,
+            "maxFileCharacters": 900,
+            "maxCoreMemoryCharacters": 1200,
+            "readOnlyFiles": [
+              "persona.md"
+            ]
+          },
+          "error": null
+        },
+        "memory_format": "memfs-v2",
+        "markdown_paths": [
+          "MEMORY.md",
+          "bookclub/reading.md",
+          "bookclub/schedule.md",
+          "persona.md"
+        ],
+        "projected_paths": [
+          "MEMORY.md",
+          "persona.md"
+        ],
+        "not_projected_paths": [
+          "bookclub/reading.md",
+          "bookclub/schedule.md"
+        ],
+        "frontmatter": [
+          {
+            "path": "MEMORY.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "persona.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          }
+        ]
+      },
+      "cli": {
+        "command": "node .git/letta-memory-constraints.cjs --layout root-marker",
+        "exit_code": 1,
+        "signal": null,
+        "stdout": "",
+        "stderr": "Memory validation blocked this commit.\nNo files were committed. Your staged changes are still present.\nValidation checks the complete repository, so these problems may predate your staged changes.\n\nFix these problems:\n  bookclub/reading.md: missing required index bookclub/MEMORY.md\n  bookclub/schedule.md: missing required index bookclub/MEMORY.md\n\nMove non-core detail out of root Markdown and behind MEMORY.md indexes.\nSplit files above their per-file limit, then retry the commit.\nLimits come from .memfs.config.json, or the Letta Code defaults when it is absent.\nDo not raise or disable these limits unless the user explicitly approves it.\n",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "521528e1ede50734c11dad34dbb8b959ae2b2aa936f226b8dc63c6cf1758c5df",
+        "reported_errors": [
+          "bookclub/reading.md: missing required index bookclub/MEMORY.md",
+          "bookclub/schedule.md: missing required index bookclub/MEMORY.md"
+        ],
+        "head_unchanged": true,
+        "stage_unchanged": true
+      },
+      "git_commit": {
+        "command": "git commit -m \"Fixture attempt L02\"",
+        "exit_code": 1,
+        "signal": null,
+        "stdout": "",
+        "stderr": "Memory validation blocked this commit.\nNo files were committed. Your staged changes are still present.\nValidation checks the complete repository, so these problems may predate your staged changes.\n\nFix these problems:\n  bookclub/reading.md: missing required index bookclub/MEMORY.md\n  bookclub/schedule.md: missing required index bookclub/MEMORY.md\n\nMove non-core detail out of root Markdown and behind MEMORY.md indexes.\nSplit files above their per-file limit, then retry the commit.\nLimits come from .memfs.config.json, or the Letta Code defaults when it is absent.\nDo not raise or disable these limits unless the user explicitly approves it.\n",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "521528e1ede50734c11dad34dbb8b959ae2b2aa936f226b8dc63c6cf1758c5df",
+        "head_before": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "head_after": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "head_changed": false,
+        "parent_after": null,
+        "stage_before": [
+          {
+            "mode": "100644",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "stage": 0,
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "stage": 0,
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "stage": 0,
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "object": "a69159d992a3d50b320b51ce87400fbef757fb09",
+            "stage": 0,
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "stage": 0,
+            "path": "persona.md"
+          }
+        ],
+        "stage_after": [
+          {
+            "mode": "100644",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "stage": 0,
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "stage": 0,
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "stage": 0,
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "object": "a69159d992a3d50b320b51ce87400fbef757fb09",
+            "stage": 0,
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "stage": 0,
+            "path": "persona.md"
+          }
+        ],
+        "stage_retained": true,
+        "staged_changes_before": [
+          {
+            "status": "D",
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          }
+        ],
+        "staged_changes_after": [
+          {
+            "status": "D",
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          }
+        ],
+        "status_before": [
+          {
+            "xy": "D ",
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "xy": "M ",
+            "path": "bookclub/schedule.md"
+          }
+        ],
+        "status_after": [
+          {
+            "xy": "D ",
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "xy": "M ",
+            "path": "bookclub/schedule.md"
+          }
+        ],
+        "reported_errors": [
+          "bookclub/reading.md: missing required index bookclub/MEMORY.md",
+          "bookclub/schedule.md: missing required index bookclub/MEMORY.md"
+        ]
+      },
+      "committed": false,
+      "head_files_after": [
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+          "path": ".memfs.config.json"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+          "path": "MEMORY.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+          "path": "bookclub/MEMORY.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+          "path": "bookclub/reading.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "2fd5109069aff1e4658abafa32a455e252fa7ca3",
+          "path": "bookclub/schedule.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+          "path": "persona.md"
+        }
+      ],
+      "reason_ja": "commit は止まりました。bookclub/reading.md を記憶として読むための案内 bookclub/MEMORY.md がありません。 bookclub/schedule.md を記憶として読むための案内 bookclub/MEMORY.md がありません。 HEAD は a1dffad のまま変わらず、stage の2件の変更は残っています。stage に残った変更は、まだ記憶として保存されていません。",
+      "reason_basis": "git commit の stderr に原典の pre-commit が出した理由の行、終了コード、HEAD と stage"
+    },
+    {
+      "id": "L03",
+      "label": "案内を戻して再検査",
+      "input": {
+        "accepted_files": {
+          "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+          "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+          "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+          "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。\n",
+          "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+          ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+        },
+        "proposed_files": {
+          "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+          "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+          "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+          "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。終了後に連絡事項を5分確認する。\n",
+          "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+          ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+        }
+      },
+      "repository": {
+        "directory": "repos/L03",
+        "branch": "main",
+        "hooks_path": ".git/hooks",
+        "hooks_dir_empty_before_baseline": true,
+        "local_config": [
+          "core.repositoryformatversion=0",
+          "core.filemode=false",
+          "core.bare=false",
+          "core.logallrefupdates=true",
+          "core.symlinks=false",
+          "core.ignorecase=true",
+          "core.autocrlf=false",
+          "core.hookspath=.git/hooks",
+          "user.name=Studio Yebisu fictional memory",
+          "user.email=fictional@example.invalid",
+          "commit.gpgsign=false"
+        ],
+        "validator": {
+          "path": ".git/letta-memory-constraints.cjs",
+          "sha256": "9b815cf928feecc4e830095325983a5ab83d7f284f915807e8de61bbbe075829",
+          "bytes": 15506
+        },
+        "hook": {
+          "path": ".git/hooks/pre-commit",
+          "text": "#!/bin/sh\nexec node .git/letta-memory-constraints.cjs --layout root-marker\n",
+          "sha256": "b5cbbd73e753cfa683ab7b89cbea54f43dcadc73500e6f84df645c2f9e6987ae"
+        }
+      },
+      "baseline": {
+        "commit": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "tree": "4867fa1a56a01dd4116ef8be99fb6982485fccfc",
+        "exit_code": 0,
+        "files": [
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "2fd5109069aff1e4658abafa32a455e252fa7ca3",
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "path": "persona.md"
+          }
+        ]
+      },
+      "change": {
+        "removed": [],
+        "written": [
+          "bookclub/schedule.md"
+        ],
+        "staged_name_status": [
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          }
+        ]
+      },
+      "unicode": {
+        "files": {
+          "MEMORY.md": {
+            "code_points": 72,
+            "utf16_units": 72,
+            "utf8_bytes": 156
+          },
+          "bookclub/MEMORY.md": {
+            "code_points": 53,
+            "utf16_units": 53,
+            "utf8_bytes": 101
+          },
+          "bookclub/reading.md": {
+            "code_points": 88,
+            "utf16_units": 88,
+            "utf8_bytes": 198
+          },
+          "bookclub/schedule.md": {
+            "code_points": 99,
+            "utf16_units": 99,
+            "utf8_bytes": 207
+          },
+          "persona.md": {
+            "code_points": 69,
+            "utf16_units": 69,
+            "utf8_bytes": 147
+          }
+        },
+        "root_markdown_code_points": 141
+      },
+      "skill_structure": {
+        "note": "initializing-memory SKILL.md 9. Verify の「foo.md と foo/ を並べない」条件を stage のパスへ当てはめた Studio Yebisu の照合。原典のコードではない。",
+        "stem_conflicts": []
+      },
+      "api": {
+        "trusted_config": {
+          "version": 1,
+          "maxDepth": 2,
+          "maxFileCharacters": 900,
+          "maxCoreMemoryCharacters": 1200,
+          "readOnlyFiles": [
+            "persona.md"
+          ]
+        },
+        "trusted_config_source": "HEAD:.memfs.config.json（基準の commit）",
+        "layout": "root-marker",
+        "require_root_marker": true,
+        "accepted_tree": "HEAD a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "tree": {
+          "errors": [],
+          "thrown": null
+        },
+        "staged_config": {
+          "differs_from_trusted": false,
+          "parsed": {
+            "version": 1,
+            "maxDepth": 2,
+            "maxFileCharacters": 900,
+            "maxCoreMemoryCharacters": 1200,
+            "readOnlyFiles": [
+              "persona.md"
+            ]
+          },
+          "error": null
+        },
+        "memory_format": "memfs-v2",
+        "markdown_paths": [
+          "MEMORY.md",
+          "bookclub/MEMORY.md",
+          "bookclub/reading.md",
+          "bookclub/schedule.md",
+          "persona.md"
+        ],
+        "projected_paths": [
+          "MEMORY.md",
+          "bookclub/MEMORY.md",
+          "bookclub/reading.md",
+          "bookclub/schedule.md",
+          "persona.md"
+        ],
+        "not_projected_paths": [],
+        "frontmatter": [
+          {
+            "path": "MEMORY.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "bookclub/MEMORY.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "bookclub/reading.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "bookclub/schedule.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "persona.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          }
+        ]
+      },
+      "cli": {
+        "command": "node .git/letta-memory-constraints.cjs --layout root-marker",
+        "exit_code": 0,
+        "signal": null,
+        "stdout": "",
+        "stderr": "",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "reported_errors": [],
+        "head_unchanged": true,
+        "stage_unchanged": true
+      },
+      "git_commit": {
+        "command": "git commit -m \"Fixture attempt L03\"",
+        "exit_code": 0,
+        "signal": null,
+        "stdout": "[main 3b8abc2] Fixture attempt L03\n 1 file changed, 1 insertion(+), 1 deletion(-)\n",
+        "stderr": "",
+        "stdout_sha256": "92c1efad693a649d2aa1e4161ebc98d5ba2bc4970919a398af45a92029530dba",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "head_before": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "head_after": "3b8abc261d7648cfb59b331068806c7b30076f2c",
+        "head_changed": true,
+        "parent_after": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "stage_before": [
+          {
+            "mode": "100644",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "stage": 0,
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "stage": 0,
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "stage": 0,
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "stage": 0,
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "object": "a69159d992a3d50b320b51ce87400fbef757fb09",
+            "stage": 0,
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "stage": 0,
+            "path": "persona.md"
+          }
+        ],
+        "stage_after": [
+          {
+            "mode": "100644",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "stage": 0,
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "stage": 0,
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "stage": 0,
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "stage": 0,
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "object": "a69159d992a3d50b320b51ce87400fbef757fb09",
+            "stage": 0,
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "stage": 0,
+            "path": "persona.md"
+          }
+        ],
+        "stage_retained": false,
+        "staged_changes_before": [
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          }
+        ],
+        "staged_changes_after": [],
+        "status_before": [
+          {
+            "xy": "M ",
+            "path": "bookclub/schedule.md"
+          }
+        ],
+        "status_after": [],
+        "reported_errors": []
+      },
+      "committed": true,
+      "head_files_after": [
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+          "path": ".memfs.config.json"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+          "path": "MEMORY.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+          "path": "bookclub/MEMORY.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+          "path": "bookclub/reading.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "a69159d992a3d50b320b51ce87400fbef757fb09",
+          "path": "bookclub/schedule.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+          "path": "persona.md"
+        }
+      ],
+      "reason_ja": "commit が作られました。原典の検査は理由を返していません。HEAD は a1dffad から 3b8abc2 へ進み、stage に残った変更はありません。",
+      "reason_basis": "git commit の終了コード0、HEAD の変化、空の stage"
+    },
+    {
+      "id": "L04",
+      "label": "901文字のファイルを止める",
+      "input": {
+        "accepted_files": {
+          "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+          "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+          "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+          "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。\n",
+          "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+          ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+        },
+        "proposed_files": {
+          "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+          "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+          "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+          "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\nああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ",
+          "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+          ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+        }
+      },
+      "repository": {
+        "directory": "repos/L04",
+        "branch": "main",
+        "hooks_path": ".git/hooks",
+        "hooks_dir_empty_before_baseline": true,
+        "local_config": [
+          "core.repositoryformatversion=0",
+          "core.filemode=false",
+          "core.bare=false",
+          "core.logallrefupdates=true",
+          "core.symlinks=false",
+          "core.ignorecase=true",
+          "core.autocrlf=false",
+          "core.hookspath=.git/hooks",
+          "user.name=Studio Yebisu fictional memory",
+          "user.email=fictional@example.invalid",
+          "commit.gpgsign=false"
+        ],
+        "validator": {
+          "path": ".git/letta-memory-constraints.cjs",
+          "sha256": "9b815cf928feecc4e830095325983a5ab83d7f284f915807e8de61bbbe075829",
+          "bytes": 15506
+        },
+        "hook": {
+          "path": ".git/hooks/pre-commit",
+          "text": "#!/bin/sh\nexec node .git/letta-memory-constraints.cjs --layout root-marker\n",
+          "sha256": "b5cbbd73e753cfa683ab7b89cbea54f43dcadc73500e6f84df645c2f9e6987ae"
+        }
+      },
+      "baseline": {
+        "commit": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "tree": "4867fa1a56a01dd4116ef8be99fb6982485fccfc",
+        "exit_code": 0,
+        "files": [
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "2fd5109069aff1e4658abafa32a455e252fa7ca3",
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "path": "persona.md"
+          }
+        ]
+      },
+      "change": {
+        "removed": [],
+        "written": [
+          "bookclub/schedule.md"
+        ],
+        "staged_name_status": [
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          }
+        ]
+      },
+      "unicode": {
+        "files": {
+          "MEMORY.md": {
+            "code_points": 72,
+            "utf16_units": 72,
+            "utf8_bytes": 156
+          },
+          "bookclub/MEMORY.md": {
+            "code_points": 53,
+            "utf16_units": 53,
+            "utf8_bytes": 101
+          },
+          "bookclub/reading.md": {
+            "code_points": 88,
+            "utf16_units": 88,
+            "utf8_bytes": 198
+          },
+          "bookclub/schedule.md": {
+            "code_points": 901,
+            "utf16_units": 901,
+            "utf8_bytes": 2645
+          },
+          "persona.md": {
+            "code_points": 69,
+            "utf16_units": 69,
+            "utf8_bytes": 147
+          }
+        },
+        "root_markdown_code_points": 141
+      },
+      "skill_structure": {
+        "note": "initializing-memory SKILL.md 9. Verify の「foo.md と foo/ を並べない」条件を stage のパスへ当てはめた Studio Yebisu の照合。原典のコードではない。",
+        "stem_conflicts": []
+      },
+      "api": {
+        "trusted_config": {
+          "version": 1,
+          "maxDepth": 2,
+          "maxFileCharacters": 900,
+          "maxCoreMemoryCharacters": 1200,
+          "readOnlyFiles": [
+            "persona.md"
+          ]
+        },
+        "trusted_config_source": "HEAD:.memfs.config.json（基準の commit）",
+        "layout": "root-marker",
+        "require_root_marker": true,
+        "accepted_tree": "HEAD a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "tree": {
+          "errors": [
+            "bookclub/schedule.md: 901 characters exceeds 900 from maxFileCharacters"
+          ],
+          "thrown": null
+        },
+        "staged_config": {
+          "differs_from_trusted": false,
+          "parsed": {
+            "version": 1,
+            "maxDepth": 2,
+            "maxFileCharacters": 900,
+            "maxCoreMemoryCharacters": 1200,
+            "readOnlyFiles": [
+              "persona.md"
+            ]
+          },
+          "error": null
+        },
+        "memory_format": "memfs-v2",
+        "markdown_paths": [
+          "MEMORY.md",
+          "bookclub/MEMORY.md",
+          "bookclub/reading.md",
+          "bookclub/schedule.md",
+          "persona.md"
+        ],
+        "projected_paths": [
+          "MEMORY.md",
+          "bookclub/MEMORY.md",
+          "bookclub/reading.md",
+          "bookclub/schedule.md",
+          "persona.md"
+        ],
+        "not_projected_paths": [],
+        "frontmatter": [
+          {
+            "path": "MEMORY.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "bookclub/MEMORY.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "bookclub/reading.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "bookclub/schedule.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "persona.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          }
+        ]
+      },
+      "cli": {
+        "command": "node .git/letta-memory-constraints.cjs --layout root-marker",
+        "exit_code": 1,
+        "signal": null,
+        "stdout": "",
+        "stderr": "Memory validation blocked this commit.\nNo files were committed. Your staged changes are still present.\nValidation checks the complete repository, so these problems may predate your staged changes.\n\nFix these problems:\n  bookclub/schedule.md: 901 characters exceeds 900 from maxFileCharacters\n\nMove non-core detail out of root Markdown and behind MEMORY.md indexes.\nSplit files above their per-file limit, then retry the commit.\nLimits come from .memfs.config.json, or the Letta Code defaults when it is absent.\nDo not raise or disable these limits unless the user explicitly approves it.\n",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "46718faddaf36dc3d196a109d7c8201c477d78e80eb928745d1ce9ee71e2ae39",
+        "reported_errors": [
+          "bookclub/schedule.md: 901 characters exceeds 900 from maxFileCharacters"
+        ],
+        "head_unchanged": true,
+        "stage_unchanged": true
+      },
+      "git_commit": {
+        "command": "git commit -m \"Fixture attempt L04\"",
+        "exit_code": 1,
+        "signal": null,
+        "stdout": "",
+        "stderr": "Memory validation blocked this commit.\nNo files were committed. Your staged changes are still present.\nValidation checks the complete repository, so these problems may predate your staged changes.\n\nFix these problems:\n  bookclub/schedule.md: 901 characters exceeds 900 from maxFileCharacters\n\nMove non-core detail out of root Markdown and behind MEMORY.md indexes.\nSplit files above their per-file limit, then retry the commit.\nLimits come from .memfs.config.json, or the Letta Code defaults when it is absent.\nDo not raise or disable these limits unless the user explicitly approves it.\n",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "46718faddaf36dc3d196a109d7c8201c477d78e80eb928745d1ce9ee71e2ae39",
+        "head_before": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "head_after": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "head_changed": false,
+        "parent_after": null,
+        "stage_before": [
+          {
+            "mode": "100644",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "stage": 0,
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "stage": 0,
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "stage": 0,
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "stage": 0,
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "object": "b87417cf266ee1cf8b14b6c1305699d8d50d9388",
+            "stage": 0,
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "stage": 0,
+            "path": "persona.md"
+          }
+        ],
+        "stage_after": [
+          {
+            "mode": "100644",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "stage": 0,
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "stage": 0,
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "stage": 0,
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "stage": 0,
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "object": "b87417cf266ee1cf8b14b6c1305699d8d50d9388",
+            "stage": 0,
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "stage": 0,
+            "path": "persona.md"
+          }
+        ],
+        "stage_retained": true,
+        "staged_changes_before": [
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          }
+        ],
+        "staged_changes_after": [
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          }
+        ],
+        "status_before": [
+          {
+            "xy": "M ",
+            "path": "bookclub/schedule.md"
+          }
+        ],
+        "status_after": [
+          {
+            "xy": "M ",
+            "path": "bookclub/schedule.md"
+          }
+        ],
+        "reported_errors": [
+          "bookclub/schedule.md: 901 characters exceeds 900 from maxFileCharacters"
+        ]
+      },
+      "committed": false,
+      "head_files_after": [
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+          "path": ".memfs.config.json"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+          "path": "MEMORY.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+          "path": "bookclub/MEMORY.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+          "path": "bookclub/reading.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "2fd5109069aff1e4658abafa32a455e252fa7ca3",
+          "path": "bookclub/schedule.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+          "path": "persona.md"
+        }
+      ],
+      "reason_ja": "commit は止まりました。bookclub/schedule.md は 901 文字で、1ファイルの上限 900 文字を超えています。 HEAD は a1dffad のまま変わらず、stage の1件の変更は残っています。stage に残った変更は、まだ記憶として保存されていません。",
+      "reason_basis": "git commit の stderr に原典の pre-commit が出した理由の行、終了コード、HEAD と stage"
+    },
+    {
+      "id": "L05",
+      "label": "3階層の記憶を止める",
+      "input": {
+        "accepted_files": {
+          "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+          "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+          "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+          "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。\n",
+          "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+          ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+        },
+        "proposed_files": {
+          "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+          "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+          "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+          "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。終了後に連絡事項を5分確認する。\n",
+          "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+          ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n",
+          "bookclub/archive/MEMORY.md": "# 過去回\n\n2025/MEMORY.md から過去回を読む。\n",
+          "bookclub/archive/2025/MEMORY.md": "# 2025年\n\nnotes.md に過去回の手がかり。\n",
+          "bookclub/archive/2025/notes.md": "---\nname: 過去回\ndescription: 架空の過去回を調べるときの詳細\n---\n参加者は架空。作品の進め方だけを記録。\n"
+        }
+      },
+      "repository": {
+        "directory": "repos/L05",
+        "branch": "main",
+        "hooks_path": ".git/hooks",
+        "hooks_dir_empty_before_baseline": true,
+        "local_config": [
+          "core.repositoryformatversion=0",
+          "core.filemode=false",
+          "core.bare=false",
+          "core.logallrefupdates=true",
+          "core.symlinks=false",
+          "core.ignorecase=true",
+          "core.autocrlf=false",
+          "core.hookspath=.git/hooks",
+          "user.name=Studio Yebisu fictional memory",
+          "user.email=fictional@example.invalid",
+          "commit.gpgsign=false"
+        ],
+        "validator": {
+          "path": ".git/letta-memory-constraints.cjs",
+          "sha256": "9b815cf928feecc4e830095325983a5ab83d7f284f915807e8de61bbbe075829",
+          "bytes": 15506
+        },
+        "hook": {
+          "path": ".git/hooks/pre-commit",
+          "text": "#!/bin/sh\nexec node .git/letta-memory-constraints.cjs --layout root-marker\n",
+          "sha256": "b5cbbd73e753cfa683ab7b89cbea54f43dcadc73500e6f84df645c2f9e6987ae"
+        }
+      },
+      "baseline": {
+        "commit": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "tree": "4867fa1a56a01dd4116ef8be99fb6982485fccfc",
+        "exit_code": 0,
+        "files": [
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "2fd5109069aff1e4658abafa32a455e252fa7ca3",
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "path": "persona.md"
+          }
+        ]
+      },
+      "change": {
+        "removed": [],
+        "written": [
+          "bookclub/archive/2025/MEMORY.md",
+          "bookclub/archive/2025/notes.md",
+          "bookclub/archive/MEMORY.md",
+          "bookclub/schedule.md"
+        ],
+        "staged_name_status": [
+          {
+            "status": "A",
+            "path": "bookclub/archive/2025/MEMORY.md"
+          },
+          {
+            "status": "A",
+            "path": "bookclub/archive/2025/notes.md"
+          },
+          {
+            "status": "A",
+            "path": "bookclub/archive/MEMORY.md"
+          },
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          }
+        ]
+      },
+      "unicode": {
+        "files": {
+          "MEMORY.md": {
+            "code_points": 72,
+            "utf16_units": 72,
+            "utf8_bytes": 156
+          },
+          "bookclub/MEMORY.md": {
+            "code_points": 53,
+            "utf16_units": 53,
+            "utf8_bytes": 101
+          },
+          "bookclub/archive/2025/MEMORY.md": {
+            "code_points": 29,
+            "utf16_units": 29,
+            "utf8_bytes": 51
+          },
+          "bookclub/archive/2025/notes.md": {
+            "code_points": 67,
+            "utf16_units": 67,
+            "utf8_bytes": 141
+          },
+          "bookclub/archive/MEMORY.md": {
+            "code_points": 32,
+            "utf16_units": 32,
+            "utf8_bytes": 56
+          },
+          "bookclub/reading.md": {
+            "code_points": 88,
+            "utf16_units": 88,
+            "utf8_bytes": 198
+          },
+          "bookclub/schedule.md": {
+            "code_points": 99,
+            "utf16_units": 99,
+            "utf8_bytes": 207
+          },
+          "persona.md": {
+            "code_points": 69,
+            "utf16_units": 69,
+            "utf8_bytes": 147
+          }
+        },
+        "root_markdown_code_points": 141
+      },
+      "skill_structure": {
+        "note": "initializing-memory SKILL.md 9. Verify の「foo.md と foo/ を並べない」条件を stage のパスへ当てはめた Studio Yebisu の照合。原典のコードではない。",
+        "stem_conflicts": []
+      },
+      "api": {
+        "trusted_config": {
+          "version": 1,
+          "maxDepth": 2,
+          "maxFileCharacters": 900,
+          "maxCoreMemoryCharacters": 1200,
+          "readOnlyFiles": [
+            "persona.md"
+          ]
+        },
+        "trusted_config_source": "HEAD:.memfs.config.json（基準の commit）",
+        "layout": "root-marker",
+        "require_root_marker": true,
+        "accepted_tree": "HEAD a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "tree": {
+          "errors": [
+            "bookclub/archive/2025/MEMORY.md: depth 3 exceeds maxDepth 2",
+            "bookclub/archive/2025/notes.md: depth 3 exceeds maxDepth 2"
+          ],
+          "thrown": null
+        },
+        "staged_config": {
+          "differs_from_trusted": false,
+          "parsed": {
+            "version": 1,
+            "maxDepth": 2,
+            "maxFileCharacters": 900,
+            "maxCoreMemoryCharacters": 1200,
+            "readOnlyFiles": [
+              "persona.md"
+            ]
+          },
+          "error": null
+        },
+        "memory_format": "memfs-v2",
+        "markdown_paths": [
+          "MEMORY.md",
+          "bookclub/MEMORY.md",
+          "bookclub/archive/2025/MEMORY.md",
+          "bookclub/archive/2025/notes.md",
+          "bookclub/archive/MEMORY.md",
+          "bookclub/reading.md",
+          "bookclub/schedule.md",
+          "persona.md"
+        ],
+        "projected_paths": [
+          "MEMORY.md",
+          "bookclub/MEMORY.md",
+          "bookclub/archive/2025/MEMORY.md",
+          "bookclub/archive/2025/notes.md",
+          "bookclub/archive/MEMORY.md",
+          "bookclub/reading.md",
+          "bookclub/schedule.md",
+          "persona.md"
+        ],
+        "not_projected_paths": [],
+        "frontmatter": [
+          {
+            "path": "MEMORY.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "bookclub/MEMORY.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "bookclub/archive/2025/MEMORY.md",
+            "format": "memfs-v2",
+            "previous_present": false,
+            "errors": []
+          },
+          {
+            "path": "bookclub/archive/2025/notes.md",
+            "format": "memfs-v2",
+            "previous_present": false,
+            "errors": []
+          },
+          {
+            "path": "bookclub/archive/MEMORY.md",
+            "format": "memfs-v2",
+            "previous_present": false,
+            "errors": []
+          },
+          {
+            "path": "bookclub/reading.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "bookclub/schedule.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "persona.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          }
+        ]
+      },
+      "cli": {
+        "command": "node .git/letta-memory-constraints.cjs --layout root-marker",
+        "exit_code": 1,
+        "signal": null,
+        "stdout": "",
+        "stderr": "Memory validation blocked this commit.\nNo files were committed. Your staged changes are still present.\nValidation checks the complete repository, so these problems may predate your staged changes.\n\nFix these problems:\n  bookclub/archive/2025/MEMORY.md: depth 3 exceeds maxDepth 2\n  bookclub/archive/2025/notes.md: depth 3 exceeds maxDepth 2\n\nMove non-core detail out of root Markdown and behind MEMORY.md indexes.\nSplit files above their per-file limit, then retry the commit.\nLimits come from .memfs.config.json, or the Letta Code defaults when it is absent.\nDo not raise or disable these limits unless the user explicitly approves it.\n",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "47a430710ac413f97f8d6b84c5234b7810ded703b9836e69ed6a91e2ed804b34",
+        "reported_errors": [
+          "bookclub/archive/2025/MEMORY.md: depth 3 exceeds maxDepth 2",
+          "bookclub/archive/2025/notes.md: depth 3 exceeds maxDepth 2"
+        ],
+        "head_unchanged": true,
+        "stage_unchanged": true
+      },
+      "git_commit": {
+        "command": "git commit -m \"Fixture attempt L05\"",
+        "exit_code": 1,
+        "signal": null,
+        "stdout": "",
+        "stderr": "Memory validation blocked this commit.\nNo files were committed. Your staged changes are still present.\nValidation checks the complete repository, so these problems may predate your staged changes.\n\nFix these problems:\n  bookclub/archive/2025/MEMORY.md: depth 3 exceeds maxDepth 2\n  bookclub/archive/2025/notes.md: depth 3 exceeds maxDepth 2\n\nMove non-core detail out of root Markdown and behind MEMORY.md indexes.\nSplit files above their per-file limit, then retry the commit.\nLimits come from .memfs.config.json, or the Letta Code defaults when it is absent.\nDo not raise or disable these limits unless the user explicitly approves it.\n",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "47a430710ac413f97f8d6b84c5234b7810ded703b9836e69ed6a91e2ed804b34",
+        "head_before": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "head_after": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "head_changed": false,
+        "parent_after": null,
+        "stage_before": [
+          {
+            "mode": "100644",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "stage": 0,
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "stage": 0,
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "stage": 0,
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "287d3ce3666cd385c80ab86cd7444ab94d6c3711",
+            "stage": 0,
+            "path": "bookclub/archive/2025/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "25faee8e158a7b5c3d2ecc2620032d085463a32b",
+            "stage": 0,
+            "path": "bookclub/archive/2025/notes.md"
+          },
+          {
+            "mode": "100644",
+            "object": "2e7b678773a19a41266b3758b7e7ac1118d0b6da",
+            "stage": 0,
+            "path": "bookclub/archive/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "stage": 0,
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "object": "a69159d992a3d50b320b51ce87400fbef757fb09",
+            "stage": 0,
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "stage": 0,
+            "path": "persona.md"
+          }
+        ],
+        "stage_after": [
+          {
+            "mode": "100644",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "stage": 0,
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "stage": 0,
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "stage": 0,
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "287d3ce3666cd385c80ab86cd7444ab94d6c3711",
+            "stage": 0,
+            "path": "bookclub/archive/2025/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "25faee8e158a7b5c3d2ecc2620032d085463a32b",
+            "stage": 0,
+            "path": "bookclub/archive/2025/notes.md"
+          },
+          {
+            "mode": "100644",
+            "object": "2e7b678773a19a41266b3758b7e7ac1118d0b6da",
+            "stage": 0,
+            "path": "bookclub/archive/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "stage": 0,
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "object": "a69159d992a3d50b320b51ce87400fbef757fb09",
+            "stage": 0,
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "stage": 0,
+            "path": "persona.md"
+          }
+        ],
+        "stage_retained": true,
+        "staged_changes_before": [
+          {
+            "status": "A",
+            "path": "bookclub/archive/2025/MEMORY.md"
+          },
+          {
+            "status": "A",
+            "path": "bookclub/archive/2025/notes.md"
+          },
+          {
+            "status": "A",
+            "path": "bookclub/archive/MEMORY.md"
+          },
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          }
+        ],
+        "staged_changes_after": [
+          {
+            "status": "A",
+            "path": "bookclub/archive/2025/MEMORY.md"
+          },
+          {
+            "status": "A",
+            "path": "bookclub/archive/2025/notes.md"
+          },
+          {
+            "status": "A",
+            "path": "bookclub/archive/MEMORY.md"
+          },
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          }
+        ],
+        "status_before": [
+          {
+            "xy": "A ",
+            "path": "bookclub/archive/2025/MEMORY.md"
+          },
+          {
+            "xy": "A ",
+            "path": "bookclub/archive/2025/notes.md"
+          },
+          {
+            "xy": "A ",
+            "path": "bookclub/archive/MEMORY.md"
+          },
+          {
+            "xy": "M ",
+            "path": "bookclub/schedule.md"
+          }
+        ],
+        "status_after": [
+          {
+            "xy": "A ",
+            "path": "bookclub/archive/2025/MEMORY.md"
+          },
+          {
+            "xy": "A ",
+            "path": "bookclub/archive/2025/notes.md"
+          },
+          {
+            "xy": "A ",
+            "path": "bookclub/archive/MEMORY.md"
+          },
+          {
+            "xy": "M ",
+            "path": "bookclub/schedule.md"
+          }
+        ],
+        "reported_errors": [
+          "bookclub/archive/2025/MEMORY.md: depth 3 exceeds maxDepth 2",
+          "bookclub/archive/2025/notes.md: depth 3 exceeds maxDepth 2"
+        ]
+      },
+      "committed": false,
+      "head_files_after": [
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+          "path": ".memfs.config.json"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+          "path": "MEMORY.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+          "path": "bookclub/MEMORY.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+          "path": "bookclub/reading.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "2fd5109069aff1e4658abafa32a455e252fa7ca3",
+          "path": "bookclub/schedule.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+          "path": "persona.md"
+        }
+      ],
+      "reason_ja": "commit は止まりました。bookclub/archive/2025/MEMORY.md はルートから 3 階層下にあり、上限の 2 階層を超えています。 bookclub/archive/2025/notes.md はルートから 3 階層下にあり、上限の 2 階層を超えています。 HEAD は a1dffad のまま変わらず、stage の4件の変更は残っています。stage に残った変更は、まだ記憶として保存されていません。",
+      "reason_basis": "git commit の stderr に原典の pre-commit が出した理由の行、終了コード、HEAD と stage"
+    },
+    {
+      "id": "L06",
+      "label": "常時読む記憶の合計を止める",
+      "input": {
+        "accepted_files": {
+          "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+          "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+          "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+          "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。\n",
+          "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+          ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+        },
+        "proposed_files": {
+          "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+          "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+          "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+          "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。終了後に連絡事項を5分確認する。\n",
+          "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+          ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n",
+          "orientation.md": "---\nname: 毎回の案内\ndescription: 毎回参照する架空の案内\n---\n\n方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方",
+          "daily.md": "---\nname: 毎回の案内\ndescription: 毎回参照する架空の案内\n---\n\n方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方方"
+        }
+      },
+      "repository": {
+        "directory": "repos/L06",
+        "branch": "main",
+        "hooks_path": ".git/hooks",
+        "hooks_dir_empty_before_baseline": true,
+        "local_config": [
+          "core.repositoryformatversion=0",
+          "core.filemode=false",
+          "core.bare=false",
+          "core.logallrefupdates=true",
+          "core.symlinks=false",
+          "core.ignorecase=true",
+          "core.autocrlf=false",
+          "core.hookspath=.git/hooks",
+          "user.name=Studio Yebisu fictional memory",
+          "user.email=fictional@example.invalid",
+          "commit.gpgsign=false"
+        ],
+        "validator": {
+          "path": ".git/letta-memory-constraints.cjs",
+          "sha256": "9b815cf928feecc4e830095325983a5ab83d7f284f915807e8de61bbbe075829",
+          "bytes": 15506
+        },
+        "hook": {
+          "path": ".git/hooks/pre-commit",
+          "text": "#!/bin/sh\nexec node .git/letta-memory-constraints.cjs --layout root-marker\n",
+          "sha256": "b5cbbd73e753cfa683ab7b89cbea54f43dcadc73500e6f84df645c2f9e6987ae"
+        }
+      },
+      "baseline": {
+        "commit": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "tree": "4867fa1a56a01dd4116ef8be99fb6982485fccfc",
+        "exit_code": 0,
+        "files": [
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "2fd5109069aff1e4658abafa32a455e252fa7ca3",
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "path": "persona.md"
+          }
+        ]
+      },
+      "change": {
+        "removed": [],
+        "written": [
+          "bookclub/schedule.md",
+          "daily.md",
+          "orientation.md"
+        ],
+        "staged_name_status": [
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "status": "A",
+            "path": "daily.md"
+          },
+          {
+            "status": "A",
+            "path": "orientation.md"
+          }
+        ]
+      },
+      "unicode": {
+        "files": {
+          "MEMORY.md": {
+            "code_points": 72,
+            "utf16_units": 72,
+            "utf8_bytes": 156
+          },
+          "bookclub/MEMORY.md": {
+            "code_points": 53,
+            "utf16_units": 53,
+            "utf8_bytes": 101
+          },
+          "bookclub/reading.md": {
+            "code_points": 88,
+            "utf16_units": 88,
+            "utf8_bytes": 198
+          },
+          "bookclub/schedule.md": {
+            "code_points": 99,
+            "utf16_units": 99,
+            "utf8_bytes": 207
+          },
+          "daily.md": {
+            "code_points": 530,
+            "utf16_units": 530,
+            "utf8_bytes": 1530
+          },
+          "orientation.md": {
+            "code_points": 530,
+            "utf16_units": 530,
+            "utf8_bytes": 1530
+          },
+          "persona.md": {
+            "code_points": 69,
+            "utf16_units": 69,
+            "utf8_bytes": 147
+          }
+        },
+        "root_markdown_code_points": 1201
+      },
+      "skill_structure": {
+        "note": "initializing-memory SKILL.md 9. Verify の「foo.md と foo/ を並べない」条件を stage のパスへ当てはめた Studio Yebisu の照合。原典のコードではない。",
+        "stem_conflicts": []
+      },
+      "api": {
+        "trusted_config": {
+          "version": 1,
+          "maxDepth": 2,
+          "maxFileCharacters": 900,
+          "maxCoreMemoryCharacters": 1200,
+          "readOnlyFiles": [
+            "persona.md"
+          ]
+        },
+        "trusted_config_source": "HEAD:.memfs.config.json（基準の commit）",
+        "layout": "root-marker",
+        "require_root_marker": true,
+        "accepted_tree": "HEAD a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "tree": {
+          "errors": [
+            "core memory: 1201 characters exceeds 1200 from maxCoreMemoryCharacters"
+          ],
+          "thrown": null
+        },
+        "staged_config": {
+          "differs_from_trusted": false,
+          "parsed": {
+            "version": 1,
+            "maxDepth": 2,
+            "maxFileCharacters": 900,
+            "maxCoreMemoryCharacters": 1200,
+            "readOnlyFiles": [
+              "persona.md"
+            ]
+          },
+          "error": null
+        },
+        "memory_format": "memfs-v2",
+        "markdown_paths": [
+          "MEMORY.md",
+          "bookclub/MEMORY.md",
+          "bookclub/reading.md",
+          "bookclub/schedule.md",
+          "daily.md",
+          "orientation.md",
+          "persona.md"
+        ],
+        "projected_paths": [
+          "MEMORY.md",
+          "bookclub/MEMORY.md",
+          "bookclub/reading.md",
+          "bookclub/schedule.md",
+          "daily.md",
+          "orientation.md",
+          "persona.md"
+        ],
+        "not_projected_paths": [],
+        "frontmatter": [
+          {
+            "path": "MEMORY.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "bookclub/MEMORY.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "bookclub/reading.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "bookclub/schedule.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "daily.md",
+            "format": "memfs-v2",
+            "previous_present": false,
+            "errors": []
+          },
+          {
+            "path": "orientation.md",
+            "format": "memfs-v2",
+            "previous_present": false,
+            "errors": []
+          },
+          {
+            "path": "persona.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          }
+        ]
+      },
+      "cli": {
+        "command": "node .git/letta-memory-constraints.cjs --layout root-marker",
+        "exit_code": 1,
+        "signal": null,
+        "stdout": "",
+        "stderr": "Memory validation blocked this commit.\nNo files were committed. Your staged changes are still present.\nValidation checks the complete repository, so these problems may predate your staged changes.\n\nFix these problems:\n  core memory: 1201 characters exceeds 1200 from maxCoreMemoryCharacters\n\nMove non-core detail out of root Markdown and behind MEMORY.md indexes.\nSplit files above their per-file limit, then retry the commit.\nLimits come from .memfs.config.json, or the Letta Code defaults when it is absent.\nDo not raise or disable these limits unless the user explicitly approves it.\n",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "db71aa598668a2eb20afff48c74a7b53b200b03a2b5b5e72e76d4191de81bc0b",
+        "reported_errors": [
+          "core memory: 1201 characters exceeds 1200 from maxCoreMemoryCharacters"
+        ],
+        "head_unchanged": true,
+        "stage_unchanged": true
+      },
+      "git_commit": {
+        "command": "git commit -m \"Fixture attempt L06\"",
+        "exit_code": 1,
+        "signal": null,
+        "stdout": "",
+        "stderr": "Memory validation blocked this commit.\nNo files were committed. Your staged changes are still present.\nValidation checks the complete repository, so these problems may predate your staged changes.\n\nFix these problems:\n  core memory: 1201 characters exceeds 1200 from maxCoreMemoryCharacters\n\nMove non-core detail out of root Markdown and behind MEMORY.md indexes.\nSplit files above their per-file limit, then retry the commit.\nLimits come from .memfs.config.json, or the Letta Code defaults when it is absent.\nDo not raise or disable these limits unless the user explicitly approves it.\n",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "db71aa598668a2eb20afff48c74a7b53b200b03a2b5b5e72e76d4191de81bc0b",
+        "head_before": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "head_after": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "head_changed": false,
+        "parent_after": null,
+        "stage_before": [
+          {
+            "mode": "100644",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "stage": 0,
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "stage": 0,
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "stage": 0,
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "stage": 0,
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "object": "a69159d992a3d50b320b51ce87400fbef757fb09",
+            "stage": 0,
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "object": "d9a49e6417ad67f5bf6ae7ba68cebabda4a29427",
+            "stage": 0,
+            "path": "daily.md"
+          },
+          {
+            "mode": "100644",
+            "object": "d9a49e6417ad67f5bf6ae7ba68cebabda4a29427",
+            "stage": 0,
+            "path": "orientation.md"
+          },
+          {
+            "mode": "100644",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "stage": 0,
+            "path": "persona.md"
+          }
+        ],
+        "stage_after": [
+          {
+            "mode": "100644",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "stage": 0,
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "stage": 0,
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "stage": 0,
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "stage": 0,
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "object": "a69159d992a3d50b320b51ce87400fbef757fb09",
+            "stage": 0,
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "object": "d9a49e6417ad67f5bf6ae7ba68cebabda4a29427",
+            "stage": 0,
+            "path": "daily.md"
+          },
+          {
+            "mode": "100644",
+            "object": "d9a49e6417ad67f5bf6ae7ba68cebabda4a29427",
+            "stage": 0,
+            "path": "orientation.md"
+          },
+          {
+            "mode": "100644",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "stage": 0,
+            "path": "persona.md"
+          }
+        ],
+        "stage_retained": true,
+        "staged_changes_before": [
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "status": "A",
+            "path": "daily.md"
+          },
+          {
+            "status": "A",
+            "path": "orientation.md"
+          }
+        ],
+        "staged_changes_after": [
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "status": "A",
+            "path": "daily.md"
+          },
+          {
+            "status": "A",
+            "path": "orientation.md"
+          }
+        ],
+        "status_before": [
+          {
+            "xy": "M ",
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "xy": "A ",
+            "path": "daily.md"
+          },
+          {
+            "xy": "A ",
+            "path": "orientation.md"
+          }
+        ],
+        "status_after": [
+          {
+            "xy": "M ",
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "xy": "A ",
+            "path": "daily.md"
+          },
+          {
+            "xy": "A ",
+            "path": "orientation.md"
+          }
+        ],
+        "reported_errors": [
+          "core memory: 1201 characters exceeds 1200 from maxCoreMemoryCharacters"
+        ]
+      },
+      "committed": false,
+      "head_files_after": [
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+          "path": ".memfs.config.json"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+          "path": "MEMORY.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+          "path": "bookclub/MEMORY.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+          "path": "bookclub/reading.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "2fd5109069aff1e4658abafa32a455e252fa7ca3",
+          "path": "bookclub/schedule.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+          "path": "persona.md"
+        }
+      ],
+      "reason_ja": "commit は止まりました。ルート直下の Markdown（毎回読み込む記憶）の合計が 1201 文字で、上限の 1200 文字を超えています。 HEAD は a1dffad のまま変わらず、stage の3件の変更は残っています。stage に残った変更は、まだ記憶として保存されていません。",
+      "reason_basis": "git commit の stderr に原典の pre-commit が出した理由の行、終了コード、HEAD と stage"
+    },
+    {
+      "id": "L07",
+      "label": "保護した方針の変更を止める",
+      "input": {
+        "accepted_files": {
+          "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+          "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+          "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+          "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。\n",
+          "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+          ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+        },
+        "proposed_files": {
+          "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+          "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n全員に結末を先に説明する。\n",
+          "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+          "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。終了後に連絡事項を5分確認する。\n",
+          "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+          ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+        }
+      },
+      "repository": {
+        "directory": "repos/L07",
+        "branch": "main",
+        "hooks_path": ".git/hooks",
+        "hooks_dir_empty_before_baseline": true,
+        "local_config": [
+          "core.repositoryformatversion=0",
+          "core.filemode=false",
+          "core.bare=false",
+          "core.logallrefupdates=true",
+          "core.symlinks=false",
+          "core.ignorecase=true",
+          "core.autocrlf=false",
+          "core.hookspath=.git/hooks",
+          "user.name=Studio Yebisu fictional memory",
+          "user.email=fictional@example.invalid",
+          "commit.gpgsign=false"
+        ],
+        "validator": {
+          "path": ".git/letta-memory-constraints.cjs",
+          "sha256": "9b815cf928feecc4e830095325983a5ab83d7f284f915807e8de61bbbe075829",
+          "bytes": 15506
+        },
+        "hook": {
+          "path": ".git/hooks/pre-commit",
+          "text": "#!/bin/sh\nexec node .git/letta-memory-constraints.cjs --layout root-marker\n",
+          "sha256": "b5cbbd73e753cfa683ab7b89cbea54f43dcadc73500e6f84df645c2f9e6987ae"
+        }
+      },
+      "baseline": {
+        "commit": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "tree": "4867fa1a56a01dd4116ef8be99fb6982485fccfc",
+        "exit_code": 0,
+        "files": [
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "2fd5109069aff1e4658abafa32a455e252fa7ca3",
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "path": "persona.md"
+          }
+        ]
+      },
+      "change": {
+        "removed": [],
+        "written": [
+          "bookclub/schedule.md",
+          "persona.md"
+        ],
+        "staged_name_status": [
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "status": "M",
+            "path": "persona.md"
+          }
+        ]
+      },
+      "unicode": {
+        "files": {
+          "MEMORY.md": {
+            "code_points": 72,
+            "utf16_units": 72,
+            "utf8_bytes": 156
+          },
+          "bookclub/MEMORY.md": {
+            "code_points": 53,
+            "utf16_units": 53,
+            "utf8_bytes": 101
+          },
+          "bookclub/reading.md": {
+            "code_points": 88,
+            "utf16_units": 88,
+            "utf8_bytes": 198
+          },
+          "bookclub/schedule.md": {
+            "code_points": 99,
+            "utf16_units": 99,
+            "utf8_bytes": 207
+          },
+          "persona.md": {
+            "code_points": 59,
+            "utf16_units": 59,
+            "utf8_bytes": 117
+          }
+        },
+        "root_markdown_code_points": 131
+      },
+      "skill_structure": {
+        "note": "initializing-memory SKILL.md 9. Verify の「foo.md と foo/ を並べない」条件を stage のパスへ当てはめた Studio Yebisu の照合。原典のコードではない。",
+        "stem_conflicts": []
+      },
+      "api": {
+        "trusted_config": {
+          "version": 1,
+          "maxDepth": 2,
+          "maxFileCharacters": 900,
+          "maxCoreMemoryCharacters": 1200,
+          "readOnlyFiles": [
+            "persona.md"
+          ]
+        },
+        "trusted_config_source": "HEAD:.memfs.config.json（基準の commit）",
+        "layout": "root-marker",
+        "require_root_marker": true,
+        "accepted_tree": "HEAD a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "tree": {
+          "errors": [
+            "persona.md: read-only file cannot be created, changed or removed"
+          ],
+          "thrown": null
+        },
+        "staged_config": {
+          "differs_from_trusted": false,
+          "parsed": {
+            "version": 1,
+            "maxDepth": 2,
+            "maxFileCharacters": 900,
+            "maxCoreMemoryCharacters": 1200,
+            "readOnlyFiles": [
+              "persona.md"
+            ]
+          },
+          "error": null
+        },
+        "memory_format": "memfs-v2",
+        "markdown_paths": [
+          "MEMORY.md",
+          "bookclub/MEMORY.md",
+          "bookclub/reading.md",
+          "bookclub/schedule.md",
+          "persona.md"
+        ],
+        "projected_paths": [
+          "MEMORY.md",
+          "bookclub/MEMORY.md",
+          "bookclub/reading.md",
+          "bookclub/schedule.md",
+          "persona.md"
+        ],
+        "not_projected_paths": [],
+        "frontmatter": [
+          {
+            "path": "MEMORY.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "bookclub/MEMORY.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "bookclub/reading.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "bookclub/schedule.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "persona.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          }
+        ]
+      },
+      "cli": {
+        "command": "node .git/letta-memory-constraints.cjs --layout root-marker",
+        "exit_code": 1,
+        "signal": null,
+        "stdout": "",
+        "stderr": "Memory validation blocked this commit.\nNo files were committed. Your staged changes are still present.\nValidation checks the complete repository, so these problems may predate your staged changes.\n\nFix these problems:\n  persona.md: read-only file cannot be created, changed or removed\n\nMove non-core detail out of root Markdown and behind MEMORY.md indexes.\nSplit files above their per-file limit, then retry the commit.\nRestore protected files to HEAD; ask the user to change readOnlyFiles if an edit is needed.\nLimits come from .memfs.config.json, or the Letta Code defaults when it is absent.\nDo not raise or disable these limits unless the user explicitly approves it.\n",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "d969e29a94e8727474e1eb7861a5d145f2c2fe3cf0c0665528354ee0825e63fd",
+        "reported_errors": [
+          "persona.md: read-only file cannot be created, changed or removed"
+        ],
+        "head_unchanged": true,
+        "stage_unchanged": true
+      },
+      "git_commit": {
+        "command": "git commit -m \"Fixture attempt L07\"",
+        "exit_code": 1,
+        "signal": null,
+        "stdout": "",
+        "stderr": "Memory validation blocked this commit.\nNo files were committed. Your staged changes are still present.\nValidation checks the complete repository, so these problems may predate your staged changes.\n\nFix these problems:\n  persona.md: read-only file cannot be created, changed or removed\n\nMove non-core detail out of root Markdown and behind MEMORY.md indexes.\nSplit files above their per-file limit, then retry the commit.\nRestore protected files to HEAD; ask the user to change readOnlyFiles if an edit is needed.\nLimits come from .memfs.config.json, or the Letta Code defaults when it is absent.\nDo not raise or disable these limits unless the user explicitly approves it.\n",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "d969e29a94e8727474e1eb7861a5d145f2c2fe3cf0c0665528354ee0825e63fd",
+        "head_before": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "head_after": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "head_changed": false,
+        "parent_after": null,
+        "stage_before": [
+          {
+            "mode": "100644",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "stage": 0,
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "stage": 0,
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "stage": 0,
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "stage": 0,
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "object": "a69159d992a3d50b320b51ce87400fbef757fb09",
+            "stage": 0,
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "object": "3acfc4a94fe634da0e187e35c537a449f25d03a5",
+            "stage": 0,
+            "path": "persona.md"
+          }
+        ],
+        "stage_after": [
+          {
+            "mode": "100644",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "stage": 0,
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "stage": 0,
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "stage": 0,
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "stage": 0,
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "object": "a69159d992a3d50b320b51ce87400fbef757fb09",
+            "stage": 0,
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "object": "3acfc4a94fe634da0e187e35c537a449f25d03a5",
+            "stage": 0,
+            "path": "persona.md"
+          }
+        ],
+        "stage_retained": true,
+        "staged_changes_before": [
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "status": "M",
+            "path": "persona.md"
+          }
+        ],
+        "staged_changes_after": [
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "status": "M",
+            "path": "persona.md"
+          }
+        ],
+        "status_before": [
+          {
+            "xy": "M ",
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "xy": "M ",
+            "path": "persona.md"
+          }
+        ],
+        "status_after": [
+          {
+            "xy": "M ",
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "xy": "M ",
+            "path": "persona.md"
+          }
+        ],
+        "reported_errors": [
+          "persona.md: read-only file cannot be created, changed or removed"
+        ]
+      },
+      "committed": false,
+      "head_files_after": [
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+          "path": ".memfs.config.json"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+          "path": "MEMORY.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+          "path": "bookclub/MEMORY.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+          "path": "bookclub/reading.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "2fd5109069aff1e4658abafa32a455e252fa7ca3",
+          "path": "bookclub/schedule.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+          "path": "persona.md"
+        }
+      ],
+      "reason_ja": "commit は止まりました。persona.md は保護ファイル（readOnlyFiles）なので、作成・変更・削除できません。 HEAD は a1dffad のまま変わらず、stage の2件の変更は残っています。stage に残った変更は、まだ記憶として保存されていません。",
+      "reason_basis": "git commit の stderr に原典の pre-commit が出した理由の行、終了コード、HEAD と stage"
+    },
+    {
+      "id": "L08",
+      "label": "上限を勝手に変えると止まる",
+      "input": {
+        "accepted_files": {
+          "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+          "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+          "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+          "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。\n",
+          "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+          ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 900,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+        },
+        "proposed_files": {
+          "MEMORY.md": "# 架空のさくら読書会\n\n毎回使う方針だけをここに置く。\n日程や作品ごとの詳細は [読書会](bookclub/MEMORY.md) を読む。\n",
+          "persona.md": "---\nname: 進行役\ndescription: 読書会の進行で毎回守る方針\n---\n発言を急かさず、未読の人にも結末を明かさない。\n",
+          "bookclub/MEMORY.md": "# 読書会の詳細\n\n次回の準備は schedule.md、作品の進め方は reading.md を読む。\n",
+          "bookclub/schedule.md": "---\nname: 次回の準備\ndescription: 架空の読書会の日程と進行の確認\n---\n次回は10月24日14時。受付は13時45分。終了は15時30分。終了後に連絡事項を5分確認する。\n",
+          "bookclub/reading.md": "---\nname: 読む範囲\ndescription: 作品ごとの進行を確認するときに読む\n---\n架空の短編集「灯りのページ」を第2話まで読む。感想は1人3分を目安にする。\n",
+          ".memfs.config.json": "{\n  \"version\": 1,\n  \"maxDepth\": 2,\n  \"maxFileCharacters\": 1100,\n  \"maxCoreMemoryCharacters\": 1200,\n  \"readOnlyFiles\": [\n    \"persona.md\"\n  ]\n}\n"
+        }
+      },
+      "repository": {
+        "directory": "repos/L08",
+        "branch": "main",
+        "hooks_path": ".git/hooks",
+        "hooks_dir_empty_before_baseline": true,
+        "local_config": [
+          "core.repositoryformatversion=0",
+          "core.filemode=false",
+          "core.bare=false",
+          "core.logallrefupdates=true",
+          "core.symlinks=false",
+          "core.ignorecase=true",
+          "core.autocrlf=false",
+          "core.hookspath=.git/hooks",
+          "user.name=Studio Yebisu fictional memory",
+          "user.email=fictional@example.invalid",
+          "commit.gpgsign=false"
+        ],
+        "validator": {
+          "path": ".git/letta-memory-constraints.cjs",
+          "sha256": "9b815cf928feecc4e830095325983a5ab83d7f284f915807e8de61bbbe075829",
+          "bytes": 15506
+        },
+        "hook": {
+          "path": ".git/hooks/pre-commit",
+          "text": "#!/bin/sh\nexec node .git/letta-memory-constraints.cjs --layout root-marker\n",
+          "sha256": "b5cbbd73e753cfa683ab7b89cbea54f43dcadc73500e6f84df645c2f9e6987ae"
+        }
+      },
+      "baseline": {
+        "commit": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "tree": "4867fa1a56a01dd4116ef8be99fb6982485fccfc",
+        "exit_code": 0,
+        "files": [
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "2fd5109069aff1e4658abafa32a455e252fa7ca3",
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "type": "blob",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "path": "persona.md"
+          }
+        ]
+      },
+      "change": {
+        "removed": [],
+        "written": [
+          ".memfs.config.json",
+          "bookclub/schedule.md"
+        ],
+        "staged_name_status": [
+          {
+            "status": "M",
+            "path": ".memfs.config.json"
+          },
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          }
+        ]
+      },
+      "unicode": {
+        "files": {
+          "MEMORY.md": {
+            "code_points": 72,
+            "utf16_units": 72,
+            "utf8_bytes": 156
+          },
+          "bookclub/MEMORY.md": {
+            "code_points": 53,
+            "utf16_units": 53,
+            "utf8_bytes": 101
+          },
+          "bookclub/reading.md": {
+            "code_points": 88,
+            "utf16_units": 88,
+            "utf8_bytes": 198
+          },
+          "bookclub/schedule.md": {
+            "code_points": 99,
+            "utf16_units": 99,
+            "utf8_bytes": 207
+          },
+          "persona.md": {
+            "code_points": 69,
+            "utf16_units": 69,
+            "utf8_bytes": 147
+          }
+        },
+        "root_markdown_code_points": 141
+      },
+      "skill_structure": {
+        "note": "initializing-memory SKILL.md 9. Verify の「foo.md と foo/ を並べない」条件を stage のパスへ当てはめた Studio Yebisu の照合。原典のコードではない。",
+        "stem_conflicts": []
+      },
+      "api": {
+        "trusted_config": {
+          "version": 1,
+          "maxDepth": 2,
+          "maxFileCharacters": 900,
+          "maxCoreMemoryCharacters": 1200,
+          "readOnlyFiles": [
+            "persona.md"
+          ]
+        },
+        "trusted_config_source": "HEAD:.memfs.config.json（基準の commit）",
+        "layout": "root-marker",
+        "require_root_marker": true,
+        "accepted_tree": "HEAD a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "tree": {
+          "errors": [],
+          "thrown": null
+        },
+        "staged_config": {
+          "differs_from_trusted": true,
+          "parsed": {
+            "version": 1,
+            "maxDepth": 2,
+            "maxFileCharacters": 1100,
+            "maxCoreMemoryCharacters": 1200,
+            "readOnlyFiles": [
+              "persona.md"
+            ]
+          },
+          "error": null
+        },
+        "memory_format": "memfs-v2",
+        "markdown_paths": [
+          "MEMORY.md",
+          "bookclub/MEMORY.md",
+          "bookclub/reading.md",
+          "bookclub/schedule.md",
+          "persona.md"
+        ],
+        "projected_paths": [
+          "MEMORY.md",
+          "bookclub/MEMORY.md",
+          "bookclub/reading.md",
+          "bookclub/schedule.md",
+          "persona.md"
+        ],
+        "not_projected_paths": [],
+        "frontmatter": [
+          {
+            "path": "MEMORY.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "bookclub/MEMORY.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "bookclub/reading.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "bookclub/schedule.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          },
+          {
+            "path": "persona.md",
+            "format": "memfs-v2",
+            "previous_present": true,
+            "errors": []
+          }
+        ]
+      },
+      "cli": {
+        "command": "node .git/letta-memory-constraints.cjs --layout root-marker",
+        "exit_code": 1,
+        "signal": null,
+        "stdout": "",
+        "stderr": "Memory validation blocked this commit.\nNo files were committed. Your staged changes are still present.\nValidation checks the complete repository, so these problems may predate your staged changes.\n\nFix these problems:\n  .memfs.config.json is protected and requires human approval to change\n\nMove non-core detail out of root Markdown and behind MEMORY.md indexes.\nSplit files above their per-file limit, then retry the commit.\nLimits come from .memfs.config.json, or the Letta Code defaults when it is absent.\nDo not raise or disable these limits unless the user explicitly approves it.\n",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "0def76bc937c926365d5f0b0ab5136842fe63f7d5ee62edccce3ca83ea508c75",
+        "reported_errors": [
+          ".memfs.config.json is protected and requires human approval to change"
+        ],
+        "head_unchanged": true,
+        "stage_unchanged": true
+      },
+      "git_commit": {
+        "command": "git commit -m \"Fixture attempt L08\"",
+        "exit_code": 1,
+        "signal": null,
+        "stdout": "",
+        "stderr": "Memory validation blocked this commit.\nNo files were committed. Your staged changes are still present.\nValidation checks the complete repository, so these problems may predate your staged changes.\n\nFix these problems:\n  .memfs.config.json is protected and requires human approval to change\n\nMove non-core detail out of root Markdown and behind MEMORY.md indexes.\nSplit files above their per-file limit, then retry the commit.\nLimits come from .memfs.config.json, or the Letta Code defaults when it is absent.\nDo not raise or disable these limits unless the user explicitly approves it.\n",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "0def76bc937c926365d5f0b0ab5136842fe63f7d5ee62edccce3ca83ea508c75",
+        "head_before": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "head_after": "a1dffad1698d9373605a03cf26fb9d420079b51e",
+        "head_changed": false,
+        "parent_after": null,
+        "stage_before": [
+          {
+            "mode": "100644",
+            "object": "8444b2f39d54cc90d108389ce8477e9c683936cc",
+            "stage": 0,
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "stage": 0,
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "stage": 0,
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "stage": 0,
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "object": "a69159d992a3d50b320b51ce87400fbef757fb09",
+            "stage": 0,
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "stage": 0,
+            "path": "persona.md"
+          }
+        ],
+        "stage_after": [
+          {
+            "mode": "100644",
+            "object": "8444b2f39d54cc90d108389ce8477e9c683936cc",
+            "stage": 0,
+            "path": ".memfs.config.json"
+          },
+          {
+            "mode": "100644",
+            "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+            "stage": 0,
+            "path": "MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+            "stage": 0,
+            "path": "bookclub/MEMORY.md"
+          },
+          {
+            "mode": "100644",
+            "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+            "stage": 0,
+            "path": "bookclub/reading.md"
+          },
+          {
+            "mode": "100644",
+            "object": "a69159d992a3d50b320b51ce87400fbef757fb09",
+            "stage": 0,
+            "path": "bookclub/schedule.md"
+          },
+          {
+            "mode": "100644",
+            "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+            "stage": 0,
+            "path": "persona.md"
+          }
+        ],
+        "stage_retained": true,
+        "staged_changes_before": [
+          {
+            "status": "M",
+            "path": ".memfs.config.json"
+          },
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          }
+        ],
+        "staged_changes_after": [
+          {
+            "status": "M",
+            "path": ".memfs.config.json"
+          },
+          {
+            "status": "M",
+            "path": "bookclub/schedule.md"
+          }
+        ],
+        "status_before": [
+          {
+            "xy": "M ",
+            "path": ".memfs.config.json"
+          },
+          {
+            "xy": "M ",
+            "path": "bookclub/schedule.md"
+          }
+        ],
+        "status_after": [
+          {
+            "xy": "M ",
+            "path": ".memfs.config.json"
+          },
+          {
+            "xy": "M ",
+            "path": "bookclub/schedule.md"
+          }
+        ],
+        "reported_errors": [
+          ".memfs.config.json is protected and requires human approval to change"
+        ]
+      },
+      "committed": false,
+      "head_files_after": [
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "7a89e2ef078fa4da2a88cc545eceb8c925b3533f",
+          "path": ".memfs.config.json"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "d733ca1b1f55cda2cfd9568f3cf16a3326ab6183",
+          "path": "MEMORY.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "afed1c0b459d49b5b84b7df36620343d5c222277",
+          "path": "bookclub/MEMORY.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "2ca378b5e05e2dad52f46176e69037940b8fb5b0",
+          "path": "bookclub/reading.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "2fd5109069aff1e4658abafa32a455e252fa7ca3",
+          "path": "bookclub/schedule.md"
+        },
+        {
+          "mode": "100644",
+          "type": "blob",
+          "object": "27e7e9222fd2aa45f4503e732af8becbce0115f4",
+          "path": "persona.md"
+        }
+      ],
+      "reason_ja": "commit は止まりました。.memfs.config.json（上限の設定）は保護されていて、人の承認なしには変えられません。 HEAD は a1dffad のまま変わらず、stage の2件の変更は残っています。stage に残った変更は、まだ記憶として保存されていません。",
+      "reason_basis": "git commit の stderr に原典の pre-commit が出した理由の行、終了コード、HEAD と stage"
+    }
+  ],
+  "summary": {
+    "total": 8,
+    "committed": 2,
+    "blocked": 6
+  },
+  "oracle_comparison": {
+    "source": "input/expected.json（実行の前に固定。実結果を得た後の照合だけに使い、結果や理由の作成には使っていない）",
+    "commit_success": [
+      {
+        "id": "L01",
+        "expected": true,
+        "actual": true,
+        "match": true
+      },
+      {
+        "id": "L02",
+        "expected": false,
+        "actual": false,
+        "match": true
+      },
+      {
+        "id": "L03",
+        "expected": true,
+        "actual": true,
+        "match": true
+      },
+      {
+        "id": "L04",
+        "expected": false,
+        "actual": false,
+        "match": true
+      },
+      {
+        "id": "L05",
+        "expected": false,
+        "actual": false,
+        "match": true
+      },
+      {
+        "id": "L06",
+        "expected": false,
+        "actual": false,
+        "match": true
+      },
+      {
+        "id": "L07",
+        "expected": false,
+        "actual": false,
+        "match": true
+      },
+      {
+        "id": "L08",
+        "expected": false,
+        "actual": false,
+        "match": true
+      }
+    ],
+    "reason_substrings": [
+      {
+        "id": "L02",
+        "substring": "missing required index bookclub/MEMORY.md",
+        "found_in_git_commit_stderr": true,
+        "found_in_cli_stderr": true
+      },
+      {
+        "id": "L04",
+        "substring": "901 characters exceeds 900",
+        "found_in_git_commit_stderr": true,
+        "found_in_cli_stderr": true
+      },
+      {
+        "id": "L05",
+        "substring": "depth 3 exceeds maxDepth 2",
+        "found_in_git_commit_stderr": true,
+        "found_in_cli_stderr": true
+      },
+      {
+        "id": "L06",
+        "substring": "core memory: 1201 characters exceeds 1200",
+        "found_in_git_commit_stderr": true,
+        "found_in_cli_stderr": true
+      },
+      {
+        "id": "L07",
+        "substring": "persona.md: read-only file cannot be created, changed or removed",
+        "found_in_git_commit_stderr": true,
+        "found_in_cli_stderr": true
+      },
+      {
+        "id": "L08",
+        "substring": ".memfs.config.json is protected and requires human approval to change",
+        "found_in_git_commit_stderr": true,
+        "found_in_cli_stderr": true
+      }
+    ],
+    "counts": {
+      "expected": {
+        "total": 8,
+        "committed": 2,
+        "blocked": 6
+      },
+      "actual": {
+        "total": 8,
+        "committed": 2,
+        "blocked": 6
+      }
+    }
+  },
+  "verification": {
+    "status": "passed",
+    "checks": [
+      {
+        "name": "原典8ファイルの SHA-256・バイト数・Git blob が vendor-lock.json と一致",
+        "passed": true
+      },
+      {
+        "name": "vendor-lock.json の SHA-256 と固定版（repository・commit・version・license）が一致",
+        "passed": true
+      },
+      {
+        "name": "入力2ファイルの SHA-256 が実行前に固定した値と一致",
+        "passed": true
+      },
+      {
+        "name": "入力が L01〜L08 の8件で、パスが安全な相対パス",
+        "passed": true
+      },
+      {
+        "name": "validateMemoryFileFrontmatter は memory-constraints.ts の再export と memory-frontmatter.ts で同じ関数",
+        "passed": true
+      },
+      {
+        "name": "検査スクリプトに、APIと同じ parseMemoryConstraintsConfig の原典がそのまま入っている",
+        "passed": true
+      },
+      {
+        "name": "検査スクリプトに、APIと同じ validateMemoryTreeConstraints の原典がそのまま入っている",
+        "passed": true
+      },
+      {
+        "name": "検査スクリプトの既定値が原典の DEFAULT_MEMORY_CONSTRAINTS_CONFIG",
+        "passed": true
+      },
+      {
+        "name": "原典の設定ファイル名・スクリプト名・承認の環境変数名が想定どおり",
+        "passed": true
+      },
+      {
+        "name": "子プロセスの環境に LETTA_MEMORY_CONSTRAINTS_UPDATE を入れていない",
+        "passed": true
+      },
+      {
+        "name": "固定方針は原典の既定値と重ねても変わらない（3つの上限を自分で持つ）",
+        "passed": true
+      },
+      {
+        "name": "固定方針は原典の既定値より厳しい",
+        "passed": true
+      },
+      {
+        "name": "L01: 新しい非公開リポジトリの toplevel と .git が一致",
+        "passed": true
+      },
+      {
+        "name": "L01: 基準の commit の前の hook フォルダーが空",
+        "passed": true
+      },
+      {
+        "name": "L01: 基準の commit の内容が accepted_files とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L01: 基準の .memfs.config.json を原典の parse で読んだ方針が固定方針と一致",
+        "passed": true
+      },
+      {
+        "name": "L01: 書いた検査スクリプトが原典の MEMORY_CONSTRAINTS_VALIDATOR_SCRIPT とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L01: pre-commit が最小の2行と一致",
+        "passed": true
+      },
+      {
+        "name": "L01: stage の内容が proposed_files とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L01: commit の前の HEAD が基準の commit",
+        "passed": true
+      },
+      {
+        "name": "L01: 原典CLIの直接実行の後も HEAD と stage が同じ",
+        "passed": true
+      },
+      {
+        "name": "L01: 原典CLIの終了コード0と git commit の成功が一致",
+        "passed": true
+      },
+      {
+        "name": "L01: 原典CLIと pre-commit が同じ理由の行を出した",
+        "passed": true
+      },
+      {
+        "name": "L01: 成功後は HEAD が進み、親が基準の commit",
+        "passed": true
+      },
+      {
+        "name": "L01: 成功後の HEAD の木が commit 前の stage と一致",
+        "passed": true
+      },
+      {
+        "name": "L01: 成功後は stage と作業ツリーに変更が残らない",
+        "passed": true
+      },
+      {
+        "name": "L02: 新しい非公開リポジトリの toplevel と .git が一致",
+        "passed": true
+      },
+      {
+        "name": "L02: 基準の commit の前の hook フォルダーが空",
+        "passed": true
+      },
+      {
+        "name": "L02: 基準の commit の内容が accepted_files とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L02: 基準の .memfs.config.json を原典の parse で読んだ方針が固定方針と一致",
+        "passed": true
+      },
+      {
+        "name": "L02: 書いた検査スクリプトが原典の MEMORY_CONSTRAINTS_VALIDATOR_SCRIPT とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L02: pre-commit が最小の2行と一致",
+        "passed": true
+      },
+      {
+        "name": "L02: stage の内容が proposed_files とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L02: commit の前の HEAD が基準の commit",
+        "passed": true
+      },
+      {
+        "name": "L02: 原典CLIの直接実行の後も HEAD と stage が同じ",
+        "passed": true
+      },
+      {
+        "name": "L02: 原典CLIの終了コード0と git commit の成功が一致",
+        "passed": true
+      },
+      {
+        "name": "L02: 原典CLIと pre-commit が同じ理由の行を出した",
+        "passed": true
+      },
+      {
+        "name": "L02: 止まった後も HEAD は基準の commit のまま",
+        "passed": true
+      },
+      {
+        "name": "L02: 止まった後も stage の変更がそのまま残る",
+        "passed": true
+      },
+      {
+        "name": "L02: 止まった後の HEAD の内容は accepted_files のまま",
+        "passed": true
+      },
+      {
+        "name": "L03: 新しい非公開リポジトリの toplevel と .git が一致",
+        "passed": true
+      },
+      {
+        "name": "L03: 基準の commit の前の hook フォルダーが空",
+        "passed": true
+      },
+      {
+        "name": "L03: 基準の commit の内容が accepted_files とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L03: 基準の .memfs.config.json を原典の parse で読んだ方針が固定方針と一致",
+        "passed": true
+      },
+      {
+        "name": "L03: 書いた検査スクリプトが原典の MEMORY_CONSTRAINTS_VALIDATOR_SCRIPT とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L03: pre-commit が最小の2行と一致",
+        "passed": true
+      },
+      {
+        "name": "L03: stage の内容が proposed_files とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L03: commit の前の HEAD が基準の commit",
+        "passed": true
+      },
+      {
+        "name": "L03: 原典CLIの直接実行の後も HEAD と stage が同じ",
+        "passed": true
+      },
+      {
+        "name": "L03: 原典CLIの終了コード0と git commit の成功が一致",
+        "passed": true
+      },
+      {
+        "name": "L03: 原典CLIと pre-commit が同じ理由の行を出した",
+        "passed": true
+      },
+      {
+        "name": "L03: 成功後は HEAD が進み、親が基準の commit",
+        "passed": true
+      },
+      {
+        "name": "L03: 成功後の HEAD の木が commit 前の stage と一致",
+        "passed": true
+      },
+      {
+        "name": "L03: 成功後は stage と作業ツリーに変更が残らない",
+        "passed": true
+      },
+      {
+        "name": "L04: 新しい非公開リポジトリの toplevel と .git が一致",
+        "passed": true
+      },
+      {
+        "name": "L04: 基準の commit の前の hook フォルダーが空",
+        "passed": true
+      },
+      {
+        "name": "L04: 基準の commit の内容が accepted_files とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L04: 基準の .memfs.config.json を原典の parse で読んだ方針が固定方針と一致",
+        "passed": true
+      },
+      {
+        "name": "L04: 書いた検査スクリプトが原典の MEMORY_CONSTRAINTS_VALIDATOR_SCRIPT とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L04: pre-commit が最小の2行と一致",
+        "passed": true
+      },
+      {
+        "name": "L04: stage の内容が proposed_files とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L04: commit の前の HEAD が基準の commit",
+        "passed": true
+      },
+      {
+        "name": "L04: 原典CLIの直接実行の後も HEAD と stage が同じ",
+        "passed": true
+      },
+      {
+        "name": "L04: 原典CLIの終了コード0と git commit の成功が一致",
+        "passed": true
+      },
+      {
+        "name": "L04: 原典CLIと pre-commit が同じ理由の行を出した",
+        "passed": true
+      },
+      {
+        "name": "L04: 止まった後も HEAD は基準の commit のまま",
+        "passed": true
+      },
+      {
+        "name": "L04: 止まった後も stage の変更がそのまま残る",
+        "passed": true
+      },
+      {
+        "name": "L04: 止まった後の HEAD の内容は accepted_files のまま",
+        "passed": true
+      },
+      {
+        "name": "L05: 新しい非公開リポジトリの toplevel と .git が一致",
+        "passed": true
+      },
+      {
+        "name": "L05: 基準の commit の前の hook フォルダーが空",
+        "passed": true
+      },
+      {
+        "name": "L05: 基準の commit の内容が accepted_files とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L05: 基準の .memfs.config.json を原典の parse で読んだ方針が固定方針と一致",
+        "passed": true
+      },
+      {
+        "name": "L05: 書いた検査スクリプトが原典の MEMORY_CONSTRAINTS_VALIDATOR_SCRIPT とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L05: pre-commit が最小の2行と一致",
+        "passed": true
+      },
+      {
+        "name": "L05: stage の内容が proposed_files とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L05: commit の前の HEAD が基準の commit",
+        "passed": true
+      },
+      {
+        "name": "L05: 原典CLIの直接実行の後も HEAD と stage が同じ",
+        "passed": true
+      },
+      {
+        "name": "L05: 原典CLIの終了コード0と git commit の成功が一致",
+        "passed": true
+      },
+      {
+        "name": "L05: 原典CLIと pre-commit が同じ理由の行を出した",
+        "passed": true
+      },
+      {
+        "name": "L05: 止まった後も HEAD は基準の commit のまま",
+        "passed": true
+      },
+      {
+        "name": "L05: 止まった後も stage の変更がそのまま残る",
+        "passed": true
+      },
+      {
+        "name": "L05: 止まった後の HEAD の内容は accepted_files のまま",
+        "passed": true
+      },
+      {
+        "name": "L06: 新しい非公開リポジトリの toplevel と .git が一致",
+        "passed": true
+      },
+      {
+        "name": "L06: 基準の commit の前の hook フォルダーが空",
+        "passed": true
+      },
+      {
+        "name": "L06: 基準の commit の内容が accepted_files とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L06: 基準の .memfs.config.json を原典の parse で読んだ方針が固定方針と一致",
+        "passed": true
+      },
+      {
+        "name": "L06: 書いた検査スクリプトが原典の MEMORY_CONSTRAINTS_VALIDATOR_SCRIPT とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L06: pre-commit が最小の2行と一致",
+        "passed": true
+      },
+      {
+        "name": "L06: stage の内容が proposed_files とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L06: commit の前の HEAD が基準の commit",
+        "passed": true
+      },
+      {
+        "name": "L06: 原典CLIの直接実行の後も HEAD と stage が同じ",
+        "passed": true
+      },
+      {
+        "name": "L06: 原典CLIの終了コード0と git commit の成功が一致",
+        "passed": true
+      },
+      {
+        "name": "L06: 原典CLIと pre-commit が同じ理由の行を出した",
+        "passed": true
+      },
+      {
+        "name": "L06: 止まった後も HEAD は基準の commit のまま",
+        "passed": true
+      },
+      {
+        "name": "L06: 止まった後も stage の変更がそのまま残る",
+        "passed": true
+      },
+      {
+        "name": "L06: 止まった後の HEAD の内容は accepted_files のまま",
+        "passed": true
+      },
+      {
+        "name": "L07: 新しい非公開リポジトリの toplevel と .git が一致",
+        "passed": true
+      },
+      {
+        "name": "L07: 基準の commit の前の hook フォルダーが空",
+        "passed": true
+      },
+      {
+        "name": "L07: 基準の commit の内容が accepted_files とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L07: 基準の .memfs.config.json を原典の parse で読んだ方針が固定方針と一致",
+        "passed": true
+      },
+      {
+        "name": "L07: 書いた検査スクリプトが原典の MEMORY_CONSTRAINTS_VALIDATOR_SCRIPT とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L07: pre-commit が最小の2行と一致",
+        "passed": true
+      },
+      {
+        "name": "L07: stage の内容が proposed_files とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L07: commit の前の HEAD が基準の commit",
+        "passed": true
+      },
+      {
+        "name": "L07: 原典CLIの直接実行の後も HEAD と stage が同じ",
+        "passed": true
+      },
+      {
+        "name": "L07: 原典CLIの終了コード0と git commit の成功が一致",
+        "passed": true
+      },
+      {
+        "name": "L07: 原典CLIと pre-commit が同じ理由の行を出した",
+        "passed": true
+      },
+      {
+        "name": "L07: 止まった後も HEAD は基準の commit のまま",
+        "passed": true
+      },
+      {
+        "name": "L07: 止まった後も stage の変更がそのまま残る",
+        "passed": true
+      },
+      {
+        "name": "L07: 止まった後の HEAD の内容は accepted_files のまま",
+        "passed": true
+      },
+      {
+        "name": "L08: 新しい非公開リポジトリの toplevel と .git が一致",
+        "passed": true
+      },
+      {
+        "name": "L08: 基準の commit の前の hook フォルダーが空",
+        "passed": true
+      },
+      {
+        "name": "L08: 基準の commit の内容が accepted_files とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L08: 基準の .memfs.config.json を原典の parse で読んだ方針が固定方針と一致",
+        "passed": true
+      },
+      {
+        "name": "L08: 書いた検査スクリプトが原典の MEMORY_CONSTRAINTS_VALIDATOR_SCRIPT とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L08: pre-commit が最小の2行と一致",
+        "passed": true
+      },
+      {
+        "name": "L08: stage の内容が proposed_files とバイト一致",
+        "passed": true
+      },
+      {
+        "name": "L08: commit の前の HEAD が基準の commit",
+        "passed": true
+      },
+      {
+        "name": "L08: 原典CLIの直接実行の後も HEAD と stage が同じ",
+        "passed": true
+      },
+      {
+        "name": "L08: 原典CLIの終了コード0と git commit の成功が一致",
+        "passed": true
+      },
+      {
+        "name": "L08: 原典CLIと pre-commit が同じ理由の行を出した",
+        "passed": true
+      },
+      {
+        "name": "L08: 止まった後も HEAD は基準の commit のまま",
+        "passed": true
+      },
+      {
+        "name": "L08: 止まった後も stage の変更がそのまま残る",
+        "passed": true
+      },
+      {
+        "name": "L08: 止まった後の HEAD の内容は accepted_files のまま",
+        "passed": true
+      },
+      {
+        "name": "読み込み補助が解決したのは原典 src の .ts だけ",
+        "passed": true
+      },
+      {
+        "name": "「@/」と拡張子なし相対 import の両方を原典のまま解決した",
+        "passed": true
+      },
+      {
+        "name": "L01: frontmatter API のエラーが投影された全ファイルで空",
+        "passed": true
+      },
+      {
+        "name": "L01: 検査APIが例外を出さずエラー一覧を返した",
+        "passed": true
+      },
+      {
+        "name": "L01: 記憶の形式が memfs-v2",
+        "passed": true
+      },
+      {
+        "name": "L01: SKILL の「foo.md と foo/」の重なりがない",
+        "passed": true
+      },
+      {
+        "name": "L01: 検査APIのエラーと原典CLIの理由の行が一致",
+        "passed": true
+      },
+      {
+        "name": "L02: frontmatter API のエラーが投影された全ファイルで空",
+        "passed": true
+      },
+      {
+        "name": "L02: 検査APIが例外を出さずエラー一覧を返した",
+        "passed": true
+      },
+      {
+        "name": "L02: 記憶の形式が memfs-v2",
+        "passed": true
+      },
+      {
+        "name": "L02: SKILL の「foo.md と foo/」の重なりがない",
+        "passed": true
+      },
+      {
+        "name": "L02: 検査APIのエラーと原典CLIの理由の行が一致",
+        "passed": true
+      },
+      {
+        "name": "L03: frontmatter API のエラーが投影された全ファイルで空",
+        "passed": true
+      },
+      {
+        "name": "L03: 検査APIが例外を出さずエラー一覧を返した",
+        "passed": true
+      },
+      {
+        "name": "L03: 記憶の形式が memfs-v2",
+        "passed": true
+      },
+      {
+        "name": "L03: SKILL の「foo.md と foo/」の重なりがない",
+        "passed": true
+      },
+      {
+        "name": "L03: 検査APIのエラーと原典CLIの理由の行が一致",
+        "passed": true
+      },
+      {
+        "name": "L04: frontmatter API のエラーが投影された全ファイルで空",
+        "passed": true
+      },
+      {
+        "name": "L04: 検査APIが例外を出さずエラー一覧を返した",
+        "passed": true
+      },
+      {
+        "name": "L04: 記憶の形式が memfs-v2",
+        "passed": true
+      },
+      {
+        "name": "L04: SKILL の「foo.md と foo/」の重なりがない",
+        "passed": true
+      },
+      {
+        "name": "L04: 検査APIのエラーと原典CLIの理由の行が一致",
+        "passed": true
+      },
+      {
+        "name": "L05: frontmatter API のエラーが投影された全ファイルで空",
+        "passed": true
+      },
+      {
+        "name": "L05: 検査APIが例外を出さずエラー一覧を返した",
+        "passed": true
+      },
+      {
+        "name": "L05: 記憶の形式が memfs-v2",
+        "passed": true
+      },
+      {
+        "name": "L05: SKILL の「foo.md と foo/」の重なりがない",
+        "passed": true
+      },
+      {
+        "name": "L05: 検査APIのエラーと原典CLIの理由の行が一致",
+        "passed": true
+      },
+      {
+        "name": "L06: frontmatter API のエラーが投影された全ファイルで空",
+        "passed": true
+      },
+      {
+        "name": "L06: 検査APIが例外を出さずエラー一覧を返した",
+        "passed": true
+      },
+      {
+        "name": "L06: 記憶の形式が memfs-v2",
+        "passed": true
+      },
+      {
+        "name": "L06: SKILL の「foo.md と foo/」の重なりがない",
+        "passed": true
+      },
+      {
+        "name": "L06: 検査APIのエラーと原典CLIの理由の行が一致",
+        "passed": true
+      },
+      {
+        "name": "L07: frontmatter API のエラーが投影された全ファイルで空",
+        "passed": true
+      },
+      {
+        "name": "L07: 検査APIが例外を出さずエラー一覧を返した",
+        "passed": true
+      },
+      {
+        "name": "L07: 記憶の形式が memfs-v2",
+        "passed": true
+      },
+      {
+        "name": "L07: SKILL の「foo.md と foo/」の重なりがない",
+        "passed": true
+      },
+      {
+        "name": "L07: 検査APIのエラーと原典CLIの理由の行が一致",
+        "passed": true
+      },
+      {
+        "name": "L08: frontmatter API のエラーが投影された全ファイルで空",
+        "passed": true
+      },
+      {
+        "name": "L08: 検査APIが例外を出さずエラー一覧を返した",
+        "passed": true
+      },
+      {
+        "name": "L08: 記憶の形式が memfs-v2",
+        "passed": true
+      },
+      {
+        "name": "L08: SKILL の「foo.md と foo/」の重なりがない",
+        "passed": true
+      },
+      {
+        "name": "L01: 検査APIのエラーが空、原典CLIの stdout・stderr が空",
+        "passed": true
+      },
+      {
+        "name": "L03: 検査APIのエラーが空、原典CLIの stdout・stderr が空",
+        "passed": true
+      },
+      {
+        "name": "L02/L03: 違いは bookclub/MEMORY.md だけで、L03 はそれを基準と同じ内容で残す",
+        "passed": true
+      },
+      {
+        "name": "L02: stage の変更に bookclub/MEMORY.md の削除がある",
+        "passed": true
+      },
+      {
+        "name": "L02/L03: L03 の stage は L02 の stage に同じ blob の bookclub/MEMORY.md を足したもの",
+        "passed": true
+      },
+      {
+        "name": "L02: bookclub/ の詳細は投影されず、L03 では投影される",
+        "passed": true
+      },
+      {
+        "name": "L02 は止まり、L03 は commit された",
+        "passed": true
+      },
+      {
+        "name": "L04: bookclub/schedule.md は 901 コードポイントで、UTF-8 のバイト数とは違う",
+        "passed": true
+      },
+      {
+        "name": "L04: 検査APIの文字数が独立に数えたコードポイントと一致",
+        "passed": true
+      },
+      {
+        "name": "L05: bookclub/archive/2025/notes.md の深さ3を検査APIが返した",
+        "passed": true
+      },
+      {
+        "name": "L05: 深い階層にも各フォルダーの MEMORY.md があり、投影される",
+        "passed": true
+      },
+      {
+        "name": "L06: ルート直下の Markdown の合計は独立に数えて 1201 コードポイント",
+        "passed": true
+      },
+      {
+        "name": "L06: 検査APIの合計文字数が独立の合計と一致",
+        "passed": true
+      },
+      {
+        "name": "L07: 検査APIが persona.md の保護を返した",
+        "passed": true
+      },
+      {
+        "name": "L08: 初期方針の検査APIはエラーなし、それでも原典CLIは止めた",
+        "passed": true
+      },
+      {
+        "name": "L08: stage の設定は原典の parse で読め、maxFileCharacters は 1100",
+        "passed": true
+      },
+      {
+        "name": "L08: 原典CLIの理由に設定の保護の行がある",
+        "passed": true
+      },
+      {
+        "name": "L01: stage の設定は基準と同じ",
+        "passed": true
+      },
+      {
+        "name": "L02: stage の設定は基準と同じ",
+        "passed": true
+      },
+      {
+        "name": "L03: stage の設定は基準と同じ",
+        "passed": true
+      },
+      {
+        "name": "L04: stage の設定は基準と同じ",
+        "passed": true
+      },
+      {
+        "name": "L05: stage の設定は基準と同じ",
+        "passed": true
+      },
+      {
+        "name": "L06: stage の設定は基準と同じ",
+        "passed": true
+      },
+      {
+        "name": "L07: stage の設定は基準と同じ",
+        "passed": true
+      },
+      {
+        "name": "8件の基準の commit の木が同じ",
+        "passed": true
+      },
+      {
+        "name": "L01: commit の成否が実行前の期待と一致",
+        "passed": true
+      },
+      {
+        "name": "L02: commit の成否が実行前の期待と一致",
+        "passed": true
+      },
+      {
+        "name": "L03: commit の成否が実行前の期待と一致",
+        "passed": true
+      },
+      {
+        "name": "L04: commit の成否が実行前の期待と一致",
+        "passed": true
+      },
+      {
+        "name": "L05: commit の成否が実行前の期待と一致",
+        "passed": true
+      },
+      {
+        "name": "L06: commit の成否が実行前の期待と一致",
+        "passed": true
+      },
+      {
+        "name": "L07: commit の成否が実行前の期待と一致",
+        "passed": true
+      },
+      {
+        "name": "L08: commit の成否が実行前の期待と一致",
+        "passed": true
+      },
+      {
+        "name": "L02: 実行前に決めた理由の一部が git commit と原典CLIの stderr にある",
+        "passed": true
+      },
+      {
+        "name": "L04: 実行前に決めた理由の一部が git commit と原典CLIの stderr にある",
+        "passed": true
+      },
+      {
+        "name": "L05: 実行前に決めた理由の一部が git commit と原典CLIの stderr にある",
+        "passed": true
+      },
+      {
+        "name": "L06: 実行前に決めた理由の一部が git commit と原典CLIの stderr にある",
+        "passed": true
+      },
+      {
+        "name": "L07: 実行前に決めた理由の一部が git commit と原典CLIの stderr にある",
+        "passed": true
+      },
+      {
+        "name": "L08: 実行前に決めた理由の一部が git commit と原典CLIの stderr にある",
+        "passed": true
+      },
+      {
+        "name": "件数・成功・停止の数が実行前の期待と一致",
+        "passed": true
+      },
+      {
+        "name": "実行前の修復の組が L02 と L03",
+        "passed": true
+      },
+      {
+        "name": "実行の後も原典8ファイルとロックが同じ",
+        "passed": true
+      },
+      {
+        "name": "記録に手元の絶対パスが含まれない",
+        "passed": true
+      }
+    ],
+    "total": 208
+  }
+}

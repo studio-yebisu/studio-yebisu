@@ -1,0 +1,39 @@
+架空の記憶フォルダー（Markdown と .memfs.config.json）への変更を1件ずつ Git の stage に置き、固定版 Letta Code の記憶検査で、commit の前に文字数の上限・フォルダーごとの案内（MEMORY.md）・保護ファイル・設定の保護を確かめる作例を作ってください。検査APIを直接呼んだ結果、原典の検査スクリプトを直接実行した結果、同じスクリプトを pre-commit にした実際の git commit の結果を分けて JSON に保存し、スマホで読める日本語のページで、保存できたか止まったかと原典の診断文を確かめられるようにしてください。
+
+読む原典（固定版 letta-ai/letta-code 316e4c0545b549c453e0f85cc81d3540404eff74・0.34.14・Apache-2.0）
+・検査API（parseMemoryConstraintsConfig・validateMemoryTreeConstraints）：https://github.com/letta-ai/letta-code/blob/316e4c0545b549c453e0f85cc81d3540404eff74/src/memory-constraints.ts
+・frontmatter の検査（validateMemoryFileFrontmatter）：https://github.com/letta-ai/letta-code/blob/316e4c0545b549c453e0f85cc81d3540404eff74/src/memory-frontmatter.ts
+・Git の検査スクリプト（MEMORY_CONSTRAINTS_VALIDATOR_SCRIPT）：https://github.com/letta-ai/letta-code/blob/316e4c0545b549c453e0f85cc81d3540404eff74/src/agent/memory-constraints.ts
+・投影と形式の判定（isProjectedMemoryPath・detectMemoryFormat）：https://github.com/letta-ai/letta-code/blob/316e4c0545b549c453e0f85cc81d3540404eff74/src/agent/memory-format.ts
+・initializing-memory スキル（Harness Constraints・ルートを案内にする構造・9. Verify の構造の確認だけを使う）：https://github.com/letta-ai/letta-code/blob/316e4c0545b549c453e0f85cc81d3540404eff74/src/skills/builtin/initializing-memory/SKILL.md
+・LICENSE：https://github.com/letta-ai/letta-code/blob/316e4c0545b549c453e0f85cc81d3540404eff74/LICENSE
+
+入力（ここを差し替える。実行の前に固定し、結果を見てから変えない）
+・架空の記憶：ルートの MEMORY.md（案内）・persona.md・子フォルダーの MEMORY.md と詳細ファイル・.memfs.config.json。個人の記憶・会話履歴・実在の人は使わない
+・初期方針：実行の前に決める。原典の既定より厳しくしてよい（この作例では version 1・maxDepth 2・maxFileCharacters 900・maxCoreMemoryCharacters 1200・readOnlyFiles に persona.md）。実際のエージェントで採用した方針としては扱わない
+・変更：各件の accepted_files（基準の commit の全ファイル）と proposed_files（次に stage する全ファイル）。この作例では L01〜L08 の8件
+・期待：各件で commit できるかと、止まるときの理由の一部を、実行の前に別のファイルへ書く
+
+進め方
+1. 原典8ファイル・ロック・入力の SHA-256 と Git blob を照合してから、Node 24 の型除去で原典の .ts をそのまま読み込む。npm の導入はしない。読み込みの補助は「@/」と原典内の拡張子なし相対 import を .ts へ解決するだけにし、原典の関数を置き換えない
+2. 各件ごとに、公開フォルダーの外の新しい空フォルダーで git init -b main。設定はそのリポジトリだけ（core.autocrlf=false・架空の user.name と user.email・commit.gpgsign=false・core.hooksPath=.git/hooks）。グローバル設定・実際のエージェントの記憶と方針・LETTA_MEMORY_CONSTRAINTS_UPDATE には触れない
+3. accepted_files で基準の commit を作ってから、原典の MEMORY_CONSTRAINTS_VALIDATOR_SCRIPT をそのまま .git/letta-memory-constraints.cjs に書き、2行の pre-commit から --layout root-marker で呼ぶ
+4. proposed_files を書き、消すファイルを含めて名前を指定して stage する
+5. 基準の commit から読んだ初期方針・root-marker・ルートの MEMORY.md 必須・HEAD を基準の木として validateMemoryTreeConstraints を呼ぶ。記憶として投影される Markdown（skills/ 以外）すべてに validateMemoryFileFrontmatter を、stage の内容と HEAD の内容で呼ぶ
+6. 原典のスクリプトを1回直接実行し、続けて実際に git commit して pre-commit を通す。stdout・stderr・終了コードをそのまま残し、止まったら HEAD が変わらず stage が残ること、通ったら HEAD が進み stage が空になることを確かめる
+7. 結果を得た後でだけ期待のファイルと照らし合わせる。すべての確認が通ったときだけ outputs/memory-runs.json を1回書く。既にある記録は上書きしない。絶対パス・認証情報・個人の履歴は書かない
+
+ページでできること
+・8件を選び、保存できたか止まったか、原典の診断文、HEAD と stage がどうなったかを先に読む。L02（案内を消して止まる）と L03（同じ変更に案内だけを残して通る）を行き来できる
+・ファイルを選び、基準と変更後の全文を並べて読む。検査API・原典CLI・git commit の結果と入力の JSON は折りたたみで全文を開ける
+・記録・入力・ロックを取得し、固定版・SHA-256・8件・確認の合否を照合してから表示する。合わなければ理由と「もう一度読み込む」だけを出す
+・選んだ1件を letta-L02.json のような JSON で保存し、この依頼文をコピーする
+・320px幅のスマホから1280px幅のパソコンまで横スクロールなし。操作部品は44px以上、入力欄の文字は16px以上。外部のフォント・CDN・計測・AI の呼び出しは使わない
+
+書かないこと
+・検査を、エージェントとの会話・記憶の自動抽出・モデルの推論・Cloud・同期・/init の実行として書かない
+・検査がエラーを返さないことを、人の承認・内容の正しさ・事実の正確さ・採用の決定として書かない
+・保存済みの記録を読むページを、実際のエージェントの記憶を編集する画面として書かない
+・初期方針を、実際のエージェントで採用された方針として書かない。方針の変更を承認したように見せたり、止まった commit を回避したりしない
+
+最後に、作ったファイル、実際に実行したコマンドとその結果、まだ確かめていない点を分けて書いてください。
