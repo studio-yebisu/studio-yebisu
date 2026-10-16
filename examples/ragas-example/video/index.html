@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>点数と根拠を、セットで読む｜Ragas作例 解説映像（編集できる元ページ）</title>
+<meta name="description" content="架空FAQ「凪の図書室」の固定回答20件を Ragas の文字列指標3つで採点した実結果と、閲覧ページの実画面を編集した28秒・無音の解説映像の元ページです。">
+<link rel="stylesheet" href="video.css">
+<script type="module" src="video.js"></script>
+</head>
+<body>
+<main class="page">
+  <header class="intro">
+    <p class="kicker">Studio Yebisu ・ Ragas 作例 ・ 解説映像の元ページ</p>
+    <h1>点数と根拠を、セットで読む。</h1>
+    <p class="lede">28秒・無音。架空FAQ「凪の図書室」の固定回答を、固定版 Ragas の文字列指標3つで採点した保存結果と、閲覧ページの実画面の静止キャプチャを編集した映像です。連続した画面録画ではありません。ページでも映像でも AI や Ragas は動きません。</p>
+  </header>
+
+  <figure class="stage">
+    <canvas id="film" role="img" aria-label="解説映像。同じ10問を2組の固定回答で比べ、完全一致の件数4件から7件、Q07の18時と19時の1字違いで文字列の近さ0.969、Q08の参照文全体を含む追記で包含1.000、Q05の言い換えで完全一致0を、根拠資料と入力の照合メモと並べて示し、保存したJSONで終わる。"></canvas>
+    <figcaption>描く値と文は、照合した12ファイルから取り出しています。照合メモは制作担当が入力に書いたもので、Ragasの判定ではありません。</figcaption>
+  </figure>
+
+  <section id="controls" class="controls" aria-label="再生と時刻">
+    <button id="play" type="button" aria-pressed="false" disabled>再生</button>
+    <label class="time-label" for="time">時刻</label>
+    <input id="time" type="range" min="0" max="28" step="0.1" value="0" disabled>
+    <output id="clock" for="time">0.0秒 / 28.0秒</output>
+    <button id="reload" type="button" hidden>もう一度読み込む</button>
+  </section>
+  <p id="status" class="status" role="status" aria-live="polite" data-state="loading">保存済みのファイルと実画面を確かめています…</p>
+  <p id="detail" class="detail"></p>
+  <p class="keys">停止から始まり、自動では再生しません。時刻のスライダーでは、矢印キーで0.1秒、PageUp・PageDownで2秒、Home・Endで先頭・末尾へ移ります。</p>
+
+  <section class="block" aria-labelledby="scenes-h">
+    <h2 id="scenes-h">場面</h2>
+    <ol class="scenes">
+      <li><span class="when">0〜4秒</span>同じ10問を、2組の回答で。スマホの初期表示（実画面）と、10問×2回答×3指標＝60回の図。</li>
+      <li><span class="when">4〜8秒</span>完全一致は4件→7件。固定回答の比較で、正答率ではない。変更後に0になった問いを囲む。</li>
+      <li><span class="when">8〜14秒</span>Q07：18時→19時の1字違いで、文字列の近さ0.969。照合メモ（入力）は矛盾。ポスターは13.5秒。</li>
+      <li><span class="when">14〜19秒</span>Q08：参照文の全体を含むので包含1.000。後ろの追記は資料にない（入力の照合メモ）。</li>
+      <li><span class="when">19〜23秒</span>Q05：予約なし・1回・7日間を保った言い換えでも、完全一致は0。</li>
+      <li><span class="when">23〜28秒</span>制作時の実操作で保存した nagi-faq-Q07.json の値と、スマホのQ07の計算結果。</li>
+    </ol>
+  </section>
+
+  <section class="block" aria-labelledby="files-h">
+    <h2 id="files-h">元のファイル</h2>
+    <ul class="links">
+      <li><a href="../index.html">閲覧ページ（保存済みの結果を読む）</a></li>
+      <li><a href="../outputs/evaluation.json">採点結果 outputs/evaluation.json</a></li>
+      <li><a href="../outputs/browser-selection.json">保存したJSON outputs/browser-selection.json</a></li>
+      <li><a href="assets/screen-manifest.json">実画面の記録 assets/screen-manifest.json</a></li>
+      <li><a href="../vendor/ragas/LICENSE">Ragas のライセンス（Apache-2.0）</a></li>
+      <li><a href="storyboard.json">ショット表 storyboard.json</a></li>
+      <li><a href="README.md">映像の説明 README.md</a></li>
+    </ul>
+    <h3 class="sub">照合したファイル</h3>
+    <ul id="verified" class="verified" hidden></ul>
+  </section>
+
+  <section class="block" aria-labelledby="scope-h">
+    <h2 id="scope-h">範囲</h2>
+    <ul class="scope">
+      <li>3指標（ExactMatch・NonLLMStringSimilarity（LEVENSHTEIN）・StringPresence）は文字列の比較です。忠実さ・事実としての正しさ・意味の一致は判定しません。</li>
+      <li>変更前・変更後は、意図して誤り・言い換え・根拠にない追記を入れた固定回答の名前です。実際のRAGシステムやモデルを変えて動かした結果ではなく、10問の架空データは代表的なベンチマークではありません。</li>
+      <li>照合メモ（grounded・contradiction・unsupported_addition）は制作担当が入力に書いたもので、Ragasの出力でも LLM judge でも人による承認でもありません。</li>
+      <li>原典：vibrantlabsai/ragas コミット 298b68274234c060deacab3cf5fb52aa3a20e885（Apache-2.0）。映像のコードと文：MIT License（Copyright (c) 2026 Studio Yebisu）。</li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>

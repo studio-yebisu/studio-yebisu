@@ -1,0 +1,88 @@
+{
+  "format": "studio-yebisu-ragas-selection-v1",
+  "fictional": true,
+  "source": {
+    "repository": "vibrantlabsai/ragas",
+    "commit": "298b68274234c060deacab3cf5fb52aa3a20e885"
+  },
+  "input_sha256": "d55fcce5eec82974b01d912dcf6f21de94aede03c37d2a16092b6fa9304705a2",
+  "metrics": [
+    {
+      "id": "exact_match",
+      "label": "完全一致",
+      "ragas_class": "ExactMatch",
+      "call": "await ExactMatch().ascore(reference=reference, response=response)",
+      "source_file": "src/ragas/metrics/collections/_string.py",
+      "range": [
+        0,
+        1
+      ],
+      "description": "回答が参照文と1文字も違わなければ1.0、それ以外は0.0。意味が同じ言い換えも0.0になります。"
+    },
+    {
+      "id": "string_similarity",
+      "label": "文字列の近さ",
+      "ragas_class": "NonLLMStringSimilarity",
+      "distance": "LEVENSHTEIN",
+      "call": "await NonLLMStringSimilarity(distance_measure=DistanceMeasure.LEVENSHTEIN).ascore(reference=reference, response=response)",
+      "source_file": "src/ragas/metrics/collections/_string.py",
+      "range": [
+        0,
+        1
+      ],
+      "description": "1から rapidfuzz の Levenshtein 正規化距離を引いた値。文字の挿入・削除・置換が少ないほど1.0に近く、意味の近さは測りません。"
+    },
+    {
+      "id": "string_presence",
+      "label": "基準文の包含",
+      "ragas_class": "StringPresence",
+      "call": "await StringPresence().ascore(reference=reference, response=response)",
+      "source_file": "src/ragas/metrics/collections/_string.py",
+      "range": [
+        0,
+        1
+      ],
+      "description": "参照文の全体が回答の中にそのまま含まれていれば1.0、なければ0.0。参照文のあとに追記があっても1.0で、追記の正しさは見ません。"
+    }
+  ],
+  "selected": {
+    "id": "Q07",
+    "question": "予約を取り消す場合、いつまでに連絡しますか。",
+    "reference_document_ids": [
+      "D07"
+    ],
+    "reference": "予約の取り消しは、受取予定日の前日18時までに連絡してください。",
+    "before": {
+      "response": "予約の取り消しは、受取予定日の前日18時までに連絡してください。",
+      "annotation": {
+        "label": "grounded",
+        "note": "前日18時という期限を保持。"
+      },
+      "scores": {
+        "exact_match": 1,
+        "string_similarity": 1,
+        "string_presence": 1
+      }
+    },
+    "after": {
+      "response": "予約の取り消しは、受取予定日の前日19時までに連絡してください。",
+      "annotation": {
+        "label": "contradiction",
+        "note": "18時を19時へ変えてしまった退行例。一文字違いでも期限が変わる。"
+      },
+      "scores": {
+        "exact_match": 0,
+        "string_similarity": 0.96875,
+        "string_presence": 0
+      }
+    }
+  },
+  "documents": [
+    {
+      "id": "D07",
+      "title": "予約を取り消す場合、いつまでに連絡しますか。",
+      "text": "予約の取り消しは、受取予定日の前日18時までに連絡してください。"
+    }
+  ],
+  "annotation_source": "Studio Yebisu制作担当が入力時に記入した根拠との照合メモ。RagasやLLM judgeの出力ではなく、人による承認でもありません。"
+}

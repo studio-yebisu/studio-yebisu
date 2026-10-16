@@ -1,0 +1,137 @@
+{
+  "format": "studio-yebisu-storyboard-v1",
+  "title": "点数と根拠を、セットで読む（Ragas 作例・解説映像）",
+  "author_model": "claude-opus-5-5",
+  "brief": {
+    "purpose": "Ragas の文字列指標3つの点数は、根拠資料と入力の照合メモと並べて読む必要があることを、実際の保存結果と実画面で示す。",
+    "audience": "RAGやFAQボットの評価を初めて試す、日本語で読みたい開発者・制作担当",
+    "core_message": "点数と根拠を、セットで読む。",
+    "next_action": "閲覧ページで問いを選び、根拠資料・値・照合メモごとJSONで保存する。",
+    "facts": [
+      "固定版 vibrantlabsai/ragas 298b68274234c060deacab3cf5fb52aa3a20e885 の ExactMatch・NonLLMStringSimilarity（LEVENSHTEIN）・StringPresence を、10問×2回答×3指標＝60回実際に呼んだ保存結果（outputs/evaluation.json）",
+      "完全一致の件数 4/10→7/10、文字列の近さの平均 0.7884922267275208→0.8835109447004609、包含の平均 0.4→0.8。文字列の統計で、正答率やモデルの改善ではない",
+      "Q07 変更後：完全一致0・文字列の近さ0.96875・包含0。照合メモ（入力）contradiction",
+      "Q08 変更後：完全一致0・文字列の近さ0.5806451612903225・包含1。照合メモ（入力）unsupported_addition。追記の真偽は資料から断定できない",
+      "Q05 変更後：完全一致0・文字列の近さ0.2857142857142857・包含0。照合メモ（入力）grounded（予約なし・1回・7日間を保持）",
+      "outputs/browser-selection.json：制作時の実操作で保存した nagi-faq-Q07.json（3396バイト）"
+    ],
+    "unconfirmed": [
+      "この映像の書き出し・コンタクトシート・通し再生の確認は、作者（モデル）は行っていない。制作側の書き出し後に記録する",
+      "別OS・別フォントで同じ画になるかは未確認"
+    ],
+    "look": "温かい紙色の地、墨の文字、閲覧ページと同じ深い青緑と錆色。見出しは明朝46px（下限44px）、主な本文32〜34px、値は84〜104px、ラベル20px以上。1場面の文字量を絞る。",
+    "motion": "要素は0.45秒の減速で12pxせり上がって入る。場面の切り替えは0.5秒の重ね合わせ。各場面の後半は止めて読む。ポスター13.5秒はQ07の全要素が着地済み。",
+    "output": {
+      "duration": 28,
+      "fps": 30,
+      "frames": 840,
+      "width": 1280,
+      "height": 720,
+      "poster_time": 13.5,
+      "audio": "なし（無音。audioEvents は空）",
+      "loop": false
+    },
+    "persistent_overlays": [
+      "上：Studio Yebisu ・ Ragas 作例 ／ vibrantlabsai/ragas 298b682 ・ Apache-2.0",
+      "下左：架空FAQの固定回答を比較／実結果を編集・無音",
+      "下右：照合メモは入力・Ragasの判定ではありません"
+    ]
+  },
+  "sources": {
+    "verified_by_sha256": "video/assets/data-hashes.json（12ファイル。照合表自体のSHA-256は runtime/frozen-reviewed-source.json の値を video.js に埋め込む）",
+    "data": [
+      "input/faq-pairs.json",
+      "outputs/evaluation.json",
+      "outputs/method.md",
+      "outputs/browser-selection.json",
+      "outputs/browser-record.json",
+      "video/assets/screen-manifest.json"
+    ],
+    "screens": [
+      "video/assets/desktop-Q07.png（1265×2829）",
+      "video/assets/desktop-Q08.png（1265×2855・照合のみ、映像には使わない）",
+      "video/assets/desktop-Q05.png（1265×2829）",
+      "video/assets/phone-initial.png（375×812）",
+      "video/assets/phone-Q07.png（375×812）",
+      "video/assets/phone-Q08.png（375×812）"
+    ],
+    "screen_note": "閲覧ページの実画面の静止キャプチャ。等倍率の切り抜きと位置の移動だけで、伸ばし・消し・書き換え・偽のUIの重ね描きはしない。連続した画面録画ではない。"
+  },
+  "crops": [
+    {"id": "phoneTop", "file": "phone-initial.png", "pixels": {"x": 0, "y": 0, "w": 375, "h": 520}, "place": {"x": 80, "y": 182, "scale": 0.86}, "shows": "題名・キーワード・照合メモの絞り込み・条件を戻す・10問中10問を表示"},
+    {"id": "phoneSummary", "file": "phone-initial.png", "pixels": {"x": 0, "y": 528, "w": 375, "h": 284}, "place": {"x": 800, "y": 182, "scale": 1}, "shows": "10問の平均 変更前→変更後の表"},
+    {"id": "q07Answer", "file": "desktop-Q07.png", "pixels": {"x": 635, "y": 1996, "w": 568, "h": 240}, "place": {"x": 662, "y": 352, "scale": 0.945}, "shows": "Q07 変更後の回答カード（「9」の目印と照合メモ（入力）contradiction）", "contains_region": "answer[1]"},
+    {"id": "q08Phone", "file": "phone-Q08.png", "pixels": {"x": 20, "y": 176, "w": 335, "h": 350}, "place": {"x": 860, "y": 182, "scale": 1}, "shows": "Q08 変更後の回答（追記の目印）と照合メモ（入力）unsupported_addition"},
+    {"id": "q05Answer", "file": "desktop-Q05.png", "pixels": {"x": 635, "y": 1996, "w": 568, "h": 240}, "place": {"x": 662, "y": 352, "scale": 0.945}, "shows": "Q05 変更後の回答カード（言い換えの目印と照合メモ（入力）grounded）", "contains_region": "answer[1]"},
+    {"id": "q07PhoneScores", "file": "phone-Q07.png", "pixels": {"x": 0, "y": 378, "w": 375, "h": 322}, "place": {"x": 760, "y": 182, "scale": 1.15}, "shows": "Q07 の Ragas の計算結果（保存済み）の表"}
+  ],
+  "scenes": [
+    {
+      "id": "setup",
+      "time": [0, 4],
+      "headline": "同じ10問を、2組の回答で。",
+      "conveys": "同じ10問・資料10件に、変更前・変更後の固定回答があり、各回答を3指標で採点した（60回）。",
+      "enter": "最初のフレームから見出しと枠。スマホの実画面、資料・問い・回答の行が順に入り、1.2〜2.5秒で60本の呼び出しの印が伸びる。",
+      "exit": "3.75〜4.25秒で次の場面と重ね合わせ。",
+      "sources": ["input/faq-pairs.json（ID・題名）", "outputs/evaluation.json（runtime.metric_calls・metrics）"],
+      "crops": ["phoneTop"],
+      "scope": "60は実際に成功した呼び出しの記録。LLM・埋め込み・APIキーは使っていない。図は入力から描いた編集上の図で、実画面ではない。"
+    },
+    {
+      "id": "count",
+      "time": [4, 8],
+      "headline": "完全一致は4件→7件。",
+      "conveys": "完全一致の件数は増えたが、固定回答の比較で正答率ではない。変更後に0になった問い（Q05・Q07・Q08）がある。",
+      "enter": "4.2秒に4/10、4.7秒に7/10。5.3〜6.0秒に10問の塗り分け、6.3秒に3問を囲む。",
+      "exit": "7.75〜8.25秒で重ね合わせ。",
+      "sources": ["outputs/evaluation.json（summary・rows[].scores.exact_match）"],
+      "crops": ["phoneSummary"],
+      "scope": "変更前・変更後は意図して作った固定回答の名前。モデルやRAGの変更結果ではない。"
+    },
+    {
+      "id": "q07",
+      "time": [8, 14],
+      "headline": "一文字違いでも、0.969。",
+      "conveys": "参照文の18時が回答では19時。32字のうち1字の置換で、文字列の近さは0.969（保存値0.96875）のまま高い。期限が違うことは入力の照合メモが示す。",
+      "enter": "8.15秒に参照文、8.55秒に回答（違う1字に下地）。9.05秒に実画面、9.3秒に0.969、10.4秒に照合メモの帯。10.9秒までに全て着地。",
+      "exit": "13.75〜14.25秒で重ね合わせ。13.5秒のポスターは静止状態。",
+      "poster": 13.5,
+      "sources": ["outputs/evaluation.json（rows Q07）", "input/faq-pairs.json（label_meanings）"],
+      "crops": ["q07Answer"],
+      "scope": "「根拠は18時。回答は19時。」は入力の文字列から取り出した編集上の注記。contradiction は入力の照合メモでRagasの判定ではない。高い近さは回答の正しさを示さない。"
+    },
+    {
+      "id": "q08",
+      "time": [14, 19],
+      "headline": "全文が入っていても、追記は見ない。",
+      "conveys": "回答は参照文の全体を含むので包含は1.000。後ろの「延滞しても連絡は不要です。」は資料にない追記（入力の照合メモ）。",
+      "enter": "14.55秒に回答、14.9秒から参照文部分に下線、15.0秒に追記、15.4秒に1.000、15.9秒に照合メモ。",
+      "exit": "18.75〜19.25秒で重ね合わせ。",
+      "sources": ["outputs/evaluation.json（rows Q08）", "input/faq-pairs.json（label_meanings・note）"],
+      "crops": ["q08Phone"],
+      "scope": "追記を誤りとは書かない。メモの「資料からは真偽を断定できない。」をそのまま引く。包含1は回答全体が根拠どおりという意味ではない。"
+    },
+    {
+      "id": "q05",
+      "time": [19, 23],
+      "headline": "言い換えると、完全一致は0。",
+      "conveys": "回答は言い換えで完全一致0.000・近さ0.286。入力の照合メモは、予約なし・1回・7日間を保持した言い換え（grounded）としている。",
+      "enter": "19.15秒に参照文、19.45秒に回答、19.9秒に0.000、20.4〜20.64秒に3条件、21.0秒に注記。",
+      "exit": "22.75〜23.25秒で重ね合わせ。",
+      "sources": ["outputs/evaluation.json（rows Q05）", "input/faq-pairs.json（note）"],
+      "crops": ["q05Answer"],
+      "scope": "3条件は入力の照合メモの文から取り出す。意味の一致はRagasやLLMが自動で判定したものではない。"
+    },
+    {
+      "id": "save",
+      "time": [23, 28],
+      "headline": "問いを選び、根拠ごと保存。",
+      "conveys": "閲覧ページで選んだQ07を、点数付きの行・資料D07・3指標の定義ごとJSONで保存できる。最後に主題を示して止める。",
+      "enter": "23.1秒に保存JSONの値、23.25秒にスマホの計算結果、24.1秒に主題。24.6秒以降は静止して読む。",
+      "exit": "28秒で終わる（ループしない）。",
+      "sources": ["outputs/browser-selection.json（selected・documents・fictional・バイト数）", "outputs/browser-record.json（native_selection_sha256・export-Q07）"],
+      "crops": ["q07PhoneScores"],
+      "scope": "制作時の実操作で保存した既存ファイルを読むだけ。映像の中で新たに保存・書き込みはしない。"
+    }
+  ]
+}

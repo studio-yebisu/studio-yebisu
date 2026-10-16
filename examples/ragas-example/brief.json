@@ -1,0 +1,54 @@
+{
+  "title": "Ragas作例：同じ10問を、文字列指標3つで変更前後に比べる",
+  "request": "架空のFAQ検索について、同じ10問で変更前後を比べる評価を作ってください。根拠に合わない回答と、点数では見えない失敗も残してください。入力、出力、実行した検証、未確認の点を記録してください。",
+  "category": "development",
+  "audience": "RAGやFAQボットの評価を初めて試す、日本語で読みたい開発者・制作担当",
+  "goal": "固定版Ragasの ExactMatch・NonLLMStringSimilarity（LEVENSHTEIN）・StringPresence を実際に60回呼んで架空FAQ10問の変更前後20回答を採点し、その値を根拠資料と制作担当の照合メモ（入力）と並べてスマホで読み、選んだ問いをJSONで保存できるようにする",
+  "inputs": [
+    "input/faq-pairs.json（架空の「凪の図書室」資料10件・問い10件・固定回答20件・制作担当の照合メモ）",
+    "vibrantlabsai/ragas 固定コミット 298b68274234c060deacab3cf5fb52aa3a20e885 のソース（同梱の8ファイルと、インストールする固定ZIP）"
+  ],
+  "skill_refs": [
+    "skills/brief-to-demo/SKILL.md",
+    "https://github.com/vibrantlabsai/ragas/blob/298b68274234c060deacab3cf5fb52aa3a20e885/docs/concepts/metrics/available_metrics/traditional.md",
+    "https://github.com/vibrantlabsai/ragas/blob/298b68274234c060deacab3cf5fb52aa3a20e885/src/ragas/metrics/collections/_string.py",
+    "https://github.com/vibrantlabsai/ragas/blob/298b68274234c060deacab3cf5fb52aa3a20e885/src/ragas/_analytics.py"
+  ],
+  "deliverables": [
+    "evaluate.py（実際のRagas APIで採点するCLI）",
+    "requirements.txt（固定コミットのRagasとrapidfuzz）",
+    "outputs/evaluation.json（制作側の実行で作る採点結果）",
+    "index.html・style.css・app.js（保存結果を読むスマホ優先の閲覧ページ）",
+    "outputs/method.md（評価の方法と限界）",
+    "README.md・request.txt"
+  ],
+  "steps": [
+    "架空の資料10件と問い10件を書き、参照文を資料本文と同じ文字列にする",
+    "各問に、誤り・言い換え・根拠にない追記を意図して混ぜた変更前後の固定回答と、制作担当の照合メモを付ける",
+    "固定版Ragasを通常の仮想環境に入れ、送信停止と通信拒否のもとで evaluate.py を実行し、60回の ascore の値を丸めずに保存する",
+    "閲覧ページで入力と結果を取得して一致を確かめ、平均と件数、10問の検索と絞り込み、1問ずつの根拠・回答・値・照合メモを表示する",
+    "選んだ問いを点数付きの行と根拠資料ごとJSONで保存する"
+  ],
+  "acceptance": [
+    "evaluate.py が、Ragas を読み込めないときや入力・値が不正なときに、代わりの計算で埋めずに失敗する",
+    "成功した指標の呼び出しが60回で、採点中の通信の試みが0件、利用状況の送信停止が確認されて結果に記録される",
+    "既にある出力を上書きしない",
+    "結果に、入力のSHA-256・原典のコミット・Python/Ragas/rapidfuzzの版・3指標の定義・20回答それぞれの3つの値・平均と件数・入力の照合メモのラベル数が入り、手元の絶対パスや認証情報が入らない",
+    "ページが入力と結果の形・20回答とメモの一致・値のそろい・集計の一致を確かめ、合わなければ理由と再読み込みを出し、内蔵の代わりのデータを使わない",
+    "平均（変更前→変更後）と完全一致の件数が結果の値から表示され、正答率や合否として書かれていない",
+    "検索・照合メモでの絞り込み・件数・0件時の選択解除・条件を戻すとQ07の表示が動く",
+    "Q07の1文字の違いと高い文字列の近さ、Q08の包含1.0と根拠のない追記のメモ、Q05の言い換えが、値と照合メモの対比として読める",
+    "選んだ問いの JSON（nagi-faq-Q07.json など）のダウンロードを要求できる",
+    "320・375・390・430px縦、844px横、1280pxで横スクロールがなく、操作部品が44px以上、入力欄が16px以上"
+  ],
+  "assumptions": [
+    "「FAQ検索」は、実在のサービスではなく、架空の図書室の資料10件と問い10件で表す",
+    "変更前後は、実際のRAGシステムやモデルを変更して動かした出力ではなく、意図して作った固定回答の2組とする",
+    "LLM・埋め込み・APIキーを使わない文字列指標3つに絞る。faithfulness などLLMを使う指標は使わない",
+    "「点数では見えない失敗」は、制作担当が入力に書いた照合メモで示す。メモは Ragas の出力でも人による承認でもない",
+    "Ragas はソースZIPから入れるため、インストール時に手元の版名 0.0.0+studio.298b68274234 を与える。正式なリリース番号ではなく、原典はコミットで特定する",
+    "依存パッケージの版は固定しない。実際に入った版は制作側の実行後に記録する",
+    "ページは保存結果を読むだけで、ブラウザー内でRagasやAIを動かさない",
+    "解説動画は約28秒・無音で後日制作する"
+  ]
+}

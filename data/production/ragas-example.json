@@ -1,0 +1,785 @@
+{
+  "id": "ragas-example",
+  "verified_at": "2026-10-16T13:29:42.906492+00:00",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "receipts": [
+      {
+        "phase": "implement",
+        "receipt_sha256": "d9adc00d1866025ef008bc3261e6051537858113a50268e57a228fc6233d3768",
+        "execution_sha256": "bc691537b48553b2c87e2d8f77e606408c376f2ba047b6fb6d59d7175bc0006c",
+        "prompt_sha256": "a72b5c6b50089859822a9526544e6c93baa3db2c333621362d9475df0d6d5b30"
+      },
+      {
+        "phase": "video",
+        "receipt_sha256": "1581fb835c7cea7835fb511c73d1885100a1e41ebb6c7d8dd7a17cc034030778",
+        "execution_sha256": "a34181fd6a61c519d66b6906b5418e06d4221ccc57f2cfff772325beadf7e9a4",
+        "prompt_sha256": "a902e525ecf49828be3df11c268b7b205b854a4dfd491e31225b2d2269b2dd5b"
+      }
+    ],
+    "receipt_published": false
+  },
+  "upstream": {
+    "repository": "vibrantlabsai/ragas",
+    "commit": "298b68274234c060deacab3cf5fb52aa3a20e885",
+    "license": "Apache-2.0",
+    "copyright_notice": "Copyright [2023] [Vibrant Labs] (original LICENSE retained verbatim)",
+    "archive_sha256": "698ce03bac7320c910eb021ad38904052f0620196299a4e9ede48930507f3a77",
+    "archive_bytes": 44424745,
+    "files_sha256": {
+      "LICENSE": "664b930830f291c2936ab30bcd6ef9ca6c9c7384cc475ae0c526156a27d5a6c6",
+      "README.md": "af20b2258507b12bf930e897b63ee5bb87aac4a4696da078ea5a3c29addb6db7",
+      "pyproject.toml": "11b24f8114f922ea5d028d65dffabd941e2d11fc732d499afdcfe0e20a998101",
+      "docs/concepts/metrics/available_metrics/traditional.md": "6d08c0826f54374e66385530d5291d11a230289780043dc4dadcca0682531260",
+      "src/ragas/metrics/collections/_string.py": "9935e46a0a048d4d5a7790abfd0d20c38909231da34b1aab5da5268758b00230",
+      "src/ragas/metrics/collections/base.py": "92e1fac17953d10a931227045daa8277bcc66f11b90535da5b45d706079de679",
+      "src/ragas/metrics/result.py": "73e40e9f1d18d8f73b3c24c4bef728da79cdec529c5dad2927e799f73dc0161a",
+      "src/ragas/_analytics.py": "9619946dc7aaa1e60f30e4f3cbac56010bd47cedc5e3d6e256e1c27e9e45a679"
+    },
+    "notice_files_in_fixed_tree": [],
+    "scope": "Use installed, unmodified fixed source Ragas collections ExactMatch/NonLLMStringSimilarity(LEVENSHTEIN)/StringPresence .ascore, no LLM/embeddings or paid API. Original ten Japanese fictional FAQ input pairs; editorial labels supplied in input, not metric-generated semantic verdicts. Not RAG retrieval/generation benchmark."
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 7,
+    "scope": "Actual installed fixed Ragas collections.ascore: ExactMatch, NonLLMStringSimilarity(Levenshtein), StringPresence. Original intentionally seeded frozen fictional FAQ pairs, no retrieval/generation/LLMjudge/embeddings/realservice benchmark. Editorial notes supplied with input, not metric verdicts.",
+    "human_approval": false,
+    "environment": {
+      "smoke_values": [
+        0.0,
+        0.8571428571428572,
+        0.0
+      ],
+      "version": "0.0.0+studio.298b68274234",
+      "python": "3.12.9",
+      "installed_source_matches_fixed": true,
+      "installed_files_sha256": {
+        "metrics/collections/_string.py": "9935e46a0a048d4d5a7790abfd0d20c38909231da34b1aab5da5268758b00230",
+        "metrics/collections/base.py": "92e1fac17953d10a931227045daa8277bcc66f11b90535da5b45d706079de679",
+        "metrics/result.py": "73e40e9f1d18d8f73b3c24c4bef728da79cdec529c5dad2927e799f73dc0161a",
+        "_analytics.py": "9619946dc7aaa1e60f30e4f3cbac56010bd47cedc5e3d6e256e1c27e9e45a679"
+      },
+      "dependency_count": 93,
+      "ragas_build_version_override": "0.0.0+studio.298b68274234",
+      "upstream_release_version_claimed": false,
+      "dependency_repair": "Fresh unconstrained LangChain community0.4.2 removed imported VertexAI module. Kept Ragas source unchanged; resolved compatible community<0.4 and LangChain/core/openai<1 in same private venv. Actual full versions frozen publicly without private local source path.",
+      "all_installed_python_source_files_match_fixed": 237,
+      "dependency_check": "uv pip check: all93installedpackages compatible",
+      "unused_incompatible_packages_removed_from_private_venv": [
+        "langchain-classic",
+        "langchain-protocol",
+        "langgraph",
+        "langgraph-checkpoint",
+        "langgraph-prebuilt",
+        "langgraph-sdk"
+      ]
+    }
+  },
+  "verification": {
+    "id": "ragas-example",
+    "verified_at": "2026-10-16T13:29:42.519895+00:00",
+    "stage": "runtime-and-agent-visual-reviewed",
+    "source_commit": "298b68274234c060deacab3cf5fb52aa3a20e885",
+    "runtime_environment": {
+      "smoke_values": [
+        0.0,
+        0.8571428571428572,
+        0.0
+      ],
+      "version": "0.0.0+studio.298b68274234",
+      "python": "3.12.9",
+      "installed_source_matches_fixed": true,
+      "installed_files_sha256": {
+        "metrics/collections/_string.py": "9935e46a0a048d4d5a7790abfd0d20c38909231da34b1aab5da5268758b00230",
+        "metrics/collections/base.py": "92e1fac17953d10a931227045daa8277bcc66f11b90535da5b45d706079de679",
+        "metrics/result.py": "73e40e9f1d18d8f73b3c24c4bef728da79cdec529c5dad2927e799f73dc0161a",
+        "_analytics.py": "9619946dc7aaa1e60f30e4f3cbac56010bd47cedc5e3d6e256e1c27e9e45a679"
+      },
+      "dependency_count": 93,
+      "ragas_build_version_override": "0.0.0+studio.298b68274234",
+      "upstream_release_version_claimed": false,
+      "dependency_repair": "Fresh unconstrained LangChain community0.4.2 removed imported VertexAI module. Kept Ragas source unchanged; resolved compatible community<0.4 and LangChain/core/openai<1 in same private venv. Actual full versions frozen publicly without private local source path.",
+      "all_installed_python_source_files_match_fixed": 237,
+      "dependency_check": "uv pip check: all93installedpackages compatible",
+      "unused_incompatible_packages_removed_from_private_venv": [
+        "langchain-classic",
+        "langchain-protocol",
+        "langgraph",
+        "langgraph-checkpoint",
+        "langgraph-prebuilt",
+        "langgraph-sdk"
+      ]
+    },
+    "data_checks": {
+      "status": "passed",
+      "verified_at": "2026-10-16T13:05:56.013231+00:00",
+      "question_count": 10,
+      "response_count": 20,
+      "actual_ragas_metric_calls": 60,
+      "source_commit": "298b68274234c060deacab3cf5fb52aa3a20e885",
+      "source_files_unchanged": true,
+      "input_sha256": "d55fcce5eec82974b01d912dcf6f21de94aede03c37d2a16092b6fa9304705a2",
+      "evaluation_sha256": "b3862890b1ee0d48ebad9991cc99310730cbc3769e4717fdd2e4678348c91ea3",
+      "independent_full_unicode_distance_comparison": [
+        {
+          "id": "Q01",
+          "stage": "before",
+          "independent_expected_scores": {
+            "exact_match": 0.0,
+            "string_similarity": 0.8888888888888888,
+            "string_presence": 0.0
+          }
+        },
+        {
+          "id": "Q01",
+          "stage": "after",
+          "independent_expected_scores": {
+            "exact_match": 1.0,
+            "string_similarity": 1.0,
+            "string_presence": 1.0
+          }
+        },
+        {
+          "id": "Q02",
+          "stage": "before",
+          "independent_expected_scores": {
+            "exact_match": 0.0,
+            "string_similarity": 0.9090909090909091,
+            "string_presence": 0.0
+          }
+        },
+        {
+          "id": "Q02",
+          "stage": "after",
+          "independent_expected_scores": {
+            "exact_match": 1.0,
+            "string_similarity": 1.0,
+            "string_presence": 1.0
+          }
+        },
+        {
+          "id": "Q03",
+          "stage": "before",
+          "independent_expected_scores": {
+            "exact_match": 0.0,
+            "string_similarity": 0.8333333333333334,
+            "string_presence": 0.0
+          }
+        },
+        {
+          "id": "Q03",
+          "stage": "after",
+          "independent_expected_scores": {
+            "exact_match": 1.0,
+            "string_similarity": 1.0,
+            "string_presence": 1.0
+          }
+        },
+        {
+          "id": "Q04",
+          "stage": "before",
+          "independent_expected_scores": {
+            "exact_match": 0.0,
+            "string_similarity": 0.9230769230769231,
+            "string_presence": 0.0
+          }
+        },
+        {
+          "id": "Q04",
+          "stage": "after",
+          "independent_expected_scores": {
+            "exact_match": 1.0,
+            "string_similarity": 1.0,
+            "string_presence": 1.0
+          }
+        },
+        {
+          "id": "Q05",
+          "stage": "before",
+          "independent_expected_scores": {
+            "exact_match": 1.0,
+            "string_similarity": 1.0,
+            "string_presence": 1.0
+          }
+        },
+        {
+          "id": "Q05",
+          "stage": "after",
+          "independent_expected_scores": {
+            "exact_match": 0.0,
+            "string_similarity": 0.2857142857142857,
+            "string_presence": 0.0
+          }
+        },
+        {
+          "id": "Q06",
+          "stage": "before",
+          "independent_expected_scores": {
+            "exact_match": 1.0,
+            "string_similarity": 1.0,
+            "string_presence": 1.0
+          }
+        },
+        {
+          "id": "Q06",
+          "stage": "after",
+          "independent_expected_scores": {
+            "exact_match": 1.0,
+            "string_similarity": 1.0,
+            "string_presence": 1.0
+          }
+        },
+        {
+          "id": "Q07",
+          "stage": "before",
+          "independent_expected_scores": {
+            "exact_match": 1.0,
+            "string_similarity": 1.0,
+            "string_presence": 1.0
+          }
+        },
+        {
+          "id": "Q07",
+          "stage": "after",
+          "independent_expected_scores": {
+            "exact_match": 0.0,
+            "string_similarity": 0.96875,
+            "string_presence": 0.0
+          }
+        },
+        {
+          "id": "Q08",
+          "stage": "before",
+          "independent_expected_scores": {
+            "exact_match": 1.0,
+            "string_similarity": 1.0,
+            "string_presence": 1.0
+          }
+        },
+        {
+          "id": "Q08",
+          "stage": "after",
+          "independent_expected_scores": {
+            "exact_match": 0.0,
+            "string_similarity": 0.5806451612903225,
+            "string_presence": 1.0
+          }
+        },
+        {
+          "id": "Q09",
+          "stage": "before",
+          "independent_expected_scores": {
+            "exact_match": 0.0,
+            "string_similarity": 0.23529411764705888,
+            "string_presence": 0.0
+          }
+        },
+        {
+          "id": "Q09",
+          "stage": "after",
+          "independent_expected_scores": {
+            "exact_match": 1.0,
+            "string_similarity": 1.0,
+            "string_presence": 1.0
+          }
+        },
+        {
+          "id": "Q10",
+          "stage": "before",
+          "independent_expected_scores": {
+            "exact_match": 0.0,
+            "string_similarity": 0.09523809523809523,
+            "string_presence": 0.0
+          }
+        },
+        {
+          "id": "Q10",
+          "stage": "after",
+          "independent_expected_scores": {
+            "exact_match": 1.0,
+            "string_similarity": 1.0,
+            "string_presence": 1.0
+          }
+        }
+      ],
+      "means": {
+        "before": {
+          "exact_match": 0.4,
+          "string_similarity": 0.7884922267275208,
+          "string_presence": 0.4
+        },
+        "after": {
+          "exact_match": 0.7,
+          "string_similarity": 0.8835109447004609,
+          "string_presence": 0.8
+        }
+      },
+      "scope": "Actual installed fixed Ragas collections.ascore: ExactMatch, NonLLMStringSimilarity(Levenshtein), StringPresence. Original intentionally seeded frozen fictional FAQ pairs, no retrieval/generation/LLMjudge/embeddings/realservice benchmark. Editorial notes supplied with input, not metric verdicts.",
+      "human_approval": false,
+      "sample_count": 7
+    },
+    "browser": {
+      "status": "passed",
+      "native_operation_states": 25,
+      "responsive_states": 6,
+      "widths": [
+        320,
+        375,
+        390,
+        430,
+        844,
+        1280
+      ],
+      "target_minimum_px": 44,
+      "form_font_minimum_px": 16,
+      "all_ten_source_response_note_score_fields_match": true,
+      "normalized_and_query": true,
+      "annotation_filters_not_metric_verdict": true,
+      "zero_clears_detail_and_export": true,
+      "native_export_matches_scored_row": true,
+      "http503_parse_validation_retry": true,
+      "keyboard_enter_space": true,
+      "physical_ios_tested": false,
+      "voiceover_tested": false,
+      "human_approval": false,
+      "agent_visual_review": true,
+      "unconfirmed": [
+        "Physical iOS/Safari/VoiceOver and assistive technologies",
+        "Lighthouse/CoreWebVitals and realservice outcomes",
+        "Browser offline or clipboard denial"
+      ]
+    },
+    "semantic_review": {
+      "agent_semantic_review": true,
+      "human_approval": false,
+      "unresolved_blockers": [],
+      "reviewed": "All10reference strings equal originaldocs; all20response texts/notes/labels retained. Q01-04 before factual conflicts and Q10before no-electronic-service conflict; Q05 after retains noreservation/once/7days despiteparaphrase; Q06 reservationlimit3 distinctloan5; Q07after18to19 contradicts source deadline despite0.96875similarity; Q08after extraoverduecontactrule lacks support (notprovenfalse); Q09before paraphrase retains identity/address. Annotations are suppliedinput, notRagas verdict. Originalfictional intentionalfixtures, noactualRAGchangebenchmark.",
+      "metrics": "60actual.ascore results equal independent rawUnicode comparisons. No evidence of retrieval/LLMjudge/embeddings claims; Ragasprogramsource237filesunchanged; networkguardscope described (notwholeOS/DNS/Cextension proof).",
+      "dependency_compatibility": "Sameprivatevenv repaired,93compatiblepackages frozen. Buildlabel notofficialversion."
+    },
+    "parent_adjustments": {
+      "original_opus_delivery_archived": true,
+      "evaluate_py_unchanged": true,
+      "input_and_upstream_unchanged": true,
+      "changes": [
+        "ShortbalancedH1 forphone; original title/historypreserved",
+        "Technicalruntime/SHAtext movedinto native44px disclosure, IDs/dataunchanged",
+        "Primaryreproduction uses actual93package lock, compatibilityconstraints appended to requirements.txt; fixedRagas source unchanged",
+        "Method/README actualPythonexecution andsemanticreview appended; oldauthorstage statements scopedhistorical",
+        "Explicit question activation focuses its H2 and scrolls detail to start; filters/search do notscroll. Prevent phone view retainingtail of10-question list above result."
+      ],
+      "purpose": "Readablephoneflow and honestreproduction after dependencydrift",
+      "human_approval": false
+    },
+    "video": {
+      "video_sha256": "9b799125a5db555f21601f966969b8807b014af2e5b5c630c54c21806c900b41",
+      "poster_sha256": "47bf11df4efbcac23c679e5547935952c780e3e4c357ae1479ffc3a20128dba8",
+      "poster_from_mp4_seconds": 13.5,
+      "full_decode_passed": true,
+      "review_files": [
+        "contact.png",
+        "poster.png",
+        "strip.png",
+        "stills/frame-000000.png",
+        "stills/frame-000001.png",
+        "stills/frame-000002.png",
+        "stills/frame-000003.png",
+        "stills/frame-000004.png",
+        "stills/frame-000005.png",
+        "stills/frame-000006.png",
+        "stills/frame-000007.png",
+        "stills/frame-000008.png",
+        "stills/frame-000009.png",
+        "stills/frame-000010.png",
+        "stills/frame-000011.png",
+        "stills/frame-000012.png",
+        "stills/frame-000013.png",
+        "cut-01.png",
+        "cut-02.png",
+        "cut-03.png",
+        "cut-04.png",
+        "cut-05.png",
+        "final.png"
+      ],
+      "render_label": "final",
+      "bundled_renderer_executed": true,
+      "reviewed_at": "2026-10-16T13:29:42.028876+00:00",
+      "agent_visual_review": true,
+      "human_approval": false,
+      "native_playback": {
+        "duration": 28,
+        "ended": true,
+        "error": null,
+        "paused": true,
+        "ready": 4,
+        "time": 28,
+        "first_observed_seconds": 0,
+        "no_manual_seek": true
+      },
+      "source_editor": {
+        "canvas": [
+          1280,
+          720
+        ],
+        "client": 375,
+        "forms": [
+          {
+            "font": "16px",
+            "height": 44
+          }
+        ],
+        "play_enabled": true,
+        "position": 14,
+        "scroll": 375,
+        "status": "照合した12ファイルから描いています",
+        "targets": [
+          {
+            "height": 44,
+            "id": "play",
+            "tag": "BUTTON",
+            "width": 76
+          },
+          {
+            "height": 44,
+            "id": "time",
+            "tag": "INPUT",
+            "width": 211
+          },
+          {
+            "height": 44,
+            "id": "",
+            "tag": "A",
+            "width": 271.6875
+          },
+          {
+            "height": 44,
+            "id": "",
+            "tag": "A",
+            "width": 246.546875
+          },
+          {
+            "height": 57.59375,
+            "id": "",
+            "tag": "A",
+            "width": 343
+          },
+          {
+            "height": 44,
+            "id": "",
+            "tag": "A",
+            "width": 307.6875
+          },
+          {
+            "height": 44,
+            "id": "",
+            "tag": "A",
+            "width": 258.5
+          },
+          {
+            "height": 44,
+            "id": "",
+            "tag": "A",
+            "width": 201.46875
+          },
+          {
+            "height": 44,
+            "id": "",
+            "tag": "A",
+            "width": 175.515625
+          }
+        ],
+        "verified_files": 12,
+        "native_play": {
+          "label": "一時停止",
+          "pressed": "true"
+        },
+        "native_pause": {
+          "label": "再生",
+          "pressed": "false"
+        }
+      },
+      "codec": "H264 High/yuv420p/30fps; no audio stream",
+      "mp4_atoms": [
+        "ftyp",
+        "moov",
+        "free",
+        "mdat"
+      ],
+      "faststart": true,
+      "frames_inspected": [
+        "14-frame contact sheet at0,2,...26s",
+        "Full poster13.5s",
+        "Full16sQ08 and22sQ05",
+        "All5MP4-derived12framecutstrips at3.85,7.85,13.85,18.85,22.85s",
+        "MP4lastframe839/30"
+      ],
+      "assessment": "Mainquotes,scorelabels,18→19contrast,unsupportedaddition-notprovenfalse,paraphraseconditions andactualsavedJSON3396bytes readable. Actualscreens/derivedoverlays distinguished. Short body fades and briefheadlinecrossfades atcuts; persistentfooter/source and adequateholds, no criticalclipping or materialblocker found. Silentintentional, no audio qualityclaim.",
+      "unresolved_blockers": [],
+      "unconfirmed": [
+        "PhysicaliOS/Safari/VoiceOver",
+        "Human content/art approval",
+        "Realservice quality/modeloutcomes"
+      ]
+    },
+    "human_approval": false,
+    "production_contributions": {
+      "Opus5.5": "Exact-model run authored real Ragas API evaluator, Japanese explanation and phone-first result viewer from original fixed input. Separate exact-model run authored editable28second silent film from actual metrics and native screenshots.",
+      "production_editor": "Created original intentionally seeded fictional10question/20response input; installed fixed library in privatevenv; repaired compatible dependencies without modifyingRagas; ran evaluator and independently checked rawUnicode metrics, source hashes and allinput fields. Reviewed semantic limitations, tested native browser/export, rendered and inspected actualfilm and scopedpublication.",
+      "limits": "Lexical metrics on frozen fictional fixtures, no retrieval/generation/LLMjudge/embeddings/liveAI/realservice improvement/modelbenchmark/physicaliOS/humanapproval. Inputeditorannotations not automatedmetricverdicts.",
+      "post_render_additions": "Verification, finalREADME/results/article/proof/ZIP and mainmovie section only; metricinput/output/screens/film sources preserved."
+    }
+  },
+  "explanation": {
+    "video": {
+      "file": "video.mp4",
+      "sha256": "9b799125a5db555f21601f966969b8807b014af2e5b5c630c54c21806c900b41",
+      "width": 1280,
+      "height": 720,
+      "fps": 30,
+      "frameCount": 840,
+      "duration": 28,
+      "hasAudio": false
+    },
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "d9800f696faa46db80219ed97e87facda45c14d795aed5eb3c70f013cbecee7c",
+      "afterOtherTimes": "d9800f696faa46db80219ed97e87facda45c14d795aed5eb3c70f013cbecee7c",
+      "freshPage": "d9800f696faa46db80219ed97e87facda45c14d795aed5eb3c70f013cbecee7c",
+      "match": true
+    },
+    "errors": [],
+    "blockedExternalRequests": []
+  },
+  "video_review": {
+    "video_sha256": "9b799125a5db555f21601f966969b8807b014af2e5b5c630c54c21806c900b41",
+    "poster_sha256": "47bf11df4efbcac23c679e5547935952c780e3e4c357ae1479ffc3a20128dba8",
+    "poster_from_mp4_seconds": 13.5,
+    "full_decode_passed": true,
+    "review_files": [
+      "contact.png",
+      "poster.png",
+      "strip.png",
+      "stills/frame-000000.png",
+      "stills/frame-000001.png",
+      "stills/frame-000002.png",
+      "stills/frame-000003.png",
+      "stills/frame-000004.png",
+      "stills/frame-000005.png",
+      "stills/frame-000006.png",
+      "stills/frame-000007.png",
+      "stills/frame-000008.png",
+      "stills/frame-000009.png",
+      "stills/frame-000010.png",
+      "stills/frame-000011.png",
+      "stills/frame-000012.png",
+      "stills/frame-000013.png",
+      "cut-01.png",
+      "cut-02.png",
+      "cut-03.png",
+      "cut-04.png",
+      "cut-05.png",
+      "final.png"
+    ],
+    "render_label": "final",
+    "bundled_renderer_executed": true,
+    "reviewed_at": "2026-10-16T13:29:42.028876+00:00",
+    "agent_visual_review": true,
+    "human_approval": false,
+    "native_playback": {
+      "duration": 28,
+      "ended": true,
+      "error": null,
+      "paused": true,
+      "ready": 4,
+      "time": 28,
+      "first_observed_seconds": 0,
+      "no_manual_seek": true
+    },
+    "source_editor": {
+      "canvas": [
+        1280,
+        720
+      ],
+      "client": 375,
+      "forms": [
+        {
+          "font": "16px",
+          "height": 44
+        }
+      ],
+      "play_enabled": true,
+      "position": 14,
+      "scroll": 375,
+      "status": "照合した12ファイルから描いています",
+      "targets": [
+        {
+          "height": 44,
+          "id": "play",
+          "tag": "BUTTON",
+          "width": 76
+        },
+        {
+          "height": 44,
+          "id": "time",
+          "tag": "INPUT",
+          "width": 211
+        },
+        {
+          "height": 44,
+          "id": "",
+          "tag": "A",
+          "width": 271.6875
+        },
+        {
+          "height": 44,
+          "id": "",
+          "tag": "A",
+          "width": 246.546875
+        },
+        {
+          "height": 57.59375,
+          "id": "",
+          "tag": "A",
+          "width": 343
+        },
+        {
+          "height": 44,
+          "id": "",
+          "tag": "A",
+          "width": 307.6875
+        },
+        {
+          "height": 44,
+          "id": "",
+          "tag": "A",
+          "width": 258.5
+        },
+        {
+          "height": 44,
+          "id": "",
+          "tag": "A",
+          "width": 201.46875
+        },
+        {
+          "height": 44,
+          "id": "",
+          "tag": "A",
+          "width": 175.515625
+        }
+      ],
+      "verified_files": 12,
+      "native_play": {
+        "label": "一時停止",
+        "pressed": "true"
+      },
+      "native_pause": {
+        "label": "再生",
+        "pressed": "false"
+      }
+    },
+    "codec": "H264 High/yuv420p/30fps; no audio stream",
+    "mp4_atoms": [
+      "ftyp",
+      "moov",
+      "free",
+      "mdat"
+    ],
+    "faststart": true,
+    "frames_inspected": [
+      "14-frame contact sheet at0,2,...26s",
+      "Full poster13.5s",
+      "Full16sQ08 and22sQ05",
+      "All5MP4-derived12framecutstrips at3.85,7.85,13.85,18.85,22.85s",
+      "MP4lastframe839/30"
+    ],
+    "assessment": "Mainquotes,scorelabels,18→19contrast,unsupportedaddition-notprovenfalse,paraphraseconditions andactualsavedJSON3396bytes readable. Actualscreens/derivedoverlays distinguished. Short body fades and briefheadlinecrossfades atcuts; persistentfooter/source and adequateholds, no criticalclipping or materialblocker found. Silentintentional, no audio qualityclaim.",
+    "unresolved_blockers": [],
+    "unconfirmed": [
+      "PhysicaliOS/Safari/VoiceOver",
+      "Human content/art approval",
+      "Realservice quality/modeloutcomes"
+    ]
+  },
+  "publication": {
+    "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=ragas-example",
+    "authorization": "User requested sequential publication of40cases toexistingmain andPages."
+  },
+  "artifacts_sha256": {
+    "data/cases/ragas-example.json": "7e3f6485235d8ffc61ab1a3064567c98f96b217a10936f19f58dc4ced4f0c564",
+    "examples/ragas-example/app.js": "667cb208231437bd5e42bce6b5cc67d959396fa957eb6796194510bf811a5e0c",
+    "examples/ragas-example/brief.json": "f21b722694e4ff5196976d2eed8deaecb129f0841ab77106994832f599257dc4",
+    "examples/ragas-example/evaluate.py": "70786fcb964cf1551bd09247172e38f20874aa6ee8afa89bf01005861d4e0725",
+    "examples/ragas-example/index.html": "d7a4ffcd5ed09e19cbdeed02246398ced59964651d6d766f13793a686d0786c4",
+    "examples/ragas-example/input/faq-pairs.json": "d55fcce5eec82974b01d912dcf6f21de94aede03c37d2a16092b6fa9304705a2",
+    "examples/ragas-example/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
+    "examples/ragas-example/outputs/browser-record.json": "4e23fe0ff0e45bc6743be41024be356ecc6be5262ba111daf420863d9fad1280",
+    "examples/ragas-example/outputs/browser-selection-Q08.json": "b4396b8ee0f21451fda5c75d9a9add120aad74a3bcfad45605ea0e6b0e9b23f0",
+    "examples/ragas-example/outputs/browser-selection.json": "bb78128a700d50442232f143b80aa8a56433dec682921f6ba5017069a283bdd1",
+    "examples/ragas-example/outputs/evaluation.json": "b3862890b1ee0d48ebad9991cc99310730cbc3769e4717fdd2e4678348c91ea3",
+    "examples/ragas-example/outputs/method.md": "b9e5eec22f3740b77d5944f522d1418d319aa0bca33289f3941147080436826c",
+    "examples/ragas-example/README.md": "6e6696c0943d92b0422b848638e25795d8f8580bcb858d57269f2ec9c169139e",
+    "examples/ragas-example/render.py": "5131943f197de45d0a347d9cc18a44e1deedc2b55b3fa6150b0ae0291a0eaef7",
+    "examples/ragas-example/request.txt": "27fd56013c37381dcc516786e1017b5de499c3b15b550cc2ad61f894e7c83975",
+    "examples/ragas-example/requirements.lock.txt": "7f91d2ec6235f34641715bbf0bf0ceb6b4e00ccdb57917ac7c1ce6bcc2f380a5",
+    "examples/ragas-example/requirements.txt": "b27bcb1be01486a7ba7119fea6c68693fabfc98346553d14997090a3a05b5ca5",
+    "examples/ragas-example/samples.json": "b45abea81367559b647fdb53a0af04225f5515499bf422f894e5f304040e2be3",
+    "examples/ragas-example/source.zip": "e91315b6772825bde2830298fc66715ada81520959544db72a1d0dd44e68cf3a",
+    "examples/ragas-example/style.css": "20bf7913c3f1abf46ab70019697a561671aafc51ec6e009d02539b4107a1a18e",
+    "examples/ragas-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/ragas-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/ragas-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/ragas-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/ragas-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "examples/ragas-example/vendor/ragas/docs/concepts/metrics/available_metrics/traditional.md": "6d08c0826f54374e66385530d5291d11a230289780043dc4dadcca0682531260",
+    "examples/ragas-example/vendor/ragas/LICENSE": "664b930830f291c2936ab30bcd6ef9ca6c9c7384cc475ae0c526156a27d5a6c6",
+    "examples/ragas-example/vendor/ragas/pyproject.toml": "11b24f8114f922ea5d028d65dffabd941e2d11fc732d499afdcfe0e20a998101",
+    "examples/ragas-example/vendor/ragas/README.md": "af20b2258507b12bf930e897b63ee5bb87aac4a4696da078ea5a3c29addb6db7",
+    "examples/ragas-example/vendor/ragas/src/ragas/_analytics.py": "9619946dc7aaa1e60f30e4f3cbac56010bd47cedc5e3d6e256e1c27e9e45a679",
+    "examples/ragas-example/vendor/ragas/src/ragas/metrics/collections/_string.py": "9935e46a0a048d4d5a7790abfd0d20c38909231da34b1aab5da5268758b00230",
+    "examples/ragas-example/vendor/ragas/src/ragas/metrics/collections/base.py": "92e1fac17953d10a931227045daa8277bcc66f11b90535da5b45d706079de679",
+    "examples/ragas-example/vendor/ragas/src/ragas/metrics/result.py": "73e40e9f1d18d8f73b3c24c4bef728da79cdec529c5dad2927e799f73dc0161a",
+    "examples/ragas-example/verification.json": "bd1d6d44521bd44eb106ef21e070b396814a0068515b8a69b52c7ef70d54a504",
+    "examples/ragas-example/video/assets/data-hashes.json": "5a6126a999ceb2e52b6755ee110307ccf9c3e794ff041e7acafdc5815ea90a20",
+    "examples/ragas-example/video/assets/desktop-Q05.png": "cc56066cdb9a30bb0d6f367c96d5984799152f6629691e1c7bd797f7785dbd09",
+    "examples/ragas-example/video/assets/desktop-Q07.png": "5950ac3264988c83e113d78e5c7888e5e427e3d41a887c002e86b26899f92a3c",
+    "examples/ragas-example/video/assets/desktop-Q08.png": "b8dcdaed93997c0d2ab3c84b993bd478389df205c14a0c358748418e7a419293",
+    "examples/ragas-example/video/assets/phone-initial.png": "a2aac47371becd6a1238413f7e4ece62902a7c0a0ba82452fadb95a57aee3be4",
+    "examples/ragas-example/video/assets/phone-Q07.png": "d3bd3c43cf382c6844492bb445d9ea2e3893fe01a5519050301b6b93081f84a7",
+    "examples/ragas-example/video/assets/phone-Q08.png": "e28cb2e6b5a115b1e4b5d102e38f766da90ef802e85fd563ac1bb53dbbb78d7d",
+    "examples/ragas-example/video/assets/screen-manifest.json": "63fbe981ad2f173597d0325f612ed18fe867c1598bc94ef984f55d19c0240c71",
+    "examples/ragas-example/video/index.html": "13b47e87b278ed1ba03b862637cb2c011467dd8a13f944ffc00578775e5d8092",
+    "examples/ragas-example/video/README.md": "3e3e67ed809303d5cd24630deb015f3698d3557e4bd5693c8e50fc5400f5f292",
+    "examples/ragas-example/video/review/contact.png": "a474674c9c73947cc7e1906864d3b96f69012f1ebf52a9a0d7bccaeed8f4242f",
+    "examples/ragas-example/video/review/cut-01.png": "8141ffb3e3894954510c648b1aa388482c71445f7191ad45b86b259213b5cf4c",
+    "examples/ragas-example/video/review/cut-02.png": "c4b42cc4ddec88b7be9cdd3fa2d22ec2fbdf2e78deb96996ea812cd94649c3ad",
+    "examples/ragas-example/video/review/cut-03.png": "d53ea75b199c55378f98b8390ddedfe17650b0f025062ad3c09ec9c5a8b4a6c9",
+    "examples/ragas-example/video/review/cut-04.png": "6bc8c16ebc0c970483d967fc1014a4030f4c63715e7e3ce6f2176b9bfb086132",
+    "examples/ragas-example/video/review/cut-05.png": "340f6f9ca8715fb9ec4712d4c13195d9005c565b187f8d37e3cf9a3fde8efd72",
+    "examples/ragas-example/video/review/final.png": "e1fb982fff40add0f2df7017d195321682d342abbaf0c2120fc7e8e75653a523",
+    "examples/ragas-example/video/review/poster.png": "e2f14c11db9662e2a4c61b6b5f1715af136e3f77524b6a29545b9e675ee2749f",
+    "examples/ragas-example/video/review/stills/frame-000000.png": "8e44698de2d348b1272ee8ee6d9d207ecd673c7c330aed937c4ad264a1dbfd4d",
+    "examples/ragas-example/video/review/stills/frame-000001.png": "d2d176c3398d5197e61fe494138adf2357aa76fc549fee1d756e6fe17e2b1691",
+    "examples/ragas-example/video/review/stills/frame-000002.png": "a97ca69bb5335c5bfb4aeed09c9685a28ca4d38f3079011d7bed1e2a82484430",
+    "examples/ragas-example/video/review/stills/frame-000003.png": "d007b9dfb03ed4d9f30c990499e55ad6e663117862ce7e4ec96fb083ae547ab9",
+    "examples/ragas-example/video/review/stills/frame-000004.png": "7ff581f2490211650fd91c1b016a3f469c3941f567b6686bc959582068258c5b",
+    "examples/ragas-example/video/review/stills/frame-000005.png": "79d78092c9fd03e457ad272eb0575eb83d5eb01f6c3f2e1d8b365e9acc92f4c5",
+    "examples/ragas-example/video/review/stills/frame-000006.png": "e2f14c11db9662e2a4c61b6b5f1715af136e3f77524b6a29545b9e675ee2749f",
+    "examples/ragas-example/video/review/stills/frame-000007.png": "77e46139adc8f9ccb69e0d04f4252055916957f268f30b57f382fdc7fe8ca874",
+    "examples/ragas-example/video/review/stills/frame-000008.png": "6a7cfbc9d5a1c369753305e8ac78fc73cb7cb02cb8bfc7206fc38e3acdb2b778",
+    "examples/ragas-example/video/review/stills/frame-000009.png": "d9800f696faa46db80219ed97e87facda45c14d795aed5eb3c70f013cbecee7c",
+    "examples/ragas-example/video/review/stills/frame-000010.png": "39eeeeffb73fb5e759ad20d01277af64e578fe9ec138bd5fdfc785a7bf1d6735",
+    "examples/ragas-example/video/review/stills/frame-000011.png": "3155b8226b6feed7f92c88dded0463ef61837b7ef533696eab236bbc4a1394d5",
+    "examples/ragas-example/video/review/stills/frame-000012.png": "f74a83f6731b70bf26c8bdd237f9f2f09fb76c92b2843f86cf08a74075776586",
+    "examples/ragas-example/video/review/stills/frame-000013.png": "e8a0d61e82b9f686f9dcde7687e576b5041d0554c4a3096556f9ff30fbb31595",
+    "examples/ragas-example/video/review/strip.png": "cf326d0052f744581bff6b6d45ba1131f26328c22d7a9dc02a661715308ce185",
+    "examples/ragas-example/video/storyboard.json": "a277324075cfbc6cc51a8ced02d334b98aa0fb9a49ceb266b833d6ab028e089e",
+    "examples/ragas-example/video/video.css": "0976c283855620c0e7029c7096423e9b3189ac231b3bcc474d0cec7cb81fab94",
+    "examples/ragas-example/video/video.js": "4920c6dc209ac4fbd7b9616df69ecb7f05aa7093ed8f6369980537dad75f3526",
+    "media/ragas-example.mp4": "9b799125a5db555f21601f966969b8807b014af2e5b5c630c54c21806c900b41",
+    "media/ragas-example.webp": "47bf11df4efbcac23c679e5547935952c780e3e4c357ae1479ffc3a20128dba8"
+  }
+}

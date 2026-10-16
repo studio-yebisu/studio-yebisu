@@ -1,0 +1,425 @@
+{
+  "format": "input-output",
+  "samples": [
+    {
+      "id": "actual-api",
+      "label": "同じ10問を実APIで計算する",
+      "input": {
+        "path": "input/faq-pairs.json",
+        "question_count": 10,
+        "response_count": 20,
+        "fictional": true
+      },
+      "output": {
+        "path": "outputs/evaluation.json",
+        "metric_calls": 60,
+        "metrics": [
+          "ExactMatch",
+          "NonLLMStringSimilarity(LEVENSHTEIN)",
+          "StringPresence"
+        ],
+        "summary": {
+          "case_count": 10,
+          "before": {
+            "mean": {
+              "exact_match": 0.4,
+              "string_similarity": 0.7884922267275208,
+              "string_presence": 0.4
+            },
+            "exact_match_count": 4,
+            "string_presence_count": 4
+          },
+          "after": {
+            "mean": {
+              "exact_match": 0.7,
+              "string_similarity": 0.8835109447004609,
+              "string_presence": 0.8
+            },
+            "exact_match_count": 7,
+            "string_presence_count": 8
+          }
+        },
+        "scope": "固定した2組の文字列の比較。実RAG変更の性能測定ではありません。"
+      }
+    },
+    {
+      "id": "Q07",
+      "label": "一文字の期限違いを見つける",
+      "input": {
+        "id": "Q07",
+        "question": "予約を取り消す場合、いつまでに連絡しますか。",
+        "reference": "予約の取り消しは、受取予定日の前日18時までに連絡してください。",
+        "reference_document_ids": [
+          "D07"
+        ]
+      },
+      "output": {
+        "before": {
+          "response": "予約の取り消しは、受取予定日の前日18時までに連絡してください。",
+          "annotation": {
+            "label": "grounded",
+            "note": "前日18時という期限を保持。"
+          },
+          "scores": {
+            "exact_match": 1.0,
+            "string_similarity": 1.0,
+            "string_presence": 1.0
+          }
+        },
+        "after": {
+          "response": "予約の取り消しは、受取予定日の前日19時までに連絡してください。",
+          "annotation": {
+            "label": "contradiction",
+            "note": "18時を19時へ変えてしまった退行例。一文字違いでも期限が変わる。"
+          },
+          "scores": {
+            "exact_match": 0.0,
+            "string_similarity": 0.96875,
+            "string_presence": 0.0
+          }
+        },
+        "note_source": "照合メモは入力時の制作担当の記入で、Ragas判定ではありません。"
+      }
+    },
+    {
+      "id": "Q08",
+      "label": "包含1でも資料外の追記を残す",
+      "input": {
+        "id": "Q08",
+        "question": "閉室中に本を返せますか。",
+        "reference": "閉室中は入口の返却箱へ本を返せます。",
+        "reference_document_ids": [
+          "D08"
+        ]
+      },
+      "output": {
+        "before": {
+          "response": "閉室中は入口の返却箱へ本を返せます。",
+          "annotation": {
+            "label": "grounded",
+            "note": "返却箱の利用は根拠に記載。"
+          },
+          "scores": {
+            "exact_match": 1.0,
+            "string_similarity": 1.0,
+            "string_presence": 1.0
+          }
+        },
+        "after": {
+          "response": "閉室中は入口の返却箱へ本を返せます。延滞しても連絡は不要です。",
+          "annotation": {
+            "label": "unsupported_addition",
+            "note": "前半は根拠と一致するが、延滞時の連絡不要という決まりは資料にない。資料からは真偽を断定できない。"
+          },
+          "scores": {
+            "exact_match": 0.0,
+            "string_similarity": 0.5806451612903225,
+            "string_presence": 1.0
+          }
+        },
+        "note_source": "照合メモは入力時の制作担当の記入で、Ragas判定ではありません。"
+      }
+    },
+    {
+      "id": "Q05",
+      "label": "完全一致0の正しい言い換えを読む",
+      "input": {
+        "id": "Q05",
+        "question": "貸出期間は延長できますか。",
+        "reference": "予約が入っていない本に限り、1回だけ7日間延長できます。",
+        "reference_document_ids": [
+          "D05"
+        ]
+      },
+      "output": {
+        "before": {
+          "response": "予約が入っていない本に限り、1回だけ7日間延長できます。",
+          "annotation": {
+            "label": "grounded",
+            "note": "予約なし・1回・7日間を全て保持。"
+          },
+          "scores": {
+            "exact_match": 1.0,
+            "string_similarity": 1.0,
+            "string_presence": 1.0
+          }
+        },
+        "after": {
+          "response": "ほかの人の予約がない本は、あと7日だけ、1度延ばせます。",
+          "annotation": {
+            "label": "grounded",
+            "note": "予約なし・1回・7日間を保持した言い換え。完全一致0でも内容は根拠と合う。"
+          },
+          "scores": {
+            "exact_match": 0.0,
+            "string_similarity": 0.2857142857142857,
+            "string_presence": 0.0
+          }
+        },
+        "note_source": "照合メモは入力時の制作担当の記入で、Ragas判定ではありません。"
+      }
+    },
+    {
+      "id": "filter",
+      "label": "照合メモとキーワードで絞る",
+      "input": "変更後の要確認メモ、根拠一致メモ、全角「１８時　予約」、0件を実操作。",
+      "output": {
+        "needs-review": {
+          "label": "needs-review",
+          "active": "",
+          "client": 375,
+          "count": "10問中 2問を表示",
+          "detailVisible": true,
+          "error": "",
+          "errorVisible": false,
+          "exportDisabled": false,
+          "filter": "after-check",
+          "ids": [
+            "Q07",
+            "Q08"
+          ],
+          "query": "",
+          "scroll": 375,
+          "selected": "Q07",
+          "sha": "入力ファイルのSHA-256（d55fcce5eec82974b01d912dcf6f21de94aede03c37d2a16092b6fa9304705a2）を、このブラウザーで計算して結果JSONの値と照合しました。",
+          "summary": "完全一致\nExactMatch\n\t0.400\t0.700\n\n文字列の近さ\nNonLLMStringSimilarity（LEVENSHTEIN）\n\t0.788\t0.884\n\n基準文の包含\nStringPresence\n\t0.400\t0.800\n\n完全一致の件数\nExactMatch が1.0の問い\n\t4 / 10\t7 / 10",
+          "url": "http://127.0.0.1:8863/",
+          "width": 390
+        },
+        "grounded": {
+          "label": "grounded",
+          "active": "",
+          "client": 375,
+          "count": "10問中 8問を表示",
+          "detailVisible": true,
+          "error": "",
+          "errorVisible": false,
+          "exportDisabled": false,
+          "filter": "after-grounded",
+          "ids": [
+            "Q01",
+            "Q02",
+            "Q03",
+            "Q04",
+            "Q05",
+            "Q06",
+            "Q09",
+            "Q10"
+          ],
+          "query": "",
+          "scroll": 375,
+          "selected": "Q01",
+          "sha": "入力ファイルのSHA-256（d55fcce5eec82974b01d912dcf6f21de94aede03c37d2a16092b6fa9304705a2）を、このブラウザーで計算して結果JSONの値と照合しました。",
+          "summary": "完全一致\nExactMatch\n\t0.400\t0.700\n\n文字列の近さ\nNonLLMStringSimilarity（LEVENSHTEIN）\n\t0.788\t0.884\n\n基準文の包含\nStringPresence\n\t0.400\t0.800\n\n完全一致の件数\nExactMatch が1.0の問い\n\t4 / 10\t7 / 10",
+          "url": "http://127.0.0.1:8863/",
+          "width": 390
+        },
+        "normalized-and": {
+          "label": "normalized-and",
+          "active": "q",
+          "client": 375,
+          "count": "10問中 1問を表示",
+          "detailVisible": true,
+          "error": "",
+          "errorVisible": false,
+          "exportDisabled": false,
+          "filter": "all",
+          "ids": [
+            "Q07"
+          ],
+          "query": "１８時　予約",
+          "scroll": 375,
+          "selected": "Q07",
+          "sha": "入力ファイルのSHA-256（d55fcce5eec82974b01d912dcf6f21de94aede03c37d2a16092b6fa9304705a2）を、このブラウザーで計算して結果JSONの値と照合しました。",
+          "summary": "完全一致\nExactMatch\n\t0.400\t0.700\n\n文字列の近さ\nNonLLMStringSimilarity（LEVENSHTEIN）\n\t0.788\t0.884\n\n基準文の包含\nStringPresence\n\t0.400\t0.800\n\n完全一致の件数\nExactMatch が1.0の問い\n\t4 / 10\t7 / 10",
+          "url": "http://127.0.0.1:8863/",
+          "width": 390
+        },
+        "zero": {
+          "label": "zero",
+          "active": "q",
+          "client": 375,
+          "count": "10問中 0問。条件に合う問いがありません。「条件を戻す」で全件に戻せます。",
+          "detailVisible": false,
+          "error": "",
+          "errorVisible": false,
+          "exportDisabled": true,
+          "filter": "all",
+          "ids": [],
+          "query": "存在しないジンベエザメ",
+          "scroll": 375,
+          "selected": null,
+          "sha": "入力ファイルのSHA-256（d55fcce5eec82974b01d912dcf6f21de94aede03c37d2a16092b6fa9304705a2）を、このブラウザーで計算して結果JSONの値と照合しました。",
+          "summary": "完全一致\nExactMatch\n\t0.400\t0.700\n\n文字列の近さ\nNonLLMStringSimilarity（LEVENSHTEIN）\n\t0.788\t0.884\n\n基準文の包含\nStringPresence\n\t0.400\t0.800\n\n完全一致の件数\nExactMatch が1.0の問い\n\t4 / 10\t7 / 10",
+          "url": "http://127.0.0.1:8863/",
+          "width": 390
+        }
+      }
+    },
+    {
+      "id": "export",
+      "label": "根拠ごとJSONで保存する",
+      "input": "Q07を選びJSON保存。別にQ08も保存。",
+      "output": {
+        "path": "outputs/browser-selection.json",
+        "selected_id": "Q07",
+        "original_scored_row_and_documents_match": true,
+        "actual_native_download": true
+      }
+    },
+    {
+      "id": "retry",
+      "label": "取得エラーから再試行する",
+      "input": "制作時のサーバーで実503・壊れたJSON・範囲外スコア2を返し、元ファイルは変えず解除後に再試行。",
+      "output": {
+        "http503-error": {
+          "label": "http503-error",
+          "active": "",
+          "client": 1280,
+          "count": "",
+          "detailVisible": false,
+          "error": "outputs/evaluation.json の取得に失敗しました（HTTP 503）。",
+          "errorVisible": true,
+          "exportDisabled": true,
+          "filter": "all",
+          "ids": [],
+          "query": "",
+          "scroll": 1280,
+          "selected": null,
+          "sha": "",
+          "summary": "",
+          "url": "http://127.0.0.1:8863/",
+          "width": 1280
+        },
+        "retry-restored": {
+          "label": "retry-restored",
+          "active": "",
+          "client": 1265,
+          "count": "10問中 10問を表示",
+          "detailVisible": true,
+          "error": "outputs/evaluation.json の取得に失敗しました（HTTP 503）。",
+          "errorVisible": false,
+          "exportDisabled": false,
+          "filter": "all",
+          "ids": [
+            "Q01",
+            "Q02",
+            "Q03",
+            "Q04",
+            "Q05",
+            "Q06",
+            "Q07",
+            "Q08",
+            "Q09",
+            "Q10"
+          ],
+          "query": "",
+          "scroll": 1265,
+          "selected": "Q07",
+          "sha": "入力ファイルのSHA-256（d55fcce5eec82974b01d912dcf6f21de94aede03c37d2a16092b6fa9304705a2）を、このブラウザーで計算して結果JSONの値と照合しました。",
+          "summary": "完全一致\nExactMatch\n\t0.400\t0.700\n\n文字列の近さ\nNonLLMStringSimilarity（LEVENSHTEIN）\n\t0.788\t0.884\n\n基準文の包含\nStringPresence\n\t0.400\t0.800\n\n完全一致の件数\nExactMatch が1.0の問い\n\t4 / 10\t7 / 10",
+          "url": "http://127.0.0.1:8863/",
+          "width": 1280
+        },
+        "parse-error": {
+          "label": "parse-error",
+          "active": "",
+          "client": 1280,
+          "count": "",
+          "detailVisible": false,
+          "error": "outputs/evaluation.json をJSONとして読めませんでした。",
+          "errorVisible": true,
+          "exportDisabled": true,
+          "filter": "all",
+          "ids": [],
+          "query": "",
+          "scroll": 1280,
+          "selected": null,
+          "sha": "",
+          "summary": "",
+          "url": "http://127.0.0.1:8863/",
+          "width": 1280
+        },
+        "retry-after-parse": {
+          "label": "retry-after-parse",
+          "active": "",
+          "client": 1265,
+          "count": "10問中 10問を表示",
+          "detailVisible": true,
+          "error": "outputs/evaluation.json をJSONとして読めませんでした。",
+          "errorVisible": false,
+          "exportDisabled": false,
+          "filter": "all",
+          "ids": [
+            "Q01",
+            "Q02",
+            "Q03",
+            "Q04",
+            "Q05",
+            "Q06",
+            "Q07",
+            "Q08",
+            "Q09",
+            "Q10"
+          ],
+          "query": "",
+          "scroll": 1265,
+          "selected": "Q07",
+          "sha": "入力ファイルのSHA-256（d55fcce5eec82974b01d912dcf6f21de94aede03c37d2a16092b6fa9304705a2）を、このブラウザーで計算して結果JSONの値と照合しました。",
+          "summary": "完全一致\nExactMatch\n\t0.400\t0.700\n\n文字列の近さ\nNonLLMStringSimilarity（LEVENSHTEIN）\n\t0.788\t0.884\n\n基準文の包含\nStringPresence\n\t0.400\t0.800\n\n完全一致の件数\nExactMatch が1.0の問い\n\t4 / 10\t7 / 10",
+          "url": "http://127.0.0.1:8863/",
+          "width": 1280
+        },
+        "validation-error": {
+          "label": "validation-error",
+          "active": "",
+          "client": 1280,
+          "count": "",
+          "detailVisible": false,
+          "error": "Q01 の変更後の exact_match が0〜1の数値ではありません。",
+          "errorVisible": true,
+          "exportDisabled": true,
+          "filter": "all",
+          "ids": [],
+          "query": "",
+          "scroll": 1280,
+          "selected": null,
+          "sha": "",
+          "summary": "",
+          "url": "http://127.0.0.1:8863/",
+          "width": 1280
+        },
+        "retry-after-validation": {
+          "label": "retry-after-validation",
+          "active": "",
+          "client": 1265,
+          "count": "10問中 10問を表示",
+          "detailVisible": true,
+          "error": "Q01 の変更後の exact_match が0〜1の数値ではありません。",
+          "errorVisible": false,
+          "exportDisabled": false,
+          "filter": "all",
+          "ids": [
+            "Q01",
+            "Q02",
+            "Q03",
+            "Q04",
+            "Q05",
+            "Q06",
+            "Q07",
+            "Q08",
+            "Q09",
+            "Q10"
+          ],
+          "query": "",
+          "scroll": 1265,
+          "selected": "Q07",
+          "sha": "入力ファイルのSHA-256（d55fcce5eec82974b01d912dcf6f21de94aede03c37d2a16092b6fa9304705a2）を、このブラウザーで計算して結果JSONの値と照合しました。",
+          "summary": "完全一致\nExactMatch\n\t0.400\t0.700\n\n文字列の近さ\nNonLLMStringSimilarity（LEVENSHTEIN）\n\t0.788\t0.884\n\n基準文の包含\nStringPresence\n\t0.400\t0.800\n\n完全一致の件数\nExactMatch が1.0の問い\n\t4 / 10\t7 / 10",
+          "url": "http://127.0.0.1:8863/",
+          "width": 1280
+        }
+      }
+    }
+  ]
+}

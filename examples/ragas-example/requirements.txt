@@ -1,0 +1,14 @@
+# Ragas at the fixed source commit (Apache-2.0, vibrantlabsai/ragas).
+# The source ZIP has no Git metadata; set SETUPTOOLS_SCM_PRETEND_VERSION_FOR_RAGAS=0.0.0+studio.298b68274234
+# for the install step (see README.md). That is a local build label, not an official Ragas release.
+ragas @ https://github.com/vibrantlabsai/ragas/archive/298b68274234c060deacab3cf5fb52aa3a20e885.zip
+# Used by NonLLMStringSimilarity (optional extra in Ragas).
+rapidfuzz
+# Ragas' own dependencies are resolved by pip and are not locked here.
+
+# Fixed Ragas imports VertexAI modules removed from langchain-community0.4.2.
+# Compatible series tested here; use requirements.lock.txt for the actual93-package set.
+langchain-community<0.4
+langchain<1
+langchain-core<1
+langchain-openai<1

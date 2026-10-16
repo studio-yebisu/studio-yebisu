@@ -1,0 +1,486 @@
+{
+  "format": "studio-yebisu-ragas-result-v1",
+  "fictional": true,
+  "id": "nagi-library-faq",
+  "title": "凪の図書室 FAQ",
+  "notice": "図書室・規則・質問・変更前後の回答は全て、この評価作例のために用意した架空の固定入力です。実サービスの測定やモデル間の優劣を表しません。",
+  "design": "同じ10問と根拠に対して、意図して誤り・言い換え・根拠にない追記を含めた2組の固定回答を比較します。before/afterは実システムの変更を実行した履歴ではありません。",
+  "input_file": "input/faq-pairs.json",
+  "input_sha256": "d55fcce5eec82974b01d912dcf6f21de94aede03c37d2a16092b6fa9304705a2",
+  "source": {
+    "repository": "vibrantlabsai/ragas",
+    "commit": "298b68274234c060deacab3cf5fb52aa3a20e885"
+  },
+  "runtime": {
+    "python": "3.12.9",
+    "ragas_distribution_version": "0.0.0+studio.298b68274234",
+    "rapidfuzz_version": "3.14.6",
+    "metric_api": "ragas.metrics.collections",
+    "metric_calls": 60,
+    "network_attempts": [],
+    "tracking_disabled": true,
+    "packaging_version_note": "0.0.0+studio.298b68274234 is the local build label set with SETUPTOOLS_SCM_PRETEND_VERSION_FOR_RAGAS because the source ZIP has no Git metadata. It is not an official Ragas release; source.commit is the authority."
+  },
+  "metrics": [
+    {
+      "id": "exact_match",
+      "label": "完全一致",
+      "ragas_class": "ExactMatch",
+      "call": "await ExactMatch().ascore(reference=reference, response=response)",
+      "source_file": "src/ragas/metrics/collections/_string.py",
+      "range": [
+        0.0,
+        1.0
+      ],
+      "description": "回答が参照文と1文字も違わなければ1.0、それ以外は0.0。意味が同じ言い換えも0.0になります。"
+    },
+    {
+      "id": "string_similarity",
+      "label": "文字列の近さ",
+      "ragas_class": "NonLLMStringSimilarity",
+      "distance": "LEVENSHTEIN",
+      "call": "await NonLLMStringSimilarity(distance_measure=DistanceMeasure.LEVENSHTEIN).ascore(reference=reference, response=response)",
+      "source_file": "src/ragas/metrics/collections/_string.py",
+      "range": [
+        0.0,
+        1.0
+      ],
+      "description": "1から rapidfuzz の Levenshtein 正規化距離を引いた値。文字の挿入・削除・置換が少ないほど1.0に近く、意味の近さは測りません。"
+    },
+    {
+      "id": "string_presence",
+      "label": "基準文の包含",
+      "ragas_class": "StringPresence",
+      "call": "await StringPresence().ascore(reference=reference, response=response)",
+      "source_file": "src/ragas/metrics/collections/_string.py",
+      "range": [
+        0.0,
+        1.0
+      ],
+      "description": "参照文の全体が回答の中にそのまま含まれていれば1.0、なければ0.0。参照文のあとに追記があっても1.0で、追記の正しさは見ません。"
+    }
+  ],
+  "annotation_source": "Studio Yebisu制作担当が入力時に記入した根拠との照合メモ。RagasやLLM judgeの出力ではなく、人による承認でもありません。",
+  "label_meanings": {
+    "grounded": "この固定資料と合う",
+    "contradiction": "この固定資料と矛盾",
+    "unsupported_addition": "この固定資料に根拠のない追記"
+  },
+  "summary": {
+    "case_count": 10,
+    "before": {
+      "mean": {
+        "exact_match": 0.4,
+        "string_similarity": 0.7884922267275208,
+        "string_presence": 0.4
+      },
+      "exact_match_count": 4,
+      "string_presence_count": 4
+    },
+    "after": {
+      "mean": {
+        "exact_match": 0.7,
+        "string_similarity": 0.8835109447004609,
+        "string_presence": 0.8
+      },
+      "exact_match_count": 7,
+      "string_presence_count": 8
+    }
+  },
+  "annotation_counts": {
+    "source": "input",
+    "note": "制作担当が入力に書いた照合メモのラベル数です。Ragasの分類や判定ではありません。",
+    "before": {
+      "grounded": 5,
+      "contradiction": 5,
+      "unsupported_addition": 0
+    },
+    "after": {
+      "grounded": 8,
+      "contradiction": 1,
+      "unsupported_addition": 1
+    }
+  },
+  "limits": [
+    "3指標はどれも、参照文と回答の文字列だけを比べます。内容が根拠に忠実か、事実として正しいか、意味が同じかは判定しません。",
+    "参照文は架空の資料本文そのものです。文字列はUnicodeのまま渡し、正規化・空白除去・表記ゆれの吸収をしていません。",
+    "before/after は意図して誤り・言い換え・根拠のない追記を入れた固定の入力名で、実際のRAGシステム・モデル・検索器を変更して実行した結果ではありません。",
+    "注釈（grounded・contradiction・unsupported_addition）と照合メモは制作担当が入力に書いたものです。Ragasの出力、LLM judge、人による承認ではありません。",
+    "完全一致の件数や平均は正答率ではありません。採用や合否の基準値は置いていません。10問の架空データで、代表的なベンチマークではありません。",
+    "通信の拒否と記録は、Pythonの socket.socket.connect / connect_ex、socket.create_connection、実行中イベントループの create_connection / sock_connect を通る接続が対象です。DNS問い合わせや、C拡張が独自に開く接続は記録の対象外です。"
+  ],
+  "documents": [
+    {
+      "id": "D01",
+      "title": "何時から何時まで開いていますか。",
+      "text": "開室時間は10時から18時までです。"
+    },
+    {
+      "id": "D02",
+      "title": "毎週の休室日はいつですか。",
+      "text": "毎週火曜日は休室です。"
+    },
+    {
+      "id": "D03",
+      "title": "本は何日間借りられますか。",
+      "text": "貸出期間は14日間です。"
+    },
+    {
+      "id": "D04",
+      "title": "一度に借りられる本は何冊ですか。",
+      "text": "一人5冊まで借りられます。"
+    },
+    {
+      "id": "D05",
+      "title": "貸出期間は延長できますか。",
+      "text": "予約が入っていない本に限り、1回だけ7日間延長できます。"
+    },
+    {
+      "id": "D06",
+      "title": "本の予約は何冊までできますか。",
+      "text": "本の予約は一人3冊までです。"
+    },
+    {
+      "id": "D07",
+      "title": "予約を取り消す場合、いつまでに連絡しますか。",
+      "text": "予約の取り消しは、受取予定日の前日18時までに連絡してください。"
+    },
+    {
+      "id": "D08",
+      "title": "閉室中に本を返せますか。",
+      "text": "閉室中は入口の返却箱へ本を返せます。"
+    },
+    {
+      "id": "D09",
+      "title": "利用登録で何を持参しますか。",
+      "text": "利用登録には、氏名と住所を確認できる書類を持参してください。"
+    },
+    {
+      "id": "D10",
+      "title": "電子資料の同時利用枠はありますか。",
+      "text": "この図書室では電子資料を提供していません。"
+    }
+  ],
+  "rows": [
+    {
+      "id": "Q01",
+      "question": "何時から何時まで開いていますか。",
+      "reference_document_ids": [
+        "D01"
+      ],
+      "reference": "開室時間は10時から18時までです。",
+      "before": {
+        "response": "開室時間は9時から18時までです。",
+        "annotation": {
+          "label": "contradiction",
+          "note": "開室は10時。変更前の9時は根拠と矛盾。"
+        },
+        "scores": {
+          "exact_match": 0.0,
+          "string_similarity": 0.8888888888888888,
+          "string_presence": 0.0
+        }
+      },
+      "after": {
+        "response": "開室時間は10時から18時までです。",
+        "annotation": {
+          "label": "grounded",
+          "note": "根拠と同じ開室時間。"
+        },
+        "scores": {
+          "exact_match": 1.0,
+          "string_similarity": 1.0,
+          "string_presence": 1.0
+        }
+      }
+    },
+    {
+      "id": "Q02",
+      "question": "毎週の休室日はいつですか。",
+      "reference_document_ids": [
+        "D02"
+      ],
+      "reference": "毎週火曜日は休室です。",
+      "before": {
+        "response": "毎週月曜日は休室です。",
+        "annotation": {
+          "label": "contradiction",
+          "note": "根拠は火曜日。月曜日ではない。"
+        },
+        "scores": {
+          "exact_match": 0.0,
+          "string_similarity": 0.9090909090909091,
+          "string_presence": 0.0
+        }
+      },
+      "after": {
+        "response": "毎週火曜日は休室です。",
+        "annotation": {
+          "label": "grounded",
+          "note": "根拠と同じ火曜日。"
+        },
+        "scores": {
+          "exact_match": 1.0,
+          "string_similarity": 1.0,
+          "string_presence": 1.0
+        }
+      }
+    },
+    {
+      "id": "Q03",
+      "question": "本は何日間借りられますか。",
+      "reference_document_ids": [
+        "D03"
+      ],
+      "reference": "貸出期間は14日間です。",
+      "before": {
+        "response": "貸出期間は7日間です。",
+        "annotation": {
+          "label": "contradiction",
+          "note": "7日間は通常貸出ではない。根拠は14日間。"
+        },
+        "scores": {
+          "exact_match": 0.0,
+          "string_similarity": 0.8333333333333334,
+          "string_presence": 0.0
+        }
+      },
+      "after": {
+        "response": "貸出期間は14日間です。",
+        "annotation": {
+          "label": "grounded",
+          "note": "根拠と同じ14日間。"
+        },
+        "scores": {
+          "exact_match": 1.0,
+          "string_similarity": 1.0,
+          "string_presence": 1.0
+        }
+      }
+    },
+    {
+      "id": "Q04",
+      "question": "一度に借りられる本は何冊ですか。",
+      "reference_document_ids": [
+        "D04"
+      ],
+      "reference": "一人5冊まで借りられます。",
+      "before": {
+        "response": "一人3冊まで借りられます。",
+        "annotation": {
+          "label": "contradiction",
+          "note": "根拠の上限は5冊。3冊ではない。"
+        },
+        "scores": {
+          "exact_match": 0.0,
+          "string_similarity": 0.9230769230769231,
+          "string_presence": 0.0
+        }
+      },
+      "after": {
+        "response": "一人5冊まで借りられます。",
+        "annotation": {
+          "label": "grounded",
+          "note": "根拠と同じ5冊。"
+        },
+        "scores": {
+          "exact_match": 1.0,
+          "string_similarity": 1.0,
+          "string_presence": 1.0
+        }
+      }
+    },
+    {
+      "id": "Q05",
+      "question": "貸出期間は延長できますか。",
+      "reference_document_ids": [
+        "D05"
+      ],
+      "reference": "予約が入っていない本に限り、1回だけ7日間延長できます。",
+      "before": {
+        "response": "予約が入っていない本に限り、1回だけ7日間延長できます。",
+        "annotation": {
+          "label": "grounded",
+          "note": "予約なし・1回・7日間を全て保持。"
+        },
+        "scores": {
+          "exact_match": 1.0,
+          "string_similarity": 1.0,
+          "string_presence": 1.0
+        }
+      },
+      "after": {
+        "response": "ほかの人の予約がない本は、あと7日だけ、1度延ばせます。",
+        "annotation": {
+          "label": "grounded",
+          "note": "予約なし・1回・7日間を保持した言い換え。完全一致0でも内容は根拠と合う。"
+        },
+        "scores": {
+          "exact_match": 0.0,
+          "string_similarity": 0.2857142857142857,
+          "string_presence": 0.0
+        }
+      }
+    },
+    {
+      "id": "Q06",
+      "question": "本の予約は何冊までできますか。",
+      "reference_document_ids": [
+        "D06"
+      ],
+      "reference": "本の予約は一人3冊までです。",
+      "before": {
+        "response": "本の予約は一人3冊までです。",
+        "annotation": {
+          "label": "grounded",
+          "note": "予約上限3冊。貸出上限5冊とは別。"
+        },
+        "scores": {
+          "exact_match": 1.0,
+          "string_similarity": 1.0,
+          "string_presence": 1.0
+        }
+      },
+      "after": {
+        "response": "本の予約は一人3冊までです。",
+        "annotation": {
+          "label": "grounded",
+          "note": "根拠と同じ予約上限3冊。"
+        },
+        "scores": {
+          "exact_match": 1.0,
+          "string_similarity": 1.0,
+          "string_presence": 1.0
+        }
+      }
+    },
+    {
+      "id": "Q07",
+      "question": "予約を取り消す場合、いつまでに連絡しますか。",
+      "reference_document_ids": [
+        "D07"
+      ],
+      "reference": "予約の取り消しは、受取予定日の前日18時までに連絡してください。",
+      "before": {
+        "response": "予約の取り消しは、受取予定日の前日18時までに連絡してください。",
+        "annotation": {
+          "label": "grounded",
+          "note": "前日18時という期限を保持。"
+        },
+        "scores": {
+          "exact_match": 1.0,
+          "string_similarity": 1.0,
+          "string_presence": 1.0
+        }
+      },
+      "after": {
+        "response": "予約の取り消しは、受取予定日の前日19時までに連絡してください。",
+        "annotation": {
+          "label": "contradiction",
+          "note": "18時を19時へ変えてしまった退行例。一文字違いでも期限が変わる。"
+        },
+        "scores": {
+          "exact_match": 0.0,
+          "string_similarity": 0.96875,
+          "string_presence": 0.0
+        }
+      }
+    },
+    {
+      "id": "Q08",
+      "question": "閉室中に本を返せますか。",
+      "reference_document_ids": [
+        "D08"
+      ],
+      "reference": "閉室中は入口の返却箱へ本を返せます。",
+      "before": {
+        "response": "閉室中は入口の返却箱へ本を返せます。",
+        "annotation": {
+          "label": "grounded",
+          "note": "返却箱の利用は根拠に記載。"
+        },
+        "scores": {
+          "exact_match": 1.0,
+          "string_similarity": 1.0,
+          "string_presence": 1.0
+        }
+      },
+      "after": {
+        "response": "閉室中は入口の返却箱へ本を返せます。延滞しても連絡は不要です。",
+        "annotation": {
+          "label": "unsupported_addition",
+          "note": "前半は根拠と一致するが、延滞時の連絡不要という決まりは資料にない。資料からは真偽を断定できない。"
+        },
+        "scores": {
+          "exact_match": 0.0,
+          "string_similarity": 0.5806451612903225,
+          "string_presence": 1.0
+        }
+      }
+    },
+    {
+      "id": "Q09",
+      "question": "利用登録で何を持参しますか。",
+      "reference_document_ids": [
+        "D09"
+      ],
+      "reference": "利用登録には、氏名と住所を確認できる書類を持参してください。",
+      "before": {
+        "response": "名前と住んでいる場所が分かる書類を、登録のときに持ってきてください。",
+        "annotation": {
+          "label": "grounded",
+          "note": "氏名と住所を確認できる書類を求める正しい言い換え。"
+        },
+        "scores": {
+          "exact_match": 0.0,
+          "string_similarity": 0.23529411764705888,
+          "string_presence": 0.0
+        }
+      },
+      "after": {
+        "response": "利用登録には、氏名と住所を確認できる書類を持参してください。",
+        "annotation": {
+          "label": "grounded",
+          "note": "根拠と同じ持参物。"
+        },
+        "scores": {
+          "exact_match": 1.0,
+          "string_similarity": 1.0,
+          "string_presence": 1.0
+        }
+      }
+    },
+    {
+      "id": "Q10",
+      "question": "電子資料の同時利用枠はありますか。",
+      "reference_document_ids": [
+        "D10"
+      ],
+      "reference": "この図書室では電子資料を提供していません。",
+      "before": {
+        "response": "電子資料は同時に1点まで利用できます。",
+        "annotation": {
+          "label": "contradiction",
+          "note": "根拠は電子資料を提供していない。利用枠の説明は矛盾。"
+        },
+        "scores": {
+          "exact_match": 0.0,
+          "string_similarity": 0.09523809523809523,
+          "string_presence": 0.0
+        }
+      },
+      "after": {
+        "response": "この図書室では電子資料を提供していません。",
+        "annotation": {
+          "label": "grounded",
+          "note": "提供なしという根拠を保持。"
+        },
+        "scores": {
+          "exact_match": 1.0,
+          "string_similarity": 1.0,
+          "string_presence": 1.0
+        }
+      }
+    }
+  ]
+}
