@@ -1,0 +1,62 @@
+{
+  "format": "input-output",
+  "notice": "要点の表示です。実デモとasset-runs.jsonに全入力・原典の実結果と例外があります。",
+  "samples": [
+    {
+      "id": "A01",
+      "label": "木箱を探す",
+      "input": "wooden crate・model・無料・上限3件で、Poly HavenとFabを有効にする。",
+      "output": "木箱3候補。Poly Havenはok、Fabは検索リンクだけのlink。Fabへは通信しない。",
+      "demo_hash": "#A01"
+    },
+    {
+      "id": "A02",
+      "label": "形式と利用条件を確認",
+      "input": "polyhaven:wooden_crate_01の詳細を取得する。",
+      "output": "Wooden Crate 01 / James Ray Cock / Poly Haven / CC0。Web向けのglTFがある。",
+      "demo_hash": "#A02"
+    },
+    {
+      "id": "A03",
+      "label": "1kで容量を先に確認",
+      "input": "glTF・1kを指定し、取得前に全ファイルの容量を調べる。",
+      "output": "5ファイル・2,277,087bytes（約2.17MiB）。glTF・bin・3枚の画像が必要。",
+      "demo_hash": "#A03"
+    },
+    {
+      "id": "A04",
+      "label": "8kは予算を超えて止まる",
+      "input": "同じ木箱を8k・上限4MiBで取得しようとする。",
+      "output": "118,636,175bytes（約113.14MiB）で予算超過。原典の例外で止まり、ファイルへの通信も出力フォルダー作成も0。",
+      "demo_hash": "#A04"
+    },
+    {
+      "id": "A05",
+      "label": "形式の違うIDを渡す",
+      "input": "配信元を含まないwooden_crate_01をIDに渡す。",
+      "output": "原典のInvalidAssetIdErrorで停止。",
+      "demo_hash": "#A05"
+    },
+    {
+      "id": "A06",
+      "label": "未登録の配信元を指定",
+      "input": "未登録のnot-a-provider:crateをIDに渡す。",
+      "output": "原典のUnknownProviderErrorで停止。",
+      "demo_hash": "#A06"
+    },
+    {
+      "id": "A07",
+      "label": "直接取得だけに絞る",
+      "input": "Fabだけで、直接取得できるものに絞って検索する。",
+      "output": "Fabはno direct downloadsでskipped。エラーでも、素材を取得できたという意味でもない。",
+      "demo_hash": "#A07"
+    },
+    {
+      "id": "A08",
+      "label": "実物を取得して3Dで見る",
+      "input": "1kのglTF一式を、4MiB枠で原典downloadFilesから取得する。",
+      "output": "実際に5ファイル・2,277,087bytesを取得。全MD5/容量が一致し、元ファイルから実3Dを表示。1モデル・3メッシュ・6,576三角形。",
+      "demo_hash": "#A08"
+    }
+  ]
+}

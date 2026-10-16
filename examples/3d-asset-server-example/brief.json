@@ -1,0 +1,69 @@
+{
+  "title": "木箱を探して、実物まで持ってくる",
+  "request": "Webの小さなシーンに置くCC0の木箱を、容量を見てから取得し、実物を3Dで確かめる",
+  "category": "3d",
+  "audience": "Web や three.js の小さなシーンに、既にある3D素材を安心して入れたい制作者と、素材探しをエージェントに任せたい人",
+  "goal": "原典の 3D Asset Server の関数で、CC0 の木箱を探し、利用条件と取得する全ファイルの容量を先に確かめてから実物を取得し、そのファイルそのものを3Dで確かめられるようにする",
+  "inputs": [
+    "input/asset-requests.json：A01〜A08 の8件の操作（検索語 wooden crate・種類 model・無料・上限3件、素材ID polyhaven:wooden_crate_01、1k と 8k の glTF、予算 4194304 バイト、形式の違うID、未登録の配信元、Fab だけの直接取得の検索）",
+    "input/expected.json：実行の前に決めた期待（選ぶ素材のID・CC0・作者 James Ray Cock・1k の5ファイルと合計 2277087 バイト・止まる操作の例外の名前・Fab の skipped）",
+    "vendor/3d-asset-server/：固定コミット f605df3 の原典と、その原典の build:server が出力した dist/（改変なし）。依存は原典の package-lock.json どおり npm ci で入れる",
+    "vendor/three/：three 0.180.0 の three.module.js・three.core.js・GLTFLoader.js・BufferGeometryUtils.js（改変なし）",
+    "実際の Poly Haven API と配信のファイル（識別できる User-Agent：Studio-Yebisu-3D-example/1.0 (+https://studio-yebisu.github.io/studio-yebisu/)）"
+  ],
+  "skill_refs": [
+    "https://github.com/arielshad/3d-asset-server/blob/f605df3425011bae55ade114c9e7b276f5b1297b/web/src/content/SKILL.md",
+    "https://github.com/arielshad/3d-asset-server/blob/f605df3425011bae55ade114c9e7b276f5b1297b/web/src/content/AGENTS.md",
+    "skills/brief-to-demo/SKILL.md",
+    "tools/motion-reel/render.mjs（MIT・同梱の動画制作ランタイム）"
+  ],
+  "deliverables": [
+    "run.mjs：照合→原典の読み込み→8件の実操作→取得ファイルと glTF の検査→期待との照合→全確認が通ったときだけ1回書く",
+    "outputs/asset-runs.json：8件の入力・原典が返した値と例外・通信の要点・確認の一覧",
+    "outputs/assets/polyhaven-wooden_crate_01/：実際に取得した1kの glTF 一式（5ファイル、改変なし）",
+    "outputs/api-info.json・outputs/api-files.json：Poly Haven の info・files API の実際の応答",
+    "index.html・app.js・style.css・model-view.js：記録を照合してから表示し、取得した木箱を3Dで見るスマホ向けのページ",
+    "README.md・outputs/method.md・request.txt：再実行の手順・読み方・依頼文",
+    "（制作側）outputs/model-bundle.zip・source.zip・短い解説動画とその編集ソース"
+  ],
+  "steps": [
+    "原典115ファイル・ロック・入力の SHA-256 を照合し、照合の後でだけ dist/ の原典を読み込む",
+    "A01：原典の AssetService.search で「wooden crate」を model・無料・3件で Poly Haven と Fab に聞き、候補とライセンス・作者・配信元ごとの状態を見る",
+    "A02：getAsset で利用条件・形式・ファイルを見て、Web 向けに glTF を選ぶ",
+    "A03：selectFiles・totalBytes・expandFiles で、取得の前に 1k の glTF・bin・画像の全ファイルと合計を出す",
+    "A04：8k を予算 4MiB で downloadFiles に渡し、通信の前に止まる実際の例外を残す",
+    "A05〜A07：形式の違うID・未登録の配信元・Fab の skipped を、原典の実際の結果で確かめる",
+    "A08：1k の一式を相対パスのまま取得し、バイト数・MD5 を Poly Haven の値と、SHA-256 を通信の記録と照らし、glTF の参照と構造を実ファイルから確かめる",
+    "ページで、取得したファイルそのものを GLTFLoader で読み、作者・配布元・ライセンスと容量を添えて3D表示する"
+  ],
+  "acceptance": [
+    "A01 の候補に polyhaven:wooden_crate_01 があり、Poly Haven は ok、Fab は link で、Fab へ通信していない",
+    "A02 と A08 で、ライセンス CC0・作者 James Ray Cock・出典 https://polyhaven.com/a/wooden_crate_01 を表示している",
+    "A03 で、取得の前に5ファイルと合計バイト数が分かり、A08 で実際に取得した5ファイルの合計と一致する",
+    "A04 は 8k の合計が予算を超えて、取得の通信0件・保存フォルダーなしで止まり、原典の例外の文がそのまま読める",
+    "A05 は InvalidAssetIdError、A06 は UnknownProviderError、A07 は Fab が skipped（エラーではない）",
+    "A08 の5ファイルのバイト数と MD5 が Poly Haven の files API と一致し、glTF 2.0 の参照がすべて同じフォルダーの実ファイルを指す",
+    "ページは記録・入力・ロックの照合に失敗したら結果を出さず、3D は全ファイルの SHA-256 が合ったときだけ表示する。WebGL が無くても記録とファイルは使える",
+    "320・375・390・430px と横向きの844px、1280px で横スクロールが無い"
+  ],
+  "assumptions": [
+    "Poly Haven の検索結果・メタデータ・tookMs は時間とともに変わりうる。期待の合計バイト数と合わなくなったら、成功として書かず失敗として止める",
+    "検索語は原典の手引きの例どおり短い英語（wooden crate）にした。日本語の語での検索は試していない",
+    "Fab はボット対策のため原典がリンクだけを返す配信元であり、候補もファイルも得られない",
+    "Poly Haven の素材は CC0 で帰属表示は不要だが、ライブAPIの条件と礼儀として作者と配布元を表示する",
+    "制作モデルは claude-opus-5-5。モデルが書いたのは実行スクリプト・ページ・日本語の説明で、3Dモデルと記録の値ではない"
+  ],
+  "production_result": {
+    "status": "technical_qa_complete",
+    "operations": 8,
+    "downloaded_models": 1,
+    "files": 5,
+    "bytes": 2277087,
+    "runtime_checks": 39,
+    "independent_checks": 212,
+    "offline_replay_checks": 29,
+    "offline_replay_external_network_calls": 0,
+    "video": "28seconds/silent/840frames; frame/native playback reviewed",
+    "human_approval": false
+  }
+}

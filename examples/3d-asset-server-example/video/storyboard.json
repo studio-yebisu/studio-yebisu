@@ -1,0 +1,331 @@
+{
+  "format": "studio-yebisu-motion-storyboard-v1",
+  "case": "3d-asset-server-example",
+  "title": "3D Asset Server 作例・解説動画",
+  "message": "Web用の木箱を、探して、容量を見てから、実物まで持ってくる（探す → 容量 → 取得 → 3D）",
+  "operation": [
+    "原典の AssetService.search で「wooden crate」を model・無料・3件で探し、候補と配信元ごとの状態（Poly Haven は ok、Fab は link）を見る（A01）",
+    "原典の getAsset で CC0・作者・形式を見て、Web の three.js 向けに glTF を選ぶ（A02）",
+    "原典の selectFiles・totalBytes・expandFiles で、取得の前に 1k の glTF 一式の全ファイルと合計を出す（A03）",
+    "8k の一式を予算 4,194,304 バイトで原典の downloadFiles に渡し、取得の通信0件で止まることを見る（A04）",
+    "1k の5ファイルを原典の downloadFiles で取得し、大きさと MD5 を Poly Haven の files API の値と照らす（A08）",
+    "閲覧ページで、照合済みの5ファイルを three 0.180.0 の GLTFLoader で読み、取得した実物を3Dで見る"
+  ],
+  "audience": "Web や three.js の小さなシーンに既にある3D素材を入れたい日本語の制作者と、素材探しをエージェントに任せる前に、利用条件と容量の確かめ方を知りたい人",
+  "next_action": "作例ページ（../index.html#A08）で取得した木箱を回して見て、A04 の予算超過の原典の例外と A01 の候補を読み、5ファイルの ZIP と記録の JSON を保存する",
+  "output": {
+    "width": 1280,
+    "height": 720,
+    "fps": 30,
+    "duration_seconds": 28,
+    "frames": 840,
+    "poster_time": 19.5,
+    "audio": "none (silent)",
+    "audio_events": [],
+    "orientation": "landscape authored at 1280×720. window.renderConfig sizes are honoured at initialisation: the backing store is the requested size, the logical frame widens or heightens to the requested aspect so the masthead and footer sit on the real edges, and the 1280×720 content block is centred and drawn natively. No separate portrait or square composition is authored or claimed.",
+    "loop": false
+  },
+  "authorship": {
+    "film_code_and_japanese_copy": "Claude Opus 5.5 (claude-opus-5-5) wrote index.html, video.css, video.js, storyboard.json and README.md in this folder. This authoring step is separate from the runtime: no model ran inside the original API calls, the downloads or the checks, and the film draws only saved values.",
+    "inputs": "input/asset-requests.json (eight operations A01–A08, providers polyhaven and fab, budget 4194304 bytes, identifying User-Agent) and input/expected.json were fixed by the Studio Yebisu production side before execution.",
+    "execution": "The production side ran run.mjs with Node 24.18.0 against the live Poly Haven API and CDN. Values in the record were returned by the unmodified 3D Asset Server 0.1.0 functions compiled by the original build:server (AssetService.search, getAsset, selectFiles, totalBytes, expandFiles, downloadFiles) — not by a model. Fab is link-only and was not contacted.",
+    "model": "Wooden Crate 01 is by James Ray Cock, distributed by Poly Haven under CC0. Neither the tool nor Claude Opus 5.5 created the 3D model; the tool finds and downloads existing assets.",
+    "screenshots": "video/assets/phone.jpg and desktop.jpg are unedited native Chromium JPEG screenshots of the Studio Yebisu viewer page (its own three 0.180.0 GLTFLoader viewer, not the full upstream app), captured by the production side (screens.json): phone at the default angle, desktop after pressing the native 右へ回す button twice."
+  },
+  "sources": {
+    "manifest": {
+      "file": "video/assets/data-hashes.json",
+      "sha256": "e17aa95ce0f6e65ba4f140bf4435e26d1b18e8995efab569977a2f5239b2ec69",
+      "rule": "video.js hashes the manifest bytes first, then requires its format (studio-yebisu-assetserver-film-assets-v1), source_commit and the eight path/sha256/bytes entries to equal the values frozen in video.js before using anything else."
+    },
+    "files": [
+      {
+        "file": "video/assets/asset-runs.json",
+        "sha256": "2c8ebb0df73290a6cf4effbd1774790d495e31c700b32da6f94440e87df92d54",
+        "bytes": 94805,
+        "role": "public actual run record: pinned upstream f605df3 and 115 vendor files, eight inputs and the values or original errors each returned, 8 real HTTP requests (3 API + 5 CDN), the five downloaded files with bytes, SHA-256 and MD5 against Poly Haven's files API, glTF 2.0 references and counts, 39 runner checks, summary"
+      },
+      {
+        "file": "video/assets/independent-checks.json",
+        "sha256": "013a796893aabe1803cd9b40e417b7acf7400421be62d17f752e8037687d2af4",
+        "bytes": 24531,
+        "role": "212 independent production-side Python checks: vendor bytes against Git blobs, pre-execution Poly Haven sizes and MD5, actual glTF binary accessors (3 meshes, 6576 triangles, 4686 vertices)"
+      },
+      {
+        "file": "video/assets/reproduction-checks.json",
+        "sha256": "0b69bb1c9018dd46c41b3e12507fd07787e79dd280501beddbd23cd104550879",
+        "bytes": 3396,
+        "role": "29 checks of an explicitly offline replay: a new Node process ran the unmodified original APIs on the 8 captured real responses, 0 external calls, all five files byte-identical. Not a second live provider query; search tookMs excluded"
+      },
+      {
+        "file": "video/assets/asset-requests.json",
+        "sha256": "cced85c1dc314fb7c516bac22c3c8f23fe6caf95df6c4a854acbc0e1cd7bc019",
+        "bytes": 2401,
+        "role": "frozen input; every record input must equal it; providers, budget and User-Agent"
+      },
+      {
+        "file": "video/assets/vendor-lock.json",
+        "sha256": "67f280672c4268d5a06b401e9e91b2c3010968c1e78211b29724b132b9266973",
+        "bytes": 29590,
+        "role": "pinned upstream arielshad/3d-asset-server f605df3 (0.1.0, Apache-2.0): 58 original files, 50 original build:server outputs, 7 three 0.180.0 files"
+      },
+      {
+        "file": "video/assets/screens.json",
+        "sha256": "1489ee57487401c66505f5a452bdff953910efa049f394dc458446f671c78682",
+        "bytes": 1481,
+        "role": "screenshot provenance: phone A08 360×780 JPEG (rgb_sha256 035d8358ae3189cfa917678f102d81fb39aafe7ad2f3d35f76cf9fad87b58151), desktop A08 1265×889 JPEG (rgb_sha256 c1f7948c33c2e9631df09d7fbf9d97341b51513f337a36ca2fde74d90e024939); no image editing; physical iOS not tested"
+      },
+      {
+        "file": "video/assets/phone.jpg",
+        "sha256": "6a1c5813580df92f34b5fa3ef353887a2c68a1546265c4d6c3d70ca7a4f9ba8e",
+        "bytes": 38625,
+        "role": "viewer at a phone width (360×780 encoded pixels): A08 取得済み、the crate drawn by GLTFLoader at the default angle, the 左へ回す・右へ回す・向きを戻す・線で見る buttons"
+      },
+      {
+        "file": "video/assets/desktop.jpg",
+        "sha256": "b5f3bba7d2eec2ff6e8bafa6010e3d91f50978e5a6ad96e1dca259c7617c67d7",
+        "bytes": 74828,
+        "role": "viewer at a desktop width (1265×889 encoded pixels): A08, the crate after two native 右へ回す presses, mesh/triangle status and the credit line"
+      }
+    ],
+    "fetch_rule": "Same-origin fetch of assets/<name> relative to document.baseURI with response.ok required. Missing file, HTTP error, invalid UTF-8 or JSON, byte length or SHA-256 mismatch, a different pinned commit/version/license, vendor lock count or kinds, three pin, input, per-operation input, network hosts or counts, chosen asset, licence or credit, A01 candidates and provider states, A02 details, A03 selection and total, A04 budget, error text and no-request observations, A05/A06 error names, A07 skipped, A08 manifest/MD5/SHA-256/network/selection agreement, glTF references and counts, runner, independent or replay checks, screenshot provenance, JPEG start/end markers, JPEG header size, decoded dimensions or a crop outside the image rejects window.motionReady. No embedded fallback or substitute image; the screenshots' RGB hashes are carried as provenance and are not recomputed in the browser because JPEG decoders may differ.",
+    "upstream": {
+      "repository": "https://github.com/arielshad/3d-asset-server",
+      "commit": "f605df3425011bae55ade114c9e7b276f5b1297b",
+      "version": "0.1.0",
+      "license": "Apache-2.0",
+      "license_file": "../vendor/3d-asset-server/LICENSE",
+      "skill": "web/src/content/SKILL.md (search → inspect licence, format and complete size → download)",
+      "api_source": "src/core/service.ts, src/core/download.ts, src/core/http.ts, src/providers/polyhaven.ts, src/providers/linked.ts",
+      "three": "three 0.180.0, MIT, ../vendor/three/LICENSE"
+    },
+    "asset_credit": "Wooden Crate 01 by James Ray Cock / Poly Haven / CC0 — https://polyhaven.com/a/wooden_crate_01 (attribution not required; shown anyway)"
+  },
+  "scope": {
+    "shown": "Real unmodified 3D Asset Server functions on the live Poly Haven API with two providers enabled: short search → licence and formats → complete size before download → budget refusal before any request → actual download of the five-file 1k glTF set → byte, MD5 and glTF checks → the actual files drawn by the Studio Yebisu viewer's three 0.180.0 GLTFLoader.",
+    "not_shown_or_claimed": [
+      "all providers the upstream supports (only Poly Haven via API and Fab as link-only; Fab was not contacted)",
+      "new AI 3D generation; the crate is an existing CC0 model by James Ray Cock, not made by the tool or by Claude Opus 5.5",
+      "the hosted server 3d.shep.bot, the HTTP API (serve), the MCP transport, the upstream web app, accounts, API keys or paid assets",
+      "Blender, game engines or a production site",
+      "a live agent: the editor and the film read saved results; nothing is searched or downloaded when they open",
+      "a second live query or identical live timing: the replay check used captured responses offline; tookMs and ranking can change on re-run",
+      "visual quality or production performance (only file identity and glTF structure were checked)",
+      "8 models: 8 is the number of operations; 5 is the number of files of 1 model",
+      "a turntable or generated rotation: the two angles are two native screenshots (default angle; two presses of 右へ回す)",
+      "continuous screen recording, a terminal, chat, progress bar or simulated run (the budget bars are labelled as a size diagram)",
+      "upstream logos, Poly Haven thumbnails or other remote images",
+      "physical iPhone Safari, VoiceOver or human approval"
+    ],
+    "excluded_from_screen": "No fake terminal, chat, progress or invented UI; no remote thumbnails; no full hashes on film (they are listed in the editor's #asset-checks and here); English paths and the raw original error appear only as smaller supplemental lines next to the Japanese reading."
+  },
+  "design": {
+    "palette": {
+      "paper": "#f6f1e8",
+      "paper_2": "#efe7d9",
+      "paper_raised": "#fffcf6",
+      "ink": "#221e1a (charcoal: headlines, body)",
+      "ink_2": "#574e45",
+      "rule": "#d8ccb9",
+      "orange": "#c2410c (burnt orange: chosen candidate, 8k over budget, step underline)",
+      "orange_deep": "#9a3412",
+      "ochre": "#a86a12 (Fab link-only)",
+      "ochre_bg": "#f6ead2",
+      "green": "#2c7046 (ok, within budget, MD5 match, CC0)",
+      "green_bg": "#e3eee4"
+    },
+    "fonts": "Local system fonts only: Yu Mincho / Hiragino Mincho for headlines, Yu Gothic UI / Hiragino Sans for Japanese text, Consolas / Menlo for paths and the original error. No downloads.",
+    "type_scale_px_at_1280": {
+      "opening_headline": 88,
+      "headlines": "72 (one line, never drawn below 68)",
+      "primary_numbers_and_lines": "52 (MiB totals, CC0・容量を見てから, 5/5 一致, 1モデル・5ファイル)",
+      "labels": "48 (candidate titles, screenshot labels); provider status 52 with names 36",
+      "counts": "112 (5 ファイル)",
+      "secondary_japanese": "21–30",
+      "paths_errors_captions": "15–24 (supplemental)",
+      "masthead_footer": "15–20"
+    },
+    "phone_reading": "A 360px-wide MP4 scales by 0.28: headlines ≈ 20–25px, primary lines ≈ 15px, labels ≈ 13px. Paths, the raw English error and captions are supplemental at that width; the main message (探す → 容量 → 取得 → 3D, 2.17 MiB vs 113.14 MiB, 5ファイル, the crate) stays legible. The viewer keeps the full text.",
+    "framing": {
+      "phoneCrate": "phone.jpg source rect x 30, y 376, w 290, h 218 — inside the viewer's 3D panel around the crate",
+      "desktopCrate": "desktop.jpg source rect x 250, y 500, w 360, h 300 — inside the viewer's 3D panel around the crate",
+      "rule": "Crops are drawn with drawImage from the verified decoded image, scaled only (scene 1 ×1.44, scene 5 ×1.80 phone and ×1.31 desktop, scene 6 ×1.06 phone). No filter, colour change, retouch or re-encode; the frame shadow is drawn behind the image. The rectangles are constants in video.js FRAMING and are checked to lie inside the decoded image."
+    },
+    "labels": "Screenshots are captioned 閲覧ページの実画面（3D表示部を切り抜き）. File-format tags (glTF / BIN / JPG) and the budget bars are explanatory graphics; the bars are captioned as a size diagram, not download progress. Candidate rows are text from the record, without thumbnails.",
+    "persistent": [
+      "6px charcoal top bar; masthead 3D Asset Server ・ Web用の3D素材を探して取得する; step rail 探す / 容量 / 取得 / 3D with the current step underlined in orange (none in scene 1, all four in scene 6)",
+      "footer: 保存した実行記録と閲覧ページの実画面から描いた映像 ・ 無音; arielshad/3d-asset-server f605df3"
+    ],
+    "motion": "Ease-out fades and short rises computed from absolute time; candidate rows slide in; budget bars extend once as a diagram with a scale break on the 8k bar and a stop mark at the budget line; file rows slide in and get a green check each. Scenes dip to paper over 0.35 s between them; scene 1 is fully visible at frame 0."
+  },
+  "scenes": [
+    {
+      "n": 1,
+      "time": [
+        0,
+        4
+      ],
+      "communicates": "The request and the real result first: a crate for the web, CC0, size checked before download — with the actual downloaded crate on screen from frame 0.",
+      "headline": [
+        "Web用の",
+        "木箱がほしい"
+      ],
+      "supporting": "CC0・容量を見てから; 固定版 3D Asset Server の原典コードで / Poly Haven を実際に検索・取得した記録; desktop crate crop ×1.44; 取得した実物 Wooden Crate 01 ・ 閲覧ページの実画面（3D表示部を切り抜き）; James Ray Cock / Poly Haven / CC0",
+      "enter": "Headline, orange rule and crate visible at 0.0 s; 52px line 0.3–0.75 s; scope 0.5–0.95 s; captions 0.6–1.05 s.",
+      "hold": "1.05–3.65 s (headline and crate readable for 3.65 s)",
+      "exit": "Fade 3.65–4.0 s.",
+      "data": {
+        "licence": "asset.license.name",
+        "provider": "results[A01].output.providers[polyhaven].name",
+        "credit": "asset.title, asset.author, asset.provider",
+        "screenshot": "video/assets/desktop.jpg (FRAMING.desktopCrate)"
+      }
+    },
+    {
+      "n": 2,
+      "time": [
+        4,
+        8
+      ],
+      "communicates": "A short search returns three free CC0 candidates; Poly Haven answered (ok) while Fab only offers a link and was not contacted.",
+      "headline": [
+        "探す：候補は3件"
+      ],
+      "supporting": "検索語 wooden crate; model ・ 無料 ・ 3件まで ・ 配信元2つ; rows Wooden Crate 01 (選んだ) / Wooden Crate 02 / Wooden Military Crate with author ・ CC0 ・ 無料; cards Poly Haven ok 3件 ・ API で検索, Fab link 0件 ・ リンクだけ（通信なし）; notes: A01 の保存記録。候補の画像は使っていません。順位と件数は再実行で変わりえます。/ A07：Fab を直接取得できるものだけに絞ると skipped（エラーではなく、通信もしません）",
+      "enter": "Headline 4.0–4.55 s; query 4.3–4.75 s; rows 4.45–5.14 s; 選んだ 4.95–5.35 s; provider heading 4.7–5.15 s; cards 4.8–5.4 s; notes 5.2–5.65 s.",
+      "hold": "5.65–7.65 s",
+      "exit": "Fade 7.65–8.0 s.",
+      "data": {
+        "query": "results[A01].input.request.query, types, limit",
+        "candidates": "results[A01].output.results[].title, author, license.name (no thumbnailUrl is fetched or drawn)",
+        "providers": "results[A01].output.providers[].name, status, count",
+        "a07": "results[A07].output.providers[fab].status"
+      }
+    },
+    {
+      "n": 3,
+      "time": [
+        8,
+        12
+      ],
+      "communicates": "Cause and effect of the budget: the complete 1k set is known before download and fits 4 MiB; the 8k set is about 28× over, so the original downloadFiles stops before any request.",
+      "headline": [
+        "取得の前に、容量を見る"
+      ],
+      "supporting": "予算 4 MiB / 4,194,304 バイト (dashed line); 1k 2.17 MiB green bar; 予算内 ・ 5ファイルの大きさが取得の前に分かる（A03）; 8k 113.14 MiB orange bar with scale break, 予算の約28倍, stop mark; 予算超過 → 原典が取得の前に止めた ・ 取得の通信 0件 ・ 保存フォルダーなし（A04）; raw error line; caption about base-1024 MB and the size diagram",
+      "enter": "Headline 8.0–8.55 s; budget line 8.25–8.7 s; 1k row 8.35–8.75 s (bar 8.45–8.8 s); 1k note 8.8–9.25 s; 8k row 8.7–9.1 s (bar 8.8–9.45 s); stop mark, ratio and 8k note 9.45–9.8 s; error box and caption 9.6–10.05 s.",
+      "hold": "10.05–11.65 s (the two totals are readable from about 9.1 s)",
+      "exit": "Fade 11.65–12.0 s.",
+      "data": {
+        "one_k": "results[A03].output.totalBytes and expanded.length, shown in MiB (÷1048576, 2 decimals)",
+        "eight_k": "results[A04].output.totalBytes, observations.download_requests, budget_dir_created",
+        "budget": "results[A04].input.max_bytes = asset-requests max_bytes = 4194304",
+        "ratio": "round(8k total ÷ budget)",
+        "error": "results[A04].error.name and error.message, painted unchanged: Selection is 113.1 MB, above the 4.0 MB limit. Pick a lower resolution.",
+        "units": "The original formats base-1024 values with an MB label; the film states MiB and notes 113.1 MB ＝ 113.14 MiB. video.js checks that the message contains the record's values at one decimal."
+      },
+      "label": "棒は合計バイト数の説明図で、取得の進み具合ではありません"
+    },
+    {
+      "n": 4,
+      "time": [
+        12,
+        17
+      ],
+      "communicates": "The actual download is exactly the five files seen before: glTF, bin and three JPG textures, 2.17 MiB, each matching Poly Haven's size and MD5.",
+      "headline": [
+        "1k の5ファイルを取得"
+      ],
+      "supporting": "rows glTF wooden_crate_01_1k.gltf 5,612 / BIN wooden_crate_01.bin 189,408 / JPG textures/wooden_crate_01_diff_1k.jpg 711,292 / textures/wooden_crate_01_nor_gl_1k.jpg 594,076 / textures/wooden_crate_01_arm_1k.jpg 776,699, each with a Japanese role and a green 一致; 5 ファイル; 2.17 MiB; 2,277,087 バイト ・ 1モデル; MD5・大きさ 5/5 一致; Poly Haven の files API の値と照合; independent 212 and offline replay 29 note; network and glTF reference note",
+      "enter": "Headline 12.0–12.55 s; rows 12.3–13.1 s; checks 13.0–13.62 s; count 12.6–13.05 s; MD5 block 13.15–13.6 s; notes 13.35–13.8 s.",
+      "hold": "13.8–16.65 s (scene button time 14 s is inside the settled rows)",
+      "exit": "Fade 16.65–17.0 s.",
+      "data": {
+        "files": "results[A08].output.manifest[].path, bytes, md5 = api_md5, bytes = api_size, ordered glTF → BIN → JPG",
+        "roles": "explanatory Japanese labels from the Poly Haven map names in the paths (diff → 色, nor_gl → 凹凸（法線）, arm → 陰・粗さ・金属)",
+        "total": "sum of manifest bytes = results[A03].output.totalBytes = summary.bytes",
+        "checks": "independent-checks total, reproduction-checks total and the five 'A08 entire downloaded bytes' checks",
+        "network": "file requests counted from the record's network calls"
+      }
+    },
+    {
+      "n": 5,
+      "time": [
+        17,
+        23
+      ],
+      "communicates": "The downloaded files are a real 3D model: the same crate drawn by the viewer's GLTFLoader, at two angles from two native screenshots.",
+      "headline": [
+        "取得した実物を、3Dで見る"
+      ],
+      "supporting": "phone crop ×1.80 and desktop crop ×1.31, 392px tall; labels スマホ・最初の向き / パソコン・右へ回す2回; glTF 2.0 ・ メッシュ 3 ・ 三角形 6,576 ・ 頂点 4,686（実ファイルから数えた値）; caption 閲覧ページの実画面2枚から3D表示部を切り抜き、拡大だけ … 自動回転や生成した映像ではありません",
+      "enter": "Headline 17.0–17.55 s; phone 17.15–17.75 s; desktop 17.45–18.05 s; labels 17.8–18.25 s; counts 18.0–18.45 s; caption 18.1–18.55 s.",
+      "hold": "18.55–22.65 s (poster 19.5 s is settled)",
+      "exit": "Fade 22.65–23.0 s.",
+      "data": {
+        "screenshots": "video/assets/phone.jpg (FRAMING.phoneCrate) and desktop.jpg (FRAMING.desktopCrate); screens[].source must name GLTFLoader, the phone default angle and the two native Right presses",
+        "counts": "results[A08].output.gltf.version and counts.meshes, triangles, vertices (= independent-checks actual_asset)",
+        "three": "three.version"
+      },
+      "note": "Two still angles, not a turntable. The viewer is Studio Yebisu's own page, not the full upstream app."
+    },
+    {
+      "n": 6,
+      "time": [
+        23,
+        28
+      ],
+      "communicates": "Close on the stable flow and this case's results with the source credit; hold for four seconds.",
+      "headline": [
+        "探す → 容量 → 取得 → 3D"
+      ],
+      "supporting": "1モデル ・ 5ファイル ・ 2.17 MiB; CC0 pill + Wooden Crate 01; James Ray Cock ・ Poly Haven; 8つの操作 ・ 実際の通信 8件（API 3・ファイル 5） ・ 8k は取得 0件で停止; 実行時の確認 39件すべて通過 ・ 独立した確認 212件 ・ 通信なしの再生 29件; 試した配信元は Poly Haven と Fab の2つ（Fab はリンクだけで通信なし）; phone crop ×1.06 取得した実物（スマホの実画面）; 映像の編集：Claude Opus 5.5 ／ 3Dモデル：James Ray Cock（Poly Haven）。AI が作ったモデルではありません; 値は原典 arielshad/3d-asset-server f605df3（0.1.0）の関数と Poly Haven の実データ。この映像の中で検索や取得はしていません",
+      "enter": "Flow 23.05–23.55 s; totals 23.2–23.65 s; credit and crop 23.3–23.8 s; result lines 23.4–23.85 s; authorship lines 23.5–23.95 s.",
+      "hold": "23.95–28.0 s fully steady (final hold about 4.05 s)",
+      "exit": "none",
+      "data": {
+        "totals": "summary.downloaded_models, manifest length, total bytes",
+        "credit": "asset.license.name, title, author, provider",
+        "results": "results length, network calls by host, results[A04].observations.download_requests, verification.total, independent total, replay total, provider names"
+      },
+      "note": "8 is the number of operations, not models; 5 is the number of files of one model."
+    }
+  ],
+  "contract": {
+    "canvas": "getContext('2d', { willReadFrequently: true }); backing store equals renderConfig width × height; logical frame max(1280, 720·W/H) × max(720, 1280·H/W) scaled to the backing store, content block 1280×720 centred; CSS scales the 16:9 canvas in the editor",
+    "seek": "window.seek(seconds) clamps to 0..28, records it as the selected time and returns a Promise that resolves after the requested frame is drawn from absolute time and the verified assets only; any order gives the same frame; no frame depends on earlier frames, wall clock, randomness or CSS animation",
+    "ready": "window.motionReady resolves only after the manifest and the eight files match SHA-256 and byte length over HTTP (response.ok), all record invariants pass (commit f605df3, 8 operations, 39 checks, summary 1 model / 5 files / 2,277,087 bytes, 8 requests), both original JPEGs match markers, header size and decoded size (360×780, 1265×889), images are decoded and document.fonts.ready settles; otherwise it rejects with the concrete reason, the canvas is cleared and hidden, controls are disabled and #retry re-fetches everything (one load at a time)",
+    "export_mode": "window.__MOTION_RENDER__ === true: editor chrome hidden, canvas only at exact size, no requestAnimationFrame preview and no autoplay",
+    "preview": "Starts stopped at 0, no autoplay. #play toggles 再生/一時停止 (aria-pressed); #time (range 0–28 step 0.1) seeks on input, change and Enter; #reset returns to the last selected time (a seek to 14 stays at 14); scene buttons carry data-time and seek to a reading moment; #clock shows the current time and state (no fixed 0 banner); #status says what was checked; #loading is shown only while loading; #asset-checks lists all eight rows with 一致 / 不一致 / 照合前 and full hashes; #editor[data-state] is loading, ready or error; after a retry the editor is stopped at 0 s (no resume)"
+  },
+  "status": {
+    "authored": true,
+    "data_and_browser_checks_before_authoring": "The run record, independent checks, offline replay check and the two native viewer screenshots were produced and frozen by the production side before this film source was written. The author read the frozen JSON and viewed both JPEGs; no code was executed during authoring.",
+    "renderer_run": "Passed by production; see production_verification and ../verification.json.",
+    "frame_review_and_contact_sheet": "Passed by production; see production_verification and ../verification.json.",
+    "poster_and_readability": "Passed by production; see production_verification and ../verification.json.",
+    "cuts_and_holds": "Passed by production; see production_verification and ../verification.json.",
+    "determinism_same_time_other_order_and_fresh_page": "Passed by production; see production_verification and ../verification.json.",
+    "all_frames_decode": "Passed by production; see production_verification and ../verification.json.",
+    "mp4": "Passed by production; see production_verification and ../verification.json.",
+    "native_playback_review": "Passed by production; see production_verification and ../verification.json.",
+    "editor_controls_in_browser": "Passed by production; see production_verification and ../verification.json.",
+    "phone_width_reading_360px": "Passed by production; see production_verification and ../verification.json.",
+    "physical_ios_safari_voiceover": "not tested",
+    "human_approval": "not obtained",
+    "published": "Public URL verification is recorded separately after scoped publication."
+  },
+  "production_verification": {
+    "status": "technical_and_agent_visual_checks_passed",
+    "duration_seconds": 28,
+    "frames": 840,
+    "fps": 30,
+    "silent": true,
+    "same_environment_seek_png_match": true,
+    "full_decode": true,
+    "native_playback_ended": true,
+    "human_approval": false,
+    "physical_ios_tested": false,
+    "video_sha256": "387b3e8a2e3acadcf951a689356174d89fc6b37eb820cb55df598e4a2b17b4b3"
+  }
+}

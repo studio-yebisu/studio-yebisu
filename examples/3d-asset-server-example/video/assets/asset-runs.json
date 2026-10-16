@@ -1,0 +1,2555 @@
+{
+  "format": "studio-yebisu-3d-asset-runs-v1",
+  "title": "Webの小さなシーンに置くCC0の木箱を、容量を見てから取得し、実物を3Dで確かめる",
+  "reproducibility": "live: Poly Haven search results, metadata and tookMs can change between runs. The pinned source, inputs, this record and the downloaded file hashes identify this capture; they do not promise a frozen catalogue.",
+  "authored_by": "run.mjs and the page were written by Claude Opus 5.5. Every value in results comes from the original 3D Asset Server code and the live Poly Haven API, not from a model. The 3D model is by its credited author.",
+  "upstream": {
+    "repository": "arielshad/3d-asset-server",
+    "commit": "f605df3425011bae55ade114c9e7b276f5b1297b",
+    "version": "0.1.0",
+    "license": "Apache-2.0",
+    "vendor_lock_sha256": "67f280672c4268d5a06b401e9e91b2c3010968c1e78211b29724b132b9266973",
+    "vendor_files_verified": 115,
+    "vendor_file_kinds": {
+      "original": 58,
+      "original-tsc-output": 50,
+      "npm-original": 7
+    },
+    "modules": [
+      "dist/core/service.js",
+      "dist/core/http.js",
+      "dist/core/download.js",
+      "dist/providers/polyhaven.js",
+      "dist/providers/linked.js"
+    ],
+    "runtime_dependencies": [
+      {
+        "name": "lru-cache",
+        "version": "11.5.3",
+        "license": "BlueOak-1.0.0"
+      },
+      {
+        "name": "fflate",
+        "version": "0.8.3",
+        "license": "MIT"
+      }
+    ],
+    "skill": {
+      "path": "vendor/3d-asset-server/web/src/content/SKILL.md",
+      "sha256": "7db7cc2e6e301ae4b74a68aa92252299bd012b3d6826e8ed97c84ce67abfc582"
+    },
+    "agents_guide": {
+      "path": "vendor/3d-asset-server/web/src/content/AGENTS.md",
+      "sha256": "9f057c43126575ae10e5456869c43d464d68e70c3a3226c8baa2bc621117bd80"
+    }
+  },
+  "three": {
+    "version": "0.180.0",
+    "license": "MIT",
+    "archive_sha256": "ad66d724565ee29a2467277fa84daa5ed0211d6b8d446e9ef29f6bae0cd14144"
+  },
+  "input_sha256": {
+    "input/asset-requests.json": "cced85c1dc314fb7c516bac22c3c8f23fe6caf95df6c4a854acbc0e1cd7bc019",
+    "input/expected.json": "92f1ee4e97b19fc26a93fe05d4c4feb91d16ef73fd0c3d61e78c62d5d5dee9ef",
+    "vendor-lock.json": "67f280672c4268d5a06b401e9e91b2c3010968c1e78211b29724b132b9266973"
+  },
+  "runtime": {
+    "node": "24.18.0",
+    "providers": [
+      "polyhaven",
+      "fab"
+    ],
+    "user_agent": "Studio-Yebisu-3D-example/1.0 (+https://studio-yebisu.github.io/studio-yebisu/)",
+    "network": "live Poly Haven API and CDN; Fab is link-only and was not contacted",
+    "http_client": "original createHttpClient with fetchImpl = Node's fetch wrapped only to copy each response"
+  },
+  "asset": {
+    "id": "polyhaven:wooden_crate_01",
+    "title": "Wooden Crate 01",
+    "author": "James Ray Cock",
+    "provider": "Poly Haven",
+    "license": {
+      "name": "CC0",
+      "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercialUse": true,
+      "attributionRequired": false
+    },
+    "source_url": "https://polyhaven.com/a/wooden_crate_01",
+    "poly_count_metadata": 6576,
+    "credit": "Wooden Crate 01 by James Ray Cock / Poly Haven / CC0"
+  },
+  "api_captures": {
+    "info": {
+      "url": "https://api.polyhaven.com/info/wooden_crate_01",
+      "path": "outputs/api-info.json",
+      "bytes": 1105,
+      "sha256": "6ffb52efbb745ae3ce5c8a3e8b323fe98b401040810997de4f83ae30b3d71219"
+    },
+    "files": {
+      "url": "https://api.polyhaven.com/files/wooden_crate_01",
+      "path": "outputs/api-files.json",
+      "bytes": 32673,
+      "sha256": "01cd8d68b7a67ab611e436825bb830e2d607c61145cff3edd9bec0327cc62ff2"
+    }
+  },
+  "results": [
+    {
+      "id": "A01",
+      "label": "木箱を探す",
+      "operation": "search",
+      "input": {
+        "id": "A01",
+        "label": "木箱を探す",
+        "operation": "search",
+        "request": {
+          "query": "wooden crate",
+          "types": [
+            "model"
+          ],
+          "providers": [
+            "polyhaven",
+            "fab"
+          ],
+          "freeOnly": true,
+          "limit": 3
+        }
+      },
+      "output": {
+        "query": "wooden crate",
+        "types": [
+          "model"
+        ],
+        "results": [
+          {
+            "provider": "polyhaven",
+            "nativeId": "wooden_crate_01",
+            "title": "Wooden Crate 01",
+            "description": "Free 8K model of a vintage wooden crate - weathered colonial chest with rope handles, metal rivets and latch; ideal as maritime, farmhouse or prop container.",
+            "type": "model",
+            "tags": [
+              "vintage",
+              "wood",
+              "old",
+              "wooden",
+              "fancy",
+              "colonial",
+              "chest",
+              "box",
+              "prop",
+              "antique",
+              "farmhouse",
+              "crate",
+              "maritime",
+              "commercial",
+              "container"
+            ],
+            "categories": [
+              "containers",
+              "collection: smugglers_cove"
+            ],
+            "url": "https://polyhaven.com/a/wooden_crate_01",
+            "thumbnailUrl": "https://cdn.polyhaven.com/asset_img/thumbs/wooden_crate_01.png?width=512&height=512",
+            "author": "James Ray Cock",
+            "license": {
+              "name": "CC0",
+              "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+              "commercialUse": true,
+              "attributionRequired": false
+            },
+            "price": {
+              "free": true
+            },
+            "formats": [
+              "gltf",
+              "blend",
+              "fbx",
+              "usd"
+            ],
+            "resolutions": [
+              "1k",
+              "2k",
+              "4k",
+              "8k"
+            ],
+            "polyCount": 6576,
+            "downloadable": true,
+            "createdAt": "2022-02-25T00:00:00.000Z",
+            "id": "polyhaven:wooden_crate_01",
+            "score": 1
+          },
+          {
+            "provider": "polyhaven",
+            "nativeId": "wooden_crate_02",
+            "title": "Wooden Crate 02",
+            "description": "Free 8K model of a vintage wooden crate with worn planks, dovetail joins, brass corner plates and rope handles - ideal for maritime, colonial or farmhouse props.",
+            "type": "model",
+            "tags": [
+              "vintage",
+              "wood",
+              "old",
+              "wooden",
+              "worn",
+              "colonial",
+              "commercial",
+              "maritime",
+              "chest",
+              "box",
+              "container",
+              "prop",
+              "farmhouse",
+              "crate",
+              "farm"
+            ],
+            "categories": [
+              "containers",
+              "props",
+              "collection: smugglers_cove"
+            ],
+            "url": "https://polyhaven.com/a/wooden_crate_02",
+            "thumbnailUrl": "https://cdn.polyhaven.com/asset_img/thumbs/wooden_crate_02.png?width=512&height=512",
+            "author": "James Ray Cock, Jurita Burger",
+            "license": {
+              "name": "CC0",
+              "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+              "commercialUse": true,
+              "attributionRequired": false
+            },
+            "price": {
+              "free": true
+            },
+            "formats": [
+              "gltf",
+              "blend",
+              "fbx",
+              "usd"
+            ],
+            "resolutions": [
+              "1k",
+              "2k",
+              "4k",
+              "8k"
+            ],
+            "polyCount": 5176,
+            "downloadable": true,
+            "createdAt": "2022-03-02T00:00:00.000Z",
+            "id": "polyhaven:wooden_crate_02",
+            "score": 0.906
+          },
+          {
+            "provider": "polyhaven",
+            "nativeId": "wooden_military_crate",
+            "title": "Wooden Military Crate",
+            "description": "Free 4K model of a rugged wooden military crate with hinged lid, metal straps and latches, side handles, and stenciled, weathered paint and scratches.",
+            "type": "model",
+            "tags": [
+              "military",
+              "crate",
+              "box",
+              "army",
+              "chest",
+              "ammunition crate",
+              "wooden",
+              "weathered",
+              "worn"
+            ],
+            "categories": [
+              "collection: project_lighthouse",
+              "containers"
+            ],
+            "url": "https://polyhaven.com/a/wooden_military_crate",
+            "thumbnailUrl": "https://cdn.polyhaven.com/asset_img/thumbs/wooden_military_crate.png?width=512&height=512",
+            "author": "Prabhjinder Singh",
+            "license": {
+              "name": "CC0",
+              "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+              "commercialUse": true,
+              "attributionRequired": false
+            },
+            "price": {
+              "free": true
+            },
+            "formats": [
+              "gltf",
+              "blend",
+              "fbx",
+              "usd"
+            ],
+            "resolutions": [
+              "1k",
+              "2k",
+              "4k"
+            ],
+            "polyCount": 22986,
+            "downloadable": true,
+            "createdAt": "2026-06-20T00:00:00.000Z",
+            "id": "polyhaven:wooden_military_crate",
+            "score": 0.825
+          }
+        ],
+        "providers": [
+          {
+            "provider": "polyhaven",
+            "name": "Poly Haven",
+            "count": 3,
+            "status": "ok",
+            "total": 104,
+            "searchUrl": "https://polyhaven.com/models?s=wooden+crate",
+            "tookMs": 294
+          },
+          {
+            "provider": "fab",
+            "name": "Fab",
+            "count": 0,
+            "status": "link",
+            "searchUrl": "https://www.fab.com/search?q=wooden+crate&is_free=1",
+            "tookMs": 0
+          }
+        ]
+      },
+      "observations": {
+        "result_ids": [
+          "polyhaven:wooden_crate_01",
+          "polyhaven:wooden_crate_02",
+          "polyhaven:wooden_military_crate"
+        ],
+        "provider_status": {
+          "polyhaven": "ok",
+          "fab": "link"
+        },
+        "timing_note": "tookMs is the live time measured during this run; it changes on every run.",
+        "network": {
+          "requests": 1,
+          "calls": [
+            {
+              "url": "https://api.polyhaven.com/assets?t=all",
+              "status": 200,
+              "bytes": 2480545,
+              "sha256": "e0631eba2782bb5cb96d046fcde6f444f1585edfe6ee6b6dd42e510a9fa21f89",
+              "user_agent": "Studio-Yebisu-3D-example/1.0 (+https://studio-yebisu.github.io/studio-yebisu/)"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "A02",
+      "label": "形式と利用条件を確認",
+      "operation": "details",
+      "input": {
+        "id": "A02",
+        "label": "形式と利用条件を確認",
+        "operation": "details",
+        "asset_id": "polyhaven:wooden_crate_01"
+      },
+      "output": {
+        "provider": "polyhaven",
+        "nativeId": "wooden_crate_01",
+        "title": "Wooden Crate 01",
+        "description": "Free 8K model of a vintage wooden crate - weathered colonial chest with rope handles, metal rivets and latch; ideal as maritime, farmhouse or prop container.",
+        "type": "model",
+        "tags": [
+          "vintage",
+          "wood",
+          "old",
+          "wooden",
+          "fancy",
+          "colonial",
+          "chest",
+          "box",
+          "prop",
+          "antique",
+          "farmhouse",
+          "crate",
+          "maritime",
+          "commercial",
+          "container"
+        ],
+        "categories": [
+          "containers",
+          "collection: smugglers_cove"
+        ],
+        "url": "https://polyhaven.com/a/wooden_crate_01",
+        "thumbnailUrl": "https://cdn.polyhaven.com/asset_img/thumbs/wooden_crate_01.png?width=512&height=512",
+        "author": "James Ray Cock",
+        "license": {
+          "name": "CC0",
+          "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "commercialUse": true,
+          "attributionRequired": false
+        },
+        "price": {
+          "free": true
+        },
+        "formats": [
+          "gltf",
+          "blend",
+          "fbx",
+          "usd"
+        ],
+        "resolutions": [
+          "1k",
+          "2k",
+          "4k",
+          "8k"
+        ],
+        "polyCount": 6576,
+        "downloadable": true,
+        "createdAt": "2022-02-25T00:00:00.000Z",
+        "id": "polyhaven:wooden_crate_01",
+        "files": [
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/wooden_crate_01/wooden_crate_01_diff_8k.jpg",
+            "filename": "wooden_crate_01_diff_8k.jpg",
+            "format": "jpg",
+            "resolution": "8k",
+            "mapType": "diffuse",
+            "sizeBytes": 37277214,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/8k/wooden_crate_01/wooden_crate_01_diff_8k.png",
+            "filename": "wooden_crate_01_diff_8k.png",
+            "format": "png",
+            "resolution": "8k",
+            "mapType": "diffuse",
+            "sizeBytes": 230254157,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/wooden_crate_01/wooden_crate_01_diff_8k.exr",
+            "filename": "wooden_crate_01_diff_8k.exr",
+            "format": "exr",
+            "resolution": "8k",
+            "mapType": "diffuse",
+            "sizeBytes": 67599227,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/wooden_crate_01/wooden_crate_01_diff_4k.jpg",
+            "filename": "wooden_crate_01_diff_4k.jpg",
+            "format": "jpg",
+            "resolution": "4k",
+            "mapType": "diffuse",
+            "sizeBytes": 10325623,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/wooden_crate_01/wooden_crate_01_diff_4k.png",
+            "filename": "wooden_crate_01_diff_4k.png",
+            "format": "png",
+            "resolution": "4k",
+            "mapType": "diffuse",
+            "sizeBytes": 71953885,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/wooden_crate_01/wooden_crate_01_diff_4k.exr",
+            "filename": "wooden_crate_01_diff_4k.exr",
+            "format": "exr",
+            "resolution": "4k",
+            "mapType": "diffuse",
+            "sizeBytes": 17033591,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/wooden_crate_01/wooden_crate_01_diff_2k.jpg",
+            "filename": "wooden_crate_01_diff_2k.jpg",
+            "format": "jpg",
+            "resolution": "2k",
+            "mapType": "diffuse",
+            "sizeBytes": 2728494,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/wooden_crate_01/wooden_crate_01_diff_2k.png",
+            "filename": "wooden_crate_01_diff_2k.png",
+            "format": "png",
+            "resolution": "2k",
+            "mapType": "diffuse",
+            "sizeBytes": 19326877,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/wooden_crate_01/wooden_crate_01_diff_2k.exr",
+            "filename": "wooden_crate_01_diff_2k.exr",
+            "format": "exr",
+            "resolution": "2k",
+            "mapType": "diffuse",
+            "sizeBytes": 4500456,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_diff_1k.jpg",
+            "filename": "wooden_crate_01_diff_1k.jpg",
+            "format": "jpg",
+            "resolution": "1k",
+            "mapType": "diffuse",
+            "sizeBytes": 711292,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/wooden_crate_01/wooden_crate_01_diff_1k.png",
+            "filename": "wooden_crate_01_diff_1k.png",
+            "format": "png",
+            "resolution": "1k",
+            "mapType": "diffuse",
+            "sizeBytes": 5055153,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/wooden_crate_01/wooden_crate_01_diff_1k.exr",
+            "filename": "wooden_crate_01_diff_1k.exr",
+            "format": "exr",
+            "resolution": "1k",
+            "mapType": "diffuse",
+            "sizeBytes": 1205971,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/wooden_crate_01/wooden_crate_01_mask01_8k.jpg",
+            "filename": "wooden_crate_01_mask01_8k.jpg",
+            "format": "jpg",
+            "resolution": "8k",
+            "mapType": "mask01",
+            "sizeBytes": 1007455,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/8k/wooden_crate_01/wooden_crate_01_mask01_8k.png",
+            "filename": "wooden_crate_01_mask01_8k.png",
+            "format": "png",
+            "resolution": "8k",
+            "mapType": "mask01",
+            "sizeBytes": 939286,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/wooden_crate_01/wooden_crate_01_mask01_8k.exr",
+            "filename": "wooden_crate_01_mask01_8k.exr",
+            "format": "exr",
+            "resolution": "8k",
+            "mapType": "mask01",
+            "sizeBytes": 449754,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/wooden_crate_01/wooden_crate_01_mask01_4k.jpg",
+            "filename": "wooden_crate_01_mask01_4k.jpg",
+            "format": "jpg",
+            "resolution": "4k",
+            "mapType": "mask01",
+            "sizeBytes": 270774,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/wooden_crate_01/wooden_crate_01_mask01_4k.png",
+            "filename": "wooden_crate_01_mask01_4k.png",
+            "format": "png",
+            "resolution": "4k",
+            "mapType": "mask01",
+            "sizeBytes": 256779,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/wooden_crate_01/wooden_crate_01_mask01_4k.exr",
+            "filename": "wooden_crate_01_mask01_4k.exr",
+            "format": "exr",
+            "resolution": "4k",
+            "mapType": "mask01",
+            "sizeBytes": 164734,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/wooden_crate_01/wooden_crate_01_mask01_2k.jpg",
+            "filename": "wooden_crate_01_mask01_2k.jpg",
+            "format": "jpg",
+            "resolution": "2k",
+            "mapType": "mask01",
+            "sizeBytes": 76167,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/wooden_crate_01/wooden_crate_01_mask01_2k.png",
+            "filename": "wooden_crate_01_mask01_2k.png",
+            "format": "png",
+            "resolution": "2k",
+            "mapType": "mask01",
+            "sizeBytes": 73046,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/wooden_crate_01/wooden_crate_01_mask01_2k.exr",
+            "filename": "wooden_crate_01_mask01_2k.exr",
+            "format": "exr",
+            "resolution": "2k",
+            "mapType": "mask01",
+            "sizeBytes": 64408,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_mask01_1k.jpg",
+            "filename": "wooden_crate_01_mask01_1k.jpg",
+            "format": "jpg",
+            "resolution": "1k",
+            "mapType": "mask01",
+            "sizeBytes": 23569,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/wooden_crate_01/wooden_crate_01_mask01_1k.png",
+            "filename": "wooden_crate_01_mask01_1k.png",
+            "format": "png",
+            "resolution": "1k",
+            "mapType": "mask01",
+            "sizeBytes": 22058,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/wooden_crate_01/wooden_crate_01_mask01_1k.exr",
+            "filename": "wooden_crate_01_mask01_1k.exr",
+            "format": "exr",
+            "resolution": "1k",
+            "mapType": "mask01",
+            "sizeBytes": 29382,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/wooden_crate_01/wooden_crate_01_nor_dx_8k.jpg",
+            "filename": "wooden_crate_01_nor_dx_8k.jpg",
+            "format": "jpg",
+            "resolution": "8k",
+            "mapType": "nor_dx",
+            "sizeBytes": 51021084,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/8k/wooden_crate_01/wooden_crate_01_nor_dx_8k.png",
+            "filename": "wooden_crate_01_nor_dx_8k.png",
+            "format": "png",
+            "resolution": "8k",
+            "mapType": "nor_dx",
+            "sizeBytes": 294364122,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/wooden_crate_01/wooden_crate_01_nor_dx_8k.exr",
+            "filename": "wooden_crate_01_nor_dx_8k.exr",
+            "format": "exr",
+            "resolution": "8k",
+            "mapType": "nor_dx",
+            "sizeBytes": 108437666,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/wooden_crate_01/wooden_crate_01_nor_dx_4k.jpg",
+            "filename": "wooden_crate_01_nor_dx_4k.jpg",
+            "format": "jpg",
+            "resolution": "4k",
+            "mapType": "nor_dx",
+            "sizeBytes": 11625244,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/wooden_crate_01/wooden_crate_01_nor_dx_4k.png",
+            "filename": "wooden_crate_01_nor_dx_4k.png",
+            "format": "png",
+            "resolution": "4k",
+            "mapType": "nor_dx",
+            "sizeBytes": 75414691,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/wooden_crate_01/wooden_crate_01_nor_dx_4k.exr",
+            "filename": "wooden_crate_01_nor_dx_4k.exr",
+            "format": "exr",
+            "resolution": "4k",
+            "mapType": "nor_dx",
+            "sizeBytes": 26555632,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/wooden_crate_01/wooden_crate_01_nor_dx_2k.jpg",
+            "filename": "wooden_crate_01_nor_dx_2k.jpg",
+            "format": "jpg",
+            "resolution": "2k",
+            "mapType": "nor_dx",
+            "sizeBytes": 2571626,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/wooden_crate_01/wooden_crate_01_nor_dx_2k.png",
+            "filename": "wooden_crate_01_nor_dx_2k.png",
+            "format": "png",
+            "resolution": "2k",
+            "mapType": "nor_dx",
+            "sizeBytes": 19024353,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/wooden_crate_01/wooden_crate_01_nor_dx_2k.exr",
+            "filename": "wooden_crate_01_nor_dx_2k.exr",
+            "format": "exr",
+            "resolution": "2k",
+            "mapType": "nor_dx",
+            "sizeBytes": 6093661,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_nor_dx_1k.jpg",
+            "filename": "wooden_crate_01_nor_dx_1k.jpg",
+            "format": "jpg",
+            "resolution": "1k",
+            "mapType": "nor_dx",
+            "sizeBytes": 594994,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/wooden_crate_01/wooden_crate_01_nor_dx_1k.png",
+            "filename": "wooden_crate_01_nor_dx_1k.png",
+            "format": "png",
+            "resolution": "1k",
+            "mapType": "nor_dx",
+            "sizeBytes": 4842788,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/wooden_crate_01/wooden_crate_01_nor_dx_1k.exr",
+            "filename": "wooden_crate_01_nor_dx_1k.exr",
+            "format": "exr",
+            "resolution": "1k",
+            "mapType": "nor_dx",
+            "sizeBytes": 1341589,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/wooden_crate_01/wooden_crate_01_nor_gl_8k.jpg",
+            "filename": "wooden_crate_01_nor_gl_8k.jpg",
+            "format": "jpg",
+            "resolution": "8k",
+            "mapType": "nor_gl",
+            "sizeBytes": 47981430,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/8k/wooden_crate_01/wooden_crate_01_nor_gl_8k.png",
+            "filename": "wooden_crate_01_nor_gl_8k.png",
+            "format": "png",
+            "resolution": "8k",
+            "mapType": "nor_gl",
+            "sizeBytes": 294381592,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/wooden_crate_01/wooden_crate_01_nor_gl_8k.exr",
+            "filename": "wooden_crate_01_nor_gl_8k.exr",
+            "format": "exr",
+            "resolution": "8k",
+            "mapType": "nor_gl",
+            "sizeBytes": 107866860,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/wooden_crate_01/wooden_crate_01_nor_gl_4k.jpg",
+            "filename": "wooden_crate_01_nor_gl_4k.jpg",
+            "format": "jpg",
+            "resolution": "4k",
+            "mapType": "nor_gl",
+            "sizeBytes": 11376579,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/wooden_crate_01/wooden_crate_01_nor_gl_4k.png",
+            "filename": "wooden_crate_01_nor_gl_4k.png",
+            "format": "png",
+            "resolution": "4k",
+            "mapType": "nor_gl",
+            "sizeBytes": 75417770,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/wooden_crate_01/wooden_crate_01_nor_gl_4k.exr",
+            "filename": "wooden_crate_01_nor_gl_4k.exr",
+            "format": "exr",
+            "resolution": "4k",
+            "mapType": "nor_gl",
+            "sizeBytes": 26445332,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/wooden_crate_01/wooden_crate_01_nor_gl_2k.jpg",
+            "filename": "wooden_crate_01_nor_gl_2k.jpg",
+            "format": "jpg",
+            "resolution": "2k",
+            "mapType": "nor_gl",
+            "sizeBytes": 2553649,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/wooden_crate_01/wooden_crate_01_nor_gl_2k.png",
+            "filename": "wooden_crate_01_nor_gl_2k.png",
+            "format": "png",
+            "resolution": "2k",
+            "mapType": "nor_gl",
+            "sizeBytes": 19024794,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/wooden_crate_01/wooden_crate_01_nor_gl_2k.exr",
+            "filename": "wooden_crate_01_nor_gl_2k.exr",
+            "format": "exr",
+            "resolution": "2k",
+            "mapType": "nor_gl",
+            "sizeBytes": 6069816,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_nor_gl_1k.jpg",
+            "filename": "wooden_crate_01_nor_gl_1k.jpg",
+            "format": "jpg",
+            "resolution": "1k",
+            "mapType": "nor_gl",
+            "sizeBytes": 594076,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/wooden_crate_01/wooden_crate_01_nor_gl_1k.png",
+            "filename": "wooden_crate_01_nor_gl_1k.png",
+            "format": "png",
+            "resolution": "1k",
+            "mapType": "nor_gl",
+            "sizeBytes": 4843009,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/wooden_crate_01/wooden_crate_01_nor_gl_1k.exr",
+            "filename": "wooden_crate_01_nor_gl_1k.exr",
+            "format": "exr",
+            "resolution": "1k",
+            "mapType": "nor_gl",
+            "sizeBytes": 1340062,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/blend/8k/wooden_crate_01/wooden_crate_01_8k.blend",
+            "filename": "wooden_crate_01_8k.blend",
+            "format": "blend",
+            "resolution": "8k",
+            "sizeBytes": 263309,
+            "group": "blend",
+            "includes": [
+              {
+                "path": "textures/wooden_crate_01_rough_8k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/wooden_crate_01/wooden_crate_01_rough_8k.exr",
+                "sizeBytes": 27826827
+              },
+              {
+                "path": "textures/wooden_crate_01_diff_8k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/wooden_crate_01/wooden_crate_01_diff_8k.jpg",
+                "sizeBytes": 37277214
+              },
+              {
+                "path": "textures/wooden_crate_01_metal_8k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/wooden_crate_01/wooden_crate_01_metal_8k.exr",
+                "sizeBytes": 630422
+              },
+              {
+                "path": "textures/wooden_crate_01_nor_gl_8k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/wooden_crate_01/wooden_crate_01_nor_gl_8k.exr",
+                "sizeBytes": 107866860
+              }
+            ]
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/blend/4k/wooden_crate_01/wooden_crate_01_4k.blend",
+            "filename": "wooden_crate_01_4k.blend",
+            "format": "blend",
+            "resolution": "4k",
+            "sizeBytes": 262816,
+            "group": "blend",
+            "includes": [
+              {
+                "path": "textures/wooden_crate_01_diff_4k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/wooden_crate_01/wooden_crate_01_diff_4k.jpg",
+                "sizeBytes": 10325623
+              },
+              {
+                "path": "textures/wooden_crate_01_metal_4k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/wooden_crate_01/wooden_crate_01_metal_4k.exr",
+                "sizeBytes": 273632
+              },
+              {
+                "path": "textures/wooden_crate_01_rough_4k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/wooden_crate_01/wooden_crate_01_rough_4k.exr",
+                "sizeBytes": 8429250
+              },
+              {
+                "path": "textures/wooden_crate_01_nor_gl_4k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/wooden_crate_01/wooden_crate_01_nor_gl_4k.exr",
+                "sizeBytes": 26445332
+              }
+            ]
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/blend/2k/wooden_crate_01/wooden_crate_01_2k.blend",
+            "filename": "wooden_crate_01_2k.blend",
+            "format": "blend",
+            "resolution": "2k",
+            "sizeBytes": 263309,
+            "group": "blend",
+            "includes": [
+              {
+                "path": "textures/wooden_crate_01_nor_gl_2k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/wooden_crate_01/wooden_crate_01_nor_gl_2k.exr",
+                "sizeBytes": 6069816
+              },
+              {
+                "path": "textures/wooden_crate_01_diff_2k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/wooden_crate_01/wooden_crate_01_diff_2k.jpg",
+                "sizeBytes": 2728494
+              },
+              {
+                "path": "textures/wooden_crate_01_metal_2k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/wooden_crate_01/wooden_crate_01_metal_2k.exr",
+                "sizeBytes": 122318
+              },
+              {
+                "path": "textures/wooden_crate_01_rough_2k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/wooden_crate_01/wooden_crate_01_rough_2k.exr",
+                "sizeBytes": 2453665
+              }
+            ]
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/blend/1k/wooden_crate_01/wooden_crate_01_1k.blend",
+            "filename": "wooden_crate_01_1k.blend",
+            "format": "blend",
+            "resolution": "1k",
+            "sizeBytes": 263450,
+            "group": "blend",
+            "includes": [
+              {
+                "path": "textures/wooden_crate_01_diff_1k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_diff_1k.jpg",
+                "sizeBytes": 711292
+              },
+              {
+                "path": "textures/wooden_crate_01_metal_1k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/wooden_crate_01/wooden_crate_01_metal_1k.exr",
+                "sizeBytes": 55934
+              },
+              {
+                "path": "textures/wooden_crate_01_rough_1k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/wooden_crate_01/wooden_crate_01_rough_1k.exr",
+                "sizeBytes": 689186
+              },
+              {
+                "path": "textures/wooden_crate_01_nor_gl_1k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/wooden_crate_01/wooden_crate_01_nor_gl_1k.exr",
+                "sizeBytes": 1340062
+              }
+            ]
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/wooden_crate_01/wooden_crate_01_8k.gltf",
+            "filename": "wooden_crate_01_8k.gltf",
+            "format": "gltf",
+            "resolution": "8k",
+            "sizeBytes": 5612,
+            "group": "gltf",
+            "includes": [
+              {
+                "path": "wooden_crate_01.bin",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/wooden_crate_01/wooden_crate_01.bin",
+                "sizeBytes": 189408
+              },
+              {
+                "path": "textures/wooden_crate_01_diff_8k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/wooden_crate_01/wooden_crate_01_diff_8k.jpg",
+                "sizeBytes": 37277214
+              },
+              {
+                "path": "textures/wooden_crate_01_nor_gl_8k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/wooden_crate_01/wooden_crate_01_nor_gl_8k.jpg",
+                "sizeBytes": 47981430
+              },
+              {
+                "path": "textures/wooden_crate_01_arm_8k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/wooden_crate_01/wooden_crate_01_arm_8k.jpg",
+                "sizeBytes": 33182511
+              }
+            ]
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/wooden_crate_01/wooden_crate_01_4k.gltf",
+            "filename": "wooden_crate_01_4k.gltf",
+            "format": "gltf",
+            "resolution": "4k",
+            "sizeBytes": 5612,
+            "group": "gltf",
+            "includes": [
+              {
+                "path": "textures/wooden_crate_01_diff_4k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/wooden_crate_01/wooden_crate_01_diff_4k.jpg",
+                "sizeBytes": 10325623
+              },
+              {
+                "path": "wooden_crate_01.bin",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/wooden_crate_01/wooden_crate_01.bin",
+                "sizeBytes": 189408
+              },
+              {
+                "path": "textures/wooden_crate_01_nor_gl_4k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/wooden_crate_01/wooden_crate_01_nor_gl_4k.jpg",
+                "sizeBytes": 11376579
+              },
+              {
+                "path": "textures/wooden_crate_01_arm_4k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/wooden_crate_01/wooden_crate_01_arm_4k.jpg",
+                "sizeBytes": 9820044
+              }
+            ]
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/2k/wooden_crate_01/wooden_crate_01_2k.gltf",
+            "filename": "wooden_crate_01_2k.gltf",
+            "format": "gltf",
+            "resolution": "2k",
+            "sizeBytes": 5612,
+            "group": "gltf",
+            "includes": [
+              {
+                "path": "wooden_crate_01.bin",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/wooden_crate_01/wooden_crate_01.bin",
+                "sizeBytes": 189408
+              },
+              {
+                "path": "textures/wooden_crate_01_arm_2k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/wooden_crate_01/wooden_crate_01_arm_2k.jpg",
+                "sizeBytes": 2808807
+              },
+              {
+                "path": "textures/wooden_crate_01_nor_gl_2k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/wooden_crate_01/wooden_crate_01_nor_gl_2k.jpg",
+                "sizeBytes": 2553649
+              },
+              {
+                "path": "textures/wooden_crate_01_diff_2k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/wooden_crate_01/wooden_crate_01_diff_2k.jpg",
+                "sizeBytes": 2728494
+              }
+            ]
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/wooden_crate_01/wooden_crate_01_1k.gltf",
+            "filename": "wooden_crate_01_1k.gltf",
+            "format": "gltf",
+            "resolution": "1k",
+            "sizeBytes": 5612,
+            "group": "gltf",
+            "includes": [
+              {
+                "path": "textures/wooden_crate_01_diff_1k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_diff_1k.jpg",
+                "sizeBytes": 711292
+              },
+              {
+                "path": "textures/wooden_crate_01_nor_gl_1k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_nor_gl_1k.jpg",
+                "sizeBytes": 594076
+              },
+              {
+                "path": "wooden_crate_01.bin",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/wooden_crate_01/wooden_crate_01.bin",
+                "sizeBytes": 189408
+              },
+              {
+                "path": "textures/wooden_crate_01_arm_1k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_arm_1k.jpg",
+                "sizeBytes": 776699
+              }
+            ]
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/usd/8k/wooden_crate_01/wooden_crate_01_8k.usdc",
+            "filename": "wooden_crate_01_8k.usdc",
+            "format": "usdc",
+            "resolution": "8k",
+            "sizeBytes": 326282,
+            "group": "usd",
+            "includes": [
+              {
+                "path": "textures/wooden_crate_01_rough_8k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/wooden_crate_01/wooden_crate_01_rough_8k.exr",
+                "sizeBytes": 27826827
+              },
+              {
+                "path": "textures/wooden_crate_01_diff_8k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/wooden_crate_01/wooden_crate_01_diff_8k.jpg",
+                "sizeBytes": 37277214
+              },
+              {
+                "path": "textures/wooden_crate_01_metal_8k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/wooden_crate_01/wooden_crate_01_metal_8k.exr",
+                "sizeBytes": 630422
+              },
+              {
+                "path": "textures/wooden_crate_01_nor_gl_8k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/wooden_crate_01/wooden_crate_01_nor_gl_8k.exr",
+                "sizeBytes": 107866860
+              }
+            ]
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/usd/4k/wooden_crate_01/wooden_crate_01_4k.usdc",
+            "filename": "wooden_crate_01_4k.usdc",
+            "format": "usdc",
+            "resolution": "4k",
+            "sizeBytes": 326281,
+            "group": "usd",
+            "includes": [
+              {
+                "path": "textures/wooden_crate_01_diff_4k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/wooden_crate_01/wooden_crate_01_diff_4k.jpg",
+                "sizeBytes": 10325623
+              },
+              {
+                "path": "textures/wooden_crate_01_metal_4k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/wooden_crate_01/wooden_crate_01_metal_4k.exr",
+                "sizeBytes": 273632
+              },
+              {
+                "path": "textures/wooden_crate_01_rough_4k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/wooden_crate_01/wooden_crate_01_rough_4k.exr",
+                "sizeBytes": 8429250
+              },
+              {
+                "path": "textures/wooden_crate_01_nor_gl_4k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/wooden_crate_01/wooden_crate_01_nor_gl_4k.exr",
+                "sizeBytes": 26445332
+              }
+            ]
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/usd/2k/wooden_crate_01/wooden_crate_01_2k.usdc",
+            "filename": "wooden_crate_01_2k.usdc",
+            "format": "usdc",
+            "resolution": "2k",
+            "sizeBytes": 326282,
+            "group": "usd",
+            "includes": [
+              {
+                "path": "textures/wooden_crate_01_nor_gl_2k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/wooden_crate_01/wooden_crate_01_nor_gl_2k.exr",
+                "sizeBytes": 6069816
+              },
+              {
+                "path": "textures/wooden_crate_01_diff_2k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/wooden_crate_01/wooden_crate_01_diff_2k.jpg",
+                "sizeBytes": 2728494
+              },
+              {
+                "path": "textures/wooden_crate_01_metal_2k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/wooden_crate_01/wooden_crate_01_metal_2k.exr",
+                "sizeBytes": 122318
+              },
+              {
+                "path": "textures/wooden_crate_01_rough_2k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/wooden_crate_01/wooden_crate_01_rough_2k.exr",
+                "sizeBytes": 2453665
+              }
+            ]
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/usd/1k/wooden_crate_01/wooden_crate_01_1k.usdc",
+            "filename": "wooden_crate_01_1k.usdc",
+            "format": "usdc",
+            "resolution": "1k",
+            "sizeBytes": 326282,
+            "group": "usd",
+            "includes": [
+              {
+                "path": "textures/wooden_crate_01_diff_1k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_diff_1k.jpg",
+                "sizeBytes": 711292
+              },
+              {
+                "path": "textures/wooden_crate_01_metal_1k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/wooden_crate_01/wooden_crate_01_metal_1k.exr",
+                "sizeBytes": 55934
+              },
+              {
+                "path": "textures/wooden_crate_01_rough_1k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/wooden_crate_01/wooden_crate_01_rough_1k.exr",
+                "sizeBytes": 689186
+              },
+              {
+                "path": "textures/wooden_crate_01_nor_gl_1k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/wooden_crate_01/wooden_crate_01_nor_gl_1k.exr",
+                "sizeBytes": 1340062
+              }
+            ]
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/wooden_crate_01/wooden_crate_01_metal_8k.jpg",
+            "filename": "wooden_crate_01_metal_8k.jpg",
+            "format": "jpg",
+            "resolution": "8k",
+            "mapType": "metal",
+            "sizeBytes": 1147138,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/8k/wooden_crate_01/wooden_crate_01_metal_8k.png",
+            "filename": "wooden_crate_01_metal_8k.png",
+            "format": "png",
+            "resolution": "8k",
+            "mapType": "metal",
+            "sizeBytes": 458346,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/wooden_crate_01/wooden_crate_01_metal_8k.exr",
+            "filename": "wooden_crate_01_metal_8k.exr",
+            "format": "exr",
+            "resolution": "8k",
+            "mapType": "metal",
+            "sizeBytes": 630422,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/wooden_crate_01/wooden_crate_01_metal_4k.jpg",
+            "filename": "wooden_crate_01_metal_4k.jpg",
+            "format": "jpg",
+            "resolution": "4k",
+            "mapType": "metal",
+            "sizeBytes": 339098,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/wooden_crate_01/wooden_crate_01_metal_4k.png",
+            "filename": "wooden_crate_01_metal_4k.png",
+            "format": "png",
+            "resolution": "4k",
+            "mapType": "metal",
+            "sizeBytes": 203613,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/wooden_crate_01/wooden_crate_01_metal_4k.exr",
+            "filename": "wooden_crate_01_metal_4k.exr",
+            "format": "exr",
+            "resolution": "4k",
+            "mapType": "metal",
+            "sizeBytes": 273632,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/wooden_crate_01/wooden_crate_01_metal_2k.jpg",
+            "filename": "wooden_crate_01_metal_2k.jpg",
+            "format": "jpg",
+            "resolution": "2k",
+            "mapType": "metal",
+            "sizeBytes": 108412,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/wooden_crate_01/wooden_crate_01_metal_2k.png",
+            "filename": "wooden_crate_01_metal_2k.png",
+            "format": "png",
+            "resolution": "2k",
+            "mapType": "metal",
+            "sizeBytes": 79375,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/wooden_crate_01/wooden_crate_01_metal_2k.exr",
+            "filename": "wooden_crate_01_metal_2k.exr",
+            "format": "exr",
+            "resolution": "2k",
+            "mapType": "metal",
+            "sizeBytes": 122318,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_metal_1k.jpg",
+            "filename": "wooden_crate_01_metal_1k.jpg",
+            "format": "jpg",
+            "resolution": "1k",
+            "mapType": "metal",
+            "sizeBytes": 37456,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/wooden_crate_01/wooden_crate_01_metal_1k.png",
+            "filename": "wooden_crate_01_metal_1k.png",
+            "format": "png",
+            "resolution": "1k",
+            "mapType": "metal",
+            "sizeBytes": 31037,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/wooden_crate_01/wooden_crate_01_metal_1k.exr",
+            "filename": "wooden_crate_01_metal_1k.exr",
+            "format": "exr",
+            "resolution": "1k",
+            "mapType": "metal",
+            "sizeBytes": 55934,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/wooden_crate_01/wooden_crate_01_arm_8k.jpg",
+            "filename": "wooden_crate_01_arm_8k.jpg",
+            "format": "jpg",
+            "resolution": "8k",
+            "mapType": "arm",
+            "sizeBytes": 33182511,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/8k/wooden_crate_01/wooden_crate_01_arm_8k.png",
+            "filename": "wooden_crate_01_arm_8k.png",
+            "format": "png",
+            "resolution": "8k",
+            "mapType": "arm",
+            "sizeBytes": 70235969,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/wooden_crate_01/wooden_crate_01_arm_8k.exr",
+            "filename": "wooden_crate_01_arm_8k.exr",
+            "format": "exr",
+            "resolution": "8k",
+            "mapType": "arm",
+            "sizeBytes": 61280785,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/wooden_crate_01/wooden_crate_01_arm_4k.jpg",
+            "filename": "wooden_crate_01_arm_4k.jpg",
+            "format": "jpg",
+            "resolution": "4k",
+            "mapType": "arm",
+            "sizeBytes": 9820044,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/wooden_crate_01/wooden_crate_01_arm_4k.png",
+            "filename": "wooden_crate_01_arm_4k.png",
+            "format": "png",
+            "resolution": "4k",
+            "mapType": "arm",
+            "sizeBytes": 39935200,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/wooden_crate_01/wooden_crate_01_arm_4k.exr",
+            "filename": "wooden_crate_01_arm_4k.exr",
+            "format": "exr",
+            "resolution": "4k",
+            "mapType": "arm",
+            "sizeBytes": 19083993,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/wooden_crate_01/wooden_crate_01_arm_2k.jpg",
+            "filename": "wooden_crate_01_arm_2k.jpg",
+            "format": "jpg",
+            "resolution": "2k",
+            "mapType": "arm",
+            "sizeBytes": 2808807,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/wooden_crate_01/wooden_crate_01_arm_2k.png",
+            "filename": "wooden_crate_01_arm_2k.png",
+            "format": "png",
+            "resolution": "2k",
+            "mapType": "arm",
+            "sizeBytes": 12097648,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/wooden_crate_01/wooden_crate_01_arm_2k.exr",
+            "filename": "wooden_crate_01_arm_2k.exr",
+            "format": "exr",
+            "resolution": "2k",
+            "mapType": "arm",
+            "sizeBytes": 5713164,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_arm_1k.jpg",
+            "filename": "wooden_crate_01_arm_1k.jpg",
+            "format": "jpg",
+            "resolution": "1k",
+            "mapType": "arm",
+            "sizeBytes": 776699,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/wooden_crate_01/wooden_crate_01_arm_1k.png",
+            "filename": "wooden_crate_01_arm_1k.png",
+            "format": "png",
+            "resolution": "1k",
+            "mapType": "arm",
+            "sizeBytes": 3401783,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/wooden_crate_01/wooden_crate_01_arm_1k.exr",
+            "filename": "wooden_crate_01_arm_1k.exr",
+            "format": "exr",
+            "resolution": "1k",
+            "mapType": "arm",
+            "sizeBytes": 1629978,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/8k/wooden_crate_01/wooden_crate_01_8k.fbx",
+            "filename": "wooden_crate_01_8k.fbx",
+            "format": "fbx",
+            "resolution": "8k",
+            "sizeBytes": 199452,
+            "group": "fbx",
+            "includes": [
+              {
+                "path": "textures/wooden_crate_01_rough_8k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/wooden_crate_01/wooden_crate_01_rough_8k.exr",
+                "sizeBytes": 27826827
+              },
+              {
+                "path": "textures/wooden_crate_01_diff_8k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/wooden_crate_01/wooden_crate_01_diff_8k.jpg",
+                "sizeBytes": 37277214
+              },
+              {
+                "path": "textures/wooden_crate_01_metal_8k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/wooden_crate_01/wooden_crate_01_metal_8k.exr",
+                "sizeBytes": 630422
+              },
+              {
+                "path": "textures/wooden_crate_01_nor_gl_8k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/wooden_crate_01/wooden_crate_01_nor_gl_8k.exr",
+                "sizeBytes": 107866860
+              }
+            ]
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/4k/wooden_crate_01/wooden_crate_01_4k.fbx",
+            "filename": "wooden_crate_01_4k.fbx",
+            "format": "fbx",
+            "resolution": "4k",
+            "sizeBytes": 199452,
+            "group": "fbx",
+            "includes": [
+              {
+                "path": "textures/wooden_crate_01_diff_4k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/wooden_crate_01/wooden_crate_01_diff_4k.jpg",
+                "sizeBytes": 10325623
+              },
+              {
+                "path": "textures/wooden_crate_01_metal_4k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/wooden_crate_01/wooden_crate_01_metal_4k.exr",
+                "sizeBytes": 273632
+              },
+              {
+                "path": "textures/wooden_crate_01_rough_4k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/wooden_crate_01/wooden_crate_01_rough_4k.exr",
+                "sizeBytes": 8429250
+              },
+              {
+                "path": "textures/wooden_crate_01_nor_gl_4k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/wooden_crate_01/wooden_crate_01_nor_gl_4k.exr",
+                "sizeBytes": 26445332
+              }
+            ]
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/2k/wooden_crate_01/wooden_crate_01_2k.fbx",
+            "filename": "wooden_crate_01_2k.fbx",
+            "format": "fbx",
+            "resolution": "2k",
+            "sizeBytes": 199452,
+            "group": "fbx",
+            "includes": [
+              {
+                "path": "textures/wooden_crate_01_nor_gl_2k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/wooden_crate_01/wooden_crate_01_nor_gl_2k.exr",
+                "sizeBytes": 6069816
+              },
+              {
+                "path": "textures/wooden_crate_01_diff_2k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/wooden_crate_01/wooden_crate_01_diff_2k.jpg",
+                "sizeBytes": 2728494
+              },
+              {
+                "path": "textures/wooden_crate_01_metal_2k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/wooden_crate_01/wooden_crate_01_metal_2k.exr",
+                "sizeBytes": 122318
+              },
+              {
+                "path": "textures/wooden_crate_01_rough_2k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/wooden_crate_01/wooden_crate_01_rough_2k.exr",
+                "sizeBytes": 2453665
+              }
+            ]
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/1k/wooden_crate_01/wooden_crate_01_1k.fbx",
+            "filename": "wooden_crate_01_1k.fbx",
+            "format": "fbx",
+            "resolution": "1k",
+            "sizeBytes": 199452,
+            "group": "fbx",
+            "includes": [
+              {
+                "path": "textures/wooden_crate_01_diff_1k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_diff_1k.jpg",
+                "sizeBytes": 711292
+              },
+              {
+                "path": "textures/wooden_crate_01_metal_1k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/wooden_crate_01/wooden_crate_01_metal_1k.exr",
+                "sizeBytes": 55934
+              },
+              {
+                "path": "textures/wooden_crate_01_rough_1k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/wooden_crate_01/wooden_crate_01_rough_1k.exr",
+                "sizeBytes": 689186
+              },
+              {
+                "path": "textures/wooden_crate_01_nor_gl_1k.exr",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/wooden_crate_01/wooden_crate_01_nor_gl_1k.exr",
+                "sizeBytes": 1340062
+              }
+            ]
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/wooden_crate_01/wooden_crate_01_ao_8k.jpg",
+            "filename": "wooden_crate_01_ao_8k.jpg",
+            "format": "jpg",
+            "resolution": "8k",
+            "mapType": "ao",
+            "sizeBytes": 15464721,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/8k/wooden_crate_01/wooden_crate_01_ao_8k.png",
+            "filename": "wooden_crate_01_ao_8k.png",
+            "format": "png",
+            "resolution": "8k",
+            "mapType": "ao",
+            "sizeBytes": 21275367,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/wooden_crate_01/wooden_crate_01_ao_8k.exr",
+            "filename": "wooden_crate_01_ao_8k.exr",
+            "format": "exr",
+            "resolution": "8k",
+            "mapType": "ao",
+            "sizeBytes": 15245226,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/wooden_crate_01/wooden_crate_01_ao_4k.jpg",
+            "filename": "wooden_crate_01_ao_4k.jpg",
+            "format": "jpg",
+            "resolution": "4k",
+            "mapType": "ao",
+            "sizeBytes": 3183687,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/wooden_crate_01/wooden_crate_01_ao_4k.png",
+            "filename": "wooden_crate_01_ao_4k.png",
+            "format": "png",
+            "resolution": "4k",
+            "mapType": "ao",
+            "sizeBytes": 11112115,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/wooden_crate_01/wooden_crate_01_ao_4k.exr",
+            "filename": "wooden_crate_01_ao_4k.exr",
+            "format": "exr",
+            "resolution": "4k",
+            "mapType": "ao",
+            "sizeBytes": 2866925,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/wooden_crate_01/wooden_crate_01_ao_2k.jpg",
+            "filename": "wooden_crate_01_ao_2k.jpg",
+            "format": "jpg",
+            "resolution": "2k",
+            "mapType": "ao",
+            "sizeBytes": 749045,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/wooden_crate_01/wooden_crate_01_ao_2k.png",
+            "filename": "wooden_crate_01_ao_2k.png",
+            "format": "png",
+            "resolution": "2k",
+            "mapType": "ao",
+            "sizeBytes": 3585861,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/wooden_crate_01/wooden_crate_01_ao_2k.exr",
+            "filename": "wooden_crate_01_ao_2k.exr",
+            "format": "exr",
+            "resolution": "2k",
+            "mapType": "ao",
+            "sizeBytes": 752081,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_ao_1k.jpg",
+            "filename": "wooden_crate_01_ao_1k.jpg",
+            "format": "jpg",
+            "resolution": "1k",
+            "mapType": "ao",
+            "sizeBytes": 231423,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/wooden_crate_01/wooden_crate_01_ao_1k.png",
+            "filename": "wooden_crate_01_ao_1k.png",
+            "format": "png",
+            "resolution": "1k",
+            "mapType": "ao",
+            "sizeBytes": 1121755,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/wooden_crate_01/wooden_crate_01_ao_1k.exr",
+            "filename": "wooden_crate_01_ao_1k.exr",
+            "format": "exr",
+            "resolution": "1k",
+            "mapType": "ao",
+            "sizeBytes": 272373,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/wooden_crate_01/wooden_crate_01_rough_8k.jpg",
+            "filename": "wooden_crate_01_rough_8k.jpg",
+            "format": "jpg",
+            "resolution": "8k",
+            "mapType": "rough",
+            "sizeBytes": 27879122,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/8k/wooden_crate_01/wooden_crate_01_rough_8k.png",
+            "filename": "wooden_crate_01_rough_8k.png",
+            "format": "png",
+            "resolution": "8k",
+            "mapType": "rough",
+            "sizeBytes": 35967422,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/8k/wooden_crate_01/wooden_crate_01_rough_8k.exr",
+            "filename": "wooden_crate_01_rough_8k.exr",
+            "format": "exr",
+            "resolution": "8k",
+            "mapType": "rough",
+            "sizeBytes": 27826827,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/wooden_crate_01/wooden_crate_01_rough_4k.jpg",
+            "filename": "wooden_crate_01_rough_4k.jpg",
+            "format": "jpg",
+            "resolution": "4k",
+            "mapType": "rough",
+            "sizeBytes": 8297444,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/wooden_crate_01/wooden_crate_01_rough_4k.png",
+            "filename": "wooden_crate_01_rough_4k.png",
+            "format": "png",
+            "resolution": "4k",
+            "mapType": "rough",
+            "sizeBytes": 21661908,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/wooden_crate_01/wooden_crate_01_rough_4k.exr",
+            "filename": "wooden_crate_01_rough_4k.exr",
+            "format": "exr",
+            "resolution": "4k",
+            "mapType": "rough",
+            "sizeBytes": 8429250,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/wooden_crate_01/wooden_crate_01_rough_2k.jpg",
+            "filename": "wooden_crate_01_rough_2k.jpg",
+            "format": "jpg",
+            "resolution": "2k",
+            "mapType": "rough",
+            "sizeBytes": 2363871,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/wooden_crate_01/wooden_crate_01_rough_2k.png",
+            "filename": "wooden_crate_01_rough_2k.png",
+            "format": "png",
+            "resolution": "2k",
+            "mapType": "rough",
+            "sizeBytes": 6569513,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/wooden_crate_01/wooden_crate_01_rough_2k.exr",
+            "filename": "wooden_crate_01_rough_2k.exr",
+            "format": "exr",
+            "resolution": "2k",
+            "mapType": "rough",
+            "sizeBytes": 2453665,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_rough_1k.jpg",
+            "filename": "wooden_crate_01_rough_1k.jpg",
+            "format": "jpg",
+            "resolution": "1k",
+            "mapType": "rough",
+            "sizeBytes": 644947,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/wooden_crate_01/wooden_crate_01_rough_1k.png",
+            "filename": "wooden_crate_01_rough_1k.png",
+            "format": "png",
+            "resolution": "1k",
+            "mapType": "rough",
+            "sizeBytes": 1735024,
+            "group": "maps"
+          },
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/wooden_crate_01/wooden_crate_01_rough_1k.exr",
+            "filename": "wooden_crate_01_rough_1k.exr",
+            "format": "exr",
+            "resolution": "1k",
+            "mapType": "rough",
+            "sizeBytes": 689186,
+            "group": "maps"
+          }
+        ]
+      },
+      "observations": {
+        "license": {
+          "name": "CC0",
+          "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "commercialUse": true,
+          "attributionRequired": false
+        },
+        "author": "James Ray Cock",
+        "formats": [
+          "gltf",
+          "blend",
+          "fbx",
+          "usd"
+        ],
+        "resolutions": [
+          "1k",
+          "2k",
+          "4k",
+          "8k"
+        ],
+        "poly_count": 6576,
+        "file_count": 112,
+        "gltf_resolutions": [
+          "8k",
+          "4k",
+          "2k",
+          "1k"
+        ],
+        "network": {
+          "requests": 2,
+          "calls": [
+            {
+              "url": "https://api.polyhaven.com/info/wooden_crate_01",
+              "status": 200,
+              "bytes": 1105,
+              "sha256": "6ffb52efbb745ae3ce5c8a3e8b323fe98b401040810997de4f83ae30b3d71219",
+              "user_agent": "Studio-Yebisu-3D-example/1.0 (+https://studio-yebisu.github.io/studio-yebisu/)"
+            },
+            {
+              "url": "https://api.polyhaven.com/files/wooden_crate_01",
+              "status": 200,
+              "bytes": 32673,
+              "sha256": "01cd8d68b7a67ab611e436825bb830e2d607c61145cff3edd9bec0327cc62ff2",
+              "user_agent": "Studio-Yebisu-3D-example/1.0 (+https://studio-yebisu.github.io/studio-yebisu/)"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "A03",
+      "label": "1kで容量を先に確認",
+      "operation": "select",
+      "input": {
+        "id": "A03",
+        "label": "1kで容量を先に確認",
+        "operation": "select",
+        "asset_id": "polyhaven:wooden_crate_01",
+        "selection": {
+          "format": "gltf",
+          "resolution": "1k"
+        }
+      },
+      "output": {
+        "selection": [
+          {
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/wooden_crate_01/wooden_crate_01_1k.gltf",
+            "filename": "wooden_crate_01_1k.gltf",
+            "format": "gltf",
+            "resolution": "1k",
+            "sizeBytes": 5612,
+            "group": "gltf",
+            "includes": [
+              {
+                "path": "textures/wooden_crate_01_diff_1k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_diff_1k.jpg",
+                "sizeBytes": 711292
+              },
+              {
+                "path": "textures/wooden_crate_01_nor_gl_1k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_nor_gl_1k.jpg",
+                "sizeBytes": 594076
+              },
+              {
+                "path": "wooden_crate_01.bin",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/wooden_crate_01/wooden_crate_01.bin",
+                "sizeBytes": 189408
+              },
+              {
+                "path": "textures/wooden_crate_01_arm_1k.jpg",
+                "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_arm_1k.jpg",
+                "sizeBytes": 776699
+              }
+            ]
+          }
+        ],
+        "totalBytes": 2277087,
+        "expanded": [
+          {
+            "path": "wooden_crate_01_1k.gltf",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/wooden_crate_01/wooden_crate_01_1k.gltf",
+            "sizeBytes": 5612
+          },
+          {
+            "path": "textures/wooden_crate_01_diff_1k.jpg",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_diff_1k.jpg",
+            "sizeBytes": 711292
+          },
+          {
+            "path": "textures/wooden_crate_01_nor_gl_1k.jpg",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_nor_gl_1k.jpg",
+            "sizeBytes": 594076
+          },
+          {
+            "path": "wooden_crate_01.bin",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/wooden_crate_01/wooden_crate_01.bin",
+            "sizeBytes": 189408
+          },
+          {
+            "path": "textures/wooden_crate_01_arm_1k.jpg",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_arm_1k.jpg",
+            "sizeBytes": 776699
+          }
+        ]
+      },
+      "observations": {
+        "main_files": 1,
+        "file_count": 5,
+        "sizes_known": true,
+        "resolution": [
+          "1k"
+        ],
+        "max_bytes": 4194304,
+        "within_budget": true,
+        "network": {
+          "requests": 0,
+          "calls": []
+        }
+      }
+    },
+    {
+      "id": "A04",
+      "label": "8kは予算を超えて止まる",
+      "operation": "budget",
+      "input": {
+        "id": "A04",
+        "label": "8kは予算を超えて止まる",
+        "operation": "budget",
+        "asset_id": "polyhaven:wooden_crate_01",
+        "selection": {
+          "format": "gltf",
+          "resolution": "8k"
+        },
+        "max_bytes": 4194304
+      },
+      "output": {
+        "selection_resolution": [
+          "8k"
+        ],
+        "totalBytes": 118636175,
+        "maxBytes": 4194304,
+        "expanded": [
+          {
+            "path": "wooden_crate_01_8k.gltf",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/wooden_crate_01/wooden_crate_01_8k.gltf",
+            "sizeBytes": 5612
+          },
+          {
+            "path": "wooden_crate_01.bin",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/wooden_crate_01/wooden_crate_01.bin",
+            "sizeBytes": 189408
+          },
+          {
+            "path": "textures/wooden_crate_01_diff_8k.jpg",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/wooden_crate_01/wooden_crate_01_diff_8k.jpg",
+            "sizeBytes": 37277214
+          },
+          {
+            "path": "textures/wooden_crate_01_nor_gl_8k.jpg",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/wooden_crate_01/wooden_crate_01_nor_gl_8k.jpg",
+            "sizeBytes": 47981430
+          },
+          {
+            "path": "textures/wooden_crate_01_arm_8k.jpg",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/8k/wooden_crate_01/wooden_crate_01_arm_8k.jpg",
+            "sizeBytes": 33182511
+          }
+        ]
+      },
+      "error": {
+        "name": "Error",
+        "message": "Selection is 113.1 MB, above the 4.0 MB limit. Pick a lower resolution."
+      },
+      "observations": {
+        "budget_dir_existed_before": false,
+        "download_requests": 0,
+        "budget_dir_created": false,
+        "exceeds_by_bytes": 114441871,
+        "network": {
+          "requests": 0,
+          "calls": []
+        }
+      }
+    },
+    {
+      "id": "A05",
+      "label": "形式の違うIDを渡す",
+      "operation": "invalid-id",
+      "input": {
+        "id": "A05",
+        "label": "形式の違うIDを渡す",
+        "operation": "invalid-id",
+        "asset_id": "wooden_crate_01"
+      },
+      "output": null,
+      "error": {
+        "name": "InvalidAssetIdError",
+        "message": "Invalid asset id \"wooden_crate_01\". Expected \"<provider>:<id>\", e.g. \"polyhaven:ArmChair_01\"."
+      },
+      "observations": {
+        "network": {
+          "requests": 0,
+          "calls": []
+        }
+      }
+    },
+    {
+      "id": "A06",
+      "label": "未登録の配信元を指定",
+      "operation": "unknown-provider",
+      "input": {
+        "id": "A06",
+        "label": "未登録の配信元を指定",
+        "operation": "unknown-provider",
+        "asset_id": "not-a-provider:crate"
+      },
+      "output": null,
+      "error": {
+        "name": "UnknownProviderError",
+        "message": "Unknown provider(s): not-a-provider",
+        "ids": [
+          "not-a-provider"
+        ]
+      },
+      "observations": {
+        "network": {
+          "requests": 0,
+          "calls": []
+        }
+      }
+    },
+    {
+      "id": "A07",
+      "label": "直接取得だけに絞る",
+      "operation": "search",
+      "input": {
+        "id": "A07",
+        "label": "直接取得だけに絞る",
+        "operation": "search",
+        "request": {
+          "query": "wooden crate",
+          "types": [
+            "model"
+          ],
+          "providers": [
+            "fab"
+          ],
+          "downloadableOnly": true,
+          "freeOnly": true,
+          "limit": 3
+        }
+      },
+      "output": {
+        "query": "wooden crate",
+        "types": [
+          "model"
+        ],
+        "results": [],
+        "providers": [
+          {
+            "provider": "fab",
+            "name": "Fab",
+            "count": 0,
+            "status": "skipped",
+            "error": "no direct downloads",
+            "tookMs": 0
+          }
+        ]
+      },
+      "observations": {
+        "result_ids": [],
+        "provider_status": {
+          "fab": "skipped"
+        },
+        "timing_note": "tookMs is the live time measured during this run; it changes on every run.",
+        "network": {
+          "requests": 0,
+          "calls": []
+        }
+      }
+    },
+    {
+      "id": "A08",
+      "label": "実物を取得して3Dで見る",
+      "operation": "download",
+      "input": {
+        "id": "A08",
+        "label": "実物を取得して3Dで見る",
+        "operation": "download",
+        "asset_id": "polyhaven:wooden_crate_01",
+        "selection": {
+          "format": "gltf",
+          "resolution": "1k"
+        },
+        "max_bytes": 4194304
+      },
+      "output": {
+        "asset_id": "polyhaven:wooden_crate_01",
+        "folder": "polyhaven-wooden_crate_01",
+        "download": {
+          "files": [
+            "wooden_crate_01_1k.gltf",
+            "textures/wooden_crate_01_diff_1k.jpg",
+            "textures/wooden_crate_01_nor_gl_1k.jpg",
+            "wooden_crate_01.bin",
+            "textures/wooden_crate_01_arm_1k.jpg"
+          ],
+          "bytes": 2277087
+        },
+        "model_entry": "outputs/assets/polyhaven-wooden_crate_01/wooden_crate_01_1k.gltf",
+        "bundle": {
+          "format": "gltf",
+          "resolution": [
+            "1k"
+          ],
+          "file_count": 5,
+          "total_bytes": 2277087,
+          "contents": {
+            "gltf": 1,
+            "bin": 1,
+            "images": 3
+          }
+        },
+        "manifest": [
+          {
+            "path": "wooden_crate_01_1k.gltf",
+            "public_path": "outputs/assets/polyhaven-wooden_crate_01/wooden_crate_01_1k.gltf",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/wooden_crate_01/wooden_crate_01_1k.gltf",
+            "bytes": 5612,
+            "sha256": "fd9c6073acfc671e12b64666053f2805ae33aff5d3dbbcfe5c97c08c06644927",
+            "md5": "33df4d2ae00186d4b64e878466c9e22e",
+            "api_size": 5612,
+            "api_md5": "33df4d2ae00186d4b64e878466c9e22e",
+            "selection_size": 5612,
+            "network": {
+              "status": 200,
+              "bytes": 5612,
+              "sha256": "fd9c6073acfc671e12b64666053f2805ae33aff5d3dbbcfe5c97c08c06644927"
+            }
+          },
+          {
+            "path": "textures/wooden_crate_01_diff_1k.jpg",
+            "public_path": "outputs/assets/polyhaven-wooden_crate_01/textures/wooden_crate_01_diff_1k.jpg",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_diff_1k.jpg",
+            "bytes": 711292,
+            "sha256": "16653f4abaf4c1d9bca94bde3bd8c54d0ea9a5298d1648abcf57de1f7ecc34cc",
+            "md5": "266e0462d06e77c5745f66e89820544f",
+            "api_size": 711292,
+            "api_md5": "266e0462d06e77c5745f66e89820544f",
+            "selection_size": 711292,
+            "network": {
+              "status": 200,
+              "bytes": 711292,
+              "sha256": "16653f4abaf4c1d9bca94bde3bd8c54d0ea9a5298d1648abcf57de1f7ecc34cc"
+            }
+          },
+          {
+            "path": "textures/wooden_crate_01_nor_gl_1k.jpg",
+            "public_path": "outputs/assets/polyhaven-wooden_crate_01/textures/wooden_crate_01_nor_gl_1k.jpg",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_nor_gl_1k.jpg",
+            "bytes": 594076,
+            "sha256": "f4ea44c7dc1686123d337039cb713d74e8a2dbc6d1bd2beeac276d06f5df3fab",
+            "md5": "e31626a1fcf6f7062c2ffd9fc982b942",
+            "api_size": 594076,
+            "api_md5": "e31626a1fcf6f7062c2ffd9fc982b942",
+            "selection_size": 594076,
+            "network": {
+              "status": 200,
+              "bytes": 594076,
+              "sha256": "f4ea44c7dc1686123d337039cb713d74e8a2dbc6d1bd2beeac276d06f5df3fab"
+            }
+          },
+          {
+            "path": "wooden_crate_01.bin",
+            "public_path": "outputs/assets/polyhaven-wooden_crate_01/wooden_crate_01.bin",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/wooden_crate_01/wooden_crate_01.bin",
+            "bytes": 189408,
+            "sha256": "85f381f8035f7a6f2f3b848640894c6d3333b261946dd8a338c0fe19e0bea21e",
+            "md5": "8318f76b0c24b5538ce23051dbcb79a0",
+            "api_size": 189408,
+            "api_md5": "8318f76b0c24b5538ce23051dbcb79a0",
+            "selection_size": 189408,
+            "network": {
+              "status": 200,
+              "bytes": 189408,
+              "sha256": "85f381f8035f7a6f2f3b848640894c6d3333b261946dd8a338c0fe19e0bea21e"
+            }
+          },
+          {
+            "path": "textures/wooden_crate_01_arm_1k.jpg",
+            "public_path": "outputs/assets/polyhaven-wooden_crate_01/textures/wooden_crate_01_arm_1k.jpg",
+            "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_arm_1k.jpg",
+            "bytes": 776699,
+            "sha256": "cd0b031c3924905e16ffd78ead062c2cc274148c4104d09635310097738b4679",
+            "md5": "67c4aeb1154af98f95516b21ef62291c",
+            "api_size": 776699,
+            "api_md5": "67c4aeb1154af98f95516b21ef62291c",
+            "selection_size": 776699,
+            "network": {
+              "status": 200,
+              "bytes": 776699,
+              "sha256": "cd0b031c3924905e16ffd78ead062c2cc274148c4104d09635310097738b4679"
+            }
+          }
+        ],
+        "gltf": {
+          "entry": "wooden_crate_01_1k.gltf",
+          "version": "2.0",
+          "generator": "Khronos glTF Blender I/O v4.1.63",
+          "extensions_used": [],
+          "extensions_required": [],
+          "buffers": [
+            {
+              "index": 0,
+              "uri": "wooden_crate_01.bin",
+              "path": "wooden_crate_01.bin",
+              "byteLength": 189408,
+              "file_bytes": 189408,
+              "local": true
+            }
+          ],
+          "images": [
+            {
+              "index": 0,
+              "uri": "textures/wooden_crate_01_nor_gl_1k.jpg",
+              "mimeType": "image/jpeg",
+              "bufferView": null,
+              "path": "textures/wooden_crate_01_nor_gl_1k.jpg",
+              "local": true
+            },
+            {
+              "index": 1,
+              "uri": "textures/wooden_crate_01_diff_1k.jpg",
+              "mimeType": "image/jpeg",
+              "bufferView": null,
+              "path": "textures/wooden_crate_01_diff_1k.jpg",
+              "local": true
+            },
+            {
+              "index": 2,
+              "uri": "textures/wooden_crate_01_arm_1k.jpg",
+              "mimeType": "image/jpeg",
+              "bufferView": null,
+              "path": "textures/wooden_crate_01_arm_1k.jpg",
+              "local": true
+            }
+          ],
+          "unreferenced_files": [],
+          "counts": {
+            "nodes": 3,
+            "meshes": 3,
+            "primitives": 3,
+            "materials": 1,
+            "textures": 3,
+            "images": 3,
+            "accessors": 12,
+            "triangles": 6576,
+            "vertices": 4686
+          },
+          "meshes": [
+            {
+              "index": 0,
+              "name": "Cube.005",
+              "primitives": [
+                {
+                  "mode": 4,
+                  "vertices": 596,
+                  "indices": 2076,
+                  "triangles": 692,
+                  "max_index": 595,
+                  "material": 0,
+                  "position_min": [
+                    -0.3539096713066101,
+                    0.29946234822273254,
+                    -0.1961396187543869
+                  ],
+                  "position_max": [
+                    0.3539096713066101,
+                    0.3416849374771118,
+                    0.1961396187543869
+                  ]
+                }
+              ],
+              "triangles": 692,
+              "vertices": 596
+            },
+            {
+              "index": 1,
+              "name": "Cube.020",
+              "primitives": [
+                {
+                  "mode": 4,
+                  "vertices": 3706,
+                  "indices": 16524,
+                  "triangles": 5508,
+                  "max_index": 3705,
+                  "material": 0,
+                  "position_min": [
+                    -0.4126364588737488,
+                    -0.00793334562331438,
+                    -0.19549614191055298
+                  ],
+                  "position_max": [
+                    0.4126364588737488,
+                    0.3139750361442566,
+                    0.2128141224384308
+                  ]
+                }
+              ],
+              "triangles": 5508,
+              "vertices": 3706
+            },
+            {
+              "index": 2,
+              "name": "Cube.001",
+              "primitives": [
+                {
+                  "mode": 4,
+                  "vertices": 384,
+                  "indices": 1128,
+                  "triangles": 376,
+                  "max_index": 383,
+                  "material": 0,
+                  "position_min": [
+                    -0.016070956364274025,
+                    0.2390938252210617,
+                    0.1312473714351654
+                  ],
+                  "position_max": [
+                    0.009643923491239548,
+                    0.3357900381088257,
+                    0.2071036398410797
+                  ]
+                }
+              ],
+              "triangles": 376,
+              "vertices": 384
+            }
+          ],
+          "scene": {
+            "index": 0,
+            "mesh_instances": 3,
+            "primitive_instances": 3,
+            "triangles": 6576,
+            "vertices": 4686
+          },
+          "accessors_outside_buffers": []
+        },
+        "asset": {
+          "id": "polyhaven:wooden_crate_01",
+          "title": "Wooden Crate 01",
+          "author": "James Ray Cock",
+          "provider": "Poly Haven",
+          "license": {
+            "name": "CC0",
+            "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+            "commercialUse": true,
+            "attributionRequired": false
+          },
+          "source_url": "https://polyhaven.com/a/wooden_crate_01",
+          "poly_count_metadata": 6576,
+          "credit": "Wooden Crate 01 by James Ray Cock / Poly Haven / CC0"
+        }
+      },
+      "observations": {
+        "download_requests": 5,
+        "network": {
+          "requests": 5,
+          "calls": [
+            {
+              "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/wooden_crate_01/wooden_crate_01_1k.gltf",
+              "status": 200,
+              "bytes": 5612,
+              "sha256": "fd9c6073acfc671e12b64666053f2805ae33aff5d3dbbcfe5c97c08c06644927",
+              "user_agent": "Studio-Yebisu-3D-example/1.0 (+https://studio-yebisu.github.io/studio-yebisu/)"
+            },
+            {
+              "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_diff_1k.jpg",
+              "status": 200,
+              "bytes": 711292,
+              "sha256": "16653f4abaf4c1d9bca94bde3bd8c54d0ea9a5298d1648abcf57de1f7ecc34cc",
+              "user_agent": "Studio-Yebisu-3D-example/1.0 (+https://studio-yebisu.github.io/studio-yebisu/)"
+            },
+            {
+              "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_nor_gl_1k.jpg",
+              "status": 200,
+              "bytes": 594076,
+              "sha256": "f4ea44c7dc1686123d337039cb713d74e8a2dbc6d1bd2beeac276d06f5df3fab",
+              "user_agent": "Studio-Yebisu-3D-example/1.0 (+https://studio-yebisu.github.io/studio-yebisu/)"
+            },
+            {
+              "url": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/8k/wooden_crate_01/wooden_crate_01.bin",
+              "status": 200,
+              "bytes": 189408,
+              "sha256": "85f381f8035f7a6f2f3b848640894c6d3333b261946dd8a338c0fe19e0bea21e",
+              "user_agent": "Studio-Yebisu-3D-example/1.0 (+https://studio-yebisu.github.io/studio-yebisu/)"
+            },
+            {
+              "url": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/wooden_crate_01/wooden_crate_01_arm_1k.jpg",
+              "status": 200,
+              "bytes": 776699,
+              "sha256": "cd0b031c3924905e16ffd78ead062c2cc274148c4104d09635310097738b4679",
+              "user_agent": "Studio-Yebisu-3D-example/1.0 (+https://studio-yebisu.github.io/studio-yebisu/)"
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "network": {
+    "requests": 8,
+    "api_requests": 3,
+    "file_requests": 5,
+    "hosts": [
+      "api.polyhaven.com",
+      "dl.polyhaven.org"
+    ]
+  },
+  "summary": {
+    "operations": 8,
+    "downloaded_models": 1,
+    "files": 5,
+    "bytes": 2277087,
+    "checks_total": 39,
+    "checks_passed": 39
+  },
+  "verification": {
+    "status": "passed",
+    "total": 39,
+    "passed": 39,
+    "checks": [
+      {
+        "name": "node_24_or_newer",
+        "passed": true
+      },
+      {
+        "name": "input_and_lock_sha256_pinned",
+        "passed": true
+      },
+      {
+        "name": "vendor_files_sha256_115",
+        "passed": true
+      },
+      {
+        "name": "runtime_dependencies_match_package_lock",
+        "passed": true
+      },
+      {
+        "name": "original_user_agent_is_distinctive",
+        "passed": true
+      },
+      {
+        "name": "eight_frozen_cases_ran",
+        "passed": true
+      },
+      {
+        "name": "a01_search_contains_chosen_asset",
+        "passed": true
+      },
+      {
+        "name": "a01_provider_status_polyhaven_ok_fab_link",
+        "passed": true
+      },
+      {
+        "name": "a01_results_free_models_within_limit",
+        "passed": true
+      },
+      {
+        "name": "a01_chosen_licence_and_author",
+        "passed": true
+      },
+      {
+        "name": "a01_fab_link_only_with_search_url",
+        "passed": true
+      },
+      {
+        "name": "a02_details_licence_author_gltf",
+        "passed": true
+      },
+      {
+        "name": "a03_one_k_bundle_has_expected_files",
+        "passed": true
+      },
+      {
+        "name": "a03_sizes_known_before_download",
+        "passed": true
+      },
+      {
+        "name": "a03_one_k_total_matches_expected",
+        "passed": true
+      },
+      {
+        "name": "a03_no_file_requests",
+        "passed": true
+      },
+      {
+        "name": "a04_selection_exceeds_budget",
+        "passed": true
+      },
+      {
+        "name": "a04_original_size_limit_error",
+        "passed": true
+      },
+      {
+        "name": "a04_no_download_request_or_directory",
+        "passed": true
+      },
+      {
+        "name": "a05_invalid_asset_id_error",
+        "passed": true
+      },
+      {
+        "name": "a06_unknown_provider_error",
+        "passed": true
+      },
+      {
+        "name": "a07_fab_skipped_not_error",
+        "passed": true
+      },
+      {
+        "name": "no_fab_requests",
+        "passed": true
+      },
+      {
+        "name": "api_requests_only_polyhaven",
+        "passed": true
+      },
+      {
+        "name": "no_8k_download",
+        "passed": true
+      },
+      {
+        "name": "a08_downloaded_expected_files",
+        "passed": true
+      },
+      {
+        "name": "a08_requests_are_exact_selection",
+        "passed": true
+      },
+      {
+        "name": "a08_bytes_match_expected",
+        "passed": true
+      },
+      {
+        "name": "a08_sizes_match_provider_metadata",
+        "passed": true
+      },
+      {
+        "name": "a08_md5_matches_provider_metadata",
+        "passed": true
+      },
+      {
+        "name": "a08_disk_matches_network_capture",
+        "passed": true
+      },
+      {
+        "name": "gltf_version_2_0",
+        "passed": true
+      },
+      {
+        "name": "gltf_local_references_complete",
+        "passed": true
+      },
+      {
+        "name": "gltf_buffer_lengths_cover_byte_length",
+        "passed": true
+      },
+      {
+        "name": "gltf_accessors_within_buffers",
+        "passed": true
+      },
+      {
+        "name": "gltf_indices_within_vertices",
+        "passed": true
+      },
+      {
+        "name": "gltf_meshes_and_triangles_counted",
+        "passed": true
+      },
+      {
+        "name": "gltf_loadable_without_decoders",
+        "passed": true
+      },
+      {
+        "name": "source_credit_complete",
+        "passed": true
+      }
+    ]
+  }
+}

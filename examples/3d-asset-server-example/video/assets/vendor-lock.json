@@ -1,0 +1,764 @@
+{
+  "repository": "arielshad/3d-asset-server",
+  "commit": "f605df3425011bae55ade114c9e7b276f5b1297b",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "build": "npm ci --ignore-scripts --no-audit --no-fund; npm run build:server; original TypeScript compiler and original server sources",
+  "three": {
+    "version": "0.180.0",
+    "license": "MIT",
+    "url": "https://registry.npmjs.org/three/-/three-0.180.0.tgz",
+    "integrity": "sha512-o+qycAMZrh+TsE01GqWUxUIKR1AL0S8pq7zDkYOQw8GqfX8b8VoCKYUoHbhiX5j+7hr8XsuHDVU6+gkQJQKg9w==",
+    "archive_sha256": "ad66d724565ee29a2467277fa84daa5ed0211d6b8d446e9ef29f6bae0cd14144"
+  },
+  "files": [
+    {
+      "path": "vendor/3d-asset-server/README.md",
+      "sha256": "3e94af6608af40c97594a38174211f183c2f4068d11cbc073251a9acf9ba98f1",
+      "bytes": 36426,
+      "git_blob_sha1": "03f6747082f909ea954ae01e37973d918c13d348",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "bytes": 11357,
+      "git_blob_sha1": "261eeb9e9f8b2b4b0d119366dda99c6fd7d35c64",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/package.json",
+      "sha256": "1d022a2359a019d44cfe9d8a7066ae9dce041ddd9cc480f0ea3308be74ac9af8",
+      "bytes": 2226,
+      "git_blob_sha1": "b1eabd3f664229f6c89f3798e9ed25679ff59ee0",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/package-lock.json",
+      "sha256": "e38ed4312c00d3e35e6d1eb199fd20d22f54c81aeac289470799ab160d38d91b",
+      "bytes": 153720,
+      "git_blob_sha1": "a05b59aaa271690112e721af5afaf508f6535c56",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/tsconfig.json",
+      "sha256": "a4829baceec9a71c374585ed100a25f81d73dc3ea2b7d2272d302909c714a11c",
+      "bytes": 433,
+      "git_blob_sha1": "67053b399ca3e45580d7fdd5fdb30bb7fbe01bd7",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/tsconfig.build.json",
+      "sha256": "add47c8982792f765067dbb165af99c5b2a2445509090a5d7c17a4594f1adb2d",
+      "bytes": 117,
+      "git_blob_sha1": "d4d17716df27174f36424751e4f2326a5342aea7",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/web/src/content/AGENTS.md",
+      "sha256": "9f057c43126575ae10e5456869c43d464d68e70c3a3226c8baa2bc621117bd80",
+      "bytes": 6005,
+      "git_blob_sha1": "59b9e4647c7e3d41a9da58fbe6ee3dbf445329b7",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/web/src/content/SKILL.md",
+      "sha256": "7db7cc2e6e301ae4b74a68aa92252299bd012b3d6826e8ed97c84ce67abfc582",
+      "bytes": 1905,
+      "git_blob_sha1": "e1773b20262046609ac8774642b916ef1ee887bd",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/api/app.ts",
+      "sha256": "c91eaf8aa7bf43085cbb22ec8ef76f1370d62ed2b2abb53823ecdacaa79dcc83",
+      "bytes": 22492,
+      "git_blob_sha1": "554d590888eaecbf9b0b23afe2e5ac63617fdd23",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/api/negotiate.ts",
+      "sha256": "2daa98c75cdef7db099bbd699751f573bd25252523aa050a6288ec7022b29a3a",
+      "bytes": 1159,
+      "git_blob_sha1": "602d6b709b0dc41f4cf50206d8238ba6eeabf585",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/api/og.ts",
+      "sha256": "836337f6f9336ca7785ec3f65a314e7f2639bc6382efef2759d1cc5af54b9f1e",
+      "bytes": 3307,
+      "git_blob_sha1": "b9d6bddf5d6592123416d2c7856890b1421a0c38",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/api/openapi.ts",
+      "sha256": "605a8f269f7fc50135455f80d873c5a34f1c5c276aeee8d5a4cb47183b932282",
+      "bytes": 27759,
+      "git_blob_sha1": "9f1b86f6742e79343d2b0db68bc018afd2e5098c",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/api/ratelimit.ts",
+      "sha256": "fd873e84d4e5aa1c2fffa157c6ae6b9deafcc0e34806a0fe1908dcfc5d947318",
+      "bytes": 3142,
+      "git_blob_sha1": "53ceeba4a6bdd36c53daabb0b653dc22d1c8452c",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/api/search-meta.ts",
+      "sha256": "e59422590f24cd4b03ed80a19abfc39507a8adae4a6f12058bcc41a967e6c384",
+      "bytes": 6364,
+      "git_blob_sha1": "d41d510a2821377849f192b033886eacbdee7f5c",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/api/site.ts",
+      "sha256": "56422338622cd6fe2061499e89340894c0ced117971e3c661de4d316e35db4e5",
+      "bytes": 17661,
+      "git_blob_sha1": "b8308fdf70564e76ee6b1e6e1e54066b78195403",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/cli.ts",
+      "sha256": "dd04f619a493f388e4a085c099480682401ef148024f81f7e84dbd62be06af0f",
+      "bytes": 9825,
+      "git_blob_sha1": "4964f3d23da373406d9bf19b05fb5a6038394d90",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/core/analytics.ts",
+      "sha256": "98a514dd3ac988b3460635a3cca1733354766f7aed31b8b885621e9a02008bc4",
+      "bytes": 11280,
+      "git_blob_sha1": "7a0f26669e6715ddb5a758b0b175ace254349464",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/core/census.ts",
+      "sha256": "2fa89b3b26360cd08112f86708a3e86ed7a87b00500e4a8a1a1ec2e719b620e5",
+      "bytes": 9591,
+      "git_blob_sha1": "72a5ee1a071bfa040487ae90c29074c86b48baeb",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/core/collections.ts",
+      "sha256": "9ed58c59e2de2f55603bf4ad4eb54e98bf855fb7a3b29babb9b219de1ef43c20",
+      "bytes": 10010,
+      "git_blob_sha1": "787d68973b2c63cea394715dccc0d43db68f8ac4",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/core/download.ts",
+      "sha256": "69a2adbb22a78a3bdf47599f8ed98210375e778f6b5e13e252f727f8d4fe2d5d",
+      "bytes": 11314,
+      "git_blob_sha1": "000245be7cfc128c4f39e9f22ebdaffd9b91b603",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/core/http.ts",
+      "sha256": "4d7e6170cdd368d12b3a0adffdb749e7925dad4f349d565a48ecf13267c2e561",
+      "bytes": 3289,
+      "git_blob_sha1": "bddae0bc71fae2c211c2fe96340f7adc35988357",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/core/network.ts",
+      "sha256": "badf4c4dd543b4db1b8cf4c55c6252cb7281ac0ec8e79e90e7f95e2e81afb6b3",
+      "bytes": 10568,
+      "git_blob_sha1": "3815beab67cc6655e4841e967b7cbb15375bd87e",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/core/service.ts",
+      "sha256": "7b6d2bb11c4d20eca8f2847b968480e834ac7ca0d6fd81462648b0980544e49c",
+      "bytes": 8470,
+      "git_blob_sha1": "2f706c37b1be5e710351ef6934e7c2b72b390492",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/core/stats.ts",
+      "sha256": "e0c62836bf4d79d1d6fae632f2b0cfc50e32f0558bbadfff81f261f7aa6e68d8",
+      "bytes": 13353,
+      "git_blob_sha1": "c4346e9be1488794096851d2c27f9e7cfabdcc75",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/core/telemetry.ts",
+      "sha256": "5962d61db2540b44b9eea7af2476d3d8427f3edd10a8053222f5000758caef1e",
+      "bytes": 5571,
+      "git_blob_sha1": "c9a30ac20829fbc4637f84fb033bdf395f9715b8",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/core/types.ts",
+      "sha256": "e8ddd6b96c83aca5ff09d76b704145cf5a4f29ce21308e2bef61b699a7ac4083",
+      "bytes": 6497,
+      "git_blob_sha1": "e17269fafa299611a0d9134c5fd75fb00367bb70",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/core/util.ts",
+      "sha256": "a308f72b53db8d89b4794f68352185f23707b2094628be12556175ec6f4c9f93",
+      "bytes": 6814,
+      "git_blob_sha1": "841c2257316131cf81aa336859ab8f620e42bd91",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/index.ts",
+      "sha256": "204815302b8846e37684ec5605468d1826317e58f3f33fb519b1c4467c95ed95",
+      "bytes": 507,
+      "git_blob_sha1": "a0a358871336a9d81b389f01e4ace3ce18db4832",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/mcp/attribution.ts",
+      "sha256": "68a9ed86c33f9b77d2748acc54de7ce6f2e989d71e3307d1fdee340f36ff5d9d",
+      "bytes": 5954,
+      "git_blob_sha1": "d55cd28c7af398f481720207c11f8cca60841e1b",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/mcp/server.ts",
+      "sha256": "ea334e7058f603d2a92198c5fb1781081f3b8ef14863a86839a3946de558a1cd",
+      "bytes": 16382,
+      "git_blob_sha1": "a0216e76fa5cc8d51150f2a362f6d7fc7356f24d",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/og/fonts/Geist-Medium.ttf",
+      "sha256": "0090e004725f6f64b841715b4167920580f883fcf9b67fc6d744089103fec101",
+      "bytes": 127660,
+      "git_blob_sha1": "96cb22f8bb85577f3d56c497ee82913883da0fbd",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/og/fonts/Geist-Regular.ttf",
+      "sha256": "5c8968eafb98a4c4f47033daf29e38e284a6f2a82eb017d171ab040fe7c4b615",
+      "bytes": 126048,
+      "git_blob_sha1": "4da1b3a6dba4c809bea130138138754650e5a87e",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/og/fonts/Geist-SemiBold.ttf",
+      "sha256": "612ec98df33935354f39e81e54101656961ab6e5549f64b63eb57868ba7bab8d",
+      "bytes": 127872,
+      "git_blob_sha1": "b2b0618fa4ef73c5585043410a6ed9ed8a3c8e2a",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/og/fonts/OFL.txt",
+      "sha256": "930853ee1daa68554d9e35c8a9175affb74f699fad9a5da6ee5ebe76379d9137",
+      "bytes": 4368,
+      "git_blob_sha1": "8d003fec6b8a0f9f866ab1038579b6ea20926ac4",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/og/render.ts",
+      "sha256": "a4ffe44bb85ca0a898b9d45e7775e3da868f7f8c49eb2be53a9244532d8e8aa5",
+      "bytes": 10408,
+      "git_blob_sha1": "46ffe5e9d6cd80361dd9bb413e7229fbaa40d693",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/ambientcg.ts",
+      "sha256": "d8686a173ed691ddbccd1e556714d39a915d90eedac052a777b566db4dedcc64",
+      "bytes": 8374,
+      "git_blob_sha1": "94b57fd581221fdcad02efa08316126c1ac5babd",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/blenderkit.ts",
+      "sha256": "50dbca4860c02e8184aaed83bfc5e5765c44f7bede5a2bbfe9b03ee7aa03fb2e",
+      "bytes": 11864,
+      "git_blob_sha1": "0fa40f306b2e3a1aed17b1cac2ca4f19f9130bb7",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/cgbookcase.ts",
+      "sha256": "dad4deeb77dcb5a36f9986436b33975c2f4a28a787524600bd4d88c2a17452d6",
+      "bytes": 6275,
+      "git_blob_sha1": "3074ab42f081a4f6e81276421ab9a44753a097a4",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/cgtrader.ts",
+      "sha256": "30fb1c1b988e750590b73b8670bf1ed4815f168e8a129a3f67dadc96438cf34e",
+      "bytes": 13661,
+      "git_blob_sha1": "816d905721860df593cbdb3e5e32678fb0d1b51d",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/freestylized.ts",
+      "sha256": "00c161f0d8db223af02da4accfdad3f82fb4ca4bf4cb1dfdecc2f50febf9819e",
+      "bytes": 7451,
+      "git_blob_sha1": "bf1e261490f1ba21887500a4a3644cafc4d9c6ac",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/hdrihub.ts",
+      "sha256": "66749ffcc005a9807ee628aab3c603944e000ba8eeec50242c1d42da2a6fa83b",
+      "bytes": 12293,
+      "git_blob_sha1": "aab2d51003e4de77f2ab49b1804c3c0416f1848b",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/hdrmaps.ts",
+      "sha256": "90bb3556c1016af88e094e205856f33a84819466847d306bb7a14764228ea00b",
+      "bytes": 9819,
+      "git_blob_sha1": "7f32d8d9de94dc0635836b7e536938bf60f9e1e9",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/index.ts",
+      "sha256": "ba2065ba3f2dd85b9f3e175f2507c8bc407a05f5a96a92f70c11c98f7f5a6da4",
+      "bytes": 1432,
+      "git_blob_sha1": "699943dc6a85b6f57c668d7795ba99ed80a768c8",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/itchio.ts",
+      "sha256": "c16c470b465b10982a6a8326f4823eec6a193b74d903f92e7641b83e96ecb972",
+      "bytes": 15070,
+      "git_blob_sha1": "7207749238c8ff7510603b3f263f8ec75f8aca6c",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/kenney.ts",
+      "sha256": "ff584a08a95eaf0eb2743d12b6eaa53d6b92ca9810327461dfd2b98d269f4c26",
+      "bytes": 10934,
+      "git_blob_sha1": "e4f991b9faff6b7518ce4ea415d112cbb4e158c3",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/link.ts",
+      "sha256": "3892e0197421c1facc8cfe69eca2ce411c034b0acb0cc8eb0af9a19fc91afbe1",
+      "bytes": 771,
+      "git_blob_sha1": "df80cda6f30fc1251a3378466c44a0b251ec8cab",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/linked.ts",
+      "sha256": "8643eccc229c889dcad903133e5328507e37b48acd830b7a61439bf5e7f4c496",
+      "bytes": 1675,
+      "git_blob_sha1": "9baa56c234f950ea25a9845292a23fcd9d391149",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/opengameart.ts",
+      "sha256": "264684d5dfa81d3f891f6420803b000de7d7217172210e8351d641a4030a82d0",
+      "bytes": 9268,
+      "git_blob_sha1": "1f5f58b2c52320ee7b29d82ed024688747b6a43f",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/polyfork.ts",
+      "sha256": "125729096ce6a6841f0b8449f038756038d08d30808e133f1e1b33999f34c916",
+      "bytes": 6096,
+      "git_blob_sha1": "c096934b4e884872210c2bf474ee487c2e491964",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/polyhaven.ts",
+      "sha256": "1d6697da7b03d8ee5958b1267039e51b03ace5a02f388cdda80415538d1effc5",
+      "bytes": 6930,
+      "git_blob_sha1": "641073ec6dc661849deef389b7b697349760efda",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/quaternius.ts",
+      "sha256": "dc9750ec09b720d6aa7ee09efd27ac630a4dcd9d7da4f2ed74b0cd5c25415758",
+      "bytes": 10367,
+      "git_blob_sha1": "de5d945e1fd7db7d20e2e5bdeaa1c0dc9c2964a1",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/sharetextures.ts",
+      "sha256": "73c41b484b7a88675250baf8d56f33b08145315758dba545dc38d43af1f7376a",
+      "bytes": 9654,
+      "git_blob_sha1": "59088067dd11d1c4c90366c5d50d6cb270cfe4e9",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/sketchfab.ts",
+      "sha256": "1e57c142ca7614b1859bee23c4a0a356117148254538fb0e4981b7629969232f",
+      "bytes": 5064,
+      "git_blob_sha1": "f18fbb1f96205230f416765e304604b174b528bf",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/texturecan.ts",
+      "sha256": "151b9cf5035376785ab5f3c80f0175ede49f07430dab471222c36663e82c9352",
+      "bytes": 9788,
+      "git_blob_sha1": "40690cc8e71cfa56e2faafcde82aa549414e35b5",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/texturescom.ts",
+      "sha256": "c0fab44ba03658d61aa68093cdd398dbebb6c2ad4102704956b439f542c8fb9c",
+      "bytes": 5268,
+      "git_blob_sha1": "77956a4db7cfebf313e12bc15384e3fd49a054cc",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/threedassets.ts",
+      "sha256": "6efb5e4dc83dfc030795f7bf146cf32a89404295d424e5d0b9475b85289487a7",
+      "bytes": 4982,
+      "git_blob_sha1": "bd3243c3bff9348410b93dba274b4ccbd4e19c16",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/threedtexel.ts",
+      "sha256": "9ceb376de99cde2571225d18c5386626e0a287314cbe5d9f4c9ccc2d59d0e6d1",
+      "bytes": 5780,
+      "git_blob_sha1": "1d90e874b46c6b2499fd1cc9d654fe018d1a397f",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/src/providers/threedtextures.ts",
+      "sha256": "605e7a295aa61209b2eb07af692ce93b5eb9d2502ef5faf05844c2f64ab27361",
+      "bytes": 7564,
+      "git_blob_sha1": "e2060b34a39e11afc62d1e1de7bd7101845fea0a",
+      "kind": "original"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/cli.js",
+      "sha256": "668cc741ce0a5920fe9aeabaf4539bd3b06bf05900959988e7bfd04a13c0d683",
+      "bytes": 10182,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/index.js",
+      "sha256": "08e5ffe25320a05625f41b3a0177e5f6d1f85d376e0c3420644451bf20cd01e3",
+      "bytes": 445,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/api/app.js",
+      "sha256": "a29a291f59e5b6ca42c31667c27dd4fd449c96a77f84984149e98610a240a2bd",
+      "bytes": 22040,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/api/negotiate.js",
+      "sha256": "ed6997ee3aa7a1a17e6128f655f71427c0e1e8fe590df94bdc5e12c16e0c8fc1",
+      "bytes": 1239,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/api/og.js",
+      "sha256": "cb53a4de739cf7a9ba81aec523b4fdcdc9efcc5b25dbff231f45625ef4dd761d",
+      "bytes": 2673,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/api/openapi.js",
+      "sha256": "53e7bd38c6feb40e837e6386231aed28428b7f5990d7f81ba18f7cac28eb8e52",
+      "bytes": 32763,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/api/ratelimit.js",
+      "sha256": "8df76a3badb3ecc86c58b180b3740746b954ae02202a7850a03cad56adb3d1d6",
+      "bytes": 2853,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/api/search-meta.js",
+      "sha256": "dec56c0d3c7c1fa686a0f81518369cc6b8f53802214fdb15ab8f3b62c1b90518",
+      "bytes": 5525,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/api/site.js",
+      "sha256": "016a052d5bb56404dede10bbad708e0c38e13c6c62ca868b133cd994cd558be7",
+      "bytes": 16729,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/core/analytics.js",
+      "sha256": "cd967d8bd5a2146d18b01ac5c899fdf4277bb5efef4146556c7b05fdda446eaf",
+      "bytes": 9571,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/core/census.js",
+      "sha256": "acc12064e1f18a817b5680221d7bf1784ce8a834c2b1c7ae5837f372195382d7",
+      "bytes": 7509,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/core/collections.js",
+      "sha256": "cfa1b434cac4ee13fe26aa67018406d9c6c763eaba56f751464c7546f4fc9193",
+      "bytes": 8328,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/core/download.js",
+      "sha256": "9b0c5aebb3a29226a6db42337d1912c0b663682aa73a1d5e33e0c06fd305c383",
+      "bytes": 10904,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/core/http.js",
+      "sha256": "f3326cbe9fb8ddbdb4cd87b5bde8e28f3b73871d9f1da2127328551044d354f4",
+      "bytes": 3246,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/core/network.js",
+      "sha256": "2ce293e91d7c4249a60fb5ea9fb77cf627fd414f7790a5b921d6b86843b85161",
+      "bytes": 9770,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/core/service.js",
+      "sha256": "b7bfa5be4e879e0cbde0ffa8b252b1992e1e418b02b27f74606e56791ebe311e",
+      "bytes": 7515,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/core/stats.js",
+      "sha256": "82393dc94555184f995912b694084cece3d4a06f86f47faa2e05b0214a29d654",
+      "bytes": 11569,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/core/telemetry.js",
+      "sha256": "ee01094cfe9bf0bfa1989774a7b71822b96add1a62af1cd78d706fef40439593",
+      "bytes": 5108,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/core/types.js",
+      "sha256": "5400dee97bdbe7b4f1eed0a47b57414185b18001fe6635dfc8bb2449acba1249",
+      "bytes": 408,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/core/util.js",
+      "sha256": "e455fbe43881bef57595af735142217391fc4eb351ef9a0a2992356ae8841473",
+      "bytes": 6308,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/mcp/attribution.js",
+      "sha256": "f2ea9fa94c745dbdac63a130d4a15e47389ceff502a6af70584a9ed4a1bd5f70",
+      "bytes": 5576,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/mcp/server.js",
+      "sha256": "50fbd26e88d0742b304230d307da31387d9e951165a928892fb151f0896a1d11",
+      "bytes": 16096,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/og/render.js",
+      "sha256": "6271dca6c8a90958e8420306e692bf72b7befd76897ef9d23e064e8e15b66653",
+      "bytes": 9119,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/ambientcg.js",
+      "sha256": "818c96cd27adc71cb8b890bd02568001d55e497ec9e3ff1022ef7a19789830b4",
+      "bytes": 7856,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/blenderkit.js",
+      "sha256": "69f1523ed7e48c3facba81460c9c4a6eb96b6989de930e40f1df2eae0fd67e3d",
+      "bytes": 10921,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/cgbookcase.js",
+      "sha256": "9dffdb85fbaf02a15e99902a764799586810234332348cb702a3dca223208bfc",
+      "bytes": 5990,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/cgtrader.js",
+      "sha256": "5935c75bc84dd7d95241ed55f399a4d5604162d4ad112c1daa599e2bedea3c09",
+      "bytes": 12018,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/freestylized.js",
+      "sha256": "22ed694025786058abe1ba7e3d6ea61f4ec020e6718300209695af26d0cd4562",
+      "bytes": 7295,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/hdrihub.js",
+      "sha256": "ef209cb7daab6a26f49885701411504efefaf1d6664faeedcbfb165441299ffe",
+      "bytes": 12169,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/hdrmaps.js",
+      "sha256": "85a16e3c947e32e903fe977d167e1360fd8c440fbbecdd12d5b0685958dc915b",
+      "bytes": 9415,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/index.js",
+      "sha256": "3a1f643e7cf7f12239eb94b17d128b7b88feb8cc352a3322e173a37d80dc82d1",
+      "bytes": 1448,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/itchio.js",
+      "sha256": "0f3b09db3caef0da3c9390e6338f35c40aa5002ca359ba2bedcb915fe8f2324d",
+      "bytes": 14654,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/kenney.js",
+      "sha256": "d3c2e39d58eaf1736712d367cdf90a7f1deb5c2adaeddff7db48ed83ec07cf98",
+      "bytes": 11065,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/link.js",
+      "sha256": "88319f222a30140128583a76a93a757038ada4ef6caa5c308b834b1fbe91de06",
+      "bytes": 490,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/linked.js",
+      "sha256": "f6b0b661e1430a65f1bc244baa91873884d1f4a71a712e32cc3896386ddc017b",
+      "bytes": 1758,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/opengameart.js",
+      "sha256": "a85b2f3f159f40f049e732e3f7dacda2ea8678c1f4e86a82d0f26a88a959e2be",
+      "bytes": 9096,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/polyfork.js",
+      "sha256": "a1df3f04a601ab10fcbf5f555af1d20a86e33454e77d4da96462c741ace9223f",
+      "bytes": 5666,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/polyhaven.js",
+      "sha256": "7522f6d023e42b0fb752b982464e61b96badbaab9fc04f7e0e20dbcee40c2051",
+      "bytes": 6441,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/quaternius.js",
+      "sha256": "083476920310217f6de4e15cc8a9eebb0fc794a41b805364104c4ea2f27fea93",
+      "bytes": 10482,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/sharetextures.js",
+      "sha256": "be9545318e395e131a95e8e19841d2a282a5dd91c24ef7b46975af402e7ae59a",
+      "bytes": 8668,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/sketchfab.js",
+      "sha256": "fe8ae2074adedf137b40bff8af548c59a57b5d997d49dcdb0538584ff5221075",
+      "bytes": 4608,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/texturecan.js",
+      "sha256": "4ca15cb3876429b6b6124b2a64d104689a23c5917e378dd23c071832f9095872",
+      "bytes": 9811,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/texturescom.js",
+      "sha256": "322cacd79cc54967113d64e639d1f794c276e480746b1b885f5a592c470d03b3",
+      "bytes": 4730,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/threedassets.js",
+      "sha256": "7709b854e28e84cd71622bc3cfd0dc641f29ee6d15898cfe4427e67224bb9a6e",
+      "bytes": 4424,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/threedtexel.js",
+      "sha256": "0a4988f7c9438b78ead3c4da507a2f89216dff971ac9d168192463dfd1fe34e7",
+      "bytes": 5397,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/providers/threedtextures.js",
+      "sha256": "c97335a420d3849217d4acd9cca9e57aad6331eb03e29d5098cbd60c6b8ba180",
+      "bytes": 7423,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/og/fonts/Geist-Medium.ttf",
+      "sha256": "0090e004725f6f64b841715b4167920580f883fcf9b67fc6d744089103fec101",
+      "bytes": 127660,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/og/fonts/Geist-Regular.ttf",
+      "sha256": "5c8968eafb98a4c4f47033daf29e38e284a6f2a82eb017d171ab040fe7c4b615",
+      "bytes": 126048,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/og/fonts/Geist-SemiBold.ttf",
+      "sha256": "612ec98df33935354f39e81e54101656961ab6e5549f64b63eb57868ba7bab8d",
+      "bytes": 127872,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/3d-asset-server/dist/og/fonts/OFL.txt",
+      "sha256": "930853ee1daa68554d9e35c8a9175affb74f699fad9a5da6ee5ebe76379d9137",
+      "bytes": 4368,
+      "kind": "original-tsc-output"
+    },
+    {
+      "path": "vendor/three/package.json",
+      "sha256": "aa42494664dba4cf76d89c6975ee38321a402f09a048672e190bad6f13beec93",
+      "bytes": 4635,
+      "kind": "npm-original"
+    },
+    {
+      "path": "vendor/three/LICENSE",
+      "sha256": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+      "bytes": 1081,
+      "kind": "npm-original"
+    },
+    {
+      "path": "vendor/three/build/three.module.js",
+      "sha256": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a",
+      "bytes": 603113,
+      "kind": "npm-original"
+    },
+    {
+      "path": "vendor/three/build/three.core.js",
+      "sha256": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20",
+      "bytes": 1403455,
+      "kind": "npm-original"
+    },
+    {
+      "path": "vendor/three/examples/jsm/loaders/GLTFLoader.js",
+      "sha256": "67ac5551fdafa6e349bd80c8f8e5e39c136d6b2fb1ad647db9abb21dc86f9e4a",
+      "bytes": 114739,
+      "kind": "npm-original"
+    },
+    {
+      "path": "vendor/three/examples/jsm/utils/BufferGeometryUtils.js",
+      "sha256": "fda7e946b8e0b5ab39b779206589e7a1079a22eb24efb89d7223e03fdfb1f751",
+      "bytes": 35539,
+      "kind": "npm-original"
+    },
+    {
+      "path": "vendor/three/examples/jsm/controls/OrbitControls.js",
+      "sha256": "b97879c748170baadeb3fb84cea1ffdf4674e283dc06042f34e2acb95a76042c",
+      "bytes": 38703,
+      "kind": "npm-original"
+    }
+  ]
+}

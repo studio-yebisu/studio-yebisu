@@ -1,0 +1,96 @@
+{
+  "format": "studio-yebisu-3d-asset-input-v1",
+  "purpose": "Find a reusable CC0 wooden crate for a small web scene, inspect the complete glTF bundle size, fetch the actual 1k files and preview them locally.",
+  "providers": [
+    "polyhaven",
+    "fab"
+  ],
+  "user_agent": "Studio-Yebisu-3D-example/1.0 (+https://studio-yebisu.github.io/studio-yebisu/)",
+  "max_bytes": 4194304,
+  "cases": [
+    {
+      "id": "A01",
+      "label": "木箱を探す",
+      "operation": "search",
+      "request": {
+        "query": "wooden crate",
+        "types": [
+          "model"
+        ],
+        "providers": [
+          "polyhaven",
+          "fab"
+        ],
+        "freeOnly": true,
+        "limit": 3
+      }
+    },
+    {
+      "id": "A02",
+      "label": "形式と利用条件を確認",
+      "operation": "details",
+      "asset_id": "polyhaven:wooden_crate_01"
+    },
+    {
+      "id": "A03",
+      "label": "1kで容量を先に確認",
+      "operation": "select",
+      "asset_id": "polyhaven:wooden_crate_01",
+      "selection": {
+        "format": "gltf",
+        "resolution": "1k"
+      }
+    },
+    {
+      "id": "A04",
+      "label": "8kは予算を超えて止まる",
+      "operation": "budget",
+      "asset_id": "polyhaven:wooden_crate_01",
+      "selection": {
+        "format": "gltf",
+        "resolution": "8k"
+      },
+      "max_bytes": 4194304
+    },
+    {
+      "id": "A05",
+      "label": "形式の違うIDを渡す",
+      "operation": "invalid-id",
+      "asset_id": "wooden_crate_01"
+    },
+    {
+      "id": "A06",
+      "label": "未登録の配信元を指定",
+      "operation": "unknown-provider",
+      "asset_id": "not-a-provider:crate"
+    },
+    {
+      "id": "A07",
+      "label": "直接取得だけに絞る",
+      "operation": "search",
+      "request": {
+        "query": "wooden crate",
+        "types": [
+          "model"
+        ],
+        "providers": [
+          "fab"
+        ],
+        "downloadableOnly": true,
+        "freeOnly": true,
+        "limit": 3
+      }
+    },
+    {
+      "id": "A08",
+      "label": "実物を取得して3Dで見る",
+      "operation": "download",
+      "asset_id": "polyhaven:wooden_crate_01",
+      "selection": {
+        "format": "gltf",
+        "resolution": "1k"
+      },
+      "max_bytes": 4194304
+    }
+  ]
+}
