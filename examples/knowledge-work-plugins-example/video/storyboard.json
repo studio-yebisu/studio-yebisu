@@ -1,0 +1,113 @@
+{
+  "title": "まとめた理由を、原文までたどれる。— Synthesize Research 作例の解説動画",
+  "brief": {
+    "purpose": "架空のヒアリングメモ3件に固定版の Synthesize Research を適用した保存済みの整理を、発見から原文の行まで確かめて持ち帰れることを、スマホで見る日本語の読み手に伝える。",
+    "audience": "インタビューやヒアリングのメモを、次の試作や追加調査の判断材料にまとめたい日本語の読み手（スマホで見る人を含む）",
+    "message": "まとめた理由を、原文までたどれる。",
+    "next_action": "作例のページで「発見を選ぶ → 原文を読む → 保存」を試す。",
+    "format": {"duration_seconds": 28, "fps": 30, "frames": 840, "width": 1280, "height": 720, "audio": "none", "loop": false, "poster_seconds": 13.5},
+    "look": "作例のビューアと同じ生成り（#f7f2e7）・墨（#1d1b18）・深緑（#1d4b38）。支持は深緑、反する発言は琥珀（#7a4a12）。見出しは明朝42px、本文26px以上、注記17〜18px。",
+    "persistent": {
+      "step_rail": ["メモ", "発見", "原文", "保存"],
+      "footer": "架空メモ3件・保存済みの整理／無音・実画面を編集"
+    },
+    "motion": "要素は0.35〜0.45秒で入り、そのあとは止めて読む。場面の境目は0.4秒の重ね合わせで、上の段階表示と足元はいつも残す。実画面は等倍率の切り抜きで、注目の枠と接続の線だけを重ねる。最後の約4秒は止める。"
+  },
+  "scenes": [
+    {
+      "id": "memo",
+      "start": 0,
+      "end": 4.5,
+      "step": "メモ",
+      "message": "まとめた理由を、原文までたどれる。",
+      "enter": "問い、スマホ幅の最初の画面、原文の3行カードが順に入る（0〜0.7秒）。",
+      "exit": "4.15〜4.55秒で薄くなり、発見の場面と重なる。",
+      "content": "input/interviews.json の research_question と、P01-L02・P02-L04・P03-L02 の本文（全文）と参加者の区分。整理の結果はまだ出さない。",
+      "sources": ["input/interviews.json", "video/assets/phone-initial.png"],
+      "crop": {"image": "phone-initial.png", "x": 0, "y": 0, "w": 375, "h": 420, "scale": 0.98}
+    },
+    {
+      "id": "findings",
+      "start": 4.5,
+      "end": 7.5,
+      "step": "発見",
+      "message": "発見は5件。どれも暫定の解釈。",
+      "enter": "実画面の一覧と、読める大きさの5行（id・題・人数・確からしさ）が入る。6.6秒から F05 の行に印が付く。",
+      "exit": "7.15〜7.55秒で F05 の場面へ。",
+      "content": "outputs/synthesis.json の findings（id・title・frequency・confidence・contradictions の数）。人数はこの架空の3人の中の数で、利用者全体の割合ではない。",
+      "sources": ["outputs/synthesis.json", "video/assets/desktop-first.png"],
+      "crop": {"image": "desktop-first.png", "x": 78, "y": 612, "w": 374, "h": 420, "scale": 1.08}
+    },
+    {
+      "id": "focus",
+      "start": 7.5,
+      "end": 14,
+      "step": "発見",
+      "message": "月表示を望むのは、1人。反する発言は、支持に数えない。",
+      "enter": "F05 の詳細の実画面、支持する発言 P03-L02 と 1/3人、反する発言 P02-L04、数え方の一文と注記が順に入り、11.7秒以降は止める。",
+      "exit": "13.65〜14.05秒で原文の場面へ。ポスターは13.5秒（すべて出そろった状態）。",
+      "content": "F05 の支持は P03 の1人だけ（P03-L02）。反する発言 P02-L04 は別の欄に置き、支持の人数に入れない。P01-L02 は支持にも反証にも数えない。確からしさは低。この架空の入力の中の数で、利用者全体の割合ではない。",
+      "sources": ["outputs/synthesis.json", "input/interviews.json", "video/assets/desktop-calendar.png"],
+      "crop": {"image": "desktop-calendar.png", "x": 465, "y": 1076, "w": 720, "h": 560, "scale": 0.86},
+      "overlays": [
+        {"kind": "focus_box", "color": "green", "image_rect": {"x": 474, "y": 1086, "w": 702, "h": 266}, "meaning": "支持する発言の欄"},
+        {"kind": "focus_box", "color": "amber", "image_rect": {"x": 474, "y": 1358, "w": 702, "h": 268}, "meaning": "反する発言の欄"}
+      ]
+    },
+    {
+      "id": "origin",
+      "start": 14,
+      "end": 18,
+      "step": "原文",
+      "message": "引用から、原文の同じ行へ。",
+      "enter": "原文のメモ P02 の実画面（行へ移ったあとの静止画）、P02-L04 の行の枠、F05 の反する発言の札と接続の線、同じ文の大きな引用が入る。",
+      "exit": "17.65〜18.05秒で F03 の場面へ。",
+      "content": "P02-L04 の本文（input/interviews.json）。整理の中の引用と原文の行が同じ文であることは読み込み時に照合する。クリックの操作は映さない（撮影していないため）。",
+      "sources": ["input/interviews.json", "outputs/synthesis.json", "video/assets/desktop-origin.png"],
+      "crop": {"image": "desktop-origin.png", "x": 72, "y": 2890, "w": 1136, "h": 250, "scale": 0.98},
+      "overlays": [
+        {"kind": "focus_box", "color": "green", "image_rect": {"x": 99, "y": 2980, "w": 1082, "h": 82}, "meaning": "P02-L04 の行"},
+        {"kind": "connector", "color": "amber", "meaning": "F05 の反する発言の札から、メモの枠の左の余白を通って行の枠へ"}
+      ]
+    },
+    {
+      "id": "purpose",
+      "start": 18,
+      "end": 23,
+      "step": "原文",
+      "message": "用途の違いも、残す。",
+      "enter": "F03 の支持する発言の実画面（3件のうち上の2件）、F03 の題と人数、控え・当日の変更・未定の3行（原文から抜粋）、まとめの一文が順に入る。",
+      "exit": "22.65〜23.05秒で保存の場面へ。",
+      "content": "F03「通知手段の希望はそろわない」（3/3人・確からしさ低）。P01-L03「予約の控えはメールに残したいです。」、P02-L03「当日の変更はSMSで知りたいです。」、P03-L05「どちらがよいか分かりません。」はいずれも本文に完全に含まれる抜粋。一つの手段を勧めない。",
+      "sources": ["outputs/synthesis.json", "input/interviews.json", "video/assets/desktop-notifications.png"],
+      "crop": {"image": "desktop-notifications.png", "x": 465, "y": 1104, "w": 720, "h": 532, "scale": 0.76}
+    },
+    {
+      "id": "save",
+      "start": 23,
+      "end": 28,
+      "step": "保存",
+      "message": "まとめた理由を、原文までたどれる。",
+      "enter": "スマホ幅の F05 の実画面、synthesis-F05.md の抜粋、「発見を選ぶ → 原文を読む → 保存」、注記が23.0〜23.95秒に入り、そのあと28秒まで止める。",
+      "exit": "終わり（ループしない）。",
+      "content": "ブラウザーで保存した outputs/browser-selected.md（保存時のファイル名 synthesis-F05.md）の行をそのまま抜粋：見出し、支持する参加者 1/3人（P03）、支持する発言 P03-L02 と反する発言 P02-L04 の引用。ページを開いてもAIは動かず、表示も保存も保存済みの整理から。",
+      "sources": ["outputs/browser-selected.md", "video/assets/phone-calendar.png"],
+      "crop": {"image": "phone-calendar.png", "x": 0, "y": 0, "w": 375, "h": 812, "scale": 0.58}
+    }
+  ],
+  "audio_events": [],
+  "actual_scope": {
+    "skill": "anthropics/knowledge-work-plugins f652327d4e953d7957d99e735c3c7f9964e9d2e5 / product-management v1.2.0 / skills/synthesize-research/SKILL.md（Apache-2.0）",
+    "application": "Claude Opus 5.5 が制作時に1回、固定版の SKILL.md と手元の入力ファイルを読んで整理し、outputs/synthesis.json に保存した。メモを手で渡す形で、プラグインの導入・自動起動・スラッシュコマンド・MCPコネクター・外部の業務システムは使っていない。",
+    "viewer": "作例のページは保存済みの整理を表示・絞り込み・保存するだけで、新しい整理は行わない。",
+    "exports": "outputs/browser-selected.md と outputs/browser-complete.json は、制作時にブラウザーの実際の保存操作で書き出したファイル。browser-complete.json の値は synthesis.json と同じ。",
+    "screens": "video/assets の6枚は実際のブラウザー画面の静止キャプチャ。映像では等倍率で切り抜いて並べ、注目の枠と線だけを重ねる。続けて録画したものではなく、撮っていないクリックや保存完了の表示は作らない。",
+    "recommendations": "提案はこれからの試作と追加調査の計画で、作った予約画面や採用、測った効果はない。"
+  },
+  "fictional": {
+    "input": true,
+    "note": "メモは制作担当がこの作例のために書いた架空のもので、すべて架空の参加者の自己申告。実在の顧客調査・操作の観察・分析ログ・アンケート・効果の測定は含まない。人数はこの3人のうち何人かで、利用者全体の割合ではない。"
+  },
+  "human_approval": false,
+  "review_status": "制作側でのレンダー・コンタクトシートの確認・通し再生は、この元ページの作成後に別途行う。人による承認は受けていない。"
+}

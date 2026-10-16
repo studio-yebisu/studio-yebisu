@@ -1,0 +1,50 @@
+{
+  "title": "声から、次の試作へ：架空ヒアリング3件をSynthesize Researchで整理する",
+  "request": "Knowledge Work Plugins の原典（https://github.com/anthropics/knowledge-work-plugins/tree/f652327d4e953d7957d99e735c3c7f9964e9d2e5）を読んで、次を進めてください。\n公開された架空の顧客ヒアリング3件を整理する仕事に合うプラグインを選んでください。入力、手順、成果物を示し、発言の出典を残してください。\n入力、出力、実行した検証、未確認の点を記録してください。",
+  "category": "automation",
+  "audience": "インタビューやヒアリングのメモを、次の試作や追加調査の判断材料にまとめたい日本語の読み手（スマホで読む人を含む）",
+  "goal": "固定版 product-management の synthesize-research SKILL.md を架空のヒアリングメモ3件・15行に実際に適用した保存済みの整理を、発見から原文の行までたどって確かめ、持ち帰れるようにする。",
+  "inputs": [
+    "input/interviews.json（制作担当が書いた架空のヒアリングメモ。参加者3人・各5行・計15行、行ごとに固定ID。すべて自己申告で、操作の観察・ログ・アンケートは含まない）",
+    "vendor/knowledge-work-plugins/product-management/skills/synthesize-research/SKILL.md（固定コミット f652327、plugin v1.2.0、Apache-2.0）",
+    "vendor/knowledge-work-plugins/README.md、product-management/README.md、CONNECTORS.md（プラグインの範囲とコネクターの位置づけの確認用）"
+  ],
+  "skill_refs": [
+    "https://github.com/anthropics/knowledge-work-plugins/blob/f652327d4e953d7957d99e735c3c7f9964e9d2e5/product-management/skills/synthesize-research/SKILL.md",
+    "skills/brief-to-demo/SKILL.md"
+  ],
+  "deliverables": [
+    "outputs/synthesis.json（15行の観察とコード、発見5件、利用の文脈、提案、未解決の問い、限界）",
+    "outputs/synthesis.md（同じ内容の日本語の整理レポート）",
+    "index.html・style.css・app.js（保存済みの整理を読む、スマホ基準の根拠ビューア）",
+    "request.txt（別のメモで同じ手順を使う依頼文）",
+    "README.md（操作・再現・範囲の説明）"
+  ],
+  "steps": [
+    "SKILL.mdと入力を全部読み、メモの種類（架空のヒアリング・自己申告）、人数、問い、決めることを確かめる",
+    "1行を1つの観察として、種類（自己申告の行動・希望・良い点・未定）と短いコードを付ける",
+    "コードをテーマにまとめ、別々の参加者の人数・影響・確からしさ・反する発言を確かめて発見を書く",
+    "人数と影響の定性的な判断で発見を並べ、提案・未解決の問い・限界を書いてJSONとMarkdownに保存する",
+    "ビューアで発見を選び、引用から原文の行へ移り、選んだ発見のMarkdownと整理全体のJSONを保存する"
+  ],
+  "acceptance": [
+    "synthesis.jsonの引用15件が、input/interviews.jsonの同じ行IDの本文と完全に一致する",
+    "各発見のparticipant_idsが根拠の観察の参加者の重複なしの集合と一致し、frequencyがその数と等しい",
+    "反する発言（P02-L04）が支持の人数に入らず、通知手段の希望の違い（P01メール・P02 SMS・P03未定）と良い点（写真・前回の道具名）が残っている",
+    "提案のfinding_idsがすべて実在する発見を指す",
+    "ビューアで最初の発見が選ばれた状態で開き、参加者の絞り込みと検索（NFKC・大文字小文字無視・空白区切りのAND）で件数が表示され、0件のときは詳細と選んだ発見の保存が出ない",
+    "引用のリンクから、該当する参加者の原文が開き、同じ行IDの行へ移る",
+    "選んだ発見のMarkdown（引用・行ID・反する発言・3人中の人数・架空である旨・固定原典・次の一歩）と整理全体のJSONを保存できる",
+    "読み込みに失敗したときは理由と再読み込みのボタンが出て、保存ボタンは押せない",
+    "320・375・390・430px幅、844×390の横向き、1280px幅で横スクロールが出ず、操作できる部分が44px以上ある",
+    "ページにAIが動いているような表示（入力中の演出・再生成・接続中など）がない"
+  ],
+  "assumptions": [
+    "brief-to-demoのカテゴリ例に調査の整理がないため、掲載項目と同じサイトの分野 automation に置いた",
+    "掲載項目の依頼は「合うプラグインを選ぶ」だが、作例ではproduct-managementプラグインの中のsynthesize-researchスキル1つだけを、手元のファイルを渡す形で適用した。プラグインの導入・スラッシュコマンド・MCPコネクターは使わない",
+    "利用者から実在のヒアリングは渡されていないため、制作担当が書いた架空のメモ3件を使う。実際の調査結果としては扱わない",
+    "発見の数はSKILL.mdの目安5〜8に対し、根拠のある5件にとどめた",
+    "原典READMEの旧コマンド表記ではなく、実際のファイル skills/synthesize-research/SKILL.md を正とした",
+    "技術的な確認・ブラウザーでの確認・動画の制作は、制作側の実行後に行う"
+  ]
+}

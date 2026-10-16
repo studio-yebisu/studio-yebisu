@@ -1,0 +1,521 @@
+{
+  "id": "knowledge-work-plugins-example",
+  "verified_at": "2026-10-16T11:11:28.000502+00:00",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "receipts": [
+      {
+        "phase": "implement",
+        "receipt_sha256": "d32789f114a3b0a79e63fa4c04dc95404dfe576de96cd3c5091f3cc4f75ae29d",
+        "execution_sha256": "e91620e4726de4c785bbba1c652b321250f399789ca16888117d7c95b11b7ab3",
+        "prompt_sha256": "550c8536f8b494d2f5626d13c314dadacac85bf1f5740b4c56405463b455c7a2"
+      },
+      {
+        "phase": "video",
+        "receipt_sha256": "e408dd00bf547ac71951c62ef17dab57fb78cd7f9474fb8e1be8be81d2b2d82e",
+        "execution_sha256": "4a36d665cb830365732ca1e221e166435fa60ebb95b34c1ca92b3ba9a8c887a1",
+        "prompt_sha256": "1d3adc9464da5329b396ef6f887a55782f717e4f1918a55acd4a7b973723f3e5"
+      }
+    ],
+    "receipt_published": false
+  },
+  "upstream": {
+    "repository": "anthropics/knowledge-work-plugins",
+    "commit": "f652327d4e953d7957d99e735c3c7f9964e9d2e5",
+    "plugin_version": "1.2.0",
+    "license": "Apache-2.0",
+    "archive_bytes": 3377558,
+    "archive_sha256": "b22ca679c48fb73fe97e42322bd0549e699244d63a094190aac914da32e69ae6",
+    "files_sha256": {
+      "LICENSE": "a6946284993aeec75c7d75906064b66210c46051e562077efb30eb6dcfe72e26",
+      "README.md": "6db45ae725346e38fa0b6b921aba4fe8489c4d9735986876d366ba5768010b14",
+      "product-management/LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "product-management/README.md": "44c21947033cdff521f01adc77f1cf38ea71abe0027cf1d625090ac949a13b9f",
+      "product-management/CONNECTORS.md": "f52733eb0cd1b46f96cbf15bd9d8dd5215c9341d9323f42da076bcddccda2f5e",
+      "product-management/.claude-plugin/plugin.json": "69742e798d5052d41188b877c1ab39c7184bdf03ae946bbaeb794fd20c8e5f85",
+      "product-management/skills/synthesize-research/SKILL.md": "ae98c11102545c911a1ea5d8527be0e08a3db8e53327f2865f0db19bbb2d7e9c"
+    },
+    "notice_files_in_selected_scope": [],
+    "scope": "Read and apply the fixed product-management synthesize-research skill to three original fictional interview notes supplied as local files. Manual-input workflow explicitly supported by the skill. No plugin installation, MCP connector, external business system, live user research or browser AI inference is exercised."
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 7,
+    "scope": "One actual exact-model application of fixed Synthesize Research skill to provided fictional self-report notes, manual local-input workflow. No plugin installation/autoactivation/MCP/business tool/live user research/browser AI. Structural and exact-string checks do not establish semantic quality.",
+    "human_approval": false
+  },
+  "verification": {
+    "id": "knowledge-work-plugins-example",
+    "verified_at": "2026-10-16T11:11:27.509451+00:00",
+    "stage": "runtime-and-agent-visual-reviewed",
+    "source_commit": "f652327d4e953d7957d99e735c3c7f9964e9d2e5",
+    "data_checks": {
+      "verified_at": "2026-10-16T10:44:40.803005+00:00",
+      "status": "passed",
+      "source_files": 7,
+      "input_sha256": "dfb411b644fb2ccf84f634a5c1f897681901f71378509a09afd69f36918df6ee",
+      "output_sha256": "08706af7b195e7f62c0e7ac56f8dd166076fd2a818eb25d19de7630f6ee86f24",
+      "participants": 3,
+      "source_lines": 15,
+      "observations": 15,
+      "exact_quote_matches": 15,
+      "findings": [
+        {
+          "id": "F01",
+          "title": "送信後の確認の手がかりが残りにくい",
+          "frequency": 3,
+          "participants": [
+            "P01",
+            "P02",
+            "P03"
+          ],
+          "line_ids": [
+            "P01-L01",
+            "P02-L01",
+            "P03-L01"
+          ],
+          "contradiction_lines": []
+        },
+        {
+          "id": "F02",
+          "title": "取消・変更の条件を送信前に知りたい",
+          "frequency": 3,
+          "participants": [
+            "P01",
+            "P02",
+            "P03"
+          ],
+          "line_ids": [
+            "P01-L05",
+            "P02-L02",
+            "P03-L03"
+          ],
+          "contradiction_lines": []
+        },
+        {
+          "id": "F03",
+          "title": "通知手段の希望はそろわない",
+          "frequency": 3,
+          "participants": [
+            "P01",
+            "P02",
+            "P03"
+          ],
+          "line_ids": [
+            "P01-L03",
+            "P02-L03",
+            "P03-L05"
+          ],
+          "contradiction_lines": []
+        },
+        {
+          "id": "F04",
+          "title": "写真と前回の道具名は、保ちたい良い点",
+          "frequency": 3,
+          "participants": [
+            "P01",
+            "P02",
+            "P03"
+          ],
+          "line_ids": [
+            "P01-L04",
+            "P02-L05",
+            "P03-L04"
+          ],
+          "contradiction_lines": []
+        },
+        {
+          "id": "F05",
+          "title": "月単位の空き表示は、1人の希望",
+          "frequency": 1,
+          "participants": [
+            "P03"
+          ],
+          "line_ids": [
+            "P03-L02"
+          ],
+          "contradiction_lines": [
+            "P02-L04"
+          ]
+        }
+      ],
+      "all_distinct_participant_frequencies_match": true,
+      "recommendations": 5,
+      "fictional_input": true,
+      "actual_observed_behavior": false,
+      "scope": "One actual exact-model application of fixed Synthesize Research skill to provided fictional self-report notes, manual local-input workflow. No plugin installation/autoactivation/MCP/business tool/live user research/browser AI. Structural and exact-string checks do not establish semantic quality.",
+      "sample_count": 7,
+      "semantic_review_pending": false
+    },
+    "browser": {
+      "status": "passed",
+      "native_operation_states": 21,
+      "responsive_states": 12,
+      "widths": [
+        320,
+        375,
+        390,
+        430,
+        844,
+        1280
+      ],
+      "form_font_minimum_px": 16,
+      "target_minimum_px": 44,
+      "portrait_search_within_first_screen": true,
+      "actual_15_source_lines_match": true,
+      "all_viewed_finding_quotes_match": true,
+      "participant_filter_support_only": true,
+      "normalized_and_query": true,
+      "zero_clears_detail_and_selected_export": true,
+      "source_jump_opens_and_focuses_exact_line": true,
+      "native_enter_space": true,
+      "focus_outline_px": 3,
+      "native_markdown_download_matches": true,
+      "native_json_download_matches": true,
+      "http503_retry": true,
+      "clipboard": {
+        "status": "依頼文をクリップボードにコピーしました。",
+        "readbackBytes": 2448,
+        "matches": true
+      },
+      "agent_visual_review": true,
+      "human_approval": false,
+      "physical_ios_tested": false,
+      "browser": "Windows IAB Chromium; requested widths recorded separately from actual client widths."
+    },
+    "semantic_review": {
+      "agent_semantic_review": true,
+      "human_approval": false,
+      "reviewed_output_sha256": "08706af7b195e7f62c0e7ac56f8dd166076fd2a818eb25d19de7630f6ee86f24",
+      "source_attribution_reviewed": true,
+      "interpretation_review": [
+        "F01 states the distinction between completion uncertainty in P01/P03 and post-completion number retrieval in P02; does not claim all three missed completion.",
+        "F02 separates P01 stated preference from P02/P03 self-reported experiences and does not infer screen conditions absent from input.",
+        "F03 is a finding about heterogeneous or undecided preferences, with3participants; P01 receipt-via-email and P02 same-day-change-via-SMS concern different purposes, explicitly preserved; P03 is not counted as support for either channel.",
+        "F04 distinguishes photo positives2participants from prior-item-list positive1participant rather than claiming all3liked photos.",
+        "F05 counts only P03 as support for month view, includes P02 disagreement and leaves P01 neutral; no inference that browsing one day at a time was explicitly frustrating.",
+        "All behavior references are reported or fictional, no actual observations/analytics/real effect are invented. Confidence ranks and prototype feasibility are qualitative and provisional. Recommendations are future tests, not demonstrated effects or adoption."
+      ],
+      "unresolved_blockers": [],
+      "unconfirmed": [
+        "Real customers/behavioral observation/market prevalence/product effects",
+        "Physical iOS/Safari/VoiceOver",
+        "Human research/content/aesthetic approval"
+      ],
+      "review_scope": "Read all15original lines and all15observations/5findings/recommendations/segments/limits; structural quote and frequency checks and browser checks are separate."
+    },
+    "video": {
+      "video_sha256": "e6a19be5ea01e17cb67f28d3af439144c8149371e9b7d3be173106fee8644b0c",
+      "poster_sha256": "6b3fd4db124e91546faa35f975a885242b5b63c6aaeb9001258ff113d090f20c",
+      "poster_from_mp4_seconds": 13.5,
+      "full_decode_passed": true,
+      "review_files": [
+        "contact.png",
+        "poster.png",
+        "strip.png",
+        "stills/frame-000000.png",
+        "stills/frame-000001.png",
+        "stills/frame-000002.png",
+        "stills/frame-000003.png",
+        "stills/frame-000004.png",
+        "stills/frame-000005.png",
+        "stills/frame-000006.png",
+        "stills/frame-000007.png",
+        "stills/frame-000008.png",
+        "stills/frame-000009.png",
+        "stills/frame-000010.png",
+        "stills/frame-000011.png",
+        "stills/frame-000012.png",
+        "stills/frame-000013.png",
+        "cut-01.png",
+        "cut-02.png",
+        "cut-03.png",
+        "cut-04.png",
+        "cut-05.png",
+        "final.png"
+      ],
+      "render_label": "final-v2",
+      "bundled_renderer_executed": true,
+      "reviewed_at": "2026-10-16T11:11:27.392400+00:00",
+      "agent_visual_review": true,
+      "human_approval": false,
+      "native_playback": {
+        "duration": 28,
+        "ended": true,
+        "error": null,
+        "paused": true,
+        "ready": 4,
+        "time": 28,
+        "first_observed_seconds": 0,
+        "no_manual_seek": true
+      },
+      "source_editor": {
+        "client": 375,
+        "playHeight": 44,
+        "play_enabled": true,
+        "position": 14,
+        "scroll": 375,
+        "sliderFont": "16px",
+        "sliderHeight": 44,
+        "status": "照合した11ファイルから描いています",
+        "verifiedFiles": 11
+      },
+      "source_play_pause": {
+        "label": "一時停止",
+        "pressed": "true"
+      },
+      "readability_review": [
+        "Contact14frames: real three-note input→five provisional findings→F05support1/3andseparatecontradiction→originalP02-L04→differentnotificationpurposes→actualF05Markdown/phoneCTA.",
+        "Full13.5s poster quotes and1/3count match actualsource, separatequotevsinterpretation and supportvscontradiction. SourceUIcrop includes both actual quotes without slicing their text.",
+        "Full16s originalnote and26s/finalframe checked. Corrected v1 clipped final descriptor bymovingtwo baselines; reviewedv2 shows the whole descriptor above persistentfooter.",
+        "12frame source strip and all5 actualMP4 cutstrips inspected; content fades keep step rail/footer context, no full-framewhiteflash or overlappingcriticaltext.",
+        "FinalphoneisactualF05viewport, exportedMarkdownexcerpt is actual saved browser-selected.md. FinalCTA stableover4seconds. Editorial footage, not continuousUI recording or newAIinference."
+      ],
+      "scope": "28s1280x72030fps840frames SILENT.11reviewedlocalassets checked byactualsha256 and source/output relationships. Automaticdeterminism/decoding do not establish artisticquality or humanapproval.",
+      "determinism": {
+        "frame": 504,
+        "seconds": 16.8,
+        "first": "dfcb040e008f53535dffe860bc5415c164fcb6a1034673205c63c8c938189ae1",
+        "afterOtherTimes": "dfcb040e008f53535dffe860bc5415c164fcb6a1034673205c63c8c938189ae1",
+        "freshPage": "dfcb040e008f53535dffe860bc5415c164fcb6a1034673205c63c8c938189ae1",
+        "match": true
+      },
+      "unresolved_blockers": []
+    },
+    "motion_reel": {
+      "skill": "Motion Reel",
+      "source_skill": "M:/Codex/home/skills/motion-reel/SKILL.md",
+      "files_sha256": {
+        "render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+        "audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+        "package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+        "package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+        "LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd"
+      },
+      "renderer_matches_skill": true,
+      "npm_ci": [
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "runtime_versions": {
+        "Python": "3.13.7",
+        "Node": "v24.18.0",
+        "npm": "11.16.0",
+        "FFmpeg": "ffmpeg version 8.1.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers"
+      }
+    },
+    "parent_adjustments": {
+      "original_opus_delivery_preserved": true,
+      "input_and_synthesis_unchanged": true,
+      "adjustments": [
+        {
+          "file": "style.css",
+          "change": "Honor the hidden attribute with display:none!important; author button display had made retry visible after successful load.",
+          "reason": "Actual phone screenshot exposed a retry control despite successful load."
+        },
+        {
+          "file": "index.html",
+          "change": "Shorter introductory copy and participant overview; moved repeated research question into scope details. Full original participant contexts and research question remain in source/report.",
+          "reason": "Initial320px layout put the search field below the first screen; after change its documentbottom810.3125px is within844px."
+        },
+        {
+          "file": "style.css",
+          "change": "Balance detailed heading lines.",
+          "reason": "Avoid an isolated last character in a long Japanese finding title on phones."
+        },
+        {
+          "file": "video/video.js",
+          "change": "Moved the original-note scene final two explanatory baselines upward8px and16px.",
+          "reason": "Actual16second frame clipped the bottom of the final descriptor against the content mask; reviewedv1retained privately, finalv2 rerenders the correction. No input/quotes or screenshot modified."
+        }
+      ],
+      "scope": "Presentation and hidden-state correction only; fixed upstream and original input/synthesis remain unchanged."
+    },
+    "human_approval": false,
+    "production_contributions": {
+      "Opus5.5": "Read and applied the fixed Synthesize Research skill to the provided original fictional input. Authored coded observations, evidence-linked synthesis/Japanese report, phone-first evidence viewer/request and editable28second film from real saved output and screenshots. Exact completed model receipts retained privately.",
+      "production_editor": "Authored original fictional three-source input, pinned and preserved upstream, compared exact quotes/distinct participants/contradictory signals and interpretation scope, exercised the real viewer and native exports, captured actual UI, rendered and visually inspected the video, and verified publication.",
+      "limits": "Educational fictional self-report notes. No real user research, observed behavior, market sizing, product impact, plugin installation/autoactivation, MCP connector or browser AI inference. Agent review is not human adoption or approval.",
+      "post_render_additions": "Only current root README/result/verification/movie section/ZIP/article/proof added after rendering; film sources and frozen input/output/screens remain unchanged."
+    }
+  },
+  "explanation": {
+    "video": {
+      "file": "video.mp4",
+      "sha256": "e6a19be5ea01e17cb67f28d3af439144c8149371e9b7d3be173106fee8644b0c",
+      "width": 1280,
+      "height": 720,
+      "fps": 30,
+      "frameCount": 840,
+      "duration": 28,
+      "hasAudio": false
+    },
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "dfcb040e008f53535dffe860bc5415c164fcb6a1034673205c63c8c938189ae1",
+      "afterOtherTimes": "dfcb040e008f53535dffe860bc5415c164fcb6a1034673205c63c8c938189ae1",
+      "freshPage": "dfcb040e008f53535dffe860bc5415c164fcb6a1034673205c63c8c938189ae1",
+      "match": true
+    },
+    "errors": [],
+    "blockedExternalRequests": []
+  },
+  "video_review": {
+    "video_sha256": "e6a19be5ea01e17cb67f28d3af439144c8149371e9b7d3be173106fee8644b0c",
+    "poster_sha256": "6b3fd4db124e91546faa35f975a885242b5b63c6aaeb9001258ff113d090f20c",
+    "poster_from_mp4_seconds": 13.5,
+    "full_decode_passed": true,
+    "review_files": [
+      "contact.png",
+      "poster.png",
+      "strip.png",
+      "stills/frame-000000.png",
+      "stills/frame-000001.png",
+      "stills/frame-000002.png",
+      "stills/frame-000003.png",
+      "stills/frame-000004.png",
+      "stills/frame-000005.png",
+      "stills/frame-000006.png",
+      "stills/frame-000007.png",
+      "stills/frame-000008.png",
+      "stills/frame-000009.png",
+      "stills/frame-000010.png",
+      "stills/frame-000011.png",
+      "stills/frame-000012.png",
+      "stills/frame-000013.png",
+      "cut-01.png",
+      "cut-02.png",
+      "cut-03.png",
+      "cut-04.png",
+      "cut-05.png",
+      "final.png"
+    ],
+    "render_label": "final-v2",
+    "bundled_renderer_executed": true,
+    "reviewed_at": "2026-10-16T11:11:27.392400+00:00",
+    "agent_visual_review": true,
+    "human_approval": false,
+    "native_playback": {
+      "duration": 28,
+      "ended": true,
+      "error": null,
+      "paused": true,
+      "ready": 4,
+      "time": 28,
+      "first_observed_seconds": 0,
+      "no_manual_seek": true
+    },
+    "source_editor": {
+      "client": 375,
+      "playHeight": 44,
+      "play_enabled": true,
+      "position": 14,
+      "scroll": 375,
+      "sliderFont": "16px",
+      "sliderHeight": 44,
+      "status": "照合した11ファイルから描いています",
+      "verifiedFiles": 11
+    },
+    "source_play_pause": {
+      "label": "一時停止",
+      "pressed": "true"
+    },
+    "readability_review": [
+      "Contact14frames: real three-note input→five provisional findings→F05support1/3andseparatecontradiction→originalP02-L04→differentnotificationpurposes→actualF05Markdown/phoneCTA.",
+      "Full13.5s poster quotes and1/3count match actualsource, separatequotevsinterpretation and supportvscontradiction. SourceUIcrop includes both actual quotes without slicing their text.",
+      "Full16s originalnote and26s/finalframe checked. Corrected v1 clipped final descriptor bymovingtwo baselines; reviewedv2 shows the whole descriptor above persistentfooter.",
+      "12frame source strip and all5 actualMP4 cutstrips inspected; content fades keep step rail/footer context, no full-framewhiteflash or overlappingcriticaltext.",
+      "FinalphoneisactualF05viewport, exportedMarkdownexcerpt is actual saved browser-selected.md. FinalCTA stableover4seconds. Editorial footage, not continuousUI recording or newAIinference."
+    ],
+    "scope": "28s1280x72030fps840frames SILENT.11reviewedlocalassets checked byactualsha256 and source/output relationships. Automaticdeterminism/decoding do not establish artisticquality or humanapproval.",
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "dfcb040e008f53535dffe860bc5415c164fcb6a1034673205c63c8c938189ae1",
+      "afterOtherTimes": "dfcb040e008f53535dffe860bc5415c164fcb6a1034673205c63c8c938189ae1",
+      "freshPage": "dfcb040e008f53535dffe860bc5415c164fcb6a1034673205c63c8c938189ae1",
+      "match": true
+    },
+    "unresolved_blockers": []
+  },
+  "publication": {
+    "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=knowledge-work-plugins-example",
+    "authorization": "User requested sequential publication of40cases toexistingmain andPages."
+  },
+  "artifacts_sha256": {
+    "data/cases/knowledge-work-plugins-example.json": "5a6b68ea8b170399601510ff64879ae8cc6184c767408f65c058b40652b703e3",
+    "examples/knowledge-work-plugins-example/app.js": "637f65faff238c8249d82946ee900488f7aef675638abba03148c8bd4eacc152",
+    "examples/knowledge-work-plugins-example/brief.json": "cf5dd8f5e4b29e8d7072104124e5043117c8762b9bea3bc1536ce0651c69b1d4",
+    "examples/knowledge-work-plugins-example/index.html": "15727ca8d7d991bc82a85c32e14e3edf159039c57ab2b13499c05f116cde5acb",
+    "examples/knowledge-work-plugins-example/input/interviews.json": "dfb411b644fb2ccf84f634a5c1f897681901f71378509a09afd69f36918df6ee",
+    "examples/knowledge-work-plugins-example/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
+    "examples/knowledge-work-plugins-example/outputs/browser-complete.json": "3c55bc5547cd2658224dba7290c6d60b307e5525d3551de99cdcdf82be30cc39",
+    "examples/knowledge-work-plugins-example/outputs/browser-record.json": "16931484c056384293e8511e249449c21a87b3eee8f2aa06f51a38b9f0dc6c8c",
+    "examples/knowledge-work-plugins-example/outputs/browser-selected.md": "21f80ae17f6acabfae68356e841378350aa19ec60e7537d69cfb14129f3caaa4",
+    "examples/knowledge-work-plugins-example/outputs/result.md": "b7349c74f9bc07d3e5c713bce51115d8d6d5b40e3d2e8529b58441d4f2691508",
+    "examples/knowledge-work-plugins-example/outputs/synthesis.json": "08706af7b195e7f62c0e7ac56f8dd166076fd2a818eb25d19de7630f6ee86f24",
+    "examples/knowledge-work-plugins-example/outputs/synthesis.md": "047c0a54940948938ef94cbf7a190866a2fbbc53582e2189a1179da48db21124",
+    "examples/knowledge-work-plugins-example/README.md": "9f3b7a58aa40a7c2b847f06401d42bf90f28134e79c4d67171a022504705432f",
+    "examples/knowledge-work-plugins-example/render.py": "d83975fe9cf3c15d88bb7df38fb592a9cd656063fed1e1161f9f8c1db4f5c5b0",
+    "examples/knowledge-work-plugins-example/request.txt": "279ae3cf9095f9f35697676e27943369ef189463a229cf9ca629c34fdc304b05",
+    "examples/knowledge-work-plugins-example/samples.json": "f024281471d5baaaca2694cf4b1c8b7dc7ec4fc25c81aef09d68f4b024688808",
+    "examples/knowledge-work-plugins-example/source.zip": "6f6472b9432381317dbfe944a26687c02eace34a30e0f80e241287a511ad9a23",
+    "examples/knowledge-work-plugins-example/style.css": "f0edfa7782f9acc2966368999a1cb0abf28313711666a1b84509f01de151b44f",
+    "examples/knowledge-work-plugins-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/knowledge-work-plugins-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/knowledge-work-plugins-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/knowledge-work-plugins-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/knowledge-work-plugins-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "examples/knowledge-work-plugins-example/vendor/knowledge-work-plugins/LICENSE": "a6946284993aeec75c7d75906064b66210c46051e562077efb30eb6dcfe72e26",
+    "examples/knowledge-work-plugins-example/vendor/knowledge-work-plugins/product-management/.claude-plugin/plugin.json": "69742e798d5052d41188b877c1ab39c7184bdf03ae946bbaeb794fd20c8e5f85",
+    "examples/knowledge-work-plugins-example/vendor/knowledge-work-plugins/product-management/CONNECTORS.md": "f52733eb0cd1b46f96cbf15bd9d8dd5215c9341d9323f42da076bcddccda2f5e",
+    "examples/knowledge-work-plugins-example/vendor/knowledge-work-plugins/product-management/LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "examples/knowledge-work-plugins-example/vendor/knowledge-work-plugins/product-management/README.md": "44c21947033cdff521f01adc77f1cf38ea71abe0027cf1d625090ac949a13b9f",
+    "examples/knowledge-work-plugins-example/vendor/knowledge-work-plugins/product-management/skills/synthesize-research/SKILL.md": "ae98c11102545c911a1ea5d8527be0e08a3db8e53327f2865f0db19bbb2d7e9c",
+    "examples/knowledge-work-plugins-example/vendor/knowledge-work-plugins/README.md": "6db45ae725346e38fa0b6b921aba4fe8489c4d9735986876d366ba5768010b14",
+    "examples/knowledge-work-plugins-example/verification.json": "82fdc674b875392a99d2763844c755d44c284ac923223319fdea5e93678a0f17",
+    "examples/knowledge-work-plugins-example/video/assets/data-hashes.json": "f0cfc61ed9b6a24cdc88b5ded4f2e608d27b6ef653b65a6f2a4da31680d95b90",
+    "examples/knowledge-work-plugins-example/video/assets/desktop-calendar.png": "29d34462039c8431967d36c9fa10f3fbfdfdeb3f30c2346102041c72ca48d4b0",
+    "examples/knowledge-work-plugins-example/video/assets/desktop-first.png": "835c066d89d9ad164beb88c47befb8f6633cf0a614d4f521c2f5f2d222e0d069",
+    "examples/knowledge-work-plugins-example/video/assets/desktop-notifications.png": "ac0540d7e70de6ebf457338a9b1c44679136ff2991f899fbeb7b04cc3f420fc0",
+    "examples/knowledge-work-plugins-example/video/assets/desktop-origin.png": "7dd8374fa0bb752163166c1616baf4d30d845ce7aecb3a8d2c11705d67a7bcce",
+    "examples/knowledge-work-plugins-example/video/assets/phone-calendar.png": "7912b731a105a392e759a28dd41dcfbf50c0f0bb1951c2d54a14eed1b9ffb627",
+    "examples/knowledge-work-plugins-example/video/assets/phone-initial.png": "1bad5f821e8d13f4aac2284d1f9feb4ca3cfb4917899a77b65de65e7c2f6a464",
+    "examples/knowledge-work-plugins-example/video/assets/screen-manifest.json": "ce5ff1db043509ff994344fbbff045e4d1e79326f3ddaf56353d8706cea757c7",
+    "examples/knowledge-work-plugins-example/video/index.html": "66375d493893c2bcbc37400d95731c2600c039eb8faf26e6875f8478d9e24769",
+    "examples/knowledge-work-plugins-example/video/README.md": "809578dd414fd301fbe34079037d8034ec5d9680bf593fad62401598883853f0",
+    "examples/knowledge-work-plugins-example/video/review/contact.png": "78c40ad8b9f6ad9cf81fe8cf751a5dfa3f2c91abb47c265f3849ffa9c479d7cf",
+    "examples/knowledge-work-plugins-example/video/review/cut-01.png": "c18a08d997a280f8b662e44dab28c7c1074f4ea9a0bb829eea60d5ab299cc77c",
+    "examples/knowledge-work-plugins-example/video/review/cut-02.png": "f132cb8ebefd9fabb120db1b2d1ca4469378e6bb7536aca6ff74b1cc60f9deda",
+    "examples/knowledge-work-plugins-example/video/review/cut-03.png": "e0133e261dd942702fe7ddd36ebe4b92955840d8d92dd4c92bd41b5c1935246d",
+    "examples/knowledge-work-plugins-example/video/review/cut-04.png": "03a5255c25924165733a7794a465785fd1d363136467d6fe2e496d74d057e016",
+    "examples/knowledge-work-plugins-example/video/review/cut-05.png": "e9eb13d0ae5a703ba61292e2021044cab3c3652c34996ac4092276928c3d15fe",
+    "examples/knowledge-work-plugins-example/video/review/final.png": "1740a948e2bccef96b39e6d37e23999783f52412509bf97d36b5c6c4eb6bc351",
+    "examples/knowledge-work-plugins-example/video/review/poster.png": "024ca7516e0f695bb3f06cfba78122254e6a753034a8f67328502faebe8fae97",
+    "examples/knowledge-work-plugins-example/video/review/stills/frame-000000.png": "1020dfa93e538f7fe7274588315de4035154f06ee4afd6d14a29070d9b83001d",
+    "examples/knowledge-work-plugins-example/video/review/stills/frame-000001.png": "d65725c725eccc0e0fb4d4d53019921902047347b568005d5c45e3dd50720aee",
+    "examples/knowledge-work-plugins-example/video/review/stills/frame-000002.png": "d65725c725eccc0e0fb4d4d53019921902047347b568005d5c45e3dd50720aee",
+    "examples/knowledge-work-plugins-example/video/review/stills/frame-000003.png": "b28552fa3a8244717e46c04f0c55625fc85bc571b433bb6acc0d2882db65984c",
+    "examples/knowledge-work-plugins-example/video/review/stills/frame-000004.png": "33bfdef6c2f954b74962749c9b6db818eb670fa328eefcb50fcc85275751fd1f",
+    "examples/knowledge-work-plugins-example/video/review/stills/frame-000005.png": "9fcf4f478e9762ff9e7a4ba665d86ee4b747f3dc05ceed61882a326eb7701289",
+    "examples/knowledge-work-plugins-example/video/review/stills/frame-000006.png": "024ca7516e0f695bb3f06cfba78122254e6a753034a8f67328502faebe8fae97",
+    "examples/knowledge-work-plugins-example/video/review/stills/frame-000007.png": "f8f90511cb9bec6f8f57c85159eb72512f23f6bd1f75f721a5f6bd6ef3e42c28",
+    "examples/knowledge-work-plugins-example/video/review/stills/frame-000008.png": "70069a4c2d924557fe684cd3817125294fc908b2df5ff8f39510ab0c2982b232",
+    "examples/knowledge-work-plugins-example/video/review/stills/frame-000009.png": "f147bc7f43039aba10faaa0f2ea357ec58d04dcadeb7eb7aa93364bc0761f74b",
+    "examples/knowledge-work-plugins-example/video/review/stills/frame-000010.png": "6b1a5a663bbdc8f3d5a5ab293f5010ca4cb4508e033c23dcb72755a85e91c3f6",
+    "examples/knowledge-work-plugins-example/video/review/stills/frame-000011.png": "91a7462129eca399932e834ca2f4d7f54bba9e55fb1038db055b82a054076edb",
+    "examples/knowledge-work-plugins-example/video/review/stills/frame-000012.png": "25c1e434dfb87fb9bf407cbc80bfcbd163bb1aaadf0731b8d170476c24c33e8f",
+    "examples/knowledge-work-plugins-example/video/review/stills/frame-000013.png": "25c1e434dfb87fb9bf407cbc80bfcbd163bb1aaadf0731b8d170476c24c33e8f",
+    "examples/knowledge-work-plugins-example/video/review/strip.png": "9b39255cad692bfb7c01809f3daacf5fa914594590caf75cf14e7e11e97df2f2",
+    "examples/knowledge-work-plugins-example/video/storyboard.json": "d48a55301aabe2811d338c5bc3a77a9e94aebefd0fef1e8b740f422a4f940dff",
+    "examples/knowledge-work-plugins-example/video/video.css": "906bc99d5be64015dcbba16f84d8d890407cf0aad58d0d63c8d9d0a17906c169",
+    "examples/knowledge-work-plugins-example/video/video.js": "94ce79129e66e5e5f506835e93a209f73477dd7409467d1ef9263de8f9105935",
+    "media/knowledge-work-plugins-example.mp4": "e6a19be5ea01e17cb67f28d3af439144c8149371e9b7d3be173106fee8644b0c",
+    "media/knowledge-work-plugins-example.webp": "6b3fd4db124e91546faa35f975a885242b5b63c6aaeb9001258ff113d090f20c"
+  }
+}
