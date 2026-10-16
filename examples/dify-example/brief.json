@@ -1,0 +1,66 @@
+{
+  "title": "Dify作例：架空の問い合わせ8件を、Dify DSL のルールで3つの担当へ振り分け、日本語の引き継ぎメモを作る",
+  "request": "架空の店舗FAQを入力に、検索した根拠を付けて回答するワークフローを作ってください。回答できる質問と根拠がない質問の両方を確認してください。入力、出力、実行した検証、未確認の点を記録してください。",
+  "category": "automation",
+  "audience": "問い合わせの振り分けや引き継ぎを、Dify のワークフローで形にしたい日本語の読者・制作担当",
+  "goal": "問い合わせ1件を書く → 担当を1つ選ぶ → 日本語の引き継ぎメモを作る、という流れを Dify DSL に書き、Dify が依存に指定する graphon 0.7.0 の DSL ランタイムで架空の8件を実際に実行して、入力・選ばれた分岐・メモ・イベントを保存した JSON と DSL をスマホで読めるようにする",
+  "inputs": [
+    "input/tickets.json（制作側が実行前に作った架空の問い合わせ8件 D01〜D08。番号・種類・緊急度・影響人数・件名・本文）",
+    "input/expected.json（実行前に決めた各件の分岐 urgent・billing・false と、判定の順）",
+    "langgenius/dify 固定コミット f77facfe6520ed379d723288aed0b4806ad76143（1.17.1）の README・LICENSE・api/pyproject.toml・api/core/workflow の3ファイル・テスト1件・skills/difyctl/SKILL.md の8ファイル",
+    "graphon 0.7.0 の公式 wheel の中身（vendor/graphon-wheel、配布情報付き）。原典と合わせて292ファイルを vendor-lock.json で固定"
+  ],
+  "skill_refs": [
+    "skills/brief-to-demo/SKILL.md",
+    "https://github.com/langgenius/dify/blob/f77facfe6520ed379d723288aed0b4806ad76143/README.md",
+    "https://github.com/langgenius/dify/blob/f77facfe6520ed379d723288aed0b4806ad76143/LICENSE",
+    "https://github.com/langgenius/dify/blob/f77facfe6520ed379d723288aed0b4806ad76143/api/pyproject.toml",
+    "https://github.com/langgenius/dify/blob/f77facfe6520ed379d723288aed0b4806ad76143/api/core/workflow/graph_topology.py",
+    "https://pypi.org/project/graphon/0.7.0/"
+  ],
+  "deliverables": [
+    "workflow.yml（独自の Dify DSL。開始・if-else・template-transform×3・variable-aggregator・終了の7ノード）",
+    "run.py（原典と入力を照合し、graphon.dsl.inspect・loads・GraphEngine.run と Dify の WorkflowGraphTopology を使って8件と DSL の確認2件を実行する CLI）",
+    "outputs/workflow-runs.json（制作側の実行で作る記録。ページはこれを読む）",
+    "index.html・style.css・app.js（保存した記録を読むスマホ優先のページ）",
+    "outputs/method.md・README.md・request.txt"
+  ],
+  "steps": [
+    "架空の問い合わせ8件と期待する分岐を、実行の前に2ファイルへ固定する（制作側）",
+    "問い合わせの6項目、上から順の3分岐、同じ7行の形のメモ3つ、まとめ、終了を Dify DSL に書く",
+    "原典292ファイル・ロック・入力をハッシュで照合し、Python の通信・子プロセスの API を数えて拒否する仕組みを入れてから、同梱の graphon を読み込む",
+    "DSL を inspect で確かめ、Dify の WorkflowGraphTopology で同じグラフのつながりを確かめる",
+    "8件を1件ずつ loads と engine.run() で実行し、エンジンが返した分岐・成功したノードの順・メモ・イベントを記録して、実行前の期待値と照らす",
+    "壊れた YAML と開始ノードが2つの DSL を渡し、実際の DslError を記録する",
+    "すべて通ったときだけ記録を1回書き、ページでハッシュと固定版・8件・確認の合否を確かめてから表示する"
+  ],
+  "acceptance": [
+    "run.py が、原典・ロック・入力・依存の版のどれかが合わないとき、通信や子プロセスの試みが1件でもあるとき、確認が1つでも外れたときに、公開用の記録を書かずに0以外で終わる",
+    "8件すべてで、エンジンの selected_case_id が input/expected.json と一致し、成功したノードが start → route → 担当のメモ1つ → merge → end の順になる",
+    "D06（請求で至急）が請求窓口ではなく優先対応へ、D04（99人）が通常窓口、D05（100人）が優先対応へ進む",
+    "D07 の {{ 7 * 7 }} と <script>alert(\"demo\")</script> がメモに文字のまま残り、49 にもエスケープ文字にもならない。ページでも文字として表示される",
+    "D08（0人・空の本文）が失敗せず、本文の行が空のまま、None と表示されない",
+    "壊れた YAML が parse.invalid_yaml、開始ノード2つが graph.root_ambiguous の DslError になり、その文面が記録される",
+    "記録に手元の絶対パス・環境変数・認証情報・ログ全文が入らず、既にある記録を上書きしない",
+    "ページが記録・入力2件・DSL・ロックを取得し、SHA-256・固定版・292ファイル・8件・通信0件・確認の合格を確かめてから表示し、合わなければ理由と再読み込みだけを出す",
+    "選択欄と #D05 のようなリンクで8件を切り替えられ、戻る・進むでも同じ件に戻る。選んだ1件を dify-D05.json として保存でき、依頼文をコピーできる",
+    "320・375・390・430px縦、844px横、1280pxで横スクロールがなく、操作部品が44px以上、選択欄の文字が16px以上"
+  ],
+  "assumptions": [
+    "掲載項目の依頼は「店舗FAQと検索した根拠での回答」だが、モデルの API・キー・ナレッジの接続を使わない範囲で実際に動かせるよう、問い合わせの振り分けと引き継ぎメモに置き換える。検索・根拠付きの回答・LLM は試さない",
+    "Dify のサーバー（Docker）・管理画面・API・difyctl は使わない。Dify が依存に指定する graphon の DSL ランタイムと、Dify 本体の WorkflowGraphTopology を、改変せずに直接呼ぶ",
+    "vendor/dify/skills/difyctl/SKILL.md はサーバーにつなぐ CLI の手順のため、範囲の確認に読むだけで使わない",
+    "依存は、使うノードの範囲で必要な28件に限る。graphon の文書処理・モデル関係の依存は入れず、その機能は確かめない",
+    "入力フォームでの選択肢・必須の検証は、この DSL ランタイムの確認に含めない",
+    "ページは保存した記録を読むだけで、ブラウザー内で Dify・graphon・Python・AI を動かさず、分岐も計算し直さない",
+    "短い解説動画（Motion Reel）は、実行記録とページができた後に制作側で作る"
+  ],
+  "production_result": {
+    "actual_inputs": 8,
+    "runtime_checks": 196,
+    "independent_topology_pairs": 49,
+    "fresh_cli_reproduction": true,
+    "short_movie": "28 seconds; silent; actual outputs/screens; frame/decode/native playback checked",
+    "human_approval": false
+  }
+}

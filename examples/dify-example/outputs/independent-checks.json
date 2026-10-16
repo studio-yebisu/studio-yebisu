@@ -1,0 +1,416 @@
+{
+  "status": "passed",
+  "method": "Independent Python fixture oracle and direct actual-event/edge/result comparison; unmodified Dify WorkflowGraphTopology compared against a separate stdlib traversal over all49 node pairs. Not an independent human review.",
+  "source_commit": "f77facfe6520ed379d723288aed0b4806ad76143",
+  "run_sha256": "692cc2f8b07ca77a8b3ccdae0a8abc4359e8a8804985bc4b75db1b56241e6694",
+  "source_files_verified": 292,
+  "cases": [
+    {
+      "id": "D01",
+      "route": "urgent",
+      "actual_node_path": [
+        "start",
+        "route",
+        "urgent-note",
+        "merge",
+        "end"
+      ],
+      "actual_edges": 4,
+      "exact_input_and_final_event": true,
+      "memo_is_real_node_output": true,
+      "llm_tokens": 0
+    },
+    {
+      "id": "D02",
+      "route": "billing",
+      "actual_node_path": [
+        "start",
+        "route",
+        "billing-note",
+        "merge",
+        "end"
+      ],
+      "actual_edges": 4,
+      "exact_input_and_final_event": true,
+      "memo_is_real_node_output": true,
+      "llm_tokens": 0
+    },
+    {
+      "id": "D03",
+      "route": "false",
+      "actual_node_path": [
+        "start",
+        "route",
+        "support-note",
+        "merge",
+        "end"
+      ],
+      "actual_edges": 4,
+      "exact_input_and_final_event": true,
+      "memo_is_real_node_output": true,
+      "llm_tokens": 0
+    },
+    {
+      "id": "D04",
+      "route": "false",
+      "actual_node_path": [
+        "start",
+        "route",
+        "support-note",
+        "merge",
+        "end"
+      ],
+      "actual_edges": 4,
+      "exact_input_and_final_event": true,
+      "memo_is_real_node_output": true,
+      "llm_tokens": 0
+    },
+    {
+      "id": "D05",
+      "route": "urgent",
+      "actual_node_path": [
+        "start",
+        "route",
+        "urgent-note",
+        "merge",
+        "end"
+      ],
+      "actual_edges": 4,
+      "exact_input_and_final_event": true,
+      "memo_is_real_node_output": true,
+      "llm_tokens": 0
+    },
+    {
+      "id": "D06",
+      "route": "urgent",
+      "actual_node_path": [
+        "start",
+        "route",
+        "urgent-note",
+        "merge",
+        "end"
+      ],
+      "actual_edges": 4,
+      "exact_input_and_final_event": true,
+      "memo_is_real_node_output": true,
+      "llm_tokens": 0
+    },
+    {
+      "id": "D07",
+      "route": "false",
+      "actual_node_path": [
+        "start",
+        "route",
+        "support-note",
+        "merge",
+        "end"
+      ],
+      "actual_edges": 4,
+      "exact_input_and_final_event": true,
+      "memo_is_real_node_output": true,
+      "llm_tokens": 0
+    },
+    {
+      "id": "D08",
+      "route": "false",
+      "actual_node_path": [
+        "start",
+        "route",
+        "support-note",
+        "merge",
+        "end"
+      ],
+      "actual_edges": 4,
+      "exact_input_and_final_event": true,
+      "memo_is_real_node_output": true,
+      "llm_tokens": 0
+    }
+  ],
+  "route_counts": {
+    "優先対応": 3,
+    "請求窓口": 1,
+    "通常窓口": 4
+  },
+  "all49_topology_pairs_match": true,
+  "topology_pairs": [
+    {
+      "source": "billing-note",
+      "target": "billing-note",
+      "upstream": false
+    },
+    {
+      "source": "billing-note",
+      "target": "end",
+      "upstream": true
+    },
+    {
+      "source": "billing-note",
+      "target": "merge",
+      "upstream": true
+    },
+    {
+      "source": "billing-note",
+      "target": "route",
+      "upstream": false
+    },
+    {
+      "source": "billing-note",
+      "target": "start",
+      "upstream": false
+    },
+    {
+      "source": "billing-note",
+      "target": "support-note",
+      "upstream": false
+    },
+    {
+      "source": "billing-note",
+      "target": "urgent-note",
+      "upstream": false
+    },
+    {
+      "source": "end",
+      "target": "billing-note",
+      "upstream": false
+    },
+    {
+      "source": "end",
+      "target": "end",
+      "upstream": false
+    },
+    {
+      "source": "end",
+      "target": "merge",
+      "upstream": false
+    },
+    {
+      "source": "end",
+      "target": "route",
+      "upstream": false
+    },
+    {
+      "source": "end",
+      "target": "start",
+      "upstream": false
+    },
+    {
+      "source": "end",
+      "target": "support-note",
+      "upstream": false
+    },
+    {
+      "source": "end",
+      "target": "urgent-note",
+      "upstream": false
+    },
+    {
+      "source": "merge",
+      "target": "billing-note",
+      "upstream": false
+    },
+    {
+      "source": "merge",
+      "target": "end",
+      "upstream": true
+    },
+    {
+      "source": "merge",
+      "target": "merge",
+      "upstream": false
+    },
+    {
+      "source": "merge",
+      "target": "route",
+      "upstream": false
+    },
+    {
+      "source": "merge",
+      "target": "start",
+      "upstream": false
+    },
+    {
+      "source": "merge",
+      "target": "support-note",
+      "upstream": false
+    },
+    {
+      "source": "merge",
+      "target": "urgent-note",
+      "upstream": false
+    },
+    {
+      "source": "route",
+      "target": "billing-note",
+      "upstream": true
+    },
+    {
+      "source": "route",
+      "target": "end",
+      "upstream": true
+    },
+    {
+      "source": "route",
+      "target": "merge",
+      "upstream": true
+    },
+    {
+      "source": "route",
+      "target": "route",
+      "upstream": false
+    },
+    {
+      "source": "route",
+      "target": "start",
+      "upstream": false
+    },
+    {
+      "source": "route",
+      "target": "support-note",
+      "upstream": true
+    },
+    {
+      "source": "route",
+      "target": "urgent-note",
+      "upstream": true
+    },
+    {
+      "source": "start",
+      "target": "billing-note",
+      "upstream": true
+    },
+    {
+      "source": "start",
+      "target": "end",
+      "upstream": true
+    },
+    {
+      "source": "start",
+      "target": "merge",
+      "upstream": true
+    },
+    {
+      "source": "start",
+      "target": "route",
+      "upstream": true
+    },
+    {
+      "source": "start",
+      "target": "start",
+      "upstream": false
+    },
+    {
+      "source": "start",
+      "target": "support-note",
+      "upstream": true
+    },
+    {
+      "source": "start",
+      "target": "urgent-note",
+      "upstream": true
+    },
+    {
+      "source": "support-note",
+      "target": "billing-note",
+      "upstream": false
+    },
+    {
+      "source": "support-note",
+      "target": "end",
+      "upstream": true
+    },
+    {
+      "source": "support-note",
+      "target": "merge",
+      "upstream": true
+    },
+    {
+      "source": "support-note",
+      "target": "route",
+      "upstream": false
+    },
+    {
+      "source": "support-note",
+      "target": "start",
+      "upstream": false
+    },
+    {
+      "source": "support-note",
+      "target": "support-note",
+      "upstream": false
+    },
+    {
+      "source": "support-note",
+      "target": "urgent-note",
+      "upstream": false
+    },
+    {
+      "source": "urgent-note",
+      "target": "billing-note",
+      "upstream": false
+    },
+    {
+      "source": "urgent-note",
+      "target": "end",
+      "upstream": true
+    },
+    {
+      "source": "urgent-note",
+      "target": "merge",
+      "upstream": true
+    },
+    {
+      "source": "urgent-note",
+      "target": "route",
+      "upstream": false
+    },
+    {
+      "source": "urgent-note",
+      "target": "start",
+      "upstream": false
+    },
+    {
+      "source": "urgent-note",
+      "target": "support-note",
+      "upstream": false
+    },
+    {
+      "source": "urgent-note",
+      "target": "urgent-note",
+      "upstream": false
+    }
+  ],
+  "dify_topology_source_sha256": "d9173a0b62054dbce68a6f9d7b67b045442b552e55d617eee8e0015ad62566ef",
+  "raw_api_record_unchanged": true,
+  "invalid_dsl_actual_errors": [
+    {
+      "id": "P01",
+      "input_description": "YAML の角かっこを閉じていない短い文字列（kind: app / version: 0.3.0 / app: [mode: workflow）。",
+      "api": "graphon.dsl.inspect",
+      "error": {
+        "name": "DslError",
+        "code": "parse.invalid_yaml",
+        "message": "Invalid YAML DSL.",
+        "details": {}
+      }
+    },
+    {
+      "id": "P02",
+      "input_description": "workflow.yml を読み込んだ後、開始ノードの複製（ID start-duplicate、エッジなし）を1つ足して YAML に戻したもの。",
+      "api": "graphon.dsl.inspect → graphon.dsl.loads",
+      "inspect_load_status": "loadable",
+      "error": {
+        "name": "DslError",
+        "code": "graph.root_ambiguous",
+        "message": "DSL graph must contain exactly one start node unless root_node_id is set.",
+        "details": {
+          "root_node_candidates": [
+            "start",
+            "start-duplicate"
+          ]
+        }
+      }
+    }
+  ],
+  "physical_ios_tested": false,
+  "human_approval": false
+}

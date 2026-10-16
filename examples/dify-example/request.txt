@@ -1,0 +1,40 @@
+問い合わせ1件を書いて渡すと、決めたルールで担当（優先対応・請求窓口・通常窓口）を1つ選び、日本語の引き継ぎメモを返す Dify 形式のワークフロー（DSL）を作り、Dify が依存に指定する graphon の DSL ランタイムで実際に実行してください。結果は、入力・選ばれた分岐・メモ・エンジンのイベントを保存した JSON にし、スマホで読める日本語のページで確かめられるようにしてください。
+
+読む原典（固定版）
+・Dify README：https://github.com/langgenius/dify/blob/f77facfe6520ed379d723288aed0b4806ad76143/README.md
+・Dify LICENSE（Apache 2.0 を基にした Dify Open Source License。追加条件あり）：https://github.com/langgenius/dify/blob/f77facfe6520ed379d723288aed0b4806ad76143/LICENSE
+・graphon==0.7.0 を宣言する api/pyproject.toml：https://github.com/langgenius/dify/blob/f77facfe6520ed379d723288aed0b4806ad76143/api/pyproject.toml
+・WorkflowGraphTopology：https://github.com/langgenius/dify/blob/f77facfe6520ed379d723288aed0b4806ad76143/api/core/workflow/graph_topology.py
+・graphon 0.7.0（公式 wheel）：https://pypi.org/project/graphon/0.7.0/
+
+入力（ここを差し替える。実行の前に固定し、結果を見てから変えない）
+・問い合わせ：ticket_id・issue（操作／請求／相談）・urgency（通常／至急）・affected_users（0以上の整数）・subject・body（空でもよい）。すべて架空にする（この作例では D01〜D08 の8件）
+・期待する分岐：各問い合わせの urgent・billing・false を、実行の前に別のファイルへ書く
+
+ワークフロー（workflow.yml）
+・kind: app、version: 0.3.0、mode: workflow。dependencies・環境変数・会話変数は空。モデル・ツール・プラグイン・認証・URL は書かない
+・7ノード：開始（6項目）→ if-else（上から順に、1. 至急 または 影響人数 ≥ 100 → urgent、2. 種類が請求 → billing、3. それ以外 → false）→ 担当ごとの template-transform 3つ → variable-aggregator → 終了（text と selected_case_id）
+・3つのメモは同じ7行の形（担当・問い合わせ番号・件名・種類と緊急度と人数・本文・次の対応）。入力は Jinja の変数としてだけ差し込む
+
+進め方
+1. 原典のファイル・ロック・入力をハッシュで照合してから始める。graphon は pip で入れず、同梱した wheel の中身を sys.path の先頭から読み込む。依存は requirements-runtime.txt の28件だけを非公開の仮想環境に入れる
+2. 原典を読み込む前に、Python の通信・子プロセスの API を数えて拒否する仕組みを入れ、試みが1件でもあれば失敗にする
+3. graphon.dsl.inspect で DSL を確かめ、Dify の WorkflowGraphTopology で同じグラフのつながりを確かめる
+4. 8件それぞれを graphon.dsl.loads（credentials なし、ワーカー1つ）と engine.run() で実行し、イベントを model_dump(mode="json") のまま残す。分岐は期待値から作らず、エンジンが返した selected_case_id と成功したノードの順を記録して照らし合わせる
+5. 請求で至急（D06）は優先対応、影響99人（D04）は通常窓口・100人（D05）は優先対応になること、{{ 7 * 7 }} や <script> を含む入力（D07）が文字のまま残ること、0人で本文が空（D08）でも失敗しないことを確かめる
+6. 壊れた YAML と、開始ノードが2つの DSL を渡し、実際の DslError（名前・コード・文面）を記録する
+7. すべての確認が通ったときだけ outputs/workflow-runs.json を1回書く。既にある記録は上書きしない。手元の絶対パス・環境変数・認証情報・ログ全文は書かない
+
+ページでできること
+・問い合わせを選び、件名・種類・緊急度・人数、選ばれた担当、引き継ぎメモの全文、通った7ノードの道筋を読む。入力と出力、エンジンのイベントの JSON も全文で開ける
+・記録・入力・DSL・ロックを取得し、固定版と SHA-256・8件・確認の合否を確かめてから表示する。合わなければ理由と「もう一度読み込む」だけを出す
+・選んだ1件を dify-D05.json のような JSON で保存し、この依頼文をコピーする
+・320px幅のスマホから1280px幅のパソコンまで横スクロールなし。操作部品は44px以上、入力欄の文字は16px以上。外部のフォント・CDN・計測・AI の呼び出しは使わない
+
+書かないこと
+・値の比較とテンプレートの差し込みを、AI による文章の分類や要約として書かない
+・graphon の DSL ランタイムでの実行を、Dify のサーバー・管理画面・API・difyctl での実行や、Dify の画面への取り込みとして書かない
+・Dify のライセンスを、そのままの Apache-2.0 や MIT として書かない
+・コードや文章を書いた AI と、ワークフローを実行した graphon を混同しない
+
+最後に、作ったファイル、実際に実行したコマンドとその結果、まだ確かめていない点を分けて書いてください。

@@ -1,0 +1,143 @@
+{
+  "case_id": "dify-example",
+  "verified_at": "2026-10-16T20:30:01.901504+00:00",
+  "stage": "technical_qa_complete",
+  "runtime": {
+    "status": "passed",
+    "source_commit": "f77facfe6520ed379d723288aed0b4806ad76143",
+    "source_version": "1.17.1",
+    "runtime_dependency": "graphon==0.7.0 (exact official Dify uv.lock wheel)",
+    "sample_count": 8,
+    "checks": 196,
+    "events": 160,
+    "route_counts": {
+      "優先対応": 3,
+      "請求窓口": 1,
+      "通常窓口": 4
+    },
+    "network_attempts": 0,
+    "process_attempts": 0,
+    "independent_event_oracle_check": "passed",
+    "topology_pairs": 49,
+    "fresh_cli_reproduction": "passed",
+    "server_started": false,
+    "llm_called": false
+  },
+  "browser": {
+    "status": "passed",
+    "responsive_states": 6,
+    "widths": [
+      320,
+      375,
+      390,
+      430,
+      844,
+      1280
+    ],
+    "target_minimum_px": 44,
+    "form_font_minimum_px": 16,
+    "all_eight_input_output_events_exact": true,
+    "native_picker_and_desktop_buttons_verified": true,
+    "raw_dom_compared_as_text": true,
+    "native_export_matches_record": true,
+    "native_export_bytes": 21898,
+    "http503_parse_validation_retry": true,
+    "errors_hide_stale_and_disable_picker_export": true,
+    "clipboard_matches_original_request": true,
+    "clipboard_utf8_bytes": 5369,
+    "native_disclosures_verified": true,
+    "native_back_restores_sample": true,
+    "keyboard_enter_space": true,
+    "literal_input_stays_text": true,
+    "agent_visual_review": true,
+    "physical_ios_tested": false,
+    "voiceover_tested": false,
+    "human_approval": false
+  },
+  "video": {
+    "duration_seconds": 28,
+    "fps": 30,
+    "width": 1280,
+    "height": 720,
+    "frames": 840,
+    "silent": true,
+    "full_decode": true,
+    "direct_native_ended": true,
+    "editor_seek_and_play_pause": true,
+    "frame_visual_review": {
+      "status": "passed",
+      "agent_visual_review": true,
+      "human_approval": false,
+      "reviewed": [
+        "video/review/contact.png (14 actual representative frames)",
+        "video/review/poster.png",
+        "video/review/final.png",
+        "video/review/cut-01.png",
+        "video/review/cut-02.png",
+        "video/review/cut-03.png",
+        "video/review/cut-04.png",
+        "video/review/cut-05.png",
+        "MP4 decoded360px frames9.5/16.8/26.4s",
+        "Actual native source editor14s"
+      ],
+      "observations": [
+        "Main Japanese titles, rule precedence,99/100 boundary and3/1/4 counts are readable at360px; IDs, tiny file captions and screenshots are supplementary.",
+        "Five intentional short paper fades between scenes show the next heading/card arriving; no unintended overlap or clipped main copy found.",
+        "D04actual99/normal andD05actual100/urgent, D06billing+urgent, D07literal data and final8count/screens agree with frozen outputs.",
+        "Final result/message remains through the last frame; silent28second delivery has no audio stream."
+      ],
+      "deterministic_same_environment": {
+        "frame": 504,
+        "seconds": 16.8,
+        "first": "21aab95644f7298f1dc217a6d9740b776f32f4c5d691d4a191f8c2921542d907",
+        "afterOtherTimes": "21aab95644f7298f1dc217a6d9740b776f32f4c5d691d4a191f8c2921542d907",
+        "freshPage": "21aab95644f7298f1dc217a6d9740b776f32f4c5d691d4a191f8c2921542d907",
+        "match": true
+      },
+      "unresolved_blockers": [],
+      "physical_ios_tested": false
+    },
+    "technical": {
+      "video_sha256": "e130a4eeefc53b4438dfdaf50e937ac847c2237ff670027a81667e1f9e8f8507",
+      "poster_sha256": "882611dd4e93fa3b2f8d4218814c702fc7e22f5dff2ba031d838734e666b8562",
+      "poster_from_mp4_seconds": 13.5,
+      "full_decode_passed": true,
+      "review_files": [
+        "contact.png",
+        "poster.png",
+        "strip.png",
+        "stills/frame-000000.png",
+        "stills/frame-000001.png",
+        "stills/frame-000002.png",
+        "stills/frame-000003.png",
+        "stills/frame-000004.png",
+        "stills/frame-000005.png",
+        "stills/frame-000006.png",
+        "stills/frame-000007.png",
+        "stills/frame-000008.png",
+        "stills/frame-000009.png",
+        "stills/frame-000010.png",
+        "stills/frame-000011.png",
+        "stills/frame-000012.png",
+        "stills/frame-000013.png",
+        "cut-01.png",
+        "cut-02.png",
+        "cut-03.png",
+        "cut-04.png",
+        "cut-05.png",
+        "final.png"
+      ],
+      "render_label": "final",
+      "bundled_renderer_executed": true
+    }
+  },
+  "authorship": {
+    "model": "claude-opus-5-5",
+    "model_scope": "DSL, implementation, original viewer/Japanese explanations, film edit source; minimal receipt digests in data/production.",
+    "production_scope": "Fictional input fixtures, actual execution, independent event/topology checks, separate CLI replay, native/browser/frame review, phone UI refinements, packaging."
+  },
+  "scope": "Headless execution of Dify DSL through the exact official Graphon dependency plus the unmodified Dify WorkflowGraphTopology API. No Dify server, console, difyctl, LLM/semantic classification or web-console DSL import tested.",
+  "physical_ios_tested": false,
+  "human_approval": false,
+  "publication": "Live publication is checked separately after scoped deployment."
+}

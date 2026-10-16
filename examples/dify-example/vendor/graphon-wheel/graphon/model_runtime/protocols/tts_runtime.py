@@ -1,0 +1,41 @@
+from __future__ import annotations
+
+from abc import abstractmethod
+from collections.abc import Iterable, Mapping
+from typing import Any, Protocol, TypedDict, runtime_checkable
+
+from graphon.model_runtime.protocols.provider_runtime import ModelProviderRuntime
+
+
+class TTSModelVoice(TypedDict):
+    """Voice option returned by TTS model runtimes."""
+
+    name: str
+    value: str
+
+
+@runtime_checkable
+class TTSModelRuntime(ModelProviderRuntime, Protocol):
+    """Runtime surface required by text-to-speech model wrappers."""
+
+    @abstractmethod
+    def invoke_tts(
+        self,
+        *,
+        provider: str,
+        model: str,
+        credentials: dict[str, Any],
+        content_text: str,
+        voice: str,
+        request_metadata: Mapping[str, object] | None = None,
+    ) -> Iterable[bytes]: ...
+
+    @abstractmethod
+    def get_tts_model_voices(
+        self,
+        *,
+        provider: str,
+        model: str,
+        credentials: dict[str, Any],
+        language: str | None,
+    ) -> list[TTSModelVoice]: ...

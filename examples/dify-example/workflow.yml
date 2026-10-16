@@ -1,0 +1,445 @@
+app:
+  description: 架空の問い合わせを、決めたルールで3つの担当へ振り分け、日本語の引き継ぎメモを作るワークフロー。モデル・ツール・外部接続は使わない。
+  icon: 📮
+  icon_background: '#E6F0EF'
+  icon_type: emoji
+  mode: workflow
+  name: 問い合わせの振り分けメモ
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.3.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      enabled: false
+    opening_statement: ''
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: start-source-route-target
+      source: start
+      sourceHandle: source
+      target: route
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: template-transform
+      id: route-urgent-urgent-note-target
+      source: route
+      sourceHandle: urgent
+      target: urgent-note
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: template-transform
+      id: route-billing-billing-note-target
+      source: route
+      sourceHandle: billing
+      target: billing-note
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: template-transform
+      id: route-false-support-note-target
+      source: route
+      sourceHandle: 'false'
+      target: support-note
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: variable-aggregator
+      id: urgent-note-source-merge-target
+      source: urgent-note
+      sourceHandle: source
+      target: merge
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: variable-aggregator
+      id: billing-note-source-merge-target
+      source: billing-note
+      sourceHandle: source
+      target: merge
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: variable-aggregator
+      id: support-note-source-merge-target
+      source: support-note
+      sourceHandle: source
+      target: merge
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: variable-aggregator
+        targetType: end
+      id: merge-source-end-target
+      source: merge
+      sourceHandle: source
+      target: end
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: 問い合わせ1件の6項目を受け取る。本文だけは空でもよい。
+        selected: false
+        title: 問い合わせを受け取る
+        type: start
+        variables:
+        - label: 問い合わせ番号
+          max_length: 32
+          options: []
+          required: true
+          type: text-input
+          variable: ticket_id
+        - label: 種類
+          options:
+          - 操作
+          - 請求
+          - 相談
+          required: true
+          type: select
+          variable: issue
+        - label: 緊急度
+          options:
+          - 通常
+          - 至急
+          required: true
+          type: select
+          variable: urgency
+        - label: 影響人数
+          options: []
+          required: true
+          type: number
+          variable: affected_users
+        - label: 件名
+          max_length: 80
+          options: []
+          required: true
+          type: text-input
+          variable: subject
+        - label: 本文
+          max_length: 2000
+          options: []
+          required: false
+          type: paragraph
+          variable: body
+      height: 246
+      id: start
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: urgent
+          conditions:
+          - comparison_operator: is
+            id: urgent-level
+            value: 至急
+            varType: string
+            variable_selector:
+            - start
+            - urgency
+          - comparison_operator: ≥
+            id: urgent-users
+            value: '100'
+            varType: number
+            variable_selector:
+            - start
+            - affected_users
+          id: urgent
+          logical_operator: or
+        - case_id: billing
+          conditions:
+          - comparison_operator: is
+            id: billing-issue
+            value: 請求
+            varType: string
+            variable_selector:
+            - start
+            - issue
+          id: billing
+          logical_operator: and
+        desc: 上から順に判定し、最初に当てはまった分岐だけを通る。1. 至急、または影響人数100人以上 2. 種類が請求 3. それ以外。
+        selected: false
+        title: 担当を決める
+        type: if-else
+      height: 222
+      id: route
+      position:
+        x: 380
+        y: 282
+      positionAbsolute:
+        x: 380
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: 優先対応へ渡すメモ。入力の値は文字として差し込み、もう一度テンプレートとして読まない。
+        selected: false
+        template: |-
+          【担当】優先対応
+          問い合わせ：{{ ticket_id }}
+          件名：{{ subject }}
+          種類・緊急度：{{ issue }}・{{ urgency }}／影響{{ affected_users }}人
+          本文：
+          {{ body }}
+          次の対応：優先窓口が影響の範囲を確かめ、最初の返信を急ぐ。
+        title: 優先対応のメモ
+        type: template-transform
+        variables:
+        - value_selector:
+          - start
+          - ticket_id
+          variable: ticket_id
+        - value_selector:
+          - start
+          - issue
+          variable: issue
+        - value_selector:
+          - start
+          - urgency
+          variable: urgency
+        - value_selector:
+          - start
+          - affected_users
+          variable: affected_users
+        - value_selector:
+          - start
+          - subject
+          variable: subject
+        - value_selector:
+          - start
+          - body
+          variable: body
+      height: 54
+      id: urgent-note
+      position:
+        x: 700
+        y: 120
+      positionAbsolute:
+        x: 700
+        y: 120
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: 請求窓口へ渡すメモ。3つのメモは同じ7行の形にそろえる。
+        selected: false
+        template: |-
+          【担当】請求窓口
+          問い合わせ：{{ ticket_id }}
+          件名：{{ subject }}
+          種類・緊急度：{{ issue }}・{{ urgency }}／影響{{ affected_users }}人
+          本文：
+          {{ body }}
+          次の対応：請求窓口が契約と請求書の記録を確かめて返信する。
+        title: 請求窓口のメモ
+        type: template-transform
+        variables:
+        - value_selector:
+          - start
+          - ticket_id
+          variable: ticket_id
+        - value_selector:
+          - start
+          - issue
+          variable: issue
+        - value_selector:
+          - start
+          - urgency
+          variable: urgency
+        - value_selector:
+          - start
+          - affected_users
+          variable: affected_users
+        - value_selector:
+          - start
+          - subject
+          variable: subject
+        - value_selector:
+          - start
+          - body
+          variable: body
+      height: 54
+      id: billing-note
+      position:
+        x: 700
+        y: 282
+      positionAbsolute:
+        x: 700
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: 通常窓口へ渡すメモ。どの条件にも当てはまらなかった問い合わせが通る。
+        selected: false
+        template: |-
+          【担当】通常窓口
+          問い合わせ：{{ ticket_id }}
+          件名：{{ subject }}
+          種類・緊急度：{{ issue }}・{{ urgency }}／影響{{ affected_users }}人
+          本文：
+          {{ body }}
+          次の対応：通常窓口が手順を確かめて返信する。
+        title: 通常窓口のメモ
+        type: template-transform
+        variables:
+        - value_selector:
+          - start
+          - ticket_id
+          variable: ticket_id
+        - value_selector:
+          - start
+          - issue
+          variable: issue
+        - value_selector:
+          - start
+          - urgency
+          variable: urgency
+        - value_selector:
+          - start
+          - affected_users
+          variable: affected_users
+        - value_selector:
+          - start
+          - subject
+          variable: subject
+        - value_selector:
+          - start
+          - body
+          variable: body
+      height: 54
+      id: support-note
+      position:
+        x: 700
+        y: 444
+      positionAbsolute:
+        x: 700
+        y: 444
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: 実際に作られた1つのメモを、同じ出力名 output にまとめる。
+        output_type: string
+        selected: false
+        title: メモをまとめる
+        type: variable-aggregator
+        variables:
+        - - urgent-note
+          - output
+        - - billing-note
+          - output
+        - - support-note
+          - output
+      height: 132
+      id: merge
+      position:
+        x: 1020
+        y: 282
+      positionAbsolute:
+        x: 1020
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: 引き継ぎメモ text と、通った分岐の ID selected_case_id を返す。
+        outputs:
+        - value_selector:
+          - merge
+          - output
+          value_type: string
+          variable: text
+        - value_selector:
+          - route
+          - selected_case_id
+          value_type: string
+          variable: selected_case_id
+        selected: false
+        title: 結果を返す
+        type: end
+      height: 116
+      id: end
+      position:
+        x: 1320
+        y: 282
+      positionAbsolute:
+        x: 1320
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 0
+      y: 0
+      zoom: 0.7
