@@ -1,0 +1,24 @@
+# Mem0 example: exact direct dependency versions from the successful Windows x64 / Python3.13.7 run.
+# Install CPU PyTorch first (Windows/Linux):
+# python -m pip install torch==2.11.0 --index-url https://download.pytorch.org/whl/cpu
+# Then: python -m pip install -r requirements.txt
+# Mem0 source is imported from byte-verified vendor/mem0, with a private version-only
+# dist-info descriptor. Do not install a separate mem0ai distribution in this demo environment.
+# spaCy and fastembed are intentionally absent; search uses actual local dense embeddings.
+# Model weights/DB/logs belong outside the served folder. See README.md.
+sentence-transformers==5.2.0
+transformers==5.3.0
+qdrant-client==1.19.1
+ollama==0.6.3
+pydantic==2.14.1
+openai==3.31.0
+httpx==0.28.1
+posthog==7.70.2
+requests==2.34.2
+huggingface-hub==1.33.0
+pytz==2026.5
+sqlalchemy==2.1.4
+protobuf==6.33.6
+numpy==2.5.4
+safetensors==0.8.0
+tokenizers==0.22.2

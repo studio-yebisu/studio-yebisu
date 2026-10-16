@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#f7f3ea">
+<title>解説映像の編集元｜好みを覚えて、次に引き出す（Mem0 OSS 作例）｜Studio Yebisu</title>
+<meta name="description" content="架空の2人の好みを Mem0 のオープンソース版 Memory API に infer=False でそのまま保存し、検索・明示的な更新・別プロセスでの読み直しを実行した記録から描く、28秒・無音の解説映像の編集元です。">
+<link rel="stylesheet" href="video.css">
+<script>if (window.__MOTION_RENDER__ === true) document.documentElement.classList.add('is-render');</script>
+<script type="module" src="video.js"></script>
+</head>
+<body>
+<main class="page">
+  <header class="intro">
+    <p class="kicker">Studio Yebisu・Mem0 OSS 作例</p>
+    <h1><span>好みを覚えて、</span><span>次に引き出す。</span></h1>
+    <p class="lead">架空の2人の好みを Mem0 のオープンソース版 Memory API に保存し、検索・明示的な更新・別プロセスでの読み直しを実行した記録から描く、28秒・無音の解説映像の編集元です。</p>
+  </header>
+
+  <figure class="stage">
+    <canvas id="film" width="1280" height="720" role="img" aria-label="解説映像（28秒・無音）。保存済みの実行記録と実画面を確かめてから描きます。"></canvas>
+    <figcaption>実行記録と実画面を編集・無音。aya・ken と7件の好みは架空です。</figcaption>
+  </figure>
+
+  <div class="controls">
+    <button id="play" type="button" aria-pressed="false" disabled>再生</button>
+    <label class="range">
+      <span class="visually-hidden">再生位置（秒）</span>
+      <input id="time" type="range" min="0" max="28" step="0.1" value="0" aria-valuetext="0.0秒（全28秒）" disabled>
+    </label>
+    <output id="clock" for="time">0.0秒 / 28.0秒</output>
+  </div>
+  <p class="keys">スライダーでは、矢印キーで0.1秒、PageUp・PageDownで2秒、Home・Endで先頭・末尾へ移動します。自動では再生しません。</p>
+
+  <div class="state" aria-live="polite">
+    <p id="status" data-state="loading">保存済みの記録と実画面を確かめています…</p>
+    <p id="detail"></p>
+    <button id="reload" type="button" hidden>もう一度読み込む</button>
+  </div>
+
+  <section class="block" aria-labelledby="scope-title">
+    <h2 id="scope-title">この映像が示すこと・示さないこと</h2>
+    <ul>
+      <li>固定版 mem0ai/mem0（<code>0724291</code>・SDK 2.2.1・Apache-2.0）のオープンソース版 <code>Memory</code> を改変せずに使い、7件を <code>infer=False</code> で渡した文のまま保存した記録です。LLMによる要点の抽出・重複の統合・回答の生成は使っていません。Mem0 Platform・プラグイン・アカウント連携もありません。</li>
+      <li>ベクトルは固定版の多言語埋め込みモデル（<code>e8f8c21</code>・384次元）が手元のCPUで計算しました。文章を書くモデルではありません。保存先は埋め込み型の Qdrant と SQLite です。</li>
+      <li>Memory は設定上LLMのクライアントを必ず作るため、公式の Ollama 設定を閉じたポートに向けて置き、一度も呼んでいません。モデルのサーバーも動かしていません。</li>
+      <li>検索の <code>filters={"user_id": ...}</code> は検索範囲の指定で、認証や権限の仕組みではありません。映像では検索スコアを省いています（全文と値はサイトで読めます）。</li>
+      <li>20秒から30秒への書き換えは、実行スクリプトが <code>Memory.update</code> を明示的に呼んだものです。Mem0 が自動で判断したのではありません。</li>
+      <li>削除（M06）は映像では扱いません。削除した記録は取得・一覧・検索から外れますが、SQLite の履歴には残ります。物理的な消去は確かめていません。</li>
+      <li>検索の質・認証・プライバシー・速さの評価ではありません。実行時間も映像に出しません。</li>
+      <li>映像は保存した実結果と実画面の静止画を編集したもので、APIの実行や操作の連続した録画ではありません。記録カードは保存した値を描き直したもので、実画面の画素は等倍の切り抜き以外に手を加えていません。このページでも映像でも、Mem0・Python・AI は動きません。</li>
+    </ul>
+  </section>
+
+  <section class="block" aria-labelledby="files-title">
+    <h2 id="files-title">照合してから使うファイル</h2>
+    <p>照合表 <code>assets/data-hashes.json</code> の生のバイト列を制作記録の SHA-256 で確かめ、そこに書かれた8ファイルの生のバイト列を照合してから描きます。合わなければ理由を出して止まり、代わりの映像は描きません。</p>
+    <ol id="verified" class="verified" hidden></ol>
+  </section>
+
+  <nav class="block links" aria-labelledby="links-title">
+    <h2 id="links-title">関連するページとファイル</h2>
+    <ul>
+      <li><a href="../index.html">8つの場面を読む（閲覧ページ）</a></li>
+      <li><a href="../outputs/memory-run.json">実行記録 outputs/memory-run.json</a></li>
+      <li><a href="../outputs/independent-checks.json">別の検証の記録 outputs/independent-checks.json</a></li>
+      <li><a href="assets/screen-manifest.json">実画面2枚の記録 assets/screen-manifest.json</a></li>
+      <li><a href="storyboard.json">絵コンテと制作ブリーフ storyboard.json</a></li>
+      <li><a href="../vendor/mem0/LICENSE">Mem0 のライセンス（Apache-2.0）</a></li>
+    </ul>
+  </nav>
+
+  <footer class="foot">
+    <p>映像の構成・コード・文章は MIT License（Copyright (c) 2026 Studio Yebisu）。Mem0 は Apache License 2.0（Copyright [2023] [Taranjeet Singh]）。埋め込みモデルは Apache-2.0 です。</p>
+  </footer>
+</main>
+</body>
+</html>

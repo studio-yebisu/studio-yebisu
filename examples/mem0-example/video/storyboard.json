@@ -1,0 +1,350 @@
+{
+  "format": "studio-yebisu-motion-storyboard-v1",
+  "title": "好みを覚えて、次に引き出す（Mem0 OSS 作例・28秒・無音）",
+  "status": "編集元を作成した段階。書き出し・フレームの確認・MP4の通し再生・公開は、この編集元の作成時点では行っていない（制作担当が実施して記録する）。実機 iOS/Safari/VoiceOver と人による承認は未確認。",
+  "authorship": "映像の構成・編集元のコード・文章は Claude Opus 5.5（claude-opus-5-5）が執筆。架空の好み7件と8場面は制作担当が実行前に作成・固定。ベクトルは埋め込みモデル sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2（e8f8c21）がCPUで計算し、記録の追加・検索・更新・削除・履歴は改変なしの Mem0 OSS Memory API が実行。APIの実行と別の検証は制作担当が行った。モデルの会話履歴は公開しない。",
+  "brief": {
+    "goal": "固定版 Mem0 のオープンソース版 Memory API で、架空の2人の好みを infer=False でそのまま保存し、user_id で絞った検索・明示的な更新・新しいプロセスでの読み直しが実際にどう返ったかを、保存済みの実結果から短く伝える",
+    "audience": "AIアプリに利用者ごとの記憶を持たせたい、日本語で読みたい開発者・制作担当。iPhone の縦持ち（360px前後の幅）で映像を見る人が多い前提",
+    "message": "好みを覚えて、次に引き出す。",
+    "next_action": "8つの実結果を、サイトで読む。",
+    "story": "保存（人ごとの好み）→ user_id で絞った検索 → 明示的な更新（20秒→30秒）→ 新しいプロセスでも更新後の本文が同じIDで返る → サイトで8場面の実結果を読む",
+    "facts": [
+      "原典：mem0ai/mem0 0724291bd864cf807e88ee8981c8226644e8fb42（SDK 2.2.1、Apache-2.0、Copyright [2023] [Taranjeet Singh]）。156ファイルを照合し、実行後も無改変",
+      "埋め込み：sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 e8f8c211226b894fcb81acc59f3b34ba3efd5f42（Apache-2.0、384次元、CPU、11ファイル照合）。LLMではない",
+      "保存：架空の aya・ken の好み7件を Memory.add(..., infer=False) で1件ずつそのまま保存。7件すべて ADD。M01 の get_all で aya 4件・ken 3件",
+      "検索：M02・M03 は同じ問い「説明を見せるとき、どんな見せ方が好み？」を filters の user_id だけ変えて実行。返った記録はすべて指定した利用者のもの。1件目は M02 が A01、M03 が K02（記録のまま。映像はファイルから取り出す）",
+      "更新：M05 で実行スクリプトが Memory.update を明示的に呼び、A02 を同じID（c29f6400…85d97c）のまま「20秒」から「30秒」へ書き換え。履歴は ADD・UPDATE",
+      "読み直し：M07 で SQLite と Qdrant を閉じ、新しい Python プロセス（終了コード0）で同じ保存先を開いて検索。1件目は A02 の更新後の本文・同じID",
+      "実行中の通信の試み0件、LLMの呼び出し0回。別の検証で保存ベクトル6件・検索5件の順位とスコア・SQLite の履歴 ADD 7・UPDATE 1・DELETE 1 が一致"
+    ],
+    "not_claimed": [
+      "LLMによる要点の抽出・重複の統合・回答や会話の生成（infer=False のため使っていない）",
+      "Mem0 Platform・プラグイン・アカウント連携・ブラウザー内で動くAI",
+      "user_id の絞り込みを認証・権限・プライバシーの仕組みとすること",
+      "更新を Mem0 や AI の自動の判断とすること（実行スクリプトが update を明示的に呼んだ）",
+      "削除を物理的な消去とすること（映像では削除を扱わない。履歴に残ることはサイトで読める）",
+      "検索の質・速さ・性能の評価やベンチマーク。実行の所要秒は映像に出さない",
+      "aya・ken を実在の人物とすること",
+      "端末・打鍵・AIの思考・生成された会話（どれも記録にないので描かない）",
+      "物理 iOS/Safari/VoiceOver での確認、人による承認"
+    ],
+    "look": {
+      "palette": {
+        "ivory": "#f7f3ea",
+        "paper": "#fffdf8",
+        "navy": "#14213d",
+        "soft": "#3d4a66",
+        "line": "#d8d0bf",
+        "cobalt": "#2747c4",
+        "cobalt_soft": "#e7ebfa",
+        "teal": "#0d6e66",
+        "teal_soft": "#e2f1ee",
+        "rose": "#9d2b3c（読み込み失敗の表示だけ）"
+      },
+      "palette_source": "閲覧ページ style.css の色をそのまま使う",
+      "type": "見出しは明朝の太字72px（紺）。主役の数・語は「20秒 → 30秒」が最大140px（幅に合わせて112pxまで）、件数140px、問いと本文の句は40〜48px、補足は30px、実画面の注記・帯は26px。1280px幅の論理座標で、360px幅に縮めると見出しは約20px、「20秒 → 30秒」は約35〜39px、句は約11〜13px。帯と補足は読まなくても筋が分かるようにする",
+      "layout": "左右48pxの余白。上の帯（作例名と原典の版）、見出し（y134）、本文（y152〜664）、足元の帯（左：実行記録と実画面を編集・無音／右：aya・ken と好み7件は架空）。実画面は倍率1の切り抜きで、上に文字を重ねない。記録カードは紙の上に描き直した保存記録で、アプリ画面や端末に見せない",
+      "motion": "要素は0.45秒の減速で14px上から着地する。場面の終わり0.25秒で紙の色へ消え、次の場面は始まりの0.25秒で現れる（境目に約0.5秒の静かな間。見出しは重ならない）。数え上げ・タイピング・進み具合の演出はしない"
+    },
+    "output": {
+      "duration_seconds": 28,
+      "fps": 30,
+      "frames": 840,
+      "width": 1280,
+      "height": 720,
+      "poster_seconds": 13.5,
+      "audio": "なし（audioEvents は空）",
+      "loop": false,
+      "other_aspect": "renderConfig の縦横比に合わせて論理座標を広げ、上下の帯は端に、本文は中央に置く。確認の対象は1280×720だけで、他の縦横比は未確認"
+    }
+  },
+  "sources": [
+    {
+      "path": "outputs/memory-run.json",
+      "sha256": "a2ef19d1461611c28b56824a21f30839dd45210fe285c40695624ee4447750dc",
+      "use": "原典と埋め込みモデルの固定版、入力の SHA-256、infer=False・通信0件・LLM 0回、M01 の応答と get_all、M02・M03 の条件と結果、M05 の更新前後・履歴・検索、M06 の削除と履歴（照合だけ）、M07 の新しいプロセスでの検索、M08（照合だけ）"
+    },
+    {
+      "path": "outputs/independent-checks.json",
+      "sha256": "550bd4cbb6bcb313a7e826c9c4b8af88070397ff21e3bee1aed419e5e956a5fc",
+      "use": "別の検証：保存ベクトル6件の一致、検索5件（M02・M03・M04・M05・M07）の順位、SQLite の履歴 ADD 7・UPDATE 1・DELETE 1、有効な記録6件（照合と #detail の説明に使い、映像には出さない）"
+    },
+    {
+      "path": "input/memories.json",
+      "sha256": "ef9f585026e5cb4e5c0f32fa02af0117ede2dd2d7b0b5d9a4fb6fe87386c161c",
+      "use": "架空の好み7件と2人。M01 の入力・応答・一覧との一致、各自の動画の好み（topic=video）の特定"
+    },
+    {
+      "path": "input/scenarios.json",
+      "sha256": "ec089d59c70d1442313fe797349acbbbb9999e7ec6ba2c04131df02bf8a2acdb",
+      "use": "8場面の操作・問い・filters・更新後の本文。実行記録の各場面との一致"
+    },
+    {
+      "path": "input/model-source.json",
+      "sha256": "4e51d6fc32c2b93c5c5dfdad32bc870ebeb379548ea87e90cd50bd10f5fcd9af",
+      "use": "埋め込みモデルの固定版・384次元・11ファイル（照合だけ）"
+    },
+    {
+      "path": "video/assets/screen-manifest.json",
+      "sha256": "7c41a2d0a74cf7d0ec6dddb87ad84899aa193533975585692fe3f26e1886ee92",
+      "use": "実画面2枚の大きさ（375×812・1265×889）・SHA-256・場面（M05・M02）"
+    },
+    {
+      "path": "video/assets/workbench-phone.png",
+      "sha256": "bb7cdff32aae223f6a098d471de6a1bc68e3eb91abcb078f141fe65513301dce",
+      "use": "スマホ幅の閲覧ページ、M05 を選んだ状態。「出力」の見出しと更新前後のカードを12〜18秒に置く（補足。主な文字は編集で描いたもの）"
+    },
+    {
+      "path": "video/assets/workbench-desktop.png",
+      "sha256": "28cdc327aefa6ede5480d3ce1ea64f9f5f6c0cdcd58f9c0fb9905e9375c4945d",
+      "use": "広い幅の閲覧ページ、M02 を選んだ状態。「8場面・照合済み」と8つの場面のボタンを22〜28秒に置く（補足。ボタンの文字は360px幅では読めない大きさ）"
+    }
+  ],
+  "hash_manifest": {
+    "path": "video/assets/data-hashes.json",
+    "sha256": "eea89cbc9568b1df3754abf816e3d840157f3d4463298e9c1df0dbe09c213122",
+    "source": "runtime/frozen-reviewed-source.json の files_sha256（制作側の記録。公開配布には含まれない）"
+  },
+  "persistent": {
+    "top": "Mem0 OSS 作例 ／ mem0 2.2.1 ・ 0724291 ・ Apache-2.0（版は読み込んだ記録から）",
+    "footer_left": "実行記録と実画面を編集・無音",
+    "footer_right": "aya・ken と好み7件は架空（名前と件数は読み込んだ記録から）"
+  },
+  "scenes": [
+    {
+      "id": "opening",
+      "start": 0,
+      "end": 4,
+      "headline": "好みを覚えて、次に引き出す。",
+      "message": "架空の2人の好みを、実際の Mem0 OSS Memory API（2.2.1・改変なし）に infer=False でそのまま保存した記録だと伝える",
+      "enter": "見出しは0秒から表示（最初のフレームが題名）。0.2・0.35・0.5秒に3枚のカード「誰の好み：架空の2人」「使ったもの：Mem0 OSS」「保存のしかた：infer=False」、0.85秒に「LLMの呼び出し 0回。抽出・要約はしていません。」。1.3秒に着地",
+      "exit": "3.75〜4.0秒で紙の色へ消える（次の場面と重ねない）",
+      "reading_hold_seconds": 2.45,
+      "samples": [
+        "M01"
+      ],
+      "sources": [
+        "input/memories.json（2人の名前）",
+        "outputs/memory-run.json source.version・config.infer・checks.llm_calls"
+      ],
+      "crops": [],
+      "scope": "架空の人物であることを最初に示す。LLMの呼び出し回数は記録の値"
+    },
+    {
+      "id": "save",
+      "start": 4,
+      "end": 8,
+      "headline": "2人の好みを、別々に保存。",
+      "message": "M01 の get_all で aya 4件・ken 3件。各自の動画の好みの本文から、句をそのまま1つずつ：aya（A02）「…音声なし・20秒程度の動画…」、ken（K02）「…ナレーション付き・60秒程度の動画…」。7件とも渡した文のまま保存（ADD）",
+      "enter": "4.25秒に aya、4.45秒に ken のカード。各カードで0.15秒後に件数、0.3秒後に句。5.15秒に「7件とも、渡した文のまま保存（ADD）」。5.6秒に着地",
+      "exit": "7.75〜8.0秒で消える",
+      "reading_hold_seconds": 2.15,
+      "samples": [
+        "M01"
+      ],
+      "excerpts": [
+        {
+          "sample": "M01",
+          "key": "A02",
+          "rule": "get_all の本文から、「、」「。」を含まず「N秒程度の動画」で終わる部分。前後の「…」は省略の印",
+          "shown": "…音声なし・20秒程度の動画…"
+        },
+        {
+          "sample": "M01",
+          "key": "K02",
+          "rule": "同上",
+          "shown": "…ナレーション付き・60秒程度の動画…"
+        }
+      ],
+      "sources": [
+        "outputs/memory-run.json samples[M01].output.get_all・responses・memory_ids",
+        "input/memories.json（topic=video の行の特定）"
+      ],
+      "crops": [],
+      "scope": "7件の全文は並べない（サイトで読める）。20秒の句は12〜18秒の更新の前ふり"
+    },
+    {
+      "id": "search",
+      "start": 8,
+      "end": 12,
+      "headline": "同じ問いでも、返る記録は別。",
+      "message": "M02・M03 は同じ問い「説明を見せるとき、どんな見せ方が好み？」。filters {\"user_id\":\"aya\"} と {\"user_id\":\"ken\"} で、各応答の1件目は aya が A01「…説明は短い段落と箇条書きを好みます。」、ken が K02「…ナレーション付き・60秒程度の動画で見たいです。」。user_id は検索範囲の指定で、認証ではない",
+      "enter": "8.2秒に問いの枠、8.45秒に M02、8.65秒に M03 のカード（各0.2秒後に1件目の本文）、9.1秒に認証ではないことの注記。9.55秒に着地",
+      "exit": "11.75〜12.0秒で消える",
+      "reading_hold_seconds": 2.2,
+      "samples": [
+        "M02",
+        "M03"
+      ],
+      "excerpts": [
+        {
+          "sample": "M02",
+          "rule": "応答の1件目の本文の、最後の「、」の後から文末まで（「、」がなければ「〇〇さんは」の後）。先頭の「…」は省略の印。どれが1件目かは記録のまま",
+          "shown": "…説明は短い段落と箇条書きを好みます。"
+        },
+        {
+          "sample": "M03",
+          "rule": "同上",
+          "shown": "…ナレーション付き・60秒程度の動画で見たいです。"
+        }
+      ],
+      "sources": [
+        "outputs/memory-run.json samples[M02].input.call・output.response",
+        "outputs/memory-run.json samples[M03].input.call・output.response",
+        "input/scenarios.json M02・M03"
+      ],
+      "crops": [],
+      "scope": "検索結果は各3件（記録では計9件、すべて意味の近さだけのスコア）。映像は1件目だけで、スコアは省く。答えを生成したのではなく、保存した本文が返った"
+    },
+    {
+      "id": "update",
+      "start": 12,
+      "end": 18,
+      "headline": "好みが変わったら、書き換える。",
+      "message": "M05 で実行スクリプトが Memory.update を明示的に呼び、A02 を「20秒 → 30秒」へ。更新後の本文の句「…音声なし・30秒程度の動画…」、同じID c29f6400…85d97c、履歴 ADD → UPDATE。スマホ幅の閲覧ページの実画面（M05）を補足に添える",
+      "enter": "12.25秒にラベル、12.35秒に「20秒」と「更新前」、12.5秒に実画面、12.6秒に矢印と「30秒」「更新後」、12.8秒に更新後の句、12.95秒に同じIDと履歴。13.4秒までに全要素が着地",
+      "exit": "17.75〜18.0秒で消える",
+      "poster": "13.5秒。見出し、20秒 → 30秒、更新後の句、同じIDと履歴、実画面がすべて静止した状態（場面の切り替えではない）",
+      "reading_hold_seconds": 4.35,
+      "samples": [
+        "M05"
+      ],
+      "excerpts": [
+        {
+          "sample": "M05",
+          "field": "output.after.memory",
+          "rule": "動画の好みの句（save と同じ規則）。秒数だけコバルトで描く",
+          "shown": "…音声なし・30秒程度の動画…"
+        }
+      ],
+      "values": {
+        "before_seconds": "output.before.memory（＝input/memories.json A02）の「N秒」",
+        "after_seconds": "output.after.memory（＝input/scenarios.json M05 の text）の「N秒」",
+        "id": "output.after.id を先頭8文字…末尾6文字に短縮。before.id・memory_ids.A02 と同じことを照合",
+        "history": "output.history の event"
+      },
+      "sources": [
+        "outputs/memory-run.json samples[M05]",
+        "input/memories.json A02",
+        "input/scenarios.json M05",
+        "video/assets/workbench-phone.png"
+      ],
+      "crops": [
+        {
+          "name": "phoneUpdate",
+          "image": "workbench-phone.png",
+          "x": 22,
+          "y": 237,
+          "w": 322,
+          "h": 435,
+          "place": "x910 y172 倍率1（322×435）",
+          "note": "スマホ幅の閲覧ページ（M05）の「出力 Mem0 が返した記録」、更新前（20秒）と更新後（30秒）のカード。右端のスクロールバーは含めない。座標は制作担当の指定と静止画の確認による。端の数画素の収まりは書き出したフレームで確かめる。360px幅ではカードの文字は読めない大きさで、主な文字は左側に編集で描いたもの"
+        }
+      ],
+      "scope": "Mem0 や AI が自動で古い好みを直したのではない。主な文字は実画面に頼らず読めるように描く"
+    },
+    {
+      "id": "reopen",
+      "start": 18,
+      "end": 22,
+      "headline": "開き直しても、30秒のまま。（秒数は記録の値）",
+      "message": "M07 で保存先（Qdrant・SQLite）を閉じ、新しい Python プロセスで問い「作例動画の長さと音声は？」を filters {\"user_id\":\"aya\",\"topic\":\"video\"} で検索。1件目は A02、同じID、本文「…音声なし・30秒程度の動画で見たいです。」",
+      "enter": "18.2秒にラベル、18.3秒に問いの枠、18.45秒に filters、18.6秒に矢印と「1件目に返った記録」、18.75秒に結果のカード、19.1秒に注記。19.55秒に着地",
+      "exit": "21.75〜22.0秒で消える",
+      "reading_hold_seconds": 2.2,
+      "samples": [
+        "M07"
+      ],
+      "excerpts": [
+        {
+          "sample": "M07",
+          "rule": "search の1件目の本文に search と同じ規則。秒数だけコバルトで描く",
+          "shown": "…音声なし・30秒程度の動画で見たいです。"
+        }
+      ],
+      "sources": [
+        "outputs/memory-run.json samples[M07].input.search_call・output.search_response・worker",
+        "input/scenarios.json M07"
+      ],
+      "crops": [],
+      "scope": "件数（最初の4件・3件と開き直し後の3件・3件）は出さない。差は M06 の削除によるもので、その説明は映像の筋から外し、サイトに任せる。エージェントが自動で覚えたという主張はしない"
+    },
+    {
+      "id": "ending",
+      "start": 22,
+      "end": 28,
+      "headline": "8つの実結果を、サイトで読む。（8は記録の場面数）",
+      "message": "保存（M01・7件をそのまま）→ 検索（M02・M03・user_id ごとに）→ 更新（M05・20秒 → 30秒）の3段。閲覧ページの実画面（8つの場面のボタン）と出典 outputs/memory-run.json。Studio Yebisu、「28秒・無音／実行記録を編集」、制作の区別「映像・コード・文章：Claude Opus 5.5 ／ ベクトル：埋め込みモデル（CPU）」",
+      "enter": "22.2秒から0.15秒おきに3段の札、22.75秒に実画面の見出し、22.85秒に実画面、23.3秒に Studio Yebisu と尺の表示、23.5秒に制作の区別。23.95秒に着地",
+      "exit": "最後まで静止（23.95〜28秒は動かない）",
+      "cta": "8つの実結果を、サイトで読む。",
+      "reading_hold_seconds": 4.05,
+      "samples": [
+        "M01",
+        "M02",
+        "M03",
+        "M05"
+      ],
+      "sources": [
+        "outputs/memory-run.json の各場面の数と本文",
+        "video/assets/workbench-desktop.png"
+      ],
+      "crops": [
+        {
+          "name": "desktopScenes",
+          "image": "workbench-desktop.png",
+          "x": 80,
+          "y": 306,
+          "w": 1092,
+          "h": 168,
+          "place": "x94 y330 倍率1（1092×168）",
+          "note": "広い幅の閲覧ページ（M02 を選んだ状態）の「✓ 8場面・照合済み」「8つの場面」と M01〜M08 のボタン。上の境界線（y約296）と下の「M02・検索・Memory.search」（y約485）は含めない。座標は静止画を見て決めた値で、端の数画素は書き出したフレームで確かめる"
+        }
+      ],
+      "scope": "削除（M06）・未登録の利用者（M08）・別の検証の数は映像に出さない（サイトで読める）。承認や操作を促す表示はしない"
+    }
+  ],
+  "verification_in_code": [
+    "照合表 video/assets/data-hashes.json の生のバイト列の SHA-256 が eea89cbc9568b1df3754abf816e3d840157f3d4463298e9c1df0dbe09c213122 と一致してから JSON として読む",
+    "照合表の8ファイルの生のバイト列の SHA-256。画像は照合済みのバイト列から復号",
+    "原典 mem0ai/mem0 0724291・2.2.1・Apache-2.0・156ファイル照合・実行後も無改変",
+    "埋め込みモデル e8f8c21・Apache-2.0・384次元・CPU・11ファイル",
+    "infer=False・送信停止・通信拒否、LLMの呼び出し0回、実行中の通信の試み0件、実行記録の確認がすべて通過、別プロセスの終了コード0",
+    "入力3つの SHA-256 が実行記録と照合表で同じ",
+    "架空の好み7件・2人（aya・ken）。実行記録の8場面が M01〜M08 で、ラベルと操作が input/scenarios.json と同じ",
+    "M01：7回の add の入力が固定の好みと同じで、すべて本文どおり1件の ADD。get_all の件数と本文が保存したものと同じ",
+    "M02・M03：検索条件が固定の場面と同じ、同じ問い、結果はすべて指定した利用者の保存した本文、もう1人と重ならない",
+    "M05：対象と新しい本文が固定の場面と同じ、更新前後で同じID、本文は秒数だけが変わる、履歴 ADD・UPDATE、明示的な update、更新後の検索の1件目",
+    "M06：削除後の get が None、履歴 ADD・DELETE、削除前の本文が履歴に残る、物理消去は未確認（映像には出さない）",
+    "M07：検索条件が固定の場面と同じ、新しいプロセス、1件目が更新後の本文・同じID、削除した記録の get が None",
+    "M08：未登録の利用者は0件、誤った呼び出し3件が ValueError（映像には出さない）",
+    "別の検証：passed・8場面・156ファイル、有効な記録6件、保存ベクトル6件の一致、検索5件の順位が実行記録と同じ、SQLite の履歴 ADD 7・UPDATE 1・DELETE 1、通信0件",
+    "実画面2枚の大きさ・SHA-256・場面が記録と同じ。切り抜きが画像の内側で、置き場所が本文の範囲に収まる",
+    "見出し・句・抜粋・帯が決めた大きさのまま枠に収まる（収まらなければ描かずに止まる）"
+  ],
+  "render": {
+    "renderer": "tools/motion-reel/render.mjs（同梱・変更なし）",
+    "commands": [
+      "npm ci --ignore-scripts --no-audit --no-fund --prefix tools/motion-reel",
+      "python render.py --out <作例フォルダの外の新しい空のフォルダ> --work-root <作例フォルダの外の新しい作業用フォルダ>",
+      "python render.py --out <新しい空のフォルダ> --work-root <新しい作業用フォルダ> --stills-only --strip-at 12"
+    ],
+    "note": "render.py は作例フォルダを作業用フォルダの下の一時フォルダへ写し、video/index.html に <base href=\"video/\"> を入れた写しを入口にしてレンダラーを呼ぶ。--stills-only は静止画・コンタクトシート・ポスター・連続フレームだけを作る"
+  },
+  "licenses": {
+    "film_and_code": "MIT License（Copyright (c) 2026 Studio Yebisu）",
+    "mem0": "Apache License 2.0（Copyright [2023] [Taranjeet Singh]）。vendor/mem0 は改変なし",
+    "embedding_model": "Apache-2.0。重みは配布しない",
+    "screens": "この作例の閲覧ページを撮影した静止画"
+  },
+  "publication_verification": {
+    "duration": 28,
+    "fps": 30,
+    "frames": 840,
+    "silent": true,
+    "agent_reviewed": true,
+    "human_approval": false,
+    "physical_ios_verified": false
+  }
+}

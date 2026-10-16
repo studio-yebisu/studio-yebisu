@@ -1,0 +1,62 @@
+{
+  "title": "Mem0作例：架空の2人の好み7件を保存し、検索・更新・削除・別プロセスでの読み直しを実際のAPIで確かめる",
+  "request": "架空の読書会の予定を記憶する最小サンプルを作ってください。別の会話からの検索、予定変更、削除、利用者間の分離を確認してください。入力、出力、実行した検証、未確認の点を記録してください。",
+  "category": "knowledge",
+  "audience": "AIアプリに利用者ごとの記憶を持たせたい、日本語で読みたい開発者・制作担当",
+  "goal": "固定版Mem0のオープンソース版 Memory API を改変せずに使い、架空の2人の好み7件を infer=False で保存して、利用者ごとの検索・metadata での絞り込み・明示的な更新と削除・新しいプロセスでの読み直し・誤った呼び出しの拒否を8場面で実行し、その実際の入力と出力をスマホで読めるようにする",
+  "inputs": [
+    "input/memories.json（架空の aya・ken の、説明の見せ方・作例動画・作業の流れ・仮の予定の好み7件。topic と source_key の metadata 付き）",
+    "input/scenarios.json（8場面 M01〜M08 の操作・問い・絞り込み・top_k・threshold・更新後の本文・誤った呼び出しの種類）",
+    "input/model-source.json（sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 固定コミット e8f8c21 の11ファイルのサイズとハッシュ）",
+    "mem0ai/mem0 固定コミット 0724291bd864cf807e88ee8981c8226644e8fb42 の156ファイル（vendor/mem0、vendor-lock.json で固定）"
+  ],
+  "skill_refs": [
+    "skills/brief-to-demo/SKILL.md",
+    "https://github.com/mem0ai/mem0/blob/0724291bd864cf807e88ee8981c8226644e8fb42/skills/mem0/SKILL.md",
+    "https://github.com/mem0ai/mem0/blob/0724291bd864cf807e88ee8981c8226644e8fb42/skills/mem0/client/python.md",
+    "https://github.com/mem0ai/mem0/blob/0724291bd864cf807e88ee8981c8226644e8fb42/mem0/memory/main.py",
+    "https://github.com/mem0ai/mem0/blob/0724291bd864cf807e88ee8981c8226644e8fb42/mem0/embeddings/huggingface.py",
+    "https://github.com/mem0ai/mem0/blob/0724291bd864cf807e88ee8981c8226644e8fb42/mem0/vector_stores/qdrant.py",
+    "https://github.com/mem0ai/mem0/blob/0724291bd864cf807e88ee8981c8226644e8fb42/mem0/memory/storage.py"
+  ],
+  "deliverables": [
+    "run.py（実際の Memory API で8場面を実行し、別プロセスで読み直す CLI）",
+    "requirements.txt（CPU 版 PyTorch の入れ方と残りの依存）",
+    "outputs/memory-run.json（制作側の実行で作る記録。ページはこれを読む）",
+    "index.html・style.css・app.js（保存した記録を入力と出力の組で読むスマホ優先のページ）",
+    "outputs/method.md（手順・確認・読み方・限界）",
+    "README.md・request.txt"
+  ],
+  "steps": [
+    "架空の2人の好み7件と8場面を書き、実行の前に3ファイルの SHA-256 を固定する",
+    "原典156ファイル・入力・モデル11ファイルを照合し、依存を読み込む前に通信を拒否する監査フックを入れ、送信停止・オフライン・非公開の MEM0_DIR を設定する",
+    "Memory.from_config（CPU の埋め込み、埋め込み型 Qdrant、SQLite 履歴、呼ばない Ollama）で、7件を infer=False で保存し、検索・絞り込み・更新・削除・履歴を実行する",
+    "SQLite と Qdrant を閉じ、同じ保存先を新しい Python プロセスで開き直して、更新と削除が残ることと、未登録の利用者・誤った呼び出しの結果を記録する",
+    "すべての確認が通ったときだけ記録を1回書き、ページで入力のハッシュと固定版・場面の一致を確かめてから8場面を表示する",
+    "選んだ場面を JSON で保存し、依頼文をコピーできるようにする"
+  ],
+  "acceptance": [
+    "run.py が、入力・原典・モデルのどれかが合わないとき、spaCy・fastembed・pip の mem0ai が入っているとき、通信の試みが1件でもあるとき、確認が1つでも外れたときに、記録を書かずに失敗する",
+    "7件の add がすべて1件の ADD を返し、get_all で aya 4件・ken 3件、本文と metadata が入力と完全に一致する",
+    "A01 の埋め込みが384要素の有限の数で、保存されたベクトルと一致する",
+    "M02・M03 の検索が、それぞれ絞り込んだ利用者の記録だけを返し、互いの ID と重ならない。M04 が A02 だけを返す",
+    "M05 で ID が同じまま本文が置き換わり、履歴に ADD と UPDATE が残る。M06 で get が None、一覧から外れ、履歴に DELETE が残る",
+    "M07 が新しいプロセス（終了コード0）で、aya 3件・ken 3件、更新後の本文、削除した記録の get が None であることを確かめる",
+    "M08 で未登録の利用者の検索が0件、誤った呼び出し3件がすべて ValueError で、例外の文面がそのまま記録される",
+    "記録に手元の絶対パス・保存ファイルそのもの・プロセス番号・認証情報が入らず、既にある記録を上書きしない",
+    "ページが記録と入力3件を取得し、SHA-256・固定版・推論なし・通信0件・8場面の一致を確かめてから表示し、合わなければ理由と再読み込みだけを出す",
+    "M01〜M08 のボタンと #M05 のようなリンクで場面を切り替えられ、選んだ場面を mem0-M05.json のような JSON で保存を要求できる",
+    "320・375・390・430px縦、844px横、1280pxで横スクロールがなく、操作部品が44px以上、入力欄が16px以上"
+  ],
+  "assumptions": [
+    "掲載項目の依頼は「架空の読書会の予定」だが、制作の指示に合わせて、架空の2人の画面と作例動画の好みに置き換える。別の会話からの検索は新しいプロセスでの読み直し、予定変更は1件の更新、削除と利用者間の分離はそのまま確かめる",
+    "外部の API や LLM サーバーを使わないため、追加はすべて infer=False にする。LLM による要点の抽出や更新の判断は確かめない",
+    "Memory は LLM のクライアントを必ず作るため、公式の Ollama プロバイダーを閉じたポートに向けて置き、呼ばない",
+    "spaCy と fastembed は入れず、検索は埋め込みの近さだけで行う",
+    "mem0ai は pip で入れず、同梱の固定版を sys.path から読み込む。原典が読む配布メタデータは、名前と版だけの METADATA を非公開の作業フォルダーに置いて満たす",
+    "user_id での分離はアプリが渡す条件によるもので、認証の確認ではない",
+    "依存の版は sentence-transformers 5.2.0・transformers 5.3.0・PyTorch 2.11.0（CPU）を目標にし、実際に入った版は実行後の記録で確かめる",
+    "ページは保存した記録を読むだけで、ブラウザー内で Mem0・Python・推論を動かさない",
+    "約28秒の無音の解説動画は、記録ができた後に制作側で作る"
+  ]
+}

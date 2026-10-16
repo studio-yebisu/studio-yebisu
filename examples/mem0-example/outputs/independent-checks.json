@@ -1,0 +1,124 @@
+{
+  "status": "passed",
+  "verified_at": "2026-10-16T17:35:56.214762+00:00",
+  "scope": "Independent Qdrant-client + read-only SQLite + direct SentenceTransformer checks. All six raw persisted vectors recomputed, all five retained search rankings/scores independently recomputed using cosine, original seven ADD/one UPDATE/one DELETE history rows checked. This does not establish retrieval quality, authentication, physical erasure, human approval or iOS behavior.",
+  "sample_count": 8,
+  "source_files_verified": 156,
+  "active_points": 6,
+  "active_users": {
+    "aya": 3,
+    "ken": 3
+  },
+  "history_events": {
+    "ADD": 7,
+    "UPDATE": 1,
+    "DELETE": 1
+  },
+  "history_rows": 9,
+  "messages_table_rows": 0,
+  "deleted_note_retained_in_history": true,
+  "updated_same_id": true,
+  "vectors": [
+    {
+      "key": "K02",
+      "id": "0b51e4b0-106b-42fc-a4f6-dbd26694e2f5",
+      "text": "けんさんはモーションの作例を、ナレーション付き・60秒程度の動画で見たいです。",
+      "dimensions": 384,
+      "max_abs_difference": 0.0,
+      "comparison": "raw persisted vector, before cosine search normalization"
+    },
+    {
+      "key": "A03",
+      "id": "0db4a0b9-d568-45de-b2a8-29cc2679f09c",
+      "text": "あやさんはサンプルの入力と出力をJSONで保存して見返します。",
+      "dimensions": 384,
+      "max_abs_difference": 0.0,
+      "comparison": "raw persisted vector, before cosine search normalization"
+    },
+    {
+      "key": "K03",
+      "id": "9b4ff99a-1d2a-441b-97c3-141f4413c4a5",
+      "text": "けんさんはサンプルの実装コードをダウンロードして手元で動かします。",
+      "dimensions": 384,
+      "max_abs_difference": 0.0,
+      "comparison": "raw persisted vector, before cosine search normalization"
+    },
+    {
+      "key": "A02",
+      "id": "c29f6400-783a-4521-b1f7-d74c8785d97c",
+      "text": "あやさんはモーションの作例を、音声なし・30秒程度の動画で見たいです。",
+      "dimensions": 384,
+      "max_abs_difference": 0.0,
+      "comparison": "raw persisted vector, before cosine search normalization"
+    },
+    {
+      "key": "A01",
+      "id": "dfaf2947-37c3-436e-bc9c-670696e41c36",
+      "text": "あやさんはスマートフォンで読むので、説明は短い段落と箇条書きを好みます。",
+      "dimensions": 384,
+      "max_abs_difference": 0.0,
+      "comparison": "raw persisted vector, before cosine search normalization"
+    },
+    {
+      "key": "K01",
+      "id": "f1c905a7-44ec-43b4-8d7d-773c17755519",
+      "text": "けんさんは大きなデスクトップ画面で、図と詳しい説明を並べて読みます。",
+      "dimensions": 384,
+      "max_abs_difference": 0.0,
+      "comparison": "raw persisted vector, before cosine search normalization"
+    }
+  ],
+  "searches": [
+    {
+      "id": "M02",
+      "result_keys": [
+        "A01",
+        "A02",
+        "A03"
+      ],
+      "max_abs_score_difference": 6.566548838016217e-08,
+      "ranking_matches": true
+    },
+    {
+      "id": "M03",
+      "result_keys": [
+        "K02",
+        "K01",
+        "K03"
+      ],
+      "max_abs_score_difference": 5.7574136569371603e-08,
+      "ranking_matches": true
+    },
+    {
+      "id": "M04",
+      "result_keys": [
+        "A02"
+      ],
+      "max_abs_score_difference": 1.261234283678192e-08,
+      "ranking_matches": true
+    },
+    {
+      "id": "M05",
+      "result_keys": [
+        "A02"
+      ],
+      "max_abs_score_difference": 8.250250704833206e-08,
+      "ranking_matches": true
+    },
+    {
+      "id": "M07",
+      "result_keys": [
+        "A02"
+      ],
+      "max_abs_score_difference": 8.251577399143173e-08,
+      "ranking_matches": true
+    }
+  ],
+  "deleted_text_as_query_returns_only_active_aya_ids": [
+    "c29f6400-783a-4521-b1f7-d74c8785d97c",
+    "dfaf2947-37c3-436e-bc9c-670696e41c36",
+    "0db4a0b9-d568-45de-b2a8-29cc2679f09c"
+  ],
+  "network_attempts": [],
+  "human_approval": false
+}

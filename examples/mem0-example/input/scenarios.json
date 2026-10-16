@@ -1,0 +1,91 @@
+{
+  "format": "studio-yebisu-mem0-scenarios-v1",
+  "scenarios": [
+    {
+      "id": "M01",
+      "label": "7件を保存する",
+      "operation": "add",
+      "infer": false
+    },
+    {
+      "id": "M02",
+      "label": "あやさんの好みを探す",
+      "operation": "search",
+      "query": "説明を見せるとき、どんな見せ方が好み？",
+      "filters": {
+        "user_id": "aya"
+      },
+      "top_k": 3,
+      "threshold": 0.0,
+      "explain": true
+    },
+    {
+      "id": "M03",
+      "label": "同じ質問をけんさんに",
+      "operation": "search",
+      "query": "説明を見せるとき、どんな見せ方が好み？",
+      "filters": {
+        "user_id": "ken"
+      },
+      "top_k": 3,
+      "threshold": 0.0,
+      "explain": true
+    },
+    {
+      "id": "M04",
+      "label": "動画の好みだけに絞る",
+      "operation": "search",
+      "query": "作例動画の長さと音声は？",
+      "filters": {
+        "user_id": "aya",
+        "topic": "video"
+      },
+      "top_k": 3,
+      "threshold": 0.0,
+      "explain": true
+    },
+    {
+      "id": "M05",
+      "label": "20秒から30秒へ更新",
+      "operation": "update",
+      "key": "A02",
+      "text": "あやさんはモーションの作例を、音声なし・30秒程度の動画で見たいです。"
+    },
+    {
+      "id": "M06",
+      "label": "仮の予定を削除する",
+      "operation": "delete",
+      "key": "A04"
+    },
+    {
+      "id": "M07",
+      "label": "別プロセスで読み直す",
+      "operation": "reopen",
+      "query": "作例動画の長さと音声は？",
+      "filters": {
+        "user_id": "aya",
+        "topic": "video"
+      },
+      "top_k": 3,
+      "threshold": 0.0,
+      "explain": true
+    },
+    {
+      "id": "M08",
+      "label": "未登録ユーザーは0件",
+      "operation": "guard",
+      "query": "説明の好みは？",
+      "filters": {
+        "user_id": "nobody"
+      },
+      "top_k": 3,
+      "threshold": 0.0,
+      "explain": true,
+      "validation_cases": [
+        "missing_filters",
+        "top_level_user_id",
+        "threshold_out_of_range"
+      ]
+    }
+  ]
+}

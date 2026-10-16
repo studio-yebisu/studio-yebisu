@@ -1,0 +1,47 @@
+Mem0（mem0ai/mem0 固定コミット 0724291bd864cf807e88ee8981c8226644e8fb42、SDK 2.2.1、Apache-2.0）のオープンソース版 Memory API を使って、架空の利用者の好みを保存し、次の依頼で引き出せるかを確かめる Python スクリプトを書き、実際に実行してください。結果は、入力と出力を組で読める日本語のスマホ向けページにしてください。
+
+読む原典（固定版）
+・公式SDKスキル：https://github.com/mem0ai/mem0/blob/0724291bd864cf807e88ee8981c8226644e8fb42/skills/mem0/SKILL.md
+・Python SDK の参照（Open Source / Self-Hosted の節）：https://github.com/mem0ai/mem0/blob/0724291bd864cf807e88ee8981c8226644e8fb42/skills/mem0/client/python.md
+・Memory の実装：https://github.com/mem0ai/mem0/blob/0724291bd864cf807e88ee8981c8226644e8fb42/mem0/memory/main.py
+・Hugging Face 埋め込み：https://github.com/mem0ai/mem0/blob/0724291bd864cf807e88ee8981c8226644e8fb42/mem0/embeddings/huggingface.py
+・Qdrant 保存先：https://github.com/mem0ai/mem0/blob/0724291bd864cf807e88ee8981c8226644e8fb42/mem0/vector_stores/qdrant.py
+・SQLite 履歴：https://github.com/mem0ai/mem0/blob/0724291bd864cf807e88ee8981c8226644e8fb42/mem0/memory/storage.py
+・ライセンス：https://github.com/mem0ai/mem0/blob/0724291bd864cf807e88ee8981c8226644e8fb42/LICENSE
+
+使うもの（ホスト型 Platform・API キー・アカウント・mem0 init・プラグインは使わない）
+・from mem0 import Memory と Memory.from_config。原典のファイルは改変せずに置いてハッシュで固定し、関数の差し替えはしない。
+・埋め込み：huggingface プロバイダーで、手元に取得した sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2（コミット e8f8c211226b894fcb81acc59f3b34ba3efd5f42、384次元）を CPU で読み込む（local_files_only=True、trust_remote_code=False）。重みは公開しない。
+・保存先：埋め込みモードの Qdrant（path 指定、on_disk）と SQLite の履歴。どちらも公開しないフォルダーに置く。
+・LLM：Memory は LLM のクライアントを必ず作るので、公式の ollama プロバイダーを閉じたポートに向けて置くだけにし、呼ばない。追加はすべて infer=False にする。
+
+入力（ここを差し替える。実行の前に固定し、結果を見てから変えない）
+・好み：キー・user_id・metadata（topic など）・本文。すべて架空にし、実在の人の記録や会話は入れない（この作例では 2人・7件）
+・場面：保存、利用者ごとの検索、同じ問いを別の利用者に、metadata での絞り込み、1件の更新、1件の削除、別プロセスでの読み直し、未登録の利用者と誤った呼び出し（この作例では M01〜M08）
+・設定（この作例の値）：top_k 3、threshold 0.0、explain true、seed 2201、CPU 4スレッド
+
+進め方
+1. 入力と原典のファイルを SHA-256 で、モデルのファイルをサイズとハッシュで照合する。実行中に自動でダウンロードしない。
+2. 依存を読み込む前に、Python の監査フックで socket の接続と名前解決を拒否して数える。MEM0_TELEMETRY=false、非公開の MEM0_DIR、HF_HUB_OFFLINE=1 などを設定する。通信の試みが1件でもあれば失敗にする。
+3. add(本文, user_id=..., metadata=..., infer=False) で1件ずつ保存し、返った ID を入力のキーに対応づける。get_all(filters={"user_id": ...}) で件数・本文・metadata を確かめる。
+4. search は filters={"user_id": ...} で呼び、返った全件をスコアごと記録する。利用者の記録だけが返ることを確かめる。どれが何位に来るかを合否にしない。
+5. update(id, text=...) の前後で get と history を記録し、ID が同じで本文が置き換わったことを確かめる。delete(id) の後に get が None、一覧から外れたことと、履歴に残るものを記録する。
+6. SQLite と Qdrant を閉じてから、新しい Python プロセスで同じ保存先を開き直し、更新と削除が残っていることを確かめる。未登録の利用者の検索と、誤った呼び出し（filters なし、user_id を filters の外に、threshold 1.1）の実際の例外を記録する。
+7. すべての確認が通ったときだけ、入力のハッシュ・原典とモデルの固定版・版・確認・各場面の入力と戻り値を、公開用の JSON に1回だけ書く。手元の絶対パス・保存ファイルそのもの・完全なログ・認証情報は書かない。既にある結果は上書きしない。
+
+ページでできること
+・場面を選び、渡した値と Mem0 が返した記録（ID・利用者・本文・スコア）を読む。各場面の生の JSON も全文で開ける。
+・更新の前後、削除後の get と残る履歴、別プロセスでの件数、誤った呼び出しの例外を見る。
+・保存した JSON と入力を取得し、入力の SHA-256・固定版・場面の一致を確かめてから表示する。合わなければ理由と「もう一度読み込む」を出し、内蔵の代わりのデータは使わない。
+・選んだ場面を JSON で保存し、この依頼文をコピーする。
+・320px幅のスマホから1280px幅のパソコンまで、横スクロールなしで使える。操作部品は44px以上、入力欄の文字は16px以上。外部のフォント・CDN・計測・AIの呼び出しは使わない。ページの中で Mem0・Python・推論は動かさない。
+
+書かないこと
+・infer=False の保存を、LLM による自動の抽出や記憶の整理として書かない。更新はスクリプトが update を呼んだ結果として書く。
+・Mem0 のスコアを確率・確信度・正解率として書かない。
+・user_id での分離を、認証や権限の保証として書かない。
+・削除を、物理的な消去や履歴の削除として書かない。
+・ホスト型 Platform の性能や機能を、この確認の結果として書かない。
+・コードや文章を書いた AI と、ベクトルを計算した埋め込みモデル、記録を操作した Mem0 を混同しない。
+
+最後に、作ったファイル、実際に実行したコマンドとその結果、まだ確かめていない点を分けて書いてください。
