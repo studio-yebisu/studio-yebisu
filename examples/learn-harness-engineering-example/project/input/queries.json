@@ -1,0 +1,87 @@
+{
+  "format": "studio-yebisu-note-queries-v1",
+  "fictional": true,
+  "notice": "書店名や運用は架空の練習用です。期待IDは実装前に固定した検証条件で、実際の結果とは別に比較します。",
+  "queries": [
+    {
+      "id": "Q01",
+      "label": "すべて見る",
+      "query": "",
+      "tag": "",
+      "expected_ids": [
+        "N01",
+        "N02",
+        "N03",
+        "N04",
+        "N05",
+        "N06",
+        "N07",
+        "N08"
+      ]
+    },
+    {
+      "id": "Q02",
+      "label": "読書会を探す",
+      "query": "読書会",
+      "tag": "",
+      "expected_ids": [
+        "N02",
+        "N07"
+      ]
+    },
+    {
+      "id": "Q03",
+      "label": "2語をANDで探す",
+      "query": "　読書会　土曜　",
+      "tag": "",
+      "expected_ids": [
+        "N02"
+      ]
+    },
+    {
+      "id": "Q04",
+      "label": "展示タグで探す",
+      "query": "",
+      "tag": "展示",
+      "expected_ids": [
+        "N01",
+        "N04"
+      ]
+    },
+    {
+      "id": "Q05",
+      "label": "しおりと備品を組み合わせる",
+      "query": "しおり",
+      "tag": "備品",
+      "expected_ids": [
+        "N03"
+      ]
+    },
+    {
+      "id": "Q06",
+      "label": "該当なしを確かめる",
+      "query": "存在しない星の棚",
+      "tag": "",
+      "expected_ids": []
+    },
+    {
+      "id": "Q07",
+      "label": "全角英字をそろえる",
+      "query": "ＦＡＩＲ",
+      "tag": "",
+      "expected_ids": [
+        "N01"
+      ]
+    },
+    {
+      "id": "Q08",
+      "label": "棚と展示を組み合わせる",
+      "query": "棚",
+      "tag": "展示",
+      "expected_ids": [
+        "N01",
+        "N04"
+      ]
+    }
+  ]
+}

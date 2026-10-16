@@ -1,0 +1,200 @@
+{
+  "format": "studio-yebisu-note-verification-v1",
+  "status": "passed",
+  "note_count": 8,
+  "query_count": 8,
+  "queries": [
+    {
+      "id": "Q01",
+      "query": "",
+      "tag": "",
+      "actual_ids": [
+        "N01",
+        "N02",
+        "N03",
+        "N04",
+        "N05",
+        "N06",
+        "N07",
+        "N08"
+      ],
+      "expected_ids": [
+        "N01",
+        "N02",
+        "N03",
+        "N04",
+        "N05",
+        "N06",
+        "N07",
+        "N08"
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "Q02",
+      "query": "読書会",
+      "tag": "",
+      "actual_ids": [
+        "N02",
+        "N07"
+      ],
+      "expected_ids": [
+        "N02",
+        "N07"
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "Q03",
+      "query": "　読書会　土曜　",
+      "tag": "",
+      "actual_ids": [
+        "N02"
+      ],
+      "expected_ids": [
+        "N02"
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "Q04",
+      "query": "",
+      "tag": "展示",
+      "actual_ids": [
+        "N01",
+        "N04"
+      ],
+      "expected_ids": [
+        "N01",
+        "N04"
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "Q05",
+      "query": "しおり",
+      "tag": "備品",
+      "actual_ids": [
+        "N03"
+      ],
+      "expected_ids": [
+        "N03"
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "Q06",
+      "query": "存在しない星の棚",
+      "tag": "",
+      "actual_ids": [],
+      "expected_ids": [],
+      "status": "passed"
+    },
+    {
+      "id": "Q07",
+      "query": "ＦＡＩＲ",
+      "tag": "",
+      "actual_ids": [
+        "N01"
+      ],
+      "expected_ids": [
+        "N01"
+      ],
+      "status": "passed"
+    },
+    {
+      "id": "Q08",
+      "query": "棚",
+      "tag": "展示",
+      "actual_ids": [
+        "N01",
+        "N04"
+      ],
+      "expected_ids": [
+        "N01",
+        "N04"
+      ],
+      "status": "passed"
+    }
+  ],
+  "negative_controls": [
+    {
+      "id": "NC01",
+      "label": "意図的な失敗：1行目のメタデータが閉じていないメモ（N05の写し）",
+      "exit_code": 1,
+      "success_artifact_created": false,
+      "status": "passed"
+    },
+    {
+      "id": "NC02",
+      "label": "意図的な失敗：同じid（N02）のメモが2つ",
+      "exit_code": 1,
+      "success_artifact_created": false,
+      "status": "passed"
+    },
+    {
+      "id": "NC03",
+      "label": "意図的な失敗：知らない引数 --force",
+      "exit_code": 1,
+      "success_artifact_created": false,
+      "status": "passed"
+    },
+    {
+      "id": "NC04",
+      "label": "意図的な失敗：必須の --input がない",
+      "exit_code": 1,
+      "success_artifact_created": false,
+      "status": "passed"
+    },
+    {
+      "id": "NC05",
+      "label": "意図的な失敗：出力先が既にある（元の中身を保つ）",
+      "exit_code": 1,
+      "success_artifact_created": false,
+      "status": "passed"
+    },
+    {
+      "id": "NC06",
+      "label": "意図的な失敗：途中で切れた索引JSON",
+      "exit_code": 1,
+      "success_artifact_created": false,
+      "status": "passed"
+    },
+    {
+      "id": "NC07",
+      "label": "意図的な失敗：inputs_sha256 とメモの source_sha256 が合わない索引",
+      "exit_code": 1,
+      "success_artifact_created": false,
+      "status": "passed"
+    },
+    {
+      "id": "NC08",
+      "label": "意図的な失敗：知らないコマンド publish",
+      "exit_code": 1,
+      "success_artifact_created": false,
+      "status": "passed"
+    },
+    {
+      "id": "NC09",
+      "label": "意図的な失敗：--input がフォルダではなくファイル",
+      "exit_code": 1,
+      "success_artifact_created": false,
+      "status": "passed"
+    },
+    {
+      "id": "NC10",
+      "label": "意図的な失敗：.md のメモが1件もないフォルダ",
+      "exit_code": 1,
+      "success_artifact_created": false,
+      "status": "passed"
+    },
+    {
+      "id": "NC11",
+      "label": "意図的な失敗：--index の値がない",
+      "exit_code": 1,
+      "success_artifact_created": false,
+      "status": "passed"
+    }
+  ],
+  "source_integrity": true
+}

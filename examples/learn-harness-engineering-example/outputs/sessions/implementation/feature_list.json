@@ -1,0 +1,20 @@
+{
+  "features": [
+    {
+      "id": "feat-001",
+      "name": "メモの索引と検索",
+      "description": "src/notes.mjs の build で input/notes の架空メモ8件から outputs/index.json（各メモの全項目と入力のSHA-256）を作り、search で NFKC・小文字・空白区切りの全語AND とタグの完全一致で探す。input/queries.json の8問の期待IDと意図的な失敗11件を scripts/verify.mjs で実際に実行して確かめる。",
+      "dependencies": [],
+      "status": "in-progress",
+      "evidence": "実装済み。親による node scripts/verify.mjs と実CLI確認を待つ。未検証。"
+    },
+    {
+      "id": "feat-002",
+      "name": "引用付き回答",
+      "description": "次の候補。今回の実行範囲外。外部LLM呼び出しを未実装。",
+      "dependencies": ["feat-001"],
+      "status": "not-started",
+      "evidence": ""
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "command": "node vendor/learn-harness-engineering/skills/harness-creator/scripts/validate-harness.mjs --target project --json",
+  "exit_code": 0,
+  "threshold": 70,
+  "overall": 92,
+  "note": "原典の英語の見出し・語句を含む構造の点検です。実行テストやエージェントの有効性・品質の評価と区別します。",
+  "candidate_improvements": [
+    "次の機能を始めるとき、init.shがどの受入条件を検証するかをその機能の文書と結び付ける。",
+    "ビルドや型検査が必要な実装を追加した段階で、その実コマンドを検証入口に追加する。現状のNode組み込みCLIに形式的なビルドは追加しない。"
+  ],
+  "causality_claim": false,
+  "subsystem_scores": {
+    "instructions": 5,
+    "state": 5,
+    "verification": 3,
+    "scope": 5,
+    "lifecycle": 5
+  },
+  "candidate_bottleneck": "verification",
+  "interpretation": "verificationは3/5。他は5/5。原典が検索する英語のtest/build等の語句をAGENTS.mdとinit.shで検出できない2項目が残りました。実際にはverify.mjsからCLIを子プロセス実行しています。構造点数のための文言や不要な工程は足さず、実テストと区別して残します。"
+}

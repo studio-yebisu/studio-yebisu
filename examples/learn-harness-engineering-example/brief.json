@@ -1,0 +1,59 @@
+{
+  "title": "Learn Harness Engineering作例：Harness Creatorの5ファイルで、架空の書店メモを探す小さなCLIを1機能だけ進め、次のセッションへ引き継ぐ",
+  "request": "最初の小さなエージェント実行課題を選び、入力、処理、状態、出力の流れを説明しながら進めてください。失敗した場合の記録も残してください。入力、出力、実行した検証、未確認の点を記録してください。",
+  "category": "learning",
+  "audience": "AIに開発を任せるときの状態ファイルや検証の置き方を、小さな実例で学びたい日本語の開発者・制作担当",
+  "goal": "固定版 Harness Creator の create-harness.mjs を改変せずに実行して作った5ファイル（AGENTS.md・feature_list.json・progress.md・session-handoff.md・init.sh）を、架空の書店メモ8件を探す Node CLI の練習に合わせて書き換え、feat-001 の1機能だけを実装し、./init.sh の実行記録がそろってから次の新しいセッションが保存ファイルだけを読んで feat-001 を閉じられるようにする",
+  "inputs": [
+    "project/input/notes/N01.md〜N08.md（架空の書店メモ8件：1行目のJSONメタデータ・空行・本文）",
+    "project/input/queries.json（実装の前に固定した8問と期待ID）",
+    "walkinglabs/learn-harness-engineering 固定コミット 38ddcd2bf8d65271f668b94e7c875ca1d629d622 の skills/harness-creator（SKILL.md・create-harness.mjs・validate-harness.mjs・templates）と LICENSE",
+    "outputs/harness-created.json と outputs/scaffold/（create-harness.mjs を実行した実際の記録と、生成時の5ファイル）"
+  ],
+  "skill_refs": [
+    "skills/brief-to-demo/SKILL.md",
+    "https://github.com/walkinglabs/learn-harness-engineering/blob/38ddcd2bf8d65271f668b94e7c875ca1d629d622/skills/harness-creator/SKILL.md",
+    "https://github.com/walkinglabs/learn-harness-engineering/blob/38ddcd2bf8d65271f668b94e7c875ca1d629d622/skills/harness-creator/scripts/create-harness.mjs",
+    "https://github.com/walkinglabs/learn-harness-engineering/blob/38ddcd2bf8d65271f668b94e7c875ca1d629d622/skills/harness-creator/scripts/validate-harness.mjs"
+  ],
+  "deliverables": [
+    "project/src/notes.mjs（build・search の CLI。Node 組み込みモジュールだけ）",
+    "project/scripts/verify.mjs（CLI を子プロセスで実行し、8問と意図的な失敗を照合する検証）",
+    "project/AGENTS.md・feature_list.json・progress.md・session-handoff.md（生成された雛形をこの練習用に書き換えた状態ファイル）",
+    "project/docs/project.md（CLI の入出力と確認の範囲）",
+    "project/outputs/index.json・project/outputs/verification.json・outputs/exercise-run.json（制作担当の実行で作る記録）",
+    "outputs/sessions/implementation/ と outputs/sessions/resume/（各セッションの終わりの状態ファイル）",
+    "index.html・app.js・style.css（索引をブラウザーで探し、保存した CLI の記録と引き継ぎの状態を読むページ）",
+    "outputs/method.md・README.md・request.txt"
+  ],
+  "steps": [
+    "架空の書店メモ8件と8問の期待IDを、実装の前に固定する",
+    "固定版の create-harness.mjs を改変せずに --commands \"node scripts/verify.mjs\" で実行し、5ファイルを作って原本を outputs/scaffold/ に残す",
+    "5ファイルをこの練習に合わせて書き換え、feat-001（メモの索引と検索）を in-progress、feat-002（引用付き回答）を not-started にする",
+    "実装セッションで src/notes.mjs と scripts/verify.mjs を書き、未検証のまま状態ファイルに残す",
+    "制作担当が ./init.sh と build・search を実際に実行し、標準出力を記録する",
+    "新しい再開セッションが AGENTS.md → 状態ファイル → 検証の記録を読み、記録が条件を満たすときだけ feat-001 を done にする",
+    "閲覧ページで記録を取得して入力の SHA-256 と中身の一致を確かめ、ブラウザー検索と保存記録を並べて読む"
+  ],
+  "acceptance": [
+    "create-harness.mjs の実行記録（コマンド・終了コード0・5ファイルの SHA-256）と生成時の原本が残っている",
+    "feature_list.json の作業中の機能は常に1つで、実装セッション後は feat-001 が in-progress、feat-002 が not-started",
+    "./init.sh が終了コード0で終わり、verification.json が passed・8件・8問・source_integrity true で、全問と全ての意図的な失敗が passed",
+    "8問の結果が固定の期待IDと一致する：Q01 は8件、Q02 は N02・N07、Q03 は N02、Q04 は N01・N04、Q05 は N03、Q06 は0件、Q07 は N01、Q08 は N01・N04",
+    "意図的な失敗では、終了コード1・標準出力なし・成功の出力なしで、既にある出力先の中身が保たれる",
+    "再開セッション後だけ feat-001 が done になり、feat-002 は not-started のまま",
+    "閲覧ページが4つの記録と入力9件を取得して形・固定コミット・SHA-256・中身の一致を確かめ、合わなければ理由と再読み込みを出し、代わりのデータを使わない",
+    "初期表示は Q03。保存記録のボタンを選ぶと検索欄に同じ条件が入り、選んだ記録を learn-harness-Q03.json などの JSON で保存できる",
+    "320・375・390・430px縦、844px横、1280pxで横スクロールがなく、操作部品とリンクが44px以上、入力欄が16px以上"
+  ],
+  "assumptions": [
+    "「最初の小さなエージェント実行課題」は、講座の Project 01・02 ではなく、書き下ろしの架空の書店メモ8件を探す CLI で表す",
+    "制作環境には別の AGENTS.md があり、ハーネスなしとの公平な比較はできないため、比較実験やハーネスの効果の測定はしない",
+    "実装セッションはファイルの読み書きだけを行い、シェル・CLI・検証の実行は制作担当が行う。実行していない検証を実行済みとは書かない",
+    "「失敗した場合の記録」は、意図的に作った不正な入力で CLI が断ることを確かめる negative_controls として、作業の失敗と分けて記録する",
+    "feat-002（引用付き回答）は次の候補として残し、外部 LLM の呼び出しは実装しない",
+    "validate-harness.mjs の点数は構造の点検で、テストや効果の証拠としては扱わない",
+    "閲覧ページは保存した記録を読み、索引をブラウザー内で探すだけで、Node・CLI・AI は動かさない",
+    "解説動画は約28秒・無音で、実入力・実CLI結果・引き継ぎの状態を使って後日制作する"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "features": [
+    {
+      "id": "feat-001",
+      "name": "メモの索引と検索",
+      "description": "src/notes.mjs の build で input/notes の架空メモ8件から outputs/index.json（各メモの全項目と入力のSHA-256）を作り、search で NFKC・小文字・空白区切りの全語AND とタグの完全一致で探す。input/queries.json の8問の期待IDと意図的な失敗11件を scripts/verify.mjs で実際に実行して確かめる。",
+      "dependencies": [],
+      "status": "done",
+      "evidence": "実装セッションの道具ではシェル・Node を実行できなかったため、検証は親（制作担当）が実行した。親の記録（../../runtime/execution-data.json）で ./init.sh の終了コードは0（init_exit_code: 0）。その標準出力が ../outputs/init.stdout.txt と outputs/verification.json にある：status passed・note_count 8・query_count 8・source_integrity true・queries 8件すべて passed で actual_ids が input/queries.json の expected_ids と一致・negative_controls 11件（NC01〜NC11）すべて passed（exit_code 1・success_artifact_created false）。Node の CLI で build した outputs/index.json（8件）と search の outputs/queries/Q01〜Q08.json があり、Q03（全角空白の「読書会　土曜」）の実際の結果は N02 のみ、Q06 は0件。再開セッションはこれらの保存ファイルを読んで状態を更新しただけで、自分では実行していない。"
+    },
+    {
+      "id": "feat-002",
+      "name": "引用付き回答",
+      "description": "次の候補。今回の実行範囲外。外部LLM呼び出しを未実装。",
+      "dependencies": ["feat-001"],
+      "status": "not-started",
+      "evidence": ""
+    }
+  ]
+}

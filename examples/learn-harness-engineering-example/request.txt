@@ -1,0 +1,36 @@
+Learn Harness Engineering（walkinglabs/learn-harness-engineering 固定コミット 38ddcd2bf8d65271f668b94e7c875ca1d629d622、MIT）の Harness Creator スキルを使い、最初の小さな学習課題として、メモ8件を探す Node.js の CLI を、機能1つだけで作ってください。状態はファイルに残し、検証を実際に実行した記録がそろうまでは完了にしないでください。そのあと、新しいセッションが保存ファイルだけを読んで続きを判断できるかを確かめます。
+
+読む原典（固定版）
+・スキル：https://github.com/walkinglabs/learn-harness-engineering/blob/38ddcd2bf8d65271f668b94e7c875ca1d629d622/skills/harness-creator/SKILL.md
+・生成スクリプト：https://github.com/walkinglabs/learn-harness-engineering/blob/38ddcd2bf8d65271f668b94e7c875ca1d629d622/skills/harness-creator/scripts/create-harness.mjs
+・構造の点検：https://github.com/walkinglabs/learn-harness-engineering/blob/38ddcd2bf8d65271f668b94e7c875ca1d629d622/skills/harness-creator/scripts/validate-harness.mjs
+・ライセンス：https://github.com/walkinglabs/learn-harness-engineering/blob/38ddcd2bf8d65271f668b94e7c875ca1d629d622/LICENSE
+
+入力（ここを差し替える）
+・メモ8件：1ファイル1件。1行目は id・title・tags だけの JSON、2行目は空行、3行目から本文。架空か実在か：
+・検索の問い8つ：語、タグ、期待するIDの並び。実装の前に決めて、あとから変えない
+・検証のコマンド：
+
+進め方
+1. 空のプロジェクトで create-harness.mjs を改変せずに実行し、--commands に検証のコマンドを渡して、AGENTS.md・feature_list.json・progress.md・session-handoff.md・init.sh の5ファイルを作る。生成した原本は別の場所に残す。既にあるファイルは上書きしない（--force は使わない）。
+2. 雛形の項目を、この課題の内容に書き換える。feature_list.json の機能は2つだけ：feat-001（メモの索引と検索）を in-progress、次の候補の feat-002 を not-started にする。作業中の機能は常に1つ。
+3. feat-001 だけを実装する。Node の組み込みモジュールだけを使い、外部API・キー・アカウント・通信・パッケージの導入は使わない。
+・build：メモのフォルダから索引の JSON を作る。各メモの全項目、元ファイルのバイト列の SHA-256、相対パスの source を入れる。壊れた入力・IDの重複・既にある出力先では、何も書かずに終了コード1で止まる。
+・search：NFKC と小文字にそろえ、空白で区切った語をすべて含むメモを、タグの完全一致と組み合わせて探す。並びは入力の順。点数・あいまい検索・LLM は使わない。
+4. 検証スクリプトは CLI を子プロセスとして実際に実行し、8問の結果のIDと全項目を期待と照合する。壊れたメタデータ・IDの重複・知らない引数・必須の引数の欠落・既にある出力先・壊れた索引は、意図的な失敗として別に記録し、作業の失敗と混ぜない。標準出力は JSON 1つだけにし、時刻と手元のパスは書かない。
+5. init.sh を実際に実行し、その出力を検証の記録として保存する。実行していない検証を、実行したと書かない。シェルを使えない場合は実行を人に頼み、記録が届くまで feat-001 を in-progress のままにする。
+6. progress.md と session-handoff.md に、変えたファイル・未実行の確認・リスク・次のセッションが読む順番を書く。
+7. 新しいセッションを始め、AGENTS.md → feature_list.json・progress.md・session-handoff.md → 検証の記録、の順に読ませる。記録が全条件を満たすときだけ feat-001 を done にして証拠の場所を書かせる。そのセッションではコードを直さず、feat-002 も始めない。
+8. validate-harness.mjs の点数は、見出しや項目がそろっているかの構造の点検として、テストとは別に記録する。
+
+出力
+・5ファイルの生成記録（実行したコマンド・終了コード・各ファイルの SHA-256）
+・CLI、検証スクリプト、索引の JSON、8問の検索結果、検証の記録
+・実装セッション後と再開セッション後の feature_list.json・progress.md・session-handoff.md
+
+書かないこと
+・構造の点数を、ハーネスの効果や信頼性の向上として書かない。ハーネスなしとの比較をしていないなら、比較したと書かない。
+・検索の結果を、AIの回答や引用のように書かない。
+・feat-002 に手を付けない。
+
+最後に、作ったファイル、実際に実行した確認とその出力、まだ確かめていない点を分けて書いてください。
