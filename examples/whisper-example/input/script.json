@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "id": "review-ja",
+  "title": "しおり工房 動画レビューの読み上げ原稿",
+  "language": "ja",
+  "kind": "synthetic",
+  "fictional": true,
+  "fiction_note": "しおり工房は作例用の架空の工房です。実在の人物・会議・録音ではありません。",
+  "source": "Studio Yebisu が Whisper 作例のために書いたオリジナルの原稿（制作: claude-opus-5-5）",
+  "material": "この原稿を Windows の音声合成で読み上げた合成音声。人の声の録音ではなく、精度を比べるための評価用データでもありません。",
+  "voice_name": "Microsoft Haruka Desktop",
+  "sapi_rate": -1,
+  "sapi_volume": 100,
+  "synthesis": "make_input.ps1 が System.Speech.Synthesis.SpeechSynthesizer で手元合成（ネットワーク・アカウントなし）",
+  "source_audio": "input/review-ja-source.wav",
+  "asr_audio": "input/review-ja.wav",
+  "target_duration_note": "通常の話し方で約20〜25秒を目安に書いた文量です。実際の長さは合成した WAV から測ります。",
+  "sentences": [
+    "しおり工房の、動画レビューを始めます。",
+    "見出しは短く、字幕は二行までにします。",
+    "一つの字幕には、一つの考えだけを入れます。",
+    "最後に、音声と字幕のずれを確認して、エスアールティー形式で保存します。"
+  ],
+  "reference_text": "しおり工房の、動画レビューを始めます。見出しは短く、字幕は二行までにします。一つの字幕には、一つの考えだけを入れます。最後に、音声と字幕のずれを確認して、エスアールティー形式で保存します。",
+  "reference_use": "読み上げた原稿です。Whisper には渡しません（initial_prompt なし）。転記の結果と人が見比べるためだけに使います。",
+  "license": "MIT（Copyright (c) 2026 Studio Yebisu）"
+}

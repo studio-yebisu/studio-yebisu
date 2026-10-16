@@ -1,0 +1,337 @@
+{
+  "format": "input-output",
+  "samples": [
+    {
+      "id": "cpu-transcribe",
+      "label": "音声から実際に転記",
+      "input": "独自原稿の合成音声1本、21.014063秒・16kHz mono PCM16。参照原稿はASRに渡さず、base/CPU4threads・languageja・temperature0。",
+      "output": {
+        "text": "塩リコーボーの動画レビューを始めますみだしは短く 字幕は逃げをまでにします一つの字幕には 一つの考えだけを入れます最後に 音声と字幕のずれを確認してSRティー景色で保存します",
+        "segments": [
+          {
+            "id": 0,
+            "start": 0.0,
+            "end": 4.12,
+            "text": "塩リコーボーの動画レビューを始めます"
+          },
+          {
+            "id": 1,
+            "start": 4.12,
+            "end": 8.700000000000001,
+            "text": "みだしは短く 字幕は逃げをまでにします"
+          },
+          {
+            "id": 2,
+            "start": 8.700000000000001,
+            "end": 13.56,
+            "text": "一つの字幕には 一つの考えだけを入れます"
+          },
+          {
+            "id": 3,
+            "start": 13.56,
+            "end": 17.52,
+            "text": "最後に 音声と字幕のずれを確認して"
+          },
+          {
+            "id": 4,
+            "start": 17.52,
+            "end": 20.92,
+            "text": "SRティー景色で保存します"
+          }
+        ],
+        "native_formats": [
+          "json",
+          "jsonl",
+          "txt",
+          "srt",
+          "vtt",
+          "tsv"
+        ],
+        "note": "One actual local inference. Not an accuracy/speed benchmark."
+      }
+    },
+    {
+      "id": "native-raw-srt",
+      "label": "未編集のまま保存",
+      "input": "保存済み出力5区間で「編集したSRTを保存」を押す。",
+      "output": {
+        "cue_count": 5,
+        "native_whisper_srt_cues_match": true,
+        "file": "outputs/browser-original.srt"
+      }
+    },
+    {
+      "id": "select-last",
+      "label": "区間の頭へ移る",
+      "input": "id4をクリック。",
+      "output": {
+        "selected": "4",
+        "value": "SRティー景色で保存します",
+        "audio": {
+          "error": null,
+          "paused": true,
+          "time": 17.52
+        }
+      }
+    },
+    {
+      "id": "reset-cue",
+      "label": "入力を元に戻す",
+      "input": "id2をEnterで選び、3行の仮文を入力してから「この区間を元に戻す」。",
+      "output": {
+        "before": {
+          "audio": {
+            "error": null,
+            "paused": true,
+            "time": 8.7
+          },
+          "current": "仮の文\n二行目\n三行目",
+          "dirty": "true",
+          "edited": 1,
+          "hint": false,
+          "raw": "一つの字幕には 一つの考えだけを入れます",
+          "ready": "true",
+          "resetDisabled": false,
+          "rows": [
+            {
+              "id": "0",
+              "pressed": "false",
+              "text": "塩リコーボーの動画レビューを始めます"
+            },
+            {
+              "id": "1",
+              "pressed": "false",
+              "text": "みだしは短く 字幕は逃げをまでにします"
+            },
+            {
+              "id": "2",
+              "pressed": "true",
+              "text": "仮の文\n二行目\n三行目"
+            },
+            {
+              "id": "3",
+              "pressed": "false",
+              "text": "最後に 音声と字幕のずれを確認して"
+            },
+            {
+              "id": "4",
+              "pressed": "false",
+              "text": "SRティー景色で保存します"
+            }
+          ],
+          "selected": "2",
+          "status": "5区間を読み込みました。",
+          "value": "仮の文\n二行目\n三行目",
+          "label": "three-lines"
+        },
+        "after": {
+          "audio": {
+            "error": null,
+            "paused": true,
+            "time": 8.7
+          },
+          "current": "一つの字幕には 一つの考えだけを入れます",
+          "dirty": "false",
+          "edited": 0,
+          "hint": true,
+          "raw": "一つの字幕には 一つの考えだけを入れます",
+          "ready": "true",
+          "resetDisabled": true,
+          "rows": [
+            {
+              "id": "0",
+              "pressed": "false",
+              "text": "塩リコーボーの動画レビューを始めます"
+            },
+            {
+              "id": "1",
+              "pressed": "false",
+              "text": "みだしは短く 字幕は逃げをまでにします"
+            },
+            {
+              "id": "2",
+              "pressed": "true",
+              "text": "一つの字幕には 一つの考えだけを入れます"
+            },
+            {
+              "id": "3",
+              "pressed": "false",
+              "text": "最後に 音声と字幕のずれを確認して"
+            },
+            {
+              "id": "4",
+              "pressed": "false",
+              "text": "SRティー景色で保存します"
+            }
+          ],
+          "selected": "2",
+          "status": "5区間を読み込みました。",
+          "value": "一つの字幕には 一つの考えだけを入れます",
+          "label": "reset"
+        }
+      }
+    },
+    {
+      "id": "edit-first",
+      "label": "工房名を原稿に合わせる",
+      "input": "id0を選び、原稿を参照して「しおり工房の\n動画レビューを始めます。」へ手動修正。音を聞いた校正ではない。",
+      "output": {
+        "audio": {
+          "error": null,
+          "paused": true,
+          "time": 0
+        },
+        "current": "しおり工房の\n動画レビューを始めます。",
+        "dirty": "true",
+        "edited": 1,
+        "hint": true,
+        "raw": "塩リコーボーの動画レビューを始めます",
+        "ready": "true",
+        "resetDisabled": false,
+        "rows": [
+          {
+            "id": "0",
+            "pressed": "true",
+            "text": "しおり工房の\n動画レビューを始めます。"
+          },
+          {
+            "id": "1",
+            "pressed": "false",
+            "text": "みだしは短く 字幕は逃げをまでにします"
+          },
+          {
+            "id": "2",
+            "pressed": "false",
+            "text": "一つの字幕には 一つの考えだけを入れます"
+          },
+          {
+            "id": "3",
+            "pressed": "false",
+            "text": "最後に 音声と字幕のずれを確認して"
+          },
+          {
+            "id": "4",
+            "pressed": "false",
+            "text": "SRティー景色で保存します"
+          }
+        ],
+        "selected": "0",
+        "status": "5区間を読み込みました。",
+        "value": "しおり工房の\n動画レビューを始めます。",
+        "label": "edited-first"
+      }
+    },
+    {
+      "id": "edit-three",
+      "label": "3区間だけ手動修正",
+      "input": "id0・id1・id4を原稿に合わせて修正し、SRTとTXTを保存。",
+      "output": {
+        "source": "Native browser SRT download; original-script-based editorial corrections, not heard verification.",
+        "cue_count": 5,
+        "changed_segment_ids": [
+          0,
+          1,
+          4
+        ],
+        "timestamps_unchanged": true,
+        "raw_export_cues_match_native_whisper_srt": true,
+        "raw_export_sha256": "b82b9620667676c7008d0a0ece13422bfc792d0c0578df9458482e6f9b28d7ca",
+        "edited_export_sha256": "976709c38a46dcc15f1d230729bdfb2a5390dd8a4fa3eeaf9cf4e93569e0716c",
+        "txt_export_sha256": "39f50aa0649674efb8cbfe077449ef8f6f2289ff74ab43316be0a4c14e3a2d40",
+        "current_segments": [
+          {
+            "id": 0,
+            "start": 0.0,
+            "end": 4.12,
+            "text": "しおり工房の\n動画レビューを始めます。"
+          },
+          {
+            "id": 1,
+            "start": 4.12,
+            "end": 8.700000000000001,
+            "text": "見出しは短く、\n字幕は二行までにします。"
+          },
+          {
+            "id": 2,
+            "start": 8.700000000000001,
+            "end": 13.56,
+            "text": "一つの字幕には 一つの考えだけを入れます"
+          },
+          {
+            "id": 3,
+            "start": 13.56,
+            "end": 17.52,
+            "text": "最後に 音声と字幕のずれを確認して"
+          },
+          {
+            "id": 4,
+            "start": 17.52,
+            "end": 20.92,
+            "text": "SRT形式で保存します。"
+          }
+        ],
+        "audio_listening_confirmed": false,
+        "timing_accuracy_confirmed": false
+      }
+    },
+    {
+      "id": "retry",
+      "label": "503から再試行",
+      "input": "制作時だけローカルサーバーでsession.jsonをHTTP503にして再読み込み。失敗を確認し、解除して再試行。",
+      "output": {
+        "error": {
+          "deskHidden": false,
+          "message": "outputs/session.json を読めませんでした（HTTP 503）。 出力がまだ無いか、通信に失敗しました。もう一度読み込めます。",
+          "ready": "false",
+          "saveDisabled": true
+        },
+        "recovered": {
+          "audio": {
+            "error": null,
+            "paused": true,
+            "time": 0
+          },
+          "current": "塩リコーボーの動画レビューを始めます",
+          "dirty": "false",
+          "edited": 0,
+          "hint": true,
+          "raw": "塩リコーボーの動画レビューを始めます",
+          "ready": "true",
+          "resetDisabled": true,
+          "rows": [
+            {
+              "id": "0",
+              "pressed": "true",
+              "text": "塩リコーボーの動画レビューを始めます"
+            },
+            {
+              "id": "1",
+              "pressed": "false",
+              "text": "みだしは短く 字幕は逃げをまでにします"
+            },
+            {
+              "id": "2",
+              "pressed": "false",
+              "text": "一つの字幕には 一つの考えだけを入れます"
+            },
+            {
+              "id": "3",
+              "pressed": "false",
+              "text": "最後に 音声と字幕のずれを確認して"
+            },
+            {
+              "id": "4",
+              "pressed": "false",
+              "text": "SRティー景色で保存します"
+            }
+          ],
+          "selected": "0",
+          "status": "5区間を読み込みました。",
+          "value": "塩リコーボーの動画レビューを始めます",
+          "label": "retry-restored"
+        },
+        "note": "Controlled production QA, not a public demo button or fabricated error state."
+      }
+    }
+  ]
+}

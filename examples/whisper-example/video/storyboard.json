@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "title": "転記の誤りを、そのまま直せる。— しおり工房 字幕デスク（Whisper作例）の解説動画",
+  "brief": {
+    "goal": "Whisper の実際の原出力に残った誤りを、原稿を参照して手で直し、時刻はそのまま SRT で保存できることを、スマホで見る制作者に28秒で伝える",
+    "audience": "動画や講座の字幕を、音声認識の下書きから手で整えたい制作者（主にスマホで見る）",
+    "message": "転記の誤りを、そのまま直せる。",
+    "next_action": "作例のページで「音声を開く → 文を直す → SRTで保存」を試す",
+    "look": "作例ページと同じ紙色・墨・すもも色。見出しは明朝40px、本文26px前後、注記16〜18px。実画面の切り抜きは等倍率で置き、映像に重ねる大きな文は実ファイルから読み込む",
+    "motion": "場面の入りは0.45秒・出は0.4秒で隣と重ね、画面全体を白くしない。上の4段階と足元の注記は最後まで出したまま。入力WAVのRMSは場面1から場面2へ形を引き継ぎ、区間の時刻を同じ軸に重ねる",
+    "output": {"duration_seconds": 28, "fps": 30, "frames": 840, "width": 1280, "height": 720, "audio": "none", "poster_time": 13.5, "loop": false}
+  },
+  "facts": {
+    "input": "作例用に書いた架空の原稿を Microsoft Haruka Desktop（手元の Windows 音声合成）で読み上げた合成音声1本。人の録音ではない",
+    "transcription": "openai/whisper 固定コミット 86098128c0b4f24f0e2aa2994de830614b474227、base、CPU 4スレッド、language=ja、initial_prompt なし。制作時に1回だけ転記し、保存した出力を使う",
+    "edits": "id 0・1・4 の文を、読み上げ原稿を参照して手で直した。5区間の開始・終了時刻は変えていない",
+    "not_claimed": [
+      "音声を聞いて確かめた校正",
+      "発音・音質・時刻の正しさ",
+      "自動の修正・正確な位置合わせ",
+      "人による承認",
+      "精度や速さの比較（実行時間は映像に出さない）",
+      "ページ上で動く音声認識やAI"
+    ],
+    "synthetic_voice": true,
+    "audio_listening_confirmed": false,
+    "timing_accuracy_confirmed": false,
+    "saved_inference_only": true,
+    "live_ai_in_page": false,
+    "human_approval": false,
+    "film_author_model": "claude-opus-5-5",
+    "continuous_recording": false
+  },
+  "sources": {
+    "request": "../request.txt",
+    "script": "../input/script.json",
+    "audio": "../input/review-ja.wav",
+    "session": "../outputs/session.json",
+    "raw_srt": "../outputs/review-ja.srt",
+    "edited_srt": "../outputs/browser-edited.srt",
+    "edit_record": "../outputs/edit-record.json",
+    "reference_review": "../outputs/reference-review.json",
+    "waveform": "assets/waveform.json",
+    "screen_manifest": "assets/screen-manifest.json",
+    "screens": ["assets/phone-raw.png", "assets/desktop-raw.png", "assets/desktop-edited-first.png", "assets/desktop-edited-last.png"],
+    "expected_sha256_from": "../../runtime/frozen-reviewed-source.json（制作記録・公開しない）"
+  },
+  "persistent": {
+    "rail": ["入力", "実際の原出力", "原稿を参照して直す", "SRTで保存"],
+    "footer": "無音 ・ 入力は作例用原稿の合成音声 ・ 実画面の静止キャプチャを編集でつないだ解説（連続録画ではありません）"
+  },
+  "scenes": [
+    {
+      "start": 0,
+      "end": 4,
+      "step": "入力",
+      "message": "転記の誤りを、そのまま直せる。入力は作例用の原稿を読み上げた合成音声1本",
+      "enter": "最初から表示。RMSの棒の高さが0.1〜0.9秒で伸びる（演出。再生位置ではない）",
+      "exit": "3.65〜4.05秒で文が消え、RMSは3.6〜4.4秒で右上へ縮んで次の場面へ残る",
+      "sources": ["../input/review-ja.wav", "assets/waveform.json", "../outputs/session.json", "../request.txt"]
+    },
+    {
+      "start": 4,
+      "end": 8,
+      "step": "実際の原出力",
+      "message": "実際の原出力では、工房名が原稿と違う文字になった（id 0）",
+      "enter": "区間の一覧の実画面（desktop-raw.png）が0.45秒で入り、RMSの下に5区間の時刻、右に id 0 の原出力と転記の条件",
+      "exit": "7.65〜8.05秒で全体が消える",
+      "sources": ["../outputs/session.json", "../outputs/review-ja.srt", "assets/desktop-raw.png"]
+    },
+    {
+      "start": 8,
+      "end": 15.5,
+      "step": "原稿を参照して直す",
+      "message": "原出力・読み上げた原稿・手で直した字幕を並べ、時刻はそのまま",
+      "enter": "編集前の文を直す欄の実画面と①原出力（8.25秒）、②原稿（9.3秒）。10.6〜11.05秒で直した後の実画面へ入れ替え、③直した字幕（10.8秒）、比較欄の枠（11.2秒）、注記（11.4秒）",
+      "exit": "15.15〜15.55秒で消える。11.8〜15.15秒は止めて読む",
+      "sources": ["../outputs/session.json", "../input/script.json", "../outputs/edit-record.json", "../outputs/reference-review.json", "assets/desktop-raw.png", "assets/desktop-edited-first.png"]
+    },
+    {
+      "start": 15.5,
+      "end": 20,
+      "step": "原稿を参照して直す",
+      "message": "直したのは3区間。5区間の時刻は推定値のまま。聞いての確認は未実施",
+      "enter": "直した後の一覧の実画面（desktop-edited-last.png）、区間数、5行の表、時刻と未確認の注記",
+      "exit": "19.65〜20.05秒で消える",
+      "sources": ["../outputs/edit-record.json", "../outputs/session.json", "assets/desktop-edited-last.png"]
+    },
+    {
+      "start": 20,
+      "end": 24,
+      "step": "SRTで保存",
+      "message": "ブラウザーが保存した SRT は5区間・番号は1から連番・時刻行は原出力と同じ",
+      "enter": "保存パネルの見出しとボタンまでの実画面（状態の行は切り抜きの外）、保存した SRT の最初と最後の区間をそのまま",
+      "exit": "23.65〜24.05秒で消える",
+      "sources": ["../outputs/browser-edited.srt", "../outputs/review-ja.srt", "assets/desktop-edited-first.png"]
+    },
+    {
+      "start": 24,
+      "end": 28,
+      "step": "SRTで保存",
+      "message": "転記の誤りを、そのまま直せる。音声を開く → 文を直す → SRTで保存",
+      "enter": "スマホ幅の初期画面（phone-raw.png・375×812で撮影・未編集）と試す順番。24.45秒までにすべて入る",
+      "exit": "なし（24.45〜28秒の3.55秒を止めて終える）",
+      "sources": ["assets/phone-raw.png"]
+    }
+  ],
+  "crops": {
+    "rawList": {"file": "assets/desktop-raw.png", "x": 78, "y": 477, "w": 526, "h": 532, "scale": 0.88},
+    "rawEditor": {"file": "assets/desktop-raw.png", "x": 600, "y": 477, "w": 602, "h": 667, "scale": 0.7},
+    "editEditor": {"file": "assets/desktop-edited-first.png", "x": 600, "y": 503, "w": 602, "h": 665, "scale": 0.7},
+    "editList": {"file": "assets/desktop-edited-last.png", "x": 78, "y": 503, "w": 526, "h": 590, "scale": 0.79},
+    "savePanel": {"file": "assets/desktop-edited-first.png", "x": 600, "y": 1167, "w": 602, "h": 165, "scale": 1.1},
+    "phoneTop": {"file": "assets/phone-raw.png", "x": 0, "y": 0, "w": 375, "h": 524, "scale": 0.9}
+  },
+  "audio_events": []
+}

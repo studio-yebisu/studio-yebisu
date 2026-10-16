@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "id": "review-ja",
+  "status": "completed",
+  "recorded_at": "2026-10-16T09:48:44+00:00",
+  "audio": {
+    "path": "input/review-ja.wav",
+    "sha256": "8b9fbf4aeba07b7f2887fd8b9f82e07ea9bc802a5e6907a355ec388e47df82c4",
+    "duration_seconds": 21.014063,
+    "sample_rate": 16000,
+    "channels": 1,
+    "sample_width_bits": 16,
+    "frames": 336225,
+    "kind": "synthetic",
+    "voice_name": "Microsoft Haruka Desktop",
+    "fictional": true,
+    "script_path": "input/script.json",
+    "script_sha256": "2ab9861f781ae0451d43e341cd7cb1104a65f8c891aa571622a659a0fb7e7fef"
+  },
+  "engine": {
+    "library": "openai-whisper",
+    "version": "20250625",
+    "source_commit": "86098128c0b4f24f0e2aa2994de830614b474227",
+    "installed_source": {
+      "kind": "local",
+      "commit_matches": null
+    },
+    "model": "base",
+    "device": "cpu",
+    "task": "transcribe",
+    "language": "ja",
+    "fp16": false,
+    "temperature": 0,
+    "condition_on_previous_text": false,
+    "reference_text_supplied": false,
+    "initial_prompt": null,
+    "word_timestamps": false,
+    "threads": 4,
+    "torch_threads_observed": 4,
+    "cuda_hidden_for_process": false,
+    "device_verification": "load_model(device=cpu) and actual parameter device observed cpu",
+    "checkpoint_file": "base.pt",
+    "checkpoint_sha256": "ed3a0b6b1c0edf879ad9b11b1af5a0e6ab5db9205f891f668f8b0e6c6326e34e",
+    "checkpoint_sha256_expected": "ed3a0b6b1c0edf879ad9b11b1af5a0e6ab5db9205f891f668f8b0e6c6326e34e",
+    "writer": "whisper.utils.get_writer('all'), options={}"
+  },
+  "timings": {
+    "load_seconds": 0.488,
+    "transcribe_seconds": 2.506,
+    "scope": "single local run; excludes input synthesis and download; not benchmark"
+  },
+  "result": {
+    "language": "ja",
+    "text": "塩リコーボーの動画レビューを始めますみだしは短く 字幕は逃げをまでにします一つの字幕には 一つの考えだけを入れます最後に 音声と字幕のずれを確認してSRティー景色で保存します",
+    "segments": [
+      {
+        "id": 0,
+        "start": 0.0,
+        "end": 4.12,
+        "text": "塩リコーボーの動画レビューを始めます"
+      },
+      {
+        "id": 1,
+        "start": 4.12,
+        "end": 8.700000000000001,
+        "text": "みだしは短く 字幕は逃げをまでにします"
+      },
+      {
+        "id": 2,
+        "start": 8.700000000000001,
+        "end": 13.56,
+        "text": "一つの字幕には 一つの考えだけを入れます"
+      },
+      {
+        "id": 3,
+        "start": 13.56,
+        "end": 17.52,
+        "text": "最後に 音声と字幕のずれを確認して"
+      },
+      {
+        "id": 4,
+        "start": 17.52,
+        "end": 20.92,
+        "text": "SRティー景色で保存します"
+      }
+    ]
+  },
+  "artifacts_sha256": {
+    "review-ja.txt": "756613bdbfc0ebad2fa3d138fa60608afe125307816339fb5687eb92dbfa2567",
+    "review-ja.vtt": "18941ed50f3bc09f988000ca4598cb91c1e3ed0c4b37e18d5d880b81159f8049",
+    "review-ja.srt": "a9d6ffb16a3d61d6e7b2700fc72f34d8bfbf49d40ddfc7befe3b06d4194ac2e1",
+    "review-ja.tsv": "bf32c61396287cd884a37bda9d299afa7a097cca429a0c93c1bd7f049deb10f7",
+    "review-ja.json": "4b555120b7a369d46edebf3346d56d87aec211a6e0d39c859dac40097184d1c1",
+    "review-ja.jsonl": "9cc82d6c3759d59626cd8910ad142641395993a68ab7f30ea888a20b05feddf8"
+  },
+  "environment": {
+    "python": "3.13.7",
+    "python_implementation": "CPython",
+    "os": "Windows",
+    "os_release": "11",
+    "machine": "AMD64",
+    "torch": "2.11.0+cu128",
+    "numpy": "2.4.4",
+    "numba": "0.66.0",
+    "tiktoken": "0.12.0",
+    "more-itertools": "10.8.0",
+    "tqdm": "4.70.0",
+    "ffmpeg": "8.1.2-full_build-www.gyan.dev"
+  },
+  "notes": [
+    "Input is original fictional Japanese text spoken by a local Windows synthetic voice; not a person recording or meeting.",
+    "One run on one file; not an accuracy or speed benchmark.",
+    "Browser page edits these saved results; it does not run Whisper."
+  ]
+}

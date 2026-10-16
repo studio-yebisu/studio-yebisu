@@ -1,0 +1,535 @@
+{
+  "id": "whisper-example",
+  "verified_at": "2026-10-16T10:15:11.390303+00:00",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "receipts": [
+      {
+        "phase": "implement",
+        "receipt_sha256": "6ede9700de8bd6f97ce6dc3e8c9cc8ecc738107840a11480dd5effc4be1d025a",
+        "execution_sha256": "c40b13fe083e688adbd347b493c9e180ad1a1f93ddbaac485515238a46f5f7d0",
+        "prompt_sha256": "f0d778b4ae40967ab5b10971d16fe14e26ddfc28bab57587ee14c3b877102df1"
+      },
+      {
+        "phase": "video",
+        "receipt_sha256": "62e0df7f4fc2935fdee231e1f3cbf54e034ff9431e78cc7fddc8e79c29de60bf",
+        "execution_sha256": "24a35aa287fd590a50747d3a0d81a68f126a3f0d85c3f5862c3625f420d7c165",
+        "prompt_sha256": "5b272227e4e6aef590b23413c4e9a33da16d6b96aab3d38481e0cdceb44c49c2"
+      }
+    ],
+    "receipt_published": false
+  },
+  "upstream": {
+    "repository": "openai/whisper",
+    "commit": "86098128c0b4f24f0e2aa2994de830614b474227",
+    "license": "MIT Copyright(c)2022 OpenAI; code and model weights per README",
+    "archive_sha256": "1e30f6543d697a0a3e5ab6f2d0564ab006e636f6e200140b9e80c6d168c47b99",
+    "archive_bytes": 7273379,
+    "files_sha256": {
+      "LICENSE": "b5d65a59060e68c4ff940e1eddfa6f94b2d68fdf58ed7f4dd57721c997e35e9d",
+      "model-card.md": "3c2dc15e0c4bf2f1067db8530b1ecd6675abb431c4bc09fad3bc4453434f3333",
+      "pyproject.toml": "9c8111da3701070095304ea5e12b6301eddcca3bb65e491a982b102d6042b1c4",
+      "README.md": "38c180c2a8d8ba628a3e131ad42bf06c8a51bb681efb30fbe28d5a0f4b65f288",
+      "whisper/audio.py": "36ed287b2de3eaf40207cd2a44a8d45d57ea5c212a39df07401d4fcb4d5a5a1a",
+      "whisper/transcribe.py": "176f5ab30e961bec2a7872f5701a1f5bf3cbfc77946e50512f0f0cf00a1ceacf",
+      "whisper/utils.py": "f46aa555363ab42a455cd7c7f8c108dc2f69c5a94c6354c73ae96d671d9b1c37",
+      "whisper/__init__.py": "79ecbed714783b6230931a3dba6d5da6d386e2d44f9fc27256e4fc72751e1f62"
+    },
+    "scope": "Actual fixed-source Python load_model(base) and model.transcribe on one original Japanese synthetic voice input; CPU, no remote inference. Browser edits saved output, not live inference."
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 7,
+    "scope": [
+      "Fixed official Python load_model(base,device=cpu) and actual model.transcribe with explicit Japanese, temperature0, fp16false, no initial_prompt/reference text.",
+      "Single21.014second synthetic input; not a language accuracy, speed, streaming, real meeting or other-model benchmark.",
+      "Raw result and native writer files preserved; selected editorial corrections based on original script, timestamp values unchanged. Native UI playback/seek/export checked separately."
+    ],
+    "human_approval": false,
+    "audio_listening_confirmed": false,
+    "timing_accuracy_confirmed": false
+  },
+  "verification": {
+    "id": "whisper-example",
+    "verified_at": "2026-10-16T10:15:11.085327+00:00",
+    "stage": "runtime-and-agent-visual-reviewed",
+    "source_commit": "86098128c0b4f24f0e2aa2994de830614b474227",
+    "environment": {
+      "python": "3.13.7",
+      "versions": {
+        "openai-whisper": "20250625",
+        "torch": "2.11.0+cu128",
+        "numba": "0.66.0",
+        "llvmlite": "0.48.0",
+        "numpy": "2.4.4",
+        "tiktoken": "0.12.0",
+        "more-itertools": "10.8.0",
+        "tqdm": "4.70.0",
+        "regex": "2026.7.19",
+        "requests": "2.34.2",
+        "filelock": "3.32.2",
+        "typing-extensions": "4.16.0",
+        "sympy": "1.14.0",
+        "networkx": "3.6.1",
+        "jinja2": "3.1.6",
+        "fsspec": "2026.7.0",
+        "setuptools": "78.1.0"
+      },
+      "source_files_matched": 18,
+      "checkpoint_model": "base",
+      "checkpoint_bytes": 145262807,
+      "checkpoint_sha256": "ed3a0b6b1c0edf879ad9b11b1af5a0e6ab5db9205f891f668f8b0e6c6326e34e",
+      "checkpoint_upstream_expected_sha256": "ed3a0b6b1c0edf879ad9b11b1af5a0e6ab5db9205f891f668f8b0e6c6326e34e",
+      "inference_device": "cpu",
+      "global_package_mutation": false,
+      "private_venv_shared_readonly_global_packages": true,
+      "physical_ios_tested": false
+    },
+    "data_checks": {
+      "status": "passed",
+      "verified_at": "2026-10-16T09:51:44.549316+00:00",
+      "actual_inference_runs": 1,
+      "failed_pre_inference_guard_attempts": 1,
+      "input_duration_seconds": 21.014063,
+      "input_kind": "original Japanese synthetic speech (Microsoft Haruka Desktop)",
+      "input_sha256": "8b9fbf4aeba07b7f2887fd8b9f82e07ea9bc802a5e6907a355ec388e47df82c4",
+      "segment_count": 5,
+      "native_writer_formats": [
+        "json",
+        "jsonl",
+        "txt",
+        "srt",
+        "vtt",
+        "tsv"
+      ],
+      "raw_segment_fields_match": true,
+      "source_installed_files_matched": 18,
+      "source_pin": "86098128c0b4f24f0e2aa2994de830614b474227",
+      "checkpoint_sha256": "ed3a0b6b1c0edf879ad9b11b1af5a0e6ab5db9205f891f668f8b0e6c6326e34e",
+      "all_output_hashes_match": true,
+      "reference_corrections": 3,
+      "audio_listening_confirmed": false,
+      "timing_accuracy_confirmed": false,
+      "scope": [
+        "Fixed official Python load_model(base,device=cpu) and actual model.transcribe with explicit Japanese, temperature0, fp16false, no initial_prompt/reference text.",
+        "Single21.014second synthetic input; not a language accuracy, speed, streaming, real meeting or other-model benchmark.",
+        "Raw result and native writer files preserved; selected editorial corrections based on original script, timestamp values unchanged. Native UI playback/seek/export checked separately."
+      ],
+      "human_approval": false,
+      "sample_count": 7
+    },
+    "browser": {
+      "status": "passed",
+      "native_operation_states": 12,
+      "responsive_states": 12,
+      "widths": [
+        320,
+        375,
+        390,
+        430,
+        844,
+        1280
+      ],
+      "form_font_minimum_px": 16,
+      "actual_editor_font_px": 17,
+      "target_minimum_px": 44,
+      "source_dom_matches_all5": true,
+      "raw_srt_export_matches_native_cues": true,
+      "edited_srt_actual_download": true,
+      "edited_segment_ids": [
+        0,
+        1,
+        4
+      ],
+      "timestamps_preserved": true,
+      "txt_actual_download_matches": true,
+      "three_line_hint_and_reset": true,
+      "native_enter_space": true,
+      "focus_outline_px": 3,
+      "audio_native_end": {
+        "duration": 21.014063,
+        "ended": true,
+        "error": null,
+        "paused": true,
+        "status": "終わりまで再生しました",
+        "time": 21.014063
+      },
+      "audio_seek_no_autoplay": {
+        "ended": false,
+        "focusOutline": "3px",
+        "focused": "<button class=\"seg\" type=\"button\" data-segment-id=\"4\" aria-pressed=\"true\" data-dirty=\"true\"><span class=\"seg-head\"><span class=\"seg-id\">id 4</span><span class=\"seg-time\">0:17.5 → 0:20.9</span><span class=\"seg-flag\">編集済み</span><span class=\"s",
+        "paused": true,
+        "selected": "4",
+        "status": "停止中",
+        "time": 17.52
+      },
+      "http503_retry": true,
+      "clipboard": {
+        "matches": false,
+        "bytes": 0,
+        "status": "依頼文をコピーしました。"
+      },
+      "audio_listening_confirmed": false,
+      "timing_accuracy_confirmed": false,
+      "agent_visual_review": true,
+      "human_approval": false,
+      "physical_ios_tested": false
+    },
+    "semantic_review": {
+      "agent_semantic_review": true,
+      "human_approval": false,
+      "source_recorded": true,
+      "actual_output_preserved": true,
+      "review": "Compared the synthesis source text with actual ASR and reference-based manual corrections; never claim an audio listening or timing-quality review. Source-backed example deliberately retains recognition errors.",
+      "unresolved_blockers": [],
+      "unconfirmed": [
+        "Audio listening and semantic timing quality",
+        "Physical iOS/Safari/VoiceOver",
+        "Real meeting/other voice/noise/other models/GPU/streaming/production accuracy"
+      ]
+    },
+    "video": {
+      "video_sha256": "ff6aabfcfc4c3dbc97dfe2423d48a60395bae06e8e3eed5c98400b6583cdb980",
+      "poster_sha256": "5c5190439774d65f1d51214d5c00e0983ef70073113fa3bb724a9df25d660967",
+      "poster_from_mp4_seconds": 13.5,
+      "full_decode_passed": true,
+      "review_files": [
+        "contact.png",
+        "poster.png",
+        "strip.png",
+        "stills/frame-000000.png",
+        "stills/frame-000001.png",
+        "stills/frame-000002.png",
+        "stills/frame-000003.png",
+        "stills/frame-000004.png",
+        "stills/frame-000005.png",
+        "stills/frame-000006.png",
+        "stills/frame-000007.png",
+        "stills/frame-000008.png",
+        "stills/frame-000009.png",
+        "stills/frame-000010.png",
+        "stills/frame-000011.png",
+        "stills/frame-000012.png",
+        "stills/frame-000013.png",
+        "cut-01.png",
+        "cut-02.png",
+        "cut-03.png",
+        "cut-04.png",
+        "cut-05.png",
+        "final.png"
+      ],
+      "render_label": "final-v1",
+      "bundled_renderer_executed": true,
+      "reviewed_at": "2026-10-16T10:14:58.195599+00:00",
+      "agent_visual_review": true,
+      "human_approval": false,
+      "native_playback": {
+        "duration": 28,
+        "ended": true,
+        "error": null,
+        "paused": true,
+        "ready": 4,
+        "time": 28,
+        "first_observed_seconds": 0,
+        "initial_paused": true,
+        "initial_ready_state": 1,
+        "no_manual_seek": true
+      },
+      "source_editor": {
+        "client": 375,
+        "clock": "14.0秒 / 28.0秒",
+        "detail": "ファイル14件のSHA-256を制作記録の値と照合し、WAVから求めたRMS、5区間の時刻と文、保存したSRTの一致を確かめてから描いています。",
+        "play_enabled": true,
+        "play_height": 44,
+        "position": 14,
+        "range_font": "16px",
+        "range_height": 44,
+        "scroll": 375,
+        "status": "実入力・出力と画面を読み込みました",
+        "playing_state": {
+          "label": "一時停止",
+          "position": "14",
+          "pressed": "true"
+        }
+      },
+      "determinism": {
+        "frame": 504,
+        "seconds": 16.8,
+        "first": "481f85851cf89f03544d2c092dfa97b98158015c07864d84eedff6efd2d0bc8f",
+        "afterOtherTimes": "481f85851cf89f03544d2c092dfa97b98158015c07864d84eedff6efd2d0bc8f",
+        "freshPage": "481f85851cf89f03544d2c092dfa97b98158015c07864d84eedff6efd2d0bc8f",
+        "match": true
+      },
+      "audio": "silent; no audio track. Original synthetic WAV is separate.",
+      "audio_listening_confirmed": false,
+      "timing_accuracy_confirmed": false,
+      "unresolved_blockers": [],
+      "review_scope": [
+        "Inspected14frame contact and full13.5poster: genuine wrong proper name, script reference not fed toASR, two-line manual correction allmatch actualrecords andscreens.",
+        "InspectedactualMP4 five12frame cuts3.85/7.85/15.35/19.85/23.85 plus source15.4strip; content crossfades leave persistent4step rail/footer, no full-frame flash or clipped glyph observed.",
+        "Full22ssaveframe and final27.966frame checked; actualSRTcue1 and5 retain real0→4.12/17.52→20.92 timestamps. Screenshotcrop excludes the laterTXTsave-status and islabelledbuttoncrop; actualSRTfile isseparate definitiveevidence.",
+        "Finalframe explicitlylabelsphoneinitialuneditedstate, silentfilm, savedASR/browserediting, timestampestimate andnoaudiolisteningreview; CTAholdsafter24.5.",
+        "All14loadedlocalfiles validated againstfrozenSHAand crosschecks,4actualscreens/RMSWAV/5ASRcues/3script-basedcorrections agree.",
+        "BundledMotionReel helper produced840frames720p30fps28secondssilent; differentorderandfreshpage16.8sPNGmatch, samehashreview/final, fullffmpegdecodepassed.",
+        "NativeMP4initial0/paused/ready1 subsequently28ended/ready4/errornull withoutmanualseek.",
+        "Sourceeditor375pxrootfit,range44/font16/play44; Home+7PageUp14seconds; playlabelPause/aria-pressedtrue whileplaying."
+      ],
+      "remaining": [
+        "Original audio listening, pronunciation and semantic timing quality unconfirmed.",
+        "Physical iOS/Safari/VoiceOver, other video aspect ratios, human aesthetic approval untested."
+      ]
+    },
+    "motion_reel": {
+      "name": "Motion Reel",
+      "files_sha256": {
+        "render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+        "audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+        "package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+        "package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+        "LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd"
+      },
+      "license": "MIT",
+      "source": "https://github.com/studio-yebisu/awesome-claude-motion-design-ja",
+      "runtime_use": "Editable local HTML/canvas composition using actual saved Whisper input/output and captured live subtitle editor. Not live AI inference."
+    },
+    "parent_adjustments": {
+      "cpu_device": {
+        "reason": "CUDA_VISIBLE_DEVICES empty did not make cuda.is_available false on this Windows build; this is unrelated to the explicitly selected CPU device. Removed the extra availability guard and hiding claim. Actual model parameters are asserted to be cpu.",
+        "before_sha256": "32454005d04a0a270a7b2a840de7b3a8082d48188edf75368c672c3339ecbc8a",
+        "after_sha256": "4af431814f1bd795ee32df8d30e174bb9a2e6ee49c705211666104781a322995",
+        "attempt01": "Failed before model inference, raw logs private.",
+        "attempt02": "Actual load_model/base and model.transcribe completed on CPU4threads, model params observed cpu."
+      },
+      "audition": {
+        "supported": false,
+        "note": "Audio content could not be supplied to this model. No listening or semantic timing approval is claimed. Compare source reference with actual ASR text; test native audio playback/seek separately."
+      },
+      "phone_copy": {
+        "reason": "First actual390requested/375px screenshot placed first cue near y746. Shortened repeated saved-inference/synthetic voice copy while full provenance remains in details; no space reserved for empty seek feedback.",
+        "changed": [
+          "index.html",
+          "app.js",
+          "style.css"
+        ],
+        "actual_output_preserved": true
+      },
+      "seek_status": {
+        "reason": "After a full ended playback, selecting another segment changed currentTime but left the old ended label. The seeked handler now reports paused when paused and not ended.",
+        "actual_audio_values_unchanged": true
+      }
+    },
+    "human_approval": false,
+    "audio_listening_confirmed": false,
+    "timing_accuracy_confirmed": false,
+    "production_contributions": {
+      "Opus5.5": "Read and applied brief-to-demo and fixed official Whisper API; wrote the original input script, local SAPI generator, actual Python ASR bridge, mobile subtitle editor/Japanese explanation and editable28second film based on real saved output/screens. Exact-model completed receipts retained privately.",
+      "production_editor": "Prepared fixed source/private environment/checkpoint, executed SAPI/FFmpeg/actual CPU ASR, repaired an unnecessary CUDA visibility guard and seek status, compacted phone copy, independently compared native outputs and actual exported SRT/TXT, checked native playback and responsive UI, rendered and inspected the film and publication.",
+      "limits": "Synthetic input and original-script-based editorial correction. Agent audio input unavailable; no heard semantic transcription or timing approval. Browser uses saved ASR output.",
+      "post_render_additions": "Only current root README, result/verification, movie section, ZIP and article/proof are added after rendering; film sources and data/screens are preserved."
+    }
+  },
+  "explanation": {
+    "video": {
+      "file": "video.mp4",
+      "sha256": "ff6aabfcfc4c3dbc97dfe2423d48a60395bae06e8e3eed5c98400b6583cdb980",
+      "width": 1280,
+      "height": 720,
+      "fps": 30,
+      "frameCount": 840,
+      "duration": 28,
+      "hasAudio": false
+    },
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "481f85851cf89f03544d2c092dfa97b98158015c07864d84eedff6efd2d0bc8f",
+      "afterOtherTimes": "481f85851cf89f03544d2c092dfa97b98158015c07864d84eedff6efd2d0bc8f",
+      "freshPage": "481f85851cf89f03544d2c092dfa97b98158015c07864d84eedff6efd2d0bc8f",
+      "match": true
+    },
+    "errors": [],
+    "blockedExternalRequests": []
+  },
+  "video_review": {
+    "video_sha256": "ff6aabfcfc4c3dbc97dfe2423d48a60395bae06e8e3eed5c98400b6583cdb980",
+    "poster_sha256": "5c5190439774d65f1d51214d5c00e0983ef70073113fa3bb724a9df25d660967",
+    "poster_from_mp4_seconds": 13.5,
+    "full_decode_passed": true,
+    "review_files": [
+      "contact.png",
+      "poster.png",
+      "strip.png",
+      "stills/frame-000000.png",
+      "stills/frame-000001.png",
+      "stills/frame-000002.png",
+      "stills/frame-000003.png",
+      "stills/frame-000004.png",
+      "stills/frame-000005.png",
+      "stills/frame-000006.png",
+      "stills/frame-000007.png",
+      "stills/frame-000008.png",
+      "stills/frame-000009.png",
+      "stills/frame-000010.png",
+      "stills/frame-000011.png",
+      "stills/frame-000012.png",
+      "stills/frame-000013.png",
+      "cut-01.png",
+      "cut-02.png",
+      "cut-03.png",
+      "cut-04.png",
+      "cut-05.png",
+      "final.png"
+    ],
+    "render_label": "final-v1",
+    "bundled_renderer_executed": true,
+    "reviewed_at": "2026-10-16T10:14:58.195599+00:00",
+    "agent_visual_review": true,
+    "human_approval": false,
+    "native_playback": {
+      "duration": 28,
+      "ended": true,
+      "error": null,
+      "paused": true,
+      "ready": 4,
+      "time": 28,
+      "first_observed_seconds": 0,
+      "initial_paused": true,
+      "initial_ready_state": 1,
+      "no_manual_seek": true
+    },
+    "source_editor": {
+      "client": 375,
+      "clock": "14.0秒 / 28.0秒",
+      "detail": "ファイル14件のSHA-256を制作記録の値と照合し、WAVから求めたRMS、5区間の時刻と文、保存したSRTの一致を確かめてから描いています。",
+      "play_enabled": true,
+      "play_height": 44,
+      "position": 14,
+      "range_font": "16px",
+      "range_height": 44,
+      "scroll": 375,
+      "status": "実入力・出力と画面を読み込みました",
+      "playing_state": {
+        "label": "一時停止",
+        "position": "14",
+        "pressed": "true"
+      }
+    },
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "481f85851cf89f03544d2c092dfa97b98158015c07864d84eedff6efd2d0bc8f",
+      "afterOtherTimes": "481f85851cf89f03544d2c092dfa97b98158015c07864d84eedff6efd2d0bc8f",
+      "freshPage": "481f85851cf89f03544d2c092dfa97b98158015c07864d84eedff6efd2d0bc8f",
+      "match": true
+    },
+    "audio": "silent; no audio track. Original synthetic WAV is separate.",
+    "audio_listening_confirmed": false,
+    "timing_accuracy_confirmed": false,
+    "unresolved_blockers": [],
+    "review_scope": [
+      "Inspected14frame contact and full13.5poster: genuine wrong proper name, script reference not fed toASR, two-line manual correction allmatch actualrecords andscreens.",
+      "InspectedactualMP4 five12frame cuts3.85/7.85/15.35/19.85/23.85 plus source15.4strip; content crossfades leave persistent4step rail/footer, no full-frame flash or clipped glyph observed.",
+      "Full22ssaveframe and final27.966frame checked; actualSRTcue1 and5 retain real0→4.12/17.52→20.92 timestamps. Screenshotcrop excludes the laterTXTsave-status and islabelledbuttoncrop; actualSRTfile isseparate definitiveevidence.",
+      "Finalframe explicitlylabelsphoneinitialuneditedstate, silentfilm, savedASR/browserediting, timestampestimate andnoaudiolisteningreview; CTAholdsafter24.5.",
+      "All14loadedlocalfiles validated againstfrozenSHAand crosschecks,4actualscreens/RMSWAV/5ASRcues/3script-basedcorrections agree.",
+      "BundledMotionReel helper produced840frames720p30fps28secondssilent; differentorderandfreshpage16.8sPNGmatch, samehashreview/final, fullffmpegdecodepassed.",
+      "NativeMP4initial0/paused/ready1 subsequently28ended/ready4/errornull withoutmanualseek.",
+      "Sourceeditor375pxrootfit,range44/font16/play44; Home+7PageUp14seconds; playlabelPause/aria-pressedtrue whileplaying."
+    ],
+    "remaining": [
+      "Original audio listening, pronunciation and semantic timing quality unconfirmed.",
+      "Physical iOS/Safari/VoiceOver, other video aspect ratios, human aesthetic approval untested."
+    ]
+  },
+  "publication": {
+    "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=whisper-example",
+    "authorization": "User requested sequential publication of40cases toexistingmain andPages."
+  },
+  "artifacts_sha256": {
+    "data/cases/whisper-example.json": "e68abd17418f4b84618708a47e0f733bdffc2cc9ea8a114f91543b0ab09fca3f",
+    "examples/whisper-example/app.js": "a2cb12f4e9b18dfa2886e1336db211148a2374b8f4a6fb85006e55d906fbfbf5",
+    "examples/whisper-example/brief.json": "6895d777100c7188f5bf0c83c004ce2e37e16dbddbc5a0ad71ec2e9337961283",
+    "examples/whisper-example/index.html": "bd6bc96625d649333e7eaf64709e4c836622cfbd0775f5e8d953921967dc3c50",
+    "examples/whisper-example/input/review-ja-source.wav": "46fb68642489a62ff2fbbce2b9a5263025e70655543054e6d3fde70bf1dd2c82",
+    "examples/whisper-example/input/review-ja.wav": "8b9fbf4aeba07b7f2887fd8b9f82e07ea9bc802a5e6907a355ec388e47df82c4",
+    "examples/whisper-example/input/script.json": "2ab9861f781ae0451d43e341cd7cb1104a65f8c891aa571622a659a0fb7e7fef",
+    "examples/whisper-example/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
+    "examples/whisper-example/make_input.ps1": "debdb9b2487f77358b71b473fa0e21166071fce4338d9e40fbcbca8cc8cbad4c",
+    "examples/whisper-example/outputs/browser-edited.srt": "976709c38a46dcc15f1d230729bdfb2a5390dd8a4fa3eeaf9cf4e93569e0716c",
+    "examples/whisper-example/outputs/browser-edited.txt": "39f50aa0649674efb8cbfe077449ef8f6f2289ff74ab43316be0a4c14e3a2d40",
+    "examples/whisper-example/outputs/browser-original.srt": "b82b9620667676c7008d0a0ece13422bfc792d0c0578df9458482e6f9b28d7ca",
+    "examples/whisper-example/outputs/browser-states.json": "0958fed3ad8e4bb73951ef64c7eef587e483adb6ca1667b6bac09f74b03553e7",
+    "examples/whisper-example/outputs/edit-record.json": "d236e2ed1d1f4ff62f647b9500018cff5e90d984bc7839a4e863a2e232a41c5c",
+    "examples/whisper-example/outputs/reference-review.json": "7338ec0dd65bc8c7c6d36a31a0d9bcea1f1f624657551db089acb0a46897178b",
+    "examples/whisper-example/outputs/result.md": "f11600d53d613c17f251986ee9e9a50a00f74d8301fed11001d4cd4906859ab9",
+    "examples/whisper-example/outputs/review-ja.json": "4b555120b7a369d46edebf3346d56d87aec211a6e0d39c859dac40097184d1c1",
+    "examples/whisper-example/outputs/review-ja.jsonl": "9cc82d6c3759d59626cd8910ad142641395993a68ab7f30ea888a20b05feddf8",
+    "examples/whisper-example/outputs/review-ja.srt": "a9d6ffb16a3d61d6e7b2700fc72f34d8bfbf49d40ddfc7befe3b06d4194ac2e1",
+    "examples/whisper-example/outputs/review-ja.tsv": "bf32c61396287cd884a37bda9d299afa7a097cca429a0c93c1bd7f049deb10f7",
+    "examples/whisper-example/outputs/review-ja.txt": "756613bdbfc0ebad2fa3d138fa60608afe125307816339fb5687eb92dbfa2567",
+    "examples/whisper-example/outputs/review-ja.vtt": "18941ed50f3bc09f988000ca4598cb91c1e3ed0c4b37e18d5d880b81159f8049",
+    "examples/whisper-example/outputs/session.json": "4cf1dc6fef3956147acad65b2c7937d9959a85af18ee245d4a9096cbea61cbc3",
+    "examples/whisper-example/README.md": "adcda4357911dd3b7204ad5b8248bfeb2a0fdf1ffecb3224321813627b509b88",
+    "examples/whisper-example/render.py": "3147ad237955e2bae90106ab588b23c17418848335258483fee388e08da01930",
+    "examples/whisper-example/request.txt": "4a24bc1227f122514638a1c158a46fc2de043d4f7d09807ae9ebd1881fac3405",
+    "examples/whisper-example/requirements.txt": "63d2ccd6bce563b3b9a22a53b036f703905e04cceed7efec72c15eb37e7ac499",
+    "examples/whisper-example/run_transcribe.py": "4af431814f1bd795ee32df8d30e174bb9a2e6ee49c705211666104781a322995",
+    "examples/whisper-example/samples.json": "82fc6aff87878100aef4e168febe5f734dacbcea00f121fe5a4835ed1fcb468a",
+    "examples/whisper-example/source.zip": "ea81b4d8e79d3f7acdacce649b21831faeb0eaba33c0baad7b30b85ede3e6902",
+    "examples/whisper-example/style.css": "5c6437a6f6c0912a64281f79710fb169a616461ef6c8b2460bc77e59cc4aeb4c",
+    "examples/whisper-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/whisper-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/whisper-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/whisper-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/whisper-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "examples/whisper-example/vendor/whisper/cpu-device.patch": "ed5d065aeb0fdd248c0fe36741946af728189d8c0b3706d5057756f336f69e8d",
+    "examples/whisper-example/vendor/whisper/LICENSE": "b5d65a59060e68c4ff940e1eddfa6f94b2d68fdf58ed7f4dd57721c997e35e9d",
+    "examples/whisper-example/vendor/whisper/model-card.md": "3c2dc15e0c4bf2f1067db8530b1ecd6675abb431c4bc09fad3bc4453434f3333",
+    "examples/whisper-example/vendor/whisper/pyproject.toml": "9c8111da3701070095304ea5e12b6301eddcca3bb65e491a982b102d6042b1c4",
+    "examples/whisper-example/vendor/whisper/README.md": "38c180c2a8d8ba628a3e131ad42bf06c8a51bb681efb30fbe28d5a0f4b65f288",
+    "examples/whisper-example/vendor/whisper/whisper/__init__.py": "79ecbed714783b6230931a3dba6d5da6d386e2d44f9fc27256e4fc72751e1f62",
+    "examples/whisper-example/vendor/whisper/whisper/audio.py": "36ed287b2de3eaf40207cd2a44a8d45d57ea5c212a39df07401d4fcb4d5a5a1a",
+    "examples/whisper-example/vendor/whisper/whisper/transcribe.py": "176f5ab30e961bec2a7872f5701a1f5bf3cbfc77946e50512f0f0cf00a1ceacf",
+    "examples/whisper-example/vendor/whisper/whisper/utils.py": "f46aa555363ab42a455cd7c7f8c108dc2f69c5a94c6354c73ae96d671d9b1c37",
+    "examples/whisper-example/verification.json": "c28cab388799a281b3b2ff744d24ea01e8df0591e79ec5228a4140bce7663a4d",
+    "examples/whisper-example/video/assets/desktop-edited-first.png": "3c27e243fd4ec2e074ce57205bfb430db8269eaf771014d86b3e8aa122246a07",
+    "examples/whisper-example/video/assets/desktop-edited-last.png": "41080772ef774af426dbb59b56490b922c9b103c0c02a498c06b7851461f8f1c",
+    "examples/whisper-example/video/assets/desktop-raw.png": "90b4d76631004a75adc246515ea1bc4e0524cededf593d6b64d794fa1bf6a985",
+    "examples/whisper-example/video/assets/phone-raw.png": "6f85e9f551cebd1e959332afe4120b31fec9bc52d192724f6ccefe43b17980d8",
+    "examples/whisper-example/video/assets/screen-manifest.json": "b543611de5bf83b199bdfccbdd531d5d252fe39d891023992f1127f6a160e558",
+    "examples/whisper-example/video/assets/waveform.json": "5dbe1cd9842a6b575557597a08c1f03fdd6d4ef7812678c5d1877e5ac6f833cb",
+    "examples/whisper-example/video/index.html": "8ca70425cff0cc29da99c3b0b12e55785faf67135a51cf4aca26594b8f7d4e73",
+    "examples/whisper-example/video/README.md": "6cccbd36ee23412e273ece22709f81a8de95de0257b208ec7eac4112f90e4f08",
+    "examples/whisper-example/video/review/contact.png": "bb23dfe8b84df41aa5fff472cd325bfcd198dba56ab58fd43a8b0c14d728ce0f",
+    "examples/whisper-example/video/review/cut-01.png": "2e601a4d41eb2d48421d0ef82e4526787bc3a8ae2f06a76ee2c39ef3ab83ffe2",
+    "examples/whisper-example/video/review/cut-02.png": "d4f72626e0db08fbce117eb84a9e3fbb5b185adfd18fa53df18b6f26ed8ee3d0",
+    "examples/whisper-example/video/review/cut-03.png": "81ff32d4288546a8d3cf716fb83091e1461b248ab6f3814640429822ca53c9c4",
+    "examples/whisper-example/video/review/cut-04.png": "651f56638607da9159ff7aab37e3e0d6a8deeaebfb517bb4fa058cfb8358f030",
+    "examples/whisper-example/video/review/cut-05.png": "bd025e634cecf34fdcaac97fd8f85a7bf2e45b8f4b139c98b76c8ef111ee6866",
+    "examples/whisper-example/video/review/final.png": "fac6d8339b5cc0417cc4ecbcbca911fd96fbe19364a13814265f1d431cdad01f",
+    "examples/whisper-example/video/review/poster.png": "58196632b14f9bae1d4e65da5803653bc698413d18855ec0f1fcd976529eb7ae",
+    "examples/whisper-example/video/review/stills/frame-000000.png": "b7638b918c040ef9e04f6cfc4b2fc2eee4fe3b7a8c7294cf13ab07686d2853a5",
+    "examples/whisper-example/video/review/stills/frame-000001.png": "2a213b6afb9654058a1500e0bdff7549b416ba94b2d2ed64728ef2ac87ce6c8e",
+    "examples/whisper-example/video/review/stills/frame-000002.png": "0db1e8f1834eb2cba6ebf37d7b9997bbbd7a039f22595279970467803fa70071",
+    "examples/whisper-example/video/review/stills/frame-000003.png": "9b5d9b5c987ee25c72bcd834aab27353d366397a82802cc28a043a752283ea9e",
+    "examples/whisper-example/video/review/stills/frame-000004.png": "36d43874ba19bee3c8fcdfcc287a158b1c3bdd75f2af289a50b082562bb88721",
+    "examples/whisper-example/video/review/stills/frame-000005.png": "89891da8ae1020fecfeb8863547e2a4c705d239b77165b438bf76b81721cecf4",
+    "examples/whisper-example/video/review/stills/frame-000006.png": "58196632b14f9bae1d4e65da5803653bc698413d18855ec0f1fcd976529eb7ae",
+    "examples/whisper-example/video/review/stills/frame-000007.png": "58196632b14f9bae1d4e65da5803653bc698413d18855ec0f1fcd976529eb7ae",
+    "examples/whisper-example/video/review/stills/frame-000008.png": "be7440364c4bc41efcfd8618a457d473bca304b7bd89e3e33ec466c8c8ca91fd",
+    "examples/whisper-example/video/review/stills/frame-000009.png": "78326803be45dc5af6bac53fd7456d67caf4ede73747655ab2b168230aecc090",
+    "examples/whisper-example/video/review/stills/frame-000010.png": "b769c2d085b0f9e6652afb1497ced0ad25eec78f9ff01362c330400e75040a22",
+    "examples/whisper-example/video/review/stills/frame-000011.png": "342b6cc9f8dbae52c3eaa442d78279e77c0b2ab5bc4c8aa3b13c5130b3f2c4c3",
+    "examples/whisper-example/video/review/stills/frame-000012.png": "fdcd8e5e7417aa6158e74265dc1ef19910848144df747b715d2fb50f8390a334",
+    "examples/whisper-example/video/review/stills/frame-000013.png": "760e3e38d4c89fdb030b9ef03236726a40fd6260b67a4284a94fc43e3f4190af",
+    "examples/whisper-example/video/review/strip.png": "87406ed80d3ab1ea71f1b3d9ebdd5e8fd2eacb85e7734cead2375343ffb3e20e",
+    "examples/whisper-example/video/storyboard.json": "d71d4ff78f70bfb9ae5b3e51773ac871f13ceff1a68df892b8be9ddd32ed2e26",
+    "examples/whisper-example/video/video.css": "65e08fdf94342eeed8b75abe0203034e66a15ce3930825f8a619f69a0cc2e949",
+    "examples/whisper-example/video/video.js": "293fd9f19c7c4ae2e8b098c07818d516560a47d7438b6da210fa337a758736ac",
+    "media/whisper-example.mp4": "ff6aabfcfc4c3dbc97dfe2423d48a60395bae06e8e3eed5c98400b6583cdb980",
+    "media/whisper-example.webp": "5c5190439774d65f1d51214d5c00e0983ef70073113fa3bb724a9df25d660967"
+  }
+}

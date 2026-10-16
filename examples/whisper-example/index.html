@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ja" data-ready="false" data-state="loading">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>音を聞いて、字幕を整える。｜しおり工房 字幕デスク（Whisper作例）</title>
+  <meta name="description" content="合成した日本語の読み上げを Whisper base で1回転記した保存済みの出力を、音を聞きながらブラウザーで直し、時刻はそのままのSRTで保存する作例です。ページを開いてもWhisperは動きません。">
+  <meta name="color-scheme" content="light">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#editor">字幕の編集へ</a>
+
+  <header class="masthead wrap">
+    <p class="eyebrow">しおり工房 字幕デスク <span class="eyebrow-note">作例用の架空の工房</span></p>
+    <h1><span>音を聞いて、</span><span>字幕を整える。</span></h1>
+    <p class="truth"><span class="truth-label">Whisperの出力を、手元で編集</span></p>
+    <p class="truth-sub">音声認識は制作時に実行。ここでは字幕を直し、SRTで保存します。</p>
+  </header>
+
+  <main id="main">
+    <section class="wrap listen" aria-labelledby="listen-title">
+      <h2 id="listen-title" class="step"><span class="step-no" aria-hidden="true">1</span>聞く</h2>
+      <audio id="audio" class="player" controls playsinline preload="metadata" src="input/review-ja.wav">
+        このブラウザーでは音声を再生できません。<a href="input/review-ja.wav">WAVを直接開く</a>
+      </audio>
+      <p class="media-line">
+        <output id="media-state" class="media-state" data-media="idle" for="audio">まだ読み込んでいません</output>
+        <output id="media-time" class="media-time" for="audio">0:00.0</output>
+      </p>
+      <p id="media-segment" class="media-segment"></p>
+      <p id="audio-error" class="audio-error" role="alert" hidden>
+        <span>音声を読み込めませんでした。直接リンクから開くか、読み込み直してください。</span>
+        <button id="audio-reload" class="button button--quiet" type="button">音声を読み込み直す</button>
+      </p>
+      <p class="material">
+        <span id="fact-material">作例の原稿を読んだ合成音声です。</span>
+        <a class="inline-link" href="input/review-ja.wav">WAVを直接開く</a>
+      </p>
+      <p id="facts" class="facts" hidden>
+        <span id="fact-duration"></span><span id="fact-engine"></span><span id="fact-count"></span>
+      </p>
+    </section>
+
+    <div class="wrap">
+      <p id="load-status" class="load-status" role="status">保存済みの出力を読み込んでいます…</p>
+      <p class="retry-row"><button id="retry" class="button" type="button" hidden>もう一度読み込む</button></p>
+      <noscript><p class="load-status is-error">区間の選択と編集には JavaScript が必要です。音声と出力ファイルは下のリンクから開けます。</p></noscript>
+    </div>
+
+    <div id="desk" class="desk wrap" data-selected-id="" data-edited-count="0">
+      <section class="panel segments" aria-labelledby="segments-title">
+        <h2 id="segments-title" class="step"><span class="step-no" aria-hidden="true">2</span>区間を選ぶ</h2>
+        <p class="hint">選ぶと音声がその区間の頭へ移ります。再生は音声の再生ボタンで。</p>
+        <ol id="segment-list" class="segment-list" aria-label="Whisperの区間"></ol>
+      </section>
+
+      <section id="editor" class="panel editor" aria-labelledby="editor-title" tabindex="-1">
+        <h2 id="editor-title" class="step"><span class="step-no" aria-hidden="true">3</span>一つの文を直す</h2>
+        <p id="selected-label" class="selected-label">区間を読み込むと、ここで直せます。</p>
+        <p class="row">
+          <button id="seek-start" class="button button--quiet" type="button" disabled>区間の頭へ戻す</button>
+        </p>
+        <label class="field-label" for="draft">字幕の文</label>
+        <textarea id="draft" class="draft" rows="3" data-dirty="false" disabled aria-describedby="draft-help draft-count"></textarea>
+        <p id="draft-help" class="draft-help">改行は自分で調整。時刻はWhisperの推定値のまま。音を聞いて確認。</p>
+        <p class="draft-meta">
+          <span id="draft-count">0文字・1行</span>
+          <span id="draft-status" class="draft-status" data-dirty="false" aria-live="polite">未編集</span>
+        </p>
+        <p id="draft-lines" class="draft-lines" hidden>3行以上あります。このデスクの目安は2行までです。</p>
+        <p class="row">
+          <button id="reset-one" class="button button--quiet" type="button" disabled>この区間を元に戻す</button>
+        </p>
+        <section class="compare" aria-labelledby="compare-title">
+          <h3 id="compare-title">原出力といまの字幕</h3>
+          <dl>
+            <div>
+              <dt>Whisperの原出力</dt>
+              <dd id="compare-raw" class="compare-text">—</dd>
+            </div>
+            <div>
+              <dt>いまの字幕</dt>
+              <dd id="compare-current" class="compare-text">—</dd>
+            </div>
+          </dl>
+          <p id="compare-state" class="compare-state">—</p>
+        </section>
+      </section>
+
+      <section class="panel save" aria-labelledby="save-title">
+        <h2 id="save-title" class="step"><span class="step-no" aria-hidden="true">4</span>SRTで保存</h2>
+        <p id="edited-count" class="edited-count">編集した区間はまだありません。</p>
+        <p class="actions">
+          <button id="save-srt" class="button" type="button" disabled>編集したSRTを保存</button>
+          <button id="save-txt" class="button button--quiet" type="button" disabled>TXTも保存</button>
+          <a class="button button--quiet" href="outputs/review-ja.srt">原出力SRT</a>
+        </p>
+        <p id="save-status" class="save-status" data-status="idle" role="status"></p>
+        <p class="hint">区間の数と時刻はWhisperの出力のままで、変わるのは直した文だけです。編集はこのブラウザーの中だけで、保存済みのファイルは書き換えません。再読み込みすると編集は消えます。</p>
+      </section>
+    </div>
+
+    <section class="wrap more" aria-label="原稿と記録">
+      <details id="reference" class="fold">
+        <summary>読み上げた原稿</summary>
+        <div class="fold-body">
+          <p>Windows の音声合成で読み上げた、作例用の原稿です。<strong>Whisper には渡していません</strong>（initial_prompt なし）。上の区間は、この原稿ではなく音声から転記した結果です。</p>
+          <ol id="reference-sentences" class="reference-list"></ol>
+          <p class="hint"><a class="inline-link" href="input/script.json">input/script.json</a></p>
+        </div>
+      </details>
+
+      <details class="fold">
+        <summary>この作例で分かること・分からないこと</summary>
+        <div class="fold-body">
+          <ul class="plain-list">
+            <li>音声は、架空の「しおり工房」の指示を Microsoft Haruka Desktop で手元合成した読み上げです。人の録音・会議・実在の話者ではありません。</li>
+            <li>1本の短い合成音声を、Whisper base・CPU で1回転記しただけです。精度や速さを比べる評価ではありません。</li>
+            <li>ページを開いても Whisper は動きません。音声のアップロードや新しい転記はできず、保存済みの出力を読むだけです。</li>
+            <li>時刻は Whisper の区間の推定値です。字幕の時刻や行の長さを自動で正しく整えるものではなく、字幕のアクセシビリティ基準を満たすとも言えません。</li>
+            <li>編集はこのブラウザーの中だけで、どこにも送らず、ブラウザーにも残しません。</li>
+            <li>人の録音・雑音のある音声・長い音声・ほかのモデルや GPU・実機の iPhone Safari と VoiceOver は、この作例では確かめていません。</li>
+          </ul>
+        </div>
+      </details>
+
+      <details id="provenance" class="fold">
+        <summary>出典と転記の記録</summary>
+        <div class="fold-body">
+          <p>原典は <a class="inline-link" href="https://github.com/openai/whisper/tree/86098128c0b4f24f0e2aa2994de830614b474227">openai/whisper 固定コミット 86098128c0b4f24f0e2aa2994de830614b474227</a>。コードとモデルの重みは MIT License（Copyright (c) 2022 OpenAI）です。読んだ原典のファイルを vendor/whisper/ に原文のまま置いています。</p>
+          <p id="record-status" class="hint">記録は outputs/session.json を読み込むと表示します。</p>
+          <dl id="record" class="record"></dl>
+          <h3 class="sub-title">ファイル</h3>
+          <ul class="files">
+            <li><a href="outputs/session.json">outputs/session.json</a><span>転記の設定・音声と重みの SHA-256・時間・区間</span></li>
+            <li><a href="outputs/review-ja.srt">outputs/review-ja.srt</a><span>Whisper の書き出しそのままの SRT</span></li>
+            <li><a href="outputs/review-ja.txt">outputs/review-ja.txt</a><span>同じく TXT</span></li>
+            <li><a href="outputs/review-ja.json">outputs/review-ja.json</a><span>Whisper が返した全項目（tokens などを含む）</span></li>
+            <li><a href="input/script.json">input/script.json</a><span>読み上げた原稿と、音声の出どころ</span></li>
+            <li><a href="input/review-ja.wav">input/review-ja.wav</a><span>転記した 16kHz・モノラルの合成音声</span></li>
+            <li><a href="run_transcribe.py">run_transcribe.py</a><span>実際に転記する Python ソース</span></li>
+            <li><a href="make_input.ps1">make_input.ps1</a><span>手元の Windows 音声で原稿を読み上げる</span></li>
+            <li><a href="requirements.txt">requirements.txt</a><span>固定版のソースと依存</span></li>
+            <li><a href="README.md">README.md</a><span>操作と再現の手順</span></li>
+            <li><a href="vendor/whisper/LICENSE">vendor/whisper/LICENSE</a><span>Whisper の MIT License</span></li>
+            <li><a href="LICENSE">LICENSE</a><span>作例の MIT License</span></li>
+          </ul>
+          <ul id="extra-files" class="files" hidden></ul>
+        </div>
+      </details>
+
+      <details id="request" class="fold">
+        <summary>依頼文</summary>
+        <div class="fold-body">
+          <p>同じ作りを自分の音声で試すときの依頼文です。</p>
+          <p id="request-status" class="hint">開くと request.txt を読み込みます。</p>
+          <label class="field-label" for="request-text">依頼文（request.txt）</label>
+          <textarea id="request-text" class="request-text" rows="10" readonly></textarea>
+          <p class="actions">
+            <button id="copy-request" class="button" type="button" disabled>依頼文をコピー</button>
+            <button id="request-retry" class="button button--quiet" type="button" hidden>もう一度読み込む</button>
+            <a class="button button--quiet" href="request.txt">request.txt</a>
+          </p>
+          <p id="copy-status" class="copy-status" role="status"></p>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <footer class="footer wrap">
+    <p>作例のコード・文章・原稿は MIT License（Copyright (c) 2026 Studio Yebisu）。Whisper のコードと重みは MIT License（Copyright (c) 2022 OpenAI）。読み上げ音声は手元の Windows 音声で作った作例用の素材で、音声エンジンは同梱していません。OpenAI による承認や推奨を示すものではありません。</p>
+    <p><a class="inline-link" href="../../case.html?id=whisper-example">作例の解説へ</a></p>
+  </footer>
+<section class="wrap more" aria-labelledby="movie-title"><h2 id="movie-title">28秒で、転記から字幕へ</h2><p>実画面と実ファイルを用いた無音の編集動画です。修正は原稿参照で行い、音声の聴取と時刻精度は未確認です。原音は上のWAVプレイヤーで再生できます。</p><video controls playsinline preload="none" poster="../../media/whisper-example.webp" style="width:100%;height:auto" aria-label="Whisperの実出力を原稿参照で編集してSRT保存する28秒の無音動画"><source src="../../media/whisper-example.mp4" type="video/mp4"><a href="../../media/whisper-example.mp4">MP4を開く</a></video><p><a href="../../media/whisper-example.mp4">動画を大きく見る</a> · <a href="video/index.html">編集できる動画ソース</a> · <a href="source.zip">入力・出力・動画ソース一式</a> · <a href="outputs/browser-edited.srt">実際に保存したSRT</a> · <a href="outputs/result.md">実行メモ</a> · <a href="verification.json">確認の範囲</a></p></section>
+</body>
+</html>

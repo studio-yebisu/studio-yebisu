@@ -1,0 +1,60 @@
+{
+  "title": "Whisper作例：合成した日本語の指示を実際に転記し、音を聞きながら字幕を直してSRTで保存する",
+  "request": "自分で録音した30秒の日本語音声から、テキストとSRT字幕を作ってください。固有名詞と字幕の時刻を音声と照合してください。入力、出力、実行した検証、未確認の点を記録してください。",
+  "category": "audio",
+  "audience": "動画や講座の字幕を、音声認識の下書きから手で整えたい制作者（主に iPhone で確かめる人）",
+  "goal": "固定版の openai-whisper（base・CPU）で1回転記した実際の出力を保存し、その区間を音で確かめながら一つの文を直して、時刻はそのままの SRT として保存できることを示す",
+  "inputs": [
+    "input/script.json（作例用に書いた架空の「しおり工房」の編集指示4文。読み上げ原稿で、Whisper には渡さない）",
+    "input/review-ja-source.wav（make_input.ps1 が Microsoft Haruka Desktop・rate -1・volume 100 で手元合成。制作側が作る）",
+    "input/review-ja.wav（ffmpeg で 16kHz・モノラル・PCM16 にした転記用の音声。制作側が作る）",
+    "Whisper base の公式の重み（公開フォルダの外に置き、原典のローダーが SHA-256 を照合する）"
+  ],
+  "skill_refs": [
+    "skills/brief-to-demo/SKILL.md",
+    "https://github.com/openai/whisper/blob/86098128c0b4f24f0e2aa2994de830614b474227/README.md",
+    "https://github.com/openai/whisper/blob/86098128c0b4f24f0e2aa2994de830614b474227/model-card.md",
+    "https://github.com/openai/whisper/blob/86098128c0b4f24f0e2aa2994de830614b474227/whisper/__init__.py",
+    "https://github.com/openai/whisper/blob/86098128c0b4f24f0e2aa2994de830614b474227/whisper/transcribe.py",
+    "https://github.com/openai/whisper/blob/86098128c0b4f24f0e2aa2994de830614b474227/whisper/utils.py",
+    "https://github.com/openai/whisper/blob/86098128c0b4f24f0e2aa2994de830614b474227/whisper/audio.py"
+  ],
+  "deliverables": [
+    "make_input.ps1（原稿を手元の Windows 音声で WAV にする）",
+    "run_transcribe.py（実際の load_model と transcribe を呼び、get_writer(\"all\") の出力と session.json を書く転記ブリッジ）",
+    "outputs/review-ja.json・txt・srt・vtt・tsv・jsonl と outputs/session.json（実際の転記の出力。制作側の実行後に置く）",
+    "index.html・style.css・app.js（保存済みの出力を読み、区間を選んで文を直し、SRT を保存するスマホ向けの画面）",
+    "request.txt（同じ作りを依頼する日本語の依頼文）",
+    "約28秒の無音動画（元の依頼 → 選んだ転記方法 → 実際の結果。実際の出力と画面から制作側が作る）"
+  ],
+  "steps": [
+    "架空の編集指示4文を input/script.json に書く",
+    "make_input.ps1 で Microsoft Haruka Desktop に読ませ、ffmpeg で 16kHz・モノラル・PCM16 にする",
+    "run_transcribe.py --prepare-model で重みを公開フォルダの外に取得し、SHA-256 を照合する",
+    "run_transcribe.py で base・CPU・4スレッド・language=ja・temperature=0・condition_on_previous_text=False の転記を1回実行する",
+    "get_writer(\"all\") の出力をそのまま残し、音声・重み・設定・時間・区間を session.json にまとめる",
+    "画面で音声を聞き、区間を選んで頭へ移し、一つの文を直して、編集した SRT を保存する",
+    "制作側が音を聞いて原稿と転記を見比べ、未確認の点と合わせて記録する"
+  ],
+  "acceptance": [
+    "session.json の区間が Whisper の返した result の区間と同じ id・時刻・文で、区間の終わりが音声の長さ＋0.15秒を超えない",
+    "session.json の engine に base・cpu・4スレッド・fp16=false・temperature=0・condition_on_previous_text=false・reference_text_supplied=false と重みの SHA-256 がある",
+    "公開する記録に手元の絶対パス・キャッシュの場所・秘密の値がない",
+    "画面は保存済みの出力を読み込めたときだけ操作でき、読み込めないときは理由と再読み込みを示す",
+    "区間を選ぶと音声の再生位置がその開始へ移り、自動では再生しない",
+    "文を直すと「編集中」になり、原出力といまの字幕を見比べられ、元に戻せる",
+    "保存した SRT の番号は1から連番で、区間の数と時刻は原出力と同じ、文だけが編集後のもの",
+    "320・375・390・430px の縦向き、844px の横向き、1280px で横スクロールが出ない"
+  ],
+  "assumptions": [
+    "利用者は録音を渡していない。代わりに、作例用に書いた架空の原稿を手元の Windows 音声（Microsoft Haruka Desktop）で読み上げた合成音声を使い、人の録音・会議・実在の話者ではないと明記する",
+    "元の依頼は約30秒だが、4文の原稿で約20〜25秒を目安にした。実際の長さは合成した WAV で測る",
+    "「固有名詞と字幕の時刻の照合」は、制作側が音を聞いて原稿と転記を見比べることと、画面で区間ごとに聞き直せることで示す。精度の評価やベンチマークではない",
+    "Whisper の生の出力（get_writer の全ファイル）は変えずに残し、人が直した文は画面から保存する別の SRT に分ける",
+    "転記は Python から原典の API（load_model・transcribe・get_writer）を呼ぶ。OpenAI のホスト型 API やブラウザー内の推論は使わない",
+    "ページを開いても Whisper は動かない。区間の選択・文の編集・SRT の保存だけがブラウザーの中で動く",
+    "brief-to-demo のカテゴリ例は ui-ux・slides・motion・agents だが、成果物が音声と字幕なのでサイトの分野 audio に置いた",
+    "スマホ、特に iPhone の Safari での利用を主に想定する。実機と VoiceOver での確認はこの作例の範囲に入れない",
+    "公開する作例には約28秒の無音で編集できる動画を付け、実際の出力と画面だけで組む"
+  ]
+}

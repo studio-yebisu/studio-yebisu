@@ -1,0 +1,9 @@
+Whisper（openai/whisper 固定コミット 86098128c0b4f24f0e2aa2994de830614b474227。コードとモデルの重みは MIT）を使い、短い日本語の音声から字幕の下書きを作って、人が音を聞きながら直し、SRTで保存できる小さな画面を作ってください。
+
+入力：20〜30秒の日本語音声1本（16kHz・モノラルの WAV）。手元に使える録音がなければ、自分で書いた原稿を手元の音声合成で読み上げたものを使い、合成音声だと画面に書く。読み上げ原稿は転記に渡さない（initial_prompt なし）。
+
+転記：Python で whisper.load_model("base", device="cpu") を呼び、torch.set_num_threads(4) のうえで model.transcribe(language="ja", task="transcribe", fp16=False, temperature=0, condition_on_previous_text=False) を1回だけ実行する。重みは公開するフォルダの外に置く。whisper.utils.get_writer("all") の書き出し（json・txt・srt・vtt・tsv）はそのまま残し、音声と重みの SHA-256・長さ・設定・実行時間・区間を session.json にまとめる。区間の終わりが音声の長さを超えたら、公開用の出力を作らずに止める。
+
+画面：スマホ幅を基準に、音声と区間の一覧を最初に見せる。区間を選ぶと音声がその頭へ移る（自動では再生しない）。選んだ区間の文だけを直せて、元の出力と見比べられ、時刻は変えずに編集した SRT を保存できる。ブラウザーでは Whisper を動かさないことを画面に書く。
+
+記録：入力・出力・実行した確認・未確認の点を残し、約28秒の無音で編集できる動画を作る。

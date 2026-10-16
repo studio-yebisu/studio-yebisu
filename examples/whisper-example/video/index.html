@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>28秒・無音の解説動画の元ページ — しおり工房 字幕デスク（Whisper作例）</title>
+<link rel="stylesheet" href="video.css">
+</head>
+<body>
+<header class="intro">
+  <p class="eyebrow">Studio Yebisu · Whisper 作例 · 解説動画の元ページ</p>
+  <h1>転記の誤りを、そのまま直せる。<span class="sub">28秒・無音の解説動画</span></h1>
+  <p>作例用の原稿を手元の音声合成で読み上げた音声1本を、固定版の Whisper（base・CPU）で制作時に1回だけ転記した実際の原出力から、原稿を参照して3区間の文を手で直し、時刻はそのまま SRT で保存するまでを、実画面の静止キャプチャと実際の記録で組み直した映像です。続けて録画したものではなく、音声を聞いて確かめた校正でもありません。</p>
+</header>
+
+<figure class="stage">
+  <canvas id="film" width="1280" height="720" role="img"
+    aria-label="解説動画の画面。上に4段階（入力・実際の原出力・原稿を参照して直す・SRTで保存）。合成音声のRMS、Whisperの実際の原出力の区間一覧、id 0 の原出力と原稿と直した字幕、直した3区間と変わらない時刻、保存したSRTの最初と最後の区間、スマホ幅の初期画面と試す順番を順に示します。"></canvas>
+  <figcaption>無音の映像です。元の合成音声は<a href="../index.html">作例のページ</a>か<a href="../input/review-ja.wav">WAVファイル</a>で再生できます。</figcaption>
+</figure>
+
+<section class="controls" aria-label="プレビューの操作">
+  <button id="play" type="button" aria-pressed="false" disabled>再生</button>
+  <div class="scrub">
+    <label for="time">再生位置（0〜28秒）</label>
+    <input id="time" type="range" min="0" max="28" step="0.1" value="0" disabled aria-describedby="keys">
+  </div>
+  <output id="clock" for="time">0.0秒 / 28.0秒</output>
+</section>
+<p id="keys" class="hint">自動では再生しません。スライダーでは ← → で0.1秒、PageUp・PageDown で2秒ずつ、Home・End で先頭・末尾へ移ります。</p>
+<p id="status" class="status" role="status" data-state="loading">実入力・出力と画面を読み込んでいます…</p>
+<p id="detail" class="hint"></p>
+<p><button id="reload" class="reload" type="button" hidden>再読み込み</button></p>
+
+<section class="scenes" aria-labelledby="scenes-title">
+  <h2 id="scenes-title">場面</h2>
+  <ol>
+    <li><span class="time">0〜4秒</span> 入力：作例用の原稿を読み上げた合成音声（21.01秒・16kHz・モノラル）と、WAV から求めた0.1秒ごとの RMS。</li>
+    <li><span class="time">4〜8秒</span> 実際の原出力：保存済みの5区間の一覧と、工房名が原稿と違う文字になった id 0。</li>
+    <li><span class="time">8〜15.5秒</span> 原稿を参照して手で直す：id 0 の原出力・読み上げた原稿・直した字幕。編集前と後の実画面。</li>
+    <li><span class="time">15.5〜20秒</span> 直したのは3区間。5区間の時刻は推定値のまま。聞いての確認は未実施。</li>
+    <li><span class="time">20〜24秒</span> ブラウザーが保存した SRT の最初と最後の区間（実ファイルの抜粋）。</li>
+    <li><span class="time">24〜28秒</span> スマホ幅の初期画面と、試す順番「音声を開く → 文を直す → SRTで保存」。</li>
+  </ol>
+</section>
+
+<nav class="links" aria-label="関連するファイル">
+  <h2>関連するファイル</h2>
+  <ul>
+    <li><a href="../index.html">作例のページを開く（音声の再生・文の編集・SRTの保存）</a></li>
+    <li><a href="../input/review-ja.wav">元の合成音声（input/review-ja.wav）</a></li>
+    <li><a href="../outputs/session.json">転記の記録（outputs/session.json）</a></li>
+    <li><a href="../outputs/browser-edited.srt">ブラウザーで保存したSRT（outputs/browser-edited.srt）</a></li>
+    <li><a href="assets/screen-manifest.json">実画面の記録（assets/screen-manifest.json）</a></li>
+    <li><a href="storyboard.json">場面の設計（storyboard.json）</a></li>
+    <li><a href="README.md">この映像の説明（README.md）</a></li>
+  </ul>
+</nav>
+
+<footer class="foot">
+  <p>このページを開いても、音声認識やAIは動きません。映像は保存済みのファイルだけから描いています。</p>
+  <p>映像のコードと文章：MIT License, Copyright (c) 2026 Studio Yebisu（制作：Claude Opus 5.5）。Whisper のコードと重み：MIT License, Copyright (c) 2022 OpenAI。</p>
+</footer>
+
+<script type="module" src="video.js"></script>
+</body>
+</html>

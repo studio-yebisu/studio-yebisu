@@ -1,0 +1,31 @@
+--- Opus delivered run_transcribe.py
++++ CPU device verification fix
+@@ -232,8 +232,7 @@
+ 
+ 
+ def load_runtime(threads: int):
+-    # この実行では CUDA を使わない。torch を読む前に、このプロセスからだけ GPU を隠す。
+-    os.environ["CUDA_VISIBLE_DEVICES"] = ""
++    # 推論先は明示的な device="cpu" と読み込んだパラメータの実deviceで検証する。
+     import torch
+     import whisper
+     from whisper.utils import get_writer
+@@ -241,8 +240,6 @@
+     torch.set_num_threads(threads)
+     if torch.get_num_threads() != threads:
+         raise BridgeError(f"torch のスレッド数が {threads} になりません。")
+-    if torch.cuda.is_available():
+-        raise BridgeError("CUDA が見えています。CPU だけで実行します。")
+     return torch, whisper, get_writer
+ 
+ 
+@@ -381,7 +378,8 @@
+                 "word_timestamps": False,
+                 "threads": THREADS,
+                 "torch_threads_observed": torch.get_num_threads(),
+-                "cuda_hidden_for_process": True,
++                "cuda_hidden_for_process": False,
++                "device_verification": "load_model(device=cpu) and actual parameter device observed cpu",
+                 "checkpoint_file": checkpoint.name,
+                 "checkpoint_sha256": checkpoint_sha256,
+                 "checkpoint_sha256_expected": expected_sha256,

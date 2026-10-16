@@ -1,0 +1,198 @@
+{
+  "id": "whisper-example",
+  "title": "Whisperの実出力を、字幕へ整える",
+  "title_lines": [
+    "Whisperの出力を、",
+    "字幕へ整える"
+  ],
+  "category": "audio",
+  "summary": "独自の21秒の合成音声をWhisper baseで実転記。誤認識を残した原出力と原稿を見比べ、3区間を手動修正して推定時刻を保ったSRTを保存する作例です。",
+  "model": "claude-opus-5-5",
+  "status": "published",
+  "demo": "examples/whisper-example/index.html",
+  "video": "media/whisper-example.mp4",
+  "poster": "media/whisper-example.webp",
+  "skill": "examples/whisper-example/run_transcribe.py",
+  "skill_label": "実際に転記するPythonソース",
+  "skill_description": "Agent Skill の SKILL.md や Markdown の手順書ではなく、この作例の転記に使う実際の Python ソースです。固定コミットの openai-whisper を読み込み、torch.set_num_threads(4) のうえで whisper.load_model(\"base\", device=\"cpu\", download_root=公開フォルダの外) と model.transcribe(language=\"ja\", task=\"transcribe\", fp16=False, temperature=0, condition_on_previous_text=False) を呼び、whisper.utils.get_writer(\"all\") の書き出しを変えずに残します。音声と重みの SHA-256・長さ・設定・1回の実行時間・区間を outputs/session.json にまとめ、区間の終わりが音声の長さを超えるなど前提と違えば公開用の出力を作らずに止まります。読み上げ原稿は Whisper に渡しません。",
+  "samples": "examples/whisper-example/samples.json",
+  "sample_format": "input-output",
+  "samples_title": "合成した音声と、Whisper が返した区間",
+  "samples_intro": "実転記、未編集SRT保存、区間選択、元戻し、3区間の編集保存、503復帰の実記録7組です。原稿はASRに渡していません。各デモリンクは共通入口で、記録した状態を自動再現するものではありません。503は制作時だけの制御試験です。",
+  "demo_description": "原音を再生し、5区間から一つを選び、元の文と原稿を見比べて字幕を直し、SRTで保存できます。ブラウザーが編集するのは実際に転記済みの出力です。",
+  "demo_note": "表示しているのは、制作側が手元の CPU で Whisper base を1回実行して保存した結果です。ページを開いても Whisper は動かず、音声のアップロードや新しい転記はできません。区間の選択・文の編集・SRT の保存は、開いたブラウザーの中だけで動きます。音声は作例用の原稿を合成した読み上げで、人の録音ではありません。",
+  "request_intro": "同じ作りを自分の音声で試すときの依頼文です。固定版の openai/whisper を読めるAIエージェントや開発者に渡してください。音声と原稿は自分のものに置き換えます。",
+  "request": "Whisper（openai/whisper 固定コミット 86098128c0b4f24f0e2aa2994de830614b474227。コードとモデルの重みは MIT）を使い、短い日本語の音声から字幕の下書きを作って、人が音を聞きながら直し、SRTで保存できる小さな画面を作ってください。\n\n入力：20〜30秒の日本語音声1本（16kHz・モノラルの WAV）。手元に使える録音がなければ、自分で書いた原稿を手元の音声合成で読み上げたものを使い、合成音声だと画面に書く。読み上げ原稿は転記に渡さない（initial_prompt なし）。\n\n転記：Python で whisper.load_model(\"base\", device=\"cpu\") を呼び、torch.set_num_threads(4) のうえで model.transcribe(language=\"ja\", task=\"transcribe\", fp16=False, temperature=0, condition_on_previous_text=False) を1回だけ実行する。重みは公開するフォルダの外に置く。whisper.utils.get_writer(\"all\") の書き出し（json・txt・srt・vtt・tsv）はそのまま残し、音声と重みの SHA-256・長さ・設定・実行時間・区間を session.json にまとめる。区間の終わりが音声の長さを超えたら、公開用の出力を作らずに止める。\n\n画面：スマホ幅を基準に、音声と区間の一覧を最初に見せる。区間を選ぶと音声がその頭へ移る（自動では再生しない）。選んだ区間の文だけを直せて、元の出力と見比べられ、時刻は変えずに編集した SRT を保存できる。ブラウザーでは Whisper を動かさないことを画面に書く。\n\n記録：入力・出力・実行した確認・未確認の点を残し、約28秒の無音で編集できる動画を作る。\n",
+  "applied_skills": [
+    {
+      "name": "brief-to-demo",
+      "source": "skills/brief-to-demo/SKILL.md",
+      "applied": "掲載項目の依頼「自分で録音した30秒の日本語音声から、テキストとSRT字幕を作る。固有名詞と字幕の時刻を音声と照合する」を、目的「固定版の Whisper base を CPU で1回転記した実際の出力を保存し、区間を音で確かめながら一つの文を直して、時刻はそのままの SRT で保存できることを示す」の一つに絞りました（brief.json）。利用者は録音を渡していないため、作例用に書いた架空の原稿を手元の Windows 音声で読み上げた合成音声を使うこと、人の録音・会議ではなく精度の評価でもないこと、約30秒を4文・約20〜25秒の目安にしたことを assumptions に分けています。カテゴリ例に音声がないためサイトの分野 audio に置きました。完了条件は、session.json の区間が返った result と同じで音声の長さを超えないこと、転記の設定と重みの SHA-256 が記録されていること、公開する記録に手元のパスがないこと、区間を選ぶと再生位置だけが移ること、編集中の表示と原出力との比較・元に戻す操作、番号が1からで時刻が原出力と同じ SRT、各画面幅で横スクロールなし、です。ページは保存済みの出力を読むだけなので、ライブの転記に見える表示や AI のボタンは付けず、動画は「元の依頼 → 選んだ転記方法 → 実際の結果」で組む前提にしました。"
+    },
+    {
+      "name": "Whisper（openai/whisper）",
+      "source": "https://github.com/openai/whisper/blob/86098128c0b4f24f0e2aa2994de830614b474227/README.md",
+      "applied": "音声認識のモデルと Python のツールで、SKILL.md でも OpenAI のホスト型 API でもありません。固定版の README・LICENSE・model-card.md・pyproject.toml と、whisper/__init__.py（load_model・_download の SHA-256 照合・download_root）、whisper/transcribe.py（transcribe の引数と、temperature・condition_on_previous_text・initial_prompt の扱い、区間の作り方）、whisper/utils.py（get_writer と各形式の書き出し、format_timestamp の丸め）、whisper/audio.py（ffmpeg での読み込みと 16kHz）を読み、その API だけで run_transcribe.py を書きました。重みは --prepare-model で公開フォルダの外に先に取得し、転記では既にあることを確かめてから読み込むので、読み込み時間に取得は入りません。原稿は initial_prompt に渡さず、推論先は device=\"cpu\" と実パラメータのdeviceで照合します。画面の SRT は utils.py と同じくミリ秒に丸め、文の前後の空白を除き、\"-->\" を \"->\" にします。制作側で実際にbase/CPU4threadsの転記を1回実行し、5区間・6形式と全出力ハッシュを照合しました。最初のCPU可視性ガード失敗は推論前で、GPUの有無ではなく実パラメータのcpuを確かめる形に直しました。"
+    },
+    {
+      "name": "Motion Reel",
+      "source": "examples/whisper-example/tools/motion-reel/render.mjs",
+      "applied": "実画面4枚、実入力WAVのRMS波形、実ASRと原稿参照による3区間修正・実SRT保存から、Opus5.5が28秒の無音動画を制作。代表と連続フレーム、同時刻の別順/新ページ描画一致、全デコードと実MP4終端を確認しました。"
+    }
+  ],
+  "steps": [
+    {
+      "title": "架空の指示を書く",
+      "body": "作例用の工房「しおり工房」の動画レビューの指示を4文、input/script.json に書きました。見出しを短くすること、字幕は2行まで、一つの字幕に一つの考え、最後にずれを確かめて SRT で保存すること、の4つです。この原稿は見比べるためのもので、Whisper には渡しません。"
+    },
+    {
+      "title": "手元の声で読み上げる",
+      "body": "make_input.ps1 が Windows の System.Speech で、インストール済みの Microsoft Haruka Desktop（rate -1・volume 100）に原稿を読ませて WAV にします。声が無ければほかの声を使わずに止まり、既にあるファイルは上書きしません。続けて ffmpeg で 16kHz・モノラル・PCM16 にします。"
+    },
+    {
+      "title": "CPU で1回だけ転記する",
+      "body": "run_transcribe.py が固定版の openai-whisper を読み込み、4スレッドの CPU で base を読み込んで、language=ja・temperature=0・condition_on_previous_text=False で1回転記します。重みは公開フォルダの外に置き、原典のローダーと同じ SHA-256 で確かめます。"
+    },
+    {
+      "title": "出力を変えずに残す",
+      "body": "Whisper が返した result を whisper.utils.get_writer(\"all\") でそのまま書き出し、音声・重み・設定・時間・区間を outputs/session.json にまとめます。区間の時刻が音声の長さを超えるなど前提と違えば、公開用の出力を作らずに止まります。"
+    },
+    {
+      "title": "聞いて区間を選ぶ",
+      "body": "画面は保存済みの session.json と script.json を読み、形を確かめてから区間の一覧を出します。区間を選ぶと音声の再生位置だけがその頭へ移り、再生は利用者が標準の再生ボタンで始めます。再生中は、いまの位置にある区間に印が付きます。"
+    },
+    {
+      "title": "一つの文を直して保存する",
+      "body": "選んだ区間の文を「字幕の文」で直すと、文字数・行数・編集中の状態と原出力との比較が出ます。「編集したSRTを保存」で、時刻と区間の数は原出力のまま、番号を1からにした SRT をブラウザーのダウンロードに渡します。"
+    }
+  ],
+  "limitations": [
+    "音声は作例用に書いた架空の原稿を Windows の Microsoft Haruka Desktop で読み上げた合成音声1本です。人の録音・会議・雑音のある音声・長い音声は試していません。",
+    "1本の短い合成音声を1回転記しただけで、精度や速さのベンチマークではありません。記録する時間はこの1回の実行の値で、音声の合成と重みの取得を含みません。",
+    "使ったのは base モデルと CPU だけです。ほかのモデル（tiny・small・turbo など）、GPU、ブラウザー内の推論、ストリーミングは試していません。",
+    "ページは保存済みの出力を読むだけです。ページから音声をアップロードしたり、新しく転記したりはできません。",
+    "時刻は Whisper の区間の推定値のままです。区間の分割・結合、時刻の自動の調整、字幕のアクセシビリティ基準への適合はしていません。",
+    "編集はブラウザーの中だけで、再読み込みすると消えます。",
+    "実機の iPhone Safari、VoiceOver などの読み上げソフト、ハードウェアの安全領域では確かめていません。",
+    "制作担当の音声入力が非対応のため、音を聴いた校正・発音の確認・字幕の意味的な時刻精度は未確認です。今回の3区間の修正は元の合成原稿を参照して行いました。WAV再生と区間へのシークは技術確認済みです。",
+    "依頼文コピーは成功表示までで読み戻しの一致は未確認です。自動検査と制作担当の視覚確認は人による審美的承認ではありません。"
+  ],
+  "sources": [
+    {
+      "label": "openai/whisper（固定コミット 8609812）",
+      "url": "https://github.com/openai/whisper/tree/86098128c0b4f24f0e2aa2994de830614b474227"
+    },
+    {
+      "label": "Whisper README（固定版）",
+      "url": "https://github.com/openai/whisper/blob/86098128c0b4f24f0e2aa2994de830614b474227/README.md"
+    },
+    {
+      "label": "Whisper LICENSE（固定版）",
+      "url": "https://github.com/openai/whisper/blob/86098128c0b4f24f0e2aa2994de830614b474227/LICENSE"
+    },
+    {
+      "label": "Model Card: Whisper（固定版）",
+      "url": "https://github.com/openai/whisper/blob/86098128c0b4f24f0e2aa2994de830614b474227/model-card.md"
+    },
+    {
+      "label": "pyproject.toml（固定版・依存と対応する Python）",
+      "url": "https://github.com/openai/whisper/blob/86098128c0b4f24f0e2aa2994de830614b474227/pyproject.toml"
+    },
+    {
+      "label": "load_model と重みの照合（whisper/__init__.py・固定版）",
+      "url": "https://github.com/openai/whisper/blob/86098128c0b4f24f0e2aa2994de830614b474227/whisper/__init__.py"
+    },
+    {
+      "label": "transcribe（whisper/transcribe.py・固定版）",
+      "url": "https://github.com/openai/whisper/blob/86098128c0b4f24f0e2aa2994de830614b474227/whisper/transcribe.py"
+    },
+    {
+      "label": "get_writer と SRT の書き出し（whisper/utils.py・固定版）",
+      "url": "https://github.com/openai/whisper/blob/86098128c0b4f24f0e2aa2994de830614b474227/whisper/utils.py"
+    },
+    {
+      "label": "音声の読み込み（whisper/audio.py・固定版）",
+      "url": "https://github.com/openai/whisper/blob/86098128c0b4f24f0e2aa2994de830614b474227/whisper/audio.py"
+    },
+    {
+      "label": "読み上げた原稿",
+      "url": "examples/whisper-example/input/script.json"
+    },
+    {
+      "label": "実転記の設定と結果",
+      "url": "examples/whisper-example/outputs/session.json"
+    },
+    {
+      "label": "原稿参照による修正の根拠",
+      "url": "examples/whisper-example/outputs/reference-review.json"
+    },
+    {
+      "label": "実際に保存したSRT",
+      "url": "examples/whisper-example/outputs/browser-edited.srt"
+    },
+    {
+      "label": "編集と保存の照合",
+      "url": "examples/whisper-example/outputs/edit-record.json"
+    },
+    {
+      "label": "実行メモ",
+      "url": "examples/whisper-example/outputs/result.md"
+    },
+    {
+      "label": "実行と映像の確認範囲",
+      "url": "examples/whisper-example/verification.json"
+    },
+    {
+      "label": "入力・出力・動画ソース一式",
+      "url": "examples/whisper-example/source.zip"
+    }
+  ],
+  "license": "MIT（作例）",
+  "license_note": "作例のコード・文章・原稿は MIT License（Copyright (c) 2026 Studio Yebisu）。Whisper のコードとモデルの重みは、固定版の README と LICENSE のとおり MIT License（Copyright (c) 2022 OpenAI）で、LICENSE・README・model-card.md と読んだソースを vendor/whisper/ に原文のまま置いています。読み上げ音声は手元の Windows 音声（Microsoft Haruka Desktop）で作った作例用の素材で、その扱いは Whisper のライセンスとは別です。音声エンジン、モデルの重み、キャッシュ、仮想環境は同梱しません。PyTorch・tiktoken などの依存パッケージは、それぞれのライセンスに従います。",
+  "skill_license": "examples/whisper-example/vendor/whisper/LICENSE",
+  "video_note": "28秒・720p・30fps・無音。実画面と実ファイルを用いた編集動画です。修正は合成原稿を参照して行い、音声の聴取と時刻精度は未確認です。原音は実デモのWAVプレイヤーで再生できます。",
+  "video_source": "examples/whisper-example/video/index.html",
+  "updated_on": "2026-10-16",
+  "featured": true,
+  "verification_stage": "runtime-reviewed",
+  "guide_url": "case.html?id=whisper-example",
+  "catalog_entry": {
+    "id": "resource-whisper",
+    "name": "Whisper",
+    "category": "audio",
+    "kind": "モデル・ツール",
+    "summary": "録音や動画の音声を、複数の言語に対応したテキストへ起こす。",
+    "use_case": "会議録、字幕、動画の検索用テキストなどの下書きを作りたいとき。",
+    "tags": [
+      "音声",
+      "音楽",
+      "モデル・ツール"
+    ],
+    "workflow": [
+      "録音ファイルと言語・用途を渡す",
+      "対応モデルで文字起こしを実行する",
+      "音を聞いて固有名詞、無音区間、時刻のずれを直す"
+    ],
+    "requirements": [
+      "Python・FFmpegと選んだモデルの実行環境",
+      "利用できる録音ファイル"
+    ],
+    "license": "MIT",
+    "license_url": "https://github.com/openai/whisper/blob/86098128c0b4f24f0e2aa2994de830614b474227/LICENSE",
+    "license_note": "公式READMEはコードとモデル重みの両方をMITと明記しています。音声素材そのものの権利は別です。",
+    "source_url": "https://github.com/openai/whisper/tree/86098128c0b4f24f0e2aa2994de830614b474227",
+    "guide_url": "case.html?id=whisper-example",
+    "readme_url": "https://github.com/openai/whisper/blob/86098128c0b4f24f0e2aa2994de830614b474227/README.md",
+    "source_repository": "openai/whisper",
+    "source_commit": "86098128c0b4f24f0e2aa2994de830614b474227",
+    "source_path": "",
+    "source_project": "curated",
+    "source_note": "公式固定版のPython APIとnative writerを実行。原出力の誤認識を保全し、原稿に基づく手動修正を別SRTへ保存。音を聴いた校正ではありません。",
+    "prompt": "Whisper（openai/whisper 固定コミット 86098128c0b4f24f0e2aa2994de830614b474227。コードとモデルの重みは MIT）を使い、短い日本語の音声から字幕の下書きを作って、人が音を聞きながら直し、SRTで保存できる小さな画面を作ってください。\n\n入力：20〜30秒の日本語音声1本（16kHz・モノラルの WAV）。手元に使える録音がなければ、自分で書いた原稿を手元の音声合成で読み上げたものを使い、合成音声だと画面に書く。読み上げ原稿は転記に渡さない（initial_prompt なし）。\n\n転記：Python で whisper.load_model(\"base\", device=\"cpu\") を呼び、torch.set_num_threads(4) のうえで model.transcribe(language=\"ja\", task=\"transcribe\", fp16=False, temperature=0, condition_on_previous_text=False) を1回だけ実行する。重みは公開するフォルダの外に置く。whisper.utils.get_writer(\"all\") の書き出し（json・txt・srt・vtt・tsv）はそのまま残し、音声と重みの SHA-256・長さ・設定・実行時間・区間を session.json にまとめる。区間の終わりが音声の長さを超えたら、公開用の出力を作らずに止める。\n\n画面：スマホ幅を基準に、音声と区間の一覧を最初に見せる。区間を選ぶと音声がその頭へ移る（自動では再生しない）。選んだ区間の文だけを直せて、元の出力と見比べられ、時刻は変えずに編集した SRT を保存できる。ブラウザーでは Whisper を動かさないことを画面に書く。\n\n記録：入力・出力・実行した確認・未確認の点を残し、約28秒の無音で編集できる動画を作る。\n",
+    "verification_stage": "runtime-reviewed",
+    "verification": "固定ソースとbase重みを照合し、独自の合成音声21秒をCPUで実転記。5区間/6形式、原稿参照3区間編集と実SRT/TXT保存、12操作と12画面状態、WAV終端・28秒無音動画を確認。聴取品質と時刻精度、実機iOSは未確認。",
+    "reviewed_on": "2026-10-16",
+    "example_url": "examples/whisper-example/index.html",
+    "image": "media/whisper-example.webp"
+  }
+}

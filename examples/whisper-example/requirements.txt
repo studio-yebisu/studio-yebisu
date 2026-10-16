@@ -1,0 +1,23 @@
+# しおり工房 字幕デスク（Whisper作例）の run_transcribe.py 用。
+#
+# openai-whisper は固定コミット 86098128c0b4f24f0e2aa2994de830614b474227 のソースから入れる。
+# 直接の依存は固定版 pyproject.toml の dependencies（more-itertools・numba・numpy・tiktoken・
+# torch・tqdm。triton は Linux x86_64 だけ）。
+#
+# Python: 制作側が持っている Python 3.13.7 で実行する。固定版 pyproject.toml は
+# requires-python >=3.8 で、分類に 3.13 を含む。原典 README の「Python 3.9.9 と PyTorch 1.10.1」は
+# OpenAI がモデルの学習・評価に使った環境の説明で、この作例の実行環境ではない。
+#
+# torch・numba・numpy は、制作側のグローバル環境に入っている版（torch 2.11.0+cu128・numba 0.66.0・
+# numpy 2.4.4）に合わせた。torch==2.11.0 はローカル版の +cu128 にも一致する。推論は CPU だけで、
+# CUDA は使わない。tqdm は版を決めていない。実際に使った全環境は制作側が別に記録する。
+#
+# ffmpeg（コマンド）は別に必要。モデルの重み・キャッシュ・仮想環境はこのフォルダに入れない。
+
+openai-whisper @ https://github.com/openai/whisper/archive/86098128c0b4f24f0e2aa2994de830614b474227.zip
+tiktoken==0.12.0
+more-itertools==10.8.0
+torch==2.11.0
+numba==0.66.0
+numpy==2.4.4
+tqdm
