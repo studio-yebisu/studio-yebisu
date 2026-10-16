@@ -1,0 +1,87 @@
+{
+  "format": "komorebi-itinerary/v1",
+  "fictional": true,
+  "reserved": false,
+  "notice": "架空のイベントの予定メモです。予約・支払い・参加確定ではありません。",
+  "event": {
+    "id": "komorebi-making-day",
+    "title": "こもれび つくる日",
+    "date": "2026-11-07",
+    "timezone": "Asia/Tokyo",
+    "venue": "木かげ交流室（架空の会場）"
+  },
+  "source": {
+    "event_file": "input/event.json",
+    "role_source": "msitarzewski/agency-agents",
+    "role_source_commit": "bd956db032d907387e6b9ddebff3e18f1de8c679"
+  },
+  "selection_rule": "開始が相手の終了より前で、相手の開始が終了より前なら重なりとし、重なる企画は同時に選ばない。終了と開始が同時刻なら重ならない。予約不要の企画も開始から終了までの枠全体を使う。",
+  "selected_ids": [
+    "S01",
+    "S03",
+    "S04",
+    "S06"
+  ],
+  "sessions": [
+    {
+      "id": "S01",
+      "kind": "workshop",
+      "title": "押し花のしおり",
+      "start": "10:00",
+      "end": "10:45",
+      "room": "工作の間",
+      "age": "6歳以上（小学生は保護者と参加）",
+      "price_yen": 300,
+      "capacity": 8,
+      "reservation_required": true,
+      "description": "草花の色を並べ、透明なしおりに仕立てます。",
+      "note": "はさみを使います。材料と道具は会場で用意する設定です。"
+    },
+    {
+      "id": "S03",
+      "kind": "workshop",
+      "title": "紙でつくる小さな町",
+      "start": "11:15",
+      "end": "12:00",
+      "room": "工作の間",
+      "age": "6歳以上（小学生は保護者と参加）",
+      "price_yen": 200,
+      "capacity": 10,
+      "reservation_required": true,
+      "description": "紙を折って家を作り、みんなの町を並べます。",
+      "note": "使わない包装紙を1枚持参。なくても参加できる設定です。"
+    },
+    {
+      "id": "S04",
+      "kind": "talk",
+      "title": "音のさんぽを聞く",
+      "start": "13:00",
+      "end": "13:30",
+      "room": "話の間",
+      "age": "年齢制限なし",
+      "price_yen": 0,
+      "capacity": 16,
+      "reservation_required": false,
+      "description": "身近な音を聞き比べて、いつもの景色を想像します。",
+      "note": "音が流れます。音量が気になる人は途中で退出できる設定です。"
+    },
+    {
+      "id": "S06",
+      "kind": "consultation",
+      "title": "ほつれの直し方 相談室",
+      "start": "14:00",
+      "end": "15:00",
+      "room": "相談の間",
+      "age": "年齢制限なし",
+      "price_yen": 0,
+      "capacity": null,
+      "reservation_required": false,
+      "description": "布のほつれを持ち寄り、直す手順を相談します。",
+      "note": "直したい布を1点持参。修理の完成を約束する企画ではありません。"
+    }
+  ],
+  "derived": {
+    "count": 4,
+    "total_price_yen": 500
+  }
+}

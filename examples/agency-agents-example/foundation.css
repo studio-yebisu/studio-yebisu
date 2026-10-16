@@ -1,0 +1,727 @@
+/*
+ * foundation.css — こもれび つくる日 企画ガイド（架空イベントの作例）
+ *
+ * UX Architect 段階の土台。Frontend Developer 段階の style.css はこの上に積む。
+ * 手法の参照元: msitarzewski/agency-agents @ bd956db032d907387e6b9ddebff3e18f1de8c679
+ *   design/design-ux-architect.md（MIT, Copyright (c) 2025 AgentLand Contributors。コミュニティ作成、Anthropic公式ではない）
+ *
+ * 層の順番:
+ *   1. トークン（テーマ非依存）  2. テーマ（light / dark / system）  3. リセットと本文
+ *   4. フォームとフォーカス      5. レイアウト                       6. 共通コンポーネント
+ *   7. ユーティリティ            8. 利用者設定のメディアクエリ
+ *
+ * 守ること:
+ *   - 外部フォント・画像・CDNなし。100vw / 100vh / html・body の overflow:hidden を使わない。
+ *   - 操作部品は 44px 以上・16px 以上。フォーカスは 3px。
+ *   - [hidden] は flex / grid の部品でも必ず消す。
+ *   - 色は役割名のトークンだけで指定し、style.css に色の直書きをしない。
+ */
+
+/* ========== 1. トークン（テーマ非依存） ========== */
+:root {
+  /* 書体: 端末にある日本語書体だけを使う */
+  --font-sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "BIZ UDPGothic", "Noto Sans JP",
+    "Yu Gothic UI", "Yu Gothic", Meiryo, system-ui, sans-serif;
+  --font-serif: "Hiragino Mincho ProN", "Yu Mincho", "BIZ UDPMincho", "Noto Serif JP", serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* 文字の大きさ */
+  --text-sm: 0.875rem;   /* 14px: 補足ラベルだけ。操作部品には使わない */
+  --text-base: 1rem;     /* 16px */
+  --text-lg: 1.125rem;   /* 18px: 時刻・費用 */
+  --text-xl: 1.25rem;    /* 20px: 企画名 h3 */
+  --text-2xl: 1.5rem;    /* 24px: 区切り見出し h2 */
+  --text-3xl: clamp(1.625rem, 1.25rem + 1.6vw, 2.125rem); /* 26–34px: h1 */
+  --leading-body: 1.6;
+  --leading-tight: 1.35;
+  --weight-regular: 400;
+  --weight-bold: 700;
+  --control-font-size: max(1rem, 16px); /* iOS の入力時ズームを防ぐ下限 */
+
+  /* 余白: 4px 単位 */
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.25rem;  /* 20px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+  --space-12: 3rem;    /* 48px */
+  --space-16: 4rem;    /* 64px */
+
+  /* 部品の寸法 */
+  --control-min: 2.75rem; /* 44px */
+  --focus-width: 3px;
+  --focus-offset: 2px;
+  --border-width: 1px;
+  --mark-width: 4px;      /* 選択・重なりの縦線 */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-pill: 999px;
+
+  /* レイアウト */
+  --container-max: 72rem;               /* 1152px */
+  --measure: 38em;                      /* 本文の行長 */
+  --aside-width: minmax(18rem, 22rem);  /* 64rem 以上の「回る予定」列 */
+  --time-col: 7.5rem;                   /* 48rem 以上の企画カードの時刻列 */
+  --gutter: var(--space-4);
+  --page-pad-start: max(var(--gutter), env(safe-area-inset-left));
+  --page-pad-end: max(var(--gutter), env(safe-area-inset-right));
+  --page-pad-top: max(var(--space-4), env(safe-area-inset-top));
+  --page-pad-bottom: max(var(--space-4), env(safe-area-inset-bottom));
+
+  /* 動き */
+  --duration-fast: 150ms;
+  --duration-theme: 200ms;
+}
+
+/* ========== 2. テーマ ==========
+ * data-theme は "light" | "dark" | "system"。属性なしも system として扱う。
+ * system の暗色は prefers-color-scheme で CSS 側が追従する（JS は表示ラベルと meta theme-color だけ更新）。
+ * 詳細度: 下の3ブロックはどれも (0,2,0) 以上で、:root 単体 (0,1,0) より強い。
+ */
+:root,
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-bg: #f7f1e6;            /* 紙 */
+  --color-surface: #fffaf2;       /* カード */
+  --color-surface-sunk: #efe6d6;  /* くぼみ・無効 */
+  --color-text: #2a2420;          /* 墨 */
+  --color-text-muted: #5c5148;
+  --color-border: #ddd0bc;        /* 飾りの線 */
+  --color-border-strong: #857565; /* 入力欄の枠（背景と 3:1 以上を狙う） */
+  --color-accent: #a8462a;        /* テラコッタ: ワークショップ・強調 */
+  --color-accent-soft: #f6e6dc;
+  --color-action: #3f6b4a;        /* 緑: 主操作・選択済み */
+  --color-action-hover: #335a3d;
+  --color-on-action: #ffffff;
+  --color-action-soft: #e3ecdf;
+  --color-link: #3f6b4a;
+  --color-alert: #962f1c;         /* 重なり・読み込み失敗 */
+  --color-alert-soft: #f8e3da;
+  --color-notice-soft: #f0e4c6;   /* 架空イベントの表示 */
+  --color-focus: #24477a;         /* どの状態色とも別の色 */
+  --shadow-raised: 0 1px 2px rgb(42 36 32 / 0.08), 0 4px 12px rgb(42 36 32 / 0.06);
+  --theme-color-meta: #f7f1e6;    /* <meta name="theme-color"> に写す値 */
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-bg: #1b1815;
+  --color-surface: #24201c;
+  --color-surface-sunk: #14120f;
+  --color-text: #f2eadf;
+  --color-text-muted: #c4b8a8;
+  --color-border: #3f3831;
+  --color-border-strong: #8f8274;
+  --color-accent: #e3906f;
+  --color-accent-soft: #3b2820;
+  --color-action: #8dc79b;
+  --color-action-hover: #a5d6b0;
+  --color-on-action: #10201a;
+  --color-action-soft: #213027;
+  --color-link: #8dc79b;
+  --color-alert: #f4a58e;
+  --color-alert-soft: #3a211a;
+  --color-notice-soft: #332b1f;
+  --color-focus: #9fc2f0;
+  --shadow-raised: 0 1px 2px rgb(0 0 0 / 0.4);
+  --theme-color-meta: #1b1815;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --color-bg: #1b1815;
+    --color-surface: #24201c;
+    --color-surface-sunk: #14120f;
+    --color-text: #f2eadf;
+    --color-text-muted: #c4b8a8;
+    --color-border: #3f3831;
+    --color-border-strong: #8f8274;
+    --color-accent: #e3906f;
+    --color-accent-soft: #3b2820;
+    --color-action: #8dc79b;
+    --color-action-hover: #a5d6b0;
+    --color-on-action: #10201a;
+    --color-action-soft: #213027;
+    --color-link: #8dc79b;
+    --color-alert: #f4a58e;
+    --color-alert-soft: #3a211a;
+    --color-notice-soft: #332b1f;
+    --color-focus: #9fc2f0;
+    --shadow-raised: 0 1px 2px rgb(0 0 0 / 0.4);
+    --theme-color-meta: #1b1815;
+  }
+}
+
+/* ========== 3. リセットと本文 ========== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-block-start: var(--space-4);
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-body);
+  font-kerning: normal;
+  line-break: strict;
+  overflow-wrap: anywhere;
+  transition: background-color var(--duration-theme) ease, color var(--duration-theme) ease;
+}
+
+h1, h2, h3, h4, p, ul, ol, dl, dd, figure, blockquote {
+  margin: 0;
+}
+
+h1, h2, h3, h4 {
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  text-wrap: balance;
+}
+
+h1 {
+  font-family: var(--font-serif);
+  font-size: var(--text-3xl);
+  letter-spacing: 0.02em;
+}
+
+h2 {
+  font-size: var(--text-2xl);
+}
+
+h3 {
+  font-size: var(--text-xl);
+}
+
+a {
+  color: var(--color-link);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+code,
+pre,
+kbd {
+  font-family: var(--font-mono);
+  font-size: 0.9375em;
+}
+
+pre {
+  overflow-x: auto; /* 要素内だけの横スクロール。ページ全体は切り取らない */
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface-sunk);
+}
+
+time {
+  font-variant-numeric: tabular-nums;
+}
+
+::selection {
+  background-color: var(--color-action-soft);
+  color: var(--color-text);
+}
+
+/* ========== 4. フォームとフォーカス ========== */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  font-size: var(--control-font-size);
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+button,
+select,
+input:not([type="checkbox"]):not([type="radio"]) {
+  min-height: var(--control-min);
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: var(--focus-width) solid var(--color-focus);
+  outline-offset: var(--focus-offset);
+}
+
+summary {
+  min-height: var(--control-min);
+  padding-block: var(--space-2);
+  font-weight: var(--weight-bold);
+  cursor: pointer;
+}
+
+/* ラベル + 入力欄 + 補足 */
+.c-field {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.c-field__label {
+  font-weight: var(--weight-bold);
+}
+
+.c-field__hint {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.c-input,
+.c-select {
+  width: 100%;
+  min-height: var(--control-min);
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--control-font-size);
+  line-height: 1.4;
+}
+
+.c-input::placeholder {
+  color: var(--color-text-muted);
+  opacity: 1;
+}
+
+/* ========== 5. レイアウト ========== */
+
+/* 中央寄せの器。左右はセーフエリアを下回らない */
+.l-container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline-start: var(--page-pad-start);
+  padding-inline-end: var(--page-pad-end);
+}
+
+/* 縦積み: 余白は --stack-gap で上書きする */
+.l-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-gap, var(--space-4));
+}
+
+/* 横並びで折り返す: タグやボタン列 */
+.l-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cluster-gap, var(--space-2));
+}
+
+/* 本体: スマホは1列、64rem 以上で「企画一覧 | 回る予定」 */
+.l-page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-8);
+  padding-block: var(--space-6) var(--page-pad-bottom);
+}
+
+.l-page__main,
+.l-page__aside {
+  min-width: 0;
+}
+
+/* 絞り込み: 320 は1列、375 以上は検索を全幅 + 2列、48rem 以上は1行 */
+.l-filter-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: end;
+}
+
+/* 企画カードの中身: スマホは縦積み、48rem 以上で時刻列 + 内容 */
+.l-session-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3);
+}
+
+@media (min-width: 23.4375rem) { /* 375px */
+  .l-filter-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .l-filter-grid__wide {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 48rem) { /* 768px */
+  .l-filter-grid {
+    grid-template-columns: minmax(0, 2fr) repeat(2, minmax(0, 1fr));
+  }
+
+  .l-filter-grid__wide {
+    grid-column: auto;
+  }
+
+  .l-session-grid {
+    grid-template-columns: var(--time-col) minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+}
+
+@media (min-width: 64rem) { /* 1024px */
+  .l-page {
+    grid-template-columns: minmax(0, 1fr) var(--aside-width);
+    align-items: start;
+  }
+}
+
+/* 「回る予定」列の追従は、高さに余裕がある画面だけ */
+@media (min-width: 64rem) and (min-height: 48rem) {
+  .l-page__aside {
+    position: sticky;
+    top: var(--space-4);
+  }
+}
+
+/* ========== 6. 共通コンポーネント ========== */
+
+/* キーボード用: 企画一覧へ飛ぶ */
+.c-skip-link {
+  position: absolute;
+  top: var(--page-pad-top);
+  left: var(--page-pad-start);
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--control-min);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-weight: var(--weight-bold);
+  transform: translateY(-200%);
+}
+
+.c-skip-link:focus-visible {
+  transform: none;
+}
+
+/* ページ上部: 作例ラベル + テーマ切替。全画面ヒーローにしない */
+.c-site-header {
+  padding-block-start: var(--page-pad-top);
+  padding-block-end: var(--space-2);
+}
+
+/* ボタン */
+.c-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-width: var(--control-min);
+  min-height: var(--control-min);
+  padding: var(--space-2) var(--space-4);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--control-font-size);
+  font-weight: var(--weight-bold);
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color var(--duration-fast) ease, border-color var(--duration-fast) ease,
+    color var(--duration-fast) ease;
+}
+
+.c-button:hover:not(:disabled) {
+  background-color: var(--color-surface-sunk);
+}
+
+.c-button--primary {
+  border-color: var(--color-action);
+  background-color: var(--color-action);
+  color: var(--color-on-action);
+}
+
+.c-button--primary:hover:not(:disabled) {
+  border-color: var(--color-action-hover);
+  background-color: var(--color-action-hover);
+}
+
+.c-button--quiet {
+  border-color: transparent;
+  background-color: transparent;
+  color: var(--color-link);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.c-button--block {
+  width: 100%;
+}
+
+/* 無効は「読み込み中・失敗・未選択」の理由文と組にして使う */
+.c-button:disabled {
+  border-color: var(--color-border);
+  background-color: var(--color-surface-sunk);
+  color: var(--color-text-muted);
+}
+
+/* テーマ切替: aria-pressed の3ボタン */
+.c-theme-toggle {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-surface-sunk);
+}
+
+.c-theme-toggle__option {
+  min-width: var(--control-min);
+  min-height: var(--control-min);
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background-color: transparent;
+  color: var(--color-text-muted);
+  font-weight: var(--weight-bold);
+  line-height: 1.3;
+}
+
+.c-theme-toggle__option[aria-pressed="true"] {
+  background-color: var(--color-action);
+  color: var(--color-on-action);
+}
+
+/* 面: 企画カード・回る予定の器 */
+.c-card {
+  padding: var(--space-4);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-raised);
+}
+
+/* 状態は data-state で切り替える。色だけに頼らず、必ず文言のバッジや注記と組にする */
+.c-card[data-state="selected"] {
+  border-color: var(--color-action);
+  box-shadow: inset var(--mark-width) 0 0 var(--color-action), var(--shadow-raised);
+}
+
+.c-card[data-state="conflict"] {
+  border-color: var(--color-alert);
+  box-shadow: inset var(--mark-width) 0 0 var(--color-alert), var(--shadow-raised);
+}
+
+/* 注記: 架空表示・重なり・読み込み失敗 */
+.c-notice {
+  padding: var(--space-3) var(--space-4);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-inline-start-width: var(--mark-width);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+}
+
+.c-notice--fiction {
+  border-color: var(--color-accent);
+  background-color: var(--color-notice-soft);
+}
+
+.c-notice--alert {
+  border-color: var(--color-alert);
+  background-color: var(--color-alert-soft);
+}
+
+.c-notice__title {
+  font-weight: var(--weight-bold);
+}
+
+.c-notice--alert .c-notice__title {
+  color: var(--color-alert);
+}
+
+/* タグ: 種類と予約の要否。文字で意味が通じること */
+.c-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0.125rem var(--space-2);
+  border: var(--border-width) solid currentColor;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  line-height: 1.5;
+}
+
+.c-tag--workshop {
+  color: var(--color-accent);
+  background-color: var(--color-accent-soft);
+}
+
+.c-tag--talk {
+  color: var(--color-action);
+  background-color: var(--color-action-soft);
+}
+
+.c-tag--consultation {
+  color: var(--color-text-muted);
+  background-color: var(--color-surface-sunk);
+}
+
+.c-tag--required {
+  border-color: var(--color-border-strong);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+}
+
+/* 項目名 | 値 の対 */
+.c-meta {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: var(--space-1) var(--space-3);
+}
+
+.c-meta dt {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  padding-block-start: 0.1em;
+}
+
+.c-meta dd {
+  margin: 0;
+}
+
+/* スマホ縦: 一覧の下端に追従する「回る予定へ」 */
+.c-jump-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  margin-block-start: var(--space-4);
+  padding-block: var(--space-2) max(var(--space-2), env(safe-area-inset-bottom));
+  border-block-start: var(--border-width) solid var(--color-border-strong);
+  background-color: var(--color-bg);
+}
+
+/* 横向きで高さが低い画面は追従させない */
+@media (orientation: landscape) and (max-height: 32rem) {
+  .c-jump-bar {
+    position: static;
+  }
+}
+
+/* 64rem 以上は「回る予定」列が常に見えるので出さない */
+@media (min-width: 64rem) {
+  .c-jump-bar {
+    display: none;
+  }
+}
+
+/* ========== 7. ユーティリティ ========== */
+.u-visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Safari で一覧の意味が消えないよう role="list" と併用する */
+.u-list-reset {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.u-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.u-muted {
+  color: var(--color-text-muted);
+}
+
+.u-small {
+  font-size: var(--text-sm);
+}
+
+.u-measure {
+  max-width: var(--measure);
+}
+
+/* ========== 8. 利用者設定 ========== */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (forced-colors: active) {
+  :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+    outline-color: Highlight;
+  }
+
+  .c-theme-toggle__option[aria-pressed="true"],
+  .c-button--primary {
+    border: 2px solid ButtonText;
+  }
+
+  .c-card[data-state="selected"],
+  .c-card[data-state="conflict"],
+  .c-notice,
+  .c-tag {
+    border-color: CanvasText;
+  }
+}

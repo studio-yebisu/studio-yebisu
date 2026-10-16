@@ -1,0 +1,57 @@
+{
+  "title": "Agency Agents作例：UX ArchitectとFrontend Developerを順に当て、架空イベントの企画ガイドを作る",
+  "request": "Agency Agents の原典（https://github.com/msitarzewski/agency-agents/tree/bd956db032d907387e6b9ddebff3e18f1de8c679）を読んで、次を進めてください。\n架空の地域イベントの案内ページを作るために、必要な役割を2つ選んでください。それぞれに渡す入力、成果物、確認項目を具体化してください。\n入力、出力、実行した検証、未確認の点を記録してください。",
+  "category": "agents",
+  "audience": "Agency Agents の役割ファイルを、自分の制作で順番に使えるか確かめたい人。ページそのものは、スマホで架空イベントの企画を比べて回る予定を作る来場想定者が使う。",
+  "goal": "固定版の UX Architect と Frontend Developer を同じモデルが別々の実行で順に適用し、引き継ぎ書を読んで実装した、架空イベント「こもれび つくる日」の6企画を比べて重ならない回る予定をJSONで保存できるスマホ優先のページを残す。",
+  "inputs": [
+    "input/event.json（作例のために書いた架空イベント。2026-11-07、Asia/Tokyo、6企画。fictional=true）",
+    "vendor/agency-agents/design/design-ux-architect.md（固定版・改変なし）",
+    "vendor/agency-agents/engineering/engineering-frontend-developer.md（固定版・改変なし）",
+    "vendor/agency-agents/README.md の Quick Start「Option 3: Use as Reference」",
+    "段階1の成果：outputs/ux-handoff.json、outputs/ux-handoff.md、foundation.css（段階2の入力）"
+  ],
+  "skill_refs": [
+    "https://github.com/msitarzewski/agency-agents/blob/bd956db032d907387e6b9ddebff3e18f1de8c679/design/design-ux-architect.md",
+    "https://github.com/msitarzewski/agency-agents/blob/bd956db032d907387e6b9ddebff3e18f1de8c679/engineering/engineering-frontend-developer.md",
+    "https://github.com/msitarzewski/agency-agents/blob/bd956db032d907387e6b9ddebff3e18f1de8c679/README.md",
+    "skills/brief-to-demo/SKILL.md"
+  ],
+  "deliverables": [
+    "段階1（UX Architect）：outputs/ux-handoff.json、outputs/ux-handoff.md、foundation.css",
+    "段階2（Frontend Developer）：index.html、style.css、app.js、outputs/implementation.md",
+    "request.txt（同じ2段階を別のイベント情報で繰り返す依頼文）",
+    "README.md（使い方・2段階の記録・ライセンス）"
+  ],
+  "steps": [
+    "架空イベントの入力（input/event.json）を用意する",
+    "1回目の実行で UX Architect の役割ファイルを読み、入力から引き継ぎ書と foundation.css を作る",
+    "2回目の実行で Frontend Developer の役割ファイルを読み、引き継ぎ書・foundation.css・入力からページを実装する",
+    "引き継ぎ書と違えた判断（重なる企画の入れ替えをやめて追加を止める、など）を implementation.md に記録する",
+    "ページで企画を比べ、絞り込み、回る予定に入れ、重なりで止まることを確かめ、JSONで保存する",
+    "表示・操作・保存・各画面幅の確認は、制作側がブラウザーで実際に行ってから記録する"
+  ],
+  "acceptance": [
+    "input/event.json と outputs/ux-handoff.json を読み、HTTPの状態と形を確かめてから表示する。形が正しくなければ理由と「もう一度読み込む」を出し、絞り込みと保存を無効にし、内蔵の代わりのデータを使わない",
+    "6企画が 開始→終了→ID の順に並び、開始・終了・費用（0円は「無料」）・対象年齢・定員（S06は「設定なし」）・予約の要否・部屋・説明・メモが入力と一致する。定員を残席として書かない",
+    "種類（すべて／ワークショップ／トーク／相談）・時間帯（すべて／午前／午後に始まる）・費用（すべて／無料／費用あり）・キーワード（企画名・内容・部屋・対象年齢・メモ、NFKCと小文字化、空白区切りのすべての語）で絞ると件数文が更新され、0件では案内と「条件をクリア」が出る",
+    "「条件をクリア」は絞り込みだけを戻し、回る予定は残る。絞り込みで隠れた選択済みの企画も回る予定から消えない",
+    "S01を入れるとS02は入らず、S01と重なることが知らされ、回る予定は変わらない。S04とS05も同じ。S05とS06は両方入る（14:00で接するだけ）",
+    "回る予定に、時間順の一覧・件数・費用の合計が出る。S01・S03・S04・S06で500円、S01・S03・S05・S06で1000円になる",
+    "回る予定は0件で空の案内を出し、保存ボタンは0件・読み込み中・失敗時に理由つきで無効になる。再読み込みすると回る予定は空に戻る",
+    "保存したJSONのファイル名が komorebi-making-day-2026-11-07-itinerary.json で、format・fictional=true・reserved=false・notice・event・source・selection_rule・selected_ids・sessions（入力の企画オブジェクトそのまま、時刻順）・derived を持ち、利用者の情報や日時を含まない",
+    "表示テーマ（システム／ライト／ダーク）を選べ、テーマだけが保存される。システム選択中だけ端末の設定の変化に追従する",
+    "320・375・390・430・844（横向き）・1280 の各幅で、ページ全体の横スクロールが出ず、操作部品が44px以上・16px以上で、追従する帯が企画カードを覆わない",
+    "ページ下部の「この作例の作り方」に、引き継ぎ書から読んだ2つの役割の入力・成果物・確認項目と、採用しなかった提案（A09の入れ替え）が出る",
+    "依頼文を開くと request.txt を読み込み、コピーできる。コピーできない環境では手動でコピーする欄が出る"
+  ],
+  "assumptions": [
+    "「案内ページ」は、来場想定者が企画を比べて回る予定を作れる企画ガイドとした",
+    "イベントは作例のために書いた架空のもので、予約・支払い・住所・地図・連絡先・空き状況は扱わない",
+    "2つの役割は、ページの作り方を決める UX Architect と、それを実装する Frontend Developer を選んだ",
+    "2つの役割は同じモデル（Claude Opus 5.5）が別々の実行で順に適用する。独立したエージェントの協調・自動の受け渡し・アプリやインストールの利用ではない（README の Option 3 の使い方）",
+    "design-ux-architect.md が参照する ai/agents/architect.md は固定コミットにないため、使わない",
+    "役割ファイルにある React などのフレームワーク・Lighthouse・Core Web Vitals・WCAG準拠の記述は、6企画の静的ページに合わせて範囲を絞り、測っていない値は書かない",
+    "重なる企画の扱いは、引き継ぎ書の「入れ替える」ではなく、追加を止めて理由を知らせる形にした（制作側の判断）"
+  ]
+}

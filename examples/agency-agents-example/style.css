@@ -1,0 +1,734 @@
+/*
+ * style.css — こもれび つくる日 企画ガイド（架空イベントの作例）
+ *
+ * Frontend Developer 段階のページ固有の配置。foundation.css（UX Architect 段階の土台）の後に読み込む。
+ * 色・余白・文字はすべて foundation.css のトークンを使い、色を直書きしない。
+ * 100vw / 100vh / html・body の overflow:hidden は使わない。
+ */
+
+/* ========== 見出しの改行 ========== */
+h1,
+h2,
+h3,
+.c-decision__title {
+  word-break: auto-phrase; /* 対応する環境では文節で折り返す */
+}
+
+/* ========== 上端: 戻るリンクとテーマ ========== */
+.c-site-header {
+  border-block-end: 3px double var(--color-border-strong);
+}
+
+.c-topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-4);
+}
+
+.c-topbar__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  min-height: var(--control-min);
+  font-weight: var(--weight-bold);
+}
+
+.c-topbar__back::before {
+  content: "←";
+  content: "←" / "";
+}
+
+.c-theme {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-3);
+  min-width: 0;
+}
+
+/* ========== 導入: 題名・架空の表示・開催情報 ========== */
+.c-intro {
+  display: grid;
+  gap: var(--space-3);
+  padding-block: var(--space-5) var(--space-2);
+}
+
+.c-intro__label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-accent);
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.08em;
+}
+
+.c-intro__label::before {
+  content: "";
+  inline-size: 1.75rem;
+  block-size: 2px;
+  background-color: currentColor;
+}
+
+.c-intro__heading {
+  font-size: clamp(1.875rem, 1.35rem + 2.2vw, 2.75rem);
+  line-height: 1.2;
+}
+
+.c-intro__title {
+  display: block;
+}
+
+.c-intro__title:empty {
+  display: none;
+}
+
+.c-intro__suffix {
+  display: block;
+  margin-block-start: var(--space-1);
+  font-family: var(--font-sans);
+  font-size: var(--text-lg);
+  letter-spacing: 0.12em;
+  color: var(--color-text-muted);
+}
+
+.c-intro__subtitle {
+  font-family: var(--font-serif);
+  color: var(--color-text-muted);
+}
+
+.c-intro__notice {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.c-intro__notice p:empty {
+  display: none;
+}
+
+.c-intro__loading {
+  color: var(--color-text-muted);
+}
+
+.c-load-error {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+}
+
+/* 開催情報: スマホは「項目名 | 値」、48rem 以上は4列 */
+.c-facts {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin-block-start: var(--space-1);
+  border-block-start: 2px solid var(--color-text);
+  border-block-end: var(--border-width) solid var(--color-border-strong);
+}
+
+.c-facts__item {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: var(--space-3);
+  padding-block: var(--space-2);
+  border-block-end: var(--border-width) dotted var(--color-border-strong);
+}
+
+.c-facts__item:last-child {
+  border-block-end: 0;
+}
+
+.c-facts dt {
+  padding-block-start: 0.15em;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.c-facts dd {
+  margin: 0;
+  font-weight: var(--weight-bold);
+}
+
+.c-facts__sub {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-regular);
+}
+
+.c-more {
+  padding-block-end: var(--space-1);
+}
+
+.c-more > summary {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  color: var(--color-link);
+}
+
+.c-more__body {
+  padding-block: var(--space-2) var(--space-1);
+}
+
+@media (min-width: 48rem) {
+  .c-facts {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .c-facts__item {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1);
+    padding: var(--space-3);
+    border-block-end: 0;
+    border-inline-start: var(--border-width) dotted var(--color-border-strong);
+  }
+
+  .c-facts__item:first-child {
+    padding-inline-start: 0;
+    border-inline-start: 0;
+  }
+}
+
+/* ========== 区切り見出し ========== */
+.c-section-title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.c-section-title::before {
+  content: "";
+  flex: none;
+  inline-size: 0.5em;
+  block-size: 0.5em;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-accent);
+}
+
+/* ========== 絞り込み ========== */
+.c-main {
+  --stack-gap: var(--space-8);
+}
+
+.c-filters {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.c-filters__set {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.c-filters__reset-cell {
+  display: flex;
+  align-items: flex-end;
+  min-width: 0;
+}
+
+.c-input:disabled,
+.c-select:disabled {
+  border-color: var(--color-border);
+  background-color: var(--color-surface-sunk);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+.c-button[aria-disabled="true"] {
+  border-color: var(--color-border);
+  background-color: var(--color-surface-sunk);
+  color: var(--color-text-muted);
+}
+
+/* 48rem 以上: 検索を1行目の全幅、種類・時間帯・費用・クリアを2行目に並べる */
+@media (min-width: 48rem) {
+  .c-filters__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .c-filters__grid .l-filter-grid__wide {
+    grid-column: 1 / -1;
+  }
+}
+
+.c-results {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-4);
+  padding-block-start: var(--space-3);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.c-results__status {
+  flex: 1 1 14rem;
+  min-width: 0;
+  font-weight: var(--weight-bold);
+}
+
+.c-results__jump {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--control-min);
+  font-weight: var(--weight-bold);
+}
+
+/* ========== 企画一覧 ========== */
+.c-sessions {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.c-no-results {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+}
+
+.c-session-list {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.c-session-list__item {
+  display: flex;
+  min-width: 0;
+}
+
+.c-session {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+}
+
+.c-session > .l-session-grid {
+  flex: 1 1 auto;
+  grid-template-rows: auto 1fr;
+}
+
+.c-session__time {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 var(--space-3);
+  padding-block-end: var(--space-2);
+  border-block-end: var(--border-width) solid var(--color-border);
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-tight);
+  font-variant-numeric: tabular-nums;
+}
+
+.c-session__range {
+  white-space: nowrap;
+}
+
+.c-session__duration {
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-regular);
+  color: var(--color-text-muted);
+}
+
+.c-session__body {
+  --stack-gap: var(--space-3);
+  min-width: 0;
+}
+
+.c-session__tags {
+  --cluster-gap: var(--space-1) var(--space-2);
+}
+
+.c-tag--open {
+  border-style: dashed;
+  color: var(--color-text-muted);
+  background-color: var(--color-surface);
+}
+
+.c-session__meta dd {
+  overflow-wrap: anywhere;
+}
+
+.c-session__block {
+  padding-inline-start: var(--space-3);
+  border-inline-start: 2px solid var(--color-border-strong);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.c-session__selected {
+  color: var(--color-action);
+  font-weight: var(--weight-bold);
+}
+
+.c-session__conflict {
+  color: var(--color-alert);
+  font-weight: var(--weight-bold);
+}
+
+/* 重なる企画を押したとき: 同じ注記を面で強める（文言は変えない） */
+.c-session__conflict[data-attempted="true"] {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-alert-soft);
+}
+
+.c-session__toggle {
+  margin-block-start: auto;
+}
+
+.c-session__toggle[aria-pressed="true"] {
+  border-color: var(--color-action);
+  background-color: var(--color-action-soft);
+  color: var(--color-text);
+}
+
+.c-session__toggle[aria-pressed="true"]::before {
+  content: "✓";
+  content: "✓" / "";
+  color: var(--color-action);
+}
+
+/* 48rem〜64rem: カードは1列、中は「時刻列 | 内容」 */
+@media (min-width: 48rem) {
+  .c-session > .l-session-grid {
+    grid-template-rows: none;
+  }
+
+  .c-session__time {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-block-end: 0;
+    padding-inline-end: var(--space-3);
+    border-block-end: 0;
+    border-inline-end: var(--border-width) solid var(--color-border);
+  }
+}
+
+/* 64rem 以上: カードを2列にし、中は縦積みに戻す */
+@media (min-width: 64rem) {
+  .c-session-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .c-session > .l-session-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+  }
+
+  .c-session__time {
+    flex-direction: row;
+    align-items: baseline;
+    padding-block-end: var(--space-2);
+    padding-inline-end: 0;
+    border-block-end: var(--border-width) solid var(--color-border);
+    border-inline-end: 0;
+  }
+
+  .c-results__jump {
+    display: none;
+  }
+}
+
+/* 「回る予定へ」は追従させない。カードの上に重ならないよう、一覧の末尾に置くだけにする */
+.c-jump-bar {
+  position: static;
+  padding-block: 0;
+  border-block-start: 0;
+  background-color: transparent;
+}
+
+/* ========== 回る予定 ========== */
+.c-itinerary__card {
+  display: grid;
+  gap: var(--space-3);
+  border-block-start: 3px solid var(--color-action);
+}
+
+.c-itinerary__empty {
+  color: var(--color-text-muted);
+}
+
+.c-itinerary__item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-1) var(--space-3);
+  padding-block: var(--space-3);
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.c-itinerary__item:first-child {
+  border-block-start: 0;
+  padding-block-start: 0;
+}
+
+.c-itinerary__info {
+  min-width: 0;
+}
+
+.c-itinerary__time {
+  font-family: var(--font-serif);
+  font-weight: var(--weight-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.c-itinerary__name {
+  font-weight: var(--weight-bold);
+}
+
+.c-itinerary__detail {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.c-itinerary__summary {
+  display: grid;
+  gap: var(--space-1);
+  padding-block: var(--space-3);
+  border-block: 2px solid var(--color-text);
+}
+
+.c-itinerary__summary > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0 var(--space-3);
+}
+
+.c-itinerary__summary dt {
+  color: var(--color-text-muted);
+}
+
+.c-itinerary__summary dd {
+  margin: 0;
+  font-weight: var(--weight-bold);
+}
+
+.c-itinerary__reservation {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-notice-soft);
+}
+
+.c-itinerary__actions {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.c-itinerary__export-status {
+  font-weight: var(--weight-bold);
+}
+
+.c-itinerary__export-status[data-tone="alert"] {
+  color: var(--color-alert);
+}
+
+.c-itinerary__clear {
+  justify-self: start;
+}
+
+/* ========== この作例について（ページ下部の details） ========== */
+.c-appendix {
+  display: grid;
+  gap: var(--space-4);
+  padding-block: var(--space-8) var(--space-4);
+}
+
+.c-making {
+  border-block-start: 2px solid var(--color-text);
+}
+
+.c-making > summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-block: var(--space-3);
+}
+
+.c-making__title {
+  display: inline;
+  font-size: var(--text-xl);
+}
+
+/* summary を flex にすると既定の三角が消えるため、開閉の印を文字で出す */
+.c-making > summary::before,
+.c-more > summary::before {
+  content: "＋";
+  content: "＋" / "";
+  flex: none;
+  color: var(--color-accent);
+  font-weight: var(--weight-bold);
+}
+
+.c-making[open] > summary::before,
+.c-more[open] > summary::before {
+  content: "−";
+  content: "−" / "";
+}
+
+.c-making > summary::-webkit-details-marker,
+.c-more > summary::-webkit-details-marker {
+  display: none;
+}
+
+.c-making__body {
+  --stack-gap: var(--space-4);
+  padding-block: var(--space-2) var(--space-6);
+}
+
+.c-roles {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.c-role {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+}
+
+.c-role__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-1) var(--space-2);
+  font-size: var(--text-lg);
+}
+
+.c-role__step {
+  color: var(--color-accent);
+  font-size: var(--text-sm);
+  letter-spacing: 0.08em;
+}
+
+.c-role__facts {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.c-role__facts dt {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+}
+
+.c-role__facts dd {
+  margin: 0;
+}
+
+.c-role__list {
+  display: grid;
+  gap: var(--space-2);
+  padding-inline-start: 1.25em;
+}
+
+.c-role__list p + p {
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 64rem) {
+  .c-roles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+.c-decision {
+  display: grid;
+  gap: var(--space-2);
+  padding-inline-start: var(--space-3);
+  border-inline-start: var(--mark-width) solid var(--color-accent);
+}
+
+.c-decision__title {
+  font-weight: var(--weight-bold);
+}
+
+.c-decision__quote blockquote {
+  margin: var(--space-1) 0 0;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface-sunk);
+}
+
+.c-decision__list {
+  display: grid;
+  gap: var(--space-1);
+  padding-inline-start: 1.25em;
+}
+
+/* リンクの一覧: 1件ごとに 44px 以上の行にする */
+.c-linklist {
+  display: grid;
+}
+
+.c-linklist a {
+  display: flex;
+  align-items: center;
+  min-height: var(--control-min);
+  padding-block: var(--space-1);
+}
+
+.c-request__text {
+  white-space: pre-wrap;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-body);
+}
+
+.c-request__file {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--control-min);
+}
+
+.c-request__fallback {
+  min-height: 12rem;
+  resize: vertical;
+}
+
+/* ========== 下端 ========== */
+.c-footer {
+  padding-block: var(--space-6) var(--page-pad-bottom);
+  border-block-start: var(--border-width) solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.c-footer__links a {
+  font-size: var(--text-base);
+}
+
+/* hidden 属性は、上で flex / grid にした部品でも必ず消す */
+[hidden] {
+  display: none !important;
+}
+
+/* 掲載前の実画面確認: 検索欄までをスマホの最初の画面へ。元のCSS土台は保持。 */
+.c-site-header { padding-block-start:max(8px,env(safe-area-inset-top)); padding-block-end:8px; }
+.c-topbar { flex-wrap:nowrap; gap:4px; }
+.c-topbar__back { flex-shrink:0; }
+.c-theme { flex-wrap:nowrap; }
+.c-theme-toggle { flex-wrap:nowrap; }
+.c-theme-toggle__option { padding-inline:6px; }
+.c-intro { gap:8px; }
+.c-intro__notice { padding:8px 12px; }
+.c-intro__notice .c-notice__title { font-size:14px; font-weight:400; }
+@media(max-width:47.999rem) {
+ .c-facts { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .c-facts__item:nth-child(-n+2) { grid-template-columns:minmax(0,1fr); gap:2px; }
+ .c-facts__item:nth-child(n+3) { grid-column:1/-1; }
+ .c-facts dt { padding-block-start:0; }
+ .l-page { padding-block-start:16px; }
+}

@@ -1,0 +1,138 @@
+{
+  "title": "2役を渡し、動く案内へ（Agency Agents 作例・28秒・無音）",
+  "author_model": "claude-opus-5-5（映像の制作は3回目の別の実行。役割の適用は1回目・2回目）",
+  "brief": {
+    "goal": "Agency Agents の役割ファイル2つを順に当てると、架空イベントの企画ガイドが実際に動くところまで届く、と見終わった人に残す",
+    "core_message": "2役を渡し、動く案内へ。",
+    "audience": "スマホで見る日本語の閲覧者。役割ファイルを自分の制作で順番に使えるか確かめたい人",
+    "next_action": "作例で選んで、予定を保存。（作例の企画ガイド ../index.html を開く）",
+    "facts": [
+      "役割ファイル：msitarzewski/agency-agents 固定コミット bd956db032d907387e6b9ddebff3e18f1de8c679。MIT（Copyright (c) 2025 AgentLand Contributors）。コミュニティ作成で Anthropic 公式ではない。README の Option 3（参照して使う）",
+      "UX Architect を1回目、Frontend Developer を2回目の別々の実行で、同じ Claude Opus 5.5 が順に適用。独立した2エージェント・自動の受け渡し・インストールしたエージェント・MCP ではない",
+      "UX の成果 outputs/ux-handoff.json・outputs/ux-handoff.md・foundation.css を、Frontend が入力として読み index.html・style.css・app.js・outputs/implementation.md を作った",
+      "引き継ぎ書の frontend-developer.applied_instructions は空（設計の受け渡しで、将来の段階）。映像では Frontend の確認項目を「提案」として扱い、実施済みの結果として出さない",
+      "引き継ぎ書の A09（重なる企画を入れ替える）は採用しなかった。重なる追加を止め、今の選択を残す。引き継ぎ書の原文は変えていない",
+      "design-ux-architect.md が参照する ai/agents/architect.md は固定コミットにない。内容は補っていない",
+      "イベント：架空の「こもれび つくる日」2026-11-07、木かげ交流室（架空の会場）。開場・閉場 09:45–15:30 は、書き出した予定の時間 10:00–15:00 とは別の値",
+      "重なり：S01 10:00–10:45 × S02 10:30–11:00（10:30–10:45）、S04 13:00–13:30 × S05 13:15–14:00。S05 の終わりと S06 の始まりは 14:00 で接するだけなので両方入る",
+      "ブラウザーで実際に保存したJSON：selected_ids S01・S03・S05・S06、入力の企画オブジェクト4件そのまま、derived.count 4、derived.total_price_yen 1000、fictional true、reserved false"
+    ],
+    "undetermined": [
+      "物理的な iOS・Safari・VoiceOver などの支援技術での動作",
+      "system 選択中の OS 設定の変化、storage が使えないとき、オフライン",
+      "Lighthouse・Core Web Vitals などの性能の値",
+      "人によるレビューや承認"
+    ],
+    "look": "紙 #f7f1e6・墨 #2a2420・テラコッタ #a8462a・緑 #3f6b4a（企画ガイドの foundation.css ライトと同じ）。見出しは明朝44px、要点30〜34px、ラベル20px以上。1画面の文字は少なく",
+    "motion": "場面の切り替えは0.4秒の重ね合わせ。要素は0.35〜0.45秒で現れて止まる。カーソル・入力中の文字・AIの処理表示・成功の演出は使わない",
+    "output": {"duration": 28, "fps": 30, "frames": 840, "width": 1280, "height": 720, "audio": "なし（無音。audioEvents は空）", "loop": false, "poster_time": 13.5},
+    "persistent": {
+      "rail": "入力 → 設計 → 実装 → 保存（上端。切り替え中も表示）",
+      "footer": "架空イベントの作例・予約受付なし／実画面を編集・無音（下端。切り替え中も表示）",
+      "source_line": "agency-agents bd956db・MIT・コミュニティ作成"
+    }
+  },
+  "sources": {
+    "verified_by_sha256": [
+      "input/event.json",
+      "outputs/ux-handoff.json",
+      "outputs/implementation.md",
+      "outputs/browser-itinerary.json",
+      "outputs/browser-record.json",
+      "video/assets/screen-manifest.json",
+      "video/assets/desktop-all.png",
+      "video/assets/desktop-conflict.png",
+      "video/assets/desktop-plan.png",
+      "video/assets/phone-initial.png",
+      "video/assets/phone-plan.png",
+      "video/assets/phone-dark.png"
+    ],
+    "hash_manifest": "video/assets/data-hashes.json（自体のSHA-256 9a433954dbadd51ad4784643c21d8e55bebf190fd7ac8cbcf6eae1b90a546210 を video.js に固定）",
+    "not_shown": "desktop-plan.png は照合して読み込むが、文字が小さくなるため映像には出さない（回る予定はスマホの phone-plan.png で見せる）"
+  },
+  "crops": {
+    "phoneTop": {"file": "video/assets/phone-initial.png", "x": 0, "y": 0, "w": 375, "h": 594, "note": "見出し〜「企画を探す」。「キーワードで探す」の文字の手前で切る"},
+    "darkTop": {"file": "video/assets/phone-dark.png", "x": 0, "y": 0, "w": 375, "h": 594},
+    "cards": {"file": "video/assets/desktop-all.png", "x": 64, "y": 880, "w": 752, "h": 422, "contains": ["#session-1-title", "#session-2-title"], "note": "何も選ぶ前の S01・S02 のカード上部（メモの行まで）"},
+    "conflictNote": {"file": "video/assets/desktop-conflict.png", "x": 452, "y": 1358, "w": 353, "h": 197, "contains": ["#session-2-conflict"], "note": "S01 を選んだ後の S02 の注記と、その下の実際のボタン。上の予約不要の注記の文字を切らない位置"},
+    "planLower": {"file": "video/assets/phone-plan.png", "x": 0, "y": 20, "w": 375, "h": 540, "note": "回る予定の下部：最後の S06、件数4件、予定の時間 10:00–15:00、費用の合計 1,000円、予約の注意、保存ボタン。4件すべての一覧ではない"}
+  },
+  "scenes": [
+    {
+      "id": "request",
+      "start": 0,
+      "end": 4,
+      "step": "入力",
+      "message": "「地域イベントを、スマホで案内したい。」",
+      "enter": "最初のフレームから見出しと段階表示。入力の6企画、1回目 UX Architect、矢印と「同じ Opus 5.5 で順に適用」、2回目 Frontend Developer の順に0.1〜2.6秒で現れる",
+      "exit": "3.8〜4.2秒で次の場面と重ね合わせ",
+      "sources": ["input/event.json", "outputs/ux-handoff.json（roles の name・source_path）"],
+      "graphics": "入力の値から描いた一覧と役割の札（実画面ではない）。エージェントの会話や処理の表示はない"
+    },
+    {
+      "id": "handoff",
+      "start": 4,
+      "end": 8,
+      "step": "設計",
+      "message": "役割ごとに、入力と成果を渡す。",
+      "enter": "UX Architect の札（入力・成果・確認）、矢印「渡す」と ux-handoff.json・foundation.css、Frontend Developer の札（入力・成果・確認）、A09 を採用しなかった一文",
+      "exit": "7.8〜8.2秒で重ね合わせ",
+      "sources": ["outputs/ux-handoff.json（roles の inputs・deliverables・checks、acceptance A09）", "outputs/implementation.md（A09 を採用しない記録）"],
+      "graphics": "Frontend の確認項目は「引き継ぎ書が示した提案」と書き、実施済みの結果として出さない"
+    },
+    {
+      "id": "compare",
+      "start": 8,
+      "end": 12,
+      "step": "実装",
+      "message": "時間・費用・対象を比べる。",
+      "enter": "スマホの初期表示（実画面）と企画カード（実画面）。その下に入力の値から S01・S02 の時間・費用・対象を読める大きさで添える",
+      "exit": "11.8〜12.2秒で重ね合わせ",
+      "sources": ["video/assets/phone-initial.png（phoneTop）", "video/assets/desktop-all.png（cards）", "input/event.json"],
+      "graphics": "検索欄への入力や絞り込みの操作は描かない（キャプチャは初期表示のまま）"
+    },
+    {
+      "id": "conflict",
+      "start": 12,
+      "end": 18,
+      "step": "実装",
+      "message": "重なる追加は、止める。",
+      "enter": "10:00〜11:00 の区間図に S01・S02 の帯、10:30–10:45 の重なり、S02 の注記の実画面、実操作の記録 conflict-S02「予定は1件のまま」。13.45秒までにすべて止まる",
+      "exit": "17.8〜18.2秒で重ね合わせ",
+      "poster": "13.5秒。完成した状態（重なり・実画面・記録・入れ替えはしない）",
+      "sources": ["input/event.json", "video/assets/desktop-conflict.png（conflictNote）", "outputs/browser-record.json（states の conflict-S02：selected [S01]）"],
+      "graphics": "区間図は入力の時刻から描いた説明で、実画面ではないと明記。入れ替えの動きは描かない（A09 は不採用）"
+    },
+    {
+      "id": "touch",
+      "start": 18,
+      "end": 23,
+      "step": "保存",
+      "message": "終わりと始まりが同時刻なら、選べる。",
+      "enter": "13:00〜15:00 の区間図に S05・S06 の帯と 14:00 の線、枠全体を選ぶ注記、書き出した予定 4件・合計1,000円、スマホの回る予定の下部（実画面）",
+      "exit": "22.8〜23.2秒で重ね合わせ",
+      "sources": ["input/event.json", "outputs/browser-itinerary.json（derived）", "outputs/browser-record.json（touching-S06）", "video/assets/phone-plan.png（planLower）"],
+      "graphics": "S06 は 14:00–15:00 の枠全体。途中参加・移動時間・予約の約束ではないと書く"
+    },
+    {
+      "id": "save",
+      "start": 23,
+      "end": 28,
+      "step": "保存",
+      "message": "作例で選んで、予定を保存。",
+      "enter": "「実際に保存したJSON」の selected_ids・count・total_price_yen・fictional・reserved、ファイル名、スマホのライト・ダークの初期表示、CTA と「2役を渡し、動く案内へ。」。24.6秒までに止まり、28秒まで3.4秒止めて読む",
+      "exit": "なし（最後の画で止まる）",
+      "sources": ["outputs/browser-itinerary.json", "outputs/browser-record.json（final-export-request のファイル名）", "video/assets/phone-initial.png（phoneTop）", "video/assets/phone-dark.png（darkTop）"],
+      "graphics": "JSONの値は保存したファイルから取り出して並べた説明。ダウンロード完了の画面や成功の演出は作らない"
+    }
+  ],
+  "scope": {
+    "fictional": true,
+    "saved_actual": "outputs/browser-itinerary.json はブラウザーの実操作で書き出したファイル。予約・支払い・参加確定ではなく、ページの回る予定は再読み込みで空に戻り、表示テーマだけが保存される",
+    "edited_from_static_captures": true,
+    "continuous_recording": false,
+    "live_ai": false,
+    "human_approval": false,
+    "render_status": "このファイルを書いた時点では書き出し・フレームレビュー・通し再生をしていない。親の工程が実際のレンダラーで確かめる"
+  }
+}
