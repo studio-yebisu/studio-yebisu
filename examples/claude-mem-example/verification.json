@@ -1,0 +1,137 @@
+{
+  "case_id": "claude-mem-example",
+  "verified_at": "2026-10-16T19:25:28.127911+00:00",
+  "stage": "technical_qa_complete",
+  "runtime": {
+    "source_commit": "fef3402e674bebbf72a23aeb735e91c92cd34afd",
+    "source_version": "13.39.0",
+    "sample_count": 8,
+    "checks": 99,
+    "manual_notes": 5,
+    "project_counts": {
+      "sakura-site": 3,
+      "tsubaki-docs": 2
+    },
+    "fresh_process": true,
+    "network_and_other_guard_attempts": 0,
+    "independent_sqlite_audit": "passed",
+    "scope": {
+      "tested": "Explicit saveMemory notes, SQLite FTS5 keyword search, and the real mem_search progressive classes (guided and auto) in a Bun process plus one fresh Bun process.",
+      "not_tested": "Plugin install, hooks, automatic capture or LLM compression, context injection, Chroma or semantic search, cloud sync, hosted provider, MCP transport, Japanese lexical search quality.",
+      "continuations": "ms_ cursors expire after 15 minutes and live only in the process that issued them."
+    }
+  },
+  "browser": {
+    "status": "passed",
+    "responsive_states": 6,
+    "widths": [
+      320,
+      375,
+      390,
+      430,
+      844,
+      1280
+    ],
+    "target_minimum_px": 44,
+    "form_font_minimum_px": 16,
+    "all_eight_input_output_and_tool_text_exact": true,
+    "native_picker_and_desktop_buttons_verified": true,
+    "raw_dom_compared_as_text": true,
+    "native_export_matches_record": true,
+    "native_export_bytes": 3981,
+    "http503_parse_validation_retry": true,
+    "errors_hide_stale_and_disable_picker_export": true,
+    "clipboard_matches_original_request": true,
+    "clipboard_utf8_bytes": 6941,
+    "actual_native_disclosures_verified": true,
+    "native_back_restores_sample": true,
+    "keyboard_enter_space": true,
+    "agent_visual_review": true,
+    "physical_ios_tested": false,
+    "voiceover_tested": false,
+    "human_approval": false
+  },
+  "video": {
+    "duration_seconds": 28,
+    "fps": 30,
+    "width": 1280,
+    "height": 720,
+    "frames": 840,
+    "silent": true,
+    "full_decode": true,
+    "direct_native_ended": true,
+    "editor_seek_and_play_pause": true,
+    "frame_visual_review": {
+      "status": "passed",
+      "reviewed_at": "2026-10-16T19:24:35.075692+00:00",
+      "agent_visual_review": true,
+      "human_approval": false,
+      "representative_frames": 14,
+      "cut_times": [
+        3.85,
+        7.85,
+        11.85,
+        17.85,
+        21.85
+      ],
+      "poster_time": 13.5,
+      "final_frame": 839,
+      "decoded_mobile_frames": [
+        {
+          "width": 360,
+          "seconds": 13.5
+        },
+        {
+          "width": 360,
+          "seconds": 9.5
+        },
+        {
+          "width": 360,
+          "seconds": 26.4
+        }
+      ],
+      "findings": "Actual2-title index /2-title context /1 chosen fullbody and5 stored notes match the retained record. Main Japanese headings, counts and excerpt are legible at360px; screenshot body text, IDs, provenance and license footer are supplemental. Five decoded cut strips show intentional paper-title fades and continuous card reordering/expansion, no unresolved clipping/overlap. Final CTA holds2.6s. Actual source screenshots are contained, not simulated official UI. Full28s MP4 reached ended with no media error. Source editor UI-only corrections produced byte-identical full MP4 in the second export.",
+      "unresolved_blockers": []
+    },
+    "technical": {
+      "video_sha256": "0607ff193de854a6abccdc19889c3ea8c7161c51b44daa5080d356c2e2da00b1",
+      "poster_sha256": "9c4adefbeee8dfe56fb61a70108bb9af86962c973dbc1fbbc658686ae5adc266",
+      "poster_from_mp4_seconds": 13.5,
+      "full_decode_passed": true,
+      "review_files": [
+        "contact.png",
+        "poster.png",
+        "strip.png",
+        "stills/frame-000000.png",
+        "stills/frame-000001.png",
+        "stills/frame-000002.png",
+        "stills/frame-000003.png",
+        "stills/frame-000004.png",
+        "stills/frame-000005.png",
+        "stills/frame-000006.png",
+        "stills/frame-000007.png",
+        "stills/frame-000008.png",
+        "stills/frame-000009.png",
+        "stills/frame-000010.png",
+        "stills/frame-000011.png",
+        "stills/frame-000012.png",
+        "stills/frame-000013.png",
+        "cut-01.png",
+        "cut-02.png",
+        "cut-03.png",
+        "cut-04.png",
+        "cut-05.png",
+        "final.png"
+      ],
+      "render_label": "final2",
+      "bundled_renderer_executed": true
+    }
+  },
+  "authorship": {
+    "model": "claude-opus-5-5",
+    "model_scope": "Implementation, Japanese explanations and film edit source; receipt digests in data/production.",
+    "production_scope": "Original fictional inputs, actual execution, independent SQL audit, native/browser/frame review, mobile UI refinements and packaging."
+  },
+  "physical_ios_tested": false,
+  "human_approval": false
+}

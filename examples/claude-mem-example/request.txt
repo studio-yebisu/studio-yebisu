@@ -1,0 +1,44 @@
+Claude-Mem（thedotmack/claude-mem 固定コミット fef3402e674bebbf72a23aeb735e91c92cd34afd、13.39.0、Apache-2.0）の上流ワーカー関数を改変せずに Bun で動かし、架空のプロジェクトの決定を保存して、次のセッションで mem_search の「題名 → 前後の文脈 → 選んだ本文」の順に取り出せるかを確かめるスクリプトを書き、実際に実行してください。結果は、呼び出しと戻り値を読める日本語のスマホ向けページにしてください。
+
+読む原典（固定版）
+・mem-search スキル：https://github.com/thedotmack/claude-mem/blob/fef3402e674bebbf72a23aeb735e91c92cd34afd/plugin/skills/mem-search/SKILL.md
+・段階的な取り出しの契約：https://github.com/thedotmack/claude-mem/blob/fef3402e674bebbf72a23aeb735e91c92cd34afd/src/shared/progressive-search.ts
+・ワーカー側の実装：https://github.com/thedotmack/claude-mem/blob/fef3402e674bebbf72a23aeb735e91c92cd34afd/src/services/worker/ProgressiveMemorySearch.ts
+・明示的な保存：https://github.com/thedotmack/claude-mem/blob/fef3402e674bebbf72a23aeb735e91c92cd34afd/src/services/memory/save-memory.ts
+・保存先と設定：https://github.com/thedotmack/claude-mem/blob/fef3402e674bebbf72a23aeb735e91c92cd34afd/src/services/worker/DatabaseManager.ts と src/shared/paths.ts・src/shared/SettingsDefaultsManager.ts
+・ライセンス：https://github.com/thedotmack/claude-mem/blob/fef3402e674bebbf72a23aeb735e91c92cd34afd/LICENSE と NOTICE
+
+使うもの（プラグインの導入・npx claude-mem install・フック・ホスト型の記憶・サインイン・API キーは使わない）
+・Bun 1.4.3 を --no-install で使い、原典のファイルは改変せずに置いてハッシュで固定する。依存は package-lock.json の固定版を npm ci --ignore-scripts で入れる。
+・new DatabaseManager() と initialize()、SearchManager・FormattingService・TimelineService、ProgressiveMemorySearch.run、saveMemory、progressiveSearchToolResult を、非公開の保存先を決めてから動的に読み込む。関数の差し替えや、検索・保存の代用品は作らない。
+・保存先：CLAUDE_MEM_DATA_DIR を公開しない新しい空のフォルダーに向け、そこに settings.json（Chroma 無効、クラウド同期の3項目は空、Grok Bot 連携・重複統合・ワーカー自動起動は無効）を書く。送信は DO_NOT_TRACK=1 と CLAUDE_MEM_TELEMETRY=false で止める。ホームの設定は読まない。
+
+入力（ここを差し替える。実行の前に固定し、結果を見てから変えない）
+・決定：キー・プロジェクト・題名・本文。すべて架空にし、実在の人の記録や会話は入れない（この作例では 2プロジェクト・5件）
+・場面：保存前の検索、保存、索引、文脈、本文、別のプロジェクトへの同じ問い、別プロセスでの読み直し、拒否の確認（この作例では C01〜C08）
+
+進め方
+1. 原典の全ファイル・ロックファイル・入力・上流の版を照合してから、最初の書き込みを行う。実行中に何もダウンロードしない。
+2. 上流を読み込む前に、fetch・http(s)・net・tls・DNS・サーバーの待ち受け・子プロセスの起動を拒否して数える。試みが1件でもあれば失敗にする（自分が起動する読み直し用のプロセス1つだけは例外として数える）。
+3. 保存の前には毎回 mem_search で関連する決定を探し、その後で saveMemory(db, project, {text, title, project, metadata: {sourceFingerprint, ...}}) を呼ぶ。同じ依頼の再送が duplicate: true・同じ ID になることを確かめる。件数の監査だけに SQL を使い、取り出しは mem_search で行う。
+4. guided モードで索引を取り、返った合図（ms_ で始まる文字列）と索引の ID だけを使って文脈へ、文脈の ID だけを使って本文へ進む。途中で問いの設定を変えない。各段階でツールの文（content[0].text）と内部の戻り値の両方を記録する。
+5. 同じ問いを自動モードで別々のプロジェクトに渡す。どの記録が選ばれるかは前もって決めず、返ったものを記録する。
+6. 前の索引にない ID、1文字変えた合図、途中での範囲の変更、長すぎる問い、未登録のプロジェクトの、実際の例外（name・code・message）または結果を記録する。
+7. データベースを閉じてから、新しい Bun プロセスを1回だけ起動して同じ保存先を開き、保存した記録が同じ ID で取り出せることと、前のプロセスの合図が使えないことを確かめる。
+8. すべての確認が通ったときだけ、入力のハッシュ・原典の固定版・版・実行環境・設定・確認・各場面の呼び出しと戻り値を、公開用の JSON に1回だけ書く。手元の絶対パス・保存ファイルそのもの・settings.json・完全なログ・PID・認証情報は書かない。既にある結果は上書きしない。
+
+ページでできること
+・場面を選び、ツールが返した文と、返った題名・文脈・本文を読む。各場面の生の JSON も全文で開ける。
+・保存した JSON・入力・ロックファイルを取得し、入力の SHA-256・固定版・場面・確認の合否を確かめてから表示する。合わなければ理由と「もう一度読み込む」を出し、内蔵の代わりのデータは使わない。
+・選んだ場面を JSON で保存し、この依頼文をコピーする。
+・320px幅のスマホから1280px幅のパソコンまで、横スクロールなしで使える。操作部品は44px以上、入力欄の文字は16px以上。外部のフォント・CDN・計測・AIの呼び出しは使わない。ページの中で Claude-Mem・Bun・Claude は動かさない。
+
+書かないこと
+・明示的に保存したメモを、会話の自動記録や LLM による要約・圧縮として書かない。
+・SQLite FTS5 のキーワード一致を、意味検索や日本語の検索品質の評価として書かない。
+・project での絞り込みや合図の検証を、認証やアクセス制御として書かない。
+・ms_ の合図を、ログインの鍵や永続する記録として書かない（発行したプロセスの中だけで15分有効）。
+・上流関数を直接呼んだことを、MCP サーバーへの接続やプラグインの導入として書かない。
+・コードや文章を書いた AI と、記録を操作した Claude-Mem のライブラリを混同しない。
+
+最後に、作ったファイル、実際に実行したコマンドとその結果、まだ確かめていない点を分けて書いてください。

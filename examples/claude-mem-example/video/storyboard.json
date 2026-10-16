@@ -1,0 +1,305 @@
+{
+  "format": "studio-yebisu-motion-storyboard-v1",
+  "case": "claude-mem-example",
+  "title": "Claude-Mem 作例・解説動画",
+  "message": "前回の判断を、必要な分だけ取り出す。",
+  "audience": "エージェントに前回の判断を思い出させたい、日本語で読みたい開発者・制作担当",
+  "next_action": "作例ページ（../index.html#C05）で8場面の入力と実際の戻り値を読む",
+  "output": {
+    "width": 1280,
+    "height": 720,
+    "fps": 30,
+    "duration_seconds": 28,
+    "frames": 840,
+    "poster_time": 13.5,
+    "audio": "none",
+    "audio_events": [],
+    "orientation": "landscape only; no portrait or square composition is authored",
+    "loop": false
+  },
+  "authorship": {
+    "film_code_and_japanese_copy": "Claude Opus 5.5 (claude-opus-5-5) wrote index.html, video.css, video.js, storyboard.json and README.md in this folder.",
+    "inputs": "input/notes.json (five fictional notes) and input/scenarios.json were authored by the Studio Yebisu production side and frozen before execution; not by Opus.",
+    "execution": "The production side ran the unmodified Claude-Mem worker functions with Bun and recorded outputs/memory-run.json; no language model generated the captured API responses.",
+    "screenshots": "video/assets/phone.png and desktop.png are byte-for-byte copies of native IAB Chromium captures of the Studio Yebisu viewer page, taken by the production side."
+  },
+  "sources": {
+    "manifest": {
+      "file": "video/assets/data-hashes.json",
+      "sha256": "4c008abd6a277b3a518f069ec7769762a76cf2e60f22810df7443739c9254d5c"
+    },
+    "files": [
+      {
+        "file": "outputs/memory-run.json",
+        "sha256": "efd1001c68b48e7ccde9fc3858defac43175f43a73086c538062d13c1a9b931c",
+        "role": "actual run record; every visible title, ID, body and count"
+      },
+      {
+        "file": "outputs/independent-checks.json",
+        "sha256": "378d5b466b192faef1929eb23385341c74f69f7d7ae08fe5edb1ceec682d3e50",
+        "role": "independent read-only SQLite audit; cross-checked, not drawn"
+      },
+      {
+        "file": "input/notes.json",
+        "sha256": "615600356841c0f3a7d8bf55773f2a6869da320a9c03ae2c9552df15be38e5f3",
+        "role": "frozen fictional notes; compared with saved and returned text"
+      },
+      {
+        "file": "input/scenarios.json",
+        "sha256": "29f4d0ad731aae355a160a6896c799af502236221f7bff2736038f5a044fd3fd",
+        "role": "scenario labels C01–C08"
+      },
+      {
+        "file": "vendor-lock.json",
+        "sha256": "d0f19c3060cc9d95443974a6916b07880b7f6e6fda9ae1c32888f582edbe5a89",
+        "role": "pinned upstream: 194 files"
+      },
+      {
+        "file": "video/assets/screens.json",
+        "sha256": "217daf5aee27cfc1c0903ba2c3cb9700120d699b038ea0d79cda676732b8c8d2",
+        "role": "screenshot provenance and pixel size"
+      },
+      {
+        "file": "video/assets/phone.png",
+        "sha256": "136c35d1c2763a5b1a43504bd01a6035346585f6c07c1956f0f758dcd4c8ffee",
+        "role": "phone viewer screenshot, 375×812, sample C05"
+      },
+      {
+        "file": "video/assets/desktop.png",
+        "sha256": "8ca028965d9399a2f6a845cec14d1bc36f5b4d1083893c87ceb305bd8e29d4f2",
+        "role": "desktop viewer screenshot, 1265×949, sample C03"
+      }
+    ],
+    "fetch_rule": "video.js fetches the manifest as assets/data-hashes.json and each key as new URL('../' + key, document.baseURI), same origin only. Any missing file or SHA-256 mismatch rejects window.motionReady; there is no embedded fallback.",
+    "upstream": {
+      "repository": "https://github.com/thedotmack/claude-mem",
+      "commit": "fef3402e674bebbf72a23aeb735e91c92cd34afd",
+      "version": "13.39.0",
+      "license": "Apache-2.0",
+      "notice": "Copyright 2026 Alex Newman",
+      "license_file": "../vendor/claude-mem/LICENSE",
+      "notice_file": "../vendor/claude-mem/NOTICE"
+    }
+  },
+  "scope": {
+    "shown": "Explicit saveMemory notes, SQLite FTS5 keyword search, the real mem_search progressive steps (guided and auto) in one Bun process and one fresh Bun process.",
+    "not_shown_or_claimed": [
+      "host plugin install or hooks",
+      "automatic observation, LLM compression or context injection",
+      "Chroma or semantic vectors",
+      "cloud sync or hosted memory",
+      "MCP transport (the mem-search SKILL steps were applied directly to the worker function)",
+      "Claude inference",
+      "authentication or access control (project is a search scope only)",
+      "every possible attack",
+      "physical iOS"
+    ],
+    "excluded_from_screen": "No fake terminal or log, no opaque ms_ cursor string, no full hashes, no automatic-check score as marketing."
+  },
+  "design": {
+    "palette": {
+      "ivory": "#f6f1e6",
+      "paper": "#fffcf5",
+      "navy": "#14213d",
+      "ink": "#1c2333",
+      "muted": "#586174",
+      "cobalt": "#2745c4 (sakura-site, steps)",
+      "teal": "#157a74 (tsubaki-docs, new process)",
+      "yellow": "#f2c14e (pencil underline, number circles)",
+      "rust": "#9b3d2c (rejected cursor only)"
+    },
+    "fonts": "Local system fonts only: \"Noto Sans JP\", \"Yu Gothic\", YuGothic, Meiryo, sans-serif; Consolas/Cascadia Mono for IDs. No downloads.",
+    "type_scale_px_at_1280": {
+      "headline": "60 (closing message 56)",
+      "primary_numbers": "150 (120 in scene 6, 96 for the zero body count)",
+      "excerpt": 40,
+      "closing_line": 40,
+      "card_titles": "22 opening, 28 index/scope, 30 body, 32 reopened",
+      "body_text": 22,
+      "captions": "18–24",
+      "secondary_metadata": "14–17 (masthead, footer, IDs, screenshot captions)"
+    },
+    "continuity": "The note chosen in C04/C05 (N01) is one paper card for 0–22 s: small card → index row → context row → expanded body card → scope card → into the SQLite drum. A yellow circle on it carries the step number 1 → 2 → 3.",
+    "persistent": [
+      "masthead: Claude-Mem version and the sample IDs on screen",
+      "footer: 手で保存 / SQLite FTS5 / 28秒・無音 and source repository, version, short commit, license"
+    ]
+  },
+  "scenes": [
+    {
+      "n": 1,
+      "time": [
+        0,
+        4
+      ],
+      "samples": [
+        "C01",
+        "C02"
+      ],
+      "headline": "前回の判断、どこだっけ。",
+      "conveys": "The original job: five notes were saved by hand in two fictional projects.",
+      "enter": "Headline rises 0.15–0.55 s; five small cards drop in save order 0.5–1.78 s; the large count rises 0 → 5 as they land.",
+      "hold": "1.8–3.65 s (about 1.9 s steady)",
+      "exit": "Number block fades 3.65–4.0 s; non-indexed cards leave at 4.0 s.",
+      "data": {
+        "count": "samples[C02].output.sql_audit_after.observations",
+        "per_project": "samples[C02].output.sql_audit_after.observations_by_project",
+        "titles_ids": "samples[C02].output.calls[save:N0x].result",
+        "before_saving": "samples[C01].output.calls[empty_search].result.index.length",
+        "replay": "samples[C02].output.calls[replay:N01].result (duplicate, same id)"
+      }
+    },
+    {
+      "n": 2,
+      "time": [
+        4,
+        8
+      ],
+      "samples": [
+        "C03"
+      ],
+      "headline": "まず、題名だけ。",
+      "conveys": "The guided index returns titles and IDs only, in the returned order N02 then N01; zero bodies.",
+      "enter": "Cards move into two index rows 4.0–4.45 s; step rail ① lights; large 2 題名 and 0 本文.",
+      "hold": "4.45–7.65 s; the caller's choice of N01 is marked 5.6–6.0 s (yellow circle 1, pencil underline, label 呼び出し側が選ぶ).",
+      "exit": "Choice label fades 7.65–8.0 s; rows reorder at 8.0 s.",
+      "data": {
+        "rows": "samples[C03].output.calls[index].result.index",
+        "bodies": "samples[C03].output.calls[index].result.observations.length",
+        "query_scope": "samples[C03].output.calls[index].result.query / project",
+        "choice": "samples[C04].input.calls[context].args.selectedIds"
+      },
+      "note": "The film does not claim the choice was made automatically or by AI."
+    },
+    {
+      "n": 3,
+      "time": [
+        8,
+        12
+      ],
+      "samples": [
+        "C04"
+      ],
+      "headline": "前後を見て、選ぶ。",
+      "conveys": "Context for the chosen N01: N01 and its one neighbour N02, still titles only.",
+      "enter": "Rows reorder to the returned context order 8.0–8.45 s; rail ② lights; circle on N01 shows 2; pencil under 0 本文 8.5–8.9 s; bracket 前後1件まで 8.4–8.8 s.",
+      "hold": "8.9–11.7 s",
+      "exit": "Index-stage elements fade 11.7–12.0 s.",
+      "data": {
+        "rows": "samples[C04].output.calls[context].result.index",
+        "bodies": "samples[C04].output.calls[context].result.observations.length",
+        "depth": "samples[C04].input.scenario.depthBefore"
+      }
+    },
+    {
+      "n": 4,
+      "time": [
+        12,
+        18
+      ],
+      "samples": [
+        "C05"
+      ],
+      "headline": "選んだ1件の本文へ。",
+      "conveys": "Exactly one full body is fetched: the chosen N01, shown with its actual content.",
+      "enter": "N01 card expands 12.0–12.5 s while N02 leaves; body fades in 12.35–12.85 s; phone screenshot slides in 12.5–12.95 s; excerpt block 12.8–13.2 s; pencil underline of the excerpt inside the body 12.9–13.3 s.",
+      "hold": "13.3–17.65 s (poster frame 13.5 s is fully settled)",
+      "exit": "Body fades and card shrinks from 18.0 s; phone and excerpt fade 17.65–18.0 s.",
+      "data": {
+        "count": "samples[C05].output.calls[details].result.observations.length",
+        "body": "observations[0].content split at the first blank line: subtitle 'Manual memory' + body equal to input N01 text",
+        "excerpt": "second sentence of that body, drawn at 40 px and labelled 本文から抜粋",
+        "steps": "observations trace operations search → timeline → fetch, shown as 索引 → 文脈 → 本文",
+        "screenshot": "video/assets/phone.png (sample C05), contained whole at 375:812"
+      },
+      "note": "The excerpt is a substring of the returned body, not a generated answer."
+    },
+    {
+      "n": 5,
+      "time": [
+        18,
+        22
+      ],
+      "samples": [
+        "C06"
+      ],
+      "headline": "同じ問いを、別の案件へ。",
+      "conveys": "The same query iOS in auto mode returns N01 for sakura-site and N04 for tsubaki-docs.",
+      "enter": "N01 shrinks to a scope card 18.05–18.5 s; N04 enters from the right 18.1–18.55 s; arrows from the shared query 18.3–18.7 s; pencil under the differing part of each title 18.7–19.1 s.",
+      "hold": "19.1–21.65 s",
+      "exit": "Scope elements and rail fade 21.65–22.0 s; N04 leaves right at 22.0 s.",
+      "data": {
+        "rows": "samples[C06].output.calls[auto:<project>].result.observations[0]",
+        "mode": "auto, strategy ranked-lexical",
+        "scope_note": "samples[C06].output.scope_note (rendered as: project は検索の範囲を分けるだけで、認証ではありません。)"
+      }
+    },
+    {
+      "n": 6,
+      "time": [
+        22,
+        25.4
+      ],
+      "samples": [
+        "C07"
+      ],
+      "headline": "次のプロセスでも、同じメモから。",
+      "headline_note": "Refined from the brief's 「次のプロセスでも、続きから。」 because the old continuation cursor is rejected in the new process; the notes, not the cursor, carry over.",
+      "conveys": "A fresh Bun process reopens the same SQLite file: playsinline returns N02 with the same ID 2; five notes (3 + 2) remain; the previous process's continuation is invalid here.",
+      "enter": "N01 card sinks into the SQLite drum 22.0–22.45 s; N02 card rises out to the right 22.45–22.95 s; count 5 件のまま 22.3–22.7 s; ID pencil 22.95–23.3 s; old-cursor row 22.9–23.3 s with strike 23.1–23.45 s.",
+      "hold": "23.45–25.05 s",
+      "exit": "Everything fades 25.05–25.4 s.",
+      "data": {
+        "returned": "samples[C07].output.calls[worker_auto].result.observations[0]",
+        "count": "samples[C07].output.worker.sql_audit",
+        "old_cursor": "samples[C07].output.calls[worker_old_continuation].error.code",
+        "minutes": "number parsed from samples[C07].output.cursor_note"
+      }
+    },
+    {
+      "n": 7,
+      "time": [
+        25.4,
+        28
+      ],
+      "samples": [
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "C08"
+      ],
+      "headline": "前回の判断を、必要な分だけ取り出す。",
+      "closing_line": "8場面の実記録で確かめる。",
+      "conveys": "The message, the eight recorded scenes, actual desktop and phone screenshots, the site URL and the source attribution.",
+      "enter": "Closing layout rises 25.4–25.85 s; pencil under the closing line 25.7–26.0 s.",
+      "hold": "26.0–28.0 s, fully steady",
+      "exit": "none (final frame at 28.0 s equals the hold)",
+      "data": {
+        "scene_count": "samples.length",
+        "circle_labels": "C01 count, C02 count, then 題名・文脈・本文・範囲・読み直し, and C08 rejection count",
+        "screenshots": "video/assets/desktop.png (C03) and phone.png (C05), contained whole",
+        "url": "studio-yebisu.github.io/studio-yebisu/",
+        "attribution": "source.repository, version, short commit, license, notice"
+      }
+    }
+  ],
+  "contract": {
+    "canvas": "getContext('2d', { willReadFrequently: true }); backing store equals renderConfig width × height",
+    "seek": "window.seek(seconds) clamps to 0..28 and returns a Promise that resolves after the requested frame is drawn from absolute time; no frame depends on earlier frames, wall clock or randomness",
+    "ready": "window.motionReady resolves after the manifest and eight files match SHA-256, records validate, both images decode at their recorded size and local fonts are loaded",
+    "export_mode": "window.__MOTION_RENDER__ === true: controls hidden, canvas only at exact size, no requestAnimationFrame preview",
+    "preview": "Starts paused at 0. #play / #pause / #reset, #scrub (range 0–28 step 0.1), #time (number 0–28 step 0.1), #time-label; #editor[data-state] is paused or playing; #play is disabled while playing and #pause while paused"
+  },
+  "status": {
+    "authored": true,
+    "rendered_frames": "840 frames / 1280x720 / 30fps; representative and consecutive frames reviewed",
+    "mp4": "28 seconds; silent; full decode and native playback passed; sha256 0607ff193de854a6abccdc19889c3ea8c7161c51b44daa5080d356c2e2da00b1",
+    "playback_and_visual_review": "Production-side native playback reached28s ended; contact sheet, five cuts, poster, final frame and360px main copy inspected",
+    "human_approval": "not obtained; separate from technical and agent visual checks",
+    "published": "Publication to existing GitHub Pages is tracked separately after the scoped pipeline and live checks"
+  }
+}

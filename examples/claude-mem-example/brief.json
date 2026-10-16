@@ -1,0 +1,61 @@
+{
+  "title": "Claude-Mem作例：架空の5つの決定を保存し、mem_search で「題名 → 前後の文脈 → 選んだ本文」の順に取り出す",
+  "request": "秘密情報を含まない架空プロジェクトで、前の作業の変更理由を次のセッションから参照する小さな例を作ってください。保存先と削除方法も確認してください。入力、出力、実行した検証、未確認の点を記録してください。",
+  "category": "knowledge",
+  "audience": "エージェントに前回の判断を思い出させたい、日本語で読みたい開発者・制作担当",
+  "goal": "固定版 Claude-Mem 13.39.0 の上流ワーカー関数（DatabaseManager・saveMemory・SearchManager・ProgressiveMemorySearch・progressiveSearchToolResult）を改変せずに Bun で動かし、架空の5つの決定を明示的に保存してから、mem_search の索引・文脈・選んだ本文の3段階、自動モード、新しいプロセスでの読み直し、誤った続け方の拒否を8場面で実行し、その実際の呼び出しと戻り値をスマホで読めるようにする",
+  "inputs": [
+    "input/notes.json（制作側が実行前に固定した、架空の「さくらサイト」3件・「つばき資料」2件の決定。実際の会話や個人の記録ではない）",
+    "input/scenarios.json（8場面 C01〜C08 の問い・プロジェクト・モード・件数・拒否の種類）",
+    "thedotmack/claude-mem 固定コミット fef3402e674bebbf72a23aeb735e91c92cd34afd の194ファイル（vendor/claude-mem、vendor-lock.json で SHA-256・サイズ・Git blob を固定）",
+    "package.json・package-lock.json（上流と互換の依存5件の固定版）"
+  ],
+  "skill_refs": [
+    "skills/brief-to-demo/SKILL.md",
+    "https://github.com/thedotmack/claude-mem/blob/fef3402e674bebbf72a23aeb735e91c92cd34afd/plugin/skills/mem-search/SKILL.md",
+    "https://github.com/thedotmack/claude-mem/blob/fef3402e674bebbf72a23aeb735e91c92cd34afd/src/shared/progressive-search.ts",
+    "https://github.com/thedotmack/claude-mem/blob/fef3402e674bebbf72a23aeb735e91c92cd34afd/src/services/worker/ProgressiveMemorySearch.ts",
+    "https://github.com/thedotmack/claude-mem/blob/fef3402e674bebbf72a23aeb735e91c92cd34afd/src/services/memory/save-memory.ts",
+    "https://github.com/thedotmack/claude-mem/blob/fef3402e674bebbf72a23aeb735e91c92cd34afd/src/services/worker/DatabaseManager.ts",
+    "https://github.com/thedotmack/claude-mem/blob/fef3402e674bebbf72a23aeb735e91c92cd34afd/src/services/worker/SearchManager.ts"
+  ],
+  "deliverables": [
+    "run.ts（Bun で上流関数を実行し、1回だけ新しいプロセスを起動して読み直す CLI）",
+    "outputs/memory-run.json（制作側の実行で作る記録。ページはこれを読む）",
+    "index.html・style.css・app.js（保存した記録を読むスマホ優先のページ）",
+    "outputs/method.md（手順・確認・読み方・限界）",
+    "README.md・request.txt"
+  ],
+  "steps": [
+    "原典194ファイル・vendor-lock.json・入力2ファイル・上流の版を照合してから、最初の書き込みを行う",
+    "上流を読み込む前に、通信・サーバー・プロセス起動の JavaScript API を拒否して数える仕組みを入れ、非公開のデータフォルダーと settings.json（Chroma・クラウド同期・Grok Bot 連携・重複統合・ワーカー自動起動を無効）、送信停止の環境変数を設定する",
+    "保存前の検索が0件であることを確かめ、5件それぞれについて mem_search で関連する決定を探してから saveMemory で保存し、同じ依頼の再送が同じ ID の duplicate になることを確かめる",
+    "guided モードで索引（題名だけ）、選んだ N01 の前後1件の文脈、選んだ N01 の本文だけ、の順に続け、同じ問いを自動モードで2つのプロジェクトに渡す",
+    "誤った ID・書き換えた合図・途中での範囲の変更・長すぎる問い・未登録のプロジェクトの実際の結果を記録する",
+    "データベースを閉じ、新しい Bun プロセスで同じ保存先を開いて、N02 が同じ ID で返ること、件数が変わらないこと、前のプロセスの合図が拒まれることを確かめる",
+    "すべての確認が通ったときだけ記録を1回書き、ページで入力の SHA-256・固定版・場面・確認の合否を確かめてから表示する"
+  ],
+  "acceptance": [
+    "run.ts が、原典・入力・依存・Bun の版のどれかが合わないとき、保存先が公開フォルダー内か空でないとき、確認が1つでも外れたとき、通信・サーバー・余分なプロセス起動の試みが1件でもあるときに、記録を書かずに失敗する",
+    "C01 の保存前の索引が0件で reason が no_results",
+    "C02 で5件が入力順に新しい ID で保存され、N02 の前の関連検索が N01 を返し、N01 の再送が duplicate: true・同じ ID で、総数5件（3＋2）のまま",
+    "C03 の索引が N01・N02 の題名だけで、N04 も本文も含まない。C04 が N01 の前後1件までの題名だけ、C05 が N01 の本文1件だけを返す",
+    "C06 の自動モードで、sakura-site では N01 か N02、tsubaki-docs では N04 の本文だけが返る",
+    "C07 で新しいプロセス（終了コード0、別の PID）が同じ保存先から N02 を同じ ID で返し、前のプロセスの合図を invalid_continuation で拒む",
+    "C08 の4つの誤りがそれぞれ上流の ProgressiveSearchError（invalid_selection・invalid_continuation・scope_changed・invalid_input）で拒まれ、未登録のプロジェクトが0件",
+    "記録に手元の絶対パス・保存ファイルそのもの・プロセス番号・設定ファイル・認証情報が入らず、既にある記録を上書きしない",
+    "ページが記録・入力2件・vendor-lock.json を取得し、合わなければ理由と再読み込みだけを出す。C01〜C08 のボタンと #C05 のようなリンクで切り替えられる",
+    "320・375・390・430px縦、844px横、1280pxで横スクロールがなく、操作部品が44px以上、入力欄が16px以上"
+  ],
+  "assumptions": [
+    "掲載項目の依頼の「前の作業の変更理由」を、制作側が書いた架空の5つの決定に置き換える。会話からの自動記録や LLM による要約は使わず、すべて saveMemory による明示的なメモにする",
+    "「次のセッション」は、データベースを閉じたあと新しい Bun プロセスで同じ保存先を開くことに対応させる",
+    "削除の操作は、このワーカー関数の範囲に含まれないため試さない。保存先は非公開の作業フォルダーの SQLite ファイルで、そのフォルダーごと手で消せる",
+    "検索は SQLite FTS5 のキーワード一致。Chroma の意味検索は無効にし、日本語の検索品質は評価しない。日本語のメモにも英字の語（iOS・JSON・PDF・playsinline）で検索する",
+    "mem-search スキルの手順は、MCP サーバーではなく上流のワーカー関数に直接適用する。プラグインの導入・フック・ホスト型の記憶・アカウントは使わない",
+    "Claude Agent SDK は上流の依存として node_modules に入るが、起動も推論もしない",
+    "起動確認のための事前実行は別の非公開データベースで行い、公開の場面には含めない",
+    "ページは保存した記録を読むだけで、ブラウザー内で Claude-Mem・Bun・Claude を動かさない",
+    "短い無音の解説動画は、記録ができた後に制作側で作る"
+  ]
+}
