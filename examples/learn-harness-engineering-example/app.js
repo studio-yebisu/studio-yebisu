@@ -65,7 +65,7 @@
   const toast = $('toast');
 
   let loaded = null;
-  let selectedId = DEFAULT_ID;
+  let selectedId = QUERY_IDS.includes(location.hash.slice(1)) ? location.hash.slice(1) : DEFAULT_ID;
   let lastLive = null;
   let inflight = null;
   let requestInflight = null;
@@ -636,6 +636,10 @@
     queryInput.value = '';
     tagSelect.value = '';
     runLive();
+  });
+  window.addEventListener('hashchange', () => {
+    const id = location.hash.slice(1);
+    if (QUERY_IDS.includes(id)) { selectedId = id; if (loaded) select(id); }
   });
   retry.addEventListener('click', () => { load(); });
   downloadBtn.addEventListener('click', downloadRecord);
