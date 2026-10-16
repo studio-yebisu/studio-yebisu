@@ -1,0 +1,13 @@
+Crawl4AI（unclecode/crawl4ai 固定コミット 6192d5e5b59cb21f9ca418fd6b798de47c0741d3、0.9.5）を使い、自分で用意した3ページだけを取得して、見出しと要点を JSON と Markdown に保存する Python スクリプトを書き、実際に実行してください。
+
+対象：手元の HTTP サーバー（127.0.0.1）で配る自作 HTML の /docs/start.html・/docs/review.html・/docs/export.html の3つだけ。リンクはたどらず、外部のサイトにも出ません。export.html の最後の節は、同じフォルダの JavaScript が読み込み後に追加します。
+
+取得：AsyncWebCrawler の arun を1ページずつ呼び、CrawlerRunConfig に cache_mode=BYPASS、check_robots_txt=True、css_selector="main#guide"、excluded_tags=["nav", "footer"]、wait_for='css:#guide[data-ready="true"]' と、JsonCssExtractionStrategy（baseSelector="article.doc-section"、h2 を heading、p.keypoint を keypoint）を渡す。LLM は使わない。
+
+保存：各結果の model_dump を非公開の raw フォルダに、Markdown・extracted_content・HTTP ステータスを runs.json に、入力と出力の対を samples.json に書く。
+
+診断：存在しない /docs/missing.html を別に1回取得し、HTTP ステータスと success フラグをそのまま記録する。success かつ HTTP 200 のときだけ受理とし、404 は成功に数えない。
+
+完了条件：3ページとも HTTP 200 で受理、節が6つで元の見出し・要点と一致、ナビ・フッター・選ばないページの目印が出力にない、JavaScript で追加した節がある、選ばないページへのアクセスがない。一つでも外れたら公開用の出力を書かずに失敗で終える。
+
+成果：保存結果を読むスマホ向けの日本語ビューアと、約28秒の無音動画。

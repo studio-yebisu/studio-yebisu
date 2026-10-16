@@ -1,0 +1,48 @@
+/* 作例用の架空の手順書（fixture）で共有する最小のスタイル。外部の読み込みはしない。 */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font: 16px/1.7 "Hiragino Sans", "Yu Gothic UI", "Noto Sans JP", system-ui, sans-serif;
+  color: #24211c;
+  background: #faf7f0;
+}
+.site-nav, main, .site-footer {
+  padding-inline: max(1rem, env(safe-area-inset-left)) max(1rem, env(safe-area-inset-right));
+}
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.5rem;
+  align-items: center;
+  padding-block: calc(0.5rem + env(safe-area-inset-top)) 0.5rem;
+  border-bottom: 1px solid #ddd5c4;
+  background: #f1ebdf;
+}
+.site-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 0.75rem;
+  color: #0f5f5a;
+}
+.site-nav .nav-note { width: 100%; margin: 0; font-size: 0.875rem; color: #6b6253; }
+main { max-width: 40rem; margin: 0 auto; padding-block: 1.5rem 2.5rem; }
+h1 { font-size: 1.6rem; line-height: 1.35; margin: 0 0 0.5rem; }
+h2 { font-size: 1.2rem; line-height: 1.4; margin: 0 0 0.25rem; }
+.doc-section {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  border: 1px solid #ddd5c4;
+  border-radius: 8px;
+  background: #fff;
+}
+.keypoint { margin: 0.25rem 0 0; font-weight: 600; }
+.note, .lead { margin: 0.5rem 0 0; color: #554d40; }
+.site-footer {
+  padding-block: 1rem calc(1rem + env(safe-area-inset-bottom));
+  border-top: 1px solid #ddd5c4;
+  font-size: 0.875rem;
+  color: #6b6253;
+}
+.site-footer a { color: #0f5f5a; }

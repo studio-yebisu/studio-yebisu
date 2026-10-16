@@ -1,0 +1,244 @@
+{
+  "format": "input-output",
+  "samples": [
+    {
+      "id": "start",
+      "label": "準備（/docs/start.html）",
+      "input": {
+        "url": "http://127.0.0.1:55880/docs/start.html",
+        "path": "/docs/start.html",
+        "source_file": "fixture/docs/start.html",
+        "config": {
+          "cache_mode": "CacheMode.BYPASS",
+          "check_robots_txt": true,
+          "css_selector": "main#guide",
+          "excluded_tags": [
+            "nav",
+            "footer"
+          ],
+          "word_count_threshold": 0,
+          "wait_for": "css:#guide[data-ready=\"true\"]",
+          "page_timeout": 20000,
+          "extraction_strategy": {
+            "class": "JsonCssExtractionStrategy",
+            "schema": {
+              "name": "Guide sections",
+              "baseSelector": "article.doc-section",
+              "fields": [
+                {
+                  "name": "heading",
+                  "selector": "h2",
+                  "type": "text"
+                },
+                {
+                  "name": "keypoint",
+                  "selector": "p.keypoint",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "markdown_generator": {
+            "class": "DefaultMarkdownGenerator",
+            "options": {
+              "ignore_links": true,
+              "body_width": 0
+            }
+          },
+          "verbose": false
+        }
+      },
+      "output": {
+        "url": "http://127.0.0.1:55880/docs/start.html",
+        "status_code": 200,
+        "success": true,
+        "error_message": "",
+        "markdown": "# 準備を始める\n架空の木工ワークショップ運営チームが、開催の前に読む手順です。\n## 参加者名簿を作る\n名簿は開催の前日までに作り、氏名と卓番号の2列だけにします。\nふりがなが要るときは、氏名の下に小さく添えます。\n## 工具の数をそろえる\nのこぎりと小刀は卓ごとに同じ数を用意し、箱のふたに本数を書きます。\n予備は運営の机にまとめて置きます。\n",
+        "extracted_content": "[\n    {\n        \"heading\": \"参加者名簿を作る\",\n        \"keypoint\": \"名簿は開催の前日までに作り、氏名と卓番号の2列だけにします。\"\n    },\n    {\n        \"heading\": \"工具の数をそろえる\",\n        \"keypoint\": \"のこぎりと小刀は卓ごとに同じ数を用意し、箱のふたに本数を書きます。\"\n    }\n]",
+        "accepted": true,
+        "sections": [
+          {
+            "heading": "参加者名簿を作る",
+            "keypoint": "名簿は開催の前日までに作り、氏名と卓番号の2列だけにします。"
+          },
+          {
+            "heading": "工具の数をそろえる",
+            "keypoint": "のこぎりと小刀は卓ごとに同じ数を用意し、箱のふたに本数を書きます。"
+          }
+        ]
+      }
+    },
+    {
+      "id": "review",
+      "label": "当日の確認（/docs/review.html）",
+      "input": {
+        "url": "http://127.0.0.1:55880/docs/review.html",
+        "path": "/docs/review.html",
+        "source_file": "fixture/docs/review.html",
+        "config": {
+          "cache_mode": "CacheMode.BYPASS",
+          "check_robots_txt": true,
+          "css_selector": "main#guide",
+          "excluded_tags": [
+            "nav",
+            "footer"
+          ],
+          "word_count_threshold": 0,
+          "wait_for": "css:#guide[data-ready=\"true\"]",
+          "page_timeout": 20000,
+          "extraction_strategy": {
+            "class": "JsonCssExtractionStrategy",
+            "schema": {
+              "name": "Guide sections",
+              "baseSelector": "article.doc-section",
+              "fields": [
+                {
+                  "name": "heading",
+                  "selector": "h2",
+                  "type": "text"
+                },
+                {
+                  "name": "keypoint",
+                  "selector": "p.keypoint",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "markdown_generator": {
+            "class": "DefaultMarkdownGenerator",
+            "options": {
+              "ignore_links": true,
+              "body_width": 0
+            }
+          },
+          "verbose": false
+        }
+      },
+      "output": {
+        "url": "http://127.0.0.1:55880/docs/review.html",
+        "status_code": 200,
+        "success": true,
+        "error_message": "",
+        "markdown": "# 当日の確認\n開場から始まりの合図までに、運営の2人で確かめることです。\n## 刃物を確かめる\n刃こぼれのある工具は赤い箱に分け、その日は使いません。\n分けた工具の数は、終わってから名簿の余白に書きます。\n## 質問を集める\n質問は付箋1枚に1つ書いてもらい、卓番号を左上に添えます。\n集めた付箋は休憩の前に読み上げます。\n",
+        "extracted_content": "[\n    {\n        \"heading\": \"刃物を確かめる\",\n        \"keypoint\": \"刃こぼれのある工具は赤い箱に分け、その日は使いません。\"\n    },\n    {\n        \"heading\": \"質問を集める\",\n        \"keypoint\": \"質問は付箋1枚に1つ書いてもらい、卓番号を左上に添えます。\"\n    }\n]",
+        "accepted": true,
+        "sections": [
+          {
+            "heading": "刃物を確かめる",
+            "keypoint": "刃こぼれのある工具は赤い箱に分け、その日は使いません。"
+          },
+          {
+            "heading": "質問を集める",
+            "keypoint": "質問は付箋1枚に1つ書いてもらい、卓番号を左上に添えます。"
+          }
+        ]
+      }
+    },
+    {
+      "id": "export",
+      "label": "書き出し（/docs/export.html）",
+      "input": {
+        "url": "http://127.0.0.1:55880/docs/export.html",
+        "path": "/docs/export.html",
+        "source_file": "fixture/docs/export.html",
+        "config": {
+          "cache_mode": "CacheMode.BYPASS",
+          "check_robots_txt": true,
+          "css_selector": "main#guide",
+          "excluded_tags": [
+            "nav",
+            "footer"
+          ],
+          "word_count_threshold": 0,
+          "wait_for": "css:#guide[data-ready=\"true\"]",
+          "page_timeout": 20000,
+          "extraction_strategy": {
+            "class": "JsonCssExtractionStrategy",
+            "schema": {
+              "name": "Guide sections",
+              "baseSelector": "article.doc-section",
+              "fields": [
+                {
+                  "name": "heading",
+                  "selector": "h2",
+                  "type": "text"
+                },
+                {
+                  "name": "keypoint",
+                  "selector": "p.keypoint",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "markdown_generator": {
+            "class": "DefaultMarkdownGenerator",
+            "options": {
+              "ignore_links": true,
+              "body_width": 0
+            }
+          },
+          "verbose": false
+        }
+      },
+      "output": {
+        "url": "http://127.0.0.1:55880/docs/export.html",
+        "status_code": 200,
+        "success": true,
+        "error_message": "",
+        "markdown": "# 記録の書き出し\n終了後に、当日の記録をひとつにまとめる手順です。最後の節は、このページの JavaScript（dynamic-export.js）が読み込み後に追加します。\n## 記録をまとめる\n終了後30分以内に、付箋の写真と名簿をひとつのフォルダに入れます。\n写真は卓番号の順に並べます。\n## 書き出す前に確かめる\nフォルダ名を日付と会場名にし、参加者の顔や連絡先が写った写真を除きます。\nこの節は dynamic-export.js が追加しました。\n",
+        "extracted_content": "[\n    {\n        \"heading\": \"記録をまとめる\",\n        \"keypoint\": \"終了後30分以内に、付箋の写真と名簿をひとつのフォルダに入れます。\"\n    },\n    {\n        \"heading\": \"書き出す前に確かめる\",\n        \"keypoint\": \"フォルダ名を日付と会場名にし、参加者の顔や連絡先が写った写真を除きます。\"\n    }\n]",
+        "accepted": true,
+        "sections": [
+          {
+            "heading": "記録をまとめる",
+            "keypoint": "終了後30分以内に、付箋の写真と名簿をひとつのフォルダに入れます。"
+          },
+          {
+            "heading": "書き出す前に確かめる",
+            "keypoint": "フォルダ名を日付と会場名にし、参加者の顔や連絡先が写った写真を除きます。"
+          }
+        ]
+      }
+    },
+    {
+      "id": "missing",
+      "label": "取得エラー（/docs/missing.html・成功に数えない）",
+      "input": {
+        "url": "http://127.0.0.1:55880/docs/missing.html",
+        "path": "/docs/missing.html",
+        "source_file": null,
+        "config": {
+          "cache_mode": "CacheMode.BYPASS",
+          "check_robots_txt": true,
+          "excluded_tags": [
+            "nav",
+            "footer"
+          ],
+          "word_count_threshold": 0,
+          "page_timeout": 20000,
+          "markdown_generator": {
+            "class": "DefaultMarkdownGenerator",
+            "options": {
+              "ignore_links": true,
+              "body_width": 0
+            }
+          },
+          "verbose": false,
+          "note": "HTTPステータスをそのまま記録するため、wait_for・css_selector・extraction_strategy は付けない。"
+        }
+      },
+      "output": {
+        "url": "http://127.0.0.1:55880/docs/missing.html",
+        "status_code": 404,
+        "success": true,
+        "error_message": "",
+        "markdown": "# Error response\nError code: 404\nMessage: File not found.\nError code explanation: 404 - Nothing matches the given URI.\n",
+        "extracted_content": null,
+        "accepted": false,
+        "sections": null
+      }
+    }
+  ]
+}

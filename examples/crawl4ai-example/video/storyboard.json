@@ -1,0 +1,243 @@
+{
+  "title": "3ページを選び、元の段落を取り出して保存する（Crawl4AI 作例・28秒・無音の編集動画）",
+  "productionStage": "authored-not-rendered",
+  "qa": "parent-QA-pending",
+  "qaNote": "この storyboard は編集ソースの設計記録。書き出し・描画の確認・目視レビューの結果はここに書かず、制作側が書き出した後の verification.json に記録する。",
+  "brief": {
+    "request": "公開ドキュメントの指定した3ページだけを取得し、見出しと要点をMarkdownにし、成功・失敗URLを記録する作例（../brief.json）の実際の実行結果を、28秒の無音の日本語説明動画にする。",
+    "purpose": "Crawl4AI で何をしたか（選んだ3ページだけを取得し、元の段落を CSS セレクターで取り出して Markdown と JSON に保存した）と、404 を受理に数えなかったことを、初めて見る人が28秒で分かる。",
+    "audience": "社内手順書やドキュメントの複数ページを集めたい制作者と開発者。スマートフォンで720pの映像を縮小して見る人を含む。",
+    "message": "3ページを選び、元の段落を取り出して Markdown と JSON に保存する。404 は受理に数えない。",
+    "nextAction": "作例ビューア（../index.html）で、3ページと取得エラーの実際の結果・元のHTML・Markdownを読む。",
+    "method": "保存済みの outputs/runs.json と作例ビューアの実際のスクリーンショット4枚を Canvas に組版する編集映像。連続した画面録画ではない。Crawl4AI の実行・ブラウザー上のAI・進行表示・端末の画面は描かない。"
+  },
+  "output": {
+    "duration": 28,
+    "fps": 30,
+    "frames": 840,
+    "width": 1280,
+    "height": 720,
+    "posterTime": 13.5,
+    "posterScene": "3 取り出した節：準備ページの2節（見出しと要点）と実際のビューアのカード2枚が出そろった静止時刻",
+    "audio": "silent",
+    "audioEvents": [],
+    "loop": false,
+    "layout": "横長16:9用に配置。renderConfig でほかの寸法を渡すと同じ配置を余白つきで縮小する（比率ごとの再配置はしていない）。"
+  },
+  "look": {
+    "colors": {"paper": "#f7f2e8", "deep": "#eee5d4", "card": "#fffdf8", "ink": "#1f1c17", "soft": "#464035", "muted": "#6a6252", "line": "#d8cdb9", "teal": "#0d6a63", "tealDeep": "#08504a", "tealSoft": "#dfeeea", "rust": "#9c3f22", "rustSoft": "#f6e3da"},
+    "colorRules": [
+      "作例ビューア（../style.css）と同じ紙・墨・ティール・錆色。",
+      "ティール＝受理したページ・取り出した節・CSSの対応。",
+      "錆色＝JavaScript が読み込み後に足した節と、受理しない取得エラー（作例ビューアの印と同じ）。",
+      "錆色の破線＝受理の数に入れないもの（取得エラーの札）と、元のHTMLファイルには無い節の場所。"
+    ],
+    "fonts": {
+      "heading": "OSの明朝（Hiragino Mincho ProN / Yu Mincho / Noto Serif JP）700・44–52px",
+      "body": "OSのゴシック（Hiragino Sans / Yu Gothic UI / Meiryo）26–32px",
+      "sectionHeading": "取り出した節の見出しは明朝700・34px、要点は26px（2行まで、22pxまで縮む）",
+      "code": "OSの等幅：セレクター・フィールド名・パス・固定コミットだけ",
+      "meta": "画面の出典ラベル・常時の注記・固定コミットは20–22px"
+    },
+    "external": "外部のフォント・画像・ライブラリ・通信なし。"
+  },
+  "persistentObject": {
+    "what": "3ページの紙（準備・当日の確認・書き出し）。28秒を通して画面に残り、形を変えて『ページ→節→ファイル』をつなぐ。",
+    "states": [
+      {"time": "0.35–3.7", "form": "入力の図：横に3枚。パス・題名・元のHTMLファイルにある節の数（2・2・1）と、書き出しにだけ『JSが追加』の破線の場所。スクリーンショットではないことを『入力：指定した3ページ（図）』と明示。"},
+      {"time": "3.7–4.66", "form": "縦の列へ変形（easeInOutCubic、ページごとに0.08秒ずらす）。"},
+      {"time": "4.66–8.6", "form": "構造の列：同じ節の図を横に並べる。右の CSS の対応と並べる。"},
+      {"time": "8.6–9.56", "form": "上の帳（札）へ変形。9.5秒から各札に『200・2節』。"},
+      {"time": "9.56–22.8", "form": "上の帳：取り上げているページの札をティールの面で示す（準備 9.6–14.9、書き出し 15.2–18.9）。19.3秒に右端へ破線の『404 受理しない』札が、区切り線を挟んで入る。"},
+      {"time": "22.8–23.84", "form": "保存した結果のカードの行へ降りる。取得エラーは区切り線の下の行へ。"}
+    ],
+    "honesty": "札の数値は場面の入りでまとめて出す。取得の進行や順番を表す進捗表示にはしない。"
+  },
+  "motion": {
+    "enter": "0.45秒で不透明度0→1、下から14px（実画面の切り抜きは右から28px）で着地（easeOutCubic）。",
+    "exit": "場面の終わりに0.4秒で不透明度1→0（直線）。次の場面の入りと重ねるか、持ち続ける紙を残して、画面全体が空になる時間を作らない。",
+    "screenSwap": "14.8–15.2秒、準備のカードの切り抜きと書き出しのカードの切り抜きを同じ位置で重ねて替える（同じビューアの別のページ）。",
+    "highlights": "強調枠は実画面の切り抜きの外側、または UI 要素の外側の余白に線だけを描く。画像の中身は塗らない。",
+    "hold": "各場面の主な証拠は出そろってから1.5秒以上止める。最後の一枚は25.1–28.0秒止める。",
+    "determinism": "全ての値は時刻 t から閉形式で求める。タイマー・乱数・CSSアニメーション・前フレームの積算を使わない。seek のたびに Canvas の幅と高さを設定し直して状態を初期化する。"
+  },
+  "scenes": [
+    {
+      "id": "intro",
+      "label": "1 依頼",
+      "start": 0,
+      "end": 4,
+      "says": "3ページを選び、元の段落を取り出して保存する。見出しと要点を Markdown と JSON に。404 は受理に数えない。",
+      "text": ["Crawl4AI 0.9.5 の作例 ・ 架空の木工ワークショップの手順書", "3ページを選び、元の段落を取り出して保存", "見出しと要点を Markdown と JSON に。404 は受理に数えない", "入力：指定した3ページ（図）", "→ 保存先：outputs/result.md（Markdown）・ outputs/runs.json（JSON）"],
+      "sourcePaths": ["outputs/runs.json"],
+      "facts": [
+        {"text": "0.9.5", "from": "runs.json library.version"},
+        {"text": "/docs/start.html・/docs/review.html・/docs/export.html と題名", "from": "runs.json documents[].path・title（『｜』の前）"},
+        {"text": "元のHTMLファイルにある節 2・2・1", "from": "documents[].input_html.text の <article class=\"doc-section\"> を数える（ファイルの数で、JavaScriptを止めて取得した結果ではない）"},
+        {"text": "書き出しの破線の場所", "from": "documents[export].section_origins が [html, script]"}
+      ],
+      "enter": "上の行と見出しは0秒から表示。0.3–1.95秒に、ラベル・副題・3枚の紙・保存先の行が入る",
+      "hold": "1.95–3.6秒",
+      "exit": "3.6–4.0秒に文字が消える。紙は3.7–4.66秒に次の場面の列へ変形する"
+    },
+    {
+      "id": "method",
+      "label": "2 取り方",
+      "start": 4,
+      "end": 9,
+      "says": "css_selector main#guide が Markdown の範囲、baseSelector article.doc-section が JSON の1件。h2→heading、p.keypoint→keypoint。元の段落をそのまま取り出し、AIの要約ではない。arun は4回（文書3・存在しないURL1）。手元の 127.0.0.1 だけで、LLM・クラウド・巡回なし。",
+      "text": ["CSSで、節ごとに見出しと要点を取り出す", "css_selector main#guide → Markdown の範囲", "baseSelector article.doc-section → JSON の1件", "h2 → heading", "p.keypoint → keypoint", "元の段落をそのまま取り出す。AIの要約ではない", "arun 4回 ＝ 文書3ページ ＋ 存在しないURL 1件", "手元の 127.0.0.1 だけ。LLM・クラウド・巡回なし"],
+      "sourcePaths": ["outputs/runs.json"],
+      "facts": [
+        {"text": "main#guide", "from": "runs.json selectors.css_selector"},
+        {"text": "article.doc-section・h2→heading・p.keypoint→keypoint", "from": "runs.json schema.baseSelector・schema.fields"},
+        {"text": "arun 4回（文書3・診断1）", "from": "runs.json requests の kind を数える"},
+        {"text": "127.0.0.1・LLM なし", "from": "runs.json scope_note に含まれることを確認"},
+        {"text": "Markdown の範囲と JSON の探し方の違い", "from": "../README.md「取得の設定」（固定版のソースの読み取り）"}
+      ],
+      "enter": "4.2–7.05秒に、見出し・区切りの縦線・2つのセレクター・2つの対応・説明3行が入る",
+      "hold": "7.05–8.5秒",
+      "exit": "8.5–8.9秒に消える。紙は8.6–9.56秒に上の帳の札へ変形する"
+    },
+    {
+      "id": "results",
+      "label": "3 取り出した節",
+      "start": 9,
+      "end": 15,
+      "says": "準備のページの extracted_content は2節。見出し『参加者名簿を作る』『工具の数をそろえる』と、その要点の文。受理は3/3ページ、節は合計6。",
+      "text": ["取り出したのは、元の段落そのもの", "準備を始める（/docs/start.html）の extracted_content", "heading / keypoint ×2（runs.json の文をそのまま）", "受理 3/3 ページ ・ 節は合計 6", "実際のビューア画面（screen-start.png）"],
+      "sourcePaths": ["outputs/runs.json", "assets/screen-start.png"],
+      "facts": [
+        {"text": "2節の heading・keypoint", "from": "documents[start].sections（response.extracted_content を JSON.parse した値と同じことを確認。Markdown にも含まれることを確認）"},
+        {"text": "各札の 200・2節", "from": "documents[].response.status_code・sections の数"},
+        {"text": "受理 3/3・節 6", "from": "documents[].accepted を数え、sections を合計"}
+      ],
+      "screens": [
+        {"file": "assets/screen-start.png", "crop": [164, 450, 460, 174], "at": [716, 238, 500], "shows": "節1のカード（元のHTMLにある節・参加者名簿を作る）"},
+        {"file": "assets/screen-start.png", "crop": [628, 450, 460, 174], "at": [716, 439, 500], "shows": "節2のカード（元のHTMLにある節・工具の数をそろえる）"}
+      ],
+      "enter": "9.1–10.75秒に、見出し・出どころの行・2節・画面の切り抜き2枚・合計の行が入る。準備の札は9.6秒からティールの面",
+      "hold": "10.75–14.6秒（ポスター13.5秒）",
+      "exit": "14.6–15.0秒に消える。画面の切り抜きは同じ位置で書き出しのカードへ重ねて替わる"
+    },
+    {
+      "id": "wait",
+      "label": "4 JSを待つ",
+      "start": 15,
+      "end": 19,
+      "says": "export.html のソースに書かれた節は1つ。約0.4秒後に dynamic-export.js が1節を足して data-ready を true にする。wait_for でその印を待ってから取り出した節は2つ。足された節は『書き出す前に確かめる』。",
+      "text": ["JSが足す節は、印を待ってから取る", "export.html のソースにある節 1", "約0.4秒後、dynamic-export.js が1節を足して印を付ける", "wait_for のあと取り出した節 2", "wait_for = css:#guide[data-ready=\"true\"]", "JSが追加した節（section_origins: script）", "書き出す前に確かめる", "フォルダ名を日付と会場名にし、参加者の顔や連絡先が写った写真を除きます。", "実際のビューア画面（screen-export.png）"],
+      "sourcePaths": ["outputs/runs.json", "assets/screen-export.png"],
+      "facts": [
+        {"text": "ソースにある節 1", "from": "documents[export].input_html.text の <article class=\"doc-section\"> の数。元のファイルの数で、JavaScript を止めて取得した結果ではない"},
+        {"text": "約0.4秒後", "from": "documents[export].input_script.text の window.setTimeout(addSection, 400)"},
+        {"text": "印（data-ready）", "from": "input_html.text の data-ready=\"false\" と input_script.text の guide.setAttribute(\"data-ready\", \"true\")"},
+        {"text": "取り出した節 2", "from": "documents[export].sections（実際の1回の取得の結果）"},
+        {"text": "書き出す前に確かめる・要点", "from": "documents[export].sections[1]。input_script.text の HEADING・KEYPOINT と同じで、input_html.text には無いことを確認"},
+        {"text": "wait_for", "from": "runs.json selectors.wait_for（3ページの request.config.wait_for と同じことを確認）"}
+      ],
+      "screens": [
+        {"file": "assets/screen-export.png", "crop": [164, 450, 460, 174], "at": [716, 238, 500], "shows": "節1のカード（元のHTMLにある節・記録をまとめる）"},
+        {"file": "assets/screen-export.png", "crop": [628, 450, 460, 174], "at": [716, 439, 500], "shows": "節2のカード（JavaScript が追加した節・書き出す前に確かめる）。16.0秒から錆色の枠で囲む"}
+      ],
+      "enter": "14.8–15.2秒に画面が替わり、15.1–17.05秒に見出し・数の行・待ちの説明・wait_for・追加された節が入る。書き出しの札は15.2秒からティールの面",
+      "hold": "17.05–18.6秒",
+      "exit": "18.6–19.0秒に消える"
+    },
+    {
+      "id": "missing",
+      "label": "5 404",
+      "start": 19,
+      "end": 23,
+      "says": "存在しない /docs/missing.html は HTTP 404。ライブラリの success は true のまま記録したが、受理は success かつ HTTP 200 のときだけなので受理しない。文書の受理は3/3のまま。error_message は空。",
+      "text": ["404 は、受理に数えない", "実際のビューア画面（screen-missing.png）：判定欄と説明の最初の行", "success: true ＋ HTTP 404 → 受理しない", "受理は success かつ HTTP 200 のときだけ。文書の受理は 3/3 のまま", "/docs/missing.html：存在しないURLへの診断用の arun ・ error_message は空"],
+      "sourcePaths": ["outputs/runs.json", "samples.json", "assets/screen-missing.png"],
+      "facts": [
+        {"text": "HTTP 404・success true・error_message 空・受理しない", "from": "runs.json diagnostic.response.status_code・success・error_message、diagnostic.accepted・counted_as_document"},
+        {"text": "受理＝success かつ HTTP 200", "from": "4件すべてで accepted が (success かつ status_code 200) と一致することを確認"},
+        {"text": "3/3 のまま", "from": "documents[].accepted"},
+        {"text": "samples.json でも受理しない", "from": "samples[3].output.status_code・accepted"}
+      ],
+      "screens": [
+        {"file": "assets/screen-missing.png", "crop": [162, 322, 926, 166], "at": [64, 222, 1152], "shows": "『HTTP ステータス 404』『ライブラリの success true』『受理しない』の判定欄と、『success と HTTP ステータスは別のもの』の説明の最初の行。19.9秒から404と受理しないの欄の外側に錆色の枠"}
+      ],
+      "enter": "19.1–20.95秒に、見出し・画面・ラベル・判定の札・説明2行が入る。19.3秒に上の帳の右端へ『404 受理しない』の破線の札",
+      "hold": "20.95–22.6秒",
+      "exit": "22.6–23.0秒に消える"
+    },
+    {
+      "id": "saved",
+      "label": "6 保存した結果",
+      "start": 23,
+      "end": 28,
+      "says": "3ページの6節を Markdown と JSON に保存した。受理した3行と、区切り線の下の取得エラー1行。手元の 127.0.0.1 だけで、公開Web・巡回・LLM・クラウドなし。サーバーの記録は8件で、選ばないページへの要求は0件。版と固定コミット。作例ビューアは保存済みの結果を読むだけ。",
+      "text": ["3ページの6節を、Markdown と JSON に保存", "保存した結果 ・ 受理 3/3 ・ 節 6", "outputs/result.md ・ outputs/runs.json ・ samples.json", "準備・当日の確認・書き出し：HTTP 200 ・ 2節 ・ 受理", "取得エラー /docs/missing.html：HTTP 404 ・ 受理しない", "手元の 127.0.0.1 だけ。公開Web・巡回・LLM・クラウドなし", "サーバー記録 8件（robots.txt を含む）・ 選ばないページへの要求 0件", "Crawl4AI 0.9.5 ・ 6192d5e5b59cb21f9ca418fd6b798de47c0741d3", "実際のビューア（保存済みの結果を読むだけ）"],
+      "sourcePaths": ["outputs/runs.json", "outputs/result.md", "samples.json", "assets/screen-phone.png"],
+      "facts": [
+        {"text": "ファイル名", "from": "作例フォルダに実在し、SHA-256 が確認済みの記録と一致するファイル"},
+        {"text": "サーバー記録 8件・robots.txt・選ばないページ 0件", "from": "runs.json access_log（長さ、/robots.txt と /not-selected.html の回数）"},
+        {"text": "0.9.5・固定コミット（40文字）", "from": "runs.json library.version・commit"}
+      ],
+      "screens": [
+        {"file": "assets/screen-phone.png", "crop": [0, 0, 360, 440], "at": [856, 196, 360], "shows": "作例ビューアのスマートフォン幅の最初の画面。『保存済みの実行結果』の札（24.5秒から）と『取得OK 3/3・取り出した節 6・診断HTTP 404』（24.8秒から）の外側にティールの枠"}
+      ],
+      "enter": "22.8–23.84秒に紙の札が結果のカードの行へ降り、22.95秒からカード、23.45秒から見出し、23.5秒から画面、23.9–24.65秒に範囲・記録・版の3行、24.5–25.1秒に強調枠",
+      "hold": "25.1–28.0秒",
+      "exit": "28秒まで止めたまま終わる"
+    }
+  ],
+  "persistentFootnote": "架空のローカル文書／保存結果から編集／無音（全時刻、左下）",
+  "assets": [
+    {"file": "outputs/runs.json", "use": "全ての文字・数値・セレクター・節の文・入力ファイルの写し", "sha256": "0b932f3a4ac8190d70ff8e320dc0c0354746bc4ec3279a05d55f591aca4418f5", "provenance": "workflow.py が実際の AsyncWebCrawler.arun 4回の model_dump から書き出した公開用の結果。制作側が照合済み（runtime/data-qa.json）。"},
+    {"file": "outputs/result.md", "use": "映像には描かない。保存したファイルとして名前を示すため、実在と一致だけを確かめる", "sha256": "aba3649b3e65334086b1bf9cf5f708eebf90b6e80c2e6257d30050a0892316e6", "provenance": "workflow.py が実行結果から書き出したメモ。"},
+    {"file": "samples.json", "use": "取得エラーが受理されていないことの照合と、保存したファイルとしての名前", "sha256": "a1fda4dc710b5a22d7873cac19550fee61baca2865ac46e576c693248a993377", "provenance": "workflow.py が書き出した入力と出力の4件。"},
+    {"file": "assets/screen-start.png", "use": "3 取り出した節：カード2枚の切り抜き", "sha256": "af94e3a81beef17371b3da012b4199723b49751a7d94edf69e879b8dac0dcb9c", "pixels": [1265, 889], "provenance": "作例ビューアのネイティブ IAB Chromium のスクリーンショットを、同じ画素のまま PNG にしたもの。内容の編集なし。"},
+    {"file": "assets/screen-export.png", "use": "4 JSを待つ：カード2枚の切り抜き", "sha256": "85282c68266a6b36d1f4ca770367320e7d48787487d490e216609e6147765007", "pixels": [1265, 889], "provenance": "同上。"},
+    {"file": "assets/screen-missing.png", "use": "5 404：判定欄と説明の最初の行の切り抜き", "sha256": "17e3d762ff595eb580254b72fb6cd1fd3bfb6059c3410b6f36c7cbfb89585188", "pixels": [1265, 889], "provenance": "同上。"},
+    {"file": "assets/screen-phone.png", "use": "6 保存した結果：スマートフォン幅の最初の画面", "sha256": "f231f447bb88bae83cb053e2c149ecea93c0bc1692eabf525afe9ea37b46def0", "pixels": [375, 812], "provenance": "同上。"}
+  ],
+  "fixtureHashesCheckedInsideRunsJson": {
+    "fixture/docs/start.html": "8780e13670852bbc97bfa8f10c7811c86b053baf91a3526913de907f3d9f31c3",
+    "fixture/docs/review.html": "91c0c3c77ef2f5aa06ca0b8dea12206fd5f9ec222457c3527675b9023b0b4a77",
+    "fixture/docs/export.html": "aea275efe3d13485411cf5154b6ad5c239b7d0edce50e7c33faa25ad9e6615e5",
+    "fixture/docs/dynamic-export.js": "5ba74a6c7a24e473493a75a090e331c29b717c9cd77d5c9a478d0431cddfdb7b"
+  },
+  "hashSource": "runtime/frozen-reviewed-source.json（制作側が凍結した確認済みファイルの記録）から video.js へ値を転記した。実行時にこの記録は読まない。",
+  "screenshotSource": "Studio Yebisu の作例ビューアの実際のスクリーンショット。モックアップではなく、Crawl4AI 本体の画面でもない。画像ファイルは改変せず、Canvas 上で切り抜き・拡大縮小するだけ。切り抜きの座標は画像を見て決めた値で、書き出し後の目視で位置を確かめる必要がある。",
+  "executedProof": {
+    "library": "unclecode/crawl4ai 6192d5e5b59cb21f9ca418fd6b798de47c0741d3（0.9.5）を専用の仮想環境に入れ、インストールした86個の Python・JavaScript ファイルが固定原典と同じ内容であることを制作側が照合した。",
+    "environment": "Windows の Python 3.13.7、インストール済みの Google Chrome（channel=chrome・headless）。",
+    "runs": "AsyncWebCrawler.arun を4回：架空の手順書3ページは HTTP 200・受理3/3・6節、存在しない1ページは HTTP 404・success true・受理しない。",
+    "accessLog": "サーバーの記録8件：robots.txt、文書3ページ、style.css、dynamic-export.js、favicon の404、診断の404。選ばないページへの要求は0件。"
+  },
+  "limits": [
+    "取得したのは手元の 127.0.0.1 で配った作例用の架空の手順書3ページと、存在しない1ページだけ。公開Webの取得、リンクの巡回（deep crawl）、取得の深さは試していない。",
+    "LLM・Crawl4AI Cloud・APIキー・アカウント・支払い・プロキシ・ステルス・ボット対策の回避は使っていない。",
+    "要点は元の段落を CSS セレクターでそのまま取り出したもので、AIが作った要約ではない。",
+    "元のHTMLの節の数（2・2・1）はファイルに書かれた数で、JavaScript を止めて取得した結果ではない。実際の取得は3ページとも wait_for の後の1回ずつ。",
+    "ライブラリの success と HTTP の受理は別。success が true でも HTTP 404 は受理しない。",
+    "手元のサーバーの記録は、外部ホストへの通信が無かったことを示さない。通信の安全性を保証しない。",
+    "作例ビューアは保存済みの結果を読むだけで、取得し直さない。動画もライブの取得やAIの動作を描かない。",
+    "時刻・所要時間・速さ・品質は記録・比較していない。",
+    "物理的な iPhone・Safari・VoiceOver では確かめていない。"
+  ],
+  "silent": true,
+  "authorship": {
+    "film": "この編集ソース（index.html・video.js・video.css・storyboard.json・README.md）は Claude Opus 5.5（claude-opus-5-5）が作成した。",
+    "runOutputs": "outputs/runs.json・outputs/result.md・samples.json の値は、制作側が実際の Crawl4AI を実行して保存したもの。モデルが書いた値ではない。",
+    "screens": "スクリーンショットは制作側が作例ビューアを開いて撮影したもの。",
+    "copyright": "映像の構成・文字・コード：© 2026 Studio Yebisu（MIT License）。スクリーンショットに写る作例ビューアと架空の手順書：© 2026 Studio Yebisu（MIT License）。Motion Reel レンダラー：MIT License。",
+    "upstream": "Crawl4AI（Apache License 2.0）。This product includes software developed by UncleCode (https://x.com/unclecode) as part of the Crawl4AI project (https://github.com/unclecode/crawl4ai).",
+    "redistribution": "Crawl4AI 本体・依存パッケージ・ブラウザーは同梱しない。"
+  },
+  "remaining": [
+    "ブラウザーでの読み込みと SHA-256・保存データの照合・文字の収まりの検査が通ること",
+    "render.py による書き出し、同じ時刻の再描画一致、MP4 のデコード（制作側）",
+    "切り抜きの位置（カードの枠・判定欄・スマートフォン画面の札と数値に強調枠が合うか）",
+    "全体シート・連続フレーム（9.0秒前後の紙の変形、15.0秒前後の画面の切り替え、23.3秒前後の着地）・通し再生での読む時間と重なり",
+    "360px幅に縮小したときの文字の大きさ",
+    "プレビューの再生・一時停止・スライダー・キー操作・28秒での停止",
+    "別のOS・フォントでの文字幅（OSの日本語フォントを使うため）",
+    "人による確認・承認"
+  ]
+}

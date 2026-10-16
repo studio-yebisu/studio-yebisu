@@ -1,0 +1,360 @@
+{
+  "id": "crawl4ai-example",
+  "verified_at": "2026-10-16T03:11:27.306656+00:00",
+  "stage": "runtime-and-agent-visual-reviewed",
+  "source_commit": "6192d5e5b59cb21f9ca418fd6b798de47c0741d3",
+  "data_checks": {
+    "status": "passed",
+    "sample_count": 4,
+    "document_count": 3,
+    "accepted_document_count": 3,
+    "section_count": 6,
+    "native_arun_calls": 4,
+    "raw_model_dump_fields_equal_public": true,
+    "all_sample_payloads_equal_actual_requests_and_responses": true,
+    "independent_HTML_and_JS_input_parsing_equal_actual_rendered_DOM_and_JSON": true,
+    "static_input_sections": [
+      2,
+      2,
+      1
+    ],
+    "rendered_sections": [
+      2,
+      2,
+      2
+    ],
+    "dynamic_section_source_not_in_original_HTML": true,
+    "all_original_fixture_hashes_unchanged": true,
+    "original_fixture_files": 7,
+    "noise_sentinels_absent_from_actual_output": true,
+    "not_selected_page_requests": 0,
+    "actual_robots_request": true,
+    "HTTP404": {
+      "success": true,
+      "status_code": 404,
+      "accepted": false
+    },
+    "library_files_match_fixed_source": 86,
+    "scope": "手元の 127.0.0.1 で配った作例用の架空の手順書3ページと、診断用の存在しない1ページだけを取得しました。公開Webの取得、リンクの巡回、取得の深さは試していません。LLM・クラウド・APIキーは使っていません。",
+    "external_host_traffic_observation": "Not observed by the local server log; no live external crawling was requested.",
+    "human_approval": false,
+    "verified_at": "2026-10-16T02:37:00.181912+00:00"
+  },
+  "environment": {
+    "python": "3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "library_version": "0.9.5",
+    "browser_channel": "chrome",
+    "installed_source_matches_pin": true,
+    "source_files_matched": 86,
+    "source_sha256": {
+      "adaptive_crawler.py": "5d725f1a73a3f78634cbe73bc753f75b815e3ef1af313612194fa383a01410de",
+      "antibot_detector.py": "c72f772e735a0ea6fea7000cc8e8121afdef4e786efaaadd322ab41abbee62e0",
+      "async_configs.py": "8d59242f593226071476abcb5deeb9695328f0fb27f9eb19bd688bfac14393a3",
+      "async_crawler_strategy.py": "20e1b1d1303ce948397797c23f7c9e5c8daab399edf759686863c60b9c722e9e",
+      "async_database.py": "16264e47eac8404d2eb37e9ad6247ff0b3120609beeea18a73b2097d0c649fe7",
+      "async_dispatcher.py": "928abf53ebde72046378997087bb91d5599fe0f798ecb358d3bc2db8aa6345ef",
+      "async_logger.py": "be15970d36c24dd0aa63bd66cafb8dca26dc1602e94100733e9a85b596a5b6c2",
+      "async_url_seeder.py": "5a5be79cc1bc5ca23a6d8592ab1d5da7b4008ac0ff0855e3036446add58f7402",
+      "async_webcrawler.py": "9a4692b7d85426dbc33231971f39736e68a73548b73f6e10ec25cdab02e49e9d",
+      "browser_adapter.py": "f92db602aabc936cc256272e8f2fd265ab3318734b098b73dcb30aee44bf2690",
+      "browser_manager.py": "62d8af68d8739816baa8ebc09628e15b1297ce1923652d98df0ddeafa867dfc6",
+      "browser_profiler.py": "f7df1e400531a9faccd7ffd7de06c85e8db3d4b2f5b2880600d8146923a86112",
+      "cache_context.py": "ae67890490981600f27f4ac3fced1f4da65a9948b4d969dd1049ad44b14e9af8",
+      "cache_validator.py": "2c0245a9f17a9fc33f84c3d884409053a00035f3a656ee06acee77988c4deee7",
+      "chunking_strategy.py": "86a9037c1fbbd396751eb13d6aaaab1b0f6d2f83710d821e0f5ca09ac461dda1",
+      "cli.py": "e1e91cad55d12b76daf3bb2367962ff6c92f000c737ac705140cc1727f679212",
+      "cloud_notice.py": "fe1fa7d7f1202c6cbe3c48c8e9e4536b639e942c68ab14e6fc6afc7b0710359e",
+      "config.py": "bebe789527a3cb37fbd08ab980f7f4092e2ead78a1221ab26d73fc32304a17f5",
+      "content_filter_strategy.py": "e31a6ad933bc673dcb18359792098a245a0c6d23e76a27c92b37fa292f2f92ba",
+      "content_filter_strategy_lxml.py": "6308c52e8b3f419ccb2406373ce2e90af73e16be761d17274f48eab00e18d634",
+      "content_scraping_strategy.py": "07abc8b5add38a370d19e09ae9a76e01169987290193a4598a844c758e76bf48",
+      "docker_client.py": "7179796b8c6330cb213d9dab26c998f4f341620d6946eaef459932983ab64866",
+      "domain_mapper.py": "e9bbfee43026c80eef56d63231033bf87f1215023e99fc5716a11dc47bf8910c",
+      "egress_policy.py": "75ecbd2e24d64e3f9d9bb4ef25e9f8c84bf4384f2856a2a7ccd434731566e5ff",
+      "extraction_strategy.py": "1321909cdbc139a87718e7969456272b4685d065e25a4e9f6690bd6c8a75d11b",
+      "hub.py": "0e11ff1f50f40a46aa06ebad235aef8877e18c605981e647cf51fa4e86f216bc",
+      "install.py": "baabe501b85a428aad3e13b61e2e7e3f78ec5203dac30bce049c687a65280751",
+      "link_preview.py": "7af9a24b661562a8f18aed0b0c035a24fb6071ef939721b494d9e644b96b9167",
+      "markdown_generation_strategy.py": "f6ea10df7b96f2876c8769afc7638a83884315c87abf41036f8710420669fa00",
+      "migrations.py": "346de8b7143371fa4062d73056e8e00f6f69923b84745197caf81838130cf580",
+      "models.py": "9bad0ff4322e9b91d884b04f93a5bc51a48598a8dacd75d527a621ec227ee6a1",
+      "model_loader.py": "814d5bc8c2df6691ee5c4417ffd2602c7774903d7ff200465a4851515864b8b4",
+      "prompts.py": "71040b4fc4cff70a8cd6da5c4596ac0427e7dfe35c0ebbaf16fe6bfe5a90cc29",
+      "proxy_strategy.py": "5862ee5c22cba41a8c14e3dfe3a89b6ba3f5b66c8c9fcd0967adffd758bc1835",
+      "ssl_certificate.py": "f6a33889f3488d9699bbcc737d94bb2f14226d3f9087f938f4770f57df10e5c3",
+      "table_extraction.py": "ba823c843bfc14bf1965093a3f515ba8898e886c8ae480c0309a6063c1c2b817",
+      "types.py": "7d702100e738bc049941b48a8d6d1c4642900748549a54cdd05424d1d38501b4",
+      "user_agent_generator.py": "cd57dce84a0086df20460fe0aea4ef0e24b6f819f8b3a84872c14275a0b91723",
+      "utils.py": "e58e6d47dcde165b926acd7ad72631b3aabb4c6240669bd15b788b2a2b546514",
+      "__init__.py": "b2a2e8a233f1d69b554e9eacbd6a62e223f2a00d5e286e5d28ec150e3f20184c",
+      "__version__.py": "878cbe592b8868788ad6fe374da94e1ca83bc8d9f7e34050ebd8c7377f10139b",
+      "cloud/cli.py": "bfb25406e97e046e072ecc29d9e6445f8dd3fdcd451b8e9c8b48ffbde3bc0144",
+      "cloud/__init__.py": "15df9d157d002b8a5a72f8c8e3a5abee32e565547e99ed46ac38aabae769252e",
+      "components/crawler_monitor.py": "fde7065b4ed652146d45d6544464327ad4b35d97772b6e11a000ec67bfac7cb9",
+      "crawlers/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "deep_crawling/base_strategy.py": "a5b858855b1bf0a23ac8abe2eca102b3b6ff35f0d6ced7b9a6911e2b15e90fd7",
+      "deep_crawling/bff_strategy.py": "7b3f0a5508234331222e6f40e59ece3f98bf22d717a218a16aa14e9a42996fa1",
+      "deep_crawling/bfs_strategy.py": "3c2b64cde51213302541eba34a08892a92e7072fff1973e8ca075c9350af2df9",
+      "deep_crawling/crazy.py": "36f26f28fcf3970279c08ab7ce1b7d42d84fd948ddaba3d126a3a530c20d0494",
+      "deep_crawling/dfs_strategy.py": "4d91e0119d3501bf0373cbc38a4b7715b1d1e3624a214b55296be0e8bf4026ef",
+      "deep_crawling/filters.py": "55858c24196e99536e3ed15c13dcbe40f0ab2eb10c65dd1a23af4f553dd08ef6",
+      "deep_crawling/scorers.py": "549ddd640613b3795dc0bca8a5ce72bb3ff27f8633810781d571192030c776d8",
+      "deep_crawling/__init__.py": "3d9517e53cd18d8213f7af1bfd5cbaf92b423368ba9a4951432487164cdbf6b6",
+      "html2text/cli.py": "657f2a3173f64f073c8333f6c5b27f585992ba4e2c2f0285b0511a897d131490",
+      "html2text/config.py": "9b2895fd6df78d7d226c06c0e1f6ab27dcab6561aac02ef56d83a5f04dd0d33b",
+      "html2text/elements.py": "a77a27310fb881c008f14dfa1c01f9bef5fef6ce90310023ad5dae5eb8e3cdd8",
+      "html2text/utils.py": "5e973ca8de27b22fab430be245ed0bc7c5220afd48c33dea3473df22a928b817",
+      "html2text/_typing.py": "2df3f2fb13ea0ebf47ad3d67de4f58f22e6ef06afde025e8deff3ecbdfa30ded",
+      "html2text/__init__.py": "90d72a5271143776996d4d72856aaabd74c8892856d8963e8670a9e8ec5a9680",
+      "html2text/__main__.py": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+      "js_snippet/flatten_shadow_dom.js": "49f54de2de737acd2878d2e24acda270976802e1eb164397fd62080c9fde3030",
+      "js_snippet/navigator_overrider.js": "cf18b4ca1a4de4af8e1d50492f4f75611e8bb002923b94ff65bc297786145be7",
+      "js_snippet/remove_consent_popups.js": "0f488bce578f03b25c2b82bb2c0dc72b634d84c68d91d9c0937c34daa75f9f16",
+      "js_snippet/remove_overlay_elements.js": "a19075e8500399d4d5423e0f0dc15dae0d662f0ee190aebe9dcf73d6cd8c462d",
+      "js_snippet/update_image_dimensions.js": "81f49f8ffdb3305a7ddeb8a64031402a4efc295a517a06a99e5558928d3ad800",
+      "js_snippet/__init__.py": "5a65e65d4697cb9e1b5de2b1da06d4c930c8f53acb024d860c2cfa78237836cf",
+      "legacy/cli.py": "816b36e0da8a9dba0cbb991889cf294bdb2c5dc1f0fee68294114c80c216c343",
+      "legacy/crawler_strategy.py": "74bdfcdc6978eb407ae8d811f8c96b3a6e3351db6172fd24ebb03de78b58be15",
+      "legacy/database.py": "5a8d56ba112c77e1ee331705c90f09c0c61315140cb8a9db30581115f4424369",
+      "legacy/docs_manager.py": "3834d57215936570fdb32521efdc41a8fab0f62f749313d677d4001716b46d4e",
+      "legacy/llmtxt.py": "b1ec1499c4193d1883002626bb12aa6d650fe5af915e94383f5d99c47959a570",
+      "legacy/version_manager.py": "7eb4b50cd1331daa779d1343bb5cac863d8b9fd292aa57f5f80dd389ef09c8d4",
+      "legacy/web_crawler.py": "381412350032ca8e4456f3bf0c355e16e5e6ecc220317381abd03479d28e0a12",
+      "legacy/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "script/c4ai_script.py": "e87ef7fba82b59e3cbed0736f81ef336196db2cdf593346d2b1668865ebb0ec4",
+      "script/c4a_compile.py": "7a8cc94825e85fcb5a4d1d951eae7acb70f4fd38dc78fd45df63a92b03ea4265",
+      "script/c4a_result.py": "8585acc91517be2d39ddfe94fcf4fce1f8a336f94a68005469f1f638edb36636",
+      "script/__init__.py": "51516fe491a7e543d4c0adb0ac306e24c5b9d72fcf65d94649e265f155901c27",
+      "processors/pdf/processor.py": "f50e0a3d3537b04cf8eb82dddf67f2629f046e74c1841118bfa8fb358a36be08",
+      "processors/pdf/utils.py": "da4c73301a8d0d577026081d8cc7a6dd2b8be116b32de0635195526c040a686f",
+      "processors/pdf/__init__.py": "ceda427f4175b2f69bc055a4ed02dad143bdc822a89c56d9d641a53ef36ee253",
+      "crawlers/amazon_product/crawler.py": "088385260ac4e557ed65576f1a9236bb985d8d45a31407fd92d033b2b8789fd4",
+      "crawlers/amazon_product/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "crawlers/google_search/crawler.py": "e120b9ea92dc20129d73d42f656b70987eed454d2e2ab71df24530a191c3a05d",
+      "crawlers/google_search/script.js": "98d0cd54cd21d9ac1e592434b301d45c28fa0ac6695de9fe90b66f7bc0fbe1e8",
+      "crawlers/google_search/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "probe_HTTP_status": 200,
+    "probe_actual_extracted": [
+      {
+        "heading": "環境の確認",
+        "keypoint": "既存のChromeを使います。"
+      }
+    ],
+    "probe_requests": [
+      "/robots.txt",
+      "/probe.html",
+      "/favicon.ico"
+    ],
+    "scope": "Environment preflight only; not published case input/output evidence."
+  },
+  "semantic_review": {
+    "agent_semantic_review": true,
+    "human_approval": false,
+    "verified": [
+      "Actual4arun payloads equal publicresponses;23DOM blocks and6cards equal savedrawresults.",
+      "Independently parse originalHTML+JSconstants andrenderedHTML; sixsectionsmatch; dynamicsecondsection is absent fromsourceHTML.",
+      "HTTP404success=true is independentlyrejected; robotsrequest andzero unselectedrequests observed.",
+      "Localfixtureproof andCSSextraction are explicit; noLLMsummary/realpubliccrawl/deepcrawling/physicaliOS claim.",
+      "Exact additional attribution is retained in upstreamLICENSE,visiblefooter,README,NOTICEandCLIhelp."
+    ],
+    "unresolved_blockers": []
+  },
+  "browser": {
+    "status": "passed",
+    "sample_count": 4,
+    "agent_visual_review": true,
+    "human_approval": false,
+    "responsive_widths": [
+      320,
+      375,
+      390,
+      430,
+      844,
+      1280
+    ],
+    "responsive_states": 24,
+    "all_DOM_payloads_equal_actual_outputs": true,
+    "DOM_payloads": 23,
+    "native_dynamic_input_page_matches_actual_extraction": true,
+    "root_overflow": false,
+    "primary_targets_min44": true,
+    "input_font_px": 16,
+    "keyboard": "Native ArrowRight selected/focused review, End missing, Home start; focus outline3px.",
+    "initial_hash": "#export survives real reload, selects export after data is ready.",
+    "failure": "ControlledHTTP503: allpanels empty,0cards, no fakefacts; native retry restored6cards andactual3/3,6,404.",
+    "clipboard": {
+      "status": "コピーしました。",
+      "readbackMatches": false,
+      "requestLength": 1045
+    },
+    "screenshots": [
+      {
+        "path": "assets/screen-phone.png",
+        "source": "Native IAB Chromium screenshot, converted to PNG with identical pixels; no content edits.",
+        "description": "390px first screen, real saved-result label and3/3,6,404; native IAB screenshot",
+        "pixels": [
+          375,
+          812
+        ],
+        "sha256": "f231f447bb88bae83cb053e2c149ecea93c0bc1692eabf525afe9ea37b46def0"
+      },
+      {
+        "path": "assets/screen-start.png",
+        "source": "Native IAB Chromium screenshot, converted to PNG with identical pixels; no content edits.",
+        "description": "Actual firstpage two extracted sections andMarkdown",
+        "pixels": [
+          1265,
+          889
+        ],
+        "sha256": "af94e3a81beef17371b3da012b4199723b49751a7d94edf69e879b8dac0dcb9c"
+      },
+      {
+        "path": "assets/screen-export.png",
+        "source": "Native IAB Chromium screenshot, converted to PNG with identical pixels; no content edits.",
+        "description": "Actual exportHTML section andJavascript-added second section",
+        "pixels": [
+          1265,
+          889
+        ],
+        "sha256": "85282c68266a6b36d1f4ca770367320e7d48787487d490e216609e6147765007"
+      },
+      {
+        "path": "assets/screen-missing.png",
+        "source": "Native IAB Chromium screenshot, converted to PNG with identical pixels; no content edits.",
+        "description": "Actual HTTP404,success=true andnotaccepted",
+        "pixels": [
+          1265,
+          889
+        ],
+        "sha256": "17e3d762ff595eb580254b72fb6cd1fd3bfb6059c3410b6f36c7cbfb89585188"
+      }
+    ],
+    "scope": [
+      "Windows IAB Chromium andemulated viewports; physicaliOS/Safari/VoiceOver untested.",
+      "Agent visual inspection is not human aesthetic approval."
+    ],
+    "verified_at": "2026-10-16T02:43:09.811752+00:00"
+  },
+  "video": {
+    "video_sha256": "75725dcade8f0d7302285d2fc37feb7ec93464818051ed401abf0ae36f6bd302",
+    "poster_sha256": "db403413eed15ff45597b57f559bc50d0870fa9351178d9273f3b064db6d7507",
+    "poster_from_mp4_seconds": 13.5,
+    "full_decode_passed": true,
+    "review_files": [
+      "contact.png",
+      "poster.png",
+      "strip.png",
+      "stills/frame-000000.png",
+      "stills/frame-000001.png",
+      "stills/frame-000002.png",
+      "stills/frame-000003.png",
+      "stills/frame-000004.png",
+      "stills/frame-000005.png",
+      "stills/frame-000006.png",
+      "stills/frame-000007.png",
+      "stills/frame-000008.png",
+      "stills/frame-000009.png",
+      "stills/frame-000010.png",
+      "stills/frame-000011.png",
+      "stills/frame-000012.png",
+      "stills/frame-000013.png",
+      "cut-01.png",
+      "cut-02.png",
+      "cut-03.png",
+      "cut-04.png",
+      "cut-05.png",
+      "final.png"
+    ],
+    "render_label": "final-v1",
+    "bundled_renderer_executed": true,
+    "reviewed_at": "2026-10-16T03:11:27.196550+00:00",
+    "agent_visual_review": true,
+    "human_approval": false,
+    "native_playback": {
+      "duration": 28,
+      "ended": true,
+      "error": null,
+      "paused": true,
+      "ready": 4,
+      "time": 28,
+      "first_observed_seconds": 0,
+      "initial_paused": true,
+      "initial_ready_state": 1,
+      "no_manual_seek": true
+    },
+    "source_editor": {
+      "canvas": [
+        1280,
+        720
+      ],
+      "client": 360,
+      "play_enabled": true,
+      "play_size": [
+        112,
+        48
+      ],
+      "position": 14,
+      "range_font": "16px",
+      "range_height": 44,
+      "readout": "14.0 / 28.0 秒 ・ 3 取り出した節",
+      "scroll": 360,
+      "status": "準備完了：保存済みの結果と実際の画面から描画しています（28秒・無音・自動再生なし）。",
+      "viewport": 375
+    },
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "e569ef5652aec03c1e5a7abc8f4716f8b31260d252f26e429dd838b7e9ae9482",
+      "afterOtherTimes": "e569ef5652aec03c1e5a7abc8f4716f8b31260d252f26e429dd838b7e9ae9482",
+      "freshPage": "e569ef5652aec03c1e5a7abc8f4716f8b31260d252f26e429dd838b7e9ae9482",
+      "match": true
+    },
+    "audio": "silent; no audio track",
+    "unresolved_blockers": [],
+    "review_scope": [
+      "Inspected14frame contact, full13.5sposter,18sJSsourcecount/actual2sections,22s404,26sresultcard+phonecrop,finalMP4frame; no text clipping orincorrectdata observed.",
+      "Inspected12framesource stripat9.0 and23.3 plus five12frame actualMP4strips3.85/8.85/14.85/18.85/22.85. Brief contentfades retainpage/tabs/footer as visualcontinuity; no accumulatedcliporfullframeflash observed.",
+      "Actualstart/exportrenderedcards align withnative screenshotcrops; JS1meanssourceHTMLcount, notJSdisabledcrawl.",
+      "404actualsuccess=true andHTTP404 explicitly rejected withdocumentacceptance3/3; lastcardkeepsdiagnosticseparate.",
+      "Lastphonecrop highlights actualsaved-resultlabel and3/3,6,404; fullfixedcommit fits.",
+      "NativeMP4reloadedat0/ready1/paused thenautomaticallyplayedto28/ended/ready4/errornullwithoutmanualseek.",
+      "WindowsIAB375pxsourceeditor nooverflow,112x48play,44pxrange16pxfont; nativeHome+7PageUp→14sready.",
+      "Agentrepresentative/continuousframe inspection andbrowserplayback are nothumanaestheticapproval."
+    ],
+    "remaining": [
+      "PhysicaliOS/Safari/VoiceOver, otheraspectratios andhumanartisticapproval untested."
+    ]
+  },
+  "motion_reel": {
+    "name": "Studio Yebisu Motion Reel rendering runtime",
+    "license": "MIT",
+    "copyright": "2026 Studio Yebisu",
+    "files_sha256": {
+      "render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+      "audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+      "package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+      "package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+      "LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd"
+    },
+    "dependency_lock": "Playwright1.64.0 npm registry Apache-2.0; dependencies not distributed."
+  },
+  "production_contributions": {
+    "Opus5.5": "Applied brief-to-demo and fixed Crawl4AI documentation; authored originalHTML/JSfixture, realPythonAPI driver, Japaneseviewer/guide andeditable28secondfilm.",
+    "production_editor": "Verified exact source and86installedfiles, executed4genuinearun requests, independentlycomparedsource/JS/actualrenderedHTML/JSON/Markdown/23DOMpayloads, refinedphonelayout, reviewedactualfilm andscopedpublication. Fullmodelhistoriesremainprivate."
+  },
+  "parent_adjustments": {
+    "changes": [
+      "Shorten hero text, show actual three facts in compact mobile grid, add44px section anchors.",
+      "Move results before methodology, fold method/config details, retain source and scope.",
+      "Retain exact appended attribution in LICENSE/NOTICE/visible footer and add it to CLI help; no legal-status inference.",
+      "Use compact actual fact values and brief loaded-state message; shorten results heading.",
+      "Use original title prefix for result panel; fold successful HTTP flags so actual extractedtext appears earlier.",
+      "Replace stale editor MP4-pending notice with a pointer to the public case, while retaining authored-not-rendered storyboard as historical design.",
+      "Make range input inherit16px font; native375pxeditor play112x48 andrange44px, no root overflow."
+    ],
+    "updated_at": "2026-10-16T02:36:48.301433+00:00"
+  },
+  "human_approval": false
+}

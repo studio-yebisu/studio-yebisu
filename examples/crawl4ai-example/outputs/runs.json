@@ -1,0 +1,736 @@
+{
+  "format": "studio-yebisu/crawl4ai-example-runs@1",
+  "library": {
+    "name": "Crawl4AI",
+    "version": "0.9.5",
+    "commit": "6192d5e5b59cb21f9ca418fd6b798de47c0741d3",
+    "commit_note": "インストール元に指定した固定コミットです。インストール済みのパッケージから読み取った値ではありません。",
+    "install_source": "https://github.com/unclecode/crawl4ai/archive/6192d5e5b59cb21f9ca418fd6b798de47c0741d3.zip",
+    "license": "Apache-2.0",
+    "attribution": "This project uses Crawl4AI (https://github.com/unclecode/crawl4ai) for web data extraction."
+  },
+  "scope_note": "手元の 127.0.0.1 で配った作例用の架空の手順書3ページと、診断用の存在しない1ページだけを取得しました。公開Webの取得、リンクの巡回、取得の深さは試していません。LLM・クラウド・APIキーは使っていません。",
+  "url_note": "URL のポート番号は、実行のたびに OS が割り当てる一時ポートです。保存済みの実行結果に残っている値で、今そのアドレスにサーバーはありません。",
+  "browser": {
+    "channel": "chrome",
+    "config": {
+      "headless": true,
+      "channel": "chrome",
+      "chrome_channel": "chrome",
+      "ignore_https_errors": false,
+      "verbose": false,
+      "use_persistent_context": false
+    },
+    "config_dump": {
+      "type": "BrowserConfig",
+      "params": {
+        "chrome_channel": "chrome",
+        "channel": "chrome",
+        "ignore_https_errors": false,
+        "verbose": false,
+        "headers": {
+          "type": "dict",
+          "value": {
+            "sec-ch-ua": "\"Chromium\";v=\"116\", \"Not_A Brand\";v=\"8\", \"Google Chrome\";v=\"116\""
+          }
+        }
+      }
+    }
+  },
+  "schema": {
+    "name": "Guide sections",
+    "baseSelector": "article.doc-section",
+    "fields": [
+      {
+        "name": "heading",
+        "selector": "h2",
+        "type": "text"
+      },
+      {
+        "name": "keypoint",
+        "selector": "p.keypoint",
+        "type": "text"
+      }
+    ]
+  },
+  "selectors": {
+    "css_selector": "main#guide",
+    "excluded_tags": [
+      "nav",
+      "footer"
+    ],
+    "wait_for": "css:#guide[data-ready=\"true\"]",
+    "baseSelector": "article.doc-section"
+  },
+  "requests": [
+    {
+      "id": "start",
+      "kind": "document",
+      "url": "http://127.0.0.1:55880/docs/start.html"
+    },
+    {
+      "id": "review",
+      "kind": "document",
+      "url": "http://127.0.0.1:55880/docs/review.html"
+    },
+    {
+      "id": "export",
+      "kind": "document",
+      "url": "http://127.0.0.1:55880/docs/export.html"
+    },
+    {
+      "id": "missing",
+      "kind": "diagnostic",
+      "url": "http://127.0.0.1:55880/docs/missing.html"
+    }
+  ],
+  "documents": [
+    {
+      "id": "start",
+      "label": "準備",
+      "title": "準備を始める｜木工ワークショップ運営メモ（架空）",
+      "path": "/docs/start.html",
+      "input_html": {
+        "path": "fixture/docs/start.html",
+        "sha256": "8780e13670852bbc97bfa8f10c7811c86b053baf91a3526913de907f3d9f31c3",
+        "text": "<!doctype html>\n<html lang=\"ja\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\">\n<title>準備を始める｜木工ワークショップ運営メモ（架空）</title>\n<link rel=\"stylesheet\" href=\"../style.css\">\n</head>\n<body>\n<nav class=\"site-nav\" aria-label=\"手順書の目次\">\n  <a href=\"start.html\" aria-current=\"page\">準備</a>\n  <a href=\"review.html\">当日の確認</a>\n  <a href=\"export.html\">書き出し</a>\n  <a href=\"../not-selected.html\">選ばないページ</a>\n  <a href=\"https://example.invalid/workshop\">外部の案内</a>\n  <p class=\"nav-note\">NAV_ONLY_SENTINEL</p>\n</nav>\n<main id=\"guide\" data-ready=\"true\">\n  <h1>準備を始める</h1>\n  <p class=\"lead\">架空の木工ワークショップ運営チームが、開催の前に読む手順です。</p>\n  <article class=\"doc-section\">\n    <h2>参加者名簿を作る</h2>\n    <p class=\"keypoint\">名簿は開催の前日までに作り、氏名と卓番号の2列だけにします。</p>\n    <p class=\"note\">ふりがなが要るときは、氏名の下に小さく添えます。</p>\n  </article>\n  <article class=\"doc-section\">\n    <h2>工具の数をそろえる</h2>\n    <p class=\"keypoint\">のこぎりと小刀は卓ごとに同じ数を用意し、箱のふたに本数を書きます。</p>\n    <p class=\"note\">予備は運営の机にまとめて置きます。</p>\n  </article>\n</main>\n<footer class=\"site-footer\">\n  <p>FOOTER_ONLY_SENTINEL · 作例用の架空の文書です。<a href=\"https://example.invalid/contact\">問い合わせ先</a></p>\n</footer>\n</body>\n</html>\n"
+      },
+      "request": {
+        "url": "http://127.0.0.1:55880/docs/start.html",
+        "config": {
+          "cache_mode": "CacheMode.BYPASS",
+          "check_robots_txt": true,
+          "css_selector": "main#guide",
+          "excluded_tags": [
+            "nav",
+            "footer"
+          ],
+          "word_count_threshold": 0,
+          "wait_for": "css:#guide[data-ready=\"true\"]",
+          "page_timeout": 20000,
+          "extraction_strategy": {
+            "class": "JsonCssExtractionStrategy",
+            "schema": {
+              "name": "Guide sections",
+              "baseSelector": "article.doc-section",
+              "fields": [
+                {
+                  "name": "heading",
+                  "selector": "h2",
+                  "type": "text"
+                },
+                {
+                  "name": "keypoint",
+                  "selector": "p.keypoint",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "markdown_generator": {
+            "class": "DefaultMarkdownGenerator",
+            "options": {
+              "ignore_links": true,
+              "body_width": 0
+            }
+          },
+          "verbose": false
+        },
+        "config_dump": {
+          "type": "CrawlerRunConfig",
+          "params": {
+            "word_count_threshold": 0,
+            "extraction_strategy": {
+              "type": "JsonCssExtractionStrategy",
+              "params": {
+                "schema": {
+                  "type": "dict",
+                  "value": {
+                    "name": "Guide sections",
+                    "baseSelector": "article.doc-section",
+                    "fields": [
+                      {
+                        "type": "dict",
+                        "value": {
+                          "name": "heading",
+                          "selector": "h2",
+                          "type": "text"
+                        }
+                      },
+                      {
+                        "type": "dict",
+                        "value": {
+                          "name": "keypoint",
+                          "selector": "p.keypoint",
+                          "type": "text"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "markdown_generator": {
+              "type": "DefaultMarkdownGenerator",
+              "params": {
+                "options": {
+                  "type": "dict",
+                  "value": {
+                    "ignore_links": true,
+                    "body_width": 0
+                  }
+                }
+              }
+            },
+            "css_selector": "main#guide",
+            "excluded_tags": [
+              "nav",
+              "footer"
+            ],
+            "scraping_strategy": {
+              "type": "LXMLWebScrapingStrategy",
+              "params": {}
+            },
+            "page_timeout": 20000,
+            "wait_for": "css:#guide[data-ready=\"true\"]",
+            "table_extraction": {
+              "type": "DefaultTableExtraction",
+              "params": {}
+            },
+            "exclude_social_media_domains": [
+              "facebook.com",
+              "twitter.com",
+              "x.com",
+              "linkedin.com",
+              "instagram.com",
+              "pinterest.com",
+              "tiktok.com",
+              "snapchat.com",
+              "reddit.com"
+            ],
+            "verbose": false,
+            "check_robots_txt": true
+          }
+        }
+      },
+      "response": {
+        "url": "http://127.0.0.1:55880/docs/start.html",
+        "status_code": 200,
+        "success": true,
+        "error_message": "",
+        "markdown": "# 準備を始める\n架空の木工ワークショップ運営チームが、開催の前に読む手順です。\n## 参加者名簿を作る\n名簿は開催の前日までに作り、氏名と卓番号の2列だけにします。\nふりがなが要るときは、氏名の下に小さく添えます。\n## 工具の数をそろえる\nのこぎりと小刀は卓ごとに同じ数を用意し、箱のふたに本数を書きます。\n予備は運営の机にまとめて置きます。\n",
+        "extracted_content": "[\n    {\n        \"heading\": \"参加者名簿を作る\",\n        \"keypoint\": \"名簿は開催の前日までに作り、氏名と卓番号の2列だけにします。\"\n    },\n    {\n        \"heading\": \"工具の数をそろえる\",\n        \"keypoint\": \"のこぎりと小刀は卓ごとに同じ数を用意し、箱のふたに本数を書きます。\"\n    }\n]"
+      },
+      "sections": [
+        {
+          "heading": "参加者名簿を作る",
+          "keypoint": "名簿は開催の前日までに作り、氏名と卓番号の2列だけにします。"
+        },
+        {
+          "heading": "工具の数をそろえる",
+          "keypoint": "のこぎりと小刀は卓ごとに同じ数を用意し、箱のふたに本数を書きます。"
+        }
+      ],
+      "section_origins": [
+        "html",
+        "html"
+      ],
+      "accepted": true
+    },
+    {
+      "id": "review",
+      "label": "当日の確認",
+      "title": "当日の確認｜木工ワークショップ運営メモ（架空）",
+      "path": "/docs/review.html",
+      "input_html": {
+        "path": "fixture/docs/review.html",
+        "sha256": "91c0c3c77ef2f5aa06ca0b8dea12206fd5f9ec222457c3527675b9023b0b4a77",
+        "text": "<!doctype html>\n<html lang=\"ja\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\">\n<title>当日の確認｜木工ワークショップ運営メモ（架空）</title>\n<link rel=\"stylesheet\" href=\"../style.css\">\n</head>\n<body>\n<nav class=\"site-nav\" aria-label=\"手順書の目次\">\n  <a href=\"start.html\">準備</a>\n  <a href=\"review.html\" aria-current=\"page\">当日の確認</a>\n  <a href=\"export.html\">書き出し</a>\n  <a href=\"../not-selected.html\">選ばないページ</a>\n  <a href=\"https://example.invalid/workshop\">外部の案内</a>\n  <p class=\"nav-note\">NAV_ONLY_SENTINEL</p>\n</nav>\n<main id=\"guide\" data-ready=\"true\">\n  <h1>当日の確認</h1>\n  <p class=\"lead\">開場から始まりの合図までに、運営の2人で確かめることです。</p>\n  <article class=\"doc-section\">\n    <h2>刃物を確かめる</h2>\n    <p class=\"keypoint\">刃こぼれのある工具は赤い箱に分け、その日は使いません。</p>\n    <p class=\"note\">分けた工具の数は、終わってから名簿の余白に書きます。</p>\n  </article>\n  <article class=\"doc-section\">\n    <h2>質問を集める</h2>\n    <p class=\"keypoint\">質問は付箋1枚に1つ書いてもらい、卓番号を左上に添えます。</p>\n    <p class=\"note\">集めた付箋は休憩の前に読み上げます。</p>\n  </article>\n</main>\n<footer class=\"site-footer\">\n  <p>FOOTER_ONLY_SENTINEL · 作例用の架空の文書です。<a href=\"https://example.invalid/contact\">問い合わせ先</a></p>\n</footer>\n</body>\n</html>\n"
+      },
+      "request": {
+        "url": "http://127.0.0.1:55880/docs/review.html",
+        "config": {
+          "cache_mode": "CacheMode.BYPASS",
+          "check_robots_txt": true,
+          "css_selector": "main#guide",
+          "excluded_tags": [
+            "nav",
+            "footer"
+          ],
+          "word_count_threshold": 0,
+          "wait_for": "css:#guide[data-ready=\"true\"]",
+          "page_timeout": 20000,
+          "extraction_strategy": {
+            "class": "JsonCssExtractionStrategy",
+            "schema": {
+              "name": "Guide sections",
+              "baseSelector": "article.doc-section",
+              "fields": [
+                {
+                  "name": "heading",
+                  "selector": "h2",
+                  "type": "text"
+                },
+                {
+                  "name": "keypoint",
+                  "selector": "p.keypoint",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "markdown_generator": {
+            "class": "DefaultMarkdownGenerator",
+            "options": {
+              "ignore_links": true,
+              "body_width": 0
+            }
+          },
+          "verbose": false
+        },
+        "config_dump": {
+          "type": "CrawlerRunConfig",
+          "params": {
+            "word_count_threshold": 0,
+            "extraction_strategy": {
+              "type": "JsonCssExtractionStrategy",
+              "params": {
+                "schema": {
+                  "type": "dict",
+                  "value": {
+                    "name": "Guide sections",
+                    "baseSelector": "article.doc-section",
+                    "fields": [
+                      {
+                        "type": "dict",
+                        "value": {
+                          "name": "heading",
+                          "selector": "h2",
+                          "type": "text"
+                        }
+                      },
+                      {
+                        "type": "dict",
+                        "value": {
+                          "name": "keypoint",
+                          "selector": "p.keypoint",
+                          "type": "text"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "markdown_generator": {
+              "type": "DefaultMarkdownGenerator",
+              "params": {
+                "options": {
+                  "type": "dict",
+                  "value": {
+                    "ignore_links": true,
+                    "body_width": 0
+                  }
+                }
+              }
+            },
+            "css_selector": "main#guide",
+            "excluded_tags": [
+              "nav",
+              "footer"
+            ],
+            "scraping_strategy": {
+              "type": "LXMLWebScrapingStrategy",
+              "params": {}
+            },
+            "page_timeout": 20000,
+            "wait_for": "css:#guide[data-ready=\"true\"]",
+            "table_extraction": {
+              "type": "DefaultTableExtraction",
+              "params": {}
+            },
+            "exclude_social_media_domains": [
+              "facebook.com",
+              "twitter.com",
+              "x.com",
+              "linkedin.com",
+              "instagram.com",
+              "pinterest.com",
+              "tiktok.com",
+              "snapchat.com",
+              "reddit.com"
+            ],
+            "verbose": false,
+            "check_robots_txt": true
+          }
+        }
+      },
+      "response": {
+        "url": "http://127.0.0.1:55880/docs/review.html",
+        "status_code": 200,
+        "success": true,
+        "error_message": "",
+        "markdown": "# 当日の確認\n開場から始まりの合図までに、運営の2人で確かめることです。\n## 刃物を確かめる\n刃こぼれのある工具は赤い箱に分け、その日は使いません。\n分けた工具の数は、終わってから名簿の余白に書きます。\n## 質問を集める\n質問は付箋1枚に1つ書いてもらい、卓番号を左上に添えます。\n集めた付箋は休憩の前に読み上げます。\n",
+        "extracted_content": "[\n    {\n        \"heading\": \"刃物を確かめる\",\n        \"keypoint\": \"刃こぼれのある工具は赤い箱に分け、その日は使いません。\"\n    },\n    {\n        \"heading\": \"質問を集める\",\n        \"keypoint\": \"質問は付箋1枚に1つ書いてもらい、卓番号を左上に添えます。\"\n    }\n]"
+      },
+      "sections": [
+        {
+          "heading": "刃物を確かめる",
+          "keypoint": "刃こぼれのある工具は赤い箱に分け、その日は使いません。"
+        },
+        {
+          "heading": "質問を集める",
+          "keypoint": "質問は付箋1枚に1つ書いてもらい、卓番号を左上に添えます。"
+        }
+      ],
+      "section_origins": [
+        "html",
+        "html"
+      ],
+      "accepted": true
+    },
+    {
+      "id": "export",
+      "label": "書き出し",
+      "title": "記録の書き出し｜木工ワークショップ運営メモ（架空）",
+      "path": "/docs/export.html",
+      "input_html": {
+        "path": "fixture/docs/export.html",
+        "sha256": "aea275efe3d13485411cf5154b6ad5c239b7d0edce50e7c33faa25ad9e6615e5",
+        "text": "<!doctype html>\n<html lang=\"ja\">\n<head>\n<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\">\n<title>記録の書き出し｜木工ワークショップ運営メモ（架空）</title>\n<link rel=\"stylesheet\" href=\"../style.css\">\n<script src=\"dynamic-export.js\" defer></script>\n</head>\n<body>\n<nav class=\"site-nav\" aria-label=\"手順書の目次\">\n  <a href=\"start.html\">準備</a>\n  <a href=\"review.html\">当日の確認</a>\n  <a href=\"export.html\" aria-current=\"page\">書き出し</a>\n  <a href=\"../not-selected.html\">選ばないページ</a>\n  <a href=\"https://example.invalid/workshop\">外部の案内</a>\n  <p class=\"nav-note\">NAV_ONLY_SENTINEL</p>\n</nav>\n<main id=\"guide\" data-ready=\"false\">\n  <h1>記録の書き出し</h1>\n  <p class=\"lead\">終了後に、当日の記録をひとつにまとめる手順です。最後の節は、このページの JavaScript（dynamic-export.js）が読み込み後に追加します。</p>\n  <article class=\"doc-section\">\n    <h2>記録をまとめる</h2>\n    <p class=\"keypoint\">終了後30分以内に、付箋の写真と名簿をひとつのフォルダに入れます。</p>\n    <p class=\"note\">写真は卓番号の順に並べます。</p>\n  </article>\n</main>\n<footer class=\"site-footer\">\n  <p>FOOTER_ONLY_SENTINEL · 作例用の架空の文書です。<a href=\"https://example.invalid/contact\">問い合わせ先</a></p>\n</footer>\n</body>\n</html>\n"
+      },
+      "request": {
+        "url": "http://127.0.0.1:55880/docs/export.html",
+        "config": {
+          "cache_mode": "CacheMode.BYPASS",
+          "check_robots_txt": true,
+          "css_selector": "main#guide",
+          "excluded_tags": [
+            "nav",
+            "footer"
+          ],
+          "word_count_threshold": 0,
+          "wait_for": "css:#guide[data-ready=\"true\"]",
+          "page_timeout": 20000,
+          "extraction_strategy": {
+            "class": "JsonCssExtractionStrategy",
+            "schema": {
+              "name": "Guide sections",
+              "baseSelector": "article.doc-section",
+              "fields": [
+                {
+                  "name": "heading",
+                  "selector": "h2",
+                  "type": "text"
+                },
+                {
+                  "name": "keypoint",
+                  "selector": "p.keypoint",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "markdown_generator": {
+            "class": "DefaultMarkdownGenerator",
+            "options": {
+              "ignore_links": true,
+              "body_width": 0
+            }
+          },
+          "verbose": false
+        },
+        "config_dump": {
+          "type": "CrawlerRunConfig",
+          "params": {
+            "word_count_threshold": 0,
+            "extraction_strategy": {
+              "type": "JsonCssExtractionStrategy",
+              "params": {
+                "schema": {
+                  "type": "dict",
+                  "value": {
+                    "name": "Guide sections",
+                    "baseSelector": "article.doc-section",
+                    "fields": [
+                      {
+                        "type": "dict",
+                        "value": {
+                          "name": "heading",
+                          "selector": "h2",
+                          "type": "text"
+                        }
+                      },
+                      {
+                        "type": "dict",
+                        "value": {
+                          "name": "keypoint",
+                          "selector": "p.keypoint",
+                          "type": "text"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "markdown_generator": {
+              "type": "DefaultMarkdownGenerator",
+              "params": {
+                "options": {
+                  "type": "dict",
+                  "value": {
+                    "ignore_links": true,
+                    "body_width": 0
+                  }
+                }
+              }
+            },
+            "css_selector": "main#guide",
+            "excluded_tags": [
+              "nav",
+              "footer"
+            ],
+            "scraping_strategy": {
+              "type": "LXMLWebScrapingStrategy",
+              "params": {}
+            },
+            "page_timeout": 20000,
+            "wait_for": "css:#guide[data-ready=\"true\"]",
+            "table_extraction": {
+              "type": "DefaultTableExtraction",
+              "params": {}
+            },
+            "exclude_social_media_domains": [
+              "facebook.com",
+              "twitter.com",
+              "x.com",
+              "linkedin.com",
+              "instagram.com",
+              "pinterest.com",
+              "tiktok.com",
+              "snapchat.com",
+              "reddit.com"
+            ],
+            "verbose": false,
+            "check_robots_txt": true
+          }
+        }
+      },
+      "response": {
+        "url": "http://127.0.0.1:55880/docs/export.html",
+        "status_code": 200,
+        "success": true,
+        "error_message": "",
+        "markdown": "# 記録の書き出し\n終了後に、当日の記録をひとつにまとめる手順です。最後の節は、このページの JavaScript（dynamic-export.js）が読み込み後に追加します。\n## 記録をまとめる\n終了後30分以内に、付箋の写真と名簿をひとつのフォルダに入れます。\n写真は卓番号の順に並べます。\n## 書き出す前に確かめる\nフォルダ名を日付と会場名にし、参加者の顔や連絡先が写った写真を除きます。\nこの節は dynamic-export.js が追加しました。\n",
+        "extracted_content": "[\n    {\n        \"heading\": \"記録をまとめる\",\n        \"keypoint\": \"終了後30分以内に、付箋の写真と名簿をひとつのフォルダに入れます。\"\n    },\n    {\n        \"heading\": \"書き出す前に確かめる\",\n        \"keypoint\": \"フォルダ名を日付と会場名にし、参加者の顔や連絡先が写った写真を除きます。\"\n    }\n]"
+      },
+      "sections": [
+        {
+          "heading": "記録をまとめる",
+          "keypoint": "終了後30分以内に、付箋の写真と名簿をひとつのフォルダに入れます。"
+        },
+        {
+          "heading": "書き出す前に確かめる",
+          "keypoint": "フォルダ名を日付と会場名にし、参加者の顔や連絡先が写った写真を除きます。"
+        }
+      ],
+      "section_origins": [
+        "html",
+        "script"
+      ],
+      "accepted": true,
+      "input_script": {
+        "path": "fixture/docs/dynamic-export.js",
+        "sha256": "5ba74a6c7a24e473493a75a090e331c29b717c9cd77d5c9a478d0431cddfdb7b",
+        "text": "// export.html の最後の節を、読み込みの少しあとに追加する。\n// この節の文字列は export.html には書かれていない。通信・保存・計測はしない。\n// 追加し終えたら main#guide の data-ready を \"true\" にする（取得側はこの印を待つ）。\n(function () {\n  \"use strict\";\n\n  var HEADING = \"書き出す前に確かめる\";\n  var KEYPOINT = \"フォルダ名を日付と会場名にし、参加者の顔や連絡先が写った写真を除きます。\";\n  var NOTE = \"この節は dynamic-export.js が追加しました。\";\n\n  function addSection() {\n    var guide = document.getElementById(\"guide\");\n    if (!guide || guide.querySelector('[data-origin=\"script\"]')) return;\n\n    var article = document.createElement(\"article\");\n    article.className = \"doc-section\";\n    article.setAttribute(\"data-origin\", \"script\");\n\n    var heading = document.createElement(\"h2\");\n    heading.textContent = HEADING;\n    var keypoint = document.createElement(\"p\");\n    keypoint.className = \"keypoint\";\n    keypoint.textContent = KEYPOINT;\n    var note = document.createElement(\"p\");\n    note.className = \"note\";\n    note.textContent = NOTE;\n\n    article.appendChild(heading);\n    article.appendChild(keypoint);\n    article.appendChild(note);\n    guide.appendChild(article);\n    guide.setAttribute(\"data-ready\", \"true\");\n  }\n\n  // 読み込み直後のHTMLにはまだ無い状態を作るため、少し遅らせて追加する。\n  window.setTimeout(addSection, 400);\n})();\n"
+      }
+    }
+  ],
+  "diagnostic": {
+    "id": "missing",
+    "label": "取得エラー",
+    "path": "/docs/missing.html",
+    "expected_status": 404,
+    "request": {
+      "url": "http://127.0.0.1:55880/docs/missing.html",
+      "config": {
+        "cache_mode": "CacheMode.BYPASS",
+        "check_robots_txt": true,
+        "excluded_tags": [
+          "nav",
+          "footer"
+        ],
+        "word_count_threshold": 0,
+        "page_timeout": 20000,
+        "markdown_generator": {
+          "class": "DefaultMarkdownGenerator",
+          "options": {
+            "ignore_links": true,
+            "body_width": 0
+          }
+        },
+        "verbose": false,
+        "note": "HTTPステータスをそのまま記録するため、wait_for・css_selector・extraction_strategy は付けない。"
+      },
+      "config_dump": {
+        "type": "CrawlerRunConfig",
+        "params": {
+          "word_count_threshold": 0,
+          "markdown_generator": {
+            "type": "DefaultMarkdownGenerator",
+            "params": {
+              "options": {
+                "type": "dict",
+                "value": {
+                  "ignore_links": true,
+                  "body_width": 0
+                }
+              }
+            }
+          },
+          "excluded_tags": [
+            "nav",
+            "footer"
+          ],
+          "scraping_strategy": {
+            "type": "LXMLWebScrapingStrategy",
+            "params": {}
+          },
+          "page_timeout": 20000,
+          "table_extraction": {
+            "type": "DefaultTableExtraction",
+            "params": {}
+          },
+          "exclude_social_media_domains": [
+            "facebook.com",
+            "twitter.com",
+            "x.com",
+            "linkedin.com",
+            "instagram.com",
+            "pinterest.com",
+            "tiktok.com",
+            "snapchat.com",
+            "reddit.com"
+          ],
+          "verbose": false,
+          "check_robots_txt": true
+        }
+      }
+    },
+    "response": {
+      "url": "http://127.0.0.1:55880/docs/missing.html",
+      "status_code": 404,
+      "success": true,
+      "error_message": "",
+      "markdown": "# Error response\nError code: 404\nMessage: File not found.\nError code explanation: 404 - Nothing matches the given URI.\n",
+      "extracted_content": null
+    },
+    "accepted": false,
+    "counted_as_document": false
+  },
+  "access_log": [
+    {
+      "method": "GET",
+      "path": "/robots.txt",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/docs/start.html",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/style.css",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/favicon.ico",
+      "status": 404
+    },
+    {
+      "method": "GET",
+      "path": "/docs/review.html",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/docs/export.html",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/docs/dynamic-export.js",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/docs/missing.html",
+      "status": 404
+    }
+  ],
+  "checks": [
+    {
+      "id": "library_version",
+      "label": "Crawl4AI の版",
+      "passed": true,
+      "detail": "インストール済みの crawl4ai.__version__ は 0.9.5（想定 0.9.5）。"
+    },
+    {
+      "id": "source_inputs",
+      "label": "元のHTMLとJavaScript",
+      "passed": true,
+      "detail": "期待する6節の見出し・要点がソースにあり、書き出しページの最後の節は export.html になく dynamic-export.js だけにあることを、取得前に確かめました。"
+    },
+    {
+      "id": "documents_accepted",
+      "label": "3ページを HTTP 200 で受理",
+      "passed": true,
+      "detail": "/docs/start.html：HTTP 200・success=True、/docs/review.html：HTTP 200・success=True、/docs/export.html：HTTP 200・success=True"
+    },
+    {
+      "id": "sections_match_source",
+      "label": "取り出した節が元の見出し・要点と一致",
+      "passed": true,
+      "detail": "extracted_content から読んだ節は合計 6。3ページとも、元のHTML・JavaScriptに書かれた見出しと要点に、順番も含めて一致しました。"
+    },
+    {
+      "id": "markdown_has_sections",
+      "label": "Markdown に6節の見出しと要点がある",
+      "passed": true,
+      "detail": "raw_markdown に6節すべての見出しと要点の文がそのまま含まれています。"
+    },
+    {
+      "id": "no_noise_sentinels",
+      "label": "ナビ・フッター・選ばないページの目印が出力にない",
+      "passed": true,
+      "detail": "NAV_ONLY_SENTINEL・FOOTER_ONLY_SENTINEL・UNSELECTED_SENTINEL は、3ページの Markdown と extracted_content のどこにもありません。"
+    },
+    {
+      "id": "script_section_extracted",
+      "label": "JavaScriptが追加した節を取り出せた",
+      "passed": true,
+      "detail": "export.html のソースにない「書き出す前に確かめる」が、wait_for で待った後の取得結果に含まれています。"
+    },
+    {
+      "id": "diagnostic_404_rejected",
+      "label": "存在しないページは 404 として別扱い",
+      "passed": true,
+      "detail": "/docs/missing.html：HTTP 404・ライブラリの success=True・受理しない。成功件数に数えていません。"
+    },
+    {
+      "id": "access_log_scope",
+      "label": "サーバーに届いたのは許したパスだけ",
+      "passed": true,
+      "detail": "記録 8 件。robots.txt 1 回、選ばないページ 0 回、想定外のパスなし。外部ホスト（example.invalid）への通信はこのサーバーの記録には現れないため、ここでは確かめていません。"
+    },
+    {
+      "id": "public_paths",
+      "label": "公開用の出力に手元のパスがない",
+      "passed": true,
+      "detail": "公開用の JSON に、作業フォルダ・作例フォルダ・Python・ホームの絶対パスは含まれていません。"
+    }
+  ]
+}

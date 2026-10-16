@@ -1,0 +1,55 @@
+{
+  "title": "Crawl4AI作例：指定した3ページだけを取得し、見出しと要点をJSONとMarkdownに保存する",
+  "request": "公開ドキュメントの指定した3ページだけを取得し、見出しと要点をMarkdownにしてください。リンク先を際限なく巡回せず、成功・失敗URLを記録してください。入力、出力、実行した検証、未確認の点を記録してください。",
+  "category": "research",
+  "audience": "社内手順書やドキュメントの複数ページを、検索・比較しやすい形に集めたい制作者と開発者",
+  "goal": "許可した3ページだけを Crawl4AI の実際の API で取得し、見出しと要点を元の段落のまま JSON と Markdown に保存して、取得エラーを成功と分けて記録する",
+  "inputs": [
+    "fixture/docs/start.html・review.html・export.html（作例用に書いた架空の手順書3ページ。各ページ main#guide に article.doc-section が2つ、h2 と p.keypoint を持つ）",
+    "fixture/docs/dynamic-export.js（export.html の最後の節を読み込み後に追加し、data-ready を true にする）",
+    "fixture/robots.txt・fixture/not-selected.html・fixture/style.css",
+    "診断用の存在しないURL /docs/missing.html（fixture に置かない）"
+  ],
+  "skill_refs": [
+    "skills/brief-to-demo/SKILL.md",
+    "https://github.com/unclecode/crawl4ai/blob/6192d5e5b59cb21f9ca418fd6b798de47c0741d3/README.md",
+    "https://github.com/unclecode/crawl4ai/blob/6192d5e5b59cb21f9ca418fd6b798de47c0741d3/docs/md_v2/core/markdown-generation.md",
+    "https://github.com/unclecode/crawl4ai/blob/6192d5e5b59cb21f9ca418fd6b798de47c0741d3/docs/md_v2/extraction/no-llm-strategies.md",
+    "https://github.com/unclecode/crawl4ai/blob/6192d5e5b59cb21f9ca418fd6b798de47c0741d3/crawl4ai/async_configs.py",
+    "https://github.com/unclecode/crawl4ai/blob/6192d5e5b59cb21f9ca418fd6b798de47c0741d3/crawl4ai/async_webcrawler.py"
+  ],
+  "deliverables": [
+    "workflow.py（ThreadingHTTPServer で fixture を配り、AsyncWebCrawler.arun を3ページと診断1件に呼ぶ実装）",
+    "outputs/runs.json・outputs/result.md・samples.json（実行結果。制作側の実行後に置く）",
+    "index.html・style.css・app.mjs（保存済みの結果を読むスマホ向けビューア）",
+    "request.txt（同じ作りを依頼する日本語の依頼文）",
+    "約28秒の無音動画（元の依頼 → 選んだ取得方法 → 実際の結果。制作側が仕上げる）"
+  ],
+  "steps": [
+    "fixture/ を 127.0.0.1 の一時ポートで配り、届いたリクエストの method・path・status を記録する",
+    "CRAWL4_AI_BASE_DIRECTORY を作業フォルダの cache/ に向けてから Crawl4AI を読み込む",
+    "3ページに、css_selector=main#guide・wait_for=css:#guide[data-ready=\"true\"]・JsonCssExtractionStrategy の設定で arun を1回ずつ呼ぶ",
+    "/docs/missing.html に、wait_for と抽出を付けずに arun を1回呼ぶ",
+    "各結果の model_dump(mode=\"json\") を raw/ に保存し、extracted_content を json.loads した節と raw_markdown を元のソースと照合する",
+    "照合がすべて通ったときだけ runs.json・result.md・samples.json を書き、ビューアで読む"
+  ],
+  "acceptance": [
+    "3ページとも success が true かつ HTTP 200 で受理される",
+    "取り出した節が合計6つで、見出しと要点が元のHTML・JavaScriptの文と順番も含めて一致する",
+    "raw_markdown に6節の見出しと要点がある",
+    "NAV_ONLY_SENTINEL・FOOTER_ONLY_SENTINEL・UNSELECTED_SENTINEL が Markdown と extracted_content にない",
+    "export.html のソースにない、JavaScript が追加した節が取り出されている",
+    "/docs/missing.html は HTTP 404 として記録され、受理されず、success の値はそのまま残る",
+    "サーバーの記録に /not-selected.html と、許可していないパスへのアクセスがない",
+    "どれか一つでも外れたら公開用の出力を書かず、終了コード1で止まる",
+    "ビューアで3ページと取得エラーを切り替え、元のHTML・節・Markdown・生のレスポンスを確かめられる"
+  ],
+  "assumptions": [
+    "元の依頼は「公開ドキュメント」だが、取得先の許可と再現性のため、実在のサイトではなく作例用に書いた架空の手順書3ページを手元のサーバーで配って代わりにした。公開Webでの取得は試さない",
+    "「見出しと要点」は、各節の h2 と p.keypoint の文をそのまま取り出すことと解釈した。AIによる要約はしない",
+    "「失敗URLの記録」は、存在しない1ページへの診断リクエストで示す。404 を成功に数えない",
+    "brief-to-demo のカテゴリ例は ui-ux・slides・motion・agents だが、成果物が実入力と取得結果の対なので、サイトの分野 research に置いた",
+    "ブラウザーはインストール済みの Google Chrome（channel=chrome）を使う。ほかのブラウザーでの動作は確かめない",
+    "Crawl4AI はリポジトリ unclecode/crawl4ai の固定コミット 6192d5e5b59cb21f9ca418fd6b798de47c0741d3（0.9.5）を、制作側が専用の仮想環境に入れる"
+  ]
+}
