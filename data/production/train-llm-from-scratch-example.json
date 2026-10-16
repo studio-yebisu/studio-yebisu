@@ -1,0 +1,811 @@
+{
+  "id": "train-llm-from-scratch-example",
+  "verified_at": "2026-10-16T16:48:08.056924+00:00",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "receipts": [
+      {
+        "phase": "implement",
+        "receipt_sha256": "a1a39d370e1e98f122a63e4f1665e0fb11b538ee21463ed867d1331bfe4f2ca3",
+        "execution_sha256": "d50975ed1cc5955f83e81413f4275a9dccf8cecad8611056bc19cc07d9c12b3b",
+        "prompt_sha256": "c68999a0c96c42751479adafc72d67d626ba4bbb9f9315a29aa02145031f3d90"
+      },
+      {
+        "phase": "video",
+        "receipt_sha256": "2f5d8a1bbd95bfb0b2d3176bfdca44783ec604469f4553f55b25335993a9564a",
+        "execution_sha256": "5c57abbd308580dfdcb6d4f3bb321e41112af8068a1e5b2238890db272f809f3",
+        "prompt_sha256": "37eb518700ddacae0321ebded89fce1a32f5838a15d6be34163567d3386d13fc"
+      }
+    ],
+    "receipt_published": false
+  },
+  "upstream": {
+    "repository": "FareedKhan-dev/train-llm-from-scratch",
+    "commit": "bdd480a518094ca834e05ab32131dc126b522d3d",
+    "license": "MIT",
+    "copyright_notice": "Copyright (c) 2025 Fareed Khan",
+    "files_sha256": {
+      "config/__init__.py": "fe07c90fea01589b1b204f37666cbde0dd30d13d0666522f88868b4f06f6fb2b",
+      "config/config.py": "60ee88f7c63ceedc21c8a5cedb9c113c41aa366693ef940174e10ea5abe5048f",
+      "config/loader.py": "55d20ed5723fe4681804aeda089bde7713d35f5421cc03524e04d0f06aaa090b",
+      "config/paths.py": "386b3a8d3790eeee4e856f97a651a16a884bbf542ab7ce85b4b87964fb64675d",
+      "config/post_training_config.py": "0253724000690412f121962c5dcd7a0517f48e28f6fe338e2683ec144388a647",
+      "config/presets.py": "739024fe46c2f88a18784823805090aa2dbf3ce4b8a50585d1126bdd512cdc9a",
+      "data_loader/__init__.py": "62e731bd8cc7a4ce439ea7697904cc277c23035ef843b38e24f60ddfcf86f2ab",
+      "data_loader/data_loader.py": "a698a182d1168a748e3e665b26fea62c5ae533b977172aacdfe299ddfc3ba1d5",
+      "data_loader/preference_dataset.py": "979d20b86dae759378919d6d554cdc294f4afe021c7f5256b52909bd07d0696d",
+      "data_loader/prompt_dataset.py": "264a6fb944f7def2d325e39fa0c56e5914f1e99aeccaacb4f9c3d4835b1495ce",
+      "data_loader/sft_dataset.py": "bff19a8af64ad1aae6c0cfc185e387b76a6d5547b160513f75c7957c5e3a6ddb",
+      "docs/foundations/bpe.md": "640026809fe8a7f6bb1e86d4502018fc1398530d0bbf2e0d0be98d9d0a4ab3ca",
+      "docs/student/README.md": "f52a4a3e85100fc01842dc982dad4f215eee12423ef19712ff84a3c348ec0426",
+      "LICENSE": "3af7509fdf483718aa1b8ab030d8ed639b9e43ae273321d9e7b75ddbf0e07f13",
+      "pyproject.toml": "ec0e555a868f3d56d6424a43aae64981473452b11ae45a180d8dc724369abb2f",
+      "README.md": "d470466c0d6683232f4e821f4eaa5d750a833eb289ef91a8f353c8009b9334ac",
+      "scripts/generate_text.py": "666a5ebc631c801de190459f9cf7a5ac5b873903c08cc2ab10acac34936be25b",
+      "scripts/prepare_tiny_data.py": "cf25545c11a22617d6338140e1e56958880c78315672de207377cfc19b82f528",
+      "scripts/train_transformer.py": "ffa95c45f3b9538d74ce56a48a501a6a020aa50f53fcbdb5b7dd7599e9860efa",
+      "src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/checkpoint.py": "dcb70cae1554f8ee66356c187cba136011bd015f2d096d6241d8de9e02e8c10f",
+      "src/device.py": "9e205e89c5d4617ec7f2698936927c58929053561d99b31324df7b3e32087d8d",
+      "src/inference/__init__.py": "0e4f19166aecc81d6f5555fd6bae78de837f594723d510cca6d41d0af4f66317",
+      "src/inference/quantize.py": "d1c92781d9251fa3beb086fc10223f406100ba42edfa7a7090627814f8b65a6d",
+      "src/inference/sampling.py": "11f6b66167225a38c0a45ac967e404b7f31939a67571a51774ec3434b1e59e10",
+      "src/inference/speculative.py": "90a28b4592c1a51ba6d56ce75e5dddb685cdf2f247eb4b1b2109dfe63f0b9b63",
+      "src/models/__init__.py": "1f9d0db1be0cf0884ea44f786714ddba334fd4a4bc5405057efee6c1efa4079d",
+      "src/models/attention.py": "b4fc10105c98444f2b0df9d332b2c72325210669c2e00a65b16df7fbf43ec00e",
+      "src/models/factory.py": "5d0a3039be911d8e2df5b3c429713dda92817af016a3e94c8147e29b426d2ab2",
+      "src/models/lora.py": "1f0a117694314e8a2bdafc9b871220a8e6a78f49091f3ea08932a236983cb44e",
+      "src/models/mlp.py": "b83cebb2a63b67eddf7d5971c0e1607a73639814aa0c0f9142aac81054f7e3c3",
+      "src/models/modern/__init__.py": "fbb721357e5cbd4462d50d350c5e09a08ec95cf2ecb9037a22af286b764e3fbe",
+      "src/models/modern/attention.py": "eb2a1c72709e7b913f975aeb796e06e4878c9fb12e4191205a45471c562b16e2",
+      "src/models/modern/block.py": "66bc7709387e24e4182874c2e945c2812e75427e4e2b91aa4dc6f37c3bc61575",
+      "src/models/modern/config.py": "1ada9a1545b9dc2f816e457742490037b9648454d75f15512c06073beb3ba371",
+      "src/models/modern/kv_cache.py": "36c62cfbd9b5a07cd6bc2e0122361f4d6438f6063dc717d64182eb7969031e2e",
+      "src/models/modern/mlp.py": "dbf58609063535cc2cbd60db558c7d4222a56a9118d3fd22c18335d6f0e8ca10",
+      "src/models/modern/model.py": "e5f79f7a8c072309eda4fa9e141cdc66d5a64ec04fa820f8d3ab80b8028ad9f7",
+      "src/models/modern/moe.py": "0c80422073b64aa05a0d51fd8c0964395438fbefd198f37178f63cdc69e92406",
+      "src/models/modern/norm.py": "1c5fa7bb25daed61fa6f2ef85dec98132272a89d0a05b56d8e77fbe788206491",
+      "src/models/modern/rope.py": "881b4ddbb3be71b70aa558dc612edbad11973fb86bde0a3f9e2b533de2f177e4",
+      "src/models/transformer.py": "ec63ac30e4443c73f7dae268cc5198868701afb90c612d62a22e69b6e4f71165",
+      "src/models/transformer_block.py": "b3469698eb6825f1ec4ea50883680ed7900e882add125222571924040289b23e",
+      "src/optim/__init__.py": "7dea022309245b95ac2c0bd72a4276c2fc57d86b3b2fe4b9d917c5b22220e68e",
+      "src/optim/muon.py": "8cb8c859f0a4d52a7b9e0f4a9cdedd48baf1e8c1a0a5e2e809f3466670f0e5e1",
+      "src/optim/schedules.py": "a0982c5f85ced7fff0968d9c45f3f22dffb9b5ac2a6f969da0e6196fd8203469",
+      "src/tokenizer/__init__.py": "18613038f589bb905264aed778c52b4517c041ecb735a5367f054fa9d9c513bf",
+      "src/tokenizer/bpe.py": "576ec593003e1430f2d5038b3436e50a7191e7d1abffe2dffd1841672efb4661"
+    },
+    "commit_record_sha256": "ed33da960ea6cf4b340f640f7b4f9446026f7abc3bb4eeffd863e1a2faddc4cf",
+    "tree_record_sha256": "7296d8417343ef6c489ae80940aaf1b22c77d949a7421808fd62cf1e3ac6fbd3",
+    "scope": "Student-track original prepare_tiny_data.py (local original text, BPE512), train_transformer.py (modern tiny, CPU, fixed seed, 0 and800 steps), generate_text.py on8 frozen prompts. No pretrained weights, external datasets, SFT/RLHF/RL or quality benchmark."
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 8,
+    "scope": "Student-track original prepare_tiny_data.py (local original text, BPE512), train_transformer.py (modern tiny, CPU, fixed seed, 0 and800 steps), generate_text.py on8 frozen prompts. No pretrained weights, external datasets, SFT/RLHF/RL or quality benchmark.",
+    "human_approval": false,
+    "environment": {
+      "python": "3.13.7",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "torch_build": "2.11.0+cpu",
+      "cuda_available": false,
+      "packages": {
+        "torch": "2.11.0+cpu",
+        "numpy": "2.5.4",
+        "h5py": "3.16.0",
+        "tqdm": "4.70.1",
+        "tiktoken": "0.14.0",
+        "requests": "2.34.2",
+        "jaxtyping": "0.3.11",
+        "regex": "2026.9.29"
+      },
+      "created_at": "2026-10-16T16:08:45.016240+00:00",
+      "runtime": "Private per-case CPU virtualenv; no ComfyUI changes."
+    }
+  },
+  "verification": {
+    "status": "passed",
+    "upstream": {
+      "repository": "FareedKhan-dev/train-llm-from-scratch",
+      "commit": "bdd480a518094ca834e05ab32131dc126b522d3d",
+      "license": "MIT",
+      "copyright_notice": "Copyright (c) 2025 Fareed Khan",
+      "files_sha256": {
+        "config/__init__.py": "fe07c90fea01589b1b204f37666cbde0dd30d13d0666522f88868b4f06f6fb2b",
+        "config/config.py": "60ee88f7c63ceedc21c8a5cedb9c113c41aa366693ef940174e10ea5abe5048f",
+        "config/loader.py": "55d20ed5723fe4681804aeda089bde7713d35f5421cc03524e04d0f06aaa090b",
+        "config/paths.py": "386b3a8d3790eeee4e856f97a651a16a884bbf542ab7ce85b4b87964fb64675d",
+        "config/post_training_config.py": "0253724000690412f121962c5dcd7a0517f48e28f6fe338e2683ec144388a647",
+        "config/presets.py": "739024fe46c2f88a18784823805090aa2dbf3ce4b8a50585d1126bdd512cdc9a",
+        "data_loader/__init__.py": "62e731bd8cc7a4ce439ea7697904cc277c23035ef843b38e24f60ddfcf86f2ab",
+        "data_loader/data_loader.py": "a698a182d1168a748e3e665b26fea62c5ae533b977172aacdfe299ddfc3ba1d5",
+        "data_loader/preference_dataset.py": "979d20b86dae759378919d6d554cdc294f4afe021c7f5256b52909bd07d0696d",
+        "data_loader/prompt_dataset.py": "264a6fb944f7def2d325e39fa0c56e5914f1e99aeccaacb4f9c3d4835b1495ce",
+        "data_loader/sft_dataset.py": "bff19a8af64ad1aae6c0cfc185e387b76a6d5547b160513f75c7957c5e3a6ddb",
+        "docs/foundations/bpe.md": "640026809fe8a7f6bb1e86d4502018fc1398530d0bbf2e0d0be98d9d0a4ab3ca",
+        "docs/student/README.md": "f52a4a3e85100fc01842dc982dad4f215eee12423ef19712ff84a3c348ec0426",
+        "LICENSE": "3af7509fdf483718aa1b8ab030d8ed639b9e43ae273321d9e7b75ddbf0e07f13",
+        "pyproject.toml": "ec0e555a868f3d56d6424a43aae64981473452b11ae45a180d8dc724369abb2f",
+        "README.md": "d470466c0d6683232f4e821f4eaa5d750a833eb289ef91a8f353c8009b9334ac",
+        "scripts/generate_text.py": "666a5ebc631c801de190459f9cf7a5ac5b873903c08cc2ab10acac34936be25b",
+        "scripts/prepare_tiny_data.py": "cf25545c11a22617d6338140e1e56958880c78315672de207377cfc19b82f528",
+        "scripts/train_transformer.py": "ffa95c45f3b9538d74ce56a48a501a6a020aa50f53fcbdb5b7dd7599e9860efa",
+        "src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "src/checkpoint.py": "dcb70cae1554f8ee66356c187cba136011bd015f2d096d6241d8de9e02e8c10f",
+        "src/device.py": "9e205e89c5d4617ec7f2698936927c58929053561d99b31324df7b3e32087d8d",
+        "src/inference/__init__.py": "0e4f19166aecc81d6f5555fd6bae78de837f594723d510cca6d41d0af4f66317",
+        "src/inference/quantize.py": "d1c92781d9251fa3beb086fc10223f406100ba42edfa7a7090627814f8b65a6d",
+        "src/inference/sampling.py": "11f6b66167225a38c0a45ac967e404b7f31939a67571a51774ec3434b1e59e10",
+        "src/inference/speculative.py": "90a28b4592c1a51ba6d56ce75e5dddb685cdf2f247eb4b1b2109dfe63f0b9b63",
+        "src/models/__init__.py": "1f9d0db1be0cf0884ea44f786714ddba334fd4a4bc5405057efee6c1efa4079d",
+        "src/models/attention.py": "b4fc10105c98444f2b0df9d332b2c72325210669c2e00a65b16df7fbf43ec00e",
+        "src/models/factory.py": "5d0a3039be911d8e2df5b3c429713dda92817af016a3e94c8147e29b426d2ab2",
+        "src/models/lora.py": "1f0a117694314e8a2bdafc9b871220a8e6a78f49091f3ea08932a236983cb44e",
+        "src/models/mlp.py": "b83cebb2a63b67eddf7d5971c0e1607a73639814aa0c0f9142aac81054f7e3c3",
+        "src/models/modern/__init__.py": "fbb721357e5cbd4462d50d350c5e09a08ec95cf2ecb9037a22af286b764e3fbe",
+        "src/models/modern/attention.py": "eb2a1c72709e7b913f975aeb796e06e4878c9fb12e4191205a45471c562b16e2",
+        "src/models/modern/block.py": "66bc7709387e24e4182874c2e945c2812e75427e4e2b91aa4dc6f37c3bc61575",
+        "src/models/modern/config.py": "1ada9a1545b9dc2f816e457742490037b9648454d75f15512c06073beb3ba371",
+        "src/models/modern/kv_cache.py": "36c62cfbd9b5a07cd6bc2e0122361f4d6438f6063dc717d64182eb7969031e2e",
+        "src/models/modern/mlp.py": "dbf58609063535cc2cbd60db558c7d4222a56a9118d3fd22c18335d6f0e8ca10",
+        "src/models/modern/model.py": "e5f79f7a8c072309eda4fa9e141cdc66d5a64ec04fa820f8d3ab80b8028ad9f7",
+        "src/models/modern/moe.py": "0c80422073b64aa05a0d51fd8c0964395438fbefd198f37178f63cdc69e92406",
+        "src/models/modern/norm.py": "1c5fa7bb25daed61fa6f2ef85dec98132272a89d0a05b56d8e77fbe788206491",
+        "src/models/modern/rope.py": "881b4ddbb3be71b70aa558dc612edbad11973fb86bde0a3f9e2b533de2f177e4",
+        "src/models/transformer.py": "ec63ac30e4443c73f7dae268cc5198868701afb90c612d62a22e69b6e4f71165",
+        "src/models/transformer_block.py": "b3469698eb6825f1ec4ea50883680ed7900e882add125222571924040289b23e",
+        "src/optim/__init__.py": "7dea022309245b95ac2c0bd72a4276c2fc57d86b3b2fe4b9d917c5b22220e68e",
+        "src/optim/muon.py": "8cb8c859f0a4d52a7b9e0f4a9cdedd48baf1e8c1a0a5e2e809f3466670f0e5e1",
+        "src/optim/schedules.py": "a0982c5f85ced7fff0968d9c45f3f22dffb9b5ac2a6f969da0e6196fd8203469",
+        "src/tokenizer/__init__.py": "18613038f589bb905264aed778c52b4517c041ecb735a5367f054fa9d9c513bf",
+        "src/tokenizer/bpe.py": "576ec593003e1430f2d5038b3436e50a7191e7d1abffe2dffd1841672efb4661"
+      },
+      "commit_record_sha256": "ed33da960ea6cf4b340f640f7b4f9446026f7abc3bb4eeffd863e1a2faddc4cf",
+      "tree_record_sha256": "7296d8417343ef6c489ae80940aaf1b22c77d949a7421808fd62cf1e3ac6fbd3",
+      "scope": "Student-track original prepare_tiny_data.py (local original text, BPE512), train_transformer.py (modern tiny, CPU, fixed seed, 0 and800 steps), generate_text.py on8 frozen prompts. No pretrained weights, external datasets, SFT/RLHF/RL or quality benchmark."
+    },
+    "environment": {
+      "python": "3.13.7",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "torch_build": "2.11.0+cpu",
+      "cuda_available": false,
+      "packages": {
+        "torch": "2.11.0+cpu",
+        "numpy": "2.5.4",
+        "h5py": "3.16.0",
+        "tqdm": "4.70.1",
+        "tiktoken": "0.14.0",
+        "requests": "2.34.2",
+        "jaxtyping": "0.3.11",
+        "regex": "2026.9.29"
+      },
+      "created_at": "2026-10-16T16:08:45.016240+00:00",
+      "runtime": "Private per-case CPU virtualenv; no ComfyUI changes."
+    },
+    "model_receipts": [
+      {
+        "phase": "implement",
+        "requested": "claude-opus-5-5",
+        "reported": [
+          "claude-opus-5-5"
+        ],
+        "receipt_sha256": "a1a39d370e1e98f122a63e4f1665e0fb11b538ee21463ed867d1331bfe4f2ca3",
+        "execution_sha256": "d50975ed1cc5955f83e81413f4275a9dccf8cecad8611056bc19cc07d9c12b3b",
+        "prompt_sha256": "c68999a0c96c42751479adafc72d67d626ba4bbb9f9315a29aa02145031f3d90"
+      },
+      {
+        "phase": "video",
+        "requested": "claude-opus-5-5",
+        "reported": [
+          "claude-opus-5-5"
+        ],
+        "receipt_sha256": "2f5d8a1bbd95bfb0b2d3176bfdca44783ec604469f4553f55b25335993a9564a",
+        "execution_sha256": "5c57abbd308580dfdcb6d4f3bb321e41112af8068a1e5b2238890db272f809f3",
+        "prompt_sha256": "37eb518700ddacae0321ebded89fce1a32f5838a15d6be34163567d3386d13fc"
+      }
+    ],
+    "actual_execution": {
+      "status": "passed",
+      "sample_count": 8,
+      "generated_outputs_rechecked": 16,
+      "actual_source_files": 48,
+      "input_hashes_unchanged": true,
+      "baseline_is_fresh_seeded_initialization": true,
+      "trained_optimizer_steps": 800,
+      "changed_state_tensor_names": [
+        "token_embed.weight",
+        "blocks.0.attn_norm.weight",
+        "blocks.0.attn.q_proj.weight",
+        "blocks.0.attn.k_proj.weight",
+        "blocks.0.attn.v_proj.weight",
+        "blocks.0.attn.o_proj.weight",
+        "blocks.0.attn.q_norm.weight",
+        "blocks.0.attn.k_norm.weight",
+        "blocks.0.mlp_norm.weight",
+        "blocks.0.mlp.gate.weight",
+        "blocks.0.mlp.up.weight",
+        "blocks.0.mlp.down.weight",
+        "blocks.1.attn_norm.weight",
+        "blocks.1.attn.q_proj.weight",
+        "blocks.1.attn.k_proj.weight",
+        "blocks.1.attn.v_proj.weight",
+        "blocks.1.attn.o_proj.weight",
+        "blocks.1.attn.q_norm.weight",
+        "blocks.1.attn.k_norm.weight",
+        "blocks.1.mlp_norm.weight",
+        "blocks.1.mlp.gate.weight",
+        "blocks.1.mlp.up.weight",
+        "blocks.1.mlp.down.weight",
+        "final_norm.weight",
+        "lm_head.weight"
+      ],
+      "raw_hdf5_tokens_match_original_preparation": true,
+      "bpe_roundtrip": true,
+      "original_generation_api_matches_all16_texts_and_token_ids": true,
+      "causal_prefix_unchanged_by_future_token": true,
+      "model_parameters": 135552,
+      "dataset": {
+        "train_tokens": 3072,
+        "val_tokens": 483,
+        "vocab_size": 417,
+        "train_lines": 83,
+        "val_lines_nonempty": 13,
+        "validation_lines_also_in_training": 13,
+        "unique_lines_total": 64
+      },
+      "fixed_holdout_evaluation": {
+        "context": 64,
+        "disjoint_windows": 7,
+        "tokens": 448,
+        "losses": {
+          "before": 6.1135334968566895,
+          "after": 0.19004102051258087
+        },
+        "note": "Same fixed validation token windows for both models. Repeated-template corpus contains validation lines also present in training, so this is an intentionally bounded memorization/mechanics exercise, not an independent generalization, knowledge or quality benchmark."
+      },
+      "outputs": [
+        {
+          "id": "P01",
+          "phase": "before",
+          "tokens": 52,
+          "text_sha256": "0232a264542a21ae71fc4ba43e20618d257679fcc3fc1eac35fe1293a4b7ad43"
+        },
+        {
+          "id": "P02",
+          "phase": "before",
+          "tokens": 52,
+          "text_sha256": "7314283a21727846154cd1fe420ed73b51d986da9c4b993edc663e2279e942a9"
+        },
+        {
+          "id": "P03",
+          "phase": "before",
+          "tokens": 51,
+          "text_sha256": "721ca9cdc07a048411a121e8257911e04b546b6d946a30438bb9eb5ca572b57e"
+        },
+        {
+          "id": "P04",
+          "phase": "before",
+          "tokens": 52,
+          "text_sha256": "f24f7db0985fb6c60e76fbcc5a231f97089724ff3590f6492f7492d27c1fc03d"
+        },
+        {
+          "id": "P05",
+          "phase": "before",
+          "tokens": 52,
+          "text_sha256": "17c07425d869996d73bb7e5362712fb1eab88a2713da6be4a22164e5c2795fb3"
+        },
+        {
+          "id": "P06",
+          "phase": "before",
+          "tokens": 53,
+          "text_sha256": "8f8077bc30abbf1f1fc26dc713d0b167560b70870939f6bdc184151b764fabd3"
+        },
+        {
+          "id": "P07",
+          "phase": "before",
+          "tokens": 61,
+          "text_sha256": "25f3b8a6f9ff9b7f4c81d27655e174a6ba21c41a9034deff4eeb4be688ab644f"
+        },
+        {
+          "id": "P08",
+          "phase": "before",
+          "tokens": 65,
+          "text_sha256": "2cccdad0f79433b034e2a9a2381939e465012ee88a251938c55b8c753cfc35e5"
+        },
+        {
+          "id": "P01",
+          "phase": "after",
+          "tokens": 52,
+          "text_sha256": "926e60ff443920e34e592c9f5451c5fc07251c52f0e3602b21b3a729423f32c9"
+        },
+        {
+          "id": "P02",
+          "phase": "after",
+          "tokens": 52,
+          "text_sha256": "766ec3254928f44d8c9c02607e49c0e105f5e17805dee8d3da6583d98e4534e3"
+        },
+        {
+          "id": "P03",
+          "phase": "after",
+          "tokens": 51,
+          "text_sha256": "4ef803474f9bb49db08115604928849fc1e33b9b2d807b92ea19d4c0856ed16b"
+        },
+        {
+          "id": "P04",
+          "phase": "after",
+          "tokens": 52,
+          "text_sha256": "04c637b8178c5cac2e433c475a257b8a1580af161a4fc8c27105e30b96c7929c"
+        },
+        {
+          "id": "P05",
+          "phase": "after",
+          "tokens": 52,
+          "text_sha256": "34160894eae0e5e762d76514f163cf2f466790b4318370c893a0709ec8bf451f"
+        },
+        {
+          "id": "P06",
+          "phase": "after",
+          "tokens": 53,
+          "text_sha256": "a7d6b1082b1ab5e9930a1ce2c0300824ed143894b8290f5154cc32164aee7a6f"
+        },
+        {
+          "id": "P07",
+          "phase": "after",
+          "tokens": 61,
+          "text_sha256": "c8e32da87bb738586bc52afa2736c38eea7993d2f397103fb3f4e6c56900a230"
+        },
+        {
+          "id": "P08",
+          "phase": "after",
+          "tokens": 65,
+          "text_sha256": "c875646a1b782a95b788c403764928c8dbd6a3df7f9fae8b8b03ceeb5f233f8e"
+        }
+      ],
+      "scope": "Student-track original prepare_tiny_data.py (local original text, BPE512), train_transformer.py (modern tiny, CPU, fixed seed, 0 and800 steps), generate_text.py on8 frozen prompts. No pretrained weights, external datasets, SFT/RLHF/RL or quality benchmark.",
+      "human_approval": false,
+      "physical_ios_verified": false,
+      "verified_at": "2026-10-16T16:22:06.493390+00:00"
+    },
+    "browser": {
+      "status": "passed",
+      "responsive_states": 6,
+      "widths": [
+        320,
+        375,
+        390,
+        430,
+        844,
+        1280
+      ],
+      "target_minimum_px": 44,
+      "form_font_minimum_px": 16,
+      "all_eight_records_match": true,
+      "native_export_matches_record": true,
+      "native_export_bytes": 2248,
+      "http503_parse_validation_retry": true,
+      "clipboard_matches_original_request": true,
+      "keyboard_enter_space": true,
+      "agent_visual_review": true,
+      "physical_ios_tested": false,
+      "voiceover_tested": false,
+      "human_approval": false
+    },
+    "semantics": {
+      "agent_semantic_review": true,
+      "human_approval": false,
+      "unresolved_blockers": [],
+      "reviewed": "Original96-line English template exercise, real upstream BPE preparation, seeded fresh0 and800-step CPU checkpoints, all8fixed before/after prompts regenerated and exact tokens/text compared. Original P01generation CLI verified. Small repeated corpus shares vocabulary/templates; heldout loss is not generalization or knowledge. Opus5.5 authored sources, tiny locally trained Transformer produced shown texts. Public static browser displays retained outputs, not live training or AI. All8 full native visible inputs/outputs/export match records. PhysicaliOS unverified."
+    },
+    "parent_adjustments": {
+      "original_opus_delivery_kept_privately": true,
+      "upstream_modified": false,
+      "run_source_modified": false,
+      "input_modified": false,
+      "executed_copy_matches_final_delivery": true,
+      "changes": [
+        "Shortened phone introduction/ready message and made sample buttons swipe horizontally so real outputs appear earlier.",
+        "Placed the actual13/13 duplicate validation line caveat beside the metrics, pinned the tested dependencies, and appended actual CPU runtime/reproduction evidence.",
+        "Added an exact safe sibling-copy reproduction command preserving published records; explicitly documented the Windows CPU wheel index actually used rather than assuming the default PyPI build."
+      ],
+      "human_approval": false
+    },
+    "video": {
+      "agent_reviewed": true,
+      "human_approval": false,
+      "physical_ios_verified": false,
+      "video_sha256": "48b5654066eb459b81a2832270339799cfad447796d023a498ce17baa5732413",
+      "native_mp4": {
+        "duration": 28,
+        "ended": true,
+        "error": null,
+        "paused": true,
+        "time": 28
+      },
+      "native_start": {
+        "duration": 28,
+        "ended": false,
+        "error": null,
+        "paused": true,
+        "ready": 1,
+        "time": 0
+      },
+      "source_editor": {
+        "states": [
+          {
+            "client": 305,
+            "forms": [
+              {
+                "font": "16px"
+              }
+            ],
+            "playEnabled": true,
+            "position": 14,
+            "pressed": "false",
+            "scroll": 305,
+            "targets": [
+              {
+                "height": 45.1875,
+                "width": 74
+              },
+              {
+                "height": 44,
+                "width": 168.03125
+              },
+              {
+                "height": 44,
+                "width": 252.921875
+              },
+              {
+                "height": 54.375,
+                "width": 253
+              },
+              {
+                "height": 54.375,
+                "width": 253
+              },
+              {
+                "height": 54.375,
+                "width": 253
+              }
+            ],
+            "verifiedFiles": 8,
+            "width": 320
+          },
+          {
+            "client": 375,
+            "forms": [
+              {
+                "font": "16px"
+              }
+            ],
+            "playEnabled": true,
+            "position": 14,
+            "pressed": "false",
+            "scroll": 375,
+            "targets": [
+              {
+                "height": 45.1875,
+                "width": 74
+              },
+              {
+                "height": 44,
+                "width": 168.03125
+              },
+              {
+                "height": 44,
+                "width": 252.921875
+              },
+              {
+                "height": 54.375,
+                "width": 323
+              },
+              {
+                "height": 44,
+                "width": 322.28125
+              },
+              {
+                "height": 44,
+                "width": 307.765625
+              }
+            ],
+            "verifiedFiles": 8,
+            "width": 390
+          }
+        ],
+        "playToggled": true,
+        "pauseToggled": true,
+        "homeSevenPageUpPosition": 14
+      },
+      "full_decode": true,
+      "contact_sheet_reviewed": true,
+      "representative_frames": 14,
+      "decoded_transition_strips": 5,
+      "width360_reviews": [
+        "poster-360.png",
+        "question-360.png",
+        "ending-360.png"
+      ],
+      "poster_seconds": 13.5,
+      "unresolved_blockers": [],
+      "notes": [
+        "All six scenes and settled13.5s P01 comparison read correctly; actual excerpt text/counts match retained records. At360px primary headings,0/800labels and short English excerpts remain readable; technical footers are supplemental.",
+        "Five decoded transition strips show brief deliberate paper dips separating headlines, without text-on-text overlaps.",
+        "Final phone-card crop stays inside the source still and does not touch maincopy; real screen pixels unchanged.",
+        "Film omits validation-loss improvement and timing; explicitly frames this as template memorization, not knowledge/generalization. P08actualquestion continues story text, not an answer.",
+        "No physicaliOS/Safari/VoiceOver or human aesthetic approval."
+      ],
+      "verified_at": "2026-10-16T16:48:07.735932+00:00"
+    },
+    "human_approval": false,
+    "contributions": {
+      "Opus5.5": "Authored original portable CPU CLI orchestrator, Japanese mobile viewer/explanation and editable28second film.",
+      "production_editor": "Froze original96English lines/8prompts/config, verified pinned48sourcefiles, ran actual unmodified original CLI/API in a stable execution copy that matched the final delivery; independently checked original HDF5, fresh seeded initial weights and all16text/token outputs; refined phone layout; rendered, reviewed and published.",
+      "scope": "Tiny original repeated-template learning/mechanics exercise, not a generalization or knowledge/quality benchmark. All13validationlines repeat training lines. Actual generated completions came from the135552parameter local Transformer, not Claude. Staticbrowser only displays retained outputs.",
+      "unverified": "PhysicaliOS/Safari/VoiceOver, real assistive technology, CoreWebVitals and human content/aesthetic approval."
+    }
+  },
+  "explanation": {
+    "video": {
+      "file": "video.mp4",
+      "sha256": "48b5654066eb459b81a2832270339799cfad447796d023a498ce17baa5732413",
+      "width": 1280,
+      "height": 720,
+      "fps": 30,
+      "frameCount": 840,
+      "duration": 28,
+      "hasAudio": false
+    },
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "21b5d4f313cadc45f39b61acb11b62a69fde394c81e9c269c3df7810e010f0bd",
+      "afterOtherTimes": "21b5d4f313cadc45f39b61acb11b62a69fde394c81e9c269c3df7810e010f0bd",
+      "freshPage": "21b5d4f313cadc45f39b61acb11b62a69fde394c81e9c269c3df7810e010f0bd",
+      "match": true
+    },
+    "errors": [],
+    "blockedExternalRequests": []
+  },
+  "video_review": {
+    "agent_reviewed": true,
+    "human_approval": false,
+    "physical_ios_verified": false,
+    "video_sha256": "48b5654066eb459b81a2832270339799cfad447796d023a498ce17baa5732413",
+    "native_mp4": {
+      "duration": 28,
+      "ended": true,
+      "error": null,
+      "paused": true,
+      "time": 28
+    },
+    "native_start": {
+      "duration": 28,
+      "ended": false,
+      "error": null,
+      "paused": true,
+      "ready": 1,
+      "time": 0
+    },
+    "source_editor": {
+      "states": [
+        {
+          "client": 305,
+          "forms": [
+            {
+              "font": "16px"
+            }
+          ],
+          "playEnabled": true,
+          "position": 14,
+          "pressed": "false",
+          "scroll": 305,
+          "targets": [
+            {
+              "height": 45.1875,
+              "width": 74
+            },
+            {
+              "height": 44,
+              "width": 168.03125
+            },
+            {
+              "height": 44,
+              "width": 252.921875
+            },
+            {
+              "height": 54.375,
+              "width": 253
+            },
+            {
+              "height": 54.375,
+              "width": 253
+            },
+            {
+              "height": 54.375,
+              "width": 253
+            }
+          ],
+          "verifiedFiles": 8,
+          "width": 320
+        },
+        {
+          "client": 375,
+          "forms": [
+            {
+              "font": "16px"
+            }
+          ],
+          "playEnabled": true,
+          "position": 14,
+          "pressed": "false",
+          "scroll": 375,
+          "targets": [
+            {
+              "height": 45.1875,
+              "width": 74
+            },
+            {
+              "height": 44,
+              "width": 168.03125
+            },
+            {
+              "height": 44,
+              "width": 252.921875
+            },
+            {
+              "height": 54.375,
+              "width": 323
+            },
+            {
+              "height": 44,
+              "width": 322.28125
+            },
+            {
+              "height": 44,
+              "width": 307.765625
+            }
+          ],
+          "verifiedFiles": 8,
+          "width": 390
+        }
+      ],
+      "playToggled": true,
+      "pauseToggled": true,
+      "homeSevenPageUpPosition": 14
+    },
+    "full_decode": true,
+    "contact_sheet_reviewed": true,
+    "representative_frames": 14,
+    "decoded_transition_strips": 5,
+    "width360_reviews": [
+      "poster-360.png",
+      "question-360.png",
+      "ending-360.png"
+    ],
+    "poster_seconds": 13.5,
+    "unresolved_blockers": [],
+    "notes": [
+      "All six scenes and settled13.5s P01 comparison read correctly; actual excerpt text/counts match retained records. At360px primary headings,0/800labels and short English excerpts remain readable; technical footers are supplemental.",
+      "Five decoded transition strips show brief deliberate paper dips separating headlines, without text-on-text overlaps.",
+      "Final phone-card crop stays inside the source still and does not touch maincopy; real screen pixels unchanged.",
+      "Film omits validation-loss improvement and timing; explicitly frames this as template memorization, not knowledge/generalization. P08actualquestion continues story text, not an answer.",
+      "No physicaliOS/Safari/VoiceOver or human aesthetic approval."
+    ],
+    "verified_at": "2026-10-16T16:48:07.735932+00:00"
+  },
+  "publication": {
+    "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=train-llm-from-scratch-example",
+    "authorization": "User requested sequential publication of40cases toexistingmain andPages."
+  },
+  "artifacts_sha256": {
+    "data/cases/train-llm-from-scratch-example.json": "d2c069520895dec92c3a73880e6c78c00e0aa075b89b3a965d77d1283d6a4749",
+    "examples/train-llm-from-scratch-example/app.js": "af525ab69dc2f6da711b3bffe7c0132689140190f820afa4a3831c4edda03815",
+    "examples/train-llm-from-scratch-example/brief.json": "89cb108f0f73adb2fe36433dcf59c930d75231558042d01b2578adf7a7109743",
+    "examples/train-llm-from-scratch-example/index.html": "da383d641965d5bd441741ea5f5ca533af162048c9f284be53fd0933edda1b9e",
+    "examples/train-llm-from-scratch-example/input/prompts.json": "fa1a3d7922b294d608b82b2fb2000ae385a371d34a66e49ebdb6e834a88fc66e",
+    "examples/train-llm-from-scratch-example/input/run-config.json": "097fda8dff2d3d2fd825ab0431f05f6eceafa099364cdc01b0230a47f5debf69",
+    "examples/train-llm-from-scratch-example/input/stories.txt": "dfef8dc0905dc3d775cf295fd87e358cfae216d4e72e50d1d850f21e9522e80e",
+    "examples/train-llm-from-scratch-example/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
+    "examples/train-llm-from-scratch-example/outputs/independent-checks.json": "b1f1722d12d910e86443290aa49f10152fa1fac318139892d1735c06d7259e79",
+    "examples/train-llm-from-scratch-example/outputs/method.md": "4cb3c1e4cc25dfc96bdfcfd880cebbd9abfe0bcdcb36fbbff715c355ab55b5ed",
+    "examples/train-llm-from-scratch-example/outputs/training-run.json": "c2a688ba465078f37bd4e9d2ede7b65107a811525fec064e62a174d4bd4c39e0",
+    "examples/train-llm-from-scratch-example/README.md": "8ae9c63045049b658b42aa364e952ae5ad9be356dae1124397f96d4913e267dc",
+    "examples/train-llm-from-scratch-example/render.py": "46e9a4b3c5210e1ce9a62d829cf87424b22d0e5939c58d40bf7caf17e38619a2",
+    "examples/train-llm-from-scratch-example/request.txt": "2cc3a99b19b35c6b6582687a02b044a1d66689b45e8e5660c85e1a439db15315",
+    "examples/train-llm-from-scratch-example/requirements.txt": "eab259ee7baad5e39177d2d9393668626f7db164353f84a2087f765b9d85e5ff",
+    "examples/train-llm-from-scratch-example/run.py": "2fe18811932658c1e5b67b49a78a0e7a954367b0496434155c106b8b256c2328",
+    "examples/train-llm-from-scratch-example/samples.json": "da82c804f6e01e0a7d7ab616e6321fbfa171e08b18b7c594f1fdfd932e0a2626",
+    "examples/train-llm-from-scratch-example/source.zip": "de41a2330c76b353c2171587d42fbef67bf9651cc6db04d48d0f477b23e0de18",
+    "examples/train-llm-from-scratch-example/style.css": "041c7d4f4a6938c16724dc5b2ec45906fe5a0c6f26d72b9a8545a0c0bd884702",
+    "examples/train-llm-from-scratch-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/train-llm-from-scratch-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/train-llm-from-scratch-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/train-llm-from-scratch-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/train-llm-from-scratch-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/config/__init__.py": "fe07c90fea01589b1b204f37666cbde0dd30d13d0666522f88868b4f06f6fb2b",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/config/config.py": "60ee88f7c63ceedc21c8a5cedb9c113c41aa366693ef940174e10ea5abe5048f",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/config/loader.py": "55d20ed5723fe4681804aeda089bde7713d35f5421cc03524e04d0f06aaa090b",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/config/paths.py": "386b3a8d3790eeee4e856f97a651a16a884bbf542ab7ce85b4b87964fb64675d",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/config/post_training_config.py": "0253724000690412f121962c5dcd7a0517f48e28f6fe338e2683ec144388a647",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/config/presets.py": "739024fe46c2f88a18784823805090aa2dbf3ce4b8a50585d1126bdd512cdc9a",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/data_loader/__init__.py": "62e731bd8cc7a4ce439ea7697904cc277c23035ef843b38e24f60ddfcf86f2ab",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/data_loader/data_loader.py": "a698a182d1168a748e3e665b26fea62c5ae533b977172aacdfe299ddfc3ba1d5",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/data_loader/preference_dataset.py": "979d20b86dae759378919d6d554cdc294f4afe021c7f5256b52909bd07d0696d",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/data_loader/prompt_dataset.py": "264a6fb944f7def2d325e39fa0c56e5914f1e99aeccaacb4f9c3d4835b1495ce",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/data_loader/sft_dataset.py": "bff19a8af64ad1aae6c0cfc185e387b76a6d5547b160513f75c7957c5e3a6ddb",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/docs/foundations/bpe.md": "640026809fe8a7f6bb1e86d4502018fc1398530d0bbf2e0d0be98d9d0a4ab3ca",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/docs/student/README.md": "f52a4a3e85100fc01842dc982dad4f215eee12423ef19712ff84a3c348ec0426",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/LICENSE": "3af7509fdf483718aa1b8ab030d8ed639b9e43ae273321d9e7b75ddbf0e07f13",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/pyproject.toml": "ec0e555a868f3d56d6424a43aae64981473452b11ae45a180d8dc724369abb2f",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/README.md": "d470466c0d6683232f4e821f4eaa5d750a833eb289ef91a8f353c8009b9334ac",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/scripts/generate_text.py": "666a5ebc631c801de190459f9cf7a5ac5b873903c08cc2ab10acac34936be25b",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/scripts/prepare_tiny_data.py": "cf25545c11a22617d6338140e1e56958880c78315672de207377cfc19b82f528",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/scripts/train_transformer.py": "ffa95c45f3b9538d74ce56a48a501a6a020aa50f53fcbdb5b7dd7599e9860efa",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/checkpoint.py": "dcb70cae1554f8ee66356c187cba136011bd015f2d096d6241d8de9e02e8c10f",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/device.py": "9e205e89c5d4617ec7f2698936927c58929053561d99b31324df7b3e32087d8d",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/inference/__init__.py": "0e4f19166aecc81d6f5555fd6bae78de837f594723d510cca6d41d0af4f66317",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/inference/quantize.py": "d1c92781d9251fa3beb086fc10223f406100ba42edfa7a7090627814f8b65a6d",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/inference/sampling.py": "11f6b66167225a38c0a45ac967e404b7f31939a67571a51774ec3434b1e59e10",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/inference/speculative.py": "90a28b4592c1a51ba6d56ce75e5dddb685cdf2f247eb4b1b2109dfe63f0b9b63",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/models/__init__.py": "1f9d0db1be0cf0884ea44f786714ddba334fd4a4bc5405057efee6c1efa4079d",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/models/attention.py": "b4fc10105c98444f2b0df9d332b2c72325210669c2e00a65b16df7fbf43ec00e",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/models/factory.py": "5d0a3039be911d8e2df5b3c429713dda92817af016a3e94c8147e29b426d2ab2",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/models/lora.py": "1f0a117694314e8a2bdafc9b871220a8e6a78f49091f3ea08932a236983cb44e",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/models/mlp.py": "b83cebb2a63b67eddf7d5971c0e1607a73639814aa0c0f9142aac81054f7e3c3",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/models/modern/__init__.py": "fbb721357e5cbd4462d50d350c5e09a08ec95cf2ecb9037a22af286b764e3fbe",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/models/modern/attention.py": "eb2a1c72709e7b913f975aeb796e06e4878c9fb12e4191205a45471c562b16e2",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/models/modern/block.py": "66bc7709387e24e4182874c2e945c2812e75427e4e2b91aa4dc6f37c3bc61575",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/models/modern/config.py": "1ada9a1545b9dc2f816e457742490037b9648454d75f15512c06073beb3ba371",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/models/modern/kv_cache.py": "36c62cfbd9b5a07cd6bc2e0122361f4d6438f6063dc717d64182eb7969031e2e",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/models/modern/mlp.py": "dbf58609063535cc2cbd60db558c7d4222a56a9118d3fd22c18335d6f0e8ca10",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/models/modern/model.py": "e5f79f7a8c072309eda4fa9e141cdc66d5a64ec04fa820f8d3ab80b8028ad9f7",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/models/modern/moe.py": "0c80422073b64aa05a0d51fd8c0964395438fbefd198f37178f63cdc69e92406",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/models/modern/norm.py": "1c5fa7bb25daed61fa6f2ef85dec98132272a89d0a05b56d8e77fbe788206491",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/models/modern/rope.py": "881b4ddbb3be71b70aa558dc612edbad11973fb86bde0a3f9e2b533de2f177e4",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/models/transformer.py": "ec63ac30e4443c73f7dae268cc5198868701afb90c612d62a22e69b6e4f71165",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/models/transformer_block.py": "b3469698eb6825f1ec4ea50883680ed7900e882add125222571924040289b23e",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/optim/__init__.py": "7dea022309245b95ac2c0bd72a4276c2fc57d86b3b2fe4b9d917c5b22220e68e",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/optim/muon.py": "8cb8c859f0a4d52a7b9e0f4a9cdedd48baf1e8c1a0a5e2e809f3466670f0e5e1",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/optim/schedules.py": "a0982c5f85ced7fff0968d9c45f3f22dffb9b5ac2a6f969da0e6196fd8203469",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/tokenizer/__init__.py": "18613038f589bb905264aed778c52b4517c041ecb735a5367f054fa9d9c513bf",
+    "examples/train-llm-from-scratch-example/vendor/train-llm-from-scratch/src/tokenizer/bpe.py": "576ec593003e1430f2d5038b3436e50a7191e7d1abffe2dffd1841672efb4661",
+    "examples/train-llm-from-scratch-example/verification.json": "f91c61e675a9bdcd4303dd0ca94aa4e68f8577ced57013ba7a3a006a6c5f54c3",
+    "examples/train-llm-from-scratch-example/video/assets/data-hashes.json": "91cf42aa5717fa4201943bc87d0b3ac5a1de4b7f494d2fff2c2e06253d87e5d6",
+    "examples/train-llm-from-scratch-example/video/assets/screen-manifest.json": "0e31386650c8743bd72451ed2edd890efaab8cf270e2630ec3f564d423a30e36",
+    "examples/train-llm-from-scratch-example/video/assets/workbench-desktop.png": "28fbcfe50ae9c45d0f7428f998faf96ed008bd20e80866e1662c999772c2f4fb",
+    "examples/train-llm-from-scratch-example/video/assets/workbench-phone.png": "6105ed5e753a5395e926c27aa769753369e373249b86b3635627b7beedf35a96",
+    "examples/train-llm-from-scratch-example/video/index.html": "9ee3f774ac04bbb07ade7ad23a387e9d19d4113d3915e9da576afce31dcd045f",
+    "examples/train-llm-from-scratch-example/video/README.md": "1e290108240ce4320c19bd20e63ce1354f81c9784605f05b16b6c83f983223d4",
+    "examples/train-llm-from-scratch-example/video/review/contact.png": "899e546b6fbc75a0e89a17bcd93ac6a955860fec5910c95174cfee77f75df967",
+    "examples/train-llm-from-scratch-example/video/review/cut-01.png": "0aee4138436cec91a78f5e98f3e37746eb2fe18ebbe4cf681fc94cb6273ed7a0",
+    "examples/train-llm-from-scratch-example/video/review/cut-02.png": "a23df03b651cdcbc3ba740f3916b48f61addaa3744e311d6618a16cc88c9b87b",
+    "examples/train-llm-from-scratch-example/video/review/cut-03.png": "9188a281920960a8392e5741f4128a7bc721782b46065ba8bf53ec00ab87df31",
+    "examples/train-llm-from-scratch-example/video/review/cut-04.png": "dbc9fc8f2cd51fea11d2dd6939685b33ef53b3d3d14608301ec6ff0b32d3d699",
+    "examples/train-llm-from-scratch-example/video/review/cut-05.png": "27322da247073ac77654592796f23d37ec9d095510fcf656172624ce215c779d",
+    "examples/train-llm-from-scratch-example/video/review/final.png": "cd52e66caa70a35802690efe81bb5aa42a7a89347f22bcb8f523cea08209dded",
+    "examples/train-llm-from-scratch-example/video/review/poster.png": "21b5d4f313cadc45f39b61acb11b62a69fde394c81e9c269c3df7810e010f0bd",
+    "examples/train-llm-from-scratch-example/video/review/stills/frame-000000.png": "c45d8e7cc773b20efeb835aaaec4beb2b3f12e668ee5641d5ea67677806048a3",
+    "examples/train-llm-from-scratch-example/video/review/stills/frame-000001.png": "3b554af0b7b43c9f825eac97c2748ac2071e073112116d5c1e20737b626feb65",
+    "examples/train-llm-from-scratch-example/video/review/stills/frame-000002.png": "8a1f80bf45ae6adbd775d358edbff93f00073cb3213415f41d3f2e7d8f1ffaa6",
+    "examples/train-llm-from-scratch-example/video/review/stills/frame-000003.png": "ee38aae5b7738c16ad3ecd004697bfed8583d56d135eed28c94406f7ccfdbc3c",
+    "examples/train-llm-from-scratch-example/video/review/stills/frame-000004.png": "8a1f80bf45ae6adbd775d358edbff93f00073cb3213415f41d3f2e7d8f1ffaa6",
+    "examples/train-llm-from-scratch-example/video/review/stills/frame-000005.png": "ee50a041cdb87efb35bbf61dae217ef0db401d55e386f358beea3e821b241cd3",
+    "examples/train-llm-from-scratch-example/video/review/stills/frame-000006.png": "8a1f80bf45ae6adbd775d358edbff93f00073cb3213415f41d3f2e7d8f1ffaa6",
+    "examples/train-llm-from-scratch-example/video/review/stills/frame-000007.png": "21b5d4f313cadc45f39b61acb11b62a69fde394c81e9c269c3df7810e010f0bd",
+    "examples/train-llm-from-scratch-example/video/review/stills/frame-000008.png": "21b5d4f313cadc45f39b61acb11b62a69fde394c81e9c269c3df7810e010f0bd",
+    "examples/train-llm-from-scratch-example/video/review/stills/frame-000009.png": "8a1f80bf45ae6adbd775d358edbff93f00073cb3213415f41d3f2e7d8f1ffaa6",
+    "examples/train-llm-from-scratch-example/video/review/stills/frame-000010.png": "dbcd10f58e7a794a9f65d2dffd21854c33bc0a19df7ab93f759ed6d6435201a2",
+    "examples/train-llm-from-scratch-example/video/review/stills/frame-000011.png": "8a1f80bf45ae6adbd775d358edbff93f00073cb3213415f41d3f2e7d8f1ffaa6",
+    "examples/train-llm-from-scratch-example/video/review/stills/frame-000012.png": "838c042d67803c28ecce4ede100c845d82af4b5b373852c58f87c072999e98b4",
+    "examples/train-llm-from-scratch-example/video/review/stills/frame-000013.png": "3940b4ee2fec4b49c5161fcad880e99357319da64566d1e721cb6e9e949fe49f",
+    "examples/train-llm-from-scratch-example/video/review/strip.png": "959282216057b28b618218bdf870724d22681b2b95fb433d9ca60969478e3234",
+    "examples/train-llm-from-scratch-example/video/storyboard.json": "60fba601b1bbe3220e255c3fda79d54087107316ab298387c63d4536a19d839f",
+    "examples/train-llm-from-scratch-example/video/video.css": "789897d0e4f45483fa12c107a11c6a489013faef4c5d264504405294f569dced",
+    "examples/train-llm-from-scratch-example/video/video.js": "6c516279833925bb693938ca8e1d3acd0ad1f6e0e2b7c8cd84f76b12c7edad16",
+    "media/train-llm-from-scratch-example.mp4": "48b5654066eb459b81a2832270339799cfad447796d023a498ce17baa5732413",
+    "media/train-llm-from-scratch-example.webp": "eced5f328e0a0de20ef5d4cbcb3fb8e30faca81dac7e5534750cc96dacc66c78"
+  }
+}

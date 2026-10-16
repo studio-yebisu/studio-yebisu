@@ -1,0 +1,35 @@
+Train LLM From Scratch（FareedKhan-dev/train-llm-from-scratch 固定コミット bdd480a518094ca834e05ab32131dc126b522d3d、MIT）の学生向けCPUトラックを使って、LLMの学習の流れ（データ → 自分で学習するBPE → 小さなTransformerを最初から学習 → チェックポイント → 文章生成）を、GPUなしのPCで一通り実行して確かめたいです。自分で書いた短い英文だけで学習し、学習前と学習後のモデルに同じ書き出しを渡して、続きを並べて読める日本語のページにしてください。
+
+読む原典（固定版）
+・GPUなしで学ぶガイド：https://github.com/FareedKhan-dev/train-llm-from-scratch/blob/bdd480a518094ca834e05ab32131dc126b522d3d/docs/student/README.md
+・データ準備とBPE：https://github.com/FareedKhan-dev/train-llm-from-scratch/blob/bdd480a518094ca834e05ab32131dc126b522d3d/scripts/prepare_tiny_data.py
+・学習：https://github.com/FareedKhan-dev/train-llm-from-scratch/blob/bdd480a518094ca834e05ab32131dc126b522d3d/scripts/train_transformer.py
+・文章生成：https://github.com/FareedKhan-dev/train-llm-from-scratch/blob/bdd480a518094ca834e05ab32131dc126b522d3d/scripts/generate_text.py
+・ライセンス：https://github.com/FareedKhan-dev/train-llm-from-scratch/blob/bdd480a518094ca834e05ab32131dc126b522d3d/LICENSE
+
+入力（ここを差し替える。学習の前に固定し、結果を見てから変えない）
+・英文：UTF-8のテキスト1つ。自分で書いたもの。外部のデータセットは使わない（この作例では、名前・場所・物を入れ替える短い型の英文96行）
+・書き出し8つ：ID・日本語のラベル・英文。学習文にある書き出しと、ないものを混ぜる（この作例では P01〜P06 が学習文にある書き出し、P07・P08 がない書き出し）
+・設定（この作例の値）：seed 2201、BPEの語彙数 512、検証に回す割合 0.125、preset tiny・arch modern（64次元・4ヘッド・2ブロック）、文脈 64トークン、バッチ 16、更新 800回、学習率 0.002、CPU 4スレッド、生成は top_k 1・新しく48トークン
+
+進め方
+1. 原典のファイルは改変せずに置き、SHA-256を記録する。原典のスクリプトはCLIのまま実行し、関数の差し替えや書き換えはしない。
+2. prepare_tiny_data.py を --dataset text --input <英文> --tokenizer bpe で実行する。BPEは学習側の文だけで作られる。HDF5と tokenizer.json は公開しない保存先に置く。
+3. train_transformer.py を同じ preset・上書き設定・seed で2回実行する。1回目は --steps 0（一度も更新しない学習前のモデル）、2回目は決めた回数。2回目は途中のチェックポイントも保存する。
+4. 2つのチェックポイントを原典の generate_text.py の load_trained_model で読み、書き出し8つを同じ条件（top_k 1、新しいトークン数、書き出しごとに同じ seed）で生成する。1件は generate_text.py のCLIでも生成し、全文が一致することを確かめる。
+5. 損失（更新ごとの学習ミニバッチの値と、学習前後の最後の評価）、パラメータ数、トークン数、重みのSHA-256、実行したコマンドと所要秒、環境の版を、公開用のJSONに1回だけ書く。手元の絶対パスや完全なログは書かない。どれかのコマンドや確認が失敗したら、結果を書かずに止める。既にある結果は上書きしない。
+6. ページは保存したJSONと入力を取得し、入力のSHA-256・固定コミット・書き出し8つの一致を確かめてから表示する。合わなければ理由と「もう一度読み込む」を出し、内蔵の代わりのデータは使わない。
+
+ページでできること
+・書き出しを選び、学習前と学習後の続きを、入力を含む全文で並べる。文字化けや繰り返しも手直しせずに出す。
+・パラメータ数、学習前後の検証損失、更新回数、更新ごとの学習ミニバッチの損失のグラフ（表でも読める）を見る。
+・選んだ書き出しの記録をJSONで保存し、この依頼文をコピーする。
+・320px幅のスマホから1280px幅のパソコンまで、横スクロールなしで使える。操作部品は44px以上、入力欄の文字は16px以上。外部のフォント・CDN・計測・AIの呼び出しは使わない。
+
+書かないこと
+・同じ英文の末尾で測った検証損失を、汎化や文章の品質として書かない。
+・小さなモデルの出力を、対話AIの性能や知識として書かない。続きを書いたのは学習した小さなモデルで、ページやコードを書いたAIとは分ける。
+・良く見える生成だけを選ばない。書き出しや設定を結果の後で変えない。
+・SFT・DPO・PPO・GRPO・RLHF・量子化・ベンチマークは、この練習では使わない。
+
+最後に、作ったファイル、実際に実行したコマンドとその結果、まだ確かめていない点を分けて書いてください。

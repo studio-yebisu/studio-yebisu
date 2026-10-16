@@ -1,0 +1,52 @@
+{
+  "title": "小さなモデルを、ゼロから育てる：独自の英文96行で学習前と800回更新後の続きを比べる",
+  "request": "このPCで無理なく動く最小のモデルと架空データで、短い学習と文章生成を試してください。規模、学習時間、損失、生成例を記録してください。入力、出力、実行した検証、未確認の点を記録してください。",
+  "category": "learning",
+  "audience": "LLMがどう学習するかを、GPUなしの手元のPCで、実際のコードと出力から理解したい人",
+  "goal": "固定版の原典の学生向けCPUトラック（prepare_tiny_data.py → train_transformer.py → generate_text.py）を改変せずに実行し、独自の英文96行で同じ初期値から0回と800回更新した小さなTransformerに、学習前に固定した8つの書き出しを渡した続きを、損失の推移とあわせてスマホで読み比べられるようにする。",
+  "inputs": [
+    "input/stories.txt：作例のために書いた英文96行（名前・場所・物を入れ替える短い型の繰り返し）",
+    "input/prompts.json：学習前に固定した8つの書き出し（P01〜P08、日本語のラベル付き）と生成条件",
+    "input/run-config.json：学習前に固定した設定（seed 2201、BPE 512、検証0.125、tiny・modern、文脈64、バッチ16、800回、学習率0.002、CPU 4スレッド）",
+    "vendor/train-llm-from-scratch/：FareedKhan-dev/train-llm-from-scratch 固定コミット bdd480a の48ファイル（無改変）"
+  ],
+  "skill_refs": [
+    "https://github.com/FareedKhan-dev/train-llm-from-scratch/blob/bdd480a518094ca834e05ab32131dc126b522d3d/docs/student/README.md",
+    "https://github.com/FareedKhan-dev/train-llm-from-scratch/blob/bdd480a518094ca834e05ab32131dc126b522d3d/scripts/prepare_tiny_data.py",
+    "https://github.com/FareedKhan-dev/train-llm-from-scratch/blob/bdd480a518094ca834e05ab32131dc126b522d3d/scripts/train_transformer.py",
+    "https://github.com/FareedKhan-dev/train-llm-from-scratch/blob/bdd480a518094ca834e05ab32131dc126b522d3d/scripts/generate_text.py",
+    "skills/brief-to-demo/SKILL.md"
+  ],
+  "deliverables": [
+    "run.py：原典のCLIを順に実行し、結果を照合して outputs/training-run.json を1回だけ書くスクリプト",
+    "outputs/training-run.json：800個の損失、学習前後の損失と重みのSHA-256、途中の保存点、8件×学習前後の生成（全文とトークンID）、コマンドと所要秒、確認の結果",
+    "index.html・style.css・app.js：記録と入力を確かめてから、学習前後の続き・損失・条件を並べるスマホ向けのページ",
+    "outputs/method.md：手順、損失の種類、生成と文字化けの扱い、限界の説明",
+    "request.txt：同じ練習を自分の英文で頼むための依頼文"
+  ],
+  "steps": [
+    "英文96行・書き出し8つ・設定を学習の前に固定し、SHA-256を記録する",
+    "prepare_tiny_data.py --dataset text で末尾12.5%付近の行を検証側に分け、学習側の文だけでBPE（指定512）を学習してHDF5に書く",
+    "train_transformer.py を同じ preset・上書き設定・seed で --steps 0（学習前）と --steps 800（学習後、200回ごとの保存点）の2回実行する",
+    "2つのチェックポイントを原典の load_trained_model で読み、8つの書き出しを top_k 1・新しく48トークンで生成する。P01 は generate_text.py のCLIの全文とも照合する",
+    "確認がすべて通ったときだけ outputs/training-run.json を書き、ページで記録と入力を照合して表示する",
+    "実際の記録とページの画面で約28秒の解説動画を作る（制作側の作業）"
+  ],
+  "acceptance": [
+    "ページを開くと、P01 の学習前と800回更新後の続きが入力を含む全文で並び、8つの書き出しを切り替えられる。#P03 のようなリンクでその書き出しが開く",
+    "表示する数字（パラメータ数・学習前後の検証損失・更新回数・800個の損失）は outputs/training-run.json の値で、ページに書き込んだ値ではない",
+    "記録がない、壊れている、入力のSHA-256や書き出しが合わないときは、理由と「もう一度読み込む」が出て、代わりのデータは出ない",
+    "学習前は更新0回、学習後は800回で、設定の違いは更新回数・学習率を下げる時点・保存先だけであることが記録の確認に残る",
+    "選んだ書き出しの記録をJSONで保存でき、依頼文をコピーできる",
+    "320・375・390・430・844（横向き）・1280px幅で横スクロールが出ず、操作部品は44px以上"
+  ],
+  "assumptions": [
+    "英文は作例のために書いた、意図して小さく繰り返しの多い英語です。日本語の文ではなく、外部のデータセットでもありません。後半の32行は前半の行の繰り返しで、検証側の行も学習側に同じ行があります。",
+    "検証損失は同じファイルの末尾で測るため、汎化や文章の品質ではなく、学習の流れを確かめる値として扱います。",
+    "モデルは原典の tiny preset を modern アーキテクチャで使い、文脈だけを128から64に縮めます。パラメータ数は実行後の記録で確かめます。",
+    "原典の --steps 0 は最適化の更新を一度もせずに保存するため、これを学習前のモデルとします。同じseedなので、学習後のモデルと同じ初期値から始まります。",
+    "生成は8件とも top_k 1（最も確率の高いトークンを選ぶ）で、良く見えるものを選び直しません。",
+    "Opus 5.5 は run.py・ページ・解説文を書く役で、続きの文章を生成するのはこの作例で学習した小さなTransformerです。",
+    "依存の導入にはネット接続が要りますが、学習の実行中はダウンロードや外部APIを使いません。torch は 2.11.0 のCPU版を前提にします。"
+  ]
+}
