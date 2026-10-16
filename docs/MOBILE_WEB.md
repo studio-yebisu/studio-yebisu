@@ -39,6 +39,7 @@ Article (`case.html`):
 - The masthead is sticky; `html { scroll-padding-top }` keeps anchor targets visible below it. On short landscape screens the masthead is static.
 - Side columns (catalog filters, article contents) are sticky only at 1100px+ wide and 760px+ tall.
 - No `100vh`/`100vw` panels and no `overflow-x: hidden` on the root. Fix overflow with `min-width: 0`, grid tracks and wrapping instead.
+- Article `title_lines` are inline phrase blocks on phones. Phrases that fit stay together; longer ones wrap inside the available width. This avoids splitting a short word such as 申請 across adjacent lines. Wide screens keep the authored line breaks.
 - Primary controls and navigation targets are at least 44×44px; links within running text retain inline sizing. Body text 16px (17px on desktop), line height 1.7; form controls are at least 16px to avoid iOS focus zoom. Reading width is about 40em.
 - Hover styles are inside `@media (hover: hover) and (pointer: fine)`. Motion is limited to a 150ms press scale on buttons and is removed under `prefers-reduced-motion`.
 
