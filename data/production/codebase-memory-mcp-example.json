@@ -1,6 +1,6 @@
 {
   "id": "codebase-memory-mcp-example",
-  "verified_at": "2026-10-16T01:59:44.466482+00:00",
+  "verified_at": "2026-10-17T19:20:25.882211+00:00",
   "model": {
     "requested": "claude-opus-5-5",
     "reported": [
@@ -18,9 +18,16 @@
         "receipt_sha256": "77e8ac35d1872717184a7e5cb137d31cc01fefc36548812922ac8b0ab0a81c82",
         "execution_sha256": "b1464b3c45c3dec576511650bf802bd6a4bfda8de4dbb6cea4e3531016717aee",
         "prompt_sha256": "0e2717de3b3e9096f31273ff557ff88456ede16bfacc4d4fddb5ba933f12089d"
+      },
+      {
+        "phase": "visual-r1",
+        "receipt_sha256": "356c32adc642e0443797b4a0c74530cfef2d334d8715fdf530ae18440a36594c",
+        "execution_sha256": "9f7566135eac92d1827844dae8cfaa2fbf5389ed222f4f2eb2631a5ab9105467",
+        "prompt_sha256": "54e86ce7ce87fe6421606b0a8a35be63d299fbf0fd8b7e354541d8687c9d2fa0"
       }
     ],
-    "receipt_published": false
+    "receipt_published": false,
+    "scope": "Exact new Opus5.5 authors eight diagram UI/film files. Original tool execution and authoring receipts retained. Production rendering, article adaptation, guide, QA and packaging separate. No new indexing or audio guide."
   },
   "upstream": {
     "repository": "DeusData/codebase-memory-mcp",
@@ -62,273 +69,825 @@
   },
   "verification": {
     "id": "codebase-memory-mcp-example",
-    "verified_at": "2026-10-16T01:59:44.268083+00:00",
-    "stage": "runtime-and-agent-visual-reviewed",
-    "source_commit": "ec6427c38176efcd37b28682e82f2491afda94be",
-    "data_checks": {
-      "status": "passed",
-      "sample_count": 3,
-      "verified_at": "2026-10-16T01:34:26.928925+00:00",
-      "native_tool_calls": 18,
-      "all_public_tool_payloads_equal_real_private_stdout_after_path_normalization": true,
-      "all_samples_equal_actual_requests_and_responses": true,
-      "source_definition_line": 8,
-      "source_internal_edges_before": [
-        [
-          "main",
-          "submit_order"
-        ],
-        [
-          "submit_order",
-          "calculate_total"
-        ],
-        [
-          "submit_order",
-          "save_receipt"
-        ],
-        [
-          "submit_order",
-          "validate_order"
-        ]
+    "verified_at": "2026-10-17T19:20:25.882211+00:00",
+    "revision": "visual-r1",
+    "stage": "technical_qa_complete",
+    "runtime_preserved_files": 28,
+    "original_runtime_scope": "公式 v0.12.0 のネイティブ CLI（codebase-memory-mcp cli）で、バックエンドのツールを1回ずつ実行した結果です。MCP プロトコル経由の動作、CBM Lens、ブラウザAI、意味検索は使っていません。呼び出し関係は索引に記録された静的な関係で、実行時に記録したトレースではありません。fixture/ は架空の小さなリポジトリで、変更（storage_revised.py への差し替え）は実行用コピーにだけ加えました。パスの fixture/ は実行用コピーを指します。",
+    "upstream": {
+      "repository": "DeusData/codebase-memory-mcp",
+      "commit": "ec6427c38176efcd37b28682e82f2491afda94be",
+      "version": "0.12.0",
+      "license": "MIT",
+      "copyright_notice": "Copyright (c) 2025 DeusData",
+      "official_git_blobs_verified": [
+        {
+          "path": "LICENSE",
+          "git_blob": "0b95352746a97a8cf2d1f3ba568bc7bb5e514d1f",
+          "sha256": "1f58f9911dc5e3bcb96de28bb28e7b6bb7eb323952d29569c5d7214a152146bb"
+        },
+        {
+          "path": "README.md",
+          "git_blob": "27262a079081bdf22e9b062e31e218b355043270",
+          "sha256": "72cab3ba5a2669b8b37ee038ffb1b47261199945f48295521ce2a695b3cf3c2b"
+        },
+        {
+          "path": "SECURITY.md",
+          "git_blob": "48da1d1a1bd9ddfb27ab0635e99d78a76069d50f",
+          "sha256": "12b343aa168914a515eb5eac4af7334878d2d9661cb25aaff9f83136f6e983d7"
+        },
+        {
+          "path": "THIRD_PARTY.md",
+          "git_blob": "4b76c28e81897bc80271f230a72e2cb24a919109",
+          "sha256": "7374b2e2158d8a2c9bd411b120dcbda6cdc1e333e945fbfd3b27bcd6e29f27e8"
+        },
+        {
+          "path": "docs/CONFIGURATION.md",
+          "git_blob": "3e9956d6017fd8709e529cecdf5002b40b29ec66",
+          "sha256": "88baacfdea5f41ac5920721b93b80534a0d7634ff9ce37430dbe4ebe5894e5da"
+        },
+        {
+          "path": "scripts/README.md",
+          "git_blob": "5b42e8256fdd0e11b2d9a5108bc2604c0673a732",
+          "sha256": "fd103da3f88593984d6ea03757096cf493ea7fe4bf430552373dd79fe6fef75a"
+        }
       ],
-      "source_internal_edges_after": [
-        [
-          "main",
-          "submit_order"
-        ],
-        [
-          "save_receipt",
-          "audit_receipt"
-        ],
-        [
-          "submit_order",
-          "calculate_total"
-        ],
-        [
-          "submit_order",
-          "save_receipt"
-        ],
-        [
-          "submit_order",
-          "validate_order"
-        ]
-      ],
-      "query_rows_before": 6,
-      "query_rows_stale": 6,
-      "query_rows_after": 7,
-      "new_edge_after_manual_reindex_only": true,
-      "base_and_revised_total_jpy": 2400,
-      "actual_audit_consistent": true,
-      "original_fixture_hashes_unchanged": true,
-      "upstream_release_archive_executable_attestation_match": true,
+      "original_release_attestation_retained": true,
       "scope": "公式 v0.12.0 のネイティブ CLI（codebase-memory-mcp cli）で、バックエンドのツールを1回ずつ実行した結果です。MCP プロトコル経由の動作、CBM Lens、ブラウザAI、意味検索は使っていません。呼び出し関係は索引に記録された静的な関係で、実行時に記録したトレースではありません。fixture/ は架空の小さなリポジトリで、変更（storage_revised.py への差し替え）は実行用コピーにだけ加えました。パスの fixture/ は実行用コピーを指します。",
-      "human_approval": false,
-      "remaining": [
-        "MCP protocol, Lens, browser AI, semantic search, large repositories and speed/token claims untested.",
-        "Static call edges are not observed runtime traces or completeness guarantees."
-      ]
+      "verified_at": "2026-10-17T18:08:04.015383+00:00"
     },
-    "environment": {
-      "python": "3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]",
-      "platform": "Windows-11-10.0.26200-SP0",
-      "binary_release": "v0.12.0",
-      "scope": "Native Windows amd64 CLI, original stdlib-only Python fixture. MCP protocol, Lens, browser AI, semantic search and runtime tracing not exercised."
-    },
-    "semantic_review": {
-      "agent_semantic_review": true,
-      "human_approval": false,
-      "verified": [
-        "Actual18CLIresponses compared to saved payloads with path normalization only;14 sample tool payloads compared to DOM.",
-        "SourceAST cross-check:4 internal edges before,5 after, actualnewedge onlyafter manualreindex.",
-        "Realfixtureexecution is separate from staticCALLS; actualreceipts2400before/after andconsistenttrueaudit.",
-        "No original fixture edits, modelinference, realpayment/reservation, MCPprotocol, Lens/semanticsearch or speedclaims."
-      ],
-      "unresolved_blockers": []
+    "video": {
+      "portrait": {
+        "video": {
+          "file": "video.mp4",
+          "sha256": "496a09aa02e332e153d0a644a65cf9466e9e1672ed439eebf92e51bd1b9b330f",
+          "width": 720,
+          "height": 1280,
+          "fps": 30,
+          "frameCount": 960,
+          "duration": 32,
+          "hasAudio": false
+        },
+        "determinism": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "283d205211c4a8527e14622188915532ac48ff8a47dda86af0c1f6a6a90a96e8",
+          "afterOtherTimes": "283d205211c4a8527e14622188915532ac48ff8a47dda86af0c1f6a6a90a96e8",
+          "freshPage": "283d205211c4a8527e14622188915532ac48ff8a47dda86af0c1f6a6a90a96e8",
+          "match": true
+        }
+      },
+      "wide": {
+        "video": {
+          "file": "video.mp4",
+          "sha256": "2b8f02151bf86971e5d4b5f40d4b7dbc79062ee1105b28efa5f2c2c79a9872e9",
+          "width": 1280,
+          "height": 720,
+          "fps": 30,
+          "frameCount": 960,
+          "duration": 32,
+          "hasAudio": false
+        },
+        "determinism": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "2e6f3e73b94a8adf8379a5af1a4e03eacbc0c5d2769d57a88ec1d594bd9072b9",
+          "afterOtherTimes": "2e6f3e73b94a8adf8379a5af1a4e03eacbc0c5d2769d57a88ec1d594bd9072b9",
+          "freshPage": "2e6f3e73b94a8adf8379a5af1a4e03eacbc0c5d2769d57a88ec1d594bd9072b9",
+          "match": true
+        }
+      }
     },
     "browser": {
       "status": "passed",
-      "sample_count": 3,
-      "agent_visual_review": true,
-      "human_approval": false,
-      "responsive_widths": [
+      "verified_at": "2026-10-17T19:20:17.318584+00:00",
+      "layouts": 35,
+      "requested_widths": [
         320,
         375,
         390,
         430,
+        768,
         844,
         1280
       ],
-      "responsive_states": 18,
-      "final_update_panel_rechecked_widths": [
-        320,
-        390,
-        1280
-      ],
-      "all_dom_tool_payloads_equal_actual_saved_outputs": true,
-      "dom_tool_payloads": 14,
-      "root_overflow": false,
-      "primary_targets_min44": true,
-      "input_font_px": 16,
-      "keyboard": "NativeArrowRight,Home,End changed selected panel andfocus;3px focus outline",
-      "initial_hash": "#update after reload showed update only after data ready",
-      "failure": "Controlled503 hides allresults and showsretry; native retry restores3/3 and update hash",
-      "clipboard": "UI promise reports success; clipboard API readback differed from request, so actual copied text not verified",
-      "scope": [
-        "Windows IAB Chromium desktop and emulated viewport sizes, not physical iOS/Safari/VoiceOver.",
-        "Agent visual inspection and runtime assertions are not human aesthetic approval."
-      ],
-      "screenshots": [
+      "overflow_views": 0,
+      "primary_targets_minimum_px": 44,
+      "form_font_minimum_px": 16,
+      "phone_diagram_and_save_fit": true,
+      "exact_downloads": [
         {
-          "path": "assets/screen-find.png",
-          "source": "Studio Yebisu native IAB Chromium screenshot; no content edits",
-          "description": "Actual search definition and source: service.py line8",
-          "pixels": [
-            1265,
-            889
-          ],
-          "sha256": "73d15f0646acc428e6cd0567ff1815287b9e92540b56af317e5136a4a064907e"
+          "id": "find",
+          "filename": "codebase-memory-find.json",
+          "bytes": 3489,
+          "sha256": "636dac36b36e05a5b11ee7c290bc94821ae6ce0f5c38e248c80650b86651cf2e"
         },
         {
-          "path": "assets/screen-trace.png",
-          "source": "Studio Yebisu native IAB Chromium screenshot; no content edits",
-          "description": "Actual three direct static calls and source lines",
-          "pixels": [
-            1265,
-            889
-          ],
-          "sha256": "5ca593a986bca647f70b7ca82a2fa3126f8fa8c9e904764804bc331bdbe3940d"
+          "id": "trace",
+          "filename": "codebase-memory-trace.json",
+          "bytes": 3769,
+          "sha256": "fbc46750673f629ec5722bc86614c7b7d1b307b3cbadaa8caaf65e500cd92d01"
         },
         {
-          "path": "assets/screen-update.png",
-          "source": "Studio Yebisu native IAB Chromium screenshot; no content edits",
-          "description": "Actual no/no/yes comparison and6/6/7 query rows",
-          "pixels": [
-            1265,
-            889
-          ],
-          "sha256": "9aa17607a918077e761f14a3c0b290c6ecaba81f733c03602d10de64c35871aa"
-        },
-        {
-          "path": "assets/screen-phone.png",
-          "source": "Studio Yebisu native IAB Chromium screenshot; no content edits",
-          "description": "Actual390px mobile first screen; saved-result label and three actions",
-          "pixels": [
-            375,
-            812
-          ],
-          "sha256": "d5915010dcfde9a6bff1dd29e05d4ae7d9ebe5c8ddcc79cbff55a7041916600f"
+          "id": "update",
+          "filename": "codebase-memory-update.json",
+          "bytes": 16194,
+          "sha256": "e478e7b1ffa396ff72add9a2895bc9728c0b463a3b901bd75078590b194500aa"
         }
-      ]
-    },
-    "video": {
-      "video_sha256": "e23dd21a40a5b684f3d5c12484d1238f02eb23c98e3e30a046cbf44eb7a8e8cd",
-      "poster_sha256": "b9b7b6b3cfb4a30ee8862fdfa422e54571531c5c69523c938f4d83aa641f0c39",
-      "poster_from_mp4_seconds": 13.5,
-      "full_decode_passed": true,
-      "review_files": [
-        "contact.png",
-        "poster.png",
-        "strip.png",
-        "stills/frame-000000.png",
-        "stills/frame-000001.png",
-        "stills/frame-000002.png",
-        "stills/frame-000003.png",
-        "stills/frame-000004.png",
-        "stills/frame-000005.png",
-        "stills/frame-000006.png",
-        "stills/frame-000007.png",
-        "stills/frame-000008.png",
-        "stills/frame-000009.png",
-        "stills/frame-000010.png",
-        "stills/frame-000011.png",
-        "stills/frame-000012.png",
-        "stills/frame-000013.png",
-        "cut-01.png",
-        "cut-02.png",
-        "cut-03.png",
-        "cut-04.png",
-        "cut-05.png",
-        "final.png"
       ],
-      "render_label": "final-v1",
-      "bundled_renderer_executed": true,
-      "reviewed_at": "2026-10-16T01:59:44.183300+00:00",
-      "agent_visual_review": true,
+      "all14sample_tool_requests_and_responses_match_dom": true,
+      "original_total_cli_calls": 18,
+      "update_phases": [
+        "before",
+        "stale",
+        "after"
+      ],
+      "indexed_internal_edge_counts": [
+        4,
+        4,
+        5
+      ],
+      "total_query_rows": [
+        6,
+        6,
+        7
+      ],
+      "source_and_stale_index_distinguished": true,
+      "source_definition_and_snippet_retained": true,
+      "original_files_byte_and_sha_verified": 11,
+      "record_fail_closed_and_recovered": [
+        "HTTP503",
+        "truncatedJSON rejected by byte length",
+        "changedBytes rejected by byte length"
+      ],
+      "stale_record_replaced_with_error_message": true,
+      "editor_assets_verified": 7,
+      "editor_audio_elements": 0,
+      "editor_scene_jumps": 7,
+      "editor_seek_reset_pause_end_replay_verified": true,
+      "asset_failure_and_recovery_verified": true,
+      "wide_editor": [
+        1280,
+        720
+      ],
+      "native_movies": [
+        {
+          "label": "portrait",
+          "currentTime": 32,
+          "duration": 32,
+          "ended": true,
+          "error": null,
+          "paused": true
+        },
+        {
+          "label": "wide",
+          "currentTime": 32,
+          "duration": 32,
+          "ended": true,
+          "error": null,
+          "paused": true
+        }
+      ],
+      "movies_ended": 2,
+      "request_copy_ui": "Browser reported completed",
+      "clipboard_content_readback_verified": false,
+      "physical_ios_safari_voiceover": false,
       "human_approval": false,
-      "review_scope": [
-        "Inspected14framecontact, full13.5sstatic-callposter,18sstale/20sreindexedcomparisons,finalframe,8.1s12framestrip,16.1sinitialstripandfive12frameMP4stripsat3.85/9.85/15.85/18.85/21.85. No clipping or accumulated drawing observed. Brief empty interiors at scene cuts are whole-content fades.",
-        "Findactualscreen crop aligns with8lineagreementanddefinitionmark. Large labels give actualsourcefacts.",
-        "Staticdiagram separates3callees with no implied ordering; actualmain->submit_order andservice.py9/10/18 calllines; static-not-runtimecaption visible.",
-        "Update dashedunindexed audit_receipt becomes solid aftermanualindex; actualquery6/6/7 andactualscreenscomparison. Source15callline/19definition match.",
-        "Actual2400receipt andconsistenttrueaudit labelled separatePythonexecutiononfictionalorder, not agraphtrace oractualpayment.",
-        "Finalrealphonecrop highlights saved-result label; actualfixedcommit fits. Nativeeditor14sready,375pxrootfit/play48.6px/scrub44px.",
-        "NativeMP4observedinitialbuffering0s/paused/ready1 thenautomaticplaybackended28s/ready4/errornull withoutmanualseek.",
-        "28s720p30fps840frames silent,noaudiotrack. PhysicaliOS/otherratios/humanaestheticapproval nottested."
-      ],
-      "native_playback": {
-        "time": 28,
-        "ended": true,
-        "error": null,
-        "first_observed_seconds": 0,
-        "initial_ready_state": 1,
-        "initial_paused": true,
-        "no_manual_seek": true
-      },
-      "source_editor": {
-        "canvas": [
-          1280,
-          720
-        ],
-        "play_enabled": true,
-        "position": 14,
-        "status": "14.00 / 28.00 秒 ・ 準備完了（保存済みの結果から描画・無音）"
-      },
-      "determinism": {
-        "frame": 504,
-        "seconds": 16.8,
-        "first": "9f061d2074e9953ac94207ceb485a7f5eb8cda8b36dde7b6789c8fdd456c25f6",
-        "afterOtherTimes": "9f061d2074e9953ac94207ceb485a7f5eb8cda8b36dde7b6789c8fdd456c25f6",
-        "freshPage": "9f061d2074e9953ac94207ceb485a7f5eb8cda8b36dde7b6789c8fdd456c25f6",
-        "match": true
-      },
-      "audio": "silent; no audio track",
+      "scope": "New UI/film technical review only. Original official native CLI18calls and separate Python fixture executions retained, not rerun. Static CALLS is not a runtime trace."
+    },
+    "frame_review": {
+      "status": "passed",
+      "verified_at": "2026-10-17T19:20:17.318584+00:00",
+      "reviewer": "Production agent visual inspection; not human approval",
       "unresolved_blockers": [],
-      "remaining": [
-        "Other aspect ratios, physicaliOS/Safari andhumanartisticapproval untested."
+      "viewed": [
+        "Final renders-r2 portrait/contact.png and wide/contact.png",
+        "Both final cue strips at24seconds",
+        "Portrait poster31seconds and final phone-scale graph",
+        "Both12frameMP4strips at25.5seconds during actual revision-card movement",
+        "Native375x812main diagram and save operation"
+      ],
+      "findings": [
+        "Five actual source-file shapes connect via a manual-index handle to one persistent static-call map and an actual saved-record destination. Native portrait and independently composed wide layout keep the same object identities.",
+        "submit_order branches to three sibling callees, not a sequence. Visible static-call disclaimer prevents interpreting the lines as runtime traces. Main/source locations8/9/10/18/19/15match original actual files and saved records.",
+        "Changed source shows audit_receipt while the old map still lacks the edge; only manual reindex creates save_receipt->audit_receipt. Full query6/6/7 and drawn internal4/5remain distinct.",
+        "Original separate Python receipt2400/auditconsistenttrue appears as a separate small document, not the result of graph search or traced execution.",
+        "First-render strips exposed overlapping bridge-label and scene-headline crossfades. Production editor now draws one bridge label and one scene headline at a time. Final renders-r2 preserve original motion, source/assets and exact results.",
+        "Final hold keeps the updated map and real saved record readable; technical identifiers are supplemental to larger Japanese role labels. Main phone diagram and save fit the initial812pixel viewport."
+      ],
+      "frame_evidence": {
+        "portrait": {
+          "representative_frames": 16,
+          "continuous_frames": 12,
+          "determinism": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "283d205211c4a8527e14622188915532ac48ff8a47dda86af0c1f6a6a90a96e8",
+            "afterOtherTimes": "283d205211c4a8527e14622188915532ac48ff8a47dda86af0c1f6a6a90a96e8",
+            "freshPage": "283d205211c4a8527e14622188915532ac48ff8a47dda86af0c1f6a6a90a96e8",
+            "match": true
+          },
+          "video": {
+            "file": "video.mp4",
+            "sha256": "496a09aa02e332e153d0a644a65cf9466e9e1672ed439eebf92e51bd1b9b330f",
+            "width": 720,
+            "height": 1280,
+            "fps": 30,
+            "frameCount": 960,
+            "duration": 32,
+            "hasAudio": false
+          }
+        },
+        "wide": {
+          "representative_frames": 16,
+          "continuous_frames": 12,
+          "determinism": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "2e6f3e73b94a8adf8379a5af1a4e03eacbc0c5d2769d57a88ec1d594bd9072b9",
+            "afterOtherTimes": "2e6f3e73b94a8adf8379a5af1a4e03eacbc0c5d2769d57a88ec1d594bd9072b9",
+            "freshPage": "2e6f3e73b94a8adf8379a5af1a4e03eacbc0c5d2769d57a88ec1d594bd9072b9",
+            "match": true
+          },
+          "video": {
+            "file": "video.mp4",
+            "sha256": "2b8f02151bf86971e5d4b5f40d4b7dbc79062ee1105b28efa5f2c2c79a9872e9",
+            "width": 1280,
+            "height": 720,
+            "fps": 30,
+            "frameCount": 960,
+            "duration": 32,
+            "hasAudio": false
+          }
+        }
+      },
+      "moving_mp4_strips": [
+        {
+          "layout": "portrait",
+          "start": 25.5,
+          "fps": 30,
+          "frames": 12,
+          "mp4_sha256": "496a09aa02e332e153d0a644a65cf9466e9e1672ed439eebf92e51bd1b9b330f"
+        },
+        {
+          "layout": "wide",
+          "start": 25.5,
+          "fps": 30,
+          "frames": 12,
+          "mp4_sha256": "2b8f02151bf86971e5d4b5f40d4b7dbc79062ee1105b28efa5f2c2c79a9872e9"
+        }
+      ],
+      "full_ffmpeg_decode": "Both exact final renders-r2 MP4s decoded to null with exit0; both native playbacks ended at32seconds.",
+      "limits": [
+        "Agent review and automatic checks do not establish human approval, effectiveness, completeness of static analysis or performance.",
+        "Physical iOS/Safari/VoiceOver and clipboard content readback unverified.",
+        "Silent; no narration or audio stream."
       ]
     },
-    "motion_reel": {
-      "name": "Studio Yebisu Motion Reel rendering runtime",
-      "license": "MIT",
-      "copyright": "2026 Studio Yebisu",
-      "files_sha256": {
-        "render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
-        "audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
-        "package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
-        "package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
-        "LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd"
+    "production_adjustments": [
+      {
+        "file": "video/video.js",
+        "reason": "At 24 seconds old and new bridge labels overlapped during their crossfade. The longer manual label also approached the unreflected pill.",
+        "change": "Draw exactly one bridge label at a time and shorten it to 手で索引 in both native layouts. Preserve the timeline, graph reveal and motion.",
+        "unchanged": "Eight original Opus sources archived; 28 original files, 11 raw files, seven assets and all real results unchanged."
       },
-      "dependency_lock": "Playwright1.64.0 npm registry Apache-2.0; dependencies not distributed."
-    },
-    "production_contributions": {
-      "Opus5.5": "Read fixed official documentation and brief-to-demo; authored original fixture, CLI bridge, Japanese guide, saved-result viewer and editable film.",
-      "production_editor": "Verified official release checksum/build attestation and exact source, adapted Windows encoding/actual CLI payload shape and grouped search format, executed genuine tools and original fixture, compared source/raw output/DOM, adjusted mobile layout, reviewed film and scoped authorized publication. Full model histories remain private."
-    },
-    "parent_adjustments": {
-      "changes": [
-        "Use Python -X utf8 for isolated child output onWindows.",
-        "Respect actual CLI schema: rawenvelope flag,format in toolJSON,indexwithoutformat,list_projects formatting viaflag.",
-        "Decode v0.12 grouped search rows by explicit cols/groups/qn_rule; rawresponses retained unchanged apartfrom documentedpaths.",
-        "Use existing-safe local userprofile cache and create rendezvous directory; nopermissionweakening/globalintegration/foreignprocessstop.",
-        "Shorten mobilehero, move scope/four facts to native details, shorten derivedtablabels, hide numberbadge below360px and fold changedsource so comparisonappears first.",
-        "Document actuallyverifiedrelease and reproducible private-directory setup."
-      ],
-      "unchanged": "Originalfictional fixtures andrawtoolpayloadmeaning unchanged.",
-      "human_approval": false
-    },
-    "human_approval": false
+      {
+        "file": "video/video.js",
+        "reason": "The continuous strip at 24 seconds showed two different scene headlines superimposed in the same space during a crossfade.",
+        "change": "Keep a single fully readable scene headline at each cue. The connected diagram continues moving across the unchanged scene times.",
+        "unchanged": "All diagram geometry, absolute-time motion, original data and source assets remain unchanged. First-render outputs retained privately; final render uses renders-r2."
+      },
+      {
+        "files": [
+          "render-visual.py",
+          "video/README.md",
+          "README.md"
+        ],
+        "reason": "The received film README described a portrait command using the old renderer entry, whose defaults are landscape. It also needed to distinguish delivery-time pending checks from later actual QA.",
+        "change": "Add a dimension-aware wrapper using the exact temporary-copy method already used for final renders. Preserve original render.py. Give explicit720x1280/1280x720 commands and date/scope the original pending-QA text. Repackage owned artifacts; UI, film code, MP4s and28originalfiles unchanged."
+      }
+    ],
+    "human_approval": false,
+    "physical_ios_safari_voiceover": false,
+    "silent": true
   },
   "explanation": {
+    "scope": "New concept-map UI and film only. Original official CLI and separate fixture executions retained.",
+    "parent_adjustments": [
+      {
+        "file": "video/video.js",
+        "reason": "At 24 seconds old and new bridge labels overlapped during their crossfade. The longer manual label also approached the unreflected pill.",
+        "change": "Draw exactly one bridge label at a time and shorten it to 手で索引 in both native layouts. Preserve the timeline, graph reveal and motion.",
+        "unchanged": "Eight original Opus sources archived; 28 original files, 11 raw files, seven assets and all real results unchanged."
+      },
+      {
+        "file": "video/video.js",
+        "reason": "The continuous strip at 24 seconds showed two different scene headlines superimposed in the same space during a crossfade.",
+        "change": "Keep a single fully readable scene headline at each cue. The connected diagram continues moving across the unchanged scene times.",
+        "unchanged": "All diagram geometry, absolute-time motion, original data and source assets remain unchanged. First-render outputs retained privately; final render uses renders-r2."
+      },
+      {
+        "files": [
+          "render-visual.py",
+          "video/README.md",
+          "README.md"
+        ],
+        "reason": "The received film README described a portrait command using the old renderer entry, whose defaults are landscape. It also needed to distinguish delivery-time pending checks from later actual QA.",
+        "change": "Add a dimension-aware wrapper using the exact temporary-copy method already used for final renders. Preserve original render.py. Give explicit720x1280/1280x720 commands and date/scope the original pending-QA text. Repackage owned artifacts; UI, film code, MP4s and28originalfiles unchanged."
+      }
+    ]
+  },
+  "video_review": {
+    "status": "passed",
+    "verified_at": "2026-10-17T19:20:17.318584+00:00",
+    "reviewer": "Production agent visual inspection; not human approval",
+    "unresolved_blockers": [],
+    "viewed": [
+      "Final renders-r2 portrait/contact.png and wide/contact.png",
+      "Both final cue strips at24seconds",
+      "Portrait poster31seconds and final phone-scale graph",
+      "Both12frameMP4strips at25.5seconds during actual revision-card movement",
+      "Native375x812main diagram and save operation"
+    ],
+    "findings": [
+      "Five actual source-file shapes connect via a manual-index handle to one persistent static-call map and an actual saved-record destination. Native portrait and independently composed wide layout keep the same object identities.",
+      "submit_order branches to three sibling callees, not a sequence. Visible static-call disclaimer prevents interpreting the lines as runtime traces. Main/source locations8/9/10/18/19/15match original actual files and saved records.",
+      "Changed source shows audit_receipt while the old map still lacks the edge; only manual reindex creates save_receipt->audit_receipt. Full query6/6/7 and drawn internal4/5remain distinct.",
+      "Original separate Python receipt2400/auditconsistenttrue appears as a separate small document, not the result of graph search or traced execution.",
+      "First-render strips exposed overlapping bridge-label and scene-headline crossfades. Production editor now draws one bridge label and one scene headline at a time. Final renders-r2 preserve original motion, source/assets and exact results.",
+      "Final hold keeps the updated map and real saved record readable; technical identifiers are supplemental to larger Japanese role labels. Main phone diagram and save fit the initial812pixel viewport."
+    ],
+    "frame_evidence": {
+      "portrait": {
+        "representative_frames": 16,
+        "continuous_frames": 12,
+        "determinism": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "283d205211c4a8527e14622188915532ac48ff8a47dda86af0c1f6a6a90a96e8",
+          "afterOtherTimes": "283d205211c4a8527e14622188915532ac48ff8a47dda86af0c1f6a6a90a96e8",
+          "freshPage": "283d205211c4a8527e14622188915532ac48ff8a47dda86af0c1f6a6a90a96e8",
+          "match": true
+        },
+        "video": {
+          "file": "video.mp4",
+          "sha256": "496a09aa02e332e153d0a644a65cf9466e9e1672ed439eebf92e51bd1b9b330f",
+          "width": 720,
+          "height": 1280,
+          "fps": 30,
+          "frameCount": 960,
+          "duration": 32,
+          "hasAudio": false
+        }
+      },
+      "wide": {
+        "representative_frames": 16,
+        "continuous_frames": 12,
+        "determinism": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "2e6f3e73b94a8adf8379a5af1a4e03eacbc0c5d2769d57a88ec1d594bd9072b9",
+          "afterOtherTimes": "2e6f3e73b94a8adf8379a5af1a4e03eacbc0c5d2769d57a88ec1d594bd9072b9",
+          "freshPage": "2e6f3e73b94a8adf8379a5af1a4e03eacbc0c5d2769d57a88ec1d594bd9072b9",
+          "match": true
+        },
+        "video": {
+          "file": "video.mp4",
+          "sha256": "2b8f02151bf86971e5d4b5f40d4b7dbc79062ee1105b28efa5f2c2c79a9872e9",
+          "width": 1280,
+          "height": 720,
+          "fps": 30,
+          "frameCount": 960,
+          "duration": 32,
+          "hasAudio": false
+        }
+      }
+    },
+    "moving_mp4_strips": [
+      {
+        "layout": "portrait",
+        "start": 25.5,
+        "fps": 30,
+        "frames": 12,
+        "mp4_sha256": "496a09aa02e332e153d0a644a65cf9466e9e1672ed439eebf92e51bd1b9b330f"
+      },
+      {
+        "layout": "wide",
+        "start": 25.5,
+        "fps": 30,
+        "frames": 12,
+        "mp4_sha256": "2b8f02151bf86971e5d4b5f40d4b7dbc79062ee1105b28efa5f2c2c79a9872e9"
+      }
+    ],
+    "full_ffmpeg_decode": "Both exact final renders-r2 MP4s decoded to null with exit0; both native playbacks ended at32seconds.",
+    "limits": [
+      "Agent review and automatic checks do not establish human approval, effectiveness, completeness of static analysis or performance.",
+      "Physical iOS/Safari/VoiceOver and clipboard content readback unverified.",
+      "Silent; no narration or audio stream."
+    ]
+  },
+  "publication": {
+    "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=codebase-memory-mcp-example",
+    "authorization": "User requested sequential publication of40 cases to existing main and Pages."
+  },
+  "artifacts_sha256": {
+    "examples/codebase-memory-mcp-example/app.mjs": "74cf6438e7f3d78b4a4259a92d3accc3133c89c82c2200e89c53852ebc34d896",
+    "examples/codebase-memory-mcp-example/comparison.css": "5632f35d2ad61a94ba1bb4cd5ff4b88e79e23937cc1713f1355937f71ef0fb73",
+    "examples/codebase-memory-mcp-example/comparison.html": "d88b1da848cf44d141391876d241da5a7995a5c0a2fdfbfd4ca80ddf52aa03ea",
+    "examples/codebase-memory-mcp-example/comparison.mjs": "6d2e75673a593fa225afb89707a66c2e98b47750c973c3157c403cb3f9d41d1a",
+    "examples/codebase-memory-mcp-example/data-manifest.json": "2e6a270fc789a0a88a3e7228dad30461ea8d4ac6a39baad04d3c838c866c7b77",
+    "examples/codebase-memory-mcp-example/index.html": "1dc3d60195ad49c997d99577336890893cf5c0ac71d00046070895f398f4486b",
+    "examples/codebase-memory-mcp-example/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
+    "examples/codebase-memory-mcp-example/README.md": "74bbd982b43469a0d6090d507edcc585dba653478d00c54bb28e84177bc080f8",
+    "examples/codebase-memory-mcp-example/render-visual.py": "581764f15111806960e864eb652a9bc1512fed9f065c7bdb96da77a05d09da65",
+    "examples/codebase-memory-mcp-example/render.py": "18708e8c318fe564a1b6edcb586ccf11e8fcbf9c06c0d6c052244d6bea9f723d",
+    "examples/codebase-memory-mcp-example/request.txt": "aefcae60fd1fcd5dec2b0daf8c4624c1d42e7f5664eaa9881998fbfd8860c05a",
+    "examples/codebase-memory-mcp-example/samples.json": "d1a900836696a8d25a73e2bffa5b2b65f82c3b92cd18692f33e5648ffc3f9498",
+    "examples/codebase-memory-mcp-example/source.zip": "ae3c769428c50c6ff4eb7fe19b76047414b3ed2607f9b2503ec79fb9bfd05b55",
+    "examples/codebase-memory-mcp-example/style.css": "4d19252548251d24d4f05ff672f0adc7c5bbec15adb01d948d18144bfb591e0f",
+    "examples/codebase-memory-mcp-example/verification.json": "aa92609f658d80207f4a9d26331c8450365d843cae9977b18149a7f16ccffece",
+    "examples/codebase-memory-mcp-example/visual-guide.md": "9122f06b8afafe4a023222b77d288620013e0714c741172689be2c99d57e3877",
+    "examples/codebase-memory-mcp-example/workflow.py": "7d28b88e337ca9f211eff2b67fd5b42bdadef2535ec698e55c530fad0a58ce23",
+    "examples/codebase-memory-mcp-example/assets/screen-find.png": "73d15f0646acc428e6cd0567ff1815287b9e92540b56af317e5136a4a064907e",
+    "examples/codebase-memory-mcp-example/assets/screen-phone.png": "d5915010dcfde9a6bff1dd29e05d4ae7d9ebe5c8ddcc79cbff55a7041916600f",
+    "examples/codebase-memory-mcp-example/assets/screen-trace.png": "5ca593a986bca647f70b7ca82a2fa3126f8fa8c9e904764804bc331bdbe3940d",
+    "examples/codebase-memory-mcp-example/assets/screen-update.png": "9aa17607a918077e761f14a3c0b290c6ecaba81f733c03602d10de64c35871aa",
+    "examples/codebase-memory-mcp-example/fixture/app.py": "dd7b8550687cb74b29d92f371c0df391126540273fb5354da0628fe7c7e32695",
+    "examples/codebase-memory-mcp-example/fixture/pricing.py": "795f125daf3b8e5369f6870b19f0736b5516c5926718064970bc3ec165ada2ad",
+    "examples/codebase-memory-mcp-example/fixture/sample_order.json": "7e142dcdce067a80bb4f4c20ebded83331200ad1191d0bff42b14c3899a19754",
+    "examples/codebase-memory-mcp-example/fixture/service.py": "2a35508af631110afc1e9aaea0dc7c8a00cb26f6de0632784869a0b1a166aafc",
+    "examples/codebase-memory-mcp-example/fixture/storage.py": "b849317607b3d81fb2f20aaca9b2c4cd2b2a18023a933ede97df29727c85118e",
+    "examples/codebase-memory-mcp-example/fixture/storage_revised.py": "c2c37eb7a4fc8393620c9bd1f2a835495253c590d9d0f9b02b643c800bd0a458",
+    "examples/codebase-memory-mcp-example/fixture/validation.py": "fec5144c30d03ff583b2a93533c04383d7ccdf4c3dee76c5bdba9e6460cd9b63",
+    "examples/codebase-memory-mcp-example/outputs/result.md": "fafb2c95f6e5c4e627a9161e319a507030b80d7a825662c89f5556dfdf5329b0",
+    "examples/codebase-memory-mcp-example/outputs/runs.json": "966b504b3c23eb151e8bee15617cecc469875c64cb2310a295f761071c8d3d63",
+    "examples/codebase-memory-mcp-example/video/index.html": "b610cbbdcdd4dac4e505b285173bf9911ca033b3b7e8e914a73c036bdd3d465f",
+    "examples/codebase-memory-mcp-example/video/README.md": "1ef1c5d9c4bde3a0924879b6c84165b06b96e0da8d8871c4477f58580a8ff90f",
+    "examples/codebase-memory-mcp-example/video/storyboard.json": "901629f69d66d197abbb84496205039d6fe3a87ef165fc7878141821cfc0564f",
+    "examples/codebase-memory-mcp-example/video/video.css": "9c3d5ff5f4e049be9142f21c78db14f1f4126c04356599612164c89cf09f6b27",
+    "examples/codebase-memory-mcp-example/video/video.js": "b9f0352173f1a1221fce8a30c6f53505a833e06a6df4eb34c5bab8ab140fba86",
+    "examples/codebase-memory-mcp-example/video/assets/diagram-data.json": "134ace411808a2f933d609b8ed126adb7215154fbb3f51e66efe0ef3cfcdbde2",
+    "examples/codebase-memory-mcp-example/video/assets/fixture-data.json": "6c6306287cc8c40f6e25f59424713394d186fb25edb2abb60771174f084517d6",
+    "examples/codebase-memory-mcp-example/video/assets/manifest.json": "e015e3ddc03445b9cedf70f1254f557421dac65b477448c4852233cf0cf27fab",
+    "examples/codebase-memory-mcp-example/video/assets/original-verification.json": "bce3f78bddbca47a9d522efcff35beff7df10062cddab4cf26890083ec5a7f0d",
+    "examples/codebase-memory-mcp-example/video/assets/runs.json": "966b504b3c23eb151e8bee15617cecc469875c64cb2310a295f761071c8d3d63",
+    "examples/codebase-memory-mcp-example/video/assets/samples.json": "d1a900836696a8d25a73e2bffa5b2b65f82c3b92cd18692f33e5648ffc3f9498",
+    "examples/codebase-memory-mcp-example/video/assets/timeline.json": "f6ca01217b264840f6c0683498a345ddf031eece0fc86ebb9551d8641152537c",
+    "examples/codebase-memory-mcp-example/video/assets/upstream.json": "9adc5aedb82c4203861217a0c444648cf908a1d2f153b3b10aad197c896aac85",
+    "examples/codebase-memory-mcp-example/video/review/portrait/contact.png": "10dcff82a2b5988de04fe7534c34d6edf0b3a86af47effb857c1607da1423cc7",
+    "examples/codebase-memory-mcp-example/video/review/portrait/final.png": "b3a99f94f30df086178a74d08b82a6aa9ab691ecbd490284fcdc94dcf4bdff6f",
+    "examples/codebase-memory-mcp-example/video/review/portrait/mobile-poster.png": "92185f2df7d53ef601063fde378493490643fbb5667ea153307f29c7ed5de413",
+    "examples/codebase-memory-mcp-example/video/review/portrait/poster.png": "0a60cf5b4fe103b5ded543c4f591ffaae691a8563b780385e96ff0afa1c8f4e7",
+    "examples/codebase-memory-mcp-example/video/review/portrait/strip.png": "5ccf3d16b83712784549b1f41848642903c6e8a013b133120870dce59eaa1bb3",
+    "examples/codebase-memory-mcp-example/video/review/wide/contact.png": "2a78fbf62f466a6e2b2f2768ad3e49cb613c53d02b9f7c10dc98e711085debe0",
+    "examples/codebase-memory-mcp-example/video/review/wide/final.png": "c67165a0fb4cd9b90ee624aa8c644b17bc44744b566dfd4b5327856ca231488e",
+    "examples/codebase-memory-mcp-example/video/review/wide/mobile-poster.png": "8d30c132d9f64bed09a556d3327c340eb2e827db399aae1b66834aa244be622c",
+    "examples/codebase-memory-mcp-example/video/review/wide/poster.png": "a098593443817a14c7af06390e35e3ffe4668c21c3e96f916c56859cf62c686f",
+    "examples/codebase-memory-mcp-example/video/review/wide/strip.png": "1b322c52c5dd2b556bb01fa2599d03e1234bd2a85faf4465b03cca9c2fddcd53",
+    "examples/codebase-memory-mcp-example/video/review/wide/stills/frame-000000.png": "5aeee6f308a13aabeec74d7a4572548d4636e1ebbee0bd9e068839613e5206df",
+    "examples/codebase-memory-mcp-example/video/review/wide/stills/frame-000001.png": "aa27b43fdd4ee7fda9e4c7c4a13acb009843c43756eeea2f777df7bd093373d5",
+    "examples/codebase-memory-mcp-example/video/review/wide/stills/frame-000002.png": "aa27b43fdd4ee7fda9e4c7c4a13acb009843c43756eeea2f777df7bd093373d5",
+    "examples/codebase-memory-mcp-example/video/review/wide/stills/frame-000003.png": "68d3843b7951825ad64d3cdff8ebbd3aa67707a932243b94ca8f4364d38d223a",
+    "examples/codebase-memory-mcp-example/video/review/wide/stills/frame-000004.png": "f70b7154a809c25fb0047cd6ce74313a30a25f92e37a8453a33f6ec2b581405e",
+    "examples/codebase-memory-mcp-example/video/review/wide/stills/frame-000005.png": "f43634cf394c518a9cc977b8ec4ab910310b3a8f557b53cbfb0629eb79dd91d4",
+    "examples/codebase-memory-mcp-example/video/review/wide/stills/frame-000006.png": "b7831cf4bfb4e3975175b41249c9339ed1fe065ff11dfc064124094b31445cdd",
+    "examples/codebase-memory-mcp-example/video/review/wide/stills/frame-000007.png": "b7831cf4bfb4e3975175b41249c9339ed1fe065ff11dfc064124094b31445cdd",
+    "examples/codebase-memory-mcp-example/video/review/wide/stills/frame-000008.png": "227671c71f6011879d8d5941f6769cc5fc21a0c4e5430c03b63dfea5c2c6422a",
+    "examples/codebase-memory-mcp-example/video/review/wide/stills/frame-000009.png": "2e6f3e73b94a8adf8379a5af1a4e03eacbc0c5d2769d57a88ec1d594bd9072b9",
+    "examples/codebase-memory-mcp-example/video/review/wide/stills/frame-000010.png": "6d9f7feb5779e0b02cf9251dfa4c4654e1923d7dd71a11579d1945dd3b6de3c0",
+    "examples/codebase-memory-mcp-example/video/review/wide/stills/frame-000011.png": "93aaaf964edad2b18c787650c4bce2f9ab342c764c7f30f638170e230a540423",
+    "examples/codebase-memory-mcp-example/video/review/wide/stills/frame-000012.png": "68db074ab3d72ddcb94ec0729b10e067b3c2a92124dca16b0e58e3a843f626e5",
+    "examples/codebase-memory-mcp-example/video/review/wide/stills/frame-000013.png": "2e88c6bfb6812734c0a6cfd7b22499c83ed40a728143d3b7a36e6772b007a00d",
+    "examples/codebase-memory-mcp-example/video/review/wide/stills/frame-000014.png": "5651a9eacb97a3c6c7a794748f60b7bb77714a87b1cfd2c3d015dfa3f0e29983",
+    "examples/codebase-memory-mcp-example/video/review/wide/stills/frame-000015.png": "a098593443817a14c7af06390e35e3ffe4668c21c3e96f916c56859cf62c686f",
+    "examples/codebase-memory-mcp-example/video/review/wide/strip/frame-000000.png": "611298d3db805bb029441fd69e3f6a8e77d7d5ba1f2f61314434428afd555a8a",
+    "examples/codebase-memory-mcp-example/video/review/wide/strip/frame-000001.png": "611298d3db805bb029441fd69e3f6a8e77d7d5ba1f2f61314434428afd555a8a",
+    "examples/codebase-memory-mcp-example/video/review/wide/strip/frame-000002.png": "611298d3db805bb029441fd69e3f6a8e77d7d5ba1f2f61314434428afd555a8a",
+    "examples/codebase-memory-mcp-example/video/review/wide/strip/frame-000003.png": "611298d3db805bb029441fd69e3f6a8e77d7d5ba1f2f61314434428afd555a8a",
+    "examples/codebase-memory-mcp-example/video/review/wide/strip/frame-000004.png": "611298d3db805bb029441fd69e3f6a8e77d7d5ba1f2f61314434428afd555a8a",
+    "examples/codebase-memory-mcp-example/video/review/wide/strip/frame-000005.png": "611298d3db805bb029441fd69e3f6a8e77d7d5ba1f2f61314434428afd555a8a",
+    "examples/codebase-memory-mcp-example/video/review/wide/strip/frame-000006.png": "68db074ab3d72ddcb94ec0729b10e067b3c2a92124dca16b0e58e3a843f626e5",
+    "examples/codebase-memory-mcp-example/video/review/wide/strip/frame-000007.png": "4ba8e57da86dca32dce98279bba4bcf0ceb440032a20e74ffc3351098cc28aa4",
+    "examples/codebase-memory-mcp-example/video/review/wide/strip/frame-000008.png": "5f0269440237c9b8f4700f76c9db1cdd9f99a840bdcdb5c70ec2b2335c3952b2",
+    "examples/codebase-memory-mcp-example/video/review/wide/strip/frame-000009.png": "39cc56d14fc2f41f30523bd4ee1dd2a40783c086ddb89030f782225120f41ada",
+    "examples/codebase-memory-mcp-example/video/review/wide/strip/frame-000010.png": "7a5bde6b0f3851faa9cfb4bdcf391fedcb145746dac23e9a102a1a677cabb703",
+    "examples/codebase-memory-mcp-example/video/review/wide/strip/frame-000011.png": "da3510bab6be10c84902c1eb916386c5a00a5e68da7c1d79e9005805ac869647",
+    "examples/codebase-memory-mcp-example/video/review/portrait/stills/frame-000000.png": "d484f36716411c8d7270fcf19027495de3891963c0729740b7631784e0cf321f",
+    "examples/codebase-memory-mcp-example/video/review/portrait/stills/frame-000001.png": "72b759fa023643404bd8f28dea02e80fb1017203d263fd9870860046cef00e82",
+    "examples/codebase-memory-mcp-example/video/review/portrait/stills/frame-000002.png": "72b759fa023643404bd8f28dea02e80fb1017203d263fd9870860046cef00e82",
+    "examples/codebase-memory-mcp-example/video/review/portrait/stills/frame-000003.png": "eb704d2d74beb80e66e468a7e800765d7095742e935fe13eabe8f32997453b7c",
+    "examples/codebase-memory-mcp-example/video/review/portrait/stills/frame-000004.png": "246cb472691616e0ff6cf973a5e012a1481fbf1223280bce523c0a17d875def5",
+    "examples/codebase-memory-mcp-example/video/review/portrait/stills/frame-000005.png": "db012e623955a842ae51f10b7f57d7a2e8748bddfc98490791df6b0e98aa7f5a",
+    "examples/codebase-memory-mcp-example/video/review/portrait/stills/frame-000006.png": "8275272e143d41d69abafef17a4f468270fe3417f085fbe376800b6a8c895532",
+    "examples/codebase-memory-mcp-example/video/review/portrait/stills/frame-000007.png": "8275272e143d41d69abafef17a4f468270fe3417f085fbe376800b6a8c895532",
+    "examples/codebase-memory-mcp-example/video/review/portrait/stills/frame-000008.png": "d75377edbb3365bd8ffef286a429af5e6599f56959d812df095707348f700982",
+    "examples/codebase-memory-mcp-example/video/review/portrait/stills/frame-000009.png": "283d205211c4a8527e14622188915532ac48ff8a47dda86af0c1f6a6a90a96e8",
+    "examples/codebase-memory-mcp-example/video/review/portrait/stills/frame-000010.png": "8186fee6016742059ba600f7573ccef224f1f21746bca8d2610381e17cdeac78",
+    "examples/codebase-memory-mcp-example/video/review/portrait/stills/frame-000011.png": "5ef3b3293aa79af468da32d13a6bb4fb150243bd09e47b85dd51e188322ccae6",
+    "examples/codebase-memory-mcp-example/video/review/portrait/stills/frame-000012.png": "241727e44b85eeb02fad6da457d0f4f07950110fdbc818448e26ef1daa224cdf",
+    "examples/codebase-memory-mcp-example/video/review/portrait/stills/frame-000013.png": "dcbcd86c55ac4126408e5937754da37cbf6e91a0b0fa8d9fa30ae8933356c858",
+    "examples/codebase-memory-mcp-example/video/review/portrait/stills/frame-000014.png": "f008d8514182f67e4253333f5f55e2d5ccdb13ecc45a4fd3b93749f4754dd868",
+    "examples/codebase-memory-mcp-example/video/review/portrait/stills/frame-000015.png": "0a60cf5b4fe103b5ded543c4f591ffaae691a8563b780385e96ff0afa1c8f4e7",
+    "examples/codebase-memory-mcp-example/video/review/portrait/strip/frame-000000.png": "0f33bd22d722477f1e5decde2de574350c90d51a52a39c3ffb4651c3b800e0f7",
+    "examples/codebase-memory-mcp-example/video/review/portrait/strip/frame-000001.png": "0f33bd22d722477f1e5decde2de574350c90d51a52a39c3ffb4651c3b800e0f7",
+    "examples/codebase-memory-mcp-example/video/review/portrait/strip/frame-000002.png": "0f33bd22d722477f1e5decde2de574350c90d51a52a39c3ffb4651c3b800e0f7",
+    "examples/codebase-memory-mcp-example/video/review/portrait/strip/frame-000003.png": "0f33bd22d722477f1e5decde2de574350c90d51a52a39c3ffb4651c3b800e0f7",
+    "examples/codebase-memory-mcp-example/video/review/portrait/strip/frame-000004.png": "0f33bd22d722477f1e5decde2de574350c90d51a52a39c3ffb4651c3b800e0f7",
+    "examples/codebase-memory-mcp-example/video/review/portrait/strip/frame-000005.png": "0f33bd22d722477f1e5decde2de574350c90d51a52a39c3ffb4651c3b800e0f7",
+    "examples/codebase-memory-mcp-example/video/review/portrait/strip/frame-000006.png": "241727e44b85eeb02fad6da457d0f4f07950110fdbc818448e26ef1daa224cdf",
+    "examples/codebase-memory-mcp-example/video/review/portrait/strip/frame-000007.png": "b2a3c1a7c345cca711c5287ed5e581038ad65f52465a5fadccdf756a05b09919",
+    "examples/codebase-memory-mcp-example/video/review/portrait/strip/frame-000008.png": "dbbe280e5ad43ca23bd9800c594cc9cc9cd2deed93d02d92cbfccedfe48e2a50",
+    "examples/codebase-memory-mcp-example/video/review/portrait/strip/frame-000009.png": "3c8fa5ab34019f752f9d49842642d94631983c509e38ff61025826709b4f9749",
+    "examples/codebase-memory-mcp-example/video/review/portrait/strip/frame-000010.png": "c2bd90822243f7579be32f762d2c6edcbfa3fd1c5b893289314105d9a6b050fb",
+    "examples/codebase-memory-mcp-example/video/review/portrait/strip/frame-000011.png": "315da1c887884b2dde8a1a0c9efcddc6706a476cfbc4cc305d2cc327eb0c9808",
+    "examples/codebase-memory-mcp-example/vendor/codebase-memory-mcp/LICENSE": "1f58f9911dc5e3bcb96de28bb28e7b6bb7eb323952d29569c5d7214a152146bb",
+    "examples/codebase-memory-mcp-example/vendor/codebase-memory-mcp/README.md": "72cab3ba5a2669b8b37ee038ffb1b47261199945f48295521ce2a695b3cf3c2b",
+    "examples/codebase-memory-mcp-example/vendor/codebase-memory-mcp/SECURITY.md": "12b343aa168914a515eb5eac4af7334878d2d9661cb25aaff9f83136f6e983d7",
+    "examples/codebase-memory-mcp-example/vendor/codebase-memory-mcp/THIRD_PARTY.md": "7374b2e2158d8a2c9bd411b120dcbda6cdc1e333e945fbfd3b27bcd6e29f27e8",
+    "examples/codebase-memory-mcp-example/vendor/codebase-memory-mcp/docs/CONFIGURATION.md": "88baacfdea5f41ac5920721b93b80534a0d7634ff9ce37430dbe4ebe5894e5da",
+    "examples/codebase-memory-mcp-example/vendor/codebase-memory-mcp/scripts/README.md": "fd103da3f88593984d6ea03757096cf493ea7fe4bf430552373dd79fe6fef75a",
+    "examples/codebase-memory-mcp-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/codebase-memory-mcp-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/codebase-memory-mcp-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/codebase-memory-mcp-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/codebase-memory-mcp-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "media/codebase-memory-mcp-example-wide.mp4": "2b8f02151bf86971e5d4b5f40d4b7dbc79062ee1105b28efa5f2c2c79a9872e9",
+    "media/codebase-memory-mcp-example.mp4": "496a09aa02e332e153d0a644a65cf9466e9e1672ed439eebf92e51bd1b9b330f",
+    "media/codebase-memory-mcp-example.webp": "2dbcb9bb997d3f6b80dab03760a630865134933a6635ef3bc30600cd640835dd",
+    "data/cases/codebase-memory-mcp-example.json": "c5ca265656ad719cdd7d02edc1dcf9674f37a82bbffab033fc38d6effc11fe3d"
+  },
+  "original_runtime_verification": {
+    "verification": {
+      "id": "codebase-memory-mcp-example",
+      "verified_at": "2026-10-16T01:59:44.268083+00:00",
+      "stage": "runtime-and-agent-visual-reviewed",
+      "source_commit": "ec6427c38176efcd37b28682e82f2491afda94be",
+      "data_checks": {
+        "status": "passed",
+        "sample_count": 3,
+        "verified_at": "2026-10-16T01:34:26.928925+00:00",
+        "native_tool_calls": 18,
+        "all_public_tool_payloads_equal_real_private_stdout_after_path_normalization": true,
+        "all_samples_equal_actual_requests_and_responses": true,
+        "source_definition_line": 8,
+        "source_internal_edges_before": [
+          [
+            "main",
+            "submit_order"
+          ],
+          [
+            "submit_order",
+            "calculate_total"
+          ],
+          [
+            "submit_order",
+            "save_receipt"
+          ],
+          [
+            "submit_order",
+            "validate_order"
+          ]
+        ],
+        "source_internal_edges_after": [
+          [
+            "main",
+            "submit_order"
+          ],
+          [
+            "save_receipt",
+            "audit_receipt"
+          ],
+          [
+            "submit_order",
+            "calculate_total"
+          ],
+          [
+            "submit_order",
+            "save_receipt"
+          ],
+          [
+            "submit_order",
+            "validate_order"
+          ]
+        ],
+        "query_rows_before": 6,
+        "query_rows_stale": 6,
+        "query_rows_after": 7,
+        "new_edge_after_manual_reindex_only": true,
+        "base_and_revised_total_jpy": 2400,
+        "actual_audit_consistent": true,
+        "original_fixture_hashes_unchanged": true,
+        "upstream_release_archive_executable_attestation_match": true,
+        "scope": "公式 v0.12.0 のネイティブ CLI（codebase-memory-mcp cli）で、バックエンドのツールを1回ずつ実行した結果です。MCP プロトコル経由の動作、CBM Lens、ブラウザAI、意味検索は使っていません。呼び出し関係は索引に記録された静的な関係で、実行時に記録したトレースではありません。fixture/ は架空の小さなリポジトリで、変更（storage_revised.py への差し替え）は実行用コピーにだけ加えました。パスの fixture/ は実行用コピーを指します。",
+        "human_approval": false,
+        "remaining": [
+          "MCP protocol, Lens, browser AI, semantic search, large repositories and speed/token claims untested.",
+          "Static call edges are not observed runtime traces or completeness guarantees."
+        ]
+      },
+      "environment": {
+        "python": "3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]",
+        "platform": "Windows-11-10.0.26200-SP0",
+        "binary_release": "v0.12.0",
+        "scope": "Native Windows amd64 CLI, original stdlib-only Python fixture. MCP protocol, Lens, browser AI, semantic search and runtime tracing not exercised."
+      },
+      "semantic_review": {
+        "agent_semantic_review": true,
+        "human_approval": false,
+        "verified": [
+          "Actual18CLIresponses compared to saved payloads with path normalization only;14 sample tool payloads compared to DOM.",
+          "SourceAST cross-check:4 internal edges before,5 after, actualnewedge onlyafter manualreindex.",
+          "Realfixtureexecution is separate from staticCALLS; actualreceipts2400before/after andconsistenttrueaudit.",
+          "No original fixture edits, modelinference, realpayment/reservation, MCPprotocol, Lens/semanticsearch or speedclaims."
+        ],
+        "unresolved_blockers": []
+      },
+      "browser": {
+        "status": "passed",
+        "sample_count": 3,
+        "agent_visual_review": true,
+        "human_approval": false,
+        "responsive_widths": [
+          320,
+          375,
+          390,
+          430,
+          844,
+          1280
+        ],
+        "responsive_states": 18,
+        "final_update_panel_rechecked_widths": [
+          320,
+          390,
+          1280
+        ],
+        "all_dom_tool_payloads_equal_actual_saved_outputs": true,
+        "dom_tool_payloads": 14,
+        "root_overflow": false,
+        "primary_targets_min44": true,
+        "input_font_px": 16,
+        "keyboard": "NativeArrowRight,Home,End changed selected panel andfocus;3px focus outline",
+        "initial_hash": "#update after reload showed update only after data ready",
+        "failure": "Controlled503 hides allresults and showsretry; native retry restores3/3 and update hash",
+        "clipboard": "UI promise reports success; clipboard API readback differed from request, so actual copied text not verified",
+        "scope": [
+          "Windows IAB Chromium desktop and emulated viewport sizes, not physical iOS/Safari/VoiceOver.",
+          "Agent visual inspection and runtime assertions are not human aesthetic approval."
+        ],
+        "screenshots": [
+          {
+            "path": "assets/screen-find.png",
+            "source": "Studio Yebisu native IAB Chromium screenshot; no content edits",
+            "description": "Actual search definition and source: service.py line8",
+            "pixels": [
+              1265,
+              889
+            ],
+            "sha256": "73d15f0646acc428e6cd0567ff1815287b9e92540b56af317e5136a4a064907e"
+          },
+          {
+            "path": "assets/screen-trace.png",
+            "source": "Studio Yebisu native IAB Chromium screenshot; no content edits",
+            "description": "Actual three direct static calls and source lines",
+            "pixels": [
+              1265,
+              889
+            ],
+            "sha256": "5ca593a986bca647f70b7ca82a2fa3126f8fa8c9e904764804bc331bdbe3940d"
+          },
+          {
+            "path": "assets/screen-update.png",
+            "source": "Studio Yebisu native IAB Chromium screenshot; no content edits",
+            "description": "Actual no/no/yes comparison and6/6/7 query rows",
+            "pixels": [
+              1265,
+              889
+            ],
+            "sha256": "9aa17607a918077e761f14a3c0b290c6ecaba81f733c03602d10de64c35871aa"
+          },
+          {
+            "path": "assets/screen-phone.png",
+            "source": "Studio Yebisu native IAB Chromium screenshot; no content edits",
+            "description": "Actual390px mobile first screen; saved-result label and three actions",
+            "pixels": [
+              375,
+              812
+            ],
+            "sha256": "d5915010dcfde9a6bff1dd29e05d4ae7d9ebe5c8ddcc79cbff55a7041916600f"
+          }
+        ]
+      },
+      "video": {
+        "video_sha256": "e23dd21a40a5b684f3d5c12484d1238f02eb23c98e3e30a046cbf44eb7a8e8cd",
+        "poster_sha256": "b9b7b6b3cfb4a30ee8862fdfa422e54571531c5c69523c938f4d83aa641f0c39",
+        "poster_from_mp4_seconds": 13.5,
+        "full_decode_passed": true,
+        "review_files": [
+          "contact.png",
+          "poster.png",
+          "strip.png",
+          "stills/frame-000000.png",
+          "stills/frame-000001.png",
+          "stills/frame-000002.png",
+          "stills/frame-000003.png",
+          "stills/frame-000004.png",
+          "stills/frame-000005.png",
+          "stills/frame-000006.png",
+          "stills/frame-000007.png",
+          "stills/frame-000008.png",
+          "stills/frame-000009.png",
+          "stills/frame-000010.png",
+          "stills/frame-000011.png",
+          "stills/frame-000012.png",
+          "stills/frame-000013.png",
+          "cut-01.png",
+          "cut-02.png",
+          "cut-03.png",
+          "cut-04.png",
+          "cut-05.png",
+          "final.png"
+        ],
+        "render_label": "final-v1",
+        "bundled_renderer_executed": true,
+        "reviewed_at": "2026-10-16T01:59:44.183300+00:00",
+        "agent_visual_review": true,
+        "human_approval": false,
+        "review_scope": [
+          "Inspected14framecontact, full13.5sstatic-callposter,18sstale/20sreindexedcomparisons,finalframe,8.1s12framestrip,16.1sinitialstripandfive12frameMP4stripsat3.85/9.85/15.85/18.85/21.85. No clipping or accumulated drawing observed. Brief empty interiors at scene cuts are whole-content fades.",
+          "Findactualscreen crop aligns with8lineagreementanddefinitionmark. Large labels give actualsourcefacts.",
+          "Staticdiagram separates3callees with no implied ordering; actualmain->submit_order andservice.py9/10/18 calllines; static-not-runtimecaption visible.",
+          "Update dashedunindexed audit_receipt becomes solid aftermanualindex; actualquery6/6/7 andactualscreenscomparison. Source15callline/19definition match.",
+          "Actual2400receipt andconsistenttrueaudit labelled separatePythonexecutiononfictionalorder, not agraphtrace oractualpayment.",
+          "Finalrealphonecrop highlights saved-result label; actualfixedcommit fits. Nativeeditor14sready,375pxrootfit/play48.6px/scrub44px.",
+          "NativeMP4observedinitialbuffering0s/paused/ready1 thenautomaticplaybackended28s/ready4/errornull withoutmanualseek.",
+          "28s720p30fps840frames silent,noaudiotrack. PhysicaliOS/otherratios/humanaestheticapproval nottested."
+        ],
+        "native_playback": {
+          "time": 28,
+          "ended": true,
+          "error": null,
+          "first_observed_seconds": 0,
+          "initial_ready_state": 1,
+          "initial_paused": true,
+          "no_manual_seek": true
+        },
+        "source_editor": {
+          "canvas": [
+            1280,
+            720
+          ],
+          "play_enabled": true,
+          "position": 14,
+          "status": "14.00 / 28.00 秒 ・ 準備完了（保存済みの結果から描画・無音）"
+        },
+        "determinism": {
+          "frame": 504,
+          "seconds": 16.8,
+          "first": "9f061d2074e9953ac94207ceb485a7f5eb8cda8b36dde7b6789c8fdd456c25f6",
+          "afterOtherTimes": "9f061d2074e9953ac94207ceb485a7f5eb8cda8b36dde7b6789c8fdd456c25f6",
+          "freshPage": "9f061d2074e9953ac94207ceb485a7f5eb8cda8b36dde7b6789c8fdd456c25f6",
+          "match": true
+        },
+        "audio": "silent; no audio track",
+        "unresolved_blockers": [],
+        "remaining": [
+          "Other aspect ratios, physicaliOS/Safari andhumanartisticapproval untested."
+        ]
+      },
+      "motion_reel": {
+        "name": "Studio Yebisu Motion Reel rendering runtime",
+        "license": "MIT",
+        "copyright": "2026 Studio Yebisu",
+        "files_sha256": {
+          "render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+          "audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+          "package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+          "package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+          "LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd"
+        },
+        "dependency_lock": "Playwright1.64.0 npm registry Apache-2.0; dependencies not distributed."
+      },
+      "production_contributions": {
+        "Opus5.5": "Read fixed official documentation and brief-to-demo; authored original fixture, CLI bridge, Japanese guide, saved-result viewer and editable film.",
+        "production_editor": "Verified official release checksum/build attestation and exact source, adapted Windows encoding/actual CLI payload shape and grouped search format, executed genuine tools and original fixture, compared source/raw output/DOM, adjusted mobile layout, reviewed film and scoped authorized publication. Full model histories remain private."
+      },
+      "parent_adjustments": {
+        "changes": [
+          "Use Python -X utf8 for isolated child output onWindows.",
+          "Respect actual CLI schema: rawenvelope flag,format in toolJSON,indexwithoutformat,list_projects formatting viaflag.",
+          "Decode v0.12 grouped search rows by explicit cols/groups/qn_rule; rawresponses retained unchanged apartfrom documentedpaths.",
+          "Use existing-safe local userprofile cache and create rendezvous directory; nopermissionweakening/globalintegration/foreignprocessstop.",
+          "Shorten mobilehero, move scope/four facts to native details, shorten derivedtablabels, hide numberbadge below360px and fold changedsource so comparisonappears first.",
+          "Document actuallyverifiedrelease and reproducible private-directory setup."
+        ],
+        "unchanged": "Originalfictional fixtures andrawtoolpayloadmeaning unchanged.",
+        "human_approval": false
+      },
+      "human_approval": false
+    },
+    "scope_note": "Original eighteen native CLI results and separate Python fixture/receipt/audit execution retained, not rerun. New visual QA separate."
+  },
+  "original_explanation": {
     "video": {
       "file": "video.mp4",
       "sha256": "e23dd21a40a5b684f3d5c12484d1238f02eb23c98e3e30a046cbf44eb7a8e8cd",
@@ -350,7 +909,7 @@
     "errors": [],
     "blockedExternalRequests": []
   },
-  "video_review": {
+  "original_video_review": {
     "video_sha256": "e23dd21a40a5b684f3d5c12484d1238f02eb23c98e3e30a046cbf44eb7a8e8cd",
     "poster_sha256": "b9b7b6b3cfb4a30ee8862fdfa422e54571531c5c69523c938f4d83aa641f0c39",
     "poster_from_mp4_seconds": 13.5,
@@ -427,76 +986,14 @@
       "Other aspect ratios, physicaliOS/Safari andhumanartisticapproval untested."
     ]
   },
-  "publication": {
-    "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=codebase-memory-mcp-example",
-    "authorization": "User requested sequential publication of40 cases to existing main and Pages."
+  "visual_revision": {
+    "id": "visual-r1",
+    "original_runtime_preserved_files": 28,
+    "silent": true
   },
-  "artifacts_sha256": {
-    "data/cases/codebase-memory-mcp-example.json": "2e72098d848801ed75d18734149e270e37e7fcc42ad321aeb1cf5a252d005c9d",
-    "examples/codebase-memory-mcp-example/app.mjs": "6d2e75673a593fa225afb89707a66c2e98b47750c973c3157c403cb3f9d41d1a",
-    "examples/codebase-memory-mcp-example/assets/screen-find.png": "73d15f0646acc428e6cd0567ff1815287b9e92540b56af317e5136a4a064907e",
-    "examples/codebase-memory-mcp-example/assets/screen-phone.png": "d5915010dcfde9a6bff1dd29e05d4ae7d9ebe5c8ddcc79cbff55a7041916600f",
-    "examples/codebase-memory-mcp-example/assets/screen-trace.png": "5ca593a986bca647f70b7ca82a2fa3126f8fa8c9e904764804bc331bdbe3940d",
-    "examples/codebase-memory-mcp-example/assets/screen-update.png": "9aa17607a918077e761f14a3c0b290c6ecaba81f733c03602d10de64c35871aa",
-    "examples/codebase-memory-mcp-example/fixture/app.py": "dd7b8550687cb74b29d92f371c0df391126540273fb5354da0628fe7c7e32695",
-    "examples/codebase-memory-mcp-example/fixture/pricing.py": "795f125daf3b8e5369f6870b19f0736b5516c5926718064970bc3ec165ada2ad",
-    "examples/codebase-memory-mcp-example/fixture/sample_order.json": "7e142dcdce067a80bb4f4c20ebded83331200ad1191d0bff42b14c3899a19754",
-    "examples/codebase-memory-mcp-example/fixture/service.py": "2a35508af631110afc1e9aaea0dc7c8a00cb26f6de0632784869a0b1a166aafc",
-    "examples/codebase-memory-mcp-example/fixture/storage.py": "b849317607b3d81fb2f20aaca9b2c4cd2b2a18023a933ede97df29727c85118e",
-    "examples/codebase-memory-mcp-example/fixture/storage_revised.py": "c2c37eb7a4fc8393620c9bd1f2a835495253c590d9d0f9b02b643c800bd0a458",
-    "examples/codebase-memory-mcp-example/fixture/validation.py": "fec5144c30d03ff583b2a93533c04383d7ccdf4c3dee76c5bdba9e6460cd9b63",
-    "examples/codebase-memory-mcp-example/index.html": "3495969bcd28a607a54d583c707e6ea08a4889d50869fa15953f537c388e589d",
-    "examples/codebase-memory-mcp-example/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
-    "examples/codebase-memory-mcp-example/outputs/result.md": "fafb2c95f6e5c4e627a9161e319a507030b80d7a825662c89f5556dfdf5329b0",
-    "examples/codebase-memory-mcp-example/outputs/runs.json": "966b504b3c23eb151e8bee15617cecc469875c64cb2310a295f761071c8d3d63",
-    "examples/codebase-memory-mcp-example/README.md": "610dfe897627c511d22fdaefeadf6809f67594692aef479547244ecfba685003",
-    "examples/codebase-memory-mcp-example/render.py": "18708e8c318fe564a1b6edcb586ccf11e8fcbf9c06c0d6c052244d6bea9f723d",
-    "examples/codebase-memory-mcp-example/request.txt": "aefcae60fd1fcd5dec2b0daf8c4624c1d42e7f5664eaa9881998fbfd8860c05a",
-    "examples/codebase-memory-mcp-example/samples.json": "d1a900836696a8d25a73e2bffa5b2b65f82c3b92cd18692f33e5648ffc3f9498",
-    "examples/codebase-memory-mcp-example/source.zip": "dfa70ef26100b85d53c5e23305d8940e2563e11da4aac1633625bd190d9d7569",
-    "examples/codebase-memory-mcp-example/style.css": "5632f35d2ad61a94ba1bb4cd5ff4b88e79e23937cc1713f1355937f71ef0fb73",
-    "examples/codebase-memory-mcp-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
-    "examples/codebase-memory-mcp-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
-    "examples/codebase-memory-mcp-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
-    "examples/codebase-memory-mcp-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
-    "examples/codebase-memory-mcp-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
-    "examples/codebase-memory-mcp-example/vendor/codebase-memory-mcp/docs/CONFIGURATION.md": "88baacfdea5f41ac5920721b93b80534a0d7634ff9ce37430dbe4ebe5894e5da",
-    "examples/codebase-memory-mcp-example/vendor/codebase-memory-mcp/LICENSE": "1f58f9911dc5e3bcb96de28bb28e7b6bb7eb323952d29569c5d7214a152146bb",
-    "examples/codebase-memory-mcp-example/vendor/codebase-memory-mcp/README.md": "72cab3ba5a2669b8b37ee038ffb1b47261199945f48295521ce2a695b3cf3c2b",
-    "examples/codebase-memory-mcp-example/vendor/codebase-memory-mcp/scripts/README.md": "fd103da3f88593984d6ea03757096cf493ea7fe4bf430552373dd79fe6fef75a",
-    "examples/codebase-memory-mcp-example/vendor/codebase-memory-mcp/SECURITY.md": "12b343aa168914a515eb5eac4af7334878d2d9661cb25aaff9f83136f6e983d7",
-    "examples/codebase-memory-mcp-example/vendor/codebase-memory-mcp/THIRD_PARTY.md": "7374b2e2158d8a2c9bd411b120dcbda6cdc1e333e945fbfd3b27bcd6e29f27e8",
-    "examples/codebase-memory-mcp-example/verification.json": "bce3f78bddbca47a9d522efcff35beff7df10062cddab4cf26890083ec5a7f0d",
-    "examples/codebase-memory-mcp-example/video/index.html": "8b35a54a0049bf0b4f58d6454ed2baf7f15645c09afa1027ad7b8ef0f6939f8a",
-    "examples/codebase-memory-mcp-example/video/README.md": "ae2c5750f323ec2d479e09c1a2324b2e6147a9f8346908d3cbcf0eb037d2931c",
-    "examples/codebase-memory-mcp-example/video/review/contact.png": "4616eb14ad53682abd978c17399cdb413d676e63cda0b1908b0fb8b7699b2e52",
-    "examples/codebase-memory-mcp-example/video/review/cut-01.png": "6b29ec2a4f11aacc9ce8965902f3ac150044f3be70f24d93759ce958733ba542",
-    "examples/codebase-memory-mcp-example/video/review/cut-02.png": "8582b3a93d9332e669b2e9262d5d058e1d7aebaecb7640f0f4c021f8afb104f0",
-    "examples/codebase-memory-mcp-example/video/review/cut-03.png": "17aa9f7eec290763f72ab4ae49396c5134731069d3701b133689f2b3e94efedd",
-    "examples/codebase-memory-mcp-example/video/review/cut-04.png": "32a3e5854af5e20483c843384d4d8637ce7b7bbb71d209862632b813077465a1",
-    "examples/codebase-memory-mcp-example/video/review/cut-05.png": "60db82f6fcb831e1432df826eb07e45cda79fed8306a2fbdc5ecbc64619f743a",
-    "examples/codebase-memory-mcp-example/video/review/final.png": "bd32eb6d9c4306d7e06362f3a5dc656ba52414e70dbde1a4b1c726de861c04cd",
-    "examples/codebase-memory-mcp-example/video/review/poster.png": "3570d879db26bebc59ae82c3f132b21f216ef2af377cfa7b11d101657f3eb136",
-    "examples/codebase-memory-mcp-example/video/review/stills/frame-000000.png": "9209797aa0a78d1eaeeb0e822a1b6afb0504cbc5e72b24df34517e303b28499a",
-    "examples/codebase-memory-mcp-example/video/review/stills/frame-000001.png": "dac0bc60763d922b4487522e60eb0a7c761beef4b6ab40055a6cb8fda5983848",
-    "examples/codebase-memory-mcp-example/video/review/stills/frame-000002.png": "c74fe235718082f42650a75ac4178bf404da1206f7e0f7b29817b67e9978c150",
-    "examples/codebase-memory-mcp-example/video/review/stills/frame-000003.png": "fbd56c444e0ab0525931cba786eeb327d0c680753033ab114cd37ebf0ceda656",
-    "examples/codebase-memory-mcp-example/video/review/stills/frame-000004.png": "d16619a1bff701424ca319058ad0b4046413e233e53c654acfbcdca6f54ffc1d",
-    "examples/codebase-memory-mcp-example/video/review/stills/frame-000005.png": "496450ed5c373175f74e2f6fde743eaf768133e433c8cfb0c31f3c89e4b08026",
-    "examples/codebase-memory-mcp-example/video/review/stills/frame-000006.png": "37c1c78970a04d599fca1aee46e81b42f64df0052f634a6be9965f99bf9d759e",
-    "examples/codebase-memory-mcp-example/video/review/stills/frame-000007.png": "3570d879db26bebc59ae82c3f132b21f216ef2af377cfa7b11d101657f3eb136",
-    "examples/codebase-memory-mcp-example/video/review/stills/frame-000008.png": "5843c3bf3ba3758a2c72b67af32d0d9353cebfeec5bf9e2bddec08436136add3",
-    "examples/codebase-memory-mcp-example/video/review/stills/frame-000009.png": "64b320a2071022cccf89a061872e6aca1a90de1440b701b82f6cc95404de935b",
-    "examples/codebase-memory-mcp-example/video/review/stills/frame-000010.png": "0c516a35c94ade1be0477f34cf9b4e0900381aebc2cb67de8e4130f987d9485e",
-    "examples/codebase-memory-mcp-example/video/review/stills/frame-000011.png": "58f42be2c31d4bde15360a8aee6f986297c97703da22856ee6b88000ee1de3c9",
-    "examples/codebase-memory-mcp-example/video/review/stills/frame-000012.png": "865b8e9a9643fef531371ce5a96aa7caeadb28dd03404d35295c8d652a8ac7d5",
-    "examples/codebase-memory-mcp-example/video/review/stills/frame-000013.png": "d3c37800c49786be51fd8985fb7b9be8cec633e193b6b26a85831de78479ad5d",
-    "examples/codebase-memory-mcp-example/video/review/strip.png": "acdda26f617887add72d4893ef6f67032363530957d089e0fe0c0aacfc73e9a0",
-    "examples/codebase-memory-mcp-example/video/storyboard.json": "569c6540e500ec29a6227f5b04fad7ae003b58e6352e8bfda7a9427622fc80be",
-    "examples/codebase-memory-mcp-example/video/video.css": "efcbe45fefb8e24cb6a7a211fe38d5b6d51dc19ef5707891878ebc9aa1332975",
-    "examples/codebase-memory-mcp-example/video/video.js": "45c62ef556824fae1007171560ff5cadbf76a84001794806f1b27a5e959967cc",
-    "examples/codebase-memory-mcp-example/workflow.py": "7d28b88e337ca9f211eff2b67fd5b42bdadef2535ec698e55c530fad0a58ce23",
-    "media/codebase-memory-mcp-example.mp4": "e23dd21a40a5b684f3d5c12484d1238f02eb23c98e3e30a046cbf44eb7a8e8cd",
-    "media/codebase-memory-mcp-example.webp": "b9b7b6b3cfb4a30ee8862fdfa422e54571531c5c69523c938f4d83aa641f0c39"
+  "previous_publication": {
+    "baseline_head": "5258a46ad6a65f451b818b55437c40976a0718b3",
+    "original_video_sha256": "e23dd21a40a5b684f3d5c12484d1238f02eb23c98e3e30a046cbf44eb7a8e8cd",
+    "original_runtime_preserved_files": 28
   }
 }

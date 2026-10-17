@@ -1,268 +1,304 @@
 {
   "id": "codebase-memory-mcp-example",
-  "verified_at": "2026-10-16T01:59:44.268083+00:00",
-  "stage": "runtime-and-agent-visual-reviewed",
-  "source_commit": "ec6427c38176efcd37b28682e82f2491afda94be",
-  "data_checks": {
-    "status": "passed",
-    "sample_count": 3,
-    "verified_at": "2026-10-16T01:34:26.928925+00:00",
-    "native_tool_calls": 18,
-    "all_public_tool_payloads_equal_real_private_stdout_after_path_normalization": true,
-    "all_samples_equal_actual_requests_and_responses": true,
-    "source_definition_line": 8,
-    "source_internal_edges_before": [
-      [
-        "main",
-        "submit_order"
-      ],
-      [
-        "submit_order",
-        "calculate_total"
-      ],
-      [
-        "submit_order",
-        "save_receipt"
-      ],
-      [
-        "submit_order",
-        "validate_order"
-      ]
+  "verified_at": "2026-10-17T19:20:25.882211+00:00",
+  "revision": "visual-r1",
+  "stage": "technical_qa_complete",
+  "runtime_preserved_files": 28,
+  "original_runtime_scope": "公式 v0.12.0 のネイティブ CLI（codebase-memory-mcp cli）で、バックエンドのツールを1回ずつ実行した結果です。MCP プロトコル経由の動作、CBM Lens、ブラウザAI、意味検索は使っていません。呼び出し関係は索引に記録された静的な関係で、実行時に記録したトレースではありません。fixture/ は架空の小さなリポジトリで、変更（storage_revised.py への差し替え）は実行用コピーにだけ加えました。パスの fixture/ は実行用コピーを指します。",
+  "upstream": {
+    "repository": "DeusData/codebase-memory-mcp",
+    "commit": "ec6427c38176efcd37b28682e82f2491afda94be",
+    "version": "0.12.0",
+    "license": "MIT",
+    "copyright_notice": "Copyright (c) 2025 DeusData",
+    "official_git_blobs_verified": [
+      {
+        "path": "LICENSE",
+        "git_blob": "0b95352746a97a8cf2d1f3ba568bc7bb5e514d1f",
+        "sha256": "1f58f9911dc5e3bcb96de28bb28e7b6bb7eb323952d29569c5d7214a152146bb"
+      },
+      {
+        "path": "README.md",
+        "git_blob": "27262a079081bdf22e9b062e31e218b355043270",
+        "sha256": "72cab3ba5a2669b8b37ee038ffb1b47261199945f48295521ce2a695b3cf3c2b"
+      },
+      {
+        "path": "SECURITY.md",
+        "git_blob": "48da1d1a1bd9ddfb27ab0635e99d78a76069d50f",
+        "sha256": "12b343aa168914a515eb5eac4af7334878d2d9661cb25aaff9f83136f6e983d7"
+      },
+      {
+        "path": "THIRD_PARTY.md",
+        "git_blob": "4b76c28e81897bc80271f230a72e2cb24a919109",
+        "sha256": "7374b2e2158d8a2c9bd411b120dcbda6cdc1e333e945fbfd3b27bcd6e29f27e8"
+      },
+      {
+        "path": "docs/CONFIGURATION.md",
+        "git_blob": "3e9956d6017fd8709e529cecdf5002b40b29ec66",
+        "sha256": "88baacfdea5f41ac5920721b93b80534a0d7634ff9ce37430dbe4ebe5894e5da"
+      },
+      {
+        "path": "scripts/README.md",
+        "git_blob": "5b42e8256fdd0e11b2d9a5108bc2604c0673a732",
+        "sha256": "fd103da3f88593984d6ea03757096cf493ea7fe4bf430552373dd79fe6fef75a"
+      }
     ],
-    "source_internal_edges_after": [
-      [
-        "main",
-        "submit_order"
-      ],
-      [
-        "save_receipt",
-        "audit_receipt"
-      ],
-      [
-        "submit_order",
-        "calculate_total"
-      ],
-      [
-        "submit_order",
-        "save_receipt"
-      ],
-      [
-        "submit_order",
-        "validate_order"
-      ]
-    ],
-    "query_rows_before": 6,
-    "query_rows_stale": 6,
-    "query_rows_after": 7,
-    "new_edge_after_manual_reindex_only": true,
-    "base_and_revised_total_jpy": 2400,
-    "actual_audit_consistent": true,
-    "original_fixture_hashes_unchanged": true,
-    "upstream_release_archive_executable_attestation_match": true,
+    "original_release_attestation_retained": true,
     "scope": "公式 v0.12.0 のネイティブ CLI（codebase-memory-mcp cli）で、バックエンドのツールを1回ずつ実行した結果です。MCP プロトコル経由の動作、CBM Lens、ブラウザAI、意味検索は使っていません。呼び出し関係は索引に記録された静的な関係で、実行時に記録したトレースではありません。fixture/ は架空の小さなリポジトリで、変更（storage_revised.py への差し替え）は実行用コピーにだけ加えました。パスの fixture/ は実行用コピーを指します。",
-    "human_approval": false,
-    "remaining": [
-      "MCP protocol, Lens, browser AI, semantic search, large repositories and speed/token claims untested.",
-      "Static call edges are not observed runtime traces or completeness guarantees."
-    ]
+    "verified_at": "2026-10-17T18:08:04.015383+00:00"
   },
-  "environment": {
-    "python": "3.13.7 (tags/v3.13.7:bcee1c3, Aug 14 2025, 14:15:11) [MSC v.1944 64 bit (AMD64)]",
-    "platform": "Windows-11-10.0.26200-SP0",
-    "binary_release": "v0.12.0",
-    "scope": "Native Windows amd64 CLI, original stdlib-only Python fixture. MCP protocol, Lens, browser AI, semantic search and runtime tracing not exercised."
-  },
-  "semantic_review": {
-    "agent_semantic_review": true,
-    "human_approval": false,
-    "verified": [
-      "Actual18CLIresponses compared to saved payloads with path normalization only;14 sample tool payloads compared to DOM.",
-      "SourceAST cross-check:4 internal edges before,5 after, actualnewedge onlyafter manualreindex.",
-      "Realfixtureexecution is separate from staticCALLS; actualreceipts2400before/after andconsistenttrueaudit.",
-      "No original fixture edits, modelinference, realpayment/reservation, MCPprotocol, Lens/semanticsearch or speedclaims."
-    ],
-    "unresolved_blockers": []
+  "video": {
+    "portrait": {
+      "video": {
+        "file": "video.mp4",
+        "sha256": "496a09aa02e332e153d0a644a65cf9466e9e1672ed439eebf92e51bd1b9b330f",
+        "width": 720,
+        "height": 1280,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      },
+      "determinism": {
+        "frame": 576,
+        "seconds": 19.2,
+        "first": "283d205211c4a8527e14622188915532ac48ff8a47dda86af0c1f6a6a90a96e8",
+        "afterOtherTimes": "283d205211c4a8527e14622188915532ac48ff8a47dda86af0c1f6a6a90a96e8",
+        "freshPage": "283d205211c4a8527e14622188915532ac48ff8a47dda86af0c1f6a6a90a96e8",
+        "match": true
+      }
+    },
+    "wide": {
+      "video": {
+        "file": "video.mp4",
+        "sha256": "2b8f02151bf86971e5d4b5f40d4b7dbc79062ee1105b28efa5f2c2c79a9872e9",
+        "width": 1280,
+        "height": 720,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      },
+      "determinism": {
+        "frame": 576,
+        "seconds": 19.2,
+        "first": "2e6f3e73b94a8adf8379a5af1a4e03eacbc0c5d2769d57a88ec1d594bd9072b9",
+        "afterOtherTimes": "2e6f3e73b94a8adf8379a5af1a4e03eacbc0c5d2769d57a88ec1d594bd9072b9",
+        "freshPage": "2e6f3e73b94a8adf8379a5af1a4e03eacbc0c5d2769d57a88ec1d594bd9072b9",
+        "match": true
+      }
+    }
   },
   "browser": {
     "status": "passed",
-    "sample_count": 3,
-    "agent_visual_review": true,
-    "human_approval": false,
-    "responsive_widths": [
+    "verified_at": "2026-10-17T19:20:17.318584+00:00",
+    "layouts": 35,
+    "requested_widths": [
       320,
       375,
       390,
       430,
+      768,
       844,
       1280
     ],
-    "responsive_states": 18,
-    "final_update_panel_rechecked_widths": [
-      320,
-      390,
-      1280
-    ],
-    "all_dom_tool_payloads_equal_actual_saved_outputs": true,
-    "dom_tool_payloads": 14,
-    "root_overflow": false,
-    "primary_targets_min44": true,
-    "input_font_px": 16,
-    "keyboard": "NativeArrowRight,Home,End changed selected panel andfocus;3px focus outline",
-    "initial_hash": "#update after reload showed update only after data ready",
-    "failure": "Controlled503 hides allresults and showsretry; native retry restores3/3 and update hash",
-    "clipboard": "UI promise reports success; clipboard API readback differed from request, so actual copied text not verified",
-    "scope": [
-      "Windows IAB Chromium desktop and emulated viewport sizes, not physical iOS/Safari/VoiceOver.",
-      "Agent visual inspection and runtime assertions are not human aesthetic approval."
-    ],
-    "screenshots": [
+    "overflow_views": 0,
+    "primary_targets_minimum_px": 44,
+    "form_font_minimum_px": 16,
+    "phone_diagram_and_save_fit": true,
+    "exact_downloads": [
       {
-        "path": "assets/screen-find.png",
-        "source": "Studio Yebisu native IAB Chromium screenshot; no content edits",
-        "description": "Actual search definition and source: service.py line8",
-        "pixels": [
-          1265,
-          889
-        ],
-        "sha256": "73d15f0646acc428e6cd0567ff1815287b9e92540b56af317e5136a4a064907e"
+        "id": "find",
+        "filename": "codebase-memory-find.json",
+        "bytes": 3489,
+        "sha256": "636dac36b36e05a5b11ee7c290bc94821ae6ce0f5c38e248c80650b86651cf2e"
       },
       {
-        "path": "assets/screen-trace.png",
-        "source": "Studio Yebisu native IAB Chromium screenshot; no content edits",
-        "description": "Actual three direct static calls and source lines",
-        "pixels": [
-          1265,
-          889
-        ],
-        "sha256": "5ca593a986bca647f70b7ca82a2fa3126f8fa8c9e904764804bc331bdbe3940d"
+        "id": "trace",
+        "filename": "codebase-memory-trace.json",
+        "bytes": 3769,
+        "sha256": "fbc46750673f629ec5722bc86614c7b7d1b307b3cbadaa8caaf65e500cd92d01"
       },
       {
-        "path": "assets/screen-update.png",
-        "source": "Studio Yebisu native IAB Chromium screenshot; no content edits",
-        "description": "Actual no/no/yes comparison and6/6/7 query rows",
-        "pixels": [
-          1265,
-          889
-        ],
-        "sha256": "9aa17607a918077e761f14a3c0b290c6ecaba81f733c03602d10de64c35871aa"
-      },
-      {
-        "path": "assets/screen-phone.png",
-        "source": "Studio Yebisu native IAB Chromium screenshot; no content edits",
-        "description": "Actual390px mobile first screen; saved-result label and three actions",
-        "pixels": [
-          375,
-          812
-        ],
-        "sha256": "d5915010dcfde9a6bff1dd29e05d4ae7d9ebe5c8ddcc79cbff55a7041916600f"
+        "id": "update",
+        "filename": "codebase-memory-update.json",
+        "bytes": 16194,
+        "sha256": "e478e7b1ffa396ff72add9a2895bc9728c0b463a3b901bd75078590b194500aa"
       }
-    ]
-  },
-  "video": {
-    "video_sha256": "e23dd21a40a5b684f3d5c12484d1238f02eb23c98e3e30a046cbf44eb7a8e8cd",
-    "poster_sha256": "b9b7b6b3cfb4a30ee8862fdfa422e54571531c5c69523c938f4d83aa641f0c39",
-    "poster_from_mp4_seconds": 13.5,
-    "full_decode_passed": true,
-    "review_files": [
-      "contact.png",
-      "poster.png",
-      "strip.png",
-      "stills/frame-000000.png",
-      "stills/frame-000001.png",
-      "stills/frame-000002.png",
-      "stills/frame-000003.png",
-      "stills/frame-000004.png",
-      "stills/frame-000005.png",
-      "stills/frame-000006.png",
-      "stills/frame-000007.png",
-      "stills/frame-000008.png",
-      "stills/frame-000009.png",
-      "stills/frame-000010.png",
-      "stills/frame-000011.png",
-      "stills/frame-000012.png",
-      "stills/frame-000013.png",
-      "cut-01.png",
-      "cut-02.png",
-      "cut-03.png",
-      "cut-04.png",
-      "cut-05.png",
-      "final.png"
     ],
-    "render_label": "final-v1",
-    "bundled_renderer_executed": true,
-    "reviewed_at": "2026-10-16T01:59:44.183300+00:00",
-    "agent_visual_review": true,
+    "all14sample_tool_requests_and_responses_match_dom": true,
+    "original_total_cli_calls": 18,
+    "update_phases": [
+      "before",
+      "stale",
+      "after"
+    ],
+    "indexed_internal_edge_counts": [
+      4,
+      4,
+      5
+    ],
+    "total_query_rows": [
+      6,
+      6,
+      7
+    ],
+    "source_and_stale_index_distinguished": true,
+    "source_definition_and_snippet_retained": true,
+    "original_files_byte_and_sha_verified": 11,
+    "record_fail_closed_and_recovered": [
+      "HTTP503",
+      "truncatedJSON rejected by byte length",
+      "changedBytes rejected by byte length"
+    ],
+    "stale_record_replaced_with_error_message": true,
+    "editor_assets_verified": 7,
+    "editor_audio_elements": 0,
+    "editor_scene_jumps": 7,
+    "editor_seek_reset_pause_end_replay_verified": true,
+    "asset_failure_and_recovery_verified": true,
+    "wide_editor": [
+      1280,
+      720
+    ],
+    "native_movies": [
+      {
+        "label": "portrait",
+        "currentTime": 32,
+        "duration": 32,
+        "ended": true,
+        "error": null,
+        "paused": true
+      },
+      {
+        "label": "wide",
+        "currentTime": 32,
+        "duration": 32,
+        "ended": true,
+        "error": null,
+        "paused": true
+      }
+    ],
+    "movies_ended": 2,
+    "request_copy_ui": "Browser reported completed",
+    "clipboard_content_readback_verified": false,
+    "physical_ios_safari_voiceover": false,
     "human_approval": false,
-    "review_scope": [
-      "Inspected14framecontact, full13.5sstatic-callposter,18sstale/20sreindexedcomparisons,finalframe,8.1s12framestrip,16.1sinitialstripandfive12frameMP4stripsat3.85/9.85/15.85/18.85/21.85. No clipping or accumulated drawing observed. Brief empty interiors at scene cuts are whole-content fades.",
-      "Findactualscreen crop aligns with8lineagreementanddefinitionmark. Large labels give actualsourcefacts.",
-      "Staticdiagram separates3callees with no implied ordering; actualmain->submit_order andservice.py9/10/18 calllines; static-not-runtimecaption visible.",
-      "Update dashedunindexed audit_receipt becomes solid aftermanualindex; actualquery6/6/7 andactualscreenscomparison. Source15callline/19definition match.",
-      "Actual2400receipt andconsistenttrueaudit labelled separatePythonexecutiononfictionalorder, not agraphtrace oractualpayment.",
-      "Finalrealphonecrop highlights saved-result label; actualfixedcommit fits. Nativeeditor14sready,375pxrootfit/play48.6px/scrub44px.",
-      "NativeMP4observedinitialbuffering0s/paused/ready1 thenautomaticplaybackended28s/ready4/errornull withoutmanualseek.",
-      "28s720p30fps840frames silent,noaudiotrack. PhysicaliOS/otherratios/humanaestheticapproval nottested."
-    ],
-    "native_playback": {
-      "time": 28,
-      "ended": true,
-      "error": null,
-      "first_observed_seconds": 0,
-      "initial_ready_state": 1,
-      "initial_paused": true,
-      "no_manual_seek": true
-    },
-    "source_editor": {
-      "canvas": [
-        1280,
-        720
-      ],
-      "play_enabled": true,
-      "position": 14,
-      "status": "14.00 / 28.00 秒 ・ 準備完了（保存済みの結果から描画・無音）"
-    },
-    "determinism": {
-      "frame": 504,
-      "seconds": 16.8,
-      "first": "9f061d2074e9953ac94207ceb485a7f5eb8cda8b36dde7b6789c8fdd456c25f6",
-      "afterOtherTimes": "9f061d2074e9953ac94207ceb485a7f5eb8cda8b36dde7b6789c8fdd456c25f6",
-      "freshPage": "9f061d2074e9953ac94207ceb485a7f5eb8cda8b36dde7b6789c8fdd456c25f6",
-      "match": true
-    },
-    "audio": "silent; no audio track",
+    "scope": "New UI/film technical review only. Original official native CLI18calls and separate Python fixture executions retained, not rerun. Static CALLS is not a runtime trace."
+  },
+  "frame_review": {
+    "status": "passed",
+    "verified_at": "2026-10-17T19:20:17.318584+00:00",
+    "reviewer": "Production agent visual inspection; not human approval",
     "unresolved_blockers": [],
-    "remaining": [
-      "Other aspect ratios, physicaliOS/Safari andhumanartisticapproval untested."
+    "viewed": [
+      "Final renders-r2 portrait/contact.png and wide/contact.png",
+      "Both final cue strips at24seconds",
+      "Portrait poster31seconds and final phone-scale graph",
+      "Both12frameMP4strips at25.5seconds during actual revision-card movement",
+      "Native375x812main diagram and save operation"
+    ],
+    "findings": [
+      "Five actual source-file shapes connect via a manual-index handle to one persistent static-call map and an actual saved-record destination. Native portrait and independently composed wide layout keep the same object identities.",
+      "submit_order branches to three sibling callees, not a sequence. Visible static-call disclaimer prevents interpreting the lines as runtime traces. Main/source locations8/9/10/18/19/15match original actual files and saved records.",
+      "Changed source shows audit_receipt while the old map still lacks the edge; only manual reindex creates save_receipt->audit_receipt. Full query6/6/7 and drawn internal4/5remain distinct.",
+      "Original separate Python receipt2400/auditconsistenttrue appears as a separate small document, not the result of graph search or traced execution.",
+      "First-render strips exposed overlapping bridge-label and scene-headline crossfades. Production editor now draws one bridge label and one scene headline at a time. Final renders-r2 preserve original motion, source/assets and exact results.",
+      "Final hold keeps the updated map and real saved record readable; technical identifiers are supplemental to larger Japanese role labels. Main phone diagram and save fit the initial812pixel viewport."
+    ],
+    "frame_evidence": {
+      "portrait": {
+        "representative_frames": 16,
+        "continuous_frames": 12,
+        "determinism": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "283d205211c4a8527e14622188915532ac48ff8a47dda86af0c1f6a6a90a96e8",
+          "afterOtherTimes": "283d205211c4a8527e14622188915532ac48ff8a47dda86af0c1f6a6a90a96e8",
+          "freshPage": "283d205211c4a8527e14622188915532ac48ff8a47dda86af0c1f6a6a90a96e8",
+          "match": true
+        },
+        "video": {
+          "file": "video.mp4",
+          "sha256": "496a09aa02e332e153d0a644a65cf9466e9e1672ed439eebf92e51bd1b9b330f",
+          "width": 720,
+          "height": 1280,
+          "fps": 30,
+          "frameCount": 960,
+          "duration": 32,
+          "hasAudio": false
+        }
+      },
+      "wide": {
+        "representative_frames": 16,
+        "continuous_frames": 12,
+        "determinism": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "2e6f3e73b94a8adf8379a5af1a4e03eacbc0c5d2769d57a88ec1d594bd9072b9",
+          "afterOtherTimes": "2e6f3e73b94a8adf8379a5af1a4e03eacbc0c5d2769d57a88ec1d594bd9072b9",
+          "freshPage": "2e6f3e73b94a8adf8379a5af1a4e03eacbc0c5d2769d57a88ec1d594bd9072b9",
+          "match": true
+        },
+        "video": {
+          "file": "video.mp4",
+          "sha256": "2b8f02151bf86971e5d4b5f40d4b7dbc79062ee1105b28efa5f2c2c79a9872e9",
+          "width": 1280,
+          "height": 720,
+          "fps": 30,
+          "frameCount": 960,
+          "duration": 32,
+          "hasAudio": false
+        }
+      }
+    },
+    "moving_mp4_strips": [
+      {
+        "layout": "portrait",
+        "start": 25.5,
+        "fps": 30,
+        "frames": 12,
+        "mp4_sha256": "496a09aa02e332e153d0a644a65cf9466e9e1672ed439eebf92e51bd1b9b330f"
+      },
+      {
+        "layout": "wide",
+        "start": 25.5,
+        "fps": 30,
+        "frames": 12,
+        "mp4_sha256": "2b8f02151bf86971e5d4b5f40d4b7dbc79062ee1105b28efa5f2c2c79a9872e9"
+      }
+    ],
+    "full_ffmpeg_decode": "Both exact final renders-r2 MP4s decoded to null with exit0; both native playbacks ended at32seconds.",
+    "limits": [
+      "Agent review and automatic checks do not establish human approval, effectiveness, completeness of static analysis or performance.",
+      "Physical iOS/Safari/VoiceOver and clipboard content readback unverified.",
+      "Silent; no narration or audio stream."
     ]
   },
-  "motion_reel": {
-    "name": "Studio Yebisu Motion Reel rendering runtime",
-    "license": "MIT",
-    "copyright": "2026 Studio Yebisu",
-    "files_sha256": {
-      "render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
-      "audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
-      "package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
-      "package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
-      "LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd"
+  "production_adjustments": [
+    {
+      "file": "video/video.js",
+      "reason": "At 24 seconds old and new bridge labels overlapped during their crossfade. The longer manual label also approached the unreflected pill.",
+      "change": "Draw exactly one bridge label at a time and shorten it to 手で索引 in both native layouts. Preserve the timeline, graph reveal and motion.",
+      "unchanged": "Eight original Opus sources archived; 28 original files, 11 raw files, seven assets and all real results unchanged."
     },
-    "dependency_lock": "Playwright1.64.0 npm registry Apache-2.0; dependencies not distributed."
-  },
-  "production_contributions": {
-    "Opus5.5": "Read fixed official documentation and brief-to-demo; authored original fixture, CLI bridge, Japanese guide, saved-result viewer and editable film.",
-    "production_editor": "Verified official release checksum/build attestation and exact source, adapted Windows encoding/actual CLI payload shape and grouped search format, executed genuine tools and original fixture, compared source/raw output/DOM, adjusted mobile layout, reviewed film and scoped authorized publication. Full model histories remain private."
-  },
-  "parent_adjustments": {
-    "changes": [
-      "Use Python -X utf8 for isolated child output onWindows.",
-      "Respect actual CLI schema: rawenvelope flag,format in toolJSON,indexwithoutformat,list_projects formatting viaflag.",
-      "Decode v0.12 grouped search rows by explicit cols/groups/qn_rule; rawresponses retained unchanged apartfrom documentedpaths.",
-      "Use existing-safe local userprofile cache and create rendezvous directory; nopermissionweakening/globalintegration/foreignprocessstop.",
-      "Shorten mobilehero, move scope/four facts to native details, shorten derivedtablabels, hide numberbadge below360px and fold changedsource so comparisonappears first.",
-      "Document actuallyverifiedrelease and reproducible private-directory setup."
-    ],
-    "unchanged": "Originalfictional fixtures andrawtoolpayloadmeaning unchanged.",
-    "human_approval": false
-  },
-  "human_approval": false
+    {
+      "file": "video/video.js",
+      "reason": "The continuous strip at 24 seconds showed two different scene headlines superimposed in the same space during a crossfade.",
+      "change": "Keep a single fully readable scene headline at each cue. The connected diagram continues moving across the unchanged scene times.",
+      "unchanged": "All diagram geometry, absolute-time motion, original data and source assets remain unchanged. First-render outputs retained privately; final render uses renders-r2."
+    },
+    {
+      "files": [
+        "render-visual.py",
+        "video/README.md",
+        "README.md"
+      ],
+      "reason": "The received film README described a portrait command using the old renderer entry, whose defaults are landscape. It also needed to distinguish delivery-time pending checks from later actual QA.",
+      "change": "Add a dimension-aware wrapper using the exact temporary-copy method already used for final renders. Preserve original render.py. Give explicit720x1280/1280x720 commands and date/scope the original pending-QA text. Repackage owned artifacts; UI, film code, MP4s and28originalfiles unchanged."
+    }
+  ],
+  "human_approval": false,
+  "physical_ios_safari_voiceover": false,
+  "silent": true
 }

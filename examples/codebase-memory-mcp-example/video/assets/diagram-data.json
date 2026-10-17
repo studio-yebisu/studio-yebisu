@@ -1,0 +1,369 @@
+{
+  "format": "studio-yebisu-codebase-diagram-v1",
+  "fictional": true,
+  "nodes": [
+    {
+      "id": "main",
+      "label": "入口",
+      "function": "main",
+      "file": "app.py",
+      "line": 17
+    },
+    {
+      "id": "submit_order",
+      "label": "注文をまとめる",
+      "function": "submit_order",
+      "file": "service.py",
+      "line": 8
+    },
+    {
+      "id": "validate_order",
+      "label": "確かめる",
+      "function": "validate_order",
+      "file": "validation.py",
+      "call_line": 9
+    },
+    {
+      "id": "calculate_total",
+      "label": "合計を出す",
+      "function": "calculate_total",
+      "file": "pricing.py",
+      "call_line": 10
+    },
+    {
+      "id": "save_receipt",
+      "label": "領収を保存",
+      "function": "save_receipt",
+      "file": "storage.py",
+      "call_line": 18
+    },
+    {
+      "id": "audit_receipt",
+      "label": "監査を追加",
+      "function": "audit_receipt",
+      "file": "storage.py",
+      "line": 19,
+      "call_line": 15
+    }
+  ],
+  "internal_edges_before": [
+    [
+      "main",
+      "submit_order"
+    ],
+    [
+      "submit_order",
+      "validate_order"
+    ],
+    [
+      "submit_order",
+      "calculate_total"
+    ],
+    [
+      "submit_order",
+      "save_receipt"
+    ]
+  ],
+  "internal_edges_after": [
+    [
+      "main",
+      "submit_order"
+    ],
+    [
+      "submit_order",
+      "validate_order"
+    ],
+    [
+      "submit_order",
+      "calculate_total"
+    ],
+    [
+      "submit_order",
+      "save_receipt"
+    ],
+    [
+      "save_receipt",
+      "audit_receipt"
+    ]
+  ],
+  "query_row_counts": {
+    "before": 6,
+    "stale": 6,
+    "after": 7
+  },
+  "default_operation": "trace",
+  "definition": {
+    "function": "submit_order",
+    "qualified_name": "yebisu-workshop-proof.service.submit_order",
+    "file": "fixture/service.py",
+    "line": 8,
+    "source_def_line": 8,
+    "line_matches_source": true,
+    "snippet_text": "def submit_order(order, out_dir):\n    validate_order(order)\n    total = calculate_total(order[\"seat_count\"], order[\"seat_price_jpy\"])\n    receipt = {\n        \"order_id\": order[\"order_id\"],\n        \"workshop\": order[\"workshop\"],\n        \"seat_count\": order[\"seat_count\"],\n        \"seat_price_jpy\": order[\"seat_price_jpy\"],\n        \"total_jpy\": total,\n    }\n    save_receipt(receipt, out_dir)\n    return receipt\n",
+    "snippet_lines": 12,
+    "snippet_lines_in_source": 12,
+    "call_expressions": [
+      {
+        "line": 9,
+        "text": "validate_order(order)",
+        "callee": "validate_order",
+        "file": "fixture/service.py"
+      },
+      {
+        "line": 10,
+        "text": "total = calculate_total(order[\"seat_count\"], order[\"seat_price_jpy\"])",
+        "callee": "calculate_total",
+        "file": "fixture/service.py"
+      },
+      {
+        "line": 18,
+        "text": "save_receipt(receipt, out_dir)",
+        "callee": "save_receipt",
+        "file": "fixture/service.py"
+      }
+    ]
+  },
+  "trace": {
+    "entry": "submit_order",
+    "callees_in_rows": [
+      "validate_order",
+      "calculate_total",
+      "save_receipt"
+    ],
+    "required_edges": [
+      {
+        "caller": "submit_order",
+        "callee": "validate_order",
+        "source": {
+          "line": 9,
+          "text": "validate_order(order)",
+          "file": "fixture/service.py"
+        }
+      },
+      {
+        "caller": "submit_order",
+        "callee": "calculate_total",
+        "source": {
+          "line": 10,
+          "text": "total = calculate_total(order[\"seat_count\"], order[\"seat_price_jpy\"])",
+          "file": "fixture/service.py"
+        }
+      },
+      {
+        "caller": "submit_order",
+        "callee": "save_receipt",
+        "source": {
+          "line": 18,
+          "text": "save_receipt(receipt, out_dir)",
+          "file": "fixture/service.py"
+        }
+      }
+    ],
+    "rows_returned": 6,
+    "limit": 100,
+    "may_be_truncated": false,
+    "main_calls_submit_order": true,
+    "trace_reached": [
+      "validate_order",
+      "calculate_total",
+      "save_receipt"
+    ],
+    "trace_edges": []
+  },
+  "update": {
+    "revision_file": "fixture/storage_revised.py",
+    "replaced_in_copy": "fixture/storage.py",
+    "added_lines": [
+      {
+        "line": 15,
+        "text": "    audit_receipt(receipt, folder)"
+      },
+      {
+        "line": 17,
+        "text": ""
+      },
+      {
+        "line": 18,
+        "text": ""
+      },
+      {
+        "line": 19,
+        "text": "def audit_receipt(receipt, out_dir):"
+      },
+      {
+        "line": 20,
+        "text": "    recomputed = receipt[\"seat_count\"] * receipt[\"seat_price_jpy\"]"
+      },
+      {
+        "line": 21,
+        "text": "    audit = {"
+      },
+      {
+        "line": 22,
+        "text": "        \"order_id\": receipt[\"order_id\"],"
+      },
+      {
+        "line": 23,
+        "text": "        \"receipt_file\": \"receipt-\" + receipt[\"order_id\"] + \".json\","
+      },
+      {
+        "line": 24,
+        "text": "        \"recomputed_total_jpy\": recomputed,"
+      },
+      {
+        "line": 25,
+        "text": "        \"saved_total_jpy\": receipt[\"total_jpy\"],"
+      },
+      {
+        "line": 26,
+        "text": "        \"consistent\": recomputed == receipt[\"total_jpy\"],"
+      },
+      {
+        "line": 27,
+        "text": "    }"
+      },
+      {
+        "line": 28,
+        "text": "    path = Path(out_dir) / (\"audit-\" + receipt[\"order_id\"] + \".json\")"
+      },
+      {
+        "line": 29,
+        "text": "    with path.open(\"x\", encoding=\"utf-8\") as handle:"
+      },
+      {
+        "line": 30,
+        "text": "        json.dump(audit, handle, ensure_ascii=False, indent=2, sort_keys=True)"
+      },
+      {
+        "line": 31,
+        "text": "        handle.write(\"\\n\")"
+      },
+      {
+        "line": 32,
+        "text": "    return audit"
+      }
+    ],
+    "new_edge": {
+      "caller": "save_receipt",
+      "callee": "audit_receipt"
+    },
+    "edge_in_before": false,
+    "edge_in_stale": false,
+    "edge_in_after": true,
+    "manual_reindex": true,
+    "call_expression": {
+      "line": 15,
+      "text": "audit_receipt(receipt, folder)",
+      "file": "fixture/storage.py"
+    },
+    "save_receipt": {
+      "qualified_name": "yebisu-workshop-proof.storage.save_receipt",
+      "file": "fixture/storage.py",
+      "line": 7
+    },
+    "save_receipt_snippet_text": "def save_receipt(receipt, out_dir):\n    folder = Path(out_dir)\n    if not folder.is_dir():\n        raise FileNotFoundError(\"output directory does not exist\")\n    path = folder / (\"receipt-\" + receipt[\"order_id\"] + \".json\")\n    with path.open(\"x\", encoding=\"utf-8\") as handle:\n        json.dump(receipt, handle, ensure_ascii=False, indent=2, sort_keys=True)\n        handle.write(\"\\n\")\n    audit_receipt(receipt, folder)\n    return path\n",
+    "audit_receipt": {
+      "qualified_name": "yebisu-workshop-proof.storage.audit_receipt",
+      "file": "fixture/storage.py",
+      "line": 19,
+      "source_def_line": 19
+    },
+    "trace_reached_after": [
+      "validate_order",
+      "calculate_total",
+      "save_receipt",
+      "audit_receipt"
+    ],
+    "watch_before_reindex": {
+      "watched": false,
+      "reason": "not_session_project",
+      "hint": "Auto-sync watches only the active MCP session's project; re-run index_repository to refresh this index."
+    },
+    "watch_after_reindex": {
+      "watched": false,
+      "reason": "not_session_project",
+      "hint": "Auto-sync watches only the active MCP session's project; re-run index_repository to refresh this index."
+    }
+  },
+  "separate_fixture_execution": {
+    "base": {
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "-B",
+        "-E",
+        "-s",
+        "app.py",
+        "--order",
+        "sample_order.json",
+        "--out",
+        "<base-output-dir>"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "order_id": "WS-0001",
+        "seat_count": 2,
+        "seat_price_jpy": 1200,
+        "total_jpy": 2400,
+        "workshop": "架空の木工ワークショップ（作例用）"
+      },
+      "files": {
+        "receipt-WS-0001.json": {
+          "order_id": "WS-0001",
+          "seat_count": 2,
+          "seat_price_jpy": 1200,
+          "total_jpy": 2400,
+          "workshop": "架空の木工ワークショップ（作例用）"
+        }
+      }
+    },
+    "revised": {
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "-B",
+        "-E",
+        "-s",
+        "app.py",
+        "--order",
+        "sample_order.json",
+        "--out",
+        "<revised-output-dir>"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "order_id": "WS-0001",
+        "seat_count": 2,
+        "seat_price_jpy": 1200,
+        "total_jpy": 2400,
+        "workshop": "架空の木工ワークショップ（作例用）"
+      },
+      "files": {
+        "audit-WS-0001.json": {
+          "consistent": true,
+          "order_id": "WS-0001",
+          "receipt_file": "receipt-WS-0001.json",
+          "recomputed_total_jpy": 2400,
+          "saved_total_jpy": 2400
+        },
+        "receipt-WS-0001.json": {
+          "order_id": "WS-0001",
+          "seat_count": 2,
+          "seat_price_jpy": 1200,
+          "total_jpy": 2400,
+          "workshop": "架空の木工ワークショップ（作例用）"
+        }
+      }
+    }
+  },
+  "limitations": [
+    "Saved real official native CLI results, not live browser/MCP protocol.",
+    "CALLS is a static relation, not recorded runtime order or execution trace.",
+    "Internal 4/5 drawn edges are selected from 6/7 total rows; print/OrderError are external and remain in full data.",
+    "CLI index is not watched. Changed source and stale index must remain visibly different until manual reindex.",
+    "Receipt/audit are separate real Python fixture executions, not outputs of the graph query.",
+    "No audio, new model inference, CLI indexing, fixture execution, speed/token/quality claims."
+  ]
+}

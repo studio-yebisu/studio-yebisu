@@ -3,130 +3,143 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>入口から、保存先へ。｜Codebase Memory MCP 作例（保存済みの検索結果）</title>
-<meta name="description" content="架空の注文リポジトリを Codebase Memory MCP v0.12.0 の公式CLIで索引し、関数を探す・呼び出しをたどる・変更後に手で索引し直す、を実行して保存した結果を読むページです。">
+<meta name="color-scheme" content="light">
+<title>コードのつながりを、地図に。｜Codebase Memory MCP 作例（保存済みの実行結果）</title>
+<meta name="description" content="架空の注文リポジトリを Codebase Memory MCP v0.12.0 の公式CLIで索引し、関数の場所・3つの直接の呼び出し・手で索引し直した後の新しいつながりを、保存済みの実行結果から1枚の図で見るページです。">
 <link rel="stylesheet" href="style.css">
 <script type="module" src="app.mjs"></script>
 </head>
 <body>
-<a class="skip" href="#steps">3つの操作へ移動</a>
+<a class="skip" href="#stage">図と操作へ移動</a>
 
-<header class="hero wrap">
-  <p class="eyebrow">Codebase Memory MCP 作例 · 架空のワークショップ注文リポジトリ</p>
-  <h1><span>入口から、</span><span>保存先へ。</span></h1>
-  <p class="lead">架空の注文コードで、関数を探し、呼び出し先を確かめ、変更後に索引を更新します。</p>
-  <p class="badge">保存済みの結果 / ライブ検索なし</p>
-
-
-
-  <details class="scope-details">
-    <summary>作例の範囲について</summary>
-  <dl class="hero-facts" aria-label="保存結果から読んだ要点">
-    <div><dt>submit_order の定義</dt><dd data-fact="where">読み込み中</dd></div>
-    <div><dt>submit_order の呼び出し先（索引の行）</dt><dd data-fact="callees">読み込み中</dd></div>
-    <div><dt>storage.py を変えて手で再索引した後</dt><dd data-fact="edge">読み込み中</dd></div>
-    <div><dt>使った版（--version の出力）</dt><dd data-fact="version">読み込み中</dd></div>
-  </dl>
-    <ul class="facts">
-      <li><strong>保存済みの結果</strong><span><code>workflow.py</code> が公式の実行ファイルを呼んで保存したJSONを読んで表示します。このページはツールもPythonもAIも動かしません。</span></li>
-      <li><strong>CLIで呼んだ</strong><span><code>codebase-memory-mcp cli</code> からツールを1回ずつ呼びました。MCPクライアントからの接続は試していません。</span></li>
-      <li><strong>2種類の証拠</strong><span>「索引」は静的な呼び出し関係で、実行時の記録ではありません。「実行」は架空の注文を実際に動かして書かれた領収JSONです。</span></li>
-      <li><strong>架空の入力</strong><span>注文・金額・ワークショップ名は作例用の実ファイルです。決済・予約・通知はしていません。</span></li>
-    </ul>
-  </details>
+<header class="top">
+  <p class="brand">Codebase Memory MCP 作例 <span class="brand-sub">架空の注文コード</span></p>
+  <h1>コードのつながりを、地図に。</h1>
+  <p class="badge" id="badge"><span class="badge-dot" aria-hidden="true"></span>保存済みの実行 / ライブ検索なし</p>
 </header>
 
 <main>
-  <section id="steps" class="steps-section wrap" aria-labelledby="steps-title">
-    <h2 id="steps-title">3つの操作を切り替える</h2>
-    <p id="load-status" class="load-status" role="status">保存済みの実行結果（outputs/runs.json）を読み込んでいます。</p>
-    <p id="load-actions" class="load-actions" hidden>
-      <button type="button" id="retry" class="button">もう一度読み込む</button>
-    </p>
-    <noscript><p class="load-status is-error">表示にはJavaScriptが必要です。生のファイルは <a href="outputs/runs.json">outputs/runs.json</a>・<a href="outputs/result.md">outputs/result.md</a>・<a href="samples.json">samples.json</a> から開けます。</p></noscript>
+  <section id="stage" class="stage" aria-labelledby="stage-title">
+    <h2 id="stage-title" class="sr-only">コード・索引・呼び出しの地図・保存先をつないだ図</h2>
 
-    <div class="tabs" role="tablist" aria-labelledby="steps-title">
-      <button type="button" class="tab" role="tab" id="tab-find" data-step="find" aria-controls="find" aria-selected="true" tabindex="0"><span class="tab-label"><span class="tab-no">1</span>探す</span><span class="tab-result">読み込み中</span></button>
-      <button type="button" class="tab" role="tab" id="tab-trace" data-step="trace" aria-controls="trace" aria-selected="false" tabindex="-1"><span class="tab-label"><span class="tab-no">2</span>たどる</span><span class="tab-result">読み込み中</span></button>
-      <button type="button" class="tab" role="tab" id="tab-update" data-step="update" aria-controls="update" aria-selected="false" tabindex="-1"><span class="tab-label"><span class="tab-no">3</span>変える</span><span class="tab-result">読み込み中</span></button>
+    <figure class="diagram" id="diagram-wrap">
+      <svg id="diagram" class="diagram-svg" role="img" aria-labelledby="diagram-title diagram-desc" viewBox="0 0 360 452" preserveAspectRatio="xMidYMid meet" data-state="loading" focusable="false">
+        <title id="diagram-title">コードから呼び出しの地図へ</title>
+        <desc id="diagram-desc">保存済みの記録を確かめています。</desc>
+      </svg>
+      <p id="diagram-status" class="diagram-status" role="status">保存済みの記録（11ファイル）を確かめています…</p>
+    </figure>
+
+    <div class="controls" id="controls">
+      <div class="ops" id="ops" role="group" aria-label="操作：保存済みの実行を選ぶ">
+        <button type="button" class="op" data-step="find" aria-pressed="false" aria-controls="diagram" disabled><span class="op-no" aria-hidden="true">1</span>探す</button>
+        <button type="button" class="op" data-step="trace" aria-pressed="true" aria-controls="diagram" disabled><span class="op-no" aria-hidden="true">2</span>たどる</button>
+        <button type="button" class="op" data-step="update" aria-pressed="false" aria-controls="diagram" disabled><span class="op-no" aria-hidden="true">3</span>更新する</button>
+      </div>
+
+      <div class="phase-row">
+        <div class="phases" id="phases" role="group" aria-label="更新の段階（実際に保存した3時点）" hidden>
+          <button type="button" class="phase" data-phase="before" aria-pressed="false" aria-controls="diagram" disabled>初回</button>
+          <button type="button" class="phase" data-phase="stale" aria-pressed="false" aria-controls="diagram" disabled>変更後・未更新</button>
+          <button type="button" class="phase" data-phase="after" aria-pressed="true" aria-controls="diagram" disabled>手で更新後</button>
+        </div>
+        <p class="phase-note" id="phase-note">地図：初回の索引</p>
+      </div>
+
+      <p class="caption" id="caption" aria-live="polite"><strong id="cap-role">読み込み中</strong><span id="cap-where"></span></p>
+
+      <div class="save">
+        <button type="button" id="download-record" class="save-btn" disabled>
+          <span class="save-icon" aria-hidden="true"></span>
+          <span class="save-text">この記録を保存<span class="save-name" id="download-name">codebase-memory-trace.json</span></span>
+        </button>
+        <p id="save-status" class="save-status" role="status"></p>
+      </div>
+
+      <div id="load-error" class="load-error" role="alert" hidden>
+        <p id="load-error-text"></p>
+        <p class="load-error-links">元のファイル：<a href="outputs/runs.json">outputs/runs.json</a> · <a href="samples.json">samples.json</a> · <a href="outputs/result.md">result.md</a> · <a href="comparison.html">以前の表示</a></p>
+        <button type="button" id="retry" class="button">もう一度読み込む</button>
+      </div>
+
+      <p class="verified" id="verified"></p>
+      <noscript><p class="load-error">表示にはJavaScriptが必要です。元の記録は <a href="outputs/runs.json">outputs/runs.json</a>・<a href="samples.json">samples.json</a>・<a href="outputs/result.md">outputs/result.md</a> から開けます。</p></noscript>
     </div>
-
-    <section class="panel" role="tabpanel" id="find" aria-labelledby="tab-find">
-      <p class="panel-wait">保存済みの結果を読み込むと、ここに表示します。</p>
-    </section>
-    <section class="panel" role="tabpanel" id="trace" aria-labelledby="tab-trace" hidden>
-      <p class="panel-wait">保存済みの結果を読み込むと、ここに表示します。</p>
-    </section>
-    <section class="panel" role="tabpanel" id="update" aria-labelledby="tab-update" hidden>
-      <p class="panel-wait">保存済みの結果を読み込むと、ここに表示します。</p>
-    </section>
   </section>
 
-  <section id="files" class="wrap block" aria-labelledby="files-title">
-    <h2 id="files-title">ファイルを持ち帰る</h2>
-    <p>表示している内容の元ファイルです。押すとそのまま保存できます。</p>
-    <ul class="downloads">
-      <li><a href="outputs/runs.json" download="runs.json"><strong>実行結果</strong><span>outputs/runs.json</span></a><p>ツールへの要求と実際の応答、照合した行、ソースの写し、領収JSON</p></li>
-      <li><a href="outputs/result.md" download="result.md"><strong>結果メモ</strong><span>outputs/result.md</span></a><p>実行結果から書き出した日本語のまとめ</p></li>
-      <li><a href="samples.json" download="samples.json"><strong>入力と出力</strong><span>samples.json</span></a><p>3つの操作の要求（input）と応答（output）</p></li>
-      <li><a href="workflow.py" download="workflow.py"><strong>実行用ソース</strong><span>workflow.py</span></a><p>公式CLIを呼び、応答を照合して保存するPython</p></li>
-    </ul>
-    <p class="aside">架空のリポジトリ（入力）：<a href="fixture/app.py">app.py</a> · <a href="fixture/service.py">service.py</a> · <a href="fixture/validation.py">validation.py</a> · <a href="fixture/pricing.py">pricing.py</a> · <a href="fixture/storage.py">storage.py</a> · <a href="fixture/sample_order.json">sample_order.json</a> · 変更用 <a href="fixture/storage_revised.py">storage_revised.py</a></p>
-  </section>
+  <section class="folds" aria-labelledby="folds-title">
+    <h2 id="folds-title" class="folds-title">記録と根拠</h2>
 
-  <section id="request" class="wrap block" aria-labelledby="request-title">
-    <h2 id="request-title">同じ確かめ方を依頼する</h2>
-    <p>Codebase Memory MCP の固定版を読めるAIエージェントや開発者に、そのまま渡せる依頼文です。リポジトリを自分のものに置き換えても使えます。</p>
-    <label class="field-label" for="request-text">依頼文（読み取り専用）</label>
-    <textarea id="request-text" class="request-text" readonly rows="16" spellcheck="false">Codebase Memory MCP（DeusData/codebase-memory-mcp v0.12.0、ソース固定コミット ec6427c38176efcd37b28682e82f2491afda94be）で、小さなPythonリポジトリの呼び出し関係を実際に調べてください。公式Windowsリリースのzipは checksums.txt とビルド証明で確かめ、install・フック・全体設定の変更・ほかのCBMセッションの終了はしないでください。
+    <details class="fold" id="fold-record">
+      <summary><span class="fold-label">選んだ記録の中身</span><span class="fold-hint">入力・出力・ソース</span></summary>
+      <div class="fold-body" id="record-body"></div>
+    </details>
 
-入力：fixture/ の架空のワークショップ注文リポジトリ（app.main → service.submit_order → validate_order・calculate_total・save_receipt）、sample_order.json（2席×1,200円）、変更用の storage_revised.py。
+    <details class="fold" id="fold-phases">
+      <summary><span class="fold-label">初回・変更後・手で更新後の全データ</span><span class="fold-hint">CALLS の組 そのまま</span></summary>
+      <div class="fold-body" id="phases-body"></div>
+    </details>
 
-手順：
-1. fixture を新しい空の作業ディレクトリへコピーし、元は変えない。コピーで app.py を実行し、指定したディレクトリに書かれた領収JSONの合計2,400円を読む。
-2. cli index_repository（mode full）で索引を作り、list_projects で実際の名前を確かめ、get_graph_schema と index_status を読む。
-3. search_graph で submit_order を探し、返ったパスと行を実ソースと照合し、get_code_snippet の本文を読む。
-4. query_graph と trace_path（outbound・深さ4）の実際の応答に submit_order から3関数への辺があることを、ソースの呼び出し式と並べて確かめる。
-5. コピーの storage.py だけを差し替えて audit_receipt を加え、再索引前の応答を保存してから手で index_repository をやり直し、save_receipt → audit_receipt と監査JSONを確かめる。
+    <details class="fold" id="fold-python">
+      <summary><span class="fold-label">別の実行：Python で架空の注文を動かした</span><span class="fold-hint">領収・監査 JSON</span></summary>
+      <div class="fold-body" id="python-body"></div>
+    </details>
 
-保存：実際の応答JSONを outputs/runs.json と samples.json に、日本語の結果メモを outputs/result.md に書く。標準出力・標準エラーの全文は作業ディレクトリに残し、公開側ではコピーのパスを fixture/、キャッシュを &lt;private-cache&gt; に置き換える。閲覧ページは保存結果を読むだけにする。
+    <details class="fold" id="fold-samples">
+      <summary><span class="fold-label">3つの記録（samples.json）</span><span class="fold-hint">入力と出力の原本</span></summary>
+      <div class="fold-body" id="samples-body"></div>
+    </details>
 
-完了条件：辺・行・領収JSON・監査JSONが実データで確かめられること。応答の失敗や不一致があれば、出力を書かずに終了コード1で止める。
-
-範囲外：MCPプロトコル経由の動作、CBM Lens、ブラウザAI、意味検索、大きなリポジトリ、速さ・トークン量。静的な呼び出し関係は実行時の記録ではない。
-</textarea>
-    <div class="copy-row">
-      <button type="button" id="copy-request" class="button">依頼文をコピー</button>
-      <a class="button button--quiet" href="request.txt" download="request.txt">request.txt を保存</a>
-    </div>
-    <p id="copy-status" class="copy-status" role="status"></p>
-  </section>
-
-  <section id="rerun" class="wrap block" aria-labelledby="rerun-title">
-    <h2 id="rerun-title">手元で実行し直す</h2>
-    <p>このページから実行はできません。実行ファイル・モデル・索引キャッシュは配布していないので、公式リリースを自分で取得して確かめてから使います。インストールや全体設定の変更はしません。</p>
-    <ol class="commands">
-      <li><p>公式 v0.12.0 の Windows 版 zip と <code>checksums.txt</code> を、作例フォルダの外の新しいフォルダに取得し、SHA-256 とビルド証明を確かめて展開する</p>
-        <p class="aside"><a href="https://github.com/DeusData/codebase-memory-mcp/releases/tag/v0.12.0">v0.12.0 のリリース</a> · 確かめ方は README と原典の SECURITY.md の Verification</p></li>
-      <li><p>ほかの Codebase Memory MCP のセッションやコマンドが動いていないことを確かめる（キャッシュの場所が違うと、動いている間は拒否されます。止めるためにほかのセッションを終了させないでください）</p></li>
-      <li><p>展開したフォルダで、作例の workflow.py を実行する</p>
-        <pre><code>$cbmProof = Join-Path $env:USERPROFILE (".cbm-proof-" + [guid]::NewGuid().ToString("N"))
+    <details class="fold" id="fold-evidence">
+      <summary><span class="fold-label">実行の根拠と範囲</span><span class="fold-hint">公式CLI 18回・再現手順</span></summary>
+      <div class="fold-body">
+        <div id="evidence-body"></div>
+        <h3 class="fold-h">手元で実行し直す</h3>
+        <p>このページから実行はできません。実行ファイル・モデル・索引キャッシュは配布していません。公式リリースを自分で取得し、確かめてから使います。インストールや全体設定の変更はしません。</p>
+        <ol class="commands">
+          <li><p>公式 v0.12.0 の Windows 版 zip と <code>checksums.txt</code> を、作例フォルダの外の新しいフォルダに取得し、SHA-256 とビルド証明を確かめて展開する（<a href="https://github.com/DeusData/codebase-memory-mcp/releases/tag/v0.12.0">v0.12.0 のリリース</a>、確かめ方は原典の <a href="vendor/codebase-memory-mcp/SECURITY.md">SECURITY.md</a>）</p></li>
+          <li><p>ほかの Codebase Memory MCP のセッションやコマンドが動いていないことを確かめる。止めるためにほかのセッションを終了させない</p></li>
+          <li><p>展開したフォルダで作例の workflow.py を実行する</p>
+<pre tabindex="0"><code>$cbmProof = Join-Path $env:USERPROFILE (".cbm-proof-" + [guid]::NewGuid().ToString("N"))
 New-Item -ItemType Directory -Path (Join-Path $cbmProof "rendezvous") -Force | Out-Null
 $env:CBM_RUNTIME_DIR = Join-Path $cbmProof "rendezvous"
-python &lt;作例フォルダ&gt;\workflow.py --binary .\codebase-memory-mcp.exe --work (Join-Path $cbmProof "work") --cache (Join-Path $cbmProof "cache")</code></pre>
-        <p class="aside"><code>--work</code> は新しい空のディレクトリ、<code>--cache</code> はこの作例専用の場所にします。どちらも作例フォルダの外です。</p></li>
-      <li><p>作例フォルダでこのページを開く</p>
-        <pre><code>python -m http.server 8000</code></pre>
-        <p class="aside">ブラウザで <code>http://127.0.0.1:8000/</code> を開きます。file:// で直接開くとJSONを読み込めません。</p></li>
-    </ol>
-    <p class="aside">詳しい手順と注意は <a href="README.md">README</a> にあります。</p>
+python &lt;作例フォルダ&gt;\workflow.py --binary .\codebase-memory-mcp.exe --work (Join-Path $cbmProof "work") --cache (Join-Path $cbmProof "cache")</code></pre></li>
+          <li><p>作例フォルダで <code>python -m http.server 8000</code> を起動し、<code>http://127.0.0.1:8000/</code> を開く。file:// では記録を読めません</p></li>
+        </ol>
+        <p class="aside">CLI で作った索引は監視されません（原典 README の Auto-Index）。ファイルを変えたら <code>index_repository</code> を手でやり直します。</p>
+      </div>
+    </details>
+
+    <details class="fold" id="fold-request">
+      <summary><span class="fold-label">同じ確かめ方を依頼する</span><span class="fold-hint">依頼文をコピー</span></summary>
+      <div class="fold-body">
+        <label class="field-label" for="request-text">依頼文（request.txt の原文・読み取り専用）</label>
+        <textarea id="request-text" class="request-text" readonly rows="12" spellcheck="false"></textarea>
+        <div class="copy-row">
+          <button type="button" id="copy-request" class="button" disabled>依頼文をコピー</button>
+          <a class="button button--quiet" href="request.txt" download="request.txt">request.txt を保存</a>
+        </div>
+        <p id="copy-status" class="copy-status" role="status"></p>
+      </div>
+    </details>
+
+    <details class="fold" id="fold-result">
+      <summary><span class="fold-label">結果メモ（result.md）</span><span class="fold-hint">実行時に書き出した要約</span></summary>
+      <div class="fold-body"><pre class="raw-pre" id="result-body" tabindex="0"></pre></div>
+    </details>
+
+    <div class="links">
+      <p><strong>入力のファイル</strong>：<a href="fixture/app.py">app.py</a> · <a href="fixture/service.py">service.py</a> · <a href="fixture/validation.py">validation.py</a> · <a href="fixture/pricing.py">pricing.py</a> · <a href="fixture/storage.py">storage.py</a> · <a href="fixture/sample_order.json">sample_order.json</a> · 変更用 <a href="fixture/storage_revised.py">storage_revised.py</a></p>
+      <p><strong>記録の原本</strong>：<a href="outputs/runs.json" download="runs.json">outputs/runs.json</a> · <a href="samples.json" download="samples.json">samples.json</a> · <a href="outputs/result.md">outputs/result.md</a> · <a href="data-manifest.json">data-manifest.json</a> · <a href="workflow.py">workflow.py</a></p>
+      <p><strong>以前の表示</strong>：<a href="comparison.html#find">探す</a> · <a href="comparison.html#trace">たどる</a> · <a href="comparison.html#update">変える</a>（文字中心の旧ビューア。同じ記録を読みます）</p>
+      <p><strong>動画</strong>：<a href="video/index.html">32秒・無音の概念図ムービー（編集ソース）</a></p>
+    </div>
   </section>
-<section class="wrap block" aria-labelledby="movie-title"><h2 id="movie-title">28秒で、探す・たどる・更新する</h2><p>実行結果と作例の実画面を使った無音の編集動画です。呼び出し関係は静的な索引で、実行時トレースではありません。注文・金額は架空です。</p><video controls playsinline preload="none" poster="../../media/codebase-memory-mcp-example.webp" style="width:100%;height:auto" aria-label="Codebase Memory MCPで関数の定義・呼び出し先・再索引後の変化を見る。28秒・無音"><source src="../../media/codebase-memory-mcp-example.mp4" type="video/mp4"><a href="../../media/codebase-memory-mcp-example.mp4">MP4を開く</a></video><p class="aside"><a href="../../media/codebase-memory-mcp-example.mp4">動画を大きく見る</a> · <a href="video/index.html">動画の編集ソース</a> · <a href="source.zip">作例・入力と結果・動画のソース一式</a> · <a href="verification.json">実行と確認の範囲</a></p></section>
 </main>
 
-<footer class="footer wrap">
-  <p>作例のコード・文章・架空データ：MIT License（Copyright (c) 2026 Studio Yebisu）、<a href="LICENSE">LICENSE</a>。Codebase Memory MCP：MIT License（Copyright (c) 2025 DeusData）、<a href="https://github.com/DeusData/codebase-memory-mcp/blob/ec6427c38176efcd37b28682e82f2491afda94be/LICENSE">原典の LICENSE</a>。含まれる第三者コンポーネントは <a href="vendor/codebase-memory-mcp/THIRD_PARTY.md">THIRD_PARTY.md</a> の各ライセンスに従います。</p>
-  <p>原典：<a href="https://github.com/DeusData/codebase-memory-mcp/tree/ec6427c38176efcd37b28682e82f2491afda94be">DeusData/codebase-memory-mcp（v0.12.0・固定コミット ec6427c）</a> · 制作ブリーフの手順：<a href="../../skills/brief-to-demo/SKILL.md">brief-to-demo</a> · <a href="README.md">README</a></p>
+<footer class="footer">
+  <p>作例のコード・文章・架空データ：MIT License（Copyright (c) 2026 Studio Yebisu）、<a href="LICENSE">LICENSE</a>。Codebase Memory MCP：MIT License（Copyright (c) 2025 DeusData）、<a href="vendor/codebase-memory-mcp/LICENSE">原典の LICENSE</a>。第三者コンポーネントは <a href="vendor/codebase-memory-mcp/THIRD_PARTY.md">THIRD_PARTY.md</a> に従います。</p>
+  <p>原典：<a href="https://github.com/DeusData/codebase-memory-mcp/tree/ec6427c38176efcd37b28682e82f2491afda94be">DeusData/codebase-memory-mcp（v0.12.0・固定コミット ec6427c）</a> · <a href="vendor/codebase-memory-mcp/README.md">README の写し</a> · <a href="README.md">作例の README</a></p>
 </footer>
 </body>
 </html>

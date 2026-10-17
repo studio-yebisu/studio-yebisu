@@ -1,199 +1,126 @@
 {
-  "title": "コードを索引して、関数と呼び出しを探す（Codebase Memory MCP 作例・28秒・無音の編集動画）",
-  "brief": {
-    "request": "知らないコードで、入口の関数を探し、索引の静的な呼び出し関係と実ソースを見て、変更したソースを手で索引し直し、保存した証拠を確かめるまでを、保存済みの実際のCLI結果と実際のビューア画面で28秒の無音の日本語説明動画にする。",
-    "purpose": "Codebase Memory MCP が何をするツールか（コードを索引して関数と呼び出し関係を探す）と、この作例で実際に確かめたことを、初めて見る人が28秒で分かる。",
-    "audience": "Codebase Memory MCP を初めて見る開発者。スマートフォンで720pの映像を縮小して見る人を含む。",
-    "message": "索引で関数の場所と静的な呼び出しが分かる。ただし CLI で作った索引は監視されないので、変更したら手で索引し直す。",
-    "nextAction": "作例ページ（../index.html）の3つのタブで、ツールへの要求と実際の応答を読む。",
-    "method": "保存済みの outputs/runs.json と実際のスクリーンショットを Canvas に組版する編集映像。連続した画面録画ではない。CLIの実行・ブラウザー上のAI・ライブ検索の表示はしない。"
+  "format": "studio-yebisu-storyboard-v1",
+  "case": "codebase-memory-mcp-example",
+  "title": "コードのつながりを、地図に。",
+  "message": "コードを索引すると、関数の場所と直接の呼び出しを地図で引ける。CLIの索引は監視されないので、コードを変えたら手で索引し直す。",
+  "duration": 32,
+  "fps": 30,
+  "frames": 960,
+  "sizes": {
+    "portrait": [720, 1280],
+    "wide": [1280, 720],
+    "rule": "高さ > 幅なら縦の配置、それ以外は横の配置を、それぞれの基準寸法で組み直して描く。縦に横長の画面を入れた額縁にはしない。"
   },
-  "output": {
-    "duration": 28,
-    "fps": 30,
-    "frames": 840,
-    "width": 1280,
-    "height": 720,
-    "posterTime": 13.5,
-    "posterScene": "たどる：main → submit_order → 3つの呼び出し先が出そろった静止時刻",
-    "audio": "silent",
-    "audioEvents": [],
-    "loop": false,
-    "layout": "横長16:9。ほかの比率は同じ配置を余白つきで縮小（比率ごとの再配置はしていない）。"
-  },
-  "look": {
-    "colors": {
-      "paper": "#f7f4ee",
-      "card": "#fffdf9",
-      "ink": "#1c1d21",
-      "soft": "#57554e",
-      "rule": "#d8d1c3",
-      "blue": "#1f4e8c",
-      "blueWash": "#e5ecf5",
-      "red": "#9b2c26"
-    },
-    "colorRules": [
-      "青＝索引（ツールの応答）にある関数と CALLS の矢印。作例ビューアの「索引」の印と同じ。",
-      "墨の札＝実行（架空の注文を実際に Python で動かして書かれた JSON）。作例ビューアの「実行」の印と同じ。",
-      "破線＝索引にまだない（変更直後・再索引の前）。",
-      "赤はエラー表示だけに使う。"
-    ],
-    "fonts": {
-      "heading": "OSの明朝（Hiragino Mincho ProN / Yu Mincho / Noto Serif JP）700・52px",
-      "body": "OSのゴシック（Hiragino Sans / Yu Gothic UI / Meiryo）28–34px",
-      "code": "OSの等幅（SFMono-Regular / Consolas / Menlo）関数名とファイル名だけ",
-      "meta": "出典・画面の説明・上端の工程表は20–24px"
-    },
-    "sizes": "見出し・結論 44–56px、本文 28–32px、補助ラベル 20–24px。安全余白64px。コードは関数名・ファイル名・1行の呼び出しだけで、関数本体は描かない。",
-    "external": "外部のフォント・画像・ライブラリ・通信なし。"
-  },
-  "motion": {
-    "enter": "0.45秒で不透明度0→1、下から14px上がる（easeOutCubic）。",
-    "exit": "場面の終わりに0.4秒で不透明度1→0（直線）。",
-    "arrows": "CALLS の矢印は3次ベジェを根元から先端へ0.4–0.5秒で伸ばす（easeInOutCubic）。矢印は静的な呼び出し関係そのものを表し、並びは query_graph が返した順で、実行の順番を表さない。",
-    "continuity": "「探す」の関数名の札（submit_order）が、9.7–10.3秒で「たどる」の中央の札へ移る。同じ関数を追っていることを示すため。",
-    "stateChange": "「変える」で、索引にまだない破線の札と矢印が、19.0–19.4秒に青の実線へ切り替わる（手で index_repository をやり直した後）。",
-    "hold": "各場面の主な証拠は出そろってから2秒以上止める。",
-    "determinism": "全ての値は時刻 t から閉形式で求める。タイマー・乱数・CSSアニメーション・前フレームの積算を使わない。"
+  "silent": true,
+  "audioEvents": [],
+  "posterTime": 31,
+  "timeline_source": "assets/timeline.json（in・out・見出し・操作・段階をここから読む。この表は説明用の写し）",
+  "persistent_drawing": {
+    "source_stack": "5つのコードファイル（app・service・validation・pricing・storage）。中の細い線は fixture-data.json の実際の行の長さ。",
+    "index_bridge": "手で回す取っ手つきの「索引する（index_repository）」の橋。索引するあいだだけ取っ手が回る。",
+    "call_map": "呼び出しの地図。main → submit_order → validate_order・calculate_total・save_receipt（同じ高さに並ぶ3つ）。audit_receipt は手で索引し直した後にだけ現れる。",
+    "revision_mark": "変更した storage.py の写し（黄土色の紙、+ audit_receipt・15行に追加）。",
+    "record_tray": "実際の記録の保存先（codebase-memory-<操作>.json）。別の実行（Python）の領収・監査は、隣の点線の別の箱。",
+    "always_visible": "線＝静的な呼び出し · 実行の流れではない（下端の帯）、保存済みの実行結果から描画 · 架空の注文 · 無音 · 版"
   },
   "scenes": [
     {
-      "id": "goal",
-      "step": "目的",
-      "start": 0,
-      "end": 4,
-      "says": "Codebase Memory MCP はコードを索引して関数と呼び出しを探す。この作例は4つ（探す・たどる・変える・確かめる）を保存結果で確かめる。ブラウザーで AI は動かない。",
-      "evidence": ["outputs/runs.json"],
-      "facts": [
-        {"text": "--version：codebase-memory-mcp 0.12.0", "from": "runs.json tool.version"},
-        {"text": "プロジェクト名 yebisu-workshop-proof", "from": "runs.json index.response[list_projects].projects[0].name（runs.json project と一致を確認）"},
-        {"text": "MCPプロトコル・ブラウザAIを使っていない", "from": "runs.json tool.transport・scope_note を読み込み時に確認"}
-      ],
-      "enter": "0.1–2.65秒に、上の行・見出し・本文・4枚の工程札・「保存済み」の札が順に入る",
-      "hold": "2.65–3.6秒（見出しは0.75秒から表示）",
-      "exit": "3.6–4.0秒に全体が消える"
+      "id": "overview",
+      "in": 0,
+      "out": 5,
+      "headline": "コードのつながりを、地図に。",
+      "operation": "trace",
+      "phase": "before",
+      "enter": "0秒から全体が見えている。カードは0.9秒で 94% → 100% に整い、地図の線が0.2〜1.4秒で引かれる。",
+      "state": "コードの束・索引の橋・呼び出しの地図（線4本）・保存先がつながった全体。タグは「コード：変更前」「地図：初回の索引」。",
+      "change": "線が引かれる以外は止まっている。",
+      "exit": "5.0〜5.6秒で地図のカードが空の枠になり、線が消える。",
+      "actual_source": "diagram-data.json の役割名と internal_edges_before（runs.json の calls_before 6件のうち関数どうしの4本と照合）。"
+    },
+    {
+      "id": "index",
+      "in": 5,
+      "out": 10,
+      "headline": "コードから、呼び出しの地図をつくる。",
+      "operation": "trace",
+      "phase": "before",
+      "enter": "取っ手が5.8〜8.4秒で2回転し、橋が光る。",
+      "state": "各ファイルから写しのカードが0.32秒ずつずれて出発し、橋を通って地図の同じ場所の関数カードになる（app→main、service→submit_order、validation→validate_order、pricing→calculate_total、storage→save_receipt）。",
+      "change": "最後のカードが着いた後、8.6〜9.6秒で4本の線が同時に引かれる。順番に流れる表現はしない。",
+      "exit": "地図のタグが「地図：初回の索引」に戻る。",
+      "actual_source": "runs.json の index（index_repository → status indexed、38ノード・101辺）と diagram-data.json の nodes の file。"
     },
     {
       "id": "find",
-      "step": "探す",
-      "start": 4,
-      "end": 10,
-      "says": "search_graph が返した submit_order の定義は fixture/service.py の8行目。実ソースの def 行も8行目で、get_code_snippet の本文12行も実ソースと同じ。",
-      "evidence": ["outputs/runs.json", "fixture/service.py", "assets/screen-find.png"],
-      "facts": [
-        {"text": "search_graph が返した定義 1件", "from": "steps[find].response[search_graph].total"},
-        {"text": "submit_order", "from": "steps[find].response[get_code_snippet].name（search_graph の行と同じ）"},
-        {"text": "fixture/service.py の 8行目", "from": "get_code_snippet.file_path・start_line、search_graph の lines の先頭"},
-        {"text": "実ソースの def 行も 8行目", "from": "source_snapshots.base[fixture/service.py] で `def submit_order(` の行を数える（公開している fixture/service.py と同じことを確認）"},
-        {"text": "本文 12行も同じ", "from": "get_code_snippet.source の各行を実ソースの8行目以降と比べ、空行を除いて数える"}
-      ],
-      "screens": [
-        {"file": "assets/screen-find.png", "crop": [262, 274, 380, 72], "shows": "「行（索引の値）8 行目」「実ソースの def 行 8 行目（一致）」"},
-        {"file": "assets/screen-find.png", "crop": [634, 688, 346, 114], "shows": "実ソース欄の8行目（「定義」の印）と9行目（「validate_order を呼ぶ」の印）"}
-      ],
-      "enter": "4.1–7.2秒に、見出し・関数名の札・ファイルと行・2つの「一致」・2枚の画面の切り抜きと強調枠が順に入る",
-      "hold": "7.2–9.6秒",
-      "exit": "9.6–10.0秒に消える。関数名の札だけ残り、9.7–10.3秒で次の場面の中央へ移る"
+      "in": 10,
+      "out": 15,
+      "headline": "探した名前から、実コードの場所へ。",
+      "operation": "find",
+      "phase": "before",
+      "enter": "10.0〜10.6秒でほかのカードとファイルが薄くなり、submit_order と service.py が黄土色で強調される。",
+      "state": "service.py に「8行目」の札。吹き出しに「service.py · 8–19行」「実ソースと一致」と実際の8行目 def submit_order(order, out_dir): を表示し、11.0〜12.0秒で点線が地図のカードまで伸びる。",
+      "change": "同じカードとファイルが強調されるだけで、地図の形は変えない。",
+      "exit": "14.6〜15.2秒で吹き出しと点線が消える。",
+      "actual_source": "runs.json の find（search_graph のまとめた応答を cols・qn_rule で読み、qualified_name・8-19・service.py を確認）と fixture-data.json の service.py 8行目。"
     },
     {
       "id": "trace",
-      "step": "たどる",
-      "start": 10,
-      "end": 16,
-      "says": "query_graph の CALLS の組で、main が submit_order を呼び、submit_order が validate_order・calculate_total・save_receipt を呼ぶ。trace_path の1段目も同じ3関数。ソースから読んだ静的な関係で、実行時の記録ではない。",
-      "evidence": ["outputs/runs.json", "fixture/service.py", "fixture/app.py"],
-      "facts": [
-        {"text": "main → submit_order", "from": "steps[trace].response[query_graph].rows の callee が submit_order の組"},
-        {"text": "app.py 17行目で呼ぶ", "from": "source_snapshots.base で `def main(` を含むファイルを探し、その関数内の `submit_order(` の行を数える"},
-        {"text": "submit_order → validate_order・calculate_total・save_receipt（返った順）", "from": "query_graph.rows の caller が submit_order の組"},
-        {"text": "validation・pricing・storage", "from": "trace_path.callees.groups の qn_prefix の末尾（hop 1）。各モジュールのソースの写しに def があることを確認"},
-        {"text": "service.py 9・10・18行目で呼ぶ", "from": "source_snapshots.base[fixture/service.py] の submit_order 内で各関数名の呼び出し式の行を数える"},
-        {"text": "静的な関係・実行時の記録ではない", "from": "runs.json scope_note"}
-      ],
-      "enter": "10.1–12.85秒に、見出し・main の札と矢印・3本の矢印と呼び出し先の札・「静的」の説明が入る",
-      "hold": "12.85–15.6秒（ポスター13.5秒）",
-      "exit": "15.6–16.0秒に消える"
+      "in": 15,
+      "out": 20,
+      "headline": "入口から、3つの呼び出し先へ。",
+      "operation": "trace",
+      "phase": "before",
+      "enter": "15.4〜16.2秒で submit_order から出る3本が同時に太くなり、並んだ3つのカードが青緑になる。",
+      "state": "3本それぞれに service.py の呼び出し行（9行・10行・18行）。16.2〜17.0秒で下に括弧と「同じ関数から 3本 · 順番ではない」。",
+      "change": "3本を同時に強調する。線の上を何かが流れる動き、確認→計算→保存の順番の表現はしない。",
+      "exit": "19.4〜20.2秒で括弧と強調が元に戻る。",
+      "actual_source": "runs.json の trace（query_graph 6件のうち submit_order から出る3件、trace_path の1段目3件と2段目の OrderError）と find の call_expressions。print・OrderError は図に描かず、全件数だけを小さく残す。"
     },
     {
-      "id": "update",
-      "step": "変える",
-      "start": 16,
-      "end": 22,
-      "says": "実行用コピーの storage.py を差し替え、save_receipt の15行目に audit_receipt の呼び出しを加えた。変更直後の索引には save_receipt → audit_receipt がない（組6件）。手で index_repository をやり直すと現れる（組7件）。CLI の索引は監視されない。",
-      "evidence": ["outputs/runs.json", "fixture/storage.py", "fixture/storage_revised.py", "assets/screen-update.png"],
-      "facts": [
-        {"text": "save_receipt → audit_receipt", "from": "calls_after.rows にあって calls_stale.rows にない唯一の組"},
-        {"text": "15行目に呼び出しを追加", "from": "source_snapshots.changed[fixture/storage.py] の save_receipt 内で `audit_receipt(` の行を数える（変更前の storage.py には audit_receipt がないことを確認）"},
-        {"text": "storage.py 7行目・19行目", "from": "差し替え後のソースの def 行。再索引後の search_graph の lines の先頭と一致を確認"},
-        {"text": "変更後・再索引の前：なし・組6件", "from": "calls_stale.rows（再索引の前の query_graph の応答と同じ、初回の組とも同じ）"},
-        {"text": "手で index_repository：あり・組7件", "from": "calls_after.rows（再索引の後の query_graph の応答と同じ）。index_repository の要求の phase「手で再索引」と応答 status indexed"},
-        {"text": "初回の索引（変更前）も なし・組6件", "from": "calls_before.rows"},
-        {"text": "watch: false", "from": "再索引の前の index_status.watch.watched"}
-      ],
-      "screens": [
-        {"file": "assets/screen-update.png", "crop": [508, 236, 472, 154], "shows": "「変更後・再索引の前 なし 組6件」と「手で再索引した後 あり 組7件」のカード"}
-      ],
-      "enter": "16.1–18.6秒に、見出し・変更の説明・関数の札（audit_receipt は破線）・再索引の前の行・画面の切り抜きが入る。18.8秒に「手で index_repository」の行、19.0–19.4秒に破線が青の実線へ、19.3–19.6秒に強調枠が「手で再索引した後」へ移る",
-      "hold": "20.05–21.6秒（再索引の前の行は17.6秒から最後まで残す）",
-      "exit": "21.6–22.0秒に消える"
+      "id": "stale",
+      "in": 20,
+      "out": 24,
+      "headline": "コードを変えても、地図は古いまま。",
+      "operation": "update",
+      "phase": "stale",
+      "enter": "20.2〜21.0秒で変更の印（+ audit_receipt・15行に追加）が storage.py の上に置かれ、storage.py の中の線が実際の変更後の本文に変わる。",
+      "state": "コードのタグが「コード：変更後」、地図のタグが「地図：初回のまま（未更新）」に分かれ、地図の縁が黄土色の破線になる。22.0〜22.8秒で印から橋へ点線と「未反映」。地図に audit_receipt も新しい線も出さない。",
+      "change": "コード側だけが変わる。地図の形は初回と同じ。",
+      "exit": "24.0〜24.4秒で「未反映」が消える。",
+      "actual_source": "runs.json の source_snapshots.changed（storage_revised.py と一致）、calls_stale 6件に save_receipt → audit_receipt がないこと、index_status の watch.watched:false。"
     },
     {
-      "id": "check",
-      "step": "確かめる",
-      "start": 22,
-      "end": 28,
-      "says": "索引とは別の確認として、架空の注文 WS-0001 を実際に Python で実行した。変更前のコピーの領収は2,400円（2席×1,200円）、変更後のコピーの照合 JSON は consistent: true。最後に確かめたこと・試していない範囲・版とソース固定コミット・実際のビューア画面を並べる。",
-      "evidence": ["outputs/runs.json", "outputs/result.md", "assets/screen-phone.png"],
-      "facts": [
-        {"text": "receipt-WS-0001.json・2,400円・2席 × 1,200円", "from": "fixture_execution.base.files の receipt-* の total_jpy・seat_count・seat_price_jpy（合計＝席数×単価を確認）"},
-        {"text": "終了コード 0", "from": "fixture_execution.base.exit_code・revised.exit_code"},
-        {"text": "audit-WS-0001.json・consistent: true・再計算 2,400円 ＝ 保存 2,400円", "from": "fixture_execution.revised.files の audit-*"},
-        {"text": "架空データ", "from": "receipt の workshop に「架空」を含むことを確認"},
-        {"text": "codebase-memory-mcp 0.12.0（v0.12.0）・ソース固定コミット ec6427c38176efcd37b28682e82f2491afda94be", "from": "runs.json tool.version・release・commit（全40文字を表示）"},
-        {"text": "MCP経由・ブラウザーAI・意味検索・速さは試していない", "from": "runs.json scope_note、outputs/result.md「範囲と限界」"}
-      ],
-      "screens": [
-        {"file": "assets/screen-phone.png", "crop": [0, 0, 362, 596], "shows": "作例ビューアのスマートフォン幅の最初の画面。「保存済みの結果 / ライブ検索なし」の札を強調"}
-      ],
-      "enter": "22.05–23.15秒に領収の場面。25.45–26.0秒に最後の一枚（確かめたこと・範囲・版・実際の画面）",
-      "hold": "領収 23.15–25.2秒。最後の一枚 26.0–28.0秒（ポスターとしても使える構成）",
-      "exit": "領収は25.2–25.5秒に消える。最後の一枚は28秒まで止めたまま終わる"
+      "id": "reindex",
+      "in": 24,
+      "out": 28,
+      "headline": "手で索引し直すと、新しいつながりが現れる。",
+      "operation": "update",
+      "phase": "after",
+      "enter": "橋の文字が「手で索引し直す」になり、取っ手が24.0〜25.8秒で2回転する。",
+      "state": "変更の印が24.4〜25.3秒で橋の上へ、25.3〜26.4秒で地図の save_receipt の下へ移り、関数カード（監査を追加 · audit_receipt）に変わる。26.4〜27.2秒で save_receipt → audit_receipt の線（15行）が引かれる。",
+      "change": "26.8秒から地図のタグが「地図：手で索引し直した後 ✓」、件数が「描いた線 5本 · 全7件」に変わり、地図の縁が元に戻る。",
+      "exit": "27.8〜28.2秒で橋の文字が「索引する」に戻る。",
+      "actual_source": "runs.json の update（index_repository の手動実行 → 39ノード・103辺、calls_after 7件、search_graph の audit_receipt 19-32、trace_path の2段目）。"
+    },
+    {
+      "id": "finish",
+      "in": 28,
+      "out": 32,
+      "headline": "実際の記録を、持ち帰る。",
+      "operation": "update",
+      "phase": "after",
+      "enter": "28.0〜29.2秒で記録の紙が地図から保存先へ移り、保存先が「実際の記録を保存」「codebase-memory-update.json」になる。",
+      "state": "28.6〜29.4秒で隣に点線の別の箱「別の実行（Python）· 索引とは別 · 領収 2,400円 · 監査一致」。",
+      "change": "29.4秒以降は何も動かない（最後の2.6秒は完成した図のまま）。",
+      "exit": "32秒で終わる。seek(32) は完成した状態を描く。",
+      "actual_source": "samples.json と runs.json の steps（作例ページの保存ボタンが書き出す記録と同じ名前）、fixture_execution（base・revised とも領収 2,400円、監査 consistent:true）。"
     }
   ],
-  "assets": [
-    {"file": "outputs/runs.json", "use": "全ての文字・数値・関数名・ファイル名・ソースの写し", "check": "SHA-256 966b504b3c23eb151e8bee15617cecc469875c64cb2310a295f761071c8d3d63"},
-    {"file": "outputs/result.md", "use": "映像には描かない。持ち帰るファイルとして名前を示すため、実在と一致だけを確かめる", "check": "SHA-256 fafb2c95f6e5c4e627a9161e319a507030b80d7a825662c89f5556dfdf5329b0"},
-    {"file": "fixture/service.py・app.py・storage.py・storage_revised.py", "use": "映像には描かない。runs.json のソースの写しと同じ文字列であることを確かめる", "check": "改行を LF にそろえて比較"},
-    {"file": "assets/screen-find.png", "use": "「探す」の切り抜き2か所", "check": "SHA-256 73d15f0646acc428e6cd0567ff1815287b9e92540b56af317e5136a4a064907e・1265×889"},
-    {"file": "assets/screen-update.png", "use": "「変える」の切り抜き1か所", "check": "SHA-256 9aa17607a918077e761f14a3c0b290c6ecaba81f733c03602d10de64c35871aa・1265×889"},
-    {"file": "assets/screen-phone.png", "use": "最後の一枚の実際の画面", "check": "SHA-256 d5915010dcfde9a6bff1dd29e05d4ae7d9ebe5c8ddcc79cbff55a7041916600f・375×812"}
-  ],
-  "screenshotSource": "Studio Yebisu が撮影した作例ビューア（index.html）の実際のスクリーンショット。画像ファイルは改変せず、Canvas 上で切り抜くだけ。Codebase Memory MCP 本体や CBM Lens の画面ではない。切り抜きの座標は画像を見て決めた値で、書き出し後の目視で位置を確かめる必要がある。",
-  "notUsed": ["assets/screen-trace.png（「たどる」は保存データから組版した図だけで示す）"],
-  "limits": [
-    "公式ネイティブ CLI（codebase-memory-mcp cli）で1回ずつ呼んだ結果。MCP クライアントからの接続、MCP プロトコル経由の動作は確かめていない。",
-    "矢印は索引に記録された静的な呼び出し関係。実行時に記録したトレースではない。動的な呼び出しは出ないことがあり、矢印がないことは呼ばれないことの証明ではない。",
-    "呼び出し先3つの縦の並びは query_graph が返した順。実行の順番を表さない。",
-    "CLI で作った索引は監視されない。変更後の新しい呼び出しは、手で index_repository をやり直した後に現れた。",
-    "架空の注文の実行は索引とは別の確認。注文・金額・ワークショップ名は作例用の架空データで、決済・予約・通知はしていない。",
-    "CBM Lens、ブラウザAI、意味検索、大きなリポジトリ、速さ・トークン量・回答品質は試していない。効率の割合などの数値は出さない。",
-    "動画の画面でCLIやAIが動いている様子は描かない。端末の画面や進行表示の再現もしない。"
-  ],
-  "silent": true,
-  "authorship": {
-    "film": "この編集ソース（index.html・video.js・video.css・storyboard.json・README.md）は Claude Opus 5.5（claude-opus-5-5）が作成した。",
-    "exampleCodeAndGuide": "作例のコード（workflow.py・ビューア）と案内文は、制作工程の指定により同じ Claude Opus 5.5 が作成したもの。",
-    "cliOutputs": "outputs/runs.json の応答は、コードの作成後に workflow.py が公式 Windows amd64 版 v0.12.0 の実際のネイティブ CLI を呼んで保存したもの。モデルが書いた値ではない。",
-    "source": "Codebase Memory MCP v0.12.0、ソース固定コミット ec6427c38176efcd37b28682e82f2491afda94be（MIT License, © 2025 DeusData）。",
-    "copyright": "映像の構成・文字・コード、スクリーンショットに写る作例ビューア：© 2026 Studio Yebisu（MIT License）。"
-  },
-  "pendingChecks": [
-    "ブラウザーでの読み込みと SHA-256・ソースの写しの照合が通ること",
-    "書き出し（render.py）、同じ時刻の再描画一致、MP4 のデコード",
-    "切り抜きの位置（強調枠が「8 行目（一致）」「定義」の行・2枚のカード・「保存済みの結果 / ライブ検索なし」に重なるか）",
-    "全体シート・連続フレーム・通し再生での文字の読む時間と重なり",
-    "360px幅に縮小したときの文字の大きさ",
-    "プレビューの再生・一時停止・スライダー・28秒での停止",
-    "人による確認・承認"
+  "not_shown": [
+    "ナレーション、読み上げ、音声トラック、効果音、字幕原稿",
+    "線の上を注文やお金が流れる表現、確認→計算→保存の実行順",
+    "変更後・未更新の時点での audit_receipt のカードや実線",
+    "いま索引・検索・再実行しているように見える画面、ページのスクリーンショット",
+    "速さ・トークン量・回答の品質の主張"
   ]
 }

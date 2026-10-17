@@ -1,3 +1,23 @@
+# コードのつながりを、地図に。
+
+大きな図で、コードから作った索引、関数を探す操作、静的な呼び出し関係、変更後の手動更新を見ます。画面は保存済みの公式ネイティブCLIの実応答を読むもので、ブラウザーから検索や索引の更新は実行しません。下の詳しい記録と元の閲覧画面から、要求、応答、ソース、領収と監査のJSONを開けます。選んだ操作の実記録は全項目のまま保存できます。
+
+入口mainからsubmit_orderへ進み、validate_order、calculate_total、save_receiptの3つへ線が分かれます。3関数は並列の呼び出し先として示し、その間の実行順を描いていません。これは静的な索引のCALLSの関係で、実行時トレースではありません。索引の全6組にはprintとOrderErrorも含まれ、図の内部4組だけが全結果ではありません。元の応答にはすべて残しています。
+
+探す操作で見つかるsubmit_orderの定義はservice.pyの8行目です。保存したget_code_snippetの12行は実ソースと一致しています。変更では実行用コピーのstorage.pyだけにaudit_receiptを追加しました。ソースを変えただけでは索引は古いままで、新しい辺はありません。手でindex_repositoryをやり直した後に、save_receiptからaudit_receiptへの線が現れます。全CALLSは6組、未更新でも6組、手動更新後に7組。CLIで作った索引は監視されません。
+
+架空の注文をPythonで実際に動かした確認は、索引とは別の記録です。変更前後とも2席×1,200円の領収は2,400円で、変更後には監査の再計算2,400円とconsistent:trueも保存されています。決済・予約・通知はしていません。グラフ検索が領収を生成したことにはしません。
+
+原典はDeusData/codebase-memory-mcp v0.12.0、固定コミットec6427c38176efcd37b28682e82f2491afda94be、MIT、Copyright (c) 2025 DeusDataです。6つの公式文書を固定Gitblobと再照合しました。元の公式リリースのチェックサム・ビルド証明、18回のネイティブCLI要求と応答、別のPython実行、架空の入力とソースを保全し、今回再実行していません。MCPプロトコル、Lens、意味検索、実行時トレース、大規模なリポジトリ、速さ・トークン量・回答品質は範囲外です。
+
+新しい図と32秒の無音縦横動画の8編集原本はClaude Opus5.5が執筆しました。制作担当による調整・描画・検証・包装と掲載は分けて記録しています。11実ファイルはdata-manifest.json、7動画素材はvideo/assets/manifest.jsonへ固定し、旧28秒動画の確認はvideo/assets/original-verification.json、今回の確認はverification.jsonに分けています。音声ガイド、原稿、音源、音声ストリームはありません。自動検査とエージェントによる確認は、人による内容や見た目の承認、実機iPhoneの確認とは区別します。
+
+縦動画は../../media/codebase-memory-mcp-example.mp4、横動画は../../media/codebase-memory-mcp-example-wide.mp4です。編集ソースはvideo/index.html。元の閲覧画面はcomparison.htmlです。
+
+## 原実行と旧画面の制作記録
+
+以下の28秒動画・旧UIの確認は原制作時のものです。新しい図・映像の確認とは区別してください。
+
 # Codebase Memory MCP 作例：入口から、保存先へ。
 
 Codebase Memory MCP は、コードの関数と呼び出し関係を索引（知識グラフ）にして検索するツールです。この作例では、架空のワークショップ注文を受け付ける小さな Python リポジトリ（`fixture/`）を、公式 v0.12.0 の実行ファイルの CLI モードで索引し、次の3つを行います。
@@ -144,3 +164,8 @@ python -m http.server 8000
 npm ci --ignore-scripts --no-audit --no-fund --prefix examples/codebase-memory-mcp-example/tools/motion-reel
 python examples/codebase-memory-mcp-example/render.py --out renders/codebase-memory-first
 ```
+
+
+## 図中心版の再描画
+
+`python render-visual.py --out <作例外の新しい空のフォルダ>/portrait --width 720 --height 1280`、横は `--width 1280 --height 720` で再描画できます。元のrender.pyは互換用に保持しました。実際に使った同梱レンダラー・同じ一時コピーの方法で、縦横比を明示する入口です。

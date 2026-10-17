@@ -1,0 +1,1348 @@
+{
+  "tool": {
+    "name": "codebase-memory-mcp",
+    "version": "codebase-memory-mcp 0.12.0",
+    "release": "v0.12.0",
+    "commit": "ec6427c38176efcd37b28682e82f2491afda94be",
+    "transport": "official native CLI; MCP protocol not exercised"
+  },
+  "scope_note": "公式 v0.12.0 のネイティブ CLI（codebase-memory-mcp cli）で、バックエンドのツールを1回ずつ実行した結果です。MCP プロトコル経由の動作、CBM Lens、ブラウザAI、意味検索は使っていません。呼び出し関係は索引に記録された静的な関係で、実行時に記録したトレースではありません。fixture/ は架空の小さなリポジトリで、変更（storage_revised.py への差し替え）は実行用コピーにだけ加えました。パスの fixture/ は実行用コピーを指します。",
+  "project": "yebisu-workshop-proof",
+  "cli": {
+    "command": "codebase-memory-mcp cli --quiet --json <tool> (format=json in tool arguments where supported)",
+    "args_via": "stdin",
+    "env": {
+      "CBM_WORKERS": "2",
+      "CBM_MEM_BUDGET_MB": "512",
+      "CBM_CACHE_DIR": "<private-cache>",
+      "CBM_ALLOWED_ROOT": "fixture"
+    }
+  },
+  "fixture": {
+    "files": [
+      "fixture/app.py",
+      "fixture/service.py",
+      "fixture/validation.py",
+      "fixture/pricing.py",
+      "fixture/storage.py",
+      "fixture/sample_order.json"
+    ],
+    "revision": {
+      "source": "fixture/storage_revised.py",
+      "replaces": "fixture/storage.py",
+      "applied_to": "実行用コピーだけ"
+    }
+  },
+  "index": {
+    "label": "索引を作る",
+    "request": [
+      {
+        "tool": "index_repository",
+        "phase": "初回の索引",
+        "args": {
+          "repo_path": "fixture",
+          "name": "yebisu-workshop-proof",
+          "mode": "full"
+        }
+      },
+      {
+        "tool": "list_projects",
+        "phase": "初回の索引",
+        "args": {
+          "format": "json"
+        }
+      },
+      {
+        "tool": "get_graph_schema",
+        "phase": "初回の索引",
+        "args": {
+          "project": "yebisu-workshop-proof",
+          "format": "json"
+        }
+      },
+      {
+        "tool": "index_status",
+        "phase": "初回の索引",
+        "args": {
+          "project": "yebisu-workshop-proof",
+          "format": "json"
+        }
+      }
+    ],
+    "response": [
+      {
+        "tool": "index_repository",
+        "phase": "初回の索引",
+        "response": {
+          "project": "yebisu-workshop-proof",
+          "not_indexed_files_count": 0,
+          "skipped_count": 0,
+          "parse_partial_count": 0,
+          "parse_unusable_count": 0,
+          "nodes": 38,
+          "edges": 101,
+          "expected_nodes": 38,
+          "expected_edges": 101,
+          "adr_present": false,
+          "adr_hint": "Project indexed. Consider creating an Architecture Decision Record: explore the codebase with get_architecture(aspects=['all']), then use manage_adr(mode='update') to persist architectural insights across sessions.",
+          "artifact_present": false,
+          "status": "indexed"
+        }
+      },
+      {
+        "tool": "list_projects",
+        "phase": "初回の索引",
+        "response": {
+          "projects": [
+            {
+              "name": "yebisu-workshop-proof",
+              "root_path": "fixture",
+              "branch": "main"
+            }
+          ],
+          "total": 1,
+          "offset": 0,
+          "limit": 50,
+          "returned": 1,
+          "has_more": false
+        }
+      },
+      {
+        "tool": "get_graph_schema",
+        "phase": "初回の索引",
+        "response": {
+          "node_labels": [
+            {
+              "label": "Function",
+              "count": 7
+            },
+            {
+              "label": "Class",
+              "count": 6
+            },
+            {
+              "label": "File",
+              "count": 6
+            },
+            {
+              "label": "Module",
+              "count": 6
+            },
+            {
+              "label": "Variable",
+              "count": 6
+            },
+            {
+              "label": "Method",
+              "count": 5
+            },
+            {
+              "label": "Branch",
+              "count": 1
+            },
+            {
+              "label": "Project",
+              "count": 1
+            }
+          ],
+          "edge_types": [
+            {
+              "type": "DEFINES",
+              "count": 78
+            },
+            {
+              "type": "CALLS",
+              "count": 7
+            },
+            {
+              "type": "CONTAINS_FILE",
+              "count": 6
+            },
+            {
+              "type": "IMPORTS",
+              "count": 4
+            },
+            {
+              "type": "USAGE",
+              "count": 2
+            },
+            {
+              "type": "WRITES",
+              "count": 2
+            },
+            {
+              "type": "HAS_BRANCH",
+              "count": 1
+            },
+            {
+              "type": "RAISES",
+              "count": 1
+            }
+          ],
+          "total": 16,
+          "returned": 16,
+          "has_more": false,
+          "adr_present": false
+        }
+      },
+      {
+        "tool": "index_status",
+        "phase": "初回の索引",
+        "response": {
+          "project": "yebisu-workshop-proof",
+          "nodes": 38,
+          "edges": 101,
+          "status": "ready",
+          "root_path": "fixture",
+          "indexed_at": "2026-10-16T01:30:54Z",
+          "parse_partial": {
+            "files": [],
+            "count": 0,
+            "truncated": false
+          },
+          "parse_unusable": {
+            "files": [],
+            "count": 0,
+            "truncated": false
+          },
+          "skipped": {
+            "files": [],
+            "count": 0,
+            "truncated": false
+          },
+          "not_indexed": {
+            "dirs": [],
+            "dirs_count": 0,
+            "files": [],
+            "files_count": 0,
+            "truncated": false
+          },
+          "cross_repo": {
+            "status": "never_run"
+          },
+          "doc_links": {
+            "mentions": 0,
+            "unresolved": {},
+            "status": "ok"
+          },
+          "watch": {
+            "watched": false,
+            "reason": "not_session_project",
+            "hint": "Auto-sync watches only the active MCP session's project; re-run index_repository to refresh this index."
+          }
+        }
+      }
+    ],
+    "facts": {
+      "requested_name": "yebisu-workshop-proof",
+      "project": "yebisu-workshop-proof",
+      "mode": "full",
+      "watch": {
+        "watched": false,
+        "reason": "not_session_project",
+        "hint": "Auto-sync watches only the active MCP session's project; re-run index_repository to refresh this index."
+      }
+    }
+  },
+  "steps": [
+    {
+      "id": "find",
+      "label": "探す：submit_order の定義と本文",
+      "request": [
+        {
+          "tool": "search_graph",
+          "phase": "探す",
+          "args": {
+            "project": "yebisu-workshop-proof",
+            "name_pattern": "^submit_order$",
+            "label": "Function",
+            "format": "json"
+          }
+        },
+        {
+          "tool": "get_code_snippet",
+          "phase": "探す",
+          "args": {
+            "project": "yebisu-workshop-proof",
+            "qualified_name": "yebisu-workshop-proof.service.submit_order",
+            "format": "json"
+          }
+        }
+      ],
+      "response": [
+        {
+          "tool": "search_graph",
+          "phase": "探す",
+          "response": {
+            "qn_rule": "qn = qn_prefix == \"\" ? name : qn_prefix + \".\" + name",
+            "cols": [
+              "name",
+              "label",
+              "lines",
+              "in",
+              "out"
+            ],
+            "groups": [
+              {
+                "qn_prefix": "yebisu-workshop-proof.service",
+                "file": "service.py",
+                "rows": [
+                  [
+                    "submit_order",
+                    "Function",
+                    "8-19",
+                    1,
+                    3
+                  ]
+                ]
+              }
+            ],
+            "total": 1,
+            "returned": 1,
+            "count": 1,
+            "has_more": false,
+            "truncated": false
+          }
+        },
+        {
+          "tool": "get_code_snippet",
+          "phase": "探す",
+          "response": {
+            "name": "submit_order",
+            "qualified_name": "yebisu-workshop-proof.service.submit_order",
+            "label": "Function",
+            "file_path": "fixture/service.py",
+            "start_line": 8,
+            "end_line": 19,
+            "source_mode": "full",
+            "source": "def submit_order(order, out_dir):\n    validate_order(order)\n    total = calculate_total(order[\"seat_count\"], order[\"seat_price_jpy\"])\n    receipt = {\n        \"order_id\": order[\"order_id\"],\n        \"workshop\": order[\"workshop\"],\n        \"seat_count\": order[\"seat_count\"],\n        \"seat_price_jpy\": order[\"seat_price_jpy\"],\n        \"total_jpy\": total,\n    }\n    save_receipt(receipt, out_dir)\n    return receipt\n",
+            "callers": 1,
+            "callees": 3
+          }
+        }
+      ],
+      "facts": {
+        "function": "submit_order",
+        "qualified_name": "yebisu-workshop-proof.service.submit_order",
+        "file": "fixture/service.py",
+        "line": 8,
+        "source_def_line": 8,
+        "line_matches_source": true,
+        "snippet_text": "def submit_order(order, out_dir):\n    validate_order(order)\n    total = calculate_total(order[\"seat_count\"], order[\"seat_price_jpy\"])\n    receipt = {\n        \"order_id\": order[\"order_id\"],\n        \"workshop\": order[\"workshop\"],\n        \"seat_count\": order[\"seat_count\"],\n        \"seat_price_jpy\": order[\"seat_price_jpy\"],\n        \"total_jpy\": total,\n    }\n    save_receipt(receipt, out_dir)\n    return receipt\n",
+        "snippet_lines": 12,
+        "snippet_lines_in_source": 12,
+        "call_expressions": [
+          {
+            "line": 9,
+            "text": "validate_order(order)",
+            "callee": "validate_order",
+            "file": "fixture/service.py"
+          },
+          {
+            "line": 10,
+            "text": "total = calculate_total(order[\"seat_count\"], order[\"seat_price_jpy\"])",
+            "callee": "calculate_total",
+            "file": "fixture/service.py"
+          },
+          {
+            "line": 18,
+            "text": "save_receipt(receipt, out_dir)",
+            "callee": "save_receipt",
+            "file": "fixture/service.py"
+          }
+        ]
+      }
+    },
+    {
+      "id": "trace",
+      "label": "たどる：submit_order からの呼び出し",
+      "request": [
+        {
+          "tool": "query_graph",
+          "phase": "たどる",
+          "args": {
+            "project": "yebisu-workshop-proof",
+            "query": "MATCH (f:Function)-[:CALLS]->(g) RETURN f.name AS caller, g.name AS callee LIMIT 100",
+            "format": "json"
+          }
+        },
+        {
+          "tool": "trace_path",
+          "phase": "たどる",
+          "args": {
+            "project": "yebisu-workshop-proof",
+            "function_name": "submit_order",
+            "direction": "outbound",
+            "depth": 4,
+            "format": "json"
+          }
+        }
+      ],
+      "response": [
+        {
+          "tool": "query_graph",
+          "phase": "たどる",
+          "response": {
+            "columns": [
+              "caller",
+              "callee"
+            ],
+            "rows": [
+              [
+                "main",
+                "submit_order"
+              ],
+              [
+                "main",
+                "print"
+              ],
+              [
+                "submit_order",
+                "validate_order"
+              ],
+              [
+                "submit_order",
+                "calculate_total"
+              ],
+              [
+                "submit_order",
+                "save_receipt"
+              ],
+              [
+                "validate_order",
+                "OrderError"
+              ]
+            ],
+            "returned": 6,
+            "total": 6,
+            "total_relation": "eq",
+            "has_more": false,
+            "truncated": false
+          }
+        },
+        {
+          "tool": "trace_path",
+          "phase": "たどる",
+          "response": {
+            "function": "submit_order",
+            "direction": "outbound",
+            "callees_total": 4,
+            "callees_total_relation": "eq",
+            "callees": {
+              "qn_rule": "qn = qn_prefix == \"\" ? name : qn_prefix + \".\" + name",
+              "cols": [
+                "name",
+                "hop"
+              ],
+              "groups": [
+                {
+                  "qn_prefix": "yebisu-workshop-proof.pricing",
+                  "rows": [
+                    [
+                      "calculate_total",
+                      1
+                    ]
+                  ]
+                },
+                {
+                  "qn_prefix": "yebisu-workshop-proof.storage",
+                  "rows": [
+                    [
+                      "save_receipt",
+                      1
+                    ]
+                  ]
+                },
+                {
+                  "qn_prefix": "yebisu-workshop-proof.validation",
+                  "rows": [
+                    [
+                      "validate_order",
+                      1
+                    ],
+                    [
+                      "OrderError",
+                      2
+                    ]
+                  ]
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "facts": {
+        "entry": "submit_order",
+        "callees_in_rows": [
+          "validate_order",
+          "calculate_total",
+          "save_receipt"
+        ],
+        "required_edges": [
+          {
+            "caller": "submit_order",
+            "callee": "validate_order",
+            "source": {
+              "line": 9,
+              "text": "validate_order(order)",
+              "file": "fixture/service.py"
+            }
+          },
+          {
+            "caller": "submit_order",
+            "callee": "calculate_total",
+            "source": {
+              "line": 10,
+              "text": "total = calculate_total(order[\"seat_count\"], order[\"seat_price_jpy\"])",
+              "file": "fixture/service.py"
+            }
+          },
+          {
+            "caller": "submit_order",
+            "callee": "save_receipt",
+            "source": {
+              "line": 18,
+              "text": "save_receipt(receipt, out_dir)",
+              "file": "fixture/service.py"
+            }
+          }
+        ],
+        "rows_returned": 6,
+        "limit": 100,
+        "may_be_truncated": false,
+        "main_calls_submit_order": true,
+        "trace_reached": [
+          "validate_order",
+          "calculate_total",
+          "save_receipt"
+        ],
+        "trace_edges": []
+      }
+    },
+    {
+      "id": "update",
+      "label": "変える：storage.py を差し替えて手で再索引",
+      "request": [
+        {
+          "tool": "index_status",
+          "phase": "再索引の前",
+          "args": {
+            "project": "yebisu-workshop-proof",
+            "format": "json"
+          }
+        },
+        {
+          "tool": "query_graph",
+          "phase": "再索引の前",
+          "args": {
+            "project": "yebisu-workshop-proof",
+            "query": "MATCH (f:Function)-[:CALLS]->(g) RETURN f.name AS caller, g.name AS callee LIMIT 100",
+            "format": "json"
+          }
+        },
+        {
+          "tool": "index_repository",
+          "phase": "手で再索引",
+          "args": {
+            "repo_path": "fixture",
+            "name": "yebisu-workshop-proof",
+            "mode": "full"
+          }
+        },
+        {
+          "tool": "get_graph_schema",
+          "phase": "再索引の後",
+          "args": {
+            "project": "yebisu-workshop-proof",
+            "format": "json"
+          }
+        },
+        {
+          "tool": "index_status",
+          "phase": "再索引の後",
+          "args": {
+            "project": "yebisu-workshop-proof",
+            "format": "json"
+          }
+        },
+        {
+          "tool": "query_graph",
+          "phase": "再索引の後",
+          "args": {
+            "project": "yebisu-workshop-proof",
+            "query": "MATCH (f:Function)-[:CALLS]->(g) RETURN f.name AS caller, g.name AS callee LIMIT 100",
+            "format": "json"
+          }
+        },
+        {
+          "tool": "trace_path",
+          "phase": "再索引の後",
+          "args": {
+            "project": "yebisu-workshop-proof",
+            "function_name": "submit_order",
+            "direction": "outbound",
+            "depth": 4,
+            "format": "json"
+          }
+        },
+        {
+          "tool": "search_graph",
+          "phase": "再索引の後",
+          "args": {
+            "project": "yebisu-workshop-proof",
+            "name_pattern": "^save_receipt$",
+            "label": "Function",
+            "format": "json"
+          }
+        },
+        {
+          "tool": "get_code_snippet",
+          "phase": "再索引の後",
+          "args": {
+            "project": "yebisu-workshop-proof",
+            "qualified_name": "yebisu-workshop-proof.storage.save_receipt",
+            "format": "json"
+          }
+        },
+        {
+          "tool": "search_graph",
+          "phase": "再索引の後",
+          "args": {
+            "project": "yebisu-workshop-proof",
+            "name_pattern": "^audit_receipt$",
+            "label": "Function",
+            "format": "json"
+          }
+        }
+      ],
+      "response": [
+        {
+          "tool": "index_status",
+          "phase": "再索引の前",
+          "response": {
+            "project": "yebisu-workshop-proof",
+            "nodes": 38,
+            "edges": 101,
+            "status": "ready",
+            "root_path": "fixture",
+            "indexed_at": "2026-10-16T01:30:54Z",
+            "parse_partial": {
+              "files": [],
+              "count": 0,
+              "truncated": false
+            },
+            "parse_unusable": {
+              "files": [],
+              "count": 0,
+              "truncated": false
+            },
+            "skipped": {
+              "files": [],
+              "count": 0,
+              "truncated": false
+            },
+            "not_indexed": {
+              "dirs": [],
+              "dirs_count": 0,
+              "files": [],
+              "files_count": 0,
+              "truncated": false
+            },
+            "cross_repo": {
+              "status": "never_run"
+            },
+            "doc_links": {
+              "mentions": 0,
+              "unresolved": {},
+              "status": "ok"
+            },
+            "watch": {
+              "watched": false,
+              "reason": "not_session_project",
+              "hint": "Auto-sync watches only the active MCP session's project; re-run index_repository to refresh this index."
+            }
+          }
+        },
+        {
+          "tool": "query_graph",
+          "phase": "再索引の前",
+          "response": {
+            "columns": [
+              "caller",
+              "callee"
+            ],
+            "rows": [
+              [
+                "main",
+                "submit_order"
+              ],
+              [
+                "main",
+                "print"
+              ],
+              [
+                "submit_order",
+                "validate_order"
+              ],
+              [
+                "submit_order",
+                "calculate_total"
+              ],
+              [
+                "submit_order",
+                "save_receipt"
+              ],
+              [
+                "validate_order",
+                "OrderError"
+              ]
+            ],
+            "returned": 6,
+            "total": 6,
+            "total_relation": "eq",
+            "has_more": false,
+            "truncated": false
+          }
+        },
+        {
+          "tool": "index_repository",
+          "phase": "手で再索引",
+          "response": {
+            "project": "yebisu-workshop-proof",
+            "not_indexed_files_count": 0,
+            "skipped_count": 0,
+            "parse_partial_count": 0,
+            "parse_unusable_count": 0,
+            "nodes": 39,
+            "edges": 103,
+            "expected_nodes": 39,
+            "expected_edges": 103,
+            "adr_present": false,
+            "adr_hint": "Project indexed. Consider creating an Architecture Decision Record: explore the codebase with get_architecture(aspects=['all']), then use manage_adr(mode='update') to persist architectural insights across sessions.",
+            "artifact_present": false,
+            "status": "indexed"
+          }
+        },
+        {
+          "tool": "get_graph_schema",
+          "phase": "再索引の後",
+          "response": {
+            "node_labels": [
+              {
+                "label": "Function",
+                "count": 8
+              },
+              {
+                "label": "Class",
+                "count": 6
+              },
+              {
+                "label": "File",
+                "count": 6
+              },
+              {
+                "label": "Module",
+                "count": 6
+              },
+              {
+                "label": "Variable",
+                "count": 6
+              },
+              {
+                "label": "Method",
+                "count": 5
+              },
+              {
+                "label": "Branch",
+                "count": 1
+              },
+              {
+                "label": "Project",
+                "count": 1
+              }
+            ],
+            "edge_types": [
+              {
+                "type": "DEFINES",
+                "count": 79
+              },
+              {
+                "type": "CALLS",
+                "count": 8
+              },
+              {
+                "type": "CONTAINS_FILE",
+                "count": 6
+              },
+              {
+                "type": "IMPORTS",
+                "count": 4
+              },
+              {
+                "type": "USAGE",
+                "count": 2
+              },
+              {
+                "type": "WRITES",
+                "count": 2
+              },
+              {
+                "type": "HAS_BRANCH",
+                "count": 1
+              },
+              {
+                "type": "RAISES",
+                "count": 1
+              }
+            ],
+            "total": 16,
+            "returned": 16,
+            "has_more": false,
+            "adr_present": false
+          }
+        },
+        {
+          "tool": "index_status",
+          "phase": "再索引の後",
+          "response": {
+            "project": "yebisu-workshop-proof",
+            "nodes": 39,
+            "edges": 103,
+            "status": "ready",
+            "root_path": "fixture",
+            "indexed_at": "2026-10-16T01:31:14Z",
+            "parse_partial": {
+              "files": [],
+              "count": 0,
+              "truncated": false
+            },
+            "parse_unusable": {
+              "files": [],
+              "count": 0,
+              "truncated": false
+            },
+            "skipped": {
+              "files": [],
+              "count": 0,
+              "truncated": false
+            },
+            "not_indexed": {
+              "dirs": [],
+              "dirs_count": 0,
+              "files": [],
+              "files_count": 0,
+              "truncated": false
+            },
+            "cross_repo": {
+              "status": "never_run"
+            },
+            "doc_links": {
+              "mentions": 0,
+              "unresolved": {},
+              "status": "ok"
+            },
+            "watch": {
+              "watched": false,
+              "reason": "not_session_project",
+              "hint": "Auto-sync watches only the active MCP session's project; re-run index_repository to refresh this index."
+            }
+          }
+        },
+        {
+          "tool": "query_graph",
+          "phase": "再索引の後",
+          "response": {
+            "columns": [
+              "caller",
+              "callee"
+            ],
+            "rows": [
+              [
+                "main",
+                "submit_order"
+              ],
+              [
+                "main",
+                "print"
+              ],
+              [
+                "submit_order",
+                "validate_order"
+              ],
+              [
+                "submit_order",
+                "calculate_total"
+              ],
+              [
+                "submit_order",
+                "save_receipt"
+              ],
+              [
+                "save_receipt",
+                "audit_receipt"
+              ],
+              [
+                "validate_order",
+                "OrderError"
+              ]
+            ],
+            "returned": 7,
+            "total": 7,
+            "total_relation": "eq",
+            "has_more": false,
+            "truncated": false
+          }
+        },
+        {
+          "tool": "trace_path",
+          "phase": "再索引の後",
+          "response": {
+            "function": "submit_order",
+            "direction": "outbound",
+            "callees_total": 5,
+            "callees_total_relation": "eq",
+            "callees": {
+              "qn_rule": "qn = qn_prefix == \"\" ? name : qn_prefix + \".\" + name",
+              "cols": [
+                "name",
+                "hop"
+              ],
+              "groups": [
+                {
+                  "qn_prefix": "yebisu-workshop-proof.pricing",
+                  "rows": [
+                    [
+                      "calculate_total",
+                      1
+                    ]
+                  ]
+                },
+                {
+                  "qn_prefix": "yebisu-workshop-proof.storage",
+                  "rows": [
+                    [
+                      "save_receipt",
+                      1
+                    ]
+                  ]
+                },
+                {
+                  "qn_prefix": "yebisu-workshop-proof.validation",
+                  "rows": [
+                    [
+                      "validate_order",
+                      1
+                    ]
+                  ]
+                },
+                {
+                  "qn_prefix": "yebisu-workshop-proof.storage",
+                  "rows": [
+                    [
+                      "audit_receipt",
+                      2
+                    ]
+                  ]
+                },
+                {
+                  "qn_prefix": "yebisu-workshop-proof.validation",
+                  "rows": [
+                    [
+                      "OrderError",
+                      2
+                    ]
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        {
+          "tool": "search_graph",
+          "phase": "再索引の後",
+          "response": {
+            "qn_rule": "qn = qn_prefix == \"\" ? name : qn_prefix + \".\" + name",
+            "cols": [
+              "name",
+              "label",
+              "lines",
+              "in",
+              "out"
+            ],
+            "groups": [
+              {
+                "qn_prefix": "yebisu-workshop-proof.storage",
+                "file": "storage.py",
+                "rows": [
+                  [
+                    "save_receipt",
+                    "Function",
+                    "7-16",
+                    1,
+                    1
+                  ]
+                ]
+              }
+            ],
+            "total": 1,
+            "returned": 1,
+            "count": 1,
+            "has_more": false,
+            "truncated": false
+          }
+        },
+        {
+          "tool": "get_code_snippet",
+          "phase": "再索引の後",
+          "response": {
+            "name": "save_receipt",
+            "qualified_name": "yebisu-workshop-proof.storage.save_receipt",
+            "label": "Function",
+            "file_path": "fixture/storage.py",
+            "start_line": 7,
+            "end_line": 16,
+            "source_mode": "full",
+            "source": "def save_receipt(receipt, out_dir):\n    folder = Path(out_dir)\n    if not folder.is_dir():\n        raise FileNotFoundError(\"output directory does not exist\")\n    path = folder / (\"receipt-\" + receipt[\"order_id\"] + \".json\")\n    with path.open(\"x\", encoding=\"utf-8\") as handle:\n        json.dump(receipt, handle, ensure_ascii=False, indent=2, sort_keys=True)\n        handle.write(\"\\n\")\n    audit_receipt(receipt, folder)\n    return path\n",
+            "callers": 1,
+            "callees": 1
+          }
+        },
+        {
+          "tool": "search_graph",
+          "phase": "再索引の後",
+          "response": {
+            "qn_rule": "qn = qn_prefix == \"\" ? name : qn_prefix + \".\" + name",
+            "cols": [
+              "name",
+              "label",
+              "lines",
+              "in",
+              "out"
+            ],
+            "groups": [
+              {
+                "qn_prefix": "yebisu-workshop-proof.storage",
+                "file": "storage.py",
+                "rows": [
+                  [
+                    "audit_receipt",
+                    "Function",
+                    "19-32",
+                    1,
+                    0
+                  ]
+                ]
+              }
+            ],
+            "total": 1,
+            "returned": 1,
+            "count": 1,
+            "has_more": false,
+            "truncated": false
+          }
+        }
+      ],
+      "facts": {
+        "revision_file": "fixture/storage_revised.py",
+        "replaced_in_copy": "fixture/storage.py",
+        "added_lines": [
+          {
+            "line": 15,
+            "text": "    audit_receipt(receipt, folder)"
+          },
+          {
+            "line": 17,
+            "text": ""
+          },
+          {
+            "line": 18,
+            "text": ""
+          },
+          {
+            "line": 19,
+            "text": "def audit_receipt(receipt, out_dir):"
+          },
+          {
+            "line": 20,
+            "text": "    recomputed = receipt[\"seat_count\"] * receipt[\"seat_price_jpy\"]"
+          },
+          {
+            "line": 21,
+            "text": "    audit = {"
+          },
+          {
+            "line": 22,
+            "text": "        \"order_id\": receipt[\"order_id\"],"
+          },
+          {
+            "line": 23,
+            "text": "        \"receipt_file\": \"receipt-\" + receipt[\"order_id\"] + \".json\","
+          },
+          {
+            "line": 24,
+            "text": "        \"recomputed_total_jpy\": recomputed,"
+          },
+          {
+            "line": 25,
+            "text": "        \"saved_total_jpy\": receipt[\"total_jpy\"],"
+          },
+          {
+            "line": 26,
+            "text": "        \"consistent\": recomputed == receipt[\"total_jpy\"],"
+          },
+          {
+            "line": 27,
+            "text": "    }"
+          },
+          {
+            "line": 28,
+            "text": "    path = Path(out_dir) / (\"audit-\" + receipt[\"order_id\"] + \".json\")"
+          },
+          {
+            "line": 29,
+            "text": "    with path.open(\"x\", encoding=\"utf-8\") as handle:"
+          },
+          {
+            "line": 30,
+            "text": "        json.dump(audit, handle, ensure_ascii=False, indent=2, sort_keys=True)"
+          },
+          {
+            "line": 31,
+            "text": "        handle.write(\"\\n\")"
+          },
+          {
+            "line": 32,
+            "text": "    return audit"
+          }
+        ],
+        "new_edge": {
+          "caller": "save_receipt",
+          "callee": "audit_receipt"
+        },
+        "edge_in_before": false,
+        "edge_in_stale": false,
+        "edge_in_after": true,
+        "manual_reindex": true,
+        "call_expression": {
+          "line": 15,
+          "text": "audit_receipt(receipt, folder)",
+          "file": "fixture/storage.py"
+        },
+        "save_receipt": {
+          "qualified_name": "yebisu-workshop-proof.storage.save_receipt",
+          "file": "fixture/storage.py",
+          "line": 7
+        },
+        "save_receipt_snippet_text": "def save_receipt(receipt, out_dir):\n    folder = Path(out_dir)\n    if not folder.is_dir():\n        raise FileNotFoundError(\"output directory does not exist\")\n    path = folder / (\"receipt-\" + receipt[\"order_id\"] + \".json\")\n    with path.open(\"x\", encoding=\"utf-8\") as handle:\n        json.dump(receipt, handle, ensure_ascii=False, indent=2, sort_keys=True)\n        handle.write(\"\\n\")\n    audit_receipt(receipt, folder)\n    return path\n",
+        "audit_receipt": {
+          "qualified_name": "yebisu-workshop-proof.storage.audit_receipt",
+          "file": "fixture/storage.py",
+          "line": 19,
+          "source_def_line": 19
+        },
+        "trace_reached_after": [
+          "validate_order",
+          "calculate_total",
+          "save_receipt",
+          "audit_receipt"
+        ],
+        "watch_before_reindex": {
+          "watched": false,
+          "reason": "not_session_project",
+          "hint": "Auto-sync watches only the active MCP session's project; re-run index_repository to refresh this index."
+        },
+        "watch_after_reindex": {
+          "watched": false,
+          "reason": "not_session_project",
+          "hint": "Auto-sync watches only the active MCP session's project; re-run index_repository to refresh this index."
+        }
+      }
+    }
+  ],
+  "fixture_execution": {
+    "base": {
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "-B",
+        "-E",
+        "-s",
+        "app.py",
+        "--order",
+        "sample_order.json",
+        "--out",
+        "<base-output-dir>"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "order_id": "WS-0001",
+        "seat_count": 2,
+        "seat_price_jpy": 1200,
+        "total_jpy": 2400,
+        "workshop": "架空の木工ワークショップ（作例用）"
+      },
+      "files": {
+        "receipt-WS-0001.json": {
+          "order_id": "WS-0001",
+          "seat_count": 2,
+          "seat_price_jpy": 1200,
+          "total_jpy": 2400,
+          "workshop": "架空の木工ワークショップ（作例用）"
+        }
+      }
+    },
+    "revised": {
+      "command": [
+        "python",
+        "-X",
+        "utf8",
+        "-B",
+        "-E",
+        "-s",
+        "app.py",
+        "--order",
+        "sample_order.json",
+        "--out",
+        "<revised-output-dir>"
+      ],
+      "exit_code": 0,
+      "stdout": {
+        "order_id": "WS-0001",
+        "seat_count": 2,
+        "seat_price_jpy": 1200,
+        "total_jpy": 2400,
+        "workshop": "架空の木工ワークショップ（作例用）"
+      },
+      "files": {
+        "audit-WS-0001.json": {
+          "consistent": true,
+          "order_id": "WS-0001",
+          "receipt_file": "receipt-WS-0001.json",
+          "recomputed_total_jpy": 2400,
+          "saved_total_jpy": 2400
+        },
+        "receipt-WS-0001.json": {
+          "order_id": "WS-0001",
+          "seat_count": 2,
+          "seat_price_jpy": 1200,
+          "total_jpy": 2400,
+          "workshop": "架空の木工ワークショップ（作例用）"
+        }
+      }
+    }
+  },
+  "calls_before": {
+    "phase": "初回の索引",
+    "query": "MATCH (f:Function)-[:CALLS]->(g) RETURN f.name AS caller, g.name AS callee LIMIT 100",
+    "rows": [
+      {
+        "caller": "main",
+        "callee": "submit_order"
+      },
+      {
+        "caller": "main",
+        "callee": "print"
+      },
+      {
+        "caller": "submit_order",
+        "callee": "validate_order"
+      },
+      {
+        "caller": "submit_order",
+        "callee": "calculate_total"
+      },
+      {
+        "caller": "submit_order",
+        "callee": "save_receipt"
+      },
+      {
+        "caller": "validate_order",
+        "callee": "OrderError"
+      }
+    ],
+    "row_count": 6,
+    "limit": 100
+  },
+  "calls_stale": {
+    "phase": "ファイル変更後・再索引の前",
+    "query": "MATCH (f:Function)-[:CALLS]->(g) RETURN f.name AS caller, g.name AS callee LIMIT 100",
+    "rows": [
+      {
+        "caller": "main",
+        "callee": "submit_order"
+      },
+      {
+        "caller": "main",
+        "callee": "print"
+      },
+      {
+        "caller": "submit_order",
+        "callee": "validate_order"
+      },
+      {
+        "caller": "submit_order",
+        "callee": "calculate_total"
+      },
+      {
+        "caller": "submit_order",
+        "callee": "save_receipt"
+      },
+      {
+        "caller": "validate_order",
+        "callee": "OrderError"
+      }
+    ],
+    "row_count": 6,
+    "limit": 100
+  },
+  "calls_after": {
+    "phase": "手で再索引した後",
+    "query": "MATCH (f:Function)-[:CALLS]->(g) RETURN f.name AS caller, g.name AS callee LIMIT 100",
+    "rows": [
+      {
+        "caller": "main",
+        "callee": "submit_order"
+      },
+      {
+        "caller": "main",
+        "callee": "print"
+      },
+      {
+        "caller": "submit_order",
+        "callee": "validate_order"
+      },
+      {
+        "caller": "submit_order",
+        "callee": "calculate_total"
+      },
+      {
+        "caller": "submit_order",
+        "callee": "save_receipt"
+      },
+      {
+        "caller": "save_receipt",
+        "callee": "audit_receipt"
+      },
+      {
+        "caller": "validate_order",
+        "callee": "OrderError"
+      }
+    ],
+    "row_count": 7,
+    "limit": 100
+  },
+  "source_snapshots": {
+    "base": {
+      "fixture/app.py": "\"\"\"架空のワークショップ受付の入口。注文ファイルを読み、受付処理に渡す。\"\"\"\n\nimport argparse\nimport json\nfrom pathlib import Path\n\nfrom service import submit_order\n\n\ndef main(argv=None):\n    parser = argparse.ArgumentParser(description=\"架空のワークショップ注文を受け付け、領収JSONを書き出します。\")\n    parser.add_argument(\"--order\", required=True, help=\"注文JSONのパス\")\n    parser.add_argument(\"--out\", required=True, help=\"領収JSONを書き出す既存のディレクトリ\")\n    args = parser.parse_args(argv)\n\n    order = json.loads(Path(args.order).read_text(encoding=\"utf-8\"))\n    receipt = submit_order(order, Path(args.out))\n    print(json.dumps(receipt, ensure_ascii=False, sort_keys=True))\n    return 0\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())\n",
+      "fixture/service.py": "\"\"\"注文の受付。確認 → 料金計算 → 領収の保存 の順に呼ぶ。\"\"\"\n\nfrom pricing import calculate_total\nfrom storage import save_receipt\nfrom validation import validate_order\n\n\ndef submit_order(order, out_dir):\n    validate_order(order)\n    total = calculate_total(order[\"seat_count\"], order[\"seat_price_jpy\"])\n    receipt = {\n        \"order_id\": order[\"order_id\"],\n        \"workshop\": order[\"workshop\"],\n        \"seat_count\": order[\"seat_count\"],\n        \"seat_price_jpy\": order[\"seat_price_jpy\"],\n        \"total_jpy\": total,\n    }\n    save_receipt(receipt, out_dir)\n    return receipt\n",
+      "fixture/validation.py": "\"\"\"注文の形を確かめる。外部への問い合わせはしない。\"\"\"\n\nimport re\n\nREQUIRED_FIELDS = (\"order_id\", \"workshop\", \"seat_count\", \"seat_price_jpy\")\nORDER_ID = re.compile(r\"[A-Z0-9-]{1,32}\")\n\n\nclass OrderError(ValueError):\n    \"\"\"注文の形が合わない。\"\"\"\n\n\ndef validate_order(order):\n    missing = [field for field in REQUIRED_FIELDS if field not in order]\n    if missing:\n        raise OrderError(\"missing fields: \" + \", \".join(missing))\n    if not isinstance(order[\"order_id\"], str) or not ORDER_ID.fullmatch(order[\"order_id\"]):\n        raise OrderError(\"order_id must use A-Z, 0-9 and hyphens\")\n    for field in (\"seat_count\", \"seat_price_jpy\"):\n        value = order[field]\n        if isinstance(value, bool) or not isinstance(value, int) or value < 1:\n            raise OrderError(field + \" must be a positive integer\")\n",
+      "fixture/pricing.py": "\"\"\"料金の計算。席数 × 1席の料金（円）。割引や税は扱わない。\"\"\"\n\n\ndef calculate_total(seat_count, seat_price_jpy):\n    return seat_count * seat_price_jpy\n",
+      "fixture/storage.py": "\"\"\"領収JSONの保存。呼び出し側が渡した既存のディレクトリにだけ書く。\"\"\"\n\nimport json\nfrom pathlib import Path\n\n\ndef save_receipt(receipt, out_dir):\n    folder = Path(out_dir)\n    if not folder.is_dir():\n        raise FileNotFoundError(\"output directory does not exist\")\n    path = folder / (\"receipt-\" + receipt[\"order_id\"] + \".json\")\n    with path.open(\"x\", encoding=\"utf-8\") as handle:\n        json.dump(receipt, handle, ensure_ascii=False, indent=2, sort_keys=True)\n        handle.write(\"\\n\")\n    return path\n",
+      "fixture/sample_order.json": "{\n  \"order_id\": \"WS-0001\",\n  \"workshop\": \"架空の木工ワークショップ（作例用）\",\n  \"seat_count\": 2,\n  \"seat_price_jpy\": 1200\n}\n"
+    },
+    "changed": {
+      "fixture/storage.py": "\"\"\"領収JSONの保存。呼び出し側が渡した既存のディレクトリにだけ書く。\"\"\"\n\nimport json\nfrom pathlib import Path\n\n\ndef save_receipt(receipt, out_dir):\n    folder = Path(out_dir)\n    if not folder.is_dir():\n        raise FileNotFoundError(\"output directory does not exist\")\n    path = folder / (\"receipt-\" + receipt[\"order_id\"] + \".json\")\n    with path.open(\"x\", encoding=\"utf-8\") as handle:\n        json.dump(receipt, handle, ensure_ascii=False, indent=2, sort_keys=True)\n        handle.write(\"\\n\")\n    audit_receipt(receipt, folder)\n    return path\n\n\ndef audit_receipt(receipt, out_dir):\n    recomputed = receipt[\"seat_count\"] * receipt[\"seat_price_jpy\"]\n    audit = {\n        \"order_id\": receipt[\"order_id\"],\n        \"receipt_file\": \"receipt-\" + receipt[\"order_id\"] + \".json\",\n        \"recomputed_total_jpy\": recomputed,\n        \"saved_total_jpy\": receipt[\"total_jpy\"],\n        \"consistent\": recomputed == receipt[\"total_jpy\"],\n    }\n    path = Path(out_dir) / (\"audit-\" + receipt[\"order_id\"] + \".json\")\n    with path.open(\"x\", encoding=\"utf-8\") as handle:\n        json.dump(audit, handle, ensure_ascii=False, indent=2, sort_keys=True)\n        handle.write(\"\\n\")\n    return audit\n"
+    }
+  }
+}

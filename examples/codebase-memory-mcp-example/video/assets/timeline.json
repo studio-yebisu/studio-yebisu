@@ -1,0 +1,64 @@
+{
+  "format": "studio-yebisu-codebase-visual-timeline-v1",
+  "duration": 32,
+  "fps": 30,
+  "silent": true,
+  "scenes": [
+    {
+      "id": "overview",
+      "in": 0,
+      "out": 5,
+      "headline": "コードのつながりを、地図に。",
+      "operation": "trace",
+      "phase": "before"
+    },
+    {
+      "id": "index",
+      "in": 5,
+      "out": 10,
+      "headline": "コードから、呼び出しの地図をつくる。",
+      "operation": "trace",
+      "phase": "before"
+    },
+    {
+      "id": "find",
+      "in": 10,
+      "out": 15,
+      "headline": "探した名前から、実コードの場所へ。",
+      "operation": "find",
+      "phase": "before"
+    },
+    {
+      "id": "trace",
+      "in": 15,
+      "out": 20,
+      "headline": "入口から、3つの呼び出し先へ。",
+      "operation": "trace",
+      "phase": "before"
+    },
+    {
+      "id": "stale",
+      "in": 20,
+      "out": 24,
+      "headline": "コードを変えても、地図は古いまま。",
+      "operation": "update",
+      "phase": "stale"
+    },
+    {
+      "id": "reindex",
+      "in": 24,
+      "out": 28,
+      "headline": "手で索引し直すと、新しいつながりが現れる。",
+      "operation": "update",
+      "phase": "after"
+    },
+    {
+      "id": "finish",
+      "in": 28,
+      "out": 32,
+      "headline": "実際の記録を、持ち帰る。",
+      "operation": "update",
+      "phase": "after"
+    }
+  ]
+}

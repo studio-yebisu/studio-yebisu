@@ -1,0 +1,47 @@
+{
+  "format": "studio-yebisu-codebase-fixture-v1",
+  "files": [
+    {
+      "path": "fixture/app.py",
+      "bytes": 841,
+      "sha256": "dd7b8550687cb74b29d92f371c0df391126540273fb5354da0628fe7c7e32695",
+      "text": "\"\"\"架空のワークショップ受付の入口。注文ファイルを読み、受付処理に渡す。\"\"\"\n\nimport argparse\nimport json\nfrom pathlib import Path\n\nfrom service import submit_order\n\n\ndef main(argv=None):\n    parser = argparse.ArgumentParser(description=\"架空のワークショップ注文を受け付け、領収JSONを書き出します。\")\n    parser.add_argument(\"--order\", required=True, help=\"注文JSONのパス\")\n    parser.add_argument(\"--out\", required=True, help=\"領収JSONを書き出す既存のディレクトリ\")\n    args = parser.parse_args(argv)\n\n    order = json.loads(Path(args.order).read_text(encoding=\"utf-8\"))\n    receipt = submit_order(order, Path(args.out))\n    print(json.dumps(receipt, ensure_ascii=False, sort_keys=True))\n    return 0\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())\n"
+    },
+    {
+      "path": "fixture/pricing.py",
+      "bytes": 180,
+      "sha256": "795f125daf3b8e5369f6870b19f0736b5516c5926718064970bc3ec165ada2ad",
+      "text": "\"\"\"料金の計算。席数 × 1席の料金（円）。割引や税は扱わない。\"\"\"\n\n\ndef calculate_total(seat_count, seat_price_jpy):\n    return seat_count * seat_price_jpy\n"
+    },
+    {
+      "path": "fixture/sample_order.json",
+      "bytes": 142,
+      "sha256": "7e142dcdce067a80bb4f4c20ebded83331200ad1191d0bff42b14c3899a19754",
+      "text": "{\n  \"order_id\": \"WS-0001\",\n  \"workshop\": \"架空の木工ワークショップ（作例用）\",\n  \"seat_count\": 2,\n  \"seat_price_jpy\": 1200\n}\n"
+    },
+    {
+      "path": "fixture/service.py",
+      "bytes": 607,
+      "sha256": "2a35508af631110afc1e9aaea0dc7c8a00cb26f6de0632784869a0b1a166aafc",
+      "text": "\"\"\"注文の受付。確認 → 料金計算 → 領収の保存 の順に呼ぶ。\"\"\"\n\nfrom pricing import calculate_total\nfrom storage import save_receipt\nfrom validation import validate_order\n\n\ndef submit_order(order, out_dir):\n    validate_order(order)\n    total = calculate_total(order[\"seat_count\"], order[\"seat_price_jpy\"])\n    receipt = {\n        \"order_id\": order[\"order_id\"],\n        \"workshop\": order[\"workshop\"],\n        \"seat_count\": order[\"seat_count\"],\n        \"seat_price_jpy\": order[\"seat_price_jpy\"],\n        \"total_jpy\": total,\n    }\n    save_receipt(receipt, out_dir)\n    return receipt\n"
+    },
+    {
+      "path": "fixture/storage.py",
+      "bytes": 541,
+      "sha256": "b849317607b3d81fb2f20aaca9b2c4cd2b2a18023a933ede97df29727c85118e",
+      "text": "\"\"\"領収JSONの保存。呼び出し側が渡した既存のディレクトリにだけ書く。\"\"\"\n\nimport json\nfrom pathlib import Path\n\n\ndef save_receipt(receipt, out_dir):\n    folder = Path(out_dir)\n    if not folder.is_dir():\n        raise FileNotFoundError(\"output directory does not exist\")\n    path = folder / (\"receipt-\" + receipt[\"order_id\"] + \".json\")\n    with path.open(\"x\", encoding=\"utf-8\") as handle:\n        json.dump(receipt, handle, ensure_ascii=False, indent=2, sort_keys=True)\n        handle.write(\"\\n\")\n    return path\n"
+    },
+    {
+      "path": "fixture/storage_revised.py",
+      "bytes": 1208,
+      "sha256": "c2c37eb7a4fc8393620c9bd1f2a835495253c590d9d0f9b02b643c800bd0a458",
+      "text": "\"\"\"領収JSONの保存。呼び出し側が渡した既存のディレクトリにだけ書く。\"\"\"\n\nimport json\nfrom pathlib import Path\n\n\ndef save_receipt(receipt, out_dir):\n    folder = Path(out_dir)\n    if not folder.is_dir():\n        raise FileNotFoundError(\"output directory does not exist\")\n    path = folder / (\"receipt-\" + receipt[\"order_id\"] + \".json\")\n    with path.open(\"x\", encoding=\"utf-8\") as handle:\n        json.dump(receipt, handle, ensure_ascii=False, indent=2, sort_keys=True)\n        handle.write(\"\\n\")\n    audit_receipt(receipt, folder)\n    return path\n\n\ndef audit_receipt(receipt, out_dir):\n    recomputed = receipt[\"seat_count\"] * receipt[\"seat_price_jpy\"]\n    audit = {\n        \"order_id\": receipt[\"order_id\"],\n        \"receipt_file\": \"receipt-\" + receipt[\"order_id\"] + \".json\",\n        \"recomputed_total_jpy\": recomputed,\n        \"saved_total_jpy\": receipt[\"total_jpy\"],\n        \"consistent\": recomputed == receipt[\"total_jpy\"],\n    }\n    path = Path(out_dir) / (\"audit-\" + receipt[\"order_id\"] + \".json\")\n    with path.open(\"x\", encoding=\"utf-8\") as handle:\n        json.dump(audit, handle, ensure_ascii=False, indent=2, sort_keys=True)\n        handle.write(\"\\n\")\n    return audit\n"
+    },
+    {
+      "path": "fixture/validation.py",
+      "bytes": 851,
+      "sha256": "fec5144c30d03ff583b2a93533c04383d7ccdf4c3dee76c5bdba9e6460cd9b63",
+      "text": "\"\"\"注文の形を確かめる。外部への問い合わせはしない。\"\"\"\n\nimport re\n\nREQUIRED_FIELDS = (\"order_id\", \"workshop\", \"seat_count\", \"seat_price_jpy\")\nORDER_ID = re.compile(r\"[A-Z0-9-]{1,32}\")\n\n\nclass OrderError(ValueError):\n    \"\"\"注文の形が合わない。\"\"\"\n\n\ndef validate_order(order):\n    missing = [field for field in REQUIRED_FIELDS if field not in order]\n    if missing:\n        raise OrderError(\"missing fields: \" + \", \".join(missing))\n    if not isinstance(order[\"order_id\"], str) or not ORDER_ID.fullmatch(order[\"order_id\"]):\n        raise OrderError(\"order_id must use A-Z, 0-9 and hyphens\")\n    for field in (\"seat_count\", \"seat_price_jpy\"):\n        value = order[field]\n        if isinstance(value, bool) or not isinstance(value, int) or value < 1:\n            raise OrderError(field + \" must be a positive integer\")\n"
+    }
+  ]
+}

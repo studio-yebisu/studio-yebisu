@@ -1,222 +1,113 @@
-/* Studio Yebisu: Codebase Memory MCP作例 — 編集動画のプレビュー（作例ビューアと同じ紙と索引の青） */
+/* 32秒・無音の概念図ムービー：プレビュー画面（書き出し時はキャンバスだけ） */
 
 :root {
-  --paper: #f7f4ee;
-  --card: #fffdf9;
-  --ink: #1c1d21;
-  --ink-soft: #57554e;
-  --rule: #d8d1c3;
-  --blue: #1f4e8c;
-  --red: #9b2c26;
-  --focus: #1f4e8c;
-  --sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", Meiryo, "Noto Sans JP", system-ui, sans-serif;
-  --serif: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", "Source Han Serif JP", Georgia, serif;
-  --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --cream: #f4eee1;
+  --paper: #fffbf2;
+  --navy: #1b2741;
+  --muted: #586174;
+  --line: #d3c8b0;
+  --teal: #13756d;
+  --teal-ink: #0d5a53;
+  --ochre-ink: #7f4f00;
+  --danger: #a3312a;
+  --sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Meiryo", "Noto Sans JP", system-ui, sans-serif;
+  --serif: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", serif;
+  --ar: 0.5625;
   color-scheme: light;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { margin: 0; background: var(--cream); color: var(--navy); font-family: var(--sans); }
+body { line-height: 1.55; overflow-wrap: anywhere; }
+a { color: var(--teal-ink); }
+:focus-visible { outline: 3px solid var(--ochre-ink); outline-offset: 2px; }
+
+.player {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: max(10px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+  display: grid;
+  gap: 10px;
+  justify-items: center;
 }
+.player > * { min-width: 0; width: 100%; }
 
-html {
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-}
+.film-head { text-align: left; }
+.film-kicker { margin: 0; font-size: 12px; color: var(--muted); }
+.film-head h1 { margin: 0; font-family: var(--serif); font-size: clamp(18px, 4.6vw, 28px); line-height: 1.3; }
+.film-meta { display: block; font-family: var(--sans); font-size: 12.5px; font-weight: 400; color: var(--muted); }
 
-body {
-  margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--sans);
-  font-size: 1.0625rem;
-  line-height: 1.8;
-  overflow-wrap: anywhere;
-}
-
-a {
-  color: var(--blue);
-  text-underline-offset: 0.18em;
-}
-
-a:hover {
-  color: var(--ink);
-}
-
-:focus-visible {
-  outline: 3px solid var(--focus);
-  outline-offset: 3px;
-}
-
-code {
-  font-family: var(--mono);
-  font-size: 0.9em;
-}
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.page {
-  width: 100%;
-  max-width: 1040px;
-  margin-inline: auto;
-  padding:
-    clamp(24px, 5vw, 56px)
-    max(clamp(16px, 4vw, 40px), env(safe-area-inset-right))
-    max(48px, env(safe-area-inset-bottom))
-    max(clamp(16px, 4vw, 40px), env(safe-area-inset-left));
-}
-
-.eyebrow {
-  margin: 0 0 8px;
-  font-size: 0.95rem;
-  letter-spacing: 0.04em;
-  color: var(--ink-soft);
-}
-
-h1 {
-  margin: 0;
-  font-family: var(--serif);
-  font-weight: 700;
-  font-size: clamp(1.7rem, 5vw, 2.6rem);
-  line-height: 1.35;
-  letter-spacing: 0.01em;
-}
-
-.lede {
-  max-width: 46em;
-  margin: 14px 0 24px;
-  color: var(--ink-soft);
-}
-
-/* 映像面：書き出し時はこの要素だけを全面に表示する */
-
-.stage {
-  border: 1px solid var(--rule);
-  background: var(--paper);
-}
-
-.stage canvas {
+.frame { position: relative; display: grid; justify-items: center; }
+#film {
   display: block;
-  width: 100%;
+  width: min(100%, calc((100vh - 230px) * var(--ar)));
+  width: min(100%, calc((100svh - 230px) * var(--ar)));
+  min-width: min(100%, 240px);
   height: auto;
+  background: var(--cream);
+  border-radius: 10px;
+  box-shadow: 0 1px 0 var(--line), 0 10px 30px rgba(27, 39, 65, 0.12);
 }
-
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 16px;
-  margin-top: 14px;
+.film-error {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: 8px;
+  padding: 20px;
+  text-align: center;
+  color: var(--danger);
 }
+.film-error[hidden] { display: none; }
+.film-error-title { margin: 0; font-weight: 700; }
+.film-error p { margin: 0; }
 
-#play {
-  min-width: 112px;
-  min-height: 48px;
-  padding: 8px 20px;
-  border: 1.5px solid var(--ink);
-  border-radius: 4px;
-  background: var(--ink);
-  color: var(--paper);
+.deck { display: grid; gap: 8px; max-width: 720px; }
+.status { margin: 0; font-size: 13px; color: var(--muted); }
+.status.is-error { color: var(--danger); font-weight: 700; }
+.row { display: flex; flex-wrap: wrap; gap: 6px; }
+.btn {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 8px 14px;
+  border: 1.5px solid var(--navy);
+  border-radius: 10px;
+  background: var(--paper);
+  color: var(--navy);
   font: inherit;
+  font-size: 14.5px;
   font-weight: 700;
   cursor: pointer;
+  touch-action: manipulation;
+}
+.btn--main { background: var(--navy); color: var(--paper); min-width: 96px; }
+.btn[aria-pressed="true"]:not(.btn--main) { background: var(--teal); border-color: var(--teal-ink); color: #fff; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.scrub-label { font-size: 13px; font-weight: 700; }
+.scrub-label output { font-weight: 400; font-variant-numeric: tabular-nums; margin-left: 6px; }
+#scrub { width: 100%; min-height: 44px; accent-color: var(--teal); }
+.scenes { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 6px; }
+.scenes .btn { font-size: 13px; padding: 6px 8px; line-height: 1.25; }
+.scenes .btn small { display: block; font-weight: 400; color: var(--muted); font-variant-numeric: tabular-nums; }
+.scenes .btn[aria-current="true"] { border-color: var(--teal-ink); box-shadow: inset 0 0 0 2px var(--teal); }
+.note { margin: 0; font-size: 12.5px; color: var(--muted); }
+
+@media (min-width: 900px) {
+  .player { grid-template-columns: minmax(0, auto) minmax(300px, 380px); grid-template-areas: "head head" "frame deck"; align-items: start; }
+  .film-head { grid-area: head; }
+  .frame { grid-area: frame; }
+  .deck { grid-area: deck; position: sticky; top: 12px; }
+  #film { width: min(100%, calc((100vh - 120px) * var(--ar))); width: min(100%, calc((100svh - 120px) * var(--ar))); }
 }
 
-#play:disabled {
-  background: var(--card);
-  color: var(--ink-soft);
-  border-color: var(--rule);
-  cursor: not-allowed;
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
 }
 
-#scrub {
-  flex: 1 1 160px;
-  min-width: 0;
-  min-height: 44px;
-  margin: 0;
-  accent-color: var(--blue);
-}
-
-.status {
-  margin: 10px 0 0;
-  min-height: 1.8em;
-  font-size: 0.95rem;
-  font-variant-numeric: tabular-nums;
-  color: var(--ink-soft);
-}
-
-.status.error {
-  color: var(--red);
-  font-weight: 700;
-}
-
-.links {
-  margin: 20px 0 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 24px;
-}
-
-.links li::before {
-  content: "→ ";
-  color: var(--blue);
-}
-
-.links a {
-  display: inline-block;
-  min-height: 44px;
-  padding: 0.5rem 0;
-}
-
-.credit {
-  margin: 20px 0 0;
-  padding-top: 14px;
-  border-top: 1px solid var(--rule);
-  font-size: 0.9rem;
-  color: var(--ink-soft);
-}
-
-/* 書き出し（window.__MOTION_RENDER__）：Canvasだけを画面いっぱいに置く */
-
-html.render,
-html.render body {
-  margin: 0;
-  overflow: hidden;
-  background: var(--paper);
-}
-
-html.render .page {
-  max-width: none;
-  margin: 0;
-  padding: 0;
-}
-
-html.render .page > :not(.stage) {
-  display: none;
-}
-
-html.render .stage {
-  position: fixed;
-  inset: 0;
-  border: 0;
-}
-
-html.render .stage canvas {
-  width: 100vw;
-  height: 100vh;
-  object-fit: contain;
-}
+/* 書き出し（window.__MOTION_RENDER__）：キャンバスだけを画面いっぱいに */
+html.is-render, html.is-render body { width: 100%; height: 100%; overflow: hidden; background: var(--cream); }
+html.is-render .player { display: block; max-width: none; margin: 0; padding: 0; }
+html.is-render .film-head, html.is-render .deck { display: none; }
+html.is-render .frame { display: block; }
+html.is-render #film { width: 100vw; height: 100vh; min-width: 0; border-radius: 0; box-shadow: none; }
