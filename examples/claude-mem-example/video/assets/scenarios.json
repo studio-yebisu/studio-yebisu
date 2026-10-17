@@ -1,0 +1,84 @@
+{
+  "format": "studio-yebisu-claude-mem-scenarios-v1",
+  "scenarios": [
+    {
+      "id": "C01",
+      "label": "保存前の検索は0件",
+      "operation": "empty_search",
+      "query": "iOS",
+      "project": "sakura-site",
+      "mode": "guided",
+      "limit": 6
+    },
+    {
+      "id": "C02",
+      "label": "決定を5件保存する",
+      "operation": "save_memory",
+      "search_before_every_note": true,
+      "replay_key": "N01",
+      "expected_notes": 5
+    },
+    {
+      "id": "C03",
+      "label": "まず題名を選ぶ",
+      "operation": "mem_search",
+      "query": "iOS",
+      "project": "sakura-site",
+      "mode": "guided",
+      "limit": 6
+    },
+    {
+      "id": "C04",
+      "label": "前後の文脈を読む",
+      "operation": "mem_search",
+      "select_keys": [
+        "N01"
+      ],
+      "depthBefore": 1,
+      "depthAfter": 1
+    },
+    {
+      "id": "C05",
+      "label": "選んだ1件の本文へ",
+      "operation": "mem_search",
+      "select_keys": [
+        "N01"
+      ]
+    },
+    {
+      "id": "C06",
+      "label": "同じ質問を別のプロジェクトに",
+      "operation": "mem_search",
+      "query": "iOS",
+      "projects": [
+        "sakura-site",
+        "tsubaki-docs"
+      ],
+      "mode": "auto",
+      "limit": 6,
+      "maxDetails": 1
+    },
+    {
+      "id": "C07",
+      "label": "別プロセスで読み直す",
+      "operation": "reopen",
+      "query": "playsinline",
+      "project": "sakura-site",
+      "mode": "auto",
+      "limit": 6,
+      "maxDetails": 1
+    },
+    {
+      "id": "C08",
+      "label": "飛び越しと範囲外を拒む",
+      "operation": "guards",
+      "tests": [
+        "foreign_selected_id",
+        "modified_continuation",
+        "changed_scope",
+        "too_long_query"
+      ],
+      "empty_project": "unregistered-project"
+    }
+  ]
+}

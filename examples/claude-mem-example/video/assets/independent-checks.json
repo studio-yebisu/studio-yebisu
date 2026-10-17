@@ -1,0 +1,103 @@
+{
+  "format": "studio-yebisu-claude-mem-independent-checks-v1",
+  "status": "passed",
+  "source": {
+    "repository": "thedotmack/claude-mem",
+    "commit": "fef3402e674bebbf72a23aeb735e91c92cd34afd",
+    "version": "13.39.0"
+  },
+  "method": "Independent read-only Python sqlite3 audit of the actual Bun-created database after both processes closed. Direct SQL integrity, note text, metadata, scoped FTS5 membership and replay count checked against frozen original inputs; no model or fabricated fixture responses.",
+  "notes": {
+    "N01": {
+      "id": "1",
+      "project": "sakura-site",
+      "title": "iOS safe-area の下余白",
+      "text_sha256": "8afec32eddf0626ae987f0ccb88f30e8f702b5089b718d8c0f078531adb3c477"
+    },
+    "N02": {
+      "id": "2",
+      "project": "sakura-site",
+      "title": "iOS 動画は playsinline",
+      "text_sha256": "476c57ca5d87967c63a94b4feb387c15aa7c70c26caff649c1482572679c5d26"
+    },
+    "N03": {
+      "id": "3",
+      "project": "sakura-site",
+      "title": "JSON の入力と出力を保存する",
+      "text_sha256": "d1a1f478e84074c7e10aa6ff4ce1d1b256eefa13b7f072c1ae77f353acf14810"
+    },
+    "N04": {
+      "id": "4",
+      "project": "tsubaki-docs",
+      "title": "iOS safe-area のドキュメント図",
+      "text_sha256": "0e883b4f822fdc097f792e6f978b5ce4717e1ce6c963b1e6c15159ff7da68696"
+    },
+    "N05": {
+      "id": "5",
+      "project": "tsubaki-docs",
+      "title": "資料は横長PDFで配る",
+      "text_sha256": "e1684938a7f1186a8c0389d76904d13d15acc9caea1a6bd76213e29a7b176890"
+    }
+  },
+  "active_counts": {
+    "sakura-site": 3,
+    "tsubaki-docs": 2
+  },
+  "total_notes": 5,
+  "fts_queries": [
+    {
+      "query": "iOS",
+      "project": "sakura-site",
+      "ids": [
+        "1",
+        "2"
+      ],
+      "matches_original_inputs": true
+    },
+    {
+      "query": "iOS",
+      "project": "tsubaki-docs",
+      "ids": [
+        "4"
+      ],
+      "matches_original_inputs": true
+    },
+    {
+      "query": "playsinline",
+      "project": "sakura-site",
+      "ids": [
+        "2"
+      ],
+      "matches_original_inputs": true
+    },
+    {
+      "query": "iOS",
+      "project": "unregistered-project",
+      "ids": [],
+      "matches_original_inputs": true
+    }
+  ],
+  "sessions": [
+    {
+      "project": "sakura-site",
+      "n": 1
+    },
+    {
+      "project": "tsubaki-docs",
+      "n": 1
+    }
+  ],
+  "pending_sync_outbox": 0,
+  "sqlite_integrity": "ok",
+  "foreign_keys_ok": true,
+  "database_sha256": "e59a3ac5f45a1ead8438a24abc5c805d8bc741bce2a37837aa1981dae04e59d7",
+  "database_bytes": 499712,
+  "database_unchanged_by_audit": true,
+  "vendor_files_checked": 194,
+  "input_hashes_match": true,
+  "limitations": [
+    "Project filtering is not authentication or access-control verification.",
+    "Keyword FTS5 only; no semantic embeddings, automatic capture/compression/injection or hosted service.",
+    "Automated checks and agent inspection are not human approval."
+  ]
+}

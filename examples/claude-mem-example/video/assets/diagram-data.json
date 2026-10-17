@@ -1,0 +1,496 @@
+{
+  "format": "studio-yebisu-claude-mem-visual-facts-v1",
+  "source_run_sha256": "efd1001c68b48e7ccde9fc3858defac43175f43a73086c538062d13c1a9b931c",
+  "fictional": true,
+  "notes": [
+    {
+      "key": "N01",
+      "project": "sakura-site",
+      "title": "iOS safe-area の下余白",
+      "text": "架空の「さくらサイト」では、iOS の下部バーに env(safe-area-inset-bottom) の余白を付ける。ボタンは44px以上にし、本文をバーで隠さない。決めた理由は、スマートフォンで記事の続きを読みやすくするため。"
+    },
+    {
+      "key": "N02",
+      "project": "sakura-site",
+      "title": "iOS 動画は playsinline",
+      "text": "架空の「さくらサイト」の短い解説動画は、iOS で記事を読みながら再生できるよう playsinline と controls を付ける。preload は none、自動再生は使わず、直接MP4を開くリンクも置く。"
+    },
+    {
+      "key": "N03",
+      "project": "sakura-site",
+      "title": "JSON の入力と出力を保存する",
+      "text": "架空の「さくらサイト」では、作例の実入力と実出力をJSONで保存する。記事の見栄えだけで完成を決めず、閲覧者が結果ファイルを読み直せるようにする。"
+    },
+    {
+      "key": "N04",
+      "project": "tsubaki-docs",
+      "title": "iOS safe-area のドキュメント図",
+      "text": "架空の「つばき資料」では、iOS safe-area は仕様を説明する図の題材。アプリの下部バー実装ではなく、資料の図中に余白の名前を記す決定である。"
+    },
+    {
+      "key": "N05",
+      "project": "tsubaki-docs",
+      "title": "資料は横長PDFで配る",
+      "text": "架空の「つばき資料」は横長PDFで配布する。動画の再生ボタンは置かず、図と注釈を1ページで読める構成にする。"
+    }
+  ],
+  "ids": {
+    "N01": "1",
+    "N02": "2",
+    "N03": "3",
+    "N04": "4",
+    "N05": "5"
+  },
+  "sample_summaries": [
+    {
+      "id": "C01",
+      "summary": "保存前に「iOS」を sakura-site で探すと、索引は0件、本文も0件でした（reason: no_results）。"
+    },
+    {
+      "id": "C02",
+      "summary": "5件を入力順に保存しました（sakura-site 3件・tsubaki-docs 2件）。保存の前には毎回関連検索を行い、N02の前にはN01「iOS safe-area の下余白」が見つかりました。N01の同じ依頼を再送すると duplicate: true・同じID 1 が返り、総数は5件のままです。"
+    },
+    {
+      "id": "C03",
+      "summary": "索引だけが返りました。題名2件（「iOS 動画は playsinline」「iOS safe-area の下余白」）と、次の段階へ進む合図です。本文は0件、tsubaki-docs の記録は含まれていません。"
+    },
+    {
+      "id": "C04",
+      "summary": "N01を選ぶと、前後1件までの文脈として題名2件（「iOS safe-area の下余白」「iOS 動画は playsinline」）が返りました。本文はまだ0件です。"
+    },
+    {
+      "id": "C05",
+      "summary": "選んだN01「iOS safe-area の下余白」の本文だけが1件返りました。N02やN04の本文は含まれていません。返った文を表示しているだけで、回答の生成はしていません。"
+    },
+    {
+      "id": "C06",
+      "summary": "同じ「iOS」を自動モードで2つのプロジェクトに渡すと、sakura-site では「iOS safe-area の下余白」、tsubaki-docs では「iOS safe-area のドキュメント図」の本文が1件ずつ返りました。どちらも索引→文脈→本文の3段階を実行しています。"
+    },
+    {
+      "id": "C07",
+      "summary": "データベースを閉じ、新しいBunのプロセスで同じ保存先を開き直しました。「playsinline」の自動検索はN02「iOS 動画は playsinline」の本文を保存時と同じID 2 で返し、件数は5件（3＋2）のまま。前のプロセスの合図は invalid_continuation で拒まれました。"
+    },
+    {
+      "id": "C08",
+      "summary": "前の索引にないID（N04）は invalid_selection、1文字変えた合図は invalid_continuation、途中でのプロジェクト変更は scope_changed、501文字の質問は invalid_input で拒まれました。未登録のプロジェクトは0件です。"
+    }
+  ],
+  "steps": [
+    {
+      "sample": "C01",
+      "call": "empty_search",
+      "step": 1,
+      "index": [],
+      "observations": [],
+      "error": null,
+      "source": "outputs/memory-run.json#/samples/C01/output/calls/empty_search"
+    },
+    {
+      "sample": "C02",
+      "call": "related_search:N01",
+      "step": 1,
+      "index": [],
+      "observations": [],
+      "error": null,
+      "source": "outputs/memory-run.json#/samples/C02/output/calls/related_search:N01"
+    },
+    {
+      "sample": "C02",
+      "call": "save:N01",
+      "step": null,
+      "index": [],
+      "observations": [],
+      "error": null,
+      "source": "outputs/memory-run.json#/samples/C02/output/calls/save:N01"
+    },
+    {
+      "sample": "C02",
+      "call": "related_search:N02",
+      "step": 1,
+      "index": [
+        {
+          "id": "1",
+          "kind": "observation",
+          "project": "sakura-site",
+          "title": "iOS safe-area の下余白",
+          "createdAt": 1792176328142,
+          "type": "discovery"
+        }
+      ],
+      "observations": [],
+      "error": null,
+      "source": "outputs/memory-run.json#/samples/C02/output/calls/related_search:N02"
+    },
+    {
+      "sample": "C02",
+      "call": "save:N02",
+      "step": null,
+      "index": [],
+      "observations": [],
+      "error": null,
+      "source": "outputs/memory-run.json#/samples/C02/output/calls/save:N02"
+    },
+    {
+      "sample": "C02",
+      "call": "related_search:N03",
+      "step": 1,
+      "index": [],
+      "observations": [],
+      "error": null,
+      "source": "outputs/memory-run.json#/samples/C02/output/calls/related_search:N03"
+    },
+    {
+      "sample": "C02",
+      "call": "save:N03",
+      "step": null,
+      "index": [],
+      "observations": [],
+      "error": null,
+      "source": "outputs/memory-run.json#/samples/C02/output/calls/save:N03"
+    },
+    {
+      "sample": "C02",
+      "call": "related_search:N04",
+      "step": 1,
+      "index": [],
+      "observations": [],
+      "error": null,
+      "source": "outputs/memory-run.json#/samples/C02/output/calls/related_search:N04"
+    },
+    {
+      "sample": "C02",
+      "call": "save:N04",
+      "step": null,
+      "index": [],
+      "observations": [],
+      "error": null,
+      "source": "outputs/memory-run.json#/samples/C02/output/calls/save:N04"
+    },
+    {
+      "sample": "C02",
+      "call": "related_search:N05",
+      "step": 1,
+      "index": [],
+      "observations": [],
+      "error": null,
+      "source": "outputs/memory-run.json#/samples/C02/output/calls/related_search:N05"
+    },
+    {
+      "sample": "C02",
+      "call": "save:N05",
+      "step": null,
+      "index": [],
+      "observations": [],
+      "error": null,
+      "source": "outputs/memory-run.json#/samples/C02/output/calls/save:N05"
+    },
+    {
+      "sample": "C02",
+      "call": "replay:N01",
+      "step": null,
+      "index": [],
+      "observations": [],
+      "error": null,
+      "source": "outputs/memory-run.json#/samples/C02/output/calls/replay:N01"
+    },
+    {
+      "sample": "C03",
+      "call": "index",
+      "step": 1,
+      "index": [
+        {
+          "id": "2",
+          "kind": "observation",
+          "project": "sakura-site",
+          "title": "iOS 動画は playsinline",
+          "createdAt": 1792176328146,
+          "type": "discovery"
+        },
+        {
+          "id": "1",
+          "kind": "observation",
+          "project": "sakura-site",
+          "title": "iOS safe-area の下余白",
+          "createdAt": 1792176328142,
+          "type": "discovery"
+        }
+      ],
+      "observations": [],
+      "error": null,
+      "source": "outputs/memory-run.json#/samples/C03/output/calls/index"
+    },
+    {
+      "sample": "C04",
+      "call": "context",
+      "step": 2,
+      "index": [
+        {
+          "id": "1",
+          "kind": "observation",
+          "project": "sakura-site",
+          "title": "iOS safe-area の下余白",
+          "createdAt": 1792176328142,
+          "type": "discovery"
+        },
+        {
+          "id": "2",
+          "kind": "observation",
+          "project": "sakura-site",
+          "title": "iOS 動画は playsinline",
+          "createdAt": 1792176328146,
+          "type": "discovery"
+        }
+      ],
+      "observations": [],
+      "error": null,
+      "source": "outputs/memory-run.json#/samples/C04/output/calls/context"
+    },
+    {
+      "sample": "C05",
+      "call": "details",
+      "step": 3,
+      "index": [
+        {
+          "id": "1",
+          "kind": "observation",
+          "project": "sakura-site",
+          "title": "iOS safe-area の下余白",
+          "createdAt": 1792176328142,
+          "type": "discovery"
+        }
+      ],
+      "observations": [
+        {
+          "id": "1",
+          "kind": "observation",
+          "project": "sakura-site",
+          "title": "iOS safe-area の下余白",
+          "createdAt": 1792176328142,
+          "type": "discovery",
+          "content": "Manual memory\n\n架空の「さくらサイト」では、iOS の下部バーに env(safe-area-inset-bottom) の余白を付ける。ボタンは44px以上にし、本文をバーで隠さない。決めた理由は、スマートフォンで記事の続きを読みやすくするため。",
+          "truncated": false
+        }
+      ],
+      "error": null,
+      "source": "outputs/memory-run.json#/samples/C05/output/calls/details"
+    },
+    {
+      "sample": "C06",
+      "call": "auto:sakura-site",
+      "step": 3,
+      "index": [
+        {
+          "id": "1",
+          "kind": "observation",
+          "project": "sakura-site",
+          "title": "iOS safe-area の下余白",
+          "createdAt": 1792176328142,
+          "type": "discovery"
+        }
+      ],
+      "observations": [
+        {
+          "id": "1",
+          "kind": "observation",
+          "project": "sakura-site",
+          "title": "iOS safe-area の下余白",
+          "createdAt": 1792176328142,
+          "type": "discovery",
+          "content": "Manual memory\n\n架空の「さくらサイト」では、iOS の下部バーに env(safe-area-inset-bottom) の余白を付ける。ボタンは44px以上にし、本文をバーで隠さない。決めた理由は、スマートフォンで記事の続きを読みやすくするため。",
+          "truncated": false
+        }
+      ],
+      "error": null,
+      "source": "outputs/memory-run.json#/samples/C06/output/calls/auto:sakura-site"
+    },
+    {
+      "sample": "C06",
+      "call": "auto:tsubaki-docs",
+      "step": 3,
+      "index": [
+        {
+          "id": "4",
+          "kind": "observation",
+          "project": "tsubaki-docs",
+          "title": "iOS safe-area のドキュメント図",
+          "createdAt": 1792176328151,
+          "type": "discovery"
+        }
+      ],
+      "observations": [
+        {
+          "id": "4",
+          "kind": "observation",
+          "project": "tsubaki-docs",
+          "title": "iOS safe-area のドキュメント図",
+          "createdAt": 1792176328151,
+          "type": "discovery",
+          "content": "Manual memory\n\n架空の「つばき資料」では、iOS safe-area は仕様を説明する図の題材。アプリの下部バー実装ではなく、資料の図中に余白の名前を記す決定である。",
+          "truncated": false
+        }
+      ],
+      "error": null,
+      "source": "outputs/memory-run.json#/samples/C06/output/calls/auto:tsubaki-docs"
+    },
+    {
+      "sample": "C07",
+      "call": "parent_control_before_close",
+      "step": 2,
+      "index": [
+        {
+          "id": "1",
+          "kind": "observation",
+          "project": "sakura-site",
+          "title": "iOS safe-area の下余白",
+          "createdAt": 1792176328142,
+          "type": "discovery"
+        },
+        {
+          "id": "2",
+          "kind": "observation",
+          "project": "sakura-site",
+          "title": "iOS 動画は playsinline",
+          "createdAt": 1792176328146,
+          "type": "discovery"
+        }
+      ],
+      "observations": [],
+      "error": null,
+      "source": "outputs/memory-run.json#/samples/C07/output/calls/parent_control_before_close"
+    },
+    {
+      "sample": "C07",
+      "call": "worker_auto",
+      "step": 3,
+      "index": [
+        {
+          "id": "2",
+          "kind": "observation",
+          "project": "sakura-site",
+          "title": "iOS 動画は playsinline",
+          "createdAt": 1792176328146,
+          "type": "discovery"
+        }
+      ],
+      "observations": [
+        {
+          "id": "2",
+          "kind": "observation",
+          "project": "sakura-site",
+          "title": "iOS 動画は playsinline",
+          "createdAt": 1792176328146,
+          "type": "discovery",
+          "content": "Manual memory\n\n架空の「さくらサイト」の短い解説動画は、iOS で記事を読みながら再生できるよう playsinline と controls を付ける。preload は none、自動再生は使わず、直接MP4を開くリンクも置く。",
+          "truncated": false
+        }
+      ],
+      "error": null,
+      "source": "outputs/memory-run.json#/samples/C07/output/calls/worker_auto"
+    },
+    {
+      "sample": "C07",
+      "call": "worker_guided_index",
+      "step": 1,
+      "index": [
+        {
+          "id": "2",
+          "kind": "observation",
+          "project": "sakura-site",
+          "title": "iOS 動画は playsinline",
+          "createdAt": 1792176328146,
+          "type": "discovery"
+        },
+        {
+          "id": "1",
+          "kind": "observation",
+          "project": "sakura-site",
+          "title": "iOS safe-area の下余白",
+          "createdAt": 1792176328142,
+          "type": "discovery"
+        }
+      ],
+      "observations": [],
+      "error": null,
+      "source": "outputs/memory-run.json#/samples/C07/output/calls/worker_guided_index"
+    },
+    {
+      "sample": "C07",
+      "call": "worker_old_continuation",
+      "step": null,
+      "index": [],
+      "observations": [],
+      "error": {
+        "name": "ProgressiveSearchError",
+        "code": "invalid_continuation",
+        "message": "This search continuation expired, is unavailable, or belongs to a different memory scope. Restart with a query.",
+        "is_progressive_search_error": true
+      },
+      "source": "outputs/memory-run.json#/samples/C07/output/calls/worker_old_continuation"
+    },
+    {
+      "sample": "C08",
+      "call": "foreign_selected_id",
+      "step": null,
+      "index": [],
+      "observations": [],
+      "error": {
+        "name": "ProgressiveSearchError",
+        "code": "invalid_selection",
+        "message": "An ID was not disclosed by the preceding mem-search step.",
+        "is_progressive_search_error": true
+      },
+      "source": "outputs/memory-run.json#/samples/C08/output/calls/foreign_selected_id"
+    },
+    {
+      "sample": "C08",
+      "call": "modified_continuation",
+      "step": null,
+      "index": [],
+      "observations": [],
+      "error": {
+        "name": "ProgressiveSearchError",
+        "code": "invalid_continuation",
+        "message": "This search continuation expired, is unavailable, or belongs to a different memory scope. Restart with a query.",
+        "is_progressive_search_error": true
+      },
+      "source": "outputs/memory-run.json#/samples/C08/output/calls/modified_continuation"
+    },
+    {
+      "sample": "C08",
+      "call": "changed_scope",
+      "step": null,
+      "index": [],
+      "observations": [],
+      "error": {
+        "name": "ProgressiveSearchError",
+        "code": "scope_changed",
+        "message": "Keep the original search options when continuing, or restart with a query.",
+        "is_progressive_search_error": true
+      },
+      "source": "outputs/memory-run.json#/samples/C08/output/calls/changed_scope"
+    },
+    {
+      "sample": "C08",
+      "call": "too_long_query",
+      "step": null,
+      "index": [],
+      "observations": [],
+      "error": {
+        "name": "ProgressiveSearchError",
+        "code": "invalid_input",
+        "message": "query must contain 1–500 characters and at most 1024 UTF-8 bytes.",
+        "is_progressive_search_error": true
+      },
+      "source": "outputs/memory-run.json#/samples/C08/output/calls/too_long_query"
+    },
+    {
+      "sample": "C08",
+      "call": "unregistered_project",
+      "step": 1,
+      "index": [],
+      "observations": [],
+      "error": null,
+      "source": "outputs/memory-run.json#/samples/C08/output/calls/unregistered_project"
+    }
+  ]
+}

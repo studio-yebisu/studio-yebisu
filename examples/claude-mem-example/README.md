@@ -1,38 +1,38 @@
-# Claude-Mem 作例：必要な記憶だけ、3段階で。
+# Claude-Mem 作例：必要な記憶だけ、図で開く
 
-固定版 Claude-Mem 13.39.0（thedotmack/claude-mem `fef3402e674bebbf72a23aeb735e91c92cd34afd`、Apache-2.0）の上流ワーカー関数を Bun で実行し、架空の5つの決定を mem_search の「索引 → 文脈 → 選んだ本文」の順に取り出した作例です。
+架空の2案件の決定5件を、題名 → 前後の文脈 → 選んだ本文の順に取り出す作例です。保存済みの実結果を、一つの大きな概念図と32秒の無音の縦横動画で説明します。
 
-- `index.html`・`style.css`・`app.js`：保存した実行記録を読むスマホ優先のページ。ブラウザーの中で Claude-Mem・Bun・Claude は動きません。
-- `run.ts`：実行スクリプト（Bun 1.4.3）。
-- `input/notes.json`・`input/scenarios.json`：制作側が実行前に固定した架空の5件と8場面。
-- `outputs/memory-run.json`：実行記録（制作側が run.ts を実行して作成）。
-- `outputs/method.md`：手順・確認の内容・記録の読み方・確かめていないこと。
-- `vendor/claude-mem/`：原典194ファイル（無改変）。`vendor-lock.json` にハッシュを記録。
-- `request.txt`：同じ確認を自分の架空データで試すときの依頼文。`brief.json`：制作ブリーフ。
+- `index.html`・`style.css`・`app.js`：図で読む画面。題名・前後・本文・案件・開き直すを選び、該当する実行記録をJSONで保存できます。
+- `comparison.html`・`comparison.css`・`comparison.js`：元の8場面の記録を読む画面を保持しています。
+- `video/`：動く概念図の編集ソース、固定した7素材、代表・連続フレームの確認資料。縦720×1280と横1280×720は別の配置で描きます。詳細は`video/README.md`。
+- `input/notes.json`・`input/scenarios.json`：実行前に固定した架空の5メモと8場面。
+- `run.ts`・`outputs/memory-run.json`：元の実行スクリプトと、実際に返った入力・出力の記録。
+- `outputs/independent-checks.json`・`outputs/method.md`：元の独立したSQLite照合、実行方法と範囲。
+- `vendor/claude-mem/`・`vendor-lock.json`：固定版の原典194ファイルとハッシュ。
 
-## 実行
+ブラウザーは保存した記録を表示します。操作でClaude-Mem・Bun・モデルを新たに実行するものではありません。図の本文は保存されたメモであり、生成した回答ではありません。
+
+## 元の実行と今回の改修
+
+元の制作では、固定版Claude-Mem13.39.0（thedotmack/claude-mem、コミット`fef3402e674bebbf72a23aeb735e91c92cd34afd`）のDatabaseManager・saveMemory・SearchManager・ProgressiveMemorySearch・progressiveSearchToolResultを改変せずBun1.4.3で動かしました。明示的な保存、SQLite FTS5のキーワード検索、guided/autoによる段階的な取り出し、新しいBunプロセスから同じ保存先を開く8場面・99の自動確認と、別のPython sqlite3による読取照合が残っています。
+
+今回の図中心の改修では、この実行・入力・出力・原典の208ファイルを同じバイト列で引き継ぎました。推論やAPIの再実行はしていません。新しい図と映像のコードをClaude Opus5.5が執筆し、制作側が見出しの重なりの補正、検証・書き出し・文書・配布・掲載を担当しました。元の制作モデルの根拠と、今回の執筆範囲を区別しています。
+
+新しい画面はIAB Chromiumの7幅×5場面で横はみ出しなし・主操作44px以上、全8場面の原入力・出力、実JSON保存5件、題名→前後→本文の操作、HTTP503・壊れたJSON・ハッシュ違いからの再取得を確認しました。編集ソースの7素材照合・失敗時の停止と再取得・シーク・再生/一時停止・リセット、32秒の縦横MP4の全デコードと再生終了、代表・連続フレーム・360px画像・終端を確認しています。音声トラックと音声ガイドはありません。依頼文コピーはUIの成功応答まで確認し、クリップボード内容の再取得は未確認です。
+
+自動検査・エージェントの画面確認は、人による内容や見た目の承認とは別です。実機iOS/Safari/VoiceOver・Core Web Vitalsは未確認です。
+
+## 再現
 
 ```sh
 npm ci --ignore-scripts
 bun --no-install run.ts --artifact-dir ../claude-mem-private-run-01
 ```
 
-`--artifact-dir` はこのフォルダーの外の、新しいか空のフォルダーにします。非公開の設定・SQLite・ログはそこに置かれ、公開されるのは `outputs/memory-run.json` だけです。既にある記録は上書きしないので、再現はこのフォルダーをコピーして、コピーの `outputs/memory-run.json` を消すか `--out <新しいパス>` を付けて行ってください。アカウント・サインイン・API キーは要りません。依存の導入と Bun の取得には事前に通信が要り、実行中は何もダウンロードしません。
+`--artifact-dir`は公開フォルダー外の新しいか空の保存先を指定します。設定・DB・完全なログは非公開のままにします。元の出力を上書きせず、コピーした作例で`--out <新しいパス>`を使ってください。この限定実行にはアカウント・APIキーは不要です。依存とBunの取得には事前の通信が必要です。
 
-## 範囲
+## 範囲と利用条件
 
-試したのは、saveMemory による明示的な保存、SQLite FTS5 のキーワード検索、mem_search の guided・auto、新しいプロセスでの読み直し、誤った続け方の拒否です。プラグインの導入、フック、会話の自動記録や LLM による要約、文脈の自動注入、Chroma、クラウド同期、ホスト型の記憶、MCP サーバーへの接続は含みません。mem-search スキルの手順は、MCP ではなく上流のワーカー関数に直接当てはめています。
+プラグイン・フック・会話の自動記録・LLM要約・文脈注入・Chromaの意味検索・クラウド同期・MCP通信は試していません。公式mem-searchスキルの順序を、実ワーカー関数に直接適用した範囲です。検索語はiOS/playsinlineで、日本語の検索品質の評価ではありません。案件は検索範囲であり、認証ではありません。続きの合図は発行したプロセスの中だけで15分有効です。新しいプロセスでは保存したメモを新しい問いで探し、古い合図は使えません。
 
-## 作者と利用条件
-
-run.ts・ページ・文書は Claude Opus 5.5 が書きました。入力は Studio Yebisu の制作側が書いた架空のもので、記録の値は Claude-Mem のライブラリが返したものです。
-
-作例のコード・文章は MIT License（`LICENSE`、Copyright (c) 2026 Studio Yebisu）。`vendor/claude-mem/` は Apache License 2.0（`vendor/claude-mem/LICENSE`・`NOTICE`：Copyright 2026 Alex Newman）。依存パッケージは各自の利用条件に従い、`npm ci` で入る node_modules 内に各ライセンスが残ります。
-
-## 今回の確認結果
-
-実ワーカー関数で8場面・99の自動確認を実行し、別のPython sqlite3による読取で、5件の元の本文・メタデータ・3＋2件の内訳・4つの範囲指定FTS検索・DBのハッシュを照合しました。`outputs/independent-checks.json` に要点があります。実装の親による補正は推論範囲の文言と、スマホのネイティブ選択・表示順・開閉・短い状態表示です。API結果・元の入力は書き換えていません。
-
-320/375/390/430px縦、844px横、1280pxのIAB Chromiumで横はみ出しがなく、44px操作対象・16px入力を確認しました。全8場面の入力・出力・ツール文、実JSON保存、依頼文のコピー、HTTP503・壊れたJSON・固定版違いからの再取得を確認しました。`video/` は実記録・実画面から作った28秒の無音動画の編集ソースです。MP4・ポスターはサイトの `media/`、ZIPには編集ソース・素材を含めています。
-
-自動確認・エージェントの視覚確認は、人による承認や検索品質の保証ではありません。実機iOS/Safari/VoiceOver・Core Web Vitalsは未確認です。`vendor-lock.json` の外部名一覧は静的な走査の候補です。実際の導入依存は `package.json` と `package-lock.json` の固定5件を参照してください。Bunの実行ファイル・node_modules・DB・設定・完全なログ・モデル履歴・認証は配布しません。
+独自の作例・図・文書はMIT License（Copyright (c)2026 Studio Yebisu）。原典194ファイルはApache-2.0（vendor/claude-mem/LICENSE・NOTICE、Copyright2026 Alex Newman）を保持しています。依存パッケージは各ライセンスに従います。node_modules、Bun、DB・設定・ログ・認証・モデル履歴は配布しません。
