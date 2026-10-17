@@ -1,0 +1,257 @@
+{
+  "format": "studio-yebisu-storyboard-v1",
+  "case": "openvoice-example",
+  "title": "声を、着替える。OpenVoice 声色変換の解説動画",
+  "message": "元の音声（ことば）＋声色の見本 → OpenVoice → 変換後。見本を替えて聞き比べ、気に入ったWAVを保存できる。",
+  "audience": "案内・展示などの音声で、声色の違いを聞き比べてから使う声を決めたい制作者（主にスマホで見る人）",
+  "duration_seconds": 36,
+  "fps": 30,
+  "frames": 1080,
+  "poster_seconds": 19.5,
+  "layouts": {
+    "main": {
+      "width": 720,
+      "height": 1280,
+      "use": "縦・iOS向けの本編",
+      "picture": "上に短い見出し、その下で図が画面の約75%を占める。元の音声と声色の見本を横に並べ、下の OpenVoice の円で重なり、さらに下の変換後のカードへ流れる。見本のチップ（落ち着いた声・明るい声）は見本の下。保存の場面のスマホは OpenVoice の右側に現れる。"
+    },
+    "wide": {
+      "width": 1280,
+      "height": 720,
+      "use": "横長の別版",
+      "picture": "左上に見出し。図は左から右へ：左列に元の音声と声色の見本を縦に重ね、中央の OpenVoice の円、右に変換後のカード。チップは見本の名前の右、保存の場面のスマホは右上に現れる。縦版の縮小ではなく、横の画面で組み直した配置。"
+    },
+    "other_sizes": "renderConfig の幅・高さに合わせ、縦長なら縦版、横長なら横版の配置を拡大・縮小して中央に置く。"
+  },
+  "continuity": "全編を通して同じ1枚の図（元の音声・声色の見本・OpenVoice・変換後）が画面に残り、場面ごとに光る場所と流れる形だけが変わる。見出しの切り替えはあるが、場面ごとの文字カードには切り替えない。",
+  "scenes": [
+    {
+      "id": "relation",
+      "in": 0,
+      "out": 2.9,
+      "label": "声色だけを、着替える",
+      "sub": null,
+      "communicates": "元の音声＋見本 → OpenVoice → 変換後 という関係を、0秒から全体の図で見せる。",
+      "enter": "最初の画面で図が完成している（実測の波形3本、重なった2色の円）。",
+      "exit": "2.4〜3.0秒で OpenVoice の2色の円が薄くなり、変換後の波形が淡い下書きになる。指が元の音声の ▶ へ動く。"
+    },
+    {
+      "id": "source",
+      "in": 2.9,
+      "out": 13.2,
+      "label": "ことばは、元の音声から",
+      "sub": "実際の入力音声",
+      "audio_cue": "source",
+      "communicates": "元の音声（ようこそ案内）がことばを運ぶ。音に合わせて元の音声の実測波形が左から濃くなり、紫の粒が OpenVoice の左の円へ流れて満ちる。",
+      "enter": "3.0秒、指が元の音声の ▶ を押すのと同時に音が始まる。▶ は一時停止の印に変わる。",
+      "exit": "12.73秒で音が終わり、最後の紫の形が左の円に収まる。"
+    },
+    {
+      "id": "reference",
+      "in": 13.2,
+      "out": 17.3,
+      "label": "声色は、見本から",
+      "sub": "実際の見本・3.5秒",
+      "tag": "見本の声・抜粋",
+      "audio_cue": "reference",
+      "communicates": "声色の見本（落ち着いた声）の最初の3.5秒だけを鳴らす。見本の波形のうち抜粋の部分が白く浮き、音に合わせて濃くなる。桃色の粒が右の円へ流れて満ちる。",
+      "enter": "13.5秒、指が見本の ▶ を押すのと同時に音が始まる。見本の上に「見本の声・抜粋」の札が出る。",
+      "exit": "17.0秒で抜粋が終わり、札が消える。"
+    },
+    {
+      "id": "convert",
+      "in": 17.3,
+      "out": 27.4,
+      "label": "重ねると、変換後",
+      "sub": "実際の変換結果",
+      "audio_cue": "output",
+      "communicates": "OpenVoice の2色の円が近づいて重なり、中の白い線が音に合わせて揺れる。紫と桃の粒が緑に変わりながら変換後のカードへ落ち、V01 の実測波形が再生位置まで左から現れる。原因（2つの入力）と結果（変換後）が同じ画面でつながる。",
+      "enter": "17.5秒、指が変換後の ▶ を押すのと同時に変換後の音（V01・全体）が始まる。",
+      "exit": "27.23秒で音が終わり、波形がすべて現れる。円は元の重なりへ戻る。"
+    },
+    {
+      "id": "swap",
+      "in": 27.4,
+      "out": 31.4,
+      "label": "見本を替えると",
+      "sub": "保存済みの変換結果",
+      "audio_cue": null,
+      "communicates": "作例ページでの使い方。指が 明るい声 のチップを押すと、見本の色と実測波形が 明るい声 に、OpenVoice の右の円の色が変わり、変換後のカードの波形が保存済みの V03 の実測波形に替わる。",
+      "enter": "28.4秒、指が 明るい声 を押す。28.45秒にチップが切り替わる。",
+      "exit": "30.1秒までに V03 の波形への切り替えが終わる。この場面に 明るい声 の音は入れない（再生したように見せない）。"
+    },
+    {
+      "id": "save",
+      "in": 31.4,
+      "out": 36,
+      "label": "聞き比べて、保存",
+      "sub": "作例ページで聞けます",
+      "audio_cue": null,
+      "communicates": "変換後のカードの保存ボタンを押すと、WAV のファイルがスマホの形へ移る。画面には実際のファイル名 welcome-sayaka.wav と、その実測波形の縮小を小さく出す。",
+      "enter": "31.6秒にスマホの形が現れ、32.3秒に指が保存ボタンを押す。ファイルは32.6〜33.4秒で移る。",
+      "exit": "33.6〜36秒は完成した図と見出しのまま止まる（2秒以上）。黒や白へは消さない。"
+    }
+  ],
+  "audio": {
+    "file": "assets/comparison.wav",
+    "format": "PCM16・モノラル・22050Hz・36秒",
+    "mix": "実際の3つの音声を、重ならないよう無音の間を空けて並べたもの。ナレーション・音楽・効果音なし。書き出しでは同じ comparison.wav を --audio に渡し、Motion Reel が音量を整えて AAC にする。",
+    "cues": [
+      {
+        "role": "source",
+        "file": "input/welcome.wav",
+        "original_sha256": "8cd28d707ddc422bb09a8600e653611ef278bd20a148f792fc7833b49bca6f41",
+        "start": 3.0,
+        "duration": 8.84,
+        "end": 11.84,
+        "source_start": 0,
+        "excerpt": false,
+        "tail_fade_seconds": 0,
+        "sample_exact_copy_except_reference_tail_fade": true
+      },
+      {
+        "role": "reference",
+        "file": "input/reference-ichiro.wav",
+        "original_sha256": "f174b3955c2fd5738fd1c4d03a0960ea08826dffbe39e825ab6e4f9dd3dd309b",
+        "start": 13.5,
+        "duration": 3.5,
+        "end": 17.0,
+        "source_start": 0,
+        "excerpt": true,
+        "tail_fade_seconds": 0.02,
+        "sample_exact_copy_except_reference_tail_fade": true
+      },
+      {
+        "role": "output",
+        "file": "outputs/welcome-ichiro.wav",
+        "original_sha256": "a09b52043ce5927c8fda41655d2c0c449a00dfd190b8fa0d8cfa2b33841dc3e0",
+        "start": 17.5,
+        "duration": 8.835192743764173,
+        "end": 26.335192743764175,
+        "source_start": 0,
+        "excerpt": false,
+        "tail_fade_seconds": 0,
+        "sample_exact_copy_except_reference_tail_fade": true
+      }
+    ],
+    "sync_check": "読み込み時に、comparison.wav の3つのキューの位置を0.1秒ごとの RMS で測り直し、記録の実測波形と照らす（見本は最後の音量を下げる区間を除く）。",
+    "not_in_mix": "明るい声 の見本・V03 の変換後・閉館案内（V02）の音は入っていない。"
+  },
+  "assets": {
+    "manifest": {
+      "file": "assets/manifest.json",
+      "sha256": "ecc27c8ccbcef03db45d0b6fd64464d52fadb1e4a6fa55e2de36aadc8e718611"
+    },
+    "files": [
+      {
+        "file": "audio-cues.json",
+        "sha256": "34144e93728b268aa71eb15616bbb00358cbce19502ca0b93b45ee8f5c235e61",
+        "bytes": 1600
+      },
+      {
+        "file": "comparison.wav",
+        "sha256": "2e67215623a3ed8f0ded08269e0da05302276908885a6f8e75601e933e65f14c",
+        "bytes": 1587644
+      },
+      {
+        "file": "independent-checks.json",
+        "sha256": "af11b38caa5cd9d8a058b9a332176c3e1f6edf577145489f60f1a33612d047ff",
+        "bytes": 13053
+      },
+      {
+        "file": "model-lock.json",
+        "sha256": "a8c97e5f61932d029ecdde2b628d3ee102909f476bc45e1fb0b17c864518181a",
+        "bytes": 1484
+      },
+      {
+        "file": "vendor-lock.json",
+        "sha256": "53a17e009e9b0ba6545515523790bafb6946f4691bd93e7f53b4001a95e29e76",
+        "bytes": 5130
+      },
+      {
+        "file": "voice-requests.json",
+        "sha256": "faf4d83cd845d9e0253e8c6fb94bbd0c1d10d1db81b8023c9b09445454cfc9e6",
+        "bytes": 4549
+      },
+      {
+        "file": "voice-runs.json",
+        "sha256": "7ac84902b84b6bbad83f8fb7075ed5b5ccce4eb73c248a57367372d2ebe40d97",
+        "bytes": 40578
+      },
+      {
+        "file": "watermark-lock.json",
+        "sha256": "ff9770637114cef87c4570bb051f155b5a3bd2075677109099cbd550d103b9cc",
+        "bytes": 3275
+      }
+    ],
+    "failure": "manifest.json か8件のどれかが合わない、または記録どうしが食い違うと、motionReady が失敗し、映像を描かずに理由と再読み込みを出す。書き出しも失敗で止まる。"
+  },
+  "visual_rules": {
+    "palette": {
+      "paper": "#f5f3eb",
+      "ink": "#252c2a",
+      "source": "#8581ee / #e7e4f8",
+      "ichiro": "#f7a86e / #f8e4d4",
+      "sayaka": "#e5a5b2 / #f4dee3",
+      "output": "#51a696 / #deebe3"
+    },
+    "measured": "棒の波形だけが記録の実測 RMS（棒1本は隣り合う0.1秒区間の最大値。元の音声はその最大値、見本2本・変換後2本はそれぞれ2本の中の最大値を基準）。",
+    "conceptual": "OpenVoice の2色の円・白い線・流れる粒・スマホとファイルの形は説明の図。粒の大きさだけが実測 RMS に合わせて変わる。",
+    "pointer": "指先の丸い印は、保存済みの作例ページの使い方（▶・見本のチップ・保存）を描いた絵。画面の録画やその場の推論ではない。",
+    "text": "見出しは7〜11文字、補足は10文字前後。段落・表・ログ・数値の札・チェックリストは出さない。小さく「合成音声の比較」。",
+    "determinism": "各フレームは時刻 t だけから描く。乱数・壁時計・前フレームの状態・CSS アニメーションを使わない。書き出し時はプレビューの時計と音を動かさない。"
+  },
+  "truth_limits": [
+    "元の音声と見本は Irodori-TTSの合成音声（Irodori-TTSの元の案内声・落ち着いた声・明るい声）。人の声・原典のデモ音声は使っていない。",
+    "変換は固定版 OpenVoice V2 の声色変換（ToneColorConverter の extract_se・convert）だけ。OpenVoice の読み上げ・MeloTTS・別言語・VAD・Gradio・クラウドは使っていない。",
+    "変えるのは声色。なまりや感情を写すことは示していない。",
+    "変換後の WAV には原典の既定の透かし（WavMark・目印 SYEBISU!）が入り、保存した3本の WAV から読み出せた。動画の AAC 音声に残るかは確かめていない。",
+    "補助の自動書き起こしは元の音声でも誤認識があり、変換後のほうが誤りの多いものもあった。発音・自然さ・声の近さを保証するものではない。",
+    "聞いた印象・人による承認・実機の iPhone での確認は記録にない。",
+    "明るい声 の場面は保存済みの V03 の波形だけで、その音は入れていない。"
+  ],
+  "attribution": {
+    "neural_conversion": "OpenVoice（myshell-ai/OpenVoice 固定コミット 74a1d147・重み OpenVoiceV2 固定リビジョン f36e7edf・MIT）",
+    "source_speech": "Irodori-TTS v4.1 Small",
+    "concept_sketch": "Studio Yebisu の制作側が作った構成案",
+    "film_and_page_code": "Claude Opus 5.5（MIT License・Copyright (c) 2026 Studio Yebisu）",
+    "renderer": "同梱の Motion Reel（tools/motion-reel/・MIT License）"
+  },
+  "status": {
+    "rendered": false,
+    "frame_review": false,
+    "listening": false,
+    "human_approval": false,
+    "published": false,
+    "note": "このファイルは設計図。書き出し・フレームの確認・聴取・人による承認・公開はまだ行っていない。"
+  },
+  "audio_upgrade": {
+    "source": "Irodori-TTS-v4.1-Small fixed2b28324; caption-designed synthetic inputs; no real-person recording",
+    "visual_author": "Claude Opus5.5",
+    "integration": "Production replaced actual audio/data/digests/voice labels; diagram motion unchanged.",
+    "listening_confirmed": false
+  },
+  "production_verification": {
+    "duration_seconds": 36,
+    "fps": 30,
+    "frames": 1080,
+    "primary": [
+      720,
+      1280
+    ],
+    "alternate": [
+      1280,
+      720
+    ],
+    "has_actual_audio": true,
+    "asset_manifest_sha256": "ecc27c8ccbcef03db45d0b6fd64464d52fadb1e4a6fa55e2de36aadc8e718611",
+    "same_environment_seek_png_match": true,
+    "full_decode": true,
+    "native_playback_ended_both": true,
+    "portrait_sha256": "5fa8784f2ea9545c8818f1cd1082bf4303d734ab318fc57f27ca3f47d42d159e",
+    "wide_sha256": "fd3628dab7131253546a0b358093c325cc8d39d942311e5dcc4f2d583c223a84",
+    "poster_sha256": "fb903c917a90f3ee6033295f552c44b44ece08e265bcf6d532d1d803821994da",
+    "human_approval": false,
+    "audio_listening_confirmed": false
+  }
+}

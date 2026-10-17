@@ -1,0 +1,78 @@
+{
+  "kind": "Auxiliary automatic transcript check; the original scripts were not provided to Whisper",
+  "whisper": {
+    "repository": "openai/whisper",
+    "commit": "86098128c0b4f24f0e2aa2994de830614b474227",
+    "model": "base",
+    "weights_sha256": "ed3a0b6b1c0edf879ad9b11b1af5a0e6ab5db9205f891f668f8b0e6c6326e34e",
+    "device": "cpu",
+    "threads": 4,
+    "source_sha256": {
+      "__init__.py": "79ecbed714783b6230931a3dba6d5da6d386e2d44f9fc27256e4fc72751e1f62",
+      "transcribe.py": "176f5ab30e961bec2a7872f5701a1f5bf3cbfc77946e50512f0f0cf00a1ceacf",
+      "audio.py": "36ed287b2de3eaf40207cd2a44a8d45d57ea5c212a39df07401d4fcb4d5a5a1a",
+      "utils.py": "f46aa555363ab42a455cd7c7f8c108dc2f69c5a94c6354c73ae96d671d9b1c37"
+    }
+  },
+  "normalization": "NFKC, remove Unicode P/Z/C categories, then codepoint Levenshtein/reference length",
+  "results": [
+    {
+      "id": "welcome",
+      "file": "input/welcome.wav",
+      "reference_text": "紙の博物館へ、ようこそ。入口は右手です。青いしおりを目印に、お進みください。",
+      "sha256": "8cd28d707ddc422bb09a8600e653611ef278bd20a148f792fc7833b49bca6f41",
+      "transcript_raw": "髪の白ぶつかんへようこそイリングチは右手です青い氏よりを目印におすすみください",
+      "character_edits": 15,
+      "reference_characters": 33,
+      "cer": 0.454545,
+      "seconds": 1.887
+    },
+    {
+      "id": "closing",
+      "file": "input/closing.wav",
+      "reference_text": "展示室は、まもなく閉館します。お帰りの前に、お手元のしおりをお確かめください。",
+      "sha256": "eeae9d454ac82fec6115c7449fb20606909c66867f0cfb41cc2f4caa1d9b6d31",
+      "transcript_raw": "展示室は間もなく平感します。お帰りの前にお手元のしよりをお確かめください。",
+      "character_edits": 4,
+      "reference_characters": 35,
+      "cer": 0.114286,
+      "seconds": 1.377
+    },
+    {
+      "id": "V01",
+      "file": "outputs/welcome-ichiro.wav",
+      "reference_text": "紙の博物館へ、ようこそ。入口は右手です。青いしおりを目印に、お進みください。",
+      "sha256": "a09b52043ce5927c8fda41655d2c0c449a00dfd190b8fa0d8cfa2b33841dc3e0",
+      "transcript_raw": "髪の白物館へようこそ入り口は右手です青い氏よりをめじるしにおすすみください",
+      "character_edits": 11,
+      "reference_characters": 33,
+      "cer": 0.333333,
+      "seconds": 1.566
+    },
+    {
+      "id": "V02",
+      "file": "outputs/closing-ichiro.wav",
+      "reference_text": "展示室は、まもなく閉館します。お帰りの前に、お手元のしおりをお確かめください。",
+      "sha256": "4c65c734c183daf61bc992fdc94dd4d91a459b4d576bfada4e521547130d8bfd",
+      "transcript_raw": "返事室は間もなく平感します。お帰りの前にお手元のしよりをお出しかめください。",
+      "character_edits": 8,
+      "reference_characters": 35,
+      "cer": 0.228571,
+      "seconds": 1.372
+    },
+    {
+      "id": "V03",
+      "file": "outputs/welcome-sayaka.wav",
+      "reference_text": "紙の博物館へ、ようこそ。入口は右手です。青いしおりを目印に、お進みください。",
+      "sha256": "c75498332de417428421f2706fd94e582a7d0e2930dbfbe8be0e0bf911ac9e78",
+      "transcript_raw": "髪の白物館へようこそ入りぬちは右手です青い氏よりをめじるしにおすすみください",
+      "character_edits": 13,
+      "reference_characters": 33,
+      "cer": 0.393939,
+      "seconds": 1.491
+    }
+  ],
+  "listening_confirmed": false,
+  "human_approval": false,
+  "limits": "ASR can misrecognize the input and the conversion. This is auxiliary technical evidence, not a perceptual or identity guarantee."
+}

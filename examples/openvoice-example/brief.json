@@ -1,0 +1,128 @@
+{
+  "title": "声を、着替える。",
+  "request": "架空の「紙の博物館」の案内を、OpenVoice V2で2種類の合成声色へ変換し、大きな概念図から聞き比べてWAVを保存できる作例を作ってください。\n\n入力は input/voice-requests.json と、その4本の合成音声です。V01は「ようこそ案内→落ち着いた声」、V02は「閉館案内→落ち着いた声」、V03は「ようこそ案内→明るい声」。固定コミットの原典APIで、実音声から声色を取り出し、3件を実変換してください。原音と変換後を保全し、重みは公開物に含めません。\n\n画面と動画は「元の音声 ＋ 声色の見本 → OpenVoice → 変換後」の概念図を主役にしてください。短いラベルで、二つの入力が合流して声色が変わる関係を示し、図から実音声を再生・保存できるようにします。説明文と実行記録は折りたたんだ補足へ。動画は36秒で、実音声を聞く時間に図の強調を合わせ、最後に声色の選択とWAV保存を見せます。スマホ向け縦版と横向き版を作り、編集ソースも残してください。\n\n元と見本はIrodori-TTSの合成音声です。OpenVoiceのテキスト読み上げ、別言語への変換、人の録音の複製を試したように書かず、声の近さ・自然さ・語句の明瞭さを自動検査だけで保証しないでください。保存済み作例をライブ生成に見せないでください。\n",
+  "category": "audio",
+  "audience": "スマホで、声色変換の使いどころと操作を知りたい人",
+  "goal": "二つの音声の関係を大きな概念図と実音声で伝え、比較してWAVを保存できる",
+  "inputs": [
+    "input/voice-requests.json",
+    "入力4WAV",
+    "outputs/voice-runs.json",
+    "実変換3WAV",
+    "video/assets/audio-cues.json"
+  ],
+  "skill_refs": [
+    "examples/openvoice-example/vendor/openvoice/openvoice/api.py",
+    "examples/openvoice-example/tools/motion-reel/render.mjs",
+    "skills/brief-to-demo/SKILL.md"
+  ],
+  "deliverables": [
+    "図中心の音声比較デモ",
+    "36秒の縦動画と横動画",
+    "編集できる映像ソース",
+    "入出力と利用条件・技術確認記録"
+  ],
+  "steps": [
+    "案内の音声を用意",
+    "声色の見本を用意",
+    "原典APIで変換",
+    "図から比較・保存"
+  ],
+  "acceptance": [
+    "図が主役で、説明文は短いラベルと折りたたんだ補足",
+    "実音声の再生時刻と図の強調が一致",
+    "同じ実WAVを再生・保存",
+    "スマホに収まる図と44px以上の主操作",
+    "原典の固定版と原出力を保全"
+  ],
+  "assumptions": [
+    "元と見本はIrodori-TTSの合成音声",
+    "ブラウザーは保存結果の比較",
+    "聴感・本人一致・実機iOSの承認は別途"
+  ],
+  "production_result": {
+    "id": "openvoice-example",
+    "verified_at": "2026-10-17T02:13:08.473210+00:00",
+    "stage": "technical_qa_complete",
+    "runtime": {
+      "status": "passed",
+      "sample_count": 3,
+      "checks": 83,
+      "independent_pcm_checks": 116,
+      "fresh_process_wavs_and_embeddings_byte_identical": true,
+      "original_default_watermark": true,
+      "native_wav_watermark_matches": 3,
+      "source_commit": "74a1d147b17a8c3092dd5430504bd83ef6c7eb23",
+      "checkpoint_sha256": "9652c27e92b6b2a91632590ac9962ef7ae2b712e5c5b7f4c34ec55ee2b37ab9e"
+    },
+    "browser": {
+      "status": "passed",
+      "viewports": [
+        {
+          "height": 740,
+          "minControlHeight": 44,
+          "overflow": false,
+          "width": 320
+        },
+        {
+          "height": 812,
+          "minControlHeight": 44,
+          "overflow": false,
+          "width": 375
+        },
+        {
+          "height": 844,
+          "minControlHeight": 44,
+          "overflow": false,
+          "width": 390
+        },
+        {
+          "height": 932,
+          "minControlHeight": 44,
+          "overflow": false,
+          "width": 430
+        },
+        {
+          "height": 390,
+          "minControlHeight": 44,
+          "overflow": false,
+          "width": 844
+        },
+        {
+          "height": 900,
+          "minControlHeight": 44,
+          "overflow": false,
+          "width": 1280
+        }
+      ],
+      "actual_audio_playback": true,
+      "native_wav_save_exact": true,
+      "error_recovery_passed": true,
+      "playback_is_precomputed": true
+    },
+    "video": {
+      "duration_seconds": 36,
+      "fps": 30,
+      "frames": 1080,
+      "primary": [
+        720,
+        1280
+      ],
+      "alternate": [
+        1280,
+        720
+      ],
+      "has_actual_audio": true,
+      "asset_manifest_sha256": "ecc27c8ccbcef03db45d0b6fd64464d52fadb1e4a6fa55e2de36aadc8e718611",
+      "same_environment_seek_png_match": true,
+      "full_decode": true,
+      "native_playback_ended_both": true,
+      "portrait_sha256": "5fa8784f2ea9545c8818f1cd1082bf4303d734ab318fc57f27ca3f47d42d159e",
+      "wide_sha256": "fd3628dab7131253546a0b358093c325cc8d39d942311e5dcc4f2d583c223a84",
+      "poster_sha256": "fb903c917a90f3ee6033295f552c44b44ece08e265bcf6d532d1d803821994da"
+    },
+    "audio_listening_confirmed": false,
+    "human_approval": false,
+    "physical_ios_safari_voiceover": false
+  }
+}

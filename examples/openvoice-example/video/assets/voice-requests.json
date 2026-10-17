@@ -1,0 +1,116 @@
+{
+  "project": "紙の博物館 / 架空の案内音声",
+  "synthetic_only": true,
+  "sample_rate": 22050,
+  "channels": 1,
+  "sample_format": "PCM_16",
+  "voices": [
+    {
+      "id": "welcome",
+      "role": "source",
+      "voice_name": "Irodori-TTS / 元の案内声",
+      "culture": "ja-JP",
+      "text": "紙の博物館へ、ようこそ。入口は右手です。青いしおりを目印に、お進みください。",
+      "file": "input/welcome.wav",
+      "tts": {
+        "repository": "Aratako/Irodori-TTS-v4.1-Small",
+        "revision": "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
+        "caption": "成人女性の自然な日本語。明瞭で落ち着いた博物館の案内。やわらかく親しみやすい声で、会話のような自然な抑揚。",
+        "steps": 40,
+        "seed": 42,
+        "reference": null
+      }
+    },
+    {
+      "id": "closing",
+      "role": "source",
+      "voice_name": "Irodori-TTS / 元の案内声",
+      "culture": "ja-JP",
+      "text": "展示室は、まもなく閉館します。お帰りの前に、お手元のしおりをお確かめください。",
+      "file": "input/closing.wav",
+      "tts": {
+        "repository": "Aratako/Irodori-TTS-v4.1-Small",
+        "revision": "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
+        "caption": "成人女性の自然な日本語。明瞭で落ち着いた博物館の案内。やわらかく親しみやすい声で、会話のような自然な抑揚。",
+        "steps": 40,
+        "seed": 42,
+        "reference": "welcome"
+      }
+    },
+    {
+      "id": "ichiro",
+      "role": "reference",
+      "voice_name": "Irodori-TTS / 落ち着いた声",
+      "culture": "ja-JP",
+      "text": "こちらは、架空の博物館の案内です。窓の外には、小さな公園が見えます。どうぞ、ごゆっくりお楽しみください。",
+      "file": "input/reference-ichiro.wav",
+      "tts": {
+        "repository": "Aratako/Irodori-TTS-v4.1-Small",
+        "revision": "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
+        "caption": "成人男性の自然な日本語。低めで穏やか、落ち着いた声。博物館の案内を、明瞭に自然な抑揚で話す。",
+        "steps": 40,
+        "seed": 314,
+        "reference": null
+      }
+    },
+    {
+      "id": "sayaka",
+      "role": "reference",
+      "voice_name": "Irodori-TTS / 明るい声",
+      "culture": "ja-JP",
+      "text": "こちらは、架空の博物館の案内です。窓の外には、小さな公園が見えます。どうぞ、ごゆっくりお楽しみください。",
+      "file": "input/reference-sayaka.wav",
+      "tts": {
+        "repository": "Aratako/Irodori-TTS-v4.1-Small",
+        "revision": "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
+        "caption": "成人女性の自然な日本語。明るく澄んだ声で親しみやすい。博物館の案内を、明瞭に自然な抑揚で話す。",
+        "steps": 40,
+        "seed": 271,
+        "reference": null
+      }
+    }
+  ],
+  "conversion": {
+    "device": "cpu",
+    "threads": 4,
+    "seed": 20261017,
+    "tau": 0.3,
+    "enable_watermark": true,
+    "message": "SYEBISU!",
+    "source_commit": "74a1d147b17a8c3092dd5430504bd83ef6c7eb23",
+    "model_revision": "f36e7edfe1684461a8343844af60babc2efbb727"
+  },
+  "cases": [
+    {
+      "id": "V01",
+      "label": "ようこそ × 落ち着いた声",
+      "source_id": "welcome",
+      "reference_id": "ichiro",
+      "output": "outputs/welcome-ichiro.wav"
+    },
+    {
+      "id": "V02",
+      "label": "閉館案内 × 落ち着いた声",
+      "source_id": "closing",
+      "reference_id": "ichiro",
+      "output": "outputs/closing-ichiro.wav"
+    },
+    {
+      "id": "V03",
+      "label": "ようこそ × 明るい声",
+      "source_id": "welcome",
+      "reference_id": "sayaka",
+      "output": "outputs/welcome-sayaka.wav"
+    }
+  ],
+  "tts": {
+    "repository": "Aratako/Irodori-TTS-v4.1-Small",
+    "revision": "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
+    "license": "mit",
+    "checkpoint_sha256": "c85de88c01700cb53538e706f128ebcb1b8513ad21d7d0e75f58bc82cdbf89f6",
+    "bytes": 3064295596,
+    "code_commit": "8224dafb46d0aba89209a8f905f1cb7e3299d9c1",
+    "no_real_person_reference": true
+  },
+  "voice_ids_note": "ichiro/sayaka are stable internal IDs inherited from the private draft, not Microsoft voices or named real-person identities."
+}

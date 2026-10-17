@@ -1,0 +1,1498 @@
+{
+  "format": "studio-yebisu-openvoice-runs-v1",
+  "status": "completed",
+  "case": "openvoice-example",
+  "task": "架空の「紙の博物館」の同じ案内音声を、2種類の合成参照声で聞き比べ、気に入ったWAVを保存する",
+  "upstream": {
+    "repository": "myshell-ai/OpenVoice",
+    "commit": "74a1d147b17a8c3092dd5430504bd83ef6c7eb23",
+    "version": "0.0.0 (setup.py), converter V2",
+    "license": "MIT",
+    "vendor_lock_sha256": "53a17e009e9b0ba6545515523790bafb6946f4691bd93e7f53b4001a95e29e76",
+    "vendor_files_verified": 23,
+    "api": "openvoice.api.ToneColorConverter (extract_se, convert, load_ckpt)"
+  },
+  "model": {
+    "repository": "myshell-ai/OpenVoiceV2",
+    "revision": "f36e7edfe1684461a8343844af60babc2efbb727",
+    "license": "MIT (official model card and original README)",
+    "files": {
+      "converter/config.json": {
+        "sha256": "9dfff60350b8c63f2c664efd92a61b2516efb22671466960f0e5dfebd881fa47",
+        "bytes": 838
+      },
+      "converter/checkpoint.pth": {
+        "sha256": "9652c27e92b6b2a91632590ac9962ef7ae2b712e5c5b7f4c34ec55ee2b37ab9e",
+        "bytes": 131320490
+      }
+    },
+    "readme_sha256_verified": true,
+    "model_lock_sha256": "a8c97e5f61932d029ecdde2b628d3ee102909f476bc45e1fb0b17c864518181a",
+    "location": "private --model-dir; checkpoint is not distributed with this example",
+    "version": "v2",
+    "sampling_rate": 22050,
+    "filter_length": 1024,
+    "hop_length": 256,
+    "win_length": 1024,
+    "parameters": 32792226,
+    "state_dict_tensors": 486,
+    "missing_keys": 0,
+    "unexpected_keys": 0,
+    "load_ckpt": "original OpenVoiceBaseClass.load_ckpt (torch.load map_location=cpu, load_state_dict strict=False)"
+  },
+  "input_sha256": {
+    "vendor-lock.json": "53a17e009e9b0ba6545515523790bafb6946f4691bd93e7f53b4001a95e29e76",
+    "input/voice-requests.json": "faf4d83cd845d9e0253e8c6fb94bbd0c1d10d1db81b8023c9b09445454cfc9e6",
+    "input/expected.json": "3878f6bb62e3ed6d718c361a307b1ddcfeb58aa1f1ddcf6d2095b5b25d271308",
+    "model-lock.json": "a8c97e5f61932d029ecdde2b628d3ee102909f476bc45e1fb0b17c864518181a"
+  },
+  "runtime": {
+    "device": "cpu",
+    "threads": 4,
+    "threads_observed": 4,
+    "seed": 20261017,
+    "tau": 0.3,
+    "enable_watermark": true,
+    "watermark": "original default WavMark ON; message SYEBISU!",
+    "watermark_model": {
+      "repository": "M4869/WavMark",
+      "revision": "0ad3c7b74f641bddb61f6b85cdf2de0d93a5bfef",
+      "sha256": "7a3d873d115c2c644685fb4cf109bdb299718296b88c871d3cf1c8e4cbc13144",
+      "bytes": 10019039,
+      "package": "wavmark==0.0.3",
+      "message": "SYEBISU!",
+      "offline_cache_verified": true
+    },
+    "construction": {
+      "requested_call": "ToneColorConverter(config_path, device='cpu')",
+      "observed": "constructed",
+      "path": "original constructor, original default watermark ON; no __new__, attribute substitution or vendor modification"
+    },
+    "vad": "not used (each reference is one prepared single-speaker synthetic clip; se_extractor not imported)",
+    "source_embeddings": "extract_se on each actual source WAV (not the pretrained base_speakers/ses files)",
+    "inputs_folder": "input/",
+    "python": "3.10.11",
+    "python_implementation": "CPython",
+    "os": "Windows",
+    "machine": "AMD64",
+    "packages": {
+      "torch": "2.5.1+cpu",
+      "numpy": "1.22.0",
+      "librosa": "0.9.1",
+      "soundfile": "0.13.1",
+      "scipy": "1.11.4",
+      "eng_to_ipa": "0.0.2",
+      "inflect": "7.0.0",
+      "Unidecode": "1.3.7",
+      "pypinyin": "0.50.0",
+      "cn2an": "0.5.22",
+      "jieba": "0.42.1"
+    }
+  },
+  "assets": [
+    {
+      "id": "welcome",
+      "role": "source",
+      "voice_name": "Irodori-TTS / 元の案内声",
+      "culture": "ja-JP",
+      "tts": {
+        "repository": "Aratako/Irodori-TTS-v4.1-Small",
+        "revision": "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
+        "caption": "成人女性の自然な日本語。明瞭で落ち着いた博物館の案内。やわらかく親しみやすい声で、会話のような自然な抑揚。",
+        "steps": 40,
+        "seed": 42,
+        "reference": null
+      },
+      "synthetic": true,
+      "text": "紙の博物館へ、ようこそ。入口は右手です。青いしおりを目印に、お進みください。",
+      "path": "input/welcome.wav",
+      "audio": {
+        "file_bytes": 389922,
+        "file_sha256": "8cd28d707ddc422bb09a8600e653611ef278bd20a148f792fc7833b49bca6f41",
+        "pcm_sha256": "d21228c2e246647789113b985ae0be4e803596a5807d7a22852a6e27a14dbea1",
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sample_rate": 22050,
+        "channels": 1,
+        "frames": 194922,
+        "header_frames": 194922,
+        "duration_seconds": 8.84,
+        "min_pcm": -29169,
+        "max_pcm": 29847,
+        "max_abs_pcm": 29847,
+        "rms": 0.151112,
+        "rms_dbfs": -16.41,
+        "clipped_samples": 0,
+        "all_finite": true,
+        "waveform": {
+          "kind": "measured RMS per fixed bin, linear full scale = 1.0",
+          "bin_seconds": 0.1,
+          "bin_samples": 2205,
+          "rms": [
+            0.14819,
+            0.21169,
+            0.23052,
+            0.2369,
+            0.23513,
+            0.16356,
+            0.0657,
+            0.1362,
+            0.18722,
+            0.04281,
+            0.1573,
+            0.26893,
+            0.17155,
+            0.15414,
+            0.1275,
+            0.00161,
+            0.00013,
+            0.03566,
+            0.22071,
+            0.26131,
+            0.02689,
+            0.15102,
+            0.07427,
+            0.29749,
+            0.04555,
+            0.00013,
+            0.00013,
+            0.00012,
+            7e-05,
+            0.00012,
+            0.0001,
+            0.00013,
+            0.0001,
+            0.00013,
+            0.027,
+            0.12541,
+            0.24132,
+            0.28523,
+            0.16547,
+            0.07515,
+            0.1617,
+            0.29553,
+            0.21859,
+            0.13138,
+            0.11813,
+            0.15516,
+            0.13994,
+            0.14045,
+            0.15916,
+            0.04029,
+            0.00546,
+            0.00012,
+            0.00011,
+            0.00013,
+            0.00013,
+            0.00058,
+            0.29902,
+            0.19388,
+            0.20582,
+            0.20491,
+            0.09834,
+            0.08507,
+            0.17023,
+            0.20537,
+            0.19276,
+            0.20982,
+            0.19312,
+            0.20124,
+            0.14238,
+            0.19856,
+            0.13614,
+            0.0952,
+            0.15592,
+            0.14261,
+            0.09162,
+            0.00059,
+            0.00013,
+            0.05901,
+            0.10084,
+            0.10874,
+            0.06976,
+            0.26612,
+            0.13832,
+            0.12449,
+            0.17944,
+            0.09189,
+            0.19425,
+            0.10741,
+            0.00287
+          ]
+        }
+      },
+      "embedding": {
+        "shape": [
+          1,
+          256,
+          1
+        ],
+        "dims": 256,
+        "all_finite": true,
+        "l2_norm": 11.662725,
+        "float32_sha256": "7b4ee4e7d50b4271082642db6570b6f35587cd35793a6205d44e787c1327ceb8",
+        "api": "ToneColorConverter.extract_se([path])",
+        "elapsed_seconds": 0.072
+      }
+    },
+    {
+      "id": "closing",
+      "role": "source",
+      "voice_name": "Irodori-TTS / 元の案内声",
+      "culture": "ja-JP",
+      "tts": {
+        "repository": "Aratako/Irodori-TTS-v4.1-Small",
+        "revision": "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
+        "caption": "成人女性の自然な日本語。明瞭で落ち着いた博物館の案内。やわらかく親しみやすい声で、会話のような自然な抑揚。",
+        "steps": 40,
+        "seed": 42,
+        "reference": "welcome"
+      },
+      "synthetic": true,
+      "text": "展示室は、まもなく閉館します。お帰りの前に、お手元のしおりをお確かめください。",
+      "path": "input/closing.wav",
+      "audio": {
+        "file_bytes": 321126,
+        "file_sha256": "eeae9d454ac82fec6115c7449fb20606909c66867f0cfb41cc2f4caa1d9b6d31",
+        "pcm_sha256": "2c0bb3853b6717ebb4d09210c8d8891c076c0b5114cdda20b93bd20b5ab11f5f",
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sample_rate": 22050,
+        "channels": 1,
+        "frames": 160524,
+        "header_frames": 160524,
+        "duration_seconds": 7.28,
+        "min_pcm": -30066,
+        "max_pcm": 28894,
+        "max_abs_pcm": 30066,
+        "rms": 0.151521,
+        "rms_dbfs": -16.39,
+        "clipped_samples": 0,
+        "all_finite": true,
+        "waveform": {
+          "kind": "measured RMS per fixed bin, linear full scale = 1.0",
+          "bin_seconds": 0.1,
+          "bin_samples": 2205,
+          "rms": [
+            0.17353,
+            0.20195,
+            0.14027,
+            0.1379,
+            0.05406,
+            0.02294,
+            0.11866,
+            0.26938,
+            0.14271,
+            0.00011,
+            0.00033,
+            0.23126,
+            0.1632,
+            0.21798,
+            0.21437,
+            0.03659,
+            0.1429,
+            0.08184,
+            0.19539,
+            0.04124,
+            0.17435,
+            0.12785,
+            0.08781,
+            0.26002,
+            0.1985,
+            0.02508,
+            0.00193,
+            0.00012,
+            7e-05,
+            0.00012,
+            9e-05,
+            0.00012,
+            9e-05,
+            0.00012,
+            0.00014,
+            0.08231,
+            0.0609,
+            0.23931,
+            0.20137,
+            0.21669,
+            0.26548,
+            0.23828,
+            0.25693,
+            0.18733,
+            0.13614,
+            0.07777,
+            0.0051,
+            0.00012,
+            9e-05,
+            0.07068,
+            0.06478,
+            0.22542,
+            0.24377,
+            0.10892,
+            0.26285,
+            0.15165,
+            0.09367,
+            0.13413,
+            0.17489,
+            0.20287,
+            0.1945,
+            0.15491,
+            0.08291,
+            0.18394,
+            0.08399,
+            0.12215,
+            0.25202,
+            0.09695,
+            0.19721,
+            0.15822,
+            0.15181,
+            0.18058,
+            0.01545
+          ]
+        }
+      },
+      "embedding": {
+        "shape": [
+          1,
+          256,
+          1
+        ],
+        "dims": 256,
+        "all_finite": true,
+        "l2_norm": 11.861985,
+        "float32_sha256": "82290625a62cfb826ee5871a8de04380c82703c69705a1005b01b8ccef61a294",
+        "api": "ToneColorConverter.extract_se([path])",
+        "elapsed_seconds": 0.012
+      }
+    },
+    {
+      "id": "ichiro",
+      "role": "reference",
+      "voice_name": "Irodori-TTS / 落ち着いた声",
+      "culture": "ja-JP",
+      "tts": {
+        "repository": "Aratako/Irodori-TTS-v4.1-Small",
+        "revision": "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
+        "caption": "成人男性の自然な日本語。低めで穏やか、落ち着いた声。博物館の案内を、明瞭に自然な抑揚で話す。",
+        "steps": 40,
+        "seed": 314,
+        "reference": null
+      },
+      "synthetic": true,
+      "text": "こちらは、架空の博物館の案内です。窓の外には、小さな公園が見えます。どうぞ、ごゆっくりお楽しみください。",
+      "path": "input/reference-ichiro.wav",
+      "audio": {
+        "file_bytes": 437550,
+        "file_sha256": "f174b3955c2fd5738fd1c4d03a0960ea08826dffbe39e825ab6e4f9dd3dd309b",
+        "pcm_sha256": "7fc5c9c7841ac23dc82f405e7810c16d91655a89f1d49d6490fe92d11f9c8396",
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sample_rate": 22050,
+        "channels": 1,
+        "frames": 218736,
+        "header_frames": 218736,
+        "duration_seconds": 9.92,
+        "min_pcm": -27649,
+        "max_pcm": 28211,
+        "max_abs_pcm": 28211,
+        "rms": 0.142268,
+        "rms_dbfs": -16.94,
+        "clipped_samples": 0,
+        "all_finite": true,
+        "waveform": {
+          "kind": "measured RMS per fixed bin, linear full scale = 1.0",
+          "bin_seconds": 0.1,
+          "bin_samples": 2205,
+          "rms": [
+            0.1667,
+            0.14081,
+            0.19404,
+            0.23844,
+            0.22081,
+            0.22481,
+            0.01223,
+            0.00017,
+            0.00013,
+            0.0526,
+            0.20468,
+            0.04452,
+            0.32293,
+            0.21581,
+            0.21871,
+            0.15987,
+            0.04041,
+            0.1571,
+            0.16135,
+            0.05795,
+            0.21189,
+            0.12571,
+            0.12821,
+            0.18892,
+            0.16252,
+            0.17783,
+            0.11846,
+            0.03922,
+            0.04366,
+            0.109,
+            0.07651,
+            0.0044,
+            0.00011,
+            0.00015,
+            0.00017,
+            0.00017,
+            0.00018,
+            0.03053,
+            0.25358,
+            0.14746,
+            0.17724,
+            0.15975,
+            0.09843,
+            0.10644,
+            0.1639,
+            0.15664,
+            0.22392,
+            0.0838,
+            0.00103,
+            0.13197,
+            0.17045,
+            0.11545,
+            0.16471,
+            0.14139,
+            0.01498,
+            0.23016,
+            0.30311,
+            0.22285,
+            0.22162,
+            0.21651,
+            0.19498,
+            0.20355,
+            0.1541,
+            0.11349,
+            0.06812,
+            0.06536,
+            0.02683,
+            0.00035,
+            0.00091,
+            0.00045,
+            0.00016,
+            0.00013,
+            0.00018,
+            0.00013,
+            0.00084,
+            0.0007,
+            0.05419,
+            0.20807,
+            0.19125,
+            0.08031,
+            0.16173,
+            0.01556,
+            0.00018,
+            0.00159,
+            0.20208,
+            0.22741,
+            0.0491,
+            0.06691,
+            0.19066,
+            0.18016,
+            0.16484,
+            0.15046,
+            0.09415,
+            0.20319,
+            0.06473,
+            0.16017,
+            0.06763,
+            0.1262,
+            0.0499,
+            0.0039
+          ]
+        }
+      },
+      "embedding": {
+        "shape": [
+          1,
+          256,
+          1
+        ],
+        "dims": 256,
+        "all_finite": true,
+        "l2_norm": 13.342029,
+        "float32_sha256": "2283a968b09ac259f60aadeb5173bee73afd437aa023f1d0be8fabb925f3bd7f",
+        "api": "ToneColorConverter.extract_se([path])",
+        "elapsed_seconds": 0.017
+      }
+    },
+    {
+      "id": "sayaka",
+      "role": "reference",
+      "voice_name": "Irodori-TTS / 明るい声",
+      "culture": "ja-JP",
+      "tts": {
+        "repository": "Aratako/Irodori-TTS-v4.1-Small",
+        "revision": "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
+        "caption": "成人女性の自然な日本語。明るく澄んだ声で親しみやすい。博物館の案内を、明瞭に自然な抑揚で話す。",
+        "steps": 40,
+        "seed": 271,
+        "reference": null
+      },
+      "synthetic": true,
+      "text": "こちらは、架空の博物館の案内です。窓の外には、小さな公園が見えます。どうぞ、ごゆっくりお楽しみください。",
+      "path": "input/reference-sayaka.wav",
+      "audio": {
+        "file_bytes": 442842,
+        "file_sha256": "69615532abd471782d1221423bec1b44925cd1d6bd4bdcf75623d229be0b073c",
+        "pcm_sha256": "4921df07e5693d8f2c74885fa144cf55966289930b49ce73ea8a7a2d2dfe4b28",
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sample_rate": 22050,
+        "channels": 1,
+        "frames": 221382,
+        "header_frames": 221382,
+        "duration_seconds": 10.04,
+        "min_pcm": -24779,
+        "max_pcm": 22646,
+        "max_abs_pcm": 24779,
+        "rms": 0.154125,
+        "rms_dbfs": -16.24,
+        "clipped_samples": 0,
+        "all_finite": true,
+        "waveform": {
+          "kind": "measured RMS per fixed bin, linear full scale = 1.0",
+          "bin_seconds": 0.1,
+          "bin_samples": 2205,
+          "rms": [
+            0.12873,
+            0.12851,
+            0.20025,
+            0.23061,
+            0.20818,
+            0.21974,
+            0.01751,
+            0.00013,
+            0.00037,
+            0.15416,
+            0.09152,
+            0.18522,
+            0.23954,
+            0.25077,
+            0.11869,
+            0.17506,
+            0.14881,
+            0.15252,
+            0.01409,
+            0.07385,
+            0.23759,
+            0.18181,
+            0.21891,
+            0.19585,
+            0.2345,
+            0.19102,
+            0.09763,
+            0.10445,
+            0.06973,
+            0.01657,
+            0.00036,
+            0.00013,
+            0.0001,
+            0.00013,
+            0.00013,
+            0.00013,
+            0.00105,
+            0.27017,
+            0.17883,
+            0.21467,
+            0.16911,
+            0.14213,
+            0.11828,
+            0.17805,
+            0.19073,
+            0.20479,
+            0.06486,
+            0.02923,
+            0.17214,
+            0.16247,
+            0.18248,
+            0.19758,
+            0.12811,
+            0.02942,
+            0.22486,
+            0.20179,
+            0.19381,
+            0.29966,
+            0.23194,
+            0.24557,
+            0.21337,
+            0.17875,
+            0.18389,
+            0.02459,
+            0.01748,
+            0.00017,
+            0.00013,
+            8e-05,
+            0.00013,
+            0.0001,
+            0.00013,
+            0.00013,
+            0.15922,
+            0.18947,
+            0.1227,
+            0.18502,
+            0.00623,
+            7e-05,
+            0.00011,
+            0.0574,
+            0.22559,
+            0.23563,
+            0.08592,
+            0.00014,
+            0.04714,
+            0.24558,
+            0.19728,
+            0.00564,
+            0.14857,
+            0.12573,
+            0.22345,
+            0.21302,
+            0.11042,
+            0.25888,
+            0.08961,
+            0.20948,
+            0.13887,
+            0.10949,
+            0.20596,
+            0.06807,
+            0.0001
+          ]
+        }
+      },
+      "embedding": {
+        "shape": [
+          1,
+          256,
+          1
+        ],
+        "dims": 256,
+        "all_finite": true,
+        "l2_norm": 11.113752,
+        "float32_sha256": "da20264587a414c508f4c302967cbe27ad154d520755ff5d15c46a745dd71f2c",
+        "api": "ToneColorConverter.extract_se([path])",
+        "elapsed_seconds": 0.015
+      }
+    }
+  ],
+  "results": [
+    {
+      "id": "V01",
+      "label": "ようこそ × 落ち着いた声",
+      "operation": "tone_color_conversion",
+      "input": {
+        "source_id": "welcome",
+        "reference_id": "ichiro",
+        "source_text": "紙の博物館へ、ようこそ。入口は右手です。青いしおりを目印に、お進みください。",
+        "source_voice": "Irodori-TTS / 元の案内声",
+        "reference_voice": "Irodori-TTS / 落ち着いた声",
+        "source_path": "input/welcome.wav",
+        "reference_path": "input/reference-ichiro.wav",
+        "tau": 0.3,
+        "seed": 20261017,
+        "seed_scope": "random, numpy and torch reseeded with this value right before convert",
+        "message": "SYEBISU!",
+        "device": "cpu",
+        "threads": 4
+      },
+      "output": {
+        "path": "outputs/welcome-ichiro.wav",
+        "file_bytes": 389676,
+        "file_sha256": "a09b52043ce5927c8fda41655d2c0c449a00dfd190b8fa0d8cfa2b33841dc3e0",
+        "pcm_sha256": "ff3ae0b923e95a223c32ccf00d32cc011548fdd4edb043d5fb467eb4a078ff40",
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sample_rate": 22050,
+        "channels": 1,
+        "frames": 194816,
+        "header_frames": 194816,
+        "duration_seconds": 8.835193,
+        "min_pcm": -28989,
+        "max_pcm": 26676,
+        "max_abs_pcm": 28989,
+        "rms": 0.118051,
+        "rms_dbfs": -18.56,
+        "clipped_samples": 0,
+        "all_finite": true,
+        "waveform": {
+          "kind": "measured RMS per fixed bin, linear full scale = 1.0",
+          "bin_seconds": 0.1,
+          "bin_samples": 2205,
+          "rms": [
+            0.13696,
+            0.15654,
+            0.16155,
+            0.1918,
+            0.20566,
+            0.14905,
+            0.07433,
+            0.12395,
+            0.1629,
+            0.0245,
+            0.15428,
+            0.22094,
+            0.11919,
+            0.11214,
+            0.10133,
+            0.00086,
+            0.00012,
+            0.02454,
+            0.1803,
+            0.21642,
+            0.01594,
+            0.12796,
+            0.07584,
+            0.22468,
+            0.03436,
+            0.00016,
+            0.00016,
+            0.00015,
+            0.00015,
+            0.00016,
+            0.00016,
+            0.00018,
+            0.00015,
+            0.00017,
+            0.01921,
+            0.08534,
+            0.16498,
+            0.16949,
+            0.12073,
+            0.03165,
+            0.13774,
+            0.23073,
+            0.17376,
+            0.08014,
+            0.0685,
+            0.10559,
+            0.13368,
+            0.10558,
+            0.14946,
+            0.02297,
+            0.00209,
+            0.00016,
+            0.00015,
+            0.00016,
+            0.00017,
+            0.00082,
+            0.19002,
+            0.15895,
+            0.20231,
+            0.15889,
+            0.05122,
+            0.03444,
+            0.15233,
+            0.1901,
+            0.15582,
+            0.17844,
+            0.16173,
+            0.14197,
+            0.09258,
+            0.15269,
+            0.11645,
+            0.03789,
+            0.10256,
+            0.10557,
+            0.06779,
+            0.00077,
+            0.00019,
+            0.05059,
+            0.07472,
+            0.07925,
+            0.03926,
+            0.16879,
+            0.11001,
+            0.11259,
+            0.1379,
+            0.08241,
+            0.16765,
+            0.06164,
+            0.00109
+          ]
+        },
+        "watermark_detection": {
+          "decoded_message": "SYEBISU!",
+          "expected_message": "SYEBISU!",
+          "matches": true,
+          "scope": "Original detect_watermark on this native WAV only; compression/edits not tested"
+        },
+        "duration_delta_seconds": -0.004807,
+        "elapsed_seconds": 7.192,
+        "api": {
+          "call": "ToneColorConverter.convert(audio_src_path, src_se, tgt_se, output_path, tau=0.3, message)",
+          "src_se": "extract_se([input/welcome.wav])",
+          "tgt_se": "extract_se([input/reference-ichiro.wav])",
+          "model_version": "v2",
+          "sampling_rate": 22050,
+          "writer": "soundfile.write(output_path, audio, 22050) inside convert (WAV default PCM_16)",
+          "watermark": "original default add_watermark, wavmark0.0.3, message SYEBISU!",
+          "post_processing": "none",
+          "label": "AI-converted synthetic voice"
+        }
+      }
+    },
+    {
+      "id": "V02",
+      "label": "閉館案内 × 落ち着いた声",
+      "operation": "tone_color_conversion",
+      "input": {
+        "source_id": "closing",
+        "reference_id": "ichiro",
+        "source_text": "展示室は、まもなく閉館します。お帰りの前に、お手元のしおりをお確かめください。",
+        "source_voice": "Irodori-TTS / 元の案内声",
+        "reference_voice": "Irodori-TTS / 落ち着いた声",
+        "source_path": "input/closing.wav",
+        "reference_path": "input/reference-ichiro.wav",
+        "tau": 0.3,
+        "seed": 20261017,
+        "seed_scope": "random, numpy and torch reseeded with this value right before convert",
+        "message": "SYEBISU!",
+        "device": "cpu",
+        "threads": 4
+      },
+      "output": {
+        "path": "outputs/closing-ichiro.wav",
+        "file_bytes": 321068,
+        "file_sha256": "4c65c734c183daf61bc992fdc94dd4d91a459b4d576bfada4e521547130d8bfd",
+        "pcm_sha256": "bb80e07e1092b930208dec62303b6c90fc0bfe5ce8f30859c6d3878271ad7402",
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sample_rate": 22050,
+        "channels": 1,
+        "frames": 160512,
+        "header_frames": 160512,
+        "duration_seconds": 7.279456,
+        "min_pcm": -27031,
+        "max_pcm": 22870,
+        "max_abs_pcm": 27031,
+        "rms": 0.107628,
+        "rms_dbfs": -19.36,
+        "clipped_samples": 0,
+        "all_finite": true,
+        "waveform": {
+          "kind": "measured RMS per fixed bin, linear full scale = 1.0",
+          "bin_seconds": 0.1,
+          "bin_samples": 2205,
+          "rms": [
+            0.14195,
+            0.14798,
+            0.07745,
+            0.08289,
+            0.04583,
+            0.01539,
+            0.10598,
+            0.18552,
+            0.09405,
+            0.00022,
+            0.00129,
+            0.1638,
+            0.10904,
+            0.16095,
+            0.14567,
+            0.02638,
+            0.11404,
+            0.0699,
+            0.13022,
+            0.03538,
+            0.14751,
+            0.08315,
+            0.04048,
+            0.16471,
+            0.1509,
+            0.00932,
+            0.00054,
+            0.00017,
+            0.00017,
+            0.00017,
+            0.00016,
+            0.00017,
+            0.00017,
+            0.00017,
+            0.00019,
+            0.04629,
+            0.03706,
+            0.17277,
+            0.1368,
+            0.1433,
+            0.18664,
+            0.15326,
+            0.19421,
+            0.10414,
+            0.09488,
+            0.06336,
+            0.00475,
+            0.00018,
+            0.0002,
+            0.04832,
+            0.04571,
+            0.14995,
+            0.16142,
+            0.10606,
+            0.14171,
+            0.11028,
+            0.0373,
+            0.12192,
+            0.15118,
+            0.15197,
+            0.18133,
+            0.1323,
+            0.06377,
+            0.14532,
+            0.04859,
+            0.09814,
+            0.1539,
+            0.06429,
+            0.15115,
+            0.10715,
+            0.11886,
+            0.11572,
+            0.01206
+          ]
+        },
+        "watermark_detection": {
+          "decoded_message": "SYEBISU!",
+          "expected_message": "SYEBISU!",
+          "matches": true,
+          "scope": "Original detect_watermark on this native WAV only; compression/edits not tested"
+        },
+        "duration_delta_seconds": -0.000544,
+        "elapsed_seconds": 6.114,
+        "api": {
+          "call": "ToneColorConverter.convert(audio_src_path, src_se, tgt_se, output_path, tau=0.3, message)",
+          "src_se": "extract_se([input/closing.wav])",
+          "tgt_se": "extract_se([input/reference-ichiro.wav])",
+          "model_version": "v2",
+          "sampling_rate": 22050,
+          "writer": "soundfile.write(output_path, audio, 22050) inside convert (WAV default PCM_16)",
+          "watermark": "original default add_watermark, wavmark0.0.3, message SYEBISU!",
+          "post_processing": "none",
+          "label": "AI-converted synthetic voice"
+        }
+      }
+    },
+    {
+      "id": "V03",
+      "label": "ようこそ × 明るい声",
+      "operation": "tone_color_conversion",
+      "input": {
+        "source_id": "welcome",
+        "reference_id": "sayaka",
+        "source_text": "紙の博物館へ、ようこそ。入口は右手です。青いしおりを目印に、お進みください。",
+        "source_voice": "Irodori-TTS / 元の案内声",
+        "reference_voice": "Irodori-TTS / 明るい声",
+        "source_path": "input/welcome.wav",
+        "reference_path": "input/reference-sayaka.wav",
+        "tau": 0.3,
+        "seed": 20261017,
+        "seed_scope": "random, numpy and torch reseeded with this value right before convert",
+        "message": "SYEBISU!",
+        "device": "cpu",
+        "threads": 4
+      },
+      "output": {
+        "path": "outputs/welcome-sayaka.wav",
+        "file_bytes": 389676,
+        "file_sha256": "c75498332de417428421f2706fd94e582a7d0e2930dbfbe8be0e0bf911ac9e78",
+        "pcm_sha256": "625f0ec3a29b046ef820c4d9109576ee69a3d044ead2fd0533f9853fa61fe0ad",
+        "format": "WAV",
+        "subtype": "PCM_16",
+        "sample_rate": 22050,
+        "channels": 1,
+        "frames": 194816,
+        "header_frames": 194816,
+        "duration_seconds": 8.835193,
+        "min_pcm": -25990,
+        "max_pcm": 25300,
+        "max_abs_pcm": 25990,
+        "rms": 0.124337,
+        "rms_dbfs": -18.11,
+        "clipped_samples": 0,
+        "all_finite": true,
+        "waveform": {
+          "kind": "measured RMS per fixed bin, linear full scale = 1.0",
+          "bin_seconds": 0.1,
+          "bin_samples": 2205,
+          "rms": [
+            0.1117,
+            0.18545,
+            0.21828,
+            0.20046,
+            0.18065,
+            0.13701,
+            0.06626,
+            0.13335,
+            0.15188,
+            0.02827,
+            0.13225,
+            0.19889,
+            0.15247,
+            0.12267,
+            0.09101,
+            0.00138,
+            7e-05,
+            0.03688,
+            0.19014,
+            0.19231,
+            0.01243,
+            0.12742,
+            0.06896,
+            0.21014,
+            0.03804,
+            7e-05,
+            6e-05,
+            5e-05,
+            5e-05,
+            5e-05,
+            6e-05,
+            6e-05,
+            5e-05,
+            7e-05,
+            0.02429,
+            0.11805,
+            0.19773,
+            0.24437,
+            0.13977,
+            0.04007,
+            0.15282,
+            0.231,
+            0.16924,
+            0.11135,
+            0.10569,
+            0.13122,
+            0.13611,
+            0.12176,
+            0.13978,
+            0.02051,
+            0.00336,
+            6e-05,
+            6e-05,
+            5e-05,
+            7e-05,
+            0.00152,
+            0.23128,
+            0.14127,
+            0.16275,
+            0.16046,
+            0.05862,
+            0.0359,
+            0.14947,
+            0.17012,
+            0.1608,
+            0.16003,
+            0.16507,
+            0.1669,
+            0.10891,
+            0.16095,
+            0.12313,
+            0.03482,
+            0.1397,
+            0.13106,
+            0.08615,
+            0.00084,
+            8e-05,
+            0.05603,
+            0.09354,
+            0.102,
+            0.03502,
+            0.24026,
+            0.13043,
+            0.11614,
+            0.15238,
+            0.07627,
+            0.14253,
+            0.08553,
+            0.00064
+          ]
+        },
+        "watermark_detection": {
+          "decoded_message": "SYEBISU!",
+          "expected_message": "SYEBISU!",
+          "matches": true,
+          "scope": "Original detect_watermark on this native WAV only; compression/edits not tested"
+        },
+        "duration_delta_seconds": -0.004807,
+        "elapsed_seconds": 2.486,
+        "api": {
+          "call": "ToneColorConverter.convert(audio_src_path, src_se, tgt_se, output_path, tau=0.3, message)",
+          "src_se": "extract_se([input/welcome.wav])",
+          "tgt_se": "extract_se([input/reference-sayaka.wav])",
+          "model_version": "v2",
+          "sampling_rate": 22050,
+          "writer": "soundfile.write(output_path, audio, 22050) inside convert (WAV default PCM_16)",
+          "watermark": "original default add_watermark, wavmark0.0.3, message SYEBISU!",
+          "post_processing": "none",
+          "label": "AI-converted synthetic voice"
+        }
+      }
+    }
+  ],
+  "timing": {
+    "load_seconds": 0.587,
+    "total_seconds": 18.613,
+    "scope": "measured once on this CPU; excludes input synthesis and model download; not a speed promise"
+  },
+  "summary": {
+    "conversions": 3,
+    "sources": 2,
+    "references": 2,
+    "output_files": 3,
+    "input_files": 4,
+    "output_seconds": 24.949842
+  },
+  "embeddings_file": "outputs/embeddings.json",
+  "verification": {
+    "kind": "numerical and file checks only",
+    "listening": "not performed by run.py",
+    "human_approval": false,
+    "notes": [
+      "Checks confirm files, formats, durations, hashes and embedding sanity; they do not show that the output sounds like the reference.",
+      "Voice closeness and naturalness are for listeners to judge; no identity or quality score is computed.",
+      "All inputs were synthesized by fixed Irodori-TTS v4.1 Small; no real-person recording or upstream demo clip. Closing references our own synthetic welcome clip."
+    ]
+  },
+  "limitations": [
+    "Only ToneColorConverter.extract_se and convert were exercised; not OpenVoice text-to-speech, MeloTTS, cross-lingual synthesis or the six-language pipeline.",
+    "se_extractor (VAD/Whisper segmentation), Gradio, hosted services and GPU OpenVoice conversion were not used; Irodori input synthesis used CUDA. Default native WAV watermark was inserted and its actual decoded value recorded; robustness after AAC or edits was not tested.",
+    "One run on one CPU; timings are not a benchmark.",
+    "The browser page plays saved files; it does not run OpenVoice."
+  ],
+  "checks": [
+    {
+      "name": "pinned_sha256:vendor-lock.json",
+      "passed": true
+    },
+    {
+      "name": "pinned_sha256:input/voice-requests.json",
+      "passed": true
+    },
+    {
+      "name": "pinned_sha256:input/expected.json",
+      "passed": true
+    },
+    {
+      "name": "vendor_lock_pins_source",
+      "passed": true
+    },
+    {
+      "name": "vendor_lock_lists_23_files",
+      "passed": true
+    },
+    {
+      "name": "vendor_has_no_unlisted_files",
+      "passed": true
+    },
+    {
+      "name": "vendor_files_match_lock",
+      "passed": true
+    },
+    {
+      "name": "voice_requests_match_frozen_plan",
+      "passed": true
+    },
+    {
+      "name": "expected_matches_frozen_plan",
+      "passed": true
+    },
+    {
+      "name": "model_lock_pins_official_revision",
+      "passed": true
+    },
+    {
+      "name": "model_file_matches_lock:converter/config.json",
+      "passed": true
+    },
+    {
+      "name": "model_file_matches_lock:converter/checkpoint.pth",
+      "passed": true
+    },
+    {
+      "name": "model_config_v2_22050",
+      "passed": true
+    },
+    {
+      "name": "python_3_10",
+      "passed": true
+    },
+    {
+      "name": "numpy_1_22_0",
+      "passed": true
+    },
+    {
+      "name": "librosa_0_9_1",
+      "passed": true
+    },
+    {
+      "name": "torch_2_5_1",
+      "passed": true
+    },
+    {
+      "name": "text_import_dependencies_present",
+      "passed": true
+    },
+    {
+      "name": "watermark_lock_pinned",
+      "passed": true
+    },
+    {
+      "name": "watermark_official_weights",
+      "passed": true
+    },
+    {
+      "name": "watermark_offline_exact_revision",
+      "passed": true
+    },
+    {
+      "name": "watermark_package_0003",
+      "passed": true
+    },
+    {
+      "name": "watermark_original_source:LICENSE",
+      "passed": true
+    },
+    {
+      "name": "watermark_original_source:wavmark/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "watermark_original_source:wavmark/models/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "watermark_original_source:wavmark/models/hinet.py",
+      "passed": true
+    },
+    {
+      "name": "watermark_original_source:wavmark/models/invblock.py",
+      "passed": true
+    },
+    {
+      "name": "watermark_original_source:wavmark/models/module_util.py",
+      "passed": true
+    },
+    {
+      "name": "watermark_original_source:wavmark/models/my_model.py",
+      "passed": true
+    },
+    {
+      "name": "watermark_original_source:wavmark/models/rrdb_denselayer.py",
+      "passed": true
+    },
+    {
+      "name": "watermark_original_source:wavmark/utils/__init__.py",
+      "passed": true
+    },
+    {
+      "name": "watermark_original_source:wavmark/utils/file_reader.py",
+      "passed": true
+    },
+    {
+      "name": "watermark_original_source:wavmark/utils/metric_util.py",
+      "passed": true
+    },
+    {
+      "name": "watermark_original_source:wavmark/utils/my_parser.py",
+      "passed": true
+    },
+    {
+      "name": "watermark_original_source:wavmark/utils/path_util.py",
+      "passed": true
+    },
+    {
+      "name": "watermark_original_source:wavmark/utils/wm_add_util.py",
+      "passed": true
+    },
+    {
+      "name": "watermark_original_source:wavmark/utils/wm_decode_util.py",
+      "passed": true
+    },
+    {
+      "name": "wav_format:input/welcome.wav",
+      "passed": true
+    },
+    {
+      "name": "wav_format:input/closing.wav",
+      "passed": true
+    },
+    {
+      "name": "wav_format:input/reference-ichiro.wav",
+      "passed": true
+    },
+    {
+      "name": "wav_format:input/reference-sayaka.wav",
+      "passed": true
+    },
+    {
+      "name": "original_modules_loaded_from_verified_vendor",
+      "passed": true
+    },
+    {
+      "name": "torch_cpu_build",
+      "passed": true
+    },
+    {
+      "name": "torch_threads_4",
+      "passed": true
+    },
+    {
+      "name": "watermark_original_default_loaded",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_no_missing_keys",
+      "passed": true
+    },
+    {
+      "name": "checkpoint_tensors_loaded_exactly",
+      "passed": true
+    },
+    {
+      "name": "converter_version_v2",
+      "passed": true
+    },
+    {
+      "name": "converter_sampling_rate_22050",
+      "passed": true
+    },
+    {
+      "name": "converter_eval_mode",
+      "passed": true
+    },
+    {
+      "name": "converter_parameters_on_cpu",
+      "passed": true
+    },
+    {
+      "name": "converter_has_reference_encoder",
+      "passed": true
+    },
+    {
+      "name": "embedding_256_finite:welcome",
+      "passed": true
+    },
+    {
+      "name": "embedding_256_finite:closing",
+      "passed": true
+    },
+    {
+      "name": "embedding_256_finite:ichiro",
+      "passed": true
+    },
+    {
+      "name": "embedding_256_finite:sayaka",
+      "passed": true
+    },
+    {
+      "name": "reference_embeddings_differ",
+      "passed": true
+    },
+    {
+      "name": "source_and_reference_embeddings_differ",
+      "passed": true
+    },
+    {
+      "name": "output_format:V01",
+      "passed": true
+    },
+    {
+      "name": "output_duration_in_range:V01",
+      "passed": true
+    },
+    {
+      "name": "output_duration_delta_within_0.10s:V01",
+      "passed": true
+    },
+    {
+      "name": "output_finite:V01",
+      "passed": true
+    },
+    {
+      "name": "output_max_abs_pcm_within_limit:V01",
+      "passed": true
+    },
+    {
+      "name": "output_not_silent:V01",
+      "passed": true
+    },
+    {
+      "name": "output_differs_from_source:V01",
+      "passed": true
+    },
+    {
+      "name": "output_format:V02",
+      "passed": true
+    },
+    {
+      "name": "output_duration_in_range:V02",
+      "passed": true
+    },
+    {
+      "name": "output_duration_delta_within_0.10s:V02",
+      "passed": true
+    },
+    {
+      "name": "output_finite:V02",
+      "passed": true
+    },
+    {
+      "name": "output_max_abs_pcm_within_limit:V02",
+      "passed": true
+    },
+    {
+      "name": "output_not_silent:V02",
+      "passed": true
+    },
+    {
+      "name": "output_differs_from_source:V02",
+      "passed": true
+    },
+    {
+      "name": "output_format:V03",
+      "passed": true
+    },
+    {
+      "name": "output_duration_in_range:V03",
+      "passed": true
+    },
+    {
+      "name": "output_duration_delta_within_0.10s:V03",
+      "passed": true
+    },
+    {
+      "name": "output_finite:V03",
+      "passed": true
+    },
+    {
+      "name": "output_max_abs_pcm_within_limit:V03",
+      "passed": true
+    },
+    {
+      "name": "output_not_silent:V03",
+      "passed": true
+    },
+    {
+      "name": "output_differs_from_source:V03",
+      "passed": true
+    },
+    {
+      "name": "v01_v03_bytes_differ",
+      "passed": true
+    },
+    {
+      "name": "v01_v02_bytes_differ",
+      "passed": true
+    },
+    {
+      "name": "counts_3_conversions_2_sources_2_references",
+      "passed": true
+    },
+    {
+      "name": "all_inputs_synthetic",
+      "passed": true
+    }
+  ],
+  "check_count": 83,
+  "checks_passed": 83
+}

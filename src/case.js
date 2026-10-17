@@ -264,7 +264,14 @@
     if (!video) return null;
     const poster = safeHref(item.poster);
     const type = videoType(video);
-    const player = h('video', {controls: true, preload: 'none', playsinline: true, poster, width: '1280', height: '720', 'aria-label': (item.title || item.id) + 'の解説動画'},
+    const hasDimensions = Number.isInteger(item.video_width) && Number.isInteger(item.video_height)
+      && item.video_width > 0 && item.video_height > 0 && item.video_width <= 8192 && item.video_height <= 8192;
+    const width = hasDimensions ? item.video_width : 1280;
+    const height = hasDimensions ? item.video_height : 720;
+    const wideVideo = safeHref(item.video_landscape);
+    const player = h('video', {controls: true, preload: 'none', playsinline: true, poster, width: String(width), height: String(height),
+      ...(height > width ? {style: `aspect-ratio:${width}/${height};max-height:82vh;max-height:82svh;background:var(--paper)`} : {}),
+      'aria-label': (item.title || item.id) + 'の解説動画'},
       h('source', {src: video, type}),
       h('a', {href: video}, '動画を開く'));
     const frame = h('div', {class: 'video-frame'}, player);
@@ -284,6 +291,7 @@
           h('p', {class: 'video-links'},
             h('a', {href: video}, '動画を大きく見る'),
             h('a', {href: video, download: ''}, 'MP4を保存'),
+            wideVideo ? h('a', {href: wideVideo}, '横向き版を見る') : null,
             extras.videoSource ? h('a', {href: extras.videoSource}, '映像のソースを開く') : null))));
   }
 

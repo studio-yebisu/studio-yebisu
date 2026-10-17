@@ -83,7 +83,7 @@ def main():
         result = subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration:stream=codec_type,width,height', '-of', 'json', str(DIST / case['video'])], encoding='utf-8')
         video = json.loads(result)
         assert float(video['format']['duration']) >= 20, 'Explainer is too short'
-        assert any(s.get('width', 0) >= 960 for s in video['streams']), 'Video resolution is too low'
+        assert any(max(s.get('width', 0), s.get('height', 0)) >= 960 and min(s.get('width', 0), s.get('height', 0)) >= 540 for s in video['streams']), 'Video resolution is too low (long edge 960, short edge 540 required)'
         sample_data = json.loads((DIST / case['samples']).read_text('utf-8'))
         samples = sample_data['samples']
         assert samples, f'No samples for {case["id"]}'
