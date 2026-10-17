@@ -1,69 +1,67 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>28秒・無音の解説動画の元ページ — 声から、次の試作へ（Synthesize Research 作例）</title>
-<script>if (window.__MOTION_RENDER__ === true) document.documentElement.classList.add('is-render');</script>
-<link rel="stylesheet" href="video.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>動画ソース：発言を束ねても、違いは残す（32秒・無音）</title>
+  <meta name="description" content="架空ヒアリング3件の保存済みの整理を、3冊のメモ・15枚の発言・5つのまとまり・1枚の提案の図で描く32秒の無音動画の編集ソースです。">
+  <meta name="color-scheme" content="light">
+  <link rel="stylesheet" href="video.css">
+  <script>
+    if (window.__MOTION_RENDER__ === true || /[?&]render=1(?:&|$)/.test(location.search)) document.documentElement.dataset.render = '1';
+  </script>
+  <script type="module" src="video.js"></script>
 </head>
 <body>
-<header class="intro">
-  <p class="eyebrow">Studio Yebisu · Synthesize Research 作例 · 解説動画の元ページ</p>
-  <h1>まとめた理由を、原文までたどれる。<span class="sub">28秒・無音の解説動画</span></h1>
-  <p>制作担当が書いた架空のヒアリングメモ3件（15行）に、固定版の Synthesize Research（knowledge-work-plugins f652327・product-management v1.2.0）を制作時に1回適用した保存済みの整理を、発見から原文の行までたどり、選んだ発見を Markdown で保存するところまで、実画面の静止キャプチャと実際のファイルで組み直した映像です。続けて録画したものではありません。ページでも映像でも、AIは動きません。</p>
-</header>
-
-<figure class="stage">
-  <canvas id="film" width="1280" height="720" role="img"
-    aria-label="解説動画の画面。上に4段階（メモ・発見・原文・保存）。架空メモの問いと空き日の探し方の3行、保存済みの発見5件、F05で支持する発言が1人だけで反する発言を別に置くこと、反する発言 P02-L04 の原文の行、F03で控え・当日の変更・未定の用途の違いを残すこと、保存した F05 の Markdown とスマホ幅の実画面を順に示します。"></canvas>
-  <figcaption>無音の映像です。足元に「架空メモ3件・保存済みの整理／無音・実画面を編集」をいつも表示しています。</figcaption>
-</figure>
-
-<section class="controls" aria-label="プレビューの操作">
-  <button id="play" type="button" aria-pressed="false" disabled>再生</button>
-  <div class="scrub">
-    <label for="time">再生位置（0〜28秒）</label>
-    <input id="time" type="range" min="0" max="28" step="0.1" value="0" disabled aria-describedby="keys">
+  <div id="stage" class="stage">
+    <canvas id="film" class="film" width="720" height="1280" role="img" aria-label="動画の素材を照合しています"></canvas>
+    <p id="film-error" class="film-error" role="alert" hidden></p>
   </div>
-  <output id="clock" for="time">0.0秒 / 28.0秒</output>
-</section>
-<p id="keys" class="hint">自動では再生しません。スライダーでは ← → で0.1秒、PageUp・PageDown で2秒ずつ、Home・End で先頭・末尾へ移ります（Home のあと PageUp を7回で14秒）。</p>
-<p id="status" class="status" role="status" data-state="loading">保存済みのファイルと実画面を確かめています…</p>
-<p id="detail" class="hint"></p>
-<ul id="verified" class="verified" aria-label="照合したファイル" hidden></ul>
-<p><button id="reload" class="reload" type="button" hidden>再読み込み</button></p>
 
-<section class="scenes" aria-labelledby="scenes-title">
-  <h2 id="scenes-title">場面</h2>
-  <ol>
-    <li><span class="time">0〜4.5秒</span> メモ：入力の問いと、空き日の探し方についての原文3行（P01-L02・P02-L04・P03-L02）。スマホ幅の最初の画面。</li>
-    <li><span class="time">4.5〜7.5秒</span> 発見：保存済みの発見5件と、実画面の一覧。人数はこの架空の3人の中の数で、並びは暫定。</li>
-    <li><span class="time">7.5〜14秒</span> 発見：F05「月単位の空き表示は、1人の希望」。支持は P03-L02 の1/3人だけ。反する発言 P02-L04 は別の欄で、支持に数えない。</li>
-    <li><span class="time">14〜18秒</span> 原文：反する発言 P02-L04 の原文の行（行へ移ったあとの実画面）と、同じ文。</li>
-    <li><span class="time">18〜23秒</span> 原文：F03「通知手段の希望はそろわない」。控え（P01）・当日の変更（P02）・未定（P03）を原文から抜粋。一つの手段に決める根拠にはしない。</li>
-    <li><span class="time">23〜28秒</span> 保存：ブラウザーで保存した synthesis-F05.md の抜粋と、スマホ幅の F05 の実画面。「発見を選ぶ → 原文を読む → 保存」。</li>
-  </ol>
-</section>
+  <section class="panel" aria-labelledby="panel-title">
+    <p class="panel-badges"><span class="badge badge--ink">保存済みの整理を図解</span><span class="badge">32秒・無音</span></p>
+    <h1 id="panel-title" class="panel-title">発言を束ねても、違いは残す。</h1>
+    <p class="panel-lead">架空メモ3冊の15枚の発言が5つのまとまりへ移り、F05の支持・反する声・数えない声を分け、R05と保存へつながるまでを1枚の図で描きます。ナレーション・音声はありません。</p>
 
-<nav class="links" aria-label="関連するファイル">
-  <h2>関連するファイル</h2>
-  <ul>
-    <li><a href="../index.html">作例のページを開く（発見を選ぶ・原文を読む・保存）</a></li>
-    <li><a href="../outputs/synthesis.json">保存済みの整理（outputs/synthesis.json）</a></li>
-    <li><a href="../outputs/browser-selected.md">ブラウザーで保存した F05 の Markdown（outputs/browser-selected.md）</a></li>
-    <li><a href="assets/screen-manifest.json">実画面の記録（assets/screen-manifest.json）</a></li>
-    <li><a href="storyboard.json">場面の設計（storyboard.json）</a></li>
-    <li><a href="README.md">この映像の説明（README.md）</a></li>
-    <li><a href="../vendor/knowledge-work-plugins/LICENSE">原典のライセンス（Apache-2.0）</a></li>
-  </ul>
-</nav>
+    <p id="status" class="status" role="status">7つの素材のバイト数とSHA-256を照合しています…</p>
+    <p class="reload-row"><button id="reload" class="button" type="button" hidden>再読み込み</button></p>
 
-<footer class="foot">
-  <p>メモは架空で、すべて架空の参加者の自己申告です。実在の顧客調査・操作の観察・分析ログ・効果の測定は含みません。人によるレビューや承認は受けていません。</p>
-  <p>映像のコードと文章：MIT License, Copyright (c) 2026 Studio Yebisu（制作：Claude Opus 5.5）。原典 anthropics/knowledge-work-plugins：Apache-2.0。Anthropic による承認や推奨を示すものではありません。</p>
-</footer>
+    <div class="transport" role="group" aria-label="再生">
+      <button id="play" class="button" type="button" aria-pressed="false" disabled>再生</button>
+      <button id="reset" class="button button--quiet" type="button" disabled>最初へ</button>
+      <button id="end" class="button button--quiet" type="button" disabled>最後へ</button>
+      <button id="replay" class="button button--quiet" type="button" disabled>最初から再生</button>
+    </div>
+    <div class="scrub-row">
+      <label class="field-label" for="scrub">位置</label>
+      <input id="scrub" class="scrub" type="range" min="0" max="32" step="0.0333333" value="0" disabled>
+      <output id="clock" class="clock" for="scrub">0.0 / 32.0 秒</output>
+    </div>
+    <div id="scenes" class="scenes" role="group" aria-label="場面へ移動"></div>
+    <div class="sizes" role="group" aria-label="画面の向き（プレビューのみ）">
+      <button class="button button--quiet size" type="button" data-size="720x1280" aria-pressed="true" disabled>縦 720×1280</button>
+      <button class="button button--quiet size" type="button" data-size="1280x720" aria-pressed="false" disabled>横 1280×720</button>
+    </div>
+    <p id="motion-note" class="hint" hidden>動きを減らす設定のため、再生は場面ごとの止まった画で進みます。</p>
 
-<script type="module" src="video.js"></script>
+    <details class="fold">
+      <summary>この動画の範囲</summary>
+      <div class="fold-body">
+        <ul class="plain-list">
+          <li>描く内容は、制作時に Claude Opus 5.5 が固定版 Synthesize Research を架空メモへ適用して保存した整理（synthesis.json）です。動画の中で整理をやり直したり、AIを動かしたりはしません。</li>
+          <li>メモは制作担当が書いた架空の参加者3人の自己申告15行です。実在の顧客・観察した操作・計測した効果は含みません。</li>
+          <li>図の配置と短いラベルは見せ方です。引用の全文は assets/interviews.json と作例ページで読めます。</li>
+          <li>提案R05はまだ行っていない観察の計画です。月表示を作った・改善したという意味ではありません。</li>
+          <li>assets/original-verification.json は、旧版（28秒）の動画と作例までの確認記録です。この32秒版の書き出しと確認は、<a href="../verification.json">今回の確認記録</a>に分けています。</li>
+        </ul>
+        <p class="links">
+          <a class="textlink" href="../index.html">作例ページ</a>
+          <a class="textlink" href="storyboard.json">storyboard.json</a>
+          <a class="textlink" href="README.md">README.md</a>
+          <a class="textlink" href="assets/manifest.json">assets/manifest.json</a>
+        </p>
+      </div>
+    </details>
+  </section>
 </body>
 </html>

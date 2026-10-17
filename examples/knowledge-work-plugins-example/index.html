@@ -3,176 +3,152 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>声から、次の試作へ｜架空ヒアリング3件の整理（Synthesize Research作例）</title>
-  <meta name="description" content="架空のヒアリングメモ3件を、固定版の Synthesize Research（Knowledge Work Plugins の product-management）で整理した保存済みの結果を、発見から原文の行までたどって読むビューアです。ページを開いてもAIは動きません。">
+  <title>発言を束ねても、違いは残す｜架空ヒアリング3件の整理を図で読む（Synthesize Research作例）</title>
+  <meta name="description" content="架空のヒアリングメモ3件・15行を、固定版の Synthesize Research（Knowledge Work Plugins の product-management）で整理した保存済みの結果を、1枚のまとまりの図で読むビューアです。ページを開いてもAIは動きません。">
   <meta name="color-scheme" content="light">
   <link rel="stylesheet" href="style.css">
   <script type="module" src="app.js"></script>
 </head>
 <body>
-  <a class="skip" href="#findings-title">発見の一覧へ</a>
+  <a class="skip" href="#choices">発見の選択へ</a>
 
-  <nav class="topbar wrap" aria-label="サイト内の移動">
-    <a class="toplink" href="../../case.html?id=knowledge-work-plugins-example">← 作例の解説へ</a>
-  </nav>
-
-  <header class="masthead wrap">
-    <p class="eyebrow">Synthesize Research 作例　<span class="pill">架空メモ3件・保存済みの整理結果</span></p>
-    <h1><span>声から、</span><span>次の試作へ。</span></h1>
-    <p class="lead">貸し道具の予約について、架空メモ3件を整理。発見を選び、根拠の発言から原文へたどれます。</p>
-    <ul class="sources" aria-label="資料の参加者（架空・自己申告）">
-      <li><span class="sid">P01</span>個人・月に数回</li>
-      <li><span class="sid">P02</span>制作チーム・週に数回</li>
-      <li><span class="sid">P03</span>初めての利用</li>
-    </ul>
+  <header class="top">
+    <p class="top-row">
+      <a class="toplink" href="../../case.html?id=knowledge-work-plugins-example">← 作例の解説</a>
+      <span class="badge">架空3人・保存済みの整理</span>
+    </p>
+    <h1 class="title">発言を束ねても、違いは残す。</h1>
   </header>
 
-  <main id="main">
-    <div class="wrap">
-      <p id="load-status" class="load-status" role="status">保存済みの整理と原文を読み込んでいます…</p>
+  <main id="main" class="main">
+    <section class="hero" aria-labelledby="map-title">
+      <h2 id="map-title" class="vh">3冊のメモ、15枚の発言、5つのまとまりと、選んだ発見の次の一歩</h2>
+      <p id="load-status" class="load-status" role="status">固定した4つのファイルを照合しています…</p>
       <p class="retry-row"><button id="retry" class="button" type="button" hidden>もう一度読み込む</button></p>
-      <noscript><p class="load-status is-error">発見の選択と絞り込みには JavaScript が必要です。原文のメモはページ下部で開けます。整理の全文は <a class="filelink" href="outputs/synthesis.md">outputs/synthesis.md</a> で読めます。</p></noscript>
-    </div>
+      <noscript><p class="load-status is-error">図と選択には JavaScript が必要です。原文は <a class="filelink" href="input/interviews.json">input/interviews.json</a>、整理の全文は <a class="filelink" href="outputs/synthesis.md">outputs/synthesis.md</a> で読めます。</p></noscript>
+      <figure class="map-figure">
+        <svg id="map" class="map" role="group" aria-labelledby="map-title" aria-describedby="map-desc" focusable="false"></svg>
+        <figcaption id="map-desc" class="vh" aria-live="polite"></figcaption>
+      </figure>
+      <ul class="legend" aria-label="図の線の見方">
+        <li><span class="key key--support" aria-hidden="true"></span>支持</li>
+        <li><span class="key key--contrary" aria-hidden="true"></span>反する（数えない）</li>
+        <li><span class="key key--neutral" aria-hidden="true"></span>どちらにも数えない</li>
+        <li>発言を押すと原文</li>
+      </ul>
+    </section>
 
-    <section class="wrap workbench" aria-labelledby="findings-title">
-      <h2 id="findings-title" class="step"><span class="step-no" aria-hidden="true">1</span>発見を選ぶ</h2>
+    <section class="rail" aria-label="発見を選んで持ち帰る">
+      <div id="choices" class="choices" role="group" aria-label="発見を選ぶ（5件）" tabindex="-1">
+        <button class="choice" type="button" data-finding="F01" aria-pressed="false" disabled><span class="choice-id">F01</span><span class="choice-name">完了と控え</span></button>
+        <button class="choice" type="button" data-finding="F02" aria-pressed="false" disabled><span class="choice-id">F02</span><span class="choice-name">送信前条件</span></button>
+        <button class="choice" type="button" data-finding="F03" aria-pressed="false" disabled><span class="choice-id">F03</span><span class="choice-name">通知の用途</span></button>
+        <button class="choice" type="button" data-finding="F04" aria-pressed="false" disabled><span class="choice-id">F04</span><span class="choice-name">良い点</span></button>
+        <button class="choice" type="button" data-finding="F05" aria-pressed="false" disabled><span class="choice-id">F05</span><span class="choice-name">月表示</span></button>
+      </div>
+      <div class="save-row">
+        <button id="save-md" class="button button--primary" type="button" disabled>選んだ発見をMarkdownで保存</button>
+        <button id="save-json" class="button button--quiet" type="button" disabled aria-label="整理全体をJSONで保存">全体JSON</button>
+      </div>
+      <p id="save-status" class="save-status" role="status"></p>
 
+      <section id="slip-reader" class="reader" aria-labelledby="reader-title" hidden>
+        <h2 id="reader-title" class="reader-title" tabindex="-1"></h2>
+        <p class="reader-head"><span id="reader-who"></span><span id="reader-kind" class="ev-kind"></span></p>
+        <blockquote id="reader-quote" class="ev-quote"></blockquote>
+        <p class="reader-use" id="reader-use"></p>
+        <p class="ev-interp"><span class="ev-interp-label">コード（整理者）</span><span id="reader-code"></span></p>
+        <p class="ev-interp"><span class="ev-interp-label">解釈（整理者）</span><span id="reader-interp"></span></p>
+        <p class="reader-actions">
+          <a id="reader-link" class="textlink" href="#notes">原文をメモで見る</a>
+          <button id="reader-close" class="button button--quiet" type="button">図に戻る</button>
+        </p>
+      </section>
+
+      <details id="evidence" class="fold fold--evidence">
+        <summary id="evidence-summary">根拠と全文を読む</summary>
+        <div class="fold-body">
+          <section id="detail" class="detail" aria-labelledby="detail-title">
+            <p id="detail-eyebrow" class="detail-eyebrow"></p>
+            <h3 id="detail-title" class="detail-title" tabindex="-1">発見を読み込むと、ここに根拠を表示します。</h3>
+            <div id="detail-body" class="detail-body" hidden>
+              <dl class="facts">
+                <div><dt>支持する参加者</dt><dd id="d-frequency"></dd></div>
+                <div><dt>確からしさ</dt><dd id="d-confidence"></dd></div>
+                <div class="facts-wide"><dt>影響</dt><dd id="d-impact"></dd></div>
+              </dl>
+
+              <section class="block block--interp" aria-labelledby="d-summary-title">
+                <h4 id="d-summary-title" class="block-title">発見<span class="tag tag--interp">整理者の解釈</span></h4>
+                <p id="d-summary"></p>
+              </section>
+
+              <section class="block" aria-labelledby="d-evidence-title">
+                <h4 id="d-evidence-title" class="block-title">支持する発言<span class="tag tag--source">原文のまま</span></h4>
+                <ol id="d-evidence" class="evidence"></ol>
+              </section>
+
+              <section class="block" aria-labelledby="d-contra-title">
+                <h4 id="d-contra-title" class="block-title">反する発言<span class="tag tag--muted">支持の人数に数えない</span></h4>
+                <ol id="d-contra" class="evidence evidence--contra"></ol>
+                <p id="d-contra-none" class="hint" hidden>この発見に反する発言は記録していません。</p>
+              </section>
+
+              <section class="block block--interp" aria-labelledby="d-reason-title">
+                <h4 id="d-reason-title" class="block-title">確からしさの理由<span class="tag tag--interp">整理者の解釈</span></h4>
+                <p id="d-reason"></p>
+              </section>
+
+              <section class="block block--next" aria-labelledby="d-next-title">
+                <h4 id="d-next-title" class="block-title">次の一歩<span class="tag tag--muted">未実施</span></h4>
+                <p id="d-next"></p>
+                <ul id="d-recs" class="recs"></ul>
+              </section>
+            </div>
+          </section>
+        </div>
+      </details>
+      <p class="notice">保存済みの整理を図にしています。このページでAIは動かず、新しい整理もしません。</p>
+    </section>
+
+    <section class="tools" aria-labelledby="tools-title">
+      <h2 id="tools-title" class="section-title">絞り込む</h2>
       <div class="controls">
         <fieldset class="filter">
-          <legend>支持する参加者で絞り込む</legend>
+          <legend>支持する参加者</legend>
           <div class="filter-row">
             <button class="chip" type="button" data-participant="all" aria-pressed="true" disabled>すべて</button>
             <button class="chip" type="button" data-participant="P01" aria-pressed="false" disabled>P01</button>
             <button class="chip" type="button" data-participant="P02" aria-pressed="false" disabled>P02</button>
             <button class="chip" type="button" data-participant="P03" aria-pressed="false" disabled>P03</button>
           </div>
+          <p class="hint">反する発言だけの参加者は、支持に数えません。</p>
         </fieldset>
         <div class="search">
           <label class="field-label" for="query">発見と根拠の言葉で探す</label>
           <input id="query" class="query" type="search" autocomplete="off" enterkeyhint="search" aria-describedby="query-hint" disabled>
-          <p id="query-hint" class="hint">空白で区切ると、すべての語を含む発見だけを表示します（例：SMS メール）。</p>
+          <p id="query-hint" class="hint">空白で区切ると、すべての語を含む発見だけが残ります（例：SMS メール）。</p>
         </div>
         <p class="controls-foot">
           <output id="match-count" class="match-count" role="status" aria-live="polite">—</output>
           <button id="reset" class="button button--quiet" type="button" disabled>絞り込みを解除</button>
         </p>
       </div>
-
-      <div class="layout">
-        <div class="list-pane">
-          <ol id="finding-list" class="finding-list" aria-label="発見（優先順）"></ol>
-          <p id="empty" class="empty" hidden>条件に合う発見はありません。検索の語を減らすか、「絞り込みを解除」を押してください。</p>
-        </div>
-
-        <section id="detail" class="detail" aria-labelledby="detail-title">
-          <p id="detail-eyebrow" class="detail-eyebrow"></p>
-          <h2 id="detail-title" class="detail-title" tabindex="-1">発見を読み込むと、ここに根拠を表示します。</h2>
-          <div id="detail-body" class="detail-body" hidden>
-            <dl class="facts">
-              <div><dt>支持する参加者</dt><dd id="d-frequency"></dd></div>
-              <div><dt>確からしさ</dt><dd id="d-confidence"></dd></div>
-              <div class="facts-wide"><dt>影響</dt><dd id="d-impact"></dd></div>
-            </dl>
-
-            <section class="block block--interp" aria-labelledby="d-summary-title">
-              <h3 id="d-summary-title" class="block-title">発見<span class="tag tag--interp">整理者の解釈</span></h3>
-              <p id="d-summary"></p>
-            </section>
-
-            <section class="block" aria-labelledby="d-evidence-title">
-              <h3 id="d-evidence-title" class="block-title">支持する発言<span class="tag tag--source">原文のまま</span></h3>
-              <ol id="d-evidence" class="evidence"></ol>
-            </section>
-
-            <section class="block" aria-labelledby="d-contra-title">
-              <h3 id="d-contra-title" class="block-title">反する発言<span class="tag tag--muted">支持の人数に数えない</span></h3>
-              <ol id="d-contra" class="evidence evidence--contra"></ol>
-              <p id="d-contra-none" class="hint" hidden>この発見に反する発言は記録していません。</p>
-            </section>
-
-            <section class="block block--interp" aria-labelledby="d-reason-title">
-              <h3 id="d-reason-title" class="block-title">確からしさの理由<span class="tag tag--interp">整理者の解釈</span></h3>
-              <p id="d-reason"></p>
-            </section>
-
-            <section class="block block--next" aria-labelledby="d-next-title">
-              <h3 id="d-next-title" class="block-title">次の一歩</h3>
-              <p id="d-next"></p>
-              <ul id="d-recs" class="recs"></ul>
-            </section>
-          </div>
-        </section>
-      </div>
     </section>
 
-    <section class="wrap save" aria-labelledby="save-title">
-      <h2 id="save-title" class="step"><span class="step-no" aria-hidden="true">2</span>持ち帰る</h2>
-      <p class="actions">
-        <button id="save-md" class="button" type="button" disabled>選んだ発見をMarkdownで保存</button>
-        <button id="save-json" class="button button--quiet" type="button" disabled>整理全体をJSONで保存</button>
-      </p>
-      <p id="save-status" class="save-status" role="status"></p>
-      <p class="hint">Markdownは選んでいる発見1件分（引用・行ID・反する発言・人数・次の一歩）、JSONは保存済みの整理全体（outputs/synthesis.json と同じ内容）です。</p>
+    <section id="notes" class="notes" aria-labelledby="notes-title">
+      <h2 id="notes-title" class="section-title">原文のメモ</h2>
+      <p class="hint">制作担当がこの作例のために書いた架空のメモです。すべて架空の参加者の自己申告で、操作を観察した記録ではありません。行IDは図の発言と同じです。</p>
+      <p id="notes-status" class="hint">照合が終わると、input/interviews.json の15行をここに表示します。</p>
+      <div id="note-list"></div>
+      <p class="back-row"><a class="textlink" href="#main">図に戻る</a></p>
     </section>
 
-    <div class="wrap">
-      <p class="notice">表示と絞り込みは保存済みデータ。新しい資料のAI整理は行いません。</p>
-    </div>
-
-    <section id="notes" class="wrap notes" aria-labelledby="notes-title">
-      <h2 id="notes-title" class="step"><span class="step-no" aria-hidden="true">3</span>原文のメモ</h2>
-      <p class="hint">制作担当がこの作例のために書いた架空のメモです。すべて架空の参加者の自己申告で、操作を観察した記録ではありません。行IDは整理の引用と同じです。</p>
-
-      <details id="note-P01" class="fold note" data-participant="P01">
-        <summary><span class="sid">P01</span>月に数回借りる、個人の利用者</summary>
-        <div class="fold-body">
-          <p class="note-context">スマホで移動中に空き時間を探す。発言は自己申告。</p>
-          <ol class="lines">
-            <li id="line-P01-L01" class="line" tabindex="-1" data-line-id="P01-L01"><span class="line-id">P01-L01</span><span class="line-text">予約ボタンを押したあと、終わったのか分からなくて、同じ予約をもう一度送ったことがあります。</span></li>
-            <li id="line-P01-L02" class="line" tabindex="-1" data-line-id="P01-L02"><span class="line-id">P01-L02</span><span class="line-text">空いている日を探すときは、日付を一日ずつ開いて確かめています。</span></li>
-            <li id="line-P01-L03" class="line" tabindex="-1" data-line-id="P01-L03"><span class="line-id">P01-L03</span><span class="line-text">予約の控えはメールに残したいです。SMSはほかの連絡に埋もれます。</span></li>
-            <li id="line-P01-L04" class="line" tabindex="-1" data-line-id="P01-L04"><span class="line-id">P01-L04</span><span class="line-text">道具の写真が大きいので、何を借りるかは決めやすいです。</span></li>
-            <li id="line-P01-L05" class="line" tabindex="-1" data-line-id="P01-L05"><span class="line-id">P01-L05</span><span class="line-text">受け取り時間を変更できるのか、予約を送る前に知りたいです。</span></li>
-          </ol>
-        </div>
-      </details>
-
-      <details id="note-P02" class="fold note" data-participant="P02">
-        <summary><span class="sid">P02</span>週に数回借りる、小さな制作チームの担当者</summary>
-        <div class="fold-body">
-          <p class="note-context">チームの予定と照合し、スマホからまとめて予約する。発言は自己申告。</p>
-          <ol class="lines">
-            <li id="line-P02-L01" class="line" tabindex="-1" data-line-id="P02-L01"><span class="line-id">P02-L01</span><span class="line-text">完了画面を閉じてから、予約番号をチームに伝えるために、最初から一覧を開き直しています。</span></li>
-            <li id="line-P02-L02" class="line" tabindex="-1" data-line-id="P02-L02"><span class="line-id">P02-L02</span><span class="line-text">前日の取消料がかかることに、予約したあとで気づきました。送る前に条件を見たいです。</span></li>
-            <li id="line-P02-L03" class="line" tabindex="-1" data-line-id="P02-L03"><span class="line-id">P02-L03</span><span class="line-text">当日の変更はSMSで知りたいです。メールは作業が終わるまで見ない日があります。</span></li>
-            <li id="line-P02-L04" class="line" tabindex="-1" data-line-id="P02-L04"><span class="line-id">P02-L04</span><span class="line-text">いつも同じ曜日に借りるので、日付を一つずつ開く今の方法でも困っていません。</span></li>
-            <li id="line-P02-L05" class="line" tabindex="-1" data-line-id="P02-L05"><span class="line-id">P02-L05</span><span class="line-text">前に借りた道具の名前が一覧に残るので、次の予約で探し直さずに済みます。</span></li>
-          </ol>
-        </div>
-      </details>
-
-      <details id="note-P03" class="fold note" data-participant="P03">
-        <summary><span class="sid">P03</span>初めて利用する、個人の利用者</summary>
-        <div class="fold-body">
-          <p class="note-context">週末の道具を探してスマホで予約を試す。発言は自己申告。</p>
-          <ol class="lines">
-            <li id="line-P03-L01" class="line" tabindex="-1" data-line-id="P03-L01"><span class="line-id">P03-L01</span><span class="line-text">送信した直後に完了の文字が見つからず、予約できたか確認するメールをお店に送りました。</span></li>
-            <li id="line-P03-L02" class="line" tabindex="-1" data-line-id="P03-L02"><span class="line-id">P03-L02</span><span class="line-text">使いたい週末が空いているか、月の予定をまとめて見たいです。</span></li>
-            <li id="line-P03-L03" class="line" tabindex="-1" data-line-id="P03-L03"><span class="line-id">P03-L03</span><span class="line-text">取消できる期限が分からなくて、その場では予約せずに閉じました。</span></li>
-            <li id="line-P03-L04" class="line" tabindex="-1" data-line-id="P03-L04"><span class="line-id">P03-L04</span><span class="line-text">写真で道具の大きさが分かるのは助かりました。</span></li>
-            <li id="line-P03-L05" class="line" tabindex="-1" data-line-id="P03-L05"><span class="line-id">P03-L05</span><span class="line-text">SMSかメールかは、まだ選んだことがなく、どちらがよいか分かりません。</span></li>
-          </ol>
-        </div>
-      </details>
-
-      <p class="back-row"><a class="textlink" href="#detail-title">選んでいる発見に戻る</a></p>
-    </section>
-
-    <section class="wrap more" aria-label="範囲・出典・依頼文">
+    <section class="more" aria-label="範囲・出典・依頼文">
       <details id="unknowns" class="fold">
         <summary>まだ分からないこと</summary>
         <div class="fold-body">
-          <p id="unknowns-status" class="hint">保存済みの整理を読み込むと、未解決の問いと限界を表示します。</p>
+          <p id="unknowns-status" class="hint">照合が終わると、未解決の問いと限界を表示します。</p>
           <h3 class="sub-title">まだ答えられていない問い</h3>
           <ul id="open-questions" class="plain-list"></ul>
           <h3 class="sub-title">この整理の限界</h3>
@@ -183,31 +159,47 @@
       <details class="fold">
         <summary>この作例の範囲</summary>
         <div class="fold-body">
-          <p class="question"><span class="question-label">問い</span>貸し道具の予約画面で、次に試す改善案をどの発言から考えられるか。</p>
+          <p class="question"><span class="question-label">問い</span><span id="research-question">（照合後に表示）</span></p>
           <ul class="plain-list">
             <li>資料は、制作担当がこの作例のために書いた架空のメモ3件・15行です。実在の顧客や店舗の調査ではありません。</li>
             <li>どの発言も架空の参加者の自己申告です。操作の観察・分析ログ・アンケート・売上・効果の測定は含みません。</li>
-            <li>「3人中2人」などの人数は、この3人の中の数です。利用者全体の割合や市場の大きさは分かりません。</li>
-            <li>発見は次の試作と追加調査を考えるための暫定的な解釈で、実装や正式採用を決めるものではありません。</li>
-            <li>整理は制作時に Claude Opus 5.5 が固定版の SKILL.md を読んで1回行い、保存しました。人によるレビューは受けていません。</li>
+            <li>「1/3人」などの人数は、この3人の中の数です。利用者全体の割合や市場の大きさは分かりません。</li>
+            <li>確からしさ（中が3件・低が2件）と優先順は整理者の定性的な判断で、点数の式は使っていません。順は暫定です。</li>
+            <li>提案R01〜R05は試作と追加調査の案で、どれも実装・テストしていません。効果は分かりません。</li>
+            <li>整理は制作時に Claude Opus 5.5 が固定版の SKILL.md を読んで1回行い、保存しました。人によるレビューや複数人でのコード付けの照合は受けていません。</li>
             <li>プラグインの導入、スラッシュコマンド、MCPコネクターは使っていません。メモは手元のファイルとして渡しました。</li>
+            <li>この図は保存済みの整理を描き直したものです。図の配置・短いラベルは見せ方で、新しい分析ではありません。</li>
           </ul>
+          <h3 class="sub-title">保存済みの操作例（samples.json）</h3>
+          <ul id="sample-list" class="plain-list"></ul>
         </div>
       </details>
 
       <details class="fold">
         <summary>出典とファイル</summary>
         <div class="fold-body">
-          <p>使ったスキルは anthropics/knowledge-work-plugins（固定コミット f652327d4e953d7957d99e735c3c7f9964e9d2e5）の product-management プラグイン v1.2.0 に含まれる synthesize-research です。Apache-2.0 で、読んだ7ファイルを vendor/knowledge-work-plugins/ に改変せずに置いています。Anthropic による承認や推奨を示すものではありません。</p>
+          <p>使ったスキルは anthropics/knowledge-work-plugins（固定コミット f652327d4e953d7957d99e735c3c7f9964e9d2e5）の product-management プラグイン v1.2.0 に含まれる synthesize-research です。Apache-2.0 で、読んだ7ファイルを vendor/knowledge-work-plugins/ に改変せずに置いています。選んだ範囲に NOTICE ファイルはありません。Anthropic による承認や推奨を示すものではありません。</p>
           <ul class="files">
             <li><a class="filelink" href="https://github.com/anthropics/knowledge-work-plugins/blob/f652327d4e953d7957d99e735c3c7f9964e9d2e5/product-management/skills/synthesize-research/SKILL.md">SKILL.md（固定版・GitHub）</a></li>
+            <li><a class="filelink" href="https://github.com/anthropics/knowledge-work-plugins/tree/f652327d4e953d7957d99e735c3c7f9964e9d2e5/product-management">product-management（固定版・GitHub）</a></li>
             <li><a class="filelink" href="vendor/knowledge-work-plugins/product-management/skills/synthesize-research/SKILL.md">同梱の SKILL.md</a></li>
+            <li><a class="filelink" href="vendor/knowledge-work-plugins/product-management/README.md">同梱の product-management/README.md</a></li>
+            <li><a class="filelink" href="vendor/knowledge-work-plugins/product-management/CONNECTORS.md">同梱の CONNECTORS.md</a></li>
+            <li><a class="filelink" href="vendor/knowledge-work-plugins/product-management/.claude-plugin/plugin.json">同梱の plugin.json</a></li>
+            <li><a class="filelink" href="vendor/knowledge-work-plugins/README.md">同梱のリポジトリ README.md</a></li>
+            <li><a class="filelink" href="vendor/knowledge-work-plugins/LICENSE">vendor/knowledge-work-plugins/LICENSE</a><span>原典の Apache-2.0</span></li>
+            <li><a class="filelink" href="vendor/knowledge-work-plugins/product-management/LICENSE">product-management/LICENSE</a><span>Apache-2.0</span></li>
             <li><a class="filelink" href="input/interviews.json">input/interviews.json</a><span>架空のメモ（原文）</span></li>
-            <li><a class="filelink" href="outputs/synthesis.md">outputs/synthesis.md</a><span>整理の全文（日本語）</span></li>
             <li><a class="filelink" href="outputs/synthesis.json">outputs/synthesis.json</a><span>このページが読む整理データ</span></li>
+            <li><a class="filelink" href="outputs/synthesis.md">outputs/synthesis.md</a><span>整理の全文（日本語）</span></li>
+            <li><a class="filelink" href="samples.json">samples.json</a><span>入力と出力の対</span></li>
+            <li><a class="filelink" href="request.txt">request.txt</a><span>同じ手順の依頼文</span></li>
+            <li><a class="filelink" href="data-manifest.json">data-manifest.json</a><span>4ファイルのバイト数とSHA-256</span></li>
+            <li><a class="filelink" href="comparison.html">comparison.html</a><span>元の文字中心のビューア</span></li>
+            <li><a class="filelink" href="video/index.html">video/index.html</a><span>32秒・無音の動画の編集ソース</span></li>
+            <li><a class="filelink" href="verification.json">verification.json</a><span>旧版（28秒の動画まで）の確認記録</span></li>
             <li><a class="filelink" href="brief.json">brief.json</a><span>制作ブリーフ</span></li>
             <li><a class="filelink" href="README.md">README.md</a><span>操作と再現の手順</span></li>
-            <li><a class="filelink" href="vendor/knowledge-work-plugins/LICENSE">vendor/knowledge-work-plugins/LICENSE</a><span>原典の Apache-2.0</span></li>
             <li><a class="filelink" href="LICENSE">LICENSE</a><span>作例の MIT License</span></li>
           </ul>
         </div>
@@ -217,12 +209,11 @@
         <summary>同じ手順を別のメモで使う依頼文</summary>
         <div class="fold-body">
           <p>問い・決めること・メモの欄を自分の資料に置き換えて、固定版の SKILL.md を読めるAIに渡してください。メモは手で貼る前提で、ツールとの接続は要りません。</p>
-          <p id="request-status" class="hint">request.txt を読み込んでいます…</p>
+          <p id="request-status" class="hint">照合が終わると request.txt を表示します。</p>
           <label class="field-label" for="request-text">依頼文（request.txt）</label>
           <textarea id="request-text" class="request-text" rows="12" readonly></textarea>
           <p class="actions">
             <button id="copy-request" class="button" type="button" disabled>依頼文をコピー</button>
-            <button id="request-retry" class="button button--quiet" type="button" hidden>依頼文をもう一度読み込む</button>
             <a class="button button--quiet" href="request.txt">request.txt を開く</a>
           </p>
           <p id="copy-status" class="copy-status" role="status"></p>
@@ -231,10 +222,9 @@
     </section>
   </main>
 
-  <footer class="footer wrap">
+  <footer class="footer">
     <p>作例の文章・データ・コードは MIT License（Copyright (c) 2026 Studio Yebisu）。同梱した Knowledge Work Plugins の原典は Anthropic の公式リポジトリのファイルで、Apache-2.0 です（改変なし）。Claude や接続サービスの利用条件・料金は別です。</p>
     <p><a class="textlink" href="../../case.html?id=knowledge-work-plugins-example">作例の解説へ</a></p>
   </footer>
-<section class="wrap" aria-labelledby="movie-title"><h2 id="movie-title">28秒で、発言から次の試作へ</h2><p>実際の整理結果と作例画面を用いた無音の編集動画です。入力は架空のヒアリングメモ3件で、実顧客の調査ではありません。</p><video controls playsinline preload="none" poster="../../media/knowledge-work-plugins-example.webp" style="display:block;width:100%;height:auto" aria-label="発言の根拠をたどる28秒の無音解説"><source src="../../media/knowledge-work-plugins-example.mp4" type="video/mp4"><a href="../../media/knowledge-work-plugins-example.mp4">MP4を開く</a></video><p><a href="../../media/knowledge-work-plugins-example.mp4">動画を大きく見る</a> · <a href="video/index.html">編集できる動画ソース</a> · <a href="source.zip">入力・整理結果・ソース一式</a> · <a href="verification.json">確認の範囲</a></p></section>
 </body>
 </html>

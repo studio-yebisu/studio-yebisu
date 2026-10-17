@@ -1,113 +1,128 @@
 {
-  "title": "まとめた理由を、原文までたどれる。— Synthesize Research 作例の解説動画",
-  "brief": {
-    "purpose": "架空のヒアリングメモ3件に固定版の Synthesize Research を適用した保存済みの整理を、発見から原文の行まで確かめて持ち帰れることを、スマホで見る日本語の読み手に伝える。",
-    "audience": "インタビューやヒアリングのメモを、次の試作や追加調査の判断材料にまとめたい日本語の読み手（スマホで見る人を含む）",
-    "message": "まとめた理由を、原文までたどれる。",
-    "next_action": "作例のページで「発見を選ぶ → 原文を読む → 保存」を試す。",
-    "format": {"duration_seconds": 28, "fps": 30, "frames": 840, "width": 1280, "height": 720, "audio": "none", "loop": false, "poster_seconds": 13.5},
-    "look": "作例のビューアと同じ生成り（#f7f2e7）・墨（#1d1b18）・深緑（#1d4b38）。支持は深緑、反する発言は琥珀（#7a4a12）。見出しは明朝42px、本文26px以上、注記17〜18px。",
-    "persistent": {
-      "step_rail": ["メモ", "発見", "原文", "保存"],
-      "footer": "架空メモ3件・保存済みの整理／無音・実画面を編集"
-    },
-    "motion": "要素は0.35〜0.45秒で入り、そのあとは止めて読む。場面の境目は0.4秒の重ね合わせで、上の段階表示と足元はいつも残す。実画面は等倍率の切り抜きで、注目の枠と接続の線だけを重ねる。最後の約4秒は止める。"
-  },
+  "format": "studio-yebisu-motion-storyboard-v1",
+  "case": "knowledge-work-plugins-example",
+  "title": "発言を束ねても、違いは残す。",
+  "message": "3人の架空メモから出た同じ15枚の発言を5つのまとまりへ移しても、支持・反する声・数えない声・用途の違いは別々に残る。選んだ発見F05は、根拠の行P03-L02から提案R05（作る前に観察・未実施）と保存へつながる。",
+  "duration": 32,
+  "fps": 30,
+  "frames": 960,
+  "silent": true,
+  "audioEvents": [],
+  "posterTime": 31,
+  "sizes": [
+    { "id": "portrait", "width": 720, "height": 1280, "native": true, "note": "縦の構図。メモ3冊を上に横並び、まとまりを中央、提案と保存を下に置く。" },
+    { "id": "wide", "width": 1280, "height": 720, "native": true, "note": "横の構図。メモ3冊を左に縦並び、まとまりを中央、提案と保存を右に置く。縦の拡大ではなく別の配置。" }
+  ],
+  "time_contract": "window.seek(seconds) は絶対時刻だけから完成した1枚を描く。呼び出し順・壁時計・前のフレームに依存しない。各フレームを ctx.save/restore で囲む。時刻の区切りは assets/timeline.json の in/out を使う。",
+  "persistent_objects": [
+    { "id": "notebooks", "count": 3, "source": "assets/interviews.json participants（P01・P02・P03、各5行）", "shape": "参加者の色の表紙。開くと5本の罫線と行番号L01〜L05。" },
+    { "id": "slips", "count": 15, "source": "assets/synthesis.json observations O01〜O15（行IDと参加者）・assets/diagram-data.json observations", "shape": "参加者の色の帯と参加者ID・行番号を持つ紙片。同じ15枚が最後まで移動するだけで、増えも消えもしない。" },
+    { "id": "clusters", "count": 5, "source": "assets/synthesis.json findings F01〜F05・assets/diagram-data.json findings（short_label・人数・確からしさ）", "shape": "角丸の囲み。F04は良い点として色を変え、F05は支持の列と反する列を持つ。" },
+    { "id": "unassigned", "count": 1, "source": "assets/diagram-data.json unassigned_observations（O02 / P01-L02）", "shape": "点線の「未分類」。欠けではなく、どちらにも数えない発言の置き場。" },
+    { "id": "proposal_sheet", "count": 1, "source": "assets/synthesis.json recommendations R05（priority「続けて調べる」）", "shape": "角の折れた紙。最初から点線で置き、終盤に中身が入る。「未実施」の判を押す。" },
+    { "id": "export", "count": 1, "source": "assets/samples.json exports（selected_finding F05 → synthesis-F05.md）", "shape": "Markdownの書類アイコンと保存名。" }
+  ],
   "scenes": [
     {
-      "id": "memo",
-      "start": 0,
-      "end": 4.5,
-      "step": "メモ",
-      "message": "まとめた理由を、原文までたどれる。",
-      "enter": "問い、スマホ幅の最初の画面、原文の3行カードが順に入る（0〜0.7秒）。",
-      "exit": "4.15〜4.55秒で薄くなり、発見の場面と重なる。",
-      "content": "input/interviews.json の research_question と、P01-L02・P02-L04・P03-L02 の本文（全文）と参加者の区分。整理の結果はまだ出さない。",
-      "sources": ["input/interviews.json", "video/assets/phone-initial.png"],
-      "crop": {"image": "phone-initial.png", "x": 0, "y": 0, "w": 375, "h": 420, "scale": 0.98}
+      "id": "overview",
+      "in": 0,
+      "out": 4,
+      "headline_source": "assets/timeline.json scenes[0].headline",
+      "communicates": "全体の地図：メモ3冊、5つのまとまりの枠、未分類、提案の紙、保存先が一度に見える。",
+      "enter": "最初のフレームから全体が置かれている（入場の動きなし）。",
+      "state": "メモは閉じ、15枚の発言は各メモの行の位置から見出しのように少しはみ出す。まとまりは点線の枠と名前だけ。F05の枠に薄い印。",
+      "change": "なし。見出しだけを読ませる。",
+      "exit": "3.75〜4秒で見出しが消える。",
+      "facts": ["参加者3人・各5行（interviews.json）", "まとまり5つの短い名前（diagram-data.json findings.short_label）"]
     },
     {
-      "id": "findings",
-      "start": 4.5,
-      "end": 7.5,
-      "step": "発見",
-      "message": "発見は5件。どれも暫定の解釈。",
-      "enter": "実画面の一覧と、読める大きさの5行（id・題・人数・確からしさ）が入る。6.6秒から F05 の行に印が付く。",
-      "exit": "7.15〜7.55秒で F05 の場面へ。",
-      "content": "outputs/synthesis.json の findings（id・title・frequency・confidence・contradictions の数）。人数はこの架空の3人の中の数で、利用者全体の割合ではない。",
-      "sources": ["outputs/synthesis.json", "video/assets/desktop-first.png"],
-      "crop": {"image": "desktop-first.png", "x": 78, "y": 612, "w": 374, "h": 420, "scale": 1.08}
+      "id": "inputs",
+      "in": 4,
+      "out": 9,
+      "headline_source": "assets/timeline.json scenes[1].headline",
+      "communicates": "3冊のメモから同じ15枚の発言が出てくる。色と行IDで出どころが分かる。",
+      "enter": "4.0〜4.6秒で表紙が背に折れ、罫線と行番号が見える。",
+      "state": "4.5秒から0.2秒おきに1枚ずつ、P01-L01からP03-L05の順で紙片が机の上の位置へ弧を描いて出る。移動中は元の行から細い糸が伸びる。",
+      "change": "紙片の大きさ0.34→1。糸は到着後0.8秒で消える。",
+      "exit": "8.3秒までに15枚がそろって止まる。",
+      "facts": ["15行IDと参加者（interviews.json / synthesis.json observations）"]
     },
     {
-      "id": "focus",
-      "start": 7.5,
-      "end": 14,
-      "step": "発見",
-      "message": "月表示を望むのは、1人。反する発言は、支持に数えない。",
-      "enter": "F05 の詳細の実画面、支持する発言 P03-L02 と 1/3人、反する発言 P02-L04、数え方の一文と注記が順に入り、11.7秒以降は止める。",
-      "exit": "13.65〜14.05秒で原文の場面へ。ポスターは13.5秒（すべて出そろった状態）。",
-      "content": "F05 の支持は P03 の1人だけ（P03-L02）。反する発言 P02-L04 は別の欄に置き、支持の人数に入れない。P01-L02 は支持にも反証にも数えない。確からしさは低。この架空の入力の中の数で、利用者全体の割合ではない。",
-      "sources": ["outputs/synthesis.json", "input/interviews.json", "video/assets/desktop-calendar.png"],
-      "crop": {"image": "desktop-calendar.png", "x": 465, "y": 1076, "w": 720, "h": 560, "scale": 0.86},
-      "overlays": [
-        {"kind": "focus_box", "color": "green", "image_rect": {"x": 474, "y": 1086, "w": 702, "h": 266}, "meaning": "支持する発言の欄"},
-        {"kind": "focus_box", "color": "amber", "image_rect": {"x": 474, "y": 1358, "w": 702, "h": 268}, "meaning": "反する発言の欄"}
-      ]
+      "id": "cluster",
+      "in": 9,
+      "out": 14,
+      "headline_source": "assets/timeline.json scenes[2].headline",
+      "communicates": "同じ15枚が5つのまとまりへ移る。P01-L02だけはどこにも入れず未分類に置く。",
+      "enter": "9.2秒からF01・F02・F03・F04・F05・未分類の順に0.55秒ずつずらして紙片が移る。",
+      "state": "枠は紙片が入ると実線になり、人数と確からしさ（3/3人・中など）と小さな注記が出る。F01は「完了が見えない（P01・P03）」と「完了後に番号（P02）」の間に区切り。F04は良い点の色で、写真2人・前回名1人。",
+      "change": "13〜13.4秒でF01に印、ほかは少し薄く。",
+      "exit": "13.05秒までに全紙片が着地。",
+      "facts": ["F01〜F05の支持（synthesis.json findings.observation_ids）", "未分類O02（diagram-data.json unassigned_observations）", "人数と確からしさ（findings.frequency / confidence）"]
     },
     {
-      "id": "origin",
-      "start": 14,
-      "end": 18,
-      "step": "原文",
-      "message": "引用から、原文の同じ行へ。",
-      "enter": "原文のメモ P02 の実画面（行へ移ったあとの静止画）、P02-L04 の行の枠、F05 の反する発言の札と接続の線、同じ文の大きな引用が入る。",
-      "exit": "17.65〜18.05秒で F03 の場面へ。",
-      "content": "P02-L04 の本文（input/interviews.json）。整理の中の引用と原文の行が同じ文であることは読み込み時に照合する。クリックの操作は映さない（撮影していないため）。",
-      "sources": ["input/interviews.json", "outputs/synthesis.json", "video/assets/desktop-origin.png"],
-      "crop": {"image": "desktop-origin.png", "x": 72, "y": 2890, "w": 1136, "h": 250, "scale": 0.98},
-      "overlays": [
-        {"kind": "focus_box", "color": "green", "image_rect": {"x": 99, "y": 2980, "w": 1082, "h": 82}, "meaning": "P02-L04 の行"},
-        {"kind": "connector", "color": "amber", "meaning": "F05 の反する発言の札から、メモの枠の左の余白を通って行の枠へ"}
-      ]
+      "id": "contrary",
+      "in": 14,
+      "out": 20,
+      "headline_source": "assets/timeline.json scenes[3].headline",
+      "communicates": "F05の支持はP03-L02だけ（1/3人・低）。P02-L04は反する列に置いて数えない。P01-L02はどちらにも数えない。",
+      "enter": "14〜14.8秒でF05と未分類以外が薄くなり、F05に印。",
+      "state": "14.6〜15.4秒で支持の列（塗り）と反する列（斜線・破線）が現れ、14.6〜15.8秒で並んでいた2枚が別々の列へ分かれる。P02-L04の縁は破線になる。",
+      "change": "15.6秒からP03→P03-L02に実線、16秒からP02→P02-L04に破線、16.4秒からP01→P01-L02に点線の糸。16.2秒から「支持 1/3人」、16.6秒から「反する 数えない」、16.8秒から「どちらにも数えない」を強める。",
+      "exit": "19.75〜20秒で見出しが替わる。列と糸はその後も地図に残る。",
+      "facts": ["F05 support O12のみ・frequency 1・confidence low", "contradictions P02-L04（diagram-data.json monthly_contrary_observation O09）", "O02は支持にも反証にも数えない"]
     },
     {
-      "id": "purpose",
-      "start": 18,
-      "end": 23,
-      "step": "原文",
-      "message": "用途の違いも、残す。",
-      "enter": "F03 の支持する発言の実画面（3件のうち上の2件）、F03 の題と人数、控え・当日の変更・未定の3行（原文から抜粋）、まとめの一文が順に入る。",
-      "exit": "22.65〜23.05秒で保存の場面へ。",
-      "content": "F03「通知手段の希望はそろわない」（3/3人・確からしさ低）。P01-L03「予約の控えはメールに残したいです。」、P02-L03「当日の変更はSMSで知りたいです。」、P03-L05「どちらがよいか分かりません。」はいずれも本文に完全に含まれる抜粋。一つの手段を勧めない。",
-      "sources": ["outputs/synthesis.json", "input/interviews.json", "video/assets/desktop-notifications.png"],
-      "crop": {"image": "desktop-notifications.png", "x": 465, "y": 1104, "w": 720, "h": 532, "scale": 0.76}
+      "id": "notification",
+      "in": 20,
+      "out": 25,
+      "headline_source": "assets/timeline.json scenes[4].headline",
+      "communicates": "F03の3枚は1つの手段に投票していない。控え→メール、当日の変更→SMS、未定→まだ選ばない、の3本の別の道。",
+      "enter": "20〜20.8秒でF05が薄くなり、F03に印。",
+      "state": "20.9秒から0.45秒ずつずらして、各紙片の下に1本ずつ道が伸び、封筒・吹き出し・？の印と行き先の札が出る。未定の道と札は点線。",
+      "change": "道は合流せず、どの手段も勝者として強調しない。",
+      "exit": "24.75〜25秒で見出しが替わる。3本の道は地図に残る。",
+      "facts": ["F03 support O03・O08・O15（confidence low）", "diagram-data.json notification_routes の purpose / channel"]
     },
     {
-      "id": "save",
-      "start": 23,
-      "end": 28,
-      "step": "保存",
-      "message": "まとめた理由を、原文までたどれる。",
-      "enter": "スマホ幅の F05 の実画面、synthesis-F05.md の抜粋、「発見を選ぶ → 原文を読む → 保存」、注記が23.0〜23.95秒に入り、そのあと28秒まで止める。",
-      "exit": "終わり（ループしない）。",
-      "content": "ブラウザーで保存した outputs/browser-selected.md（保存時のファイル名 synthesis-F05.md）の行をそのまま抜粋：見出し、支持する参加者 1/3人（P03）、支持する発言 P03-L02 と反する発言 P02-L04 の引用。ページを開いてもAIは動かず、表示も保存も保存済みの整理から。",
-      "sources": ["outputs/browser-selected.md", "video/assets/phone-calendar.png"],
-      "crop": {"image": "phone-calendar.png", "x": 0, "y": 0, "w": 375, "h": 812, "scale": 0.58}
+      "id": "proposal",
+      "in": 25,
+      "out": 29,
+      "headline_source": "assets/timeline.json scenes[5].headline",
+      "communicates": "F05を根拠の原文の行P03-L02へたどり戻し、その発見の実際の次の一歩R05（月表示を作る前に今の探し方を観察・未実施）と保存へつなぐ。",
+      "enter": "25〜25.6秒でF03が薄くなり、F05に印が戻る。",
+      "state": "25.3〜26.3秒でP03-L02の紙片からP03のメモへ黄色の線が戻り、26〜26.4秒でメモの2行目が黄色になり行IDがP03-L02と読める。",
+      "change": "26〜26.6秒にF05から提案の紙へ矢印、26.5〜27.3秒に紙の中身（R05・続けて調べる・短い説明・未実施の判）。27.3〜27.7秒に保存への矢印、27.6〜28.3秒にsynthesis-F05.md。",
+      "exit": "28.3秒で動きが止まる。",
+      "facts": ["R05 priority「続けて調べる」（synthesis.json recommendations）", "samples.json exports selected_finding F05 / support_line P03-L02 / contradictory_line P02-L04", "提案は試作・観察の計画で、実施した結果ではない"]
+    },
+    {
+      "id": "finish",
+      "in": 29,
+      "out": 32,
+      "headline_source": "assets/timeline.json scenes[6].headline",
+      "communicates": "落ち着いた全体の地図：5つのまとまり、F05の2列と未分類、F03の3本の道、F04の良い点、R05、保存。",
+      "enter": "29〜29.5秒で薄くしていたまとまりが元に戻り、見出しが替わる（29.35秒まで）。",
+      "state": "F05の印と支持の輪、糸、道、提案の紙、保存はそのまま。",
+      "change": "29.5秒以降は何も動かない（最後の2.5秒は入場の動きなし）。posterTimeは31秒。",
+      "exit": "32秒で終了。ループしない。",
+      "facts": ["upstream.json の固定版（commit f652327・product-management 1.2.0・Apache-2.0）を下端に表示"]
     }
   ],
-  "audio_events": [],
-  "actual_scope": {
-    "skill": "anthropics/knowledge-work-plugins f652327d4e953d7957d99e735c3c7f9964e9d2e5 / product-management v1.2.0 / skills/synthesize-research/SKILL.md（Apache-2.0）",
-    "application": "Claude Opus 5.5 が制作時に1回、固定版の SKILL.md と手元の入力ファイルを読んで整理し、outputs/synthesis.json に保存した。メモを手で渡す形で、プラグインの導入・自動起動・スラッシュコマンド・MCPコネクター・外部の業務システムは使っていない。",
-    "viewer": "作例のページは保存済みの整理を表示・絞り込み・保存するだけで、新しい整理は行わない。",
-    "exports": "outputs/browser-selected.md と outputs/browser-complete.json は、制作時にブラウザーの実際の保存操作で書き出したファイル。browser-complete.json の値は synthesis.json と同じ。",
-    "screens": "video/assets の6枚は実際のブラウザー画面の静止キャプチャ。映像では等倍率で切り抜いて並べ、注目の枠と線だけを重ねる。続けて録画したものではなく、撮っていないクリックや保存完了の表示は作らない。",
-    "recommendations": "提案はこれからの試作と追加調査の計画で、作った予約画面や採用、測った効果はない。"
+  "short_labels_in_film": "参加者ID・行番号・まとまりの短い名前・人数・確からしさ・列と道の札・R05の短い説明・保存名だけを描く。引用の全文は assets/interviews.json と作例ページの折りたたみで読む。",
+  "not_shown": ["ナレーション・音声・字幕原稿", "新しいAIの整理や進み具合の演出", "画面録画やスクリーンショット", "長文・JSON・ログ・表", "効果・割合・最適な通知手段"],
+  "asset_roles": {
+    "manifest.json": "7素材のバイト数とSHA-256。manifest自体のSHA-256を video.js に固定。",
+    "interviews.json": "メモ3冊と15行ID、参加者の行の順。",
+    "synthesis.json": "観察15・発見5（支持・人数・確からしさ・反する発言）・提案R05の優先度。",
+    "diagram-data.json": "保存結果への短い名前と、F03の3本の道・未分類O02・F05の反するO09の索引。synthesis.json と一致することを確かめてから使う。新しい整理ではない。",
+    "timeline.json": "7場面の時刻と見出し。",
+    "samples.json": "保存の例（F05・P03-L02・P02-L04）から保存名 synthesis-F05.md。",
+    "upstream.json": "下端に出す固定版の表記。",
+    "original-verification.json": "旧版（28秒）の確認記録。入力と出力のハッシュが素材と同じかを確かめるためだけに使い、この32秒版の確認としては扱わない。"
   },
-  "fictional": {
-    "input": true,
-    "note": "メモは制作担当がこの作例のために書いた架空のもので、すべて架空の参加者の自己申告。実在の顧客調査・操作の観察・分析ログ・アンケート・効果の測定は含まない。人数はこの3人のうち何人かで、利用者全体の割合ではない。"
-  },
-  "human_approval": false,
-  "review_status": "制作側でのレンダー・コンタクトシートの確認・通し再生は、この元ページの作成後に別途行う。人による承認は受けていない。"
+  "authorship": {
+    "original_skill_application": "2026-10-16、Claude Opus 5.5 が固定版 Synthesize Research を架空メモへ1回適用し、synthesis.json を保存。今回はやり直していない。",
+    "this_visual_revision": "Claude Opus 5.5（claude-opus-5-5）が図中心の作例画面とこの32秒の動画ソースを新しく書いた。",
+    "pending": "書き出し、フレーム・MP4の確認、ポスター、配布物、公開は制作側の後の工程。まだ行っていない。"
+  }
 }

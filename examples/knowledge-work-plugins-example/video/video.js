@@ -1,981 +1,1264 @@
-/* 声から、次の試作へ（Synthesize Research 作例）— 28秒・無音の解説映像（編集できる元ページ）
- * Canvas 2D で、時刻 t の完成した画面を毎回最初から描く。前のフレームや壁時計には依存しない。
- * 使う素材は、架空のヒアリングメモ・保存済みの整理・ブラウザーで保存した2ファイル・実画面のキャプチャ6枚だけ。
- * 映像に出す引用・発見・人数は、読み込んだファイルから取り出す（ここに書き写さない）。
- * Copyright (c) 2026 Studio Yebisu. MIT License. */
+// 発言を束ねても、違いは残す — 32-second silent film drawn from the saved synthesis.
+// Copyright (c) 2026 Studio Yebisu. MIT License.
+// One persistent drawing: 3 notebooks, the same 15 slips, 5 clusters, one proposal sheet, one export.
+// window.seek(t) paints the finished frame for absolute time t. No audio, no model, no network beyond ./assets.
 
-// ---- 書き出し条件 ---------------------------------------------------------
+const MANIFEST_URL = 'assets/manifest.json';
+const MANIFEST_SHA256 = 'addd74065288b887752f680f576f60f885111f03bfc96de2d35f9f3e7996d23f';
+const ASSET_FILES = ['diagram-data.json', 'interviews.json', 'original-verification.json', 'samples.json', 'synthesis.json', 'timeline.json', 'upstream.json'];
+const COMMIT = 'f652327d4e953d7957d99e735c3c7f9964e9d2e5';
+const DURATION = 32;
+const SCENE_IDS = ['overview', 'inputs', 'cluster', 'contrary', 'notification', 'proposal', 'finish'];
+const SCENE_LABEL = { overview: '全体', inputs: 'メモ', cluster: '束ねる', contrary: '違う声', notification: '通知', proposal: '次の一歩', finish: '持ち帰る' };
+const FINDING_IDS = ['F01', 'F02', 'F03', 'F04', 'F05'];
+const CONFIDENCE_LABEL = { high: '高', medium: '中', low: '低' };
+const PARTICIPANT_SHORT = { P01: '月に数回・個人', P02: '週に数回・チーム', P03: '初めて・個人' };
+const REC_LINES = {
+  R01: ['確定の見出しと番号', 'を出す試作'],
+  R02: ['送信前に条件を', '2行で示す試作'],
+  R03: ['控えと当日の変更を', '別々に選ぶ紙試作'],
+  R04: ['写真と前回の名前', 'を今のまま残す'],
+  R05: ['月表示を作る前に', '今の探し方を観察'],
+};
+// Arrangement inside each saved cluster; checked against synthesis.json and diagram-data.json.
+const SPLITS = {
+  F01: { groups: [['O01', 'O11'], ['O06']], notes: () => ['完了が見えない', '完了後に番号'] },
+  F04: { groups: [['O04', 'O14'], ['O10']], notes: (g) => [`写真 ${g[0].length}人`, `前回名 ${g[1].length}人`], positive: true },
+};
+const TAGS = { F02: { order: ['O05', 'O07', 'O13'], notes: ['変更可否', '取消料', '取消期限'] } };
+
+const INK = '#1c1a17';
+const PAPER = '#f5f0e6';
+const CARD = '#fffdf8';
+const MUTED = '#5c564c';
+const RULE = '#d6cdb9';
+const MARKER = '#f3cf4b';
+const MARKER_SOFT = '#fbefbd';
+const CONTRA = '#7b7468';
+const KEEP = '#eef0d8';
+const RED = '#a3301c';
+const PCOLOR = { P01: '#2f6b4f', P02: '#3d4f91', P03: '#a94f28' };
+const PTINT = { P01: '#dcebe1', P02: '#e0e4f4', P03: '#f6e1d5' };
+const SANS = '"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif';
+const SERIF = '"Hiragino Mincho ProN","Yu Mincho","Noto Serif JP","BIZ UDMincho",serif';
+const MONO = 'ui-monospace,"SFMono-Regular",Consolas,"Liberation Mono",monospace';
+
+/* ---------- size contract ---------- */
+
 const RENDER = window.__MOTION_RENDER__ === true;
-const DURATION = 28;
-const POSTER_TIME = 13.5;
-const LW = 1280, LH = 720; // 論理座標。実際の大きさへは等倍率で収め、余りは紙の色で埋める
-const given = window.renderConfig && typeof window.renderConfig === 'object' ? window.renderConfig : {};
-const evenSize = (v, fallback) => (Number.isInteger(v) && v >= 16 && v <= 4096 && v % 2 === 0 ? v : fallback);
-const WIDTH = evenSize(given.width, 1280);
-const HEIGHT = evenSize(given.height, 720);
-const FPS = Number.isInteger(given.fps) && given.fps >= 1 && given.fps <= 120 ? given.fps : 30;
-window.motionConfig = {duration: DURATION, fps: FPS, width: WIDTH, height: HEIGHT, posterTime: POSTER_TIME, audioEvents: []};
+const rc = window.renderConfig || {};
+const evenSize = (v) => (Number.isInteger(v) && v >= 16 && v <= 4096 && v % 2 === 0 ? v : null);
+let W = evenSize(rc.width) || 720;
+let H = evenSize(rc.height) || 1280;
+if (!RENDER && !rc.width && !rc.height && new URLSearchParams(location.search).get('size') === 'wide') { W = 1280; H = 720; }
+const FPS = Number.isInteger(rc.fps) && rc.fps > 0 && rc.fps <= 120 ? rc.fps : 30;
+window.motionConfig = { duration: DURATION, fps: FPS, width: W, height: H, posterTime: 31, audioEvents: [] };
 
-const root = document.documentElement;
-if (RENDER) root.classList.add('is-render');
 const canvas = document.getElementById('film');
 const ctx = canvas.getContext('2d');
-const density = RENDER ? 1 : Math.min(2, Math.max(1, window.devicePixelRatio || 1));
-canvas.width = Math.round(WIDTH * density);
-canvas.height = Math.round(HEIGHT * density);
-canvas.style.aspectRatio = WIDTH + ' / ' + HEIGHT;
-if (RENDER) {
-  canvas.style.width = WIDTH + 'px';
-  canvas.style.height = HEIGHT + 'px';
-}
+let model = null;
+let L = null; // layout for the current size
+let G = null; // geometry derived from model + layout
 
-// ---- 見た目（作例のビューアと同じ生成り・墨・深緑） ----------------------------
-const C = {
-  paper: '#f7f2e7', paperDeep: '#efe7d6', card: '#fffdf8', ink: '#1d1b18', muted: '#59544b',
-  rule: '#d8ceb9', quiet: '#a99f8a', green: '#1d4b38', greenSoft: '#e3ece4', greenInk: '#163a2b',
-  amber: '#7a4a12', amberSoft: '#f6ead6'
-};
-const SANS = '"Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", Meiryo, system-ui, sans-serif';
-const SERIF = '"Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", "BIZ UDMincho", serif';
-const MONO = 'ui-monospace, "SFMono-Regular", Consolas, "BIZ UDGothic", monospace';
+/* ---------- pure time helpers ---------- */
 
-// ---- 素材 ------------------------------------------------------------------
-// 照合表 assets/data-hashes.json 自体の SHA-256（runtime/frozen-reviewed-source.json の値）。
-// 照合表に並ぶ11ファイルのパスは作例フォルダーからの相対で、このモジュールの1つ上を基準に解決する。
-// 書き出し時に <base href="video/"> が入っても import.meta.url 基準なので同じ場所を指す。
-const HASH_MANIFEST = {path: 'assets/data-hashes.json', sha256: 'f0cfc61ed9b6a24cdc88b5ded4f2e608d27b6ef653b65a6f2a4da31680d95b90'};
-const FILES = {
-  'input/interviews.json': {key: 'interviews', kind: 'json'},
-  'outputs/synthesis.json': {key: 'synthesis', kind: 'json'},
-  'outputs/browser-selected.md': {key: 'selectedMd', kind: 'text'},
-  'outputs/browser-complete.json': {key: 'complete', kind: 'json'},
-  'video/assets/screen-manifest.json': {key: 'screens', kind: 'json'},
-  'video/assets/desktop-first.png': {key: 'first', kind: 'png'},
-  'video/assets/desktop-notifications.png': {key: 'notify', kind: 'png'},
-  'video/assets/desktop-calendar.png': {key: 'calendar', kind: 'png'},
-  'video/assets/desktop-origin.png': {key: 'origin', kind: 'png'},
-  'video/assets/phone-initial.png': {key: 'phoneInitial', kind: 'png'},
-  'video/assets/phone-calendar.png': {key: 'phoneCalendar', kind: 'png'}
-};
-const SOURCE_COMMIT = 'f652327d4e953d7957d99e735c3c7f9964e9d2e5';
-const SKILL_URL = `https://github.com/anthropics/knowledge-work-plugins/blob/${SOURCE_COMMIT}/product-management/skills/synthesize-research/SKILL.md`;
-
-// 映像で扱う発見と行（中身はすべて読み込んだデータから取り出し、読み込み時に関係を確かめる）
-const FOCUS = 'F05';          // 月単位の空き表示：支持1人と、別に置く反する発言
-const SUPPORT_LINE = 'P03-L02';
-const CONTRA_LINE = 'P02-L04';
-const NEUTRAL_LINE = 'P01-L02'; // 支持にも反証にも数えない行
-const PURPOSE = 'F03';        // 通知手段：用途の違いを残す
-// 「原文から抜粋」：各行の本文に完全に含まれる部分だけ。用途の見出しは読み込み時に原文・観察と照らす
-const PURPOSE_ROWS = [
-  {line: 'P01-L03', label: '控え', excerpt: '予約の控えはメールに残したいです。', inText: true},
-  {line: 'P02-L03', label: '当日の変更', excerpt: '当日の変更はSMSで知りたいです。', inText: true},
-  {line: 'P03-L05', label: '未定', excerpt: 'どちらがよいか分かりません。', kind: 'uncertainty'}
-];
-const CONF = {high: '高', medium: '中', low: '低'};
-
-// 実画面の切り抜き（画像の画素座標）。DOMの記録は全体撮影後の近似値なので、文字の外に余白を取る
-const CROPS = {
-  phoneTop: {img: 'phoneInitial', x: 0, y: 0, w: 375, h: 420, contains: null},          // 最初の画面の上部（見出し・参加者・読み込み済みの表示）
-  list: {img: 'first', x: 78, y: 612, w: 374, h: 420, contains: ['desktop-first.png', 'finding-list']},
-  calendar: {img: 'calendar', x: 465, y: 1076, w: 720, h: 560, contains: ['desktop-calendar.png', 'd-evidence', 'd-contra']},
-  origin: {img: 'origin', x: 72, y: 2890, w: 1136, h: 250, contains: ['desktop-origin.png', 'line-P02-L04']},
-  notify: {img: 'notify', x: 465, y: 1104, w: 720, h: 532, contains: null},              // F03 の支持する発言の見出しと上の2件
-  phone: {img: 'phoneCalendar', x: 0, y: 0, w: 375, h: 812, contains: null}              // スマホ幅・F05 の詳細（全体）
-};
-// 切り抜きの中で枠を重ねる範囲（画像の画素座標・近似）
-const BOX = {
-  support: {x: 474, y: 1086, w: 702, h: 266},
-  contra: {x: 474, y: 1358, w: 702, h: 268},
-  originLine: {x: 99, y: 2980, w: 1082, h: 82}
-};
-const PLACE = {
-  phoneTop: {x: 80, y: 234, s: 0.98},
-  list: {x: 80, y: 164, s: 1.08},
-  calendar: {x: 80, y: 164, s: 0.86},
-  origin: {x: 80, y: 164, s: 0.98},
-  notify: {x: 80, y: 164, s: 0.76},
-  phone: {x: 80, y: 164, s: 0.58}
-};
-
-const CORE = 'まとめた理由を、原文までたどれる。';
-const FOOTER = '架空メモ3件・保存済みの整理／無音・実画面を編集';
-const STEPS = ['メモ', '発見', '原文', '保存'];
-const SCENES = [
-  {id: 'memo', start: 0, end: 4.5, step: 0, headline: () => CORE},
-  {id: 'findings', start: 4.5, end: 7.5, step: 1, headline: f => `発見は${f.findings.length}件。どれも暫定の解釈。`},
-  {id: 'focus', start: 7.5, end: 14, step: 1, headline: f => `月表示を望むのは、${f.focus.frequency}人。`},
-  {id: 'origin', start: 14, end: 18, step: 2, headline: () => '引用から、原文の同じ行へ。'},
-  {id: 'purpose', start: 18, end: 23, step: 2, headline: () => '用途の違いも、残す。'},
-  {id: 'save', start: 23, end: 28, step: 3, headline: () => CORE}
-];
-const CONTENT_TOP = 136, CONTENT_BOTTOM = 656;
-
-// ---- 時刻の関数（すべて絶対時刻 t から閉形式で求める） ---------------------
-const clamp01 = x => (x < 0 ? 0 : x > 1 ? 1 : x);
-const prog = (t, a, b) => clamp01((t - a) / (b - a));
-const easeOut = x => 1 - Math.pow(1 - x, 3);
-const easeInOut = x => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
-const lerp = (a, b, k) => a + (b - a) * k;
-const enter = (t, at, dur = 0.4) => easeOut(prog(t, at, at + dur));
-const rise = (t, at, dur = 0.4, px = 10) => px * (1 - enter(t, at, dur));
-// 場面の入りは0.45秒、出は0.4秒。隣の場面と重ね、上の段階表示と足元はいつも残す
-function sceneAlpha(t, i) {
-  const s = SCENES[i];
-  const a = i === 0 ? 1 : easeOut(prog(t, s.start - 0.05, s.start + 0.4));
-  const b = i === SCENES.length - 1 ? 1 : 1 - easeInOut(prog(t, s.end - 0.35, s.end + 0.05));
-  return Math.min(a, b);
-}
-
-// ---- 読み込みと確認 --------------------------------------------------------
-const hex = buffer => [...new Uint8Array(buffer)].map(b => b.toString(16).padStart(2, '0')).join('');
-const check = (ok, message) => {
-  if (!ok) throw new Error('記録の確認に失敗：' + message);
-};
-const sameList = (a, b) => Array.isArray(a) && Array.isArray(b) && a.length === b.length && a.every((v, i) => v === b[i]);
-function deepEqual(a, b) {
-  if (a === b) return true;
-  if (typeof a !== 'object' || typeof b !== 'object' || a === null || b === null) return false;
-  if (Array.isArray(a) !== Array.isArray(b)) return false;
-  if (Array.isArray(a)) return a.length === b.length && a.every((v, i) => deepEqual(v, b[i]));
-  const ka = Object.keys(a).sort(), kb = Object.keys(b).sort();
-  return sameList(ka, kb) && ka.every(k => deepEqual(a[k], b[k]));
-}
-
-async function fetchVerified(url, label, expected) {
-  let response;
-  try {
-    response = await fetch(url, {cache: 'no-store'});
-  } catch {
-    throw new Error(`${label} を読み込めません。file:// ではなくローカルサーバーで開いてください`);
-  }
-  if (!response.ok) throw new Error(`${label} が HTTP ${response.status} でした`);
-  const bytes = await response.arrayBuffer();
-  const digest = hex(await crypto.subtle.digest('SHA-256', bytes));
-  if (digest !== expected) throw new Error(`${label} のSHA-256が制作記録と違います（${digest}）`);
-  return {bytes, digest};
-}
-function decodeText(bytes) {
-  let body = new TextDecoder('utf-8', {fatal: true}).decode(bytes);
-  if (body.charCodeAt(0) === 0xfeff) body = body.slice(1);
-  return body;
-}
-// 照合済みのバイト列だけから画像を作る。読み込めたら一時URLを片づける
-async function decodePng(bytes, label) {
-  const url = URL.createObjectURL(new Blob([bytes], {type: 'image/png'}));
-  const img = new Image();
-  img.decoding = 'async';
-  img.src = url;
-  try {
-    await img.decode();
-  } catch {
-    URL.revokeObjectURL(url);
-    throw new Error(`${label} を画像として読み込めません`);
-  }
-  const bitmap = await createImageBitmap(img);
-  URL.revokeObjectURL(url);
-  return bitmap;
-}
-
-async function loadAll() {
-  const manifestUrl = new URL(HASH_MANIFEST.path, import.meta.url);
-  const manifestBytes = await fetchVerified(manifestUrl, 'video/' + HASH_MANIFEST.path, HASH_MANIFEST.sha256);
-  const hashes = JSON.parse(decodeText(manifestBytes.bytes)).files_sha256;
-  check(hashes && typeof hashes === 'object', '照合表の形');
-  const listed = Object.keys(hashes).sort();
-  check(sameList(listed, Object.keys(FILES).sort()), `照合表のファイル（${listed.length}件）`);
-  const data = {}, verified = [];
-  await Promise.all(listed.map(async path => {
-    check(/^[A-Za-z0-9_\-/.]+$/.test(path) && !path.split('/').includes('..') && !path.startsWith('/'), `${path} のパス`);
-    const expected = String(hashes[path]);
-    check(/^[0-9a-f]{64}$/.test(expected), `${path} の照合値`);
-    const {bytes, digest} = await fetchVerified(new URL('../' + path, import.meta.url), path, expected);
-    const spec = FILES[path];
-    if (spec.kind === 'png') data[spec.key] = await decodePng(bytes, path);
-    else if (spec.kind === 'json') data[spec.key] = JSON.parse(decodeText(bytes));
-    else data[spec.key] = decodeText(bytes);
-    verified.push({path, digest});
-  }));
-  verified.sort((a, b) => a.path.localeCompare(b.path));
-  return {data, verified};
-}
-
-function buildFacts(d) {
-  const {interviews: input, synthesis: syn, complete, selectedMd, screens} = d;
-
-  // 入力：架空のヒアリングメモ。参加者3人・各5行・計15行、行IDは重ならない
-  check(input.fictional === true && syn.meta && syn.meta.fictional === true, '架空の入力と整理であること');
-  const people = input.participants;
-  check(Array.isArray(people) && people.length === 3, '参加者は3人');
-  const lineText = new Map(), lineOwner = new Map(), personById = new Map();
-  people.forEach(p => {
-    check(p.method === 'fictional_interview_self_report', `${p.id} は架空の自己申告`);
-    check(Array.isArray(p.lines) && p.lines.length === 5, `${p.id} の行数`);
-    personById.set(p.id, p);
-    p.lines.forEach(l => {
-      check(!lineText.has(l.id) && l.id.startsWith(p.id + '-L') && typeof l.text === 'string', `行ID ${l.id}`);
-      lineText.set(l.id, l.text);
-      lineOwner.set(l.id, p.id);
-    });
-  });
-  check(lineText.size === 15, '原文は15行');
-  check(syn.meta.participant_count === people.length, '整理の参加者数');
-  check(typeof syn.meta.method === 'string' && syn.meta.method.includes(SOURCE_COMMIT.slice(0, 7)), '固定版の記録');
-
-  // 観察：15行それぞれ1件。引用は原文の同じ行と完全に一致
-  check(Array.isArray(syn.observations) && syn.observations.length === 15, '観察は15件');
-  const obs = new Map();
-  syn.observations.forEach(o => {
-    check(!obs.has(o.id), `観察 ${o.id} の重複`);
-    check(lineText.get(o.line_id) === o.quote, `${o.line_id} の引用が原文と違います`);
-    check(lineOwner.get(o.line_id) === o.source_id, `${o.line_id} の参加者`);
-    obs.set(o.id, o);
-  });
-  check(new Set(syn.observations.map(o => o.line_id)).size === 15, '観察が15行を1回ずつ使う');
-
-  // 発見：人数は根拠の観察の、別々の参加者の数。反する発言は支持の行に入らない
-  check(Array.isArray(syn.findings) && syn.findings.length === 5, '発見は5件');
-  const byId = new Map();
-  syn.findings.forEach(f => {
-    const support = f.observation_ids.map(id => {
-      const o = obs.get(id);
-      check(o, `${f.id} の観察 ${id}`);
-      return o;
-    });
-    const distinct = [...new Set(support.map(o => o.source_id))].sort();
-    check(sameList(distinct, [...f.participant_ids].sort()) && f.frequency === distinct.length, `${f.id} の人数`);
-    check(Array.isArray(f.contradictions), `${f.id} の反する発言`);
-    f.contradictions.forEach(c => {
-      check(lineText.has(c.line_id) && !support.some(o => o.line_id === c.line_id), `${f.id} の反する発言 ${c.line_id}`);
-    });
-    check(Object.hasOwn(CONF, f.confidence), `${f.id} の確からしさ`);
-    byId.set(f.id, {...f, support});
-  });
-  syn.recommendations.forEach(r => r.finding_ids.forEach(id => check(byId.has(id), `提案 ${r.id} の発見 ${id}`)));
-
-  // ブラウザーで保存した整理全体：値が synthesis.json と同じ
-  check(deepEqual(complete, syn), '保存した整理全体のJSONが synthesis.json と違います');
-
-  // 大きく見せる発見：支持は1人（P03-L02）、反する発言は P02-L04、P01-L02 はどちらにも数えない
-  const focus = byId.get(FOCUS);
-  check(focus && focus.frequency === 1 && sameList(focus.participant_ids, ['P03']), `${FOCUS} の支持`);
-  check(focus.support.length === 1 && focus.support[0].line_id === SUPPORT_LINE, `${FOCUS} の支持の行`);
-  check(focus.contradictions.length === 1 && focus.contradictions[0].line_id === CONTRA_LINE, `${FOCUS} の反する発言`);
-  check(focus.summary.includes(NEUTRAL_LINE) && lineOwner.get(NEUTRAL_LINE) !== 'P03' && NEUTRAL_LINE !== CONTRA_LINE, `${NEUTRAL_LINE} の扱い`);
-
-  // 用途の違い：3行とも F03 の根拠。抜粋は本文にそのまま含まれる
-  const purpose = byId.get(PURPOSE);
-  check(purpose && purpose.frequency === 3, `${PURPOSE} の人数`);
-  const purposeRows = PURPOSE_ROWS.map(r => {
-    const o = purpose.support.find(s => s.line_id === r.line);
-    check(o, `${PURPOSE} の根拠 ${r.line}`);
-    const full = lineText.get(r.line);
-    check(full.includes(r.excerpt), `${r.line} の抜粋が原文にありません`);
-    if (r.inText) check(full.includes(r.label), `${r.line} の用途「${r.label}」`);
-    if (r.kind) check(o.kind === r.kind, `${r.line} の種類`);
-    return {...r, pid: o.source_id};
-  });
-  const purposeSentences = purpose.summary.split('。').filter(Boolean);
-  const purposeNote = purposeSentences[purposeSentences.length - 1] + '。';
-  check(purposeNote.includes('用途'), `${PURPOSE} の解釈の文`);
-
-  // ブラウザーで保存した選んだ発見の Markdown：原文の引用と反する発言、固定原典を含む
-  const md = selectedMd.replace(/\r\n?/g, '\n').split('\n');
-  const title = `# ${focus.id} ${focus.title}`;
-  check(md[0] === title, 'Markdownの見出し');
-  const freqLine = `- 支持する参加者：${focus.frequency}/${people.length}人（${focus.participant_ids.join('・')}）`;
-  check(md.includes(freqLine), 'Markdownの人数');
-  const section = (prefix, lineId, quote) => {
-    const i = md.findIndex(l => l.startsWith(prefix));
-    check(i > 0, `Markdownの「${prefix}」`);
-    const idLine = md.slice(i + 1).find(l => l.startsWith('- '));
-    const quoteLine = md.slice(i + 1).find(l => l.trim().startsWith('> '));
-    check(idLine && idLine.startsWith(`- ${lineId}（`), `Markdownの ${lineId}`);
-    check(quoteLine && quoteLine.trim() === '> ' + quote, `Markdownの ${lineId} の引用`);
-    return {head: md[i], id: idLine, quote: quoteLine.trim()};
-  };
-  const mdSupport = section('## 支持する発言', SUPPORT_LINE, lineText.get(SUPPORT_LINE));
-  const mdContra = section('## 反する発言', CONTRA_LINE, lineText.get(CONTRA_LINE));
-  check(selectedMd.includes(focus.next_step) && selectedMd.includes(SKILL_URL) && selectedMd.includes('架空'), 'Markdownの次の一歩・固定原典・架空の注記');
-
-  // 実画面：記録の SHA-256・大きさ・選んでいた発見、切り抜きが記録の範囲を含むこと
-  check(Array.isArray(screens.screens) && screens.screens.length === 6, '実画面の記録');
-  const keyOf = file => FILES['video/assets/' + file] && FILES['video/assets/' + file].key;
-  const selected = {'desktop-first.png': 'F01', 'desktop-notifications.png': PURPOSE, 'desktop-calendar.png': FOCUS, 'desktop-origin.png': FOCUS};
-  screens.screens.forEach(s => {
-    const img = d[keyOf(s.file)];
-    check(img && img.width === s.width && img.height === s.height, `${s.file} の大きさ`);
-    if (selected[s.file]) check(s.dom_capture && s.dom_capture.selected === selected[s.file], `${s.file} で選んでいた発見`);
-  });
-  for (const [name, crop] of Object.entries(CROPS)) {
-    const img = d[crop.img];
-    check(crop.x >= 0 && crop.y >= 0 && crop.x + crop.w <= img.width && crop.y + crop.h <= img.height, `${name} の切り抜き範囲`);
-    if (crop.contains) {
-      const [file, ...ids] = crop.contains;
-      const regions = screens.screens.find(s => s.file === file).dom_capture.regions;
-      ids.forEach(id => {
-        const r = regions.find(g => g.id === id);
-        check(r && r.x >= crop.x && r.y >= crop.y && r.x + r.width <= crop.x + crop.w && r.y + r.height <= crop.y + crop.h, `${name} が ${id} を含む`);
-      });
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const prog = (t, a, b) => clamp((t - a) / (b - a), 0, 1);
+const smooth = (x) => x * x * (3 - 2 * x);
+const ease = (t, a, b) => smooth(prog(t, a, b));
+const lerp = (a, b, p) => a + (b - a) * p;
+function keyed(t, keys) {
+  if (t <= keys[0][0]) return keys[0][1];
+  for (let i = 1; i < keys.length; i++) {
+    const [t1, v1] = keys[i];
+    if (t <= t1) {
+      const [t0, v0] = keys[i - 1];
+      return t1 === t0 ? v1 : lerp(v0, v1, smooth((t - t0) / (t1 - t0)));
     }
   }
+  return keys[keys.length - 1][1];
+}
+function hash01(str, salt) {
+  let h = (2166136261 ^ salt) >>> 0;
+  for (const ch of str) {
+    h ^= ch.codePointAt(0);
+    h = Math.imul(h, 16777619) >>> 0;
+  }
+  return (h % 10007) / 10007;
+}
 
-  const label = id => ({id, pid: lineOwner.get(id), segment: personById.get(lineOwner.get(id)).segment, text: lineText.get(id)});
+/* ---------- loading: pinned bytes, then meaning ---------- */
+
+class AssetError extends Error {}
+const fail = (message) => { throw new AssetError(message); };
+
+async function getBytes(url) {
+  let res;
+  try {
+    res = await fetch(url, { cache: 'no-store', credentials: 'same-origin' });
+  } catch {
+    fail(`${url} を読み込めませんでした。${location.protocol === 'file:' ? 'HTTPサーバーから開いてください。' : ''}`);
+  }
+  if (!res.ok) fail(`${url} を読み込めませんでした（HTTP ${res.status}）。`);
+  return new Uint8Array(await res.arrayBuffer());
+}
+async function sha256(bytes) {
+  if (!globalThis.crypto || !crypto.subtle) fail('このブラウザーでは素材のSHA-256を照合できません。HTTPS か localhost で開いてください。');
+  const digest = await crypto.subtle.digest('SHA-256', bytes);
+  return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, '0')).join('');
+}
+const utf8 = new TextDecoder('utf-8', { fatal: true });
+function parse(url, bytes) {
+  let text;
+  try { text = utf8.decode(bytes); } catch { fail(`${url} をUTF-8として読めませんでした。`); }
+  try { return JSON.parse(text); } catch { fail(`${url} をJSONとして読めませんでした。`); }
+}
+
+async function loadAssets() {
+  const mBytes = await getBytes(MANIFEST_URL);
+  if (await sha256(mBytes) !== MANIFEST_SHA256) fail(`${MANIFEST_URL} が固定した版と違います（SHA-256 不一致）。`);
+  const manifest = parse(MANIFEST_URL, mBytes);
+  if (!manifest || manifest.format !== 'studio-yebisu-motion-assets-v1' || manifest.case !== 'knowledge-work-plugins-example'
+    || !Array.isArray(manifest.assets) || manifest.assets.length !== ASSET_FILES.length) fail(`${MANIFEST_URL} の形が想定と違います。`);
+  manifest.assets.forEach((a, i) => {
+    if (!a || a.file !== ASSET_FILES[i] || !Number.isInteger(a.bytes) || !/^[0-9a-f]{64}$/.test(a.sha256)) fail(`${MANIFEST_URL} の${i + 1}件目が ${ASSET_FILES[i]} ではありません。`);
+  });
+  const shas = {};
+  const loaded = await Promise.all(manifest.assets.map(async (a) => {
+    const url = `assets/${a.file}`;
+    const bytes = await getBytes(url);
+    if (bytes.length !== a.bytes) fail(`${url} が固定した版と違います（${bytes.length}バイト／固定 ${a.bytes}バイト）。`);
+    if (await sha256(bytes) !== a.sha256) fail(`${url} が固定した版と違います（SHA-256 不一致）。`);
+    shas[a.file] = a.sha256;
+    return [a.file.replace(/\.json$/, ''), parse(url, bytes)];
+  }));
+  return buildModel(Object.fromEntries(loaded), shas);
+}
+
+function must(cond, message) {
+  if (!cond) fail(`素材の内容が想定と違います：${message}`);
+}
+const isStr = (v) => typeof v === 'string' && v.length > 0;
+const same = (a, b) => Array.isArray(a) && Array.isArray(b) && a.length === b.length && a.every((v, i) => v === b[i]);
+
+function buildModel(a, shas) {
+  const { interviews, synthesis, samples, timeline, upstream } = a;
+  const diagram = a['diagram-data'];
+  const history = a['original-verification'];
+
+  // interviews.json: three fictional notebooks, five lines each.
+  must(interviews && interviews.fictional === true && Array.isArray(interviews.participants), 'interviews.json が架空の資料ではありません');
+  must(same(interviews.participants.map((p) => p.id), ['P01', 'P02', 'P03']), '参加者が P01・P02・P03 ではありません');
+  const lines = new Map();
+  for (const p of interviews.participants) {
+    must(p.method === 'fictional_interview_self_report' && isStr(p.segment), `${p.id} が架空の自己申告ではありません`);
+    must(same(p.lines.map((l) => l.id), [1, 2, 3, 4, 5].map((n) => `${p.id}-L0${n}`)), `${p.id} の行が5行ではありません`);
+    p.lines.forEach((l, k) => { must(isStr(l.text), `${l.id} が空です`); lines.set(l.id, { p: p.id, k, text: l.text }); });
+  }
+
+  // synthesis.json: the saved result, unchanged.
+  must(synthesis && synthesis.meta && synthesis.meta.fictional === true && synthesis.meta.participant_count === 3, 'synthesis.json の範囲が違います');
+  must(Array.isArray(synthesis.observations) && synthesis.observations.length === 15, '観察が15件ではありません');
+  const obs = new Map();
+  synthesis.observations.forEach((o, i) => {
+    const line = lines.get(o.line_id);
+    must(o.id === `O${String(i + 1).padStart(2, '0')}` && line && line.p === o.source_id && o.quote === line.text, `観察 ${o.id} が原文と合いません`);
+    must(!obs.has(o.id), `観察 ${o.id} が重複しています`);
+    obs.set(o.id, { id: o.id, p: o.source_id, line: o.line_id, k: line.k, kind: o.kind, index: i });
+  });
+  must(same(synthesis.findings.map((f) => f.id), FINDING_IDS), '発見が F01〜F05 ではありません');
+  must(same(synthesis.recommendations.map((r) => r.id), ['R01', 'R02', 'R03', 'R04', 'R05']), '提案が R01〜R05 ではありません');
+
+  // diagram-data.json: the producer's factual index; every entry must agree with the saved synthesis.
+  must(diagram && diagram.format === 'studio-yebisu-knowledge-affinity-map-v1' && diagram.fictional === true, 'diagram-data.json の形式が違います');
+  must(same(diagram.participants.map((p) => p.id), ['P01', 'P02', 'P03'])
+    && diagram.participants.every((p) => same(p.line_ids, interviews.participants.find((q) => q.id === p.id).lines.map((l) => l.id))), '図の参加者と行が原文と合いません');
+  must(same(diagram.observations.map((o) => o.id), [...obs.keys()]), '図の観察が保存結果と合いません');
+  for (const d of diagram.observations) {
+    const o = obs.get(d.id);
+    must(d.participant === o.p && d.line_id === o.line && d.kind === o.kind && isStr(d.short_label), `図の観察 ${d.id} が保存結果と合いません`);
+    o.label = d.short_label;
+  }
+  const findings = new Map();
+  synthesis.findings.forEach((f, i) => {
+    const d = diagram.findings[i];
+    const recs = synthesis.recommendations.filter((r) => r.finding_ids.includes(f.id));
+    const support = new Set(f.observation_ids.map((oid) => obs.get(oid) && obs.get(oid).p));
+    must(d && d.id === f.id && isStr(d.short_label), `図の発見 ${f.id} がありません`);
+    must(same(d.support, f.observation_ids) && same(d.participants, f.participant_ids) && same([...support].sort(), [...f.participant_ids].sort()), `${f.id} の支持が保存結果と合いません`);
+    must(d.frequency === f.frequency && f.frequency === support.size && d.confidence === f.confidence && CONFIDENCE_LABEL[f.confidence], `${f.id} の人数か確からしさが合いません`);
+    must(same(d.contrary_lines, f.contradictions.map((c) => c.line_id)), `${f.id} の反する発言が合いません`);
+    must(recs.length === 1 && same(d.recommendation_ids, [recs[0].id]) && isStr(recs[0].priority) && REC_LINES[recs[0].id], `${f.id} の提案が合いません`);
+    findings.set(f.id, {
+      id: f.id, label: d.short_label, support: f.observation_ids, participants: f.participant_ids,
+      freq: f.frequency, conf: CONFIDENCE_LABEL[f.confidence], contraryLines: d.contrary_lines,
+      rec: { id: recs[0].id, priority: recs[0].priority },
+    });
+  });
+  must(same([...findings.values()].map((f) => f.freq), [3, 3, 3, 3, 1]), '支持の人数が 3・3・3・3・1 ではありません');
+  for (const [fid, s] of Object.entries(SPLITS)) must(same(s.groups.flat().sort(), [...findings.get(fid).support].sort()), `${fid} の分け方が支持と合いません`);
+  for (const [fid, s] of Object.entries(TAGS)) must(same([...s.order].sort(), [...findings.get(fid).support].sort()), `${fid} の並びが支持と合いません`);
+  must(diagram.default_finding === 'F05', '既定の発見が F05 ではありません');
+  const routes = diagram.notification_routes;
+  must(Array.isArray(routes) && same(routes.map((r) => r.observation), findings.get('F03').support)
+    && routes.every((r) => isStr(r.purpose) && isStr(r.channel)) && new Set(routes.map((r) => r.channel)).size === 3, 'F03 の3本の道が保存結果と合いません');
+  const allSupport = new Set([...findings.values()].flatMap((f) => f.support));
+  const allContrary = new Set([...findings.values()].flatMap((f) => f.contraryLines));
+  must(same(diagram.unassigned_observations, ['O02']) && !allSupport.has('O02') && !allContrary.has(obs.get('O02').line), 'O02 が数えない発言として残っていません');
+  const contraryObs = diagram.monthly_contrary_observation;
+  must(contraryObs === 'O09' && same(findings.get('F05').contraryLines, [obs.get('O09').line]) && same(findings.get('F05').support, ['O12']), 'F05 の支持と反する発言が合いません');
+
+  // timeline.json: fixed story beats.
+  must(timeline && timeline.format === 'studio-yebisu-knowledge-visual-timeline-v1' && timeline.duration === DURATION && timeline.fps === 30 && timeline.silent === true, 'timeline.json が32秒・30fps・無音ではありません');
+  must(same(timeline.scenes.map((s) => s.id), SCENE_IDS), '場面の並びが違います');
+  timeline.scenes.forEach((s, i) => {
+    must(s.in === (i ? timeline.scenes[i - 1].out : 0) && s.out > s.in && isStr(s.headline) && findings.has(s.finding), `場面 ${s.id} の時刻か内容が違います`);
+  });
+  must(timeline.scenes[timeline.scenes.length - 1].out === DURATION, '最後の場面が32秒で終わりません');
+
+  // upstream.json: pinned source shown in the footer.
+  must(upstream && upstream.repository === 'anthropics/knowledge-work-plugins' && upstream.commit === COMMIT
+    && upstream.plugin_version === '1.2.0' && upstream.license === 'Apache-2.0'
+    && Object.keys(upstream.files_sha256 || {}).length === 7
+    && /^[0-9a-f]{64}$/.test(upstream.files_sha256['product-management/skills/synthesize-research/SKILL.md'] || ''), 'upstream.json の固定版が違います');
+
+  // original-verification.json: historical record of the earlier 28-second film; only checked for provenance.
+  must(history && history.id === 'knowledge-work-plugins-example' && history.source_commit === COMMIT
+    && history.data_checks && history.data_checks.input_sha256 === shas['interviews.json'] && history.data_checks.output_sha256 === shas['synthesis.json'], '旧確認記録の入力・出力ハッシュが素材と合いません');
+  const historySeconds = history.video && history.video.native_playback && history.video.native_playback.duration;
+  must(Number.isFinite(historySeconds), '旧確認記録に旧動画の長さがありません');
+
+  // samples.json: the saved export case drawn at the end.
+  must(samples && samples.format === 'input-output' && Array.isArray(samples.samples), 'samples.json の形式が違います');
+  const applied = samples.samples.find((s) => s.id === 'apply-skill');
+  must(applied && applied.output.observations === 15 && JSON.stringify(applied.output.findings) === JSON.stringify(synthesis.findings), '操作例 apply-skill が保存結果と合いません');
+  const exported = samples.samples.find((s) => s.id === 'exports');
+  must(exported && exported.output.selected_finding === 'F05' && exported.output.support_line === obs.get('O12').line
+    && exported.output.contradictory_line === obs.get('O09').line && exported.output.support_frequency === findings.get('F05').freq, '操作例 exports が F05 と合いません');
+
+  const S = Object.fromEntries(timeline.scenes.map((s) => [s.id, s]));
   return {
-    img: d,
-    n: people.length,
-    lineCount: lineText.size,
-    obsCount: obs.size,
-    question: input.research_question,
-    memoLines: [NEUTRAL_LINE, CONTRA_LINE, SUPPORT_LINE].map(label).sort((a, b) => a.pid.localeCompare(b.pid)),
-    findings: syn.findings.map(f => byId.get(f.id)),
-    focus,
-    support: label(SUPPORT_LINE),
-    contra: label(CONTRA_LINE),
-    purpose,
-    purposeRows,
-    purposeNote,
-    md: {title, freq: freqLine, support: mdSupport, contra: mdContra}
+    participants: interviews.participants.map((p) => ({ id: p.id, short: PARTICIPANT_SHORT[p.id], lines: p.lines.map((l) => l.id) })),
+    lines,
+    obs,
+    obsList: [...obs.values()],
+    findings,
+    routes,
+    neutral: 'O02',
+    contraryObs,
+    scenes: timeline.scenes,
+    T: { inputs: S.inputs.in, cluster: S.cluster.in, contrary: S.contrary.in, notification: S.notification.in, proposal: S.proposal.in, finish: S.finish.in },
+    exportName: `synthesis-${exported.output.selected_finding}.md`,
+    total: interviews.participants.length,
+    pin: `${upstream.repository} ${upstream.commit.slice(0, 7)} ・ product-management ${upstream.plugin_version} ・ ${upstream.license}`,
+    historySeconds,
   };
 }
 
-// ---- 描画の部品 ------------------------------------------------------------
-function font(o) {
-  const family = o.family === 'serif' ? SERIF : o.family === 'mono' ? MONO : SANS;
-  return `${o.weight || 400} ${o.size || 18}px ${family}`;
+/* ---------- layout (design units; scaled to the render size) ---------- */
+
+const R = (x, y, w, h) => ({ x, y, w, h });
+const PORTRAIT = {
+  portrait: true, bw: 720, bh: 1280,
+  badgeY: 52, headX: 44, headY: 150, headW: 632, headSize: 42, headLH: 56, headLines: 2,
+  slip: { w: 84, h: 60 }, titleH: 52, noteGap: 30,
+  notebooks: { P01: R(36, 270, 196, 156), P02: R(262, 270, 196, 156), P03: R(488, 270, 196, 156) },
+  clusters: { F01: R(28, 470, 322, 160), F02: R(370, 470, 322, 160), F03: R(28, 648, 322, 212), F04: R(370, 648, 322, 212), F05: R(28, 878, 456, 178) },
+  neutral: R(500, 878, 192, 178),
+  proposal: R(28, 1086, 420, 128), exportBox: R(480, 1086, 212, 128),
+  toProposal: [[140, 1056], [140, 1086]],
+  toExport: [[448, 1150], [480, 1150]],
+  loose: (pi, k) => ({ x: 46 + k * 128, y: 506 + pi * 172 }),
+  footerY: 1252,
+};
+const WIDE = {
+  portrait: false, bw: 1280, bh: 720,
+  badgeY: 40, headX: 40, headY: 106, headW: 940, headSize: 34, headLH: 44, headLines: 1,
+  slip: { w: 80, h: 56 }, titleH: 46, noteGap: 26,
+  notebooks: { P01: R(36, 150, 200, 150), P02: R(36, 325, 200, 150), P03: R(36, 500, 200, 150) },
+  clusters: { F01: R(272, 140, 344, 150), F02: R(632, 140, 344, 150), F03: R(272, 304, 344, 196), F04: R(632, 304, 344, 196), F05: R(272, 514, 470, 156) },
+  neutral: R(758, 514, 218, 156),
+  proposal: R(1010, 180, 234, 236), exportBox: R(1010, 452, 234, 150),
+  toProposal: [[700, 514], [700, 507], [993, 507], [993, 300], [1010, 300]],
+  toExport: [[1127, 416], [1127, 452]],
+  loose: (pi, k) => ({ x: 300 + k * 134, y: 176 + pi * 168 }),
+  footerY: 700,
+};
+
+function makeLayout(w, h) {
+  const base = h >= w ? PORTRAIT : WIDE;
+  const s = Math.min(w / base.bw, h / base.bh);
+  return { ...base, s, ox: (w - base.bw * s) / 2, oy: (h - base.bh * s) / 2 };
 }
-function text(c, s, x, y, o = {}) {
-  c.save();
-  c.font = font(o);
-  c.fillStyle = o.color || C.ink;
-  c.textAlign = o.align || 'left';
-  c.textBaseline = 'alphabetic';
-  if (o.alpha !== undefined) c.globalAlpha *= o.alpha;
-  c.fillText(s, x, y);
-  c.restore();
-}
-function measure(c, s, o) {
-  c.save();
-  c.font = font(o);
-  const w = c.measureText(s).width;
-  c.restore();
-  return w;
-}
-// 日本語の折り返し：測った幅で折り、行頭・行末の禁則を守る。英数字の語とIDは分けない
-const NO_START = '、。，．・：；？！ー）」』】〕〉》ぁぃぅぇぉっゃゅょゎァィゥェォッャュョヮ…‥';
-const NO_END = '（「『【〔〈《';
-function greedy(c, s, maxWidth) {
-  const lines = [];
-  for (const para of String(s).split('\n')) {
-    const tokens = para.match(/[A-Za-z0-9][A-Za-z0-9.,:=_\-/@]*|\s+|[\s\S]/gu) || [];
-    let line = '';
-    for (const token of tokens) {
-      const next = line + token;
-      if (line.trim() && !/^\s+$/.test(token) && c.measureText(next).width > maxWidth) {
-        let carry = token;
-        if (NO_START.includes(token[0]) && line.length > 1) {
-          carry = line.slice(-1) + carry;
-          line = line.slice(0, -1);
-        }
-        while (line.length > 1 && NO_END.includes(line.slice(-1))) {
-          carry = line.slice(-1) + carry;
-          line = line.slice(0, -1);
-        }
-        lines.push(line.trimEnd());
-        line = carry;
+
+function buildGeometry(m, Lx) {
+  const { w: sw, h: sh } = Lx.slip;
+  const slot0 = new Map();
+  const slot1 = new Map();
+  const deco = {};
+  const groupOf = new Map();
+  const order = [];
+  for (const fid of FINDING_IDS) {
+    const b = Lx.clusters[fid];
+    const top = b.y + Lx.titleH;
+    const d = { notes: [], dividers: [], terminals: [], lanes: [] };
+    const put = (oid, x, y) => { slot0.set(oid, { x, y }); slot1.set(oid, { x, y }); groupOf.set(oid, fid); order.push(oid); };
+    if (SPLITS[fid]) {
+      const sp = SPLITS[fid];
+      const g = 14;
+      const gap = 28;
+      const pad = (b.w - (3 * sw + g + gap)) / 2;
+      const x1 = b.x + pad;
+      const x2 = x1 + sw + g;
+      const x3 = x2 + sw + gap;
+      put(sp.groups[0][0], x1, top);
+      put(sp.groups[0][1], x2, top);
+      put(sp.groups[1][0], x3, top);
+      d.dividers.push({ x: x2 + sw + gap / 2, y1: top + 4, y2: top + sh + Lx.noteGap - 4 });
+      const notes = sp.notes(sp.groups);
+      d.notes.push({ text: notes[0], x: (x1 + x2 + sw) / 2, y: top + sh + Lx.noteGap });
+      d.notes.push({ text: notes[1], x: x3 + sw / 2, y: top + sh + Lx.noteGap });
+      d.positive = !!sp.positive;
+    } else {
+      const gap = (b.w - 3 * sw) / 4;
+      const xs = [0, 1, 2].map((i) => b.x + gap + i * (sw + gap));
+      if (TAGS[fid]) {
+        TAGS[fid].order.forEach((oid, i) => {
+          put(oid, xs[i], top);
+          d.notes.push({ text: TAGS[fid].notes[i], x: xs[i] + sw / 2, y: top + sh + Lx.noteGap });
+        });
+      } else if (fid === 'F03') {
+        const spacing = sw + gap;
+        const tw = Math.min(sw + 20, spacing - 6);
+        m.routes.forEach((r, i) => {
+          put(r.observation, xs[i], top);
+          const ty = top + sh + 40;
+          d.terminals.push({ x: xs[i] + sw / 2 - tw / 2, y: ty, w: tw, h: b.y + b.h - 8 - ty, cx: xs[i] + sw / 2, y0: top + sh, purpose: r.purpose, channel: r.channel });
+        });
       } else {
-        line = next;
+        // F05: support lane and contrary lane; the two slips start together and then separate.
+        const laneTop = top;
+        const laneH = b.h - Lx.titleH - 12;
+        const laneW = (b.w - 42) / 2;
+        const f = m.findings.get(fid);
+        const lanes = [
+          { kind: 'support', x: b.x + 14, oid: f.support[0], main: '支持', sub: `${f.freq}/${m.total}人` },
+          { kind: 'contrary', x: b.x + 28 + laneW, oid: m.contraryObs, main: '反する', sub: '数えない' },
+        ];
+        const midY = laneTop + (laneH - sh) / 2;
+        lanes.forEach((lane, i) => {
+          put(lane.oid, b.x + b.w / 2 + (i ? 10 : -sw - 10), midY);
+          slot1.set(lane.oid, { x: lane.x + 16, y: midY });
+          d.lanes.push({ ...lane, y: laneTop, w: laneW, h: laneH });
+        });
       }
     }
-    lines.push(line.trimEnd());
+    deco[fid] = d;
   }
-  return lines;
+  const n = Lx.neutral;
+  const ny = n.y + Lx.titleH;
+  slot0.set(m.neutral, { x: n.x + (n.w - sw) / 2, y: ny });
+  slot1.set(m.neutral, { x: n.x + (n.w - sw) / 2, y: ny });
+  groupOf.set(m.neutral, 'neutral');
+  order.push(m.neutral);
+
+  const groupStart = {};
+  ['F01', 'F02', 'F03', 'F04', 'F05', 'neutral'].forEach((gid, ci) => { groupStart[gid] = m.T.cluster + 0.2 + ci * 0.55; });
+  const gather = new Map();
+  for (const gid of Object.keys(groupStart)) {
+    order.filter((oid) => groupOf.get(oid) === gid).forEach((oid, j) => gather.set(oid, groupStart[gid] + j * 0.08));
+  }
+
+  const lineY = (b, k) => b.y + (Lx.portrait ? 58 : 54) + k * (Lx.portrait ? 21 : 20);
+  const home = new Map();
+  const loose = new Map();
+  const pIndex = { P01: 0, P02: 1, P03: 2 };
+  for (const o of m.obsList) {
+    const b = Lx.notebooks[o.p];
+    home.set(o.id, { x: b.x + b.w + 2 - sw / 2, y: lineY(b, o.k) - 4 - sh / 2 });
+    const base = Lx.loose(pIndex[o.p], o.k);
+    loose.set(o.id, { x: base.x + (hash01(o.id, 1) - 0.5) * 18, y: base.y + (hash01(o.id, 2) - 0.5) * 16, rot: (hash01(o.id, 3) - 0.5) * 0.14 });
+  }
+  return { slot0, slot1, deco, groupOf, groupStart, gather, home, loose, lineY };
 }
-// 行数を変えずに、いちばん狭く収まる幅で折り直す（最後の行に1〜2字だけ残さない）
-function wrap(c, s, maxWidth, o) {
-  c.save();
-  c.font = font(o);
-  let lines = greedy(c, s, maxWidth);
-  if (lines.length > 1) {
-    let lo = maxWidth * 0.4, hi = maxWidth;
-    for (let i = 0; i < 14; i++) {
-      const mid = (lo + hi) / 2;
-      if (greedy(c, s, mid).length <= lines.length) hi = mid;
-      else lo = mid;
+
+/* ---------- emphasis keys (absolute seconds from timeline.json) ---------- */
+
+const LOW = 0.3;
+const MID = 0.6;
+function dimKeys(T) {
+  const tail = [[T.finish, LOW], [T.finish + 0.5, 1]];
+  const rest = [[0, 1], [T.cluster + 4, 1], [T.cluster + 4.4, MID], [T.contrary, MID], [T.contrary + 0.8, LOW], ...tail];
+  return {
+    F01: [[0, 1], [T.contrary, 1], [T.contrary + 0.8, LOW], ...tail],
+    F02: rest,
+    F04: rest,
+    F03: [[0, 1], [T.cluster + 4, 1], [T.cluster + 4.4, MID], [T.contrary, MID], [T.contrary + 0.8, LOW], [T.notification, LOW], [T.notification + 0.8, 1], [T.proposal, 1], [T.proposal + 0.6, LOW], ...tail],
+    F05: [[0, 1], [T.cluster + 4, 1], [T.cluster + 4.4, MID], [T.contrary, MID], [T.contrary + 0.8, 1], [T.notification, 1], [T.notification + 0.8, LOW], [T.proposal, LOW], [T.proposal + 0.6, 1]],
+  };
+}
+function focusKeys(T) {
+  return {
+    F01: [[T.cluster + 4, 0], [T.cluster + 4.4, 1], [T.contrary, 1], [T.contrary + 0.8, 0]],
+    F02: [[0, 0]],
+    F04: [[0, 0]],
+    F03: [[T.notification, 0], [T.notification + 0.8, 1], [T.proposal, 1], [T.proposal + 0.6, 0]],
+    F05: [[0, 0.55], [T.inputs, 0.55], [T.inputs + 0.5, 0], [T.contrary, 0], [T.contrary + 0.8, 1], [T.notification, 1], [T.notification + 0.8, 0], [T.proposal, 0], [T.proposal + 0.6, 1]],
+  };
+}
+let DIM = null;
+let FOCUS = null;
+
+/* ---------- canvas helpers ---------- */
+
+function alpha(a, fn) {
+  if (a <= 0.002) return;
+  ctx.save();
+  ctx.globalAlpha *= Math.min(1, a);
+  fn();
+  ctx.restore();
+}
+function rr(x, y, w, h, r) {
+  const q = Math.min(r, w / 2, h / 2);
+  ctx.beginPath();
+  ctx.moveTo(x + q, y);
+  ctx.lineTo(x + w - q, y);
+  ctx.arcTo(x + w, y, x + w, y + q, q);
+  ctx.lineTo(x + w, y + h - q);
+  ctx.arcTo(x + w, y + h, x + w - q, y + h, q);
+  ctx.lineTo(x + q, y + h);
+  ctx.arcTo(x, y + h, x, y + h - q, q);
+  ctx.lineTo(x, y + q);
+  ctx.arcTo(x, y, x + q, y, q);
+  ctx.closePath();
+}
+function setFont(size, weight, family) {
+  ctx.font = `${weight} ${size}px ${family}`;
+}
+function text(str, x, y, { size = 20, weight = 400, color = INK, align = 'left', font = SANS, maxW = 0 } = {}) {
+  let s = size;
+  setFont(s, weight, font);
+  if (maxW > 0) {
+    while (s > 9 && ctx.measureText(str).width > maxW) {
+      s -= 1;
+      setFont(s, weight, font);
     }
-    lines = greedy(c, s, hi);
   }
-  c.restore();
-  return lines;
+  ctx.fillStyle = color;
+  ctx.textAlign = align;
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillText(str, x, y);
+  return ctx.measureText(str).width;
 }
-// 折り返して描き、最後の行のベースラインを返す
-function block(c, s, x, y, maxWidth, lineHeight, o) {
-  const lines = wrap(c, s, maxWidth, o);
-  lines.forEach((line, i) => text(c, line, x, y + i * lineHeight, o));
-  return y + (lines.length - 1) * lineHeight;
+function measure(str, size, weight, font = SANS) {
+  setFont(size, weight, font);
+  return ctx.measureText(str).width;
 }
-function roundRect(c, x, y, w, h, r) {
-  const radius = Math.min(r, w / 2, h / 2);
-  c.beginPath();
-  c.moveTo(x + radius, y);
-  c.arcTo(x + w, y, x + w, y + h, radius);
-  c.arcTo(x + w, y + h, x, y + h, radius);
-  c.arcTo(x, y + h, x, y, radius);
-  c.arcTo(x, y, x + w, y, radius);
-  c.closePath();
-}
-function card(c, x, y, w, h, o = {}) {
-  c.save();
-  c.shadowColor = 'rgba(29, 27, 24, 0.10)';
-  c.shadowBlur = 16;
-  c.shadowOffsetY = 5;
-  roundRect(c, x, y, w, h, o.r || 10);
-  c.fillStyle = o.fill || C.card;
-  c.fill();
-  c.restore();
-  roundRect(c, x + 0.5, y + 0.5, w - 1, h - 1, o.r || 10);
-  c.strokeStyle = o.stroke || C.rule;
-  c.lineWidth = 1;
-  c.stroke();
-}
-function pill(c, label, x, y, h, o) {
-  c.save();
-  c.font = font(o);
-  const w = o.width || Math.ceil(c.measureText(label).width) + 2 * (o.pad === undefined ? 14 : o.pad);
-  roundRect(c, x, y, w, h, o.radius === undefined ? h / 2 : o.radius);
-  if (o.fill) {
-    c.fillStyle = o.fill;
-    c.fill();
+// Japanese headline wrap: break after 。 or 、 first, then by character.
+function wrapHeadline(str, maxW, size) {
+  const parts = str.match(/[^。、]+[。、]?/g) || [str];
+  const out = [];
+  let line = '';
+  for (const part of parts) {
+    if (measure(line + part, size, 700, SERIF) <= maxW) { line += part; continue; }
+    if (line) out.push(line);
+    line = '';
+    for (const ch of part) {
+      if (measure(line + ch, size, 700, SERIF) > maxW && line) { out.push(line); line = ''; }
+      line += ch;
+    }
   }
-  if (o.stroke) {
-    c.strokeStyle = o.stroke;
-    c.lineWidth = o.lineWidth || 1.5;
-    c.stroke();
+  if (line) out.push(line);
+  return out;
+}
+function polyline(pts, p) {
+  const segs = [];
+  let total = 0;
+  for (let i = 1; i < pts.length; i++) {
+    const len = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
+    segs.push(len);
+    total += len;
   }
-  c.fillStyle = o.color || C.ink;
-  c.textAlign = 'center';
-  c.textBaseline = 'middle';
-  c.fillText(label, x + w / 2, y + h / 2 + 1);
-  c.restore();
+  let left = total * clamp(p, 0, 1);
+  const out = [pts[0]];
+  for (let i = 1; i < pts.length && left > 0; i++) {
+    const len = segs[i - 1];
+    if (left >= len) { out.push(pts[i]); left -= len; continue; }
+    const r = left / len;
+    out.push([lerp(pts[i - 1][0], pts[i][0], r), lerp(pts[i - 1][1], pts[i][1], r)]);
+    left = 0;
+  }
+  return out;
+}
+function strokePts(pts) {
+  ctx.beginPath();
+  pts.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)));
+  ctx.stroke();
+}
+function arrowHead(from, to, size) {
+  const ang = Math.atan2(to[1] - from[1], to[0] - from[0]);
+  ctx.beginPath();
+  ctx.moveTo(to[0], to[1]);
+  ctx.lineTo(to[0] - size * Math.cos(ang - 0.45), to[1] - size * Math.sin(ang - 0.45));
+  ctx.lineTo(to[0] - size * Math.cos(ang + 0.45), to[1] - size * Math.sin(ang + 0.45));
+  ctx.closePath();
+  ctx.fill();
+}
+function drawArrow(pts, p, { color = INK, width = 4, dash = null } = {}) {
+  if (p <= 0) return;
+  const part = polyline(pts, p);
+  ctx.save();
+  ctx.strokeStyle = color;
+  ctx.fillStyle = color;
+  ctx.lineWidth = width;
+  ctx.lineJoin = 'round';
+  ctx.lineCap = 'round';
+  if (dash) ctx.setLineDash(dash);
+  strokePts(part);
+  ctx.setLineDash([]);
+  if (p >= 0.999 && part.length > 1) arrowHead(part[part.length - 2], part[part.length - 1], width * 3.4);
+  ctx.restore();
+}
+function bezierPts(a, b, down, n = 36) {
+  const c1 = down ? [a[0], a[1] + 120] : [a[0] + 110, a[1]];
+  const c2 = down ? [b[0], b[1] - 120] : [b[0] - 110, b[1]];
+  const pts = [];
+  for (let i = 0; i <= n; i++) {
+    const u = i / n;
+    const v = 1 - u;
+    pts.push([
+      v * v * v * a[0] + 3 * v * v * u * c1[0] + 3 * v * u * u * c2[0] + u * u * u * b[0],
+      v * v * v * a[1] + 3 * v * v * u * c1[1] + 3 * v * u * u * c2[1] + u * u * u * b[1],
+    ]);
+  }
+  return pts;
+}
+
+/* ---------- the drawing ---------- */
+
+function sceneAt(t) {
+  const list = model.scenes;
+  for (let i = 0; i < list.length; i++) if (t < list[i].out) return i;
+  return list.length - 1;
+}
+
+function drawBackdrop() {
+  ctx.fillStyle = 'rgba(28,26,23,0.07)';
+  for (let y = 20; y < L.bh; y += 40) for (let x = 20; x < L.bw; x += 40) ctx.fillRect(x, y, 2, 2);
+}
+
+function pill(label, x, y, { fill = CARD, color = INK, size = 18 } = {}) {
+  const w = measure(label, size, 700) + size * 1.2;
+  const h = size * 1.75;
+  rr(x, y - h + size * 0.45, w, h, h / 2);
+  ctx.fillStyle = fill;
+  ctx.fill();
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = INK;
+  ctx.stroke();
+  text(label, x + size * 0.6, y, { size, weight: 700, color });
   return w;
 }
-function rule(c, x, y1, y2, color, width) {
-  c.save();
-  c.fillStyle = color;
-  c.fillRect(x, y1, width, Math.max(2, y2 - y1));
-  c.restore();
-}
-function label(c, s, x, y, o = {}) {
-  text(c, s, x, y, {size: 17, weight: 600, color: C.muted, ...o});
-}
 
-// 実画面の切り抜きを、等倍率でそのまま置く（画素は変えず、文字も重ねない）
-function drawShot(c, f, key, alpha, dy = 0) {
-  if (alpha <= 0.001) return null;
-  const crop = CROPS[key], place = PLACE[key], img = f.img[crop.img];
-  const x = place.x, y = place.y + dy, w = crop.w * place.s, h = crop.h * place.s;
-  c.save();
-  c.globalAlpha *= alpha;
-  c.save();
-  c.shadowColor = 'rgba(29, 27, 24, 0.14)';
-  c.shadowBlur = 18;
-  c.shadowOffsetY = 6;
-  roundRect(c, x, y, w, h, 8);
-  c.fillStyle = C.card;
-  c.fill();
-  c.restore();
-  c.save();
-  roundRect(c, x, y, w, h, 8);
-  c.clip();
-  c.drawImage(img, crop.x, crop.y, crop.w, crop.h, x, y, w, h);
-  c.restore();
-  roundRect(c, x + 0.5, y + 0.5, w - 1, h - 1, 8);
-  c.strokeStyle = C.rule;
-  c.lineWidth = 1;
-  c.stroke();
-  c.restore();
-  return {x, y, w, h, s: place.s, crop};
-}
-const toScreen = (shot, r) => ({
-  x: shot.x + (r.x - shot.crop.x) * shot.s,
-  y: shot.y + (r.y - shot.crop.y) * shot.s,
-  w: r.w * shot.s,
-  h: r.h * shot.s
-});
-// 実画面の上に重ねる枠（映像側の注目の印。画面の中身は変えない）
-function focusBox(c, r, color, alpha) {
-  if (alpha <= 0.001) return;
-  c.save();
-  c.globalAlpha *= alpha;
-  roundRect(c, r.x - 3, r.y - 3, r.w + 6, r.h + 6, 8);
-  c.strokeStyle = color;
-  c.lineWidth = 3;
-  c.stroke();
-  c.restore();
-}
-// 枠と説明をつなぐ線。k で始点から伸びる（時刻から直接求める）
-function connector(c, x1, y1, x2, y2, color, k) {
-  if (k <= 0.001) return;
-  const ex = lerp(x1, x2, k), ey = lerp(y1, y2, k);
-  c.save();
-  c.strokeStyle = color;
-  c.fillStyle = color;
-  c.lineWidth = 2;
-  c.beginPath();
-  c.moveTo(x1, y1);
-  c.lineTo(ex, ey);
-  c.stroke();
-  c.beginPath();
-  c.arc(x1, y1, 4.5, 0, Math.PI * 2);
-  c.fill();
-  if (k >= 0.999) {
-    c.beginPath();
-    c.arc(x2, y2, 4.5, 0, Math.PI * 2);
-    c.fill();
-  }
-  c.restore();
-}
-
-// ---- いつも出ている枠：上の4段階と、足元の範囲の注記 -------------------------
-function sceneIndex(t) {
-  const i = SCENES.findIndex(s => t < s.end);
-  return i < 0 ? SCENES.length - 1 : i;
-}
-function drawChrome(c, t, live) {
-  text(c, 'Studio Yebisu ・ Synthesize Research 作例', 80, 44, {size: 17, weight: 600, color: C.muted});
-  const o = {size: 18, weight: 700};
-  const weight = STEPS.map((_, k) => (live ? clamp01(SCENES.reduce((sum, s, i) => sum + (s.step === k ? sceneAlpha(t, i) : 0), 0)) : 0));
-  const current = live ? SCENES[sceneIndex(t)].step : -1;
-  const widths = STEPS.map(s => Math.ceil(measure(c, s, o)) + 28);
-  const arrow = 34;
-  let x = 1200 - widths.reduce((a, w) => a + w, 0) - arrow * (STEPS.length - 1);
-  STEPS.forEach((s, k) => {
-    const on = weight[k];
-    const base = k < current ? C.ink : C.muted;
-    c.save();
-    c.globalAlpha = 1 - on;
-    pill(c, s, x, 24, 32, {...o, stroke: C.rule, lineWidth: 1, color: base, width: widths[k]});
-    c.globalAlpha = on;
-    pill(c, s, x, 24, 32, {...o, fill: C.green, color: '#ffffff', width: widths[k]});
-    c.restore();
-    x += widths[k];
-    if (k < STEPS.length - 1) text(c, '→', x + arrow / 2, 46, {size: 18, weight: 700, color: C.quiet, align: 'center'});
-    x += arrow;
-  });
-  c.save();
-  c.fillStyle = C.rule;
-  c.fillRect(80, 66, 1120, 1);
-  c.fillRect(80, 664, 1120, 1);
-  c.restore();
-  text(c, FOOTER, 80, 697, {size: 18, weight: 700, color: C.ink});
-  text(c, `knowledge-work-plugins ${SOURCE_COMMIT.slice(0, 7)} ・ Apache-2.0`, 1200, 697, {size: 17, weight: 500, color: C.muted, align: 'right'});
-}
-
-function drawHeadlines(c, t, f) {
-  SCENES.forEach((s, i) => {
-    const a = sceneAlpha(t, i);
-    if (a <= 0.001) return;
-    const dy = i === 0 ? 0 : 8 * (1 - easeOut(prog(t, s.start - 0.05, s.start + 0.4)));
-    text(c, s.headline(f), 80, 118 + dy, {size: 42, weight: 600, family: 'serif', alpha: a});
-  });
-}
-
-// ---- 場面 ------------------------------------------------------------------
-// 0〜4.5秒：問いと、原文の3行（空き日の探し方）。整理の結果はまだ出さない
-function drawMemo(c, t, f) {
-  const a = sceneAlpha(t, 0);
-  if (a <= 0.001) return;
-  c.save();
-  c.globalAlpha = a * enter(t, 0, 0.35);
-  const pw = pill(c, '問い', 80, 150, 36, {size: 18, weight: 700, fill: C.greenSoft, color: C.greenInk, pad: 14});
-  block(c, f.question, 80 + pw + 16, 177, 1120 - pw - 16, 34, {size: 26, weight: 600});
-  c.globalAlpha = a;
-  label(c, '作例の実画面・最初の画面', 80, 222);
-  drawShot(c, f, 'phoneTop', enter(t, 0.15, 0.4), rise(t, 0.15));
-  label(c, `原文の3行（架空メモ${f.n}人・${f.lineCount}行のうち、空き日の探し方）`, 488, 222);
-  f.memoLines.forEach((m, i) => {
-    const at = 0.3 + i * 0.14;
-    c.globalAlpha = a * enter(t, at);
-    const y = 234 + i * 136 + rise(t, at);
-    card(c, 488, y, 712, 128);
-    text(c, m.id, 512, y + 32, {size: 18, weight: 700, family: 'mono', color: C.greenInk});
-    text(c, `${m.pid}・${m.segment}`, 512 + measure(c, m.id, {size: 18, weight: 700, family: 'mono'}) + 14, y + 32, {size: 18, color: C.muted});
-    block(c, m.text, 512, y + 74, 664, 36, {size: 26, family: 'serif'});
-  });
-  c.restore();
-}
-
-// 4.5〜7.5秒：保存済みの発見5件（実画面の一覧と、読める大きさの一覧）
-function drawFindings(c, t, f) {
-  const a = sceneAlpha(t, 1);
-  if (a <= 0.001) return;
-  c.save();
-  c.globalAlpha = a;
-  label(c, '実画面・発見の一覧（開いた直後）', 80, 154);
-  drawShot(c, f, 'list', 1, rise(t, 4.45, 0.45));
-  label(c, '保存済みの整理 outputs/synthesis.json', 532, 154);
-  const hl = enter(t, 6.6, 0.4);
-  f.findings.forEach((g, i) => {
-    const y = 198 + i * 82;
-    const at = 4.6 + i * 0.08;
-    c.globalAlpha = a * enter(t, at, 0.35);
-    const dy = rise(t, at, 0.35, 8);
-    if (g.id === FOCUS && hl > 0) {
-      c.save();
-      c.globalAlpha *= hl;
-      roundRect(c, 516, y - 36 + dy, 684, 78, 8);
-      c.fillStyle = C.greenSoft;
-      c.fill();
-      c.fillStyle = C.green;
-      c.fillRect(516, y - 36 + dy, 5, 78);
-      c.restore();
+function drawHeader(t) {
+  const size = L.portrait ? 20 : 17;
+  const w1 = pill('保存済みの整理を図解', L.headX, L.badgeY, { fill: INK, color: '#fff', size });
+  pill(`架空${model.total}人・自己申告`, L.headX + w1 + 10, L.badgeY, { size });
+  const i = sceneAt(t);
+  const s = model.scenes[i];
+  const fadeIn = i ? ease(t, s.in, s.in + 0.35) : 1;
+  const fadeOut = i < model.scenes.length - 1 ? 1 - ease(t, s.out - 0.25, s.out) : 1;
+  alpha(fadeIn * fadeOut, () => {
+    let size2 = L.headSize;
+    let lines = wrapHeadline(s.headline, L.headW, size2);
+    while (lines.length > L.headLines && size2 > 20) {
+      size2 -= 2;
+      lines = wrapHeadline(s.headline, L.headW, size2);
     }
-    text(c, g.id, 536, y + dy, {size: 20, weight: 700, family: 'mono', color: C.greenInk});
-    text(c, g.title, 598, y + dy, {size: 26, weight: 700});
-    const contra = g.contradictions.length ? `・反する発言 ${g.contradictions.length}` : '';
-    text(c, `${g.frequency}/${f.n}人・確からしさ ${CONF[g.confidence]}${contra}`, 598, y + 30 + dy, {size: 18, color: C.muted});
+    const lh = L.headLH * (size2 / L.headSize);
+    lines.forEach((line, k) => text(line, L.headX, L.headY + k * lh, { size: size2, weight: 700, font: SERIF }));
   });
-  c.globalAlpha = a * enter(t, 5.2);
-  block(c, `人数は、この架空の${f.n}人のうち何人か。利用者全体の割合ではありません。並びも暫定です。`, 532, 606, 668, 26, {size: 18, color: C.muted});
-  c.restore();
 }
 
-// 7.5〜14秒：F05。支持1人の原文と、別に置いた反する発言（ポスターは13.5秒）
-function drawFocus(c, t, f) {
-  const a = sceneAlpha(t, 2);
-  if (a <= 0.001) return;
-  c.save();
-  c.globalAlpha = a;
-  label(c, `実画面・${f.focus.id} の詳細（支持する発言と反する発言）`, 80, 154);
-  const shot = drawShot(c, f, 'calendar', 1, rise(t, 7.45, 0.45));
-  const sb = toScreen(shot, BOX.support), cb = toScreen(shot, BOX.contra);
-  focusBox(c, sb, C.green, enter(t, 8.2));
-  focusBox(c, cb, C.amber, enter(t, 9.8));
-
-  const X = 740, W = 460;
-  // 支持する発言（原文のまま）
-  const k1 = enter(t, 7.9), d1 = rise(t, 7.9);
-  c.globalAlpha = a * k1;
-  text(c, '支持する発言（原文のまま）', X, 176 + d1, {size: 18, weight: 700, color: C.green});
-  text(c, f.support.id, X + W, 176 + d1, {size: 18, weight: 700, family: 'mono', color: C.greenInk, align: 'right'});
-  const qEnd = block(c, f.support.text, X + 18, 218 + d1, W - 18, 40, {size: 28, family: 'serif'});
-  rule(c, X, 192 + d1, qEnd + 12, C.green, 4);
-  // 人数
-  const k2 = enter(t, 8.5), d2 = rise(t, 8.5);
-  c.globalAlpha = a * k2;
-  const big = `${f.focus.frequency}/${f.n}人`;
-  const countY = qEnd + 66 + d2;
-  text(c, big, X, countY, {size: 52, weight: 700, color: C.green});
-  text(c, `（${f.focus.participant_ids.join('・')}）だけ`, X + measure(c, big, {size: 52, weight: 700}) + 8, countY, {size: 26, weight: 700});
-  // 反する発言（支持に数えない）
-  const k3 = enter(t, 9.9), d3 = rise(t, 9.9);
-  c.globalAlpha = a * k3;
-  const cTop = countY + 50 + d3;
-  text(c, '反する発言（別の欄）', X, cTop, {size: 18, weight: 700, color: C.amber});
-  text(c, f.contra.id, X + W, cTop, {size: 18, weight: 700, family: 'mono', color: C.amber, align: 'right'});
-  const cEnd = block(c, f.contra.text, X + 18, cTop + 38, W - 18, 36, {size: 26, family: 'serif'});
-  rule(c, X, cTop + 14, cEnd + 10, C.amber, 4);
-  // 数え方
-  const k4 = enter(t, 10.7), d4 = rise(t, 10.7);
-  c.globalAlpha = a * k4;
-  text(c, '反する発言は、支持に数えない。', X, cEnd + 52 + d4, {size: 26, weight: 700});
-  const k5 = enter(t, 11.3);
-  c.globalAlpha = a * k5;
-  block(c, `確からしさ ${CONF[f.focus.confidence]}。${NEUTRAL_LINE} は支持にも反証にも数えない。人数はこの架空の${f.n}人の中だけ。`, X, cEnd + 88, W, 26, {size: 18, color: C.muted});
-  // 枠と説明をつなぐ線
-  c.globalAlpha = a;
-  connector(c, sb.x + sb.w + 4, sb.y + sb.h * 0.42, X - 10, 210 + d1, C.green, enter(t, 8.6, 0.4));
-  connector(c, cb.x + cb.w + 4, cb.y + cb.h * 0.42, X - 10, cTop + 28, C.amber, enter(t, 10.2, 0.4));
-  c.restore();
+function drawFooter() {
+  const size = L.portrait ? 15 : 14;
+  text(model.pin, L.headX, L.footerY, { size, color: MUTED, maxW: L.bw - 2 * L.headX - 60 });
+  text('無音', L.bw - L.headX, L.footerY, { size, weight: 700, color: MUTED, align: 'right' });
 }
 
-// 14〜18秒：反する発言の原文の行（原文へ移った後の実画面）
-function drawOrigin(c, t, f) {
-  const a = sceneAlpha(t, 3);
-  if (a <= 0.001) return;
-  c.save();
-  c.globalAlpha = a;
-  label(c, `実画面・原文のメモ ${f.contra.pid}（行へ移った後の静止画）`, 80, 154);
-  const shot = drawShot(c, f, 'origin', 1, rise(t, 13.95, 0.45));
-  const lb = toScreen(shot, BOX.originLine);
-  focusBox(c, lb, C.green, enter(t, 14.6));
-  // 発見の側から、同じ行IDへ
-  const kc = enter(t, 14.9);
-  c.globalAlpha = a * kc;
-  const chipW = pill(c, `${f.focus.id} の反する発言 ${f.contra.id}`, 80, 440, 38, {size: 18, weight: 700, fill: C.amberSoft, color: C.amber, stroke: C.amber, lineWidth: 1.5, pad: 16});
-  // 線はメモの枠の左の余白（文字のない所）を通して、行の枠へ
-  c.globalAlpha = a;
-  const midY = lb.y + lb.h / 2;
-  connector(c, 92, 440, 92, midY, C.amber, enter(t, 15.0, 0.3));
-  if (t >= 15.3) connector(c, 92, midY, lb.x - 5, midY, C.amber, enter(t, 15.3, 0.2));
-  const kq = enter(t, 15.3), dq = rise(t, 15.3);
-  c.globalAlpha = a * kq;
-  text(c, `原文 ${f.contra.id}（input/interviews.json・${f.contra.pid}）`, 80 + chipW + 24, 466 + dq, {size: 18, weight: 600, color: C.muted});
-  const qEnd = block(c, f.contra.text, 98, 534 + dq, 1102, 42, {size: 30, family: 'serif'});
-  rule(c, 80, 506 + dq, qEnd + 12, C.green, 4);
-  const kn = enter(t, 15.8);
-  c.globalAlpha = a * kn;
-  text(c, '整理の中の引用は、この原文の行と同じ文。', 80, qEnd + 48, {size: 26, weight: 700});
-  text(c, `${f.contra.pid}・${f.contra.segment}。支持の人数（${f.focus.frequency}/${f.n}人）には入れていません。`, 80, qEnd + 72, {size: 18, color: C.muted});
-  c.restore();
-}
-
-// 18〜23秒：F03。控え・当日の変更・未定を、原文の抜粋のまま並べる
-function drawPurpose(c, t, f) {
-  const a = sceneAlpha(t, 4);
-  if (a <= 0.001) return;
-  c.save();
-  c.globalAlpha = a;
-  label(c, `実画面・${f.purpose.id} の支持する発言（3件のうち上の2件）`, 80, 154);
-  drawShot(c, f, 'notify', 1, rise(t, 17.95, 0.45));
-  const X = 690, W = 510;
-  const k0 = enter(t, 18.2), d0 = rise(t, 18.2);
-  c.globalAlpha = a * k0;
-  text(c, f.purpose.title, X, 190 + d0, {size: 26, weight: 700});
-  text(c, `${f.purpose.id}・${f.purpose.frequency}/${f.n}人・確からしさ ${CONF[f.purpose.confidence]}（暫定）`, X, 220 + d0, {size: 18, color: C.muted});
-  text(c, '原文から抜粋（全文は原文の行に）', X, 262 + d0, {size: 17, weight: 700, color: C.green});
-  f.purposeRows.forEach((r, i) => {
-    const at = 18.5 + i * 0.4;
-    c.globalAlpha = a * enter(t, at);
-    const y = 306 + i * 92 + rise(t, at);
-    rule(c, X, y - 26, y + 50, C.green, 4);
-    text(c, r.label, X + 18, y, {size: 28, weight: 700, color: C.green});
-    text(c, `${r.pid}・${r.line}`, X + 18 + measure(c, r.label, {size: 28, weight: 700}) + 14, y, {size: 18, weight: 600, family: 'mono', color: C.muted});
-    block(c, r.excerpt, X + 18, y + 40, W - 18, 34, {size: 26, family: 'serif'});
+function drawNotebook(p, t) {
+  const b = L.notebooks[p.id];
+  const color = PCOLOR[p.id];
+  const open = ease(t, model.T.inputs, model.T.inputs + 0.6);
+  const traceLine = ease(t, model.T.proposal + 1.0, model.T.proposal + 1.4);
+  const support = model.obs.get(model.findings.get('F05').support[0]);
+  // page
+  rr(b.x + 5, b.y + 5, b.w, b.h, 12);
+  ctx.fillStyle = 'rgba(28,26,23,0.10)';
+  ctx.fill();
+  rr(b.x, b.y, b.w, b.h, 12);
+  ctx.fillStyle = '#fffdf6';
+  ctx.fill();
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = color;
+  ctx.stroke();
+  alpha(open, () => {
+    const idW = text(p.id, b.x + 34, b.y + 32, { size: L.portrait ? 24 : 22, weight: 800, font: MONO, color });
+    text(p.short, b.x + 34 + idW + 10, b.y + 31, { size: 15, color: MUTED, maxW: b.w - (44 + idW) - 14 });
+    p.lines.forEach((lineId, k) => {
+      const y = G.lineY(b, k);
+      const isTrace = p.id === support.p && lineId === support.line;
+      if (isTrace && traceLine > 0) alpha(traceLine, () => { rr(b.x + 28, y - 17, b.w - 40, 22, 5); ctx.fillStyle = MARKER; ctx.fill(); });
+      const label = isTrace && traceLine > 0.5 ? lineId : lineId.slice(4);
+      text(label, b.x + 34, y, { size: 14, weight: 700, font: MONO, color: isTrace && traceLine > 0.5 ? INK : MUTED });
+      ctx.strokeStyle = RULE;
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(b.x + (isTrace && traceLine > 0.5 ? 110 : 76), y + 1);
+      ctx.lineTo(b.x + b.w - 18, y + 1);
+      ctx.stroke();
+    });
   });
-  const k4 = enter(t, 20.0), d4 = rise(t, 20.0);
-  c.globalAlpha = a * k4;
-  text(c, '一つの手段に決める根拠にはしない。', 80, 612 + d4, {size: 26, weight: 700});
-  const k5 = enter(t, 20.4);
-  c.globalAlpha = a * k5;
-  text(c, '整理者の解釈：' + f.purposeNote, 80, 644, {size: 18, color: C.muted});
-  c.restore();
-}
-
-// 23〜28秒：ブラウザーで保存した選んだ発見の Markdown と、スマホ幅の実画面（最後は止めて読む）
-function drawSave(c, t, f) {
-  const a = sceneAlpha(t, 5);
-  if (a <= 0.001) return;
-  c.save();
-  c.globalAlpha = a;
-  label(c, `作例の実画面・${f.focus.id}`, 80, 154, {weight: 700, color: C.ink});
-  const ph = drawShot(c, f, 'phone', enter(t, 23.0), rise(t, 23.0));
-  if (ph) {
-    roundRect(c, ph.x - 6, ph.y - 6, ph.w + 12, ph.h + 12, 16);
-    c.strokeStyle = C.ink;
-    c.lineWidth = 2;
-    c.stroke();
-  }
-  // 保存した実ファイルの抜粋（行はファイルのまま）
-  const kc = enter(t, 23.15, 0.4), dc = rise(t, 23.15, 0.4);
-  c.globalAlpha = a * kc;
-  const X = 336, W = 864, top = 146 + dc;
-  const ix = X + 24, iw = W - 48, q = {size: 26, family: 'serif'};
-  const extra = 34 * (wrap(c, f.md.support.quote, iw, q).length - 1 + wrap(c, f.md.contra.quote, iw, q).length - 1);
-  const H = 360 + extra;
-  card(c, X, top, W, H);
-  text(c, `synthesis-${f.focus.id}.md`, ix, top + 34, {size: 22, weight: 700, family: 'mono', color: C.green});
-  text(c, '保存した実ファイル outputs/browser-selected.md の抜粋', X + W - 24, top + 34, {size: 17, color: C.muted, align: 'right'});
-  c.fillStyle = C.rule;
-  c.fillRect(ix, top + 50, iw, 1);
-  text(c, f.md.title, ix, top + 88, {size: 26, weight: 700});
-  text(c, f.md.freq, ix, top + 126, {size: 26, weight: 700, color: C.green});
-  text(c, f.md.support.head, ix, top + 166, {size: 18, weight: 700, color: C.green});
-  text(c, f.md.support.id, ix, top + 192, {size: 17, color: C.muted});
-  const sEnd = block(c, f.md.support.quote, ix, top + 228, iw, 34, {size: 26, family: 'serif'});
-  text(c, f.md.contra.head, ix, sEnd + 40, {size: 18, weight: 700, color: C.amber});
-  text(c, f.md.contra.id, ix, sEnd + 66, {size: 17, color: C.muted});
-  block(c, f.md.contra.quote, ix, sEnd + 102, iw, 34, {size: 26, family: 'serif'});
-  // 作例のページで試す順番
-  let x = X;
-  const ctaY = 146 + H + 16;
-  ['発見を選ぶ', '原文を読む', '保存'].forEach((s, i) => {
-    const at = 23.35 + i * 0.05;
-    c.globalAlpha = a * enter(t, at);
-    const last = i === 2;
-    const w = pill(c, s, x, ctaY + rise(t, at, 0.4, 8), 54, {size: 26, weight: 700, fill: last ? C.green : C.card, stroke: C.green, lineWidth: 2, color: last ? '#ffffff' : C.green, pad: 24});
-    x += w;
-    if (i < 2) {
-      text(c, '→', x + 22, ctaY + 37, {size: 26, weight: 700, color: C.quiet, align: 'center'});
-      x += 44;
-    }
+  // cover folds back to a spine as the notebook opens
+  const cw = lerp(b.w, 20, open);
+  rr(b.x, b.y, cw, b.h, 12);
+  ctx.fillStyle = color;
+  ctx.fill();
+  alpha(1 - open, () => {
+    text(p.id, b.x + 24, b.y + 62, { size: L.portrait ? 36 : 34, weight: 800, font: MONO, color: '#fff' });
+    text(p.short, b.x + 24, b.y + 96, { size: L.portrait ? 18 : 17, weight: 700, color: '#fff', maxW: b.w - 48 });
+    text(`${p.lines.length}行・架空`, b.x + 24, b.y + 126, { size: 15, color: '#fff' });
   });
-  c.globalAlpha = a * enter(t, 23.55);
-  text(c, 'ページを開いてもAIは動きません。表示も保存も、保存済みの整理から。', X, 642, {size: 18, color: C.muted});
-  c.restore();
 }
 
-// ---- 1フレームを描く --------------------------------------------------------
-let facts = null;
-let failure = null;
-let currentT = 0;
+function drawCluster(fid, t) {
+  const f = model.findings.get(fid);
+  const b = L.clusters[fid];
+  const d = G.deco[fid];
+  const T = model.T;
+  const solid = ease(t, G.groupStart[fid] - 0.1, G.groupStart[fid] + 0.7);
+  const dim = keyed(t, DIM[fid]);
+  const focus = keyed(t, FOCUS[fid]);
+  const P = L.portrait;
+  alpha(dim, () => {
+    if (focus > 0.002) alpha(focus, () => { rr(b.x - 8, b.y - 8, b.w + 16, b.h + 16, 22); ctx.fillStyle = MARKER; ctx.fill(); });
+    rr(b.x, b.y, b.w, b.h, 16);
+    alpha(0.25 + 0.75 * solid, () => { ctx.fillStyle = d.positive ? KEEP : CARD; ctx.fill(); });
+    ctx.save();
+    ctx.globalAlpha *= 0.4 + 0.6 * solid;
+    if (solid < 0.5) ctx.setLineDash([9, 8]);
+    ctx.lineWidth = focus > 0.5 ? 3.5 : 2;
+    ctx.strokeStyle = INK;
+    ctx.stroke();
+    ctx.restore();
 
-function render(t) {
-  canvas.width = canvas.width; // 前のフレームの変換・クリップ・状態をすべて捨てる
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.globalAlpha = 1;
-  ctx.globalCompositeOperation = 'source-over';
-  ctx.fillStyle = C.paper;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  const scale = Math.min(canvas.width / LW, canvas.height / LH);
-  ctx.setTransform(scale, 0, 0, scale, (canvas.width - LW * scale) / 2, (canvas.height - LH * scale) / 2);
-  ctx.beginPath();
-  ctx.rect(0, 0, LW, LH);
-  ctx.clip();
-  ctx.imageSmoothingEnabled = true;
-  ctx.imageSmoothingQuality = 'high';
-  drawChrome(ctx, t, Boolean(facts));
-  if (!facts) {
-    const message = failure ? '読み込みに失敗しました。代わりの映像は出しません。' : '保存済みのファイルと実画面を確かめています…';
-    text(ctx, message, 80, 300, {size: 26, weight: 700, color: failure ? '#8a1f2d' : C.muted});
-    if (failure) block(ctx, failure.message, 80, 344, 1120, 28, {size: 18, color: C.ink});
-    return;
-  }
-  drawHeadlines(ctx, t, facts);
+    const ty = b.y + (P ? 36 : 31);
+    const ts = P ? 24 : 21;
+    const meta = `${f.freq}/${model.total}人・${f.conf}`;
+    alpha(0.55 + 0.45 * solid, () => {
+      const metaW = measure(meta, P ? 17 : 15, 700);
+      const idW = text(fid, b.x + 16, ty, { size: ts, weight: 800, font: MONO });
+      const labelW = text(f.label, b.x + 16 + idW + 10, ty, { size: ts, weight: 700, maxW: b.w - idW - metaW - 58 - (d.positive ? 28 : 0) });
+      text(meta, b.x + b.w - 16, ty, { size: P ? 17 : 15, weight: 700, color: MUTED, align: 'right' });
+      if (d.positive) drawHeart(b.x + 16 + idW + 10 + labelW + 14, ty - ts * 0.4, P ? 9 : 8);
+    });
+    alpha(solid, () => {
+      for (const n of d.notes) text(n.text, n.x, n.y, { size: P ? 17 : 15, color: MUTED, align: 'center' });
+      ctx.strokeStyle = MUTED;
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([3, 5]);
+      for (const v of d.dividers) { ctx.beginPath(); ctx.moveTo(v.x, v.y1); ctx.lineTo(v.x, v.y2); ctx.stroke(); }
+      ctx.setLineDash([]);
+    });
+
+    // F05 lanes: support (solid, marker) and contrary (hatched, dashed) stay visibly different.
+    const laneP = ease(t, T.contrary + 0.6, T.contrary + 1.4);
+    d.lanes.forEach((lane, i) => {
+      alpha(laneP, () => {
+        rr(lane.x, lane.y, lane.w, lane.h, 12);
+        if (lane.kind === 'support') {
+          ctx.fillStyle = MARKER_SOFT;
+          ctx.fill();
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = INK;
+          ctx.stroke();
+        } else {
+          ctx.fillStyle = '#f0ebe1';
+          ctx.fill();
+          ctx.save();
+          rr(lane.x, lane.y, lane.w, lane.h, 12);
+          ctx.clip();
+          ctx.strokeStyle = 'rgba(123,116,104,0.35)';
+          ctx.lineWidth = 3;
+          for (let x = lane.x - lane.h; x < lane.x + lane.w; x += 14) { ctx.beginPath(); ctx.moveTo(x, lane.y + lane.h); ctx.lineTo(x + lane.h, lane.y); ctx.stroke(); }
+          ctx.restore();
+          ctx.setLineDash([10, 7]);
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = CONTRA;
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
+      });
+      const labelP = ease(t, T.contrary + 2.2 + i * 0.4, T.contrary + 2.6 + i * 0.4);
+      alpha(labelP, () => {
+        const lx = lane.x + L.slip.w + 34;
+        const cy = lane.y + lane.h / 2;
+        text(lane.main, lx, cy - 4, { size: P ? 26 : 22, weight: 800, color: lane.kind === 'support' ? INK : CONTRA });
+        text(lane.sub, lx, cy + (P ? 24 : 20), { size: P ? 19 : 16, weight: 700, color: MUTED });
+      });
+    });
+
+    // F03: three separate routes, never merged into one channel.
+    d.terminals.forEach((r, j) => {
+      const start = T.notification + 0.9 + j * 0.45;
+      const rp = ease(t, start, start + 0.7);
+      ctx.save();
+      ctx.strokeStyle = INK;
+      ctx.lineWidth = 3;
+      if (r.channel !== 'メール' && r.channel !== 'SMS') ctx.setLineDash([4, 6]);
+      strokePts(polyline([[r.cx, r.y0 + 2], [r.cx, r.y - 2]], rp));
+      ctx.restore();
+      const tp = ease(t, start + 0.45, start + 0.9);
+      alpha(tp, () => {
+        const sc = lerp(0.88, 1, tp);
+        ctx.save();
+        ctx.translate(r.x + r.w / 2, r.y + r.h / 2);
+        ctx.scale(sc, sc);
+        rr(-r.w / 2, -r.h / 2, r.w, r.h, 10);
+        ctx.fillStyle = PAPER;
+        ctx.fill();
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = INK;
+        if (r.channel !== 'メール' && r.channel !== 'SMS') ctx.setLineDash([4, 5]);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        text(r.purpose, 0, -2, { size: P ? 18 : 16, weight: 800, align: 'center', maxW: r.w - 10 });
+        text(r.channel, 0, P ? 20 : 18, { size: P ? 15 : 14, weight: 700, color: MUTED, align: 'center', maxW: r.w - 8 });
+        ctx.restore();
+        drawChannelIcon(r.channel, r.cx, (r.y0 + r.y) / 2, P ? 15 : 13);
+      });
+    });
+  });
+}
+
+function drawHeart(cx, cy, r) {
   ctx.save();
+  ctx.fillStyle = PCOLOR.P01;
   ctx.beginPath();
-  ctx.rect(0, CONTENT_TOP, LW, CONTENT_BOTTOM - CONTENT_TOP);
-  ctx.clip();
-  drawMemo(ctx, t, facts);
-  drawFindings(ctx, t, facts);
-  drawFocus(ctx, t, facts);
-  drawOrigin(ctx, t, facts);
-  drawPurpose(ctx, t, facts);
-  drawSave(ctx, t, facts);
+  ctx.moveTo(cx, cy + r * 1.1);
+  ctx.bezierCurveTo(cx - r * 1.6, cy, cx - r * 0.9, cy - r * 1.2, cx, cy - r * 0.35);
+  ctx.bezierCurveTo(cx + r * 0.9, cy - r * 1.2, cx + r * 1.6, cy, cx, cy + r * 1.1);
+  ctx.fill();
   ctx.restore();
 }
 
-const statusEl = document.getElementById('status');
-const detailEl = document.getElementById('detail');
-const verifiedEl = document.getElementById('verified');
-function setStatus(state, message, detail = '') {
-  root.dataset.motionStatus = state;
-  if (statusEl) {
-    statusEl.dataset.state = state;
-    statusEl.textContent = message;
+function drawChannelIcon(channel, cx, cy, r) {
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.fillStyle = CARD;
+  ctx.fill();
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = INK;
+  ctx.stroke();
+  ctx.lineWidth = 1.8;
+  if (channel === 'メール') {
+    ctx.strokeRect(cx - r * 0.55, cy - r * 0.38, r * 1.1, r * 0.76);
+    ctx.beginPath();
+    ctx.moveTo(cx - r * 0.55, cy - r * 0.38);
+    ctx.lineTo(cx, cy + r * 0.08);
+    ctx.lineTo(cx + r * 0.55, cy - r * 0.38);
+    ctx.stroke();
+  } else if (channel === 'SMS') {
+    rr(cx - r * 0.55, cy - r * 0.42, r * 1.1, r * 0.7, r * 0.18);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(cx - r * 0.2, cy + r * 0.28);
+    ctx.lineTo(cx - r * 0.38, cy + r * 0.55);
+    ctx.lineTo(cx + r * 0.05, cy + r * 0.28);
+    ctx.stroke();
+  } else {
+    text('?', cx, cy + r * 0.42, { size: r * 1.25, weight: 800, align: 'center' });
   }
-  if (detailEl) detailEl.textContent = detail;
+  ctx.restore();
 }
-const clampTime = v => {
-  const n = Number(v);
-  return Number.isFinite(n) ? Math.min(DURATION, Math.max(0, n)) : 0;
-};
 
-render(0);
-setStatus('loading', '保存済みのファイルと実画面を確かめています…');
-
-window.motionReady = (async () => {
-  if (!window.crypto || !window.crypto.subtle) {
-    throw new Error('この環境ではSHA-256を確かめられません。http://127.0.0.1 などのローカルサーバーで開いてください');
-  }
-  const fontSpecs = [`600 42px ${SERIF}`, `400 26px ${SERIF}`, `700 26px ${SANS}`, `400 18px ${SANS}`, `700 18px ${MONO}`];
-  await Promise.all(fontSpecs.map(spec => document.fonts.load(spec, '月表示を望むのは原文P02-L04')));
-  await document.fonts.ready;
-  const {data, verified} = await loadAll();
-  const built = buildFacts(data);
-  facts = built;
-  render(currentT);
-  setStatus('ready', `照合した${verified.length}ファイルから描いています`,
-    `原文${built.lineCount}行・観察${built.obsCount}件・発見${built.findings.length}件の引用と人数、保存した2ファイルの中身を確かめました。整理を新しく行う機能はありません。`);
-  if (verifiedEl) {
-    verifiedEl.replaceChildren(...verified.map(v => {
-      const li = document.createElement('li');
-      const code = document.createElement('code');
-      code.textContent = v.path;
-      li.append(code, ` — SHA-256 ${v.digest.slice(0, 12)}…`);
-      return li;
-    }));
-    verifiedEl.hidden = false;
-  }
-  return true;
-})().catch(error => {
-  failure = error;
-  render(currentT);
-  setStatus('error', '読み込みに失敗しました：' + error.message, '代わりの映像は出しません。ファイルを確かめてから再読み込みしてください。');
-  throw error;
-});
-window.motionReady.catch(() => {});
-
-// 任意の時刻の完成した画面を描く。呼んだ順番や壁時計には依存しない
-window.seek = seconds => {
-  const t = clampTime(seconds);
-  currentT = t;
-  return window.motionReady.then(() => {
-    render(t);
-    return t;
+function drawNeutral(t) {
+  const n = L.neutral;
+  const P = L.portrait;
+  const solid = ease(t, G.groupStart.neutral - 0.1, G.groupStart.neutral + 0.7);
+  const dim = keyed(t, DIM.F05);
+  const emph = ease(t, model.T.contrary + 2.8, model.T.contrary + 3.4);
+  alpha(dim, () => {
+    rr(n.x, n.y, n.w, n.h, 16);
+    ctx.save();
+    ctx.globalAlpha *= 0.4 + 0.6 * solid;
+    ctx.setLineDash([2, 8]);
+    ctx.lineCap = 'round';
+    ctx.lineWidth = lerp(2.5, 3.5, emph);
+    ctx.strokeStyle = emph > 0.5 ? INK : MUTED;
+    ctx.stroke();
+    ctx.restore();
+    alpha(0.55 + 0.45 * solid, () => text('未分類', n.x + n.w / 2, n.y + (P ? 36 : 31), { size: P ? 20 : 17, weight: 700, color: MUTED, align: 'center' }));
+    alpha(solid, () => {
+      const y0 = n.y + L.titleH + L.slip.h + (P ? 30 : 26);
+      text('どちらにも', n.x + n.w / 2, y0, { size: P ? 18 : 16, weight: emph > 0.5 ? 800 : 400, color: emph > 0.5 ? INK : MUTED, align: 'center' });
+      text('数えない', n.x + n.w / 2, y0 + (P ? 24 : 21), { size: P ? 18 : 16, weight: emph > 0.5 ? 800 : 400, color: emph > 0.5 ? INK : MUTED, align: 'center' });
+    });
   });
-};
+}
 
-// ---- 編集用のプレビュー（書き出し時は何も動かさない） --------------------------
-// 自動では再生しない（prefers-reduced-motion の設定にかかわらず、最初は停止）。再生は「再生」を押したときだけ
-function setupPreview() {
-  const play = document.getElementById('play');
-  const range = document.getElementById('time');
-  const clock = document.getElementById('clock');
-  const reload = document.getElementById('reload');
-  let playing = false, raf = 0, from = 0, startedAt = 0;
-  const sec = v => v.toFixed(1) + '秒';
-
-  function sync() {
-    range.value = (Math.round(currentT * 10) / 10).toFixed(1);
-    range.setAttribute('aria-valuetext', `${sec(currentT)}（全${DURATION}秒）`);
-    clock.textContent = `${sec(currentT)} / ${sec(DURATION)}`;
-    play.textContent = playing ? '一時停止' : '再生';
-    play.setAttribute('aria-pressed', playing ? 'true' : 'false');
+function slipState(o, t) {
+  const T = model.T;
+  const sw = L.slip.w;
+  const sh = L.slip.h;
+  const home = G.home.get(o.id);
+  const loose = G.loose.get(o.id);
+  const tDepart = T.inputs + 0.5 + o.index * 0.2;
+  const tArrive = tDepart + 1.0;
+  const tGather = G.gather.get(o.id);
+  const tSettle = tGather + 1.1;
+  const s0 = G.slot0.get(o.id);
+  const s1 = G.slot1.get(o.id);
+  let x;
+  let y;
+  let sc = 1;
+  let rot = 0;
+  const arc = (a, b, p, lift) => {
+    const mx = (a.x + b.x) / 2;
+    const my = (a.y + b.y) / 2 + lift;
+    const v = 1 - p;
+    return { x: v * v * a.x + 2 * v * p * mx + p * p * b.x, y: v * v * a.y + 2 * v * p * my + p * p * b.y };
+  };
+  if (t < tDepart) {
+    ({ x, y } = home);
+    sc = 0.34;
+  } else if (t < tArrive) {
+    const p = ease(t, tDepart, tArrive);
+    ({ x, y } = arc(home, loose, p, -70));
+    sc = lerp(0.34, 1, p);
+    rot = loose.rot * p;
+  } else if (t < tGather) {
+    ({ x, y } = loose);
+    rot = loose.rot;
+  } else if (t < tSettle) {
+    const p = ease(t, tGather, tSettle);
+    ({ x, y } = arc(loose, s0, p, -50));
+    rot = loose.rot * (1 - p);
+  } else {
+    const p = ease(t, T.contrary + 0.6, T.contrary + 1.8);
+    x = lerp(s0.x, s1.x, p);
+    y = lerp(s0.y, s1.y, p);
   }
-  function tick(now) {
-    if (!playing) return;
-    const t = Math.min(DURATION, from + (now - startedAt) / 1000);
-    currentT = t;
-    render(t);
-    if (t >= DURATION) {
-      playing = false;
-      raf = 0;
+  const group = G.groupOf.get(o.id);
+  const dim = t < tSettle ? 1 : keyed(t, DIM[group === 'neutral' ? 'F05' : group]);
+  const style = o.id === model.contraryObs && t >= T.contrary + 1.0 ? 'contrary'
+    : o.id === model.neutral && t >= tSettle ? 'neutral' : 'normal';
+  const ring = o.id === model.findings.get('F05').support[0] && t >= T.contrary + 1.6;
+  return { x, y, sc, rot, dim, style, ring, cx: x + sw / 2, cy: y + sh / 2, top: [x + sw / 2, y], left: [x, y + sh / 2] };
+}
+
+function drawSlip(o, t) {
+  const st = slipState(o, t);
+  const { w, h } = L.slip;
+  const color = PCOLOR[o.p];
+  alpha(st.dim, () => {
+    ctx.save();
+    ctx.translate(st.cx, st.cy);
+    ctx.rotate(st.rot);
+    ctx.scale(st.sc, st.sc);
+    rr(-w / 2 + 4, -h / 2 + 5, w, h, 9);
+    ctx.fillStyle = 'rgba(28,26,23,0.12)';
+    ctx.fill();
+    rr(-w / 2, -h / 2, w, h, 9);
+    ctx.fillStyle = PTINT[o.p];
+    ctx.fill();
+    ctx.save();
+    rr(-w / 2, -h / 2, w, h, 9);
+    ctx.clip();
+    ctx.fillStyle = color;
+    ctx.fillRect(-w / 2, -h / 2, w, 12);
+    ctx.restore();
+    rr(-w / 2, -h / 2, w, h, 9);
+    ctx.lineWidth = st.style === 'normal' ? 2 : 3;
+    ctx.strokeStyle = color;
+    if (st.style === 'contrary') ctx.setLineDash([9, 6]);
+    if (st.style === 'neutral') { ctx.setLineDash([1, 7]); ctx.lineCap = 'round'; }
+    ctx.stroke();
+    ctx.setLineDash([]);
+    text(o.p, 0, -h / 2 + (L.portrait ? 34 : 32), { size: L.portrait ? 20 : 19, weight: 800, font: MONO, color, align: 'center' });
+    text(o.line.slice(4), 0, -h / 2 + (L.portrait ? 54 : 50), { size: L.portrait ? 18 : 17, weight: 700, font: MONO, align: 'center' });
+    if (st.ring) {
+      rr(-w / 2 - 6, -h / 2 - 6, w + 12, h + 12, 13);
+      ctx.lineWidth = 4;
+      ctx.strokeStyle = INK;
+      ctx.stroke();
+    }
+    ctx.restore();
+  });
+}
+
+function pageAnchor(o) {
+  const b = L.notebooks[o.p];
+  return [b.x + b.w - 16, G.lineY(b, o.k) - 4];
+}
+
+function drawThreads(t) {
+  const T = model.T;
+  // Release: each slip trails a line from its own notebook line while it travels.
+  for (const o of model.obsList) {
+    const tDepart = T.inputs + 0.5 + o.index * 0.2;
+    const tArrive = tDepart + 1.0;
+    const a = (t >= tDepart ? 1 : 0) * (1 - prog(t, tArrive, tArrive + 0.8)) * 0.55;
+    if (a <= 0.002) continue;
+    const st = slipState(o, t);
+    alpha(a, () => {
+      ctx.strokeStyle = PCOLOR[o.p];
+      ctx.lineWidth = 2;
+      strokePts([pageAnchor(o), [st.cx, st.cy]]);
+    });
+  }
+  // F05: P03 supports (solid), P02 is contrary (dashed), P01 is counted for neither (dotted).
+  const f05 = model.findings.get('F05');
+  const dim = keyed(t, DIM.F05);
+  const links = [
+    { oid: f05.support[0], start: T.contrary + 1.6, dash: null, width: 5 },
+    { oid: model.contraryObs, start: T.contrary + 2.0, dash: [12, 9], width: 4 },
+    { oid: model.neutral, start: T.contrary + 2.4, dash: [1, 10], width: 5 },
+  ];
+  for (const link of links) {
+    const p = ease(t, link.start, link.start + 1.0);
+    if (p <= 0) continue;
+    const o = model.obs.get(link.oid);
+    const st = slipState(o, t);
+    const pts = bezierPts(pageAnchor(o), L.portrait ? st.top : st.left, L.portrait);
+    if (link === links[0]) {
+      // Trace back from the supporting slip to its exact line before the proposal.
+      const back = ease(t, T.proposal + 0.3, T.proposal + 1.3);
+      if (back > 0) alpha(dim * 0.85, () => {
+        ctx.strokeStyle = MARKER;
+        ctx.lineWidth = 14;
+        ctx.lineCap = 'round';
+        strokePts(polyline([...pts].reverse(), back));
+      });
+    }
+    alpha(dim, () => {
+      ctx.strokeStyle = PCOLOR[o.p];
+      ctx.lineWidth = link.width;
+      ctx.lineCap = 'round';
+      if (link.dash) ctx.setLineDash(link.dash);
+      strokePts(polyline(pts, p));
+      ctx.setLineDash([]);
+    });
+  }
+}
+
+function drawProposal(t) {
+  const T = model.T;
+  const b = L.proposal;
+  const P = L.portrait;
+  const rec = model.findings.get('F05').rec;
+  const arrowP = ease(t, T.proposal + 1.0, T.proposal + 1.6);
+  const fill = ease(t, T.proposal + 1.5, T.proposal + 2.3);
+  alpha(0.3 * (1 - arrowP), () => drawArrow(L.toProposal, 1, { width: 3, dash: [6, 8] }));
+  drawArrow(L.toProposal, arrowP, { width: 4 });
+  const ear = 26;
+  const sheet = () => {
+    ctx.beginPath();
+    ctx.moveTo(b.x + 12, b.y);
+    ctx.lineTo(b.x + b.w - ear, b.y);
+    ctx.lineTo(b.x + b.w, b.y + ear);
+    ctx.lineTo(b.x + b.w, b.y + b.h - 12);
+    ctx.arcTo(b.x + b.w, b.y + b.h, b.x + b.w - 12, b.y + b.h, 12);
+    ctx.lineTo(b.x + 12, b.y + b.h);
+    ctx.arcTo(b.x, b.y + b.h, b.x, b.y + b.h - 12, 12);
+    ctx.lineTo(b.x, b.y + 12);
+    ctx.arcTo(b.x, b.y, b.x + 12, b.y, 12);
+    ctx.closePath();
+  };
+  // ghost outline is part of the whole map from the first frame
+  alpha(0.4 * (1 - fill), () => {
+    sheet();
+    ctx.setLineDash([8, 8]);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = INK;
+    ctx.stroke();
+    ctx.setLineDash([]);
+    text('次の一歩', b.x + 24, b.y + (P ? 50 : 56), { size: P ? 22 : 20, weight: 700, color: MUTED });
+  });
+  alpha(fill, () => {
+    sheet();
+    ctx.fillStyle = '#fffef6';
+    ctx.fill();
+    ctx.lineWidth = 2.5;
+    ctx.strokeStyle = INK;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(b.x + b.w - ear, b.y);
+    ctx.lineTo(b.x + b.w - ear, b.y + ear);
+    ctx.lineTo(b.x + b.w, b.y + ear);
+    ctx.fillStyle = '#ebe3d3';
+    ctx.fill();
+    ctx.stroke();
+    const lines = REC_LINES[rec.id];
+    if (P) {
+      const idW = text(rec.id, b.x + 22, b.y + 46, { size: 32, weight: 800, font: MONO });
+      pill(rec.priority, b.x + 22 + idW + 14, b.y + 42, { size: 17, fill: MARKER_SOFT });
+      text(lines[0], b.x + 22, b.y + 84, { size: 22, weight: 700, maxW: b.w - 150 });
+      text(lines[1], b.x + 22, b.y + 114, { size: 22, weight: 700, maxW: b.w - 150 });
     } else {
-      raf = requestAnimationFrame(tick);
+      text(rec.id, b.x + 22, b.y + 54, { size: 32, weight: 800, font: MONO });
+      pill(rec.priority, b.x + 22, b.y + 96, { size: 16, fill: MARKER_SOFT });
+      text(lines[0], b.x + 22, b.y + 146, { size: 20, weight: 700, maxW: b.w - 40 });
+      text(lines[1], b.x + 22, b.y + 176, { size: 20, weight: 700, maxW: b.w - 40 });
     }
-    sync();
-  }
-  function start() {
-    if (!facts || playing) return;
-    if (currentT >= DURATION - 0.05) currentT = 0;
-    from = currentT;
-    startedAt = performance.now();
-    playing = true;
-    raf = requestAnimationFrame(tick);
-    sync();
-  }
-  function stop() {
-    playing = false;
-    if (raf) cancelAnimationFrame(raf);
-    raf = 0;
-    sync();
-  }
-  function jump(t) {
-    stop();
-    currentT = clampTime(t);
-    render(currentT);
-    sync();
-  }
-
-  play.addEventListener('click', () => (playing ? stop() : start()));
-  // 矢印・Home・End はスライダー標準のまま
-  range.addEventListener('input', () => jump(Number(range.value)));
-  // PageUp/PageDown は2秒ずつ（Home から7回で14秒）
-  range.addEventListener('keydown', event => {
-    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
-    if (event.key === 'PageUp' || event.key === 'PageDown') {
-      event.preventDefault();
-      jump(Math.round((currentT + (event.key === 'PageUp' ? 2 : -2)) * 10) / 10);
-    }
-  });
-  reload.addEventListener('click', () => location.reload());
-  window.motionReady.then(() => {
-    play.disabled = false;
-    range.disabled = false;
-    sync();
-  }, () => {
-    reload.hidden = false;
+    // The validation is a plan: stamp it as not yet done.
+    ctx.save();
+    const sx = P ? b.x + b.w - 74 : b.x + b.w - 66;
+    const sy = P ? b.y + 98 : b.y + 212;
+    ctx.translate(sx, sy);
+    ctx.rotate(-0.08);
+    rr(-48, -22, 96, 34, 6);
+    ctx.lineWidth = 2.5;
+    ctx.strokeStyle = RED;
+    ctx.stroke();
+    text('未実施', 0, 3, { size: 19, weight: 800, color: RED, align: 'center' });
+    ctx.restore();
   });
 }
-if (!RENDER) setupPreview();
+
+function drawExport(t) {
+  const T = model.T;
+  const b = L.exportBox;
+  const arrowP = ease(t, T.proposal + 2.3, T.proposal + 2.7);
+  const fill = ease(t, T.proposal + 2.6, T.proposal + 3.3);
+  alpha(0.3 * (1 - arrowP), () => drawArrow(L.toExport, 1, { width: 3, dash: [6, 8] }));
+  drawArrow(L.toExport, arrowP, { width: 4 });
+  const iconW = 46;
+  const iconH = 58;
+  const ix = b.x + b.w / 2 - iconW / 2;
+  const iy = b.y + 14;
+  const doc = () => {
+    ctx.beginPath();
+    ctx.moveTo(ix, iy);
+    ctx.lineTo(ix + iconW - 14, iy);
+    ctx.lineTo(ix + iconW, iy + 14);
+    ctx.lineTo(ix + iconW, iy + iconH);
+    ctx.lineTo(ix, iy + iconH);
+    ctx.closePath();
+  };
+  alpha(0.4 * (1 - fill), () => {
+    rr(b.x, b.y, b.w, b.h, 14);
+    ctx.setLineDash([8, 8]);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = INK;
+    ctx.stroke();
+    ctx.setLineDash([]);
+    doc();
+    ctx.stroke();
+    text('保存', b.x + b.w / 2, b.y + b.h - 22, { size: 20, weight: 700, color: MUTED, align: 'center' });
+  });
+  alpha(fill, () => {
+    rr(b.x, b.y, b.w, b.h, 14);
+    ctx.fillStyle = INK;
+    ctx.fill();
+    doc();
+    ctx.fillStyle = '#fff';
+    ctx.fill();
+    text('.md', ix + iconW / 2, iy + iconH - 14, { size: 15, weight: 800, font: MONO, align: 'center' });
+    text(model.exportName, b.x + b.w / 2, b.y + b.h - (L.portrait ? 30 : 42), { size: 17, weight: 800, font: MONO, color: '#fff', align: 'center', maxW: b.w - 16 });
+    text('選んだ発見を1件', b.x + b.w / 2, b.y + b.h - (L.portrait ? 9 : 18), { size: 14, color: '#e8e2d6', align: 'center' });
+  });
+}
+
+function draw(seconds) {
+  const t = clamp(Number.isFinite(seconds) ? seconds : 0, 0, DURATION);
+  ctx.save();
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = PAPER;
+  ctx.fillRect(0, 0, W, H);
+  if (model && L && G) {
+    ctx.translate(L.ox, L.oy);
+    ctx.scale(L.s, L.s);
+    drawBackdrop();
+    drawHeader(t);
+    drawThreads(t);
+    for (const fid of FINDING_IDS) drawCluster(fid, t);
+    drawNeutral(t);
+    for (const p of model.participants) drawNotebook(p, t);
+    for (const o of model.obsList) drawSlip(o, t);
+    drawProposal(t);
+    drawExport(t);
+    drawFooter();
+  }
+  ctx.restore();
+}
+
+/* ---------- size, readiness, seek ---------- */
+
+function applySize(w, h) {
+  W = w;
+  H = h;
+  canvas.width = W;
+  canvas.height = H;
+  if (RENDER) {
+    canvas.style.width = `${W}px`;
+    canvas.style.height = `${H}px`;
+  }
+  window.motionConfig.width = W;
+  window.motionConfig.height = H;
+  L = makeLayout(W, H);
+  G = model ? buildGeometry(model, L) : null;
+}
+
+async function fontsReady() {
+  if (!document.fonts) return;
+  const probes = [`700 42px ${SERIF}`, `700 20px ${SANS}`, `400 16px ${SANS}`, `800 20px ${MONO}`];
+  await Promise.all(probes.map((f) => document.fonts.load(f, '発言を束ねてもP01').catch(() => [])));
+  await document.fonts.ready;
+}
+
+applySize(W, H);
+window.motionReady = (async () => {
+  const m = await loadAssets();
+  await fontsReady();
+  model = m;
+  DIM = dimKeys(m.T);
+  FOCUS = focusKeys(m.T);
+  G = buildGeometry(model, L);
+  draw(0);
+  return true;
+})();
+
+window.seek = (seconds) => window.motionReady.then(() => { draw(Number(seconds)); });
+
+/* ---------- preview controls (never started under the renderer) ---------- */
+
+const ui = {
+  status: document.getElementById('status'),
+  error: document.getElementById('film-error'),
+  reload: document.getElementById('reload'),
+  play: document.getElementById('play'),
+  reset: document.getElementById('reset'),
+  end: document.getElementById('end'),
+  replay: document.getElementById('replay'),
+  scrub: document.getElementById('scrub'),
+  clock: document.getElementById('clock'),
+  scenes: document.getElementById('scenes'),
+  sizes: Array.from(document.querySelectorAll('.size[data-size]')),
+  motionNote: document.getElementById('motion-note'),
+};
+const reduceQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+const player = { t: 0, playing: false, raf: 0, timer: 0, from: 0, startedAt: 0 };
+
+function controlsEnabled(on) {
+  for (const node of [ui.play, ui.reset, ui.end, ui.replay, ui.scrub, ...ui.sizes, ...ui.scenes.querySelectorAll('button')]) node.disabled = !on;
+}
+
+function setTime(t) {
+  player.t = clamp(t, 0, DURATION);
+  draw(player.t);
+  const i = sceneAt(player.t);
+  const s = model.scenes[i];
+  ui.scrub.value = String(player.t);
+  ui.scrub.setAttribute('aria-valuetext', `${player.t.toFixed(1)}秒・${SCENE_LABEL[s.id]}`);
+  ui.clock.textContent = `${player.t.toFixed(1)} / ${DURATION.toFixed(1)} 秒`;
+  canvas.setAttribute('aria-label', `${i + 1}/${model.scenes.length}「${s.headline}」（${player.t.toFixed(1)}秒）`);
+  ui.scenes.querySelectorAll('button').forEach((btn, k) => btn.setAttribute('aria-current', String(k === i)));
+}
+
+function pause() {
+  player.playing = false;
+  cancelAnimationFrame(player.raf);
+  clearTimeout(player.timer);
+  ui.play.textContent = '再生';
+  ui.play.setAttribute('aria-pressed', 'false');
+}
+
+function play() {
+  if (RENDER || !model) return;
+  if (player.t >= DURATION - 1e-6) setTime(0);
+  player.playing = true;
+  ui.play.textContent = '一時停止';
+  ui.play.setAttribute('aria-pressed', 'true');
+  if (reduceQuery.matches) {
+    // Reduced motion: step through each scene's settled frame instead of continuous movement.
+    const holds = model.scenes.map((s, i) => (i === model.scenes.length - 1 ? DURATION : s.out - 0.3));
+    const step = () => {
+      if (!player.playing) return;
+      const next = holds.find((h) => h > player.t + 1e-3);
+      if (next === undefined) { pause(); return; }
+      setTime(next);
+      player.timer = setTimeout(step, 2500);
+    };
+    step();
+    return;
+  }
+  player.from = player.t;
+  player.startedAt = performance.now();
+  const tick = () => {
+    if (!player.playing) return;
+    const t = player.from + (performance.now() - player.startedAt) / 1000;
+    if (t >= DURATION) {
+      setTime(DURATION);
+      pause();
+      return;
+    }
+    setTime(t);
+    player.raf = requestAnimationFrame(tick);
+  };
+  player.raf = requestAnimationFrame(tick);
+}
+
+function initPreview() {
+  ui.status.textContent = `7つの素材（manifest のSHA-256を固定）を照合しました。assets/original-verification.json は旧版（${model.historySeconds}秒）の確認記録で、この32秒版の書き出し・確認は ../verification.json に別記しています。`;
+  ui.scenes.replaceChildren(...model.scenes.map((s, i) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'button button--quiet';
+    btn.textContent = `${i + 1} ${SCENE_LABEL[s.id]}`;
+    btn.setAttribute('aria-label', `${s.in}秒の場面へ：${s.headline}`);
+    btn.addEventListener('click', () => { pause(); setTime(i ? s.in + 0.4 : 0); });
+    return btn;
+  }));
+  ui.motionNote.hidden = !reduceQuery.matches;
+  reduceQuery.addEventListener('change', () => { ui.motionNote.hidden = !reduceQuery.matches; if (player.playing) { pause(); } });
+  ui.play.addEventListener('click', () => (player.playing ? pause() : play()));
+  ui.reset.addEventListener('click', () => { pause(); setTime(0); });
+  ui.end.addEventListener('click', () => { pause(); setTime(DURATION); });
+  ui.replay.addEventListener('click', () => { pause(); setTime(0); play(); });
+  ui.scrub.addEventListener('input', () => { pause(); setTime(Number(ui.scrub.value)); });
+  for (const btn of ui.sizes) {
+    btn.addEventListener('click', () => {
+      const [w, h] = btn.dataset.size.split('x').map(Number);
+      applySize(w, h);
+      for (const other of ui.sizes) other.setAttribute('aria-pressed', String(other === btn));
+      setTime(player.t);
+    });
+    btn.setAttribute('aria-pressed', String(btn.dataset.size === `${W}x${H}`));
+  }
+  controlsEnabled(true);
+  setTime(0); // starts paused
+}
+
+function showFailure(err) {
+  model = null;
+  G = null;
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const message = err instanceof AssetError ? err.message : '素材の準備中に問題が起きました。';
+  ui.error.textContent = `${message} 動画は描いていません。`;
+  ui.error.hidden = false;
+  ui.status.textContent = message;
+  ui.status.classList.add('is-error');
+  canvas.setAttribute('aria-label', '素材を照合できなかったため、動画を描いていません');
+  if (!RENDER) {
+    pause();
+    controlsEnabled(false);
+    ui.reload.hidden = false;
+  }
+}
+
+ui.reload.addEventListener('click', () => location.reload());
+window.motionReady.then(() => { if (!RENDER) initPreview(); }, showFailure);

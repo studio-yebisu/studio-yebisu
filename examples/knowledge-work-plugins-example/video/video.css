@@ -1,246 +1,125 @@
-/* 解説動画の元ページの見た目。CSSのアニメーションと transition は使わない（書き出しの画は canvas だけで決まる） */
+/* 発言を束ねても、違いは残す — film source. Studio Yebisu (MIT) */
 [hidden] { display: none !important; }
 
 :root {
-  --paper: #f7f2e7;
+  --paper: #f5f0e6;
   --card: #fffdf8;
-  --ink: #1d1b18;
-  --muted: #59544b;
-  --rule: #d8ceb9;
-  --green: #1d4b38;
-  --green-soft: #e3ece4;
-  --serif: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", "BIZ UDMincho", serif;
+  --ink: #1c1a17;
+  --muted: #59534a;
+  --rule: #d6cdb9;
+  --focus: #0f4c81;
   --sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", Meiryo, system-ui, sans-serif;
-  color-scheme: light;
+  --serif: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", "BIZ UDMincho", serif;
+  --target: 2.75rem;
 }
 
-* { box-sizing: border-box; }
-
-html {
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-  background: var(--paper);
-}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
 body {
   margin: 0;
-  min-width: 0;
-  padding:
-    max(20px, env(safe-area-inset-top))
-    max(16px, env(safe-area-inset-right))
-    max(28px, env(safe-area-inset-bottom))
-    max(16px, env(safe-area-inset-left));
   background: var(--paper);
   color: var(--ink);
   font-family: var(--sans);
-  font-size: 16px;
-  line-height: 1.75;
+  line-height: 1.7;
   overflow-wrap: anywhere;
+  padding: max(0.5rem, env(safe-area-inset-top)) max(0.5rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(0.5rem, env(safe-area-inset-left));
 }
+p { margin: 0; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
 
-body > * {
-  max-width: 1040px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.eyebrow {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-
-h1 {
-  margin: 0.2em 0 0.5em;
-  font-family: var(--serif);
-  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.25rem);
-  font-weight: 600;
-  line-height: 1.4;
-  text-wrap: balance;
-  word-break: auto-phrase;
-  line-break: strict;
-}
-
-h1 .sub {
+.stage { position: relative; display: flex; justify-content: center; }
+.film {
   display: block;
-  margin-top: 0.2em;
-  font-family: var(--sans);
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--muted);
-}
-
-h2 {
-  margin: 0 0 0.4em;
-  font-size: 1.125rem;
-  line-height: 1.5;
-}
-
-.intro p:last-child { margin: 0; color: var(--ink); }
-
-.stage { margin-top: 20px; margin-bottom: 12px; min-width: 0; }
-
-#film {
-  display: block;
-  width: 100%;
   max-width: 100%;
+  max-height: min(80svh, 1280px);
+  width: auto;
   height: auto;
-  aspect-ratio: 16 / 9;
   background: var(--paper);
   border: 1px solid var(--rule);
-  border-radius: 10px;
+  border-radius: 6px;
 }
-
-.stage figcaption {
-  margin-top: 8px;
-  color: var(--muted);
-  font-size: 0.875rem;
-}
-
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  gap: 12px 16px;
-  min-width: 0;
-}
-
-#play {
-  min-width: 112px;
-  min-height: 44px;
-  padding: 0 20px;
-  border: 2px solid var(--green);
-  border-radius: 10px;
-  background: var(--card);
-  color: var(--green);
-  font: inherit;
-  font-size: 16px;
+.film-error {
+  position: absolute;
+  inset: 1rem;
+  margin: auto;
+  height: fit-content;
+  max-width: 32rem;
+  padding: 0.875rem 1rem;
+  background: #fbe9e4;
+  border: 1px solid #e3b5a8;
+  border-radius: 8px;
+  color: #7a1f12;
   font-weight: 700;
-  cursor: pointer;
 }
 
-#play[aria-pressed="true"] {
-  background: var(--green);
-  color: #ffffff;
-}
-
-#play:disabled { opacity: 0.5; cursor: not-allowed; }
-
-.scrub {
-  display: flex;
-  flex: 1 1 220px;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.scrub label { font-size: 0.875rem; font-weight: 600; color: var(--muted); }
-
-#time {
-  width: 100%;
-  min-width: 0;
-  height: 44px;
-  min-height: 44px;
-  margin: 0;
-  font-size: 16px;
-  accent-color: var(--green);
-}
-
-#clock {
-  min-width: 9.5em;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  font-size: 16px;
-  font-variant-numeric: tabular-nums;
-}
-
-.hint, .status {
-  margin: 8px 0 0;
-  color: var(--muted);
-  font-size: 0.875rem;
-}
-
-.hint:empty { display: none; }
-
-.status { color: var(--ink); font-weight: 600; }
-.status[data-state="error"] { color: #8a1f2d; }
-
-.verified {
-  margin-top: 8px;
-  margin-bottom: 0;
-  padding-left: 1.4em;
-  color: var(--muted);
-  font-size: 0.875rem;
-}
-
-.verified code { color: var(--ink); font-size: 0.8125rem; }
-
-.reload {
-  min-height: 44px;
-  padding: 0 18px;
-  border: 2px solid var(--green);
-  border-radius: 10px;
-  background: var(--card);
-  color: var(--green);
-  font: inherit;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.scenes, .links { margin-top: 28px; }
-
-.scenes ol, .links ul { margin: 0; padding-left: 1.4em; }
-
-.scenes li + li { margin-top: 6px; }
-
-.time {
+.panel { max-width: 46rem; margin: 0.75rem auto 0; display: grid; gap: 0.625rem; }
+.panel-badges { display: flex; flex-wrap: wrap; gap: 0.375rem; }
+.badge {
   display: inline-block;
-  min-width: 6.5em;
-  color: var(--green);
+  padding: 0.05rem 0.625rem;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  font-size: 0.8125rem;
   font-weight: 700;
-  font-variant-numeric: tabular-nums;
+  background: var(--card);
 }
+.badge--ink { background: var(--ink); color: #fff; }
+.panel-title { margin: 0; font-family: var(--serif); font-size: 1.375rem; line-height: 1.35; }
+.panel-lead, .hint { font-size: 0.9375rem; color: var(--muted); }
+.status { font-size: 0.875rem; color: var(--muted); }
+.status.is-error { color: #7a1f12; font-weight: 700; }
 
-a { color: var(--green); font-weight: 600; text-underline-offset: 0.2em; }
-
-.links a {
+.button {
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
+  justify-content: center;
+  min-height: var(--target);
+  min-width: var(--target);
+  padding: 0.375rem 0.875rem;
+  border-radius: 8px;
+  border: 1.5px solid var(--ink);
+  background: var(--ink);
+  color: #fff;
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1.3;
+  cursor: pointer;
+}
+.button--quiet { background: var(--card); color: var(--ink); }
+.button:disabled { opacity: 0.45; cursor: not-allowed; }
+.button[aria-pressed="true"].size { background: var(--ink); color: #fff; }
+#play[aria-pressed="true"] { background: var(--card); color: var(--ink); }
+
+.transport, .scenes, .sizes { display: flex; flex-wrap: wrap; gap: 0.375rem; }
+.scenes .button { padding-inline: 0.625rem; font-size: 0.9375rem; }
+.scenes .button[aria-current="true"] { box-shadow: inset 0 -0.3rem 0 #f3cf4b; }
+
+.scrub-row { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 0.5rem; align-items: center; }
+.field-label { font-weight: 700; font-size: 0.9375rem; }
+.scrub { width: 100%; min-height: var(--target); font-size: 16px; margin: 0; accent-color: var(--ink); }
+.clock { font-variant-numeric: tabular-nums; font-size: 0.9375rem; min-width: 7.5em; text-align: right; }
+
+.fold { border: 1px solid var(--rule); border-radius: 10px; background: var(--card); }
+.fold > summary { display: flex; align-items: center; min-height: var(--target); padding: 0.5rem 0.875rem; cursor: pointer; font-weight: 700; }
+.fold-body { padding: 0 0.875rem 0.875rem; }
+.plain-list { margin: 0; padding-left: 1.25rem; font-size: 0.9375rem; }
+.plain-list li + li { margin-top: 0.375rem; }
+.links { display: flex; flex-wrap: wrap; gap: 0 1rem; margin-top: 0.5rem; }
+.textlink { display: inline-flex; align-items: center; min-height: var(--target); color: #2f6b4f; }
+
+/* Renderer: the canvas is the whole page, sized from window.renderConfig. */
+html[data-render], html[data-render] body { margin: 0; padding: 0; overflow: hidden; }
+html[data-render] .panel { display: none; }
+html[data-render] .stage { display: block; }
+html[data-render] .film { max-width: none; max-height: none; border: 0; border-radius: 0; }
+
+@media (min-width: 64rem) {
+  html:not([data-render]) body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(20rem, 28rem); gap: 1.5rem; align-items: start; }
+  html:not([data-render]) .panel { margin-top: 0; }
+  html:not([data-render]) .film { max-height: calc(100vh - 2rem); }
 }
 
-.foot {
-  margin-top: 32px;
-  padding-top: 16px;
-  border-top: 1px solid var(--rule);
-  color: var(--muted);
-  font-size: 0.875rem;
-}
-
-.foot p { margin: 0 0 6px; }
-
-:focus-visible {
-  outline: 3px solid var(--green);
-  outline-offset: 3px;
-}
-
-/* 書き出し時：canvas だけを、指定の大きさで左上に置く（文書の大きさ＝canvasの大きさ） */
-html.is-render body {
-  margin: 0;
-  padding: 0;
-}
-
-html.is-render body > :not(.stage),
-html.is-render .stage > :not(canvas) {
-  display: none !important;
-}
-
-html.is-render .stage { margin: 0; max-width: none; }
-
-html.is-render #film {
-  max-width: none;
-  border: 0;
-  border-radius: 0;
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
 }
