@@ -6,7 +6,7 @@
     "ファイルにして持ち運ぶ"
   ],
   "category": "development",
-  "summary": "時刻の不足で止まる→ひとつ戻して通す→設定ファイルを保存。実行済み8件を大きな概念図で比べ、日本語TTS付き33秒の縦動画で使い方が分かります。",
+  "summary": "時刻の不足で止まる→ひとつ戻して通す→設定ファイルを保存。実行済み8件を大きな概念図で比べ、無音の33秒の縦動画で使い方が分かります。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/openhands-example/index.html",
@@ -37,12 +37,7 @@
     {
       "name": "Motion Reel",
       "source": "examples/openhands-example/tools/motion-reel/render.mjs",
-      "applied": "保存済みの実入力・出力を大きな連続する概念図で説明し、Irodori-TTSの日本語ナレーション5区間を固定。33秒の縦横動画を制作し、代表・連続・スマホ幅・終端、任意時刻の再現とMP4再生を確認。"
-    },
-    {
-      "name": "Irodori-TTS-v4.1-Small",
-      "source": "https://huggingface.co/Aratako/Irodori-TTS-v4.1-Small/tree/2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
-      "applied": "既存の公式固定モデルで5つの日本語説明を実合成。自作の合成声を参照し、原稿・音源・cueを固定して概念図の時刻と対応させました。聴取は未確認。"
+      "applied": "同じ実入力・出力とOpus5.5の概念図・動きを保持し、33秒の縦横動画を無音化。編集ソースは7素材を照合して描画し、任意時刻のPNG一致・実動画のビデオpacket一致・全デコード・再生終了を確認しました。"
     }
   ],
   "steps": [
@@ -71,7 +66,7 @@
     "Agent Canvas のアプリ・サーバー（読み込みの画面やサーバー側の検査）、エージェントやモデル、スケジューラー、Webhook の配信、リポジトリの取得、OpenHands Cloud は使っていません。",
     "上流への変更の提案（PR）はしておらず、原典の開発者向けの全体テストは行っていません。",
     "参照先はすべて架空の example.invalid で、取得していません。通信・ログイン・API キーは使っていません。O08 のタグや波かっこを文字のまま表示しているのは、安全性の検査や無害化の保証ではありません。",
-    "IAB Chromiumでスマホを含む6幅、実ファイル保存・依頼文コピー・エラー復旧、縦横の概念図動画の代表/連続フレーム・全デコード・再生終了とTTS音源のcue一致を確認。音声の聴取・実機iOS/Safari/VoiceOver・Core Web Vitals・人による承認は未確認です。"
+    "IAB Chromiumでスマホを含む6幅、実ファイル保存・依頼文コピー・エラー復旧、縦横の概念図動画の代表/連続フレーム・全デコード・再生終了と音声トラック0件を確認。実機iOS/Safari/VoiceOver・Core Web Vitals・人による承認は未確認です。"
   ],
   "sources": [
     {
@@ -195,12 +190,8 @@
       "url": "examples/openhands-example/source.zip"
     },
     {
-      "label": "図と日本語TTSの使い方",
+      "label": "動く概念図の使い方",
       "url": "examples/openhands-example/visual-guide.md"
-    },
-    {
-      "label": "固定TTSと実生成音声のハッシュ",
-      "url": "examples/openhands-example/audio/generation.json"
     },
     {
       "label": "改修後に確認した範囲",
@@ -212,8 +203,8 @@
     }
   ],
   "license": "MIT（独自作例）・MIT（OpenHands 原典・@openhands/extensions）",
-  "license_note": "作例のコード（run.mjs・loader.mjs・ページ）・文章・架空の入力・動画の編集ソースは MIT License（Copyright (c) 2026 Studio Yebisu）。vendor/openhands/ の12ファイルは OpenHands/OpenHands の固定コミット e4775b4（Agent Canvas 1.27.1）のファイル、vendor/extensions/ の29ファイルは npm の @openhands/extensions 0.30.0 のファイルで、どちらも改変せずに置いた MIT License（Copyright © 2025 OpenHands contributors ほか、各 LICENSE のとおり）です。実行にパッケージの導入・アカウント・API キー・課金は要りません。OpenHands Cloud・Enterprise・モデルの API・各連携サービスは別の条件で、この作例では使っていません。ソース制作に用いた Opus 5.5 の利用環境は別に必要です。 ナレーションは固定版Irodori-TTS-v4.1-Smallの合成音声で、同梱のMIT Licenseとモデルカードの条件に従います。参照声も独自に作った合成声です。モデルの重みは配布しません。",
-  "video_note": "33秒・日本語TTSナレーションあり。大きな概念図が動き、時刻不足→復元→保存と、参照先が先頭だけになる例を説明します。縦版を主に、横版も用意しました。説明図の映像で、エージェントや予定の実行映像ではありません。音声の聴取・実機iOSは未確認です。",
+  "license_note": "作例のコード（run.mjs・loader.mjs・ページ）・文章・架空の入力・動画の編集ソースは MIT License（Copyright (c) 2026 Studio Yebisu）。vendor/openhands/ の12ファイルは OpenHands/OpenHands の固定コミット e4775b4（Agent Canvas 1.27.1）のファイル、vendor/extensions/ の29ファイルは npm の @openhands/extensions 0.30.0 のファイルで、どちらも改変せずに置いた MIT License（Copyright © 2025 OpenHands contributors ほか、各 LICENSE のとおり）です。実行にパッケージの導入・アカウント・API キー・課金は要りません。OpenHands Cloud・Enterprise・モデルの API・各連携サービスは別の条件で、この作例では使っていません。ソース制作に用いた Opus 5.5 の利用環境は別に必要です。",
+  "video_note": "33秒・無音。大きな概念図と短いラベルで使い方を説明します。音声ガイドはありません。縦版を主に、横版も用意しました。",
   "video_source": "examples/openhands-example/video/index.html",
   "skill_license": "examples/openhands-example/vendor/openhands/LICENSE",
   "updated_on": "2026-10-17",
@@ -224,10 +215,10 @@
     "checks_total": 107,
     "independent_checks": 155,
     "screen_review": "Diagram-first saved-result viewer and original8-case comparison; measured phone layout, actual file save/copy and controlled errors verified.",
-    "video": "33s/30fps/990frames:720x1280 portrait and1280x720 wide;5 real local Japanese TTS cues; deterministic PNG/decode/native playback checked.",
+    "video": "33s/30fps/990frames; portrait720x1280,wide1280x720;silent,no audio stream;original video packets retained,source PNG match/decode/native playback checked.",
     "publication": "Pages and actual public files verified separately after scoped publication",
     "human_approval": false,
-    "model_scope": "Original Opus5.5 runtime source/results preserved. New Opus5.5 receipt authors concept UI and narrated film source; production generated IrodoriTTS, mixed fixed cues, checked artifacts and rendered/published."
+    "model_scope": "Original Opus5.5 diagram UI/animation source retained. Production removed spoken narration and integrated silent playback, unchanged runtime/results. No new model execution claimed."
   },
   "guide_url": "case.html?id=openhands-example",
   "catalog_entry": {
@@ -265,7 +256,7 @@
     "source_note": "固定版Agent Canvas1.27.1/e4775b4とlocked extensions0.30.0の実物の入出力APIで、8架空設定/107checks/独立155照合。別Nodeで実行記録と6出力全bytes一致。ファイルの形の確認に限定し、アプリ・エージェント・モデル・予定登録・Webhook・cloneは実行していない。",
     "prompt": "OpenHands Agent Canvas固定版の自動化ファイル入出力API（serializeAutomation・parseAutomationFile）で、架空の自動化の設定を.automation.jsonに書き出して読み戻してください。止まった誤りの行と1か所だけ直した再確認、cronの形でない時刻や2件目の参照先の扱いを確かめ、実入力・実結果と短い日本語解説を保存してください。エージェントやモデルの実行とは区別してください。",
     "verification_stage": "runtime-reviewed",
-    "verification": "2026-10-17に元の実API8件・107検査と独立155照合・別プロセス一致を保ち、概念図と日本語TTS付き33秒の縦横動画へ改修。スマホ表示、実保存・復旧・動画再生を確認。聴取・実機iOS・人の承認は未確認。",
+    "verification": "固定版の原典と実入力・実出力を保持し、動く大きな概念図と33秒の無音の縦横動画で説明。音声ガイドなし。映像packetと編集ソースのPNG一致、実デモ・動画再生を確認。人の承認と実機iOSは未確認。",
     "reviewed_on": "2026-10-17",
     "updated_on": "2026-10-17"
   },

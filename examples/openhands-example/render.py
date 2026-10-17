@@ -30,7 +30,7 @@ def main():
         shutil.copytree(source,project,ignore=shutil.ignore_patterns('.git','.local','.venv','node_modules','__pycache__','*.pyc','*.mp4','*.zip'))
         (project/'index.html').write_text(entry,encoding='utf-8')
         command=['node',str(renderer),'--project',str(project),'--out',str(output),'--step','2','--strip-at',str(a.strip_at),'--width',str(a.width),'--height',str(a.height)]
-        if not a.stills_only:command+=['--video','--audio',str(project/'video/assets/narration.wav')]
+        if not a.stills_only:command+=['--video']
         subprocess.run(command,check=True)
 
 if __name__=='__main__':main()

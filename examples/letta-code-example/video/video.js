@@ -1,19 +1,4 @@
-/*
- * Studio Yebisu — Letta Code 作例・解説動画（32秒・合成音声のナレーション）
- * Copyright (c) 2026 Studio Yebisu. MIT License.
- *
- * One 2D canvas, painted from absolute time only (window.seek). Two native layouts:
- * 720×1280 portrait (main) and 1280×720 landscape. Other sizes reuse the nearer layout, scaled and centred.
- * Before window.motionReady resolves, assets/manifest.json must match its pinned SHA-256 and all eight listed
- * files must match their SHA-256 and byte counts. The run record, inputs, expectations, independent checks,
- * reproduction checks, lock and cue sheet are then cross-checked, and narration.wav is parsed (48 kHz mono PCM16,
- * exactly 32 s) and measured for signal inside each of the five cue windows. There is no built-in result data:
- * what the diagram shows (the missing guide in L02, the two staged changes kept, the separate L03 trial that saved,
- * the short commit hashes and stage counts) comes from the verified record. On any mismatch motionReady rejects,
- * the stage is hidden, controls are disabled and #retry loads again.
- * The book, guide card, memos, tray, gate and Git dots are explanatory drawings of saved results,
- * not measurements, screen recordings or a live agent at work.
- */
+// Studio Yebisu. Diagram/animation authored by Claude Opus5.5; silent playback integration by production. MIT.
 (() => {
   "use strict";
 
@@ -34,21 +19,48 @@
 
   const MANIFEST = {
     path: "assets/manifest.json",
-    sha256: "abbf435514814f5ad76120d4670f94035bd9c484401eacaaa626ecd335024653",
+    sha256: "99213e3f73dfc294f21c0370836fba4f528babc2027961962f3dcebb1b28adb7",
     format: "studio-yebisu-asset-lock-v1",
     case: "letta-code-example",
   };
   // Same order as the manifest. Paths are relative to video/assets/.
   const ASSETS = [
-    { file: "expected.json", sha256: "0f61d8dd6a58b99100759421295ea24a7436a32cb91304111c78b0cb5227a1a8", bytes: 699 },
-    { file: "independent-checks.json", sha256: "f94c34d001bbd4f7529b2d058b411401526a5885d87f06b5a874c50f9767d1c6", bytes: 2797 },
-    { file: "memory-changes.json", sha256: "852d6c0708eb9c42d31f71ad6fc6f8fcb95849d0d1eb72f4094e60a3e20311e0", bytes: 27161 },
-    { file: "memory-runs.json", sha256: "af6e58cb1f8ef95efc44ae266c51713aa1bad06bcc025cda5d42e4cd3bd49570", bytes: 167251 },
-    { file: "narration-cues.json", sha256: "980eb6de5e6d6cd6fe2b9a5aca4ba5ce839676a6de395829c4c5bdb5818ebf96", bytes: 4916 },
-    { file: "narration.wav", sha256: "cb7cf4c63d0e36e2c632c2d832025af0c294d53e0a962ea152b00b9cc88b1ef2", bytes: 3072044 },
-    { file: "reproduction-checks.json", sha256: "574c2fb858278f6b9e47410da12d355e585bbd73457f8e7116b9dcd534ad0431", bytes: 709 },
-    { file: "vendor-lock.json", sha256: "a62fbf74fa35f609756adf4b9ef2bbfcfe7e46cfd291058be455601bbc8d4d57", bytes: 2476 },
-  ];
+  {
+    "file": "expected.json",
+    "sha256": "0f61d8dd6a58b99100759421295ea24a7436a32cb91304111c78b0cb5227a1a8",
+    "bytes": 699
+  },
+  {
+    "file": "independent-checks.json",
+    "sha256": "f94c34d001bbd4f7529b2d058b411401526a5885d87f06b5a874c50f9767d1c6",
+    "bytes": 2797
+  },
+  {
+    "file": "memory-changes.json",
+    "sha256": "852d6c0708eb9c42d31f71ad6fc6f8fcb95849d0d1eb72f4094e60a3e20311e0",
+    "bytes": 27161
+  },
+  {
+    "file": "memory-runs.json",
+    "sha256": "af6e58cb1f8ef95efc44ae266c51713aa1bad06bcc025cda5d42e4cd3bd49570",
+    "bytes": 167251
+  },
+  {
+    "file": "reproduction-checks.json",
+    "sha256": "574c2fb858278f6b9e47410da12d355e585bbd73457f8e7116b9dcd534ad0431",
+    "bytes": 709
+  },
+  {
+    "file": "timeline.json",
+    "sha256": "006f8a74a307bbc73cf10b2064df9ffa37352985b9b0259f48f474a65bbff4d4",
+    "bytes": 2320
+  },
+  {
+    "file": "vendor-lock.json",
+    "sha256": "a62fbf74fa35f609756adf4b9ef2bbfcfe7e46cfd291058be455601bbc8d4d57",
+    "bytes": 2476
+  }
+];
   const SHA = Object.fromEntries(ASSETS.map((a) => [a.file, a.sha256]));
   const PIN = {
     format: "studio-yebisu-letta-memory-runs-v1",
@@ -65,18 +77,8 @@
     repairPair: ["L02", "L03"],
     guide: "bookclub/MEMORY.md",
     detail: "bookclub/schedule.md",
-    tts: "Aratako/Irodori-TTS-v4.1-Small",
-    ttsRevision: "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
-    rate: 48000,
   };
-  // Fixed before this film was written (narration-cues.json). The film checks the cue sheet agrees exactly.
-  const CUE_PLAN = [
-    { id: "intro", text: "記憶のメモを変えたら、保存する前に点検します。", seed: 20261117, file: "audio/intro.wav", sha256: "e82cf0a287575160a2f1ac8f9e1e3314c613121ceef2d151454b6f7e1e7ab429", bytes: 391724, start: 0.8, duration: 4.08, end: 4.88 },
-    { id: "missing", text: "案内のファイルがないと、保存は止まります。", seed: 20261118, file: "audio/missing.wav", sha256: "761ddb24608938f8924cd24baab28eab37f5e4a9fcbfc477fe557cdeda0ac984", bytes: 345644, start: 5.6, duration: 3.6, end: 9.2 },
-    { id: "repair", text: "案内だけを戻した別の試行では、変更を保存できました。", seed: 20261119, file: "audio/repair.wav", sha256: "399878af56df81225ae53bdf5451a035507c1df25da88207765c3a7adb669a60", bytes: 460844, start: 9.9, duration: 4.8, end: 14.7 },
-    { id: "retained", text: "止まった変更も、手元に残ります。理由を見て、必要なところを直します。", seed: 20261120, file: "audio/retained.wav", sha256: "cbcee3c71dd4003cf6990c670b24fb6e0c3f4c22531c30a518e23c6d0b753510", bytes: 668204, start: 15.4, duration: 6.96, end: 22.36 },
-    { id: "limits", text: "点検に通っても、内容の正しさは、別の確認です。", seed: 20261121, file: "audio/limits.wav", sha256: "4019382752ba6073ee9bb9ba75fbcd3a09deac9f36d38386ee46dde6d8b8ce3d", bytes: 449324, start: 23.1, duration: 4.68, end: 27.78 },
-  ];
+  // Scene timing is fixed in timeline.json.
   const SCENE_PLAN = [
     { id: "relation", in: 0, out: 5.3, label: "メモを変えたら、点検", case: "L01", badge: "記録 L01", read: 3.0, note: "関係の全体：ルート → 案内 → 2つの詳細、変更の台 → 点検の門 → Git の保存の点。門が形をたどる" },
     { id: "missing", in: 5.3, out: 9.6, label: "案内がないと、止まる", case: "L02", badge: "記録 L02", read: 8.6, note: "案内のカードが抜けて台へ。空いた枠と切れた線。変更2件は門で止まって戻り、Git は前の点のまま" },
@@ -99,13 +101,10 @@
     retry: $("retry"),
     stage: $("stage"),
     canvas: $("film"),
-    narration: $("narration"),
     play: $("play"),
     reset: $("reset"),
-    mute: $("mute"),
     time: $("time"),
     clock: $("clock"),
-    audio: $("preview-audio"),
     sceneList: $("scene-list"),
     assetList: $("asset-list"),
     layoutTall: $("layout-tall"),
@@ -287,46 +286,6 @@
   }
 
   // RIFF/WAVE, PCM 16-bit mono 48 kHz, exactly 32 s of samples.
-  function parseWav(bytes) {
-    const dv = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
-    const tag = (o) => String.fromCharCode(bytes[o], bytes[o + 1], bytes[o + 2], bytes[o + 3]);
-    check(bytes.length >= 44 && tag(0) === "RIFF" && tag(8) === "WAVE", "narration.wav が WAV ではありません。");
-    let o = 12;
-    let fmt = null;
-    let data = null;
-    while (o + 8 <= bytes.length) {
-      const id = tag(o);
-      const size = dv.getUint32(o + 4, true);
-      const body = o + 8;
-      check(body + size <= bytes.length, "narration.wav のチャンクが途中で切れています。");
-      if (id === "fmt ") {
-        check(size >= 16, "narration.wav の fmt チャンクが短すぎます。");
-        fmt = { format: dv.getUint16(body, true), channels: dv.getUint16(body + 2, true), rate: dv.getUint32(body + 4, true), bits: dv.getUint16(body + 14, true) };
-      } else if (id === "data") {
-        data = { offset: body, size };
-      }
-      o = body + size + (size & 1);
-    }
-    check(fmt && data && fmt.format === 1 && fmt.channels === 1 && fmt.rate === PIN.rate && fmt.bits === 16,
-      "narration.wav が PCM16・モノラル・48000Hz ではありません。");
-    check(data.size === DURATION * PIN.rate * 2, `narration.wav の長さが${DURATION}秒ではありません。`);
-    return { dv, offset: data.offset, frames: data.size / 2 };
-  }
-
-  // The narration must actually be in the mix at each cue's place (RMS of the window).
-  function checkCueSignal(pcm, cue) {
-    const a = Math.round(cue.start * PIN.rate);
-    const b = Math.min(pcm.frames, Math.round(cue.end * PIN.rate));
-    check(a >= 0 && b > a, `ナレーション「${cue.id}」の位置が narration.wav に収まりません。`);
-    let sum = 0;
-    for (let i = a; i < b; i++) {
-      const v = pcm.dv.getInt16(pcm.offset + 2 * i, true) / 32768;
-      sum += v * v;
-    }
-    const rms = Math.sqrt(sum / (b - a));
-    check(rms > 0.003, `narration.wav の${cue.start.toFixed(2)}〜${cue.end.toFixed(2)}秒に、ナレーション「${cue.id}」の音が見つかりません（RMS ${rms.toFixed(5)}）。`);
-  }
-
   const isChange = (c) => isObject(c) && isString(c.status) && isString(c.path);
 
   function verifyRecord(runs, lock) {
@@ -399,15 +358,15 @@
     };
   }
 
-  function verify(j, wavBytes) {
+  function verify(j) {
     const runs = j["memory-runs.json"];
     const changes = j["memory-changes.json"];
     const expected = j["expected.json"];
     const indep = j["independent-checks.json"];
     const repro = j["reproduction-checks.json"];
     const lock = j["vendor-lock.json"];
-    const cues = j["narration-cues.json"];
-    [runs, changes, expected, indep, repro, lock, cues].forEach((value) => check(isObject(value), "素材の JSON の形が想定と違います。"));
+    const timeline = j["timeline.json"];
+    [runs, changes, expected, indep, repro, lock, timeline].forEach((value) => check(isObject(value), "素材の JSON の形が想定と違います。"));
 
     check(lock.repository === PIN.repository && lock.commit === PIN.commit && lock.version === PIN.version && lock.license === PIN.license
       && Array.isArray(lock.files) && lock.files.length === PIN.vendorFiles, "vendor-lock.json の固定版・原典8ファイルが一致しません。");
@@ -437,30 +396,11 @@
       && repro.reproduced_sha256 === SHA["memory-runs.json"] && repro.successful_commits === PIN.summary.committed
       && repro.blocked_commits === PIN.summary.blocked, "reproduction-checks.json が、この記録の全バイトの再現になっていません。");
 
-    // Cue sheet: five real TTS segments and six scenes, exactly as frozen.
-    check(cues.format === "studio-yebisu-narration-cues-v1" && cues.case === MANIFEST.case && cues.duration === DURATION && cues.fps === 30
-      && cues.frames === DURATION * 30 && cues.sample_rate === PIN.rate && cues.channels === 1 && cues.encoding === "PCM16"
-      && cues.tts === PIN.tts && cues.tts_revision === PIN.ttsRevision && cues.listening_confirmed === false && cues.human_approval === false
-      && Array.isArray(cues.cues) && cues.cues.length === CUE_PLAN.length && Array.isArray(cues.scenes) && cues.scenes.length === SCENE_PLAN.length,
-    "narration-cues.json の形が想定と違います。");
-    CUE_PLAN.forEach((plan, i) => {
-      const c = cues.cues[i];
-      check(isObject(c) && c.id === plan.id && c.text === plan.text && c.seed === plan.seed && c.file === plan.file && c.sha256 === plan.sha256
-        && c.bytes === plan.bytes && Math.abs(c.start - plan.start) < 1e-9 && Math.abs(c.duration - plan.duration) < 1e-9
-        && Math.abs(c.end - plan.end) < 1e-9 && c.source_start === 0 && c.sample_exact === true,
-      `narration-cues.json のナレーション「${plan.id}」が固定した文・時刻と一致しません。`);
-      if (i > 0) check(c.start >= cues.cues[i - 1].end, "ナレーションが重なっています。");
-    });
-    SCENE_PLAN.forEach((plan, i) => {
-      const s = cues.scenes[i];
-      check(isObject(s) && s.id === plan.id && s.in === plan.in && s.out === plan.out && s.label === plan.label && s.case === plan.case,
-        `narration-cues.json の場面「${plan.id}」が固定した時刻・見出しと一致しません。`);
-    });
-
-    const pcm = parseWav(wavBytes);
-    CUE_PLAN.forEach((cue) => checkCueSignal(pcm, cue));
-
-    return { facts: sceneFacts(rec.rows), wav: wavBytes };
+    check(timeline.format === "studio-yebisu-visual-timeline-v1" && timeline.case === MANIFEST.case && timeline.silent === true
+      && timeline.duration === DURATION && timeline.fps === 30 && timeline.frames === DURATION*30
+      && Array.isArray(timeline.scenes) && timeline.scenes.length === SCENE_PLAN.length, "映像の時刻表が一致しません。");
+    SCENE_PLAN.forEach((plan,i)=>{const x=timeline.scenes[i]; check(x.id===plan.id && x.in===plan.in && x.out===plan.out && x.label===plan.label && x.case===plan.case,"場面の時刻が一致しません。");});
+    return { facts: sceneFacts(rec.rows) };
   }
 
   // --- Fonts -----------------------------------------------------------------------------------
@@ -506,7 +446,7 @@
     for (const asset of ASSETS) if (asset.file.endsWith(".json")) json[asset.file] = parseJson(bytes[asset.file], asset.file);
     let data;
     try {
-      data = verify(json, bytes["narration.wav"]);
+      data = verify(json);
     } catch (error) {
       if (error instanceof CheckError) throw error;
       throw new CheckError(`素材の形が想定と違います（${error && error.message ? error.message : "不明"}）。`);
@@ -535,7 +475,7 @@
     return v;
   }
 
-  // Picture beats. Scene borders and narration come from the verified cue sheet; these are the moves inside them.
+  // Picture beats. Scene borders come from the verified visual timeline; these are the moves inside them.
   // Guide card: 0 = in its slot, 1 = staged as a deletion in the tray.
   const GUIDE_STEPS = [[5.6, 6.5, 1], [10.1, 11.0, 0], [15.5, 16.4, 1], [22.9, 23.7, 0]];
   const LINK_STEPS = [[6.0, 6.6, 0], [10.9, 11.5, 1], [16.1, 16.6, 0], [23.5, 23.9, 1]];
@@ -1415,226 +1355,76 @@
     ctx.setTransform(1, 0, 0, 1, 0, 0);
   }
 
-  // --- Seek, preview and editor state -----------------------------------------------------------
-
-  let current = 0;
-  let isPlaying = false;
-  let loading = false;
-  let raf = 0;
-  let audioClock = false;
-  let startNow = 0;
-  let startTime = 0;
-  let audioUrl = "";
-
+  // Silent preview: the picture follows elapsed time; export seeks are pure.
+  let current = 0, isPlaying = false, loading = false, raf = 0, startNow = 0, startTime = 0;
   const clampTime = (seconds) => {
-    const value = Number(seconds);
-    return Number.isFinite(value) ? Math.min(DURATION, Math.max(0, value)) : 0;
+    const v = Number(seconds);
+    return Number.isFinite(v) ? Math.max(0, Math.min(DURATION, v)) : 0;
   };
-
   function showTime() {
-    if (loading) ui.clock.textContent = "照合中";
-    else if (!film) ui.clock.textContent = "映像なし（照合失敗）";
-    else ui.clock.textContent = `${current.toFixed(1)} / ${DURATION.toFixed(1)} 秒`;
+    ui.clock.textContent = loading ? "照合中" : !film ? "映像なし（照合失敗）" : `${current.toFixed(1)} / ${DURATION.toFixed(1)} 秒`;
   }
-
-  function showNarration(t) {
-    const cue = CUE_PLAN.find((c) => t >= c.start - 0.1 && t < c.end + 0.5);
-    ui.narration.textContent = cue ? cue.text : "";
-  }
-
   function paint(t) {
-    if (!film) throw new Error("素材の照合が済んでいないため描けません。");
-    current = t;
-    drawFrame(t);
-    ui.time.value = String(t);
-    showTime();
-    showNarration(t);
+    if (!film) throw new Error("素材の照合前は描けません。");
+    current = t; drawFrame(t); ui.time.value = String(t); showTime();
   }
-
-  window.seek = (seconds) => {
-    const t = clampTime(seconds);
-    stop();
-    return window.motionReady.then(() => paint(t));
-  };
-
-  function setPlaying(on) {
-    isPlaying = on;
-    ui.play.textContent = on ? "一時停止" : "再生";
-    showTime();
-  }
-
-  // Seeking, reset and the end all stop here; audio never starts from a seek.
   function stop() {
     if (raf) cancelAnimationFrame(raf);
-    raf = 0;
-    audioClock = false;
-    if (!ui.audio.paused) ui.audio.pause();
-    if (isPlaying) setPlaying(false);
+    raf = 0; isPlaying = false; ui.play.textContent = "再生";
   }
-
+  window.seek = (seconds) => {
+    const t = clampTime(seconds); stop();
+    return window.motionReady.then(() => paint(t));
+  };
   function previewFrame(now) {
     if (!isPlaying) return;
-    const t = Math.min(DURATION, audioClock && !ui.audio.paused ? ui.audio.currentTime : startTime + (now - startNow) / 1000);
-    try {
-      paint(t);
-    } catch (error) {
-      fail(error);
-      return;
-    }
-    if (t >= DURATION - 1e-3) stop();
-    else raf = requestAnimationFrame(previewFrame);
+    const t = Math.min(DURATION, startTime + (now - startNow) / 1000);
+    try { paint(t); } catch (error) { fail(error); return; }
+    if (t >= DURATION) stop(); else raf = requestAnimationFrame(previewFrame);
   }
-
-  // Editor preview only: a user click starts the verified narration.wav and the picture follows its clock.
   function play() {
     if (RENDER || !film || loading) return;
     startTime = current >= DURATION - 0.05 ? 0 : current;
-    startNow = performance.now();
-    setPlaying(true);
-    audioClock = false;
-    if (audioUrl) {
-      try {
-        ui.audio.currentTime = startTime;
-      } catch {
-        // メタデータの前に位置を変えられないブラウザーでは、映像だけで続ける。
-      }
-      const attempt = ui.audio.play();
-      audioClock = true;
-      if (attempt && typeof attempt.catch === "function") {
-        attempt.catch((error) => {
-          if (!isPlaying || (error && error.name === "AbortError")) return;
-          audioClock = false;
-          startTime = current;
-          startNow = performance.now();
-          ui.status.textContent = "音を再生できなかったため、映像だけを再生しています。";
-        });
-      }
-    }
+    startNow = performance.now(); isPlaying = true; ui.play.textContent = "一時停止";
     raf = requestAnimationFrame(previewFrame);
   }
-
   function setControls(enabled) {
-    for (const control of [ui.play, ui.reset, ui.mute, ui.time, ...ui.sceneList.querySelectorAll("button")]) control.disabled = !enabled;
+    for (const c of [ui.play, ui.reset, ui.time, ...ui.sceneList.querySelectorAll("button")]) c.disabled = !enabled;
   }
-
   function buildSceneList() {
-    const items = SCENE_PLAN.map((s) => {
-      const li = document.createElement("li");
-      const button = document.createElement("button");
-      button.type = "button";
-      button.disabled = true;
-      button.dataset.time = String(s.read);
-      const time = document.createElement("span");
-      time.className = "scene-time";
-      time.textContent = `${s.in}–${s.out}秒`;
-      const label = document.createElement("span");
-      label.textContent = `${s.label}（${s.badge}）`;
-      const note = document.createElement("span");
-      note.className = "scene-note";
-      note.textContent = s.note;
-      button.append(time, label, note);
-      button.addEventListener("click", () => {
-        window.seek(Number(button.dataset.time)).catch(fail);
-      });
-      li.append(button);
-      return li;
-    });
-    ui.sceneList.replaceChildren(...items);
+    ui.sceneList.replaceChildren(...SCENE_PLAN.map((s) => {
+      const li = document.createElement("li"), b = document.createElement("button");
+      b.type = "button"; b.disabled = true;
+      b.textContent = `${s.in}–${s.out}秒　${s.label}（${s.badge || `記録 ${s.case}`}）`;
+      b.addEventListener("click", () => window.seek(s.read).catch(fail)); li.append(b); return li;
+    }));
   }
-
   function setState(state, message) {
-    ui.editor.dataset.state = state;
-    ui.status.dataset.state = state;
-    ui.status.textContent = message;
+    ui.editor.dataset.state = state; ui.status.dataset.state = state; ui.status.textContent = message;
   }
-
-  function releaseAudio() {
-    if (!ui.audio.paused) ui.audio.pause();
-    if (ui.audio.getAttribute("src")) {
-      ui.audio.removeAttribute("src");
-      ui.audio.load();
-    }
-    if (audioUrl) URL.revokeObjectURL(audioUrl);
-    audioUrl = "";
-  }
-
   function fail(error) {
-    stop();
-    loading = false;
-    film = null;
-    releaseAudio();
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, W, H);
-    ui.stage.hidden = true;
-    ui.narration.textContent = "";
-    setControls(false);
-    const reason = error && error.message ? error.message : String(error);
-    setState("error", "素材を確かめられなかったため、映像を描いていません。");
-    ui.errorText.textContent = reason;
-    ui.errorBox.hidden = false;
-    ui.retry.disabled = false;
-    showAssets();
-    showTime();
+    stop(); loading = false; film = null;
+    ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,W,H); ui.stage.hidden = true;
+    setControls(false); setState("error", "素材を確かめられなかったため、映像を描いていません。");
+    ui.errorText.textContent = error && error.message ? error.message : String(error);
+    ui.errorBox.hidden = false; ui.retry.disabled = false; showAssets(); showTime();
   }
-
-  // One load at a time. Retry fetches the manifest and all eight files again; nothing is cached.
   function start() {
     if (loading) return window.motionReady;
-    stop();
-    loading = true;
-    film = null;
-    releaseAudio();
-    assetState.clear();
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, W, H);
-    ui.stage.hidden = true;
-    ui.errorBox.hidden = true;
-    ui.retry.disabled = true;
-    setControls(false);
-    current = 0;
-    ui.time.value = "0";
-    showAssets();
-    setState("loading", `素材${ASSETS.length}件の SHA-256 と記録を照合しています…`);
-    showTime();
+    stop(); loading = true; film = null; assetState.clear();
+    ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,W,H); ui.stage.hidden = true;
+    ui.errorBox.hidden = true; ui.retry.disabled = true; setControls(false); current = 0; ui.time.value = "0";
+    showAssets(); setState("loading", `素材${ASSETS.length}件の SHA-256 と記録を照合しています…`); showTime();
     const ready = load().then((data) => {
-      loading = false;
-      film = data;
-      if (!RENDER) {
-        audioUrl = URL.createObjectURL(new Blob([data.wav], { type: "audio/wav" }));
-        ui.audio.src = audioUrl;
-      }
-      ui.stage.hidden = false;
-      paint(current);
-      setControls(true);
-      setState("ready", "照合済み。再生すると、映像と同じ時刻で照合済みのナレーション（narration.wav）が鳴ります。");
-      return true;
+      loading = false; film = data; ui.stage.hidden = false; paint(current); setControls(true);
+      setState("ready", "照合済み。動く概念図と短いラベルで見る無音動画です。"); return true;
     });
-    ready.catch(fail);
-    window.motionReady = ready;
-    return ready;
+    ready.catch(fail); window.motionReady = ready; return ready;
   }
-
   buildSceneList();
-  ui.play.addEventListener("click", () => (isPlaying ? stop() : play()));
-  ui.reset.addEventListener("click", () => {
-    window.seek(0).catch(fail);
-  });
-  ui.mute.addEventListener("click", () => {
-    const muted = ui.mute.getAttribute("aria-pressed") !== "true";
-    ui.mute.setAttribute("aria-pressed", String(muted));
-    ui.audio.muted = muted;
-  });
-  ui.time.addEventListener("input", () => {
-    window.seek(ui.time.value).catch(fail);
-  });
-  ui.audio.addEventListener("ended", () => {
-    if (isPlaying) {
-      stop();
-      if (film) paint(DURATION);
-    }
-  });
-  ui.retry.addEventListener("click", () => {
-    start();
-  });
+  ui.play.addEventListener("click", () => isPlaying ? stop() : play());
+  ui.reset.addEventListener("click", () => window.seek(0).catch(fail));
+  ui.time.addEventListener("input", () => window.seek(ui.time.value).catch(fail));
+  ui.retry.addEventListener("click", start);
   start();
 })();

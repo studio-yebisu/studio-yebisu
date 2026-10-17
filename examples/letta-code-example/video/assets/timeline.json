@@ -1,0 +1,58 @@
+{
+  "format": "studio-yebisu-visual-timeline-v1",
+  "case": "letta-code-example",
+  "duration": 32,
+  "fps": 30,
+  "frames": 960,
+  "scenes": [
+    {
+      "id": "relation",
+      "in": 0,
+      "out": 5.3,
+      "label": "メモを変えたら、点検",
+      "case": "L01",
+      "action": "One continuous memory structure: root guide, child guide connected to two detail cards, staged change, Letta inspection gate, Git saved-history dot. Show relation from frame0; no blank intro."
+    },
+    {
+      "id": "missing",
+      "in": 5.3,
+      "out": 9.6,
+      "label": "案内がないと、止まる",
+      "case": "L02",
+      "action": "L02 deletes the child guide. Its empty slot breaks both connections to detail cards; the same staged-change card stops at the gate. Git old dot stays, no new commit."
+    },
+    {
+      "id": "repair",
+      "in": 9.6,
+      "out": 15.1,
+      "label": "案内を戻した、別の試行",
+      "case": "L03",
+      "action": "Switch explicitly to separate recorded L03 trial. Same frozen input as L02 except child guide restored. Guide returns and connects details, staged change passes same gate, Git adds one saved-history dot. No live edit or rerunning agent."
+    },
+    {
+      "id": "retained",
+      "in": 15.1,
+      "out": 22.8,
+      "label": "止まっても、変更は残る",
+      "case": "L02",
+      "action": "Return explicitly to saved L02 result. Its blocked change remains in the left tray/stage, old Git dot stays. No data shredded or erased. Draw short reason marker pointing back to empty guide slot."
+    },
+    {
+      "id": "limits",
+      "in": 22.8,
+      "out": 29,
+      "label": "点検と、正しさは別",
+      "case": "L03",
+      "action": "Keep diagram; a checked structure is distinct from a question mark next to content/book. Inspection of shape is not truth or human approval. No live memory extraction or agent conversation."
+    },
+    {
+      "id": "save",
+      "in": 29,
+      "out": 32,
+      "label": "理由を見て、必要な所を直す",
+      "case": "L03",
+      "action": "Hold the complete memory-to-inspection-to-save relationship and actual saved-record action for3s. Same physical illustrated objects, no fade to blank."
+    }
+  ],
+  "silent": true
+}

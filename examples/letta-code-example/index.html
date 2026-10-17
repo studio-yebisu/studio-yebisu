@@ -82,16 +82,7 @@
         <p>図の4場面のほか、詳細だけの更新（L01・保存）、3階層の記憶（L05）、ルートの合計の上限（L06）、保護した方針の変更（L07）も、<a href="comparison.html">元の記録</a>で入力・原典の理由・HEAD と stage を確かめられます。</p>
       </details>
 
-      <details class="fold" id="film">
-        <summary>解説動画（32秒・ナレーションつき）</summary>
-        <p>この図が動いて、点検の位置・案内がないと止まる・案内だけを戻した別の試行・止まった変更が残ること・形の点検と中身の正しさの違いを32秒で見せる動画です。ナレーションは Irodori-TTS で作った合成音声で、実在の人の声ではありません。音楽や効果音はありません。</p>
-        <ul class="links">
-          <li><a href="../../media/letta-code-example.mp4">動画を見る（縦・MP4）</a></li>
-          <li><a href="../../media/letta-code-example-wide.mp4">横向きの動画（MP4）</a></li>
-          <li><a href="video/index.html">動画の編集ソース</a></li>
-          <li><a id="film-compare" href="comparison.html">選んだ記録を元の記録で見る</a></li>
-        </ul>
-      </details>
+      <details class="fold" id="film"><summary>解説動画（32秒・無音）</summary><p>大きな概念図と短いラベルで使い方を説明します。</p><ul class="links"><li><a href="../../media/letta-code-example.mp4">縦動画を見る</a></li><li><a href="../../media/letta-code-example-wide.mp4">横動画を見る</a></li><li><a href="video/index.html">映像の編集ソース</a></li></ul></details>
 
       <details class="fold" id="request">
         <summary>依頼文</summary>
@@ -124,7 +115,7 @@
           <div><dt>使った関数</dt><dd><a href="https://github.com/letta-ai/letta-code/blob/316e4c0545b549c453e0f85cc81d3540404eff74/src/memory-constraints.ts">validateMemoryTreeConstraints・parseMemoryConstraintsConfig</a>・<a href="https://github.com/letta-ai/letta-code/blob/316e4c0545b549c453e0f85cc81d3540404eff74/src/memory-frontmatter.ts">validateMemoryFileFrontmatter</a>・<a href="https://github.com/letta-ai/letta-code/blob/316e4c0545b549c453e0f85cc81d3540404eff74/src/agent/memory-constraints.ts">MEMORY_CONSTRAINTS_VALIDATOR_SCRIPT</a></dd></div>
           <div><dt>原典スキル</dt><dd><a href="vendor/letta-code/src/skills/builtin/initializing-memory/SKILL.md">initializing-memory の SKILL.md</a> からは Harness Constraints・ルートを案内にする構造・「9. Verify」の構造の確認だけを使いました。<code>/init</code> の流れ（履歴の調査・利用者への質問・サブエージェント）は使っていません。</dd></div>
           <div><dt>同梱</dt><dd>原典8ファイルを改変せずに置いています（<a href="vendor-lock.json">vendor-lock.json</a>・<a href="vendor/letta-code/LICENSE">Apache License 2.0</a>）。</dd></div>
-          <div><dt>ナレーション</dt><dd>Aratako/Irodori-TTS-v4.1-Small（リビジョン <span class="mono">2b28324dc263ed5e6638b3cf3dd94c82ead07b4b</span>・MIT License とモデルカードの利用上の制限）で作った5つの文の合成音声。声は caption から作ったオリジナルの合成の声で、実在の人の録音や声のまねは使っていません（<a href="vendor/irodori-metadata/MODEL_CARD.md">モデルカード</a>・<a href="vendor/irodori-metadata/LICENSE">LICENSE</a>）。重みは同梱していません。</dd></div>
+          
           <div><dt>実行記録</dt><dd id="run-facts">記録を読み込むと表示します。</dd></div>
         </dl>
         <p>この図のページ（index.html・style.css・app.js）と解説動画の映像（video/）は、今回の改修で Claude Opus 5.5 が新しく書きました。図に出す値はモデルではなく、制作時に原典の関数と Git が返したものです。実行に使った run.mjs・loader.mjs、8件の記録、元の記録のページ（comparison.html）の入力・出力を表示する部分は以前の制作のものを引き継ぎ、動画の案内だけを更新しています。架空の記憶・初期方針・期待は制作側が実行前に固定しました。ページ・説明文・映像のコードは MIT License（<a href="LICENSE">LICENSE</a>・Copyright (c) 2026 Studio Yebisu）です。</p>

@@ -1,0 +1,58 @@
+{
+  "format": "studio-yebisu-visual-timeline-v1",
+  "case": "openhands-example",
+  "duration": 33,
+  "fps": 30,
+  "frames": 990,
+  "scenes": [
+    {
+      "id": "relation",
+      "in": 0,
+      "out": 5,
+      "label": "設定を、持ち運ぶ",
+      "case": "O01",
+      "action": "One configuration file, format inspection gate, output file. Same physical objects stay throughout."
+    },
+    {
+      "id": "missing",
+      "in": 5,
+      "out": 9.3,
+      "label": "時刻がないと、止まる",
+      "case": "O03",
+      "action": "The clock piece is visibly absent. This input file stops at the same inspection gate. No saved output appears."
+    },
+    {
+      "id": "repair",
+      "in": 9.3,
+      "out": 15,
+      "label": "時刻を戻して、保存",
+      "case": "O04",
+      "action": "Add only the schedule clock piece to the same O03 file, corresponding to frozen O04. The gate passes it and the real export file moves to a save/device icon."
+    },
+    {
+      "id": "limits",
+      "in": 15,
+      "out": 21.5,
+      "label": "形式と、実行は別",
+      "case": "O06",
+      "action": "The format gate accepts a filled but invalid cron string. A question-mark clock remains, visibly separating file shape from actual scheduling. Do not show actual scheduler execution."
+    },
+    {
+      "id": "repository",
+      "in": 21.5,
+      "out": 30,
+      "label": "参照先は、先頭だけ",
+      "case": "O07",
+      "action": "Two folder/reference pieces enter with input; only the first accompanies the serialized file. The second remains outside the export. Compare actual saved data."
+    },
+    {
+      "id": "save",
+      "in": 30,
+      "out": 33,
+      "label": "図で確かめ、設定を保存",
+      "case": "O04",
+      "action": "Hold the complete file-gate-output relationship and point to the real downloadable O04 file for at least three seconds. No blank ending."
+    }
+  ],
+  "silent": true
+}

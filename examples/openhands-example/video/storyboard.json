@@ -1,574 +1,64 @@
 {
-  "format": "studio-yebisu-storyboard-v1",
+  "format": "studio-yebisu-silent-diagram-storyboard-v1",
   "case": "openhands-example",
-  "title": "図で確かめ、設定を保存 — OpenHands 自動化の設定ファイル",
-  "message": "設定ファイルは形式の点検を通ってから保存ファイルになる。時刻が抜けると止まり、戻すと保存できる。形式OKは実行の確認ではなく、参照先は先頭だけが残る。",
-  "audience": "Agent Canvas の自動化の設定を別の環境へ持ち運びたい人（スマホでの視聴が中心）",
-  "composition": {
-    "duration": 33,
-    "fps": 30,
-    "frames": 990,
-    "main": {
-      "width": 720,
-      "height": 1280,
-      "use": "縦・iOS 中心の本編"
-    },
-    "alternate": {
-      "width": 1280,
-      "height": 720,
-      "use": "横の別版"
-    },
-    "motionConfig": {
-      "duration": 33,
-      "fps": 30,
-      "width": 720,
-      "height": 1280,
-      "posterTime": 12,
-      "audioEvents": []
-    },
-    "honours_renderConfig": [
-      "width",
-      "height",
-      "fps"
-    ],
-    "seek": "window.seek(t) が時刻 t だけから完成した1枚を描く。前の seek・壁時計・乱数に依存しない。",
-    "render_mode": "window.__MOTION_RENDER__ が真なら、プレビューの音・タイマーを止め、canvas だけを構図の大きさで出す。CSS アニメーションは使わない。"
-  },
-  "visual_direction": {
-    "palette": {
-      "paper": "#f5f3eb",
-      "card": "#fffdf6",
-      "ink": "#252c2a",
-      "lavender": "#8581ee",
-      "lavender_deep": "#6a65cd",
-      "peach": "#f7a86e",
-      "mint": "#51a696",
-      "mint_deep": "#325c50"
-    },
-    "fonts": "システムの日本語フォントのみ（外部フォント・CDN なし）。描画の前に document.fonts の準備を待つ。",
-    "diagram_share": "図（設定ファイル・点検ゲート・保存の台・スマホ）が画面の約75%。見出しは1行、ラベルは短い語だけ。",
-    "label_sizes": {
-      "portrait_min_px": 40,
-      "landscape_min_px": 34,
-      "note": "スマホの幅360pxで約20px。補助の小さな文字はファイル名の接尾辞と下端の注記だけ。"
-    },
-    "not_used": [
-      "文字カードの場面",
-      "箇条書き",
-      "JSON の表示",
-      "端末のログ",
-      "機能のバッジ",
-      "小さな画面の録画",
-      "説明カードの列",
-      "白や黒への暗転"
-    ]
-  },
-  "objects": [
-    {
-      "id": "document",
-      "label": "設定ファイル",
-      "drawing": "折り角のある紙（ラベンダー）。時計の部品・数本の線・参照先のフォルダー。",
-      "continuity": "33秒間、同じ位置に置いたまま。部品だけが抜ける・戻る・「？」になる・2つ目のフォルダーが増える。"
-    },
-    {
-      "id": "copy",
-      "label": "（写し）",
-      "drawing": "設定ファイルと同じ絵の写し。ゲートへ進み、通ると紙の色からミントの縁に変わる。",
-      "continuity": "毎回、設定ファイルからはがれるように出る。止まった写しは同じ道を戻って設定ファイルに重なる。"
-    },
-    {
-      "id": "gate",
-      "label": "形式の点検",
-      "drawing": "ラベンダーの2本の柱と、ピーチの縞の棒。縦では左右の柱・横の棒、横長では上下の柱・縦の棒。柱の上にランプ。",
-      "continuity": "同じ位置。棒は柱へ引き込まれて開き、柱から伸びて閉じる。開いているときは「形式OK」の札。"
-    },
-    {
-      "id": "tray",
-      "label": "保存ファイル",
-      "drawing": "ミントの台と保存の印（下向きの矢印）。ファイルがないときは点線の枠。",
-      "continuity": "同じ位置。場面の切り替えでは前のファイルが消え、点線の枠が残る。"
-    },
-    {
-      "id": "phone",
-      "label": "（スマホ）",
-      "drawing": "保存先の端末。保存の印を押すと O04 のファイルが移る。",
-      "continuity": "最初から最後まで表示。14.35秒以降は O04.automation.json を持ち続ける。"
-    },
-    {
-      "id": "run_frame",
-      "label": "実行・別の確認",
-      "drawing": "点線の枠と空の時計の穴。動く予定表やチェックは描かない。",
-      "continuity": "O06 の場面だけ。「？」の時計は枠の外に留まる。"
-    }
-  ],
-  "layouts": {
-    "portrait_720x1280": {
-      "flow": "上から下：設定ファイル（中央上）→ 点検ゲート（中央）→ 保存の台（下）。右の細い列に、実行の枠・残った参照先（ゲートの高さ）とスマホ（台の高さ）。左の列に「時刻なし」と「時刻を戻す」。",
-      "document": {
-        "x": 220,
-        "y": 214,
-        "w": 220,
-        "h": 258
-      },
-      "gate": {
-        "posts": [
-          [
-            118,
-            616,
-            58,
-            244
-          ],
-          [
-            484,
-            616,
-            58,
-            244
-          ]
-        ],
-        "arm": [
-          176,
-          737,
-          308,
-          46
-        ]
-      },
-      "tray": {
-        "x": 56,
-        "y": 912,
-        "w": 484,
-        "h": 264
-      },
-      "phone": {
-        "x": 566,
-        "y": 952,
-        "w": 126,
-        "h": 220
-      },
-      "title": {
-        "y": 152,
-        "size": 58,
-        "min": 40
-      }
-    },
-    "landscape_1280x720": {
-      "flow": "左から右：設定ファイル → 点検ゲート → 保存の台 → スマホ。ゲートの下に実行の枠・残った参照先。設定ファイルの下に「時刻を戻す」。",
-      "document": {
-        "x": 190,
-        "y": 200,
-        "w": 200,
-        "h": 235
-      },
-      "gate": {
-        "posts": [
-          [
-            500,
-            178,
-            200,
-            50
-          ],
-          [
-            500,
-            408,
-            200,
-            50
-          ]
-        ],
-        "arm": [
-          578,
-          228,
-          44,
-          180
-        ]
-      },
-      "tray": {
-        "x": 770,
-        "y": 178,
-        "w": 300,
-        "h": 280
-      },
-      "phone": {
-        "x": 1096,
-        "y": 234,
-        "w": 124,
-        "h": 224
-      },
-      "title": {
-        "y": 120,
-        "size": 50,
-        "min": 34
-      }
-    },
-    "note": "どちらも同じ時刻表で、各サイズの配置を作り直して描く。片方を縮めた画や余白の帯は使わない。"
-  },
+  "duration": 33,
+  "fps": 30,
+  "frames": 990,
+  "silent": true,
+  "audio_streams": 0,
   "scenes": [
     {
       "id": "relation",
       "in": 0,
       "out": 5,
-      "title": "設定を、持ち運ぶ",
-      "record": "O01",
-      "conveys": "設定ファイル・点検・保存ファイルの関係の全体。",
-      "enters": "1フレーム目から、時計とフォルダー1つの設定ファイル、開いたゲート（形式OK）、保存ファイルのある台、空のスマホがそろっている。",
-      "beats": [
-        {
-          "t": 0.9,
-          "action": "写しが設定ファイルからはがれてゲートへ進む"
-        },
-        {
-          "t": 2.4,
-          "action": "写しがゲートの中央を通り、ミントの縁になる"
-        },
-        {
-          "t": 3.9,
-          "action": "写しが保存ファイルに重なり、台のファイルが小さく弾む"
-        }
-      ],
-      "exits": "関係の全体が見えたまま。",
-      "narration": {
-        "id": "intro",
-        "text": "自動化の設定を、ファイルにして持ち運びます。",
-        "start": 0.8,
-        "end": 4.56
-      },
-      "truth": "O01 は時刻あり・参照先1件で形式OKだった記録。写しが動くのは概念の図で、実行の録画ではない。"
+      "label": "設定を、持ち運ぶ",
+      "case": "O01",
+      "action": "One configuration file, format inspection gate, output file. Same physical objects stay throughout."
     },
     {
       "id": "missing",
       "in": 5,
       "out": 9.3,
-      "title": "時刻がないと、止まる",
-      "record": "O03",
-      "conveys": "時刻（schedule）が抜けた設定は、読み込みの点検で止まり、ファイルができない。",
-      "enters": "台のファイルが消えて点線の枠に。ゲートの棒が伸びて閉じ、設定ファイルの時計が抜けて左へ消え、点線の穴が残る。",
-      "beats": [
-        {
-          "t": 5.15,
-          "action": "時計の部品が設定ファイルから抜ける"
-        },
-        {
-          "t": 5.9,
-          "action": "「時刻なし」の札が穴を指す"
-        },
-        {
-          "t": 6.2,
-          "action": "時計のない写しがゲートへ進む"
-        },
-        {
-          "t": 7.4,
-          "action": "写しが棒の手前で止まって跳ね返り、棒に「止まる」、ランプがピーチ。台は「保存なし」"
-        }
-      ],
-      "exits": "止まった写しがゲートの手前に残る。",
-      "narration": {
-        "id": "missing",
-        "text": "時刻が抜けていると、読み込みで止まります。",
-        "start": 5.3,
-        "end": 8.82
-      },
-      "truth": "O03 は parseAutomationFile が AutomationFileValidationError を1件（spec.trigger.schedule: required for a scheduled trigger）返して止まり、ファイルは作られていない。"
+      "label": "時刻がないと、止まる",
+      "case": "O03",
+      "action": "The clock piece is visibly absent. This input file stops at the same inspection gate. No saved output appears."
     },
     {
       "id": "repair",
       "in": 9.3,
       "out": 15,
-      "title": "時刻を戻して、保存",
-      "record": "O04",
-      "conveys": "同じ書類に時刻をひとつ戻すと、形式の点検を通り、実際に書き出されたファイルを保存できる。",
-      "enters": "止まった写しが同じ道を戻って設定ファイルに重なる。左に「時刻を戻す」のボタン。",
-      "beats": [
-        {
-          "t": 10.2,
-          "action": "指が「時刻を戻す」を押す"
-        },
-        {
-          "t": 10.3,
-          "action": "時計の部品がボタンから同じ穴へ戻り、ミントの輪で示す"
-        },
-        {
-          "t": 11.25,
-          "action": "ゲートの棒が柱へ引き込まれて開き、ランプがミント"
-        },
-        {
-          "t": 11.3,
-          "action": "時計のある写しがゲートを通り（12.0）、台に入る（12.9）。札「形式OK」"
-        },
-        {
-          "t": 13.45,
-          "action": "指が台の保存の印を押す"
-        },
-        {
-          "t": 13.55,
-          "action": "ファイルがスマホへ移り、画面に O04.automation.json"
-        }
-      ],
-      "exits": "台に O04 の保存ファイル、スマホに O04.automation.json。",
-      "narration": {
-        "id": "repair",
-        "text": "時刻をひとつ戻すと、形式の点検を通って保存できます。",
-        "start": 9.6,
-        "end": 14.48
-      },
-      "truth": "O04 は O03 の入力に spec.trigger.schedule「0 9 * * 6」だけを足した、実行前に固定した入力。AI が考えた修正やその場の編集ではない。書き出したファイルは outputs/exports/O04.automation.json（602バイト・SHA-256 5e1ae14b8273237d308dceb6fdad445ce7c6e5e210f4e3b6cadcee951d7a5aa3）。指は作例ページの使い方を描いた絵。"
+      "label": "時刻を戻して、保存",
+      "case": "O04",
+      "action": "Add only the schedule clock piece to the same O03 file, corresponding to frozen O04. The gate passes it and the real export file moves to a save/device icon."
     },
     {
       "id": "limits",
       "in": 15,
       "out": 21.5,
-      "title": "形式と、実行は別",
-      "record": "O06",
-      "conveys": "時刻の欄が埋まっていれば中身が時刻として正しくなくても形式OK。実際に動くかは別の確認。",
-      "enters": "台のファイルが消える。設定ファイルの時計の顔が「？」に変わる。ゲートは開いたまま。",
-      "beats": [
-        {
-          "t": 16.0,
-          "action": "「？」の時計の写しがゲートを通り（形式OK）、台に入る（17.5）"
-        },
-        {
-          "t": 17.6,
-          "action": "右に点線の「実行」の枠と空の時計の穴、「別の確認」"
-        },
-        {
-          "t": 18.3,
-          "action": "「？」の時計が台から浮かぶが、実行の枠の外で止まる"
-        }
-      ],
-      "exits": "「？」の時計は枠の外。予定表は動かない。",
-      "narration": {
-        "id": "limits",
-        "text": "ただし、時刻が正しいか、実際に動くかは、別の確認です。",
-        "start": 15.2,
-        "end": 20.96
-      },
-      "truth": "O06 の schedule は「not-a-cron」。原典は空でない文字列かだけを見ており（cron_grammar_validated: false）、cron の書き方・実行時刻・予定の登録は確かめていない。動く予定表やタスクの完了は描かない。"
+      "label": "形式と、実行は別",
+      "case": "O06",
+      "action": "The format gate accepts a filled but invalid cron string. A question-mark clock remains, visibly separating file shape from actual scheduling. Do not show actual scheduler execution."
     },
     {
       "id": "repository",
       "in": 21.5,
       "out": 30,
-      "title": "参照先は、先頭だけ",
-      "record": "O07",
-      "conveys": "参照先がふたつあっても、保存ファイルに入るのは先頭の1件だけ。2件目は残らない。",
-      "enters": "実行の枠・「？」の時計・台のファイルが消える。時計が元に戻り、設定ファイルに2つ目のフォルダー（ピーチ・2）が並ぶ。",
-      "beats": [
-        {
-          "t": 22.5,
-          "action": "フォルダー1・2を持つ写しがゲートへ進み、中央で止まる（23.6）"
-        },
-        {
-          "t": 23.65,
-          "action": "フォルダー2が写しから外れ、ゲートの外へ落ちて点線になる。「残らない」"
-        },
-        {
-          "t": 24.1,
-          "action": "フォルダー1だけの写しが台に入る（25.1）。「先頭だけ」"
-        },
-        {
-          "t": 26.6,
-          "action": "元の設定と見比べる：設定ファイルのフォルダー1と保存ファイルのフォルダー1をミントの枠、フォルダー2と残ったフォルダーをピーチの枠と点線で結ぶ"
-        }
-      ],
-      "exits": "残ったフォルダー2はゲートの外、保存ファイルはフォルダー1だけ。",
-      "narration": {
-        "id": "repository",
-        "text": "参照先がふたつあっても、保存されるのは先頭だけ。元の設定と見比べましょう。",
-        "start": 21.8,
-        "end": 28.88
-      },
-      "truth": "O07 の入力の参照先は primary（release-demo）と secondary（extra-demo）の2件。serializeAutomation が書き出したファイルには先頭の url と ref だけが repository・branch として入り、2件目はない。参照先はすべて架空の example.invalid で、取得していない。"
+      "label": "参照先は、先頭だけ",
+      "case": "O07",
+      "action": "Two folder/reference pieces enter with input; only the first accompanies the serialized file. The second remains outside the export. Compare actual saved data."
     },
     {
       "id": "save",
       "in": 30,
       "out": 33,
-      "title": "図で確かめ、設定を保存",
-      "record": "O04",
-      "conveys": "図で確かめて、実際のファイルを保存する。関係の全体をそのまま見せる。",
-      "enters": "2つ目のフォルダーと札が消え、O04 の状態（時計あり・フォルダー1つ・形式OK・台にファイル・スマホに O04.automation.json）に戻る。",
-      "beats": [
-        {
-          "t": 30.8,
-          "action": "指が保存の印の上で止まり、印をミントの輪で囲む（押さない）"
-        }
-      ],
-      "exits": "最後のフレームまで関係の全体を3秒保つ。暗転・白い画面にしない。",
-      "narration": null,
-      "truth": "保存できるのは作例ページの「O04.automation.json を保存」で、記録の SHA-256 と大きさに合ったファイルだけ。その場の実行ではない。"
+      "label": "図で確かめ、設定を保存",
+      "case": "O04",
+      "action": "Hold the complete file-gate-output relationship and point to the real downloadable O04 file for at least three seconds. No blank ending."
     }
   ],
-  "audio": {
-    "track": "assets/narration.wav",
-    "sha256": "4be964f2ffc17338daa3366d09e6ad58547fa92c42fc2e3ee9d6c2a758a71fd4",
-    "bytes": 3168044,
-    "format": "WAV PCM16・モノラル・48000Hz・33.000秒",
-    "cues": [
-      {
-        "id": "intro",
-        "file": "audio/intro.wav",
-        "sha256": "0d9bf741920467ea76c07f3923e12742f4eea6273f42255186b0a710a5cecde2",
-        "start": 0.8,
-        "end": 4.56
-      },
-      {
-        "id": "missing",
-        "file": "audio/missing.wav",
-        "sha256": "b72e955a85463036c5dede198ee71addf500aad66b9ffd4b36be43eb29ebc757",
-        "start": 5.3,
-        "end": 8.82
-      },
-      {
-        "id": "repair",
-        "file": "audio/repair.wav",
-        "sha256": "c1ddeef882c65dd6968b1bf4e3ab717340b8db61a68541d857b9b01b9dc9219e",
-        "start": 9.6,
-        "end": 14.48
-      },
-      {
-        "id": "limits",
-        "file": "audio/limits.wav",
-        "sha256": "e0b3f4f48faeb6e40bc612a4eb9144813f5d18343f4972d0b19b87bacd4c8812",
-        "start": 15.2,
-        "end": 20.96
-      },
-      {
-        "id": "repository",
-        "file": "audio/repository.wav",
-        "sha256": "5107797c09e9d1ff1ec948dc67ae6778657e1d17b73eff7996d7bad06f4ae65d",
-        "start": 21.8,
-        "end": 28.88
-      }
-    ],
-    "mix": "5つの Irodori-TTS の文を重ねず・編集せずに並べ、無音で33秒に揃えたもの（制作側が作成）。音楽・効果音なし。",
-    "film_checks": "映像は narration.wav を PCM16・モノラル・48000Hz・ちょうど33秒として読み、5つの区間それぞれに音があること（RMS）を確かめてから描く。キューの文・時刻・SHA-256 は narration-cues.json と一致させる。",
-    "render": "書き出しでは同じ narration.wav を --audio に渡し、レンダラーがラウドネスを揃えて AAC にする。",
-    "tts": {
-      "model": "Aratako/Irodori-TTS-v4.1-Small",
-      "revision": "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
-      "terms": "コードとモデルは MIT License。モデルカードの利用上の制限（実在の人の声のまね・なりすましの禁止、人を誤らせる合成音声の禁止など）に従う。",
-      "voice": "caption から作ったオリジナルの合成の声。実在の人の録音・声のまねは使っていない。",
-      "weights_distributed": false
-    },
-    "listening_confirmed": false,
-    "human_approval": false
-  },
-  "assets": {
-    "manifest": {
-      "path": "assets/manifest.json",
-      "sha256": "d6370b8ad33b837a2e47780e9250a3079f43f16f1de950ef4c3bdadf812a7080"
-    },
-    "files": [
-      {
-        "file": "automation-runs.json",
-        "sha256": "bc347cc3246fa36a9e4e7d5849e48ecf8119e67e2d6afcd166211e67f453c7b0",
-        "bytes": 74735,
-        "role": "8件の実行記録。図の状態と O04 のファイル名の出どころ"
-      },
-      {
-        "file": "automation-settings.json",
-        "sha256": "e982b4ca83fd92d9f012a44e98f35dc58b9dfc48a95eede6bb7daff57ce0be6b",
-        "bytes": 8430,
-        "role": "実行前に固定した架空の8件の入力"
-      },
-      {
-        "file": "expected.json",
-        "sha256": "d2e9892831156aa52d87eff81b7b28ce15caaafbde900d828a8763d66064d460",
-        "bytes": 730,
-        "role": "実行前の期待（照合だけに使う）"
-      },
-      {
-        "file": "independent-checks.json",
-        "sha256": "0210a265e0eadf9aa8382fde0fe8b54e529d9c7cc518d9304e3624e1e24376d5",
-        "bytes": 18287,
-        "role": "別に書いた照合155件"
-      },
-      {
-        "file": "narration-cues.json",
-        "sha256": "6a602a04608adaa6a61d141d20f42fe61774c191b70082ff2bb3552fec178ed8",
-        "bytes": 4649,
-        "role": "ナレーション5文と6場面の時刻"
-      },
-      {
-        "file": "narration.wav",
-        "sha256": "4be964f2ffc17338daa3366d09e6ad58547fa92c42fc2e3ee9d6c2a758a71fd4",
-        "bytes": 3168044,
-        "role": "プレビューと書き出しの唯一の音"
-      },
-      {
-        "file": "reproduction-checks.json",
-        "sha256": "c14352c2848f466e5f152fadbd2886020053071c4d7787990619c7177673bb65",
-        "bytes": 1418,
-        "role": "新しい Node での記録と6ファイルの再現"
-      },
-      {
-        "file": "vendor-lock.json",
-        "sha256": "34149d29d4d4cb0181f41f0b8ac998a5c8baa0c3e13e0af341338eae1dddea02",
-        "bytes": 12441,
-        "role": "原典12ファイルと依存29ファイルのハッシュ"
-      }
-    ],
-    "on_failure": "1件でも合わなければ motionReady を拒否し、canvas を隠し、操作を止め、理由と「もう一度読み込む」を出す。代わりの記録は持たない。"
-  },
-  "source_pin": {
-    "repository": "OpenHands/OpenHands",
-    "commit": "e4775b4ba61a83ba80af5f7b0b826201b8e8ea05",
-    "version": "Agent Canvas 1.27.1",
-    "license": "MIT",
-    "dependency": "@openhands/extensions 0.30.0（MIT）",
-    "apis": [
-      "serializeAutomation",
-      "parseAutomationFile",
-      "getAutomationExportFilename"
-    ],
-    "runtime": "Node 24 で実際に呼んだ結果（制作時）。映像の中では原典を動かさない。"
-  },
-  "truth_limits": [
-    "図の部品（時計・フォルダー・ゲート・スマホ）は関係を見せる絵で、測った値や画面の録画ではない。",
-    "形式OKはファイルの形の点検を通ったという意味。cron の正しさ・実行時刻・参照先の存在・頼む内容の正しさや安全性は確かめていない。",
-    "予定の登録・実行、Webhook の配信、リポジトリの取得、エージェント・モデル、Agent Canvas のアプリ・サーバー、Cloud は使っていない。動くエージェントや予定表は描かない。",
-    "O07 のファイルは2件の参照先の完全な控えではない。",
-    "OpenHands の機能全体を試したものではない。",
-    "ナレーションの聞き取り・自然さ・読みの正しさの確認、人による承認は記録にない。実機の iPhone・Safari での確認もない。"
-  ],
-  "authorship": "図のページと解説動画の映像のコードは Claude Opus 5.5 が書いた（MIT License・Copyright (c) 2026 Studio Yebisu）。実行結果は原典の関数が返したもの、ナレーションの素材は制作側が Irodori-TTS で作ったもの。",
-  "remaining_stages": [
-    "書き出し（縦・横）",
-    "フレームと音の確認",
-    "公開"
-  ],
-  "renders": [
-    {
-      "name": "縦（本編）",
-      "command": "python render.py --out <ソースの外の空のフォルダー> --width 720 --height 1280",
-      "media": "media/openhands-example.mp4"
-    },
-    {
-      "name": "横",
-      "command": "python render.py --out <ソースの外の別の空のフォルダー> --width 1280 --height 720",
-      "media": "media/openhands-example-wide.mp4"
-    }
-  ],
-  "production_verification": {
-    "duration_seconds": 33,
-    "fps": 30,
-    "frames": 990,
-    "primary": [
-      720,
-      1280
-    ],
-    "alternate": [
-      1280,
-      720
-    ],
-    "has_tts_narration": true,
-    "narration_cues": 5,
-    "audio_pcm_cues_match": true,
-    "asset_manifest_sha256": "d6370b8ad33b837a2e47780e9250a3079f43f16f1de950ef4c3bdadf812a7080",
-    "same_environment_seek_png_match": true,
-    "full_decode": true,
-    "native_playback_ended_both": true,
-    "portrait_sha256": "6caae8786ad56d760c1d31339a5aee1e264543fb30436fd7aa151281abc74678",
-    "wide_sha256": "7eceb095168d39248e2500bbab3bd0e3c1a17ad27595c831ee7c00e11ef2dbde",
-    "poster_sha256": "7d6b2b70aa33a2f30a5877deb5e12b287f9f0caf28e0075ac3b9db5896eb8498",
-    "human_approval": false,
-    "audio_listening_confirmed": false
-  }
+  "message": "設定を図で点検して保存する",
+  "source_author": "Claude Opus5.5 authored original diagrams and absolute-time motion. Production removed narration and integrated silent playback; no new model attribution.",
+  "input_output_reused_unchanged": true,
+  "human_approval": false,
+  "physical_ios_safari_voiceover": false
 }

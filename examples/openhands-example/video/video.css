@@ -127,19 +127,6 @@ h2 { margin: 0 0 8px; font-size: 19px; line-height: 1.4; }
 /* Portrait preview stays phone-sized on wide screens. */
 .stage.is-tall #film { width: min(100%, 420px); }
 
-.narration {
-  max-width: 40em;
-  min-height: 3.4em;
-  margin: 10px auto 0;
-  padding: 8px 14px;
-  border-radius: 10px;
-  background: var(--card);
-  border: 1px solid var(--rule);
-  font-size: 16px;
-  line-height: 1.6;
-  text-align: center;
-}
-.narration-label { display: block; font-size: 12px; color: var(--muted); letter-spacing: 0.06em; }
 
 .controls { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px 20px; min-width: 0; }
 .buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; min-width: 0; }
@@ -265,3 +252,9 @@ html.is-render #film {
   border-radius: 0;
 }
 html.is-render button { transition: none; }
+
+/* Silent editor; export contains only the authored canvas. */
+html.is-render #editor > :not(#stage){display:none!important}
+.controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.controls button{min-height:44px;min-width:44px}
+.controls input{font-size:16px;min-height:44px;flex:1 1 100%}

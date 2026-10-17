@@ -69,15 +69,7 @@
         <p>図の4場面のほか、毎週の時刻の設定（O01）、イベントの条件（O02）、複数の不備（O05）、タグや波かっこの文字（O08）も、<a href="comparison.html">8件の記録</a>で入力と出力を確かめられます。</p>
       </details>
 
-      <details class="fold" id="film">
-        <summary>解説動画（33秒・ナレーションつき）</summary>
-        <p>この図が動いて、止まる・直して保存・形式と実行の違い・参照先の取りこぼしを33秒で見せる動画です。ナレーションは Irodori-TTS で作った合成音声で、実在の人の声ではありません。音楽や効果音はありません。</p>
-        <ul class="links">
-          <li><a href="../../media/openhands-example.mp4">動画を見る（縦・MP4）</a></li>
-          <li><a href="../../media/openhands-example-wide.mp4">横向きの動画（MP4）</a></li>
-          <li><a href="video/index.html">動画の編集ソース</a></li>
-        </ul>
-      </details>
+      <details class="fold" id="film"><summary>解説動画（33秒・無音）</summary><p>大きな概念図と短いラベルで使い方を説明します。</p><ul class="links"><li><a href="../../media/openhands-example.mp4">縦動画を見る</a></li><li><a href="../../media/openhands-example-wide.mp4">横動画を見る</a></li><li><a href="video/index.html">映像の編集ソース</a></li></ul></details>
 
       <details class="fold" id="request">
         <summary>依頼文</summary>
@@ -109,7 +101,7 @@
           <div><dt>使った関数</dt><dd><a href="https://github.com/OpenHands/OpenHands/blob/e4775b4ba61a83ba80af5f7b0b826201b8e8ea05/src/utils/automation-export.ts">serializeAutomation・parseAutomationFile・getAutomationExportFilename</a></dd></div>
           <div><dt>依存</dt><dd>@openhands/extensions 0.30.0（MIT License・原典の package-lock.json が固定する npm の tgz）</dd></div>
           <div><dt>同梱</dt><dd>原典12ファイルと依存29ファイルを改変せずに置いています（<a href="vendor-lock.json">vendor-lock.json</a>・<a href="vendor/openhands/LICENSE">OpenHands の LICENSE</a>・<a href="vendor/extensions/LICENSE">@openhands/extensions の LICENSE</a>）。</dd></div>
-          <div><dt>ナレーション</dt><dd>Aratako/Irodori-TTS-v4.1-Small（リビジョン <span class="mono">2b28324dc263ed5e6638b3cf3dd94c82ead07b4b</span>・MIT License とモデルカードの利用上の制限）で作った合成音声。声は caption から作ったオリジナルの合成の声で、実在の人の録音や声のまねは使っていません（<a href="vendor/irodori-metadata/MODEL_CARD.md">モデルカード</a>・<a href="vendor/irodori-metadata/LICENSE">LICENSE</a>）。重みは同梱していません。</dd></div>
+          
           <div><dt>実行記録</dt><dd id="run-facts">記録を読み込むと表示します。</dd></div>
         </dl>
         <p>図のページ・解説動画の映像は Claude Opus 5.5 が作りました。図に出す値はモデルではなく、制作時に原典の関数が返したものです。架空の設定と期待は制作側が実行前に固定しました。ページ・説明文・映像のコードは MIT License（<a href="LICENSE">LICENSE</a>・Copyright (c) 2026 Studio Yebisu）です。</p>

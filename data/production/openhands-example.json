@@ -1,6 +1,6 @@
 {
   "id": "openhands-example",
-  "verified_at": "2026-10-17T03:17:46.338206+00:00",
+  "verified_at": "2026-10-17T04:32:50.583532+00:00",
   "model": {
     "requested": "claude-opus-5-5",
     "reported": [
@@ -27,7 +27,7 @@
       }
     ],
     "receipt_published": false,
-    "scope": "Original implementation receipts preserved; visual-r1 receipt authors new concept UI/film. TTS synthesis, cue mix, review, rendering and distribution by production."
+    "scope": "Existing Opus5.5 visual/source receipts retained; production removed voice guides and integrated silent playback. No new model attribution."
   },
   "upstream": {
     "repository": "OpenHands/OpenHands",
@@ -65,9 +65,9 @@
   },
   "verification": {
     "id": "openhands-example",
-    "verified_at": "2026-10-17T03:17:46.338206+00:00",
+    "verified_at": "2026-10-17T04:32:50.583532+00:00",
     "stage": "technical_qa_complete",
-    "revision": "visual-r1",
+    "revision": "visual-r1-silent",
     "runtime": {
       "status": "passed",
       "sample_count": 8,
@@ -81,114 +81,7 @@
       "reproduction_sha256": "c14352c2848f466e5f152fadbd2886020053071c4d7787990619c7177673bb65",
       "reused_unchanged": true,
       "preserved_files": 57,
-      "original_vendor_files": 41
-    },
-    "browser": {
-      "status": "passed",
-      "verified_at": "2026-10-17T03:15:15.379Z",
-      "viewports": [
-        320,
-        375,
-        390,
-        430,
-        768,
-        844,
-        1280
-      ],
-      "client_widths": [
-        305,
-        360,
-        375,
-        415,
-        753,
-        829,
-        1265
-      ],
-      "primary_cases": [
-        "O03",
-        "O04",
-        "O06",
-        "O07"
-      ],
-      "case_width_combinations": 28,
-      "no_document_overflow": true,
-      "minimum_primary_target_px": 44,
-      "form_font_px": 16,
-      "headings_two_lines": true,
-      "native_portable_file_export_exact": true,
-      "export": {
-        "case": "O04",
-        "bytes": 602,
-        "sha256": "5e1ae14b8273237d308dceb6fdad445ce7c6e5e210f4e3b6cadcee951d7a5aa3"
-      },
-      "all_eight_records_accessible": true,
-      "original_comparison_cases": [
-        {
-          "id": "O01",
-          "saveDisabled": false,
-          "title": "O01　土曜の準備を、設定ファイルへ"
-        },
-        {
-          "id": "O02",
-          "saveDisabled": false,
-          "title": "O02　イベント条件をそのまま保存"
-        },
-        {
-          "id": "O03",
-          "saveDisabled": true,
-          "title": "O03　時刻のない設定は止まる"
-        },
-        {
-          "id": "O04",
-          "saveDisabled": false,
-          "title": "O04　時刻を一つ戻して再確認"
-        },
-        {
-          "id": "O05",
-          "saveDisabled": true,
-          "title": "O05　複数の不備をまとめて読む"
-        },
-        {
-          "id": "O06",
-          "saveDisabled": false,
-          "title": "O06　形が通っても、時刻は未検証"
-        },
-        {
-          "id": "O07",
-          "saveDisabled": false,
-          "title": "O07　持ち出せる参照先は先頭だけ"
-        },
-        {
-          "id": "O08",
-          "saveDisabled": false,
-          "title": "O08　タグや波かっこも、ただの文字"
-        }
-      ],
-      "request_clipboard_exact": true,
-      "request_clipboard_bytes": 5856,
-      "keyboard": "Tab from O03 to O04, Enter selected O04",
-      "error_recovery_passed": true,
-      "controlled_errors": [
-        "HTTP503",
-        "invalid JSON",
-        "wrong fixed commit",
-        "corrupt export SHA256"
-      ],
-      "hash_failure_caption_retested": true,
-      "literal_script_and_template_as_text_in_comparison": true,
-      "source_sha256": {
-        "index.html": "8a4856bb2f477e7184775cf4ff61ba51f1e6ec23424606224cb4ea75c28d6ad2",
-        "style.css": "be7c47b4c1851c200c196f1e057a563a41d69abc671e4196996323c18a7c5881",
-        "app.js": "85df66ef8ffcf786f4aacfbde9b9530863026155a58a1c9d1ef54a5f39e9ecd8",
-        "comparison.html": "8bc7ae1582d47fea7623d6e45966692bbcc018089c4fe596c7fa52e523f3aaf1",
-        "comparison.css": "b69d4619f1cdc622552f5e4b04adcbdb44c12bb68eafaeab480969489d53aeb7",
-        "comparison.js": "cf16682529fe72468e55a83b6ecf901bd7034e29b1559d26dc861ce049aeb01b"
-      },
-      "review_note": "Native IAB Chromium. Functional source matched the Opus delivery; final minor layout/copy changes retested. No physical iOS or Safari claim.",
-      "physical_ios": false,
-      "safari": false,
-      "voiceover": false,
-      "human_approval": false
+      "all_41_vendor_files_sha256_unchanged": true
     },
     "video": {
       "duration_seconds": 33,
@@ -202,18 +95,42 @@
         1280,
         720
       ],
-      "has_tts_narration": true,
-      "narration_cues": 5,
-      "audio_pcm_cues_match": true,
-      "asset_manifest_sha256": "d6370b8ad33b837a2e47780e9250a3079f43f16f1de950ef4c3bdadf812a7080",
-      "same_environment_seek_png_match": true,
+      "silent": true,
+      "audio_streams": 0,
       "full_decode": true,
-      "native_playback_ended_both": true,
-      "portrait_sha256": "6caae8786ad56d760c1d31339a5aee1e264543fb30436fd7aa151281abc74678",
-      "wide_sha256": "7eceb095168d39248e2500bbab3bd0e3c1a17ad27595c831ee7c00e11ef2dbde",
-      "poster_sha256": "7d6b2b70aa33a2f30a5877deb5e12b287f9f0caf28e0075ac3b9db5896eb8498"
+      "video_packets_identical": true,
+      "portrait_sha256": "7bc1fd2d08c22b3ab5fe9009348397217fd69b5b926d6a08508bbf65e4337546",
+      "wide_sha256": "1aa8a8a7fec927464f21218139e1d56bcbc1d4b7851a0fb7dc3bdbff80170a80",
+      "poster_sha256": "7d6b2b70aa33a2f30a5877deb5e12b287f9f0caf28e0075ac3b9db5896eb8498",
+      "asset_manifest_sha256": "b37396cbcaea6048201bcfba21e5349c4c0b0b631c42ed6e64889c57fbec8518",
+      "source_assets": 7,
+      "source_seek_frames_unchanged": true,
+      "native_playback_ended_both": true
     },
-    "audio_listening_confirmed": false,
+    "browser": {
+      "editor_no_audio": true,
+      "assets": 7,
+      "seek12": "12.0 / 33.0 秒",
+      "movies": [
+        {
+          "layout": "portrait",
+          "audioDecodedBytes": null,
+          "duration": 33,
+          "ended": true,
+          "error": null,
+          "time": 33
+        },
+        {
+          "layout": "wide",
+          "audioDecodedBytes": null,
+          "duration": 33,
+          "ended": true,
+          "error": null,
+          "time": 33
+        }
+      ],
+      "movies_ended": 2
+    },
     "human_approval": false,
     "physical_ios_safari_voiceover": false
   },
@@ -223,120 +140,69 @@
     "diagram": "One continuous configuration file / inspection gate / saved output relationship; missing clock, restored clock and first-reference-only export.",
     "scope": "File interchange only, no running agent or scheduling.",
     "parent_adjustments": [
-      "Balanced the mobile heading into the intended two lines, reduced its phone size slightly and made the tablet intro columns proportional after actual375px native screenshot showed a trailing two-character line. Original diagram geometry and film motion remain Opus-authored.",
-      "Corrected the folded O01 label from event conditions to weekly schedule; O02 is the event example. Original inputs and results unchanged.",
-      "After a controlled corrupt-export SHA test, changed only the explanatory caption on file-hash failure to say the file could not be verified; the actual file stays unsavable until native retry passes.",
-      "Production generated and placed the five real IrodoriTTS narration clips, matched their PCM cue positions and preserved all original API input/output and41 upstream source files.",
-      "Selected the portrait MP4 frame as the article poster so the phone player shows the full diagram before playback."
+      "User2026-10-17 removed spoken guides outside audio examples. Production retained Opus5.5 drawings/motion and original API/Git data; stripped MP4 audio stream, removed narrator assets/UI/transcripts, and integrated silent playback. No new model run or image editing."
     ],
     "human_approval": false
   },
   "video_review": {
     "status": "passed",
-    "reviewer": "Production agent visual inspection of genuine source renders and decoded MP4 frames; not human approval.",
-    "reviewed_at": "2026-10-17T03:17:00.351812+00:00",
-    "representative_frames_per_layout": 17,
-    "native_phone_readability_width": 360,
-    "same_stills_and_full_movie_renders": {
-      "portrait": {
-        "reviewed_contact_and_stills_equal_full_export_source": true,
-        "matching_pngs": 20
-      },
-      "wide": {
-        "reviewed_contact_and_stills_equal_full_export_source": true,
-        "matching_pngs": 20
-      }
+    "reviewer": "Production technical verification; not human approval.",
+    "silent": true,
+    "audio_streams": 0,
+    "source_seek_frames_byte_identical": {
+      "portrait": 20,
+      "wide": 20
     },
-    "reviewed_files": [
-      "portrait/contact.png",
-      "wide/contact.png",
-      "portrait/poster.png",
-      "wide/poster.png",
-      "portrait/strip.png",
-      "portrait/phone-repair.png",
-      "portrait/phone-references.png",
-      "portrait/final.png",
-      "wide/final.png",
-      "portrait/cut-02.png",
-      "wide/cut-04.png"
-    ],
-    "findings": [
-      "Large continuous file/gate/saved-output diagram remains visible through the scenes; short headings support the picture. No text-card/JSON/log slides.",
-      "The missing clock stops O03, the added clock allows O04 through and its real filename is shown during the save gesture. Clock-piece motion is visible in the12-frame strip.",
-      "O06 shows the filled question-mark clock passing the shape gate while actual scheduling remains a separate dashed box. O07 visibly drops folder2 and retains only folder1, matching real records.",
-      "Decoded360px portrait frames keep the main labels and document/folder relationships readable. The final frame in both layouts retains the complete saved-file diagram; scene-label fades do not blank the picture.",
-      "The phone retains the previously saved O04 file during O06/O07; it is not presented as a fresh export of those cases. Narration cue timing and PCM identity were checked separately; listening remains unconfirmed."
-    ],
-    "unresolved_blockers": [],
-    "audio_listening_confirmed": false,
+    "video_packets": {
+      "portrait": "SHA256=6af4d1619fe737b6c3c3ee58b645b5b36b1c8557ae7a8d03d2cfe7ca61ff0d2f",
+      "wide": "SHA256=3ff1abf6d5b406d2e2a6d2fd097db9f9cca3f2b87e70b3be885da312d61014f4"
+    },
+    "native_playback_ended_both": true,
     "human_approval": false,
-    "physical_ios": false,
-    "review_artifacts_sha256": {
-      "portrait/contact.png": "e771a7b3391c1d1728819ab5155256ad2fa2fd83096b9ebab001f162ca4a151e",
-      "wide/contact.png": "9024fc3d6826cf8839b392c2d7a41b8e8c4b3350e40622212f9cc8cd7718f584",
-      "portrait/poster.png": "3035532b2d0fb25e465c56903bd4d832c6e5c123b3a208bfc3b094f87dd1a466",
-      "wide/poster.png": "0bd9636fb0001a5cd2400655c96adbbc987787a90958c4d3ac648c2bf0520cb7",
-      "portrait/strip.png": "786a46d9993b02d186ff530ec47265e756cfc0ba4b136fae00e67634c98abd8d",
-      "portrait/phone-repair.png": "7688807e765e09aec36321d1d67f3eeea729d25917250bd521988c51bac5087c",
-      "portrait/phone-references.png": "47f8ae9625d52875e47566f8d083a19b4b034a06e41de29e92c92edfe29f4e9f",
-      "portrait/final.png": "c511d6cd38929b4eaf32a8c38797933bdbf2c1d5c56af9122e6ed8766a7fb61b",
-      "wide/final.png": "e323bae622809215a6d541d9290f8eaeea53fb730657fe00ec426a70a5e736a5",
-      "portrait/cut-02.png": "de7d2b480bed2a3a4c72dd673138ab73a74c58c537b10889026c2fd77a069e4b",
-      "wide/cut-04.png": "fc8cb4599cde4a3377658d6f6d7d2e13aa57ed12499632f89396b041359581f0"
-    }
+    "physical_ios_safari_voiceover": false
   },
   "publication": {
     "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=openhands-example",
-    "authorization": "User explicitly requested OpenHands first, existing text-heavy examples revised with animated concepts plus TTS narration, and sequential publication to existing main/Pages."
+    "authorization": "User2026-10-17 requested removing spoken guides outside audio examples and publishing the updates to the existing site. Original publication scope retained."
   },
   "artifacts_sha256": {
     "examples/openhands-example/app.js": "85df66ef8ffcf786f4aacfbde9b9530863026155a58a1c9d1ef54a5f39e9ecd8",
-    "examples/openhands-example/brief.json": "093984c3f6dd1332e18bb3f78ede33429fb8279984894fa2a2a23088a48df5bf",
+    "examples/openhands-example/brief.json": "9c63f65805912cb8c451fcb0e1938c26f5f053f8a996f130276677272420a2bc",
     "examples/openhands-example/comparison.css": "b69d4619f1cdc622552f5e4b04adcbdb44c12bb68eafaeab480969489d53aeb7",
-    "examples/openhands-example/comparison.html": "8d09796aca606c1a7ffdae2604a619fc7f9936754670e7a8d2881d0580a04841",
+    "examples/openhands-example/comparison.html": "92b4fffd874b52181b020b8148b62bb6d77b1263502e7c77cec91e93587b4413",
     "examples/openhands-example/comparison.js": "cf16682529fe72468e55a83b6ecf901bd7034e29b1559d26dc861ce049aeb01b",
-    "examples/openhands-example/index.html": "8a4856bb2f477e7184775cf4ff61ba51f1e6ec23424606224cb4ea75c28d6ad2",
+    "examples/openhands-example/index.html": "2ab2e00ad0dc64fd9a6597576c1ede6b899bd0bb78e95443a63c4a24496d46d6",
     "examples/openhands-example/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
     "examples/openhands-example/loader.mjs": "a6e2f9efa57276b53a9d21a1f8e80f0f9e3974a3ac91f9e2c1e53db8ed40a227",
-    "examples/openhands-example/README.md": "5aab8939edc56a77e2db4ecb4f7557f415b40e3e8adfc603b798054fa9563c7e",
-    "examples/openhands-example/render.py": "a1bdbc96c11a6e0526450217bd848b187b453baec56af2a40bb4d90d8fbb45df",
+    "examples/openhands-example/README.md": "80e150ed88f1c757876466153c64499dfcee2f9ac11c3b94133a8297c2bfdc55",
+    "examples/openhands-example/render.py": "e3dab20ea3b362a2f166ab2dadb31deae72a227a3ae6a9ec8d71b431e279d893",
     "examples/openhands-example/request.txt": "50ec8faabbb016585c1e1a9286090498e89de12e9e9ad21453441891782acf56",
     "examples/openhands-example/run.mjs": "9449356f1899e1db7005de4a566e8786eebf247569ff9c60a111b57408fc67ae",
     "examples/openhands-example/samples.json": "297803a5744637dc6b7c7136a0b7a4a576ebe5f785ea6ed9a664e53820bd2578",
-    "examples/openhands-example/source.zip": "1cdb5f565687e6709de0fca53e7409170e786285e29ec7d9d5104e4d408f2f44",
+    "examples/openhands-example/source.zip": "17ba044d46bea725e0fea77613c00666b78b7703413f26bd34fffeb0216fecf9",
     "examples/openhands-example/style.css": "be7c47b4c1851c200c196f1e057a563a41d69abc671e4196996323c18a7c5881",
     "examples/openhands-example/upstream-evidence.json": "5f1fe58cf1ea64b67bb41125db31d4dba53932e1d1baf87bf53996d36628e393",
     "examples/openhands-example/vendor-lock.json": "34149d29d4d4cb0181f41f0b8ac998a5c8baa0c3e13e0af341338eae1dddea02",
-    "examples/openhands-example/verification.json": "b90911d1b366fda414e1c64c3c066f8810d3981c01341e838a493f11cb5d3a7b",
-    "examples/openhands-example/visual-guide.md": "4784374e4e9b3067edb0de3206d2eb72197dbe7327e85e0b3018186c4b3cd405",
-    "examples/openhands-example/audio/generation.json": "26760d4d574f88160cc4c5150449b03d80b90b6f4473ad0d48162bbfecbe56e3",
-    "examples/openhands-example/audio/intro.wav": "0d9bf741920467ea76c07f3923e12742f4eea6273f42255186b0a710a5cecde2",
-    "examples/openhands-example/audio/limits.wav": "e0b3f4f48faeb6e40bc612a4eb9144813f5d18343f4972d0b19b87bacd4c8812",
-    "examples/openhands-example/audio/missing.wav": "b72e955a85463036c5dede198ee71addf500aad66b9ffd4b36be43eb29ebc757",
-    "examples/openhands-example/audio/narrator-reference.wav": "c49ae333c9b96bddb911029cb51e3e2150fb293b86ed9495fb1686c6c0997211",
-    "examples/openhands-example/audio/repair.wav": "c1ddeef882c65dd6968b1bf4e3ab717340b8db61a68541d857b9b01b9dc9219e",
-    "examples/openhands-example/audio/repository.wav": "5107797c09e9d1ff1ec948dc67ae6778657e1d17b73eff7996d7bad06f4ae65d",
-    "examples/openhands-example/audio/script.json": "a09ecdf166d8afb4495bb4b2f9da07465ab037fbfee0a3341d2a6db44fc7b72c",
-    "examples/openhands-example/audio/tts-lock.json": "e64943d9231dc159ecad2cb45d3ae23cfc81cb5270695fe7ae5ada23446debe1",
+    "examples/openhands-example/verification.json": "0273ee5240d6a79253abd38f4456fd1d199e9d623f04bf5be8b5e69acea65b56",
+    "examples/openhands-example/visual-guide.md": "b33335e85169b4cf18c7ac1e1bd873046be8e3b43a87b8f6172f671b33abb4df",
     "examples/openhands-example/input/automation-settings.json": "e982b4ca83fd92d9f012a44e98f35dc58b9dfc48a95eede6bb7daff57ce0be6b",
     "examples/openhands-example/input/expected.json": "d2e9892831156aa52d87eff81b7b28ce15caaafbde900d828a8763d66064d460",
     "examples/openhands-example/outputs/automation-runs.json": "bc347cc3246fa36a9e4e7d5849e48ecf8119e67e2d6afcd166211e67f453c7b0",
     "examples/openhands-example/outputs/independent-checks.json": "0210a265e0eadf9aa8382fde0fe8b54e529d9c7cc518d9304e3624e1e24376d5",
     "examples/openhands-example/outputs/method.md": "e05011ba1062cec216503d9feaa44c6d061a1bfe5873ed8c7746a3d6a2741631",
     "examples/openhands-example/outputs/reproduction-checks.json": "c14352c2848f466e5f152fadbd2886020053071c4d7787990619c7177673bb65",
-    "examples/openhands-example/video/index.html": "1d5c5cb22a33abd09fd55929eed8733e8fa0c36836cca0eaa7f205f65d69a836",
-    "examples/openhands-example/video/README.md": "c016657ff37a90e7840bd880c1ea493f5270131d03614f45f6fc474cd0cf241f",
-    "examples/openhands-example/video/storyboard.json": "63a227bbd34776ef5f214d09f627ec124c3b62263090aa76edd9601abf4bf1e4",
-    "examples/openhands-example/video/video.css": "62044026eec5f4a99c2932a27e4b03d62b873cb90ef225841786021801d6eaab",
-    "examples/openhands-example/video/video.js": "ddf8ee7e6f6fd6321f0bf4467532db943be4493358f38f5711211683375a538f",
+    "examples/openhands-example/video/index.html": "873c08406a8a14e235ec5c417813c12860cb18039b7182785984429c37d925fe",
+    "examples/openhands-example/video/README.md": "56eb64d102eb3f5aa46c7654e1f54f84147be872d18676ea927216661641635a",
+    "examples/openhands-example/video/storyboard.json": "1312276942e752975642a44c1dfe6b562345df70d6e6fb302323bb4c0544c5e6",
+    "examples/openhands-example/video/video.css": "998e1ea3c337277105f7add7796b91ecbf8cff55a3948e96a9bf277e59bbd2d7",
+    "examples/openhands-example/video/video.js": "b2622ffe587d4e7525d5e06b0b45000f9436f76ca2280b5545ddb8a825da1f90",
     "examples/openhands-example/video/assets/automation-runs.json": "bc347cc3246fa36a9e4e7d5849e48ecf8119e67e2d6afcd166211e67f453c7b0",
     "examples/openhands-example/video/assets/automation-settings.json": "e982b4ca83fd92d9f012a44e98f35dc58b9dfc48a95eede6bb7daff57ce0be6b",
     "examples/openhands-example/video/assets/expected.json": "d2e9892831156aa52d87eff81b7b28ce15caaafbde900d828a8763d66064d460",
     "examples/openhands-example/video/assets/independent-checks.json": "0210a265e0eadf9aa8382fde0fe8b54e529d9c7cc518d9304e3624e1e24376d5",
-    "examples/openhands-example/video/assets/manifest.json": "d6370b8ad33b837a2e47780e9250a3079f43f16f1de950ef4c3bdadf812a7080",
-    "examples/openhands-example/video/assets/narration-cues.json": "6a602a04608adaa6a61d141d20f42fe61774c191b70082ff2bb3552fec178ed8",
-    "examples/openhands-example/video/assets/narration.wav": "4be964f2ffc17338daa3366d09e6ad58547fa92c42fc2e3ee9d6c2a758a71fd4",
+    "examples/openhands-example/video/assets/manifest.json": "b37396cbcaea6048201bcfba21e5349c4c0b0b631c42ed6e64889c57fbec8518",
     "examples/openhands-example/video/assets/reproduction-checks.json": "c14352c2848f466e5f152fadbd2886020053071c4d7787990619c7177673bb65",
+    "examples/openhands-example/video/assets/timeline.json": "1860729eb184edf33154415f1edf068bc24604181c6db6711efcdf67ec7c96d5",
     "examples/openhands-example/video/assets/vendor-lock.json": "34149d29d4d4cb0181f41f0b8ac998a5c8baa0c3e13e0af341338eae1dddea02",
     "examples/openhands-example/video/review/portrait/contact.png": "e771a7b3391c1d1728819ab5155256ad2fa2fd83096b9ebab001f162ca4a151e",
     "examples/openhands-example/video/review/portrait/cut-01.png": "ce279b755d07740419994987154026601d1966e335389023889bfec25f751dae",
@@ -396,8 +262,6 @@
     "examples/openhands-example/video/review/portrait/stills/frame-000016.png": "a3aad3f4ba6be100f255f52013be8157a2ea64ff26851019735e33c177e12a84",
     "examples/openhands-example/vendor/extensions/LICENSE": "fe425248fc51d1d1805ab1442ba8add98d770ad8a132051eaac8c93d7eee3ebe",
     "examples/openhands-example/vendor/extensions/package.json": "bd6de4ff14096d310e7740bd5da928c29b0256c1470d0d0dddf65fd4867b668f",
-    "examples/openhands-example/vendor/irodori-metadata/LICENSE": "11e4e6175639c0ef5d3ed6d42b6846ee2d02838137e0ea955fd8fe79813b0cbe",
-    "examples/openhands-example/vendor/irodori-metadata/MODEL_CARD.md": "6e567e05da47e999635719e71946c4e2a08cd339148c20d2d78d4f03e5711c90",
     "examples/openhands-example/vendor/openhands/LICENSE": "e1d1fa9f3a8d7bef24449d488fcd8f00f8f272cac297bb9bed161eb6175b876a",
     "examples/openhands-example/vendor/openhands/package-lock.json": "977687fdaa67871f5681a565f2d6c3b3edbb85b78012ef82c498e297ecd85ee3",
     "examples/openhands-example/vendor/openhands/package.json": "9dba677b3a922a795a3eafafca38dbb32f3e9a6856bff43f1a66671ea77984a3",
@@ -448,50 +312,23 @@
     "examples/openhands-example/outputs/exports/O06.automation.json": "bf2864c7505aa8d4535f902b6b133e835ecba61a8f10e4664da948f1235c2157",
     "examples/openhands-example/outputs/exports/O07.automation.json": "0c9e37bf825e502f7f96b15c881fbed2c271b21e36e00624dcb2220d69fe98a1",
     "examples/openhands-example/outputs/exports/O08.automation.json": "bc5bf6e8407c2912abaa720589f64f3526f2e52ca99c03b26de205a673e0498c",
-    "media/openhands-example.mp4": "6caae8786ad56d760c1d31339a5aee1e264543fb30436fd7aa151281abc74678",
-    "media/openhands-example-wide.mp4": "7eceb095168d39248e2500bbab3bd0e3c1a17ad27595c831ee7c00e11ef2dbde",
+    "media/openhands-example.mp4": "7bc1fd2d08c22b3ab5fe9009348397217fd69b5b926d6a08508bbf65e4337546",
+    "media/openhands-example-wide.mp4": "1aa8a8a7fec927464f21218139e1d56bcbc1d4b7851a0fb7dc3bdbff80170a80",
     "media/openhands-example.webp": "7d6b2b70aa33a2f30a5877deb5e12b287f9f0caf28e0075ac3b9db5896eb8498",
-    "data/cases/openhands-example.json": "74741573bfaa5afa2ae3c69adb92c4549048d73e45b4e09e3a814696021818e2"
-  },
-  "narration": {
-    "tts": {
-      "repository": "Aratako/Irodori-TTS-v4.1-Small",
-      "revision": "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
-      "license": "mit",
-      "checkpoint_sha256": "c85de88c01700cb53538e706f128ebcb1b8513ad21d7d0e75f58bc82cdbf89f6",
-      "bytes": 3064295596,
-      "code_repository": "Aratako/Irodori-TTS",
-      "code_commit": "8224dafb46d0aba89209a8f905f1cb7e3299d9c1",
-      "infer_sha256": "99deedfae29dbd2d4496bfcc9c1d87b1fb537e0245e8847e4e6a70ed36a0c0fc",
-      "codec_repository": "Aratako/Semantic-DACVAE-Japanese-32dim",
-      "codec_revision": "47376ee24834d7a05a48ebabfe3cde29b3c5e214",
-      "model_card_sha256": "6e567e05da47e999635719e71946c4e2a08cd339148c20d2d78d4f03e5711c90",
-      "inference": {
-        "model_device": "cuda",
-        "model_precision": "bf16",
-        "codec_device": "cpu",
-        "codec_precision": "fp32",
-        "steps": 40,
-        "cfg_text": 3,
-        "cfg_caption": 3,
-        "cfg_speaker": 5,
-        "external_network_calls": 0
-      },
-      "model_weights_distributed": false
-    },
-    "script_sha256": "a09ecdf166d8afb4495bb4b2f9da07465ab037fbfee0a3341d2a6db44fc7b72c",
-    "generation_sha256": "26760d4d574f88160cc4c5150449b03d80b90b6f4473ad0d48162bbfecbe56e3",
-    "audio_sha256": "4be964f2ffc17338daa3366d09e6ad58547fa92c42fc2e3ee9d6c2a758a71fd4",
-    "cue_sha256": "6a602a04608adaa6a61d141d20f42fe61774c191b70082ff2bb3552fec178ed8",
-    "clips": 5,
-    "reference_is_own_synthetic_voice": true,
-    "listening_confirmed": false
+    "data/cases/openhands-example.json": "a3fd86279c7d4a61212646e26e859e078097d3ff87340ef1bc38a308959fe7f3"
   },
   "previous_publication": {
-    "baseline_head": "148b55be79f4d6fa8bdc1b906b82a532d807e02e",
-    "previous_video_sha256": "7d10bae074a60b9dc801d10c991661839be468485204ec67ab27e48715d095ad",
-    "previous_duration_seconds": 28,
-    "previous_silent": true,
+    "baseline_head": "fa736ccf7732acf3fc054b9ba88752fb8f22ccb4",
+    "previous_narrated_video_sha256": "6caae8786ad56d760c1d31339a5aee1e264543fb30436fd7aa151281abc74678",
+    "voice_guide_removed": true,
+    "visual_video_packets_retained": true,
     "original_runtime_receipts_retained": true
+  },
+  "audio_policy": {
+    "silent": true,
+    "audio_streams": 0,
+    "spoken_guide": false,
+    "reason": "Latest user instruction: no audio guides outside audio examples.",
+    "audio_examples_unmodified": true
   }
 }

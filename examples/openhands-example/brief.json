@@ -16,7 +16,7 @@
     "https://github.com/OpenHands/OpenHands/blob/e4775b4ba61a83ba80af5f7b0b826201b8e8ea05/src/manifests/automation-interface.ts",
     "https://github.com/OpenHands/OpenHands/blob/e4775b4ba61a83ba80af5f7b0b826201b8e8ea05/src/manifests/interface-validation.ts",
     "https://github.com/OpenHands/OpenHands/blob/e4775b4ba61a83ba80af5f7b0b826201b8e8ea05/package-lock.json",
-    "tools/motion-reel/render.mjs（Motion Reel の制作基準を、図とTTSの動画制作に適用）"
+    "tools/motion-reel/render.mjs（Motion Reel の制作基準を、動く概念図の無音動画制作に適用）"
   ],
   "deliverables": [
     "run.mjs と loader.mjs：Node 24 だけで動く実行CLI（npm の導入・通信・子プロセスなし）",
@@ -24,7 +24,7 @@
     "outputs/exports/Oxx.automation.json：形が通った件の、原典が書き出したファイル（制作側の実行後にできる）",
     "index.html・style.css・app.js：保存した記録を照合してから読むスマホ優先のページ",
     "README.md・outputs/method.md・request.txt：手順・読み方・再現・限界",
-    "video/index.html：実結果から作る短い解説動画の編集ソース（33秒・日本語TTSナレーション付き・編集可能なソース）"
+    "video/index.html：実結果から作る短い解説動画の編集ソース（33秒・無音・編集可能なソース）"
   ],
   "steps": [
     "原典12ファイル・依存29ファイル・ロック・入力のハッシュを照合し、原典の package-lock.json が依存を同じ integrity で固定していることを確かめる",
@@ -51,11 +51,17 @@
     "上流への PR はしないため、原典の開発者向けの全体テストは行わない",
     "実行と照合、ブラウザーでの確認、動画の書き出し、公開は制作側（親の工程）が後で行う"
   ],
+  "visual_revision": {
+    "message": "設定を図で点検して保存する",
+    "silent": true,
+    "original_runtime_reused": true,
+    "audio_policy": "No spoken guide outside audio examples."
+  },
   "production_result": {
     "id": "openhands-example",
-    "verified_at": "2026-10-17T03:17:46.338206+00:00",
+    "verified_at": "2026-10-17T04:32:50.583532+00:00",
     "stage": "technical_qa_complete",
-    "revision": "visual-r1",
+    "revision": "visual-r1-silent",
     "runtime": {
       "status": "passed",
       "sample_count": 8,
@@ -69,114 +75,7 @@
       "reproduction_sha256": "c14352c2848f466e5f152fadbd2886020053071c4d7787990619c7177673bb65",
       "reused_unchanged": true,
       "preserved_files": 57,
-      "original_vendor_files": 41
-    },
-    "browser": {
-      "status": "passed",
-      "verified_at": "2026-10-17T03:15:15.379Z",
-      "viewports": [
-        320,
-        375,
-        390,
-        430,
-        768,
-        844,
-        1280
-      ],
-      "client_widths": [
-        305,
-        360,
-        375,
-        415,
-        753,
-        829,
-        1265
-      ],
-      "primary_cases": [
-        "O03",
-        "O04",
-        "O06",
-        "O07"
-      ],
-      "case_width_combinations": 28,
-      "no_document_overflow": true,
-      "minimum_primary_target_px": 44,
-      "form_font_px": 16,
-      "headings_two_lines": true,
-      "native_portable_file_export_exact": true,
-      "export": {
-        "case": "O04",
-        "bytes": 602,
-        "sha256": "5e1ae14b8273237d308dceb6fdad445ce7c6e5e210f4e3b6cadcee951d7a5aa3"
-      },
-      "all_eight_records_accessible": true,
-      "original_comparison_cases": [
-        {
-          "id": "O01",
-          "saveDisabled": false,
-          "title": "O01　土曜の準備を、設定ファイルへ"
-        },
-        {
-          "id": "O02",
-          "saveDisabled": false,
-          "title": "O02　イベント条件をそのまま保存"
-        },
-        {
-          "id": "O03",
-          "saveDisabled": true,
-          "title": "O03　時刻のない設定は止まる"
-        },
-        {
-          "id": "O04",
-          "saveDisabled": false,
-          "title": "O04　時刻を一つ戻して再確認"
-        },
-        {
-          "id": "O05",
-          "saveDisabled": true,
-          "title": "O05　複数の不備をまとめて読む"
-        },
-        {
-          "id": "O06",
-          "saveDisabled": false,
-          "title": "O06　形が通っても、時刻は未検証"
-        },
-        {
-          "id": "O07",
-          "saveDisabled": false,
-          "title": "O07　持ち出せる参照先は先頭だけ"
-        },
-        {
-          "id": "O08",
-          "saveDisabled": false,
-          "title": "O08　タグや波かっこも、ただの文字"
-        }
-      ],
-      "request_clipboard_exact": true,
-      "request_clipboard_bytes": 5856,
-      "keyboard": "Tab from O03 to O04, Enter selected O04",
-      "error_recovery_passed": true,
-      "controlled_errors": [
-        "HTTP503",
-        "invalid JSON",
-        "wrong fixed commit",
-        "corrupt export SHA256"
-      ],
-      "hash_failure_caption_retested": true,
-      "literal_script_and_template_as_text_in_comparison": true,
-      "source_sha256": {
-        "index.html": "8a4856bb2f477e7184775cf4ff61ba51f1e6ec23424606224cb4ea75c28d6ad2",
-        "style.css": "be7c47b4c1851c200c196f1e057a563a41d69abc671e4196996323c18a7c5881",
-        "app.js": "85df66ef8ffcf786f4aacfbde9b9530863026155a58a1c9d1ef54a5f39e9ecd8",
-        "comparison.html": "8bc7ae1582d47fea7623d6e45966692bbcc018089c4fe596c7fa52e523f3aaf1",
-        "comparison.css": "b69d4619f1cdc622552f5e4b04adcbdb44c12bb68eafaeab480969489d53aeb7",
-        "comparison.js": "cf16682529fe72468e55a83b6ecf901bd7034e29b1559d26dc861ce049aeb01b"
-      },
-      "review_note": "Native IAB Chromium. Functional source matched the Opus delivery; final minor layout/copy changes retested. No physical iOS or Safari claim.",
-      "physical_ios": false,
-      "safari": false,
-      "voiceover": false,
-      "human_approval": false
+      "all_41_vendor_files_sha256_unchanged": true
     },
     "video": {
       "duration_seconds": 33,
@@ -190,25 +89,43 @@
         1280,
         720
       ],
-      "has_tts_narration": true,
-      "narration_cues": 5,
-      "audio_pcm_cues_match": true,
-      "asset_manifest_sha256": "d6370b8ad33b837a2e47780e9250a3079f43f16f1de950ef4c3bdadf812a7080",
-      "same_environment_seek_png_match": true,
+      "silent": true,
+      "audio_streams": 0,
       "full_decode": true,
-      "native_playback_ended_both": true,
-      "portrait_sha256": "6caae8786ad56d760c1d31339a5aee1e264543fb30436fd7aa151281abc74678",
-      "wide_sha256": "7eceb095168d39248e2500bbab3bd0e3c1a17ad27595c831ee7c00e11ef2dbde",
-      "poster_sha256": "7d6b2b70aa33a2f30a5877deb5e12b287f9f0caf28e0075ac3b9db5896eb8498"
+      "video_packets_identical": true,
+      "portrait_sha256": "7bc1fd2d08c22b3ab5fe9009348397217fd69b5b926d6a08508bbf65e4337546",
+      "wide_sha256": "1aa8a8a7fec927464f21218139e1d56bcbc1d4b7851a0fb7dc3bdbff80170a80",
+      "poster_sha256": "7d6b2b70aa33a2f30a5877deb5e12b287f9f0caf28e0075ac3b9db5896eb8498",
+      "asset_manifest_sha256": "b37396cbcaea6048201bcfba21e5349c4c0b0b631c42ed6e64889c57fbec8518",
+      "source_assets": 7,
+      "source_seek_frames_unchanged": true,
+      "native_playback_ended_both": true
     },
-    "audio_listening_confirmed": false,
+    "browser": {
+      "editor_no_audio": true,
+      "assets": 7,
+      "seek12": "12.0 / 33.0 秒",
+      "movies": [
+        {
+          "layout": "portrait",
+          "audioDecodedBytes": null,
+          "duration": 33,
+          "ended": true,
+          "error": null,
+          "time": 33
+        },
+        {
+          "layout": "wide",
+          "audioDecodedBytes": null,
+          "duration": 33,
+          "ended": true,
+          "error": null,
+          "time": 33
+        }
+      ],
+      "movies_ended": 2
+    },
     "human_approval": false,
     "physical_ios_safari_voiceover": false
-  },
-  "visual_revision": {
-    "message": "設定ファイル→形式の点検→保存。同じ図で不足と復元・未検証の時刻・先頭だけの参照先を見せる。",
-    "narration": "audio/script.json",
-    "original_runtime_reused": true,
-    "verification": "verification.json"
   }
 }

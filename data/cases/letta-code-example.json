@@ -6,7 +6,7 @@
     "図で点検する。"
   ],
   "category": "agents",
-  "summary": "案内がないと止まる→案内だけ戻した別の試行では保存できる。記憶と点検の関係を大きな図で比べ、日本語TTS付き32秒の縦動画で使い方が分かります。",
+  "summary": "案内がないと止まる→案内だけ戻した別の試行では保存できる。記憶と点検の関係を大きな図で比べ、無音の32秒の縦動画で使い方が分かります。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/letta-code-example/index.html",
@@ -42,12 +42,7 @@
     {
       "name": "Motion Reel",
       "source": "examples/letta-code-example/tools/motion-reel/render.mjs",
-      "applied": "元の実API/Git入出力を大きな連続する概念図で説明し、Irodori-TTSの日本語ナレーション5区間を固定。32秒の縦横動画を制作し、代表・連続・スマホ幅・終端、任意時刻の再現とMP4再生を確認しました。"
-    },
-    {
-      "name": "Irodori-TTS-v4.1-Small",
-      "source": "https://huggingface.co/Aratako/Irodori-TTS-v4.1-Small/tree/2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
-      "applied": "既存の公式固定版で5つの日本語説明を実合成。自作の合成声を参照し、原稿・音源・cueを固定して図の時刻と対応させました。聴取は未確認です。"
+      "applied": "同じ実入力・出力とOpus5.5の概念図・動きを保持し、32秒の縦横動画を無音化。編集ソースは7素材を照合して描画し、任意時刻のPNG一致・実動画のビデオpacket一致・全デコード・再生終了を確認しました。"
     }
   ],
   "steps": [
@@ -77,7 +72,7 @@
     "pre-commit は Git の仕組みで、OS のサンドボックスやセキュリティの保証ではありません。子プロセスの環境を絞っていますが、OS 全体の遮断ではありません。",
     "このページは保存した記録を読むだけで、実際のエージェントの記憶を編集できません。",
     "L02/L03は同じ内容から案内ファイル1つだけを変えた別の試行です。L04/L06は上限超過の901/1201を試しており、ちょうど900/1200の別入力は実行していません。",
-    "IAB Chromiumでスマホを含む7幅、実JSON保存・依頼文コピー・エラー復旧、縦横動画の代表/連続/終端・全デコード・再生終了とTTS音源のcue一致を確認。音声の聴取・実機iOS/Safari/VoiceOver・Core Web Vitals・人による承認は未確認です。"
+    "IAB Chromiumでスマホを含む7幅、実JSON保存・依頼文コピー・エラー復旧、縦横動画の代表/連続/終端・全デコード・再生終了と音声トラック0件を確認。実機iOS/Safari/VoiceOver・Core Web Vitals・人による承認は未確認です。"
   ],
   "sources": [
     {
@@ -169,12 +164,8 @@
       "url": "examples/letta-code-example/source.zip"
     },
     {
-      "label": "図と日本語TTSの使い方",
+      "label": "動く概念図の使い方",
       "url": "examples/letta-code-example/visual-guide.md"
-    },
-    {
-      "label": "固定TTSと実生成音声のハッシュ",
-      "url": "examples/letta-code-example/audio/generation.json"
     },
     {
       "label": "改修後に確認した範囲",
@@ -186,8 +177,8 @@
     }
   ],
   "license": "MIT（独自作例）・Apache-2.0（Letta Code 原典）",
-  "license_note": "作例のコード（run.mjs・loader.mjs・ページ）・文章・架空の入力・動画の編集ソースは MIT License（Copyright (c) 2026 Studio Yebisu）。vendor/letta-code/ の8ファイルは letta-ai/letta-code の固定コミット 316e4c0（0.34.14）のファイルを改変せずに置いたもので、Apache License 2.0 です。実行にパッケージの導入・アカウント・API キー・課金は要りません。Letta Code 本体のモデル接続・Letta Cloud・各連携サービスは別の条件で、この作例では使っていません。ソース制作に用いた Opus 5.5 の利用環境は別に必要です。 ナレーションは固定版Irodori-TTS-v4.1-Smallの合成音声で、同梱のMIT Licenseとモデルカードの条件に従います。参照声も独自に作った合成声です。モデルの重みは配布しません。",
-  "video_note": "32秒・日本語TTSナレーションあり。案内と詳細のつながり、点検で止まる理由、止まっても残る変更を、同じ大きな概念図の動きで説明します。縦版を主に、横版も用意しました。エージェントの会話や記憶の自動抽出を録画した映像ではありません。音声の聴取・実機iOSは未確認です。",
+  "license_note": "作例のコード（run.mjs・loader.mjs・ページ）・文章・架空の入力・動画の編集ソースは MIT License（Copyright (c) 2026 Studio Yebisu）。vendor/letta-code/ の8ファイルは letta-ai/letta-code の固定コミット 316e4c0（0.34.14）のファイルを改変せずに置いたもので、Apache License 2.0 です。実行にパッケージの導入・アカウント・API キー・課金は要りません。Letta Code 本体のモデル接続・Letta Cloud・各連携サービスは別の条件で、この作例では使っていません。ソース制作に用いた Opus 5.5 の利用環境は別に必要です。",
+  "video_note": "32秒・無音。大きな概念図と短いラベルで使い方を説明します。音声ガイドはありません。縦版を主に、横版も用意しました。",
   "video_source": "examples/letta-code-example/video/index.html",
   "skill_license": "examples/letta-code-example/vendor/letta-code/LICENSE",
   "updated_on": "2026-10-17",
@@ -197,10 +188,10 @@
     "execution": "Node24の原典APIと実Gitの8試行",
     "checks_total": 208,
     "screen_review": "Diagram-first saved-result viewer plus original8-case comparison; measured phone layout, real selected-record save/copy and controlled errors checked.",
-    "video": "32s/30fps/960frames:720x1280 portrait,1280x720 wide;5actual local Japanese TTS cues; deterministic PNG/decode/native playback checked.",
+    "video": "32s/30fps/960frames; portrait720x1280,wide1280x720;silent,no audio stream;original video packets retained,source PNG match/decode/native playback checked.",
     "publication": "対象を限定した公開処理後に、Pagesと実ファイルを別途照合",
     "human_approval": false,
-    "model_scope": "Original Opus5.5 runtime/results retained. New Opus5.5 receipt authors concept UI/film source; production generated TTS, mixed cues, checked/rendered/distributed."
+    "model_scope": "Original Opus5.5 diagram UI/animation source retained. Production removed spoken narration and integrated silent playback, unchanged runtime/results. No new model execution claimed."
   },
   "guide_url": "case.html?id=letta-code-example",
   "catalog_entry": {
@@ -237,7 +228,7 @@
     "source_note": "固定版0.34.14/316e4c0の公開MemFS検査APIと原典の制約検査スクリプトを、実Gitのpre-commitへ接続。8ケース/208自動確認/独立したGitと入力bytes照合/別コピーの全記録bytes一致。エージェント会話・LLM推論・Cloud・同期・/initは未実行。",
     "prompt": "Letta Code固定版の公開MemFS検査APIと原典の制約スクリプトで、架空の読書会の記憶変更を実Gitのpre-commitで点検してください。案内を消した例と戻した例、上限超過、保護ファイルと設定変更を確認し、実入力・実結果と短い日本語解説を保存してください。会話やLLM推論とは区別してください。",
     "verification_stage": "runtime-reviewed",
-    "verification": "2026-10-17に元の実API/Git8件・208自動確認・独立Git/bytes照合・別プロセス全記録一致を保ち、概念図と日本語TTS付き32秒の縦横動画へ改修。スマホ表示・実保存・復旧・動画再生を確認。聴取・実機iOS・人の承認は未確認。",
+    "verification": "固定版の原典と実入力・実出力を保持し、動く大きな概念図と32秒の無音の縦横動画で説明。音声ガイドなし。映像packetと編集ソースのPNG一致、実デモ・動画再生を確認。人の承認と実機iOSは未確認。",
     "reviewed_on": "2026-10-17",
     "updated_on": "2026-10-17"
   },
