@@ -84,7 +84,7 @@ Remove-Item Env:SETUPTOOLS_SCM_PRETEND_VERSION_FOR_RAGAS
 
 この作例のスクリプト・ページ・文書は、Claude Opus 5.5（`claude-opus-5-5`）が制作時に書いたものです。AIによる制作は作る過程だけのことで、ページの中でAIは動きません。ブラウザー内のAI、LLM judge、実際のRAGシステム、本番環境での評価は使っていません。物理的なiPhone・Safari・VoiceOverでの確認や、人による承認もしていません。
 
-Pythonの実採点・実ブラウザー・28秒の無音動画を制作担当が確認しました。具体的な範囲は以下の掲載時の記録とverification.jsonを参照してください。
+元の公開版ではPythonの実採点・実ブラウザー・28秒の無音動画を制作担当が確認しました。今回の図と32秒の無音動画の確認はvisual-r1として分けて記録します。具体的な範囲は以下の掲載時の記録とverification.jsonを参照してください。
 
 ## ライセンス
 
@@ -101,6 +101,24 @@ Pythonの実採点・実ブラウザー・28秒の無音動画を制作担当が
 
 完全一致は4/10→7/10。この増加は、固定された2組の文字列が基準文と同じ件数の違いです。実RAGやモデルの性能改善・正答率ではありません。Q07の18時→19時は一文字違いでも期限の矛盾、Q08の追記は資料外、Q05の言い換えは完全一致0でも資料の条件を保ちます。これらの意味照合メモは入力時に制作担当が用意し、Ragasの判定や人による承認とは分けています。
 
-WindowsのIAB Chromiumで6幅の実画面、検索/AND/絞り込み/0件/選択/実JSON保存と再試行を確認しました。28秒720p30fps840フレーム無音の説明は、実計算結果と実画面を編集した動画で、連続操作の録画ではありません。代表・連続フレーム、同時刻の別順/新ページ一致、全デコードと実MP4終端を確認しています。物理iOS/Safari/VoiceOver・実支援技術・性能測定・人による内容/美術承認は未確認です。
+元の公開版ではWindowsのIAB Chromiumで6幅の実画面、検索/AND/絞り込み/0件/選択/実JSON保存と再試行を確認しました。28秒720p30fps840フレーム無音の説明は、実計算結果と実画面を編集した動画で、連続操作の録画ではありません。代表・連続フレーム、同時刻の別順/新ページ一致、全デコードと実MP4終端を確認しています。物理iOS/Safari/VoiceOver・実支援技術・性能測定・人による内容/美術承認は未確認です。
 
-配布ZIPはexamples/ragas-example/・media/・公開brief-to-demoを含みます。展開先ルートをHTTP配信し/examples/ragas-example/を開いてください。再描画は展開先ルートからnpm ci --ignore-scripts --no-audit --no-fund --prefix examples/ragas-example/tools/motion-reel、次にpython examples/ragas-example/render.py --out renders/ragas-firstを実行します。出力先はソース外の空フォルダーにします。私的統括スキル・保存一覧・認証・モデル履歴全文・venv/cache/node_modulesは含めません。
+改修版の配布ZIPはexamples/ragas-example/とmedia/を含みます。展開先ルートをHTTP配信し/examples/ragas-example/を開いてください。再描画は展開先ルートからnpm ci --ignore-scripts --no-audit --no-fund --prefix examples/ragas-example/tools/motion-reel、次にpython examples/ragas-example/render.py --out renders/ragas-firstを実行します。出力先はソース外の空フォルダーにします。私的統括スキル・保存一覧・認証・モデル履歴全文・venv/cache/node_modulesは含めません。
+
+
+## 図中心の改修（2026-10-17）
+
+
+架空の「凪の図書室」FAQ10問と、用意した2組の固定回答を、大きな図で読みます。根拠の本から参照文を取り出し、回答の紙を「同じ文字」「文字の近さ」「全文を含む」の3つの道具に通すと、保存済みの実際の値が現れます。ブラウザーでRagasやAIを動かす機能ではありません。
+
+Q07では、回答の18時が19時へ変わります。文字列の近さは0.96875でも、期限は資料と異なります。Q08では、基準文が全文入っていても、その後に根拠のない文が付いています。Q05では、言い方が変わって完全一致が0になっても、予約なし・1回・7日間という条件が残ります。条件や意味についての照合メモは制作担当が入力時に記したもので、Ragasの判定や人による承認ではありません。
+
+「前」「後」を切り替え、同じ紙の変化を見比べます。選んだ問いは、両方の回答・丸めない全指標・根拠資料・元入力のハッシュごとJSONで保存できます。全文と10問の一覧、集計は図の下から開けます。元の検索・絞り込み画面もcomparison.htmlに保持しています。点数を合否や正答率へ置き換えません。
+
+元の実行では、固定版RagasのExactMatch・NonLLMStringSimilarity（Levenshtein）・StringPresenceを20回答へ計60回呼びました。原入力・実出力・実行器と原典8ファイルは変更せず、今回の図と映像の改修のために再実行していません。原典は298b68274234c060deacab3cf5fb52aa3a20e885、Apache-2.0です。0.0.0+studio.298b68274234はソースZIPからのローカルなビルド用ラベルで、公式リリース番号ではありません。
+
+before/afterは意図して作った固定入力です。実際のRAGシステムの変更・検索・回答生成や、モデルの性能改善を示すものではありません。LLM judge・埋め込み・外部の評価APIは使っていません。
+
+新しい図と32秒の縦横動画の編集コードはClaude Opus5.5が執筆し、制作側が受領後の修正・検証・書き出し・包装・掲載を担当しました。修正の内訳はverification.jsonへ記録します。音声ガイドと音声トラックはありません。自動検査やエージェントの視覚確認は、人による内容や見た目の承認、実機iPhoneでの確認とは区別します。
+
+縦動画は../../media/ragas-example.mp4、横動画は../../media/ragas-example-wide.mp4、編集ソースはvideo/index.htmlです。旧版の確認はvideo/assets/original-verification.json、今回の確認はverification.jsonです。

@@ -1,454 +1,326 @@
 {
   "id": "ragas-example",
-  "verified_at": "2026-10-16T13:29:42.519895+00:00",
-  "stage": "runtime-and-agent-visual-reviewed",
-  "source_commit": "298b68274234c060deacab3cf5fb52aa3a20e885",
-  "runtime_environment": {
-    "smoke_values": [
-      0.0,
-      0.8571428571428572,
-      0.0
+  "verified_at": "2026-10-17T13:04:13.183484+00:00",
+  "revision": "visual-r1",
+  "stage": "technical_qa_complete",
+  "runtime_preserved_files": 19,
+  "original_runtime_scope": "Actual installed fixed Ragas collections.ascore: ExactMatch, NonLLMStringSimilarity(Levenshtein), StringPresence. Original intentionally seeded frozen fictional FAQ pairs, no retrieval/generation/LLMjudge/embeddings/realservice benchmark. Editorial notes supplied with input, not metric verdicts.",
+  "upstream": {
+    "repository": "vibrantlabsai/ragas",
+    "commit": "298b68274234c060deacab3cf5fb52aa3a20e885",
+    "license": "Apache-2.0",
+    "copyright_notice": "Copyright [2023] [Vibrant Labs] (original LICENSE retained verbatim)",
+    "official_git_blobs_verified": [
+      {
+        "path": "LICENSE",
+        "git_blob": "8bcca742ae3458aa4e74d0133d51a248df16f23b",
+        "sha256": "664b930830f291c2936ab30bcd6ef9ca6c9c7384cc475ae0c526156a27d5a6c6"
+      },
+      {
+        "path": "README.md",
+        "git_blob": "07b1f00fde50ee8506f3087326285041c1a1a05c",
+        "sha256": "af20b2258507b12bf930e897b63ee5bb87aac4a4696da078ea5a3c29addb6db7"
+      },
+      {
+        "path": "pyproject.toml",
+        "git_blob": "28c2d172d529c33f1db8bbf235282758070d103d",
+        "sha256": "11b24f8114f922ea5d028d65dffabd941e2d11fc732d499afdcfe0e20a998101"
+      },
+      {
+        "path": "docs/concepts/metrics/available_metrics/traditional.md",
+        "git_blob": "4d0fa87f2cb638167c6771f452aadf2cfe086572",
+        "sha256": "6d08c0826f54374e66385530d5291d11a230289780043dc4dadcca0682531260"
+      },
+      {
+        "path": "src/ragas/metrics/collections/_string.py",
+        "git_blob": "8e94c783fad2dee6073049a524f6f043442b47d7",
+        "sha256": "9935e46a0a048d4d5a7790abfd0d20c38909231da34b1aab5da5268758b00230"
+      },
+      {
+        "path": "src/ragas/metrics/collections/base.py",
+        "git_blob": "2c48e562039c9839fcb97840240b22596ddebc88",
+        "sha256": "92e1fac17953d10a931227045daa8277bcc66f11b90535da5b45d706079de679"
+      },
+      {
+        "path": "src/ragas/metrics/result.py",
+        "git_blob": "007718a5c9e5d086949c91645410e97628aef59a",
+        "sha256": "73e40e9f1d18d8f73b3c24c4bef728da79cdec529c5dad2927e799f73dc0161a"
+      },
+      {
+        "path": "src/ragas/_analytics.py",
+        "git_blob": "341cc4efd94cd68d59be44c7db68477f6474c2fb",
+        "sha256": "9619946dc7aaa1e60f30e4f3cbac56010bd47cedc5e3d6e256e1c27e9e45a679"
+      }
     ],
-    "version": "0.0.0+studio.298b68274234",
-    "python": "3.12.9",
-    "installed_source_matches_fixed": true,
-    "installed_files_sha256": {
-      "metrics/collections/_string.py": "9935e46a0a048d4d5a7790abfd0d20c38909231da34b1aab5da5268758b00230",
-      "metrics/collections/base.py": "92e1fac17953d10a931227045daa8277bcc66f11b90535da5b45d706079de679",
-      "metrics/result.py": "73e40e9f1d18d8f73b3c24c4bef728da79cdec529c5dad2927e799f73dc0161a",
-      "_analytics.py": "9619946dc7aaa1e60f30e4f3cbac56010bd47cedc5e3d6e256e1c27e9e45a679"
-    },
-    "dependency_count": 93,
-    "ragas_build_version_override": "0.0.0+studio.298b68274234",
-    "upstream_release_version_claimed": false,
-    "dependency_repair": "Fresh unconstrained LangChain community0.4.2 removed imported VertexAI module. Kept Ragas source unchanged; resolved compatible community<0.4 and LangChain/core/openai<1 in same private venv. Actual full versions frozen publicly without private local source path.",
-    "all_installed_python_source_files_match_fixed": 237,
-    "dependency_check": "uv pip check: all93installedpackages compatible",
-    "unused_incompatible_packages_removed_from_private_venv": [
-      "langchain-classic",
-      "langchain-protocol",
-      "langgraph",
-      "langgraph-checkpoint",
-      "langgraph-prebuilt",
-      "langgraph-sdk"
-    ]
+    "original_runtime_scope": "Actual installed fixed Ragas collections.ascore: ExactMatch, NonLLMStringSimilarity(Levenshtein), StringPresence. Original intentionally seeded frozen fictional FAQ pairs, no retrieval/generation/LLMjudge/embeddings/realservice benchmark. Editorial notes supplied with input, not metric verdicts.",
+    "scope": "Reverified eight public original source files against official immutable Git tree. Original installed237-source verification and60actual metric calls are retained, not rerun. No LLM/embeddings/retrieval/generation/paid API/telemetry.",
+    "visual_review": "Original contact sheet uses long text, headline-number slides, small screenshots and JSON. Revise to one large connected reference-book/answer-strip/three-measuring-tools drawing and native portrait film.",
+    "verified_at": "2026-10-17T11:59:00.896837+00:00"
   },
-  "data_checks": {
-    "status": "passed",
-    "verified_at": "2026-10-16T13:05:56.013231+00:00",
-    "question_count": 10,
-    "response_count": 20,
-    "actual_ragas_metric_calls": 60,
-    "source_commit": "298b68274234c060deacab3cf5fb52aa3a20e885",
-    "source_files_unchanged": true,
-    "input_sha256": "d55fcce5eec82974b01d912dcf6f21de94aede03c37d2a16092b6fa9304705a2",
-    "evaluation_sha256": "b3862890b1ee0d48ebad9991cc99310730cbc3769e4717fdd2e4678348c91ea3",
-    "independent_full_unicode_distance_comparison": [
-      {
-        "id": "Q01",
-        "stage": "before",
-        "independent_expected_scores": {
-          "exact_match": 0.0,
-          "string_similarity": 0.8888888888888888,
-          "string_presence": 0.0
-        }
+  "video": {
+    "portrait": {
+      "video": {
+        "file": "video.mp4",
+        "sha256": "07470f1da803270b856a908ddd0b5e6f8aeb6165e6730bfe6d19f8d83c60ded3",
+        "width": 720,
+        "height": 1280,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
       },
-      {
-        "id": "Q01",
-        "stage": "after",
-        "independent_expected_scores": {
-          "exact_match": 1.0,
-          "string_similarity": 1.0,
-          "string_presence": 1.0
-        }
-      },
-      {
-        "id": "Q02",
-        "stage": "before",
-        "independent_expected_scores": {
-          "exact_match": 0.0,
-          "string_similarity": 0.9090909090909091,
-          "string_presence": 0.0
-        }
-      },
-      {
-        "id": "Q02",
-        "stage": "after",
-        "independent_expected_scores": {
-          "exact_match": 1.0,
-          "string_similarity": 1.0,
-          "string_presence": 1.0
-        }
-      },
-      {
-        "id": "Q03",
-        "stage": "before",
-        "independent_expected_scores": {
-          "exact_match": 0.0,
-          "string_similarity": 0.8333333333333334,
-          "string_presence": 0.0
-        }
-      },
-      {
-        "id": "Q03",
-        "stage": "after",
-        "independent_expected_scores": {
-          "exact_match": 1.0,
-          "string_similarity": 1.0,
-          "string_presence": 1.0
-        }
-      },
-      {
-        "id": "Q04",
-        "stage": "before",
-        "independent_expected_scores": {
-          "exact_match": 0.0,
-          "string_similarity": 0.9230769230769231,
-          "string_presence": 0.0
-        }
-      },
-      {
-        "id": "Q04",
-        "stage": "after",
-        "independent_expected_scores": {
-          "exact_match": 1.0,
-          "string_similarity": 1.0,
-          "string_presence": 1.0
-        }
-      },
-      {
-        "id": "Q05",
-        "stage": "before",
-        "independent_expected_scores": {
-          "exact_match": 1.0,
-          "string_similarity": 1.0,
-          "string_presence": 1.0
-        }
-      },
-      {
-        "id": "Q05",
-        "stage": "after",
-        "independent_expected_scores": {
-          "exact_match": 0.0,
-          "string_similarity": 0.2857142857142857,
-          "string_presence": 0.0
-        }
-      },
-      {
-        "id": "Q06",
-        "stage": "before",
-        "independent_expected_scores": {
-          "exact_match": 1.0,
-          "string_similarity": 1.0,
-          "string_presence": 1.0
-        }
-      },
-      {
-        "id": "Q06",
-        "stage": "after",
-        "independent_expected_scores": {
-          "exact_match": 1.0,
-          "string_similarity": 1.0,
-          "string_presence": 1.0
-        }
-      },
-      {
-        "id": "Q07",
-        "stage": "before",
-        "independent_expected_scores": {
-          "exact_match": 1.0,
-          "string_similarity": 1.0,
-          "string_presence": 1.0
-        }
-      },
-      {
-        "id": "Q07",
-        "stage": "after",
-        "independent_expected_scores": {
-          "exact_match": 0.0,
-          "string_similarity": 0.96875,
-          "string_presence": 0.0
-        }
-      },
-      {
-        "id": "Q08",
-        "stage": "before",
-        "independent_expected_scores": {
-          "exact_match": 1.0,
-          "string_similarity": 1.0,
-          "string_presence": 1.0
-        }
-      },
-      {
-        "id": "Q08",
-        "stage": "after",
-        "independent_expected_scores": {
-          "exact_match": 0.0,
-          "string_similarity": 0.5806451612903225,
-          "string_presence": 1.0
-        }
-      },
-      {
-        "id": "Q09",
-        "stage": "before",
-        "independent_expected_scores": {
-          "exact_match": 0.0,
-          "string_similarity": 0.23529411764705888,
-          "string_presence": 0.0
-        }
-      },
-      {
-        "id": "Q09",
-        "stage": "after",
-        "independent_expected_scores": {
-          "exact_match": 1.0,
-          "string_similarity": 1.0,
-          "string_presence": 1.0
-        }
-      },
-      {
-        "id": "Q10",
-        "stage": "before",
-        "independent_expected_scores": {
-          "exact_match": 0.0,
-          "string_similarity": 0.09523809523809523,
-          "string_presence": 0.0
-        }
-      },
-      {
-        "id": "Q10",
-        "stage": "after",
-        "independent_expected_scores": {
-          "exact_match": 1.0,
-          "string_similarity": 1.0,
-          "string_presence": 1.0
-        }
-      }
-    ],
-    "means": {
-      "before": {
-        "exact_match": 0.4,
-        "string_similarity": 0.7884922267275208,
-        "string_presence": 0.4
-      },
-      "after": {
-        "exact_match": 0.7,
-        "string_similarity": 0.8835109447004609,
-        "string_presence": 0.8
+      "determinism": {
+        "frame": 576,
+        "seconds": 19.2,
+        "first": "5f6fef8c1aa88da107279b608864f902eb1958d56841016d4522628866f5d256",
+        "afterOtherTimes": "5f6fef8c1aa88da107279b608864f902eb1958d56841016d4522628866f5d256",
+        "freshPage": "5f6fef8c1aa88da107279b608864f902eb1958d56841016d4522628866f5d256",
+        "match": true
       }
     },
-    "scope": "Actual installed fixed Ragas collections.ascore: ExactMatch, NonLLMStringSimilarity(Levenshtein), StringPresence. Original intentionally seeded frozen fictional FAQ pairs, no retrieval/generation/LLMjudge/embeddings/realservice benchmark. Editorial notes supplied with input, not metric verdicts.",
-    "human_approval": false,
-    "sample_count": 7
+    "wide": {
+      "video": {
+        "file": "video.mp4",
+        "sha256": "1b93c103be5cf09f4297d0cc9fb1d55bfe02b6a082d488a2f701e0f46da6c7b6",
+        "width": 1280,
+        "height": 720,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      },
+      "determinism": {
+        "frame": 576,
+        "seconds": 19.2,
+        "first": "d378bfb9a7e5c5d0401705a761820aff266d4d7e6db58ec4fc5ac5e5a221e5fe",
+        "afterOtherTimes": "d378bfb9a7e5c5d0401705a761820aff266d4d7e6db58ec4fc5ac5e5a221e5fe",
+        "freshPage": "d378bfb9a7e5c5d0401705a761820aff266d4d7e6db58ec4fc5ac5e5a221e5fe",
+        "match": true
+      }
+    }
   },
   "browser": {
     "status": "passed",
-    "native_operation_states": 25,
-    "responsive_states": 6,
-    "widths": [
+    "verified_at": "2026-10-17T13:04:00.336488+00:00",
+    "layout_views": 35,
+    "requested_widths": [
       320,
       375,
       390,
       430,
+      768,
       844,
       1280
     ],
-    "target_minimum_px": 44,
-    "form_font_minimum_px": 16,
-    "all_ten_source_response_note_score_fields_match": true,
-    "normalized_and_query": true,
-    "annotation_filters_not_metric_verdict": true,
-    "zero_clears_detail_and_export": true,
-    "native_export_matches_scored_row": true,
-    "http503_parse_validation_retry": true,
-    "keyboard_enter_space": true,
-    "physical_ios_tested": false,
-    "voiceover_tested": false,
-    "human_approval": false,
-    "agent_visual_review": true,
-    "unconfirmed": [
-      "Physical iOS/Safari/VoiceOver and assistive technologies",
-      "Lighthouse/CoreWebVitals and realservice outcomes",
-      "Browser offline or clipboard denial"
-    ]
-  },
-  "semantic_review": {
-    "agent_semantic_review": true,
-    "human_approval": false,
-    "unresolved_blockers": [],
-    "reviewed": "All10reference strings equal originaldocs; all20response texts/notes/labels retained. Q01-04 before factual conflicts and Q10before no-electronic-service conflict; Q05 after retains noreservation/once/7days despiteparaphrase; Q06 reservationlimit3 distinctloan5; Q07after18to19 contradicts source deadline despite0.96875similarity; Q08after extraoverduecontactrule lacks support (notprovenfalse); Q09before paraphrase retains identity/address. Annotations are suppliedinput, notRagas verdict. Originalfictional intentionalfixtures, noactualRAGchangebenchmark.",
-    "metrics": "60actual.ascore results equal independent rawUnicode comparisons. No evidence of retrieval/LLMjudge/embeddings claims; Ragasprogramsource237filesunchanged; networkguardscope described (notwholeOS/DNS/Cextension proof).",
-    "dependency_compatibility": "Sameprivatevenv repaired,93compatiblepackages frozen. Buildlabel notofficialversion."
-  },
-  "parent_adjustments": {
-    "original_opus_delivery_archived": true,
-    "evaluate_py_unchanged": true,
-    "input_and_upstream_unchanged": true,
-    "changes": [
-      "ShortbalancedH1 forphone; original title/historypreserved",
-      "Technicalruntime/SHAtext movedinto native44px disclosure, IDs/dataunchanged",
-      "Primaryreproduction uses actual93package lock, compatibilityconstraints appended to requirements.txt; fixedRagas source unchanged",
-      "Method/README actualPythonexecution andsemanticreview appended; oldauthorstage statements scopedhistorical",
-      "Explicit question activation focuses its H2 and scrolls detail to start; filters/search do notscroll. Prevent phone view retainingtail of10-question list above result."
-    ],
-    "purpose": "Readablephoneflow and honestreproduction after dependencydrift",
-    "human_approval": false
-  },
-  "video": {
-    "video_sha256": "9b799125a5db555f21601f966969b8807b014af2e5b5c630c54c21806c900b41",
-    "poster_sha256": "47bf11df4efbcac23c679e5547935952c780e3e4c357ae1479ffc3a20128dba8",
-    "poster_from_mp4_seconds": 13.5,
-    "full_decode_passed": true,
-    "review_files": [
-      "contact.png",
-      "poster.png",
-      "strip.png",
-      "stills/frame-000000.png",
-      "stills/frame-000001.png",
-      "stills/frame-000002.png",
-      "stills/frame-000003.png",
-      "stills/frame-000004.png",
-      "stills/frame-000005.png",
-      "stills/frame-000006.png",
-      "stills/frame-000007.png",
-      "stills/frame-000008.png",
-      "stills/frame-000009.png",
-      "stills/frame-000010.png",
-      "stills/frame-000011.png",
-      "stills/frame-000012.png",
-      "stills/frame-000013.png",
-      "cut-01.png",
-      "cut-02.png",
-      "cut-03.png",
-      "cut-04.png",
-      "cut-05.png",
-      "final.png"
-    ],
-    "render_label": "final",
-    "bundled_renderer_executed": true,
-    "reviewed_at": "2026-10-16T13:29:42.028876+00:00",
-    "agent_visual_review": true,
-    "human_approval": false,
-    "native_playback": {
-      "duration": 28,
-      "ended": true,
-      "error": null,
-      "paused": true,
-      "ready": 4,
-      "time": 28,
-      "first_observed_seconds": 0,
-      "no_manual_seek": true
-    },
-    "source_editor": {
-      "canvas": [
-        1280,
-        720
-      ],
-      "client": 375,
-      "forms": [
-        {
-          "font": "16px",
-          "height": 44
-        }
-      ],
-      "play_enabled": true,
-      "position": 14,
-      "scroll": 375,
-      "status": "照合した12ファイルから描いています",
-      "targets": [
-        {
-          "height": 44,
-          "id": "play",
-          "tag": "BUTTON",
-          "width": 76
-        },
-        {
-          "height": 44,
-          "id": "time",
-          "tag": "INPUT",
-          "width": 211
-        },
-        {
-          "height": 44,
-          "id": "",
-          "tag": "A",
-          "width": 271.6875
-        },
-        {
-          "height": 44,
-          "id": "",
-          "tag": "A",
-          "width": 246.546875
-        },
-        {
-          "height": 57.59375,
-          "id": "",
-          "tag": "A",
-          "width": 343
-        },
-        {
-          "height": 44,
-          "id": "",
-          "tag": "A",
-          "width": 307.6875
-        },
-        {
-          "height": 44,
-          "id": "",
-          "tag": "A",
-          "width": 258.5
-        },
-        {
-          "height": 44,
-          "id": "",
-          "tag": "A",
-          "width": 201.46875
-        },
-        {
-          "height": 44,
-          "id": "",
-          "tag": "A",
-          "width": 175.515625
-        }
-      ],
-      "verified_files": 12,
-      "native_play": {
-        "label": "一時停止",
-        "pressed": "true"
+    "horizontal_overflow": false,
+    "primary_targets_min44px": true,
+    "phone_diagram_and_save_fit": true,
+    "original_questions_and_documents_checked": 10,
+    "raw_metric_values_checked": 60,
+    "before_after_diagram_checks": 10,
+    "extra_direct_links_checked": 5,
+    "exact_native_json_downloads": [
+      {
+        "id": "Q01",
+        "bytes": 3141,
+        "sha256": "9df8bf6b2551e46dfe1350e876be2fc356a5149b3e40b47456b5f1537ae9ed73"
       },
-      "native_pause": {
-        "label": "再生",
-        "pressed": "false"
+      {
+        "id": "Q02",
+        "bytes": 3060,
+        "sha256": "fa067f146bf3f3ca457c7c8065b646e43e3fb820424600c2589a94759fadc151"
+      },
+      {
+        "id": "Q03",
+        "bytes": 3066,
+        "sha256": "e96b9ba7dac9f94613550b6cc0608c5089ca5998db9b7341139ab518b93a9394"
+      },
+      {
+        "id": "Q04",
+        "bytes": 3088,
+        "sha256": "31a429ef8414d2d4891ab8a0f42651be3746566f73e95515ce57db0a1ded453b"
+      },
+      {
+        "id": "Q05",
+        "bytes": 3323,
+        "sha256": "c635cfd7e19ae567ea74ac151f6211305910f702bba6dec8ec7745ad1308c969"
+      },
+      {
+        "id": "Q06",
+        "bytes": 3087,
+        "sha256": "e24626a27d9c496b07a158e58c74ada691563f121d7bd488049586bb78636197"
+      },
+      {
+        "id": "Q07",
+        "bytes": 3396,
+        "sha256": "bb78128a700d50442232f143b80aa8a56433dec682921f6ba5017069a283bdd1"
+      },
+      {
+        "id": "Q08",
+        "bytes": 3295,
+        "sha256": "b4396b8ee0f21451fda5c75d9a9add120aad74a3bcfad45605ea0e6b0e9b23f0"
+      },
+      {
+        "id": "Q09",
+        "bytes": 3332,
+        "sha256": "04fd814565e4422dd19c3ec88261ea5cd8ddd04ddeb15cd6e62f1beb1d3d2a09"
+      },
+      {
+        "id": "Q10",
+        "bytes": 3242,
+        "sha256": "34b942b557021c0b742fa316f3d31a9e88af2cf87571a1035a0948aaf640033b"
+      }
+    ],
+    "legacy": {
+      "initialSelected": "Q10",
+      "and": "10問中 1問を表示",
+      "zero": {
+        "count": "10問中 0問。条件に合う問いがありません。「条件を戻す」で全件に戻せます。",
+        "detailHidden": true,
+        "disabled": true
+      },
+      "memo": "10問中 2問を表示",
+      "reset": "Q07"
+    },
+    "request": {
+      "ui": "依頼文をコピーしました。",
+      "bytes": 4681,
+      "sha256": "27fd56013c37381dcc516786e1017b5de499c3b15b550cc2ad61f894e7c83975"
+    },
+    "clipboard_content_readback_verified": false,
+    "failure_modes": [
+      "HTTP503",
+      "malformed JSON stopped by raw SHA mismatch",
+      "valid JSON with byte mismatch",
+      "timeline asset byte mismatch"
+    ],
+    "failure_clears_diagram_and_disables_controls": true,
+    "all_retry_recoveries": true,
+    "editor": {
+      "assets_verified": 7,
+      "source_audio_elements": 0,
+      "scene_seek_times": [
+        4.8,
+        10.6,
+        16.6,
+        22.7,
+        26.8,
+        31
+      ],
+      "play_pause_reset_end_replay_checked": true,
+      "native_layouts": [
+        [
+          720,
+          1280
+        ],
+        [
+          1280,
+          720
+        ]
+      ]
+    },
+    "movies": [
+      {
+        "layout": "portrait",
+        "currentTime": 32,
+        "duration": 32,
+        "ended": true,
+        "error": null,
+        "height": 1280,
+        "width": 720
+      },
+      {
+        "layout": "wide",
+        "currentTime": 32,
+        "duration": 32,
+        "ended": true,
+        "error": null,
+        "height": 720,
+        "width": 1280
+      }
+    ],
+    "movies_ended": 2,
+    "human_approval": false,
+    "physical_ios_safari_voiceover": false,
+    "scope": "Native browser and rendered-media verification of new diagram UI/film. No repeated Ragas API/inference execution. Input editorial notes are not an automated semantic verdict.",
+    "private_native_evidence_sha256": "4b9f28609d91bea7251977ff02f49f2d613662a5f6bf26d4fed65a1a16729516"
+  },
+  "frame_review": {
+    "status": "passed",
+    "verified_at": "2026-10-17T13:04:00.336488+00:00",
+    "reviewer": "Production agent visual inspection; no independent human approval",
+    "unresolved_blockers": [],
+    "viewed": [
+      "portrait/contact.png",
+      "wide/contact.png",
+      "portrait/strip.png",
+      "wide/strip.png",
+      "portrait/mobile-poster.png",
+      "portrait/poster.png",
+      "wide/final.png",
+      "native mobile Q07/Q08 diagram screenshots"
+    ],
+    "findings": [
+      "One connected reference book, two answer strips, three measuring tools and saved question remains legible in portrait and separately calculated wide layout.",
+      "Q07 clock travels18 to19; the real similarity0.96875 is rounded0.969 and separate input memo labels the deadline contradiction.",
+      "Q08 attachment remains outside the reference sleeve despite presence1; Q05 three supplied conditions remain while exact0 is shown. Original values and annotations remain separate.",
+      "The same miniature answer travels through tools to the saved question. One headline at a time; no text-slide or JSON hero, no speaker guide.",
+      "Poster31 and final31.9667 keep Q07 and actual JSON filename/save destination visible; supplementary footer is smaller than hero labels."
+    ],
+    "frame_evidence": {
+      "portrait": {
+        "representative_frames": 16,
+        "continuous_frames": 12,
+        "determinism": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "5f6fef8c1aa88da107279b608864f902eb1958d56841016d4522628866f5d256",
+          "afterOtherTimes": "5f6fef8c1aa88da107279b608864f902eb1958d56841016d4522628866f5d256",
+          "freshPage": "5f6fef8c1aa88da107279b608864f902eb1958d56841016d4522628866f5d256",
+          "match": true
+        },
+        "video": {
+          "file": "video.mp4",
+          "sha256": "07470f1da803270b856a908ddd0b5e6f8aeb6165e6730bfe6d19f8d83c60ded3",
+          "width": 720,
+          "height": 1280,
+          "fps": 30,
+          "frameCount": 960,
+          "duration": 32,
+          "hasAudio": false
+        }
+      },
+      "wide": {
+        "representative_frames": 16,
+        "continuous_frames": 12,
+        "determinism": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "d378bfb9a7e5c5d0401705a761820aff266d4d7e6db58ec4fc5ac5e5a221e5fe",
+          "afterOtherTimes": "d378bfb9a7e5c5d0401705a761820aff266d4d7e6db58ec4fc5ac5e5a221e5fe",
+          "freshPage": "d378bfb9a7e5c5d0401705a761820aff266d4d7e6db58ec4fc5ac5e5a221e5fe",
+          "match": true
+        },
+        "video": {
+          "file": "video.mp4",
+          "sha256": "1b93c103be5cf09f4297d0cc9fb1d55bfe02b6a082d488a2f701e0f46da6c7b6",
+          "width": 1280,
+          "height": 720,
+          "fps": 30,
+          "frameCount": 960,
+          "duration": 32,
+          "hasAudio": false
+        }
       }
     },
-    "codec": "H264 High/yuv420p/30fps; no audio stream",
-    "mp4_atoms": [
-      "ftyp",
-      "moov",
-      "free",
-      "mdat"
-    ],
-    "faststart": true,
-    "frames_inspected": [
-      "14-frame contact sheet at0,2,...26s",
-      "Full poster13.5s",
-      "Full16sQ08 and22sQ05",
-      "All5MP4-derived12framecutstrips at3.85,7.85,13.85,18.85,22.85s",
-      "MP4lastframe839/30"
-    ],
-    "assessment": "Mainquotes,scorelabels,18→19contrast,unsupportedaddition-notprovenfalse,paraphraseconditions andactualsavedJSON3396bytes readable. Actualscreens/derivedoverlays distinguished. Short body fades and briefheadlinecrossfades atcuts; persistentfooter/source and adequateholds, no criticalclipping or materialblocker found. Silentintentional, no audio qualityclaim.",
-    "unresolved_blockers": [],
-    "unconfirmed": [
-      "PhysicaliOS/Safari/VoiceOver",
-      "Human content/art approval",
-      "Realservice quality/modeloutcomes"
+    "full_ffmpeg_decode": "Both exact full renders decoded to null with exit0 in this turn; native playback ended at32seconds.",
+    "limits": [
+      "Agent review and automatic checks do not establish human aesthetic/content approval.",
+      "Physical iPhone Safari/VoiceOver and performance metrics unverified.",
+      "No audio streams or narration; listening quality does not apply."
     ]
   },
   "human_approval": false,
-  "production_contributions": {
-    "Opus5.5": "Exact-model run authored real Ragas API evaluator, Japanese explanation and phone-first result viewer from original fixed input. Separate exact-model run authored editable28second silent film from actual metrics and native screenshots.",
-    "production_editor": "Created original intentionally seeded fictional10question/20response input; installed fixed library in privatevenv; repaired compatible dependencies without modifyingRagas; ran evaluator and independently checked rawUnicode metrics, source hashes and allinput fields. Reviewed semantic limitations, tested native browser/export, rendered and inspected actualfilm and scopedpublication.",
-    "limits": "Lexical metrics on frozen fictional fixtures, no retrieval/generation/LLMjudge/embeddings/liveAI/realservice improvement/modelbenchmark/physicaliOS/humanapproval. Inputeditorannotations not automatedmetricverdicts.",
-    "post_render_additions": "Verification, finalREADME/results/article/proof/ZIP and mainmovie section only; metricinput/output/screens/film sources preserved."
-  }
+  "physical_ios_safari_voiceover": false,
+  "silent": true
 }

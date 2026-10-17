@@ -1,251 +1,251 @@
-/* 解説映像の元ページ（Ragas 作例）。閲覧ページと同じ紙・墨・青緑・錆色。
- * Copyright (c) 2026 Studio Yebisu. MIT License. */
+/*
+ * Studio Yebisu — Ragas 作例・動く説明図の編集ソース
+ * Copyright (c) 2026 Studio Yebisu. MIT License. Authored by Claude Opus 5.5.
+ * Ivory paper, dark ink; cobalt = 同じ文字, teal = 文字の近さ, ochre = 全文を含む, terracotta = 照合メモ（入力）.
+ * System fonts only. No web fonts, CDN or CSS animation. The film itself is drawn on the canvas by video.js.
+ */
 :root {
+  --ivory: #f6f1e6;
+  --paper: #fffcf5;
+  --ink: #1c2333;
+  --muted: #535a6b;
+  --rule: #d8cfbc;
+  --cobalt: #2747c2;
+  --teal: #0f7a72;
+  --teal-wash: #dcefec;
+  --warm-ink: #8f4210;
+  --error: #9e3324;
+  --error-wash: #f7e1d9;
+  --sans: system-ui, -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Meiryo", "Noto Sans JP", sans-serif;
+  --mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", Consolas, Menlo, monospace;
   color-scheme: light;
-  --paper: #f5f0e6;
-  --card: #fcf9f2;
-  --sunk: #ece4d4;
-  --ink: #25211c;
-  --muted: #5b5348;
-  --rule: #d9cfbd;
-  --teal: #15605b;
-  --teal-soft: #dcebe7;
-  --rust: #9b3f1d;
-  --sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", Meiryo, system-ui, sans-serif;
-  --serif: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", "BIZ UDMincho", serif;
-  --mono: ui-monospace, "SFMono-Regular", Consolas, "BIZ UDGothic", monospace;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
 
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  background: var(--ivory);
 }
 
 body {
   margin: 0;
   min-width: 0;
-  background: var(--paper);
+  background: var(--ivory);
   color: var(--ink);
-  font: 16px/1.8 var(--sans);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.7;
   overflow-wrap: anywhere;
 }
 
-.page {
-  width: 100%;
-  max-width: 1040px;
+a { color: var(--cobalt); text-underline-offset: 0.2em; }
+code { font-family: var(--mono); font-size: 0.92em; }
+:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 3px; border-radius: 6px; }
+
+#editor {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+  max-width: 64rem;
   margin: 0 auto;
   padding:
-    max(20px, env(safe-area-inset-top))
+    max(16px, env(safe-area-inset-top))
     max(16px, env(safe-area-inset-right))
-    max(40px, env(safe-area-inset-bottom))
+    max(28px, env(safe-area-inset-bottom))
     max(16px, env(safe-area-inset-left));
 }
 
-.kicker {
-  margin: 0 0 4px;
-  color: var(--muted);
+.intro { display: grid; gap: 4px; min-width: 0; }
+.kicker { margin: 0; color: var(--muted); font-size: 13px; font-weight: 700; letter-spacing: 0.1em; }
+h1 { margin: 0; font-size: 26px; line-height: 1.3; }
+h2 { margin: 0 0 8px; font-size: 19px; line-height: 1.4; }
+.lede { margin: 2px 0 0; max-width: 40em; color: #464b58; }
+.silent {
+  display: inline-block;
+  margin-right: 4px;
+  padding: 0 10px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
   font-size: 14px;
+  font-weight: 800;
 }
 
-h1 {
-  margin: 0 0 8px;
-  font: 600 clamp(26px, 6vw, 40px)/1.35 var(--serif);
+.layouts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.layouts a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  color: var(--ink);
+  font-size: 15px;
+  text-decoration: none;
 }
+.layouts a[aria-current="page"] { border-color: var(--ink); background: var(--paper); font-weight: 700; }
 
-h2 {
-  margin: 0 0 8px;
-  font: 600 22px/1.5 var(--serif);
+.statusbar { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; min-width: 0; }
+.count {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 2px 14px;
+  border-radius: 999px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
+.count[data-state="ok"] { background: var(--teal-wash); border-color: var(--teal); color: var(--teal); }
+.count[data-state="bad"] { background: var(--error-wash); border-color: var(--error); color: var(--error); }
+.status { margin: 0; flex: 1 1 16rem; min-width: 0; color: var(--muted); font-size: 15px; }
+.status[data-state="error"] { color: var(--error); font-weight: 700; }
 
-.sub {
-  margin: 20px 0 4px;
-  font-size: 16px;
+.failure {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+  padding: 12px 16px;
+  border: 1px solid var(--error);
+  border-left: 6px solid var(--error);
+  border-radius: 10px;
+  background: var(--error-wash);
 }
+.failure p { margin: 0; }
+.failure-title { font-weight: 800; color: var(--error); }
+.hint { color: var(--muted); font-size: 15px; }
 
-.lede {
-  margin: 0 0 20px;
-  max-width: 46em;
-}
-
-.stage {
-  margin: 0 0 12px;
-  min-width: 0;
-}
-
+.stage { margin: 0; min-width: 0; }
 #film {
   display: block;
   width: 100%;
-  height: auto;
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  border-radius: 8px;
-}
-
-.stage figcaption {
-  margin-top: 8px;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 12px;
+  max-width: 100%;
   min-width: 0;
+  height: auto;
+  margin: 0 auto;
+  background: var(--ivory);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
 }
+/* Portrait preview stays phone-sized on wide screens. */
+.stage.is-tall #film { width: min(100%, 420px); }
+
+.controls { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px 20px; min-width: 0; }
+.buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; min-width: 0; }
 
 button {
   min-width: 44px;
   min-height: 44px;
-  padding: 0 20px;
-  border: 2px solid var(--teal);
-  border-radius: 8px;
-  background: var(--teal);
-  color: #ffffff;
-  font: 700 16px/1.2 var(--sans);
-  cursor: pointer;
-}
-
-button[aria-pressed="true"] {
-  background: var(--card);
-  color: var(--teal);
-}
-
-#reload {
-  background: var(--card);
-  color: var(--rust);
-  border-color: var(--rust);
-}
-
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.time-label {
+  max-width: 100%;
+  padding: 8px 18px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px;
   font-weight: 700;
+  line-height: 1.4;
+  cursor: pointer;
+  touch-action: manipulation;
 }
+button:disabled { opacity: 0.45; cursor: not-allowed; }
+#play:not(:disabled) { min-width: 9em; background: var(--ink); color: var(--paper); }
+#retry { border-color: var(--error); color: var(--error); }
 
-#time {
-  flex: 1 1 180px;
+.scrub { display: grid; flex: 1 1 14rem; min-width: 0; }
+.scrub label { font-size: 14px; font-weight: 700; color: var(--muted); }
+input[type="range"] {
+  width: 100%;
   min-width: 0;
   min-height: 44px;
   margin: 0;
+  font: inherit;
   font-size: 16px;
-  accent-color: var(--teal);
+  accent-color: var(--ink);
 }
 
-#clock {
-  min-width: 8.5em;
-  font: 16px/1.4 var(--mono);
-}
-
-:focus-visible {
-  outline: 3px solid var(--rust);
-  outline-offset: 3px;
-}
-
-.status {
-  margin: 12px 0 0;
-  font-weight: 700;
-}
-
-.status[data-state="ready"] {
-  color: var(--teal);
-}
-
-.status[data-state="error"] {
-  color: var(--rust);
-}
-
-.detail,
-.keys {
-  margin: 4px 0 0;
-  color: var(--muted);
-  font-size: 15px;
-}
-
-.block {
-  margin-top: 32px;
-  padding-top: 20px;
-  border-top: 1px solid var(--rule);
-}
-
-.scenes,
-.scope {
-  margin: 0;
-  padding-left: 1.4em;
-}
-
-.scenes li,
-.scope li {
-  margin: 4px 0;
-}
-
-.when {
-  display: inline-block;
-  min-width: 6.5em;
-  margin-right: 8px;
-  color: var(--teal);
-  font-weight: 700;
-}
-
-.links {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.links a {
+output {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  color: var(--teal);
-  text-underline-offset: 3px;
+  font-size: 16px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
 
-.verified {
-  margin: 0;
-  padding-left: 1.4em;
-  color: var(--muted);
-  font-size: 14px;
+.info {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  background: var(--paper);
+}
+.info p { margin: 0 0 8px; font-size: 15px; color: #464b58; }
+
+.scene-list { display: grid; gap: 8px; margin: 8px 0 0; padding: 0; list-style: none; }
+.scene-list button {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 12px;
+  width: 100%;
+  border-width: 1px;
+  border-color: var(--rule);
+  border-radius: 12px;
+  text-align: left;
+  font-weight: 600;
+}
+.scene-time { color: var(--warm-ink); font-weight: 800; font-variant-numeric: tabular-nums; }
+
+.asset-list { display: grid; gap: 6px; margin: 8px 0 0; padding-left: 1.4em; }
+.asset-list li { min-width: 0; font-size: 15px; }
+.asset-list code { font-weight: 700; }
+.asset-state { font-weight: 800; color: var(--muted); }
+.asset-state.is-ok { color: var(--teal); }
+.asset-state.is-bad { color: var(--error); }
+
+.focus-list { display: grid; gap: 6px; margin: 12px 0 0; padding-left: 1.2em; }
+.focus-list li { min-width: 0; font-size: 15px; color: #464b58; }
+.focus-list:empty { display: none; }
+
+.links { display: grid; gap: 0; margin: 8px 0 0; padding-left: 1.2em; }
+.links a { display: inline-flex; align-items: center; min-height: 44px; max-width: 100%; }
+
+summary { min-height: 44px; padding: 10px 0; font-weight: 700; cursor: pointer; }
+
+@media (min-width: 720px) {
+  h1 { font-size: 32px; }
 }
 
-code {
-  font-family: var(--mono);
+@media (hover: hover) and (pointer: fine) {
+  button:hover:not(:disabled) { background: #f1ece0; }
+  #play:hover:not(:disabled) { background: #343a48; }
+  .layouts a:hover { border-color: var(--ink); }
 }
 
-/* 書き出し時：キャンバスだけを、指定した大きさのまま左上に置く */
+/* Renderer (window.__MOTION_RENDER__): the same canvas only, at the exact composition size. */
 html.is-render,
 html.is-render body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background: var(--paper);
+  background: var(--ivory);
 }
-
-html.is-render .page {
+html.is-render #editor {
+  display: block;
   max-width: none;
+  margin: 0;
   padding: 0;
 }
-
-html.is-render .page > :not(.stage),
-html.is-render .stage figcaption {
-  display: none;
-}
-
-html.is-render .stage {
-  margin: 0;
-}
-
+html.is-render .chrome { display: none !important; }
+html.is-render .stage { margin: 0; }
 html.is-render #film {
+  max-width: none;
+  margin: 0;
   border: 0;
   border-radius: 0;
 }

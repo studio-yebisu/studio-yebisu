@@ -1,1076 +1,1624 @@
-/* 点数と根拠を、セットで読む（Ragas 作例）— 28秒・無音の解説映像（編集できる元ページ）
- * Canvas 2D で、時刻 t の完成した画面を毎回最初から描く。前のフレーム・壁時計・乱数には依存しない。
- * 使う素材は、架空FAQの入力・Ragasの保存結果・評価の方法・ブラウザーで保存したJSON・実操作の記録・
- * 実画面の静止キャプチャ6枚とその記録の12ファイルだけ。全てSHA-256で照合してから描く。
- * 値・文・件数は読み込んだファイルから取り出す。照合メモは入力の記入で、Ragasの判定ではない。
- * Copyright (c) 2026 Studio Yebisu. MIT License. */
+/*
+ * Studio Yebisu — Ragas 作例・動く概念図（32秒・無音）
+ * Copyright (c) 2026 Studio Yebisu. MIT License. Diagram and film authored by Claude Opus 5.5.
+ *
+ * One connected drawing: an open reference book and two frozen answer strips (変更前 / 変更後) feed three
+ * physical measuring tools — a notched overlay (同じ文字 / ExactMatch), a character ruler (文字の近さ /
+ * NonLLMStringSimilarity, Levenshtein) and a transparent sleeve the size of the whole reference (全文を含む /
+ * StringPresence) — whose values lead to one saved question. A miniature of the same strip, with the same clock,
+ * attachment or condition marks, travels into, through and out of the tools. The editor's memo hangs from the book
+ * as a separate warm branch (照合メモ・入力); it is supplied input, never a verdict of the tools.
+ *
+ * Every string, hour and value is read from the saved original result (assets/evaluation.json) after the manifest
+ * and all seven assets match their pinned SHA-256 and byte counts and the records agree with each other.
+ * No audio, no live execution, no recomputed metric, no fallback data.
+ */
+(() => {
+  "use strict";
 
-// ---- 書き出し条件 ---------------------------------------------------------
-const RENDER = window.__MOTION_RENDER__ === true;
-const DURATION = 28;
-const POSTER_TIME = 13.5;
-const LW = 1280, LH = 720; // 論理座標。実際の大きさへは等倍率で収め、余りは紙の色で埋める
-const given = window.renderConfig && typeof window.renderConfig === 'object' ? window.renderConfig : {};
-const evenSize = (v, fallback) => (Number.isInteger(v) && v >= 16 && v <= 4096 && v % 2 === 0 ? v : fallback);
-const WIDTH = evenSize(given.width, 1280);
-const HEIGHT = evenSize(given.height, 720);
-const FPS = Number.isInteger(given.fps) && given.fps >= 1 && given.fps <= 120 ? given.fps : 30;
-window.motionConfig = {duration: DURATION, fps: FPS, width: WIDTH, height: HEIGHT, posterTime: POSTER_TIME, audioEvents: []};
+  // --- Composition contract -------------------------------------------------------------------
 
-const root = document.documentElement;
-if (RENDER) root.classList.add('is-render');
-const canvas = document.getElementById('film');
-const ctx = canvas.getContext('2d');
-const density = RENDER ? 1 : Math.min(2, Math.max(1, window.devicePixelRatio || 1));
-canvas.width = Math.round(WIDTH * density);
-canvas.height = Math.round(HEIGHT * density);
-canvas.style.aspectRatio = WIDTH + ' / ' + HEIGHT;
-if (RENDER) {
-  canvas.style.width = WIDTH + 'px';
-  canvas.style.height = HEIGHT + 'px';
-}
+  const RENDER = window.__MOTION_RENDER__ === true;
+  const requested = window.renderConfig && typeof window.renderConfig === "object" ? window.renderConfig : {};
+  const positiveInt = (value, fallback) => (Number.isInteger(value) && value > 0 ? value : fallback);
+  const WIDE_PREVIEW = !RENDER && new URLSearchParams(location.search).get("layout") === "wide";
+  const W = positiveInt(requested.width, WIDE_PREVIEW ? 1280 : 720);
+  const H = positiveInt(requested.height, WIDE_PREVIEW ? 720 : 1280);
+  const FPS = positiveInt(requested.fps, 30);
+  const DURATION = 32;
+  const POSTER_TIME = 31;
+  window.motionConfig = { duration: DURATION, fps: FPS, width: W, height: H, posterTime: POSTER_TIME, audioEvents: [] };
 
-// ---- 見た目（閲覧ページと同じ、温かい紙・墨・深い青緑・錆色） ------------------
-const C = {
-  paper: '#f5f0e6', card: '#fcf9f2', sunk: '#ece4d4', ink: '#25211c', muted: '#5b5348',
-  rule: '#d9cfbd', strong: '#8a7b67', teal: '#15605b', tealSoft: '#dcebe7',
-  rust: '#9b3f1d', rustSoft: '#f4dac6'
-};
-const METRIC_COLORS = [C.teal, C.rust, C.ink]; // 完全一致・文字列の近さ・基準文の包含
-const SANS = '"Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", Meiryo, system-ui, sans-serif';
-const SERIF = '"Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", "BIZ UDMincho", serif';
-const MONO = 'ui-monospace, "SFMono-Regular", Consolas, "BIZ UDGothic", monospace';
+  // --- Frozen expectations --------------------------------------------------------------------
 
-// ---- 素材 ------------------------------------------------------------------
-// 照合表 assets/data-hashes.json 自体の SHA-256（runtime/frozen-reviewed-source.json の値）。
-// 照合表の12ファイルのパスは作例フォルダーからの相対で、このモジュールの1つ上を基準に解決する。
-// 書き出し時に <base href="video/"> が入っても import.meta.url 基準なので同じ場所を指す。
-const HASH_MANIFEST = {path: 'assets/data-hashes.json', sha256: '5a6126a999ceb2e52b6755ee110307ccf9c3e794ff041e7acafdc5815ea90a20'};
-const FILES = {
-  'input/faq-pairs.json': {key: 'input', kind: 'json'},
-  'outputs/evaluation.json': {key: 'evaluation', kind: 'json'},
-  'outputs/method.md': {key: 'method', kind: 'text'},
-  'outputs/browser-selection.json': {key: 'selection', kind: 'json'},
-  'outputs/browser-record.json': {key: 'record', kind: 'json'},
-  'video/assets/screen-manifest.json': {key: 'screens', kind: 'json'},
-  'video/assets/desktop-Q07.png': {key: 'dQ07', kind: 'png'},
-  'video/assets/desktop-Q08.png': {key: 'dQ08', kind: 'png'},
-  'video/assets/desktop-Q05.png': {key: 'dQ05', kind: 'png'},
-  'video/assets/phone-initial.png': {key: 'pInitial', kind: 'png'},
-  'video/assets/phone-Q07.png': {key: 'pQ07', kind: 'png'},
-  'video/assets/phone-Q08.png': {key: 'pQ08', kind: 'png'}
-};
-const SOURCE_REPO = 'vibrantlabsai/ragas';
-const SOURCE_COMMIT = '298b68274234c060deacab3cf5fb52aa3a20e885';
-const QUESTION_IDS = ['Q01', 'Q02', 'Q03', 'Q04', 'Q05', 'Q06', 'Q07', 'Q08', 'Q09', 'Q10'];
-const DOC_IDS = ['D01', 'D02', 'D03', 'D04', 'D05', 'D06', 'D07', 'D08', 'D09', 'D10'];
-const STAGES = ['before', 'after'];
-const METRIC_IDS = ['exact_match', 'string_similarity', 'string_presence'];
-const LABELS = ['grounded', 'contradiction', 'unsupported_addition'];
-const SELECTION_BYTES = 3396;        // 制作時の実操作で保存した nagi-faq-Q07.json の大きさ
-const SELECTION_PREFIX = 'nagi-faq-'; // 閲覧ページが付ける保存名の頭
-
-// 結果に保存された集計（丸めない値）。読み込んだ値がこれと違えば描かない
-const EXPECT_SUMMARY = {
-  case_count: 10,
-  before: {mean: {exact_match: 0.4, string_similarity: 0.7884922267275208, string_presence: 0.4}, exact_match_count: 4, string_presence_count: 4},
-  after: {mean: {exact_match: 0.7, string_similarity: 0.8835109447004609, string_presence: 0.8}, exact_match_count: 7, string_presence_count: 8}
-};
-// 映像で読む3問（入力の文字列と、実行結果の変更後の値）
-const FOCUS = {
-  Q07: {
-    reference: '予約の取り消しは、受取予定日の前日18時までに連絡してください。',
-    after: '予約の取り消しは、受取予定日の前日19時までに連絡してください。',
-    label: 'contradiction',
-    scores: {exact_match: 0, string_similarity: 0.96875, string_presence: 0}
-  },
-  Q08: {
-    reference: '閉室中は入口の返却箱へ本を返せます。',
-    after: '閉室中は入口の返却箱へ本を返せます。延滞しても連絡は不要です。',
-    label: 'unsupported_addition',
-    scores: {exact_match: 0, string_similarity: 0.5806451612903225, string_presence: 1}
-  },
-  Q05: {
-    reference: '予約が入っていない本に限り、1回だけ7日間延長できます。',
-    after: 'ほかの人の予約がない本は、あと7日だけ、1度延ばせます。',
-    label: 'grounded',
-    scores: {exact_match: 0, string_similarity: 0.2857142857142857, string_presence: 0}
-  }
-};
-const Q08_ADDITION = '延滞しても連絡は不要です。';
-const Q08_NOTE_SENTENCE = '資料からは真偽を断定できない。';
-const Q05_CONDITIONS = ['予約なし', '1回', '7日間'];
-
-// 実画面の切り抜き（画像の画素座標）と置き場所。倍率は縦横同じで、画素を伸ばさず、上に文字を重ねない。
-// region はスクリーン記録のDOM範囲（全体撮影の都合で近似値）で、切り抜きがそれを含むことを確かめる
-const CROPS = {
-  phoneTop: {img: 'pInitial', x: 0, y: 0, w: 375, h: 520, at: {x: 80, y: 182, s: 0.86}},          // 見出し・検索・絞り込み・件数
-  phoneSummary: {img: 'pInitial', x: 0, y: 528, w: 375, h: 284, at: {x: 800, y: 182, s: 1}},       // 10問の平均 変更前→変更後
-  q07Answer: {img: 'dQ07', x: 635, y: 1996, w: 568, h: 240, at: {x: 662, y: 352, s: 0.945}, region: ['desktop-Q07.png', 'answer', 1]},
-  q08Phone: {img: 'pQ08', x: 20, y: 176, w: 335, h: 350, at: {x: 860, y: 182, s: 1}},             // 変更後の回答と照合メモ（入力）
-  q05Answer: {img: 'dQ05', x: 635, y: 1996, w: 568, h: 240, at: {x: 662, y: 352, s: 0.945}, region: ['desktop-Q05.png', 'answer', 1]},
-  q07PhoneScores: {img: 'pQ07', x: 0, y: 378, w: 375, h: 322, at: {x: 760, y: 182, s: 1.15}}      // Ragasの計算結果（保存済み）
-};
-
-const CORE = '点数と根拠を、セットで読む。';
-const FOOTER_SCOPE = '架空FAQの固定回答を比較／実結果を編集・無音';
-const FOOTER_NOTE = '照合メモは入力・Ragasの判定ではありません';
-const SOURCE_PIN = `${SOURCE_REPO} ${SOURCE_COMMIT.slice(0, 7)} ・ Apache-2.0`;
-const SCENES = [
-  {id: 'setup', start: 0, end: 4, headline: () => '同じ10問を、2組の回答で。'},
-  {id: 'count', start: 4, end: 8, headline: f => `完全一致は${f.count.before}件→${f.count.after}件。`},
-  {id: 'q07', start: 8, end: 14, headline: f => `一文字違いでも、${fmt3(f.q07.scores.string_similarity)}。`},
-  {id: 'q08', start: 14, end: 19, headline: () => '全文が入っていても、追記は見ない。'},
-  {id: 'q05', start: 19, end: 23, headline: () => '言い換えると、完全一致は0。'},
-  {id: 'save', start: 23, end: 28, headline: () => '問いを選び、根拠ごと保存。'}
-];
-const CONTENT_TOP = 134, CONTENT_BOTTOM = 658;
-
-// ---- 時刻の関数（すべて絶対時刻 t から閉形式で求める） ---------------------
-const clamp01 = x => (x < 0 ? 0 : x > 1 ? 1 : x);
-const prog = (t, a, b) => clamp01((t - a) / (b - a));
-const easeOut = x => 1 - Math.pow(1 - x, 3);
-const easeInOut = x => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
-const enter = (t, at, dur = 0.45) => easeOut(prog(t, at, at + dur));
-const rise = (t, at, dur = 0.45, px = 12) => px * (1 - enter(t, at, dur));
-// 場面の切り替えは0.5秒の重ね合わせ。上の見出し行と足元の注記はいつも残す
-const XF = 0.25;
-function sceneAlpha(t, i) {
-  const s = SCENES[i];
-  const a = i === 0 ? 1 : easeInOut(prog(t, s.start - XF, s.start + XF));
-  const b = i === SCENES.length - 1 ? 1 : 1 - easeInOut(prog(t, s.end - XF, s.end + XF));
-  return Math.min(a, b);
-}
-const fmt3 = v => Number(v).toFixed(3);
-
-// ---- 読み込みと確認 --------------------------------------------------------
-const hex = buffer => [...new Uint8Array(buffer)].map(b => b.toString(16).padStart(2, '0')).join('');
-const check = (ok, message) => {
-  if (!ok) throw new Error('記録の確認に失敗：' + message);
-};
-const sameList = (a, b) => Array.isArray(a) && Array.isArray(b) && a.length === b.length && a.every((v, i) => v === b[i]);
-function deepEqual(a, b) {
-  if (a === b) return true;
-  if (typeof a !== 'object' || typeof b !== 'object' || a === null || b === null) return false;
-  if (Array.isArray(a) !== Array.isArray(b)) return false;
-  if (Array.isArray(a)) return a.length === b.length && a.every((v, i) => deepEqual(v, b[i]));
-  const ka = Object.keys(a).sort(), kb = Object.keys(b).sort();
-  return sameList(ka, kb) && ka.every(k => deepEqual(a[k], b[k]));
-}
-
-async function fetchVerified(url, label, expected) {
-  let response;
-  try {
-    response = await fetch(url, {cache: 'no-store'});
-  } catch {
-    throw new Error(`${label} を読み込めません。file:// ではなくローカルサーバーで開いてください`);
-  }
-  if (!response.ok) throw new Error(`${label} が HTTP ${response.status} でした`);
-  const bytes = await response.arrayBuffer();
-  const digest = hex(await crypto.subtle.digest('SHA-256', bytes));
-  if (digest !== expected) throw new Error(`${label} のSHA-256が制作記録と違います（${digest}）`);
-  return {bytes, digest};
-}
-function decodeText(bytes) {
-  let body = new TextDecoder('utf-8', {fatal: true}).decode(bytes);
-  if (body.charCodeAt(0) === 0xfeff) body = body.slice(1);
-  return body;
-}
-// 照合済みのバイト列だけから画像を作る（元の縦横比のまま）
-async function decodePng(bytes, label) {
-  try {
-    return await createImageBitmap(new Blob([bytes], {type: 'image/png'}));
-  } catch {
-    throw new Error(`${label} を画像として読み込めません`);
-  }
-}
-
-async function loadAll() {
-  const manifest = await fetchVerified(new URL(HASH_MANIFEST.path, import.meta.url), 'video/' + HASH_MANIFEST.path, HASH_MANIFEST.sha256);
-  const table = JSON.parse(decodeText(manifest.bytes));
-  const hashes = table && table.files;
-  check(hashes && typeof hashes === 'object' && !Array.isArray(hashes), '照合表の形');
-  const listed = Object.keys(hashes).sort();
-  check(sameList(listed, Object.keys(FILES).sort()), `照合表のファイル（${listed.length}件）`);
-  const data = {}, sizes = {}, verified = [];
-  await Promise.all(listed.map(async path => {
-    check(/^[A-Za-z0-9_\-/.]+$/.test(path) && !path.split('/').includes('..') && !path.startsWith('/'), `${path} のパス`);
-    const expected = String(hashes[path]);
-    check(/^[0-9a-f]{64}$/.test(expected), `${path} の照合値`);
-    const {bytes, digest} = await fetchVerified(new URL('../' + path, import.meta.url), path, expected);
-    const spec = FILES[path];
-    sizes[path] = bytes.byteLength;
-    if (spec.kind === 'png') data[spec.key] = await decodePng(bytes, path);
-    else if (spec.kind === 'json') data[spec.key] = JSON.parse(decodeText(bytes));
-    else data[spec.key] = decodeText(bytes);
-    verified.push({path, digest});
-  }));
-  verified.sort((a, b) => a.path.localeCompare(b.path));
-  check(verified.length === Object.keys(FILES).length, '照合したファイルの数');
-  return {data, sizes, verified, hashes};
-}
-
-// 参照文と回答の、前後で一致しない範囲（コードポイント単位）
-function diffRange(a, b) {
-  const A = [...a], B = [...b];
-  let p = 0;
-  while (p < A.length && p < B.length && A[p] === B[p]) p++;
-  let s = 0;
-  while (s < A.length - p && s < B.length - p && A[A.length - 1 - s] === B[B.length - 1 - s]) s++;
-  return {
-    pre: A.slice(0, p).join(''),
-    a: A.slice(p, A.length - s).join(''),
-    b: B.slice(p, B.length - s).join(''),
-    post: A.slice(A.length - s).join('')
+  const MANIFEST = {
+    path: "assets/manifest.json",
+    sha256: "2543fb265ff55dafe5a70b8895c6c4d7fbfd4d3d5d1ce99656a5f4f8caf4b20e",
+    format: "studio-yebisu-visual-assets-v1",
   };
-}
-
-function buildFacts(d, hashes, sizes) {
-  const {input: inp, evaluation: ev, method, selection: sel, record: rec, screens} = d;
-
-  // 入力：作例のために書いた架空FAQ。資料10件・問い10件・固定回答20件・照合メモ
-  check(inp.format === 'studio-yebisu-faq-fixture-v1' && inp.fictional === true, '入力の形式と架空の印');
-  check(sameList((inp.documents || []).map(x => x.id), DOC_IDS), '資料10件のID');
-  check(sameList((inp.cases || []).map(x => x.id), QUESTION_IDS), '問い10件のID');
-  check(typeof inp.annotation_source === 'string' && inp.annotation_source.includes('Ragas') && inp.annotation_source.includes('ではなく'), '照合メモの出所の説明');
-  check(deepEqual(Object.keys(inp.label_meanings || {}).sort(), [...LABELS].sort()), '照合メモのラベル3種');
-  const docs = new Map(inp.documents.map(x => [x.id, x]));
-  inp.cases.forEach((q, i) => {
-    check(sameList(q.reference_document_ids, [DOC_IDS[i]]), `${q.id} の根拠資料`);
-    check(q.reference === docs.get(DOC_IDS[i]).text, `${q.id} の参照文が資料本文と同じ`);
-    STAGES.forEach(st => {
-      check(q[st] && typeof q[st].response === 'string' && q[st].response.length > 0, `${q.id} ${st} の回答`);
-      check(q[st].annotation && LABELS.includes(q[st].annotation.label) && typeof q[st].annotation.note === 'string', `${q.id} ${st} の照合メモ`);
-    });
-  });
-
-  // 結果：固定版Ragasの3指標を60回呼んだ保存値。入力の20回答とメモがそのまま残っている
-  check(ev.format === 'studio-yebisu-ragas-result-v1' && ev.fictional === true, '結果の形式と架空の印');
-  check(ev.input_sha256 === hashes['input/faq-pairs.json'], '結果に書かれた入力のSHA-256');
-  check(ev.source && ev.source.repository === SOURCE_REPO && ev.source.commit === SOURCE_COMMIT, '原典のコミット');
-  const rt = ev.runtime || {};
-  check(rt.metric_calls === 60 && Array.isArray(rt.network_attempts) && rt.network_attempts.length === 0 && rt.tracking_disabled === true, '呼び出し回数・通信の試み・送信停止の記録');
-  check(sameList((ev.metrics || []).map(m => m.id), METRIC_IDS), '3指標');
-  check(ev.annotation_source === inp.annotation_source && deepEqual(ev.label_meanings, inp.label_meanings), '照合メモの出所とラベルの意味');
-  check(deepEqual(ev.documents, inp.documents), '結果の資料10件');
-  check(Array.isArray(ev.rows) && sameList(ev.rows.map(r => r.id), QUESTION_IDS), '結果の10問');
-  let scoreCount = 0;
-  ev.rows.forEach((r, i) => {
-    const q = inp.cases[i];
-    check(r.question === q.question && r.reference === q.reference && sameList(r.reference_document_ids, q.reference_document_ids), `${r.id} の問いと参照文`);
-    STAGES.forEach(st => {
-      check(r[st].response === q[st].response && deepEqual(r[st].annotation, q[st].annotation), `${r.id} ${st} の回答と照合メモが入力と同じ`);
-      check(r[st].scores && sameList(Object.keys(r[st].scores).sort(), [...METRIC_IDS].sort()), `${r.id} ${st} の3つの値`);
-      METRIC_IDS.forEach(m => {
-        const v = r[st].scores[m];
-        check(typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <= 1, `${r.id} ${st} の ${m}`);
-        scoreCount += 1;
-      });
-      // 完全一致と包含は、文字列そのものから同じ値になる
-      check(r[st].scores.exact_match === (r[st].response === r.reference ? 1 : 0), `${r.id} ${st} の完全一致と文字列`);
-      check(r[st].scores.string_presence === (r[st].response.includes(r.reference) ? 1 : 0), `${r.id} ${st} の包含と文字列`);
-    });
-  });
-  check(scoreCount === rt.metric_calls && scoreCount === QUESTION_IDS.length * STAGES.length * METRIC_IDS.length, '値の数（10問×2回答×3指標）');
-  check(deepEqual(ev.summary, EXPECT_SUMMARY), '平均と件数の保存値');
-  STAGES.forEach(st => {
-    METRIC_IDS.forEach(m => {
-      const mean = ev.rows.reduce((sum, r) => sum + r[st].scores[m], 0) / ev.rows.length;
-      check(Math.abs(mean - ev.summary[st].mean[m]) < 1e-12, `${st} の ${m} の平均`);
-    });
-    check(ev.rows.filter(r => r[st].scores.exact_match === 1).length === ev.summary[st].exact_match_count, `${st} の完全一致の件数`);
-    check(ev.rows.filter(r => r[st].scores.string_presence === 1).length === ev.summary[st].string_presence_count, `${st} の包含の件数`);
-  });
-  const row = id => ev.rows.find(r => r.id === id);
-  for (const [id, e] of Object.entries(FOCUS)) {
-    const r = row(id);
-    check(r.reference === e.reference && r.before.response === e.reference && r.before.scores.exact_match === 1, `${id} の参照文と変更前`);
-    check(r.after.response === e.after && r.after.annotation.label === e.label && deepEqual(r.after.scores, e.scores), `${id} の変更後の回答・照合メモ・値`);
-  }
-
-  // 評価の方法：原典のコミットと、照合メモが自動の判定でも承認でもないこと
-  check(method.includes(SOURCE_COMMIT) && method.includes('Ragasの自動意味判定や人承認ではありません'), '評価の方法の記録');
-
-  // ブラウザーで実際に保存したJSON：結果のQ07の行・資料D07・3指標の定義をそのまま含む
-  check(sizes['outputs/browser-selection.json'] === SELECTION_BYTES, '保存JSONの大きさ');
-  check(sel.format === 'studio-yebisu-ragas-selection-v1' && sel.fictional === true, '保存JSONの形式と架空の印');
-  check(sel.input_sha256 === ev.input_sha256 && deepEqual(sel.source, ev.source), '保存JSONの入力SHA-256と原典');
-  check(deepEqual(sel.metrics, ev.metrics), '保存JSONの3指標の定義');
-  check(sel.selected && sel.selected.id === 'Q07' && deepEqual(sel.selected, row('Q07')), '保存JSONの行が結果のQ07と同じ');
-  check(deepEqual(sel.documents, [docs.get('D07')]), '保存JSONの根拠資料D07');
-  check(sel.annotation_source === ev.annotation_source, '保存JSONの照合メモの出所');
-
-  // 実操作の記録：保存JSONのSHA-256、初期表示と保存の状態
-  check(rec.native_selection_sha256 === hashes['outputs/browser-selection.json'] && rec.source_and_scored_row_match === true, '実操作の記録と保存JSON');
-  const state = label => (rec.states || []).find(s => s.label === label);
-  const initial = state('initial');
-  check(initial && initial.selected === 'Q07' && sameList(initial.ids, QUESTION_IDS) && initial.errorVisible === false, '記録 initial');
-  const exported = state('export-Q07');
-  check(exported && exported.selected === 'Q07' && exported.exportDisabled === false, '記録 export-Q07');
-
-  // 実画面：記録の SHA-256・大きさ、切り抜きが画像の内側で、記録したDOM範囲を含むこと
-  check(Array.isArray(screens.screens) && screens.screens.length === 6, '実画面の記録');
-  const keyOf = file => FILES['video/assets/' + file] && FILES['video/assets/' + file].key;
-  screens.screens.forEach(s => {
-    const img = d[keyOf(s.file)];
-    check(img && img.width === s.width && img.height === s.height, `${s.file} の大きさ`);
-    check(s.sha256 === hashes['video/assets/' + s.file], `${s.file} のSHA-256`);
-  });
-  for (const [name, crop] of Object.entries(CROPS)) {
-    const img = d[crop.img];
-    check(crop.x >= 0 && crop.y >= 0 && crop.x + crop.w <= img.width && crop.y + crop.h <= img.height, `${name} の切り抜き範囲`);
-    const right = crop.at.x + crop.w * crop.at.s, bottom = crop.at.y + crop.h * crop.at.s;
-    check(right <= 1200.5 && bottom <= CONTENT_BOTTOM, `${name} の置き場所`);
-    if (crop.region) {
-      const [file, selector, index] = crop.region;
-      const regions = screens.screens.find(s => s.file === file).dom_capture.regions.filter(r => r.selector === selector);
-      const r = regions[index];
-      check(r && r.x >= crop.x && r.y >= crop.y && r.x + r.width <= crop.x + crop.w && r.y + r.height <= crop.y + crop.h, `${name} が ${selector} を含む`);
-    }
-  }
-
-  // 映像に出す値（すべて読み込んだファイルから取り出す）
-  const q7 = row('Q07'), q8 = row('Q08'), q5 = row('Q05');
-  const d7 = diffRange(q7.reference, q7.after.response);
-  const len7 = [...q7.reference].length;
-  check([...d7.a].length === 1 && [...d7.b].length === 1 && [...q7.after.response].length === len7, 'Q07 は1字の置換');
-  check(Math.abs(1 - 1 / len7 - q7.after.scores.string_similarity) < 1e-12, 'Q07 の近さが 1 − 1/文字数');
-  const t7a = q7.reference.match(/\d+時/), t7b = q7.after.response.match(/\d+時/);
-  check(t7a && t7b && t7a[0] !== t7b[0], 'Q07 の期限の時刻');
-  check(q8.after.response.startsWith(q8.reference), 'Q08 の回答が参照文から始まる');
-  const addition = q8.after.response.slice(q8.reference.length);
-  check(addition === Q08_ADDITION && q8.after.annotation.note.includes(Q08_NOTE_SENTENCE), 'Q08 の追記と照合メモ');
-  const conditions = q5.after.annotation.note.split('を保持')[0].split('・');
-  check(sameList(conditions, Q05_CONDITIONS), 'Q05 の照合メモの3条件');
-  const dropped = ev.rows.filter(r => r.before.scores.exact_match === 1 && r.after.scores.exact_match === 0).map(r => r.id);
-  check(sameList(dropped, ['Q05', 'Q07', 'Q08']), '変更後に完全一致が0になった問い');
-
-  return {
-    img: d,
-    title: inp.title,
-    meanings: inp.label_meanings,
-    docIds: inp.documents.map(x => x.id),
-    qIds: ev.rows.map(r => r.id),
-    rows: ev.rows,
-    metrics: ev.metrics,
-    calls: rt.metric_calls,
-    count: {before: ev.summary.before.exact_match_count, after: ev.summary.after.exact_match_count, total: ev.summary.case_count},
-    dropped,
-    q07: {id: q7.id, doc: q7.reference_document_ids[0], reference: q7.reference, after: q7.after.response, d: d7, len: len7,
-      refTime: t7a[0], afterTime: t7b[0], label: q7.after.annotation.label, scores: q7.after.scores},
-    q08: {id: q8.id, doc: q8.reference_document_ids[0], reference: q8.reference, addition, addLen: [...addition].length,
-      label: q8.after.annotation.label, scores: q8.after.scores},
-    q05: {id: q5.id, doc: q5.reference_document_ids[0], reference: q5.reference, after: q5.after.response, conditions,
-      label: q5.after.annotation.label, scores: q5.after.scores},
-    saved: {
-      filename: SELECTION_PREFIX + sel.selected.id + '.json',
-      bytes: sizes['outputs/browser-selection.json'],
-      rows: [
-        ['selected.id', sel.selected.id],
-        ['after.scores.exact_match', sel.selected.after.scores.exact_match],
-        ['after.scores.string_similarity', sel.selected.after.scores.string_similarity],
-        ['after.scores.string_presence', sel.selected.after.scores.string_presence],
-        ['documents[0].id', sel.documents[0].id],
-        ['fictional', sel.fictional]
-      ]
-    }
-  };
-}
-
-// ---- 描画の部品 ------------------------------------------------------------
-function font(o) {
-  const family = o.family === 'serif' ? SERIF : o.family === 'mono' ? MONO : SANS;
-  return `${o.weight || 400} ${o.size || 20}px ${family}`;
-}
-function text(c, s, x, y, o = {}) {
-  c.save();
-  c.font = font(o);
-  c.fillStyle = o.color || C.ink;
-  c.textAlign = o.align || 'left';
-  c.textBaseline = 'alphabetic';
-  c.fillText(s, x, y);
-  c.restore();
-}
-function measure(c, s, o) {
-  c.save();
-  c.font = font(o);
-  const w = c.measureText(s).width;
-  c.restore();
-  return w;
-}
-// 測った幅に収まるまで1pxずつ小さくする（下限あり）
-function fitSize(c, lines, maxWidth, o, min) {
-  let size = o.size;
-  while (size > min && lines.some(s => measure(c, s, {...o, size}) > maxWidth)) size -= 1;
-  return size;
-}
-function fitText(c, s, x, y, maxWidth, o, min) {
-  const size = fitSize(c, [s], maxWidth, o, min);
-  text(c, s, x, y, {...o, size});
-  return measure(c, s, {...o, size});
-}
-// 日本語の折り返し：測った幅で折り、行頭・行末の禁則を守る。英数字の語とパスは分けない
-const NO_START = '、。，．・：；？！ー）」』】〕〉》ぁぃぅぇぉっゃゅょゎァィゥェォッャュョヮ…‥';
-const NO_END = '（「『【〔〈《';
-function wrapLines(c, s, maxWidth, o) {
-  c.save();
-  c.font = font(o);
-  const lines = [];
-  const tokens = String(s).match(/[A-Za-z0-9][A-Za-z0-9._\-/[\]()]*|\s+|[\s\S]/gu) || [];
-  let line = '';
-  for (const token of tokens) {
-    const next = line + token;
-    if (line.trim() && !/^\s+$/.test(token) && c.measureText(next).width > maxWidth) {
-      let carry = token;
-      if (NO_START.includes(token[0]) && line.length > 1) {
-        carry = line.slice(-1) + carry;
-        line = line.slice(0, -1);
-      }
-      while (line.length > 1 && NO_END.includes(line.slice(-1))) {
-        carry = line.slice(-1) + carry;
-        line = line.slice(0, -1);
-      }
-      lines.push(line.trimEnd());
-      line = carry.trimStart();
-    } else {
-      line = next;
-    }
-  }
-  if (line.trim()) lines.push(line.trimEnd());
-  c.restore();
-  return lines;
-}
-// 折り返して描き、最後の行のベースラインを返す
-function block(c, s, x, y, maxWidth, lineHeight, o) {
-  const lines = wrapLines(c, s, maxWidth, o);
-  lines.forEach((line, i) => text(c, line, x, y + i * lineHeight, o));
-  return y + (lines.length - 1) * lineHeight;
-}
-// 1行の中で色や下地を変えて描く。幅に収まらなければ全体を小さくする
-function runs(c, segs, x, y, o, maxWidth, min = 24) {
-  const size = fitSize(c, [segs.map(s => s.s).join('')], maxWidth, o, min);
-  let cx = x;
-  segs.forEach(seg => {
-    const so = {...o, size, weight: seg.weight || o.weight};
-    const w = measure(c, seg.s, so);
-    if (seg.bg) {
-      c.save();
-      roundRect(c, cx - 3, y - size * 0.9, w + 6, size * 1.2, 4);
-      c.fillStyle = seg.bg;
-      c.fill();
-      c.restore();
-    }
-    text(c, seg.s, cx, y, {...so, color: seg.color || o.color});
-    cx += w;
-  });
-  return {size, end: cx};
-}
-function roundRect(c, x, y, w, h, r) {
-  const radius = Math.min(r, w / 2, h / 2);
-  c.beginPath();
-  c.moveTo(x + radius, y);
-  c.arcTo(x + w, y, x + w, y + h, radius);
-  c.arcTo(x + w, y + h, x, y + h, radius);
-  c.arcTo(x, y + h, x, y, radius);
-  c.arcTo(x, y, x + w, y, radius);
-  c.closePath();
-}
-function panel(c, x, y, w, h, o = {}) {
-  c.save();
-  c.shadowColor = 'rgba(37, 33, 28, 0.10)';
-  c.shadowBlur = 14;
-  c.shadowOffsetY = 4;
-  roundRect(c, x, y, w, h, o.r || 10);
-  c.fillStyle = o.fill || C.card;
-  c.fill();
-  c.restore();
-  roundRect(c, x + 0.5, y + 0.5, w - 1, h - 1, o.r || 10);
-  c.strokeStyle = o.stroke || C.rule;
-  c.lineWidth = 1;
-  c.stroke();
-}
-function label(c, s, x, y, o = {}) {
-  text(c, s, x, y, {size: 20, weight: 600, color: C.muted, ...o});
-}
-
-// 実画面の切り抜きを、等倍率でそのまま置く（画素は変えず、文字も重ねない）
-function shot(c, f, key, alpha, dy = 0) {
-  if (alpha <= 0.001) return;
-  const crop = CROPS[key], img = f.img[crop.img];
-  const x = crop.at.x, y = crop.at.y + dy, w = crop.w * crop.at.s, h = crop.h * crop.at.s;
-  c.save();
-  c.globalAlpha *= alpha;
-  c.save();
-  c.shadowColor = 'rgba(37, 33, 28, 0.14)';
-  c.shadowBlur = 18;
-  c.shadowOffsetY = 6;
-  roundRect(c, x, y, w, h, 8);
-  c.fillStyle = C.card;
-  c.fill();
-  c.restore();
-  c.save();
-  roundRect(c, x, y, w, h, 8);
-  c.clip();
-  c.drawImage(img, crop.x, crop.y, crop.w, crop.h, x, y, w, h);
-  c.restore();
-  roundRect(c, x + 0.5, y + 0.5, w - 1, h - 1, 8);
-  c.strokeStyle = C.strong;
-  c.lineWidth = 1;
-  c.stroke();
-  c.restore();
-}
-// 大きな数字と、その右の小さな説明
-function bigNumber(c, s, x, y, size, color) {
-  const o = {size, weight: 700};
-  text(c, s, x, y, {...o, color});
-  return measure(c, s, o);
-}
-// 照合メモ（入力）の帯。ラベルは入力の値、文は入力の意味か、入力の文字列から取り出したもの
-function noteBand(c, x, y, w, h, tone) {
-  c.save();
-  roundRect(c, x, y, w, h, 8);
-  c.fillStyle = tone === 'teal' ? C.tealSoft : C.rustSoft;
-  c.fill();
-  c.fillStyle = tone === 'teal' ? C.teal : C.rust;
-  c.fillRect(x, y, 5, h);
-  c.restore();
-}
-
-// ---- いつも出ている枠：題名と原典、足元の範囲の注記 ---------------------------
-function drawChrome(c) {
-  text(c, 'Studio Yebisu ・ Ragas 作例', 80, 48, {size: 20, weight: 600, color: C.muted});
-  text(c, SOURCE_PIN, 1200, 48, {size: 20, weight: 500, color: C.muted, align: 'right'});
-  c.save();
-  c.fillStyle = C.rule;
-  c.fillRect(80, 66, 1120, 1);
-  c.fillRect(80, 664, 1120, 1);
-  c.restore();
-  text(c, FOOTER_SCOPE, 80, 698, {size: 20, weight: 700, color: C.ink});
-  text(c, FOOTER_NOTE, 1200, 698, {size: 20, weight: 700, color: C.rust, align: 'right'});
-}
-
-function drawHeadlines(c, t, f) {
-  SCENES.forEach((s, i) => {
-    const a = sceneAlpha(t, i);
-    if (a <= 0.001) return;
-    const dy = i === 0 ? 0 : 8 * (1 - easeOut(prog(t, s.start - XF, s.start + 0.35)));
-    const line = s.headline(f);
-    const o = {size: 46, weight: 600, family: 'serif'};
-    const size = fitSize(c, [line], 1120, o, 44);
-    c.save();
-    c.globalAlpha = a;
-    text(c, line, 80, 116 + dy, {...o, size});
-    c.restore();
-  });
-}
-
-// ---- 場面 ------------------------------------------------------------------
-// 0〜4秒：スマホの初期表示（実画面）と、入力の10問×2回答×3指標＝60回の図
-function drawSetup(c, t, f) {
-  const a = sceneAlpha(t, 0);
-  if (a <= 0.001) return;
-  c.save();
-  c.globalAlpha = a * enter(t, 0.05);
-  label(c, '実画面・スマホの初期表示', 80, 166);
-  c.globalAlpha = a;
-  shot(c, f, 'phoneTop', enter(t, 0.1), rise(t, 0.1));
-
-  const X0 = 460, GX = 560, CW = 64, BW = 56;
-  c.globalAlpha = a * enter(t, 0.25);
-  label(c, `入力 input/faq-pairs.json ・ ${f.title}（架空）`, X0, 166);
-  const rows = [
-    {name: '資料', y: 190, h: 30, kind: 'doc', at: 0.35},
-    {name: '問い', y: 232, h: 34, kind: 'q', at: 0.55},
-    {name: '変更前', y: 282, h: 34, kind: 'before', at: 0.8},
-    {name: '変更後', y: 326, h: 34, kind: 'after', at: 0.9}
+  const PROJECTION = "faithful projection of original fixed actual results";
+  // Same order and values as the manifest. Paths are relative to video/assets/.
+  const ASSETS = [
+    { file: "evaluation.json", sha256: "b3862890b1ee0d48ebad9991cc99310730cbc3769e4717fdd2e4678348c91ea3", bytes: 17360, source: "outputs/evaluation.json" },
+    { file: "faq-pairs.json", sha256: "d55fcce5eec82974b01d912dcf6f21de94aede03c37d2a16092b6fa9304705a2", bytes: 10374, source: "input/faq-pairs.json" },
+    { file: "metric-source.py", sha256: "9935e46a0a048d4d5a7790abfd0d20c38909231da34b1aab5da5268758b00230", bytes: 6583, source: "vendor/ragas/src/ragas/metrics/collections/_string.py" },
+    { file: "original-verification.json", sha256: "bd1d6d44521bd44eb106ef21e070b396814a0068515b8a69b52c7ef70d54a504", bytes: 15545, source: "verification.json" },
+    { file: "upstream.json", sha256: "39641a2e0be9f97e6943e4d77b5013767486ce6cf03bf5dbbc94a12a83efa79d", bytes: 1573, source: "original upstream metadata" },
+    { file: "diagram-data.json", sha256: "96ddc83082b8c0beff94f5d5f0da73a90e9e14be52dae3b050e8a531141ea075", bytes: 16060, source: PROJECTION },
+    { file: "timeline.json", sha256: "96dfe78632370f4a13891da7c0a1a510f64d84aa2d5a18a0c313e8af898dc683", bytes: 2424, source: PROJECTION },
   ];
-  rows.forEach(r => {
-    c.globalAlpha = a * enter(t, r.at);
-    label(c, r.name, X0, r.y + r.h / 2 + 7, r.kind === 'doc' ? {} : {color: C.ink, weight: 700});
-    for (let i = 0; i < 10; i++) {
-      const x = GX + i * CW;
-      c.globalAlpha = a * enter(t, r.at + i * 0.03, 0.3);
-      roundRect(c, x, r.y, BW, r.h, 5);
-      if (r.kind === 'doc') {
-        c.fillStyle = C.sunk;
-        c.fill();
-        text(c, f.docIds[i], x + BW / 2, r.y + 22, {size: 20, family: 'mono', color: C.muted, align: 'center'});
-        continue;
+  const SHA = Object.fromEntries(ASSETS.map((a) => [a.file, a.sha256]));
+  const PIN = {
+    repository: "vibrantlabsai/ragas",
+    commit: "298b68274234c060deacab3cf5fb52aa3a20e885",
+    license: "Apache-2.0",
+    buildLabel: "0.0.0+studio.298b68274234",
+    python: "3.12.9",
+    rapidfuzz: "3.14.6",
+    metricApi: "ragas.metrics.collections",
+    sourceFiles: 237,
+    packages: 93,
+    calls: 60,
+    inputFormat: "studio-yebisu-faq-fixture-v1",
+    resultFormat: "studio-yebisu-ragas-result-v1",
+    diagramFormat: "studio-yebisu-ragas-visual-facts-v1",
+    timelineFormat: "studio-yebisu-ragas-visual-timeline-v1",
+    ids: ["Q01", "Q02", "Q03", "Q04", "Q05", "Q06", "Q07", "Q08", "Q09", "Q10"],
+    docs: ["D01", "D02", "D03", "D04", "D05", "D06", "D07", "D08", "D09", "D10"],
+    summary: { beforeExact: 4, afterExact: 7, beforePresence: 4, afterPresence: 8, beforeSim: 0.7884922267275208, afterSim: 0.8835109447004609 },
+  };
+  const METRIC_IDS = ["exact_match", "string_similarity", "string_presence"];
+  const METRIC_CLASSES = ["ExactMatch", "NonLLMStringSimilarity", "StringPresence"];
+  const BINARY = new Set(["exact_match", "string_presence"]);
+  const SIDES = ["before", "after"];
+  const SIDE_LABEL = { before: "変更前", after: "変更後" };
+  const LABELS = ["grounded", "contradiction", "unsupported_addition"];
+  const SHORT_LABEL = { grounded: "資料と合う", contradiction: "資料と矛盾", unsupported_addition: "根拠のない追記" };
+  // Plain-text needles in the pinned _string.py. The file is read as text only, never executed.
+  const SOURCE_NEEDLES = [
+    "class ExactMatch(BaseMetric):",
+    "score = float(reference == response)",
+    "class StringPresence(BaseMetric):",
+    "score = float(reference in response)",
+    "class NonLLMStringSimilarity(BaseMetric):",
+    "LEVENSHTEIN = \"levenshtein\"",
+    "].normalized_distance(reference, response)",
+  ];
+  // Real fragments drawn on the book and the strips. Each is checked against the saved strings.
+  const VIEWS = {
+    Q07: { ref: ["前日18時まで"], before: ["前日18時まで"], after: ["前日19時まで"], clock: true },
+    Q08: { ref: ["入口の返却箱へ", "本を返せます。"], before: ["本を返せます。"], after: ["本を返せます。"], attach: "延滞しても連絡は不要です。" },
+    Q05: {
+      ref: ["予約が入っていない", "本に限り、1回だけ", "7日間延長できます。"],
+      before: ["予約が入っていない本に"],
+      after: ["ほかの人の予約がない本は、", "あと7日だけ、1度延ばせます。"],
+      chips: ["予約なし", "1回", "7日間"],
+      refTokens: ["予約が入っていない", "1回", "7日間"],
+      afterTokens: ["予約がない", "1度", "7日"],
+    },
+    Q01: { ref: ["10時から18時"], before: ["9時から18時"], after: ["10時から18時"], clock: true },
+  };
+  // Scene timing is fixed in timeline.json; `read` is where the scene buttons land.
+  const SCENE_PLAN = [
+    { id: "overview", in: 0, out: 5, case: "Q07", read: 4.8 },
+    { id: "deadline", in: 5, out: 11, case: "Q07", read: 10.6 },
+    { id: "addition", in: 11, out: 17, case: "Q08", read: 16.6 },
+    { id: "paraphrase", in: 17, out: 23, case: "Q05", read: 22.7 },
+    { id: "literal_fix", in: 23, out: 27, case: "Q01", read: 26.8 },
+    { id: "finish", in: 27, out: 32, case: "Q07", read: 31 },
+  ];
+  // What moves inside each scene, in seconds from the scene start.
+  const BEATS = {
+    overview: { build: [0.1, 1.3], travel: { side: "after", start: 1.6, dur: 2.4 } },
+    deadline: { clockDrop: [0.6, 1.8], travel: { side: "after", start: 2.2, dur: 2.4 } },
+    addition: { travel: { side: "after", start: 1.8, dur: 2.4 } },
+    paraphrase: { leaders: [0.8, 2.2], travel: { side: "after", start: 2.6, dur: 2.4 } },
+    literal_fix: { early: { side: "before", at: 0.6 }, swap: [1.0, 1.4], travel: { side: "after", start: 1.5, dur: 1.8 } },
+    finish: { early: { side: "after", at: 0.6 }, cta: [1.2, 1.8] },
+  };
+  const FILE_MESSAGE = "このページをファイルとして直接開くと、素材を読み込んで照合できません。作例のフォルダー（index.html のある場所）で python -m http.server を実行し、http://localhost:8000/video/ を開いてください。";
+
+  // --- Page ------------------------------------------------------------------------------------
+
+  const $ = (id) => document.getElementById(id);
+  const ui = {
+    editor: $("editor"),
+    count: $("asset-count"),
+    status: $("status"),
+    errorBox: $("error"),
+    errorText: $("error-text"),
+    retry: $("retry"),
+    stage: $("stage"),
+    canvas: $("film"),
+    play: $("play"),
+    reset: $("reset"),
+    time: $("time"),
+    clock: $("clock"),
+    sceneList: $("scene-list"),
+    assetList: $("asset-list"),
+    focusList: $("focus-list"),
+    layoutTall: $("layout-tall"),
+    layoutWide: $("layout-wide"),
+  };
+  for (const [name, node] of Object.entries(ui)) {
+    if (!node) throw new Error(`video/index.html に必要な要素がありません：${name}`);
+  }
+
+  if (RENDER) {
+    document.documentElement.classList.add("is-render");
+    ui.canvas.style.width = `${W}px`;
+    ui.canvas.style.height = `${H}px`;
+  } else {
+    ui.canvas.style.aspectRatio = `${W} / ${H}`;
+    ui.stage.classList.toggle("is-tall", H >= W);
+    (H >= W ? ui.layoutTall : ui.layoutWide).setAttribute("aria-current", "page");
+  }
+  ui.canvas.width = W;
+  ui.canvas.height = H;
+  ui.time.max = String(DURATION);
+  const ctx = ui.canvas.getContext("2d");
+
+  // --- Palette and type ------------------------------------------------------------------------
+
+  const C = {
+    ivory: "#f6f1e6", paper: "#fffcf5", white: "#ffffff", ink: "#1c2333", muted: "#535a6b", faint: "#9aa0ad", rule: "#cfc5b0",
+    warm: "#b4571a", warmInk: "#8f4210", warmWash: "#fbe5d5", mark: "#dfe4f2", attach: "#f7d6a6",
+  };
+  const TOOLS = [
+    { id: "exact_match", label: "同じ文字", ink: "#2747c2", wash: "#e6eafb" },
+    { id: "string_similarity", label: "文字の近さ", ink: "#0f7a72", wash: "#dcefec" },
+    { id: "string_presence", label: "全文を含む", ink: "#94650a", wash: "#f6ebd3" },
+  ];
+  const SANS = '"Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Meiryo", "Noto Sans JP", system-ui, sans-serif';
+  const MONO = 'ui-monospace, "Cascadia Mono", Consolas, Menlo, monospace';
+  const font = (size, weight = 700, family = SANS) => `${weight} ${size}px ${family}`;
+
+  // --- Layouts (authored natively for each orientation) ------------------------------------
+
+  function portraitLayout() {
+    const boxes = [16, 248, 480].map((x) => ({ x, y: 760, w: 224, h: 276 }));
+    return {
+      DW: 720, DH: 1280, tall: true,
+      eyebrow: { x: 40, y: 56, size: 24 },
+      headline: { x: 40, y: 124, size: 50, min: 40, max: 640 },
+      fusen: { x: 384, y: 146, w: 300, h: 110, pad: 18, title: 22, titleY: 180, label: 40, labelY: 224 },
+      book: {
+        x: 28, y: 236, w: 664, h: 234, spine: 360, line: 2.5,
+        left: { x: 52, w: 288 }, right: { x: 384, w: 284 },
+        headY: 286, headSize: 26, qY: 334, qSize: 32, qMin: 26, qLineH: 42, qLines: 3, docY: 452, docSize: 24,
+        ref: { 1: { size: 46, min: 32, ys: [350] }, 2: { size: 38, min: 28, ys: [342, 394] }, 3: { size: 30, min: 22, ys: [330, 368, 406] } },
+        clock: { cx: 630, cy: 412, r: 36 },
+        chips: { y: 426, h: 36, size: 22, gap: 10 },
+      },
+      strip: {
+        x: 28, w: 664, before: 494, after: 576, h: 70, h2: 124, line: 3,
+        tab: { dx: 18, labelY: 30, label: 26, scoreY: 58, score: 18, scoreMin: 13, w: 106 },
+        textX: 132, one: { y: 50, size: 40, min: 28 }, two: { ys: [48, 100], size: 34, min: 24 },
+        clock: { dx: 56, cy: 35, r: 24 },
+        attach: { dx: 104, dy: 78, h: 54, size: 36, min: 26 },
+      },
+      bus: 728,
+      boxes,
+      tool(i) {
+        const b = boxes[i];
+        const cx = b.x + b.w / 2;
+        return {
+          box: b, bar: 10,
+          label: { x: cx, y: b.y + 62, size: 40, min: 32, align: "center", max: b.w - 16 },
+          inst: { cx, cy: b.y + 140, s: 1 },
+          token: { x: cx - 84, y: b.y + 196, w: 168, h: 60, size: 44 },
+        };
+      },
+      bus2: 1050,
+      card: { x: 120, y: 1066, w: 480, h: 96 },
+      cta: { cx: 360, cy: 1198, w: 560, h: 50, size: 28 },
+      foot: { x: 40, ys: [1242, 1268], size: 18, min: 14, max: 640 },
+      chipSize: { w: 120, h: 46, r: 15 },
+    };
+  }
+
+  function landscapeLayout() {
+    const boxes = [112, 296, 480].map((y) => ({ x: 572, y, w: 428, h: 168 }));
+    return {
+      DW: 1280, DH: 720, tall: false,
+      eyebrow: { x: 32, y: 38, size: 20 },
+      headline: { x: 32, y: 90, size: 42, min: 34, max: 1216 },
+      fusen: { x: 300, y: 104, w: 230, h: 90, pad: 14, title: 18, titleY: 128, label: 30, labelY: 164 },
+      book: {
+        x: 24, y: 174, w: 506, h: 202, spine: 277, line: 2,
+        left: { x: 42, w: 220 }, right: { x: 294, w: 216 },
+        headY: 212, headSize: 20, qY: 248, qSize: 24, qMin: 20, qLineH: 31, qLines: 3, docY: 360, docSize: 18,
+        ref: { 1: { size: 36, min: 24, ys: [262] }, 2: { size: 30, min: 22, ys: [254, 294] }, 3: { size: 24, min: 18, ys: [244, 274, 304] } },
+        clock: { cx: 480, cy: 330, r: 28 },
+        chips: { y: 320, h: 28, size: 17, gap: 8 },
+      },
+      strip: {
+        x: 24, w: 506, before: 392, after: 460, h: 60, h2: 104, line: 2.5,
+        tab: { dx: 12, labelY: 25, label: 22, scoreY: 50, score: 14, scoreMin: 11, w: 88 },
+        textX: 108, one: { y: 42, size: 32, min: 22 }, two: { ys: [40, 84], size: 27, min: 19 },
+        clock: { dx: 40, cy: 30, r: 20 },
+        attach: { dx: 84, dy: 66, h: 46, size: 28, min: 20 },
+      },
+      bus: 548,
+      boxes,
+      tool(i) {
+        const b = boxes[i];
+        return {
+          box: b, bar: 8,
+          label: { x: b.x + 24, y: b.y + 54, size: 36, min: 30, align: "left", max: 250 },
+          inst: { cx: b.x + 142, cy: b.y + 116, s: 0.85 },
+          token: { x: b.x + 290, y: b.y + 46, w: 120, h: 84, size: 40 },
+        };
+      },
+      bus2: 1016,
+      card: { x: 1032, y: 226, w: 224, h: 228 },
+      cta: { cx: 1144, cy: 504, w: 224, h: 66, size: 19 },
+      foot: { x: 32, ys: [702], size: 16, min: 13, max: 1216 },
+      chipSize: { w: 96, h: 38, r: 12 },
+    };
+  }
+
+  const L = H >= W ? portraitLayout() : landscapeLayout();
+  const S = Math.min(W / L.DW, H / L.DH);
+  const OX = (W - L.DW * S) / 2;
+  const OY = (H - L.DH * S) / 2;
+
+  // --- Loading and checks ---------------------------------------------------------------------
+
+  class CheckError extends Error {}
+  function check(condition, message) {
+    if (!condition) throw new CheckError(message);
+  }
+  const isObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+  const isText = (v) => typeof v === "string" && v.trim() !== "";
+  const own = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
+
+  function deepEqual(a, b) {
+    if (a === b) return true;
+    if (Array.isArray(a)) return Array.isArray(b) && a.length === b.length && a.every((x, i) => deepEqual(x, b[i]));
+    if (isObject(a) && isObject(b)) {
+      const ka = Object.keys(a);
+      const kb = Object.keys(b);
+      return ka.length === kb.length && ka.every((k) => own(b, k) && deepEqual(a[k], b[k]));
+    }
+    return false;
+  }
+
+  async function sha256Hex(bytes) {
+    const digest = await crypto.subtle.digest("SHA-256", bytes);
+    return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, "0")).join("");
+  }
+
+  async function fetchBytes(path) {
+    let response;
+    try {
+      response = await fetch(path, { cache: "no-store" });
+    } catch {
+      throw new CheckError(location.protocol === "file:" ? FILE_MESSAGE : `${path} を読み込めませんでした（通信できませんでした）。`);
+    }
+    if (!response.ok) throw new CheckError(`${path} を読み込めませんでした（HTTP ${response.status}）。`);
+    return new Uint8Array(await response.arrayBuffer());
+  }
+
+  function decodeText(bytes, name) {
+    try {
+      return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+    } catch {
+      throw new CheckError(`${name} が UTF-8 の文字として読めません。`);
+    }
+  }
+
+  function parseJson(bytes, name) {
+    const text = decodeText(bytes, name);
+    try {
+      return JSON.parse(text);
+    } catch {
+      throw new CheckError(`${name} が正しい JSON ではありません。`);
+    }
+  }
+
+  const assetState = new Map();
+
+  async function loadAssets() {
+    if (location.protocol === "file:") throw new CheckError(FILE_MESSAGE);
+    if (!globalThis.crypto?.subtle) throw new CheckError("このブラウザーでは SHA-256 を計算できないため、素材を確かめられません。https または localhost で開いてください。");
+    const manifestBytes = await fetchBytes(MANIFEST.path);
+    check(await sha256Hex(manifestBytes) === MANIFEST.sha256, "assets/manifest.json の SHA-256 が固定値と一致しません。");
+    const manifest = parseJson(manifestBytes, MANIFEST.path);
+    check(isObject(manifest) && manifest.format === MANIFEST.format && deepEqual(manifest.assets, ASSETS), "assets/manifest.json の素材一覧が固定値と一致しません。");
+    const data = {};
+    await Promise.all(ASSETS.map(async (asset) => {
+      const path = `assets/${asset.file}`;
+      try {
+        const bytes = await fetchBytes(path);
+        check(bytes.byteLength === asset.bytes, `${path} のバイト数が manifest と一致しません。`);
+        check(await sha256Hex(bytes) === asset.sha256, `${path} の SHA-256 が manifest と一致しません。`);
+        // JSON assets are parsed; the Python source is kept as plain text only and never executed.
+        data[asset.file] = asset.file.endsWith(".json") ? parseJson(bytes, path) : decodeText(bytes, path);
+        assetState.set(asset.file, "ok");
+      } catch (error) {
+        assetState.set(asset.file, "bad");
+        throw error;
+      } finally {
+        showAssets();
       }
-      c.fillStyle = C.card;
-      c.fill();
-      c.strokeStyle = C.rule;
-      c.lineWidth = 1;
-      c.stroke();
-      if (r.kind === 'q') {
-        text(c, f.qIds[i], x + BW / 2, r.y + 24, {size: 20, family: 'mono', weight: 700, align: 'center'});
-        continue;
-      }
-      // 各回答の3指標の呼び出し（1本＝1回）
-      const stage = r.kind === 'before' ? 0 : 1;
-      for (let j = 0; j < 3; j++) {
-        const n = i * 6 + stage * 3 + j;
-        const k = enter(t, 1.2 + n * 0.018, 0.2);
-        if (k <= 0.001) continue;
-        c.globalAlpha = a * k;
-        c.fillStyle = METRIC_COLORS[j];
-        const bh = 20 * k;
-        c.fillRect(x + 11 + j * 13, r.y + 27 - bh, 8, bh);
+    }));
+    return data;
+  }
+
+  function validateInput(input) {
+    check(isObject(input) && input.format === PIN.inputFormat && input.fictional === true, "faq-pairs.json が架空の固定入力（studio-yebisu-faq-fixture-v1）ではありません。");
+    check(isText(input.annotation_source) && isObject(input.label_meanings) && LABELS.every((l) => isText(input.label_meanings[l])),
+      "faq-pairs.json に照合メモの出所と3種類のラベルの説明がありません。");
+    check(Array.isArray(input.documents) && deepEqual(input.documents.map((d) => d?.id), PIN.docs), "faq-pairs.json の資料が D01〜D10 の10件ではありません。");
+    const docs = new Map();
+    for (const d of input.documents) {
+      check(isText(d.title) && isText(d.text), `faq-pairs.json の資料 ${d.id} の題名か本文が空です。`);
+      docs.set(d.id, d);
+    }
+    check(Array.isArray(input.cases) && deepEqual(input.cases.map((c) => c?.id), PIN.ids), "faq-pairs.json の問いが Q01〜Q10 の10件ではありません。");
+    for (const c of input.cases) {
+      check(isText(c.question) && isText(c.reference), `${c.id} の質問または参照文が空です。`);
+      const cited = c.reference_document_ids;
+      check(Array.isArray(cited) && cited.length === 1 && docs.has(cited[0]) && docs.get(cited[0]).text === c.reference, `${c.id} の参照文が根拠資料の本文と一致しません。`);
+      for (const s of SIDES) {
+        const a = c[s];
+        check(isObject(a) && isText(a.response) && !own(a, "scores") && isObject(a.annotation) && LABELS.includes(a.annotation.label) && isText(a.annotation.note),
+          `${c.id} の${SIDE_LABEL[s]}の回答か照合メモの形が違います。`);
       }
     }
-  });
+    return docs;
+  }
 
-  c.globalAlpha = a * enter(t, 1.3);
-  let lx = X0;
-  f.metrics.forEach((m, j) => {
-    const o = {size: 22, weight: 600};
-    c.fillStyle = METRIC_COLORS[j];
-    c.fillRect(lx, 386, 8, 20);
-    text(c, m.label, lx + 16, 404, o);
-    lx += 16 + measure(c, m.label, o) + 34;
-  });
-
-  c.globalAlpha = a * enter(t, 2.5);
-  runs(c, [
-    {s: `${f.qIds.length}問 × 2回答 × ${f.metrics.length}指標 ＝ `},
-    {s: `${f.calls}回`, color: C.teal}
-  ], X0, 468, {size: 40, weight: 700}, 740, 34);
-  c.globalAlpha = a * enter(t, 2.75);
-  block(c, '固定版Ragasの .ascore を実際に呼んだ回数（結果の runtime.metric_calls）。LLM・埋め込み・APIキーは使わない。', X0, 508, 740, 30, {size: 22, color: C.muted});
-
-  c.globalAlpha = a * enter(t, 3.05);
-  text(c, CORE, X0, 626, {size: 34, weight: 700, color: C.teal});
-  c.restore();
-}
-
-// 4〜8秒：完全一致の件数。どの問いが1.0かを、保存した値から並べる
-function drawCount(c, t, f) {
-  const a = sceneAlpha(t, 1);
-  if (a <= 0.001) return;
-  c.save();
-  c.globalAlpha = a * enter(t, 4.1);
-  label(c, '完全一致の件数（ExactMatch が1.0の問い）', 80, 166);
-  const big = {size: 84, weight: 700};
-  const s1 = `${f.count.before} / ${f.count.total}`, s2 = `${f.count.after} / ${f.count.total}`;
-  const w1 = measure(c, s1, big), wa = measure(c, '→', {size: 56, weight: 700});
-  c.globalAlpha = a * enter(t, 4.2);
-  text(c, s1, 80, 272 + rise(t, 4.2), {...big, color: C.ink});
-  c.globalAlpha = a * enter(t, 4.5);
-  text(c, '→', 80 + w1 + 24, 262, {size: 56, weight: 700, color: C.strong});
-  c.globalAlpha = a * enter(t, 4.7);
-  text(c, s2, 80 + w1 + 48 + wa, 272 + rise(t, 4.7), {...big, color: C.teal});
-
-  c.globalAlpha = a * enter(t, 5.0);
-  text(c, '固定回答の比較。', 80, 340, {size: 32, weight: 700, color: C.rust});
-  text(c, '正答率ではありません。', 80, 384, {size: 32, weight: 700, color: C.rust});
-
-  // 10問それぞれの完全一致（塗り＝1.0）
-  const SX = 180, SW = 54, BW = 48, BH = 44;
-  [['変更前', 'before', 430, 5.3], ['変更後', 'after', 490, 5.7]].forEach(([name, st, y, at]) => {
-    c.globalAlpha = a * enter(t, at - 0.1);
-    label(c, name, 80, y + 30, {size: 22, weight: 700, color: C.ink});
-    f.rows.forEach((r, i) => {
-      const on = r[st].scores.exact_match === 1;
-      const x = SX + i * SW;
-      c.globalAlpha = a * enter(t, at + i * 0.03, 0.3);
-      roundRect(c, x, y, BW, BH, 6);
-      c.fillStyle = on ? C.teal : C.card;
-      c.fill();
-      c.strokeStyle = on ? C.teal : C.rule;
-      c.lineWidth = 1.5;
-      c.stroke();
-      text(c, r.id, x + BW / 2, y + 29, {size: 20, family: 'mono', weight: 700, color: on ? '#ffffff' : C.muted, align: 'center'});
+  function validateResult(result, input, docs) {
+    check(isObject(result) && result.format === PIN.resultFormat && result.fictional === true, "evaluation.json が元の採点結果の形式ではありません。");
+    check(deepEqual(result.source, { repository: PIN.repository, commit: PIN.commit }), "evaluation.json の Ragas の固定コミットが一致しません。");
+    check(result.input_sha256 === SHA["faq-pairs.json"], "evaluation.json の input_sha256 が faq-pairs.json と一致しません。");
+    const rt = result.runtime ?? {};
+    check(rt.metric_api === PIN.metricApi && rt.metric_calls === PIN.calls, "evaluation.json が ragas.metrics.collections の60回の呼び出しの記録ではありません。");
+    check(Array.isArray(rt.network_attempts) && rt.network_attempts.length === 0 && rt.tracking_disabled === true, "evaluation.json の採点中の通信0件・利用状況の送信停止が確認できません。");
+    check(rt.python === PIN.python && rt.rapidfuzz_version === PIN.rapidfuzz && rt.ragas_distribution_version === PIN.buildLabel,
+      "evaluation.json の Python・rapidfuzz・手元の版名が元の実行と一致しません。");
+    check(Array.isArray(result.metrics) && result.metrics.length === 3 && result.metrics.every((m, i) => m.id === METRIC_IDS[i] && m.ragas_class === METRIC_CLASSES[i]
+      && deepEqual(m.range, [0, 1]) && isText(m.label) && isText(m.description)) && result.metrics[1].distance === "LEVENSHTEIN",
+    "evaluation.json の3指標の定義が一致しません。");
+    check(result.annotation_source === input.annotation_source && deepEqual(result.label_meanings, input.label_meanings), "evaluation.json の照合メモの出所かラベルの説明が入力と一致しません。");
+    check(deepEqual(result.documents, input.documents), "evaluation.json の10資料が入力と一致しません。");
+    check(Array.isArray(result.rows) && deepEqual(result.rows.map((r) => r?.id), PIN.ids), "evaluation.json の問いが Q01〜Q10 の10件ではありません。");
+    result.rows.forEach((r, i) => {
+      const c = input.cases[i];
+      check(r.question === c.question && r.reference === c.reference && deepEqual(r.reference_document_ids, c.reference_document_ids), `${r.id} の質問・参照文・資料IDが入力と一致しません。`);
+      for (const s of SIDES) {
+        check(r[s].response === c[s].response && deepEqual(r[s].annotation, c[s].annotation), `${r.id} の${SIDE_LABEL[s]}の回答か照合メモが入力と一致しません。`);
+        const sc = r[s].scores;
+        check(isObject(sc) && deepEqual(Object.keys(sc), METRIC_IDS), `${r.id} の${SIDE_LABEL[s]}に3つの値がそろっていません。`);
+        for (const m of METRIC_IDS) {
+          const v = sc[m];
+          check(typeof v === "number" && Number.isFinite(v) && v >= 0 && v <= 1 && (!BINARY.has(m) || v === 0 || v === 1), `${r.id} の${SIDE_LABEL[s]}の ${m} が範囲外です。`);
+        }
+      }
     });
-  });
-  // 変更前1.0 → 変更後0 になった問いを囲む
-  const kr = enter(t, 6.3);
-  if (kr > 0.001) {
-    c.globalAlpha = a * kr;
-    f.dropped.forEach(id => {
-      const x = SX + f.qIds.indexOf(id) * SW;
-      roundRect(c, x - 4, 426, BW + 8, 112, 8);
-      c.strokeStyle = C.rust;
-      c.lineWidth = 3;
-      c.stroke();
+    for (const s of SIDES) {
+      const part = result.summary?.[s];
+      check(isObject(part), `evaluation.json の${SIDE_LABEL[s]}の集計がありません。`);
+      for (const m of METRIC_IDS) {
+        const mean = result.rows.reduce((sum, r) => sum + r[s].scores[m], 0) / result.rows.length;
+        check(Math.abs(part.mean[m] - mean) <= 1e-9, `evaluation.json の${SIDE_LABEL[s]}の平均（${m}）が各問の値と合いません。`);
+      }
+      check(part.exact_match_count === result.rows.filter((r) => r[s].scores.exact_match === 1).length
+        && part.string_presence_count === result.rows.filter((r) => r[s].scores.string_presence === 1).length, `evaluation.json の${SIDE_LABEL[s]}の件数が各問の値と合いません。`);
+      check(LABELS.every((l) => result.annotation_counts?.[s]?.[l] === result.rows.filter((r) => r[s].annotation.label === l).length), "evaluation.json の照合メモのラベル数が各問と合いません。");
+    }
+    const sm = result.summary;
+    check(sm.case_count === 10 && sm.before.exact_match_count === PIN.summary.beforeExact && sm.after.exact_match_count === PIN.summary.afterExact
+      && sm.before.string_presence_count === PIN.summary.beforePresence && sm.after.string_presence_count === PIN.summary.afterPresence
+      && sm.before.mean.string_similarity === PIN.summary.beforeSim && sm.after.mean.string_similarity === PIN.summary.afterSim,
+    "evaluation.json の集計が元の実行の値（4→7・4→8・近さの平均）と一致しません。");
+    check(result.annotation_counts.source === "input", "evaluation.json の照合メモのラベル数が入力の値として記録されていません。");
+  }
+
+  const hourOf = (token) => {
+    const m = /^(\d+)時$/.exec(token);
+    return m ? Number(m[1]) : null;
+  };
+  const joined = (lines) => lines.join("");
+
+  // Builds what the picture draws for one case, checking every fragment against the saved strings.
+  function buildView(row, focus) {
+    const v = VIEWS[row.id];
+    const bad = `図で使う ${row.id} の断片が保存結果の文字列と一致しません。`;
+    check(row.reference.includes(joined(v.ref)) && row.before.response.includes(joined(v.before)) && row.after.response.includes(joined(v.after)), bad);
+    const view = {
+      id: row.id,
+      docId: row.reference_document_ids[0],
+      question: row.question,
+      row,
+      ref: decorate(v.ref, row.reference),
+      before: decorate(v.before, row.before.response),
+      // With an attached slip the strip holds exactly the reference; the slip shows the rest.
+      after: decorate(v.after, v.attach ? row.reference : row.after.response),
+      rawRef: v.ref,
+      rawBefore: v.before,
+      rawAfter: v.after,
+      clock: null,
+      attach: null,
+      chips: null,
+    };
+    check(isObject(focus), `diagram-data.json に ${row.id} の焦点がありません。`);
+    if (v.clock) {
+      check(focus.type === "clock" && v.ref[0].includes(focus.reference_token) && row.reference.includes(focus.reference_token)
+        && v.before[0].includes(focus.before_token) && row.before.response.includes(focus.before_token)
+        && v.after[0].includes(focus.after_token) && row.after.response.includes(focus.after_token), bad);
+      view.clock = { reference: hourOf(focus.reference_token), before: hourOf(focus.before_token), after: hourOf(focus.after_token) };
+      check(SIDES.every((s) => Number.isInteger(view.clock[s])) && Number.isInteger(view.clock.reference), bad);
+    }
+    if (v.attach) {
+      check(focus.type === "attachment" && focus.added_text === v.attach && row.after.response === row.reference + v.attach
+        && row.before.response === row.reference && row.reference.includes(focus.reference_token) && joined(v.ref).includes(focus.reference_token), bad);
+      view.attach = v.attach;
+    }
+    if (v.chips) {
+      check(focus.type === "same_conditions" && deepEqual(focus.conditions, v.chips) && joined(v.after) === row.after.response
+        && v.refTokens.every((t) => joined(v.ref).includes(t)) && v.afterTokens.every((t) => joined(v.after).includes(t))
+        && row.after.annotation.note.startsWith(v.chips.join("・")), bad);
+      view.chips = { labels: v.chips, refTokens: v.refTokens, afterTokens: v.afterTokens };
+    }
+    return view;
+  }
+
+  // Adds … where a fragment is cut from a longer saved string.
+  function decorate(lines, full) {
+    const text = joined(lines);
+    const out = lines.slice();
+    if (!full.startsWith(text)) out[0] = `…${out[0]}`;
+    if (!full.endsWith(text)) out[out.length - 1] = `${out[out.length - 1]}…`;
+    return out;
+  }
+
+  function buildFilm(data) {
+    const result = data["evaluation.json"];
+    const input = data["faq-pairs.json"];
+    const source = data["metric-source.py"];
+    const old = data["original-verification.json"];
+    const upstream = data["upstream.json"];
+    const facts = data["diagram-data.json"];
+    const timeline = data["timeline.json"];
+
+    const docs = validateInput(input);
+    validateResult(result, input, docs);
+
+    check(typeof source === "string" && SOURCE_NEEDLES.every((n) => source.includes(n)), "metric-source.py が固定版の3指標の実装ではありません。");
+    check(upstream?.repository === PIN.repository && upstream.commit === PIN.commit && upstream.license === PIN.license
+      && upstream.files_sha256?.["src/ragas/metrics/collections/_string.py"] === SHA["metric-source.py"], "upstream.json の原典・ライセンス・_string.py のハッシュが一致しません。");
+
+    // The original record of the earlier real run. Its movie/browser entries describe the OLD film only.
+    const dc = old?.data_checks ?? {};
+    const env = old?.runtime_environment ?? {};
+    check(old?.source_commit === PIN.commit && dc.status === "passed" && dc.source_commit === PIN.commit && dc.actual_ragas_metric_calls === PIN.calls
+      && dc.input_sha256 === SHA["faq-pairs.json"] && dc.evaluation_sha256 === SHA["evaluation.json"] && dc.question_count === 10 && dc.response_count === 20,
+    "original-verification.json の元の実行の記録が素材と一致しません。");
+    check(env.python === PIN.python && env.version === PIN.buildLabel && env.upstream_release_version_claimed === false
+      && env.all_installed_python_source_files_match_fixed === PIN.sourceFiles && env.dependency_count === PIN.packages && env.installed_source_matches_fixed === true,
+    "original-verification.json の実行環境（Python・237ファイル・93パッケージ・手元の版名）が一致しません。");
+    const independent = dc.independent_full_unicode_distance_comparison;
+    check(Array.isArray(independent) && independent.length === 20 && independent.every((e) => {
+      const row = result.rows.find((r) => r.id === e.id);
+      return row && SIDES.includes(e.stage) && deepEqual(e.independent_expected_scores, row[e.stage].scores);
+    }), "original-verification.json の独立した照合20件が保存結果の値と一致しません。");
+    check(old.human_approval === false && dc.human_approval === false, "original-verification.json に人による承認の主張があります。");
+
+    check(facts?.format === PIN.diagramFormat && facts.fictional === true && facts.source_evaluation_sha256 === SHA["evaluation.json"] && facts.source_input_sha256 === SHA["faq-pairs.json"],
+      "diagram-data.json の形式か元の記録が違います。");
+    for (const key of ["summary", "annotation_counts", "metrics", "documents", "rows", "annotation_source"]) {
+      check(deepEqual(facts[key], result[key]), `diagram-data.json の ${key} が保存結果と一致しません。`);
+    }
+
+    check(timeline?.format === PIN.timelineFormat && timeline.duration === DURATION && timeline.fps === 30 && timeline.frames === 960 && timeline.silent === true,
+      "timeline.json が32秒・30fps・960フレーム・無音ではありません。");
+    check(Array.isArray(timeline.scenes) && timeline.scenes.length === SCENE_PLAN.length
+      && timeline.scenes.every((s, i) => s.id === SCENE_PLAN[i].id && s.in === SCENE_PLAN[i].in && s.out === SCENE_PLAN[i].out && s.case === SCENE_PLAN[i].case && isText(s.headline)),
+    "timeline.json の6場面が固定の時刻表と一致しません。");
+
+    const rows = Object.fromEntries(result.rows.map((r) => [r.id, r]));
+    const views = {};
+    for (const id of Object.keys(VIEWS)) views[id] = buildView(rows[id], facts.focus?.[id]);
+    return {
+      views,
+      headlines: Object.fromEntries(timeline.scenes.map((s) => [s.id, s.headline])),
+    };
+  }
+
+  async function load() {
+    const data = await loadAssets();
+    const built = buildFilm(data);
+    if (document.fonts && document.fonts.ready) await document.fonts.ready;
+    return built;
+  }
+
+  // --- Time helpers (pure functions of t) ------------------------------------------------------
+
+  const clamp01 = (v) => Math.max(0, Math.min(1, v));
+  const ramp = (t, a, b) => clamp01((t - a) / (b - a));
+  const ease = (k) => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+  const lerp = (a, b, k) => a + (b - a) * k;
+  const clampTime = (seconds) => {
+    const t = Number(seconds);
+    return Number.isFinite(t) ? Math.max(0, Math.min(DURATION, t)) : 0;
+  };
+  const show = (metricId, v) => (BINARY.has(metricId) ? String(v) : v.toFixed(3));
+
+  function sceneAt(t) {
+    let i = 0;
+    for (let k = 0; k < SCENE_PLAN.length; k += 1) if (t >= SCENE_PLAN[k].in) i = k;
+    return i;
+  }
+
+  // Everything the frame needs, derived only from the absolute time.
+  function stateAt(time) {
+    const t = clampTime(time);
+    const i = sceneAt(t);
+    const sc = SCENE_PLAN[i];
+    const prev = i > 0 ? SCENE_PLAN[i - 1] : null;
+    const local = t - sc.in;
+    const beat = BEATS[sc.id];
+    const view = film.views[sc.case];
+    const prevView = prev ? film.views[prev.case] : null;
+    const caseChange = Boolean(prev && prev.case !== sc.case);
+    const st = {
+      t, i, sc, local, beat, view, prevView, caseChange,
+      outA: caseChange ? 1 - ramp(local, 0, 0.3) : 0,
+      inA: caseChange ? ramp(local, 0.3, 0.6) : 1,
+      geomK: caseChange ? ease(ramp(local, 0, 0.6)) : 1,
+      // 1 = 変更後 is the strip being measured.
+      sideK: beat.swap ? ease(ramp(local, beat.swap[0], beat.swap[1])) : 1,
+      build: beat.build ? ease(ramp(local, beat.build[0], beat.build[1])) : 1,
+    };
+    st.side = st.sideK >= 0.5 ? "after" : "before";
+    return st;
+  }
+
+  // Which values a tool shows at this moment, and how far it is engaged (0 = idle, 1 = settled).
+  function toolState(st, i, frac) {
+    const { local, beat, view, prevView } = st;
+    if (beat.travel) {
+      const at = beat.travel.start + beat.travel.dur * frac[i];
+      if (local >= at - 0.15) return { view, side: beat.travel.side, k: ease(ramp(local, at - 0.15, at + 0.25)) };
+    }
+    if (beat.early && local >= beat.early.at) {
+      const off = beat.swap ? ease(ramp(local, beat.swap[0], beat.swap[0] + 0.3)) : 0;
+      return { view, side: beat.early.side, k: ease(ramp(local, beat.early.at, beat.early.at + 0.3)) * (1 - off) };
+    }
+    if (prevView && local < 0.3) return { view: prevView, side: "after", k: 1 - ease(ramp(local, 0, 0.3)) };
+    return { view, side: "after", k: 0 };
+  }
+
+  // --- Drawing primitives ----------------------------------------------------------------------
+
+  function withAlpha(a, fn) {
+    if (a <= 0.001) return;
+    ctx.save();
+    ctx.globalAlpha *= Math.min(1, a);
+    fn();
+    ctx.restore();
+  }
+
+  function roundRectPath(x, y, w, h, r) {
+    const rr = Math.min(r, w / 2, h / 2);
+    ctx.beginPath();
+    ctx.moveTo(x + rr, y);
+    ctx.arcTo(x + w, y, x + w, y + h, rr);
+    ctx.arcTo(x + w, y + h, x, y + h, rr);
+    ctx.arcTo(x, y + h, x, y, rr);
+    ctx.arcTo(x, y, x + w, y, rr);
+    ctx.closePath();
+  }
+
+  function fitSize(str, maxW, size, min, weight = 700, family = SANS) {
+    let s = size;
+    ctx.font = font(s, weight, family);
+    while (s > min && ctx.measureText(str).width > maxW) {
+      s -= 1;
+      ctx.font = font(s, weight, family);
+    }
+    return s;
+  }
+
+  function text(str, x, y, size, opts = {}) {
+    ctx.font = font(size, opts.weight ?? 700, opts.family ?? SANS);
+    ctx.fillStyle = opts.color ?? C.ink;
+    ctx.textAlign = opts.align ?? "left";
+    ctx.textBaseline = "alphabetic";
+    ctx.fillText(str, x, y);
+  }
+
+  function measure(str, size, weight = 700) {
+    ctx.font = font(size, weight);
+    return ctx.measureText(str).width;
+  }
+
+  // Greedy per-character wrap (Japanese) to a pixel width.
+  function wrapMeasure(str, maxW, size, weight, maxLines) {
+    const chars = Array.from(str);
+    const lines = [];
+    let cur = "";
+    ctx.font = font(size, weight);
+    for (const ch of chars) {
+      if (cur && ctx.measureText(cur + ch).width > maxW) {
+        lines.push(cur);
+        cur = ch;
+      } else cur += ch;
+    }
+    if (cur) lines.push(cur);
+    if (lines.length > maxLines) {
+      lines.length = maxLines;
+      lines[maxLines - 1] = `${Array.from(lines[maxLines - 1]).slice(0, -1).join("")}…`;
+    }
+    return lines;
+  }
+
+  // Draws a line whose differing characters are bold, dark and underlined; the rest is muted ink.
+  function drawMarked(str, flags, x, y, size) {
+    const chars = Array.from(str);
+    let cx = x;
+    let k = 0;
+    while (k < chars.length) {
+      const f = flags[k];
+      let run = "";
+      while (k < chars.length && flags[k] === f) run += chars[k++];
+      const weight = f ? 800 : 600;
+      ctx.font = font(size, weight);
+      ctx.fillStyle = f ? C.ink : C.muted;
+      ctx.textAlign = "left";
+      ctx.fillText(run, cx, y);
+      const w = ctx.measureText(run).width;
+      if (f) ctx.fillRect(cx, y + size * 0.14, w, Math.max(2, size * 0.07));
+      cx += w;
+    }
+    return cx - x;
+  }
+
+  function diffFlags(refFrag, frag) {
+    const a = Array.from(refFrag);
+    const b = Array.from(frag);
+    let head = 0;
+    while (head < a.length && head < b.length && a[head] === b[head]) head += 1;
+    let tail = 0;
+    while (tail < a.length - head && tail < b.length - head && a[a.length - 1 - tail] === b[b.length - 1 - tail]) tail += 1;
+    return b.map((_, i) => i >= head && i < b.length - tail);
+  }
+
+  function drawClock(cx, cy, r, hour, refHour, wedgeA, lineW) {
+    const angle = (hr) => ((hr % 12) / 12) * Math.PI * 2 - Math.PI / 2;
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.fillStyle = C.paper;
+    ctx.fill();
+    ctx.lineWidth = lineW;
+    ctx.strokeStyle = C.ink;
+    ctx.stroke();
+    for (let k = 0; k < 12; k += 1) {
+      const a = (k / 12) * Math.PI * 2;
+      const inner = k % 3 === 0 ? r * 0.78 : r * 0.88;
+      ctx.beginPath();
+      ctx.moveTo(cx + Math.cos(a) * inner, cy + Math.sin(a) * inner);
+      ctx.lineTo(cx + Math.cos(a) * r * 0.97, cy + Math.sin(a) * r * 0.97);
+      ctx.lineWidth = k % 3 === 0 ? lineW * 0.8 : lineW * 0.45;
+      ctx.stroke();
+    }
+    if (refHour != null && refHour !== hour && wedgeA > 0) {
+      withAlpha(wedgeA, () => {
+        // The gap between the book's hour and this strip's hour.
+        const a0 = angle(refHour);
+        const a1 = angle(hour);
+        const ccw = ((a1 - a0 + Math.PI * 4) % (Math.PI * 2)) > Math.PI;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, r * 0.86, a0, a1, ccw);
+        ctx.closePath();
+        ctx.fillStyle = C.mark;
+        ctx.fill();
+        ctx.setLineDash([lineW * 1.5, lineW * 1.5]);
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(cx + Math.cos(a0) * r * 0.7, cy + Math.sin(a0) * r * 0.7);
+        ctx.strokeStyle = C.faint;
+        ctx.lineWidth = lineW;
+        ctx.stroke();
+        ctx.setLineDash([]);
+      });
+    }
+    const a = angle(hour);
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + Math.cos(a) * r * 0.7, cy + Math.sin(a) * r * 0.7);
+    ctx.strokeStyle = C.ink;
+    ctx.lineWidth = lineW * 1.4;
+    ctx.lineCap = "round";
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(cx, cy, Math.max(2, r * 0.08), 0, Math.PI * 2);
+    ctx.fillStyle = C.ink;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  // --- Scene pieces ----------------------------------------------------------------------------
+
+  function stripBox(which, view) {
+    const s = L.strip;
+    const h = which === "after" && view && view.after.length === 2 ? s.h2 : s.h;
+    return { x: s.x, y: s[which], w: s.w, h };
+  }
+
+  function afterHeight(st) {
+    const cur = stripBox("after", st.view).h;
+    if (!st.caseChange) return cur;
+    return lerp(stripBox("after", st.prevView).h, cur, st.geomK);
+  }
+
+  function activeStripGeom(st) {
+    const which = st.side;
+    const y = L.strip[which];
+    const h = which === "after" ? afterHeight(st) : L.strip.h;
+    return { x: L.strip.x, y, w: L.strip.w, h };
+  }
+
+  function drawEyebrow() {
+    text("Ragas ・ 保存済みの結果 ・ 架空の10問",L.eyebrow.x, L.eyebrow.y, L.eyebrow.size, { color: C.muted, weight: 700 });
+  }
+
+  function drawHeadline(st) {
+    const hl = L.headline;
+    const sc = st.sc;
+    const cur = film.headlines[sc.id];
+    // Sequential crossfade at each scene boundary: the old line leaves before the new one arrives.
+    const next = SCENE_PLAN[st.i + 1];
+    let outA = 1;
+    if (next && st.t > next.in - 0.3) outA = 1 - ramp(st.t, next.in - 0.3, next.in);
+    const inA = st.i === 0 ? 1 : ramp(st.local, 0, 0.3);
+    withAlpha(Math.min(outA, inA), () => {
+      const size = fitSize(cur, hl.max, hl.size, hl.min, 800);
+      text(cur, hl.x, hl.y, size, { weight: 800 });
     });
   }
-  c.globalAlpha = a * enter(t, 6.5);
-  runs(c, [{s: '変更後で0になった問い：'}, {s: f.dropped.join('・'), color: C.rust}], 80, 590, {size: 26, weight: 700}, 640);
-  c.globalAlpha = a * enter(t, 6.8);
-  text(c, `この${f.dropped.length}問を、根拠と並べて読む。`, 80, 632, {size: 24, weight: 600});
 
-  c.globalAlpha = a * enter(t, 4.3);
-  label(c, '実画面・スマホの平均表', 800, 166);
-  c.globalAlpha = a;
-  shot(c, f, 'phoneSummary', enter(t, 4.35), rise(t, 4.35));
-  c.globalAlpha = a * enter(t, 5.2);
-  block(c, '平均も文字列の統計。変更前・変更後は意図して作った固定回答の名前で、モデルの比較ではない。', 800, 506, 400, 30, {size: 22, color: C.muted});
-  c.restore();
-}
-
-// 8〜14秒：Q07。18時→19時の1字の置換で、文字列の近さは高いまま。ポスターは13.5秒（全要素が着地済み）
-function drawQ07(c, t, f) {
-  const a = sceneAlpha(t, 2);
-  if (a <= 0.001) return;
-  const q = f.q07, line = {size: 32, weight: 500};
-  c.save();
-  c.globalAlpha = a * enter(t, 8.1);
-  label(c, `参照文 ＝ 資料${q.doc}の本文`, 80, 166);
-  c.globalAlpha = a * enter(t, 8.15);
-  runs(c, [{s: q.d.pre}, {s: q.d.a, bg: C.tealSoft, color: C.teal, weight: 700}, {s: q.d.post}], 80, 206 + rise(t, 8.15), line, 1120);
-  c.globalAlpha = a * enter(t, 8.5);
-  label(c, `変更後の固定回答（${q.id}）`, 80, 246);
-  c.globalAlpha = a * enter(t, 8.55);
-  runs(c, [{s: q.d.pre}, {s: q.d.b, bg: C.rustSoft, color: C.rust, weight: 700}, {s: q.d.post}], 80, 286 + rise(t, 8.55), line, 1120);
-
-  // 保存した3つの値
-  c.globalAlpha = a * enter(t, 9.2);
-  fitText(c, '文字列の近さ（NonLLMStringSimilarity・LEVENSHTEIN）', 80, 340, 560, {size: 20, weight: 600, color: C.muted}, 20);
-  c.globalAlpha = a * enter(t, 9.3);
-  const wb = bigNumber(c, fmt3(q.scores.string_similarity), 80, 450 + rise(t, 9.3), 104, C.teal);
-  c.globalAlpha = a * enter(t, 9.45);
-  label(c, '保存値', 80 + wb + 28, 404);
-  text(c, String(q.scores.string_similarity), 80 + wb + 28, 440, {size: 26, weight: 700, family: 'mono'});
-  c.globalAlpha = a * enter(t, 9.6);
-  text(c, `${q.len}字のうち1字の置換`, 80, 494, {size: 24, weight: 600});
-  c.globalAlpha = a * enter(t, 9.8);
-  text(c, `完全一致 ${fmt3(q.scores.exact_match)} ・ 基準文の包含 ${fmt3(q.scores.string_presence)}`, 80, 532, {size: 24, weight: 600});
-  c.globalAlpha = a * enter(t, 10.1);
-  text(c, '文字が近くても、期限は違う。', 80, 570, {size: 24, weight: 700, color: C.rust});
-
-  c.globalAlpha = a * enter(t, 9.0);
-  label(c, '実画面・変更後の回答カード（パソコン幅）', 662, 340);
-  c.globalAlpha = a;
-  shot(c, f, 'q07Answer', enter(t, 9.05), rise(t, 9.05));
-
-  // 照合メモ（入力）
-  const kn = enter(t, 10.4);
-  if (kn > 0.001) {
-    c.globalAlpha = a * kn;
-    noteBand(c, 80, 592, 1120, 60, 'rust');
-    const lab = `照合メモ（入力）${q.label} ＝ ${f.meanings[q.label]}`;
-    const lw = fitText(c, lab, 100, 630, 560, {size: 20, weight: 700, color: C.rust}, 20);
-    text(c, `根拠は${q.refTime}。回答は${q.afterTime}。`, 100 + lw + 32, 633, {size: 32, weight: 700});
-  }
-  c.restore();
-}
-
-// 14〜19秒：Q08。参照文の全体を含むので包含は1。後ろの追記は資料にない（入力の照合メモ）
-function drawQ08(c, t, f) {
-  const a = sceneAlpha(t, 3);
-  if (a <= 0.001) return;
-  const q = f.q08, line = {size: 32, weight: 500};
-  c.save();
-  c.globalAlpha = a * enter(t, 14.1);
-  label(c, `参照文 ＝ 資料${q.doc}の本文`, 80, 166);
-  c.globalAlpha = a * enter(t, 14.15);
-  text(c, q.reference, 80, 206 + rise(t, 14.15), line);
-  c.globalAlpha = a * enter(t, 14.5);
-  label(c, `変更後の固定回答（${q.id}）`, 80, 246);
-  c.globalAlpha = a * enter(t, 14.55);
-  text(c, q.reference, 80, 288, line);
-  // 回答の中の参照文全体に下線（入力の文字列から位置を求める）
-  const ku = enter(t, 14.9, 0.5);
-  if (ku > 0.001) {
-    c.fillStyle = C.teal;
-    c.fillRect(80, 298, measure(c, q.reference, line) * ku, 4);
-  }
-  c.globalAlpha = a * enter(t, 15.0);
-  runs(c, [{s: q.addition, bg: C.rustSoft, color: C.rust, weight: 700}], 80, 340, line, 740);
-
-  c.globalAlpha = a * enter(t, 15.3);
-  label(c, '基準文の包含（StringPresence）', 80, 390);
-  label(c, `完全一致 ${fmt3(q.scores.exact_match)} ・ 近さ ${fmt3(q.scores.string_similarity)}`, 820, 390, {align: 'right'});
-  c.globalAlpha = a * enter(t, 15.4);
-  const wb = bigNumber(c, fmt3(q.scores.string_presence), 80, 474 + rise(t, 15.4), 96, C.teal);
-  c.globalAlpha = a * enter(t, 15.6);
-  text(c, '参照文の全体が含まれるので1。', 80 + wb + 28, 430, {size: 24, weight: 600});
-  text(c, '後ろの追記は見ていない。', 80 + wb + 28, 466, {size: 24, weight: 700, color: C.rust});
-
-  const kn = enter(t, 15.9);
-  if (kn > 0.001) {
-    c.globalAlpha = a * kn;
-    noteBand(c, 80, 496, 740, 96, 'rust');
-    label(c, `照合メモ（入力）${q.label}`, 100, 528, {weight: 700, color: C.rust});
-    text(c, f.meanings[q.label], 100, 574, {size: 30, weight: 700});
-    c.globalAlpha = a * enter(t, 16.2);
-    text(c, `メモより：「${Q08_NOTE_SENTENCE}」`, 80, 630, {size: 22, weight: 600, color: C.muted});
-  }
-
-  c.globalAlpha = a * enter(t, 14.3);
-  label(c, `実画面・スマホ（${q.id} 変更後）`, 860, 166);
-  c.globalAlpha = a;
-  shot(c, f, 'q08Phone', enter(t, 14.35), rise(t, 14.35));
-  c.globalAlpha = a * enter(t, 15.2);
-  block(c, `参照文の後ろに${q.addLen}文字の追記。色付きは画面の目印。`, 860, 566, 340, 28, {size: 20, color: C.muted});
-  c.restore();
-}
-
-// 19〜23秒：Q05。3条件を保った言い換えでも、完全一致は0（意味が合うことは入力のメモが示す）
-function drawQ05(c, t, f) {
-  const a = sceneAlpha(t, 4);
-  if (a <= 0.001) return;
-  const q = f.q05, line = {size: 32, weight: 500};
-  c.save();
-  c.globalAlpha = a * enter(t, 19.1);
-  label(c, `参照文 ＝ 資料${q.doc}の本文`, 80, 166);
-  c.globalAlpha = a * enter(t, 19.15);
-  text(c, q.reference, 80, 206 + rise(t, 19.15), line);
-  c.globalAlpha = a * enter(t, 19.4);
-  label(c, `変更後の固定回答（${q.id}）`, 80, 246);
-  c.globalAlpha = a * enter(t, 19.45);
-  text(c, q.after, 80, 286 + rise(t, 19.45), line);
-
-  c.globalAlpha = a * enter(t, 19.8);
-  label(c, '完全一致（ExactMatch）', 80, 340);
-  c.globalAlpha = a * enter(t, 19.9);
-  const wb = bigNumber(c, fmt3(q.scores.exact_match), 80, 450 + rise(t, 19.9), 104, C.ink);
-  c.globalAlpha = a * enter(t, 20.05);
-  text(c, `文字列の近さ ${fmt3(q.scores.string_similarity)}`, 80 + wb + 28, 404, {size: 24, weight: 600});
-  text(c, `基準文の包含 ${fmt3(q.scores.string_presence)}`, 80 + wb + 28, 442, {size: 24, weight: 600});
-
-  const kn = enter(t, 20.3);
-  if (kn > 0.001) {
-    c.globalAlpha = a * kn;
-    label(c, `照合メモ（入力）${q.label} ＝ ${f.meanings[q.label]}`, 80, 500, {weight: 700, color: C.teal});
-    let x = 80;
-    q.conditions.forEach((s, i) => {
-      c.globalAlpha = a * enter(t, 20.4 + i * 0.12);
-      const o = {size: 26, weight: 700};
-      const w = measure(c, s, o) + 28;
-      roundRect(c, x, 516, w, 46, 23);
-      c.fillStyle = C.tealSoft;
-      c.fill();
-      text(c, s, x + 14, 548, {...o, color: C.teal});
-      x += w + 10;
+  function drawFusen(st) {
+    const f = L.fusen;
+    ctx.save();
+    ctx.fillStyle = C.warmWash;
+    ctx.strokeStyle = C.warm;
+    ctx.lineWidth = L.tall ? 3 : 2.5;
+    ctx.beginPath();
+    ctx.rect(f.x, f.y, f.w, f.h);
+    ctx.fill();
+    ctx.stroke();
+    text("照合メモ（入力）", f.x + f.pad, f.titleY, f.title, { color: C.warmInk, weight: 800 });
+    const labelFor = (view, side) => SHORT_LABEL[view.row[side].annotation.label];
+    const drawLabel = (view, side, a) => withAlpha(a, () => {
+      text(SIDE_LABEL[side], f.x + f.w - f.pad, f.titleY, f.title, { color: C.warmInk, weight: 600, align: "right" });
+      const str = labelFor(view, side);
+      const size = fitSize(str, f.w - f.pad * 2, f.label, Math.round(f.label * 0.7), 800);
+      text(str, f.x + f.pad, f.labelY, size, { color: C.warmInk, weight: 800 });
     });
-    c.globalAlpha = a * enter(t, 20.8);
-    text(c, 'を保持した言い換え', x + 4, 548, {size: 24, weight: 600});
-    c.globalAlpha = a * enter(t, 21.0);
-    block(c, '意味が合うことを示すのは入力のメモ。3指標は意味を判定しない。', 80, 606, 560, 30, {size: 22, color: C.muted});
+    if (st.caseChange) {
+      drawLabel(st.prevView, "after", st.outA);
+      drawLabel(st.view, st.beat.swap ? "before" : "after", st.inA * (st.beat.swap ? 1 - ramp(st.local, st.beat.swap[0], st.beat.swap[0] + 0.2) : 1));
+      if (st.beat.swap) drawLabel(st.view, "after", ramp(st.local, st.beat.swap[0] + 0.2, st.beat.swap[1]));
+    } else {
+      drawLabel(st.view, "after", 1);
+    }
+    ctx.restore();
   }
 
-  c.globalAlpha = a * enter(t, 19.6);
-  label(c, '実画面・変更後の回答カード（パソコン幅）', 662, 340);
-  c.globalAlpha = a;
-  shot(c, f, 'q05Answer', enter(t, 19.65), rise(t, 19.65));
-  c.restore();
-}
-
-// 23〜28秒：制作時の実操作で保存したJSONの値と、スマホのQ07の計算結果（24.6秒以降は止めて読む）
-function drawSave(c, t, f) {
-  const a = sceneAlpha(t, 5);
-  if (a <= 0.001) return;
-  c.save();
-  const X = 80, W = 600, ix = X + 24, iw = W - 48;
-  const kp = enter(t, 23.1), dp = rise(t, 23.1);
-  const top = 152 + dp;
-  c.globalAlpha = a * kp;
-  panel(c, X, top, W, 436);
-  text(c, '実際に保存したJSON', ix, top + 40, {size: 24, weight: 700, color: C.teal});
-  text(c, 'outputs/browser-selection.json', ix, top + 72, {size: 20, family: 'mono', color: C.muted});
-  c.fillStyle = C.rule;
-  c.fillRect(ix, top + 90, iw, 1);
-  const mono = {size: 24, family: 'mono'};
-  const lines = f.saved.rows.map(([k, v]) => `${k}: ${JSON.stringify(v)}`);
-  const size = fitSize(c, lines, iw, mono, 20);
-  f.saved.rows.forEach(([k, v], i) => {
-    c.globalAlpha = a * enter(t, 23.3 + i * 0.08, 0.35);
-    const y = top + 130 + i * 40;
-    const key = k + ': ';
-    text(c, key, ix, y, {...mono, size, color: C.muted});
-    text(c, JSON.stringify(v), ix + measure(c, key, {...mono, size}), y, {...mono, size, weight: 700});
-  });
-  c.globalAlpha = a * enter(t, 23.85);
-  label(c, '保存名', ix, top + 372);
-  text(c, `${f.saved.filename} ・ ${f.saved.bytes} bytes`, ix + 76, top + 372, {size: 20, family: 'mono', weight: 700});
-  text(c, '制作時の実操作で保存した既存ファイル。', ix, top + 408, {size: 20, color: C.muted});
-
-  c.globalAlpha = a * enter(t, 23.2);
-  label(c, '実画面・スマホ（Q07の計算結果）', 760, 166);
-  c.globalAlpha = a;
-  shot(c, f, 'q07PhoneScores', enter(t, 23.25), rise(t, 23.25));
-
-  c.globalAlpha = a * enter(t, 24.1);
-  text(c, CORE, 80, 640, {size: 34, weight: 700, color: C.teal});
-  c.globalAlpha = a * enter(t, 24.2);
-  text(c, '問い・資料・値・メモを1つのファイルに。', 1200, 640, {size: 22, weight: 600, color: C.muted, align: 'right'});
-  c.restore();
-}
-
-// ---- 1フレームを描く --------------------------------------------------------
-let facts = null;
-let failure = null;
-let currentT = 0;
-
-function render(t) {
-  canvas.width = canvas.width; // 前のフレームの変換・クリップ・状態をすべて捨てる
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.globalAlpha = 1;
-  ctx.globalCompositeOperation = 'source-over';
-  ctx.fillStyle = C.paper;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  const scale = Math.min(canvas.width / LW, canvas.height / LH);
-  ctx.setTransform(scale, 0, 0, scale, (canvas.width - LW * scale) / 2, (canvas.height - LH * scale) / 2);
-  ctx.beginPath();
-  ctx.rect(0, 0, LW, LH);
-  ctx.clip();
-  ctx.imageSmoothingEnabled = true;
-  ctx.imageSmoothingQuality = 'high';
-  drawChrome(ctx);
-  if (!facts) {
-    const message = failure ? '読み込みに失敗しました。代わりの映像は出しません。' : '保存済みのファイルと実画面を確かめています…';
-    text(ctx, message, 80, 300, {size: 30, weight: 700, color: failure ? C.rust : C.muted});
-    if (failure) block(ctx, failure.message, 80, 348, 1120, 32, {size: 22, color: C.ink});
-    return;
+  function drawBookShape() {
+    const b = L.book;
+    const { x, y, w, h, spine } = b;
+    ctx.save();
+    ctx.strokeStyle = C.rule;
+    ctx.lineWidth = b.line;
+    for (const k of [8, 15]) {
+      ctx.beginPath();
+      ctx.moveTo(x + 4, y + h - 2 + k * 0.4);
+      ctx.quadraticCurveTo((x + spine) / 2, y + h - 12 + k, spine, y + h + k * 0.5);
+      ctx.quadraticCurveTo((spine + x + w) / 2, y + h - 12 + k, x + w - 4, y + h - 2 + k * 0.4);
+      ctx.stroke();
+    }
+    ctx.fillStyle = C.paper;
+    ctx.strokeStyle = C.ink;
+    ctx.lineWidth = b.line;
+    for (const edge of [x, x + w]) {
+      ctx.beginPath();
+      ctx.moveTo(edge, y + 10);
+      ctx.quadraticCurveTo((edge + spine) / 2, y - 8, spine, y + 12);
+      ctx.lineTo(spine, y + h + 2);
+      ctx.quadraticCurveTo((edge + spine) / 2, y + h - 16, edge, y + h - 4);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+    }
+    ctx.restore();
   }
-  drawHeadlines(ctx, t, facts);
-  ctx.save();
-  ctx.beginPath();
-  ctx.rect(0, CONTENT_TOP, LW, CONTENT_BOTTOM - CONTENT_TOP);
-  ctx.clip();
-  drawSetup(ctx, t, facts);
-  drawCount(ctx, t, facts);
-  drawQ07(ctx, t, facts);
-  drawQ08(ctx, t, facts);
-  drawQ05(ctx, t, facts);
-  drawSave(ctx, t, facts);
-  ctx.restore();
-}
 
-const statusEl = document.getElementById('status');
-const detailEl = document.getElementById('detail');
-const verifiedEl = document.getElementById('verified');
-function setStatus(state, message, detail = '') {
-  root.dataset.motionStatus = state;
-  if (statusEl) {
-    statusEl.dataset.state = state;
-    statusEl.textContent = message;
+  function refBlock(view) {
+    const spec = L.book.ref[view.ref.length];
+    const maxW = L.book.right.w;
+    let size = spec.size;
+    for (const line of view.ref) size = Math.min(size, fitSize(line, maxW, spec.size, spec.min, 700));
+    return { spec, size };
   }
-  if (detailEl) detailEl.textContent = detail;
-}
-const clampTime = v => {
-  const n = Number(v);
-  return Number.isFinite(n) ? Math.min(DURATION, Math.max(0, n)) : 0;
-};
 
-render(0);
-setStatus('loading', '保存済みのファイルと実画面を確かめています…');
+  // Position of a token inside a set of drawn lines (for the Q05 condition marks).
+  function tokenBox(lines, rawLines, token, x, ys, size, weight) {
+    for (let li = 0; li < lines.length; li += 1) {
+      const raw = rawLines[li];
+      const idx = raw.indexOf(token);
+      if (idx < 0) continue;
+      const prefix = (lines[li].startsWith("…") && !raw.startsWith("…") ? "…" : "") + raw.slice(0, idx);
+      const x0 = x + measure(prefix, size, weight);
+      return { x: x0, y: ys[li], w: measure(token, size, weight), size };
+    }
+    return null;
+  }
 
-window.motionReady = (async () => {
-  if (!window.crypto || !window.crypto.subtle) {
-    throw new Error('この環境ではSHA-256を確かめられません。http://127.0.0.1 などのローカルサーバーで開いてください');
+  function drawBookContent(view, a, st, anchors) {
+    const b = L.book;
+    withAlpha(a, () => {
+      text(`問い ${view.id}`, b.left.x, b.headY, b.headSize, { color: C.muted });
+      const qSize = Math.max(b.qMin, b.qSize);
+      wrapMeasure(view.question, b.left.w, qSize, 700, b.qLines).forEach((line, i) => text(line, b.left.x, b.qY + i * b.qLineH, qSize, { weight: 700 }));
+      text(`資料 ${view.docId}`, b.left.x, b.docY, b.docSize, { color: C.muted, weight: 600 });
+      text("参照文", b.right.x, b.headY, b.headSize, { color: C.muted });
+      const { spec, size } = refBlock(view);
+      view.ref.forEach((line, i) => text(line, b.right.x, spec.ys[i], size, { weight: 700 }));
+      if (view.clock) drawClock(b.clock.cx, b.clock.cy, b.clock.r, view.clock.reference, null, 0, L.tall ? 3 : 2.5);
+      if (view.chips) {
+        // The three conditions as written in the reference: marked in place, named on chips below.
+        const cb = b.chips;
+        let cx = b.right.x;
+        view.chips.labels.forEach((label, k) => {
+          const tb = tokenBox(view.ref, view.rawRef, view.chips.refTokens[k], b.right.x, spec.ys, size, 700);
+          if (tb) {
+            ctx.fillStyle = C.ink;
+            ctx.fillRect(tb.x, tb.y + size * 0.16, tb.w, Math.max(2, size * 0.08));
+          }
+          const w = measure(label, cb.size, 800) + cb.size * 1.1;
+          roundRectPath(cx, cb.y, w, cb.h, cb.h / 2);
+          ctx.fillStyle = C.white;
+          ctx.fill();
+          ctx.lineWidth = L.tall ? 2.5 : 2;
+          ctx.strokeStyle = C.ink;
+          ctx.stroke();
+          text(label, cx + w / 2, cb.y + cb.h * 0.72, cb.size, { weight: 800, align: "center" });
+          if (anchors) anchors.chips[k] = { x: cx + w / 2, y: cb.y + cb.h };
+          cx += w + cb.gap;
+        });
+      }
+    });
   }
-  const fontSpecs = [`600 46px ${SERIF}`, `700 104px ${SANS}`, `500 32px ${SANS}`, `400 20px ${SANS}`, `700 24px ${MONO}`];
-  if (document.fonts && document.fonts.load) {
-    await Promise.all(fontSpecs.map(spec => document.fonts.load(spec, '点数と根拠を予約の取り消し18時0.969Q07')));
-    await document.fonts.ready;
+
+  function stripPath(x, y, w, h) {
+    const tooth = L.tall ? 8 : 6;
+    const steps = Math.max(2, Math.round(h / (tooth * 1.4)));
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x + w - tooth, y);
+    for (let k = 0; k < steps; k += 1) ctx.lineTo(x + w - (k % 2 ? tooth : 0), y + ((k + 1) * h) / steps);
+    ctx.lineTo(x, y + h);
+    ctx.closePath();
   }
-  const {data, sizes, verified, hashes} = await loadAll();
-  const built = buildFacts(data, hashes, sizes);
-  facts = built;
-  render(currentT);
-  setStatus('ready', `照合した${verified.length}ファイルから描いています`,
-    `入力の${built.qIds.length}問・${built.qIds.length * 2}回答、結果の${built.calls}個の値と平均・件数、Q07・Q08・Q05の値と照合メモ（入力）、保存したJSONのQ07の行を確かめました。ページでも映像でもAIやRagasは動きません。`);
-  if (verifiedEl) {
-    verifiedEl.replaceChildren(...verified.map(v => {
-      const li = document.createElement('li');
-      const code = document.createElement('code');
-      code.textContent = v.path;
-      li.append(code, ` — SHA-256 ${v.digest.slice(0, 12)}…`);
+
+  function drawStripShape(which, h, activeA) {
+    const s = L.strip;
+    const y = s[which];
+    withAlpha(0.45 + 0.55 * activeA, () => {
+      stripPath(s.x, y, s.w, h);
+      ctx.fillStyle = C.white;
+      ctx.fill();
+      ctx.strokeStyle = C.ink;
+      ctx.lineWidth = lerp(s.line * 0.5, s.line, activeA);
+      ctx.stroke();
+    });
+  }
+
+  function drawStripContent(view, which, a, activeA, st, anchors) {
+    const s = L.strip;
+    const y = s[which];
+    const row = view.row[which];
+    const lines = view[which];
+    const raw = which === "before" ? view.rawBefore : view.rawAfter;
+    withAlpha(a * (0.45 + 0.55 * activeA), () => {
+      text(SIDE_LABEL[which], s.x + s.tab.dx, y + s.tab.labelY, s.tab.label, { weight: 800 });
+      // The strip's own saved values, small, in the tools' colours.
+      const parts = METRIC_IDS.map((m) => show(m, row.scores[m]));
+      const sep = " ・ ";
+      const full = parts.join(sep);
+      const size = fitSize(full, s.tab.w, s.tab.score, s.tab.scoreMin, 700);
+      let cx = s.x + s.tab.dx;
+      parts.forEach((p, k) => {
+        text(p, cx, y + s.tab.scoreY, size, { color: TOOLS[k].ink, weight: 800 });
+        cx += measure(p, size, 800);
+        if (k < 2) {
+          text(sep, cx, y + s.tab.scoreY, size, { color: C.faint, weight: 600 });
+          cx += measure(sep, size, 600);
+        }
+      });
+      const right = s.x + s.w - (view.clock ? s.clock.dx * 2 : 24);
+      const maxW = right - (s.x + s.textX);
+      const tx = s.x + s.textX;
+      const refFrag = view.ref.length === 1 ? view.ref[0] : null;
+      if (lines.length === 1) {
+        const size1 = fitSize(lines[0], maxW, s.one.size, s.one.min, 800);
+        const flags = refFrag ? diffFlags(refFrag, lines[0]) : Array.from(lines[0]).map(() => false);
+        drawMarked(lines[0], flags, tx, y + s.one.y, size1);
+      } else {
+        let size2 = s.two.size;
+        for (const line of lines) size2 = Math.min(size2, fitSize(line, maxW, s.two.size, s.two.min, 600));
+        lines.forEach((line, i) => drawMarked(line, Array.from(line).map(() => false), tx, y + s.two.ys[i], size2));
+        if (view.chips && which === "after" && anchors) {
+          view.chips.afterTokens.forEach((token, k) => {
+            const tb = tokenBox(lines, raw, token, tx, s.two.ys.map((d) => y + d), size2, 600);
+            if (tb) anchors.tokens[k] = tb;
+          });
+        }
+      }
+      if (view.clock) {
+        const wedge = st.sc.id === "overview" ? 0 : st.sc.id === "deadline" ? ramp(st.local, 1.6, 2.0) : 1;
+        drawClock(s.x + s.w - s.clock.dx, y + s.clock.cy, s.clock.r, view.clock[which], view.clock.reference, wedge, L.tall ? 2.5 : 2);
+      }
+      if (view.attach && which === "after") {
+        // The added sentence: a separate slip taped under the answer that holds the whole reference.
+        const at = s.attach;
+        const ax = s.x + at.dx;
+        const ay = y + at.dy;
+        const asz = fitSize(view.attach, s.x + s.w - ax - 40, at.size, at.min, 800);
+        const aw = measure(view.attach, asz, 800) + asz;
+        ctx.save();
+        ctx.translate(ax, ay);
+        ctx.rotate(-0.012);
+        ctx.fillStyle = C.attach;
+        ctx.fillRect(0, 0, aw, at.h);
+        ctx.strokeStyle = C.ink;
+        ctx.lineWidth = L.tall ? 2 : 1.5;
+        ctx.strokeRect(0, 0, aw, at.h);
+        ctx.fillStyle = "rgba(207,197,176,0.95)";
+        ctx.fillRect(-10, -8, 34, 16);
+        text(view.attach, asz * 0.5, at.h * 0.72, asz, { weight: 800 });
+        ctx.restore();
+      }
+    });
+  }
+
+  function drawLeaders(st, anchors) {
+    if (st.sc.id !== "paraphrase" || !st.beat.leaders) return;
+    const k = ease(ramp(st.local, st.beat.leaders[0], st.beat.leaders[1]));
+    if (k <= 0) return;
+    withAlpha(st.inA, () => {
+      ctx.save();
+      ctx.strokeStyle = C.warm;
+      ctx.lineWidth = L.tall ? 3 : 2.5;
+      ctx.setLineDash(L.tall ? [8, 7] : [6, 5]);
+      anchors.chips.forEach((c, i) => {
+        const tk = anchors.tokens[i];
+        if (!c || !tk) return;
+        const ex = tk.x + tk.w / 2;
+        const ey = tk.y - tk.size * 0.95;
+        ctx.beginPath();
+        ctx.moveTo(c.x, c.y);
+        ctx.lineTo(lerp(c.x, ex, k), lerp(c.y, ey, k));
+        ctx.stroke();
+      });
+      ctx.setLineDash([]);
+      // Once a line arrives, the matching words on the answer are marked.
+      withAlpha(ramp(k, 0.85, 1), () => {
+        ctx.fillStyle = C.warm;
+        anchors.tokens.forEach((tk) => {
+          if (tk) ctx.fillRect(tk.x, tk.y + tk.size * 0.16, tk.w, Math.max(2, tk.size * 0.09));
+        });
+      });
+      ctx.restore();
+    });
+  }
+
+  function drawClockGhost(st) {
+    if (st.sc.id !== "deadline" || !st.view.clock) return;
+    const [a, b] = st.beat.clockDrop;
+    if (st.local < a || st.local > b + 0.2) return;
+    const k = ease(ramp(st.local, a, b));
+    const bc = L.book.clock;
+    const s = L.strip;
+    const tx = s.x + s.w - s.clock.dx;
+    const ty = s.after + s.clock.cy;
+    const cx = lerp(bc.cx, tx, k);
+    const cy = lerp(bc.cy, ty, k);
+    const r = lerp(bc.r, s.clock.r, k);
+    withAlpha(0.85 * (1 - ramp(st.local, b, b + 0.2)), () => {
+      ctx.save();
+      ctx.setLineDash([6, 5]);
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.strokeStyle = C.ink;
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+      ctx.setLineDash([]);
+      const ang = ((st.view.clock.reference % 12) / 12) * Math.PI * 2 - Math.PI / 2;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(cx + Math.cos(ang) * r * 0.7, cy + Math.sin(ang) * r * 0.7);
+      ctx.lineWidth = 3.5;
+      ctx.lineCap = "round";
+      ctx.stroke();
+      ctx.restore();
+    });
+  }
+
+  function connectorPaths(st) {
+    const g = activeStripGeom(st);
+    const ts = TOOLS.map((_, i) => L.tool(i));
+    const segs = [];
+    if (L.tall) {
+      const midX = L.DW / 2;
+      const xs = ts.map((t) => t.inst.cx);
+      segs.push([[midX, g.y + g.h], [midX, L.bus]]);
+      segs.push([[xs[0], L.bus], [xs[2], L.bus]]);
+      xs.forEach((x, i) => segs.push([[x, L.bus], [x, ts[i].box.y]]));
+      xs.forEach((x, i) => segs.push([[x, ts[i].box.y + ts[i].box.h], [x, L.bus2]]));
+      segs.push([[xs[0], L.bus2], [xs[2], L.bus2]]);
+      segs.push([[midX, L.bus2], [midX, L.card.y]]);
+    } else {
+      const ys = ts.map((t) => t.inst.cy);
+      const mid = g.y + g.h / 2;
+      segs.push([[g.x + g.w, mid], [L.bus, mid]]);
+      segs.push([[L.bus, Math.min(mid, ys[0])], [L.bus, Math.max(mid, ys[2])]]);
+      ys.forEach((y, i) => segs.push([[L.bus, y], [ts[i].box.x, y]]));
+      ys.forEach((y, i) => segs.push([[ts[i].box.x + ts[i].box.w, y], [L.bus2, y]]));
+      segs.push([[L.bus2, ys[0]], [L.bus2, ys[2]]]);
+      segs.push([[L.bus2, L.card.y + L.card.h / 2], [L.card.x, L.card.y + L.card.h / 2]]);
+    }
+    return segs;
+  }
+
+  function drawConnectors(st) {
+    const segs = connectorPaths(st);
+    ctx.save();
+    ctx.strokeStyle = C.ink;
+    ctx.lineWidth = L.tall ? 3 : 2.5;
+    ctx.lineCap = "round";
+    // During the opening build the lines draw in order; afterwards all are complete.
+    const n = segs.length;
+    segs.forEach((seg, i) => {
+      const k = clamp01(st.build * n - i);
+      if (k <= 0) return;
+      ctx.beginPath();
+      ctx.moveTo(seg[0][0], seg[0][1]);
+      ctx.lineTo(lerp(seg[0][0], seg[1][0], k), lerp(seg[0][1], seg[1][1], k));
+      ctx.stroke();
+    });
+    ctx.restore();
+  }
+
+  // The miniature's route: active strip → tool 1 → tool 2 → tool 3 → saved question.
+  function chipRoute(st) {
+    const g = activeStripGeom(st);
+    const ts = TOOLS.map((_, i) => L.tool(i).inst);
+    let pts;
+    if (L.tall) {
+      const midX = L.DW / 2;
+      pts = [[midX, g.y + g.h / 2], [midX, L.bus], [ts[0].cx, L.bus], [ts[0].cx, ts[0].cy], [ts[1].cx, ts[1].cy], [ts[2].cx, ts[2].cy],
+        [ts[2].cx, L.bus2], [midX, L.bus2], [midX, L.card.y + L.card.h / 2]];
+    } else {
+      const mid = g.y + g.h / 2;
+      pts = [[g.x + g.w * 0.75, mid], [L.bus, mid], [L.bus, ts[0].cy], [ts[0].cx, ts[0].cy], [ts[1].cx, ts[1].cy], [ts[2].cx, ts[2].cy],
+        [L.bus2, ts[2].cy], [L.bus2, L.card.y + L.card.h / 2], [L.card.x + L.card.w / 2, L.card.y + L.card.h / 2]];
+    }
+    const lens = [];
+    let total = 0;
+    for (let i = 1; i < pts.length; i += 1) {
+      const d = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
+      lens.push(d);
+      total += d;
+    }
+    const cum = [0];
+    lens.forEach((d) => cum.push(cum[cum.length - 1] + d));
+    const frac = [3, 4, 5].map((idx) => cum[idx] / total);
+    const at = (u) => {
+      let dist = clamp01(u) * total;
+      for (let i = 0; i < lens.length; i += 1) {
+        if (dist <= lens[i] || i === lens.length - 1) {
+          const k = lens[i] ? Math.min(1, dist / lens[i]) : 1;
+          return [lerp(pts[i][0], pts[i + 1][0], k), lerp(pts[i][1], pts[i + 1][1], k)];
+        }
+        dist -= lens[i];
+      }
+      return pts[pts.length - 1];
+    };
+    return { frac, at };
+  }
+
+  function drawComb(v, k, color) {
+    // Reference comb above, answer comb below: identical strings lock together; any difference leaves a gap.
+    ctx.fillStyle = color;
+    ctx.fillRect(-80, -42, 160, 12);
+    for (let j = 0; j < 6; j += 1) ctx.fillRect(-74 + j * 28, -30, 12, 18);
+    const target = v === 1 ? { yb: -12, shift: 0 } : { yb: 12, shift: 14 };
+    const yb = lerp(32, target.yb, k);
+    const shift = lerp(0, target.shift, k);
+    ctx.fillStyle = C.white;
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 3;
+    ctx.fillRect(-80 + shift, yb, 160, 12);
+    ctx.strokeRect(-80 + shift, yb, 160, 12);
+    for (let j = 0; j < 5; j += 1) {
+      ctx.fillRect(-60 + j * 28 + shift, yb - 18, 12, 18);
+      ctx.strokeRect(-60 + j * 28 + shift, yb - 18, 12, 18);
+    }
+  }
+
+  function drawRuler(v, k, color) {
+    const val = v * k;
+    ctx.fillStyle = color;
+    ctx.fillRect(-80, 14, 160 * val, 10);
+    ctx.strokeStyle = C.ink;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(-80, 8);
+    ctx.lineTo(80, 8);
+    ctx.stroke();
+    ctx.lineWidth = 2;
+    for (let j = 0; j <= 10; j += 1) {
+      const x = -80 + 16 * j;
+      ctx.beginPath();
+      ctx.moveTo(x, 8);
+      ctx.lineTo(x, 8 - (j % 5 === 0 ? 18 : 10));
+      ctx.stroke();
+    }
+    withAlpha(0.35 + 0.65 * k, () => {
+      const px = -80 + 160 * val;
+      ctx.beginPath();
+      ctx.moveTo(px, 2);
+      ctx.lineTo(px - 11, -22);
+      ctx.lineTo(px + 11, -22);
+      ctx.closePath();
+      ctx.fillStyle = color;
+      ctx.fill();
+    });
+    text("0", -80, 46, 18, { color: C.muted, align: "center", weight: 700 });
+    text("1", 80, 46, 18, { color: C.muted, align: "center", weight: 700 });
+  }
+
+  function drawSleeve(v, extra, k, color) {
+    // A transparent sleeve the size of the whole reference.
+    roundRectPath(-70, -28, 140, 56, 10);
+    ctx.fillStyle = "rgba(255,255,255,0.55)";
+    ctx.fill();
+    ctx.setLineDash([10, 6]);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 3;
+    ctx.stroke();
+    ctx.setLineDash([]);
+    const x0 = lerp(-190, -56, k);
+    withAlpha(0.35 + 0.65 * k, () => {
+      if (v === 1) {
+        ctx.fillStyle = color;
+        ctx.fillRect(x0, -10, 112, 20);
+        if (extra) {
+          // The added slip stays outside the sleeve.
+          ctx.save();
+          ctx.translate(x0 + 112, -12);
+          ctx.rotate(-0.07);
+          ctx.fillStyle = C.attach;
+          ctx.fillRect(0, 0, 54, 24);
+          ctx.strokeStyle = C.ink;
+          ctx.lineWidth = 2;
+          ctx.strokeRect(0, 0, 54, 24);
+          ctx.restore();
+        }
+      } else {
+        ctx.fillStyle = color;
+        ctx.fillRect(x0, -10, 52, 20);
+        ctx.save();
+        ctx.translate(lerp(-130, 6, k), lerp(-10, 14, k));
+        ctx.rotate(lerp(0, 0.26, k));
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 3;
+        ctx.strokeRect(0, 0, 56, 20);
+        ctx.restore();
+      }
+    });
+  }
+
+  function drawTools(st, route) {
+    TOOLS.forEach((tool, i) => {
+      const g = L.tool(i);
+      const b = g.box;
+      const ts = toolState(st, i, route.frac);
+      const row = ts.view.row[ts.side];
+      const v = row.scores[tool.id];
+      ctx.save();
+      roundRectPath(b.x, b.y, b.w, b.h, L.tall ? 18 : 14);
+      ctx.fillStyle = tool.wash;
+      ctx.fill();
+      ctx.lineWidth = L.tall ? 3 : 2.5;
+      ctx.strokeStyle = tool.ink;
+      ctx.stroke();
+      ctx.clip();
+      ctx.fillStyle = tool.ink;
+      ctx.fillRect(b.x, b.y, b.w, g.bar);
+      const lab = g.label;
+      const ls = fitSize(tool.label, lab.max, lab.size, lab.min, 800);
+      text(tool.label, lab.x, lab.y, ls, { weight: 800, align: lab.align });
+      ctx.save();
+      ctx.translate(g.inst.cx, g.inst.cy);
+      ctx.scale(g.inst.s, g.inst.s);
+      if (i === 0) drawComb(v, ts.k, tool.ink);
+      if (i === 1) drawRuler(v, ts.k, tool.ink);
+      if (i === 2) drawSleeve(v, v === 1 && ts.view.row[ts.side].response !== ts.view.row.reference, ts.k, tool.ink);
+      ctx.restore();
+      const tk = g.token;
+      roundRectPath(tk.x, tk.y, tk.w, tk.h, tk.h / 2);
+      ctx.fillStyle = C.paper;
+      ctx.fill();
+      ctx.strokeStyle = tool.ink;
+      ctx.lineWidth = L.tall ? 3 : 2.5;
+      ctx.stroke();
+      withAlpha(ts.k, () => {
+        const str = show(tool.id, v);
+        const sz = fitSize(str, tk.w - 16, tk.size, Math.round(tk.size * 0.7), 800);
+        text(str, tk.x + tk.w / 2, tk.y + tk.h / 2 + sz * 0.36, sz, { weight: 800, align: "center" });
+      });
+      ctx.restore();
+    });
+  }
+
+  function drawDocIcon(x, y, w, h) {
+    const fold = w * 0.3;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x + w - fold, y);
+    ctx.lineTo(x + w, y + fold);
+    ctx.lineTo(x + w, y + h);
+    ctx.lineTo(x, y + h);
+    ctx.closePath();
+    ctx.fillStyle = C.white;
+    ctx.fill();
+    ctx.strokeStyle = C.ink;
+    ctx.lineWidth = L.tall ? 2.5 : 2;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x + w - fold, y);
+    ctx.lineTo(x + w - fold, y + fold);
+    ctx.lineTo(x + w, y + fold);
+    ctx.stroke();
+    ctx.lineWidth = L.tall ? 2 : 1.5;
+    for (let k = 0; k < 3; k += 1) {
+      ctx.beginPath();
+      ctx.moveTo(x + w * 0.18, y + h * (0.48 + k * 0.15));
+      ctx.lineTo(x + w * 0.82, y + h * (0.48 + k * 0.15));
+      ctx.stroke();
+    }
+  }
+
+  function drawCard(st) {
+    const c = L.card;
+    ctx.save();
+    roundRectPath(c.x, c.y, c.w, c.h, L.tall ? 16 : 14);
+    ctx.fillStyle = C.paper;
+    ctx.fill();
+    ctx.strokeStyle = C.ink;
+    ctx.lineWidth = L.tall ? 3 : 2.5;
+    ctx.stroke();
+    const content = (view, a) => withAlpha(a, () => {
+      if (L.tall) {
+        drawDocIcon(c.x + 26, c.y + 16, 50, 64);
+        text(`${view.id} ・ 資料${view.docId}`, c.x + 100, c.y + 44, 34, { weight: 800 });
+        text(`nagi-faq-${view.id}.json`, c.x + 100, c.y + 80, 24, { color: C.muted, weight: 600, family: MONO });
+      } else {
+        drawDocIcon(c.x + 22, c.y + 20, 46, 60);
+        text(view.id, c.x + 22, c.y + 122, 38, { weight: 800 });
+        text(`資料${view.docId}`, c.x + 22, c.y + 160, 26, { weight: 700 });
+        const fs = fitSize(`nagi-faq-${view.id}.json`, c.w - 36, 17, 12, 600, MONO);
+        text(`nagi-faq-${view.id}.json`, c.x + 22, c.y + 202, fs, { color: C.muted, weight: 600, family: MONO });
+      }
+    });
+    if (st.caseChange) {
+      content(st.prevView, st.outA);
+      content(st.view, st.inA);
+    } else content(st.view, 1);
+    ctx.restore();
+  }
+
+  function drawMini(x, y, view, side) {
+    const m = L.chipSize;
+    ctx.save();
+    ctx.translate(x - m.w / 2, y - m.h / 2);
+    ctx.fillStyle = C.white;
+    ctx.strokeStyle = C.ink;
+    ctx.lineWidth = L.tall ? 3 : 2.5;
+    ctx.fillRect(0, 0, m.w, m.h);
+    ctx.strokeRect(0, 0, m.w, m.h);
+    ctx.lineWidth = L.tall ? 3 : 2;
+    const lx = view.clock ? m.r * 2 + 12 : 10;
+    for (let k = 0; k < 2; k += 1) {
+      ctx.beginPath();
+      ctx.moveTo(lx, m.h * (0.38 + k * 0.28));
+      ctx.lineTo(m.w - 10, m.h * (0.38 + k * 0.28));
+      ctx.stroke();
+    }
+    if (view.clock) drawClock(m.r + 6, m.h / 2, m.r, view.clock[side], view.clock.reference, 1, L.tall ? 2 : 1.6);
+    if (view.attach && side === "after") {
+      ctx.fillStyle = C.attach;
+      ctx.fillRect(m.w * 0.55, m.h - 4, m.w * 0.5, m.h * 0.42);
+      ctx.strokeStyle = C.ink;
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(m.w * 0.55, m.h - 4, m.w * 0.5, m.h * 0.42);
+    }
+    if (view.chips && side === "after") {
+      ctx.fillStyle = C.warm;
+      for (let k = 0; k < 3; k += 1) {
+        ctx.beginPath();
+        ctx.arc(m.w * (0.3 + k * 0.2), m.h + 6, L.tall ? 5 : 4, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    ctx.restore();
+  }
+
+  function drawTraveller(st, route) {
+    const tr = st.beat.travel;
+    if (!tr) return;
+    const u = (st.local - tr.start) / tr.dur;
+    if (u < 0 || u > 1) return;
+    const a = Math.min(ramp(u, 0, 0.05), 1 - ramp(u, 0.95, 1));
+    const [x, y] = route.at(u);
+    withAlpha(a, () => drawMini(x, y, st.view, tr.side));
+  }
+
+  function drawCta(st) {
+    if (!st.beat.cta) return;
+    const a = ease(ramp(st.local, st.beat.cta[0], st.beat.cta[1]));
+    if (a <= 0) return;
+    const c = L.cta;
+    withAlpha(a, () => {
+      roundRectPath(c.cx - c.w / 2, c.cy - c.h / 2, c.w, c.h, L.tall ? c.h / 2 : 16);
+      ctx.fillStyle = C.ink;
+      ctx.fill();
+      if (L.tall) {
+        const str = "作例ページで、この問いをJSONで保存";
+        const sz = fitSize(str, c.w - 32, c.size, 20, 800);
+        text(str, c.cx, c.cy + sz * 0.36, sz, { color: C.paper, weight: 800, align: "center" });
+      } else {
+        text("作例ページで", c.cx, c.cy - 6, c.size - 2, { color: C.paper, weight: 700, align: "center" });
+        const str = "この問いをJSONで保存";
+        const sz = fitSize(str, c.w - 20, c.size, 14, 800);
+        text(str, c.cx, c.cy + 22, sz, { color: C.paper, weight: 800, align: "center" });
+      }
+    });
+  }
+
+  function drawFooter() {
+    const f = L.foot;
+    const lines = L.tall
+      ? ["架空の10問・保存済みの実結果（Ragas 298b682、60回の ascore）", "照合メモは制作担当の入力。道具の判定でも承認でもありません。無音。"]
+      : ["架空の10問・保存済みの実結果（Ragas 298b682、60回の ascore）・照合メモは制作担当の入力で、道具の判定ではありません・無音"];
+    lines.forEach((line, i) => {
+      const sz = fitSize(line, f.max, f.size, f.min, 600);
+      text(line, f.x, f.ys[i], sz, { color: C.muted, weight: 600 });
+    });
+  }
+
+  let film = null;
+
+  function drawFrame(time) {
+    const st = stateAt(time);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = C.ivory;
+    ctx.fillRect(0, 0, W, H);
+    ctx.setTransform(S, 0, 0, S, OX, OY);
+    const anchors = { chips: [], tokens: [] };
+    const route = chipRoute(st);
+
+    drawEyebrow();
+    drawHeadline(st);
+    drawFusen(st);
+    drawBookShape();
+    if (st.caseChange) drawBookContent(st.prevView, st.outA, st, null);
+    drawBookContent(st.view, st.inA, st, anchors);
+    drawConnectors(st);
+
+    const afterA = st.sideK;
+    drawStripShape("before", L.strip.h, 1 - afterA);
+    drawStripShape("after", afterHeight(st), afterA);
+    for (const which of SIDES) {
+      const activeA = which === "after" ? afterA : 1 - afterA;
+      if (st.caseChange) drawStripContent(st.prevView, which, st.outA, activeA, st, null);
+      drawStripContent(st.view, which, st.inA, activeA, st, anchors);
+    }
+    drawLeaders(st, anchors);
+    drawClockGhost(st);
+    drawTools(st, route);
+    drawCard(st);
+    drawTraveller(st, route);
+    drawCta(st);
+    drawFooter();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+  }
+
+  // --- Editor -----------------------------------------------------------------------------------
+
+  let loading = false;
+  let current = 0;
+  let isPlaying = false;
+  let raf = 0;
+  let startTime = 0;
+  let startNow = 0;
+
+  function showAssets() {
+    const ok = [...assetState.values()].filter((v) => v === "ok").length;
+    ui.count.textContent = `${ok} / ${ASSETS.length}素材`;
+    ui.count.dataset.state = ok === ASSETS.length ? "ok" : [...assetState.values()].includes("bad") ? "bad" : "pending";
+    ui.assetList.replaceChildren(...ASSETS.map((a) => {
+      const li = document.createElement("li");
+      const st = assetState.get(a.file);
+      const name = document.createElement("code");
+      name.textContent = a.file;
+      const flag = document.createElement("span");
+      flag.className = `asset-state is-${st ?? "pending"}`;
+      flag.textContent = st === "ok" ? "一致" : st === "bad" ? "不一致・読めない" : "照合前";
+      li.append(name, " ", flag, ` ${a.bytes.toLocaleString("en-US")} bytes（元：${a.source}）`);
       return li;
     }));
-    verifiedEl.hidden = false;
   }
-  return true;
-})().catch(error => {
-  failure = error;
-  render(currentT);
-  setStatus('error', '読み込みに失敗しました：' + error.message, '代わりの映像は出しません。ファイルを確かめてから再読み込みしてください。');
-  throw error;
-});
-window.motionReady.catch(() => {});
 
-// 任意の時刻の完成した画面を描く。呼んだ順番や壁時計には依存しない
-window.seek = seconds => {
-  const t = clampTime(seconds);
-  currentT = t;
-  return window.motionReady.then(() => {
-    render(t);
-    return t;
-  });
-};
-
-// ---- 編集用のプレビュー（書き出し時は何も動かさない） --------------------------
-// 自動では再生しない（動きを減らす設定でも同じく停止から始まる）。再生は「再生」を押したときだけ
-function setupPreview() {
-  const play = document.getElementById('play');
-  const range = document.getElementById('time');
-  const clock = document.getElementById('clock');
-  const reload = document.getElementById('reload');
-  let playing = false, raf = 0, from = 0, startedAt = 0;
-  const sec = v => v.toFixed(1) + '秒';
-
-  function sync() {
-    range.value = (Math.round(currentT * 10) / 10).toFixed(1);
-    range.setAttribute('aria-valuetext', `${sec(currentT)}（全${DURATION}秒）`);
-    clock.textContent = `${sec(currentT)} / ${sec(DURATION)}`;
-    play.textContent = playing ? '一時停止' : '再生';
-    play.setAttribute('aria-pressed', playing ? 'true' : 'false');
-  }
-  function tick(now) {
-    if (!playing) return;
-    const t = Math.min(DURATION, from + (now - startedAt) / 1000);
-    currentT = t;
-    render(t);
-    if (t >= DURATION) {
-      playing = false;
-      raf = 0;
-    } else {
-      raf = requestAnimationFrame(tick);
+  // Full original strings of the cases the film shows, readable as text (not drawn in full).
+  function showFocus(built) {
+    if (!built) {
+      ui.focusList.replaceChildren();
+      return;
     }
-    sync();
+    ui.focusList.replaceChildren(...Object.values(built.views).map((v) => {
+      const li = document.createElement("li");
+      const r = v.row;
+      const vals = (s) => METRIC_IDS.map((m) => `${m} ${r[s].scores[m]}`).join("・");
+      li.textContent = `${v.id}「${r.question}」 参照文：${r.reference}／変更前：${r.before.response}（${vals("before")}、照合メモ・入力：${SHORT_LABEL[r.before.annotation.label]}）／変更後：${r.after.response}（${vals("after")}、照合メモ・入力：${SHORT_LABEL[r.after.annotation.label]}）`;
+      return li;
+    }));
   }
-  function start() {
-    if (!facts || playing) return;
-    if (currentT >= DURATION - 0.05) currentT = 0;
-    from = currentT;
-    startedAt = performance.now();
-    playing = true;
-    raf = requestAnimationFrame(tick);
-    sync();
+
+  function showTime() {
+    ui.clock.textContent = loading ? "照合中" : !film ? "映像なし（照合失敗）" : `${current.toFixed(1)} / ${DURATION.toFixed(1)} 秒`;
   }
+
+  function playLabel() {
+    ui.play.textContent = isPlaying ? "一時停止" : current >= DURATION - 0.001 ? "もう一度再生" : "再生";
+    ui.play.setAttribute("aria-pressed", String(isPlaying));
+  }
+
+  function paint(t) {
+    if (!film) throw new Error("素材の照合前は描けません。");
+    current = t;
+    drawFrame(t);
+    ui.time.value = String(t);
+    showTime();
+    playLabel();
+  }
+
   function stop() {
-    playing = false;
     if (raf) cancelAnimationFrame(raf);
     raf = 0;
-    sync();
-  }
-  function jump(t) {
-    stop();
-    currentT = clampTime(t);
-    if (facts) render(currentT);
-    sync();
+    isPlaying = false;
+    playLabel();
   }
 
-  play.addEventListener('click', () => (playing ? stop() : start()));
-  // 矢印キーはスライダー標準（0.1秒）。Home・End は先頭・末尾、PageUp・PageDown は2秒ずつ（Home から7回で14秒）
-  range.addEventListener('input', () => jump(Number(range.value)));
-  range.addEventListener('keydown', event => {
-    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
-    const moves = {Home: () => 0, End: () => DURATION, PageUp: () => currentT + 2, PageDown: () => currentT - 2};
-    if (Object.hasOwn(moves, event.key)) {
-      event.preventDefault();
-      jump(Math.round(moves[event.key]() * 10) / 10);
+  window.seek = (seconds) => {
+    const t = clampTime(seconds);
+    stop();
+    return window.motionReady.then(() => paint(t));
+  };
+
+  function previewFrame(now) {
+    if (!isPlaying) return;
+    const t = Math.min(DURATION, startTime + (now - startNow) / 1000);
+    try {
+      paint(t);
+    } catch (error) {
+      fail(error);
+      return;
     }
-  });
-  reload.addEventListener('click', () => location.reload());
-  window.motionReady.then(() => {
-    play.disabled = false;
-    range.disabled = false;
-    sync();
-  }, () => {
-    reload.hidden = false;
-  });
-}
-if (!RENDER) setupPreview();
+    if (t >= DURATION) stop();
+    else raf = requestAnimationFrame(previewFrame);
+  }
+
+  function play() {
+    if (RENDER || !film || loading) return;
+    startTime = current >= DURATION - 0.05 ? 0 : current;
+    startNow = performance.now();
+    isPlaying = true;
+    playLabel();
+    raf = requestAnimationFrame(previewFrame);
+  }
+
+  function setControls(enabled) {
+    for (const c of [ui.play, ui.reset, ui.time, ...ui.sceneList.querySelectorAll("button")]) c.disabled = !enabled || RENDER;
+  }
+
+  function buildSceneList(headlines) {
+    ui.sceneList.replaceChildren(...SCENE_PLAN.map((s) => {
+      const li = document.createElement("li");
+      const b = document.createElement("button");
+      b.type = "button";
+      b.disabled = true;
+      const time = document.createElement("span");
+      time.className = "scene-time";
+      time.textContent = `${s.in}–${s.out}秒`;
+      b.append(time, `${headlines?.[s.id] ?? s.id}（${s.case}）`);
+      b.addEventListener("click", () => window.seek(s.read).catch(fail));
+      li.append(b);
+      return li;
+    }));
+  }
+
+  function setState(name, message) {
+    ui.editor.dataset.state = name;
+    ui.status.dataset.state = name;
+    ui.status.textContent = message;
+  }
+
+  function fail(error) {
+    stop();
+    loading = false;
+    film = null;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    ui.stage.hidden = true;
+    setControls(false);
+    showFocus(null);
+    setState("error", "素材を確かめられなかったため、映像を描いていません。");
+    ui.errorText.textContent = error && error.message ? error.message : String(error);
+    ui.errorBox.hidden = false;
+    ui.retry.disabled = false;
+    showAssets();
+    showTime();
+  }
+
+  function start() {
+    if (loading) return window.motionReady;
+    stop();
+    loading = true;
+    film = null;
+    assetState.clear();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    ui.stage.hidden = true;
+    ui.errorBox.hidden = true;
+    ui.retry.disabled = true;
+    setControls(false);
+    showFocus(null);
+    current = 0;
+    ui.time.value = "0";
+    buildSceneList(null);
+    showAssets();
+    setState("loading", `manifest と素材${ASSETS.length}件の SHA-256、保存した採点結果を照合しています…`);
+    showTime();
+    const ready = load().then((built) => {
+      loading = false;
+      film = built;
+      buildSceneList(built.headlines);
+      showFocus(built);
+      ui.stage.hidden = false;
+      paint(current);
+      setControls(true);
+      setState("ready", `照合済み（${ASSETS.length} / ${ASSETS.length}素材）。無音の動く説明図です。再生は操作したときだけ始まります。`);
+      return true;
+    });
+    ready.catch(fail);
+    window.motionReady = ready;
+    return ready;
+  }
+
+  ui.play.addEventListener("click", () => (isPlaying ? stop() : play()));
+  ui.reset.addEventListener("click", () => window.seek(0).catch(fail));
+  ui.time.addEventListener("input", () => window.seek(ui.time.value).catch(fail));
+  ui.retry.addEventListener("click", start);
+  start();
+})();

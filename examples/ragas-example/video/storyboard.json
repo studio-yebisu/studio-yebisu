@@ -1,137 +1,129 @@
 {
-  "format": "studio-yebisu-storyboard-v1",
-  "title": "点数と根拠を、セットで読む（Ragas 作例・解説映像）",
-  "author_model": "claude-opus-5-5",
-  "brief": {
-    "purpose": "Ragas の文字列指標3つの点数は、根拠資料と入力の照合メモと並べて読む必要があることを、実際の保存結果と実画面で示す。",
-    "audience": "RAGやFAQボットの評価を初めて試す、日本語で読みたい開発者・制作担当",
-    "core_message": "点数と根拠を、セットで読む。",
-    "next_action": "閲覧ページで問いを選び、根拠資料・値・照合メモごとJSONで保存する。",
-    "facts": [
-      "固定版 vibrantlabsai/ragas 298b68274234c060deacab3cf5fb52aa3a20e885 の ExactMatch・NonLLMStringSimilarity（LEVENSHTEIN）・StringPresence を、10問×2回答×3指標＝60回実際に呼んだ保存結果（outputs/evaluation.json）",
-      "完全一致の件数 4/10→7/10、文字列の近さの平均 0.7884922267275208→0.8835109447004609、包含の平均 0.4→0.8。文字列の統計で、正答率やモデルの改善ではない",
-      "Q07 変更後：完全一致0・文字列の近さ0.96875・包含0。照合メモ（入力）contradiction",
-      "Q08 変更後：完全一致0・文字列の近さ0.5806451612903225・包含1。照合メモ（入力）unsupported_addition。追記の真偽は資料から断定できない",
-      "Q05 変更後：完全一致0・文字列の近さ0.2857142857142857・包含0。照合メモ（入力）grounded（予約なし・1回・7日間を保持）",
-      "outputs/browser-selection.json：制作時の実操作で保存した nagi-faq-Q07.json（3396バイト）"
-    ],
-    "unconfirmed": [
-      "この映像の書き出し・コンタクトシート・通し再生の確認は、作者（モデル）は行っていない。制作側の書き出し後に記録する",
-      "別OS・別フォントで同じ画になるかは未確認"
-    ],
-    "look": "温かい紙色の地、墨の文字、閲覧ページと同じ深い青緑と錆色。見出しは明朝46px（下限44px）、主な本文32〜34px、値は84〜104px、ラベル20px以上。1場面の文字量を絞る。",
-    "motion": "要素は0.45秒の減速で12pxせり上がって入る。場面の切り替えは0.5秒の重ね合わせ。各場面の後半は止めて読む。ポスター13.5秒はQ07の全要素が着地済み。",
-    "output": {
-      "duration": 28,
-      "fps": 30,
-      "frames": 840,
-      "width": 1280,
-      "height": 720,
-      "poster_time": 13.5,
-      "audio": "なし（無音。audioEvents は空）",
-      "loop": false
-    },
-    "persistent_overlays": [
-      "上：Studio Yebisu ・ Ragas 作例 ／ vibrantlabsai/ragas 298b682 ・ Apache-2.0",
-      "下左：架空FAQの固定回答を比較／実結果を編集・無音",
-      "下右：照合メモは入力・Ragasの判定ではありません"
-    ]
-  },
-  "sources": {
-    "verified_by_sha256": "video/assets/data-hashes.json（12ファイル。照合表自体のSHA-256は runtime/frozen-reviewed-source.json の値を video.js に埋め込む）",
-    "data": [
-      "input/faq-pairs.json",
-      "outputs/evaluation.json",
-      "outputs/method.md",
-      "outputs/browser-selection.json",
-      "outputs/browser-record.json",
-      "video/assets/screen-manifest.json"
-    ],
-    "screens": [
-      "video/assets/desktop-Q07.png（1265×2829）",
-      "video/assets/desktop-Q08.png（1265×2855・照合のみ、映像には使わない）",
-      "video/assets/desktop-Q05.png（1265×2829）",
-      "video/assets/phone-initial.png（375×812）",
-      "video/assets/phone-Q07.png（375×812）",
-      "video/assets/phone-Q08.png（375×812）"
-    ],
-    "screen_note": "閲覧ページの実画面の静止キャプチャ。等倍率の切り抜きと位置の移動だけで、伸ばし・消し・書き換え・偽のUIの重ね描きはしない。連続した画面録画ではない。"
-  },
-  "crops": [
-    {"id": "phoneTop", "file": "phone-initial.png", "pixels": {"x": 0, "y": 0, "w": 375, "h": 520}, "place": {"x": 80, "y": 182, "scale": 0.86}, "shows": "題名・キーワード・照合メモの絞り込み・条件を戻す・10問中10問を表示"},
-    {"id": "phoneSummary", "file": "phone-initial.png", "pixels": {"x": 0, "y": 528, "w": 375, "h": 284}, "place": {"x": 800, "y": 182, "scale": 1}, "shows": "10問の平均 変更前→変更後の表"},
-    {"id": "q07Answer", "file": "desktop-Q07.png", "pixels": {"x": 635, "y": 1996, "w": 568, "h": 240}, "place": {"x": 662, "y": 352, "scale": 0.945}, "shows": "Q07 変更後の回答カード（「9」の目印と照合メモ（入力）contradiction）", "contains_region": "answer[1]"},
-    {"id": "q08Phone", "file": "phone-Q08.png", "pixels": {"x": 20, "y": 176, "w": 335, "h": 350}, "place": {"x": 860, "y": 182, "scale": 1}, "shows": "Q08 変更後の回答（追記の目印）と照合メモ（入力）unsupported_addition"},
-    {"id": "q05Answer", "file": "desktop-Q05.png", "pixels": {"x": 635, "y": 1996, "w": 568, "h": 240}, "place": {"x": 662, "y": 352, "scale": 0.945}, "shows": "Q05 変更後の回答カード（言い換えの目印と照合メモ（入力）grounded）", "contains_region": "answer[1]"},
-    {"id": "q07PhoneScores", "file": "phone-Q07.png", "pixels": {"x": 0, "y": 378, "w": 375, "h": 322}, "place": {"x": 760, "y": 182, "scale": 1.15}, "shows": "Q07 の Ragas の計算結果（保存済み）の表"}
+  "format": "studio-yebisu-ragas-storyboard-v1",
+  "title": "点数と根拠を、ひとつの図で。— Ragas 作例の動く説明図",
+  "author": "Claude Opus 5.5 (claude-opus-5-5): diagram, motion and code of this film source",
+  "duration": 32,
+  "fps": 30,
+  "frames": 960,
+  "silent": true,
+  "audioEvents": [],
+  "posterTime": 31,
+  "message": "同じ資料と2組の固定回答を、3つの文字の道具で測った保存済みの値を、根拠（資料と照合メモ・入力）と同じ1枚の図で読む。",
+  "timing_source": "assets/timeline.json (scene ids, in/out, case and headline are read from it and checked against the fixed plan in video.js)",
+  "objects": [
+    { "id": "book", "what": "開いた資料の本。左頁に問いとID・資料ID、右頁に参照文の実際の断片。Q07/Q01 は参照文の時刻の時計、Q05 は3つの条件の札と下線。", "present": "0–32 s, never leaves", "source": "assets/evaluation.json rows[].question, reference, reference_document_ids; diagram-data.json focus" },
+    { "id": "fusen", "what": "本に挟まった暖色の付箋「照合メモ（入力）」。測っている側（変更前/変更後）のラベルの短い言い換え。道具とは線でつながらない別の枝。", "present": "0–32 s", "source": "assets/evaluation.json rows[].before/after.annotation.label (制作担当の入力)" },
+    { "id": "strip-before", "what": "変更前の固定回答の紙。実際の断片、差の文字だけ太字と下線、自分の3つの保存値（小さく道具の色）。測っていない間は薄い。", "present": "0–32 s", "source": "rows[].before.response, rows[].before.scores" },
+    { "id": "strip-after", "what": "変更後の固定回答の紙。Q08 は全文の下に足した1文の別紙をテープで留める。Q05 は2行の言い換え。", "present": "0–32 s", "source": "rows[].after.response, rows[].after.scores" },
+    { "id": "tool-exact", "what": "同じ文字（ExactMatch）：参照文の櫛と回答の櫛。同じ文字列ならかみ合い、違えば隙間とずれが残る。値の札は 0 か 1。", "present": "0–32 s", "color": "cobalt #2747c2" },
+    { "id": "tool-similarity", "what": "文字の近さ（NonLLMStringSimilarity, Levenshtein）：0〜1の物差しと針。札は小数第3位まで。", "present": "0–32 s", "color": "teal #0f7a72" },
+    { "id": "tool-presence", "what": "全文を含む（StringPresence）：参照文全体の大きさの透明な袖。収まれば 1、割れて収まらなければ 0。足した別紙は袖の外に残る。", "present": "0–32 s", "color": "ochre #94650a" },
+    { "id": "traveller", "what": "測っている回答の紙の縮小版。同じ時計・別紙・3つの点を持ったまま、道具1→2→3を通って保存カードへ出る。", "present": "only while a scene's travel beat runs" },
+    { "id": "card", "what": "保存できる1問のカード（問いID・資料ID・nagi-faq-Qxx.json）。作例ページの「この問いをJSONで保存」と同じファイル名。", "present": "0–32 s" },
+    { "id": "cta", "what": "作例ページで、この問いをJSONで保存（案内のみ。映像の中で保存はしない）。", "present": "28.2–32 s" }
   ],
+  "connections": "本 → 2枚の紙 → （測っている紙から）3つの道具 → 値の札 → 保存カード。照合メモの付箋は本にだけ付き、道具にも札にもつながらない。",
   "scenes": [
     {
-      "id": "setup",
-      "time": [0, 4],
-      "headline": "同じ10問を、2組の回答で。",
-      "conveys": "同じ10問・資料10件に、変更前・変更後の固定回答があり、各回答を3指標で採点した（60回）。",
-      "enter": "最初のフレームから見出しと枠。スマホの実画面、資料・問い・回答の行が順に入り、1.2〜2.5秒で60本の呼び出しの印が伸びる。",
-      "exit": "3.75〜4.25秒で次の場面と重ね合わせ。",
-      "sources": ["input/faq-pairs.json（ID・題名）", "outputs/evaluation.json（runtime.metric_calls・metrics）"],
-      "crops": ["phoneTop"],
-      "scope": "60は実際に成功した呼び出しの記録。LLM・埋め込み・APIキーは使っていない。図は入力から描いた編集上の図で、実画面ではない。"
+      "id": "overview", "in": 0, "out": 5, "case": "Q07", "side": "after", "read": 4.8,
+      "conveys": "1冊の本と2枚の紙が、3つの道具と保存カードにつながっている。",
+      "enter": "本・紙・道具・カードは最初から見えている。つなぐ線が 0.1–1.3 s に順に引かれる。",
+      "beats": ["1.6–4.0 s 変更後の紙の縮小版が道具1→2→3→カードを通り、通過した道具だけ Q07 変更後の実際の値に止まる"],
+      "exit": "全体図のまま次の場面へ。",
+      "values": { "after": [0, 0.96875, 0] }
     },
     {
-      "id": "count",
-      "time": [4, 8],
-      "headline": "完全一致は4件→7件。",
-      "conveys": "完全一致の件数は増えたが、固定回答の比較で正答率ではない。変更後に0になった問い（Q05・Q07・Q08）がある。",
-      "enter": "4.2秒に4/10、4.7秒に7/10。5.3〜6.0秒に10問の塗り分け、6.3秒に3問を囲む。",
-      "exit": "7.75〜8.25秒で重ね合わせ。",
-      "sources": ["outputs/evaluation.json（summary・rows[].scores.exact_match）"],
-      "crops": ["phoneSummary"],
-      "scope": "変更前・変更後は意図して作った固定回答の名前。モデルやRAGの変更結果ではない。"
+      "id": "deadline", "in": 5, "out": 11, "case": "Q07", "side": "after", "read": 10.6,
+      "conveys": "18時と19時。1文字の違いで文字の近さは高いまま、同じ文字と全文を含むは0。期限の違いは照合メモ（入力）。",
+      "enter": "前の値が 0–0.3 s で道具から外れる。",
+      "beats": ["0.6–1.8 s 本の時計（18時）の点線の写しが変更後の紙の時計（19時）へ降り、1時間分の扇形が残る", "2.2–4.6 s 縮小版が道具を通る"],
+      "exit": "そのまま次の場面の入れ替えへ。",
+      "values": { "before": [1, 1, 1], "after": [0, 0.96875, 0] },
+      "memo_input": { "before": "grounded", "after": "contradiction" }
     },
     {
-      "id": "q07",
-      "time": [8, 14],
-      "headline": "一文字違いでも、0.969。",
-      "conveys": "参照文の18時が回答では19時。32字のうち1字の置換で、文字列の近さは0.969（保存値0.96875）のまま高い。期限が違うことは入力の照合メモが示す。",
-      "enter": "8.15秒に参照文、8.55秒に回答（違う1字に下地）。9.05秒に実画面、9.3秒に0.969、10.4秒に照合メモの帯。10.9秒までに全て着地。",
-      "exit": "13.75〜14.25秒で重ね合わせ。13.5秒のポスターは静止状態。",
-      "poster": 13.5,
-      "sources": ["outputs/evaluation.json（rows Q07）", "input/faq-pairs.json（label_meanings）"],
-      "crops": ["q07Answer"],
-      "scope": "「根拠は18時。回答は19時。」は入力の文字列から取り出した編集上の注記。contradiction は入力の照合メモでRagasの判定ではない。高い近さは回答の正しさを示さない。"
+      "id": "addition", "in": 11, "out": 17, "case": "Q08", "side": "after", "read": 16.6,
+      "conveys": "資料の全文はそのまま袖に収まり、全文を含むは1。足した1文の別紙は袖の外に残る。根拠がないのは照合メモ（入力）で、自動で偽と判定したものではない。",
+      "enter": "0–0.6 s 本・紙・カードの文字が Q07 から Q08 へ順に入れ替わる（重ならない）。",
+      "beats": ["1.8–4.2 s 縮小版（下に別紙）が道具を通る"],
+      "exit": "次の場面の入れ替えへ。",
+      "values": { "before": [1, 1, 1], "after": [0, 0.5806451612903225, 1] },
+      "memo_input": { "before": "grounded", "after": "unsupported_addition" }
     },
     {
-      "id": "q08",
-      "time": [14, 19],
-      "headline": "全文が入っていても、追記は見ない。",
-      "conveys": "回答は参照文の全体を含むので包含は1.000。後ろの「延滞しても連絡は不要です。」は資料にない追記（入力の照合メモ）。",
-      "enter": "14.55秒に回答、14.9秒から参照文部分に下線、15.0秒に追記、15.4秒に1.000、15.9秒に照合メモ。",
-      "exit": "18.75〜19.25秒で重ね合わせ。",
-      "sources": ["outputs/evaluation.json（rows Q08）", "input/faq-pairs.json（label_meanings・note）"],
-      "crops": ["q08Phone"],
-      "scope": "追記を誤りとは書かない。メモの「資料からは真偽を断定できない。」をそのまま引く。包含1は回答全体が根拠どおりという意味ではない。"
+      "id": "paraphrase", "in": 17, "out": 23, "case": "Q05", "side": "after", "read": 22.7,
+      "conveys": "言い換えると同じ文字は0。予約なし・1回・7日間の3つの札は本に残り、言い換えの中の位置へ暖色の点線でつながる（照合メモ・入力）。",
+      "enter": "0–0.6 s Q05 へ入れ替え。変更後の紙が2行の高さへ伸びる。",
+      "beats": ["0.8–2.2 s 3つの札から「予約がない」「1度」「7日」へ点線が伸び、下線が付く", "2.6–5.0 s 縮小版（3つの点）が道具を通る"],
+      "exit": "次の場面の入れ替えで紙が1行に戻る。",
+      "values": { "before": [1, 1, 1], "after": [0, 0.2857142857142857, 0] },
+      "memo_input": { "before": "grounded", "after": "grounded" }
     },
     {
-      "id": "q05",
-      "time": [19, 23],
-      "headline": "言い換えると、完全一致は0。",
-      "conveys": "回答は言い換えで完全一致0.000・近さ0.286。入力の照合メモは、予約なし・1回・7日間を保持した言い換え（grounded）としている。",
-      "enter": "19.15秒に参照文、19.45秒に回答、19.9秒に0.000、20.4〜20.64秒に3条件、21.0秒に注記。",
-      "exit": "22.75〜23.25秒で重ね合わせ。",
-      "sources": ["outputs/evaluation.json（rows Q05）", "input/faq-pairs.json（note）"],
-      "crops": ["q05Answer"],
-      "scope": "3条件は入力の照合メモの文から取り出す。意味の一致はRagasやLLMが自動で判定したものではない。"
+      "id": "literal_fix", "in": 23, "out": 27, "case": "Q01", "side": "before → after", "read": 26.8,
+      "conveys": "変更前は9時、変更後は10時。資料と同じ文字になった変更後は3つとも1。実際のシステムを直した記録ではない。",
+      "enter": "0–0.6 s Q01 へ入れ替え。測っている紙は変更前。",
+      "beats": ["0.6–0.9 s 変更前の値（0・0.889・0）が道具に出る（時計に9時と10時の扇形）", "1.0–1.4 s 測る紙が変更後へ移り、付箋のラベルも入れ替わる", "1.5–3.3 s 変更後の縮小版が道具を通り、1・1.000・1"],
+      "exit": "次の場面の入れ替えへ。",
+      "values": { "before": [0, 0.8888888888888888, 0], "after": [1, 1, 1] },
+      "memo_input": { "before": "contradiction", "after": "grounded" }
     },
     {
-      "id": "save",
-      "time": [23, 28],
-      "headline": "問いを選び、根拠ごと保存。",
-      "conveys": "閲覧ページで選んだQ07を、点数付きの行・資料D07・3指標の定義ごとJSONで保存できる。最後に主題を示して止める。",
-      "enter": "23.1秒に保存JSONの値、23.25秒にスマホの計算結果、24.1秒に主題。24.6秒以降は静止して読む。",
-      "exit": "28秒で終わる（ループしない）。",
-      "sources": ["outputs/browser-selection.json（selected・documents・fictional・バイト数）", "outputs/browser-record.json（native_selection_sha256・export-Q07）"],
-      "crops": ["q07PhoneScores"],
-      "scope": "制作時の実操作で保存した既存ファイルを読むだけ。映像の中で新たに保存・書き込みはしない。"
+      "id": "finish", "in": 27, "out": 32, "case": "Q07", "side": "after", "read": 31,
+      "conveys": "Q07 の全体図と実際の値、保存できる1問。",
+      "enter": "0–0.5 s Q07 へ入れ替え。0.6–0.9 s 道具に Q07 変更後の値。1.2–1.8 s 保存の案内。",
+      "beats": [],
+      "exit": "29.5–32 s は止まった画面（最後の2.5秒）。",
+      "values": { "after": [0, 0.96875, 0] }
     }
+  ],
+  "headline_rule": "見出しは常に1つ。場面の境目で前の見出しが0.3秒で消えてから次が0.3秒で出る（重ならない）。",
+  "layouts": {
+    "portrait": {
+      "size": [720, 1280],
+      "headline": "x40 y124, 50px（最小40）",
+      "fusen": [384, 146, 300, 110],
+      "book": [28, 236, 664, 234],
+      "strips": { "before": [28, 494, 664, 70], "after": [28, 576, 664, "70 or 124 (Q05)"], "attachment_slip": "y654, h54" },
+      "tools": [[16, 760, 224, 276], [248, 760, 224, 276], [480, 760, 224, 276]],
+      "tool_label_px": 40,
+      "token_px": 44,
+      "card": [120, 1066, 480, 96],
+      "cta": "center 360,1198 560×50",
+      "footer": "y1242/1268, 18px (supplementary)",
+      "drawing_share": "本・紙・道具・カードで高さ1280のうち約1100（約86%）"
+    },
+    "landscape": {
+      "size": [1280, 720],
+      "headline": "x32 y90, 42px（最小34）",
+      "fusen": [300, 104, 230, 90],
+      "book": [24, 174, 506, 202],
+      "strips": { "before": [24, 392, 506, 60], "after": [24, 460, 506, "60 or 104 (Q05)"], "attachment_slip": "y526, h46" },
+      "tools": [[572, 112, 428, 168], [572, 296, 428, 168], [572, 480, 428, 168]],
+      "tool_label_px": 36,
+      "token_px": 40,
+      "card": [1032, 226, 224, 228],
+      "cta": "center 1144,504 224×66",
+      "footer": "y702, 16px (supplementary)",
+      "drawing_share": "左の本と紙・中央の道具・右のカードで幅1280のうち約1230"
+    },
+    "other_sizes": "window.renderConfig の幅・高さが縦長なら縦、横長なら横の配置を、縦横比を保って拡大縮小する。720×1280 と 1280×720 ではそのまま（黒帯なし）。"
+  },
+  "sources": {
+    "values": "assets/evaluation.json（元の outputs/evaluation.json のバイト列、SHA-256 b3862890…ea3）rows[].before/after.scores をそのまま表示。丸めは小数第3位の表示だけ。",
+    "strings": "assets/evaluation.json rows[].question・reference・response。図の断片は video.js の VIEWS に書き、読み込み時にすべて保存した文字列の部分であることを確かめる。全文は編集ページの「素材と出典」。",
+    "focus": "assets/diagram-data.json focus（Q07/Q01 の時刻、Q08 の追記、Q05 の3条件）。保存結果と一致することを確かめる。",
+    "memo": "rows[].before/after.annotation（制作担当が入力に書いた照合メモ）",
+    "metric_definitions": "assets/metric-source.py（_string.py の原文、文字として照合するだけで実行しない）",
+    "upstream": "assets/upstream.json（vibrantlabsai/ragas 298b68274234c060deacab3cf5fb52aa3a20e885、Apache-2.0）",
+    "original_run": "assets/original-verification.json（前の制作の実行記録。60回の ascore・独立照合20件・237ファイル・93パッケージ。中の映像・ブラウザーの確認は前の版のもので、この映像の確認ではない）"
+  },
+  "limits": [
+    "3つの道具は参照文と回答の文字だけを比べる。忠実さ・事実の正しさ・意味の同じさは判定しない。0は不合格、1は合格という意味ではない。",
+    "照合メモ（grounded・contradiction・unsupported_addition）は制作担当の入力。Ragas の出力でも LLM judge でも人による承認でもない。",
+    "変更前・変更後は意図して用意した2組の固定回答。実際の RAG・モデル・検索器を変えた結果ではない。10問の架空データで代表的なベンチマークではない。",
+    "映像の中で Ragas・Python・AI は動かず、点数を計算し直さない。素材が合わなければ描かない。",
+    "音声・ナレーション・字幕トラック・読み上げはない。",
+    "書き出し・フレームの確認・MP4 の確認・実機での表示・人による承認は、このソースを書いた時点では行っていない（制作側が別に行う）。"
   ]
 }
