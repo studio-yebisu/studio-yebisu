@@ -1,0 +1,58 @@
+{
+  "format": "studio-yebisu-dify-visual-timeline-v1",
+  "duration": 32,
+  "fps": 30,
+  "frames": 960,
+  "silent": true,
+  "scenes": [
+    {
+      "id": "overview",
+      "in": 0,
+      "out": 5,
+      "case": "D02",
+      "headline": "問い合わせを、担当へ",
+      "action": "One envelope enters a connected route switch with3owner desks and converges into one memo. Real7node/8edge shape; owner counts urgent3/billing1/normal4 from8actual cases."
+    },
+    {
+      "id": "billing",
+      "in": 5,
+      "out": 10,
+      "case": "D02",
+      "headline": "請求なら、請求窓口へ",
+      "action": "Same D02 envelope (billing/normal/1user) passes first urgent condition and takes second billing path; becomes actual billing memo after template/merge/end."
+    },
+    {
+      "id": "priority",
+      "in": 10,
+      "out": 15,
+      "case": "D06",
+      "headline": "請求でも、至急を先に",
+      "action": "D06 is billing/urgent/2users. First urgent branch wins before the billing condition, with only the urgent template executed. No AI classification."
+    },
+    {
+      "id": "boundary",
+      "in": 15,
+      "out": 22,
+      "case": "D04",
+      "compare_case": "D05",
+      "headline": "99人から、100人へ",
+      "action": "Two distinct actual records D04andD05: routing fields issueoperation/urgencynormal equal; affected_users99→100 causes normal→urgent. Keep each input paired with its own output, not one invented edited case."
+    },
+    {
+      "id": "literal",
+      "in": 22,
+      "out": 27,
+      "case": "D07",
+      "headline": "入力の文字も、そのまま",
+      "action": "D07 subject {{ 7 * 7 }} and a short visible literal marker travel from envelope into actual normal memo without evaluation. Raw HTML only text, no script execution or security guarantee."
+    },
+    {
+      "id": "finish",
+      "in": 27,
+      "out": 32,
+      "case": "D05",
+      "headline": "実際のメモを、保存する",
+      "action": "Hold connected route picture with actual D05/urgent memo, small total3/1/4 and real JSON/DSL save action. No screenshot collage or text closing slide."
+    }
+  ]
+}

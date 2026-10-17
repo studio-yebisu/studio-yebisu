@@ -1,14 +1,14 @@
 /*
- * Studio Yebisu — Dify 作例・解説動画（28秒・無音・1280×720）
- * Copyright (c) 2026 Studio Yebisu. MIT License.
+ * Studio Yebisu — Dify 作例・動く概念図（32秒・無音）
+ * Copyright (c) 2026 Studio Yebisu. MIT License. Diagram and film authored by Claude Opus 5.5.
  *
- * Every frame is drawn on one 2D canvas from absolute time only. Ticket fields, memo lines,
- * route names, node titles, edges, rule wording and counts are read from the saved run record,
- * the frozen inputs and workflow.yml after all eight files listed in assets/data-hashes.json
- * match their frozen SHA-256. There is no built-in fallback data: on any mismatch
- * window.motionReady rejects, the failure is shown and no film is drawn.
- * Page text is written with textContent only; input strings are painted as canvas text and
- * are never parsed, evaluated or inserted as HTML.
+ * One connected drawing: an inquiry envelope carrying three routing values (bill / bolt / people)
+ * → one ordered route switch (1 至急 / 100人以上 → 2 請求 → ほか) → three owner desks → まとめる →
+ * the handoff memo. The same envelope travels along the edges the engine actually took, passes
+ * through the rule and the desk it actually reached, and unfolds into the memo text the engine
+ * actually returned. Every ID, value, rule mark, edge, count and memo line is read from the saved
+ * original run (assets/workflow-runs.json) after the manifest and all eight assets match their
+ * pinned SHA-256 and byte counts. No audio, no live execution, no fallback data.
  */
 (() => {
   "use strict";
@@ -18,110 +18,255 @@
   const RENDER = window.__MOTION_RENDER__ === true;
   const requested = window.renderConfig && typeof window.renderConfig === "object" ? window.renderConfig : {};
   const positiveInt = (value, fallback) => (Number.isInteger(value) && value > 0 ? value : fallback);
-  const W = positiveInt(requested.width, 1280);
-  const H = positiveInt(requested.height, 720);
+  const WIDE_PREVIEW = !RENDER && new URLSearchParams(location.search).get("layout") === "wide";
+  const W = positiveInt(requested.width, WIDE_PREVIEW ? 1280 : 720);
+  const H = positiveInt(requested.height, WIDE_PREVIEW ? 720 : 1280);
   const FPS = positiveInt(requested.fps, 30);
-  const DURATION = 28;
-  const POSTER_TIME = 13.5;
+  const DURATION = 32;
+  const POSTER_TIME = 31;
   window.motionConfig = { duration: DURATION, fps: FPS, width: W, height: H, posterTime: POSTER_TIME, audioEvents: [] };
 
   // --- Frozen expectations --------------------------------------------------------------------
 
-  const MANIFEST_PATH = "assets/data-hashes.json";
-  const MANIFEST_NAME = "video/assets/data-hashes.json";
-  // The manifest must list exactly these eight site-relative files with exactly these digests.
-  const FROZEN_HASHES = {
-    "outputs/workflow-runs.json": "692cc2f8b07ca77a8b3ccdae0a8abc4359e8a8804985bc4b75db1b56241e6694",
-    "outputs/independent-checks.json": "efc466ec2dbd4845a35277225faf419e471872892d08d747130248973f25d2f4",
-    "input/tickets.json": "b752f26d73d9fc3f48f8a3389fe876b88d273f2780bc316fdd15232a4d0cdc83",
-    "workflow.yml": "d36f345c08705992f654571d35676a211bcae62abcfb6171c8655b308ab0776f",
-    "vendor-lock.json": "e454e2189985857c0ac82258dc23b01f0010deecc1cc7bf737ff214d685696ff",
-    "video/assets/screens.json": "1f8b5b062368be2ed1e5ff5c7f9a4922140e3b1a016ee2daac289aeb62c2b4fb",
-    "video/assets/phone.png": "b5f1194cfc1ecc55f52f72ec4d3e114e3b0cf37bdede2cc1492a65fe745024cd",
-    "video/assets/desktop.png": "6404ee75a61253f330febb4a0a46ab855f5ac62458501f05d540f6ef7b0f23b0",
+  const MANIFEST = {
+    path: "assets/manifest.json",
+    sha256: "10392562045e5c71ad4ed9154fa823c0d3eeed4378a2033ca70001b4fe097559",
+    format: "studio-yebisu-visual-assets-v1",
   };
-  const ASSET_KEYS = Object.keys(FROZEN_HASHES);
-  const FROZEN = {
+  // Same order and values as the manifest. Paths are relative to video/assets/.
+  const PROJECTION = "faithful diagram/timeline projection of original actual records";
+  const ASSETS = [
+    { file: "workflow-runs.json", sha256: "692cc2f8b07ca77a8b3ccdae0a8abc4359e8a8804985bc4b75db1b56241e6694", bytes: 223288, source: "outputs/workflow-runs.json" },
+    { file: "tickets.json", sha256: "b752f26d73d9fc3f48f8a3389fe876b88d273f2780bc316fdd15232a4d0cdc83", bytes: 3036, source: "input/tickets.json" },
+    { file: "expected.json", sha256: "0ef127da5302698a91ad9ceb1e7dcbd79863c037057fe07e514428213946b5be", bytes: 325, source: "input/expected.json" },
+    { file: "independent-checks.json", sha256: "efc466ec2dbd4845a35277225faf419e471872892d08d747130248973f25d2f4", bytes: 9251, source: "outputs/independent-checks.json" },
+    { file: "vendor-lock.json", sha256: "e454e2189985857c0ac82258dc23b01f0010deecc1cc7bf737ff214d685696ff", bytes: 59279, source: "vendor-lock.json" },
+    { file: "workflow.yml", sha256: "d36f345c08705992f654571d35676a211bcae62abcfb6171c8655b308ab0776f", bytes: 11662, source: "workflow.yml" },
+    { file: "diagram-data.json", sha256: "971c00ea65059192ca72cf3aacf126a505c88fd4d7d5bbce2a40afb6c3114de7", bytes: 8606, source: PROJECTION },
+    { file: "timeline.json", sha256: "735073a65b9ebe6e74254ca62b286c05cc0ef866c0f1c40aca232a5130c4a0dc", bytes: 2208, source: PROJECTION },
+  ];
+  const SHA = Object.fromEntries(ASSETS.map((a) => [a.file, a.sha256]));
+  const PIN = {
     format: "studio-yebisu-dify-run-v1",
     repository: "langgenius/dify",
     commit: "f77facfe6520ed379d723288aed0b4806ad76143",
     version: "1.17.1",
-    graphon: "0.7.0",
-    wheel: "6f7608aaaa65607c4935735137ed4b7029b1e6ca80202cbe829af3370cf4404e",
-    sourceFiles: 292,
+    graphonName: "graphon",
+    graphonVersion: "0.7.0",
+    wheelSha256: "6f7608aaaa65607c4935735137ed4b7029b1e6ca80202cbe829af3370cf4404e",
+    lockFiles: 292,
     checks: 196,
-    nodes: 7,
-    edges: 8,
+    events: 160,
+    ids: ["D01", "D02", "D03", "D04", "D05", "D06", "D07", "D08"],
+    nodes: ["start", "route", "urgent-note", "billing-note", "support-note", "merge", "end"],
+    nodeTypes: ["start", "if-else", "template-transform", "template-transform", "template-transform", "variable-aggregator", "end"],
+    edges: [
+      ["start", "route", "source"],
+      ["route", "urgent-note", "urgent"],
+      ["route", "billing-note", "billing"],
+      ["route", "support-note", "false"],
+      ["urgent-note", "merge", "source"],
+      ["billing-note", "merge", "source"],
+      ["support-note", "merge", "source"],
+      ["merge", "end", "source"],
+    ],
+    counts: { urgent: 3, billing: 1, false: 4 },
+    timelineFormat: "studio-yebisu-dify-visual-timeline-v1",
+    diagramFormat: "studio-yebisu-dify-visual-facts-v1",
   };
-  const CASE_IDS = ["D01", "D02", "D03", "D04", "D05", "D06", "D07", "D08"];
-  const INPUT_KEYS = ["ticket_id", "issue", "urgency", "affected_users", "subject", "body"];
-  // if-else case order in workflow.yml; "false" is the else branch.
-  const ROUTE_ORDER = ["urgent", "billing", "false"];
-  const FILE_MESSAGE = "このページをファイルとして直接開くと、素材を読み込んで照合できません。site フォルダーで python -m http.server を実行し、http://localhost:8000/video/ を開いてください。";
+  const ROUTES = ["urgent", "billing", "false"];
+  const ROUTE_LABEL = { urgent: "優先対応", billing: "請求窓口", false: "通常窓口" };
+  const MEMO_NODE = { urgent: "urgent-note", billing: "billing-note", false: "support-note" };
+  const SLOT_OF = { urgent: 0, billing: 1, false: 2 };
+  // Short rule labels drawn inside the one route switch. Checked against diagram-data.json and the DSL.
+  const RULE_LINES = [["至急", "100人以上"], ["請求"], ["ほか"]];
+  // Scene timing is fixed in timeline.json; `read` is where the scene buttons land.
+  const SCENE_PLAN = [
+    { id: "overview", in: 0, out: 5, case: "D02", read: 4.6 },
+    { id: "billing", in: 5, out: 10, case: "D02", read: 9.6 },
+    { id: "priority", in: 10, out: 15, case: "D06", read: 14.6 },
+    { id: "boundary", in: 15, out: 22, case: "D04", compare: "D05", read: 21.6 },
+    { id: "literal", in: 22, out: 27, case: "D07", read: 26.6 },
+    { id: "finish", in: 27, out: 32, case: "D05", read: 31 },
+  ];
+  const FILE_MESSAGE = "このページをファイルとして直接開くと、素材を読み込んで照合できません。作例のフォルダー（index.html のある場所）で python -m http.server を実行し、http://localhost:8000/video/ を開いてください。";
 
   // --- Page ------------------------------------------------------------------------------------
 
   const $ = (id) => document.getElementById(id);
   const ui = {
     editor: $("editor"),
+    count: $("asset-count"),
     status: $("status"),
-    errorBox: $("error-box"),
+    errorBox: $("error"),
     errorText: $("error-text"),
+    retry: $("retry"),
     stage: $("stage"),
     canvas: $("film"),
     play: $("play"),
     reset: $("reset"),
-    timeline: $("timeline"),
     time: $("time"),
-    counter: $("time-counter"),
+    clock: $("clock"),
     sceneList: $("scene-list"),
-    assetSummary: $("asset-summary"),
     assetList: $("asset-list"),
+    layoutTall: $("layout-tall"),
+    layoutWide: $("layout-wide"),
   };
+  for (const [name, node] of Object.entries(ui)) {
+    if (!node) throw new Error(`video/index.html に必要な要素がありません：${name}`);
+  }
 
   if (RENDER) {
     document.documentElement.classList.add("is-render");
     ui.canvas.style.width = `${W}px`;
     ui.canvas.style.height = `${H}px`;
+  } else {
+    ui.canvas.style.aspectRatio = `${W} / ${H}`;
+    ui.stage.classList.toggle("is-tall", H >= W);
+    (H >= W ? ui.layoutTall : ui.layoutWide).setAttribute("aria-current", "page");
   }
   ui.canvas.width = W;
   ui.canvas.height = H;
-  const ctx = ui.canvas.getContext("2d", { willReadFrequently: true });
-  // Layout is authored in a 1280×720 space and scaled to the requested size.
-  const SCALE = Math.min(W / 1280, H / 720);
-  const OFFSET_X = (W - 1280 * SCALE) / 2;
-  const OFFSET_Y = (H - 720 * SCALE) / 2;
+  ui.time.max = String(DURATION);
+  const ctx = ui.canvas.getContext("2d");
+
+  // --- Layouts (authored natively for each orientation) ------------------------------------
+
+  function portraitLayout() {
+    const slots = [{ x: 30, y: 446, w: 272, h: 212 }, { x: 314, y: 446, w: 182, h: 212 }, { x: 508, y: 446, w: 182, h: 212 }];
+    const desks = slots.map((s) => ({ x: s.x, y: 720, w: s.w, h: 160 }));
+    const cx = slots.map((s) => s.x + s.w / 2);
+    const laneY = 410;
+    const deskEdge = (i) => [[cx[i], 880], [cx[i], 906], [360, 906], [360, 920]];
+    return {
+      DW: 720, DH: 1280, tall: true,
+      eyebrow: { x: 48, y: 70, size: 26, max: 624 },
+      headline: { x: 48, y: 140, size: 52, min: 40, max: 624 },
+      home: { x: 40, y: 180, w: 640, h: 170 },
+      env: {
+        flap: 42, idX: 24, idY: 74, idSize: 34, ticketSize: 28,
+        stamps: [0, 1, 2].map((i) => ({ x: 24 + i * 204, y: 92, w: 188, h: 66 })), icon: 38, value: 40,
+        literal: { x: 616, y: 58, size: 30, align: "right" },
+        placeholder: 34,
+      },
+      frame: { x: 20, y: 368, w: 680, h: 300 },
+      // Portrait has no frame tag: the envelope (and D07's literal) travel along the top border.
+      framePill: null,
+      lane: cx.map((x) => [x, laneY]),
+      slots, desks,
+      slotText: { size: 42, lines0: [104, 156], single: 132, cmp: 196, cmpSize: 28, numR: 20, numSize: 24, numDx: 32, numDy: 36, markDx: -32, textDx: 20 },
+      // Count tags sit on the desk's top border, clear of the person and of the incoming line.
+      deskText: { size: 42, label: 146, head: 40, headR: 19, bar: 92, count: 22, countCy: 0 },
+      edges: {
+        "start>route": [[cx[0], 350], [cx[0], laneY]],
+        "route>urgent-note": [[cx[0], 658], [cx[0], 720]],
+        "route>billing-note": [[cx[1], 658], [cx[1], 720]],
+        "route>support-note": [[cx[2], 658], [cx[2], 720]],
+        "urgent-note>merge": deskEdge(0),
+        "billing-note>merge": deskEdge(1),
+        "support-note>merge": deskEdge(2),
+        "merge>end": [[360, 956], [360, 986]],
+      },
+      deskExit: cx.map((x) => [x, 880]),
+      merge: { x: 360, y: 938, r: 18, label: { x: 390, y: 947, size: 24 } },
+      memo: { x: 48, y: 986, w: 624, h: 160 },
+      halves: [{ x: 48, y: 986, w: 304, h: 160 }, { x: 368, y: 986, w: 304, h: 160 }],
+      memoPlaceholder: 32,
+      token: { w: 104, h: 60 },
+      cta: { cx: 360, cy: 1188, w: 600, h: 54, size: 30 },
+      foot: { x: 48, ys: [1242, 1268], size: 20, min: 15, max: 624 },
+    };
+  }
+
+  function landscapeLayout() {
+    const slots = [{ x: 396, y: 142, w: 234, h: 206 }, { x: 396, y: 358, w: 234, h: 116 }, { x: 396, y: 484, w: 234, h: 108 }];
+    const desks = slots.map((s) => ({ x: 668, y: s.y, w: 252, h: s.h }));
+    const cy = slots.map((s) => s.y + s.h / 2);
+    const laneX = 358;
+    const deskEdge = (i) => [[920, cy[i]], [946, cy[i]], [946, 372]];
+    return {
+      DW: 1280, DH: 720, tall: false,
+      eyebrow: { x: 32, y: 46, size: 22, max: 1216 },
+      headline: { x: 32, y: 100, size: 44, min: 34, max: 1216 },
+      home: { x: 32, y: 132, w: 268, h: 470 },
+      env: {
+        flap: 44, idX: 20, idY: 84, idSize: 30, ticketSize: 24,
+        stamps: [0, 1, 2].map((i) => ({ x: 16, y: 118 + i * 96, w: 236, h: 76 })), icon: 38, value: 38,
+        literal: { x: 20, y: 432, size: 28, align: "left" },
+        placeholder: 30,
+      },
+      frame: { x: 324, y: 132, w: 316, h: 470 },
+      framePill: { x: 340, y: 132, size: 20, align: "left" },
+      lane: cy.map((y) => [laneX, y]),
+      slots, desks,
+      slotText: { size: 36, lines0: [92, 140], single: null, cmp: 184, cmpSize: 24, numR: 16, numSize: 20, numDx: 26, numDy: 28, markDx: -26, textDx: 20 },
+      deskText: { size: 36, label: 13, head: -14, headR: 17, bar: 24, count: 20, countCy: 24 },
+      edges: {
+        "start>route": [[300, cy[0]], [laneX, cy[0]]],
+        "route>urgent-note": [[630, cy[0]], [668, cy[0]]],
+        "route>billing-note": [[630, cy[1]], [668, cy[1]]],
+        "route>support-note": [[630, cy[2]], [668, cy[2]]],
+        "urgent-note>merge": deskEdge(0),
+        "billing-note>merge": deskEdge(1),
+        "support-note>merge": deskEdge(2),
+        "merge>end": [[978, 372], [1000, 372]],
+      },
+      deskExit: cy.map((y) => [920, y]),
+      merge: { x: 962, y: 372, r: 16, label: null },
+      memo: { x: 1000, y: 150, w: 256, h: 440 },
+      halves: [{ x: 1000, y: 150, w: 256, h: 214 }, { x: 1000, y: 376, w: 256, h: 214 }],
+      memoPlaceholder: 26,
+      token: { w: 64, h: 44 },
+      cta: { cx: 640, cy: 646, w: 440, h: 48, size: 26 },
+      foot: { x: 32, ys: [704], size: 16, min: 13, max: 1216 },
+    };
+  }
+
+  const L = H >= W ? portraitLayout() : landscapeLayout();
+  const S = Math.min(W / L.DW, H / L.DH);
+  const OX = (W - L.DW * S) / 2;
+  const OY = (H - L.DH * S) / 2;
 
   // --- Loading and checks ---------------------------------------------------------------------
 
-  const BASE = new URL(document.baseURI);
-
+  class CheckError extends Error {}
   function check(condition, message) {
-    if (!condition) throw new Error(message);
+    if (!condition) throw new CheckError(message);
   }
+  const isObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+  const own = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
 
-  async function fetchBytes(url, name) {
-    check(url.origin === BASE.origin, `${name} が同じ場所のファイルではありません。`);
-    let response;
-    try {
-      response = await fetch(url.href, { cache: "no-store", credentials: "same-origin" });
-    } catch {
-      throw new Error(`${name} を読み込めませんでした。site フォルダーをローカルの HTTP サーバーで開いてください（例：python -m http.server）。`);
+  function deepEqual(a, b) {
+    if (a === b) return true;
+    if (Array.isArray(a)) return Array.isArray(b) && a.length === b.length && a.every((x, i) => deepEqual(x, b[i]));
+    if (isObject(a) && isObject(b)) {
+      const ka = Object.keys(a), kb = Object.keys(b);
+      return ka.length === kb.length && ka.every((k) => own(b, k) && deepEqual(a[k], b[k]));
     }
-    check(response.ok, `${name} を読み込めませんでした（HTTP ${response.status}）。`);
-    return new Uint8Array(await response.arrayBuffer());
+    return false;
   }
 
   async function sha256Hex(bytes) {
     const digest = await crypto.subtle.digest("SHA-256", bytes);
-    return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
+    return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, "0")).join("");
+  }
+
+  async function fetchBytes(path) {
+    let response;
+    try {
+      response = await fetch(path, { cache: "no-store" });
+    } catch {
+      throw new CheckError(location.protocol === "file:" ? FILE_MESSAGE : `${path} を読み込めませんでした（通信できませんでした）。`);
+    }
+    if (!response.ok) throw new CheckError(`${path} を読み込めませんでした（HTTP ${response.status}）。`);
+    return new Uint8Array(await response.arrayBuffer());
   }
 
   function decodeText(bytes, name) {
     try {
       return new TextDecoder("utf-8", { fatal: true }).decode(bytes);
     } catch {
-      throw new Error(`${name} が UTF-8 の文字として読めません。`);
+      throw new CheckError(`${name} が UTF-8 の文字として読めません。`);
     }
   }
 
@@ -130,1145 +275,1165 @@
     try {
       return JSON.parse(text);
     } catch {
-      throw new Error(`${name} が正しい JSON ではありません。`);
+      throw new CheckError(`${name} が正しい JSON ではありません。`);
     }
   }
 
   const assetState = new Map();
-  let manifestVerified = false;
 
-  function showAssets() {
-    const rows = ASSET_KEYS.filter((key) => assetState.has(key)).map((key) => {
-      const item = assetState.get(key);
-      const li = document.createElement("li");
-      const name = document.createElement("code");
-      name.textContent = key;
-      const verdict = document.createElement("span");
-      verdict.className = item.ok === true ? "verdict is-ok" : item.ok === false ? "verdict is-ng" : "verdict";
-      verdict.textContent = item.ok === true ? "一致" : item.ok === false ? "不一致" : "照合中";
-      li.append(name, " ", verdict);
-      if (item.actual) {
-        const digest = document.createElement("code");
-        digest.className = "digest";
-        digest.textContent = `SHA-256 ${item.actual}`;
-        li.append(document.createElement("br"), digest);
+  async function loadAssets() {
+    if (location.protocol === "file:") throw new CheckError(FILE_MESSAGE);
+    if (!globalThis.crypto?.subtle) throw new CheckError("このブラウザーでは SHA-256 を計算できないため、素材を確かめられません。https または localhost で開いてください。");
+    const manifestBytes = await fetchBytes(MANIFEST.path);
+    check(await sha256Hex(manifestBytes) === MANIFEST.sha256, "assets/manifest.json の SHA-256 が固定値と一致しません。");
+    const manifest = parseJson(manifestBytes, MANIFEST.path);
+    check(isObject(manifest) && manifest.format === MANIFEST.format && deepEqual(manifest.assets, ASSETS), "assets/manifest.json の素材一覧が固定値と一致しません。");
+    const data = {};
+    await Promise.all(ASSETS.map(async (asset) => {
+      const path = `assets/${asset.file}`;
+      try {
+        const bytes = await fetchBytes(path);
+        check(bytes.byteLength === asset.bytes, `${path} のバイト数が manifest と一致しません。`);
+        check(await sha256Hex(bytes) === asset.sha256, `${path} の SHA-256 が manifest と一致しません。`);
+        data[asset.file] = asset.file.endsWith(".json") ? parseJson(bytes, path) : decodeText(bytes, path);
+        assetState.set(asset.file, "ok");
+      } catch (error) {
+        assetState.set(asset.file, "bad");
+        throw error;
+      } finally {
+        showAssets();
       }
-      return li;
-    });
-    ui.assetList.replaceChildren(...rows);
-    const ok = [...assetState.values()].filter((item) => item.ok === true).length;
-    ui.assetSummary.textContent = manifestVerified
-      ? `${MANIFEST_NAME} の8件の対象とハッシュは、この映像ソースに固定した値と一致。読み込んだ素材のうち${ok}件の SHA-256 が一致しました。`
-      : `${MANIFEST_NAME} の照合が済んでいません。`;
+    }));
+    return data;
   }
 
-  async function loadFonts() {
-    if (!document.fonts) return;
-    const sample = "問い合わせを3つの担当へ 優先対応 請求窓口 通常窓口 0123456789 {{ 7 * 7 }} <script>";
-    const specs = [500, 600, 700, 800].map((weight) => font(24, weight)).concat([font(16, 700, MONO)]);
-    await Promise.all(specs.map((spec) => document.fonts.load(spec, sample).catch(() => [])));
-    await document.fonts.ready;
+  const edgeKey = (e) => `${e[0]}>${e[1]}>${e[2]}`;
+  const pathEdges = (route) => [
+    ["start", "route", "source"],
+    ["route", MEMO_NODE[route], route],
+    [MEMO_NODE[route], "merge", "source"],
+    ["merge", "end", "source"],
+  ];
+
+  // Reads the original DSL bytes as text; no YAML parser is needed for these fixed facts.
+  function dslFacts(text) {
+    const src = text.replace(/\r\n/g, "\n");
+    check(/^kind: app$/m.test(src) && /^version: 0\.3\.0$/m.test(src) && /^  mode: workflow$/m.test(src), "workflow.yml が kind: app・version 0.3.0・mode: workflow ではありません。");
+    const edgesAt = src.indexOf("\n    edges:\n");
+    const nodesAt = src.indexOf("\n    nodes:\n");
+    const viewAt = src.indexOf("\n    viewport:\n");
+    check(edgesAt > 0 && nodesAt > edgesAt && viewAt > nodesAt, "workflow.yml のグラフの区切りが読めません。");
+    const edgePart = src.slice(edgesAt, nodesAt);
+    const nodePart = src.slice(nodesAt, viewAt);
+    const unquote = (v) => v.replace(/^'(.*)'$/, "$1");
+    const edges = [...edgePart.matchAll(/^      source: (\S+)\n      sourceHandle: (\S+)\n      target: (\S+)$/gm)]
+      .map((m) => [m[1], m[3], unquote(m[2])]);
+    const nodes = [...nodePart.matchAll(/^      id: (\S+)$/gm)].map((m) => m[1]);
+    const types = [...nodePart.matchAll(/^        type: (\S+)$/gm)].map((m) => m[1]);
+    const cases = [...nodePart.matchAll(/^        - case_id: (\S+)$/gm)].map((m) => m[1]);
+    check(deepEqual(nodes, PIN.nodes) && deepEqual(types, PIN.nodeTypes), "workflow.yml の7ノードの ID・種類が固定値と一致しません。");
+    check(deepEqual(edges.map(edgeKey).sort(), PIN.edges.map(edgeKey).sort()), "workflow.yml の8本の線が固定値と一致しません。");
+    check(deepEqual(cases, ["urgent", "billing"]), "workflow.yml の判定の順が urgent → billing ではありません。");
+    for (const needle of ["value: 至急", "comparison_operator: ≥", "value: '100'", "logical_operator: or", "value: 請求"]) {
+      check(src.includes(needle), `workflow.yml に「${needle}」がありません。`);
+    }
+    return { nodes, edges };
+  }
+
+  // One case of the original record, reduced to what the drawing shows. Every value is checked.
+  function readCase(item, ticket, oracle) {
+    const id = item.id;
+    const input = item.input;
+    const output = item.output || {};
+    const route = output.selected_case_id;
+    check(deepEqual(input, ticket.input) && item.label === ticket.label, `${id} の入力が tickets.json と一致しません。`);
+    check(ROUTES.includes(route) && route === oracle[id], `${id} の分岐が expected.json と一致しません。`);
+    check(deepEqual(output.node_path, ["start", "route", MEMO_NODE[route], "merge", "end"]), `${id} の通ったノードが記録の形と合いません。`);
+    const events = item.events;
+    check(Array.isArray(events) && events.length > 0 && events[0].type === "GraphRunStartedEvent", `${id} のイベントが開始で始まっていません。`);
+    const last = events[events.length - 1];
+    check(last.type === "GraphRunSucceededEvent" && last.data?.outputs?.text === output.text && last.data.outputs.selected_case_id === route,
+      `${id} の最終イベントが記録のメモ・分岐と一致しません。`);
+    const succeeded = events.filter((e) => e.type === "NodeRunSucceededEvent").map((e) => e.data.node_id);
+    check(deepEqual(succeeded, output.node_path), `${id} の成功したノードの順が記録と一致しません。`);
+    const edgeOf = (e) => [e.data.source_node_id, e.data.target_node_id, e.data.source_handle];
+    const taken = events.filter((e) => e.type === "GraphEdgeTakenEvent").map(edgeOf);
+    const skipped = events.filter((e) => e.type === "GraphEdgeSkippedEvent").map(edgeOf);
+    check(deepEqual(taken.map(edgeKey), pathEdges(route).map(edgeKey)), `${id} の通った線が記録の分岐と一致しません。`);
+    const memoNode = events.find((e) => e.type === "NodeRunSucceededEvent" && e.data.node_id === MEMO_NODE[route]);
+    check(memoNode?.data?.node_run_result?.outputs?.output === output.text, `${id} のメモが担当のノードの実際の出力と一致しません。`);
+
+    const routeNode = events.find((e) => e.type === "NodeRunSucceededEvent" && e.data.node_id === "route")?.data?.node_run_result;
+    check(routeNode?.outputs?.selected_case_id === route, `${id} の route の選択が記録と一致しません。`);
+    const groups = (routeNode.process_data?.condition_results ?? []).map((g) => ({ id: g.group?.case_id, results: g.results, final: g.final_result }));
+    const expectGroups = { urgent: [true], billing: [false, true], false: [false, false] }[route];
+    check(groups.length === expectGroups.length && groups.every((g, i) => g.id === ["urgent", "billing"][i] && g.final === expectGroups[i]
+      && Array.isArray(g.results) && g.results.length > 0 && g.results.every((r) => typeof r === "boolean")),
+    `${id} の route の判定結果が上から順の記録になっていません。`);
+    // Graphon keeps inputs.conditions for the LAST evaluated group. Earlier group values
+    // come from the fixed original input and its recorded condition descriptor/results.
+    const threshold = routeNode.process_data.condition_results[0].group.conditions.find((c) => c.comparison_operator === "≥");
+    check(threshold?.value === "100" && deepEqual(threshold.variable_selector, ["start", "affected_users"]), `${id} の人数の条件が固定版と一致しません。`);
+    const cmp = (routeNode.inputs?.conditions ?? []).find((c) => c.comparison_operator === "≥");
+    if (cmp) check(cmp.actual_value === input.affected_users && cmp.expected_value === threshold.value, `${id} の人数の実入力が一致しません。`);
+    const users = groups[0].results.length === 2 ? { actual: input.affected_users, expected: threshold.value, ok: groups[0].results[1] } : null;
+    if (users) check(users.actual === input.affected_users && users.expected === "100", `${id} の人数の比較の値が記録と一致しません。`);
+
+    const lines = output.text.split("\n");
+    check(lines[0] === `【担当】${ROUTE_LABEL[route]}` && lines[1] === `問い合わせ：${input.ticket_id}` && lines[2] === `件名：${input.subject}`,
+      `${id} のメモの1〜3行目が記録の形と合いません。`);
+    const kind = lines[3]?.split("／") ?? [];
+    check(kind.length === 2 && kind[1] === `影響${input.affected_users}人`, `${id} のメモの人数の行が記録と一致しません。`);
+    return {
+      id, label: item.label, input, route, text: output.text, groups, users, taken, skipped,
+      head: lines[0], subjectLine: lines[2], usersText: kind[1], events: events.length,
+    };
+  }
+
+  // Reads the actual record into the few values the picture draws, checking every assumption.
+  function buildFilm(data) {
+    const record = data["workflow-runs.json"];
+    const ticketsFile = data["tickets.json"];
+    const expected = data["expected.json"];
+    const audit = data["independent-checks.json"];
+    const lock = data["vendor-lock.json"];
+    const facts = data["diagram-data.json"];
+    const timeline = data["timeline.json"];
+
+    check(isObject(record) && record.format === PIN.format, "元の実行記録の形式が違います。");
+    const src = record.source ?? {};
+    check(src.repository === PIN.repository && src.commit === PIN.commit && src.version === PIN.version, "実行記録の Dify の固定版が一致しません。");
+    const dep = record.runtime_dependency ?? {};
+    check(dep.name === PIN.graphonName && dep.version === PIN.graphonVersion && dep.wheel_sha256 === PIN.wheelSha256, "実行記録の graphon の版または wheel の SHA-256 が一致しません。");
+    check(record.source_lock_sha256 === SHA["vendor-lock.json"], "実行記録の vendor-lock.json の SHA-256 が素材と一致しません。");
+    check(deepEqual(record.input_sha256, { "input/tickets.json": SHA["tickets.json"], "input/expected.json": SHA["expected.json"], "workflow.yml": SHA["workflow.yml"] }),
+      "実行記録の入力と DSL のハッシュが素材と一致しません。");
+    const runtime = record.runtime ?? {};
+    check(runtime.network_attempts === 0 && runtime.process_attempts === 0, "実行中の通信または子プロセスの試みが0件ではありません。");
+    check(runtime.server_started === false && runtime.llm_called === false, "サーバーやモデルを使っていない実行の記録ではありません。");
+    const checks = record.checks ?? {};
+    check(checks.passed === true && checks.count === PIN.checks && Array.isArray(checks.items) && checks.items.length === PIN.checks, "実行記録の196の自動確認が合格になっていません。");
+
+    const lockDep = lock?.runtime_dependency ?? {};
+    check(lock?.repository === PIN.repository && lock.commit === PIN.commit && lock.version === PIN.version && lockDep.version === PIN.graphonVersion
+      && lockDep.wheel_sha256 === PIN.wheelSha256 && Array.isArray(lock.files) && lock.files.length === PIN.lockFiles, "vendor-lock.json の固定版または292ファイルの件数が違います。");
+
+    check(ticketsFile?.fictional === true && Array.isArray(ticketsFile.cases) && deepEqual(ticketsFile.cases.map((c) => c?.id), PIN.ids), "tickets.json が架空の8件 D01〜D08 ではありません。");
+    const oracle = expected?.selected_case_ids;
+    check(isObject(oracle) && deepEqual(Object.keys(oracle), PIN.ids), "expected.json の8件が D01〜D08 ではありません。");
+    check(Array.isArray(record.cases) && deepEqual(record.cases.map((c) => c?.id), PIN.ids) && new Set(record.cases.map((c) => c.id)).size === 8,
+      "実行記録の問い合わせが D01〜D08 の8件ではありません。");
+
+    const cases = record.cases.map((item, i) => readCase(item, ticketsFile.cases[i], oracle));
+    check(cases.reduce((n, c) => n + c.events, 0) === PIN.events, "実行記録のイベントが合計160件ではありません。");
+    const counts = Object.fromEntries(ROUTES.map((r) => [r, cases.filter((c) => c.route === r).length]));
+    check(deepEqual(counts, PIN.counts), "担当ごとの件数が 優先対応3・請求窓口1・通常窓口4 ではありません。");
+
+    const dsl = dslFacts(data["workflow.yml"]);
+    const seen = new Set(cases.flatMap((c) => [...c.taken, ...c.skipped].map(edgeKey)));
+    check(deepEqual([...seen].sort(), dsl.edges.map(edgeKey).sort()), "実行イベントの線が workflow.yml の8本と一致しません。");
+
+    check(audit?.status === "passed" && audit.run_sha256 === SHA["workflow-runs.json"] && audit.source_commit === PIN.commit && audit.source_files_verified === PIN.lockFiles
+      && audit.all49_topology_pairs_match === true && audit.raw_api_record_unchanged === true, "independent-checks.json が合格の記録ではありません。");
+    check(deepEqual(audit.route_counts, Object.fromEntries(ROUTES.map((r) => [ROUTE_LABEL[r], counts[r]]))), "independent-checks.json の件数が記録と一致しません。");
+    check(Array.isArray(audit.cases) && audit.cases.length === 8 && audit.cases.every((a, i) => a.id === cases[i].id && a.route === cases[i].route && a.llm_tokens === 0),
+      "independent-checks.json の8件が記録と一致しません。");
+
+    // diagram-data.json is a projection of the record: compare each copied value with its source.
+    check(facts?.format === PIN.diagramFormat && facts.source_run_sha256 === SHA["workflow-runs.json"] && facts.fictional === true, "diagram-data.json の形式または元の記録が違います。");
+    check(deepEqual(facts.topology, record.topology), "diagram-data.json のつながりが記録と一致しません。");
+    check(Array.isArray(facts.cases) && facts.cases.length === 8 && facts.cases.every((f, i) => f.id === cases[i].id && f.label === cases[i].label
+      && deepEqual(f.input, cases[i].input) && f.selected_case_id === cases[i].route && deepEqual(f.node_path, record.cases[i].output.node_path) && f.text === cases[i].text),
+    "diagram-data.json の8件が記録と一致しません。");
+    check(deepEqual(facts.rule_order?.map((r) => r.id), ROUTES)
+      && RULE_LINES.every((lines, i) => lines.every((part) => facts.rule_order[i].label.includes(part))), "diagram-data.json の判定の順と短い言葉が図と一致しません。");
+
+    check(timeline?.format === PIN.timelineFormat && timeline.duration === DURATION && timeline.fps === 30 && timeline.frames === 960 && timeline.silent === true,
+      "timeline.json が32秒・30fps・960フレーム・無音ではありません。");
+    check(Array.isArray(timeline.scenes) && timeline.scenes.length === SCENE_PLAN.length
+      && timeline.scenes.every((s, i) => s.id === SCENE_PLAN[i].id && s.in === SCENE_PLAN[i].in && s.out === SCENE_PLAN[i].out && s.case === SCENE_PLAN[i].case
+        && (s.compare_case ?? null) === (SCENE_PLAN[i].compare ?? null) && typeof s.headline === "string" && s.headline.length > 0),
+    "timeline.json の6場面が固定の時刻表と一致しません。");
+
+    const byId = Object.fromEntries(cases.map((c) => [c.id, c]));
+    const d07 = byId.D07;
+    const literal = d07.input.subject.match(/^\{\{[^}]*\}\}/)?.[0];
+    check(literal && d07.route === "false" && d07.subjectLine === `件名：${d07.input.subject}`, "D07 の件名の記号が通常窓口のメモにそのまま入った記録ではありません。");
+    check(byId.D04.users && byId.D05.users && byId.D04.route === "false" && byId.D05.route === "urgent", "D04・D05 の人数の比較が記録にありません。");
+    check(byId.D06.input.issue === "請求" && byId.D06.groups.length === 1 && byId.D06.route === "urgent", "D06 が判定1で決まった記録ではありません。");
+
+    return {
+      byId, counts, literal,
+      headlines: Object.fromEntries(timeline.scenes.map((s) => [s.id, s.headline])),
+      source: { version: src.version, graphon: `${dep.name} ${dep.version}` },
+    };
   }
 
   async function load() {
-    check(location.protocol !== "file:", FILE_MESSAGE);
-    check(globalThis.crypto && crypto.subtle, "このブラウザーでは SHA-256 を計算できません。https か http://localhost で開いてください。");
-    const manifestBytes = await fetchBytes(new URL(MANIFEST_PATH, BASE), MANIFEST_NAME);
-    const manifest = parseJson(manifestBytes, MANIFEST_NAME);
-    const hashes = manifest && manifest.files;
-    check(hashes && typeof hashes === "object" && !Array.isArray(hashes), `${MANIFEST_NAME} に files がありません。`);
-    check(Object.keys(hashes).length === ASSET_KEYS.length && ASSET_KEYS.every((key) => hashes[key] === FROZEN_HASHES[key]),
-      `${MANIFEST_NAME} の対象またはハッシュが、固定した8件と一致しません。`);
-    for (const key of ASSET_KEYS) {
-      check(!key.startsWith("/") && !key.split("/").includes(".."), `${key} は site の中の相対パスではありません。`);
-      assetState.set(key, { ok: null, actual: null });
-    }
-    manifestVerified = true;
-    showAssets();
-
-    const bytes = {};
-    await Promise.all(ASSET_KEYS.map(async (key) => {
-      const data = await fetchBytes(new URL(`../${key}`, BASE), key);
-      const actual = await sha256Hex(data);
-      assetState.set(key, { ok: actual === hashes[key], actual });
-      showAssets();
-      check(actual === hashes[key], `${key} の SHA-256 が data-hashes.json と一致しません。`);
-      bytes[key] = data;
-    }));
-
-    const json = {};
-    const bitmaps = {};
-    let workflowText = "";
-    for (const key of ASSET_KEYS) {
-      if (key.endsWith(".json")) {
-        json[key] = parseJson(bytes[key], key);
-      } else if (key.endsWith(".yml")) {
-        workflowText = decodeText(bytes[key], key);
-      } else {
-        try {
-          bitmaps[key] = await createImageBitmap(new Blob([bytes[key]], { type: "image/png" }));
-        } catch {
-          throw new Error(`${key} を画像として読めません。`);
-        }
-      }
-    }
-    const model = buildModel(json, workflowText, hashes, bitmaps);
-    await loadFonts();
-    return model;
+    const data = await loadAssets();
+    const built = buildFilm(data);
+    if (document.fonts?.ready) await document.fonts.ready;
+    built.journeys = buildJourneys(built);
+    return built;
   }
 
-  function buildModel(json, workflowText, hashes, bitmaps) {
-    const run = json["outputs/workflow-runs.json"];
-    const audit = json["outputs/independent-checks.json"];
-    const tickets = json["input/tickets.json"];
-    const lock = json["vendor-lock.json"];
-    const screensDoc = json["video/assets/screens.json"];
+  // --- Time helpers (pure) -------------------------------------------------------------------
 
-    // Pinned source, runtime dependency, lock and inputs.
-    check(run && run.format === FROZEN.format, "実行記録の形式が違います。");
-    const source = run.source || {};
-    check(source.repository === FROZEN.repository && source.commit === FROZEN.commit && source.version === FROZEN.version,
-      "実行記録の原典・固定コミット・版が固定値と一致しません。");
-    const dependency = run.runtime_dependency || {};
-    check(dependency.name === "graphon" && dependency.version === FROZEN.graphon && dependency.wheel_sha256 === FROZEN.wheel,
-      "実行記録の graphon の版または wheel の SHA-256 が固定値と一致しません。");
-    check(run.source_lock_sha256 === hashes["vendor-lock.json"], "実行記録の vendor-lock.json の SHA-256 が一致しません。");
-    const lockDependency = (lock && lock.runtime_dependency) || {};
-    check(lock && lock.repository === FROZEN.repository && lock.commit === FROZEN.commit && lock.version === FROZEN.version
-      && lockDependency.name === "graphon" && lockDependency.version === FROZEN.graphon && lockDependency.wheel_sha256 === FROZEN.wheel
-      && Array.isArray(lock.files) && lock.files.length === FROZEN.sourceFiles,
-      "vendor-lock.json の固定版または件数が違います。");
-    const inputHashes = run.input_sha256 || {};
-    for (const key of ["input/tickets.json", "workflow.yml"]) {
-      check(inputHashes[key] === hashes[key], `${key} の SHA-256 が実行記録と一致しません。`);
-    }
-    const runtime = run.runtime || {};
-    check(runtime.network_attempts === 0 && runtime.process_attempts === 0 && runtime.server_started === false
-      && runtime.llm_called === false && runtime.credentials === null,
-      "実行記録に通信・子プロセス・サーバー・LLM・認証のいずれかが記録されています。");
-    const checks = run.checks || {};
-    check(checks.passed === true && checks.count === FROZEN.checks && Array.isArray(checks.items) && checks.items.length === FROZEN.checks,
-      "実行記録の自動確認がすべて合格になっていません。");
-
-    // Independent checks.
-    check(audit && audit.status === "passed" && audit.source_commit === FROZEN.commit
-      && audit.run_sha256 === hashes["outputs/workflow-runs.json"] && audit.source_files_verified === FROZEN.sourceFiles
-      && audit.all49_topology_pairs_match === true && audit.raw_api_record_unchanged === true
-      && Array.isArray(audit.cases) && audit.cases.length === CASE_IDS.length,
-      "独立した照合が合格になっていません。");
-
-    // Frozen fictional inputs.
-    check(tickets && tickets.fictional === true && Array.isArray(tickets.cases)
-      && tickets.cases.map((item) => item.id).join(",") === CASE_IDS.join(","), "input/tickets.json が架空の8件 D01〜D08 ではありません。");
-    check(Array.isArray(run.cases) && run.cases.map((item) => item.id).join(",") === CASE_IDS.join(","),
-      "実行記録の問い合わせが D01〜D08 の順ではありません。");
-
-    // Graph: node IDs from Dify's WorkflowGraphTopology, edges and titles from actual engine events.
-    const topology = run.topology || {};
-    check(Array.isArray(topology.node_ids) && topology.node_ids.length === FROZEN.nodes
-      && topology.node_ids.every((id) => Object.hasOwn(NODE_LAYOUT, id)), "実行記録のノードが7つの予定の ID ではありません。");
-    const edgeSet = new Map();
-    const titles = {};
-    const routeNames = {};
-    const cases = run.cases.map((item, index) => {
-      const frozen = tickets.cases[index];
-      check(item.label === frozen.label && item.input && frozen.input, `${item.id} の名前または入力がありません。`);
-      check(Object.keys(item.input).length === INPUT_KEYS.length && INPUT_KEYS.every((key) => item.input[key] === frozen.input[key]),
-        `${item.id} の入力が input/tickets.json と一致しません。`);
-      const output = item.output || {};
-      check(typeof output.text === "string" && ROUTE_ORDER.includes(output.selected_case_id)
-        && Array.isArray(output.node_path) && output.node_path.length === 5, `${item.id} の出力の形が違います。`);
-      const events = Array.isArray(item.events) ? item.events : [];
-      const last = events[events.length - 1] || {};
-      const finalOutputs = (last.data && last.data.outputs) || {};
-      check(events.length > 0 && events[0].type === "GraphRunStartedEvent" && last.type === "GraphRunSucceededEvent"
-        && finalOutputs.text === output.text && finalOutputs.selected_case_id === output.selected_case_id,
-        `${item.id} の最後のイベントが出力と一致しません。`);
-      check(!events.some((event) => /Fail|Exception|Abort|Pause/.test(String(event.type))), `${item.id} に失敗のイベントがあります。`);
-      const taken = [];
-      for (const event of events) {
-        const data = event.data || {};
-        if (event.type === "GraphEdgeTakenEvent" || event.type === "GraphEdgeSkippedEvent") {
-          const pair = `${data.source_node_id}>${data.target_node_id}`;
-          edgeSet.set(pair, { source: data.source_node_id, target: data.target_node_id });
-          if (event.type === "GraphEdgeTakenEvent") taken.push(pair);
-        }
-        if (event.type === "NodeRunStartedEvent") {
-          check(typeof data.node_title === "string" && (!titles[data.node_id] || titles[data.node_id] === data.node_title),
-            `${item.id} のノード名が一定ではありません。`);
-          titles[data.node_id] = data.node_title;
-        }
-      }
-      const path = output.node_path;
-      const pathPairs = path.slice(1).map((node, k) => `${path[k]}>${node}`);
-      check(taken.join(",") === pathPairs.join(","), `${item.id} の通った線がノードの順と一致しません。`);
-      check(Array.isArray(item.checks) && item.checks.length > 0, `${item.id} の確認がありません。`);
-      const audited = audit.cases[index];
-      check(audited && audited.id === item.id && audited.route === output.selected_case_id
-        && Array.isArray(audited.actual_node_path) && audited.actual_node_path.join(",") === path.join(",")
-        && audited.exact_input_and_final_event === true && audited.memo_is_real_node_output === true && audited.llm_tokens === 0,
-        `${item.id} が独立した照合と一致しません。`);
-      const lines = output.text.split("\n");
-      const head = /^【担当】(.+)$/.exec(lines[0]);
-      check(head, `${item.id} のメモの1行目が【担当】ではありません。`);
-      const known = routeNames[output.selected_case_id];
-      check(!known || known === head[1], `${item.id} の担当名が同じ分岐の他の記録と一致しません。`);
-      routeNames[output.selected_case_id] = head[1];
-      return { id: item.id, label: item.label, input: item.input, text: output.text, lines, route: output.selected_case_id, path, pathPairs };
-    });
-    check(edgeSet.size === FROZEN.edges && [...edgeSet.values()].every((edge) => topology.node_ids.includes(edge.source) && topology.node_ids.includes(edge.target)),
-      "実際のイベントから読んだ線が8本ではありません。");
-    check(topology.node_ids.every((id) => typeof titles[id] === "string"), "7つのノードの名前がイベントにそろっていません。");
-
-    const byId = Object.fromEntries(cases.map((item) => [item.id, item]));
-    const routes = ROUTE_ORDER.map((id) => ({ id, name: routeNames[id], ids: cases.filter((item) => item.route === id).map((item) => item.id) }));
-    check(routes.every((route) => typeof route.name === "string" && route.ids.length > 0) && new Set(routes.map((route) => route.name)).size === routes.length,
-      "3つの担当名がそろっていません。");
-    const auditCounts = audit.route_counts || {};
-    check(Object.keys(auditCounts).length === routes.length && routes.every((route) => auditCounts[route.name] === route.ids.length),
-      "担当ごとの件数が独立した照合と一致しません。");
-
-    // Rule wording copied from workflow.yml (route node description).
-    check(/^kind: app$/m.test(workflowText) && /^version: 0\.3\.0$/m.test(workflowText) && /^ {2}mode: workflow$/m.test(workflowText),
-      "workflow.yml が Dify DSL（kind: app・version 0.3.0・mode: workflow）ではありません。");
-    const desc = /desc: (上から順に判定し、[^。\n]+。)\s*1\. (\S+) 2\. (\S+) 3\. ([^。\n]+)。/.exec(workflowText);
-    check(desc, "workflow.yml に判定順の説明が見つかりません。");
-    const rules = [desc[2], desc[3], desc[4]];
-    const threshold = /影響人数(\d+)人以上/.exec(rules[0]);
-    check(threshold && workflowText.includes("comparison_operator: ≥") && workflowText.includes(`value: '${threshold[1]}'`),
-      "workflow.yml の人数の条件が説明と一致しません。");
-    const limit = Number(threshold[1]);
-
-    // The five cases the film shows, with the facts each scene states.
-    const d02 = byId.D02;
-    const d04 = byId.D04;
-    const d05 = byId.D05;
-    const d06 = byId.D06;
-    const d07 = byId.D07;
-    check(d02.route === "billing", "D02 が請求の分岐を通っていません。");
-    check(d06.route === "urgent" && rules[0].includes(d06.input.urgency) && rules[1].includes(d06.input.issue),
-      "D06 が「請求でも至急を先に」の例になっていません。");
-    check(d04.route === "false" && d05.route === "urgent" && d04.input.affected_users === limit - 1 && d05.input.affected_users === limit
-      && d04.input.issue === d05.input.issue && d04.input.urgency === d05.input.urgency && !rules[0].startsWith(d04.input.urgency),
-      "D04・D05 が人数の境目の例になっていません。");
-    const subjectLine7 = `件名：${d07.input.subject}`;
-    const bodyLines7 = d07.input.body.split("\n");
-    const expression7 = /^\{\{[^}]*\}\}/.exec(d07.input.subject);
-    check(expression7 && d07.input.body.includes("<script>") && d07.lines.includes(subjectLine7)
-      && d07.lines.includes(bodyLines7[0]) && d07.text.includes(d07.input.body) && !d07.text.includes("49"),
-      "D07 の入力がメモにそのまま入っていません。");
-
-    // Recorded viewer screenshots.
-    check(screensDoc && Array.isArray(screensDoc.screens) && screensDoc.screens.length === 2, "video/assets/screens.json の形が違います。");
-    const shots = {};
-    for (const screen of screensDoc.screens) {
-      const bitmap = bitmaps[screen.file];
-      check(bitmap && screen.sha256 === hashes[screen.file] && screen.actual_native_browser_screenshot === true
-        && screen.byte_identical_to_capture === true && screen.edited === false
-        && bitmap.width === screen.width && bitmap.height === screen.height && CASE_IDS.includes(screen.sample),
-        `${screen.file} が記録された実画面と一致しません。`);
-      shots[screen.height > screen.width ? "phone" : "desktop"] = { bitmap, width: screen.width, height: screen.height, sample: screen.sample };
-    }
-    check(shots.phone && shots.desktop && shots.phone.sample === "D05" && shots.desktop.sample === "D02",
-      "スマホ（D05）とデスクトップ（D02）の実画面がそろっていません。");
-
-    const model = {
-      version: source.version,
-      graphon: dependency.version,
-      cases,
-      byId,
-      routes,
-      routeIndex: Object.fromEntries(routes.map((route, k) => [route.id, k])),
-      titles,
-      nodeIds: topology.node_ids,
-      edges: [...edgeSet.values()],
-      rules,
-      ruleLead: desc[1],
-      limit,
-      limitLabel: `${limit}人以上`,
-      d07: { expression: expression7[0], subjectLine: subjectLine7, bodyFirst: bodyLines7[0], bodyRest: bodyLines7.slice(1).join(" ") },
-      shots,
-    };
-    model.tracks = buildTracks(model);
-    return model;
-  }
-
-  // --- Drawing kit ----------------------------------------------------------------------------
-
-  const SANS = '"Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", YuGothic, Meiryo, sans-serif';
-  const MONO = 'Consolas, "Cascadia Mono", Menlo, "Noto Sans Mono", monospace';
-  const C = {
-    ivory: "#f6f1e6",
-    paper: "#fffcf5",
-    navy: "#14213d",
-    ink: "#1c2333",
-    muted: "#586174",
-    cobalt: "#2745c4",
-    cobaltSoft: "#e4e8fb",
-    teal: "#157a74",
-    tealSoft: "#dcefec",
-    slate: "#3e4c66",
-    slateSoft: "#e7e9ef",
-    yellow: "#f2c14e",
-    yellowSoft: "#fbefcd",
-    line: "#d8cfbc",
-  };
-  // Route colours follow the if-else order: urgent, billing, else.
-  const ROUTE_COLOR = { urgent: C.cobalt, billing: C.teal, false: C.slate };
-  const ROUTE_SOFT = { urgent: C.cobaltSoft, billing: C.tealSoft, false: C.slateSoft };
-
-  function font(size, weight = 400, family = SANS) {
-    return `${weight} ${size}px ${family}`;
-  }
-  const clamp01 = (value) => (value < 0 ? 0 : value > 1 ? 1 : value);
+  const clamp01 = (v) => Math.max(0, Math.min(1, v));
   const lerp = (a, b, p) => a + (b - a) * p;
-  const easeOut = (p) => 1 - Math.pow(1 - clamp01(p), 3);
-  const easeInOut = (p) => {
-    const x = clamp01(p);
-    return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
-  };
-  const prog = (t, start, duration) => clamp01((t - start) / duration);
-  // 0 → 1 while entering, 1 while held, 1 → 0 while leaving (outAt = null keeps it).
-  function fadeWindow(t, inAt, inDuration, outAt, outDuration) {
-    const enter = easeOut(prog(t, inAt, inDuration));
-    const leave = outAt == null ? 0 : easeInOut(prog(t, outAt, outDuration));
-    return Math.min(enter, 1 - leave);
+  const ease = (p) => (p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2);
+  const ramp = (t, a, b) => (b <= a ? (t >= a ? 1 : 0) : ease(clamp01((t - a) / (b - a))));
+  const centerOf = (r) => ({ cx: r.x + r.w / 2, cy: r.y + r.h / 2, w: r.w, h: r.h });
+
+  function polyLength(poly) {
+    let total = 0;
+    for (let i = 1; i < poly.length; i += 1) total += Math.hypot(poly[i][0] - poly[i - 1][0], poly[i][1] - poly[i - 1][1]);
+    return total;
   }
 
-  function layer(alpha, dy, paint) {
-    if (alpha <= 0.002) return;
-    ctx.save();
-    ctx.globalAlpha *= Math.min(1, alpha);
-    if (dy) ctx.translate(0, dy);
-    paint();
-    ctx.restore();
-  }
-
-  function textWidth(text, size, weight = 400, family = SANS) {
-    ctx.font = font(size, weight, family);
-    return ctx.measureText(text).width;
-  }
-
-  function fitSize(text, maxWidth, size, weight = 400, min = 12, family = SANS) {
-    let current = size;
-    while (current > min && textWidth(text, current, weight, family) > maxWidth) current -= 1;
-    return current;
-  }
-
-  function say(text, x, y, size, options = {}) {
-    ctx.font = font(size, options.weight ?? 400, options.family ?? SANS);
-    ctx.fillStyle = options.color ?? C.ink;
-    ctx.textAlign = options.align ?? "left";
-    ctx.fillText(text, x, y);
-    const width = ctx.measureText(text).width;
-    ctx.textAlign = "left";
-    return width;
-  }
-
-  function rr(x, y, w, h, r) {
-    const k = Math.max(0, Math.min(r, w / 2, h / 2));
-    ctx.beginPath();
-    ctx.moveTo(x + k, y);
-    ctx.arcTo(x + w, y, x + w, y + h, k);
-    ctx.arcTo(x + w, y + h, x, y + h, k);
-    ctx.arcTo(x, y + h, x, y, k);
-    ctx.arcTo(x, y, x + w, y, k);
-    ctx.closePath();
-  }
-
-  function panel(x, y, w, h, options = {}) {
-    ctx.save();
-    if (options.shadow !== false) {
-      ctx.shadowColor = "rgba(20, 33, 61, 0.12)";
-      ctx.shadowBlur = 16;
-      ctx.shadowOffsetY = 5;
+  function pointAlong(poly, p) {
+    const target = polyLength(poly) * clamp01(p);
+    let walked = 0;
+    for (let i = 1; i < poly.length; i += 1) {
+      const seg = Math.hypot(poly[i][0] - poly[i - 1][0], poly[i][1] - poly[i - 1][1]);
+      if (walked + seg >= target || i === poly.length - 1) {
+        const q = seg === 0 ? 1 : clamp01((target - walked) / seg);
+        return [lerp(poly[i - 1][0], poly[i][0], q), lerp(poly[i - 1][1], poly[i][1], q)];
+      }
+      walked += seg;
     }
-    rr(x, y, w, h, options.r ?? 14);
-    ctx.fillStyle = options.fill ?? C.paper;
-    ctx.fill();
-    ctx.restore();
-    rr(x, y, w, h, options.r ?? 14);
-    ctx.lineWidth = options.lineWidth ?? 1.5;
-    ctx.strokeStyle = options.stroke ?? C.line;
-    if (options.dash) ctx.setLineDash(options.dash);
-    ctx.stroke();
-    ctx.setLineDash([]);
+    return poly[poly.length - 1];
   }
 
-  function disc(cx, cy, r, fill, stroke, lineWidth) {
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    ctx.fillStyle = fill;
-    ctx.fill();
-    if (stroke) {
-      ctx.lineWidth = lineWidth ?? 2;
-      ctx.strokeStyle = stroke;
-      ctx.stroke();
+  // --- Journeys: the same envelope from the inbox, through the switch and desk, into the memo ----
+
+  // Each journey is a list of timed segments. A frame is a pure function of time over this list.
+  function buildJourney(film, id, o) {
+    const c = film.byId[id];
+    const s = o.s;
+    const sel = SLOT_OF[c.route];
+    const visited = c.groups.map((_, i) => i);
+    if (c.route === "false") visited.push(2);
+    const tint = C[c.route].main;
+    const segs = [], marks = [], trails = [];
+    const tok = (pt, tnt = C.accent) => ({ cx: pt[0], cy: pt[1], w: L.token.w, h: L.token.h, a: 1, form: "token", tint: tnt });
+    const home = { ...centerOf(L.home), a: 1, form: "home", tint: C.accent };
+    let t = o.T;
+    let cur;
+    const add = (dur, to, extra = {}) => {
+      const seg = { t0: t, t1: t + dur, from: cur, to, ...extra };
+      segs.push(seg);
+      cur = to;
+      t += dur;
+      return seg;
+    };
+    if (o.preset) {
+      cur = home;
+      segs.push({ t0: 0, t1: 0, from: home, to: home });
+    } else {
+      cur = { ...home, cy: home.cy - 70, a: 0 };
+      add(0.5 * s, home);
     }
+    const e0 = L.edges["start>route"];
+    add(0.45 * s, tok(e0[0]));
+    let seg = add(0.5 * s, tok(e0[e0.length - 1]), { poly: e0 });
+    trails.push({ key: "start>route", t0: seg.t0, t1: seg.t1, color: C.accent });
+
+    let checksStart = null;
+    let pill = null;
+    visited.forEach((slot, k) => {
+      if (k > 0) add(0.3 * s, tok(L.lane[slot]), { poly: [L.lane[visited[k - 1]], L.lane[slot]] });
+      if (checksStart === null) checksStart = t;
+      const long = o.threshold && slot === 0;
+      if (long) pill = { t0: t + 0.1 * s, t1: t + 0.7 * s };
+      marks.push({ slot, at: t + (long ? 0.8 : 0.08) * s });
+      add((long ? 1.3 : 0.35) * s, cur);
+    });
+
+    const node = MEMO_NODE[c.route];
+    const re = L.edges[`route>${node}`];
+    const de = L.edges[`${node}>merge`];
+    const me = L.edges["merge>end"];
+    const slotLit = t;
+    add(0.3 * s, tok(re[0]), { poly: [L.lane[sel], re[0]], under: true });
+    seg = add(0.4 * s, tok(re[re.length - 1]), { poly: re });
+    trails.push({ key: `route>${node}`, t0: seg.t0, t1: seg.t1, color: tint });
+    const deskLit = t;
+    add(0.35 * s, tok(L.deskExit[sel], tint), { poly: [re[re.length - 1], L.deskExit[sel]], under: true });
+    seg = add(0.55 * s, tok(me[0], tint), { poly: [...de, me[0]] });
+    trails.push({ key: `${node}>merge`, t0: seg.t0, t1: seg.t1, color: tint });
+    seg = add(0.35 * s, tok(me[me.length - 1], tint), { poly: me });
+    trails.push({ key: "merge>end", t0: seg.t0, t1: seg.t1, color: tint });
+    const land = o.land === "right" ? { ...centerOf(L.halves[1]), form: "half", half: 1 } : { ...centerOf(L.memo), form: "memo" };
+    add(0.45 * s, { ...land, a: 1, tint });
+    const memoAt = t;
+    if (o.park != null) {
+      t = Math.max(t, o.park);
+      add(0.35, { ...centerOf(L.halves[0]), form: "half", half: 0, a: 1, tint });
+    }
+    if (o.exit != null) {
+      t = Math.max(t, o.exit);
+      add(0.4, { ...cur, cx: cur.cx + (L.tall ? 90 : 70), a: 0 });
+    }
+    return {
+      id, c, segs, marks, trails, sel, slotLit, deskLit, memoAt, pill, checksStart,
+      start: o.preset ? 0 : o.T, exit: o.exit ?? null, dimAt: o.dimAt ?? null, dimAlpha: 0.38, marksOff: null,
+      threshold: Boolean(o.threshold), literal: Boolean(o.literal),
+    };
   }
 
-  function chip(label, x, cy, color, soft, size = 14) {
-    const w = textWidth(label, size, 700, MONO) + 14;
-    rr(x, cy - size, w, size * 2, 6);
-    ctx.fillStyle = soft;
-    ctx.fill();
-    say(label, x + 7, cy + size * 0.36, size, { weight: 700, family: MONO, color });
+  function buildJourneys(film) {
+    const list = [
+      buildJourney(film, "D02", { T: 5.1, preset: true, s: 0.85, exit: 10.0 }),
+      buildJourney(film, "D06", { T: 10.0, s: 0.8, exit: 15.0 }),
+      buildJourney(film, "D04", { T: 15.0, s: 0.55, threshold: true, park: 18.6, exit: 22.0 }),
+      buildJourney(film, "D05", { T: 18.2, s: 0.5, threshold: true, land: "right", exit: 22.0 }),
+      buildJourney(film, "D07", { T: 22.0, s: 0.65, literal: true, exit: 27.0 }),
+      buildJourney(film, "D05", { T: 27.0, s: 0.58 }),
+    ];
+    // D04 stays as the dimmed earlier record while D05 takes the other branch.
+    list[2].dimAt = list[3].checksStart;
+    list.forEach((j, i) => {
+      const next = list[i + 1];
+      const overlaps = next && j.exit != null && next.checksStart < j.exit;
+      j.marksOff = overlaps ? next.checksStart - 0.1 : (j.exit ?? Infinity);
+    });
+    // Same scene boundaries as the timeline: the final memo must be settled for the last 2.5 seconds.
+    check(list[0].memoAt < SCENE_PLAN[1].out && list[1].memoAt < SCENE_PLAN[2].out && list[2].memoAt <= 18.6
+      && list[3].memoAt < SCENE_PLAN[3].out && list[4].memoAt < SCENE_PLAN[4].out && list[5].memoAt <= DURATION - 2.5,
+    "図の動きの時刻が場面の範囲に収まりません。");
+    return list;
+  }
+
+  function stateAt(j, t) {
+    let seg = null;
+    for (const sg of j.segs) {
+      if (sg.t0 <= t) seg = sg;
+      else break;
+    }
+    if (!seg) return null;
+    if (t >= seg.t1) return { ...seg.to, fromForm: seg.to.form, p: 1, under: false };
+    const p = ease(clamp01((t - seg.t0) / (seg.t1 - seg.t0)));
+    const a = seg.from, b = seg.to;
+    const at = seg.poly ? pointAlong(seg.poly, p) : [lerp(a.cx, b.cx, p), lerp(a.cy, b.cy, p)];
+    return {
+      cx: at[0], cy: at[1], w: lerp(a.w, b.w, p), h: lerp(a.h, b.h, p), a: lerp(a.a, b.a, p),
+      form: b.form, fromForm: a.form, p, tint: p < 0.5 ? a.tint : b.tint, half: b.half ?? a.half, under: Boolean(seg.under),
+    };
+  }
+
+  function weightsOf(st) {
+    const w = { home: 0, token: 0, memo: 0, half: 0 };
+    w[st.fromForm] += 1 - st.p;
+    w[st.form] += st.p;
     return w;
   }
 
-  // A yellow pencil stroke revealed left to right. The wobble depends on x only, so the
-  // stroke keeps its shape while it grows.
-  function pencil(x0, x1, y, p, seed, width = 9, color = C.yellow) {
-    const reveal = clamp01(p);
-    if (reveal <= 0 || x1 <= x0) return;
-    const end = lerp(x0, x1, reveal);
-    const wobble = (x) => y + Math.sin((x - x0) / 37 + seed) * 1.6 + Math.sin((x - x0) / 11 + seed * 2.3) * 0.6;
+  const highlightAlpha = (j, t) => (j.dimAt != null ? lerp(1, j.dimAlpha, ramp(t, j.dimAt, j.dimAt + 0.25)) : 1)
+    * (j.exit != null ? 1 - ramp(t, j.exit, j.exit + 0.4) : 1);
+  const marksAlpha = (j, at, t) => ramp(t, at, at + 0.15) * (1 - ramp(t, j.marksOff, j.marksOff + 0.2));
+
+  // --- Drawing primitives --------------------------------------------------------------------
+
+  const FONT = 'system-ui, -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Meiryo", "Noto Sans JP", sans-serif';
+  const MONO = 'ui-monospace, "SFMono-Regular", "Cascadia Mono", Consolas, Menlo, monospace';
+  const C = {
+    ivory: "#f6f1e6", paper: "#fffcf5", ink: "#1c2333", muted: "#5d6475", line: "#cbbfa6", rail: "#ddd3bf",
+    accent: "#c8641e", accentSoft: "#fbe3cc", reject: "#9e3324", dim: "#f6f1e6",
+    urgent: { main: "#2747c2", soft: "#e3e8fb" },
+    billing: { main: "#0f7a72", soft: "#dbefec" },
+    false: { main: "#86590f", soft: "#f3e8d2" },
+  };
+
+  function setFont(size, weight = 700, family = FONT) { ctx.font = `${weight} ${size}px ${family}`; }
+
+  function fitSize(str, size, min, max, weight = 700) {
+    let s = size;
+    setFont(s, weight);
+    while (s > min && ctx.measureText(str).width > max) {
+      s -= 1;
+      setFont(s, weight);
+    }
+    return s;
+  }
+
+  function measure(str, size, weight = 700, family = FONT) {
+    setFont(size, weight, family);
+    return ctx.measureText(str).width;
+  }
+
+  function text(str, x, y, { size = 24, weight = 700, color = C.ink, align = "left", alpha = 1, family = FONT } = {}) {
+    if (alpha <= 0.003 || !str) return;
     ctx.save();
-    ctx.globalAlpha *= 0.9;
+    ctx.globalAlpha *= alpha;
+    setFont(size, weight, family);
+    ctx.fillStyle = color;
+    ctx.textAlign = align;
+    ctx.textBaseline = "alphabetic";
+    ctx.fillText(str, x, y);
+    ctx.restore();
+  }
+
+  function wrap(str, maxW, size, weight = 700) {
+    setFont(size, weight);
+    const lines = [];
+    let line = "";
+    for (const ch of Array.from(str)) {
+      if (line && ctx.measureText(line + ch).width > maxW && !"。、」）".includes(ch)) {
+        lines.push(line);
+        line = ch;
+      } else {
+        line += ch;
+      }
+    }
+    if (line) lines.push(line);
+    return lines;
+  }
+
+  function rr(x, y, w, h, r) {
+    const q = Math.max(0, Math.min(r, w / 2, h / 2));
+    ctx.beginPath();
+    ctx.moveTo(x + q, y);
+    ctx.lineTo(x + w - q, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + q);
+    ctx.lineTo(x + w, y + h - q);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - q, y + h);
+    ctx.lineTo(x + q, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - q);
+    ctx.lineTo(x, y + q);
+    ctx.quadraticCurveTo(x, y, x + q, y);
+    ctx.closePath();
+  }
+
+  function box(r, { fill, stroke, width = 2, radius = 12, dash = null, alpha = 1 }) {
+    if (alpha <= 0.003) return;
+    ctx.save();
+    ctx.globalAlpha *= alpha;
+    rr(r.x, r.y, r.w, r.h, radius);
+    if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+    if (stroke) {
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth = width;
+      if (dash) ctx.setLineDash(dash);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function pill(x, cy, label, size, { fill, color, stroke = null, alpha = 1, align = "left", family = FONT, weight = 700 }) {
+    if (alpha <= 0.003) return 0;
+    const padX = size * 0.5, h = size * 1.45;
+    const w = measure(label, size, weight, family) + padX * 2;
+    const left = align === "center" ? x - w / 2 : align === "right" ? x - w : x;
+    box({ x: left, y: cy - h / 2, w, h }, { fill, stroke, width: 2, radius: h / 2, alpha });
+    text(label, left + padX, cy + size * 0.36, { size, color, alpha, family, weight });
+    return w;
+  }
+
+  function strokePoly(poly, p, color, width, alpha, { dash = null, arrow = false } = {}) {
+    if (alpha <= 0.003 || p <= 0) return;
+    const end = pointAlong(poly, p);
+    const target = polyLength(poly) * clamp01(p);
+    ctx.save();
+    ctx.globalAlpha *= alpha;
     ctx.strokeStyle = color;
     ctx.lineWidth = width;
     ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    if (dash) ctx.setLineDash(dash);
     ctx.beginPath();
-    ctx.moveTo(x0, wobble(x0));
-    for (let x = x0 + 12; x < end; x += 12) ctx.lineTo(x, wobble(x));
-    ctx.lineTo(end, wobble(end));
+    ctx.moveTo(poly[0][0], poly[0][1]);
+    let walked = 0;
+    let prev = poly[0];
+    for (let i = 1; i < poly.length; i += 1) {
+      const seg = Math.hypot(poly[i][0] - poly[i - 1][0], poly[i][1] - poly[i - 1][1]);
+      if (walked + seg >= target) break;
+      ctx.lineTo(poly[i][0], poly[i][1]);
+      prev = poly[i];
+      walked += seg;
+    }
+    ctx.lineTo(end[0], end[1]);
+    ctx.stroke();
+    if (arrow && p > 0.97) {
+      const ang = Math.atan2(end[1] - prev[1], end[0] - prev[0]);
+      const k = Math.max(8, width * 2.4);
+      ctx.setLineDash([]);
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.moveTo(end[0], end[1]);
+      ctx.lineTo(end[0] - Math.cos(ang - 0.5) * k, end[1] - Math.sin(ang - 0.5) * k);
+      ctx.lineTo(end[0] - Math.cos(ang + 0.5) * k, end[1] - Math.sin(ang + 0.5) * k);
+      ctx.closePath();
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function mark(cx, cy, r, ok, alpha, color) {
+    if (alpha <= 0.003) return;
+    ctx.save();
+    ctx.globalAlpha *= alpha;
+    ctx.fillStyle = ok ? color : C.reject;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.strokeStyle = C.paper;
+    ctx.lineWidth = Math.max(3, r * 0.22);
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.beginPath();
+    if (ok) {
+      ctx.moveTo(cx - r * 0.45, cy + r * 0.02);
+      ctx.lineTo(cx - r * 0.1, cy + r * 0.38);
+      ctx.lineTo(cx + r * 0.5, cy - r * 0.38);
+    } else {
+      const q = r * 0.4;
+      ctx.moveTo(cx - q, cy - q);
+      ctx.lineTo(cx + q, cy + q);
+      ctx.moveTo(cx + q, cy - q);
+      ctx.lineTo(cx - q, cy + q);
+    }
     ctx.stroke();
     ctx.restore();
   }
 
-  function arrowHead(x, y, angle, color, size = 11) {
+  // Icons for the three routing values on the envelope: bill = 種類, bolt = 緊急度, people = 人数.
+  function iconBill(x, y, s, color) {
+    const w = s * 0.74, left = x + (s - w) / 2;
+    ctx.save();
+    ctx.strokeStyle = color;
+    ctx.lineWidth = Math.max(2, s * 0.08);
+    ctx.lineJoin = "round";
+    ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(left, y);
+    ctx.lineTo(left + w * 0.66, y);
+    ctx.lineTo(left + w, y + s * 0.26);
+    ctx.lineTo(left + w, y + s);
+    ctx.lineTo(left, y + s);
+    ctx.closePath();
+    ctx.stroke();
+    for (const k of [0.46, 0.64, 0.82]) {
+      ctx.beginPath();
+      ctx.moveTo(left + w * 0.22, y + s * k);
+      ctx.lineTo(left + w * 0.78, y + s * k);
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
+  function iconBolt(x, y, s, color) {
+    const pts = [[0.58, 0], [0.16, 0.58], [0.46, 0.58], [0.36, 1], [0.86, 0.38], [0.56, 0.38], [0.68, 0]];
+    ctx.save();
     ctx.fillStyle = color;
     ctx.beginPath();
-    ctx.moveTo(x, y);
-    ctx.lineTo(x - size * Math.cos(angle - 0.45), y - size * Math.sin(angle - 0.45));
-    ctx.lineTo(x - size * Math.cos(angle + 0.45), y - size * Math.sin(angle + 0.45));
+    pts.forEach(([px, py], i) => (i ? ctx.lineTo(x + px * s, y + py * s) : ctx.moveTo(x + px * s, y + py * s)));
     ctx.closePath();
     ctx.fill();
+    ctx.restore();
   }
 
-  function arrow(x0, y0, x1, y1, p, color, width = 2.5) {
-    const reveal = clamp01(p);
-    if (reveal <= 0) return;
+  function iconPeople(x, y, s, color) {
     ctx.save();
-    ctx.strokeStyle = color;
-    ctx.lineWidth = width;
-    ctx.lineCap = "round";
+    ctx.fillStyle = color;
+    for (const [hx, r, top] of [[0.34, 0.16, 0.12], [0.7, 0.13, 0.2]]) {
+      ctx.beginPath();
+      ctx.arc(x + hx * s, y + (top + r) * s, r * s, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.ellipse(x + hx * s, y + s * 0.92, r * s * 1.7, s * 0.3, 0, Math.PI, 0);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
+  function person(cx, headY, r, color, alpha = 1) {
+    ctx.save();
+    ctx.globalAlpha *= alpha;
+    ctx.fillStyle = color;
     ctx.beginPath();
-    ctx.moveTo(x0, y0);
-    ctx.lineTo(lerp(x0, x1, reveal), lerp(y0, y1, reveal));
-    ctx.stroke();
-    const head = clamp01((reveal - 0.8) / 0.2);
-    if (head > 0) {
-      ctx.globalAlpha *= head;
-      arrowHead(x1, y1, Math.atan2(y1 - y0, x1 - x0), color);
-    }
-    ctx.restore();
-  }
-
-  // Cubic curve revealed from its start; "v" bends vertically, "h" horizontally.
-  function curve(x0, y0, x1, y1, p, color, width, mode, options = {}) {
-    const reveal = clamp01(p);
-    if (reveal <= 0) return;
-    const bend = mode === "v" ? Math.abs(y1 - y0) * 0.5 : Math.abs(x1 - x0) * 0.5;
-    const c1 = mode === "v" ? [x0, y0 + bend] : [x0 + bend, y0];
-    const c2 = mode === "v" ? [x1, y1 - bend] : [x1 - bend, y1];
-    const at = (u) => {
-      const v = 1 - u;
-      return [
-        v * v * v * x0 + 3 * v * v * u * c1[0] + 3 * v * u * u * c2[0] + u * u * u * x1,
-        v * v * v * y0 + 3 * v * v * u * c1[1] + 3 * v * u * u * c2[1] + u * u * u * y1,
-      ];
-    };
-    ctx.save();
-    ctx.strokeStyle = color;
-    ctx.lineWidth = width;
-    ctx.lineCap = "round";
-    if (options.dash) ctx.setLineDash(options.dash);
+    ctx.arc(cx, headY, r, 0, Math.PI * 2);
+    ctx.fill();
     ctx.beginPath();
-    ctx.moveTo(x0, y0);
-    const steps = 32;
-    for (let i = 1; i <= steps; i++) {
-      const u = (i / steps) * reveal;
-      const [x, y] = at(u);
-      ctx.lineTo(x, y);
-    }
-    ctx.stroke();
-    ctx.setLineDash([]);
-    if (options.head && reveal > 0.85) {
-      const [ax, ay] = at(reveal);
-      const [bx, by] = at(Math.max(0, reveal - 0.04));
-      ctx.globalAlpha *= clamp01((reveal - 0.85) / 0.15);
-      arrowHead(ax, ay, Math.atan2(ay - by, ax - bx), color, 10);
-    }
+    ctx.ellipse(cx, headY + r * 2.7, r * 1.75, r * 1.45, 0, Math.PI, 0);
+    ctx.fill();
     ctx.restore();
   }
 
-  // Draws an actual screenshot whole, scaled to fit the box at its own aspect ratio.
-  function drawShot(shot, x, y, boxW, boxH) {
-    const scale = Math.min(boxW / shot.width, boxH / shot.height);
-    const w = shot.width * scale;
-    const h = shot.height * scale;
-    const left = x + (boxW - w) / 2;
-    const top = y + (boxH - h) / 2;
+  // --- The picture ----------------------------------------------------------------------------
+
+  function caseLine(c) {
+    return `記録 ${c.id} ・ ${c.input.ticket_id} ・ ${c.input.issue}・${c.input.urgency}・${c.input.affected_users}人`;
+  }
+
+  function drawHeadline(film, t) {
+    // Exactly one headline: the old one fades out before the new one fades in.
+    const i = SCENE_PLAN.findIndex((s) => t >= s.in && t < s.out);
+    const s = SCENE_PLAN[i < 0 ? SCENE_PLAN.length - 1 : i];
+    const last = s === SCENE_PLAN[SCENE_PLAN.length - 1];
+    const a = (s.in === 0 ? 1 : ramp(t, s.in, s.in + 0.3)) * (last ? 1 : 1 - ramp(t, s.out - 0.3, s.out));
+    const head = film.headlines[s.id];
+    const size = fitSize(head, L.headline.size, L.headline.min, L.headline.max);
+    text(head, L.headline.x, L.headline.y, { size, alpha: a });
+
+    // Small eyebrow: the record the envelope belongs to.
+    const js = film.journeys;
+    let k = 0;
+    js.forEach((j, n) => { if (j.start <= t) k = n; });
+    const j = js[k];
+    const next = js[k + 1];
+    const ea = (j.start === 0 ? 1 : ramp(t, j.start, j.start + 0.2)) * (next ? 1 - ramp(t, next.start - 0.2, next.start) : 1);
+    const label = s.id === "overview" ? "8件の担当内訳 ・ 封筒の例 D02" : caseLine(j.c);
+    const es = fitSize(label, L.eyebrow.size, 16, L.eyebrow.max, 700);
+    text(label, L.eyebrow.x, L.eyebrow.y, { size: es, color: C.accent, alpha: ea });
+  }
+
+  function drawStartNode() {
+    box(L.home, { stroke: C.line, width: 3, radius: 18, dash: [12, 10] });
+    const cx = L.home.x + L.home.w / 2, cy = L.home.y + L.home.h / 2;
+    text("問い合わせ", cx, cy + L.env.placeholder * 0.36, { size: L.env.placeholder, color: C.line, align: "center" });
+  }
+
+  function drawSwitchFrame() {
+    box(L.frame, { fill: C.paper, stroke: C.ink, width: 3, radius: 22 });
+    // Lane where the envelope is held while the rules are read in order.
     ctx.save();
-    ctx.shadowColor = "rgba(20, 33, 61, 0.18)";
-    ctx.shadowBlur = 16;
-    ctx.shadowOffsetY = 6;
-    ctx.fillStyle = C.paper;
-    ctx.fillRect(left, top, w, h);
+    ctx.strokeStyle = C.rail;
+    ctx.lineWidth = 4;
+    ctx.setLineDash([10, 12]);
+    ctx.beginPath();
+    const [a, b] = [L.lane[0], L.lane[2]];
+    ctx.moveTo(a[0], a[1]);
+    ctx.lineTo(b[0], b[1]);
+    ctx.stroke();
     ctx.restore();
-    ctx.drawImage(shot.bitmap, left, top, w, h);
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = "rgba(20, 33, 61, 0.35)";
-    ctx.strokeRect(left - 0.5, top - 0.5, w + 1, h + 1);
-    return { left, top, w, h };
+    const fp = L.framePill;
+    if (fp) pill(fp.x, fp.y, "担当を決める・順に判定", fp.size, { fill: C.ink, color: C.paper, align: fp.align });
   }
 
-  // --- Timeline -------------------------------------------------------------------------------
-
-  const SCENES = [
-    { n: 1, start: 0, end: 4, hold: 3.2, ids: "D01–D08", steps: [0, 1, 2, 3] },
-    { n: 2, start: 4, end: 8, hold: 7.0, ids: "D02", steps: [1, 2] },
-    { n: 3, start: 8, end: 12, hold: 11.0, ids: "D06", steps: [1] },
-    { n: 4, start: 12, end: 18, hold: 13.5, ids: "D04 → D05", steps: [1] },
-    { n: 5, start: 18, end: 22, hold: 21.0, ids: "D07", steps: [2] },
-    { n: 6, start: 22, end: 28, hold: 26.0, ids: "D01–D08", steps: [3] },
-  ];
-  const OPERATION = ["問い合わせを入力", "ルールで担当へ", "引き継ぎメモ", "JSON/DSLを持ち帰る"];
-  const RAIL = ["入力", "ルール", "メモ", "持ち帰る"];
-
-  function writeHeadlines(m) {
-    const heads = [
-      `問い合わせを、${m.routes.length}つの担当へ。`,
-      "ルールで、担当のメモへ。",
-      "請求でも、至急を先に。",
-      `${m.limitLabel}は、優先対応へ。`,
-      "入力は、そのままメモに。",
-      `${m.cases.length}件の入力と結果を、持ち帰る。`,
-    ];
-    SCENES.forEach((scene, i) => { scene.head = heads[i]; });
+  function drawBaseEdges() {
+    for (const poly of Object.values(L.edges)) strokePoly(poly, 1, C.line, L.tall ? 5 : 4, 1, { arrow: true });
   }
 
-  const sceneAt = (t) => SCENES.reduce((found, scene) => (t >= scene.start ? scene : found), SCENES[0]);
+  function overviewAlpha(i, t) {
+    return ramp(t, 1.0 + i, 1.5 + i) * (1 - ramp(t, 4.7, 5.1));
+  }
 
-  // Ticket cards: eight small cards in a row (scene 1); the case each later scene shows grows
-  // out of its own slot, so one card stays one ticket throughout.
-  const SLOT = { y: 200, w: 132, h: 96 };
-  const SLOT_GAP = (1152 - 8 * SLOT.w) / 7;
-  const slotOf = (i) => ({ x: 64 + i * (SLOT.w + SLOT_GAP), y: SLOT.y, w: SLOT.w, h: SLOT.h });
-  const R2 = { x: 64, y: 470, w: 330, h: 160 };
-  const R3 = { x: 64, y: 180, w: 1152, h: 110 };
-  const R4 = { x: 64, y: 184, w: 380, h: 330 };
-  const R5 = { x: 64, y: 190, w: 540, h: 300 };
-  const PROPS = ["x", "y", "w", "h", "a"];
-
-  // Each card is a list of keyed states. A key eases from the accumulated state over d seconds
-  // starting at its own time, so any time can be evaluated directly.
-  function buildTracks(m) {
-    const tracks = {};
-    m.cases.forEach((item, i) => {
-      const slot = slotOf(i);
-      const keys = [
-        { at: 0, d: 0, ...slot, y: slot.y + 24, a: 0 },
-        { at: 0.35 + i * 0.12, d: 0.4, y: slot.y, a: 1, ease: "out" },
-      ];
-      if (item.id === "D02") {
-        keys.push({ at: 4.0, d: 0.5, ...R2 });
-        keys.push({ at: 7.65, d: 0.35, a: 0 });
-      } else {
-        keys.push({ at: 3.65, d: 0.35, a: 0 });
-      }
-      if (item.id === "D06") {
-        keys.push({ at: 8.0, d: 0, ...slot, a: 0 });
-        keys.push({ at: 8.0, d: 0.5, ...R3, a: 1 });
-        keys.push({ at: 11.65, d: 0.35, a: 0 });
-      }
-      if (item.id === "D04") {
-        keys.push({ at: 12.0, d: 0, ...slot, a: 0 });
-        keys.push({ at: 12.0, d: 0.5, ...R4, a: 1 });
-        keys.push({ at: 14.7, d: 0.3, a: 0 }); // dip: D04 is fully gone before D05 appears
-      }
-      if (item.id === "D05") {
-        keys.push({ at: 15.0, d: 0, ...R4, y: R4.y + 16, a: 0 });
-        keys.push({ at: 15.0, d: 0.3, y: R4.y, a: 1, ease: "out" });
-        keys.push({ at: 17.65, d: 0.35, a: 0 });
-      }
-      if (item.id === "D07") {
-        keys.push({ at: 18.0, d: 0, ...slot, a: 0 });
-        keys.push({ at: 18.0, d: 0.5, ...R5, a: 1 });
-        keys.push({ at: 21.65, d: 0.35, a: 0 });
-      }
-      tracks[item.id] = keys;
+  function drawTrails(film, t) {
+    // Overview: the three possible routes light one after another (no record travels yet).
+    ROUTES.forEach((route, i) => {
+      const a = overviewAlpha(i, t);
+      if (a <= 0.003) return;
+      const node = MEMO_NODE[route];
+      const p = ramp(t, 1.0 + i, 1.7 + i);
+      for (const key of [`route>${node}`, `${node}>merge`, "merge>end"]) strokePoly(L.edges[key], p, C[route].main, L.tall ? 7 : 6, a * 0.6, { arrow: true });
     });
-    return tracks;
-  }
-
-  function sampleTrack(keys, t) {
-    const value = { ...keys[0] };
-    for (let i = 1; i < keys.length; i++) {
-      const key = keys[i];
-      if (t < key.at) break;
-      const raw = key.d > 0 ? (t - key.at) / key.d : 1;
-      const p = key.ease === "out" ? easeOut(raw) : easeInOut(raw);
-      for (const prop of PROPS) if (key[prop] !== undefined) value[prop] = lerp(value[prop], key[prop], p);
+    for (const j of film.journeys) {
+      const a = highlightAlpha(j, t);
+      for (const tr of j.trails) {
+        if (t < tr.t0) continue;
+        strokePoly(L.edges[tr.key], ease(clamp01((t - tr.t0) / (tr.t1 - tr.t0))), tr.color, L.tall ? 9 : 7, a, { arrow: true });
+      }
     }
-    return value;
   }
 
-  // --- Layout of the workflow diagram (explanatory graphic) ----------------------------------
+  function drawSlots(film, t) {
+    const T = L.slotText;
+    L.slots.forEach((r, i) => {
+      let lit = 0, litColor = C[ROUTES[i]].main;
+      for (const j of film.journeys) {
+        if (j.sel !== i) continue;
+        lit = Math.max(lit, ramp(t, j.slotLit, j.slotLit + 0.2) * highlightAlpha(j, t));
+      }
+      lit = Math.max(lit, overviewAlpha(i, t) * 0.6);
+      box(r, { fill: C.paper, stroke: C.ink, width: 2, radius: 16 });
+      box(r, { fill: C[ROUTES[i]].soft, radius: 16, alpha: lit });
+      box(r, { stroke: litColor, width: 6, radius: 16, alpha: lit });
+      // Number in reading order.
+      ctx.save();
+      ctx.fillStyle = C.ink;
+      ctx.beginPath();
+      ctx.arc(r.x + T.numDx, r.y + T.numDy, T.numR, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+      text(String(i + 1), r.x + T.numDx, r.y + T.numDy + T.numSize * 0.36, { size: T.numSize, color: C.paper, align: "center" });
+      const lines = RULE_LINES[i];
+      const ys = i === 0 ? T.lines0 : [T.single ?? Math.round(r.h / 2 + T.size * 0.36 + 10)];
+      lines.forEach((ln, k) => text(ln, r.x + T.textDx, r.y + ys[k], { size: T.size }));
+    });
 
-  const NODE_W = 200;
-  const NODE_H = 56;
-  const COLS = [64, 302, 540, 778, 1016];
-  const NODE_LAYOUT = {
-    start: [0, 318],
-    route: [1, 318],
-    "urgent-note": [2, 246],
-    "billing-note": [2, 318],
-    "support-note": [2, 390],
-    merge: [3, 318],
-    end: [4, 318],
-  };
-  const nodeBox = (id) => ({ x: COLS[NODE_LAYOUT[id][0]], y: NODE_LAYOUT[id][1] - NODE_H / 2, cy: NODE_LAYOUT[id][1] });
-  const ROUTE_CX = [256, 640, 1024];
+    // Marks from the recorded condition results, in rule order.
+    for (const j of film.journeys) {
+      for (const m of j.marks) {
+        const a = marksAlpha(j, m.at, t);
+        if (a <= 0.003) continue;
+        const r = L.slots[m.slot];
+        const ok = m.slot === 2 ? j.c.route === "false" : j.c.groups[m.slot].final;
+        mark(r.x + r.w + T.markDx, r.y + T.numDy, T.numR, ok, a, C[ROUTES[m.slot]].main);
+        if (m.slot === 0) {
+          // Which of the two conditions in rule 1 the record evaluated, and how.
+          j.c.groups[0].results.forEach((res, k) => {
+            const y = r.y + T.lines0[k];
+            const w = measure(RULE_LINES[0][k], T.size);
+            ctx.save();
+            ctx.globalAlpha *= a;
+            ctx.strokeStyle = res ? C.urgent.main : C.muted;
+            ctx.lineWidth = res ? 6 : 3;
+            ctx.lineCap = "round";
+            ctx.beginPath();
+            const ly = res ? y + 10 : y - T.size * 0.34;
+            ctx.moveTo(r.x + T.textDx - 2, ly);
+            ctx.lineTo(r.x + T.textDx + w + 2, ly);
+            ctx.stroke();
+            ctx.restore();
+          });
+        }
+      }
+      // Rules after the matched one were never read for this record.
+      const fade = j.marks.length ? marksAlpha(j, j.marks[0].at, t) : 0;
+      for (let i = j.sel + 1; i < 3; i += 1) box(L.slots[i], { fill: C.dim, radius: 16, alpha: fade * 0.62 });
+      if (j.threshold && j.c.users) drawThreshold(j, t);
+    }
+  }
 
-  // --- Persistent frame -----------------------------------------------------------------------
+  function drawThreshold(j, t) {
+    const T = L.slotText;
+    const r = L.slots[0];
+    const a = (1 - ramp(t, j.marksOff, j.marksOff + 0.2));
+    if (t < j.pill.t0 || a <= 0.003) return;
+    const p = ramp(t, j.pill.t0, j.pill.t1);
+    const u = j.c.users;
+    const label = `${u.actual}人`;
+    const goal = [r.x + T.textDx, r.y + T.cmp - T.cmpSize * 0.36];
+    const x = lerp(L.lane[0][0] - measure(label, T.cmpSize) / 2, goal[0], p);
+    const y = lerp(L.lane[0][1], goal[1], p);
+    const w = pill(x, y, label, T.cmpSize, { fill: C.ink, color: C.paper, alpha: a * ramp(t, j.pill.t0, j.pill.t0 + 0.1) });
+    const settled = ramp(t, j.pill.t1 - 0.05, j.pill.t1 + 0.15) * a;
+    text(`${u.ok ? "≥" : "＜"} ${u.expected}人`, goal[0] + w + 10, r.y + T.cmp, { size: T.cmpSize, color: u.ok ? C.urgent.main : C.reject, alpha: settled });
+  }
+
+  function drawDesks(film, t) {
+    const D = L.deskText;
+    L.desks.forEach((r, i) => {
+      const route = ROUTES[i];
+      const col = C[route];
+      let lit = 0;
+      for (const j of film.journeys) {
+        if (j.sel !== i) continue;
+        lit = Math.max(lit, ramp(t, j.deskLit, j.deskLit + 0.2) * highlightAlpha(j, t));
+      }
+      lit = Math.max(lit, overviewAlpha(i, t) * 0.6);
+      box(r, { fill: C.paper, stroke: col.main, width: 3, radius: 18 });
+      box(r, { fill: col.soft, radius: 18, alpha: lit });
+      box(r, { stroke: col.main, width: 7, radius: 18, alpha: lit });
+      const label = ROUTE_LABEL[route];
+      if (L.tall) {
+        const cx = r.x + r.w / 2;
+        person(cx, r.y + D.head - lit * 4, D.headR, route === "false" ? C.ink : col.main);
+        box({ x: r.x + 14, y: r.y + D.bar, w: r.w - 28, h: 12 }, { fill: col.main, radius: 6 });
+        text(label, cx, r.y + D.label, { size: D.size, color: col.main, align: "center" });
+      } else {
+        const cy = r.y + r.h / 2;
+        person(r.x + 46, cy + D.head - lit * 4, D.headR, route === "false" ? C.ink : col.main);
+        box({ x: r.x + 14, y: cy + D.bar, w: 64, h: 10 }, { fill: col.main, radius: 5 });
+        text(label, r.x + 92, cy + D.label, { size: D.size, color: col.main });
+      }
+      // Owner counts from the eight actual results: overview and finish only.
+      const ca = Math.max(ramp(t, 1.0 + i, 1.3 + i) * (1 - ramp(t, 4.9, 5.2)), ramp(t, 29.0, 29.3));
+      pill(r.x + r.w - 12, r.y + D.countCy, `${film.counts[route]}件`, D.count, { fill: col.main, color: C.paper, align: "right", alpha: ca });
+    });
+  }
+
+  function drawMergeAndEnd() {
+    const m = L.merge;
+    ctx.save();
+    ctx.fillStyle = C.paper;
+    ctx.strokeStyle = C.ink;
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+    ctx.lineWidth = 4;
+    ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(m.x - m.r * 0.45, m.y);
+    ctx.lineTo(m.x + m.r * 0.45, m.y);
+    ctx.moveTo(m.x, m.y - m.r * 0.45);
+    ctx.lineTo(m.x, m.y + m.r * 0.45);
+    ctx.stroke();
+    ctx.restore();
+    if (m.label) text("まとめる", m.label.x, m.label.y, { size: m.label.size, color: C.muted });
+    box(L.memo, { stroke: C.line, width: 3, radius: 18, dash: [12, 10] });
+    text("引き継ぎメモ", L.memo.x + L.memo.w / 2, L.memo.y + L.memo.h / 2 + L.memoPlaceholder * 0.36, { size: L.memoPlaceholder, color: C.line, align: "center" });
+  }
+
+  // Content mapped from a base rectangle onto the moving rectangle.
+  function mapped(base, r, alpha, draw) {
+    if (alpha <= 0.003) return;
+    const k = Math.min(r.w / base.w, r.h / base.h);
+    ctx.save();
+    ctx.globalAlpha *= alpha;
+    ctx.translate(r.x + (r.w - base.w * k) / 2, r.y + (r.h - base.h * k) / 2);
+    ctx.scale(k, k);
+    draw();
+    ctx.restore();
+  }
+
+  function homeContent(c) {
+    const E = L.env;
+    text(c.id, E.idX, E.idY, { size: E.idSize });
+    text(c.input.ticket_id, E.idX + measure(c.id, E.idSize) + 16, E.idY, { size: E.ticketSize, color: C.muted, weight: 600 });
+    const values = [c.input.issue, c.input.urgency, `${c.input.affected_users}人`];
+    const icons = [iconBill, iconBolt, iconPeople];
+    E.stamps.forEach((st, i) => {
+      box(st, { fill: C.ivory, stroke: C.ink, width: 2, radius: 12 });
+      icons[i](st.x + 12, st.y + (st.h - E.icon) / 2, E.icon, C.ink);
+      const size = fitSize(values[i], E.value, 26, st.w - 72);
+      text(values[i], st.x + 62, st.y + st.h / 2 + size * 0.36, { size });
+    });
+  }
+
+  function literalParts(film, c) {
+    // The literal string only appears as drawn text; nothing is evaluated.
+    return c.input.subject.startsWith(film.literal) ? [film.literal, c.input.subject.slice(film.literal.length)] : null;
+  }
+
+  // Full memo: the first and third lines of the actual memo, then the real memo badge with IDs.
+  function memoGeometry(variant) {
+    if (variant === "memo") {
+      return L.tall
+        ? { head: { x: 28, y: 64, size: 44 }, subject: { x: 28, y: 112, size: 32, max: 568 }, badge: { x: 28, y: 140, size: 22 } }
+        : { head: { x: 20, y: 98, size: 40 }, pre: { x: 20, y: 48, size: 24 }, subject: { x: 20, y: 194, size: 26, max: 216, label: 154 }, badge: { x: 20, y: 384, size: 20 }, ids: { x: 20, y: 420, size: 22 } };
+    }
+    return L.tall
+      ? { pre: { x: 20, y: 40, size: 22 }, head: { x: 20, y: 90, size: 42 }, ids: { x: 20, y: 122, size: 22 }, users: { x: 20, y: 150, size: 26 } }
+      : { pre: { x: 20, y: 44, size: 22 }, head: { x: 20, y: 94, size: 38 }, ids: { x: 20, y: 140, size: 22 }, users: { x: 20, y: 182, size: 26 } };
+  }
+
+  function memoContent(film, c, variant) {
+    const col = C[c.route].main;
+    const g = memoGeometry(variant);
+    const base = variant === "memo" ? L.memo : L.halves[0];
+    box({ x: 14, y: 0, w: base.w - 28, h: 10 }, { fill: col, radius: 5 });
+    const head = ROUTE_LABEL[c.route];
+    if (variant === "memo" && L.tall) {
+      text(c.head, g.head.x, g.head.y, { size: g.head.size, color: col });
+      const parts = literalParts(film, c);
+      if (parts) {
+        const pre = "件名：";
+        text(pre, g.subject.x, g.subject.y, { size: g.subject.size });
+        const lx = g.subject.x + measure(pre, g.subject.size);
+        const lw = pill(lx, g.subject.y - g.subject.size * 0.36, parts[0], g.subject.size - 2, { fill: C.accentSoft, color: C.ink, stroke: C.accent, family: MONO });
+        text(parts[1], lx + lw + 4, g.subject.y, { size: g.subject.size });
+      } else {
+        const size = fitSize(c.subjectLine, g.subject.size, 24, g.subject.max);
+        text(c.subjectLine, g.subject.x, g.subject.y, { size });
+      }
+      const bw = pill(g.badge.x, g.badge.y - g.badge.size * 0.36, "実際のメモ", g.badge.size, { fill: C.ink, color: C.paper });
+      text(`${c.id} ・ ${c.input.ticket_id}`, g.badge.x + bw + 12, g.badge.y, { size: g.badge.size + 2, color: C.ink });
+    } else if (variant === "memo") {
+      text("【担当】", g.pre.x, g.pre.y, { size: g.pre.size, color: col });
+      text(head, g.head.x, g.head.y, { size: g.head.size, color: col });
+      box({ x: 20, y: 120, w: base.w - 40, h: 2 }, { fill: C.line, radius: 1 });
+      text("件名", g.subject.x, g.subject.label, { size: 22, color: C.muted });
+      const parts = literalParts(film, c);
+      let y = g.subject.y;
+      if (parts) {
+        pill(g.subject.x, y - g.subject.size * 0.36, parts[0], g.subject.size, { fill: C.accentSoft, color: C.ink, stroke: C.accent, family: MONO });
+        y += 44;
+        for (const ln of wrap(parts[1].trim(), g.subject.max, g.subject.size)) { text(ln, g.subject.x, y, { size: g.subject.size }); y += 36; }
+      } else {
+        for (const ln of wrap(c.input.subject, g.subject.max, g.subject.size).slice(0, 4)) { text(ln, g.subject.x, y, { size: g.subject.size }); y += 36; }
+      }
+      pill(g.badge.x, g.badge.y - g.badge.size * 0.36, "実際のメモ", g.badge.size, { fill: C.ink, color: C.paper });
+      text(`${c.id} ・ ${c.input.ticket_id}`, g.ids.x, g.ids.y, { size: g.ids.size });
+    } else {
+      text("【担当】", g.pre.x, g.pre.y, { size: g.pre.size, color: col });
+      text(head, g.head.x, g.head.y, { size: g.head.size, color: col });
+      text(`実際のメモ ・ ${c.id} ・ ${c.input.ticket_id}`, g.ids.x, g.ids.y, { size: fitSize(`実際のメモ ・ ${c.id} ・ ${c.input.ticket_id}`, g.ids.size, 16, base.w - 40) });
+      text(c.usersText, g.users.x, g.users.y, { size: g.users.size });
+    }
+  }
+
+  // Where the literal string sits for each envelope form (base coordinates of that form).
+  function literalAnchor(film, c, form) {
+    if (form === "home") {
+      const E = L.env.literal;
+      const w = measure(film.literal, E.size, 700, MONO) + E.size;
+      return { base: L.home, x: E.align === "right" ? E.x - w : E.x, y: E.y, size: E.size };
+    }
+    const g = memoGeometry("memo");
+    if (L.tall) return { base: L.memo, x: g.subject.x + measure("件名：", g.subject.size), y: g.subject.y - g.subject.size * 0.36, size: g.subject.size - 2 };
+    return { base: L.memo, x: g.subject.x, y: g.subject.y - g.subject.size * 0.36, size: g.subject.size };
+  }
+
+  function drawLiteral(film, j, st, r) {
+    const w = weightsOf(st);
+    const carry = (w.home + w.token) * st.a;
+    if (carry <= 0.003) return;
+    const toGlobal = (anchor) => {
+      const k = Math.min(r.w / anchor.base.w, r.h / anchor.base.h);
+      const ox = r.x + (r.w - anchor.base.w * k) / 2, oy = r.y + (r.h - anchor.base.h * k) / 2;
+      return { x: ox + anchor.x * k, y: oy + anchor.y * k, size: anchor.size * k };
+    };
+    const home = toGlobal(literalAnchor(film, j.c, "home"));
+    const tokenSize = L.tall ? 22 : 16;
+    const tokenW = measure(film.literal, tokenSize, 700, MONO) + tokenSize;
+    const token = { x: r.x + r.w / 2 - tokenW / 2, y: r.y - tokenSize * 0.95, size: tokenSize };
+    const memo = toGlobal(literalAnchor(film, j.c, "memo"));
+    const sum = w.home + w.token + w.memo;
+    const mix = (key) => (home[key] * w.home + token[key] * w.token + memo[key] * w.memo) / sum;
+    pill(mix("x"), mix("y"), film.literal, mix("size"), { fill: C.accentSoft, color: C.ink, stroke: C.accent, family: MONO, alpha: carry });
+  }
+
+  function drawEnvelope(film, j, st) {
+    const r = { x: st.cx - st.w / 2, y: st.cy - st.h / 2, w: st.w, h: st.h };
+    const w = weightsOf(st);
+    const a = st.a;
+    if (a <= 0.003) return;
+    const radius = Math.min(18, r.h * 0.2);
+    // Shadow keeps the travelling envelope readable over the lines.
+    box({ x: r.x + 3, y: r.y + 5, w: r.w, h: r.h }, { fill: "rgba(28,35,51,0.16)", radius, alpha: a * (w.token + w.home * 0.6) });
+    box(r, { fill: C.paper, stroke: C.ink, width: 3, radius, alpha: a });
+    // Envelope flap: present while it is an envelope, opens as it becomes the memo.
+    const flapA = a * (w.home + w.token);
+    if (flapA > 0.003) {
+      const depth = w.home * (L.env.flap * (r.h / L.home.h)) + w.token * r.h * 0.42;
+      ctx.save();
+      ctx.globalAlpha *= flapA;
+      ctx.strokeStyle = C.ink;
+      ctx.lineWidth = 2.5;
+      ctx.lineJoin = "round";
+      ctx.beginPath();
+      ctx.moveTo(r.x + 4, r.y + 3);
+      ctx.lineTo(r.x + r.w / 2, r.y + depth);
+      ctx.lineTo(r.x + r.w - 4, r.y + 3);
+      ctx.stroke();
+      ctx.restore();
+    }
+    if (w.token > 0.003) {
+      box({ x: r.x, y: r.y + r.h - Math.max(6, r.h * 0.16), w: r.w, h: Math.max(6, r.h * 0.16) }, { fill: st.tint, radius: 4, alpha: a * w.token });
+      const size = Math.round(r.h * 0.34);
+      text(j.c.id, r.x + r.w / 2, r.y + r.h * 0.74, { size, align: "center", alpha: a * w.token * w.token });
+    }
+    mapped(L.home, r, a * w.home * w.home, () => homeContent(j.c));
+    mapped(L.memo, r, a * w.memo * w.memo, () => memoContent(film, j.c, "memo"));
+    mapped(L.halves[st.half ?? 0], r, a * w.half * w.half, () => memoContent(film, j.c, "half"));
+    if (j.literal) drawLiteral(film, j, st, r);
+  }
+
+  function drawEnvelopes(film, t, under) {
+    for (const j of film.journeys) {
+      const st = stateAt(j, t);
+      if (!st || st.under !== under) continue;
+      drawEnvelope(film, j, st);
+    }
+  }
+
+  function drawCta(t) {
+    const a = ramp(t, 29.2, 29.5);
+    if (a <= 0.003) return;
+    const c = L.cta;
+    box({ x: c.cx - c.w / 2, y: c.cy - c.h / 2, w: c.w, h: c.h }, { fill: C.ink, radius: c.h / 2, alpha: a });
+    const label = "作例ページで JSON・DSL を保存";
+    const size = fitSize(label, c.size, 18, c.w - 40);
+    text(label, c.cx, c.cy + size * 0.36, { size, color: C.paper, align: "center", alpha: a });
+  }
+
+  function drawFooter(film) {
+    const f = L.foot;
+    const lines = f.ys.length > 1
+      ? [`保存済みの実行結果 ・ Dify ${film.source.version} の依存 ${film.source.graphon}`, "架空の8件 ・ 説明図は Studio Yebisu の独自作成"]
+      : [`保存済みの実行結果 ・ Dify ${film.source.version} の依存 ${film.source.graphon} で実行 ・ 架空の8件 ・ 説明図は Studio Yebisu の独自作成`];
+    lines.forEach((ln, i) => {
+      const size = fitSize(ln, f.size, f.min, f.max, 600);
+      text(ln, f.x, f.ys[i], { size, weight: 600, color: C.muted });
+    });
+  }
 
   function drawFrame(t) {
-    const scene = sceneAt(t);
-    const label = "Dify ワークフローの実行記録から";
-    const w = say(label, 64, 44, 15, { weight: 700, color: C.navy });
-    say(scene.ids, 64 + w + 14, 44, 15, { weight: 700, family: MONO, color: C.cobalt });
-
-    // Operation rail: 入力 → ルール → メモ → 持ち帰る, current step in cobalt.
-    const size = 16;
-    const sep = " → ";
-    let x = 1216 - RAIL.reduce((sum, step, i) => sum + textWidth(step, size, 800) + (i ? textWidth(sep, size, 700) : 0), 0);
-    RAIL.forEach((step, i) => {
-      if (i) x += say(sep, x, 44, size, { weight: 700, color: C.line });
-      const on = scene.steps.includes(i);
-      const sw = textWidth(step, size, 800);
-      if (on && scene.n > 1) pencil(x - 2, x + sw + 2, 50, 1, 1.3 + i, 6);
-      x += say(step, x, 44, size, { weight: 800, color: on ? C.navy : C.muted });
-    });
-
-    ctx.fillStyle = C.line;
-    ctx.fillRect(64, 61, 1152, 1);
-    ctx.fillRect(64, 660, 1152, 1);
-    say("Dify DSLの実行記録・無音", 64, 694, 17, { weight: 700, color: C.navy });
-    say("Studio Yebisu", 1216, 694, 15, { weight: 600, color: C.muted, align: "right" });
-  }
-
-  function drawHeadline(t) {
-    for (const scene of SCENES) {
-      const last = scene.n === SCENES.length;
-      const inAt = scene.start === 0 ? 0.1 : scene.start;
-      const alpha = fadeWindow(t, inAt, 0.4, last ? null : scene.end - 0.3, 0.3);
-      if (alpha <= 0.002) continue;
-      const dy = (1 - easeOut(prog(t, inAt, 0.4))) * 18 - (last ? 0 : easeInOut(prog(t, scene.end - 0.3, 0.3))) * 12;
-      const size = fitSize(scene.head, 1060, 60, 800, 44);
-      layer(alpha, 0, () => {
-        disc(92, 112, 24, C.yellow);
-        say(String(scene.n), 92, 121, 24, { weight: 800, color: C.navy, align: "center" });
-        say(scene.head, 136, 133 + dy, size, { weight: 800, color: C.navy });
-      });
-    }
-  }
-
-  // --- Ticket cards ---------------------------------------------------------------------------
-
-  function drawSmallTicket(item, s) {
-    say(item.id, s.x + 16, s.y + 28, 15, { weight: 700, family: MONO, color: C.navy });
-    const kind = `${item.input.issue}・${item.input.urgency}`;
-    say(kind, s.x + 16, s.y + 60, fitSize(kind, s.w - 28, 21, 800, 14), { weight: 800, color: C.ink });
-    say(`影響${item.input.affected_users}人`, s.x + 16, s.y + 85, 17, { weight: 600, color: C.muted });
-  }
-
-  const LARGE = {
-    D02(item, s) {
-      say(`${item.id} の入力`, s.x + 26, s.y + 36, 16, { weight: 700, color: C.muted });
-      say(item.input.subject, s.x + 26, s.y + 80, fitSize(item.input.subject, s.w - 52, 26, 800, 16), { weight: 800 });
-      const meta = `${item.input.issue}・${item.input.urgency}／影響${item.input.affected_users}人`;
-      say(meta, s.x + 26, s.y + 116, fitSize(meta, s.w - 52, 21, 700, 14), { weight: 700, color: C.navy });
-      say(item.input.ticket_id, s.x + 26, s.y + 144, 16, { weight: 700, family: MONO, color: C.muted });
-    },
-    D06(item, s, t) {
-      say(`${item.id} の入力 ・ ${item.input.ticket_id}`, s.x + 28, s.y + 36, 16, { weight: 700, color: C.muted });
-      say(item.input.subject, s.x + 28, s.y + 84, fitSize(item.input.subject, 500, 30, 800, 18), { weight: 800 });
-      const fields = [
-        ["種類", item.input.issue, ROUTE_COLOR.billing],
-        ["緊急度", item.input.urgency, ROUTE_COLOR.urgent],
-        ["影響人数", `${item.input.affected_users}人`, C.ink],
-      ];
-      fields.forEach(([label, value, color], k) => {
-        const fx = s.x + 600 + k * 190;
-        say(label, fx, s.y + 38, 17, { weight: 700, color: C.muted });
-        if (k < 2) pencil(fx - 4, fx + textWidth(value, 36, 800) + 4, s.y + 92, easeOut(prog(t, 8.7 + k * 0.15, 0.35)), 2 + k, 10);
-        say(value, fx, s.y + 88, 36, { weight: 800, color });
-      });
-    },
-    D04: boundaryCard,
-    D05: boundaryCard,
-    D07(item, s) {
-      say(`${item.id} の入力`, s.x + 28, s.y + 38, 17, { weight: 700, color: C.muted });
-      say("件名", s.x + 28, s.y + 82, 17, { weight: 700, color: C.muted });
-      say(item.input.subject, s.x + 28, s.y + 126, fitSize(item.input.subject, s.w - 56, 30, 800, 16), { weight: 800, color: C.navy });
-      say("本文", s.x + 28, s.y + 176, 17, { weight: 700, color: C.muted });
-      say(M.d07.bodyFirst, s.x + 28, s.y + 216, fitSize(M.d07.bodyFirst, s.w - 56, 22, 700, 13, MONO), { weight: 700, family: MONO, color: C.ink });
-      if (M.d07.bodyRest) say(M.d07.bodyRest, s.x + 28, s.y + 254, fitSize(M.d07.bodyRest, s.w - 56, 18, 600, 12), { weight: 600, color: C.muted });
-    },
-  };
-
-  function boundaryCard(item, s) {
-    const color = ROUTE_COLOR[item.route];
-    say(`${item.id} の入力 ・ ${item.input.ticket_id}`, s.x + 28, s.y + 38, 17, { weight: 700, color: C.muted });
-    say("影響人数", s.x + 28, s.y + 84, 22, { weight: 800, color: C.navy });
-    const w = say(String(item.input.affected_users), s.x + 24, s.y + 236, 150, { weight: 800, color });
-    say("人", s.x + 24 + w + 8, s.y + 236, 40, { weight: 800, color: C.navy });
-    say(`${item.input.issue}・${item.input.urgency}`, s.x + 28, s.y + 282, 24, { weight: 800, color: C.ink });
-    say(item.input.subject, s.x + 28, s.y + 314, fitSize(item.input.subject, s.w - 56, 19, 600, 12), { weight: 600, color: C.muted });
-  }
-
-  function drawTicket(item, s, t) {
-    layer(s.a, 0, () => {
-      panel(s.x, s.y, s.w, s.h, { r: 12 });
-      ctx.save();
-      rr(s.x, s.y, s.w, s.h, 12);
-      ctx.clip();
-      ctx.fillStyle = C.line;
-      ctx.fillRect(s.x, s.y, 6, s.h);
-      // The route colour appears once the actual results are shown (scene 1, 1.6 s).
-      layer(t >= 4 ? 1 : easeOut(prog(t, 1.6, 0.4)), 0, () => {
-        ctx.fillStyle = ROUTE_COLOR[item.route];
-        ctx.fillRect(s.x, s.y, 6, s.h);
-      });
-      const detail = clamp01((s.w - SLOT.w) / 90);
-      layer(1 - detail, 0, () => drawSmallTicket(item, s));
-      if (detail > 0 && LARGE[item.id]) layer(detail, 0, () => LARGE[item.id](item, s, t));
-      ctx.restore();
-    });
-  }
-
-  function drawCards(t) {
-    for (const item of M.cases) {
-      const state = sampleTrack(M.tracks[item.id], t);
-      if (state.a > 0.002) drawTicket(item, state, t);
-    }
-  }
-
-  // --- Scene 1: eight inputs, three routes ----------------------------------------------------
-
-  function drawOpening(t) {
-    layer(fadeWindow(t, 0.2, 0.4, 3.65, 0.35), 0, () => {
-      say(`架空の問い合わせ ${M.cases.length}件（実行前に固定）`, 64, 184, 16, { weight: 700, color: C.muted });
-    });
-    M.routes.forEach((route, k) => {
-      const cx = ROUTE_CX[k];
-      layer(fadeWindow(t, 1.1 + k * 0.1, 0.4, 3.65, 0.35), 0, () => {
-        panel(cx - 165, 420, 330, 84, { fill: ROUTE_SOFT[route.id], stroke: ROUTE_COLOR[route.id], lineWidth: 2, shadow: false });
-        say(route.name, cx, 476, 40, { weight: 800, color: ROUTE_COLOR[route.id], align: "center" });
-      });
-    });
-    layer(fadeWindow(t, 1.6, 0.05, 3.65, 0.35), 0, () => {
-      M.cases.forEach((item, i) => {
-        const k = M.routeIndex[item.route];
-        const group = M.routes[k].ids;
-        const j = group.indexOf(item.id);
-        const slot = slotOf(i);
-        const x1 = ROUTE_CX[k] + (j - (group.length - 1) / 2) * 24;
-        curve(slot.x + slot.w / 2, slot.y + slot.h + 6, x1, 414, easeOut(prog(t, 1.7 + i * 0.06, 0.5)), ROUTE_COLOR[item.route], 2.5, "v", { head: true });
-      });
-    });
-    layer(fadeWindow(t, 2.3, 0.4, 3.65, 0.35), 0, () => {
-      say("線の行き先は、実際に返ったメモの1行目【担当】", 640, 544, 20, { weight: 700, color: C.muted, align: "center" });
-    });
-    layer(fadeWindow(t, 2.5, 0.4, 3.65, 0.35), 0, () => {
-      const size = 26;
-      const sep = "  →  ";
-      const total = OPERATION.reduce((sum, step, i) => sum + textWidth(step, size, 800) + (i ? textWidth(sep, size, 800) : 0), 0);
-      let x = 640 - total / 2;
-      OPERATION.forEach((step, i) => {
-        if (i) x += say(sep, x, 612, size, { weight: 800, color: C.cobalt });
-        x += say(step, x, 612, size, { weight: 800, color: C.navy });
-      });
-    });
-  }
-
-  // --- Scene 2: the seven-node workflow and D02's actual path ---------------------------------
-
-  function drawWorkflow(t) {
-    const d02 = M.byId.D02;
-    const color = ROUTE_COLOR[d02.route];
-    const soft = ROUTE_SOFT[d02.route];
-    const edgeAt = (k) => 4.6 + k * 0.32;
-    layer(fadeWindow(t, 4.05, 0.4, 7.65, 0.35), 0, () => {
-      say(`説明図：workflow.yml の${M.nodeIds.length}ノード・${M.edges.length}本の線。色は ${d02.id} で実際に通った道。`, 64, 186, 17, { weight: 700, color: C.muted });
-
-      for (const edge of M.edges) {
-        const a = nodeBox(edge.source);
-        const b = nodeBox(edge.target);
-        const k = d02.pathPairs.indexOf(`${edge.source}>${edge.target}`);
-        curve(a.x + NODE_W, a.cy, b.x, b.cy, 1, C.line, 2, "h", { dash: k < 0 ? [6, 6] : null });
-        if (k >= 0) curve(a.x + NODE_W, a.cy, b.x - 2, b.cy, easeInOut(prog(t, edgeAt(k), 0.32)), color, 4, "h", { head: true });
-      }
-
-      for (const id of M.nodeIds) {
-        const box = nodeBox(id);
-        const k = d02.path.indexOf(id);
-        const lit = k < 0 ? 0 : easeOut(prog(t, k === 0 ? 4.45 : edgeAt(k - 1) + 0.26, 0.2));
-        panel(box.x, box.y, NODE_W, NODE_H, { r: 10, fill: C.paper, dash: k < 0 ? [5, 5] : null, shadow: false });
-        layer(lit, 0, () => panel(box.x, box.y, NODE_W, NODE_H, { r: 10, fill: soft, stroke: color, lineWidth: 2.5, shadow: false }));
-        const title = M.titles[id];
-        say(title, box.x + NODE_W / 2, box.cy + 7, fitSize(title, NODE_W - 20, 19, 800, 13), { weight: 800, color: k < 0 ? C.muted : C.navy, align: "center" });
-      }
-
-      // The actual memo D02 returned (three of its lines).
-      const memo = easeOut(prog(t, 5.8, 0.4));
-      layer(memo, (1 - memo) * 12, () => {
-        arrow(R2.x + R2.w + 8, R2.y + R2.h / 2, 422, R2.y + R2.h / 2, 1, C.navy);
-        const x = 430;
-        const w = 1216 - x;
-        panel(x, R2.y, w, R2.h, { stroke: color, lineWidth: 2 });
-        say(`${d02.id} の実際のメモ（抜粋）`, x + 28, R2.y + 36, 16, { weight: 700, color: C.muted });
-        say(d02.lines[0], x + 28, R2.y + 84, 34, { weight: 800, color });
-        const subject = d02.lines.find((line) => line.startsWith("件名："));
-        const next = d02.lines.find((line) => line.startsWith("次の対応："));
-        say(subject, x + 28, R2.y + 120, fitSize(subject, w - 56, 22, 700, 14), { weight: 700, color: C.ink });
-        say(next, x + 28, R2.y + 148, fitSize(next, w - 56, 20, 600, 13), { weight: 600, color: C.muted });
-      });
-    });
-  }
-
-  // --- Scene 3: D06, first match wins ---------------------------------------------------------
-
-  function drawFirstMatch(t) {
-    const d06 = M.byId.D06;
-    layer(fadeWindow(t, 8.05, 0.4, 11.65, 0.35), 0, () => {
-      M.routes.forEach((route, k) => {
-        const y = 318 + k * 80;
-        const enter = easeOut(prog(t, 8.4 + k * 0.1, 0.35));
-        const active = k === 0 ? easeOut(prog(t, 8.9, 0.3)) : 0;
-        layer(enter * (k === 2 ? 0.55 : 1), 0, () => {
-          panel(64, y, 680, 68, { r: 12, shadow: false });
-          layer(active, 0, () => panel(64, y, 680, 68, { r: 12, fill: C.cobaltSoft, stroke: C.cobalt, lineWidth: 2.5, shadow: false }));
-          disc(98, y + 34, 17, k === 0 ? C.yellow : C.paper, k === 0 ? null : C.line, 2);
-          say(String(k + 1), 98, y + 41, 19, { weight: 800, color: C.navy, align: "center" });
-          const condition = M.rules[k];
-          const cw = say(condition, 130, y + 44, fitSize(condition, 390, 26, 800, 16), { weight: 800, color: C.navy });
-          say("→", 536, y + 44, 26, { weight: 800, color: C.muted });
-          say(route.name, 576, y + 44, 26, { weight: 800, color: ROUTE_COLOR[route.id] });
-          if (k === 1) layer(easeOut(prog(t, 9.3, 0.35)), 0, () => say("（これも当てはまる）", 130 + cw + 10, y + 43, 18, { weight: 700, color: C.muted }));
-        });
-      });
-
-      const result = easeOut(prog(t, 9.4, 0.4));
-      layer(result, (1 - result) * 12, () => {
-        arrow(752, 352, 776, 352, 1, C.cobalt);
-        const x = 784;
-        const w = 1216 - x;
-        panel(x, 318, w, 228, { stroke: ROUTE_COLOR[d06.route], lineWidth: 2 });
-        say(`${d06.id} の実際のメモ・1行目`, x + 28, 358, 17, { weight: 700, color: C.muted });
-        say(d06.lines[0], x + 28, 418, fitSize(d06.lines[0], w - 56, 38, 800, 22), { weight: 800, color: ROUTE_COLOR[d06.route] });
-        say(d06.lines[1], x + 28, 462, fitSize(d06.lines[1], w - 56, 20, 700, 14), { weight: 700, color: C.ink });
-        say(`分岐 ID：${d06.route}`, x + 28, 520, 16, { weight: 700, family: MONO, color: C.muted });
-      });
-
-      layer(easeOut(prog(t, 9.6, 0.4)), 0, () => {
-        const lw = say(M.ruleLead, 64, 600, 22, { weight: 800, color: C.navy });
-        say("（workflow.yml の説明文）", 64 + lw + 12, 600, 16, { weight: 700, color: C.muted });
-      });
-    });
-  }
-
-  // --- Scene 4: D04 (99) and D05 (100), a rule boundary ---------------------------------------
-
-  // Axis values are offsets from the threshold read from workflow.yml.
-  const AXIS = { x0: 488, x1: 812, y: 410, from: -2.5, to: 1.5 };
-  const axisX = (value) => lerp(AXIS.x0, AXIS.x1, (value - M.limit - AXIS.from) / (AXIS.to - AXIS.from));
-
-  function drawBoundary(t) {
-    layer(fadeWindow(t, 12.05, 0.4, 17.65, 0.35), 0, () => {
-      // Explanatory number line: the ≥ threshold region from workflow.yml.
-      const bx = axisX(M.limit);
-      ctx.fillStyle = C.cobaltSoft;
-      ctx.fillRect(bx, AXIS.y - 44, AXIS.x1 - bx, 88);
-      ctx.fillStyle = C.navy;
-      ctx.fillRect(AXIS.x0, AXIS.y - 1, AXIS.x1 - AXIS.x0, 2);
-      ctx.fillStyle = C.cobalt;
-      ctx.fillRect(bx - 1.5, AXIS.y - 60, 3, 104);
-      say(M.limitLabel, bx, 318, 30, { weight: 800, color: C.cobalt, align: "center" });
-      say(`→ ${M.routes[0].name}`, bx, 352, 22, { weight: 800, color: C.cobalt, align: "center" });
-      for (let v = Math.ceil(M.limit + AXIS.from); v <= M.limit + AXIS.to; v++) {
-        const x = axisX(v);
-        ctx.fillStyle = C.navy;
-        ctx.fillRect(x - 1, AXIS.y - 7, 2, 14);
-        say(String(v), x, AXIS.y + 40, 20, { weight: 700, color: v >= M.limit ? C.cobalt : C.muted, align: "center" });
-      }
-      say("説明図：workflow.yml の人数の条件", AXIS.x0, 488, 15, { weight: 700, color: C.muted });
-
-      layer(easeOut(prog(t, 12.6, 0.4)), 0, () => {
-        say("ルールが見る3項目で、違うのは影響人数だけ。", 64, 596, 26, { weight: 800, color: C.navy });
-      });
-    });
-
-    // Each case's marker and actual memo share that case's own card alpha (dip at 14.7–15.3 s).
-    for (const id of ["D04", "D05"]) {
-      const item = M.byId[id];
-      const a = sampleTrack(M.tracks[id], t).a;
-      layer(a, 0, () => {
-        const color = ROUTE_COLOR[item.route];
-        disc(axisX(item.input.affected_users), AXIS.y, 14, color, C.paper, 3);
-        const x = 844;
-        const w = 1216 - x;
-        panel(x, R4.y, w, R4.h, { stroke: color, lineWidth: 2 });
-        say(`${item.id} の実際のメモ`, x + 28, R4.y + 38, 17, { weight: 700, color: C.muted });
-        say(item.lines[0], x + 28, R4.y + 96, fitSize(item.lines[0], w - 56, 32, 800, 18), { weight: 800, color });
-        const subject = item.lines.find((line) => line.startsWith("件名："));
-        const kind = item.lines.find((line) => line.startsWith("種類・緊急度："));
-        say(subject, x + 28, R4.y + 150, fitSize(subject, w - 56, 19, 700, 12), { weight: 700, color: C.ink });
-        say(kind, x + 28, R4.y + 186, fitSize(kind, w - 56, 19, 700, 12), { weight: 700, color: C.ink });
-        say(item.lines[1], x + 28, R4.y + 236, fitSize(item.lines[1], w - 56, 18, 600, 12), { weight: 600, color: C.muted });
-        say(`分岐 ID：${item.route}`, x + 28, R4.y + 300, 16, { weight: 700, family: MONO, color: C.muted });
-      });
-    }
-  }
-
-  // --- Scene 5: D07, the input stays text -----------------------------------------------------
-
-  function drawLiteral(t) {
-    const d07 = M.byId.D07;
-    layer(fadeWindow(t, 18.05, 0.4, 21.65, 0.35), 0, () => {
-      const right = easeOut(prog(t, 18.5, 0.4));
-      layer(right, (1 - right) * 12, () => {
-        say("そのまま", 640, 326, 18, { weight: 800, color: C.navy, align: "center" });
-        arrow(616, 340, 664, 340, 1, C.navy, 3);
-        const x = 676;
-        const w = 1216 - x;
-        panel(x, R5.y, w, R5.h, { stroke: ROUTE_COLOR[d07.route], lineWidth: 2 });
-        say(`${d07.id} の実際のメモ（抜粋）`, x + 28, R5.y + 38, 17, { weight: 700, color: C.muted });
-        say(d07.lines[0], x + 28, R5.y + 82, 17, { weight: 700, color: ROUTE_COLOR[d07.route] });
-        const subjectSize = fitSize(M.d07.subjectLine, w - 56, 28, 800, 16);
-        pencil(x + 24, x + 32 + textWidth(M.d07.subjectLine, subjectSize, 800), R5.y + 134, easeOut(prog(t, 19.0, 0.4)), 1.4, 10);
-        say(M.d07.subjectLine, x + 28, R5.y + 126, subjectSize, { weight: 800, color: C.navy });
-        say("本文：", x + 28, R5.y + 176, 17, { weight: 700, color: C.muted });
-        const bodySize = fitSize(M.d07.bodyFirst, w - 56, 22, 700, 13, MONO);
-        pencil(x + 24, x + 32 + textWidth(M.d07.bodyFirst, bodySize, 700, MONO), R5.y + 223, easeOut(prog(t, 19.2, 0.4)), 2.7, 9);
-        say(M.d07.bodyFirst, x + 28, R5.y + 216, bodySize, { weight: 700, family: MONO, color: C.ink });
-        if (M.d07.bodyRest) say(M.d07.bodyRest, x + 28, R5.y + 254, fitSize(M.d07.bodyRest, w - 56, 18, 600, 12), { weight: 600, color: C.muted });
-      });
-      layer(easeOut(prog(t, 19.3, 0.4)), 0, () => {
-        say(`${M.d07.expression} は計算されず、文字のまま入った。`, 64, 562, 26, { weight: 800, color: C.navy });
-        say("小さな1例です。安全性の検証ではありません。", 64, 602, 20, { weight: 700, color: C.muted });
-      });
-    });
-  }
-
-  // --- Scene 6: counts, files, actual screens -------------------------------------------------
-
-  function drawClosing(t) {
-    const enter = easeOut(prog(t, 22.0, 0.5));
-    layer(enter, (1 - enter) * 14, () => {
-      M.routes.forEach((route, k) => {
-        const x = 64 + k * 186;
-        const a = easeOut(prog(t, 22.2 + k * 0.12, 0.4));
-        layer(a, (1 - a) * 10, () => {
-          const color = ROUTE_COLOR[route.id];
-          const w = say(String(route.ids.length), x, 296, 96, { weight: 800, color });
-          say("件", x + w + 6, 296, 30, { weight: 800, color: C.navy });
-          say(route.name, x, 340, 26, { weight: 800, color: C.navy });
-          let cx = x;
-          for (const id of route.ids) cx += chip(id, cx, 378, color, ROUTE_SOFT[route.id], 13) + 6;
-        });
-      });
-
-      const files = [
-        ["workflow.yml", "ワークフローの DSL"],
-        ["workflow-runs.json", `${M.cases.length}件の入力・出力・イベント`],
-      ];
-      layer(easeOut(prog(t, 22.6, 0.4)), 0, () => {
-        files.forEach(([name, note], k) => {
-          const y = 446 + k * 52;
-          panel(64, y - 26, 28, 34, { r: 4, fill: C.yellowSoft, stroke: C.navy, lineWidth: 1.5, shadow: false });
-          const nw = say(name, 108, y, 24, { weight: 700, family: MONO, color: C.navy });
-          say(note, 108 + nw + 16, y, fitSize(note, 620 - 124 - nw, 20, 700, 13), { weight: 700, color: C.muted });
-        });
-        say("作例ページで開いて、そのまま保存できます。", 64, 584, 22, { weight: 800, color: C.navy });
-      });
-
-      const shots = easeOut(prog(t, 22.4, 0.5));
-      layer(shots, 0, () => {
-        drawShot(M.shots.desktop, 656, 200, 400, 300);
-        drawShot(M.shots.phone, 1072, 200, 144, 300);
-        say(`閲覧ページの実画面（左 ${M.shots.desktop.sample}・右 ${M.shots.phone.sample}）`, 656, 534, 15, { weight: 700, color: C.muted });
-        say("撮影した画像を縮小しただけで、描き直していません。", 656, 558, 15, { weight: 600, color: C.muted });
-      });
-    });
-  }
-
-  function draw(t) {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.globalAlpha = 1;
     ctx.fillStyle = C.ivory;
     ctx.fillRect(0, 0, W, H);
-    ctx.setTransform(SCALE, 0, 0, SCALE, OFFSET_X, OFFSET_Y);
-    ctx.textBaseline = "alphabetic";
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = "high";
-    drawFrame(t);
-    drawHeadline(t);
-    drawOpening(t);
-    drawWorkflow(t);
-    drawFirstMatch(t);
-    drawBoundary(t);
-    drawLiteral(t);
-    drawCards(t);
-    drawClosing(t);
+    ctx.setTransform(S, 0, 0, S, OX, OY);
+    drawStartNode();
+    drawSwitchFrame();
+    drawBaseEdges();
+    drawTrails(film, t);
+    drawEnvelopes(film, t, true);
+    drawSlots(film, t);
+    drawDesks(film, t);
+    drawMergeAndEnd();
+    drawEnvelopes(film, t, false);
+    drawHeadline(film, t);
+    drawCta(t);
+    drawFooter(film);
   }
 
-  // --- Time, preview and editor ---------------------------------------------------------------
+  // --- Editor -----------------------------------------------------------------------------------
 
-  let M = null;
+  let film = null;
   let current = 0;
-  let playing = false;
-  let frameRequest = 0;
-  let clockOrigin = 0;
-
+  let isPlaying = false;
+  let loading = false;
+  let raf = 0;
+  let startNow = 0;
+  let startTime = 0;
   const clampTime = (seconds) => {
-    const value = Number(seconds);
-    return Number.isFinite(value) ? Math.min(DURATION, Math.max(0, value)) : 0;
+    const v = Number(seconds);
+    return Number.isFinite(v) ? Math.max(0, Math.min(DURATION, v)) : 0;
   };
 
-  function syncControls() {
-    const value = current.toFixed(1);
-    ui.timeline.value = value;
-    if (document.activeElement !== ui.time) ui.time.value = value;
-    ui.counter.textContent = `${value} / ${DURATION.toFixed(1)} 秒`;
+  function showAssets() {
+    const ok = ASSETS.filter((a) => assetState.get(a.file) === "ok").length;
+    ui.count.textContent = `${ok} / ${ASSETS.length}素材`;
+    ui.count.dataset.state = ok === ASSETS.length ? "ok" : [...assetState.values()].includes("bad") ? "bad" : "pending";
+    ui.assetList.replaceChildren(...ASSETS.map((a) => {
+      const li = document.createElement("li");
+      const st = assetState.get(a.file);
+      const name = document.createElement("code");
+      name.textContent = a.file;
+      const flag = document.createElement("span");
+      flag.className = `asset-state is-${st ?? "pending"}`;
+      flag.textContent = st === "ok" ? "一致" : st === "bad" ? "不一致・読めない" : "照合前";
+      li.append(name, " ", flag, ` ${a.bytes.toLocaleString("en-US")} bytes（元：${a.source}）`);
+      return li;
+    }));
+  }
+
+  function showTime() {
+    ui.clock.textContent = loading ? "照合中" : !film ? "映像なし（照合失敗）" : `${current.toFixed(1)} / ${DURATION.toFixed(1)} 秒`;
+  }
+
+  function playLabel() {
+    ui.play.textContent = isPlaying ? "一時停止" : current >= DURATION - 0.001 ? "もう一度再生" : "再生";
+    ui.play.setAttribute("aria-pressed", String(isPlaying));
   }
 
   function paint(t) {
+    if (!film) throw new Error("素材の照合前は描けません。");
     current = t;
-    draw(t);
-    if (!RENDER) syncControls();
+    drawFrame(t);
+    ui.time.value = String(t);
+    showTime();
+    playLabel();
   }
 
-  function setPlaying(next) {
-    playing = next;
-    ui.play.textContent = next ? "一時停止" : "再生";
-    ui.play.setAttribute("aria-pressed", String(next));
+  function stop() {
+    if (raf) cancelAnimationFrame(raf);
+    raf = 0;
+    isPlaying = false;
+    playLabel();
   }
-
-  function stopPreview() {
-    if (frameRequest) cancelAnimationFrame(frameRequest);
-    frameRequest = 0;
-    setPlaying(false);
-  }
-
-  // Preview only: wall-clock playback through window.seek. Never used while rendering.
-  function tick(now) {
-    frameRequest = 0;
-    if (!playing) return;
-    const t = Math.min(DURATION, (now - clockOrigin) / 1000);
-    window.seek(t);
-    if (t >= DURATION) {
-      stopPreview();
-      return;
-    }
-    frameRequest = requestAnimationFrame(tick);
-  }
-
-  function startPreview() {
-    if (RENDER || !M || playing) return;
-    if (current >= DURATION) current = 0;
-    clockOrigin = performance.now() - current * 1000;
-    setPlaying(true);
-    frameRequest = requestAnimationFrame(tick);
-  }
-
-  function buildSceneList() {
-    const items = SCENES.map((scene) => {
-      const li = document.createElement("li");
-      const button = document.createElement("button");
-      button.type = "button";
-      const time = document.createElement("span");
-      time.className = "scene-time";
-      time.textContent = `${scene.start}〜${scene.end}秒`;
-      const head = document.createElement("span");
-      head.textContent = `${scene.head}（${scene.ids}）`;
-      button.append(time, head);
-      button.addEventListener("click", () => {
-        stopPreview();
-        window.seek(scene.hold);
-      });
-      li.append(button);
-      return li;
-    });
-    ui.sceneList.replaceChildren(...items);
-  }
-
-  function onReady(model) {
-    M = model;
-    writeHeadlines(M);
-    paint(0);
-    ui.editor.dataset.state = "ready";
-    if (RENDER) return;
-    buildSceneList();
-    for (const control of [ui.play, ui.reset, ui.timeline, ui.time]) control.disabled = false;
-    setPlaying(false);
-    ui.status.dataset.state = "ready";
-    ui.status.textContent = `${ASSET_KEYS.length}素材を照合しました。SHA-256・固定版・実行と独立照合の合格を確かめてから描いています。`;
-  }
-
-  function onFail(error) {
-    M = null;
-    if (frameRequest) cancelAnimationFrame(frameRequest);
-    frameRequest = 0;
-    playing = false;
-    for (const control of [ui.play, ui.reset, ui.timeline, ui.time]) control.disabled = true;
-    ui.stage.hidden = true;
-    ui.editor.dataset.state = "error";
-    ui.status.dataset.state = "error";
-    ui.status.textContent = "素材の照合に失敗しました。映像は表示しません。";
-    ui.errorText.textContent = error instanceof Error ? error.message : String(error);
-    ui.errorBox.hidden = false;
-    showAssets();
-  }
-
-  const ready = load().then(onReady).catch((error) => {
-    onFail(error);
-    throw error;
-  });
-  window.motionReady = ready;
-  ready.catch(() => {}); // Shown on the page; the renderer still receives the rejection.
 
   window.seek = (seconds) => {
     const t = clampTime(seconds);
-    return ready.then(() => {
-      paint(t);
-      return t;
-    });
+    stop();
+    return window.motionReady.then(() => paint(t));
   };
 
-  if (!RENDER) {
-    const seekFromField = () => {
-      if (ui.time.value === "" || !Number.isFinite(Number(ui.time.value))) return;
-      stopPreview();
-      window.seek(ui.time.value);
-    };
-    ui.play.addEventListener("click", () => (playing ? stopPreview() : startPreview()));
-    ui.reset.addEventListener("click", () => {
-      stopPreview();
-      window.seek(0);
-    });
-    ui.timeline.addEventListener("input", () => {
-      stopPreview();
-      window.seek(ui.timeline.value);
-    });
-    ui.time.addEventListener("input", seekFromField);
-    ui.time.addEventListener("change", seekFromField);
-    ui.time.addEventListener("keydown", (event) => {
-      if (event.key !== "Enter") return;
-      event.preventDefault();
-      seekFromField();
-    });
+  function previewFrame(now) {
+    if (!isPlaying) return;
+    const t = Math.min(DURATION, startTime + (now - startNow) / 1000);
+    try {
+      paint(t);
+    } catch (error) {
+      fail(error);
+      return;
+    }
+    if (t >= DURATION) stop();
+    else raf = requestAnimationFrame(previewFrame);
   }
+
+  function play() {
+    if (RENDER || !film || loading) return;
+    startTime = current >= DURATION - 0.05 ? 0 : current;
+    startNow = performance.now();
+    isPlaying = true;
+    playLabel();
+    raf = requestAnimationFrame(previewFrame);
+  }
+
+  function setControls(enabled) {
+    for (const c of [ui.play, ui.reset, ui.time, ...ui.sceneList.querySelectorAll("button")]) c.disabled = !enabled || RENDER;
+  }
+
+  function buildSceneList(headlines) {
+    ui.sceneList.replaceChildren(...SCENE_PLAN.map((s) => {
+      const li = document.createElement("li");
+      const b = document.createElement("button");
+      b.type = "button";
+      b.disabled = true;
+      const time = document.createElement("span");
+      time.className = "scene-time";
+      time.textContent = `${s.in}–${s.out}秒`;
+      const cases = s.compare ? `記録 ${s.case}・${s.compare}` : `記録 ${s.case}`;
+      b.append(time, `${headlines?.[s.id] ?? s.id}（${cases}）`);
+      b.addEventListener("click", () => window.seek(s.read).catch(fail));
+      li.append(b);
+      return li;
+    }));
+  }
+
+  function setState(name, message) {
+    ui.editor.dataset.state = name;
+    ui.status.dataset.state = name;
+    ui.status.textContent = message;
+  }
+
+  function fail(error) {
+    stop();
+    loading = false;
+    film = null;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    ui.stage.hidden = true;
+    setControls(false);
+    setState("error", "素材を確かめられなかったため、映像を描いていません。");
+    ui.errorText.textContent = error && error.message ? error.message : String(error);
+    ui.errorBox.hidden = false;
+    ui.retry.disabled = false;
+    showAssets();
+    showTime();
+  }
+
+  function start() {
+    if (loading) return window.motionReady;
+    stop();
+    loading = true;
+    film = null;
+    assetState.clear();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    ui.stage.hidden = true;
+    ui.errorBox.hidden = true;
+    ui.retry.disabled = true;
+    setControls(false);
+    current = 0;
+    ui.time.value = "0";
+    buildSceneList(null);
+    showAssets();
+    setState("loading", `manifest と素材${ASSETS.length}件の SHA-256、元の実行記録を照合しています…`);
+    showTime();
+    const ready = load().then((data) => {
+      loading = false;
+      film = data;
+      buildSceneList(data.headlines);
+      ui.stage.hidden = false;
+      paint(current);
+      setControls(true);
+      setState("ready", `照合済み（${ASSETS.length} / ${ASSETS.length}素材）。無音の動く説明図です。再生は操作したときだけ始まります。`);
+      return true;
+    });
+    ready.catch(fail);
+    window.motionReady = ready;
+    return ready;
+  }
+
+  ui.play.addEventListener("click", () => (isPlaying ? stop() : play()));
+  ui.reset.addEventListener("click", () => window.seek(0).catch(fail));
+  ui.time.addEventListener("input", () => window.seek(ui.time.value).catch(fail));
+  ui.retry.addEventListener("click", start);
+  start();
 })();

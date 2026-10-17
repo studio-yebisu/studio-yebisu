@@ -1,0 +1,240 @@
+{
+  "format": "studio-yebisu-dify-visual-facts-v1",
+  "source_run_sha256": "692cc2f8b07ca77a8b3ccdae0a8abc4359e8a8804985bc4b75db1b56241e6694",
+  "fictional": true,
+  "topology": {
+    "api": "WorkflowGraphTopology.from_graph(plan.document.graph_config)",
+    "source": "vendor/dify/api/core/workflow/graph_topology.py",
+    "node_ids": [
+      "start",
+      "route",
+      "urgent-note",
+      "billing-note",
+      "support-note",
+      "merge",
+      "end"
+    ],
+    "has_node": {
+      "start": true,
+      "route": true,
+      "urgent-note": true,
+      "billing-note": true,
+      "support-note": true,
+      "merge": true,
+      "end": true
+    },
+    "has_node_unknown": false,
+    "end_upstream": [
+      "billing-note",
+      "merge",
+      "route",
+      "start",
+      "support-note",
+      "urgent-note"
+    ],
+    "start_upstream": [],
+    "route_upstream_of_memo": {
+      "urgent-note": true,
+      "billing-note": true,
+      "support-note": true
+    },
+    "memo_upstream_of_end": {
+      "urgent-note": true,
+      "billing-note": true,
+      "support-note": true
+    },
+    "memo_upstream_of_other_memo": {
+      "urgent-note->billing-note": false,
+      "urgent-note->support-note": false,
+      "billing-note->urgent-note": false,
+      "billing-note->support-note": false,
+      "support-note->urgent-note": false,
+      "support-note->billing-note": false
+    }
+  },
+  "cases": [
+    {
+      "id": "D01",
+      "label": "至急の操作トラブル",
+      "input": {
+        "ticket_id": "T-201",
+        "issue": "操作",
+        "urgency": "至急",
+        "affected_users": 12,
+        "subject": "iPhoneで動画が開けない",
+        "body": "Wi-Fiでも再生ボタンのあとに止まります。"
+      },
+      "selected_case_id": "urgent",
+      "node_path": [
+        "start",
+        "route",
+        "urgent-note",
+        "merge",
+        "end"
+      ],
+      "text": "【担当】優先対応\n問い合わせ：T-201\n件名：iPhoneで動画が開けない\n種類・緊急度：操作・至急／影響12人\n本文：\nWi-Fiでも再生ボタンのあとに止まります。\n次の対応：優先窓口が影響の範囲を確かめ、最初の返信を急ぐ。"
+    },
+    {
+      "id": "D02",
+      "label": "通常の請求確認",
+      "input": {
+        "ticket_id": "T-202",
+        "issue": "請求",
+        "urgency": "通常",
+        "affected_users": 1,
+        "subject": "見積書の宛名を変えたい",
+        "body": "架空の会社「桜研究室」宛てへ変更したいです。"
+      },
+      "selected_case_id": "billing",
+      "node_path": [
+        "start",
+        "route",
+        "billing-note",
+        "merge",
+        "end"
+      ],
+      "text": "【担当】請求窓口\n問い合わせ：T-202\n件名：見積書の宛名を変えたい\n種類・緊急度：請求・通常／影響1人\n本文：\n架空の会社「桜研究室」宛てへ変更したいです。\n次の対応：請求窓口が契約と請求書の記録を確かめて返信する。"
+    },
+    {
+      "id": "D03",
+      "label": "一般の相談",
+      "input": {
+        "ticket_id": "T-203",
+        "issue": "相談",
+        "urgency": "通常",
+        "affected_users": 4,
+        "subject": "スライドの共有方法",
+        "body": "閲覧だけできるリンクの作り方を知りたいです。"
+      },
+      "selected_case_id": "false",
+      "node_path": [
+        "start",
+        "route",
+        "support-note",
+        "merge",
+        "end"
+      ],
+      "text": "【担当】通常窓口\n問い合わせ：T-203\n件名：スライドの共有方法\n種類・緊急度：相談・通常／影響4人\n本文：\n閲覧だけできるリンクの作り方を知りたいです。\n次の対応：通常窓口が手順を確かめて返信する。"
+    },
+    {
+      "id": "D04",
+      "label": "99人なら通常窓口",
+      "input": {
+        "ticket_id": "T-204",
+        "issue": "操作",
+        "urgency": "通常",
+        "affected_users": 99,
+        "subject": "表示の問い合わせ・99人",
+        "body": "影響人数は99人です。至急指定はありません。"
+      },
+      "selected_case_id": "false",
+      "node_path": [
+        "start",
+        "route",
+        "support-note",
+        "merge",
+        "end"
+      ],
+      "text": "【担当】通常窓口\n問い合わせ：T-204\n件名：表示の問い合わせ・99人\n種類・緊急度：操作・通常／影響99人\n本文：\n影響人数は99人です。至急指定はありません。\n次の対応：通常窓口が手順を確かめて返信する。"
+    },
+    {
+      "id": "D05",
+      "label": "100人から優先窓口",
+      "input": {
+        "ticket_id": "T-205",
+        "issue": "操作",
+        "urgency": "通常",
+        "affected_users": 100,
+        "subject": "表示の問い合わせ・100人",
+        "body": "影響人数が100人になりました。"
+      },
+      "selected_case_id": "urgent",
+      "node_path": [
+        "start",
+        "route",
+        "urgent-note",
+        "merge",
+        "end"
+      ],
+      "text": "【担当】優先対応\n問い合わせ：T-205\n件名：表示の問い合わせ・100人\n種類・緊急度：操作・通常／影響100人\n本文：\n影響人数が100人になりました。\n次の対応：優先窓口が影響の範囲を確かめ、最初の返信を急ぐ。"
+    },
+    {
+      "id": "D06",
+      "label": "請求でも至急を優先",
+      "input": {
+        "ticket_id": "T-206",
+        "issue": "請求",
+        "urgency": "至急",
+        "affected_users": 2,
+        "subject": "支払い確認を急ぎたい",
+        "body": "優先ルールが請求ルールより先に評価される例です。"
+      },
+      "selected_case_id": "urgent",
+      "node_path": [
+        "start",
+        "route",
+        "urgent-note",
+        "merge",
+        "end"
+      ],
+      "text": "【担当】優先対応\n問い合わせ：T-206\n件名：支払い確認を急ぎたい\n種類・緊急度：請求・至急／影響2人\n本文：\n優先ルールが請求ルールより先に評価される例です。\n次の対応：優先窓口が影響の範囲を確かめ、最初の返信を急ぐ。"
+    },
+    {
+      "id": "D07",
+      "label": "入力の記号はそのまま",
+      "input": {
+        "ticket_id": "T-207",
+        "issue": "相談",
+        "urgency": "通常",
+        "affected_users": 1,
+        "subject": "{{ 7 * 7 }} は入力データ",
+        "body": "<script>alert(\"demo\")</script>\nこれは架空の問い合わせ本文です。"
+      },
+      "selected_case_id": "false",
+      "node_path": [
+        "start",
+        "route",
+        "support-note",
+        "merge",
+        "end"
+      ],
+      "text": "【担当】通常窓口\n問い合わせ：T-207\n件名：{{ 7 * 7 }} は入力データ\n種類・緊急度：相談・通常／影響1人\n本文：\n<script>alert(\"demo\")</script>\nこれは架空の問い合わせ本文です。\n次の対応：通常窓口が手順を確かめて返信する。"
+    },
+    {
+      "id": "D08",
+      "label": "0人・空の本文も確認",
+      "input": {
+        "ticket_id": "T-208",
+        "issue": "相談",
+        "urgency": "通常",
+        "affected_users": 0,
+        "subject": "個人の使い方を確認したい",
+        "body": ""
+      },
+      "selected_case_id": "false",
+      "node_path": [
+        "start",
+        "route",
+        "support-note",
+        "merge",
+        "end"
+      ],
+      "text": "【担当】通常窓口\n問い合わせ：T-208\n件名：個人の使い方を確認したい\n種類・緊急度：相談・通常／影響0人\n本文：\n\n次の対応：通常窓口が手順を確かめて返信する。"
+    }
+  ],
+  "rule_order": [
+    {
+      "id": "urgent",
+      "label": "至急 または100人以上"
+    },
+    {
+      "id": "billing",
+      "label": "請求"
+    },
+    {
+      "id": "false",
+      "label": "ほか"
+    }
+  ],
+  "notice": "Rules are value comparisons and memo templates. Original inputs are separate cases: D04/D05 differ in ticket ID/subject/body as well as affected_users; only affected_users differs among the THREE routing fields. Do not claim one-field identity for full inputs."
+}

@@ -1,115 +1,117 @@
-# 解説動画の編集ソース — 問い合わせを、3つの担当へ。
+# 動く説明図の編集ソース — 問い合わせを、担当へ。
 
-Dify 作例（`../README.md`）の実行記録を、28秒・無音・1280×720・30fps（840フレーム）の映像に描く編集ソースです。
+Dify 作例（`../README.md`）の保存済みの実行結果を、32秒・無音・30fps（960フレーム）の動く説明図にする編集ソースです。縦 720×1280 と横 1280×720 は、それぞれ別に組んだ配置で描きます（拡大縮小や黒帯ではありません）。
 
 ```text
-問い合わせを入力 → ルールで担当へ → 引き継ぎメモ → JSON/DSL を持ち帰る
+問い合わせの封筒（種類・緊急度・人数）→ 上から順に判定する1つの切り替え → 担当の机 → まとめる → 実際の引き継ぎメモ
 ```
 
-連続した画面録画ではありません。保存した実行記録と、閲覧ページを撮影した画像2枚から、コードで組み立てた映像です。映像の中で AI は動いておらず、振り分けを判断する演出もしていません。
+画面録画でも、Dify の画面の再現でもありません。封筒・切り替え・机・メモは Studio Yebisu が独自に作った説明図で、Dify の公式の画面・エディター・ロゴは使っていません。図に出る ID・値・✓/×・通った線・件数・メモの行は、保存済みの実行記録から読みます。映像の中で Dify・graphon・AI は動かず、新しい実行もしません。音声はありません（`audioEvents: []`）。
 
 ## ファイル
 
 | ファイル | 内容 |
 | --- | --- |
-| `index.html` | 編集・確認用のページ。映像、再生・時刻の操作、場面一覧、素材8件の照合結果、原典とライセンス |
-| `video.css` | ページの見た目（端末のフォントだけを使用） |
+| `index.html` | 編集・確認用のページ。映像、再生・一時停止・先頭へ・時刻のつまみ、6場面へのジャンプ、素材8件の照合結果、出典 |
+| `video.css` | ページの見た目（端末のフォントだけ。CSS アニメーションなし） |
 | `video.js` | 素材の照合と、任意の時刻の1枚を描く処理（`window.seek`） |
-| `storyboard.json` | 場面ごとの時刻・伝えること・使う記録・切り替え・確認の状況 |
-| `assets/` | 素材の一覧 `data-hashes.json`、実画面2枚とその由来 `screens.json`（制作側が固定。変更しません） |
+| `storyboard.json` | 場面ごとの時刻・伝えること・使う記録の場所・図の部品の同一性・入り方と出方・縦横の配置・限界 |
+| `assets/` | 制作側が固定した素材8件と `manifest.json`（変更しません） |
 
 ## 映像の中身
 
-| 秒 | 見出し | 使う記録 |
+| 秒 | 見出し（`timeline.json`） | 使う記録 |
 | --- | --- | --- |
-| 0–4 | 問い合わせを、3つの担当へ。 | 8件の入力と、実際のメモ1行目の担当名 |
-| 4–8 | ルールで、担当のメモへ。 | 7ノード・8本の線（説明図）と、D02 が実際に通った道・メモ |
-| 8–12 | 請求でも、至急を先に。 | D06 の入力と結果、workflow.yml に書いた判定順 |
-| 12–18 | 100人以上は、優先対応へ。 | D04（99人→通常窓口）、15秒で D05（100人→優先対応）へ |
-| 18–22 | 入力は、そのままメモに。 | D07 の `{{ 7 * 7 }}` と `<script>` の行がメモに文字のまま入った結果 |
-| 22–28 | 8件の入力と結果を、持ち帰る。 | 優先対応3・請求窓口1・通常窓口4、workflow.yml と実行記録、閲覧ページの実画面（D02・D05） |
+| 0–5 | 問い合わせを、担当へ | 7ノード・8本の線の全体図。3つの道が順に光り、8件の実際の内訳 3件・1件・4件 |
+| 5–10 | 請求なら、請求窓口へ | D02（請求・通常・1人）。判定1 ×、判定2 ✓、請求窓口のメモ |
+| 10–15 | 請求でも、至急を先に | D06（請求・至急・2人）。判定1 ✓。判定2は記録上も判定されておらず、薄く表示 |
+| 15–22 | 99人から、100人へ | 別の記録 D04（99人→通常窓口）と D05（100人→優先対応）。それぞれのメモを左右に並べる |
+| 22–27 | 入力の文字も、そのまま | D07 の件名 `{{ 7 * 7 }}` が封筒と一緒に進み、通常窓口のメモに文字のまま入る |
+| 27–32 | 実際のメモを、保存する | D05 の実際のメモ・内訳・作例ページで保存できることの案内。最後の2.5秒は止まった画面 |
 
-- 担当名・件数・メモの行・ノード名・線は、照合した記録から読みます。判定順の文と「100人以上」は `workflow.yml` の説明文からそのまま写し、条件の `≥` と `'100'` も確かめます。
-- D04 と D05 は、両方の入力と結果が同時に画面に出ないよう、14.7〜15.3秒でいったん消してから入れ替えます。99と100の違いはルールの境目で、品質の差ではありません。
-- D07 は小さな1例です。文字がそのまま入ったことを示すだけで、安全性の検証ではありません。映像も文字を描くだけで、実行や評価はしません。
-- 図は「説明図」、画面写真は「閲覧ページの実画面」と書き分けます。実画面は照合した画像をそのまま縮小して描き、描き直していません。Dify 公式の画面やロゴは使っていません。
-- 音はありません（`audioEvents: []`）。最後の約5秒は止まった画面です。
+- ✓/× は、route ノードの記録 `process_data.condition_results`（上から順に判定した結果）から描きます。ブラウザーで判定し直してはいません。
+- 99・100 の比較は、同じ記録の `inputs.conditions` にある実際の値と比較先 `"100"` です。
+- D04 と D05 は番号・件名・本文も違う別の記録です。担当を決める3項目（種類・緊急度・人数）のうち違うのが人数だけ、という比較で、1件を書き換えたものではありません。
+- D02 と D06 も別の記録で、緊急度と人数の両方が違います。判定の順を示す例で、入力を編集したものではありません。
+- D07 の記号は文字として描くだけです。評価も実行もしておらず、安全性の検証でもありません。本文の `<script>` の行は映像に出さず、作例ページの折りたたみで原文を読めます。
 
 ## 素材（8件・固定）
 
-`video.js` は `assets/data-hashes.json` を読み、その8件の対象とハッシュが `video.js` に固定した値と同じかを確かめてから、各ファイルを `../` + パスで読み、SHA-256 を照合します。
+`video.js` は `assets/manifest.json` を読み、その SHA-256 が固定値 `10392562045e5c71ad4ed9154fa823c0d3eeed4378a2033ca70001b4fe097559` と一致し、並ぶ8件が `video.js` の固定値と同じかを確かめてから、各素材のバイト数と SHA-256 を照合します。
 
-| ファイル | SHA-256 |
-| --- | --- |
-| `outputs/workflow-runs.json` | `692cc2f8b07ca77a8b3ccdae0a8abc4359e8a8804985bc4b75db1b56241e6694` |
-| `outputs/independent-checks.json` | `efc466ec2dbd4845a35277225faf419e471872892d08d747130248973f25d2f4` |
-| `input/tickets.json` | `b752f26d73d9fc3f48f8a3389fe876b88d273f2780bc316fdd15232a4d0cdc83` |
-| `workflow.yml` | `d36f345c08705992f654571d35676a211bcae62abcfb6171c8655b308ab0776f` |
-| `vendor-lock.json` | `e454e2189985857c0ac82258dc23b01f0010deecc1cc7bf737ff214d685696ff` |
-| `video/assets/screens.json` | `1f8b5b062368be2ed1e5ff5c7f9a4922140e3b1a016ee2daac289aeb62c2b4fb` |
-| `video/assets/phone.png` | `b5f1194cfc1ecc55f52f72ec4d3e114e3b0cf37bdede2cc1492a65fe745024cd` |
-| `video/assets/desktop.png` | `6404ee75a61253f330febb4a0a46ab855f5ac62458501f05d540f6ef7b0f23b0` |
+| ファイル | 元 | SHA-256 |
+| --- | --- | --- |
+| `workflow-runs.json` | `outputs/workflow-runs.json` | `692cc2f8b07ca77a8b3ccdae0a8abc4359e8a8804985bc4b75db1b56241e6694` |
+| `tickets.json` | `input/tickets.json` | `b752f26d73d9fc3f48f8a3389fe876b88d273f2780bc316fdd15232a4d0cdc83` |
+| `expected.json` | `input/expected.json` | `0ef127da5302698a91ad9ceb1e7dcbd79863c037057fe07e514428213946b5be` |
+| `independent-checks.json` | `outputs/independent-checks.json` | `efc466ec2dbd4845a35277225faf419e471872892d08d747130248973f25d2f4` |
+| `vendor-lock.json` | `vendor-lock.json` | `e454e2189985857c0ac82258dc23b01f0010deecc1cc7bf737ff214d685696ff` |
+| `workflow.yml` | `workflow.yml`（元のバイト列） | `d36f345c08705992f654571d35676a211bcae62abcfb6171c8655b308ab0776f` |
+| `diagram-data.json` | 元の記録を図用に写した値 | `971c00ea65059192ca72cf3aacf126a505c88fd4d7d5bbce2a40afb6c3114de7` |
+| `timeline.json` | 時刻表（6場面） | `735073a65b9ebe6e74254ca62b286c05cc0ef866c0f1c40aca232a5130c4a0dc` |
 
-さらに、原典の固定版（langgenius/dify 1.17.1・`f77facf`）、graphon 0.7.0 と wheel の SHA-256、原典292ファイル、196の自動確認の合格、独立した照合の合格、通信・子プロセス・LLM の記録が0件であること、実行の入力が `input/tickets.json` と同じであること、担当ごとの件数が独立した照合と同じであることを確かめます。1つでも違えば `window.motionReady` は失敗し、ページは理由を表示して映像を描きません。代わりのデータは持っていません。
+照合のあと、さらに次を確かめます。1つでも違えば `window.motionReady` は失敗し、映像を隠して操作を止め、短い理由と「もう一度読み込む」だけを出します。代わりのデータは持っていません。
 
-実画面2枚（`phone.png`・`desktop.png`）は、制作側が閲覧ページを IAB Chromium で撮影した画像をそのまま写したものです。
+- 記録の形式、Dify の固定版（langgenius/dify `f77facfe6520ed379d723288aed0b4806ad76143`・1.17.1）、graphon 0.7.0 と wheel の SHA-256、ロックとの一致（292ファイル）
+- 入力2件と DSL のハッシュが記録と同じ、通信・子プロセスの試み0件、サーバーとモデルを使っていない記録、196の自動確認の合格、イベント合計160件
+- 8件の入力・分岐が `tickets.json`・`expected.json` と同じ。各件の成功したノードの順、通った線、route の判定結果、メモが担当ノードの出力と最終イベントに一致
+- `workflow.yml` を文字列として読み（YAML の解析器は使いません）、7ノードの ID と種類、8本の線、判定の順 urgent → billing、`至急`・`≥`・`'100'`・`請求` の条件を確認。実行イベントに現れた線の集合が DSL の8本と一致
+- `independent-checks.json` の合格・元の記録の SHA-256・内訳、`diagram-data.json` の8件とつながりが記録と同じ、`timeline.json` が32秒・30fps・960フレーム・無音・6場面
+
+## 確認用ページの使い方
+
+site フォルダー（`index.html` のある場所）で静的なサーバーを起動し、ブラウザーで開きます。
+
+```text
+python -m http.server 8000
+http://localhost:8000/video/              縦 720×1280
+http://localhost:8000/video/?layout=wide  横 1280×720
+```
+
+`file://` で直接開くと素材を照合できないため、理由だけを表示します。ページは止まった状態で始まり、再生は「再生」を押したときだけです。つまみや場面のボタンで時刻を動かすと一時停止します。「先頭へ」は0秒、最後まで進むと「もう一度再生」で0秒から再生します。
+
+## 書き出し（再現の手順）
+
+公開されている site フォルダーを直接使わず、コピーした別のフォルダーで行い、出力は site の外の新しい空のフォルダーへ書きます。Node.js 20 以上、Google Chrome、FFmpeg と ffprobe が必要です。同梱の Motion Reel レンダラー（`../tools/motion-reel/`）の依存は、最初に1回だけ入れます。
+
+```text
+npm ci --ignore-scripts --prefix <コピー>/tools/motion-reel
+node <コピー>/tools/motion-reel/render.mjs --project <コピー>/video --out <空のフォルダー>/tall --video --width 720 --height 1280
+node <コピー>/tools/motion-reel/render.mjs --project <コピー>/video --out <空のフォルダー>/wide --video --width 1280 --height 720
+```
+
+制作側の `render.py` を使う場合も、縦と横をそれぞれネイティブの幅・高さで指定し、site の外の空のフォルダーへ書き出します（引数は `python render.py --help` を参照）。
+
+- レンダラーは `window.__MOTION_RENDER__` と `window.renderConfig`（幅・高さ・fps）を渡します。`video.js` はそのサイズの配置を選び、操作部品を隠して canvas だけを正確な大きさで描きます。
+- `window.seek(秒)` は、呼んだ順番や壁時計・乱数・前のフレームに左右されず、その時刻の完成した1枚を描きます。
+- 出力先が空でなければレンダラーは止まり、既存の書き出しを上書きしません。外部への通信は行いません。
+- `posterTime` は31秒（D05 のメモと内訳が止まった画面）です。
 
 ## 原典と版
 
 - Dify：[langgenius/dify](https://github.com/langgenius/dify/tree/f77facfe6520ed379d723288aed0b4806ad76143) 1.17.1（コミット `f77facfe6520ed379d723288aed0b4806ad76143`）。
-- 実行に使ったのは graphon 0.7.0 の公式 wheel（SHA-256 `6f7608aaaa65607c4935735137ed4b7029b1e6ca80202cbe829af3370cf4404e`）です。Dify 1.17.1 の `api/pyproject.toml` が `graphon==0.7.0` を宣言し、`api/uv.lock` が同じ wheel を固定しているため、これを使いました。
-- 実行は `graphon.dsl.inspect`・`graphon.dsl.loads`（内部で `SlimDslNodeFactory`）・`GraphEngine.run` で、つながりは Dify 本体の `WorkflowGraphTopology` を改変せずに使いました。
-- 使っていないもの：Dify のサーバー・管理画面（console）・API・Docker、difyctl、Dify の画面（`web/`）への取り込み、モデル（LLM）・意味による分類・要約、ナレッジ検索・ツール・プラグイン。
+- 実行に使ったのは graphon 0.7.0 の公式 wheel（SHA-256 `6f7608aaaa65607c4935735137ed4b7029b1e6ca80202cbe829af3370cf4404e`）で、Dify 1.17.1 の `api/pyproject.toml` の宣言と `api/uv.lock` の固定と同じものです。
+- 実行は `graphon.dsl.inspect`・`graphon.dsl.loads`・`GraphEngine.run()`。つながりは Dify 本体の `WorkflowGraphTopology` を改変せずに使いました。これは Dify の依存を使ったヘッドレスな DSL の実行で、Dify のアプリのセッションではありません。
+- 試していないこと：Dify のサーバー・管理画面・API・Docker、difyctl、Dify の画面への DSL の取り込み、モデル（LLM）・意味による分類・要約・ナレッジ・ツール・プラグイン、入力フォームの検証、速さ。
 
 ## 作った人と動かしたもの
 
-`workflow.yml`・`run.py`・閲覧ページ、およびこのフォルダーの5ファイル（`index.html`・`video.css`・`video.js`・`storyboard.json`・この README）は Claude Opus 5.5 が書きました。架空の問い合わせ8件は、制作側が実行の前に作って固定しました。公式の API で実行し、独立した照合と閲覧ページの撮影を行ったのは制作側です。担当の比較とメモの差し込みはライブラリが行ったもので、Opus が書いたのはソースであり、記録に残ったメモそのものではありません。
-
-## 書き出し（再現の手順）
-
-素材は固定です。入力を変える場合は、返ってきた JSON を手で直さず、公式 API での実行・独立した照合・閲覧ページの撮影をやり直し、新しいハッシュで固定し直してから映像を書き出してください。
-
-公開されている site フォルダーを直接使わず、コピーした別のフォルダーで行います。
-
-1. 実行記録の再現（任意）：`../README.md` の手順どおり、コピー内の `outputs/workflow-runs.json` を別名で保存してから行います。
-
-   ```text
-   python -m venv <非公開の仮想環境>
-   <非公開の仮想環境>/bin/python -m pip install -r requirements-runtime.txt   # Windows は Scripts\python
-   <非公開の仮想環境>/bin/python run.py --artifact-dir <site の外の、新しい空のフォルダー>
-   ```
-
-2. 映像の書き出し：Node.js 20 以上、Google Chrome、FFmpeg と ffprobe が必要です。
-
-   ```text
-   npm ci --ignore-scripts --prefix tools/motion-reel
-   python render.py --out <site の外の、新しい空のフォルダー> --work-root <site の外のフォルダー> --strip-at 11.85
-   ```
-
-   `render.py` は site を使い捨てのフォルダーへ写し、同梱の Motion Reel レンダラー（`tools/motion-reel/render.mjs`）で代表フレーム・連続フレーム・ポスター（13.5秒）・`video.mp4` を書き出します。出力先は空でなければ止まり、既存の書き出しを上書きしません。
-
-ページで確認するときは、site フォルダーで `python -m http.server` を実行し、`http://localhost:8000/video/` を開きます。`file://` で直接開くと素材を照合できないため、理由だけを表示します。
+このフォルダーの5ファイル（`index.html`・`video.css`・`video.js`・`storyboard.json`・この README）と説明図の部品・動きは Claude Opus 5.5 が書きました。`assets/` の8素材は制作側が固定したものです。元の `workflow.yml`・実行のコード・実行記録は前の制作で作られ、架空の8件は制作側が実行の前に作り、graphon のエンジンで制作側が実行しました。今回の映像のために API やモデルを再び動かしてはいません。
 
 ## 確かめたこと・まだのこと
 
-- 確かめ済み（この編集ソースを書く前に制作側が実施）：公式 API での8件の実行と196の自動確認、独立した照合、閲覧ページのネイティブブラウザーでの確認と撮影。
-- 制作側が確認：書き出し・代表/連続フレーム・同時刻の別順序/新ページPNG一致・MP4全デコードと実再生。公開は、対象を限定した反映の後にPagesと実URLを確かめて別途記録します。
-- `index.html` の MP4 リンク（`../../../media/dify-example.mp4`）は、書き出しと公開のあとに置かれる場所です。それまでは開けません。
-- 実機の iPhone Safari、VoiceOver、人による承認は確かめていません。
+このソースを書いた時点では、書き出し・フレームの確認・MP4 の再生・実機での表示は行っていません。それらと包装・公開は制作側が別に行い、結果は制作側の記録に残します。人による承認、実機の iPhone Safari・VoiceOver の確認も、このソースでは主張しません。
 
 ## 利用条件
 
 - この映像ソース・作例のコード・文章・架空の入力：MIT License（Copyright (c) 2026 Studio Yebisu、`../LICENSE`）。
-- Dify：Dify Open Source License（Apache License 2.0 を基に、マルチテナントでの運用と、フロントエンドのロゴ・著作権表示に関する追加条件あり）。全文は `../vendor/dify/LICENSE`。この作例は `web/` を使わず、ロゴや画面も使っていません。
+- Dify：Dify Open Source License。Apache License 2.0 を基に、マルチテナントの環境での運用と、フロントエンド（`web/`）のロゴ・著作権表示の変更について追加の条件があります。全文は `../vendor/dify/LICENSE`。この作例は `web/` を使わず、ロゴや画面も使っていません。
 - graphon 0.7.0：Apache License 2.0。全文は `../vendor/graphon-wheel/graphon-0.7.0.dist-info/licenses/LICENSE`。
-- Motion Reel のレンダラー：MIT License（`../tools/motion-reel/LICENSE`）。
+- Motion Reel のレンダラー：MIT License（`../tools/motion-reel/LICENSE`）。依存（Playwright など）はそれぞれの利用条件に従います。
 
-## 作例ページで見るには
 
-作例ページで問い合わせを選ぶと、入力・実際のメモ・通った道筋を読め、JSON と `workflow.yml` を開いて保存できます。この動画はその流れの要約です。
+## 制作側の改修確認
 
-## 制作側による完成後の確認
+元の8ファイルの受領原本は非公開で保全し、制作側は条件表示の読み取りを補正しました。Graphonのinputs.conditionsは最後に判定したグループの値なので、先のグループの人数は、固定した原入力と実記録の条件・判定結果から表示します。元の実行記録は変えていません。冒頭ラベルも8件の内訳とD02の封筒の例を区別する文面へ補正しました。
 
-1280×720・30fps・840フレーム・28秒の無音MP4を書き出しました。8素材のハッシュ・任意時刻へのシーク・別順序と新しいページでの同時刻PNG一致・代表14フレームと5つの連続フレーム列・360pxの主な文字・最後のフレームを確認。MP4は全デコードとネイティブ再生が終了まで通りました。編集画面の初期停止・14秒シーク・再生/一時停止、スマホの44px操作部・16px入力も確認しています。元の実API結果は変更していません。
-
-人による承認・実機iOS/Safari/VoiceOverの確認は行っていません。サイトの反映は、対象を限定した公開の後にPagesと実URLを確かめて別途記録します。
+その版を縦720×1280・横1280×720で32秒/30fps/960フレームとして書き出し、任意時刻の一致、代表・連続フレーム、コンタクトシート、縦のスマホ表示、全デコードと両MP4の最後までの再生を確認しました。編集画面の8素材、シーク・再生・一時停止・リセット、素材不一致での停止と再読込も確認しています。確認の要点は../verification.jsonです。人による審美的承認・実機iPhone Safari・VoiceOverは未確認です。

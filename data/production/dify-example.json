@@ -1,6 +1,6 @@
 {
   "id": "dify-example",
-  "verified_at": "2026-10-16T20:30:01.901504+00:00",
+  "verified_at": "2026-10-17T11:08:50.878792+00:00",
   "model": {
     "requested": "claude-opus-5-5",
     "reported": [
@@ -18,9 +18,16 @@
         "receipt_sha256": "45e9322be348ffb9f4ccb22de8c450aa2b12c2e7955e0d82326c625370bdd07b",
         "execution_sha256": "b608d8e18b609426abbf3439954fbe5c529121985e08b9613847a8399f27898e",
         "prompt_sha256": "d38fbf072e06909c72becdee8038505c2b3063d55e9a804f805f398bf6a61666"
+      },
+      {
+        "phase": "visual-r1",
+        "receipt_sha256": "969ab10164b866d24fcfaa90114b497f7b78ceeaa4f7eb9aafa9087a09eeef15",
+        "execution_sha256": "5ea963ccc9e59678185e18c7fa3d7a19e02f26b5aaccf8918d078ec10ea5e1d8",
+        "prompt_sha256": "1a1fdf3447a1d501a3fa09bb4a34fc66a707b9707baa2d67376afaa20a0e75a5"
       }
     ],
-    "receipt_published": false
+    "receipt_published": false,
+    "scope": "New Opus5.5 authors routing diagram UI and silent film. Original runtime receipts retained. Production verified, rendered, packaged and published. No new inference or guide narration."
   },
   "upstream": {
     "repository": "langgenius/dify",
@@ -57,215 +64,3164 @@
     "reproduction_sha256": "9bab71b5f3aebff21224f2596fafe4a67f90b474210d708cc62c57df1ce6e355"
   },
   "verification": {
-    "case_id": "dify-example",
-    "verified_at": "2026-10-16T20:30:01.901504+00:00",
+    "id": "dify-example",
+    "verified_at": "2026-10-17T11:08:50.878792+00:00",
+    "revision": "visual-r1",
     "stage": "technical_qa_complete",
-    "runtime": {
-      "status": "passed",
-      "source_commit": "f77facfe6520ed379d723288aed0b4806ad76143",
-      "source_version": "1.17.1",
-      "runtime_dependency": "graphon==0.7.0 (exact official Dify uv.lock wheel)",
-      "sample_count": 8,
-      "checks": 196,
-      "events": 160,
-      "route_counts": {
-        "優先対応": 3,
-        "請求窓口": 1,
-        "通常窓口": 4
+    "runtime_preserved_files": 305,
+    "original_runtime_scope": "Headless execution of Dify DSL through the exact official Graphon dependency plus the unmodified Dify WorkflowGraphTopology API. No Dify server, console, difyctl, LLM/semantic classification or web-console DSL import tested.",
+    "upstream": {
+      "repository": "langgenius/dify",
+      "commit": "f77facfe6520ed379d723288aed0b4806ad76143",
+      "version": "1.17.1",
+      "license": "Dify Open Source License (Apache-2.0 with additional conditions)",
+      "vendor_files_verified": 292,
+      "official_git_blobs_verified": 8,
+      "official_wheel_members_verified": 284,
+      "graphon_wheel_sha256": "6f7608aaaa65607c4935735137ed4b7029b1e6ca80202cbe829af3370cf4404e",
+      "exact_wheel_matches_dify_uv_lock": true,
+      "verified_at": "2026-10-17T09:52:54.056197+00:00",
+      "scope": "Preserved real Graphon DSL engine and Dify WorkflowGraphTopology results. No rerun/model inference/server/console/difyctl. Dify license includes multi-tenant and frontend conditions; custom static diagram uses no Dify web UI/logo.",
+      "visual_review": "Original contact sheet and HTML show landscape headline/number/text panels and a small flow; revise to a large connected request-routing drawing and native portrait film."
+    },
+    "video": {
+      "portrait": {
+        "video": {
+          "file": "video.mp4",
+          "sha256": "6f160da51c3542fa62ea3c7ef8817a730e203cf10964d430ac374a2d0cfddb05",
+          "width": 720,
+          "height": 1280,
+          "fps": 30,
+          "frameCount": 960,
+          "duration": 32,
+          "hasAudio": false
+        },
+        "determinism": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "f23d99b296291e3f0f640b444546ce3d7b237d1419db3091064b919b64a3f18b",
+          "afterOtherTimes": "f23d99b296291e3f0f640b444546ce3d7b237d1419db3091064b919b64a3f18b",
+          "freshPage": "f23d99b296291e3f0f640b444546ce3d7b237d1419db3091064b919b64a3f18b",
+          "match": true
+        }
       },
-      "network_attempts": 0,
-      "process_attempts": 0,
-      "independent_event_oracle_check": "passed",
-      "topology_pairs": 49,
-      "fresh_cli_reproduction": "passed",
-      "server_started": false,
-      "llm_called": false
+      "wide": {
+        "video": {
+          "file": "video.mp4",
+          "sha256": "e49207752e7aedff3dfde490378333498125412b0d22825acdf5a471634e33f0",
+          "width": 1280,
+          "height": 720,
+          "fps": 30,
+          "frameCount": 960,
+          "duration": 32,
+          "hasAudio": false
+        },
+        "determinism": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "d529c620b14cc62df086d12834511fe1d9985c737c5242e917163062bc1729cd",
+          "afterOtherTimes": "d529c620b14cc62df086d12834511fe1d9985c737c5242e917163062bc1729cd",
+          "freshPage": "d529c620b14cc62df086d12834511fe1d9985c737c5242e917163062bc1729cd",
+          "match": true
+        }
+      }
     },
     "browser": {
       "status": "passed",
-      "responsive_states": 6,
-      "widths": [
-        320,
-        375,
-        390,
-        430,
-        844,
-        1280
-      ],
-      "target_minimum_px": 44,
-      "form_font_minimum_px": 16,
-      "all_eight_input_output_events_exact": true,
-      "native_picker_and_desktop_buttons_verified": true,
-      "raw_dom_compared_as_text": true,
-      "native_export_matches_record": true,
-      "native_export_bytes": 21898,
-      "http503_parse_validation_retry": true,
-      "errors_hide_stale_and_disable_picker_export": true,
-      "clipboard_matches_original_request": true,
-      "clipboard_utf8_bytes": 5369,
-      "native_disclosures_verified": true,
-      "native_back_restores_sample": true,
-      "keyboard_enter_space": true,
-      "literal_input_stays_text": true,
-      "agent_visual_review": true,
-      "physical_ios_tested": false,
-      "voiceover_tested": false,
-      "human_approval": false
-    },
-    "video": {
-      "duration_seconds": 28,
-      "fps": 30,
-      "width": 1280,
-      "height": 720,
-      "frames": 840,
-      "silent": true,
-      "full_decode": true,
-      "direct_native_ended": true,
-      "editor_seek_and_play_pause": true,
-      "frame_visual_review": {
-        "status": "passed",
-        "agent_visual_review": true,
-        "human_approval": false,
-        "reviewed": [
-          "video/review/contact.png (14 actual representative frames)",
-          "video/review/poster.png",
-          "video/review/final.png",
-          "video/review/cut-01.png",
-          "video/review/cut-02.png",
-          "video/review/cut-03.png",
-          "video/review/cut-04.png",
-          "video/review/cut-05.png",
-          "MP4 decoded360px frames9.5/16.8/26.4s",
-          "Actual native source editor14s"
-        ],
-        "observations": [
-          "Main Japanese titles, rule precedence,99/100 boundary and3/1/4 counts are readable at360px; IDs, tiny file captions and screenshots are supplementary.",
-          "Five intentional short paper fades between scenes show the next heading/card arriving; no unintended overlap or clipped main copy found.",
-          "D04actual99/normal andD05actual100/urgent, D06billing+urgent, D07literal data and final8count/screens agree with frozen outputs.",
-          "Final result/message remains through the last frame; silent28second delivery has no audio stream."
-        ],
-        "deterministic_same_environment": {
-          "frame": 504,
-          "seconds": 16.8,
-          "first": "21aab95644f7298f1dc217a6d9740b776f32f4c5d691d4a191f8c2921542d907",
-          "afterOtherTimes": "21aab95644f7298f1dc217a6d9740b776f32f4c5d691d4a191f8c2921542d907",
-          "freshPage": "21aab95644f7298f1dc217a6d9740b776f32f4c5d691d4a191f8c2921542d907",
-          "match": true
+      "verified_at": "2026-10-17T11:07:36.521Z",
+      "browser": "Codex IAB Chromium; viewport emulation, not physical iOS",
+      "layout_views": [
+        {
+          "viewport": {
+            "width": 320,
+            "height": 768
+          },
+          "id": "D02",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 666.734375,
+            "height": 56,
+            "width": 132.5,
+            "x": 16,
+            "y": 610.734375
+          },
+          "figure": {
+            "bottom": 600.734375,
+            "height": 368.546875,
+            "width": 273,
+            "x": 16,
+            "y": 232.1875
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 56,
+              "id": "compare",
+              "width": 132.5
+            },
+            {
+              "disabled": false,
+              "height": 56,
+              "id": "download-record",
+              "width": 132.5
+            }
+          ],
+          "save": {
+            "bottom": 666.734375,
+            "height": 56,
+            "width": 132.5,
+            "x": 156.5,
+            "y": 610.734375
+          },
+          "scrollWidth": 305,
+          "selected": "D02",
+          "title": "D02（T-202）は請求窓口へ",
+          "width": 305
         },
-        "unresolved_blockers": [],
-        "physical_ios_tested": false
+        {
+          "viewport": {
+            "width": 320,
+            "height": 768
+          },
+          "id": "D06",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 666.734375,
+            "height": 56,
+            "width": 132.5,
+            "x": 16,
+            "y": 610.734375
+          },
+          "figure": {
+            "bottom": 600.734375,
+            "height": 368.546875,
+            "width": 273,
+            "x": 16,
+            "y": 232.1875
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 56,
+              "id": "compare",
+              "width": 132.5
+            },
+            {
+              "disabled": false,
+              "height": 56,
+              "id": "download-record",
+              "width": 132.5
+            }
+          ],
+          "save": {
+            "bottom": 666.734375,
+            "height": 56,
+            "width": 132.5,
+            "x": 156.5,
+            "y": 610.734375
+          },
+          "scrollWidth": 305,
+          "selected": "D06",
+          "title": "D06（T-206）は優先対応へ",
+          "width": 305
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 768
+          },
+          "id": "D04",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 666.734375,
+            "height": 56,
+            "width": 132.5,
+            "x": 16,
+            "y": 610.734375
+          },
+          "figure": {
+            "bottom": 600.734375,
+            "height": 368.546875,
+            "width": 273,
+            "x": 16,
+            "y": 232.1875
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 56,
+              "id": "compare",
+              "width": 132.5
+            },
+            {
+              "disabled": false,
+              "height": 56,
+              "id": "download-record",
+              "width": 132.5
+            }
+          ],
+          "save": {
+            "bottom": 666.734375,
+            "height": 56,
+            "width": 132.5,
+            "x": 156.5,
+            "y": 610.734375
+          },
+          "scrollWidth": 305,
+          "selected": "D04",
+          "title": "D04（T-204）は通常窓口へ",
+          "width": 305
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 768
+          },
+          "id": "D05",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 666.734375,
+            "height": 56,
+            "width": 132.5,
+            "x": 16,
+            "y": 610.734375
+          },
+          "figure": {
+            "bottom": 600.734375,
+            "height": 368.546875,
+            "width": 273,
+            "x": 16,
+            "y": 232.1875
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 56,
+              "id": "compare",
+              "width": 132.5
+            },
+            {
+              "disabled": false,
+              "height": 56,
+              "id": "download-record",
+              "width": 132.5
+            }
+          ],
+          "save": {
+            "bottom": 666.734375,
+            "height": 56,
+            "width": 132.5,
+            "x": 156.5,
+            "y": 610.734375
+          },
+          "scrollWidth": 305,
+          "selected": "D05",
+          "title": "D05（T-205）は優先対応へ",
+          "width": 305
+        },
+        {
+          "viewport": {
+            "width": 320,
+            "height": 768
+          },
+          "id": "D07",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 666.734375,
+            "height": 56,
+            "width": 132.5,
+            "x": 16,
+            "y": 610.734375
+          },
+          "figure": {
+            "bottom": 600.734375,
+            "height": 368.546875,
+            "width": 273,
+            "x": 16,
+            "y": 232.1875
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 87
+            },
+            {
+              "disabled": false,
+              "height": 56,
+              "id": "compare",
+              "width": 132.5
+            },
+            {
+              "disabled": false,
+              "height": 56,
+              "id": "download-record",
+              "width": 132.5
+            }
+          ],
+          "save": {
+            "bottom": 666.734375,
+            "height": 56,
+            "width": 132.5,
+            "x": 156.5,
+            "y": 610.734375
+          },
+          "scrollWidth": 305,
+          "selected": "D07",
+          "title": "D07（T-207）は通常窓口へ",
+          "width": 305
+        },
+        {
+          "viewport": {
+            "width": 375,
+            "height": 812
+          },
+          "id": "D02",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 695.890625,
+            "height": 46,
+            "width": 160,
+            "x": 16,
+            "y": 649.890625
+          },
+          "figure": {
+            "bottom": 639.890625,
+            "height": 442.796875,
+            "width": 328,
+            "x": 16,
+            "y": 197.09375
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 105.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 105.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 105.34375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 105.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 105.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 160
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 160
+            }
+          ],
+          "save": {
+            "bottom": 695.890625,
+            "height": 46,
+            "width": 160,
+            "x": 184,
+            "y": 649.890625
+          },
+          "scrollWidth": 360,
+          "selected": "D02",
+          "title": "D02（T-202）は請求窓口へ",
+          "width": 360
+        },
+        {
+          "viewport": {
+            "width": 375,
+            "height": 812
+          },
+          "id": "D06",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 695.890625,
+            "height": 46,
+            "width": 160,
+            "x": 16,
+            "y": 649.890625
+          },
+          "figure": {
+            "bottom": 639.890625,
+            "height": 442.796875,
+            "width": 328,
+            "x": 16,
+            "y": 197.09375
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 105.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 105.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 105.34375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 105.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 105.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 160
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 160
+            }
+          ],
+          "save": {
+            "bottom": 695.890625,
+            "height": 46,
+            "width": 160,
+            "x": 184,
+            "y": 649.890625
+          },
+          "scrollWidth": 360,
+          "selected": "D06",
+          "title": "D06（T-206）は優先対応へ",
+          "width": 360
+        },
+        {
+          "viewport": {
+            "width": 375,
+            "height": 812
+          },
+          "id": "D04",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 695.890625,
+            "height": 46,
+            "width": 160,
+            "x": 16,
+            "y": 649.890625
+          },
+          "figure": {
+            "bottom": 639.890625,
+            "height": 442.796875,
+            "width": 328,
+            "x": 16,
+            "y": 197.09375
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 105.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 105.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 105.34375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 105.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 105.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 160
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 160
+            }
+          ],
+          "save": {
+            "bottom": 695.890625,
+            "height": 46,
+            "width": 160,
+            "x": 184,
+            "y": 649.890625
+          },
+          "scrollWidth": 360,
+          "selected": "D04",
+          "title": "D04（T-204）は通常窓口へ",
+          "width": 360
+        },
+        {
+          "viewport": {
+            "width": 375,
+            "height": 812
+          },
+          "id": "D05",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 695.890625,
+            "height": 46,
+            "width": 160,
+            "x": 16,
+            "y": 649.890625
+          },
+          "figure": {
+            "bottom": 639.890625,
+            "height": 442.796875,
+            "width": 328,
+            "x": 16,
+            "y": 197.09375
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 105.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 105.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 105.34375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 105.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 105.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 160
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 160
+            }
+          ],
+          "save": {
+            "bottom": 695.890625,
+            "height": 46,
+            "width": 160,
+            "x": 184,
+            "y": 649.890625
+          },
+          "scrollWidth": 360,
+          "selected": "D05",
+          "title": "D05（T-205）は優先対応へ",
+          "width": 360
+        },
+        {
+          "viewport": {
+            "width": 375,
+            "height": 812
+          },
+          "id": "D07",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 695.890625,
+            "height": 46,
+            "width": 160,
+            "x": 16,
+            "y": 649.890625
+          },
+          "figure": {
+            "bottom": 639.890625,
+            "height": 442.796875,
+            "width": 328,
+            "x": 16,
+            "y": 197.09375
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 105.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 105.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 105.34375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 105.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 105.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 160
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 160
+            }
+          ],
+          "save": {
+            "bottom": 695.890625,
+            "height": 46,
+            "width": 160,
+            "x": 184,
+            "y": 649.890625
+          },
+          "scrollWidth": 360,
+          "selected": "D07",
+          "title": "D07（T-207）は通常窓口へ",
+          "width": 360
+        },
+        {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "id": "D02",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 716.140625,
+            "height": 46,
+            "width": 167.5,
+            "x": 16,
+            "y": 670.140625
+          },
+          "figure": {
+            "bottom": 660.140625,
+            "height": 463.046875,
+            "width": 343,
+            "x": 16,
+            "y": 197.09375
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 110.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 110.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 110.34375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 110.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 110.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 167.5
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 167.5
+            }
+          ],
+          "save": {
+            "bottom": 716.140625,
+            "height": 46,
+            "width": 167.5,
+            "x": 191.5,
+            "y": 670.140625
+          },
+          "scrollWidth": 375,
+          "selected": "D02",
+          "title": "D02（T-202）は請求窓口へ",
+          "width": 375
+        },
+        {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "id": "D06",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 716.140625,
+            "height": 46,
+            "width": 167.5,
+            "x": 16,
+            "y": 670.140625
+          },
+          "figure": {
+            "bottom": 660.140625,
+            "height": 463.046875,
+            "width": 343,
+            "x": 16,
+            "y": 197.09375
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 110.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 110.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 110.34375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 110.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 110.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 167.5
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 167.5
+            }
+          ],
+          "save": {
+            "bottom": 716.140625,
+            "height": 46,
+            "width": 167.5,
+            "x": 191.5,
+            "y": 670.140625
+          },
+          "scrollWidth": 375,
+          "selected": "D06",
+          "title": "D06（T-206）は優先対応へ",
+          "width": 375
+        },
+        {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "id": "D04",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 716.140625,
+            "height": 46,
+            "width": 167.5,
+            "x": 16,
+            "y": 670.140625
+          },
+          "figure": {
+            "bottom": 660.140625,
+            "height": 463.046875,
+            "width": 343,
+            "x": 16,
+            "y": 197.09375
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 110.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 110.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 110.34375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 110.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 110.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 167.5
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 167.5
+            }
+          ],
+          "save": {
+            "bottom": 716.140625,
+            "height": 46,
+            "width": 167.5,
+            "x": 191.5,
+            "y": 670.140625
+          },
+          "scrollWidth": 375,
+          "selected": "D04",
+          "title": "D04（T-204）は通常窓口へ",
+          "width": 375
+        },
+        {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "id": "D05",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 716.140625,
+            "height": 46,
+            "width": 167.5,
+            "x": 16,
+            "y": 670.140625
+          },
+          "figure": {
+            "bottom": 660.140625,
+            "height": 463.046875,
+            "width": 343,
+            "x": 16,
+            "y": 197.09375
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 110.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 110.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 110.34375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 110.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 110.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 167.5
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 167.5
+            }
+          ],
+          "save": {
+            "bottom": 716.140625,
+            "height": 46,
+            "width": 167.5,
+            "x": 191.5,
+            "y": 670.140625
+          },
+          "scrollWidth": 375,
+          "selected": "D05",
+          "title": "D05（T-205）は優先対応へ",
+          "width": 375
+        },
+        {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "id": "D07",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 716.140625,
+            "height": 46,
+            "width": 167.5,
+            "x": 16,
+            "y": 670.140625
+          },
+          "figure": {
+            "bottom": 660.140625,
+            "height": 463.046875,
+            "width": 343,
+            "x": 16,
+            "y": 197.09375
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 110.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 110.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 110.34375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 110.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 110.328125
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 167.5
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 167.5
+            }
+          ],
+          "save": {
+            "bottom": 716.140625,
+            "height": 46,
+            "width": 167.5,
+            "x": 191.5,
+            "y": 670.140625
+          },
+          "scrollWidth": 375,
+          "selected": "D07",
+          "title": "D07（T-207）は通常窓口へ",
+          "width": 375
+        },
+        {
+          "viewport": {
+            "width": 430,
+            "height": 932
+          },
+          "id": "D02",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 770.140625,
+            "height": 46,
+            "width": 187.5,
+            "x": 16,
+            "y": 724.140625
+          },
+          "figure": {
+            "bottom": 714.140625,
+            "height": 517.046875,
+            "width": 383,
+            "x": 16,
+            "y": 197.09375
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 123.65625
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 123.671875
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 123.65625
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 123.65625
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 123.671875
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 187.5
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 187.5
+            }
+          ],
+          "save": {
+            "bottom": 770.140625,
+            "height": 46,
+            "width": 187.5,
+            "x": 211.5,
+            "y": 724.140625
+          },
+          "scrollWidth": 415,
+          "selected": "D02",
+          "title": "D02（T-202）は請求窓口へ",
+          "width": 415
+        },
+        {
+          "viewport": {
+            "width": 430,
+            "height": 932
+          },
+          "id": "D06",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 770.140625,
+            "height": 46,
+            "width": 187.5,
+            "x": 16,
+            "y": 724.140625
+          },
+          "figure": {
+            "bottom": 714.140625,
+            "height": 517.046875,
+            "width": 383,
+            "x": 16,
+            "y": 197.09375
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 123.65625
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 123.671875
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 123.65625
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 123.65625
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 123.671875
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 187.5
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 187.5
+            }
+          ],
+          "save": {
+            "bottom": 770.140625,
+            "height": 46,
+            "width": 187.5,
+            "x": 211.5,
+            "y": 724.140625
+          },
+          "scrollWidth": 415,
+          "selected": "D06",
+          "title": "D06（T-206）は優先対応へ",
+          "width": 415
+        },
+        {
+          "viewport": {
+            "width": 430,
+            "height": 932
+          },
+          "id": "D04",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 770.140625,
+            "height": 46,
+            "width": 187.5,
+            "x": 16,
+            "y": 724.140625
+          },
+          "figure": {
+            "bottom": 714.140625,
+            "height": 517.046875,
+            "width": 383,
+            "x": 16,
+            "y": 197.09375
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 123.65625
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 123.671875
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 123.65625
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 123.65625
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 123.671875
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 187.5
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 187.5
+            }
+          ],
+          "save": {
+            "bottom": 770.140625,
+            "height": 46,
+            "width": 187.5,
+            "x": 211.5,
+            "y": 724.140625
+          },
+          "scrollWidth": 415,
+          "selected": "D04",
+          "title": "D04（T-204）は通常窓口へ",
+          "width": 415
+        },
+        {
+          "viewport": {
+            "width": 430,
+            "height": 932
+          },
+          "id": "D05",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 770.140625,
+            "height": 46,
+            "width": 187.5,
+            "x": 16,
+            "y": 724.140625
+          },
+          "figure": {
+            "bottom": 714.140625,
+            "height": 517.046875,
+            "width": 383,
+            "x": 16,
+            "y": 197.09375
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 123.65625
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 123.671875
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 123.65625
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 123.65625
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 123.671875
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 187.5
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 187.5
+            }
+          ],
+          "save": {
+            "bottom": 770.140625,
+            "height": 46,
+            "width": 187.5,
+            "x": 211.5,
+            "y": 724.140625
+          },
+          "scrollWidth": 415,
+          "selected": "D05",
+          "title": "D05（T-205）は優先対応へ",
+          "width": 415
+        },
+        {
+          "viewport": {
+            "width": 430,
+            "height": 932
+          },
+          "id": "D07",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 770.140625,
+            "height": 46,
+            "width": 187.5,
+            "x": 16,
+            "y": 724.140625
+          },
+          "figure": {
+            "bottom": 714.140625,
+            "height": 517.046875,
+            "width": 383,
+            "x": 16,
+            "y": 197.09375
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 123.65625
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 123.671875
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 123.65625
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 123.65625
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 123.671875
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 187.5
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 187.5
+            }
+          ],
+          "save": {
+            "bottom": 770.140625,
+            "height": 46,
+            "width": 187.5,
+            "x": 211.5,
+            "y": 724.140625
+          },
+          "scrollWidth": 415,
+          "selected": "D07",
+          "title": "D07（T-207）は通常窓口へ",
+          "width": 415
+        },
+        {
+          "viewport": {
+            "width": 768,
+            "height": 1024
+          },
+          "id": "D02",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 1009.375,
+            "height": 46,
+            "width": 292,
+            "x": 80.5,
+            "y": 963.375
+          },
+          "figure": {
+            "bottom": 953.375,
+            "height": 799.1875,
+            "width": 592,
+            "x": 80.5,
+            "y": 154.1875
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 113.609375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 292
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 292
+            }
+          ],
+          "save": {
+            "bottom": 1009.375,
+            "height": 46,
+            "width": 292,
+            "x": 380.5,
+            "y": 963.375
+          },
+          "scrollWidth": 753,
+          "selected": "D02",
+          "title": "D02（T-202）は請求窓口へ",
+          "width": 753
+        },
+        {
+          "viewport": {
+            "width": 768,
+            "height": 1024
+          },
+          "id": "D06",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 1009.375,
+            "height": 46,
+            "width": 292,
+            "x": 80.5,
+            "y": 963.375
+          },
+          "figure": {
+            "bottom": 953.375,
+            "height": 799.1875,
+            "width": 592,
+            "x": 80.5,
+            "y": 154.1875
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 113.609375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 292
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 292
+            }
+          ],
+          "save": {
+            "bottom": 1009.375,
+            "height": 46,
+            "width": 292,
+            "x": 380.5,
+            "y": 963.375
+          },
+          "scrollWidth": 753,
+          "selected": "D06",
+          "title": "D06（T-206）は優先対応へ",
+          "width": 753
+        },
+        {
+          "viewport": {
+            "width": 768,
+            "height": 1024
+          },
+          "id": "D04",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 1009.375,
+            "height": 46,
+            "width": 292,
+            "x": 80.5,
+            "y": 963.375
+          },
+          "figure": {
+            "bottom": 953.375,
+            "height": 799.1875,
+            "width": 592,
+            "x": 80.5,
+            "y": 154.1875
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 113.609375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 292
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 292
+            }
+          ],
+          "save": {
+            "bottom": 1009.375,
+            "height": 46,
+            "width": 292,
+            "x": 380.5,
+            "y": 963.375
+          },
+          "scrollWidth": 753,
+          "selected": "D04",
+          "title": "D04（T-204）は通常窓口へ",
+          "width": 753
+        },
+        {
+          "viewport": {
+            "width": 768,
+            "height": 1024
+          },
+          "id": "D05",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 1009.375,
+            "height": 46,
+            "width": 292,
+            "x": 80.5,
+            "y": 963.375
+          },
+          "figure": {
+            "bottom": 953.375,
+            "height": 799.1875,
+            "width": 592,
+            "x": 80.5,
+            "y": 154.1875
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 113.609375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 292
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 292
+            }
+          ],
+          "save": {
+            "bottom": 1009.375,
+            "height": 46,
+            "width": 292,
+            "x": 380.5,
+            "y": 963.375
+          },
+          "scrollWidth": 753,
+          "selected": "D05",
+          "title": "D05（T-205）は優先対応へ",
+          "width": 753
+        },
+        {
+          "viewport": {
+            "width": 768,
+            "height": 1024
+          },
+          "id": "D07",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 1009.375,
+            "height": 46,
+            "width": 292,
+            "x": 80.5,
+            "y": 963.375
+          },
+          "figure": {
+            "bottom": 953.375,
+            "height": 799.1875,
+            "width": 592,
+            "x": 80.5,
+            "y": 154.1875
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 113.609375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 292
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 292
+            }
+          ],
+          "save": {
+            "bottom": 1009.375,
+            "height": 46,
+            "width": 292,
+            "x": 380.5,
+            "y": 963.375
+          },
+          "scrollWidth": 753,
+          "selected": "D07",
+          "title": "D07（T-207）は通常窓口へ",
+          "width": 753
+        },
+        {
+          "viewport": {
+            "width": 844,
+            "height": 390
+          },
+          "id": "D02",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 576.1875,
+            "height": 46,
+            "width": 292,
+            "x": 118.5,
+            "y": 530.1875
+          },
+          "figure": {
+            "bottom": 520.1875,
+            "height": 366,
+            "width": 592,
+            "x": 118.5,
+            "y": 154.1875
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 113.609375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 292
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 292
+            }
+          ],
+          "save": {
+            "bottom": 576.1875,
+            "height": 46,
+            "width": 292,
+            "x": 418.5,
+            "y": 530.1875
+          },
+          "scrollWidth": 829,
+          "selected": "D02",
+          "title": "D02（T-202）は請求窓口へ",
+          "width": 829
+        },
+        {
+          "viewport": {
+            "width": 844,
+            "height": 390
+          },
+          "id": "D06",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 576.1875,
+            "height": 46,
+            "width": 292,
+            "x": 118.5,
+            "y": 530.1875
+          },
+          "figure": {
+            "bottom": 520.1875,
+            "height": 366,
+            "width": 592,
+            "x": 118.5,
+            "y": 154.1875
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 113.609375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 292
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 292
+            }
+          ],
+          "save": {
+            "bottom": 576.1875,
+            "height": 46,
+            "width": 292,
+            "x": 418.5,
+            "y": 530.1875
+          },
+          "scrollWidth": 829,
+          "selected": "D06",
+          "title": "D06（T-206）は優先対応へ",
+          "width": 829
+        },
+        {
+          "viewport": {
+            "width": 844,
+            "height": 390
+          },
+          "id": "D04",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 576.1875,
+            "height": 46,
+            "width": 292,
+            "x": 118.5,
+            "y": 530.1875
+          },
+          "figure": {
+            "bottom": 520.1875,
+            "height": 366,
+            "width": 592,
+            "x": 118.5,
+            "y": 154.1875
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 113.609375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 292
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 292
+            }
+          ],
+          "save": {
+            "bottom": 576.1875,
+            "height": 46,
+            "width": 292,
+            "x": 418.5,
+            "y": 530.1875
+          },
+          "scrollWidth": 829,
+          "selected": "D04",
+          "title": "D04（T-204）は通常窓口へ",
+          "width": 829
+        },
+        {
+          "viewport": {
+            "width": 844,
+            "height": 390
+          },
+          "id": "D05",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 576.1875,
+            "height": 46,
+            "width": 292,
+            "x": 118.5,
+            "y": 530.1875
+          },
+          "figure": {
+            "bottom": 520.1875,
+            "height": 366,
+            "width": 592,
+            "x": 118.5,
+            "y": 154.1875
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 113.609375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 292
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 292
+            }
+          ],
+          "save": {
+            "bottom": 576.1875,
+            "height": 46,
+            "width": 292,
+            "x": 418.5,
+            "y": 530.1875
+          },
+          "scrollWidth": 829,
+          "selected": "D05",
+          "title": "D05（T-205）は優先対応へ",
+          "width": 829
+        },
+        {
+          "viewport": {
+            "width": 844,
+            "height": 390
+          },
+          "id": "D07",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 576.1875,
+            "height": 46,
+            "width": 292,
+            "x": 118.5,
+            "y": 530.1875
+          },
+          "figure": {
+            "bottom": 520.1875,
+            "height": 366,
+            "width": 592,
+            "x": 118.5,
+            "y": 154.1875
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 113.609375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 292
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 292
+            }
+          ],
+          "save": {
+            "bottom": 576.1875,
+            "height": 46,
+            "width": 292,
+            "x": 418.5,
+            "y": 530.1875
+          },
+          "scrollWidth": 829,
+          "selected": "D07",
+          "title": "D07（T-207）は通常窓口へ",
+          "width": 829
+        },
+        {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "id": "D02",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 960.1875,
+            "height": 46,
+            "width": 292,
+            "x": 336.5,
+            "y": 914.1875
+          },
+          "figure": {
+            "bottom": 904.1875,
+            "height": 750,
+            "width": 592,
+            "x": 336.5,
+            "y": 154.1875
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 113.609375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 292
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 292
+            }
+          ],
+          "save": {
+            "bottom": 960.1875,
+            "height": 46,
+            "width": 292,
+            "x": 636.5,
+            "y": 914.1875
+          },
+          "scrollWidth": 1265,
+          "selected": "D02",
+          "title": "D02（T-202）は請求窓口へ",
+          "width": 1265
+        },
+        {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "id": "D06",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 960.1875,
+            "height": 46,
+            "width": 292,
+            "x": 336.5,
+            "y": 914.1875
+          },
+          "figure": {
+            "bottom": 904.1875,
+            "height": 750,
+            "width": 592,
+            "x": 336.5,
+            "y": 154.1875
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 113.609375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 292
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 292
+            }
+          ],
+          "save": {
+            "bottom": 960.1875,
+            "height": 46,
+            "width": 292,
+            "x": 636.5,
+            "y": 914.1875
+          },
+          "scrollWidth": 1265,
+          "selected": "D06",
+          "title": "D06（T-206）は優先対応へ",
+          "width": 1265
+        },
+        {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "id": "D04",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 960.1875,
+            "height": 46,
+            "width": 292,
+            "x": 336.5,
+            "y": 914.1875
+          },
+          "figure": {
+            "bottom": 904.1875,
+            "height": 750,
+            "width": 592,
+            "x": 336.5,
+            "y": 154.1875
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 113.609375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 292
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 292
+            }
+          ],
+          "save": {
+            "bottom": 960.1875,
+            "height": 46,
+            "width": 292,
+            "x": 636.5,
+            "y": 914.1875
+          },
+          "scrollWidth": 1265,
+          "selected": "D04",
+          "title": "D04（T-204）は通常窓口へ",
+          "width": 1265
+        },
+        {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "id": "D05",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 960.1875,
+            "height": 46,
+            "width": 292,
+            "x": 336.5,
+            "y": 914.1875
+          },
+          "figure": {
+            "bottom": 904.1875,
+            "height": 750,
+            "width": 592,
+            "x": 336.5,
+            "y": 154.1875
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 113.609375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 292
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 292
+            }
+          ],
+          "save": {
+            "bottom": 960.1875,
+            "height": 46,
+            "width": 292,
+            "x": 636.5,
+            "y": 914.1875
+          },
+          "scrollWidth": 1265,
+          "selected": "D05",
+          "title": "D05（T-205）は優先対応へ",
+          "width": 1265
+        },
+        {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "id": "D07",
+          "audioElements": 0,
+          "compare": {
+            "bottom": 960.1875,
+            "height": 46,
+            "width": 292,
+            "x": 336.5,
+            "y": 914.1875
+          },
+          "figure": {
+            "bottom": 904.1875,
+            "height": 750,
+            "width": 592,
+            "x": 336.5,
+            "y": 154.1875
+          },
+          "primary": [
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D02",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D06",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D04",
+              "width": 113.609375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D05",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "D07",
+              "width": 113.59375
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "compare",
+              "width": 292
+            },
+            {
+              "disabled": false,
+              "height": 46,
+              "id": "download-record",
+              "width": 292
+            }
+          ],
+          "save": {
+            "bottom": 960.1875,
+            "height": 46,
+            "width": 292,
+            "x": 636.5,
+            "y": 914.1875
+          },
+          "scrollWidth": 1265,
+          "selected": "D07",
+          "title": "D07（T-207）は通常窓口へ",
+          "width": 1265
+        }
+      ],
+      "original_input_output_event_cases": [
+        {
+          "id": "D01",
+          "exactInputOutputEvents": true,
+          "memoBytes": 294,
+          "events": 20
+        },
+        {
+          "id": "D02",
+          "exactInputOutputEvents": true,
+          "memoBytes": 306,
+          "events": 20
+        },
+        {
+          "id": "D03",
+          "exactInputOutputEvents": true,
+          "memoBytes": 279,
+          "events": 20
+        },
+        {
+          "id": "D04",
+          "exactInputOutputEvents": true,
+          "memoBytes": 281,
+          "events": 20
+        },
+        {
+          "id": "D05",
+          "exactInputOutputEvents": true,
+          "memoBytes": 284,
+          "events": 20
+        },
+        {
+          "id": "D06",
+          "exactInputOutputEvents": true,
+          "memoBytes": 309,
+          "events": 20
+        },
+        {
+          "id": "D07",
+          "exactInputOutputEvents": true,
+          "memoBytes": 295,
+          "events": 20
+        },
+        {
+          "id": "D08",
+          "exactInputOutputEvents": true,
+          "memoBytes": 222,
+          "events": 20
+        }
+      ],
+      "native_downloads": [
+        {
+          "id": "D02",
+          "bytes": 22667,
+          "sha256": "f1a1d8aba3082302bb4f8ab9ddc2dd391ce4b04e8afc3c69613f7922bca15870",
+          "exactOriginalCase": true
+        },
+        {
+          "id": "D06",
+          "bytes": 22020,
+          "sha256": "6a94149aafcb748724147d6d8fb50813712c1428acc4cd43dab0eee4dbd3e3a0",
+          "exactOriginalCase": true
+        },
+        {
+          "id": "D04",
+          "bytes": 22463,
+          "sha256": "0dad95ae8d33fb6b315a657a0cf09467fdd3e1725d113fce7742c2900938a6b9",
+          "exactOriginalCase": true
+        },
+        {
+          "id": "D05",
+          "bytes": 21898,
+          "sha256": "2afcd84f83c4ce47d40e72e5b38eba0a7593cba49bd920abf7eb006af1dded5a",
+          "exactOriginalCase": true
+        },
+        {
+          "id": "D07",
+          "bytes": 22802,
+          "sha256": "65daf5218c3fc7699f331e48de4c0d77ab0adceea8f07ef5b00c5f7c700e8ff7",
+          "exactOriginalCase": true
+        }
+      ],
+      "original_dsl_download": {
+        "bytes": 11662,
+        "sha256": "d36f345c08705992f654571d35676a211bcae62abcfb6171c8655b308ab0776f",
+        "exactOriginal": true,
+        "method": "Native download and byte comparison executed above"
       },
-      "technical": {
-        "video_sha256": "e130a4eeefc53b4438dfdaf50e937ac847c2237ff670027a81667e1f9e8f8507",
-        "poster_sha256": "882611dd4e93fa3b2f8d4218814c702fc7e22f5dff2ba031d838734e666b8562",
-        "poster_from_mp4_seconds": 13.5,
-        "full_decode_passed": true,
-        "review_files": [
-          "contact.png",
-          "poster.png",
-          "strip.png",
-          "stills/frame-000000.png",
-          "stills/frame-000001.png",
-          "stills/frame-000002.png",
-          "stills/frame-000003.png",
-          "stills/frame-000004.png",
-          "stills/frame-000005.png",
-          "stills/frame-000006.png",
-          "stills/frame-000007.png",
-          "stills/frame-000008.png",
-          "stills/frame-000009.png",
-          "stills/frame-000010.png",
-          "stills/frame-000011.png",
-          "stills/frame-000012.png",
-          "stills/frame-000013.png",
-          "cut-01.png",
-          "cut-02.png",
-          "cut-03.png",
-          "cut-04.png",
-          "cut-05.png",
-          "final.png"
+      "comparisons": [
+        {
+          "from": "D02",
+          "to": "D06",
+          "verified": true
+        },
+        {
+          "from": "D06",
+          "to": "D02",
+          "verified": true
+        },
+        {
+          "from": "D04",
+          "to": "D05",
+          "verified": true
+        },
+        {
+          "from": "D05",
+          "to": "D04",
+          "verified": true
+        }
+      ],
+      "direct_deeplinks": [
+        {
+          "id": "D01",
+          "title": "D01（T-201）は優先対応へ",
+          "exactInput": true
+        },
+        {
+          "id": "D03",
+          "title": "D03（T-203）は通常窓口へ",
+          "exactInput": true
+        },
+        {
+          "id": "D08",
+          "title": "D08（T-208）は通常窓口へ",
+          "exactInput": true
+        }
+      ],
+      "record_failure_recovery": [
+        {
+          "mode": "http",
+          "disabled": true,
+          "figureHidden": true,
+          "memoEmpty": true,
+          "reason": "outputs/workflow-runs.json を取得できませんでした（HTTP 503）。 古い内容は表示していません。",
+          "retryRestored": true
+        },
+        {
+          "mode": "json",
+          "disabled": true,
+          "figureHidden": true,
+          "memoEmpty": true,
+          "reason": "outputs/workflow-runs.json が JSON として読めません。 古い内容は表示していません。",
+          "retryRestored": true
+        },
+        {
+          "mode": "hash",
+          "disabled": true,
+          "figureHidden": true,
+          "memoEmpty": true,
+          "reason": "outputs/workflow-runs.json の SHA-256 が固定値と一致しません。 古い内容は表示していません。",
+          "retryRestored": true
+        }
+      ],
+      "asset_failure_recovery": {
+        "assets": "7 / 8素材",
+        "disabled": true,
+        "hidden": true,
+        "reason": "assets/timeline.json のバイト数が manifest と一致しません。",
+        "recoveredAssets": "8 / 8素材"
+      },
+      "request_copy": {
+        "ui": "依頼文をコピーしました。",
+        "requestBytes": 5369,
+        "clipboardBytes": 0,
+        "readbackMatches": false
+      },
+      "editor": {
+        "assets_verified": 8,
+        "audio_elements": 0,
+        "seek12": true,
+        "scenes": [
+          {
+            "index": 0,
+            "clock": "4.6 / 32.0 秒",
+            "pressed": "false",
+            "time": 4.6
+          },
+          {
+            "index": 1,
+            "clock": "9.6 / 32.0 秒",
+            "pressed": "false",
+            "time": 9.6
+          },
+          {
+            "index": 2,
+            "clock": "14.6 / 32.0 秒",
+            "pressed": "false",
+            "time": 14.6
+          },
+          {
+            "index": 3,
+            "clock": "21.6 / 32.0 秒",
+            "pressed": "false",
+            "time": 21.6
+          },
+          {
+            "index": 4,
+            "clock": "26.6 / 32.0 秒",
+            "pressed": "false",
+            "time": 26.6
+          },
+          {
+            "index": 5,
+            "clock": "31.0 / 32.0 秒",
+            "pressed": "false",
+            "time": 31
+          }
         ],
-        "render_label": "final",
-        "bundled_renderer_executed": true
-      }
+        "preview_advanced_and_paused": {
+          "label": "再生",
+          "pressed": "false",
+          "time": 25.324
+        },
+        "reset_value": "0",
+        "end_seek_and_replay_label_verified": true,
+        "native_layouts": [
+          [
+            720,
+            1280
+          ],
+          [
+            1280,
+            720
+          ]
+        ]
+      },
+      "movies": [
+        {
+          "layout": "portrait",
+          "currentTime": 32,
+          "duration": 32,
+          "ended": true,
+          "error": null,
+          "paused": true,
+          "videoHeight": 1280,
+          "videoWidth": 720
+        },
+        {
+          "layout": "wide",
+          "currentTime": 32,
+          "duration": 32,
+          "ended": true,
+          "error": null,
+          "paused": true,
+          "videoHeight": 720,
+          "videoWidth": 1280
+        }
+      ],
+      "movies_ended": 2,
+      "editor_audio_elements": 0,
+      "human_approval": false,
+      "physical_ios_safari_voiceover": false,
+      "clipboard_content_readback_verified": false
     },
-    "authorship": {
-      "model": "claude-opus-5-5",
-      "model_scope": "DSL, implementation, original viewer/Japanese explanations, film edit source; minimal receipt digests in data/production.",
-      "production_scope": "Fictional input fixtures, actual execution, independent event/topology checks, separate CLI replay, native/browser/frame review, phone UI refinements, packaging."
+    "frame_review": {
+      "status": "passed",
+      "reviewed_at": "2026-10-17T11:08:44.166166+00:00",
+      "agent_visual_review": true,
+      "human_approval": false,
+      "physical_ios_verified": false,
+      "silent": true,
+      "full_decode_passed": true,
+      "native_playback_ended_both": true,
+      "original_runtime_preserved_files": 305,
+      "controller_ids": {
+        "root": {
+          "controller_ids": 35,
+          "all_present": true
+        },
+        "video/": {
+          "controller_ids": 16,
+          "all_present": true
+        }
+      },
+      "reviewed": {
+        "representative_frames_per_layout": 16,
+        "continuous_frames_per_layout": 12,
+        "continuous_start_seconds": 8.1,
+        "continuous_end_seconds": 8.4666666667,
+        "contact_sheets": 2,
+        "posters": 2,
+        "decoded_mobile_poster_width": 360,
+        "decoded_final_frame_seconds": 31.966666667
+      },
+      "findings": [
+        "The large connected inquiry envelope, one ordered switch, three owner desks and real memo remain the main subject in both native layouts. Short labels and actual route highlights agree with the original seven-node/eight-edge graph.",
+        "D02 reaches billing, D06 reaches urgent before billing, and D04/D05 are visibly separate records with their own99/100 inputs and their own retained/arriving memo IDs. D07 carries the literal subject into its real normal memo. Overview and final3/1/4 counts are from the eight actual outputs.",
+        "Twelve consecutive frames show the same D02 envelope moving from its owner desk toward merge/memo. Contact sheets, decoded portrait360px frame and final frames show no unresolved primary label clipping, headline overlap or whole blank scene. A brief headline fade at scene boundaries retains the connected diagram.",
+        "Final two-and-a-half seconds hold the D05 urgent path, actual memo subject and save CTA. Supplementary source footers remain secondary; native portrait is the phone viewing version.",
+        "Both silent32-second native MP4s decoded fully and reached32seconds ended in the browser. Arbitrary-time19.2second screenshots match after other seeks and in a fresh page in each renderer run.",
+        "Technical and agent visual checks do not establish human aesthetic approval, general semantic quality, production traffic performance or physical iPhone Safari/VoiceOver behavior."
+      ],
+      "unresolved_blockers": []
     },
-    "scope": "Headless execution of Dify DSL through the exact official Graphon dependency plus the unmodified Dify WorkflowGraphTopology API. No Dify server, console, difyctl, LLM/semantic classification or web-console DSL import tested.",
-    "physical_ios_tested": false,
     "human_approval": false,
-    "publication": "Live publication is checked separately after scoped deployment."
+    "physical_ios_safari_voiceover": false,
+    "silent": true
   },
   "explanation": {
-    "original_fictional_tickets": 8,
-    "actual_dsl_engine": true,
-    "dify_server_or_console": false,
-    "llm_inference": false,
+    "scope": "New routing diagram UI/film only; original Graphon/Dify DSL runtime and inputs/outputs reused.",
     "parent_adjustments": [
-      "Native-browser375px inspection found retry visible while hidden; made hidden override component display.",
-      "Condensed phone lead/ready line and moved input metadata and per-case automatic checks into native disclosures; actual memo remains foreground.",
-      "Removed selected_case_id from the foreground owner label; full actual output/events remain in native JSON disclosures.",
-      "Documented and actually verified the CLI in a separate source copy after preserving the existing captured record. Ignored only generated event/segment IDs and times in semantic comparison; original raw API output unchanged.",
-      "Clipboard first read was an old6941byte bridge value; second native click/fresh read matched5369byte original request.",
-      "Made source-editor file/navigation links44px targets and replaced the pre-publication MP4 placeholder caption with the finished delivery link before rendering. Movie composition and8frozen assets unchanged."
+      {
+        "files": [
+          "app.js",
+          "video/video.js"
+        ],
+        "scope": "Corrected the new display validator/projection: Graphon records inputs.conditions for the last evaluated condition group. For earlier urgent-group thresholds the display uses the original fixed input and recorded group condition descriptor and Boolean results; retained condition inputs are additionally checked when present. No routing recomputation or original record edits.",
+        "reason": "First still renders stopped truthfully on D02 because the new code expected a prior-group actual_value in the last-group inputs. Original eight-file Opus delivery remains archived."
+      },
+      {
+        "files": [
+          "video/video.js"
+        ],
+        "scope": "Changed only the opening eyebrow to state that the highlighted three branches show the eight-record distribution and the envelope is D02.",
+        "reason": "Avoid implying that one D02 request traversed all three branches during the overview."
+      },
+      {
+        "files": [
+          "render.py",
+          "README.md",
+          "visual-guide.md",
+          "verification.json",
+          "brief.json",
+          "comparison.html",
+          "video/README.md"
+        ],
+        "scope": "Production wrapper, truthful documentation separating original runtime verification from revision QA, metadata and packaging. Diagram geometry and timeline remain the new Opus design.",
+        "reason": "Preserve actual runtime evidence and make the tested scope and authorship clear."
+      }
     ]
   },
   "video_review": {
     "status": "passed",
+    "reviewed_at": "2026-10-17T11:08:44.166166+00:00",
     "agent_visual_review": true,
     "human_approval": false,
-    "reviewed": [
-      "video/review/contact.png (14 actual representative frames)",
-      "video/review/poster.png",
-      "video/review/final.png",
-      "video/review/cut-01.png",
-      "video/review/cut-02.png",
-      "video/review/cut-03.png",
-      "video/review/cut-04.png",
-      "video/review/cut-05.png",
-      "MP4 decoded360px frames9.5/16.8/26.4s",
-      "Actual native source editor14s"
-    ],
-    "observations": [
-      "Main Japanese titles, rule precedence,99/100 boundary and3/1/4 counts are readable at360px; IDs, tiny file captions and screenshots are supplementary.",
-      "Five intentional short paper fades between scenes show the next heading/card arriving; no unintended overlap or clipped main copy found.",
-      "D04actual99/normal andD05actual100/urgent, D06billing+urgent, D07literal data and final8count/screens agree with frozen outputs.",
-      "Final result/message remains through the last frame; silent28second delivery has no audio stream."
-    ],
-    "deterministic_same_environment": {
-      "frame": 504,
-      "seconds": 16.8,
-      "first": "21aab95644f7298f1dc217a6d9740b776f32f4c5d691d4a191f8c2921542d907",
-      "afterOtherTimes": "21aab95644f7298f1dc217a6d9740b776f32f4c5d691d4a191f8c2921542d907",
-      "freshPage": "21aab95644f7298f1dc217a6d9740b776f32f4c5d691d4a191f8c2921542d907",
-      "match": true
+    "physical_ios_verified": false,
+    "silent": true,
+    "full_decode_passed": true,
+    "native_playback_ended_both": true,
+    "original_runtime_preserved_files": 305,
+    "controller_ids": {
+      "root": {
+        "controller_ids": 35,
+        "all_present": true
+      },
+      "video/": {
+        "controller_ids": 16,
+        "all_present": true
+      }
     },
-    "unresolved_blockers": [],
-    "physical_ios_tested": false
+    "reviewed": {
+      "representative_frames_per_layout": 16,
+      "continuous_frames_per_layout": 12,
+      "continuous_start_seconds": 8.1,
+      "continuous_end_seconds": 8.4666666667,
+      "contact_sheets": 2,
+      "posters": 2,
+      "decoded_mobile_poster_width": 360,
+      "decoded_final_frame_seconds": 31.966666667
+    },
+    "findings": [
+      "The large connected inquiry envelope, one ordered switch, three owner desks and real memo remain the main subject in both native layouts. Short labels and actual route highlights agree with the original seven-node/eight-edge graph.",
+      "D02 reaches billing, D06 reaches urgent before billing, and D04/D05 are visibly separate records with their own99/100 inputs and their own retained/arriving memo IDs. D07 carries the literal subject into its real normal memo. Overview and final3/1/4 counts are from the eight actual outputs.",
+      "Twelve consecutive frames show the same D02 envelope moving from its owner desk toward merge/memo. Contact sheets, decoded portrait360px frame and final frames show no unresolved primary label clipping, headline overlap or whole blank scene. A brief headline fade at scene boundaries retains the connected diagram.",
+      "Final two-and-a-half seconds hold the D05 urgent path, actual memo subject and save CTA. Supplementary source footers remain secondary; native portrait is the phone viewing version.",
+      "Both silent32-second native MP4s decoded fully and reached32seconds ended in the browser. Arbitrary-time19.2second screenshots match after other seeks and in a fresh page in each renderer run.",
+      "Technical and agent visual checks do not establish human aesthetic approval, general semantic quality, production traffic performance or physical iPhone Safari/VoiceOver behavior."
+    ],
+    "unresolved_blockers": []
   },
   "publication": {
     "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=dify-example",
     "authorization": "User requested sequential publication of40cases to existing main and GitHub Pages."
   },
   "artifacts_sha256": {
-    "examples/dify-example/app.js": "89ff707f63520230ca0b4411036a4c93341d5a51b4360c0495b2d89f1a0d796d",
-    "examples/dify-example/brief.json": "f3c264b86a16265a7962cf37bd43b19a38891aa6a57f4ae3ebb411b8dd55eb50",
-    "examples/dify-example/index.html": "4781176fcbb4608210b59e57db42b8fa8d46dc03476828480521639a8bb13224",
+    "examples/dify-example/app.js": "060fa875cb164635dd8b7118838cc69998c1493ea59b8a1c1b19b38172b69f68",
+    "examples/dify-example/brief.json": "717031a9d958d10592e87389f57cf22476d3668e1d2382da2a3536cda8ba8058",
+    "examples/dify-example/comparison.css": "3282ac4cab3d6b688f3184907855eafd01a77838201136ac76b413ccbb4de765",
+    "examples/dify-example/comparison.html": "dd110b650936eb3ac409d3f5ffaa1ea16746632ebce30acc5e8ccf81994d6bd2",
+    "examples/dify-example/comparison.js": "89ff707f63520230ca0b4411036a4c93341d5a51b4360c0495b2d89f1a0d796d",
+    "examples/dify-example/index.html": "dd9d6e7d814710e9ac6ab15d5a364fb614cf1e45aec86b6e02cd4acadc6b098b",
     "examples/dify-example/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
-    "examples/dify-example/README.md": "8b5cc5833a1aaaf7a58db16f509e8b23d039a8d53a93486d36714710a4c14e5a",
-    "examples/dify-example/render.py": "d29e3aa8bbe4a6a17c2cbac330b850c3a11925ee19cce615b568ed65008f98b4",
+    "examples/dify-example/README.md": "5dedc1bfbba626dc191174c382f56fb9cf96570cc86afcf1ce16ca9280bbb0ee",
+    "examples/dify-example/render.py": "00ce46a93819a198f916762936e700fc479428c3a03cb054a808c71d272fc736",
     "examples/dify-example/request.txt": "8339daa7b3d1e77652782d05b35a0b29016b89025b0987356b5a109e576f1740",
     "examples/dify-example/requirements-runtime.txt": "0418b9fd679d78ede4a419bb46df56b41daf752a76c30ff9de44c41eaffb0b1f",
     "examples/dify-example/run.py": "88490ffd006736f3e763e9baeb3aa41035a792b16ad54df17f24d1adec22e1b7",
     "examples/dify-example/samples.json": "31e6aee70475c8757e556c0226bf050cc2beb1642dcf9b9b727f9ef129ddeff7",
-    "examples/dify-example/source.zip": "ad299304d437f9428730e8573a568af4e26abe746e04655a0b0dcca8c1401133",
-    "examples/dify-example/style.css": "3282ac4cab3d6b688f3184907855eafd01a77838201136ac76b413ccbb4de765",
+    "examples/dify-example/source.zip": "16eb528a192e654e5e9d62349f0908e61f608c2288fed90a77357ed6d3378e35",
+    "examples/dify-example/style.css": "325443b900cae064ce4b2555cd1a8d1a63ae41f1163df3bf1b95cdea52447c94",
     "examples/dify-example/upstream-evidence.json": "8db8583666f48aa02426f4e9263f5e45d49dfab75a1b02a78435af8798ec413c",
     "examples/dify-example/vendor-lock.json": "e454e2189985857c0ac82258dc23b01f0010deecc1cc7bf737ff214d685696ff",
-    "examples/dify-example/verification.json": "b9f497b4c4821c4bc9fe4f33ffdb093b2e230f03e51430847e8222aa895175d4",
+    "examples/dify-example/verification.json": "76041c887300f80ed39730666a78f12b5ae2fd49f4cbf4bcfd701345b67a3104",
+    "examples/dify-example/visual-guide.md": "d274c8ff26405485cbd831e8f5fb0833552a9e7091e127b77a0032dcd5feeaba",
     "examples/dify-example/workflow.yml": "d36f345c08705992f654571d35676a211bcae62abcfb6171c8655b308ab0776f",
     "examples/dify-example/input/expected.json": "0ef127da5302698a91ad9ceb1e7dcbd79863c037057fe07e514428213946b5be",
     "examples/dify-example/input/tickets.json": "b752f26d73d9fc3f48f8a3389fe876b88d273f2780bc316fdd15232a4d0cdc83",
@@ -273,38 +3229,86 @@
     "examples/dify-example/outputs/method.md": "915b0265a641dd58c09f7f1a2a26940b122bbc274cb60ed56f3895481a01279c",
     "examples/dify-example/outputs/reproduction-checks.json": "9bab71b5f3aebff21224f2596fafe4a67f90b474210d708cc62c57df1ce6e355",
     "examples/dify-example/outputs/workflow-runs.json": "692cc2f8b07ca77a8b3ccdae0a8abc4359e8a8804985bc4b75db1b56241e6694",
-    "examples/dify-example/video/index.html": "86cc753f8adcc06df265e34f3b1246bab7f1b33135859efd98422e63d80aac5b",
-    "examples/dify-example/video/README.md": "d63174acc96e988dca8d8d4cbaf2d29d9a3784a27e66c01c9bc4297b97dbd05c",
-    "examples/dify-example/video/storyboard.json": "00753d5de7402605c4bb407fc0a7f21202584b46f095b08a57fef29ac0c12dc6",
-    "examples/dify-example/video/video.css": "36ab6372b481a0ed45cd6896ed8a6e794a3892802eeda50c3e6c0807e3ef4c11",
-    "examples/dify-example/video/video.js": "13d2ad6a3661223d9ef597e63a2783b44363b66b4221b137c5aca74227dfda28",
-    "examples/dify-example/video/assets/data-hashes.json": "d83400c90c82a767fef7f92dd5f7b1580c19186519e79070deb96b94f0650a78",
-    "examples/dify-example/video/assets/desktop.png": "6404ee75a61253f330febb4a0a46ab855f5ac62458501f05d540f6ef7b0f23b0",
-    "examples/dify-example/video/assets/phone.png": "b5f1194cfc1ecc55f52f72ec4d3e114e3b0cf37bdede2cc1492a65fe745024cd",
-    "examples/dify-example/video/assets/screens.json": "1f8b5b062368be2ed1e5ff5c7f9a4922140e3b1a016ee2daac289aeb62c2b4fb",
-    "examples/dify-example/video/review/contact.png": "3a4c08e9e578fbfd220baa95b683bacb299b3624bf1e5a491874792510debecf",
-    "examples/dify-example/video/review/cut-01.png": "65103adb196742d02a33d412a54e3622e3be4c7e4acd6d01659c04a8018c9c11",
-    "examples/dify-example/video/review/cut-02.png": "11b0b07a52841ddbdbdb7a3dfb1021eb335dc60683035149a389770295f34e28",
-    "examples/dify-example/video/review/cut-03.png": "966eee2b8418d0532e1fc2de0506e4d9bc25ad4cf69af71b03961e9dc7649a60",
-    "examples/dify-example/video/review/cut-04.png": "cc2d44274cf6d646928919ca0ed6f12896b211c976b3a73681b9dbe66bd70f14",
-    "examples/dify-example/video/review/cut-05.png": "6c398cc2c5e78f9cad0acd1db2053d491f9bb517f6326d202db952b182687fca",
-    "examples/dify-example/video/review/final.png": "c2bb26900b36cd554f28400e6ec942a1798d83e241502563d040142111dd1946",
-    "examples/dify-example/video/review/poster.png": "adea82eda67211f7b19534129b90f3261a5a6d0cdccbeca0ebd5131d48ee8e50",
-    "examples/dify-example/video/review/strip.png": "e6e84a0cf7e9057e4c0e2198131368393a682fb33f5183cec884ace7af3f3574",
-    "examples/dify-example/video/review/stills/frame-000000.png": "a477f769d65a86e31b131f8c62f31c1d36ee8d8f43049bbe3b761934be0dee02",
-    "examples/dify-example/video/review/stills/frame-000001.png": "739cd61d0ae1485cfb53d102423e9da987f41e35b7061c7d074c6fa7883850de",
-    "examples/dify-example/video/review/stills/frame-000002.png": "a8440d51618ecbdb3d04e0befa717202a74ffd8d5150f81b64bedd1d1d98485b",
-    "examples/dify-example/video/review/stills/frame-000003.png": "9b2fc32452293be20fb29385c3909a04ac2c9c5b7ab6c3c14529f69c7d328ad9",
-    "examples/dify-example/video/review/stills/frame-000004.png": "f4e8dcfb42f6f4c6b49c470254b4216124a706e1ac09ae8c77993cb0e1f89161",
-    "examples/dify-example/video/review/stills/frame-000005.png": "e114cfdc8412d198ea43a7d3fef98a9a40bf9e63e5fdf863461d42c8b7cbc2ce",
-    "examples/dify-example/video/review/stills/frame-000006.png": "67e8ede56fbc3eec5a76e58a2fd9281489f37f2c75699c5ad283ac72cc6ec41f",
-    "examples/dify-example/video/review/stills/frame-000007.png": "adea82eda67211f7b19534129b90f3261a5a6d0cdccbeca0ebd5131d48ee8e50",
-    "examples/dify-example/video/review/stills/frame-000008.png": "21aab95644f7298f1dc217a6d9740b776f32f4c5d691d4a191f8c2921542d907",
-    "examples/dify-example/video/review/stills/frame-000009.png": "c798df4bffff7af649336eca22400138d6aaa6506ece63449674d029149a7b45",
-    "examples/dify-example/video/review/stills/frame-000010.png": "f8a61add9c67c074e84fd62196ffafd22cc37cec4c8daaaad901715248072e15",
-    "examples/dify-example/video/review/stills/frame-000011.png": "10f12ae59017254df12b59968fcec3a1d95d86974c83398399a920d1bd0ec6c4",
-    "examples/dify-example/video/review/stills/frame-000012.png": "3acd03563de32ba70c4615b5bf19092cc1afda6b634d5eb68344ffc2512b4a30",
-    "examples/dify-example/video/review/stills/frame-000013.png": "3acd03563de32ba70c4615b5bf19092cc1afda6b634d5eb68344ffc2512b4a30",
+    "examples/dify-example/video/index.html": "a0884b01943768ea12879ef847d38f6f6cf531ba19d0b24beb06afacf4956562",
+    "examples/dify-example/video/README.md": "b3e5a05d64026f330e7c50ac39a4c6848dfe8d79e4cf8a2b8e9271997aef5a9f",
+    "examples/dify-example/video/storyboard.json": "532411cbeb503faffc1ed91a8bc4ff92bbf55071b3475f3280e1d3ecc82faacf",
+    "examples/dify-example/video/video.css": "acc2a18ea2d38e82534236d465f29b8b139db7259244013ff554d11ab4128e3c",
+    "examples/dify-example/video/video.js": "35f06275dd8a687fcf9ebfbf1b400df4af7fae45f070cdf4e2eebfb2fac3af5f",
+    "examples/dify-example/video/assets/diagram-data.json": "971c00ea65059192ca72cf3aacf126a505c88fd4d7d5bbce2a40afb6c3114de7",
+    "examples/dify-example/video/assets/expected.json": "0ef127da5302698a91ad9ceb1e7dcbd79863c037057fe07e514428213946b5be",
+    "examples/dify-example/video/assets/independent-checks.json": "efc466ec2dbd4845a35277225faf419e471872892d08d747130248973f25d2f4",
+    "examples/dify-example/video/assets/manifest.json": "10392562045e5c71ad4ed9154fa823c0d3eeed4378a2033ca70001b4fe097559",
+    "examples/dify-example/video/assets/tickets.json": "b752f26d73d9fc3f48f8a3389fe876b88d273f2780bc316fdd15232a4d0cdc83",
+    "examples/dify-example/video/assets/timeline.json": "735073a65b9ebe6e74254ca62b286c05cc0ef866c0f1c40aca232a5130c4a0dc",
+    "examples/dify-example/video/assets/vendor-lock.json": "e454e2189985857c0ac82258dc23b01f0010deecc1cc7bf737ff214d685696ff",
+    "examples/dify-example/video/assets/workflow-runs.json": "692cc2f8b07ca77a8b3ccdae0a8abc4359e8a8804985bc4b75db1b56241e6694",
+    "examples/dify-example/video/assets/workflow.yml": "d36f345c08705992f654571d35676a211bcae62abcfb6171c8655b308ab0776f",
+    "examples/dify-example/video/review/portrait/contact.png": "eca564c08ecadd78869d7095cdf5cf8ca558436abe4fbf97867eae9d550c9889",
+    "examples/dify-example/video/review/portrait/final.png": "7c641a29dcdfbb8dac15bc9e7bec70698a0194e02fe4641090bf7e524bd944e3",
+    "examples/dify-example/video/review/portrait/mobile-poster.png": "02066e15e72040e2c20a2a8e0220e679522c31cd38b799be4ba2fe481336bba0",
+    "examples/dify-example/video/review/portrait/poster.png": "fe5af95f8652b5fc2122632c821c0fd8618811864b7b7ed9ca62525eeb045d32",
+    "examples/dify-example/video/review/portrait/strip.png": "75d5fc1118f009a790eb3569a795dc5f04793eca538b9925c00e3ad80a070fad",
+    "examples/dify-example/video/review/wide/contact.png": "add9a3b8fb45e54b4cb3fce3fe17d6e98e81d7afb104b6d2367abca3e717fa16",
+    "examples/dify-example/video/review/wide/final.png": "40a66888909aa24ccea7b793c50343e68664100d2aae08c4d62f57b34db89c50",
+    "examples/dify-example/video/review/wide/mobile-poster.png": "8e5e33760d6a247a418c5438e583f55fa3cc1cb12645b5c6f643325234fcdf39",
+    "examples/dify-example/video/review/wide/poster.png": "b541bb0f8fa913329e39f1d8fb15654e30fc88881f6d6f34931d633dfe39f760",
+    "examples/dify-example/video/review/wide/strip.png": "5fccd6f5895b8967f82a06e1ba7ace048d3e5d74576e710ba663f2900b1109fe",
+    "examples/dify-example/video/review/wide/stills/frame-000000.png": "c14485e597b4d31dc9ef1e6195d7a3556c03cc91fceb8a4a0043e4fc2bc540fb",
+    "examples/dify-example/video/review/wide/stills/frame-000001.png": "8b3dfe6018fde44107260e275aa33191563f78aca71ab76e8503af449a224d33",
+    "examples/dify-example/video/review/wide/stills/frame-000002.png": "09dc7e883120057537f17fbf7efc410c3ef8009598567ee07a48a0751ed98f61",
+    "examples/dify-example/video/review/wide/stills/frame-000003.png": "18f8571e349c6c3794592b6a144c96366353d8b85d6b26ba12a22d48fa9ba657",
+    "examples/dify-example/video/review/wide/stills/frame-000004.png": "b223a62f67959374bf9ab81fc875c673d48e726053f89626b16e862bf8764e3a",
+    "examples/dify-example/video/review/wide/stills/frame-000005.png": "20f4b28d7c0f40c9402c10a8aaad2106c2f152ce0276a29b2c9209d5929fd912",
+    "examples/dify-example/video/review/wide/stills/frame-000006.png": "658414bd7346edd3e1bf44235edebf4d9d60174d78a9078047624a01c42d6ba8",
+    "examples/dify-example/video/review/wide/stills/frame-000007.png": "ac8a8113a5b86476e4bcc1d2a0ad2d82c6ebadb8422bfd4036d0d33fcc1edba6",
+    "examples/dify-example/video/review/wide/stills/frame-000008.png": "0bc7c263c3ff4d274e3ad216ffb2216969f2ea70227a97327aefb0822e836bd9",
+    "examples/dify-example/video/review/wide/stills/frame-000009.png": "3cd9f8f4c133e53b6eee84719331c4772daacd7cd4d50ee06a7748959f2a12ba",
+    "examples/dify-example/video/review/wide/stills/frame-000010.png": "54364bbbd2e3f67c37605d4541250041314794fcc666d07a9a005104cd7189b0",
+    "examples/dify-example/video/review/wide/stills/frame-000011.png": "2b569aee7c88769b60d40e9ce7d3df52f68e8162577f0630feb510ab94a6511a",
+    "examples/dify-example/video/review/wide/stills/frame-000012.png": "a32283f5ef886175c5ca92dc26a28d45cbb418b8a97bd296f8d41a54e69f73a1",
+    "examples/dify-example/video/review/wide/stills/frame-000013.png": "427e6eb452610b2fa924c2fa1ec4adf48d72afa5869ba7ab3d5802566b3a43d8",
+    "examples/dify-example/video/review/wide/stills/frame-000014.png": "3aaa0e6ca451ff96ec03458659931e8a6caeba986bf9315eb4df676e66738188",
+    "examples/dify-example/video/review/wide/stills/frame-000015.png": "b541bb0f8fa913329e39f1d8fb15654e30fc88881f6d6f34931d633dfe39f760",
+    "examples/dify-example/video/review/wide/strip/frame-000000.png": "bbc251e3fee6f8fd556dbc6039515421529b4a41bd83c4d00dca862cf36a7704",
+    "examples/dify-example/video/review/wide/strip/frame-000001.png": "7194d097b69e6908b9469e39f15986f65736d5b0fb5a0c0d2e7b4093eccf8855",
+    "examples/dify-example/video/review/wide/strip/frame-000002.png": "e8e7a06cca0e7dbf27aa5a6439747f1d0376db939288405d1c04275aef7bd25b",
+    "examples/dify-example/video/review/wide/strip/frame-000003.png": "b223a62f67959374bf9ab81fc875c673d48e726053f89626b16e862bf8764e3a",
+    "examples/dify-example/video/review/wide/strip/frame-000004.png": "42d6879bcdd84cd4f6e3bcc9949c42e2d4302be3138f78e43f06d7b72c513bbd",
+    "examples/dify-example/video/review/wide/strip/frame-000005.png": "8ef6d10c6821e4882a14b156a04692c8d7315cba68d4ed3369fa008c23c666a5",
+    "examples/dify-example/video/review/wide/strip/frame-000006.png": "8f5768046cffd01b7f8ae35099fd75d9cb373b948532f6df68780bfa20073044",
+    "examples/dify-example/video/review/wide/strip/frame-000007.png": "f4561888bae2c07a3b6dc474ccb33fedc2ed1ee0fac3ba557ca92d6ea84f81f9",
+    "examples/dify-example/video/review/wide/strip/frame-000008.png": "5311c8f1d81c24ad1902d71c44bec28eb9d4a54eab80ed66d3854516d6c3448e",
+    "examples/dify-example/video/review/wide/strip/frame-000009.png": "17be26eed4270f7f02893002f98ae482d600d80f83ccd385e5f571bb955b59ae",
+    "examples/dify-example/video/review/wide/strip/frame-000010.png": "1df85ac846b84b946789ed524322674a9c0d59e3b92a72e7e601ffc00472ef10",
+    "examples/dify-example/video/review/wide/strip/frame-000011.png": "95ab8711e6aa55ae78e97af8601b76d4497a6b247ccd5a0852cd84ef6ac91ae9",
+    "examples/dify-example/video/review/portrait/stills/frame-000000.png": "3b672aa0bf77d5e97cc2a54f1e8fc0cbb1066a9d30d8c02c65c184e818075779",
+    "examples/dify-example/video/review/portrait/stills/frame-000001.png": "e98746ec0629b6b296991db558f8d20059ec7cbbe79737a6dd71ee32ee4a35df",
+    "examples/dify-example/video/review/portrait/stills/frame-000002.png": "96b5275cbefd3a74d983a8a8566bb69d409f1e84ee11b7b87d6282b9ef43990e",
+    "examples/dify-example/video/review/portrait/stills/frame-000003.png": "daa4492353c745e2633318bba5b43fe5a9780128ef0b92d98a406c98eb7ed785",
+    "examples/dify-example/video/review/portrait/stills/frame-000004.png": "4bfd85be5f60b4f0288a053464ebe4feca29465221c5d035b23b6d09854efe62",
+    "examples/dify-example/video/review/portrait/stills/frame-000005.png": "1f6c1e9102f916253dc1afa6acfe2f4773254d78dca53eb092e9aa193361d2cc",
+    "examples/dify-example/video/review/portrait/stills/frame-000006.png": "af9640d6c3cda35a850d94403627e9e6a684def8ebe634cf3ccd3ae3f9d3af2d",
+    "examples/dify-example/video/review/portrait/stills/frame-000007.png": "98357d6d5803f60d5636f0e86ff634bb5b0fefb48114fa06d0e4280859eadbf4",
+    "examples/dify-example/video/review/portrait/stills/frame-000008.png": "537583404cf986364300a369bb9db691327323eba37407d2ae0b60ac5f6e9771",
+    "examples/dify-example/video/review/portrait/stills/frame-000009.png": "27834c5ddda20248d574a9e624face279c9556c0b16330dd496fef0fe25e2033",
+    "examples/dify-example/video/review/portrait/stills/frame-000010.png": "a93271dae6da46e9aa38c0e0025159adb36fd8569702a2a61af0c859536baffa",
+    "examples/dify-example/video/review/portrait/stills/frame-000011.png": "5d1a8764e638cd21877ef8037e61854fd8082764dcc78245812003ba432a7762",
+    "examples/dify-example/video/review/portrait/stills/frame-000012.png": "e80739b18e41ed591e39d14e9cfab87e34d74511007d15c5768491c31de7e2f3",
+    "examples/dify-example/video/review/portrait/stills/frame-000013.png": "b1d16a24181ab24df4ebaa6a368ecb767eda7fef038f716c0571ef939061736d",
+    "examples/dify-example/video/review/portrait/stills/frame-000014.png": "98db6c74cdf157035408bafe9bf538c0362e02ae91e779a43df37e788d7568e1",
+    "examples/dify-example/video/review/portrait/stills/frame-000015.png": "fe5af95f8652b5fc2122632c821c0fd8618811864b7b7ed9ca62525eeb045d32",
+    "examples/dify-example/video/review/portrait/strip/frame-000000.png": "e2e85da6cf2f020b809192d15546e66394e0c3b403462febd2ca43079444c10e",
+    "examples/dify-example/video/review/portrait/strip/frame-000001.png": "883be4cea8e605f5a5367348e5fe4b66079e38b6e3b59082d22af452b1fe4ec8",
+    "examples/dify-example/video/review/portrait/strip/frame-000002.png": "d1d3f18e1d1a5274c58a60015bec28402a06fd271c3829d48c9f30104afc95bd",
+    "examples/dify-example/video/review/portrait/strip/frame-000003.png": "4bfd85be5f60b4f0288a053464ebe4feca29465221c5d035b23b6d09854efe62",
+    "examples/dify-example/video/review/portrait/strip/frame-000004.png": "7da19eb94eeb902e5f425b7a4099c1d7b3534cd73e8e16184b1e18c5cf341cd9",
+    "examples/dify-example/video/review/portrait/strip/frame-000005.png": "ebb96302eba1f57ba534f8af8822c5195aed93b67b46e8a5ed270e3be76f45d4",
+    "examples/dify-example/video/review/portrait/strip/frame-000006.png": "dcd47b1fe92b099f295dbfbf3a38df6df499ba72d06509c9a7c155fa859c3bea",
+    "examples/dify-example/video/review/portrait/strip/frame-000007.png": "3000582f4f77e5b73b58b421502542d8dc2d2561d346667f3a2796717cf4671f",
+    "examples/dify-example/video/review/portrait/strip/frame-000008.png": "07166cceb1887df585b9772948d282e7b580dfc0b50c15c5dbc9b756a3844154",
+    "examples/dify-example/video/review/portrait/strip/frame-000009.png": "ac315dc280ee62e1bbddfe846894726677fd1b96f0dc6d6f62988b762db0c620",
+    "examples/dify-example/video/review/portrait/strip/frame-000010.png": "725420578a503b589d5c2f9ae6ba1c0b3645891e335203a8d6ca20edd10bdbe0",
+    "examples/dify-example/video/review/portrait/strip/frame-000011.png": "3fa409020b315cf090de21e03ba22c7f800a52e60749e7983d4c2f162dc80ddd",
     "examples/dify-example/vendor/dify/LICENSE": "232cf91474932d5110ed304e53b6b742a58463857c571fae803fdf2ac36d7bb3",
     "examples/dify-example/vendor/dify/README.md": "3c7fe487f1e89e6faec52f5421c71e749c1cecc3486725be3e03fb3fbb62e484",
     "examples/dify-example/vendor/graphon-wheel/graphon/enums.py": "abc339f62186008748a421dc79085f1b8baa0ef46915059a20539716e0df1504",
@@ -602,8 +3606,179 @@
     "examples/dify-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
     "examples/dify-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
     "examples/dify-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
-    "media/dify-example.mp4": "e130a4eeefc53b4438dfdaf50e937ac847c2237ff670027a81667e1f9e8f8507",
-    "media/dify-example.webp": "882611dd4e93fa3b2f8d4218814c702fc7e22f5dff2ba031d838734e666b8562",
-    "data/cases/dify-example.json": "5ed6a2c1749e65cb6e15b65cc70d84f90651b026d1bb28fb8b830d53e5e7aab8"
+    "media/dify-example-wide.mp4": "e49207752e7aedff3dfde490378333498125412b0d22825acdf5a471634e33f0",
+    "media/dify-example.mp4": "6f160da51c3542fa62ea3c7ef8817a730e203cf10964d430ac374a2d0cfddb05",
+    "media/dify-example.webp": "bba8098802ba4bdf7e9fa262e5ed15c1b104d86f70e3f253de650dd8a81d729f",
+    "data/cases/dify-example.json": "6e3ea39bcf8fb32473b74339b28867b435eea04c6dd09b994cfe01256e522515"
+  },
+  "original_runtime_verification": {
+    "verification": {
+      "case_id": "dify-example",
+      "verified_at": "2026-10-16T20:30:01.901504+00:00",
+      "stage": "technical_qa_complete",
+      "runtime": {
+        "status": "passed",
+        "source_commit": "f77facfe6520ed379d723288aed0b4806ad76143",
+        "source_version": "1.17.1",
+        "runtime_dependency": "graphon==0.7.0 (exact official Dify uv.lock wheel)",
+        "sample_count": 8,
+        "checks": 196,
+        "events": 160,
+        "route_counts": {
+          "優先対応": 3,
+          "請求窓口": 1,
+          "通常窓口": 4
+        },
+        "network_attempts": 0,
+        "process_attempts": 0,
+        "independent_event_oracle_check": "passed",
+        "topology_pairs": 49,
+        "fresh_cli_reproduction": "passed",
+        "server_started": false,
+        "llm_called": false
+      },
+      "browser": {
+        "status": "passed",
+        "responsive_states": 6,
+        "widths": [
+          320,
+          375,
+          390,
+          430,
+          844,
+          1280
+        ],
+        "target_minimum_px": 44,
+        "form_font_minimum_px": 16,
+        "all_eight_input_output_events_exact": true,
+        "native_picker_and_desktop_buttons_verified": true,
+        "raw_dom_compared_as_text": true,
+        "native_export_matches_record": true,
+        "native_export_bytes": 21898,
+        "http503_parse_validation_retry": true,
+        "errors_hide_stale_and_disable_picker_export": true,
+        "clipboard_matches_original_request": true,
+        "clipboard_utf8_bytes": 5369,
+        "native_disclosures_verified": true,
+        "native_back_restores_sample": true,
+        "keyboard_enter_space": true,
+        "literal_input_stays_text": true,
+        "agent_visual_review": true,
+        "physical_ios_tested": false,
+        "voiceover_tested": false,
+        "human_approval": false
+      },
+      "video": {
+        "duration_seconds": 28,
+        "fps": 30,
+        "width": 1280,
+        "height": 720,
+        "frames": 840,
+        "silent": true,
+        "full_decode": true,
+        "direct_native_ended": true,
+        "editor_seek_and_play_pause": true,
+        "frame_visual_review": {
+          "status": "passed",
+          "agent_visual_review": true,
+          "human_approval": false,
+          "reviewed": [
+            "video/review/contact.png (14 actual representative frames)",
+            "video/review/poster.png",
+            "video/review/final.png",
+            "video/review/cut-01.png",
+            "video/review/cut-02.png",
+            "video/review/cut-03.png",
+            "video/review/cut-04.png",
+            "video/review/cut-05.png",
+            "MP4 decoded360px frames9.5/16.8/26.4s",
+            "Actual native source editor14s"
+          ],
+          "observations": [
+            "Main Japanese titles, rule precedence,99/100 boundary and3/1/4 counts are readable at360px; IDs, tiny file captions and screenshots are supplementary.",
+            "Five intentional short paper fades between scenes show the next heading/card arriving; no unintended overlap or clipped main copy found.",
+            "D04actual99/normal andD05actual100/urgent, D06billing+urgent, D07literal data and final8count/screens agree with frozen outputs.",
+            "Final result/message remains through the last frame; silent28second delivery has no audio stream."
+          ],
+          "deterministic_same_environment": {
+            "frame": 504,
+            "seconds": 16.8,
+            "first": "21aab95644f7298f1dc217a6d9740b776f32f4c5d691d4a191f8c2921542d907",
+            "afterOtherTimes": "21aab95644f7298f1dc217a6d9740b776f32f4c5d691d4a191f8c2921542d907",
+            "freshPage": "21aab95644f7298f1dc217a6d9740b776f32f4c5d691d4a191f8c2921542d907",
+            "match": true
+          },
+          "unresolved_blockers": [],
+          "physical_ios_tested": false
+        },
+        "technical": {
+          "video_sha256": "e130a4eeefc53b4438dfdaf50e937ac847c2237ff670027a81667e1f9e8f8507",
+          "poster_sha256": "882611dd4e93fa3b2f8d4218814c702fc7e22f5dff2ba031d838734e666b8562",
+          "poster_from_mp4_seconds": 13.5,
+          "full_decode_passed": true,
+          "review_files": [
+            "contact.png",
+            "poster.png",
+            "strip.png",
+            "stills/frame-000000.png",
+            "stills/frame-000001.png",
+            "stills/frame-000002.png",
+            "stills/frame-000003.png",
+            "stills/frame-000004.png",
+            "stills/frame-000005.png",
+            "stills/frame-000006.png",
+            "stills/frame-000007.png",
+            "stills/frame-000008.png",
+            "stills/frame-000009.png",
+            "stills/frame-000010.png",
+            "stills/frame-000011.png",
+            "stills/frame-000012.png",
+            "stills/frame-000013.png",
+            "cut-01.png",
+            "cut-02.png",
+            "cut-03.png",
+            "cut-04.png",
+            "cut-05.png",
+            "final.png"
+          ],
+          "render_label": "final",
+          "bundled_renderer_executed": true
+        }
+      },
+      "authorship": {
+        "model": "claude-opus-5-5",
+        "model_scope": "DSL, implementation, original viewer/Japanese explanations, film edit source; minimal receipt digests in data/production.",
+        "production_scope": "Fictional input fixtures, actual execution, independent event/topology checks, separate CLI replay, native/browser/frame review, phone UI refinements, packaging."
+      },
+      "scope": "Headless execution of Dify DSL through the exact official Graphon dependency plus the unmodified Dify WorkflowGraphTopology API. No Dify server, console, difyctl, LLM/semantic classification or web-console DSL import tested.",
+      "physical_ios_tested": false,
+      "human_approval": false,
+      "publication": "Live publication is checked separately after scoped deployment."
+    },
+    "scope_note": "Original executed fixed-source Graphon DSL and Dify WorkflowGraphTopology verification retained. No new engine execution or inference; new UI/video QA is separate."
+  },
+  "original_explanation": {
+    "original_fictional_tickets": 8,
+    "actual_dsl_engine": true,
+    "dify_server_or_console": false,
+    "llm_inference": false,
+    "parent_adjustments": [
+      "Native-browser375px inspection found retry visible while hidden; made hidden override component display.",
+      "Condensed phone lead/ready line and moved input metadata and per-case automatic checks into native disclosures; actual memo remains foreground.",
+      "Removed selected_case_id from the foreground owner label; full actual output/events remain in native JSON disclosures.",
+      "Documented and actually verified the CLI in a separate source copy after preserving the existing captured record. Ignored only generated event/segment IDs and times in semantic comparison; original raw API output unchanged.",
+      "Clipboard first read was an old6941byte bridge value; second native click/fresh read matched5369byte original request.",
+      "Made source-editor file/navigation links44px targets and replaced the pre-publication MP4 placeholder caption with the finished delivery link before rendering. Movie composition and8frozen assets unchanged."
+    ]
+  },
+  "visual_revision": {
+    "id": "visual-r1",
+    "original_runtime_preserved_files": 305,
+    "silent": true
+  },
+  "previous_publication": {
+    "baseline_head": "0a6582e798abf83689b8a7be143630181e94d3fd",
+    "original_video_sha256": "e130a4eeefc53b4438dfdaf50e937ac847c2237ff670027a81667e1f9e8f8507",
+    "original_runtime_preserved_files": 305
   }
 }
