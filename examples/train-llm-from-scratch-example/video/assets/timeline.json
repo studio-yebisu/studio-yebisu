@@ -1,0 +1,57 @@
+{
+  "format": "studio-yebisu-train-llm-visual-timeline-v1",
+  "duration": 32,
+  "fps": 30,
+  "frames": 960,
+  "silent": true,
+  "scenes": [
+    {
+      "id": "overview",
+      "in": 0,
+      "out": 5,
+      "case": "P01",
+      "headline": "同じ書き出し、違う続き。",
+      "action": "Show one connected corpus→BPE→training branch and same prompt feeding two0/800models→real continuations→JSON save. No big stat slide."
+    },
+    {
+      "id": "corpus",
+      "in": 5,
+      "out": 10,
+      "case": "P01",
+      "headline": "英文を、番号の並びに。",
+      "action": "96original lines split83train/13validation. All13duplicate a training line: explicit return/duplicate connection. BPE learned only on83train lines; actual417vocab, not512actual. P01four input IDs327/313/269/301 are inference prompt encoding, not a fabricated training batch."
+    },
+    {
+      "id": "updates",
+      "in": 10,
+      "out": 16,
+      "case": "P01",
+      "headline": "同じ初期値から、800回。",
+      "action": "Generic next-token training/adjustment loop feeds only800model;0model remains same initial seed. Only actual0/200/400/600/800checkpoints, no invented tensors/probabilities/batch trace. Same pattern corpus; loss6.113533201217652→0.1900410258024931 is secondary and duplicate validation caveat remains."
+    },
+    {
+      "id": "continuation",
+      "in": 16,
+      "out": 22,
+      "case": "P01",
+      "headline": "同じ番号を、2つのモデルへ。",
+      "action": "Same4actual prompt-token IDs split to0/800models. Actual next ID301 vs409 and saved literal before/after excerpts, with48generated IDs unaltered. Do not imply a token equals one word or per-token decoded text without source mapping."
+    },
+    {
+      "id": "limit",
+      "in": 22,
+      "out": 27,
+      "case": "P08",
+      "headline": "質問にも、物語が続く。",
+      "action": "Actual P08 question strip remains;800model produces is blue. A friend brings a red book. as literal output excerpt, no Tokyo, no answer bubble/semantic pass. Saved0model repeats question marks. Full original output below in demo."
+    },
+    {
+      "id": "finish",
+      "in": 27,
+      "out": 32,
+      "case": "P01",
+      "headline": "実際の続きを、持ち帰る。",
+      "action": "Hold whole connected diagram with P01 and actualJSON-save CTA. Last2.5seconds settled, show memorization/mechanics practice, not quality guarantee."
+    }
+  ]
+}

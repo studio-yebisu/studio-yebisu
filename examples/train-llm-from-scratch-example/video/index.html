@@ -3,73 +3,54 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>解説映像の編集元｜小さなモデルを、ゼロから（Train LLM From Scratch 作例）</title>
-<meta name="description" content="独自の英文96行で、原典の学習コードを手元のCPUで実行した記録から、学習前と800回更新後の続きを比べる28秒・無音の解説映像の編集元です。">
+<meta name="color-scheme" content="light">
+<title>同じ書き出し、違う続き。｜32秒の無音図解（編集ソース）｜Train LLM From Scratch 作例</title>
 <link rel="stylesheet" href="video.css">
-<script>if (window.__MOTION_RENDER__ === true) document.documentElement.classList.add('is-render');</script>
-<script type="module" src="video.js"></script>
+<script src="video.js" defer></script>
 </head>
 <body>
-<main class="page">
-  <header class="intro">
-    <p class="kicker">Studio Yebisu・Train LLM From Scratch 作例</p>
-    <h1>文型を覚える、その過程を動かす。</h1>
-    <p class="lead">作例のために書いた英文96行、BPEの語彙、保存した800個の学習ミニバッチの損失、学習前と800回更新後の実出力から描く28秒・無音の解説映像の編集元です。</p>
+<main id="editor" class="editor">
+  <header class="editor-head">
+    <p class="kicker">編集できる動画ソース ・ 32秒 ・ 無音 ・ 縦720×1280／横1280×720</p>
+    <h1>同じ書き出し、違う続き。</h1>
+    <p class="note">保存済みのCPU実行（原典 FareedKhan-dev/train-llm-from-scratch bdd480a）の結果を説明する図解です。ループや部品の動きは概念で、計測値の再生ではありません。続きの文は、この作例で学習した小さなモデルの保存済み出力です。</p>
   </header>
 
-  <figure class="stage">
-    <canvas id="film" width="1280" height="720" role="img" aria-label="解説映像。作例のために書いた英文96行（重複を除くと64行）の各行の最初の文、書き出し「Mira walks to the」が BPE で4つのトークンIDになることと語彙（上限512に対して実417）、手元のCPUで同じ初期値から800回更新したときの学習ミニバッチの損失の推移、P01 の学習前の続きが「the」の繰り返しで、800回更新後は学習文の1行と同じ文になる実出力の抜粋、学習文にない質問 P08「What is the capital of Japan?」の後に質問へ答えず学習文の型の文が続く実出力の抜粋、データ・BPE・学習・生成の4段と、定型文を覚える練習で知識・汎化の評価ではないことを順に示します。続きの文は学習した小さなモデルの出力で、Claude の出力ではありません。"></canvas>
-    <figcaption>原典コードの実行記録を編集・無音。定型文を覚える練習で、知識・汎化の評価ではありません。</figcaption>
-  </figure>
-
-  <div class="controls">
-    <button id="play" type="button" aria-pressed="false" disabled>再生</button>
-    <label class="range">
-      <span class="visually-hidden">再生位置（秒）</span>
-      <input id="time" type="range" min="0" max="28" step="0.1" value="0" aria-valuetext="0.0秒（全28秒）" disabled>
-    </label>
-    <output id="clock" for="time">0.0秒 / 28.0秒</output>
-  </div>
-  <p class="keys">スライダーでは、矢印キーで0.1秒、PageUp・PageDownで2秒、Home・Endで先頭・末尾へ移動します。自動では再生しません。</p>
-
-  <div class="state" aria-live="polite">
-    <p id="status" data-state="loading">保存済みの記録と実画面を確かめています…</p>
-    <p id="detail"></p>
-    <button id="reload" type="button" hidden>もう一度読み込む</button>
+  <p id="asset-status" class="asset-status" role="status" aria-live="polite">素材を確かめています（0/9）</p>
+  <div id="failure" class="failure" hidden>
+    <p id="failure-reason" class="failure-reason"></p>
+    <button type="button" id="retry" class="button">もう一度読み込む</button>
   </div>
 
-  <section class="block" aria-labelledby="scope-title">
-    <h2 id="scope-title">この映像が示すこと・示さないこと</h2>
-    <ul>
-      <li>固定版 FareedKhan-dev/train-llm-from-scratch（<code>bdd480a</code>、MIT）の学生向けCPUトラックを、改変せずに実行した記録です。データ準備とBPE、0回と800回の学習、生成の3つのスクリプトを使いました。</li>
-      <li>英文は作例のために書いた短い型の繰り返しです。検証側の13行は、すべて学習側にも同じ文があります。学習前後の変化は文型を覚えた様子で、知識・汎化・文章の品質の評価ではありません。</li>
-      <li>グラフは更新ごとの学習ミニバッチの損失（保存した800個の値）です。検証の値や、速さの比較ではありません。</li>
-      <li>8つの書き出しは学習の前に固定し、全件の学習前後を記録しました。映像は P01 と P08 の抜粋だけで、選び直しや手直しはしていません。全文はサイトで読めます。</li>
-      <li>P08 は、わざと学習文にない質問にした入力です。続きは質問に答えず、学習文の型の文になります。</li>
-      <li>続きの文は、この作例で学習した小さなモデル（135,552パラメータ）の出力です。コード・ページ・説明は Claude Opus 5.5 が書きましたが、続きの文は Claude の出力ではありません。</li>
-      <li>映像は保存した記録と実画面の静止画を編集したもので、学習や操作の録画ではありません。記録カードは保存した値を描き直したもので、実画面の画素は変えていません。このページでも映像でも、Python・学習・AI は動きません。</li>
-    </ul>
-  </section>
+  <div id="stage" class="stage">
+    <canvas id="film" width="720" height="1280" role="img" aria-label="32秒の無音の図解。素材の確認が終わると表示されます。"></canvas>
+  </div>
 
-  <section class="block" aria-labelledby="files-title">
-    <h2 id="files-title">照合してから使うファイル</h2>
-    <p>照合表 <code>assets/data-hashes.json</code> を制作記録の SHA-256 で確かめ、そこに書かれた8ファイルの生のバイト列を照合してから描きます。合わなければ理由を出して止まり、代わりの映像は描きません。</p>
-    <ol id="verified" class="verified" hidden></ol>
-  </section>
+  <div class="controls" role="group" aria-label="再生の操作">
+    <button type="button" id="play" class="button primary" disabled>再生</button>
+    <button type="button" id="reset" class="button" disabled>最初へ</button>
+    <label class="range-label" for="scrub">位置</label>
+    <input type="range" id="scrub" min="0" max="32" step="0.0333333" value="0" disabled aria-describedby="time">
+    <output id="time" class="time" for="scrub">0.0 / 32.0 秒</output>
+  </div>
 
-  <nav class="block links" aria-labelledby="links-title">
-    <h2 id="links-title">関連するページとファイル</h2>
-    <ul>
-      <li><a href="../index.html">8例を読む（閲覧ページ）</a></li>
-      <li><a href="../outputs/training-run.json">実行記録 outputs/training-run.json</a></li>
-      <li><a href="../outputs/independent-checks.json">別の検証の記録 outputs/independent-checks.json</a></li>
-      <li><a href="assets/screen-manifest.json">実画面2枚の記録 assets/screen-manifest.json</a></li>
-      <li><a href="../vendor/train-llm-from-scratch/LICENSE">Train LLM From Scratch のライセンス（MIT）</a></li>
-    </ul>
+  <nav class="scenes" aria-label="場面へ移動">
+    <button type="button" class="button scene" data-scene="0" disabled>1 全体</button>
+    <button type="button" class="button scene" data-scene="1" disabled>2 英文→番号</button>
+    <button type="button" class="button scene" data-scene="2" disabled>3 800回</button>
+    <button type="button" class="button scene" data-scene="3" disabled>4 同じ番号</button>
+    <button type="button" class="button scene" data-scene="4" disabled>5 質問</button>
+    <button type="button" class="button scene" data-scene="5" disabled>6 持ち帰る</button>
   </nav>
 
-  <footer class="foot">
-    <p>映像の構成・コード・文章は MIT License（Copyright (c) 2026 Studio Yebisu）。Train LLM From Scratch は MIT License（Copyright (c) 2025 Fareed Khan）。</p>
+  <footer class="editor-foot">
+    <ul class="links">
+      <li><a href="../index.html">図解ページへ戻る</a></li>
+      <li><a href="storyboard.json">絵コンテ（storyboard.json）</a></li>
+      <li><a href="README.md">この動画ソースの説明（README.md）</a></li>
+      <li><a href="assets/manifest.json">素材の一覧とSHA-256（assets/manifest.json）</a></li>
+    </ul>
+    <p class="note">原典：FareedKhan-dev/train-llm-from-scratch（固定コミット bdd480a・MIT・Copyright (c) 2025 Fareed Khan）。図とコード：Studio Yebisu（MIT）。</p>
   </footer>
 </main>
 </body>

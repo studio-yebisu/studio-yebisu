@@ -1,441 +1,505 @@
 {
-  "status": "passed",
+  "id": "train-llm-from-scratch-example",
+  "verified_at": "2026-10-17T15:11:33.413659+00:00",
+  "revision": "visual-r1",
+  "stage": "technical_qa_complete",
+  "runtime_preserved_files": 58,
+  "original_runtime_scope": "Student-track original prepare_tiny_data.py (local original text, BPE512), train_transformer.py (modern tiny, CPU, fixed seed, 0 and800 steps), generate_text.py on8 frozen prompts. No pretrained weights, external datasets, SFT/RLHF/RL or quality benchmark.",
   "upstream": {
     "repository": "FareedKhan-dev/train-llm-from-scratch",
     "commit": "bdd480a518094ca834e05ab32131dc126b522d3d",
     "license": "MIT",
     "copyright_notice": "Copyright (c) 2025 Fareed Khan",
-    "files_sha256": {
-      "config/__init__.py": "fe07c90fea01589b1b204f37666cbde0dd30d13d0666522f88868b4f06f6fb2b",
-      "config/config.py": "60ee88f7c63ceedc21c8a5cedb9c113c41aa366693ef940174e10ea5abe5048f",
-      "config/loader.py": "55d20ed5723fe4681804aeda089bde7713d35f5421cc03524e04d0f06aaa090b",
-      "config/paths.py": "386b3a8d3790eeee4e856f97a651a16a884bbf542ab7ce85b4b87964fb64675d",
-      "config/post_training_config.py": "0253724000690412f121962c5dcd7a0517f48e28f6fe338e2683ec144388a647",
-      "config/presets.py": "739024fe46c2f88a18784823805090aa2dbf3ce4b8a50585d1126bdd512cdc9a",
-      "data_loader/__init__.py": "62e731bd8cc7a4ce439ea7697904cc277c23035ef843b38e24f60ddfcf86f2ab",
-      "data_loader/data_loader.py": "a698a182d1168a748e3e665b26fea62c5ae533b977172aacdfe299ddfc3ba1d5",
-      "data_loader/preference_dataset.py": "979d20b86dae759378919d6d554cdc294f4afe021c7f5256b52909bd07d0696d",
-      "data_loader/prompt_dataset.py": "264a6fb944f7def2d325e39fa0c56e5914f1e99aeccaacb4f9c3d4835b1495ce",
-      "data_loader/sft_dataset.py": "bff19a8af64ad1aae6c0cfc185e387b76a6d5547b160513f75c7957c5e3a6ddb",
-      "docs/foundations/bpe.md": "640026809fe8a7f6bb1e86d4502018fc1398530d0bbf2e0d0be98d9d0a4ab3ca",
-      "docs/student/README.md": "f52a4a3e85100fc01842dc982dad4f215eee12423ef19712ff84a3c348ec0426",
-      "LICENSE": "3af7509fdf483718aa1b8ab030d8ed639b9e43ae273321d9e7b75ddbf0e07f13",
-      "pyproject.toml": "ec0e555a868f3d56d6424a43aae64981473452b11ae45a180d8dc724369abb2f",
-      "README.md": "d470466c0d6683232f4e821f4eaa5d750a833eb289ef91a8f353c8009b9334ac",
-      "scripts/generate_text.py": "666a5ebc631c801de190459f9cf7a5ac5b873903c08cc2ab10acac34936be25b",
-      "scripts/prepare_tiny_data.py": "cf25545c11a22617d6338140e1e56958880c78315672de207377cfc19b82f528",
-      "scripts/train_transformer.py": "ffa95c45f3b9538d74ce56a48a501a6a020aa50f53fcbdb5b7dd7599e9860efa",
-      "src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "src/checkpoint.py": "dcb70cae1554f8ee66356c187cba136011bd015f2d096d6241d8de9e02e8c10f",
-      "src/device.py": "9e205e89c5d4617ec7f2698936927c58929053561d99b31324df7b3e32087d8d",
-      "src/inference/__init__.py": "0e4f19166aecc81d6f5555fd6bae78de837f594723d510cca6d41d0af4f66317",
-      "src/inference/quantize.py": "d1c92781d9251fa3beb086fc10223f406100ba42edfa7a7090627814f8b65a6d",
-      "src/inference/sampling.py": "11f6b66167225a38c0a45ac967e404b7f31939a67571a51774ec3434b1e59e10",
-      "src/inference/speculative.py": "90a28b4592c1a51ba6d56ce75e5dddb685cdf2f247eb4b1b2109dfe63f0b9b63",
-      "src/models/__init__.py": "1f9d0db1be0cf0884ea44f786714ddba334fd4a4bc5405057efee6c1efa4079d",
-      "src/models/attention.py": "b4fc10105c98444f2b0df9d332b2c72325210669c2e00a65b16df7fbf43ec00e",
-      "src/models/factory.py": "5d0a3039be911d8e2df5b3c429713dda92817af016a3e94c8147e29b426d2ab2",
-      "src/models/lora.py": "1f0a117694314e8a2bdafc9b871220a8e6a78f49091f3ea08932a236983cb44e",
-      "src/models/mlp.py": "b83cebb2a63b67eddf7d5971c0e1607a73639814aa0c0f9142aac81054f7e3c3",
-      "src/models/modern/__init__.py": "fbb721357e5cbd4462d50d350c5e09a08ec95cf2ecb9037a22af286b764e3fbe",
-      "src/models/modern/attention.py": "eb2a1c72709e7b913f975aeb796e06e4878c9fb12e4191205a45471c562b16e2",
-      "src/models/modern/block.py": "66bc7709387e24e4182874c2e945c2812e75427e4e2b91aa4dc6f37c3bc61575",
-      "src/models/modern/config.py": "1ada9a1545b9dc2f816e457742490037b9648454d75f15512c06073beb3ba371",
-      "src/models/modern/kv_cache.py": "36c62cfbd9b5a07cd6bc2e0122361f4d6438f6063dc717d64182eb7969031e2e",
-      "src/models/modern/mlp.py": "dbf58609063535cc2cbd60db558c7d4222a56a9118d3fd22c18335d6f0e8ca10",
-      "src/models/modern/model.py": "e5f79f7a8c072309eda4fa9e141cdc66d5a64ec04fa820f8d3ab80b8028ad9f7",
-      "src/models/modern/moe.py": "0c80422073b64aa05a0d51fd8c0964395438fbefd198f37178f63cdc69e92406",
-      "src/models/modern/norm.py": "1c5fa7bb25daed61fa6f2ef85dec98132272a89d0a05b56d8e77fbe788206491",
-      "src/models/modern/rope.py": "881b4ddbb3be71b70aa558dc612edbad11973fb86bde0a3f9e2b533de2f177e4",
-      "src/models/transformer.py": "ec63ac30e4443c73f7dae268cc5198868701afb90c612d62a22e69b6e4f71165",
-      "src/models/transformer_block.py": "b3469698eb6825f1ec4ea50883680ed7900e882add125222571924040289b23e",
-      "src/optim/__init__.py": "7dea022309245b95ac2c0bd72a4276c2fc57d86b3b2fe4b9d917c5b22220e68e",
-      "src/optim/muon.py": "8cb8c859f0a4d52a7b9e0f4a9cdedd48baf1e8c1a0a5e2e809f3466670f0e5e1",
-      "src/optim/schedules.py": "a0982c5f85ced7fff0968d9c45f3f22dffb9b5ac2a6f969da0e6196fd8203469",
-      "src/tokenizer/__init__.py": "18613038f589bb905264aed778c52b4517c041ecb735a5367f054fa9d9c513bf",
-      "src/tokenizer/bpe.py": "576ec593003e1430f2d5038b3436e50a7191e7d1abffe2dffd1841672efb4661"
-    },
-    "commit_record_sha256": "ed33da960ea6cf4b340f640f7b4f9446026f7abc3bb4eeffd863e1a2faddc4cf",
-    "tree_record_sha256": "7296d8417343ef6c489ae80940aaf1b22c77d949a7421808fd62cf1e3ac6fbd3",
-    "scope": "Student-track original prepare_tiny_data.py (local original text, BPE512), train_transformer.py (modern tiny, CPU, fixed seed, 0 and800 steps), generate_text.py on8 frozen prompts. No pretrained weights, external datasets, SFT/RLHF/RL or quality benchmark."
-  },
-  "environment": {
-    "python": "3.13.7",
-    "platform": "Windows-11-10.0.26200-SP0",
-    "torch_build": "2.11.0+cpu",
-    "cuda_available": false,
-    "packages": {
-      "torch": "2.11.0+cpu",
-      "numpy": "2.5.4",
-      "h5py": "3.16.0",
-      "tqdm": "4.70.1",
-      "tiktoken": "0.14.0",
-      "requests": "2.34.2",
-      "jaxtyping": "0.3.11",
-      "regex": "2026.9.29"
-    },
-    "created_at": "2026-10-16T16:08:45.016240+00:00",
-    "runtime": "Private per-case CPU virtualenv; no ComfyUI changes."
-  },
-  "model_receipts": [
-    {
-      "phase": "implement",
-      "requested": "claude-opus-5-5",
-      "reported": [
-        "claude-opus-5-5"
-      ],
-      "receipt_sha256": "a1a39d370e1e98f122a63e4f1665e0fb11b538ee21463ed867d1331bfe4f2ca3",
-      "execution_sha256": "d50975ed1cc5955f83e81413f4275a9dccf8cecad8611056bc19cc07d9c12b3b",
-      "prompt_sha256": "c68999a0c96c42751479adafc72d67d626ba4bbb9f9315a29aa02145031f3d90"
-    },
-    {
-      "phase": "video",
-      "requested": "claude-opus-5-5",
-      "reported": [
-        "claude-opus-5-5"
-      ],
-      "receipt_sha256": "2f5d8a1bbd95bfb0b2d3176bfdca44783ec604469f4553f55b25335993a9564a",
-      "execution_sha256": "5c57abbd308580dfdcb6d4f3bb321e41112af8068a1e5b2238890db272f809f3",
-      "prompt_sha256": "37eb518700ddacae0321ebded89fce1a32f5838a15d6be34163567d3386d13fc"
-    }
-  ],
-  "actual_execution": {
-    "status": "passed",
-    "sample_count": 8,
-    "generated_outputs_rechecked": 16,
-    "actual_source_files": 48,
-    "input_hashes_unchanged": true,
-    "baseline_is_fresh_seeded_initialization": true,
-    "trained_optimizer_steps": 800,
-    "changed_state_tensor_names": [
-      "token_embed.weight",
-      "blocks.0.attn_norm.weight",
-      "blocks.0.attn.q_proj.weight",
-      "blocks.0.attn.k_proj.weight",
-      "blocks.0.attn.v_proj.weight",
-      "blocks.0.attn.o_proj.weight",
-      "blocks.0.attn.q_norm.weight",
-      "blocks.0.attn.k_norm.weight",
-      "blocks.0.mlp_norm.weight",
-      "blocks.0.mlp.gate.weight",
-      "blocks.0.mlp.up.weight",
-      "blocks.0.mlp.down.weight",
-      "blocks.1.attn_norm.weight",
-      "blocks.1.attn.q_proj.weight",
-      "blocks.1.attn.k_proj.weight",
-      "blocks.1.attn.v_proj.weight",
-      "blocks.1.attn.o_proj.weight",
-      "blocks.1.attn.q_norm.weight",
-      "blocks.1.attn.k_norm.weight",
-      "blocks.1.mlp_norm.weight",
-      "blocks.1.mlp.gate.weight",
-      "blocks.1.mlp.up.weight",
-      "blocks.1.mlp.down.weight",
-      "final_norm.weight",
-      "lm_head.weight"
-    ],
-    "raw_hdf5_tokens_match_original_preparation": true,
-    "bpe_roundtrip": true,
-    "original_generation_api_matches_all16_texts_and_token_ids": true,
-    "causal_prefix_unchanged_by_future_token": true,
-    "model_parameters": 135552,
-    "dataset": {
-      "train_tokens": 3072,
-      "val_tokens": 483,
-      "vocab_size": 417,
-      "train_lines": 83,
-      "val_lines_nonempty": 13,
-      "validation_lines_also_in_training": 13,
-      "unique_lines_total": 64
-    },
-    "fixed_holdout_evaluation": {
-      "context": 64,
-      "disjoint_windows": 7,
-      "tokens": 448,
-      "losses": {
-        "before": 6.1135334968566895,
-        "after": 0.19004102051258087
-      },
-      "note": "Same fixed validation token windows for both models. Repeated-template corpus contains validation lines also present in training, so this is an intentionally bounded memorization/mechanics exercise, not an independent generalization, knowledge or quality benchmark."
-    },
-    "outputs": [
+    "official_git_blobs_verified": [
       {
-        "id": "P01",
-        "phase": "before",
-        "tokens": 52,
-        "text_sha256": "0232a264542a21ae71fc4ba43e20618d257679fcc3fc1eac35fe1293a4b7ad43"
+        "path": "config/__init__.py",
+        "git_blob": "77a00219d53e50301a77bdc0e79511a3ebf169a2",
+        "sha256": "fe07c90fea01589b1b204f37666cbde0dd30d13d0666522f88868b4f06f6fb2b"
       },
       {
-        "id": "P02",
-        "phase": "before",
-        "tokens": 52,
-        "text_sha256": "7314283a21727846154cd1fe420ed73b51d986da9c4b993edc663e2279e942a9"
+        "path": "config/config.py",
+        "git_blob": "095e6ccc52d7738d108e79d159ccceb952870741",
+        "sha256": "60ee88f7c63ceedc21c8a5cedb9c113c41aa366693ef940174e10ea5abe5048f"
       },
       {
-        "id": "P03",
-        "phase": "before",
-        "tokens": 51,
-        "text_sha256": "721ca9cdc07a048411a121e8257911e04b546b6d946a30438bb9eb5ca572b57e"
+        "path": "config/loader.py",
+        "git_blob": "58c4e0554f391e3188c03168a3d904634f3eaacf",
+        "sha256": "55d20ed5723fe4681804aeda089bde7713d35f5421cc03524e04d0f06aaa090b"
       },
       {
-        "id": "P04",
-        "phase": "before",
-        "tokens": 52,
-        "text_sha256": "f24f7db0985fb6c60e76fbcc5a231f97089724ff3590f6492f7492d27c1fc03d"
+        "path": "config/paths.py",
+        "git_blob": "3559a8dd8b27b4a4a3071cb1c5c244114b958bdd",
+        "sha256": "386b3a8d3790eeee4e856f97a651a16a884bbf542ab7ce85b4b87964fb64675d"
       },
       {
-        "id": "P05",
-        "phase": "before",
-        "tokens": 52,
-        "text_sha256": "17c07425d869996d73bb7e5362712fb1eab88a2713da6be4a22164e5c2795fb3"
+        "path": "config/post_training_config.py",
+        "git_blob": "1899de1b0bff8ee8f5c00fca6f9b0165cbd70e31",
+        "sha256": "0253724000690412f121962c5dcd7a0517f48e28f6fe338e2683ec144388a647"
       },
       {
-        "id": "P06",
-        "phase": "before",
-        "tokens": 53,
-        "text_sha256": "8f8077bc30abbf1f1fc26dc713d0b167560b70870939f6bdc184151b764fabd3"
+        "path": "config/presets.py",
+        "git_blob": "d665a7d0b73e76a122ab0b8f1d6acf3e06b56f26",
+        "sha256": "739024fe46c2f88a18784823805090aa2dbf3ce4b8a50585d1126bdd512cdc9a"
       },
       {
-        "id": "P07",
-        "phase": "before",
-        "tokens": 61,
-        "text_sha256": "25f3b8a6f9ff9b7f4c81d27655e174a6ba21c41a9034deff4eeb4be688ab644f"
+        "path": "data_loader/__init__.py",
+        "git_blob": "d766b6f4f583a7f977d53d12fbec9e758c0c2085",
+        "sha256": "62e731bd8cc7a4ce439ea7697904cc277c23035ef843b38e24f60ddfcf86f2ab"
       },
       {
-        "id": "P08",
-        "phase": "before",
-        "tokens": 65,
-        "text_sha256": "2cccdad0f79433b034e2a9a2381939e465012ee88a251938c55b8c753cfc35e5"
+        "path": "data_loader/data_loader.py",
+        "git_blob": "96efaa73a4987e75dde8cbb673513f774e73479e",
+        "sha256": "a698a182d1168a748e3e665b26fea62c5ae533b977172aacdfe299ddfc3ba1d5"
       },
       {
-        "id": "P01",
-        "phase": "after",
-        "tokens": 52,
-        "text_sha256": "926e60ff443920e34e592c9f5451c5fc07251c52f0e3602b21b3a729423f32c9"
+        "path": "data_loader/preference_dataset.py",
+        "git_blob": "d9f95f2cd21f474473bc1c53971096177b2daa86",
+        "sha256": "979d20b86dae759378919d6d554cdc294f4afe021c7f5256b52909bd07d0696d"
       },
       {
-        "id": "P02",
-        "phase": "after",
-        "tokens": 52,
-        "text_sha256": "766ec3254928f44d8c9c02607e49c0e105f5e17805dee8d3da6583d98e4534e3"
+        "path": "data_loader/prompt_dataset.py",
+        "git_blob": "d613b4c06a4687e978d5d2fe48531f40b456b26d",
+        "sha256": "264a6fb944f7def2d325e39fa0c56e5914f1e99aeccaacb4f9c3d4835b1495ce"
       },
       {
-        "id": "P03",
-        "phase": "after",
-        "tokens": 51,
-        "text_sha256": "4ef803474f9bb49db08115604928849fc1e33b9b2d807b92ea19d4c0856ed16b"
+        "path": "data_loader/sft_dataset.py",
+        "git_blob": "9d3964d5412219ae6e2ed8871f4d947e6df6852a",
+        "sha256": "bff19a8af64ad1aae6c0cfc185e387b76a6d5547b160513f75c7957c5e3a6ddb"
       },
       {
-        "id": "P04",
-        "phase": "after",
-        "tokens": 52,
-        "text_sha256": "04c637b8178c5cac2e433c475a257b8a1580af161a4fc8c27105e30b96c7929c"
+        "path": "docs/foundations/bpe.md",
+        "git_blob": "dbccbb815b9f57b26754b5fdb581f1f3e1e88eb7",
+        "sha256": "640026809fe8a7f6bb1e86d4502018fc1398530d0bbf2e0d0be98d9d0a4ab3ca"
       },
       {
-        "id": "P05",
-        "phase": "after",
-        "tokens": 52,
-        "text_sha256": "34160894eae0e5e762d76514f163cf2f466790b4318370c893a0709ec8bf451f"
+        "path": "docs/student/README.md",
+        "git_blob": "4118adfa1632546b11a0e2b3e3102f91fad422e9",
+        "sha256": "f52a4a3e85100fc01842dc982dad4f215eee12423ef19712ff84a3c348ec0426"
       },
       {
-        "id": "P06",
-        "phase": "after",
-        "tokens": 53,
-        "text_sha256": "a7d6b1082b1ab5e9930a1ce2c0300824ed143894b8290f5154cc32164aee7a6f"
+        "path": "LICENSE",
+        "git_blob": "4f1b5848bbefdf13561c392f12a5e7cedf307cb0",
+        "sha256": "3af7509fdf483718aa1b8ab030d8ed639b9e43ae273321d9e7b75ddbf0e07f13"
       },
       {
-        "id": "P07",
-        "phase": "after",
-        "tokens": 61,
-        "text_sha256": "c8e32da87bb738586bc52afa2736c38eea7993d2f397103fb3f4e6c56900a230"
+        "path": "pyproject.toml",
+        "git_blob": "1447054b71bbd75a8bbbc79cf970c03d348f69a4",
+        "sha256": "ec0e555a868f3d56d6424a43aae64981473452b11ae45a180d8dc724369abb2f"
       },
       {
-        "id": "P08",
-        "phase": "after",
-        "tokens": 65,
-        "text_sha256": "c875646a1b782a95b788c403764928c8dbd6a3df7f9fae8b8b03ceeb5f233f8e"
+        "path": "README.md",
+        "git_blob": "ce303f30752c6ddc85be2dcbccc12ed6b3d4efdf",
+        "sha256": "d470466c0d6683232f4e821f4eaa5d750a833eb289ef91a8f353c8009b9334ac"
+      },
+      {
+        "path": "scripts/generate_text.py",
+        "git_blob": "2a5c47896049fbaddcf860461a8d28daaec2be85",
+        "sha256": "666a5ebc631c801de190459f9cf7a5ac5b873903c08cc2ab10acac34936be25b"
+      },
+      {
+        "path": "scripts/prepare_tiny_data.py",
+        "git_blob": "237e06d66d4923b51b082ddf7772139d123ce617",
+        "sha256": "cf25545c11a22617d6338140e1e56958880c78315672de207377cfc19b82f528"
+      },
+      {
+        "path": "scripts/train_transformer.py",
+        "git_blob": "6cb27ecc82c59db2083959e1fc1e99474613ef86",
+        "sha256": "ffa95c45f3b9538d74ce56a48a501a6a020aa50f53fcbdb5b7dd7599e9860efa"
+      },
+      {
+        "path": "src/__init__.py",
+        "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "src/checkpoint.py",
+        "git_blob": "e5263c5c769590ee669881a4d7e433e4f344cfbd",
+        "sha256": "dcb70cae1554f8ee66356c187cba136011bd015f2d096d6241d8de9e02e8c10f"
+      },
+      {
+        "path": "src/device.py",
+        "git_blob": "b192a0193268675371876919eee6b6f669a58e74",
+        "sha256": "9e205e89c5d4617ec7f2698936927c58929053561d99b31324df7b3e32087d8d"
+      },
+      {
+        "path": "src/inference/__init__.py",
+        "git_blob": "d1b9f1247a93d13d567881da3127a8b48b2d910e",
+        "sha256": "0e4f19166aecc81d6f5555fd6bae78de837f594723d510cca6d41d0af4f66317"
+      },
+      {
+        "path": "src/inference/quantize.py",
+        "git_blob": "461b2904251fa772e7d3097153a225bd9429aa0c",
+        "sha256": "d1c92781d9251fa3beb086fc10223f406100ba42edfa7a7090627814f8b65a6d"
+      },
+      {
+        "path": "src/inference/sampling.py",
+        "git_blob": "e3ff9ee2e5b52fa780117cada234426ac897060b",
+        "sha256": "11f6b66167225a38c0a45ac967e404b7f31939a67571a51774ec3434b1e59e10"
+      },
+      {
+        "path": "src/inference/speculative.py",
+        "git_blob": "08d117a48ef205a54084298b7ddf8ecbefa193e5",
+        "sha256": "90a28b4592c1a51ba6d56ce75e5dddb685cdf2f247eb4b1b2109dfe63f0b9b63"
+      },
+      {
+        "path": "src/models/__init__.py",
+        "git_blob": "dab85fdb3ce542bbd558dce0d9ab023f54315665",
+        "sha256": "1f9d0db1be0cf0884ea44f786714ddba334fd4a4bc5405057efee6c1efa4079d"
+      },
+      {
+        "path": "src/models/attention.py",
+        "git_blob": "31580b82cd45fb615637a6b808341a4273d89856",
+        "sha256": "b4fc10105c98444f2b0df9d332b2c72325210669c2e00a65b16df7fbf43ec00e"
+      },
+      {
+        "path": "src/models/factory.py",
+        "git_blob": "7b3b113af17a79eea0f98b8ef2c84f2ef0ac4a2e",
+        "sha256": "5d0a3039be911d8e2df5b3c429713dda92817af016a3e94c8147e29b426d2ab2"
+      },
+      {
+        "path": "src/models/lora.py",
+        "git_blob": "734be48f039e7b30ba06b7288800335b7d1c8cc8",
+        "sha256": "1f0a117694314e8a2bdafc9b871220a8e6a78f49091f3ea08932a236983cb44e"
+      },
+      {
+        "path": "src/models/mlp.py",
+        "git_blob": "c7baa79265784fac4d44cf9448f4b6ffbbe412cf",
+        "sha256": "b83cebb2a63b67eddf7d5971c0e1607a73639814aa0c0f9142aac81054f7e3c3"
+      },
+      {
+        "path": "src/models/modern/__init__.py",
+        "git_blob": "632c2a0128702bb76c4f3310653c6c9db48ca7e3",
+        "sha256": "fbb721357e5cbd4462d50d350c5e09a08ec95cf2ecb9037a22af286b764e3fbe"
+      },
+      {
+        "path": "src/models/modern/attention.py",
+        "git_blob": "4518d0f0f76991d5bbdb358eb0cff016709c4298",
+        "sha256": "eb2a1c72709e7b913f975aeb796e06e4878c9fb12e4191205a45471c562b16e2"
+      },
+      {
+        "path": "src/models/modern/block.py",
+        "git_blob": "74fce7ab8f9e5e000327962c46d858d78e376c06",
+        "sha256": "66bc7709387e24e4182874c2e945c2812e75427e4e2b91aa4dc6f37c3bc61575"
+      },
+      {
+        "path": "src/models/modern/config.py",
+        "git_blob": "7c6e63c9d17489b475e3a28867def8208ceb5e90",
+        "sha256": "1ada9a1545b9dc2f816e457742490037b9648454d75f15512c06073beb3ba371"
+      },
+      {
+        "path": "src/models/modern/kv_cache.py",
+        "git_blob": "b5b6c22d444767b25f51f056c9aa896568b49616",
+        "sha256": "36c62cfbd9b5a07cd6bc2e0122361f4d6438f6063dc717d64182eb7969031e2e"
+      },
+      {
+        "path": "src/models/modern/mlp.py",
+        "git_blob": "172cfd6afde08c55ecab4daa3e43e05a9b669bdd",
+        "sha256": "dbf58609063535cc2cbd60db558c7d4222a56a9118d3fd22c18335d6f0e8ca10"
+      },
+      {
+        "path": "src/models/modern/model.py",
+        "git_blob": "fd52c4ecb8eb94bd4789c46dafeb8db1dbef233f",
+        "sha256": "e5f79f7a8c072309eda4fa9e141cdc66d5a64ec04fa820f8d3ab80b8028ad9f7"
+      },
+      {
+        "path": "src/models/modern/moe.py",
+        "git_blob": "4b43cff9173468b49a332f1afe5e3a2e97af23ee",
+        "sha256": "0c80422073b64aa05a0d51fd8c0964395438fbefd198f37178f63cdc69e92406"
+      },
+      {
+        "path": "src/models/modern/norm.py",
+        "git_blob": "0d774a44197a5184efc4101385d484c37b7915b9",
+        "sha256": "1c5fa7bb25daed61fa6f2ef85dec98132272a89d0a05b56d8e77fbe788206491"
+      },
+      {
+        "path": "src/models/modern/rope.py",
+        "git_blob": "f52f58c8c027daa5a125af5e113c3e5fd157723f",
+        "sha256": "881b4ddbb3be71b70aa558dc612edbad11973fb86bde0a3f9e2b533de2f177e4"
+      },
+      {
+        "path": "src/models/transformer.py",
+        "git_blob": "b69b282ac1292b5f0fecea5ebafd86485c3b3ef1",
+        "sha256": "ec63ac30e4443c73f7dae268cc5198868701afb90c612d62a22e69b6e4f71165"
+      },
+      {
+        "path": "src/models/transformer_block.py",
+        "git_blob": "b6cfd29d4fba30d0d212b74d350beafbbdcbad21",
+        "sha256": "b3469698eb6825f1ec4ea50883680ed7900e882add125222571924040289b23e"
+      },
+      {
+        "path": "src/optim/__init__.py",
+        "git_blob": "e70b0e49c6b978bd6568b0d304f060771f3b97f5",
+        "sha256": "7dea022309245b95ac2c0bd72a4276c2fc57d86b3b2fe4b9d917c5b22220e68e"
+      },
+      {
+        "path": "src/optim/muon.py",
+        "git_blob": "b258018048582cdb7216425442252f96055b0ea7",
+        "sha256": "8cb8c859f0a4d52a7b9e0f4a9cdedd48baf1e8c1a0a5e2e809f3466670f0e5e1"
+      },
+      {
+        "path": "src/optim/schedules.py",
+        "git_blob": "9e199afd1161c3b5e620a562df8061c2b9d6b9a5",
+        "sha256": "a0982c5f85ced7fff0968d9c45f3f22dffb9b5ac2a6f969da0e6196fd8203469"
+      },
+      {
+        "path": "src/tokenizer/__init__.py",
+        "git_blob": "5d4cb2c65de4e65381ce5587a278617ba202be59",
+        "sha256": "18613038f589bb905264aed778c52b4517c041ecb735a5367f054fa9d9c513bf"
+      },
+      {
+        "path": "src/tokenizer/bpe.py",
+        "git_blob": "2b86022077263e9bed63c18093e271fd7e98ae9f",
+        "sha256": "576ec593003e1430f2d5038b3436e50a7191e7d1abffe2dffd1841672efb4661"
       }
     ],
-    "scope": "Student-track original prepare_tiny_data.py (local original text, BPE512), train_transformer.py (modern tiny, CPU, fixed seed, 0 and800 steps), generate_text.py on8 frozen prompts. No pretrained weights, external datasets, SFT/RLHF/RL or quality benchmark.",
-    "human_approval": false,
-    "physical_ios_verified": false,
-    "verified_at": "2026-10-16T16:22:06.493390+00:00"
+    "original_runtime_scope": "Student-track original prepare_tiny_data.py (local original text, BPE512), train_transformer.py (modern tiny, CPU, fixed seed, 0 and800 steps), generate_text.py on8 frozen prompts. No pretrained weights, external datasets, SFT/RLHF/RL or quality benchmark.",
+    "scope": "Reverified48 original vendored files against official immutable Git tree. Original CPU preparation,0/800training,16real generation outputs and independent checks reused, not rerun. No new inference/training or pretrained weights.",
+    "visual_review": "Original contact sheet uses long text slides, headline stats, small screenshots and blank scenes. Revise to one connected corpus/tokenizer/two-model/continuation drawing and native portrait silent film.",
+    "verified_at": "2026-10-17T14:01:52.714017+00:00"
+  },
+  "video": {
+    "portrait": {
+      "video": {
+        "file": "video.mp4",
+        "sha256": "2a7055e6122a7927c2848d8353900abd93705468af94d93927d2919a4b8f6bfe",
+        "width": 720,
+        "height": 1280,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      },
+      "determinism": {
+        "frame": 576,
+        "seconds": 19.2,
+        "first": "d13685c510f2428b6601407a520f4052bfe6bf63dd83c2c97efbae8f1b6aafcf",
+        "afterOtherTimes": "d13685c510f2428b6601407a520f4052bfe6bf63dd83c2c97efbae8f1b6aafcf",
+        "freshPage": "d13685c510f2428b6601407a520f4052bfe6bf63dd83c2c97efbae8f1b6aafcf",
+        "match": true
+      }
+    },
+    "wide": {
+      "video": {
+        "file": "video.mp4",
+        "sha256": "bd90c0eded81d62f194b11b6cc8f71392e34b6aff4f7a4e2d20ee6d59e1ee95f",
+        "width": 1280,
+        "height": 720,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      },
+      "determinism": {
+        "frame": 576,
+        "seconds": 19.2,
+        "first": "0cbd96cbd32ee3d7a81e8bff486389bb94af79bd8cb0b54631bd5f055741a2b0",
+        "afterOtherTimes": "0cbd96cbd32ee3d7a81e8bff486389bb94af79bd8cb0b54631bd5f055741a2b0",
+        "freshPage": "0cbd96cbd32ee3d7a81e8bff486389bb94af79bd8cb0b54631bd5f055741a2b0",
+        "match": true
+      }
+    }
   },
   "browser": {
     "status": "passed",
-    "responsive_states": 6,
-    "widths": [
+    "verified_at": "2026-10-17T15:11:05.075495+00:00",
+    "layouts": 35,
+    "requested_widths": [
       320,
       375,
       390,
       430,
+      768,
       844,
       1280
     ],
-    "target_minimum_px": 44,
-    "form_font_minimum_px": 16,
-    "all_eight_records_match": true,
-    "native_export_matches_record": true,
-    "native_export_bytes": 2248,
-    "http503_parse_validation_retry": true,
-    "clipboard_matches_original_request": true,
-    "keyboard_enter_space": true,
-    "agent_visual_review": true,
-    "physical_ios_tested": false,
-    "voiceover_tested": false,
-    "human_approval": false
-  },
-  "semantics": {
-    "agent_semantic_review": true,
-    "human_approval": false,
-    "unresolved_blockers": [],
-    "reviewed": "Original96-line English template exercise, real upstream BPE preparation, seeded fresh0 and800-step CPU checkpoints, all8fixed before/after prompts regenerated and exact tokens/text compared. Original P01generation CLI verified. Small repeated corpus shares vocabulary/templates; heldout loss is not generalization or knowledge. Opus5.5 authored sources, tiny locally trained Transformer produced shown texts. Public static browser displays retained outputs, not live training or AI. All8 full native visible inputs/outputs/export match records. PhysicaliOS unverified."
-  },
-  "parent_adjustments": {
-    "original_opus_delivery_kept_privately": true,
-    "upstream_modified": false,
-    "run_source_modified": false,
-    "input_modified": false,
-    "executed_copy_matches_final_delivery": true,
-    "changes": [
-      "Shortened phone introduction/ready message and made sample buttons swipe horizontally so real outputs appear earlier.",
-      "Placed the actual13/13 duplicate validation line caveat beside the metrics, pinned the tested dependencies, and appended actual CPU runtime/reproduction evidence.",
-      "Added an exact safe sibling-copy reproduction command preserving published records; explicitly documented the Windows CPU wheel index actually used rather than assuming the default PyPI build."
+    "overflow_views": 0,
+    "primary_targets_minimum_px": 44,
+    "phone_diagram_and_save_fit": true,
+    "original_inputs": 8,
+    "original_generation_outputs": 16,
+    "exact_downloads": [
+      {
+        "id": "P01",
+        "filename": "train-llm-from-scratch-P01.json",
+        "bytes": 2130,
+        "sha256": "46c6bfaad31b50f064e49099d56b0909d0799d19df472a97b6fedde6728753e7"
+      },
+      {
+        "id": "P02",
+        "filename": "train-llm-from-scratch-P02.json",
+        "bytes": 2123,
+        "sha256": "57151effec1e4db2219026ce843d52f702a9adde85b6682d983c21a5cc98fb0e"
+      },
+      {
+        "id": "P03",
+        "filename": "train-llm-from-scratch-P03.json",
+        "bytes": 1992,
+        "sha256": "ca61dccb706b94946233814695b48605e0e1a957a7a2725649dc769a18560f5c"
+      },
+      {
+        "id": "P04",
+        "filename": "train-llm-from-scratch-P04.json",
+        "bytes": 2053,
+        "sha256": "a1b4a6f52d6be34689374570061eb77fce92517056f1946ac0ef286ff25b64c4"
+      },
+      {
+        "id": "P05",
+        "filename": "train-llm-from-scratch-P05.json",
+        "bytes": 2133,
+        "sha256": "76201954752b89e09439caf25c86639cd95ca2f3681c12aa2b7b046e0dc21752"
+      },
+      {
+        "id": "P06",
+        "filename": "train-llm-from-scratch-P06.json",
+        "bytes": 2197,
+        "sha256": "14c7d70eb39d7df873803096b4ae38ae3d35c0ac51a7ed0716cba214caec709d"
+      },
+      {
+        "id": "P07",
+        "filename": "train-llm-from-scratch-P07.json",
+        "bytes": 2288,
+        "sha256": "afe815b16a0dd6cf0ed5f9437b3c53657e8fc78b3b425ce6970328d4ea7c4356"
+      },
+      {
+        "id": "P08",
+        "filename": "train-llm-from-scratch-P08.json",
+        "bytes": 2248,
+        "sha256": "a24a4443dd638246d1c61e8ab42279a3882bb88e0e0174aad510ce1ed9396af0"
+      }
     ],
-    "human_approval": false
-  },
-  "video": {
-    "agent_reviewed": true,
+    "phase_toggles": 16,
+    "extra_direct_links": [
+      "P03",
+      "P04",
+      "P05"
+    ],
+    "legacy_selected_P05_verified": true,
+    "checks_displayed": 44,
+    "loss_points": 800,
+    "duplicate_validation_lines": 13,
+    "final_estimates_and_periodic_evaluation_times_match_original": true,
+    "record_fail_closed_and_recovered": [
+      "HTTP503",
+      "invalidJSON/hash-mismatch",
+      "changedBytes/hash-mismatch"
+    ],
+    "editor_assets_verified": 9,
+    "editor_audio_elements": 0,
+    "editor_scene_jumps": 6,
+    "editor_seek_reset_pause_end_replay_verified": true,
+    "asset_failure_and_recovery_verified": true,
+    "native_movies": [
+      {
+        "audioTracks": null,
+        "currentTime": 32,
+        "duration": 32,
+        "ended": true,
+        "error": null,
+        "height": 1280,
+        "src": "http://127.0.0.1:8876/media/train-llm-from-scratch-example.mp4",
+        "width": 720
+      },
+      {
+        "audioTracks": null,
+        "currentTime": 32,
+        "duration": 32,
+        "ended": true,
+        "error": null,
+        "height": 720,
+        "src": "http://127.0.0.1:8876/media/train-llm-from-scratch-example-wide.mp4",
+        "width": 1280
+      }
+    ],
+    "movies_ended": 2,
+    "request_copy_ui": "success reported by browser",
+    "clipboard_content_readback_verified": false,
+    "physical_ios_safari_voiceover": false,
     "human_approval": false,
-    "physical_ios_verified": false,
-    "video_sha256": "48b5654066eb459b81a2832270339799cfad447796d023a498ce17baa5732413",
-    "native_mp4": {
-      "duration": 28,
-      "ended": true,
-      "error": null,
-      "paused": true,
-      "time": 28
-    },
-    "native_start": {
-      "duration": 28,
-      "ended": false,
-      "error": null,
-      "paused": true,
-      "ready": 1,
-      "time": 0
-    },
-    "source_editor": {
-      "states": [
-        {
-          "client": 305,
-          "forms": [
-            {
-              "font": "16px"
-            }
-          ],
-          "playEnabled": true,
-          "position": 14,
-          "pressed": "false",
-          "scroll": 305,
-          "targets": [
-            {
-              "height": 45.1875,
-              "width": 74
-            },
-            {
-              "height": 44,
-              "width": 168.03125
-            },
-            {
-              "height": 44,
-              "width": 252.921875
-            },
-            {
-              "height": 54.375,
-              "width": 253
-            },
-            {
-              "height": 54.375,
-              "width": 253
-            },
-            {
-              "height": 54.375,
-              "width": 253
-            }
-          ],
-          "verifiedFiles": 8,
-          "width": 320
+    "scope": "New UI/film technical verification. Original CPU preparation,0/800training and16generations not repeated. Wide layout checked by render and native wide MP4; editor preview defaults to portrait."
+  },
+  "frame_review": {
+    "status": "passed",
+    "verified_at": "2026-10-17T15:11:05.075495+00:00",
+    "reviewer": "Production agent visual inspection; no human approval",
+    "unresolved_blockers": [],
+    "viewed": [
+      "portrait/contact.png",
+      "wide/contact.png",
+      "portrait/strip.png",
+      "wide/strip.png",
+      "portrait/poster.png",
+      "portrait/mobile-poster.png",
+      "wide/final.png",
+      "native P01/P08 phone diagram"
+    ],
+    "findings": [
+      "One connected drawing shows corpus split, training-only BPE, same seed0/800models, identical prompt branching to both, literal saved continuations and one sample JSON destination.",
+      "All13validation lines visibly return to training; duplicate-validation caveat remains in the main diagram. Loss is not presented as independent generalization, knowledge or quality.",
+      "Four P01prompt IDs travel along both branches; generic training blank pieces and the800adjustment loop are distinct from inference IDs. No invented probabilities, per-token decoded mapping, batch trace or measured weight trajectory.",
+      "P08question becomes story language rather than a capital-city answer. Displayed excerpts and IDs come from actual original tiny-Transformer results.",
+      "Portrait diagram and save fit at375x812; separately composed wide movie stays connected. Main labels and output excerpts are readable at360-wide video scale. Supplementary attribution and IDs are smaller.",
+      "Representative scenes,12consecutive frames for each layout, poster31 and last31.9667 show continuous paths, stable final composition and JSON destination. No narration or audio media."
+    ],
+    "frame_evidence": {
+      "portrait": {
+        "representative_frames": 16,
+        "continuous_frames": 12,
+        "determinism": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "d13685c510f2428b6601407a520f4052bfe6bf63dd83c2c97efbae8f1b6aafcf",
+          "afterOtherTimes": "d13685c510f2428b6601407a520f4052bfe6bf63dd83c2c97efbae8f1b6aafcf",
+          "freshPage": "d13685c510f2428b6601407a520f4052bfe6bf63dd83c2c97efbae8f1b6aafcf",
+          "match": true
         },
-        {
-          "client": 375,
-          "forms": [
-            {
-              "font": "16px"
-            }
-          ],
-          "playEnabled": true,
-          "position": 14,
-          "pressed": "false",
-          "scroll": 375,
-          "targets": [
-            {
-              "height": 45.1875,
-              "width": 74
-            },
-            {
-              "height": 44,
-              "width": 168.03125
-            },
-            {
-              "height": 44,
-              "width": 252.921875
-            },
-            {
-              "height": 54.375,
-              "width": 323
-            },
-            {
-              "height": 44,
-              "width": 322.28125
-            },
-            {
-              "height": 44,
-              "width": 307.765625
-            }
-          ],
-          "verifiedFiles": 8,
-          "width": 390
+        "video": {
+          "file": "video.mp4",
+          "sha256": "2a7055e6122a7927c2848d8353900abd93705468af94d93927d2919a4b8f6bfe",
+          "width": 720,
+          "height": 1280,
+          "fps": 30,
+          "frameCount": 960,
+          "duration": 32,
+          "hasAudio": false
         }
-      ],
-      "playToggled": true,
-      "pauseToggled": true,
-      "homeSevenPageUpPosition": 14
+      },
+      "wide": {
+        "representative_frames": 16,
+        "continuous_frames": 12,
+        "determinism": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "0cbd96cbd32ee3d7a81e8bff486389bb94af79bd8cb0b54631bd5f055741a2b0",
+          "afterOtherTimes": "0cbd96cbd32ee3d7a81e8bff486389bb94af79bd8cb0b54631bd5f055741a2b0",
+          "freshPage": "0cbd96cbd32ee3d7a81e8bff486389bb94af79bd8cb0b54631bd5f055741a2b0",
+          "match": true
+        },
+        "video": {
+          "file": "video.mp4",
+          "sha256": "bd90c0eded81d62f194b11b6cc8f71392e34b6aff4f7a4e2d20ee6d59e1ee95f",
+          "width": 1280,
+          "height": 720,
+          "fps": 30,
+          "frameCount": 960,
+          "duration": 32,
+          "hasAudio": false
+        }
+      }
     },
-    "full_decode": true,
-    "contact_sheet_reviewed": true,
-    "representative_frames": 14,
-    "decoded_transition_strips": 5,
-    "width360_reviews": [
-      "poster-360.png",
-      "question-360.png",
-      "ending-360.png"
-    ],
-    "poster_seconds": 13.5,
-    "unresolved_blockers": [],
-    "notes": [
-      "All six scenes and settled13.5s P01 comparison read correctly; actual excerpt text/counts match retained records. At360px primary headings,0/800labels and short English excerpts remain readable; technical footers are supplemental.",
-      "Five decoded transition strips show brief deliberate paper dips separating headlines, without text-on-text overlaps.",
-      "Final phone-card crop stays inside the source still and does not touch maincopy; real screen pixels unchanged.",
-      "Film omits validation-loss improvement and timing; explicitly frames this as template memorization, not knowledge/generalization. P08actualquestion continues story text, not an answer.",
-      "No physicaliOS/Safari/VoiceOver or human aesthetic approval."
-    ],
-    "verified_at": "2026-10-16T16:48:07.735932+00:00"
+    "full_ffmpeg_decode": "Both exact full MP4s decoded to null with exit0; both native playbacks ended at32seconds.",
+    "limits": [
+      "Agent review and automatic checks are not human aesthetic/content approval.",
+      "Physical iOS/Safari/VoiceOver and performance metrics unverified.",
+      "No audio stream, so narration/listening QA does not apply."
+    ]
   },
   "human_approval": false,
-  "contributions": {
-    "Opus5.5": "Authored original portable CPU CLI orchestrator, Japanese mobile viewer/explanation and editable28second film.",
-    "production_editor": "Froze original96English lines/8prompts/config, verified pinned48sourcefiles, ran actual unmodified original CLI/API in a stable execution copy that matched the final delivery; independently checked original HDF5, fresh seeded initial weights and all16text/token outputs; refined phone layout; rendered, reviewed and published.",
-    "scope": "Tiny original repeated-template learning/mechanics exercise, not a generalization or knowledge/quality benchmark. All13validationlines repeat training lines. Actual generated completions came from the135552parameter local Transformer, not Claude. Staticbrowser only displays retained outputs.",
-    "unverified": "PhysicaliOS/Safari/VoiceOver, real assistive technology, CoreWebVitals and human content/aesthetic approval."
-  }
+  "physical_ios_safari_voiceover": false,
+  "silent": true,
+  "production_adjustments": [
+    {
+      "file": "app.js",
+      "change": "Redraw the unchanged diagram when selecting 0/800 phase so its accessible description follows the highlighted model; no layout/film/result changes."
+    }
+  ]
 }

@@ -1,256 +1,59 @@
 {
-  "format": "studio-yebisu-motion-storyboard-v1",
-  "title": "小さなモデルを、ゼロから：文型を覚える、その過程を動かす。（28秒）",
-  "status": "書き出し・代表/連続フレーム・360px表示・全デコード・実MP4終端を制作担当が確認。実機iOS/Safari/VoiceOverと人による承認は未確認。公開の実動作は別記録。",
-  "authorship": "映像の編集元は Claude Opus 5.5 が執筆。学習と生成の実行は制作担当が行ったもので、続きの文は学習した小さなTransformerの出力（Claude の出力ではない）。モデルの会話履歴は公開しない。",
-  "brief": {
-    "goal": "原典の学生向けCPUトラックを改変せずに実行し、独自の英文96行で同じ初期値から0回と800回更新した小さなモデルの続きを比べた記録を、実出力から伝える",
-    "audience": "LLMの学習の流れを、手元のCPUと実際のコード・出力で知りたい日本語の初学者。iPhone の縦持ちで見る人が多い前提",
-    "message": "文型を覚える、その過程を動かす。",
-    "next_action": "8例と実行記録を、サイトで読む。",
-    "facts": [
-      "原典：FareedKhan-dev/train-llm-from-scratch bdd480a518094ca834e05ab32131dc126b522d3d（MIT、Copyright (c) 2025 Fareed Khan）、48ファイル無改変",
-      "入力：作例のために書いた英文96行（重複を除くと64行）。学習側83行・検証側13行で、検証側13行はすべて学習側にも同じ行がある",
-      "BPE：上限512の指定に対して実際の語彙417（マージ160）。学習側の文だけで作成。P01「Mira walks to the」は4トークン（327・313・269・301）",
-      "モデル：135,552パラメータ（modern・64次元・4ヘッド・2ブロック・文脈64・埋め込み共有）。事前学習済みの重みなし",
-      "学習：CPU 4スレッド・seed 2201・バッチ16・学習率0.002（641回目の更新の後に0.0002）。同じseedで0回（学習前）と800回。学習ミニバッチの損失800個、最初6.1106・最後0.0038",
-      "生成：学習前に固定した8つの書き出し、top_k 1・新しく48トークン。学習前後16件の全文とトークンIDを別の検証で作り直して一致",
-      "P01 学習前：続く48トークンがすべて「 the」。800回更新後：学習文の1行と同じ「Mira walks to the garden. Mira reads a small book. …」",
-      "P08「What is the capital of Japan?」の800回更新後：「 is blue. A friend brings a red book. …」と学習文の型が続き、質問には答えない"
-    ],
-    "not_claimed": [
-      "知識・汎化・文章の品質の評価、ベンチマーク、対話AIの性能",
-      "検証損失（6.1135→0.1900）を汎化の指標とすること。映像では検証の値を出さず、学習ミニバッチの損失だけを出す",
-      "所要秒（800回のCLIで23.103秒）。他のPCの速度や性能比較と誤解されるため映像に出さない",
-      "実行スクリプトの確認44件を品質や人の承認とすること（映像に出さない）",
-      "続きの文を Claude が書いたこと。コード・ページ・説明が Claude Opus 5.5、続きの文は学習した小さなモデル",
-      "学習中の端末・進み具合・打鍵・AIの思考（どれも記録にないので描かない）",
-      "SFT・RLHF・DPO・PPO・GRPO・量子化・GPU・外部データ・API",
-      "物理 iOS/Safari/VoiceOver での確認、人による承認"
-    ],
-    "look": {
-      "palette": {
-        "cream": "#f6f1e6",
-        "paper": "#fffdf8",
-        "ink": "#1c2333",
-        "muted": "#545c6c",
-        "line": "#d8cfbc",
-        "navy": "#14213d",
-        "cobalt": "#2353c9",
-        "cobalt_soft": "#e5ecfb",
-        "grid": "#e7dfcf"
-      },
-      "palette_source": "閲覧ページ style.css の色（クリーム・紺・コバルト）。grid は軸の補助線だけの追加色",
-      "type": "見出しは明朝の太字72px（紺）、副題・主な文は52px、英文の抜粋は等幅44px（入力は薄く、続きは濃く）、大きな数は200px、補足は30px以上、上の帯は26px、足元の帯は26〜28px。1280px幅の論理座標で、360px幅に縮めると見出しは約20px、主な文は約15px、英文の抜粋は約12px",
-      "layout": "左右48pxの余白。上の帯（作例名と原典の版）、見出し（y134）、本文（y152〜664）、足元の帯（左：原典コードの実行記録を編集・無音／右：続きの文は、学習した小さなモデルの実出力）。実画面は枠つきの切り抜きで、上に文字を重ねない。記録カードは紙の上に描き直した保存記録で、アプリ画面や端末に見せない"
-    },
-    "output": {
-      "duration_seconds": 28,
-      "fps": 30,
-      "frames": 840,
-      "width": 1280,
-      "height": 720,
-      "poster_seconds": 13.5,
-      "audio": "なし（audioEvents は空）",
-      "loop": false,
-      "other_aspect": "renderConfig の縦横比に合わせて論理座標を広げ、上下の帯は端に、本文は中央に置く。1280×720 以外は未確認"
-    }
+  "format": "studio-yebisu-storyboard-v1",
+  "title": "同じ書き出し、違う続き。",
+  "duration": 32,
+  "fps": 30,
+  "frames": 960,
+  "silent": true,
+  "audio": "none: no audio events, tracks, narration, TTS, transcript or mute control",
+  "sizes": {
+    "primary": { "width": 720, "height": 1280, "layout": "portraitLayout() in video.js" },
+    "alternate": { "width": 1280, "height": 720, "layout": "wideLayout() in video.js" },
+    "note": "Each size has its own composed layout in base units; other render sizes scale the matching layout uniformly. No letterbox: the ivory background fills the whole canvas."
   },
-  "sources": [
-    {
-      "path": "outputs/training-run.json",
-      "use": "原典の固定コミット、入力の SHA-256、設定、行数・語彙・トークン数、パラメータ数、0回と800回、800個の学習ミニバッチの損失、8件×学習前後の全文とトークンID、44件の確認（照合だけ）"
-    },
-    {
-      "path": "outputs/independent-checks.json",
-      "use": "別の検証：16出力の再生成の一致、同じseedの新しい初期値、重複を除いた64行、検証側13行の重複、各出力のトークン数"
-    },
-    {
-      "path": "input/stories.txt",
-      "use": "英文96行。各行の最初の文の抜粋、重複・検証側の数え直し、P01の続きが学習文の1行と同じこと、P08の続きが学習文と同じ並びであることの照合"
-    },
-    {
-      "path": "input/prompts.json",
-      "use": "学習前に固定した8つの書き出しと生成条件。実行記録の入力と一致すること"
-    },
-    {
-      "path": "input/run-config.json",
-      "use": "学習前に固定した設定。実行記録の config と一致すること、CPU"
-    },
-    {
-      "path": "video/assets/screen-manifest.json",
-      "use": "実画面2枚の大きさ（375×781・1265×889）と SHA-256"
-    },
-    {
-      "path": "video/assets/workbench-phone.png",
-      "use": "スマホ幅の閲覧ページ、P01 を選んだ状態。「800回更新後」のカードを切り抜いて22〜28秒に置く"
-    },
-    {
-      "path": "video/assets/workbench-desktop.png",
-      "use": "広い幅の閲覧ページ。照合・復号・大きさの確認だけ行い、今回の構図では描かない（1280×720 に縮めると文字が読めないため）"
-    }
+  "message": "How to try corpus → training-only BPE → tiny model trained from the same initial weights → compare the same prompt's saved continuations. Memorization/mechanics practice, not knowledge or quality.",
+  "sources": {
+    "verified_assets": "assets/manifest.json (raw bytes pinned 06c12f34ace165c708b26afad72cc513da2c8407d636dcf5712e307099b612e9) lists nine assets; each is checked by byte count and SHA-256 before drawing",
+    "record": "assets/training-run.json = outputs/training-run.json (SHA-256 c2a688ba465078f37bd4e9d2ede7b65107a811525fec064e62a174d4bd4c39e0)",
+    "inputs": ["assets/stories.txt = input/stories.txt", "assets/prompts.json = input/prompts.json", "assets/run-config.json = input/run-config.json"],
+    "cross_checks": ["assets/independent-checks.json (16 full-text SHA-256 values recomputed from the record)", "assets/upstream.json (48 pinned source files)", "assets/diagram-data.json (must equal the record and stories)", "assets/timeline.json (authoritative scenes, cases, headlines)"],
+    "provenance_only": "assets/original-verification.json describes the OLD 28-second film and its browser checks; it is not QA for this film",
+    "upstream": "FareedKhan-dev/train-llm-from-scratch @ bdd480a518094ca834e05ab32131dc126b522d3d, MIT, Copyright (c) 2025 Fareed Khan"
+  },
+  "limits": [
+    "Only the original tiny local Transformer generated the continuations; this film explains stored results and is not a live UI or session recording.",
+    "The loop ring, gear rotation, travelling pieces and unrolling strips are concept motion. They are not probabilities, attention maps, weight trajectories, per-token decoding or a training-batch trace.",
+    "Blank pieces on the training stream carry no numbers, so the four P01 prompt IDs are never shown as a training minibatch.",
+    "Checkpoint dots are only the five saved anchors 0/200/400/600/800; their lighting times are evenly spaced for viewing, not measured times.",
+    "Validation loss 6.1135 → 0.1900 is a 200-batch estimate on a validation side whose 13 lines all appear in training; it is shown once as a secondary caption, never as a stat card.",
+    "Excerpts are literal characters from the start of each saved continuation, stopped at the first line break and marked 抜粋 with an ellipsis. Full strings and IDs are in the page folds and the saved JSON.",
+    "P08 shows no answer, no answer bubble and no capital name; the saved 800-update output continues story words."
   ],
-  "persistent": {
-    "top": "Train LLM From Scratch 作例 ／ train-llm-from-scratch bdd480a ・ MIT（版は読み込んだ記録から）",
-    "footer_left": "原典コードの実行記録を編集・無音",
-    "footer_right": "続きの文は、学習した小さなモデルの実出力"
-  },
+  "objects": [
+    { "id": "headline", "source": "timeline.json scenes[].headline", "layout": { "portrait": "centre, y124, 46px serif", "wide": "left x56, y70, 42px serif" }, "enter": "0.3 s fade at each scene start (scene 1 is on at 0)", "exit": "0.35 s fade ending at scene out", "limit": "one headline at a time; fades never overlap" },
+    { "id": "caption", "source": "record values (BPE size, 200-batch validation loss, P01 IDs and next IDs) and fixed limit sentences", "layout": { "portrait": "centre, y186, 23px", "wide": "left x56, y108, 22px" }, "enter": "scene in +0.5 to +0.9 s", "exit": "with the headline", "limit": "secondary text" },
+    { "id": "book", "source": "dataset.story_lines (96)", "layout": { "portrait": [40, 238, 150, 190], "wide": [50, 172, 130, 160] }, "enter": "ghost at 0, solid 0.2–0.9 s", "exit": "never", "limit": "main label 96行 at 64/54 px" },
+    { "id": "train-stack", "source": "dataset.train_lines (83)", "layout": { "portrait": [250, 228, 200, 140], "wide": [220, 150, 200, 124] }, "enter": "with the corpus group", "exit": "never" },
+    { "id": "val-stack", "source": "dataset.val_lines (13)", "layout": { "portrait": [250, 394, 200, 62], "wide": [220, 294, 200, 56] }, "enter": "with the corpus group", "exit": "never" },
+    { "id": "duplicate-links", "source": "stories.txt lines 84–96 each matched to the identical line among lines 1–83 (all 13 found)", "layout": "13 ochre curves from each validation line back to its twin row in the training stack, plus the ochre label 検証13行は、13行とも学習側にもある", "enter": "drawn with the corpus group; redrawn 6.7–7.9 s", "exit": "never", "limit": "part of the geometry, not a footnote" },
+    { "id": "bpe-splitter", "source": "dataset.vocab_size 417, vocab_size_requested 512, bpe_trained_on 'train split only'", "layout": { "portrait": [510, 232, 180, 150], "wide": [476, 154, 196, 116] }, "enter": "0.6–1.3 s", "exit": "never", "limit": "fed only from the training stack" },
+    { "id": "training-stream", "source": "concept", "layout": "navy solid arrow from BPE into the loop ring around the 800-update machine", "enter": "1.0–1.7 s", "exit": "never", "limit": "blank pieces only" },
+    { "id": "loop-ring", "source": "concept; label 調整（概念図） / 調整ループ（概念図）", "layout": "dashed rounded ring 12 px outside the 800-update machine", "enter": "with the training group", "exit": "never", "motion": "dash offset turns only 10.2–15.8 s" },
+    { "id": "machine-0", "source": "training.before.completed_steps 0, seed 2201", "layout": { "portrait": [40, 772, 270, 160], "wide": [720, 486, 230, 130] }, "enter": "1.4–2.1 s", "exit": "never", "limit": "gear never turns; single 0 anchor; 初期値のまま" },
+    { "id": "machine-800", "source": "training.after.completed_steps 800, checkpoints[].completed_steps", "layout": { "portrait": [410, 772, 270, 160], "wide": [720, 152, 230, 130] }, "enter": "1.4–2.1 s", "exit": "never", "motion": "gear turns 10.2–15.8 s; anchors relit 10.9/12.0/13.1/14.2 s" },
+    { "id": "seed-node", "source": "training.seed 2201", "layout": "circle between the machines with dotted links to both: 同じ初期値", "enter": "with the machines", "exit": "never" },
+    { "id": "prompt-strip", "source": "samples[P01|P08].input.text and token_ids[0:prompt_tokens] (P01: 327 313 269 301; P08: 17 IDs)", "layout": { "portrait": "x40 y540 w560, height from content", "wide": "x240 y418 w440, height from content" }, "enter": "1.8–2.5 s", "exit": "P01 slides out 22.0–22.6 s, P08 in 22.4–23.1 s; P08 out 27.0–27.5 s, P01 in 27.35–28.0 s", "limit": "teal dotted 同じBPE link from the splitter; IDs hidden 5.4–9.3 s and shown again 9.3–9.9 s" },
+    { "id": "branch-arrows", "source": "concept: the same prompt IDs go to both models", "layout": "teal dashed arrows from the strip to both machines", "enter": "with the prompt group", "exit": "never", "motion": "ID groups travel 16.7–18.2 s (P01) and 23.2–24.45 s (P08, shown as 17 blank pieces with the count)" },
+    { "id": "output-strips", "source": "samples[].before/after.text after the prompt, and the first 5 new token_ids", "layout": { "portrait": "[20,976,330,166] and [370,976,330,166]", "wide": "[990,476,262,160] and [990,142,262,160]" }, "enter": "with the outputs group", "exit": "never", "motion": "P01 held until 16.0–16.4 s fade; first new IDs 301/409 travel 18.25–18.95 s; unroll 18.8–20.6 s; P08 first new IDs 63/314 travel 24.5–25.15 s, unroll 24.8–26.4 s; P01 fades back 27.4–28.4 s" },
+    { "id": "json-sheet", "source": "the selected sample's id; the page saves JSON.stringify(original sample) with both stages", "layout": { "portrait": [220, 1162, 280, 56], "wide": [1010, 344, 222, 64] }, "enter": "2.6–3.3 s", "exit": "never", "motion": "dots along both arrows 28.3–29.2 s, tint 28.8–29.4 s" },
+    { "id": "footer", "source": "fixed", "layout": "legend of the four line styles and the upstream credit", "enter": "always", "exit": "never" }
+  ],
   "scenes": [
-    {
-      "id": "corpus",
-      "start": 0,
-      "end": 4,
-      "headline": "小さなモデルを、ゼロから。",
-      "subtitle": "文型を覚える、その過程を動かす。",
-      "message": "作例のために書いた英文96行（重複を除くと64行）だけで学習する。素材は自作の定型文",
-      "enter": "見出しは最初から表示。0.15秒に副題、0.35秒に「実データの抜粋・各行の最初の文」、0.45秒から0.15秒おきに1〜3行目の最初の文（Mira walks to the garden. など）、0.95秒にファイル名、1.0秒に96行、1.2秒に「自作の定型文」、1.35秒に「重複を除くと64行」。1.8秒に着地",
-      "exit": "3.7〜4.0秒で紙の色へ消える（次の場面と重ねない）",
-      "reading_hold_seconds": 1.9,
-      "sources": [
-        "input/stories.txt（1〜3行目の最初の文・行数・重複を除いた行数）",
-        "outputs/training-run.json dataset.story_lines",
-        "outputs/independent-checks.json dataset.unique_lines_total"
-      ],
-      "crops": [],
-      "scope": "抜粋は各行の先頭から最初の「.」までの文字列そのまま"
-    },
-    {
-      "id": "tokens",
-      "start": 4,
-      "end": 8,
-      "headline": "文章を、数字に変える。",
-      "message": "P01 の書き出し「Mira walks to the」を BPE で分けると、実際のトークンID 327・313・269・301 の4個。語彙は上限512の指定に対して実417で、学習側83行の文だけで作った",
-      "enter": "4.15〜4.25秒に書き出し、4.55秒に矢印、4.7秒から0.12秒おきにトークンIDの札、4.8〜5.0秒に区切り線と417、5.2〜5.35秒に「上限512／実語彙417」と作り方。5.7秒に着地",
-      "exit": "7.7〜8.0秒で消える",
-      "reading_hold_seconds": 2.0,
-      "sources": [
-        "outputs/training-run.json samples[P01].after.token_ids（先頭 prompt_tokens 個）",
-        "outputs/training-run.json dataset.vocab_size_requested・vocab_size・bpe_trained_on・train_lines"
-      ],
-      "crops": [],
-      "scope": "どの語がどのIDかの対応は記録にないため描かない。417は語彙の数で、パラメータ数ではない（パラメータ数は次の場面に分けて出す）"
-    },
-    {
-      "id": "losses",
-      "start": 8,
-      "end": 12,
-      "headline": "同じ初期値から、800更新。（回数は記録の値）",
-      "message": "保存した800個の学習ミニバッチの損失。最初6.1106、最後0.0038。135,552パラメータのモデルを手元のCPU・4スレッドで学習。0回と800回は同じ初期値から",
-      "enter": "8.15秒に「学習ミニバッチの損失」「保存済みの学習記録」、8.25秒に軸と目盛り、8.4秒から0.6秒で線全体が現れる（左から描き進めない）、8.6〜9.0秒に右の説明、8.9・9.05秒に最初と最後の値。9.5秒に着地",
-      "exit": "11.7〜12.0秒で消える",
-      "reading_hold_seconds": 2.2,
-      "sources": [
-        "outputs/training-run.json training.losses（800個）・before/after.completed_steps・threads",
-        "outputs/training-run.json model.parameters",
-        "input/run-config.json device"
-      ],
-      "crops": [],
-      "scope": "検証損失は出さない。グラフは更新ごとの学習ミニバッチの値で、品質や汎化ではない。進み具合・所要秒・端末は描かない"
-    },
-    {
-      "id": "compare",
-      "start": 12,
-      "end": 18,
-      "headline": "同じ書き出し。違う続き。",
-      "message": "P01「Mira walks to the」。0回更新（学習前）は続く48トークンがすべて「the」。800回更新は「garden. Mira reads a small book.」と、学習文の1行と一字一句同じ文が続く",
-      "enter": "12.2秒に左の0回更新のカード、12.45秒に右の800回更新のカードと矢印、12.55・12.8秒に各カードの注記、12.9秒に「P01の実出力の抜粋（薄い文字は入力、「…」の先も出力が続く）」。13.35秒までに全要素が着地",
-      "exit": "17.7〜18.0秒で消える",
-      "poster": "13.5秒。見出し、0回更新と800回更新の2枚のカードと抜粋・注記がすべて静止した状態（場面の切り替えではない）",
-      "reading_hold_seconds": 4.35,
-      "excerpts": [
-        {
-          "sample": "P01",
-          "phase": "before",
-          "rule": "入力＋続きの最初の4語（続きは同じ語の48回の繰り返し）",
-          "shown": "Mira walks to the the the the the …"
-        },
-        {
-          "sample": "P01",
-          "phase": "after",
-          "rule": "全文の先頭から、入力の後の2つ目の「.」まで",
-          "shown": "Mira walks to the garden. Mira reads a small book. …"
-        }
-      ],
-      "sources": [
-        "outputs/training-run.json samples[P01].before・after（text・token_ids・prompt_tokens）",
-        "input/stories.txt（学習後の1行目が学習文の1行と同じことの照合）"
-      ],
-      "crops": [],
-      "scope": "抜粋は全文の先頭からの文字列そのまま。「…」は抜粋の印で、出力の文字ではない。全文はサイトで読める"
-    },
-    {
-      "id": "question",
-      "start": 18,
-      "end": 22,
-      "headline": "質問への答えは、覚えていない。",
-      "message": "学習前に固定した、学習文にない質問 P08「What is the capital of Japan?」。800回更新後の続きは「 is blue. A friend brings a red book.」と学習文の型で、質問には答えない",
-      "enter": "18.15秒にラベル、18.25秒に入力の枠、18.5秒に「実出力の抜粋」、18.6秒に出力の枠、19.0秒に「質問に答えず、学習文の型が続く。」。19.45秒に着地",
-      "exit": "21.7〜22.0秒で消える",
-      "reading_hold_seconds": 2.25,
-      "excerpts": [
-        {
-          "sample": "P08",
-          "phase": "after",
-          "rule": "全文の先頭から、入力の後の2つ目の「.」まで",
-          "shown": "What is the capital of Japan? is blue. A friend brings a red book. …"
-        }
-      ],
-      "sources": [
-        "outputs/training-run.json samples[P08].after.text",
-        "input/stories.txt（続きが学習文と同じ並びであること、入力が学習文にないことの照合）"
-      ],
-      "crops": [],
-      "scope": "正しい答えを映像に書き足さない。P08 は意図して学習文の外に置いた入力で、実行の失敗ではない"
-    },
-    {
-      "id": "pipeline",
-      "start": 22,
-      "end": 28,
-      "headline": "データから、生成までを確かめる。",
-      "message": "データ（英文96行）→ BPE（語彙417）→ 学習（800回更新）→ 生成（8例を比較）。定型文を覚える練習で、知識・汎化の評価ではない。コードとページは Claude Opus 5.5、続きの文は手元のCPUで学習した小さなモデル",
-      "enter": "22.2秒から0.15秒おきに4段の札、22.85秒に「定型文を覚える練習」、23.05秒に「知識・汎化の評価ではありません。」、23.2〜23.25秒に実画面、23.35秒に作成者の説明、24.4〜24.9秒に案内の帯",
-      "exit": "最後まで静止（24.9〜28秒は案内を含めて動かない）",
-      "cta": "8例と実行記録を、サイトで読む。",
-      "reading_hold_seconds": 5.0,
-      "sources": [
-        "outputs/training-run.json dataset・training・samples の数",
-        "video/assets/workbench-phone.png"
-      ],
-      "crops": [
-        {
-          "name": "phoneAfter",
-          "image": "workbench-phone.png",
-          "x": 10,
-          "y": 366,
-          "w": 342,
-          "h": 264,
-          "place": "x904 y314 倍率0.96",
-          "note": "スマホ幅の閲覧ページ、P01 の「800回更新後」のカード。右端のスクロールバーは含めない。座標は静止画を見て決めた値で、端の数画素は書き出したフレームで確かめる"
-        }
-      ],
-      "scope": "承認や確認の操作を促さない。検証損失・所要秒・確認の件数は出さない"
-    }
-  ],
-  "verification_in_code": [
-    "照合表 video/assets/data-hashes.json の SHA-256 が 91cf42aa5717fa4201943bc87d0b3ac5a1de4b7f494d2fff2c2e06253d87e5d6（runtime/frozen-reviewed-source.json の files_sha256）と一致",
-    "照合表の8ファイルの生のバイト列の SHA-256。画像は照合済みのバイト列から復号",
-    "原典のリポジトリ・固定コミット・MIT・48ファイル無改変。入力3つの SHA-256 が実行記録と同じ。設定が run-config.json と同じで CPU",
-    "実行記録の確認44件がすべて true（映像には出さない）",
-    "英文96行・重複を除くと64行・学習側83行・検証側13行。検証側13行すべてが学習側にもあることをファイルから数え直し、実行記録と別の検証の値と照合",
-    "BPEの上限512・実際の語彙417・学習側だけで作成。135,552パラメータ・事前学習済みの重みなし",
-    "学習前0回・学習後800回・同じseedの新しい初期値・重みの変化。学習ミニバッチの損失が800個で有限",
-    "8つの書き出しが固定のものと同じ。16出力が入力から始まり、トークン数が別の検証と同じ。入力のトークンIDが学習前後で同じ",
-    "P01 学習前の続きが同じ語の48回、学習後の1行目が学習文の1行と同じ。P08 は学習文になく、続きが学習文と同じ並びで答えを含まない",
-    "実画面2枚の大きさ・SHA-256が記録と同じ。切り抜きが画像の内側で、置き場所が本文の範囲に収まる",
-    "見出し・副題・抜粋が下限の文字サイズのまま枠に収まる（収まらなければ描かずに止まる）"
-  ],
-  "publication_verification": {
-    "duration": 28,
-    "fps": 30,
-    "frames": 840,
-    "silent": true,
-    "agent_reviewed": true,
-    "human_approval": false,
-    "physical_ios_verified": false
-  }
+    { "id": "overview", "in": 0, "out": 5, "case": "P01", "what": "The whole network appears group by group from a ghost at 0 s; one pulse runs the training side (3.3–4.1 s) then both prompt branches to the JSON (4.1–4.9 s)." },
+    { "id": "corpus", "in": 5, "out": 10, "case": "P01", "what": "Line slips leave the book for 83/13 (5.1–6.9 s); the 13 duplicate links redraw (6.7–7.9 s) with the twin rows lit; training lines enter the BPE and leave as blank pieces (7.9–9.9 s); the dotted 同じBPE link and P01's four IDs return (9.0–9.9 s)." },
+    { "id": "updates", "in": 10, "out": 16, "case": "P01", "what": "Blank pieces stream into the loop; only the 800-update machine's gear and ring move; its five saved anchors relight; the 0-update machine stays still. Caption: 200-batch validation loss with the duplicate caveat." },
+    { "id": "continuation", "in": 16, "out": 22, "case": "P01", "what": "The same four IDs travel to both machines; each emits its first saved new ID (301 / 409); both output strips unroll their literal excerpts." },
+    { "id": "limit", "in": 22, "out": 27, "case": "P08", "what": "The P08 question strip replaces P01; its 17 IDs travel to both; the 0-update strip shows question marks and the 800-update strip shows ' is blue. A friend brings a red book.' — story words, no answer." },
+    { "id": "finish", "in": 27, "out": 32, "case": "P01", "what": "P01 returns; both continuations flow into the JSON sheet; from 29.5 s the frame is settled. Poster at 31 s." }
+  ]
 }
