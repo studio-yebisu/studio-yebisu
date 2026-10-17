@@ -1,0 +1,103 @@
+{
+  "tts": {
+    "repository": "Aratako/Irodori-TTS-v4.1-Small",
+    "revision": "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
+    "license": "mit",
+    "checkpoint_sha256": "c85de88c01700cb53538e706f128ebcb1b8513ad21d7d0e75f58bc82cdbf89f6",
+    "bytes": 3064295596,
+    "code_repository": "Aratako/Irodori-TTS",
+    "code_commit": "8224dafb46d0aba89209a8f905f1cb7e3299d9c1",
+    "infer_sha256": "99deedfae29dbd2d4496bfcc9c1d87b1fb537e0245e8847e4e6a70ed36a0c0fc",
+    "codec_repository": "Aratako/Semantic-DACVAE-Japanese-32dim",
+    "codec_revision": "47376ee24834d7a05a48ebabfe3cde29b3c5e214",
+    "model_card_sha256": "6e567e05da47e999635719e71946c4e2a08cd339148c20d2d78d4f03e5711c90",
+    "inference": {
+      "model_device": "cuda",
+      "model_precision": "bf16",
+      "codec_device": "cpu",
+      "codec_precision": "fp32",
+      "steps": 40,
+      "cfg_text": 3,
+      "cfg_caption": 3,
+      "cfg_speaker": 5,
+      "external_network_calls": 0
+    },
+    "model_weights_distributed": false
+  },
+  "reference": {
+    "file": "audio/narrator-reference.wav",
+    "sha256": "c49ae333c9b96bddb911029cb51e3e2150fb293b86ed9495fb1686c6c0997211",
+    "origin": "Original Irodori TTS caption-generated voice from our OpenVoice example, not a real-person recording."
+  },
+  "segments": [
+    {
+      "id": "intro",
+      "text": "自動化の設定を、ファイルにして持ち運びます。",
+      "requested_tts": "Aratako/Irodori-TTS-v4.1-Small",
+      "revision": "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
+      "checkpoint_sha256": "c85de88c01700cb53538e706f128ebcb1b8513ad21d7d0e75f58bc82cdbf89f6",
+      "script_sha256": "a09ecdf166d8afb4495bb4b2f9da07465ab037fbfee0a3341d2a6db44fc7b72c",
+      "reference_sha256": "c49ae333c9b96bddb911029cb51e3e2150fb293b86ed9495fb1686c6c0997211",
+      "exit_code": 0,
+      "seconds": 22.635565100004897,
+      "wav_sha256": "0d9bf741920467ea76c07f3923e12742f4eea6273f42255186b0a710a5cecde2",
+      "bytes": 361004
+    },
+    {
+      "id": "missing",
+      "text": "時刻が抜けていると、読み込みで止まります。",
+      "requested_tts": "Aratako/Irodori-TTS-v4.1-Small",
+      "revision": "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
+      "checkpoint_sha256": "c85de88c01700cb53538e706f128ebcb1b8513ad21d7d0e75f58bc82cdbf89f6",
+      "script_sha256": "a09ecdf166d8afb4495bb4b2f9da07465ab037fbfee0a3341d2a6db44fc7b72c",
+      "reference_sha256": "c49ae333c9b96bddb911029cb51e3e2150fb293b86ed9495fb1686c6c0997211",
+      "exit_code": 0,
+      "seconds": 17.60489439999219,
+      "wav_sha256": "b72e955a85463036c5dede198ee71addf500aad66b9ffd4b36be43eb29ebc757",
+      "bytes": 337964
+    },
+    {
+      "id": "repair",
+      "text": "時刻をひとつ戻すと、形式の点検を通って保存できます。",
+      "requested_tts": "Aratako/Irodori-TTS-v4.1-Small",
+      "revision": "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
+      "checkpoint_sha256": "c85de88c01700cb53538e706f128ebcb1b8513ad21d7d0e75f58bc82cdbf89f6",
+      "script_sha256": "a09ecdf166d8afb4495bb4b2f9da07465ab037fbfee0a3341d2a6db44fc7b72c",
+      "reference_sha256": "c49ae333c9b96bddb911029cb51e3e2150fb293b86ed9495fb1686c6c0997211",
+      "exit_code": 0,
+      "seconds": 18.099330299999565,
+      "wav_sha256": "c1ddeef882c65dd6968b1bf4e3ab717340b8db61a68541d857b9b01b9dc9219e",
+      "bytes": 468524
+    },
+    {
+      "id": "limits",
+      "text": "ただし、時刻が正しいか、実際に動くかは、別の確認です。",
+      "requested_tts": "Aratako/Irodori-TTS-v4.1-Small",
+      "revision": "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
+      "checkpoint_sha256": "c85de88c01700cb53538e706f128ebcb1b8513ad21d7d0e75f58bc82cdbf89f6",
+      "script_sha256": "a09ecdf166d8afb4495bb4b2f9da07465ab037fbfee0a3341d2a6db44fc7b72c",
+      "reference_sha256": "c49ae333c9b96bddb911029cb51e3e2150fb293b86ed9495fb1686c6c0997211",
+      "exit_code": 0,
+      "seconds": 18.858399899996584,
+      "wav_sha256": "e0b3f4f48faeb6e40bc612a4eb9144813f5d18343f4972d0b19b87bacd4c8812",
+      "bytes": 553004
+    },
+    {
+      "id": "repository",
+      "text": "参照先がふたつあっても、保存されるのは先頭だけ。元の設定と見比べましょう。",
+      "requested_tts": "Aratako/Irodori-TTS-v4.1-Small",
+      "revision": "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
+      "checkpoint_sha256": "c85de88c01700cb53538e706f128ebcb1b8513ad21d7d0e75f58bc82cdbf89f6",
+      "script_sha256": "a09ecdf166d8afb4495bb4b2f9da07465ab037fbfee0a3341d2a6db44fc7b72c",
+      "reference_sha256": "c49ae333c9b96bddb911029cb51e3e2150fb293b86ed9495fb1686c6c0997211",
+      "exit_code": 0,
+      "seconds": 20.176902699982747,
+      "wav_sha256": "5107797c09e9d1ff1ec948dc67ae6778657e1d17b73eff7996d7bad06f4ae65d",
+      "bytes": 679724
+    }
+  ],
+  "timeline_sha256": "4be964f2ffc17338daa3366d09e6ad58547fa92c42fc2e3ee9d6c2a758a71fd4",
+  "cue_sha256": "6a602a04608adaa6a61d141d20f42fe61774c191b70082ff2bb3552fec178ed8",
+  "listening_confirmed": false,
+  "human_approval": false
+}

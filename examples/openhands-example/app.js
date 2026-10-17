@@ -1,692 +1,992 @@
-// Studio Yebisu — OpenHands Agent Canvas 作例ページ。MIT License, Copyright (c) 2026 Studio Yebisu.
-// 保存した実行記録を読むだけのページ。原典の検査をブラウザーで計算し直さず、記録の値をそのまま表示する。
-// データはすべて textContent とテキストノードで書き、HTML として解釈しない（O08 のタグも文字のまま）。
+// Studio Yebisu — OpenHands 自動化の設定ファイルの作例（図のページ）。MIT License, Copyright (c) 2026 Studio Yebisu.
+// 制作時に固定版の原典の関数で実行して保存した記録を読み、図で見せるページ。ブラウザーで原典・エージェント・AI は動かさない。
+// 図の状態（時計・ゲート・保存・参照先）は、照合を通った記録の値から決める。記録の代わりになる値は持たない。
+// ファイルは記録の SHA-256 とバイト数に合ったバイト列だけを保存に使う。記録の文字列は textContent で書き、HTML として解釈しない。
 "use strict";
 
 (() => {
-  const EXPECTED = {
+  const RECORD = "outputs/automation-runs.json";
+  const REQUEST = "request.txt";
+  const COMPARE = "comparison.html";
+  const PIN = Object.freeze({
     format: "studio-yebisu-openhands-automation-runs-v1",
-    inputFormat: "studio-yebisu-openhands-settings-v1",
-    upstream: {
-      repository: "OpenHands/OpenHands",
-      commit: "e4775b4ba61a83ba80af5f7b0b826201b8e8ea05",
-      version: "1.27.1",
-      license: "MIT",
-    },
-    dependency: {
-      name: "@openhands/extensions",
-      version: "0.30.0",
-      license: "MIT",
-      resolved: "https://registry.npmjs.org/@openhands/extensions/-/extensions-0.30.0.tgz",
-      integrity: "sha512-lPyH0iqSow+ARTX4cumR75e3BJmuqpj2YbKm1cqDcI1SQDXfDTr+/wSVH9dQsOmddEP4Zn+uMoLXpKSO/moonA==",
-      archive_sha256: "8a5eb885cc2bdb9170bc9a561aa5bcab52f8d662ac9fd38b69769b0f5f538356",
-    },
-    inputSha256: {
-      "input/automation-settings.json": "e982b4ca83fd92d9f012a44e98f35dc58b9dfc48a95eede6bb7daff57ce0be6b",
-      "input/expected.json": "d2e9892831156aa52d87eff81b7b28ce15caaafbde900d828a8763d66064d460",
-      "vendor-lock.json": "34149d29d4d4cb0181f41f0b8ac998a5c8baa0c3e13e0af341338eae1dddea02",
-    },
-    originalFileCount: 12,
-    packageFileCount: 29,
-    envelope: { fileVersion: 1, fileKind: "automation", filenameSuffix: ".automation.json" },
+    repository: "OpenHands/OpenHands",
+    commit: "e4775b4ba61a83ba80af5f7b0b826201b8e8ea05",
+    version: "1.27.1",
+    license: "MIT",
+    vendorLock: "34149d29d4d4cb0181f41f0b8ac998a5c8baa0c3e13e0af341338eae1dddea02",
+    dependency: "@openhands/extensions",
+    dependencyVersion: "0.30.0",
+    integrity: "sha512-lPyH0iqSow+ARTX4cumR75e3BJmuqpj2YbKm1cqDcI1SQDXfDTr+/wSVH9dQsOmddEP4Zn+uMoLXpKSO/moonA==",
+    originalFiles: 12,
+    packageFiles: 29,
+    checks: 107,
+    summary: { total: 8, accepted: 6, rejected: 2 },
     errorName: "AutomationFileValidationError",
-    ids: ["O01", "O02", "O03", "O04", "O05", "O06", "O07", "O08"],
-    modes: ["export-roundtrip", "import"],
-    defaultId: "O03",
-    repairPair: ["O03", "O04"],
-  };
-  const FILES = {
-    record: "outputs/automation-runs.json",
-    settings: "input/automation-settings.json",
-    expected: "input/expected.json",
-    lock: "vendor-lock.json",
-    request: "request.txt",
-  };
-  const HASHED = { settings: "input/automation-settings.json", expected: "input/expected.json", lock: "vendor-lock.json" };
-  const ORIGINAL_PREFIX = "vendor/openhands/";
-  const PACKAGE_PREFIX = "vendor/extensions/";
+    envelope: { fileVersion: 1, fileKind: "automation", filenameSuffix: ".automation.json" },
+  });
+  const IDS = Object.freeze(["O01", "O02", "O03", "O04", "O05", "O06", "O07", "O08"]);
+  const MODES = Object.freeze(["export-roundtrip", "import"]);
+  const SCENES = Object.freeze(["O03", "O04", "O06", "O07"]);
+  const DEFAULT_ID = "O03";
+  // 直した設定 O04 から書き出された実際のファイル（記録の file_sha256 と同じ値）。
+  const O04_FILE = Object.freeze({
+    path: "outputs/exports/O04.automation.json",
+    filename: "O04.automation.json",
+    bytes: 602,
+    sha256: "5e1ae14b8273237d308dceb6fdad445ce7c6e5e210f4e3b6cadcee951d7a5aa3",
+  });
+  const SAFE_NAME = /^[A-Za-z0-9][A-Za-z0-9._-]{0,120}$/;
+  const HEX64 = /^[0-9a-f]{64}$/;
+  const NS = "http://www.w3.org/2000/svg";
 
   const $ = (id) => document.getElementById(id);
-  const el = {
+  const ui = {
+    diagram: $("diagram"),
+    chips: Array.from(document.querySelectorAll(".choice")),
+    caption: $("caption"),
+    caseNote: $("case-note"),
+    caseNoteText: $("case-note-text"),
+    caseNoteLink: $("case-note-link"),
     status: $("status"),
-    statusText: $("status-text"),
     retry: $("retry"),
-    tally: $("tally"),
-    select: $("sample-select"),
-    viewer: $("viewer"),
-    kicker: $("sample-kicker"),
-    title: $("sample-title"),
-    state: $("result-state"),
-    diagnosisBox: document.querySelector(".diagnosis-box"),
-    diagnosisNote: $("diagnosis-note"),
-    diagnosis: $("diagnosis"),
-    caveat: $("caveat"),
-    caveatList: $("caveat-list"),
-    repair: $("repair"),
-    repairText: $("repair-text"),
-    repairLink: $("repair-link"),
-    facts: $("facts"),
-    downloadFile: $("download-file"),
-    downloadRecord: $("download-record"),
-    copy: $("copy-request"),
+    repair: $("repair-action"),
+    save: $("save-file"),
+    saveLabel: $("save-label"),
+    compare: $("compare"),
     actionStatus: $("action-status"),
-    fallback: $("request-fallback"),
-    fallbackLabel: $("request-fallback-label"),
-    rawFileNote: $("raw-file-note"),
-    rawFile: $("raw-file"),
-    rawInputNote: $("raw-input-note"),
-    rawInput: $("raw-input"),
-    rawOutput: $("raw-output"),
+    factsIntro: $("facts-intro"),
+    facts: $("facts"),
+    factsCompare: $("facts-compare"),
+    saveRecord: $("save-record"),
+    tally: $("tally"),
+    allList: $("all-list"),
     runFacts: $("run-facts"),
+    copy: $("copy"),
+    copyStatus: $("copy-status"),
+    fallback: $("fallback"),
+    fallbackLabel: $("fallback-label"),
   };
 
-  // The one owner of page state. Only load(), clearResult() and render() change it.
-  const state = { ready: false, loading: false, record: null, byId: new Map(), current: null, request: "" };
+  // ページの状態。boot() と show() だけが書き換える。
+  const state = {
+    rows: null,        // id → 照合済みの記録の1件
+    views: null,       // 場面の id → 図の状態（記録から作る）
+    record: null,
+    id: null,          // 表示中の記録の id（不明な id のときは null）
+    ready: false,
+    loading: false,
+    generation: 0,     // ファイル照合の世代。古い結果を捨てる
+    previous: null,    // 直前に描いた図の状態（切り替えの動きのため）
+    recordUrl: "",
+    request: null,
+  };
+  const fileUrls = new Map(); // file_path → 照合済みの Blob URL
+  const pending = new Map();  // file_path → 照合中の Promise
+  const wide = window.matchMedia("(min-width: 700px)");
 
   class LoadError extends Error {}
-
-  function fail(message) {
-    throw new LoadError(message);
-  }
-
-  const isObject = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
-  const isString = (value) => typeof value === "string";
-  const own = (object, key) => Object.prototype.hasOwnProperty.call(object, key);
-  // The same bytes run.mjs wrote to outputs/exports/ and the record: pretty JSON with a final newline.
+  const need = (ok, message) => { if (!ok) throw new LoadError(message); };
+  const isObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+  const isString = (v) => typeof v === "string" && v.length > 0;
+  const obj = (v) => (isObject(v) ? v : {});
+  const own = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
+  // run.mjs が outputs/exports/ と記録に書いたのと同じバイト列：2字下げの JSON と末尾の改行。
   const fileText = (value) => `${JSON.stringify(value, null, 2)}\n`;
+  const utf8 = (text) => new TextEncoder().encode(text);
 
   function deepEqual(a, b) {
     if (a === b) return true;
-    if (Array.isArray(a)) {
-      return Array.isArray(b) && a.length === b.length && a.every((item, i) => deepEqual(item, b[i]));
-    }
+    if (Array.isArray(a)) return Array.isArray(b) && a.length === b.length && a.every((x, i) => deepEqual(x, b[i]));
     if (isObject(a) && isObject(b)) {
       const keys = Object.keys(a);
-      return keys.length === Object.keys(b).length && keys.every((key) => own(b, key) && deepEqual(a[key], b[key]));
+      return keys.length === Object.keys(b).length && keys.every((k) => own(b, k) && deepEqual(a[k], b[k]));
     }
     return false;
   }
 
-  async function sha256Hex(buffer) {
-    if (!window.crypto || !window.crypto.subtle) {
-      fail("このブラウザーでは SHA-256 の照合（Web Crypto）が使えないため、記録を確かめられません。https または localhost で開いてください。");
-    }
-    const digest = await window.crypto.subtle.digest("SHA-256", buffer);
-    return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
-  }
+  // --- 読み込みと照合 -----------------------------------------------------------------------
 
-  async function fetchBytes(path) {
+  async function fetchOk(path) {
     let response;
     try {
-      response = await fetch(path, { cache: "no-store" });
-    } catch (error) {
-      fail(`${path} を取得できませんでした。`);
+      response = await fetch(path, { cache: "no-store", credentials: "same-origin" });
+    } catch {
+      throw new LoadError(`${path} を読み込めませんでした。ローカルで開くときは HTTP サーバー経由で開いてください。`);
     }
-    if (!response.ok) fail(`${path} を取得できませんでした（HTTP ${response.status}）。`);
-    const buffer = await response.arrayBuffer();
-    let text;
-    try {
-      text = new TextDecoder("utf-8", { fatal: true }).decode(buffer);
-    } catch (error) {
-      fail(`${path} が UTF-8 として読めません。`);
-    }
-    return { buffer, text };
+    need(response.ok, `${path} を読み込めませんでした（HTTP ${response.status}）。`);
+    return response;
   }
 
-  function parseJson(path, text) {
-    try {
-      return JSON.parse(text);
-    } catch (error) {
-      return fail(`${path} が JSON として読めません。`);
-    }
+  async function sha256Hex(bytes) {
+    need(window.crypto && window.crypto.subtle, "このブラウザーでは SHA-256 を計算できないため、記録を確かめられません。https か localhost で開いてください。");
+    const digest = await window.crypto.subtle.digest("SHA-256", bytes);
+    return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, "0")).join("");
   }
 
-  // --- 照合 --------------------------------------------------------------------------------
-
-  function lockEntries(lock, prefix, extra) {
-    return lock.files
-      .filter((file) => isObject(file) && isString(file.path) && file.path.startsWith(prefix))
-      .map((file) => ({ path: file.path, sha256: file.sha256, bytes: file.bytes, [extra]: file[extra] }));
-  }
-
-  function validateResultShape(item) {
-    const id = isObject(item) ? item.id : null;
-    const base = isObject(item)
-      && isString(item.id) && isString(item.label) && EXPECTED.modes.includes(item.mode)
-      && typeof item.accepted === "boolean" && isObject(item.input) && isObject(item.observations);
-    if (!base) fail(`${id || "記録の1件"} の形が実行記録の形式と合いません。`);
-    if (item.accepted) {
-      const file = item.file;
-      const ok = isObject(file) && isObject(file.spec)
-        && file.version === EXPECTED.envelope.fileVersion && file.kind === EXPECTED.envelope.fileKind
-        && isString(item.filename) && item.filename.endsWith(EXPECTED.envelope.filenameSuffix)
-        && item.file_path === `outputs/exports/${item.id}.automation.json`
-        && isString(item.file_sha256) && isObject(item.parsed) && isObject(item.roundtrip) && item.error === null;
-      if (!ok) fail(`${id} は形が通った記録ですが、ファイル・名前・読み戻しの記録がそろっていません。`);
+  function checkRow(row) {
+    const id = row.id;
+    need(isString(row.label) && MODES.includes(row.mode) && typeof row.accepted === "boolean"
+      && isObject(row.input) && isObject(row.observations), `${id} の形が実行記録の形式と合いません。`);
+    if (row.accepted) {
+      const rt = obj(row.roundtrip);
+      need(isObject(row.file) && isObject(row.file.spec)
+        && row.file.version === PIN.envelope.fileVersion && row.file.kind === PIN.envelope.fileKind
+        && row.file_path === `outputs/exports/${id}.automation.json` && HEX64.test(row.file_sha256)
+        && isString(row.filename) && SAFE_NAME.test(row.filename) && row.filename.endsWith(PIN.envelope.filenameSuffix)
+        && isObject(row.parsed) && row.error === null
+        && rt.reparsed_equals_parsed === true && rt.reserialized_equals_file === true && rt.reserialized_sha256 === row.file_sha256,
+      `${id} は形式OKの記録ですが、ファイル・名前・読み戻しの記録がそろっていません。`);
+      need(row.parsed.enabled === false && row.file.spec.enabled === false, `${id} の設定が無効（enabled: false）のままになっていません。`);
     } else {
-      const error = item.error;
-      const ok = item.parsed === null && item.filename === null && item.file_path === null
-        && isObject(error) && error.name === EXPECTED.errorName
-        && Array.isArray(error.issues) && error.issues.length > 0 && error.issues.every(isString)
-        && error.message === error.issues.join("\n");
-      if (!ok) fail(`${id} は止まった記録ですが、原典の誤り（name・message・issues）の記録が合いません。`);
+      const error = obj(row.error);
+      need(row.file === null && row.file_path === null && row.file_sha256 === null && row.filename === null && row.parsed === null
+        && error.name === PIN.errorName && Array.isArray(error.issues) && error.issues.length > 0 && error.issues.every(isString)
+        && error.message === error.issues.join("\n") && row.observations.issue_count === error.issues.length,
+      `${id} は止まった記録ですが、原典の誤り（name・message・issues）の記録が合いません。`);
     }
   }
 
-  async function validate(files, hashes) {
-    const { record, settings, expected, lock } = files;
-    if (!isObject(record) || record.format !== EXPECTED.format) fail("実行記録の形式が違います。");
+  // 図の4場面が依って立つ、記録の中の事実。合わなければ図を描かない。
+  function checkScenes(rows) {
+    const o3 = rows.get("O03");
+    const o4 = rows.get("O04");
+    const o6 = rows.get("O06");
+    const o7 = rows.get("O07");
 
-    const upstream = isObject(record.upstream) ? record.upstream : {};
-    for (const key of Object.keys(EXPECTED.upstream)) {
-      if (upstream[key] !== EXPECTED.upstream[key]) fail("実行記録の OpenHands の固定版が一致しません。");
-    }
-    const dependency = isObject(record.dependency) ? record.dependency : {};
-    for (const key of Object.keys(EXPECTED.dependency)) {
-      if (dependency[key] !== EXPECTED.dependency[key]) fail("実行記録の @openhands/extensions の固定版が一致しません。");
-    }
+    const issues3 = obj(o3.error).issues;
+    need(!o3.accepted && Array.isArray(issues3) && issues3.length === 1 && issues3[0].startsWith("spec.trigger.schedule:")
+      && deepEqual(o3.observations.issue_paths, ["spec.trigger.schedule"])
+      && !own(obj(obj(o3.input.spec).trigger), "schedule"),
+    "O03 の記録が「時刻（schedule）の欠けで止まった1件」になっていません。");
 
-    const recorded = isObject(record.input_sha256) ? record.input_sha256 : {};
-    for (const [path, pinned] of Object.entries(EXPECTED.inputSha256)) {
-      if (hashes[path] !== pinned) fail(`${path} の SHA-256 が、実行前に固定した値と一致しません。`);
-      if (recorded[path] !== pinned) fail(`実行記録にある ${path} の SHA-256 が一致しません。`);
-    }
-    if (upstream.vendor_lock_sha256 !== EXPECTED.inputSha256["vendor-lock.json"]) fail("実行記録の vendor-lock.json の SHA-256 が一致しません。");
+    const repair4 = obj(o4.observations.repair);
+    const diff = Array.isArray(repair4.input_diff) ? repair4.input_diff : [];
+    const restored = JSON.parse(JSON.stringify(o4.input));
+    const restoredTrigger = obj(obj(restored.spec).trigger);
+    const added = restoredTrigger.schedule;
+    delete restoredTrigger.schedule;
+    need(o4.accepted && repair4.role === "repaired" && repair4.partner === "O03" && obj(o3.observations.repair).partner === "O04"
+      && diff.length === 1 && diff[0].path === "spec.trigger.schedule" && diff[0].change === "added" && diff[0].after === added
+      && isString(added) && deepEqual(restored, o3.input) && o4.parsed.trigger.schedule === added,
+    "O04 の記録が「O03 に時刻をひとつ戻しただけの設定」になっていません。");
+    need(o4.file_path === O04_FILE.path && o4.filename === O04_FILE.filename && o4.file_sha256 === O04_FILE.sha256
+      && utf8(fileText(o4.file)).byteLength === O04_FILE.bytes,
+    "O04 から書き出したファイルの名前・大きさ・SHA-256 が固定した値と一致しません。");
 
-    if (!isObject(lock) || Object.keys(EXPECTED.upstream).some((key) => lock[key] !== EXPECTED.upstream[key])
-      || !isObject(lock.dependency) || Object.keys(EXPECTED.dependency).some((key) => lock.dependency[key] !== EXPECTED.dependency[key])) {
-      fail("vendor-lock.json の固定版が一致しません。");
-    }
-    if (!Array.isArray(lock.files) || lock.files.length !== EXPECTED.originalFileCount + EXPECTED.packageFileCount) {
-      fail(`vendor-lock.json の対象が${EXPECTED.originalFileCount + EXPECTED.packageFileCount}ファイルではありません。`);
-    }
-    const originalFiles = lockEntries(lock, ORIGINAL_PREFIX, "git_blob_sha1");
-    const packageFiles = lockEntries(lock, PACKAGE_PREFIX, "npm_member");
-    if (originalFiles.length !== EXPECTED.originalFileCount || packageFiles.length !== EXPECTED.packageFileCount) {
-      fail("vendor-lock.json の原典と依存のファイル数が合いません。");
-    }
-    if (!deepEqual(upstream.files, originalFiles)) fail("実行記録の原典ファイルの照合が vendor-lock.json と一致しません。");
-    if (!deepEqual(dependency.files, packageFiles)) fail("実行記録の依存ファイルの照合が vendor-lock.json と一致しません。");
+    const schedule6 = obj(o6.observations.schedule);
+    need(o6.accepted && schedule6.whitespace_fields !== 5 && schedule6.accepted_by_parser === true
+      && schedule6.cron_grammar_validated === false && isString(schedule6.value)
+      && o6.parsed.trigger.schedule === schedule6.value && obj(obj(o6.input.spec).trigger).schedule === schedule6.value,
+    "O06 の記録が「cron の形でない時刻でも形式OK」になっていません。");
 
-    if (!isObject(settings) || settings.format !== EXPECTED.inputFormat || settings.fictional !== true || !Array.isArray(settings.cases)) {
-      fail("input/automation-settings.json の形が違います。");
-    }
-    if (!deepEqual(settings.cases.map((item) => item && item.id), EXPECTED.ids)) fail("入力の設定が O01〜O08 の8件ではありません。");
+    const repos = obj(o7.observations.repositories);
+    const source = Array.isArray(repos.source) ? repos.source : [];
+    const dropped = Array.isArray(repos.dropped) ? repos.dropped : [];
+    need(o7.accepted && source.length === 2 && dropped.length === 1 && deepEqual(dropped[0], source[1])
+      && deepEqual(o7.input.repositories, source) && isObject(repos.exported)
+      && repos.exported.repository === source[0].url && repos.exported.branch === source[0].ref
+      && o7.file.spec.repository === source[0].url && o7.file.spec.branch === source[0].ref
+      && !fileText(o7.file).includes(source[1].url) && repos.fetched === false,
+    "O07 の記録が「参照先ふたつのうち先頭だけが残る」になっていません。");
 
-    const iface = record.interface;
-    if (!isObject(iface) || iface.admitted !== true || !isObject(iface.envelope)
-      || Object.keys(EXPECTED.envelope).some((key) => iface.envelope[key] !== EXPECTED.envelope[key])) {
-      fail("実行記録の interface manifest の審査結果、またはファイルの封筒が合いません。");
-    }
+    need(obj(rows.get("O02").observations.event).webhook_delivered === false, "O02 の記録の Webhook の範囲が読めません。");
+    const o8 = rows.get("O08");
+    need(o8.accepted && o8.parsed.prompt === o8.input.prompt && obj(obj(o8.observations.prompt).contains).script_tag === true,
+      "O08 の記録の文字の保持が読めません。");
+  }
+
+  async function validate(record) {
+    need(isObject(record) && record.format === PIN.format, "実行記録の形式が違います。");
+    const up = obj(record.upstream);
+    need(up.repository === PIN.repository && up.commit === PIN.commit && up.version === PIN.version && up.license === PIN.license
+      && up.vendor_lock_sha256 === PIN.vendorLock && Array.isArray(up.files) && up.files.length === PIN.originalFiles
+      && up.files.every((f) => isObject(f) && isString(f.path) && f.path.startsWith("vendor/openhands/") && HEX64.test(f.sha256)),
+    "実行記録の OpenHands の固定版（コミット・版・原典12ファイル）が一致しません。");
+    const dep = obj(record.dependency);
+    need(dep.name === PIN.dependency && dep.version === PIN.dependencyVersion && dep.license === PIN.license && dep.integrity === PIN.integrity
+      && Array.isArray(dep.files) && dep.files.length === PIN.packageFiles
+      && dep.files.every((f) => isObject(f) && isString(f.path) && f.path.startsWith("vendor/extensions/") && HEX64.test(f.sha256)),
+    "実行記録の @openhands/extensions の固定版（29ファイル）が一致しません。");
+    const iface = obj(record.interface);
+    need(iface.admitted === true && isObject(iface.envelope)
+      && Object.keys(PIN.envelope).every((k) => iface.envelope[k] === PIN.envelope[k]),
+    "実行記録のファイルの封筒（version・kind・接尾辞）が合いません。");
 
     const results = record.results;
-    if (!Array.isArray(results) || !deepEqual(results.map((item) => item && item.id), EXPECTED.ids)) {
-      fail("実行記録が O01〜O08 の8件ではありません。");
-    }
-    for (let index = 0; index < results.length; index++) {
-      const item = results[index];
-      validateResultShape(item);
-      const source = settings.cases[index];
-      if (item.label !== source.label || item.mode !== source.mode || !deepEqual(item.input, source.input)) {
-        fail(`${item.id} の入力が input/automation-settings.json と一致しません。`);
-      }
-      if (item.accepted) {
-        const digest = await sha256Hex(new TextEncoder().encode(fileText(item.file)));
-        if (digest !== item.file_sha256) fail(`${item.id} の .automation.json の SHA-256 が記録と一致しません。`);
+    need(Array.isArray(results) && results.length === IDS.length && results.every(isObject), "実行記録が8件ではありません。");
+    const ids = results.map((r) => r.id);
+    need(new Set(ids).size === IDS.length && ids.every((id, i) => id === IDS[i]), "実行記録が O01〜O08 の8件（重複なし）ではありません。");
+    for (const row of results) {
+      checkRow(row);
+      if (row.accepted) {
+        need(await sha256Hex(utf8(fileText(row.file))) === row.file_sha256, `${row.id} のファイルの中身が記録の SHA-256 と一致しません。`);
       }
     }
 
-    const accepted = results.filter((item) => item.accepted).map((item) => item.id);
-    const rejected = results.filter((item) => !item.accepted).map((item) => item.id);
+    const accepted = results.filter((r) => r.accepted).map((r) => r.id);
+    const rejected = results.filter((r) => !r.accepted).map((r) => r.id);
     const counts = { total: results.length, accepted: accepted.length, rejected: rejected.length };
-    if (!deepEqual(record.summary, counts)) fail("実行記録の件数のまとめが、8件から数えた値と一致しません。");
-    if (!isObject(expected) || !Array.isArray(expected.accepted_ids) || !Array.isArray(expected.rejected_ids)
-      || !deepEqual(expected.repair_pair, EXPECTED.repairPair)) {
-      fail("input/expected.json の形が違います。");
-    }
-    if (expected.case_count !== counts.total || !deepEqual(expected.accepted_ids, accepted) || !deepEqual(expected.rejected_ids, rejected)) {
-      fail("形が通った件・止まった件が、実行前に決めた期待と一致しません。");
-    }
+    need(deepEqual(record.summary, counts) && deepEqual(counts, PIN.summary), "実行記録の件数のまとめが、8件から数えた値と一致しません。");
+    const oracle = obj(record.oracle_comparison);
+    need(deepEqual(obj(oracle.accepted_ids).expected, accepted) && deepEqual(obj(oracle.accepted_ids).actual, accepted)
+      && deepEqual(obj(oracle.rejected_ids).expected, rejected) && deepEqual(obj(oracle.rejected_ids).actual, rejected),
+    "形式OKの件・止まった件が、実行前に決めた期待と一致しません。");
+    const verification = obj(record.verification);
+    need(verification.status === "passed" && Array.isArray(verification.checks) && verification.checks.length === PIN.checks
+      && verification.total === PIN.checks && verification.checks.every((c) => isObject(c) && isString(c.name) && c.passed === true),
+    `実行記録の${PIN.checks}件の確認がすべて合格になっていません。`);
 
-    const verification = record.verification;
-    if (!isObject(verification) || verification.status !== "passed" || !Array.isArray(verification.checks)
-      || verification.checks.length === 0
-      || !verification.checks.every((entry) => isObject(entry) && isString(entry.name) && entry.passed === true)
-      || verification.total !== verification.checks.length) {
-      fail("実行記録の確認がすべて合格になっていません。");
+    const rows = new Map(results.map((r) => [r.id, r]));
+    checkScenes(rows);
+    return rows;
+  }
+
+  // --- 図の状態（記録の値から） ------------------------------------------------------------
+
+  function viewOf(row) {
+    const obs = row.observations;
+    const paths = Array.isArray(obs.issue_paths) ? obs.issue_paths : [];
+    const schedule = obj(obs.schedule);
+    const repos = obj(obs.repositories);
+    let clock = "ok";
+    if (!row.accepted && paths.includes("spec.trigger.schedule")) clock = "missing";
+    else if (row.accepted && isString(schedule.value) && schedule.whitespace_fields !== 5 && schedule.cron_grammar_validated === false) clock = "question";
+    const source = Array.isArray(repos.source) ? repos.source.length : 1;
+    const dropped = Array.isArray(repos.dropped) ? repos.dropped.length : 0;
+    return {
+      id: row.id,
+      accepted: row.accepted,
+      clock,
+      repaired: obj(obs.repair).role === "repaired",
+      folders: Math.min(2, Math.max(1, source)),
+      dropped: dropped > 0,
+      run: clock === "question",
+    };
+  }
+
+  function captionOf(row) {
+    if (row.id === "O03") return "時刻が抜けた設定は、読み込みの点検で止まり、ファイルは作られません。";
+    if (row.id === "O04") return `同じ設定に時刻「${row.parsed.trigger.schedule}」をひとつ戻すと形式OK。書き出された ${row.filename} を保存できます。`;
+    if (row.id === "O06") return `時刻の欄が「${row.observations.schedule.value}」でも形式OK。時刻として正しいか、実際に動くかは確かめていません。`;
+    if (row.id === "O07") {
+      const repos = row.observations.repositories;
+      return `参照先が${repos.source.length}件でも、ファイルに入るのは先頭の1件だけ。${repos.source.length}件目は残りません。`;
+    }
+    return "";
+  }
+
+  function ariaOf(view) {
+    if (!view) return "設定ファイル、形式の点検、保存ファイルの関係の図。いまは場面を表示していません。";
+    const parts = [`記録 ${view.id} の図。`];
+    if (view.clock === "missing") parts.push("設定ファイルの時刻の部品が抜けています。形式の点検の棒が下りて止まり、保存ファイルはありません。");
+    if (view.clock === "ok" && view.repaired) parts.push("同じ設定ファイルに時刻の部品が戻り、形式の点検を通って、保存ファイルができています。");
+    if (view.clock === "question") parts.push("時刻の部品は埋まっていますが中身は「？」です。形式の点検は通り、保存ファイルができますが、実行の枠には入っていません。");
+    if (view.folders === 2) parts.push("設定ファイルには参照先のフォルダーが2つあり、保存ファイルに入ったのは1つ目だけで、2つ目はゲートの外に残っています。");
+    return parts.join("");
+  }
+
+  // --- 図（SVG） ------------------------------------------------------------------------------
+
+  const LAYOUTS = {
+    tall: {
+      w: 360, h: 452, flow: "down",
+      doc: { x: 104, y: 6, w: 112, h: 132 },
+      docLabel: { x: 160, y: 158, size: 15 },
+      tag: { cx: 50, cy: 40, w: 84, h: 26, size: 13 },
+      gate: {
+        postA: { x: 44, y: 180, w: 28, h: 120 }, postB: { x: 248, y: 180, w: 28, h: 120 },
+        arm: { x: 72, y: 230, w: 176, h: 22 }, lamp: { cx: 262, cy: 194, r: 7 },
+        plate: { cx: 160, cy: 241, w: 70, h: 24, size: 13 }, size: 15,
+      },
+      halt: { cx: 160, cy: 194, k: 0.5 },
+      calendar: { x: 284, y: 180, w: 72, h: 120 },
+      dropped: { x: 292, y: 222, w: 56, h: 32 },
+      droppedTag: { cx: 320, cy: 282, w: 70, h: 24, size: 12 },
+      tray: { x: 26, y: 318, w: 268, h: 130, r: 18 },
+      trayLabel: { x: 42, y: 341, size: 15 },
+      emblem: { cx: 276, cy: 337, r: 10 },
+      saved: { cx: 160, cy: 392, k: 0.54 },
+      keepTag: { cx: 76, cy: 404, w: 72, h: 24, size: 12 },
+    },
+    wide: {
+      w: 720, h: 300, flow: "right",
+      doc: { x: 70, y: 72, w: 120, h: 141 },
+      docLabel: { x: 130, y: 236, size: 15 },
+      tag: { cx: 70, cy: 44, w: 84, h: 26, size: 13 },
+      gate: {
+        postA: { x: 280, y: 58, w: 120, h: 28 }, postB: { x: 280, y: 200, w: 120, h: 28 },
+        arm: { x: 329, y: 86, w: 22, h: 114 }, lamp: { cx: 388, cy: 214, r: 7 },
+        plate: { cx: 340, cy: 143, w: 70, h: 24, size: 13 }, size: 15,
+      },
+      halt: { cx: 294, cy: 143, k: 0.5 },
+      calendar: { x: 262, y: 240, w: 156, h: 56 },
+      dropped: { x: 300, y: 246, w: 56, h: 30 },
+      droppedTag: { cx: 404, cy: 261, w: 70, h: 24, size: 12 },
+      tray: { x: 452, y: 58, w: 240, h: 170, r: 18 },
+      trayLabel: { x: 470, y: 82, size: 15 },
+      emblem: { cx: 674, cy: 78, r: 10 },
+      saved: { cx: 572, cy: 143, k: 0.62 },
+      keepTag: { cx: 572, cy: 256, w: 72, h: 24, size: 12 },
+    },
+  };
+
+  function el(name, attrs, parent) {
+    const node = document.createElementNS(NS, name);
+    for (const [k, v] of Object.entries(attrs || {})) node.setAttribute(k, String(v));
+    if (parent) parent.append(node);
+    return node;
+  }
+
+  function label(parent, str, x, y, size, cls, anchor = "middle") {
+    const t = el("text", { x, y, "font-size": size, class: cls, "text-anchor": anchor }, parent);
+    t.textContent = str;
+    return t;
+  }
+
+  function scaledBox(doc, at) {
+    const w = doc.w * at.k;
+    const h = doc.h * at.k;
+    return { x: at.cx - w / 2, y: at.cy - h / 2, w, h };
+  }
+
+  // 書類の中の部品の位置（入力も保存ファイルも同じ比率）。
+  function docGeo(box, folders) {
+    const { x, y, w, h } = box;
+    const clock = { cx: x + 0.28 * w, cy: y + 0.22 * h, r: 0.15 * w };
+    const fy = y + 0.72 * h;
+    const fh = 0.17 * h;
+    const list = folders === 2
+      ? [{ x: x + 0.12 * w, y: fy, w: 0.34 * w, h: fh }, { x: x + 0.54 * w, y: fy, w: 0.34 * w, h: fh }]
+      : [{ x: x + 0.13 * w, y: fy, w: 0.4 * w, h: fh }];
+    return { clock, folders: list };
+  }
+
+  function folderShape(parent, f, n, digit, cls = "") {
+    const g = el("g", { class: cls }, parent);
+    const t = 0.2 * f.h;
+    el("path", {
+      class: `d-folder-${n}`,
+      d: `M${f.x} ${f.y + t}V${f.y + 2}q0-2 2-2H${f.x + 0.36 * f.w}l${0.1 * f.w} ${t}H${f.x + f.w - 2}q2 0 2 2V${f.y + f.h - 2}q0 2-2 2H${f.x + 2}q-2 0-2-2Z`,
+    }, g);
+    if (digit) label(g, String(n), f.x + f.w / 2, f.y + f.h * 0.84, f.h * 0.58, "d-digit");
+    return g;
+  }
+
+  function clockShape(parent, c, kind, cls = "") {
+    const g = el("g", { class: cls }, parent);
+    if (kind === "missing" || kind === "idle") {
+      el("circle", { class: "d-slot", cx: c.cx, cy: c.cy, r: c.r }, g);
+      return g;
+    }
+    el("circle", { class: "d-clock", cx: c.cx, cy: c.cy, r: c.r }, g);
+    el("circle", { class: "d-face", cx: c.cx, cy: c.cy, r: c.r * 0.7 }, g);
+    if (kind === "question") {
+      label(g, "?", c.cx, c.cy + c.r * 0.36, c.r, "d-q");
+    } else {
+      // 9時の形（記録の時刻を測った値ではなく、時計という部品の絵）。
+      el("path", { class: "d-hand", d: `M${c.cx} ${c.cy}V${c.cy - c.r * 0.5}M${c.cx} ${c.cy}H${c.cx - c.r * 0.38}` }, g);
+    }
+    return g;
+  }
+
+  // opt: { out, ghost, clock, folders, digits, keep (表示する参照先の数), ring, newClock }
+  function docShape(parent, box, opt, cls = "") {
+    const { x, y, w, h } = box;
+    const f = 0.2 * w;
+    const g = el("g", { class: `${opt.out ? "is-out" : ""} ${opt.ghost ? "is-ghost" : ""} ${cls}`.trim() }, parent);
+    el("path", { class: "d-shadow", d: `M${x + 3} ${y + 5}H${x + w - f + 3}L${x + w + 3} ${y + f + 5}V${y + h + 5}H${x + 3}Z` }, g);
+    el("path", { class: "d-doc", d: `M${x} ${y}H${x + w - f}L${x + w} ${y + f}V${y + h}H${x}Z` }, g);
+    el("path", { class: "d-fold", d: `M${x + w - f} ${y}V${y + f}H${x + w}Z` }, g);
+    const bar = (bx, by, bw, bh) => el("rect", { class: "d-bar", x: bx, y: by, width: bw, height: bh, rx: bh / 2 }, g);
+    bar(x + 0.52 * w, y + 0.15 * h, 0.22 * w, 0.045 * h);
+    bar(x + 0.52 * w, y + 0.25 * h, 0.16 * w, 0.045 * h);
+    bar(x + 0.13 * w, y + 0.42 * h, 0.74 * w, 0.04 * h);
+    bar(x + 0.13 * w, y + 0.51 * h, 0.74 * w, 0.04 * h);
+    bar(x + 0.13 * w, y + 0.6 * h, 0.46 * w, 0.04 * h);
+    const geo = docGeo(box, opt.folders);
+    clockShape(g, geo.clock, opt.clock, opt.newClock ? "is-new-clock" : "");
+    if (opt.ring) el("circle", { class: "d-ring", cx: geo.clock.cx, cy: geo.clock.cy, r: geo.clock.r + 3.5 }, g);
+    const keep = opt.keep === undefined ? geo.folders.length : opt.keep;
+    geo.folders.slice(0, keep).forEach((fd, i) => folderShape(g, fd, i + 1, opt.digits));
+    return geo;
+  }
+
+  function pill(parent, p, str, cls) {
+    const g = el("g", {}, parent);
+    el("rect", { class: `d-tag ${cls || ""}`.trim(), x: p.cx - p.w / 2, y: p.cy - p.h / 2, width: p.w, height: p.h, rx: p.h / 2 }, g);
+    label(g, str, p.cx, p.cy + p.size * 0.36, p.size, "d-tag-text");
+    return g;
+  }
+
+  function chevron(parent, x, y, dir, s = 6) {
+    const d = dir === "down" ? `M${x - s} ${y - s / 2}L${x} ${y + s / 2}L${x + s} ${y - s / 2}` : `M${x - s / 2} ${y - s}L${x + s / 2} ${y}L${x - s / 2} ${y + s}`;
+    el("path", { class: "d-chev", d }, parent);
+  }
+
+  function gateShape(parent, L, armMode, lamp, plate) {
+    const G = L.gate;
+    const g = el("g", {}, parent);
+    for (const p of [G.postA, G.postB]) el("rect", { class: "d-post", x: p.x, y: p.y, width: p.w, height: p.h, rx: Math.min(p.w, p.h) / 2.4 }, g);
+    const text = "形式の点検";
+    if (L.flow === "down") {
+      [...text].forEach((ch, i) => label(g, ch, G.postA.x + G.postA.w / 2, G.postA.y + 22 + i * 20, G.size, "d-post-text"));
+    } else {
+      label(g, text, G.postA.x + G.postA.w / 2, G.postA.y + G.postA.h / 2 + G.size * 0.36, G.size, "d-post-text");
+    }
+    el("circle", { class: `d-lamp ${lamp === "ok" ? "is-ok" : lamp === "stop" ? "is-stop" : ""}`.trim(), cx: G.lamp.cx, cy: G.lamp.cy, r: G.lamp.r }, g);
+    const a = G.arm;
+    if (armMode === "closed" || armMode === "retract") {
+      const cls = armMode === "retract" ? (L.flow === "down" ? "d-arm d-arm-retract-x" : "d-arm d-arm-retract-y") : "d-arm";
+      el("rect", { class: cls, x: a.x, y: a.y, width: a.w, height: a.h, rx: 3 }, g);
+    }
+    if (armMode === "closed") {
+      if (L.flow === "down") {
+        el("rect", { class: "d-arm-box", x: a.x + a.w / 2 - 28, y: a.y + 3, width: 56, height: a.h - 6, rx: 4 }, g);
+        label(g, "止まる", a.x + a.w / 2, a.y + a.h / 2 + 4.5, 12.5, "d-arm-text");
+      } else {
+        el("rect", { class: "d-arm-box", x: a.x + 3, y: a.y + a.h / 2 - 27, width: a.w - 6, height: 54, rx: 4 }, g);
+        [..."止まる"].forEach((ch, i) => label(g, ch, a.x + a.w / 2, a.y + a.h / 2 - 12 + i * 15, 12.5, "d-arm-text"));
+      }
+    }
+    if (plate) {
+      const p = G.plate;
+      el("rect", { class: "d-plate", x: p.cx - p.w / 2, y: p.cy - p.h / 2, width: p.w, height: p.h, rx: p.h / 2 }, g);
+      label(g, "形式OK", p.cx, p.cy + p.size * 0.36, p.size, "d-plate-text");
     }
   }
 
-  // --- 読み方（実際に返った行から作る） -------------------------------------------------------------
-
-  function explainIssue(issue) {
-    let match;
-    if ((match = /^version: expected (.+)$/.exec(issue))) return `ファイルの封筒の version が ${match[1]}（数値）ではありません。`;
-    if ((match = /^kind: expected "(.+)"$/.exec(issue))) return `ファイルの封筒の kind が「${match[1]}」ではありません。`;
-    if (issue === "file: expected a JSON object") return "ファイル全体が JSON のオブジェクトではありません。";
-    if (issue === "spec: expected an object") return "設定の本体 spec がオブジェクトではありません。";
-    if (issue === "spec.trigger: expected an object") return "きっかけ trigger がオブジェクトではありません。";
-    if (/^spec\.trigger\.type: expected one of /.test(issue)) return "きっかけの種類 type が cron・schedule・event のどれでもありません。";
-    if (issue === "spec.trigger.schedule: required for a scheduled trigger") return "時刻で動く設定（cron・schedule）なのに、いつ動くかを書く schedule がありません。";
-    if (issue === "spec.trigger.source: required for an event trigger") return "event の設定に、出来事の出どころ source がありません。";
-    if (issue === "spec.trigger.on: required for an event trigger") return "event の設定に、反応する出来事 on がありません。";
-    if (/^spec\.trigger\.on: expected /.test(issue)) return "on が、文字列か、空でない文字列の配列ではありません。";
-    if (issue === "spec.enabled: expected a boolean") return "enabled が true／false の真偽値ではありません。\"false\" のような文字列は通りません。";
-    if (issue === "spec.timeout: expected a positive integer") return "timeout が1以上の整数ではありません。";
-    if (issue === "spec.plugins: expected an array of non-empty strings") return "plugins が、空でない文字列だけの配列ではありません。";
-    if (issue === "spec.model: expected a non-empty string or null") return "model が、空でない文字列か null ではありません。";
-    if ((match = /^(spec\.[\w.]+): expected a non-empty string$/.exec(issue))) return `${match[1]} が、空でない文字列ではありません。`;
-    if ((match = /^(spec\.[\w.]+): expected a string$/.exec(issue))) return `${match[1]} が文字列ではありません。`;
-    return "原典が返した理由です（このページの読み方はまだ用意していません）。";
+  function emblem(parent, e, ready) {
+    el("circle", { class: `d-emblem${ready ? " is-ready" : ""}`, cx: e.cx, cy: e.cy, r: e.r }, parent);
+    const s = e.r * 0.45;
+    el("path", {
+      class: `d-emblem-arrow${ready ? " is-ready" : ""}`,
+      d: `M${e.cx} ${e.cy - s}V${e.cy + s * 0.5}M${e.cx - s * 0.6} ${e.cy}L${e.cx} ${e.cy + s * 0.6}L${e.cx + s * 0.6} ${e.cy}M${e.cx - s} ${e.cy + s * 1.05}H${e.cx + s}`,
+    }, parent);
   }
 
-  const showValue = (value) => (isString(value) ? value : JSON.stringify(value));
-
-  // How the repaired input differs from the broken one ("forward"), or the reverse.
-  function describeDiff(entry, forward) {
-    if (entry.change === "added") {
-      return forward ? `${entry.path}「${showValue(entry.after)}」を足した` : `${entry.path}「${showValue(entry.after)}」を除いた`;
+  function calendarShape(parent, c, flow) {
+    const g = el("g", {}, parent);
+    el("rect", { class: "d-cal", x: c.x, y: c.y, width: c.w, height: c.h, rx: 10 }, g);
+    if (flow === "down") {
+      label(g, "実行", c.x + c.w / 2, c.y + 22, 14, "d-cal-head");
+      for (let r = 0; r < 2; r++) for (let k = 0; k < 3; k++) {
+        el("rect", { class: "d-cal-cell", x: c.x + 12 + k * 17, y: c.y + 32 + r * 14, width: 13, height: 10, rx: 2 }, g);
+      }
+      el("circle", { class: "d-slot", cx: c.x + c.w / 2, cy: c.y + 79, r: 11 }, g);
+      label(g, "別の確認", c.x + c.w / 2, c.y + c.h - 10, 12, "d-cal-note");
+    } else {
+      el("circle", { class: "d-slot", cx: c.x + 24, cy: c.y + c.h / 2, r: 12 }, g);
+      label(g, "実行", c.x + 46, c.y + 24, 14, "d-cal-head", "start");
+      label(g, "別の確認", c.x + 46, c.y + 44, 12, "d-cal-note", "start");
+      for (let r = 0; r < 2; r++) for (let k = 0; k < 2; k++) {
+        el("rect", { class: "d-cal-cell", x: c.x + 112 + k * 18, y: c.y + 14 + r * 15, width: 14, height: 11, rx: 2 }, g);
+      }
     }
-    if (entry.change === "removed") {
-      return forward ? `${entry.path} を消した` : `${entry.path}「${showValue(entry.before)}」を足した`;
-    }
-    return forward
-      ? `${entry.path} を「${showValue(entry.after)}」にした`
-      : `${entry.path} を「${showValue(entry.before)}」にした`;
   }
 
-  // --- 表示 --------------------------------------------------------------------------------
+  function buildDiagram(view, animate, fileReady) {
+    const key = wide.matches ? "wide" : "tall";
+    const L = LAYOUTS[key];
+    ui.diagram.dataset.layout = key;
+    const svg = el("svg", { viewBox: `0 0 ${L.w} ${L.h}`, "aria-hidden": "true", focusable: "false" });
+    const defs = el("defs", {}, svg);
+    const pattern = el("pattern", { id: "d-stripes", width: 10, height: 10, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" }, defs);
+    el("rect", { width: 10, height: 10, fill: "#f7a86e" }, pattern);
+    el("rect", { width: 4.5, height: 10, fill: "#fffdf6", opacity: 0.75 }, pattern);
+
+    const idle = !view;
+    const prev = state.previous;
+    const root = el("g", { class: idle ? "d-idle" : "" }, svg);
+    const docBox = L.doc;
+    const savedBox = scaledBox(L.doc, L.saved);
+
+    // 流れの線：設定ファイル → 点検 → 保存ファイル。
+    const flowCls = idle ? "d-flow" : "d-flow is-on";
+    const passCls = idle ? "d-flow" : view.accepted ? "d-flow is-pass" : "d-flow is-off";
+    if (L.flow === "down") {
+      const x = docBox.x + docBox.w / 2;
+      const gateMid = L.gate.arm.y + L.gate.arm.h / 2;
+      el("path", { class: flowCls, d: `M${x} ${docBox.y + docBox.h + 26}V${gateMid}` }, root);
+      el("path", { class: passCls, d: `M${x} ${gateMid}V${savedBox.y - 4}` }, root);
+      chevron(root, x, docBox.y + docBox.h + 30, "down");
+      chevron(root, x, L.tray.y - 6, "down");
+    } else {
+      const y = L.gate.plate.cy;
+      const gateMid = L.gate.arm.x + L.gate.arm.w / 2;
+      el("path", { class: flowCls, d: `M${docBox.x + docBox.w + 6} ${y}H${gateMid}` }, root);
+      el("path", { class: passCls, d: `M${gateMid} ${y}H${savedBox.x - 4}` }, root);
+      chevron(root, docBox.x + docBox.w + 40, y, "right");
+      chevron(root, L.tray.x - 14, y, "right");
+    }
+
+    // 保存の台。
+    el("rect", { class: "d-tray", x: L.tray.x, y: L.tray.y, width: L.tray.w, height: L.tray.h, rx: L.tray.r }, root);
+    label(root, "保存ファイル", L.trayLabel.x, L.trayLabel.y, L.trayLabel.size, "d-tray-label", "start");
+    emblem(root, L.emblem, !idle && view.accepted && fileReady);
+
+    // 点検のゲート。
+    let armMode = "none";
+    let lamp = "idle";
+    if (!idle) {
+      if (!view.accepted) {
+        armMode = "closed";
+        lamp = "stop";
+      } else {
+        armMode = animate && prev && !prev.accepted ? "retract" : "none";
+        lamp = "ok";
+      }
+    }
+    gateShape(root, L, armMode, lamp, !idle && view.accepted);
+
+    // 設定ファイル（入力）。
+    const docGeoIn = docShape(root, docBox, {
+      clock: idle ? "idle" : view.clock,
+      folders: idle ? 1 : view.folders,
+      digits: !idle && view.folders === 2,
+      ring: !idle && view.repaired,
+      newClock: !idle && view.repaired && animate && prev && prev.clock === "missing",
+    });
+    label(root, "設定ファイル", L.docLabel.x, L.docLabel.y, L.docLabel.size, "d-label");
+
+    if (!idle && !view.accepted) {
+      // 止まった写し：点検の棒の手前で止まる。保存の台には何もない。
+      docShape(root, scaledBox(L.doc, L.halt), { clock: view.clock, folders: view.folders, ghost: true });
+      el("rect", { class: "d-empty", x: savedBox.x, y: savedBox.y, width: savedBox.w, height: savedBox.h, rx: 4 }, root);
+      label(root, "保存なし", L.saved.cx, L.saved.cy + 4, 12, "d-empty-text");
+    } else if (!idle) {
+      docShape(root, savedBox, {
+        out: true,
+        clock: view.clock,
+        folders: 1, // 書き出したファイルに入る参照先は1件（O07 では先頭の1件）
+        digits: view.folders === 2,
+        keep: 1,
+      }, animate ? "is-new-saved" : "");
+    } else {
+      el("rect", { class: "d-empty", x: savedBox.x, y: savedBox.y, width: savedBox.w, height: savedBox.h, rx: 4 }, root);
+    }
+
+    if (!idle && view.clock === "missing") {
+      const c = docGeoIn.clock;
+      const t = L.tag;
+      if (L.flow === "down") el("path", { class: "d-leader", d: `M${t.cx + t.w / 2} ${t.cy}L${c.cx - c.r - 3} ${c.cy}` }, root);
+      else el("path", { class: "d-leader", d: `M${t.cx} ${t.cy + t.h / 2}L${c.cx - c.r * 0.7} ${c.cy - c.r * 0.7}` }, root);
+      pill(root, t, "時刻なし", "is-stop");
+    }
+    if (!idle && view.repaired) {
+      const c = docGeoIn.clock;
+      const t = L.tag;
+      if (L.flow === "down") el("path", { class: "d-leader", d: `M${t.cx + t.w / 2} ${t.cy}L${c.cx - c.r - 5} ${c.cy}` }, root);
+      else el("path", { class: "d-leader", d: `M${t.cx} ${t.cy + t.h / 2}L${c.cx - c.r * 0.75} ${c.cy - c.r * 0.75}` }, root);
+      pill(root, t, "時刻を戻す", "is-ok");
+    }
+    if (!idle && view.run) calendarShape(root, L.calendar, L.flow);
+    if (!idle && view.dropped) {
+      const d = L.dropped;
+      const g = el("g", { class: "d-dropped", transform: `rotate(-9 ${d.x + d.w / 2} ${d.y + d.h / 2})`, opacity: 0.85 }, root);
+      folderShape(g, d, 2, true, animate ? "is-new-dropped" : "");
+      pill(root, L.droppedTag, "残らない", "is-stop");
+      const sf = docGeo(savedBox, 1).folders[0];
+      const k = L.keepTag;
+      if (L.flow === "down") el("path", { class: "d-leader", d: `M${k.cx + k.w / 2} ${k.cy}L${sf.x - 2} ${sf.y + sf.h / 2}` }, root);
+      else el("path", { class: "d-leader", d: `M${k.cx} ${k.cy - k.h / 2}L${sf.x + sf.w / 2} ${savedBox.y + savedBox.h + 2}` }, root);
+      pill(root, k, "先頭だけ", "is-ok");
+    }
+
+    ui.diagram.replaceChildren(svg);
+    ui.diagram.setAttribute("aria-label", ariaOf(view));
+  }
+
+  // --- 表示 ----------------------------------------------------------------------------------
 
   function setStatus(kind, message) {
-    el.status.dataset.state = kind;
-    el.statusText.textContent = message;
-    el.retry.hidden = kind !== "error";
-    el.retry.disabled = kind === "loading";
+    ui.status.dataset.state = kind;
+    ui.status.textContent = message;
   }
 
-  function setControls(enabled) {
-    el.select.disabled = !enabled;
-    el.downloadRecord.disabled = !enabled;
-    el.copy.disabled = !enabled;
-    const item = enabled ? state.byId.get(state.current) : null;
-    el.downloadFile.disabled = !(item && item.accepted && isObject(item.file));
-  }
-
-  function clearResult() {
-    el.viewer.hidden = true;
-    el.tally.hidden = true;
-    el.repair.hidden = true;
-    el.caveat.hidden = true;
-    for (const node of [el.kicker, el.title, el.state, el.diagnosisNote, el.repairText, el.repairLink,
-      el.rawFileNote, el.rawFile, el.rawInputNote, el.rawInput, el.rawOutput, el.actionStatus]) {
-      node.textContent = "";
+  function setLink(link, url, filename) {
+    if (url) {
+      link.href = url;
+      link.download = filename;
+      link.removeAttribute("aria-disabled");
+    } else {
+      link.removeAttribute("href");
+      link.removeAttribute("download");
+      link.setAttribute("aria-disabled", "true");
     }
-    el.state.dataset.state = "";
-    el.diagnosisBox.dataset.state = "";
-    for (const node of [el.tally, el.diagnosis, el.caveatList, el.facts, el.select, el.runFacts]) {
-      node.replaceChildren();
-    }
-    el.fallback.hidden = true;
-    el.fallbackLabel.hidden = true;
-    el.fallback.value = "";
-    state.record = null;
-    state.byId = new Map();
-    state.current = null;
-    state.request = "";
   }
 
-  function node(tag, text, className) {
-    const item = document.createElement(tag);
-    if (text !== undefined) item.textContent = text;
-    if (className) item.className = className;
-    return item;
-  }
-
-  function addFact(list, label, value, mono) {
+  function addFact(term, value, mono) {
     const row = document.createElement("div");
-    row.append(node("dt", label), node("dd", value, mono ? "mono" : undefined));
-    list.append(row);
+    const dt = document.createElement("dt");
+    dt.textContent = term;
+    const dd = document.createElement("dd");
+    dd.textContent = value;
+    if (mono) dd.className = "mono";
+    row.append(dt, dd);
+    ui.facts.append(row);
   }
 
-  function buildPicker(results) {
-    for (const item of results) {
-      const option = document.createElement("option");
-      option.value = item.id;
-      option.textContent = `${item.id}［${item.accepted ? "形が通った" : "止まった"}］${item.label}`;
-      el.select.append(option);
-    }
-  }
-
-  function renderTally(record) {
-    const { total, accepted, rejected } = record.summary;
-    el.tally.replaceChildren(
-      document.createTextNode(`設定${total}件：形が通った `),
-      node("strong", String(accepted)),
-      document.createTextNode(" ／ 止まった "),
-      node("strong", String(rejected)),
-      node("span", `設定の形を検査。予定の登録は行っていません。`, "tally-note"),
-    );
-    el.tally.hidden = false;
-  }
-
-  function renderRunFacts(record) {
-    const runtime = isObject(record.runtime) ? record.runtime : {};
-    const envelope = record.interface.envelope;
-    const add = (label, value) => {
-      const row = node("div", undefined, "kv-row");
-      row.append(node("dt", label), node("dd", value));
-      el.runFacts.append(row);
-    };
-    add("実行環境", `Node ${runtime.node || "?"}（型除去 ${runtime.typescript || "?"}）・導入したパッケージ ${runtime.packages_installed ?? "?"}件・通信 ${runtime.network === false ? "なし" : "?"}`);
-    add("ファイルの封筒", `version ${envelope.fileVersion}・kind ${envelope.fileKind}・接尾辞 ${envelope.filenameSuffix}（getImportExportSpec() の実際の値）`);
-    add("読み込みの解決", `${Array.isArray(runtime.module_resolution) ? runtime.module_resolution.length : "?"}件（同梱の原典とパッケージの中だけ）`);
-    add("読み込み時の警告", `${Array.isArray(runtime.console_warnings) ? runtime.console_warnings.length : "?"}件（原典が console.warn に出したもの。記録に全文）`);
-    add("vendor-lock.json の SHA-256", record.upstream.vendor_lock_sha256);
-    for (const [path, value] of Object.entries(record.input_sha256)) {
-      if (path !== "vendor-lock.json") add(`${path} の SHA-256`, value);
-    }
-    add("確認の合計", `${record.verification.total}件すべて合格（記録の checks から数えた数）`);
-  }
-
-  function renderDiagnosis(item) {
-    el.diagnosis.replaceChildren();
-    el.diagnosisBox.dataset.state = item.accepted ? "accepted" : "rejected";
-    if (!item.accepted) {
-      const issues = item.error.issues;
-      el.diagnosisNote.textContent = `原典のエラー${issues.length}件・日本語の読み方`;
-      for (const issue of issues) {
-        const row = document.createElement("li");
-        row.append(node("span", issue, "issue"), node("span", explainIssue(issue), "issue-ja"));
-        el.diagnosis.append(row);
-      }
-      return;
-    }
-
-    const obs = item.observations;
-    el.diagnosisNote.textContent = "誤りは0件。返った設定から読めること";
-    const lines = ["parseAutomationFile は誤りを返さず、設定（spec）を返しました。"];
-    const rt = item.roundtrip;
-    lines.push(rt.reparsed_equals_parsed === true && rt.reserialized_equals_file === true
-      ? "もう一度書き出して読み戻しても、ファイルの中身と設定は同じでした。"
-      : "2回目の書き出し・読み戻しで違いが出ました。下の記録を確かめてください。");
-    if (Array.isArray(obs.removed_from_input) && obs.removed_from_input.length) {
-      lines.push(`元の設定のうち、ファイルに入らなかった項目：${obs.removed_from_input.join("・")}`);
-    }
-    if (isObject(obs.event)) {
-      const on = Array.isArray(obs.event.on) ? obs.event.on : [obs.event.on];
-      const kept = obs.event.on_unchanged && obs.event.filter_unchanged ? "そのまま残りました" : "元と違っています";
-      lines.push(`event の source「${obs.event.source}」・on ${on.length}件（${on.join("・")}）・filter「${obs.event.filter}」は${kept}。Webhook は配信していません。`);
-    }
-    if (isObject(obs.prompt) && isObject(obs.prompt.contains)) {
-      const parts = [];
-      if (obs.prompt.contains.script_tag) parts.push("<script> タグ");
-      if (obs.prompt.contains.template_braces) parts.push("波かっこ {{…}}");
-      if (obs.prompt.contains.newline) parts.push("改行");
-      if (parts.length) {
-        lines.push(`prompt の${parts.join("・")}は、ファイルと読み戻しで${obs.prompt.unchanged ? "同じ文字のまま" : "元と違う文字"}でした。このページでも、実行せずに文字として表示しています。`);
-      }
-    }
-    for (const line of lines) el.diagnosis.append(node("li", line, "issue-ja"));
-  }
-
-  function renderCaveat(item) {
-    el.caveatList.replaceChildren();
-    const obs = item.observations;
-    const notes = [];
-    if (item.accepted && isObject(obs.schedule) && obs.schedule.whitespace_fields !== 5) {
-      notes.push(`schedule「${obs.schedule.value}」は cron の5つの欄の形ではありませんが、形は通りました。parseAutomationFile は schedule が空でない文字列かだけを見ていて、cron の書き方や、実際にいつ動くかは確かめていません。予定の登録もしていません。`);
-    }
-    if (item.accepted && isObject(obs.repositories) && Array.isArray(obs.repositories.dropped) && obs.repositories.dropped.length) {
-      const repos = obs.repositories;
-      const urls = repos.source.map((entry) => `${entry.url}（${entry.ref}）`).join("・");
-      const dropped = repos.dropped.map((entry) => `${entry.url}（${entry.ref}）`).join("・");
-      notes.push(`元の設定の参照先は${repos.source.length}件：${urls}。ファイルに入ったのは先頭の1件（${repos.exported.repository}・${repos.exported.branch}）だけで、${dropped} は落ちました。`);
-      if (repos.deprecated_overridden) {
-        notes.push(`古い repository／branch（${repos.deprecated_top_level.repository}・${repos.deprecated_top_level.branch}）も、先頭の参照先の値で上書きされています。`);
-      }
-      notes.push(`このファイルは、${repos.source.length}件の参照先を持つ設定の完全な控えではありません。参照先はどれも架空で、取得していません。`);
-    }
-    for (const note of notes) el.caveatList.append(node("li", note));
-    el.caveat.hidden = notes.length === 0;
-  }
-
-  function renderRepair(item) {
-    el.repair.hidden = true;
-    el.repairLink.hidden = true;
-    el.repairText.textContent = "";
-    el.repairLink.textContent = "";
-    const repair = item.observations.repair;
-    if (!isObject(repair) || !state.byId.has(repair.partner) || !Array.isArray(repair.input_diff)) return;
-    const partner = state.byId.get(repair.partner);
-    const outcome = (result) => (result.accepted ? "形が通りました" : "止まりました");
-    const count = repair.input_diff.length;
-    if (repair.role === "broken") {
-      const change = repair.input_diff.map((entry) => describeDiff(entry, true)).join("・");
-      el.repairText.textContent = `${partner.id} は、この入力に ${change}ものを、別に呼んだ結果です（違いは${count}か所）。${partner.id} は${outcome(partner)}。`;
-      el.repairLink.textContent = `${partner.id} の再確認を見る`;
-    } else {
-      const change = repair.input_diff.map((entry) => describeDiff(entry, false)).join("・");
-      el.repairText.textContent = `${partner.id} は、この入力から ${change}ものです（違いは${count}か所）。${partner.id} は${outcome(partner)}。直す内容は AI が考えたものではなく、実行前に固定した入力です。`;
-      el.repairLink.textContent = `${partner.id} を見る`;
-    }
-    el.repairLink.href = `#${partner.id}`;
-    el.repairLink.hidden = false;
-    el.repair.hidden = false;
-  }
-
-  function filenameNote(item) {
-    const source = item.filename_source;
-    if (!isObject(source)) return "";
-    const fromName = /[A-Za-z0-9]/.test(source.name);
-    const basis = fromName
-      ? `名前「${source.name}」の英数字から原典が付けた名前`
-      : `名前「${source.name}」に英数字が無いため、id「${source.id}」から原典が付けた名前`;
-    return item.mode === "import" && !fromName
-      ? `${basis}（ファイルには id が無いので、作例の番号を id として渡しました）`
-      : basis;
-  }
-
-  function renderFacts(item) {
-    el.facts.replaceChildren();
-    if (!item.accepted) {
-      addFact(el.facts, "誤り", `${item.error.issues.length}件`);
-      addFact(el.facts, "ファイル", "作られていません（形が通らないので書き出していません）");
-      const enabled = item.observations.source_enabled;
-      if (isObject(enabled)) {
-        addFact(el.facts, "入力の enabled", `${JSON.stringify(enabled.value)}（${enabled.type === "string" ? "文字列" : enabled.type}）`, true);
-      }
-      return;
-    }
-    const parsed = item.parsed;
-    const trigger = parsed.trigger;
-    addFact(el.facts, "ファイル名", item.filename, true);
-    addFact(el.facts, "名前の付き方", filenameNote(item));
-    addFact(el.facts, "有効", parsed.enabled === false
-      ? "false（無効のまま。予定の登録も実行もしていません）"
-      : `${JSON.stringify(parsed.enabled)}`);
+  function triggerText(trigger) {
+    if (!isObject(trigger)) return "（なし）";
     if (trigger.type === "event") {
-      const on = Array.isArray(trigger.on) ? trigger.on.join(", ") : trigger.on;
-      addFact(el.facts, "きっかけ", `event・${trigger.source}・${on}`, true);
-    } else {
-      addFact(el.facts, "きっかけ", `${trigger.type}・${trigger.schedule}・${trigger.timezone || parsed.timezone || ""}`, true);
+      const on = Array.isArray(trigger.on) ? trigger.on.join(", ") : String(trigger.on);
+      return `event ・ ${trigger.source} ・ ${on}`;
     }
-    addFact(el.facts, "model・timeout", `model ${JSON.stringify(own(parsed, "model") ? parsed.model : undefined)}・timeout ${parsed.timeout ?? "なし"}`, true);
-    if (isString(parsed.repository)) {
-      addFact(el.facts, "参照先", `${parsed.repository}（${parsed.branch || ""}）・架空、取得していません`);
+    const schedule = own(trigger, "schedule") ? `「${trigger.schedule}」` : "時刻（schedule）なし";
+    return `${trigger.type} ・ ${schedule}${trigger.timezone ? ` ・ ${trigger.timezone}` : ""}`;
+  }
+
+  function renderFacts(row) {
+    ui.facts.replaceChildren();
+    ui.factsIntro.textContent = row.mode === "export-roundtrip"
+      ? `${row.id}「${row.label}」：架空の設定を serializeAutomation で書き出し、parseAutomationFile で読み戻した実際の値です。`
+      : `${row.id}「${row.label}」：架空の .automation.json を parseAutomationFile にそのまま渡した実際の値です。`;
+    const input = row.input;
+    const inputTrigger = isObject(input.spec) ? input.spec.trigger : input.trigger;
+    addFact("入力のきっかけ", triggerText(inputTrigger));
+    if (Array.isArray(input.repositories)) {
+      addFact("入力の参照先", input.repositories.map((r, i) => `${i + 1}. ${r.url}（${r.ref}）`).join("\n"), true);
+    }
+    if (row.accepted) {
+      addFact("結果", "形式OK（parseAutomationFile が設定を返しました。予定の登録・実行はしていません）");
+      addFact("書き出したファイル", row.file_path, true);
+      addFact("原典が付けた名前", row.filename, true);
+      addFact("大きさ", `${utf8(fileText(row.file)).byteLength} バイト`);
+      addFact("SHA-256", row.file_sha256, true);
+      addFact("ファイルのきっかけ", triggerText(row.file.spec.trigger));
+      addFact("ファイルの参照先", `${row.file.spec.repository}（${row.file.spec.branch}）・架空、取得していません`, true);
+      const removed = row.observations.removed_from_input;
+      if (Array.isArray(removed) && removed.length) addFact("ファイルに入らなかった項目", removed.join("・"), true);
+      const repos = row.observations.repositories;
+      if (isObject(repos) && Array.isArray(repos.dropped) && repos.dropped.length) {
+        addFact("残らなかった参照先", repos.dropped.map((r) => `${r.url}（${r.ref}）`).join("\n"), true);
+      }
+      const schedule = row.observations.schedule;
+      if (isObject(schedule) && schedule.cron_grammar_validated === false) {
+        addFact("時刻の点検", `空でない文字列かだけを見ています（cron の書き方は未確認・空白で区切った欄 ${schedule.whitespace_fields}個）`);
+      }
+    } else {
+      addFact("結果", `止まりました（${row.error.name}・理由${row.error.issues.length}件）。ファイルは作られていません。`);
+      addFact("原典の理由", row.error.issues.join("\n"), true);
+    }
+    const repair = row.observations.repair;
+    if (isObject(repair) && Array.isArray(repair.input_diff)) {
+      const diff = repair.input_diff.map((d) => `${d.path} ${d.change === "added" ? `に「${d.after}」を足す` : d.change}`).join("・");
+      addFact(repair.role === "broken" ? `${repair.partner} との違い` : `${repair.partner} からの違い`, `${diff}（違いは${repair.input_diff.length}か所。実行前に固定した入力で、AI が考えた修正ではありません）`);
     }
   }
 
-  function render(id) {
-    const item = state.byId.get(id);
-    if (!item) return;
-    state.current = id;
-    const index = EXPECTED.ids.indexOf(id);
-
-    el.select.value = id;
-    el.kicker.textContent = `${item.id} ・ 8件中${index + 1}件目 ・ ${item.mode === "export-roundtrip" ? "設定から書き出して読み戻す" : "ファイルを読み込む"}`;
-    el.title.textContent = `${item.id}　${item.label}`;
-    el.state.dataset.state = item.accepted ? "accepted" : "rejected";
-    el.state.textContent = item.accepted
-      ? "形が通った：ファイルの形式"
-      : "止まった：設定に不足・不備";
-
-    renderDiagnosis(item);
-    renderCaveat(item);
-    renderRepair(item);
-    renderFacts(item);
-
-    if (item.accepted) {
-      el.rawFileNote.textContent = `${item.file_path} と同じ内容です（SHA-256 ${item.file_sha256}）。原典が付けた名前は ${item.filename}。`;
-      el.rawFile.textContent = fileText(item.file);
-    } else {
-      el.rawFileNote.textContent = "形が通らなかったため、ファイルは作られていません。";
-      el.rawFile.textContent = "";
-    }
-    el.rawInputNote.textContent = item.mode === "export-roundtrip"
-      ? "サービス側の形（Automation）の架空の設定です。serializeAutomation にそのまま渡しました。"
-      : ".automation.json の形の架空のファイルです。parseAutomationFile にそのまま渡しました。";
-    el.rawInput.textContent = JSON.stringify(item.input, null, 2);
-    el.rawOutput.textContent = JSON.stringify(item, null, 2);
-
-    el.downloadFile.disabled = !(state.ready && item.accepted && isObject(item.file));
-    el.actionStatus.textContent = "";
-    el.fallback.hidden = true;
-    el.fallbackLabel.hidden = true;
+  function renderAll(record, rows) {
+    const { total, accepted, rejected } = record.summary;
+    ui.tally.textContent = `設定${total}件：形式OK ${accepted}件 ／ 止まった ${rejected}件（形の点検の結果。予定の登録はしていません）`;
+    const items = IDS.map((id) => {
+      const row = rows.get(id);
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = `#${id}`;
+      a.textContent = `${id}「${row.label}」${row.accepted ? "形式OK" : "止まった"}${SCENES.includes(id) ? "（図）" : ""}`;
+      li.append(a);
+      return li;
+    });
+    ui.allList.replaceChildren(...items);
+    const runtime = obj(record.runtime);
+    ui.runFacts.textContent = `Node ${runtime.node || "?"}・通信 ${runtime.network === false ? "なし" : "?"}・導入したパッケージ ${runtime.packages_installed ?? "?"}件・確認 ${record.verification.total}件すべて合格`;
   }
 
-  function idFromHash() {
-    let raw = "";
+  function clearView() {
+    ui.caption.textContent = "";
+    ui.caseNote.hidden = true;
+    ui.caseNoteText.textContent = "";
+    ui.repair.hidden = true;
+    ui.save.hidden = true;
+    setLink(ui.save, "", "");
+    ui.actionStatus.textContent = "";
+    ui.facts.replaceChildren();
+    ui.factsIntro.textContent = "記録を読み込むと、選んだ場面の実際の値を表示します。";
+    ui.factsCompare.href = COMPARE;
+    ui.compare.href = COMPARE;
+    ui.compare.textContent = "元の記録で見る";
+    if (state.recordUrl) URL.revokeObjectURL(state.recordUrl);
+    state.recordUrl = "";
+    setLink(ui.saveRecord, "", "");
+    for (const chip of ui.chips) chip.setAttribute("aria-pressed", "false");
+  }
+
+  function revokeFiles() {
+    for (const url of fileUrls.values()) URL.revokeObjectURL(url);
+    fileUrls.clear();
+    pending.clear();
+  }
+
+  // 記録の file_path のバイト列を取り、記録から作った大きさと SHA-256 に合ったものだけを Blob URL にする。
+  function verifiedFile(row) {
+    if (fileUrls.has(row.file_path)) return Promise.resolve(fileUrls.get(row.file_path));
+    if (pending.has(row.file_path)) return pending.get(row.file_path);
+    const job = (async () => {
+      const expected = utf8(fileText(row.file)).byteLength;
+      const response = await fetchOk(row.file_path);
+      const buffer = await response.arrayBuffer();
+      need(buffer.byteLength === expected, `${row.file_path} の大きさが記録と違います（${buffer.byteLength} バイト・記録から ${expected} バイト）。`);
+      if (row.id === "O04") need(buffer.byteLength === O04_FILE.bytes, `${row.file_path} が ${O04_FILE.bytes} バイトではありません。`);
+      need(await sha256Hex(buffer) === row.file_sha256, `${row.file_path} の SHA-256 が記録と一致しません。`);
+      const url = URL.createObjectURL(new Blob([buffer], { type: "application/json" }));
+      fileUrls.set(row.file_path, url);
+      return url;
+    })();
+    pending.set(row.file_path, job);
+    job.then(() => pending.delete(row.file_path), () => pending.delete(row.file_path));
+    return job;
+  }
+
+  // 図を描き直さずに、保存の印だけを切り替える（場面の切り替えの動きを途中で切らないため）。
+  function setEmblem(ready) {
+    for (const node of ui.diagram.querySelectorAll(".d-emblem, .d-emblem-arrow")) node.classList.toggle("is-ready", ready);
+  }
+
+  async function prepareSave(row) {
+    const generation = ++state.generation;
+    ui.save.hidden = false;
+    setLink(ui.save, "", "");
+    ui.saveLabel.textContent = "ファイルを確かめています…";
     try {
-      raw = decodeURIComponent(window.location.hash.slice(1));
+      const url = await verifiedFile(row);
+      if (generation !== state.generation || state.id !== row.id) return;
+      setLink(ui.save, url, row.filename);
+      ui.saveLabel.textContent = `${row.filename} を保存`;
+      setEmblem(state.views.has(row.id));
     } catch (error) {
-      raw = "";
+      if (generation !== state.generation) return;
+      setLink(ui.save, "", "");
+      ui.save.hidden = true;
+      setEmblem(false);
+      ui.caption.textContent = "形式の点検は通りましたが、保存ファイルを照合できません。";
+      setStatus("error", `${error instanceof LoadError ? error.message : "ファイルを確かめられませんでした。"} このファイルは保存に使いません。`);
+      ui.retry.hidden = false;
     }
-    return state.byId.has(raw) ? raw : null;
   }
 
-  function go(id) {
-    if (!state.ready || !state.byId.has(id)) return;
-    if (window.location.hash === `#${id}`) {
-      render(id);
+  function show(raw) {
+    if (!state.ready) return;
+    clearView();
+    state.generation += 1;
+    setStatus("ready", "");
+    ui.retry.hidden = true;
+    const row = state.rows.get(raw);
+    if (!row) {
+      // 知らない id：図は場面なしのまま。代わりの結果は出さない。
+      state.id = null;
+      buildDiagram(null, false, false);
+      state.previous = null;
+      ui.caseNoteText.textContent = `「${raw}」に当たる記録はありません。上の4つから場面を選ぶか、`;
+      ui.caseNoteLink.href = COMPARE;
+      ui.caseNoteLink.textContent = "8件の記録を開く";
+      ui.caseNote.hidden = false;
+      return;
+    }
+
+    state.id = row.id;
+    ui.compare.href = `${COMPARE}#${row.id}`;
+    ui.factsCompare.href = `${COMPARE}#${row.id}`;
+    renderFacts(row);
+    state.recordUrl = URL.createObjectURL(new Blob([fileText(row)], { type: "application/json" }));
+    setLink(ui.saveRecord, state.recordUrl, `openhands-${row.id}-record.json`);
+
+    const view = state.views.get(row.id) || null;
+    for (const chip of ui.chips) chip.setAttribute("aria-pressed", String(chip.dataset.case === row.id));
+    if (view) {
+      buildDiagram(view, Boolean(state.previous) && state.previous.id !== view.id, false);
+      state.previous = view;
+      ui.caption.textContent = captionOf(row);
+      if (row.id === "O07") ui.compare.textContent = "元の設定と見比べる";
+      if (row.id === "O03") ui.repair.hidden = false;
     } else {
-      window.location.hash = id; // hashchange が表示を切り替え、戻る・進むにも残る
+      // 図の4場面にない記録：図は場面なしにして、記録の要点と8件の記録へのリンクを出す。
+      buildDiagram(null, false, false);
+      state.previous = null;
+      ui.caseNoteText.textContent = row.accepted
+        ? `${row.id}「${row.label}」は形式OKの記録です。この図の4場面には入っていないため、入力と出力は`
+        : `${row.id}「${row.label}」は止まった記録です（理由${row.error.issues.length}件・ファイルなし）。この図の4場面には入っていないため、入力と理由は`;
+      ui.caseNoteLink.href = `${COMPARE}#${row.id}`;
+      ui.caseNoteLink.textContent = `8件の記録の ${row.id} で見る`;
+      ui.caseNote.hidden = false;
     }
+    if (row.accepted) prepareSave(row);
   }
 
-  window.addEventListener("hashchange", () => {
-    if (!state.ready) return;
-    const id = idFromHash();
-    if (id) {
-      render(id);
-    } else if (state.current) {
-      history.replaceState(null, "", `#${state.current}`);
-    }
-  });
-
-  el.select.addEventListener("change", () => go(el.select.value));
-
-  // --- 操作 --------------------------------------------------------------------------------
-
-  function saveText(name, text) {
-    const blob = new Blob([text], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = name;
-    document.body.append(link);
-    link.click();
-    link.remove();
-    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-    el.actionStatus.textContent = `${name} の保存をブラウザーに渡しました。`;
-  }
-
-  const SAFE_NAME = /^[A-Za-z0-9][A-Za-z0-9._-]{0,120}$/;
-
-  el.downloadFile.addEventListener("click", () => {
-    if (!state.ready) return;
-    const item = state.byId.get(state.current);
-    if (!item || !item.accepted || !isObject(item.file)) return;
-    const base = SAFE_NAME.test(item.filename) && item.filename.endsWith(EXPECTED.envelope.filenameSuffix)
-      ? item.filename
-      : `${item.id}${EXPECTED.envelope.filenameSuffix}`;
-    saveText(`openhands-${item.id}-${base}`, fileText(item.file));
-  });
-
-  el.downloadRecord.addEventListener("click", () => {
-    if (!state.ready) return;
-    const item = state.byId.get(state.current);
-    if (!item) return;
-    saveText(`openhands-${item.id}-record.json`, fileText(item));
-  });
-
-  el.copy.addEventListener("click", async () => {
-    if (!state.ready || !state.request) return;
-    el.fallback.hidden = true;
-    el.fallbackLabel.hidden = true;
+  function rawHash() {
+    const value = location.hash.slice(1);
     try {
-      if (!navigator.clipboard || !window.isSecureContext) throw new Error("clipboard unavailable");
-      await navigator.clipboard.writeText(state.request);
-      el.actionStatus.textContent = "依頼文をコピーしました。";
-    } catch (error) {
-      el.fallback.value = state.request;
-      el.fallback.hidden = false;
-      el.fallbackLabel.hidden = false;
-      el.fallback.focus();
-      el.fallback.select();
-      el.actionStatus.textContent = "コピーできませんでした。下の欄の全文を選択したので、長押しでコピーしてください。";
+      return decodeURIComponent(value);
+    } catch {
+      return value;
+    }
+  }
+
+  function route() {
+    if (!state.ready) return;
+    const raw = rawHash();
+    if (!raw) {
+      history.replaceState(null, "", `#${DEFAULT_ID}`);
+      show(DEFAULT_ID);
+      return;
+    }
+    // ページの中の見出し（#film など）へのリンクは記録の id ではない。開いて、場面はそのままにする。
+    const target = state.rows.has(raw) ? null : document.getElementById(raw);
+    if (target) {
+      if (target.tagName === "DETAILS") target.open = true;
+      if (!state.id) show(DEFAULT_ID);
+      return;
+    }
+    show(raw);
+  }
+
+  function lock() {
+    state.ready = false;
+    state.rows = null;
+    state.views = null;
+    state.record = null;
+    state.id = null;
+    state.previous = null;
+    state.generation += 1;
+    revokeFiles();
+    clearView();
+    for (const chip of ui.chips) chip.disabled = true;
+    ui.tally.textContent = "記録を読み込むと、件数を表示します。";
+    ui.allList.replaceChildren();
+    ui.runFacts.textContent = "記録を読み込むと表示します。";
+    buildDiagram(null, false, false);
+  }
+
+  // --- 操作 ----------------------------------------------------------------------------------
+
+  for (const chip of ui.chips) {
+    chip.addEventListener("click", () => {
+      const id = chip.dataset.case;
+      if (!state.ready || id === state.id) return;
+      location.hash = id; // hashchange が表示を切り替え、戻る・進むにも残る
+    });
+  }
+  ui.repair.addEventListener("click", () => {
+    if (state.ready) location.hash = "O04";
+  });
+  window.addEventListener("hashchange", route);
+  wide.addEventListener("change", () => {
+    if (!state.ready) {
+      buildDiagram(null, false, false);
+      return;
+    }
+    const view = state.id ? state.views.get(state.id) || null : null;
+    buildDiagram(view, false, Boolean(view && !ui.save.hasAttribute("aria-disabled")));
+  });
+
+  ui.save.addEventListener("click", (event) => {
+    if (ui.save.getAttribute("aria-disabled") === "true") {
+      event.preventDefault();
+      return;
+    }
+    ui.actionStatus.textContent = `${ui.save.download} の保存をブラウザーに渡しました。`;
+  });
+  ui.saveRecord.addEventListener("click", (event) => {
+    if (ui.saveRecord.getAttribute("aria-disabled") === "true") event.preventDefault();
+  });
+
+  function showFallback() {
+    ui.fallback.value = state.request;
+    ui.fallback.hidden = false;
+    ui.fallbackLabel.hidden = false;
+    ui.copyStatus.textContent = "";
+    ui.fallback.focus();
+    ui.fallback.select();
+  }
+
+  function legacyCopy(text) {
+    const area = document.createElement("textarea");
+    area.value = text;
+    area.setAttribute("readonly", "");
+    area.style.position = "fixed";
+    area.style.top = "0";
+    area.style.opacity = "0";
+    area.style.fontSize = "16px";
+    document.body.append(area);
+    area.select();
+    let ok = false;
+    try {
+      ok = document.execCommand("copy");
+    } catch {
+      ok = false;
+    }
+    area.remove();
+    return ok;
+  }
+
+  ui.copy.addEventListener("click", () => {
+    if (typeof state.request !== "string") return;
+    ui.fallback.hidden = true;
+    ui.fallbackLabel.hidden = true;
+    const done = () => { ui.copyStatus.textContent = "依頼文をコピーしました。"; };
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(state.request).then(done, showFallback);
+    } else if (legacyCopy(state.request)) {
+      done();
+    } else {
+      showFallback();
     }
   });
 
-  el.retry.addEventListener("click", () => load());
+  async function loadRequest() {
+    ui.copy.disabled = true;
+    try {
+      const response = await fetchOk(REQUEST);
+      const text = new TextDecoder("utf-8", { fatal: true }).decode(await response.arrayBuffer());
+      need(text.trim().length > 0, "request.txt が空です。");
+      state.request = text;
+      ui.copy.disabled = false;
+      ui.copyStatus.textContent = "";
+    } catch {
+      state.request = null;
+      ui.copyStatus.textContent = "依頼文を読み込めませんでした。上の request.txt から開けます。";
+    }
+  }
 
-  // --- 読み込み ------------------------------------------------------------------------------
+  // --- 起動 ----------------------------------------------------------------------------------
 
-  async function load() {
+  async function boot() {
     if (state.loading) return;
     state.loading = true;
-    state.ready = false;
-    clearResult();
-    setControls(false);
-    setStatus("loading", "保存した実行記録を読み込み、固定版とハッシュを確かめています…");
+    lock();
+    ui.retry.hidden = true;
+    ui.retry.disabled = true;
+    setStatus("loading", "保存済みの実行結果を確かめています…");
     try {
-      const entries = await Promise.all(Object.entries(FILES).map(async ([key, path]) => [key, await fetchBytes(path)]));
-      const raw = Object.fromEntries(entries);
-      const hashes = {};
-      for (const [key, path] of Object.entries(HASHED)) hashes[path] = await sha256Hex(raw[key].buffer);
-      const files = {
-        record: parseJson(FILES.record, raw.record.text),
-        settings: parseJson(FILES.settings, raw.settings.text),
-        expected: parseJson(FILES.expected, raw.expected.text),
-        lock: parseJson(FILES.lock, raw.lock.text),
-      };
-      await validate(files, hashes);
-      if (!raw.request.text.trim()) fail("request.txt が空です。");
-
-      state.record = files.record;
-      state.request = raw.request.text;
-      state.byId = new Map(files.record.results.map((item) => [item.id, item]));
-      buildPicker(files.record.results);
-      renderTally(files.record);
-      renderRunFacts(files.record);
-
-      const initial = idFromHash() || EXPECTED.defaultId;
-      if (window.location.hash !== `#${initial}`) history.replaceState(null, "", `#${initial}`);
+      const response = await fetchOk(RECORD);
+      let record;
+      try {
+        record = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(await response.arrayBuffer()));
+      } catch {
+        throw new LoadError(`${RECORD} を JSON として読めません。`);
+      }
+      const rows = await validate(record);
+      state.record = record;
+      state.rows = rows;
+      state.views = new Map(SCENES.map((id) => [id, viewOf(rows.get(id))]));
+      renderAll(record, rows);
+      for (const chip of ui.chips) chip.disabled = false;
       state.ready = true;
-      render(initial);
-      el.viewer.hidden = false;
-      setControls(true);
-      setStatus("ready", "入力・固定版を照合済み。");
+      setStatus("ready", "");
+      route();
     } catch (error) {
-      state.ready = false;
-      clearResult();
-      setControls(false);
-      const message = error instanceof LoadError ? error.message : "実行記録を表示できませんでした。";
-      setStatus("error", `${message} 古い内容や代わりの結果は表示していません。`);
+      lock();
+      setStatus("error", `${error instanceof LoadError ? error.message : "実行記録を表示できませんでした。"} 古い内容や代わりの結果は表示していません。`);
+      ui.retry.hidden = false;
     } finally {
       state.loading = false;
-      if (el.status.dataset.state === "error") el.retry.disabled = false;
+      ui.retry.disabled = false;
     }
   }
 
-  load();
+  ui.retry.addEventListener("click", () => boot());
+
+  boot();
+  loadRequest();
 })();

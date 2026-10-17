@@ -1,12 +1,12 @@
 {
   "id": "openhands-example",
-  "title": "OpenHands作例：自動化の設定を、持ち運ぶ前に点検する",
+  "title": "OpenHands作例：設定を図で点検して保存する",
   "title_lines": [
-    "自動化の設定を、",
-    "持ち運ぶ前に点検する"
+    "設定を、図で点検。",
+    "ファイルにして持ち運ぶ"
   ],
   "category": "development",
-  "summary": "架空の自動化設定8件を、固定版Agent Canvasの実ファイル入出力APIで点検。6件の形式受付と2件の拒否、時刻の欠けを戻す例、cron文法や2つ目の参照先を確かめない範囲を、実ファイル・日本語解説・28秒無音動画で確認できます。",
+  "summary": "時刻の不足で止まる→ひとつ戻して通す→設定ファイルを保存。実行済み8件を大きな概念図で比べ、日本語TTS付き33秒の縦動画で使い方が分かります。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/openhands-example/index.html",
@@ -19,8 +19,8 @@
   "sample_format": "input-output",
   "samples_title": "8件の設定と、原典が返した結果",
   "samples_intro": "架空入力と実結果の要点です。各実デモで全入力・原典のエラー・6つの実ファイル、JSON保存を確認できます。",
-  "demo_description": "架空の8つの自動化の設定を、固定版 OpenHands Agent Canvas の入出力APIで書き出し・読み戻した記録を読むページです。最初に O03（cron なのに schedule が無くて止まる）が表示され、形が通ったか止まったか、原典の誤りの行とその読み方を先に読めます。O04 へのリンクで、schedule だけを戻した再確認と比べられます。選択欄か #O07 のようなリンクで8件を切り替えると、event の条件の保持（O02）、6つの不備（O05）、cron の形でない時刻が通る注意（O06）、2件目の参照先が落ちる注意（O07）、タグや波かっこを文字のまま保つ例（O08）も確かめられます。書き出したファイル・入力・1件の記録の JSON を折りたたみで全文開け、形が通った件の .automation.json と1件の記録を保存でき、依頼文もコピーできます。",
-  "demo_note": "保存済みの8件を選んで、原典の関数が実際に返したファイルと誤りを読めます。ブラウザーで Agent Canvas やエージェント、AI を動かすページではなく、自動化を登録・実行する画面でもありません。",
+  "demo_description": "設定ファイル→点検ゲート→保存を、大きな図で見られます。まずは時刻のないO03。「時刻を戻す」でO04の保存済み結果へ切り替わり、実ファイルを保存できます。時刻の書式を確かめないO06、2つの参照先の先頭だけが残るO07も比べられます。全8件の入力・結果・エラー全文は補足の比較ページにあります。",
+  "demo_note": "原典APIで得た保存済みの実結果を図にした作例です。Agent Canvasやエージェント・スケジューラーはブラウザーで実行していません。",
   "request_intro": "同じ点検を自分の架空の設定で試すときの依頼文です。入力の欄を差し替え、固定版の OpenHands Agent Canvas を読めるAIや開発者に渡してください。",
   "request": "架空の自動化の設定を、固定版 OpenHands Agent Canvas の自動化ファイルの入出力APIで持ち運べる .automation.json に書き出し、原典の読み込み検査で形を確かめる作例を作ってください。実際に書き出したファイル・読み戻した結果・原典が返した誤りをそのまま JSON に保存し、スマホで読める日本語のページで、形が通ったか止まったか、誤りの理由、直した再確認、書き出しで落ちる項目を確かめられるようにしてください。\n\n読む原典（固定版 OpenHands/OpenHands e4775b4ba61a83ba80af5f7b0b826201b8e8ea05・Agent Canvas 1.27.1・MIT）\n・入出力API（serializeAutomation・getAutomationExportFilename・parseAutomationFile・AutomationFileValidationError）：https://github.com/OpenHands/OpenHands/blob/e4775b4ba61a83ba80af5f7b0b826201b8e8ea05/src/utils/automation-export.ts\n・ファイルの封筒（hasAutomationInterface・getImportExportSpec）：https://github.com/OpenHands/OpenHands/blob/e4775b4ba61a83ba80af5f7b0b826201b8e8ea05/src/manifests/automation-interface.ts\n・interface manifest の審査（validateInterfaceManifest）：https://github.com/OpenHands/OpenHands/blob/e4775b4ba61a83ba80af5f7b0b826201b8e8ea05/src/manifests/interface-validation.ts\n・依存の固定（@openhands/extensions 0.30.0・MIT）：https://github.com/OpenHands/OpenHands/blob/e4775b4ba61a83ba80af5f7b0b826201b8e8ea05/package-lock.json\n・LICENSE：https://github.com/OpenHands/OpenHands/blob/e4775b4ba61a83ba80af5f7b0b826201b8e8ea05/LICENSE\n\n入力（ここを差し替える。実行の前に固定し、結果を見てから変えない）\n・架空の設定：名前・きっかけ（cron の時刻か event の条件）・enabled・prompt・model・timeout・参照先・plugins・timezone。参照先は example.invalid のような取得されない架空のURLにし、実在のリポジトリ・認証情報・個人の予定は使わない\n・試し方：設定から書き出して読み戻す export-roundtrip と、ファイルをそのまま読む import。この作例では O01〜O08 の8件（毎週土曜9時の無効な設定・event の条件・時刻の欠けたファイルと時刻だけ戻したファイル・6つの不備・cron の形でない時刻・2つの参照先・タグや波かっこを含む文）\n・期待：形が通る件と止まる件、止まる件の理由の一部を、実行の前に別のファイルへ書く\n\n進め方\n1. 原典12ファイル・依存の29ファイル・ロック・入力の SHA-256（原典は Git blob も）を照合してから、Node 24 の型除去で原典の .ts をそのまま読み込む。npm の導入はしない。読み込みの補助は「#/」と原典内の拡張子なし相対 import を .ts へ、@openhands/extensions/automations を同梱した実物の index.js へ解決するだけにし、原典の関数や manifest を置き換えない\n2. hasAutomationInterface() が true になり、getImportExportSpec() が同梱パッケージの interface.json と同じであることを確かめる\n3. export-roundtrip では serializeAutomation で書き出し、getAutomationExportFilename で名前を付け、JSON の文字列にしてから parseAutomationFile で読み戻す。import では parseAutomationFile にそのまま渡し、通ったら書き出してもう一度読み戻す\n4. 止まったら AutomationFileValidationError の name・message・issues をそのまま残す。それ以外の例外が出たら止める\n5. 書き出しで外れた項目、event の条件、2つ目の参照先が落ちること、cron の形でない時刻が通ること、文がそのまま残ることを、実データから記録する\n6. 結果を得た後でだけ期待のファイルと照らし合わせる。すべての確認が通ったときだけ outputs/automation-runs.json と、形が通った件の outputs/exports/O01.automation.json などを1回書く。既にある記録は上書きしない。絶対パス・時刻・認証情報は書かない\n\nページでできること\n・8件を選び、形が通ったか止まったか、原典の誤りの行とその読み方を先に読む。O03（時刻が無くて止まる）と O04（時刻だけ戻して通る）を行き来できる\n・O06（cron の形でない時刻でも形は通る）と O07（2つ目の参照先が落ちる）の注意を目立たせる\n・書き出したファイル・入力・1件の記録の JSON は折りたたみで全文を開ける\n・記録・入力・ロックを取得し、固定版・SHA-256・8件・確認の合否を照合してから表示する。合わなければ理由と「もう一度読み込む」だけを出す\n・形が通った件の .automation.json と、選んだ1件の記録を保存し、この依頼文をコピーする\n・320px幅のスマホから1280px幅のパソコンまで横スクロールなし。操作部品は44px以上、入力欄の文字は16px以上。外部のフォント・CDN・計測・AI の呼び出しは使わない\n\n書かないこと\n・形が通った件を、動く自動化・登録した予定・品質の点数として書かない\n・parseAutomationFile が通したことを、cron の正しさ・実行の時刻・安全性・内容の正しさの確認として書かない\n・書き出したファイルを、参照先が複数ある設定の完全な控えとして書かない\n・Agent Canvas のアプリやサーバー、エージェントやモデルの実行、予定の登録、Webhook の配信、リポジトリの取得、Cloud との連携を動かしたように書かない\n\n最後に、作ったファイル、実際に実行したコマンドとその結果、まだ確かめていない点を分けて書いてください。\n",
   "applied_skills": [
@@ -37,7 +37,12 @@
     {
       "name": "Motion Reel",
       "source": "examples/openhands-example/tools/motion-reel/render.mjs",
-      "applied": "実行記録・独立照合・再実行記録・入力・原典ロック・無編集実画面2件とその記録の8素材を固定し、28秒無音動画を制作。任意時刻の別順序/新ページPNG一致・代表/5連続列/360px/全デコード/MP4再生終了、編集画面の14秒シーク・再生停止を確認しました。"
+      "applied": "保存済みの実入力・出力を大きな連続する概念図で説明し、Irodori-TTSの日本語ナレーション5区間を固定。33秒の縦横動画を制作し、代表・連続・スマホ幅・終端、任意時刻の再現とMP4再生を確認。"
+    },
+    {
+      "name": "Irodori-TTS-v4.1-Small",
+      "source": "https://huggingface.co/Aratako/Irodori-TTS-v4.1-Small/tree/2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
+      "applied": "既存の公式固定モデルで5つの日本語説明を実合成。自作の合成声を参照し、原稿・音源・cueを固定して概念図の時刻と対応させました。聴取は未確認。"
     }
   ],
   "steps": [
@@ -66,7 +71,7 @@
     "Agent Canvas のアプリ・サーバー（読み込みの画面やサーバー側の検査）、エージェントやモデル、スケジューラー、Webhook の配信、リポジトリの取得、OpenHands Cloud は使っていません。",
     "上流への変更の提案（PR）はしておらず、原典の開発者向けの全体テストは行っていません。",
     "参照先はすべて架空の example.invalid で、取得していません。通信・ログイン・API キーは使っていません。O08 のタグや波かっこを文字のまま表示しているのは、安全性の検査や無害化の保証ではありません。",
-    "IAB Chromiumで6幅×8件、実JSON/.automation.json保存・依頼文コピー・エラー復旧、映像の代表/連続フレーム・全デコード・ネイティブ再生終了を確認。実機iOS/Safari/VoiceOver・Core Web Vitals・人による承認は未確認です。"
+    "IAB Chromiumでスマホを含む6幅、実ファイル保存・依頼文コピー・エラー復旧、縦横の概念図動画の代表/連続フレーム・全デコード・再生終了とTTS音源のcue一致を確認。音声の聴取・実機iOS/Safari/VoiceOver・Core Web Vitals・人による承認は未確認です。"
   ],
   "sources": [
     {
@@ -188,11 +193,27 @@
     {
       "label": "入力・実装・映像ソース一式",
       "url": "examples/openhands-example/source.zip"
+    },
+    {
+      "label": "図と日本語TTSの使い方",
+      "url": "examples/openhands-example/visual-guide.md"
+    },
+    {
+      "label": "固定TTSと実生成音声のハッシュ",
+      "url": "examples/openhands-example/audio/generation.json"
+    },
+    {
+      "label": "改修後に確認した範囲",
+      "url": "examples/openhands-example/verification.json"
+    },
+    {
+      "label": "動画の実素材8件のハッシュ",
+      "url": "examples/openhands-example/video/assets/manifest.json"
     }
   ],
   "license": "MIT（独自作例）・MIT（OpenHands 原典・@openhands/extensions）",
-  "license_note": "作例のコード（run.mjs・loader.mjs・ページ）・文章・架空の入力・動画の編集ソースは MIT License（Copyright (c) 2026 Studio Yebisu）。vendor/openhands/ の12ファイルは OpenHands/OpenHands の固定コミット e4775b4（Agent Canvas 1.27.1）のファイル、vendor/extensions/ の29ファイルは npm の @openhands/extensions 0.30.0 のファイルで、どちらも改変せずに置いた MIT License（Copyright © 2025 OpenHands contributors ほか、各 LICENSE のとおり）です。実行にパッケージの導入・アカウント・API キー・課金は要りません。OpenHands Cloud・Enterprise・モデルの API・各連携サービスは別の条件で、この作例では使っていません。ソース制作に用いた Opus 5.5 の利用環境は別に必要です。",
-  "video_note": "28秒・無音。原典の実ファイル検査結果と無編集の実画面2件を使った解説です。エージェントや予定を実行する動画ではありません。",
+  "license_note": "作例のコード（run.mjs・loader.mjs・ページ）・文章・架空の入力・動画の編集ソースは MIT License（Copyright (c) 2026 Studio Yebisu）。vendor/openhands/ の12ファイルは OpenHands/OpenHands の固定コミット e4775b4（Agent Canvas 1.27.1）のファイル、vendor/extensions/ の29ファイルは npm の @openhands/extensions 0.30.0 のファイルで、どちらも改変せずに置いた MIT License（Copyright © 2025 OpenHands contributors ほか、各 LICENSE のとおり）です。実行にパッケージの導入・アカウント・API キー・課金は要りません。OpenHands Cloud・Enterprise・モデルの API・各連携サービスは別の条件で、この作例では使っていません。ソース制作に用いた Opus 5.5 の利用環境は別に必要です。 ナレーションは固定版Irodori-TTS-v4.1-Smallの合成音声で、同梱のMIT Licenseとモデルカードの条件に従います。参照声も独自に作った合成声です。モデルの重みは配布しません。",
+  "video_note": "33秒・日本語TTSナレーションあり。大きな概念図が動き、時刻不足→復元→保存と、参照先が先頭だけになる例を説明します。縦版を主に、横版も用意しました。説明図の映像で、エージェントや予定の実行映像ではありません。音声の聴取・実機iOSは未確認です。",
   "video_source": "examples/openhands-example/video/index.html",
   "skill_license": "examples/openhands-example/vendor/openhands/LICENSE",
   "updated_on": "2026-10-17",
@@ -202,16 +223,16 @@
     "execution": "Native Node24.18.0 and genuine original file APIs;8fictionalsettings;6realportablefiles",
     "checks_total": 107,
     "independent_checks": 155,
-    "screen_review": "6widths/48case-width combinations; actual export/copy/errors verified",
-    "video": "28seconds/silent/frame_review/decode/native_playback_passed",
+    "screen_review": "Diagram-first saved-result viewer and original8-case comparison; measured phone layout, actual file save/copy and controlled errors verified.",
+    "video": "33s/30fps/990frames:720x1280 portrait and1280x720 wide;5 real local Japanese TTS cues; deterministic PNG/decode/native playback checked.",
     "publication": "Pages and actual public files verified separately after scoped publication",
     "human_approval": false,
-    "model_scope": "Opus5.5 authored implementation/Japanese/film source. Production froze fictional inputs, acquired original source, ran APIs, independently audited, refined phone copy/layout and packaged. No live agent/model attribution."
+    "model_scope": "Original Opus5.5 runtime source/results preserved. New Opus5.5 receipt authors concept UI and narrated film source; production generated IrodoriTTS, mixed fixed cues, checked artifacts and rendered/published."
   },
   "guide_url": "case.html?id=openhands-example",
   "catalog_entry": {
     "id": "resource-openhands",
-    "name": "OpenHands",
+    "name": "OpenHands作例：設定を図で点検して保存する",
     "category": "development",
     "kind": "エージェント基盤",
     "summary": "コーディングエージェントと自動化を、ローカル・リモート・クラウドの環境で扱う、自分で動かせる操作画面（Agent Canvas）。",
@@ -244,8 +265,11 @@
     "source_note": "固定版Agent Canvas1.27.1/e4775b4とlocked extensions0.30.0の実物の入出力APIで、8架空設定/107checks/独立155照合。別Nodeで実行記録と6出力全bytes一致。ファイルの形の確認に限定し、アプリ・エージェント・モデル・予定登録・Webhook・cloneは実行していない。",
     "prompt": "OpenHands Agent Canvas固定版の自動化ファイル入出力API（serializeAutomation・parseAutomationFile）で、架空の自動化の設定を.automation.jsonに書き出して読み戻してください。止まった誤りの行と1か所だけ直した再確認、cronの形でない時刻や2件目の参照先の扱いを確かめ、実入力・実結果と短い日本語解説を保存してください。エージェントやモデルの実行とは区別してください。",
     "verification_stage": "runtime-reviewed",
-    "verification": "2026-10-17に固定原典MITと実ファイルAPI8件を確認。6幅48件・実保存/コピー/エラー復旧・28秒無音動画を検証。実機iOSと人の承認は未確認。",
+    "verification": "2026-10-17に元の実API8件・107検査と独立155照合・別プロセス一致を保ち、概念図と日本語TTS付き33秒の縦横動画へ改修。スマホ表示、実保存・復旧・動画再生を確認。聴取・実機iOS・人の承認は未確認。",
     "reviewed_on": "2026-10-17",
     "updated_on": "2026-10-17"
-  }
+  },
+  "video_width": 720,
+  "video_height": 1280,
+  "video_landscape": "media/openhands-example-wide.mp4"
 }

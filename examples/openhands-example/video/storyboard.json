@@ -1,312 +1,574 @@
 {
-  "format": "studio-yebisu-motion-storyboard-v1",
+  "format": "studio-yebisu-storyboard-v1",
   "case": "openhands-example",
-  "title": "OpenHands Agent Canvas 作例・解説動画",
-  "message": "自動化の設定を、持ち運ぶ前に点検する",
-  "operation": [
-    "架空の自動化の設定を、原典の serializeAutomation で .automation.json に書き出す",
-    "schedule の無い cron の入力（O03）が、原典の parseAutomationFile で止まる",
-    "原典の誤りの文から、足りない項目を読む",
-    "schedule だけを足した別の入力（O04）を別に読み込み、形が通ったファイルを保存する",
-    "形が通っても cron の書き方は確かめていないこと（O06）と、参照先は先頭の1件だけが入ること（O07）を読む",
-    "閲覧ページで設定を選び、理由を読み、実ファイルを保存する"
-  ],
-  "audience": "Agent Canvas の自動化を別の環境へ持ち運びたい日本語の開発者・.automation.json の形と読み込み検査の範囲を先に知りたい人",
-  "next_action": "作例ページ（../index.html#O03）で O03 と O04 を行き来し、原典の誤りの行と O06・O07 の注意を読み、形が通った .automation.json を保存する",
-  "output": {
-    "width": 1280,
-    "height": 720,
+  "title": "図で確かめ、設定を保存 — OpenHands 自動化の設定ファイル",
+  "message": "設定ファイルは形式の点検を通ってから保存ファイルになる。時刻が抜けると止まり、戻すと保存できる。形式OKは実行の確認ではなく、参照先は先頭だけが残る。",
+  "audience": "Agent Canvas の自動化の設定を別の環境へ持ち運びたい人（スマホでの視聴が中心）",
+  "composition": {
+    "duration": 33,
     "fps": 30,
-    "duration_seconds": 28,
-    "frames": 840,
-    "poster_time": 13.5,
-    "audio": "none (silent)",
-    "audio_events": [],
-    "orientation": "landscape only; on phones the whole 16:9 canvas is scaled down by CSS. No portrait or square composition is authored or claimed.",
-    "loop": false
-  },
-  "authorship": {
-    "film_code_and_japanese_copy": "Claude Opus 5.5 (claude-opus-5-5) wrote index.html, video.css, video.js, storyboard.json and README.md in this folder. This authoring step is separate from the runtime: no model ran inside the original API calls or the checks, and the film draws only saved values.",
-    "inputs": "input/automation-settings.json (fictional O01–O08 automation settings, all repositories on example.invalid) and input/expected.json were fixed by the Studio Yebisu production side before execution.",
-    "execution": "The production side ran run.mjs with Node v24.18.0 (TypeScript strip, no npm install, no network). Values in the record were returned by the unmodified OpenHands functions serializeAutomation, getAutomationExportFilename, parseAutomationFile, AutomationFileValidationError, hasAutomationInterface and getImportExportSpec with the genuine admitted @openhands/extensions 0.30.0 interface manifest — not by a model.",
-    "screenshots": "video/assets/phone.jpg and desktop.jpg are unedited native in-app Chromium JPEG screenshots of the Studio Yebisu viewer page, captured by the production side (screens.json)."
-  },
-  "sources": {
-    "manifest": {
-      "file": "video/assets/data-hashes.json",
-      "sha256": "03326022147ec1c0402c10c89a021c5e2f6a5c58f6a18cd6086f35c3fedac99a",
-      "rule": "video.js hashes the manifest bytes first, then requires its format, source_commit and the eight path/sha256/bytes entries to equal the values frozen in video.js before using anything else."
+    "frames": 990,
+    "main": {
+      "width": 720,
+      "height": 1280,
+      "use": "縦・iOS 中心の本編"
     },
-    "files": [
-      {
-        "file": "video/assets/automation-runs.json",
-        "sha256": "bc347cc3246fa36a9e4e7d5849e48ecf8119e67e2d6afcd166211e67f453c7b0",
-        "bytes": 74735,
-        "role": "public actual run record: pinned upstream and 41 vendor hashes, eight inputs, written portable files, file names, parsed and re-parsed specs, original errors, observations, comparison with the pre-run expectation, 107 runner checks"
-      },
-      {
-        "file": "video/assets/independent-checks.json",
-        "sha256": "0210a265e0eadf9aa8382fde0fe8b54e529d9c7cc518d9304e3624e1e24376d5",
-        "bytes": 18287,
-        "role": "155 independent production-side Python checks: full vendor bytes against Git blobs and the locked npm archive, eight exact inputs, projections and actual errors, six portable artifacts"
-      },
-      {
-        "file": "video/assets/reproduction-checks.json",
-        "sha256": "c14352c2848f466e5f152fadbd2886020053071c4d7787990619c7177673bb65",
-        "bytes": 1418,
-        "role": "separate copied source, fresh Node process and new private output directory reproduced the entire record and all six portable files byte-identically (same machine and tool versions)"
-      },
-      {
-        "file": "video/assets/automation-settings.json",
-        "sha256": "e982b4ca83fd92d9f012a44e98f35dc58b9dfc48a95eede6bb7daff57ce0be6b",
-        "bytes": 8430,
-        "role": "frozen fictional input; every record input must equal it; every URL must be on example.invalid"
-      },
-      {
-        "file": "video/assets/vendor-lock.json",
-        "sha256": "34149d29d4d4cb0181f41f0b8ac998a5c8baa0c3e13e0af341338eae1dddea02",
-        "bytes": 12441,
-        "role": "pinned upstream OpenHands/OpenHands e4775b4 (1.27.1, MIT), 12 original files with Git blobs and 29 @openhands/extensions 0.30.0 files with npm members"
-      },
-      {
-        "file": "video/assets/screens.json",
-        "sha256": "83651387a40da36b3333feb968fd38aaa860c9217b825c0825bce5cae91f04f5",
-        "bytes": 1431,
-        "role": "screenshot provenance: phone O03 375×812 JPEG (rgb_sha256 b822a46d875b323ac3a8dbb2441daaf4a0b0973feaf1fbbe27d4fd4f303992cf), desktop O07 1265×889 JPEG (rgb_sha256 05183ebb3dba96d3b54c5e1d25e145ee46b6a277e309f6e7ac5e90f2b9692091)"
-      },
-      {
-        "file": "video/assets/phone.jpg",
-        "sha256": "17f2ac189a3b088aa79086b6d888c56d85e01b2a2bf0dff69c6a57ce7d015a4c",
-        "bytes": 49727,
-        "role": "viewer at a phone width: O03 stopped, the original error line with its Japanese reading, and the link to the O04 re-check"
-      },
-      {
-        "file": "video/assets/desktop.jpg",
-        "sha256": "7baf46f6ac483c9a47f9dbb597afd0d241197ac1dfbef7e7ce9c2fbd0da695d5",
-        "bytes": 95074,
-        "role": "viewer at a desktop width: O07 accepted file shape and the first-repository-only caveat"
-      }
+    "alternate": {
+      "width": 1280,
+      "height": 720,
+      "use": "横の別版"
+    },
+    "motionConfig": {
+      "duration": 33,
+      "fps": 30,
+      "width": 720,
+      "height": 1280,
+      "posterTime": 12,
+      "audioEvents": []
+    },
+    "honours_renderConfig": [
+      "width",
+      "height",
+      "fps"
     ],
-    "fetch_rule": "Same-origin fetch of assets/<name> relative to document.baseURI with response.ok required. Missing file, HTTP error, invalid UTF-8 or JSON, byte length or SHA-256 mismatch, a different pinned commit/version/license, vendor lock, dependency integrity, runtime, API list, file envelope, input, per-case outcome, count, the O03 error text, the O03→O04 difference, the O05 issue count, the O06 schedule, the O07 repositories, the O08 literal text, the six rebuilt portable-file hashes, independent or reproduction check, screenshot provenance, JPEG start/end markers, JPEG header size or decoded dimensions rejects window.motionReady. No embedded fallback; the screenshots' RGB hashes are carried as provenance and are not recomputed in the browser because JPEG decoders may differ.",
-    "upstream": {
-      "repository": "https://github.com/OpenHands/OpenHands",
-      "commit": "e4775b4ba61a83ba80af5f7b0b826201b8e8ea05",
-      "version": "1.27.1 (Agent Canvas)",
-      "license": "MIT",
-      "license_file": "../vendor/openhands/LICENSE",
-      "api_source": "src/utils/automation-export.ts, src/manifests/automation-interface.ts",
-      "dependency": "@openhands/extensions 0.30.0, MIT, integrity sha512-lPyH0iqSow+ARTX4cumR75e3BJmuqpj2YbKm1cqDcI1SQDXfDTr+/wSVH9dQsOmddEP4Zn+uMoLXpKSO/moonA==, license_file ../vendor/extensions/LICENSE"
-    }
+    "seek": "window.seek(t) が時刻 t だけから完成した1枚を描く。前の seek・壁時計・乱数に依存しない。",
+    "render_mode": "window.__MOTION_RENDER__ が真なら、プレビューの音・タイマーを止め、canvas だけを構図の大きさで出す。CSS アニメーションは使わない。"
   },
-  "scope": {
-    "shown": "Real unmodified OpenHands Agent Canvas portable-automation-file functions on eight fictional settings: input settings → portable file → original file-shape validation → raw error → separate corrected input → actual .automation.json; and the Studio Yebisu viewer page that reads the saved record.",
-    "not_shown_or_claimed": [
-      "the Agent Canvas app or server, agent or model execution",
-      "scheduled-task registration, a scheduler, webhook delivery, repository clone, OpenHands Cloud",
-      "six working automations: 6 is the number of files whose shape the original parser accepted",
-      "cron grammar or run times: O06 'not-a-cron' was accepted because the parser only requires a non-empty string",
-      "automatic or AI repair: O04 is a separate parser call on an input fixed before execution, differing from O03 only by spec.trigger.schedule",
-      "a lossless backup of multi-repository settings: O07 keeps only the first repository",
-      "security or sanitization from O08 keeping literal text",
-      "a new OS, other fonts or other tools (reproduction was on the same machine)",
-      "continuous screen recording (this is an edited code film), simulated chat, terminal or run animation",
-      "upstream logos or upstream graphics",
-      "physical iPhone Safari or VoiceOver"
-    ],
-    "excluded_from_screen": "No fake terminal, chat, progress or invented UI; no full hashes on film (they are listed in the editor's #asset-list and here); English paths and errors only as smaller supplemental lines; full details remain in the viewer."
-  },
-  "design": {
+  "visual_direction": {
     "palette": {
-      "paper": "#f6f3fa",
-      "paper_raised": "#fdfcff",
-      "ink": "#211a29",
-      "ink_soft": "#574d63",
-      "plum": "#3d1a44 (headlines, stopped/rejected)",
-      "plum_mid": "#6a3473",
-      "lime": "#c3e85a (accepted file shape)",
-      "lime_soft": "#eef8d2",
-      "lime_ink": "#3c5208",
-      "amber": "#a85f00 (caution: missing field, unchecked cron, dropped repository)",
-      "amber_soft": "#fcefd5",
-      "line": "#dbd2e5"
+      "paper": "#f5f3eb",
+      "card": "#fffdf6",
+      "ink": "#252c2a",
+      "lavender": "#8581ee",
+      "lavender_deep": "#6a65cd",
+      "peach": "#f7a86e",
+      "mint": "#51a696",
+      "mint_deep": "#325c50"
     },
-    "fonts": "Local system fonts only: Yu Mincho / Hiragino Mincho for headlines, Yu Gothic UI / Hiragino Sans for Japanese text, Consolas / Menlo for JSON, paths and the original error. No downloads.",
-    "type_scale_px_at_1280": {
-      "title": 70,
-      "headlines": "60–72, one or two lines, at most 10 Japanese characters per line; never drawn below 56",
-      "counts": 96,
-      "secondary_japanese": "24–30",
-      "json_paths_and_errors": "15–28 (supplemental)",
-      "masthead_footer_captions": "14–18"
+    "fonts": "システムの日本語フォントのみ（外部フォント・CDN なし）。描画の前に document.fonts の準備を待つ。",
+    "diagram_share": "図（設定ファイル・点検ゲート・保存の台・スマホ）が画面の約75%。見出しは1行、ラベルは短い語だけ。",
+    "label_sizes": {
+      "portrait_min_px": 40,
+      "landscape_min_px": 34,
+      "note": "スマホの幅360pxで約20px。補助の小さな文字はファイル名の接尾辞と下端の注記だけ。"
     },
-    "phone_reading": "At a 360px viewport the canvas is about 328px wide (scale ≈ 0.256): headlines ≈ 15–18px, counts ≈ 25px. JSON lines, paths, the English error and captions are supplemental at that width; the viewer keeps the full text.",
-    "labels": "The scene 2 map is captioned 説明図 and states it is not the Agent Canvas screen; it uses only the actual O03 input fields and the missing path from the O03→O04 difference. Screenshots are captioned 閲覧ページの実画面 and drawn whole (contain) from the verified bytes, scaled only.",
-    "persistent": [
-      "5px plum top bar (as in the viewer); masthead: OpenHands Agent Canvas <version from record> ・ 自動化ファイルの入出力; step rail 入力 / 理由 / 再点検 / 注意 / 保存 with the current step underlined",
-      "footer: 架空の設定 ・ 原典APIの保存記録と閲覧ページの実画面 ・ 無音; OpenHands/OpenHands e4775b4"
-    ],
-    "motion": "Ease-out fades and short rises computed from absolute time; one check line sweeping the O01 file card; a dashed outline for the missing schedule; a lime highlight on the added schedule; a stroke-through on the dropped O07 repository. Scenes dip to paper over 0.35 s between them."
+    "not_used": [
+      "文字カードの場面",
+      "箇条書き",
+      "JSON の表示",
+      "端末のログ",
+      "機能のバッジ",
+      "小さな画面の録画",
+      "説明カードの列",
+      "白や黒への暗転"
+    ]
+  },
+  "objects": [
+    {
+      "id": "document",
+      "label": "設定ファイル",
+      "drawing": "折り角のある紙（ラベンダー）。時計の部品・数本の線・参照先のフォルダー。",
+      "continuity": "33秒間、同じ位置に置いたまま。部品だけが抜ける・戻る・「？」になる・2つ目のフォルダーが増える。"
+    },
+    {
+      "id": "copy",
+      "label": "（写し）",
+      "drawing": "設定ファイルと同じ絵の写し。ゲートへ進み、通ると紙の色からミントの縁に変わる。",
+      "continuity": "毎回、設定ファイルからはがれるように出る。止まった写しは同じ道を戻って設定ファイルに重なる。"
+    },
+    {
+      "id": "gate",
+      "label": "形式の点検",
+      "drawing": "ラベンダーの2本の柱と、ピーチの縞の棒。縦では左右の柱・横の棒、横長では上下の柱・縦の棒。柱の上にランプ。",
+      "continuity": "同じ位置。棒は柱へ引き込まれて開き、柱から伸びて閉じる。開いているときは「形式OK」の札。"
+    },
+    {
+      "id": "tray",
+      "label": "保存ファイル",
+      "drawing": "ミントの台と保存の印（下向きの矢印）。ファイルがないときは点線の枠。",
+      "continuity": "同じ位置。場面の切り替えでは前のファイルが消え、点線の枠が残る。"
+    },
+    {
+      "id": "phone",
+      "label": "（スマホ）",
+      "drawing": "保存先の端末。保存の印を押すと O04 のファイルが移る。",
+      "continuity": "最初から最後まで表示。14.35秒以降は O04.automation.json を持ち続ける。"
+    },
+    {
+      "id": "run_frame",
+      "label": "実行・別の確認",
+      "drawing": "点線の枠と空の時計の穴。動く予定表やチェックは描かない。",
+      "continuity": "O06 の場面だけ。「？」の時計は枠の外に留まる。"
+    }
+  ],
+  "layouts": {
+    "portrait_720x1280": {
+      "flow": "上から下：設定ファイル（中央上）→ 点検ゲート（中央）→ 保存の台（下）。右の細い列に、実行の枠・残った参照先（ゲートの高さ）とスマホ（台の高さ）。左の列に「時刻なし」と「時刻を戻す」。",
+      "document": {
+        "x": 220,
+        "y": 214,
+        "w": 220,
+        "h": 258
+      },
+      "gate": {
+        "posts": [
+          [
+            118,
+            616,
+            58,
+            244
+          ],
+          [
+            484,
+            616,
+            58,
+            244
+          ]
+        ],
+        "arm": [
+          176,
+          737,
+          308,
+          46
+        ]
+      },
+      "tray": {
+        "x": 56,
+        "y": 912,
+        "w": 484,
+        "h": 264
+      },
+      "phone": {
+        "x": 566,
+        "y": 952,
+        "w": 126,
+        "h": 220
+      },
+      "title": {
+        "y": 152,
+        "size": 58,
+        "min": 40
+      }
+    },
+    "landscape_1280x720": {
+      "flow": "左から右：設定ファイル → 点検ゲート → 保存の台 → スマホ。ゲートの下に実行の枠・残った参照先。設定ファイルの下に「時刻を戻す」。",
+      "document": {
+        "x": 190,
+        "y": 200,
+        "w": 200,
+        "h": 235
+      },
+      "gate": {
+        "posts": [
+          [
+            500,
+            178,
+            200,
+            50
+          ],
+          [
+            500,
+            408,
+            200,
+            50
+          ]
+        ],
+        "arm": [
+          578,
+          228,
+          44,
+          180
+        ]
+      },
+      "tray": {
+        "x": 770,
+        "y": 178,
+        "w": 300,
+        "h": 280
+      },
+      "phone": {
+        "x": 1096,
+        "y": 234,
+        "w": 124,
+        "h": 224
+      },
+      "title": {
+        "y": 120,
+        "size": 50,
+        "min": 34
+      }
+    },
+    "note": "どちらも同じ時刻表で、各サイズの配置を作り直して描く。片方を縮めた画や余白の帯は使わない。"
   },
   "scenes": [
     {
-      "n": 1,
-      "time": [
-        0,
-        4
+      "id": "relation",
+      "in": 0,
+      "out": 5,
+      "title": "設定を、持ち運ぶ",
+      "record": "O01",
+      "conveys": "設定ファイル・点検・保存ファイルの関係の全体。",
+      "enters": "1フレーム目から、時計とフォルダー1つの設定ファイル、開いたゲート（形式OK）、保存ファイルのある台、空のスマホがそろっている。",
+      "beats": [
+        {
+          "t": 0.9,
+          "action": "写しが設定ファイルからはがれてゲートへ進む"
+        },
+        {
+          "t": 2.4,
+          "action": "写しがゲートの中央を通り、ミントの縁になる"
+        },
+        {
+          "t": 3.9,
+          "action": "写しが保存ファイルに重なり、台のファイルが小さく弾む"
+        }
       ],
-      "communicates": "The message and the scope before any detail: portable automation files, checked with the original API on fictional settings.",
-      "headline": [
-        "自動化の設定を、",
-        "持ち運ぶ前に点検する"
-      ],
-      "supporting": "架空の設定・原典APIの実結果; 固定版 OpenHands/OpenHands 1.27.1（e4775b4）の書き出し・読み込み; O01 file card; 読み戻し：形が通った",
-      "enter": "Title lines 0.05–0.74 s; lime underline 0.9–1.5 s; scope 0.7–1.15 s; pin 0.9–1.35 s; file card 0.25–0.85 s with JSON lines 0.35–1.35 s; caption 1.0–1.45 s; check line sweeps 1.5–2.6 s and fades by 2.9 s; pill 2.6–2.95 s.",
-      "hold": "2.95–3.65 s (title readable from 0.74 s: about 2.9 s)",
-      "exit": "Fade 3.65–4.0 s.",
-      "data": {
-        "file": "results[O01].filename and results[O01].file (version, kind, spec.name, spec.trigger keys in record order, spec.enabled)",
-        "pin": "upstream.repository, upstream.version, upstream.commit"
-      }
-    },
-    {
-      "n": 2,
-      "time": [
-        4,
-        8
-      ],
-      "communicates": "What is missing in O03 before showing the result: a cron trigger with a timezone but no schedule.",
-      "headline": [
-        "時刻がないと？"
-      ],
-      "supporting": "cron の設定なのに、schedule がない; type が cron ＝ 時刻で動く設定; schedule ＝ いつ動くかの値; O03 には schedule が入っていない",
-      "enter": "Headline 4.0–4.55 s; subline 4.35–4.8 s; map rows 4.25–4.97 s; missing schedule row (dashed amber) 5.0–5.4 s; gloss lines 4.7–5.75 s.",
-      "hold": "5.75–7.65 s",
-      "exit": "Fade 7.65–8.0 s.",
-      "data": {
-        "map": "results[O03].input: version, kind, spec.name and each spec.trigger key with its value",
-        "missing": "the single path in the O03→O04 input difference (spec.trigger.schedule)"
+      "exits": "関係の全体が見えたまま。",
+      "narration": {
+        "id": "intro",
+        "text": "自動化の設定を、ファイルにして持ち運びます。",
+        "start": 0.8,
+        "end": 4.56
       },
-      "label": "説明図：O03 の実際の入力ファイル（Agent Canvas の画面ではありません）"
+      "truth": "O01 は時刻あり・参照先1件で形式OKだった記録。写しが動くのは概念の図で、実行の録画ではない。"
     },
     {
-      "n": 3,
-      "time": [
-        8,
-        12
+      "id": "missing",
+      "in": 5,
+      "out": 9.3,
+      "title": "時刻がないと、止まる",
+      "record": "O03",
+      "conveys": "時刻（schedule）が抜けた設定は、読み込みの点検で止まり、ファイルができない。",
+      "enters": "台のファイルが消えて点線の枠に。ゲートの棒が伸びて閉じ、設定ファイルの時計が抜けて左へ消え、点線の穴が残る。",
+      "beats": [
+        {
+          "t": 5.15,
+          "action": "時計の部品が設定ファイルから抜ける"
+        },
+        {
+          "t": 5.9,
+          "action": "「時刻なし」の札が穴を指す"
+        },
+        {
+          "t": 6.2,
+          "action": "時計のない写しがゲートへ進む"
+        },
+        {
+          "t": 7.4,
+          "action": "写しが棒の手前で止まって跳ね返り、棒に「止まる」、ランプがピーチ。台は「保存なし」"
+        }
       ],
-      "communicates": "The original parser stopped O03 with one issue; the reason names the missing field; no file was produced.",
-      "headline": [
-        "足りない項目を、",
-        "理由から見つける"
-      ],
-      "supporting": "O03 止まった; 原典の判定 ・ AutomationFileValidationError（1件）; spec.trigger.schedule: required for a scheduled trigger; Japanese reading; ファイル・名前・読み戻しは作られなかった; phone screenshot O03",
-      "enter": "Headline 8.0–8.69 s; phone 8.35–8.95 s; pill 8.45–8.9 s; judgement box 8.7–9.15 s; caption 8.9–9.35 s.",
-      "hold": "9.35–11.65 s",
-      "exit": "Fade 11.65–12.0 s.",
-      "data": {
-        "error": "results[O03].error.name and error.issues (exact text, painted unchanged)",
-        "no_file": "results[O03].file, filename and parsed are null",
-        "screenshot": "video/assets/phone.jpg (O03)"
+      "exits": "止まった写しがゲートの手前に残る。",
+      "narration": {
+        "id": "missing",
+        "text": "時刻が抜けていると、読み込みで止まります。",
+        "start": 5.3,
+        "end": 8.82
       },
-      "note": "No invented log, terminal or full-app activity; the line is the stored issue string."
+      "truth": "O03 は parseAutomationFile が AutomationFileValidationError を1件（spec.trigger.schedule: required for a scheduled trigger）返して止まり、ファイルは作られていない。"
     },
     {
-      "n": 4,
-      "time": [
-        12,
-        18
+      "id": "repair",
+      "in": 9.3,
+      "out": 15,
+      "title": "時刻を戻して、保存",
+      "record": "O04",
+      "conveys": "同じ書類に時刻をひとつ戻すと、形式の点検を通り、実際に書き出されたファイルを保存できる。",
+      "enters": "止まった写しが同じ道を戻って設定ファイルに重なる。左に「時刻を戻す」のボタン。",
+      "beats": [
+        {
+          "t": 10.2,
+          "action": "指が「時刻を戻す」を押す"
+        },
+        {
+          "t": 10.3,
+          "action": "時計の部品がボタンから同じ穴へ戻り、ミントの輪で示す"
+        },
+        {
+          "t": 11.25,
+          "action": "ゲートの棒が柱へ引き込まれて開き、ランプがミント"
+        },
+        {
+          "t": 11.3,
+          "action": "時計のある写しがゲートを通り（12.0）、台に入る（12.9）。札「形式OK」"
+        },
+        {
+          "t": 13.45,
+          "action": "指が台の保存の印を押す"
+        },
+        {
+          "t": 13.55,
+          "action": "ファイルがスマホへ移り、画面に O04.automation.json"
+        }
       ],
-      "communicates": "A separate input with only the schedule added passes the same original check and yields a real portable file that can be saved; not an AI repair and not a registered task.",
-      "headline": [
-        "時刻を足して、",
-        "もう一度点検"
-      ],
-      "supporting": "spec.trigger comparison O03（止まった）/ O04（別に呼んだ）with ＋ 足した on schedule: \"0 9 * * 6\"; O04 形が通った; version: 1 ・ kind: \"automation\" ・ enabled: false; 書き出した実ファイル outputs/exports/O04.automation.json; byte length and short SHA-256; O04 file card; 保存：O04.automation.json; caption O03 とは別の parseAutomationFile の呼び出し。AI の自動修復でも、予定の登録でもありません",
-      "enter": "Headline 12.0–12.69 s; labels 12.3–12.75 s; rows 12.4–12.96 s; file card 12.5–13.0 s with lines 12.45–13.45 s; schedule highlight 12.9–13.3 s; result, caption, stamp and save chip 13.0–13.4 s.",
-      "hold": "13.45–17.65 s (poster 13.5 s is settled)",
-      "exit": "Fade 17.65–18.0 s.",
-      "data": {
-        "rows": "keys of results[O04].input.spec.trigger, marked by presence in results[O03].input.spec.trigger",
-        "difference_rule": "the recursive difference of the two inputs is exactly spec.trigger.schedule, added with 0 9 * * 6; observations.repair.input_diff agrees",
-        "file": "results[O04].filename, file, file_path, file_sha256; the byte length is that of the rebuilt file text whose SHA-256 must equal file_sha256"
-      }
-    },
-    {
-      "n": 5,
-      "time": [
-        18,
-        22
-      ],
-      "communicates": "Passing the file-shape check does not validate the cron string or when it would run; O07 shows that only the first repository is written.",
-      "headline": [
-        "形が通っても、",
-        "時刻は未検証"
-      ],
-      "supporting": "O06：schedule が \"not-a-cron\" でも通った; 原典の読み込みが見るのは、schedule が空でない文字列かだけ; cron の書き方も、いつ動くかも未確認; 止めたのでも、直したのでもありません; O06 file value with 形は通った / cron の書き方は未検証; O07 card: first repository 入る, second 落ちる (struck through), 古い repository・branch も先頭の値で上書き; 参照先は架空の example.invalid",
-      "enter": "Headline 18.0–18.69 s; O06 card 18.4–18.9 s; left lines 18.45–19.45 s; O07 card 18.9–19.35 s; stroke-through 19.25–19.6 s; caption 19.1–19.55 s.",
-      "hold": "19.6–21.65 s",
-      "exit": "Fade 21.65–22.0 s.",
-      "data": {
-        "schedule": "results[O06].file.spec.trigger.schedule; observations.schedule.accepted_by_parser true and cron_grammar_validated false",
-        "repositories": "results[O07].input.repositories[0] (kept) and [1] (dropped); file.spec.repository/branch equal the first; observations.repositories.deprecated_overridden"
+      "exits": "台に O04 の保存ファイル、スマホに O04.automation.json。",
+      "narration": {
+        "id": "repair",
+        "text": "時刻をひとつ戻すと、形式の点検を通って保存できます。",
+        "start": 9.6,
+        "end": 14.48
       },
-      "note": "The cron string is not shown as blocked or fixed."
+      "truth": "O04 は O03 の入力に spec.trigger.schedule「0 9 * * 6」だけを足した、実行前に固定した入力。AI が考えた修正やその場の編集ではない。書き出したファイルは outputs/exports/O04.automation.json（602バイト・SHA-256 5e1ae14b8273237d308dceb6fdad445ce7c6e5e210f4e3b6cadcee951d7a5aa3）。指は作例ページの使い方を描いた絵。"
     },
     {
-      "n": 6,
-      "time": [
-        22,
-        28
+      "id": "limits",
+      "in": 15,
+      "out": 21.5,
+      "title": "形式と、実行は別",
+      "record": "O06",
+      "conveys": "時刻の欄が埋まっていれば中身が時刻として正しくなくても形式OK。実際に動くかは別の確認。",
+      "enters": "台のファイルが消える。設定ファイルの時計の顔が「？」に変わる。ゲートは開いたまま。",
+      "beats": [
+        {
+          "t": 16.0,
+          "action": "「？」の時計の写しがゲートを通り（形式OK）、台に入る（17.5）"
+        },
+        {
+          "t": 17.6,
+          "action": "右に点線の「実行」の枠と空の時計の穴、「別の確認」"
+        },
+        {
+          "t": 18.3,
+          "action": "「？」の時計が台から浮かぶが、実行の枠の外で止まる"
+        }
       ],
-      "communicates": "Close on the reading flow and this case's results: six file shapes accepted, two stopped by original errors; save the actual file in the viewer.",
-      "headline": [
-        "設定を選ぶ → 理由 → 保存"
-      ],
-      "supporting": "6件 形が通った (O01・O02・O04・O06・O07・O08 ・ ファイルの形); 2件 止まった (O03・O05 ・ 原典の誤り); 全8ファイル。6件は形の検査を通った数で、動く自動化の数ではありません; save chip O04.automation.json を保存（閲覧ページ）; 原典APIの実行時の確認 107件すべて通過 ・ 独立した確認 155件 ・ 別の Node プロセスで記録と6ファイルがバイト一致; 映像：Claude Opus 5.5 が編集ソースを作成 ／ 記録の値：原典の関数（Node v24.18.0）・エージェントやモデルの実行なし; desktop screenshot O07 with ファイルに入る参照先は先頭の1件だけ",
-      "enter": "Flow line 22.05–22.6 s; counts 22.35–22.95 s; desktop screenshot 22.45–23.05 s; note 22.65–23.1 s; save chip 22.85–23.3 s; check and authorship lines 23.0–23.45 s.",
-      "hold": "23.45–28.0 s fully steady (final hold about 4.5 s)",
-      "exit": "none",
-      "data": {
-        "counts": "results[].accepted, equal to summary and oracle_comparison",
-        "checks": "verification.total, independent-checks total, number of byte-identical portable artifacts in reproduction-checks",
-        "runtime": "runtime.node",
-        "screenshot": "video/assets/desktop.jpg (O07)"
+      "exits": "「？」の時計は枠の外。予定表は動かない。",
+      "narration": {
+        "id": "limits",
+        "text": "ただし、時刻が正しいか、実際に動くかは、別の確認です。",
+        "start": 15.2,
+        "end": 20.96
       },
-      "note": "These are this case's file-shape results, not working automations, project progress or a quality rating."
+      "truth": "O06 の schedule は「not-a-cron」。原典は空でない文字列かだけを見ており（cron_grammar_validated: false）、cron の書き方・実行時刻・予定の登録は確かめていない。動く予定表やタスクの完了は描かない。"
+    },
+    {
+      "id": "repository",
+      "in": 21.5,
+      "out": 30,
+      "title": "参照先は、先頭だけ",
+      "record": "O07",
+      "conveys": "参照先がふたつあっても、保存ファイルに入るのは先頭の1件だけ。2件目は残らない。",
+      "enters": "実行の枠・「？」の時計・台のファイルが消える。時計が元に戻り、設定ファイルに2つ目のフォルダー（ピーチ・2）が並ぶ。",
+      "beats": [
+        {
+          "t": 22.5,
+          "action": "フォルダー1・2を持つ写しがゲートへ進み、中央で止まる（23.6）"
+        },
+        {
+          "t": 23.65,
+          "action": "フォルダー2が写しから外れ、ゲートの外へ落ちて点線になる。「残らない」"
+        },
+        {
+          "t": 24.1,
+          "action": "フォルダー1だけの写しが台に入る（25.1）。「先頭だけ」"
+        },
+        {
+          "t": 26.6,
+          "action": "元の設定と見比べる：設定ファイルのフォルダー1と保存ファイルのフォルダー1をミントの枠、フォルダー2と残ったフォルダーをピーチの枠と点線で結ぶ"
+        }
+      ],
+      "exits": "残ったフォルダー2はゲートの外、保存ファイルはフォルダー1だけ。",
+      "narration": {
+        "id": "repository",
+        "text": "参照先がふたつあっても、保存されるのは先頭だけ。元の設定と見比べましょう。",
+        "start": 21.8,
+        "end": 28.88
+      },
+      "truth": "O07 の入力の参照先は primary（release-demo）と secondary（extra-demo）の2件。serializeAutomation が書き出したファイルには先頭の url と ref だけが repository・branch として入り、2件目はない。参照先はすべて架空の example.invalid で、取得していない。"
+    },
+    {
+      "id": "save",
+      "in": 30,
+      "out": 33,
+      "title": "図で確かめ、設定を保存",
+      "record": "O04",
+      "conveys": "図で確かめて、実際のファイルを保存する。関係の全体をそのまま見せる。",
+      "enters": "2つ目のフォルダーと札が消え、O04 の状態（時計あり・フォルダー1つ・形式OK・台にファイル・スマホに O04.automation.json）に戻る。",
+      "beats": [
+        {
+          "t": 30.8,
+          "action": "指が保存の印の上で止まり、印をミントの輪で囲む（押さない）"
+        }
+      ],
+      "exits": "最後のフレームまで関係の全体を3秒保つ。暗転・白い画面にしない。",
+      "narration": null,
+      "truth": "保存できるのは作例ページの「O04.automation.json を保存」で、記録の SHA-256 と大きさに合ったファイルだけ。その場の実行ではない。"
     }
   ],
-  "contract": {
-    "canvas": "getContext('2d', { willReadFrequently: true }); backing store equals renderConfig width × height; layout authored at 1280×720 and scaled; CSS scales the whole 16:9 canvas in the editor",
-    "seek": "window.seek(seconds) clamps to 0..28, records it as the selected time and returns a Promise that resolves after the requested frame is drawn from absolute time and the verified assets only; no frame depends on earlier frames, wall clock or randomness",
-    "ready": "window.motionReady resolves after the manifest and the eight files match SHA-256 and byte length, all record invariants pass, the six portable files rebuilt from the record match their file_sha256, both original JPEGs match their markers, header size and decoded dimensions, and local fonts are loaded; otherwise it rejects with the concrete reason, the canvas is cleared and hidden, controls are disabled and #retry re-fetches everything (one load at a time)",
-    "export_mode": "window.__MOTION_RENDER__ === true: editor chrome hidden, canvas only at exact size, no requestAnimationFrame preview",
-    "preview": "Starts paused at 0, no autoplay. #play toggles 再生/一時停止 (aria-pressed); #time (range 0–28 step 0.1) seeks; #reset returns to the last selected time (a seek to 14 stays at 14); scene buttons seek to a reading moment; #time-label shows the current time and state; after a successful retry the editor is stopped at the last selected time; #editor[data-state] is loading, ready or error; #editor-status says what was checked"
+  "audio": {
+    "track": "assets/narration.wav",
+    "sha256": "4be964f2ffc17338daa3366d09e6ad58547fa92c42fc2e3ee9d6c2a758a71fd4",
+    "bytes": 3168044,
+    "format": "WAV PCM16・モノラル・48000Hz・33.000秒",
+    "cues": [
+      {
+        "id": "intro",
+        "file": "audio/intro.wav",
+        "sha256": "0d9bf741920467ea76c07f3923e12742f4eea6273f42255186b0a710a5cecde2",
+        "start": 0.8,
+        "end": 4.56
+      },
+      {
+        "id": "missing",
+        "file": "audio/missing.wav",
+        "sha256": "b72e955a85463036c5dede198ee71addf500aad66b9ffd4b36be43eb29ebc757",
+        "start": 5.3,
+        "end": 8.82
+      },
+      {
+        "id": "repair",
+        "file": "audio/repair.wav",
+        "sha256": "c1ddeef882c65dd6968b1bf4e3ab717340b8db61a68541d857b9b01b9dc9219e",
+        "start": 9.6,
+        "end": 14.48
+      },
+      {
+        "id": "limits",
+        "file": "audio/limits.wav",
+        "sha256": "e0b3f4f48faeb6e40bc612a4eb9144813f5d18343f4972d0b19b87bacd4c8812",
+        "start": 15.2,
+        "end": 20.96
+      },
+      {
+        "id": "repository",
+        "file": "audio/repository.wav",
+        "sha256": "5107797c09e9d1ff1ec948dc67ae6778657e1d17b73eff7996d7bad06f4ae65d",
+        "start": 21.8,
+        "end": 28.88
+      }
+    ],
+    "mix": "5つの Irodori-TTS の文を重ねず・編集せずに並べ、無音で33秒に揃えたもの（制作側が作成）。音楽・効果音なし。",
+    "film_checks": "映像は narration.wav を PCM16・モノラル・48000Hz・ちょうど33秒として読み、5つの区間それぞれに音があること（RMS）を確かめてから描く。キューの文・時刻・SHA-256 は narration-cues.json と一致させる。",
+    "render": "書き出しでは同じ narration.wav を --audio に渡し、レンダラーがラウドネスを揃えて AAC にする。",
+    "tts": {
+      "model": "Aratako/Irodori-TTS-v4.1-Small",
+      "revision": "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
+      "terms": "コードとモデルは MIT License。モデルカードの利用上の制限（実在の人の声のまね・なりすましの禁止、人を誤らせる合成音声の禁止など）に従う。",
+      "voice": "caption から作ったオリジナルの合成の声。実在の人の録音・声のまねは使っていない。",
+      "weights_distributed": false
+    },
+    "listening_confirmed": false,
+    "human_approval": false
   },
-  "status": {
-    "authored": true,
-    "data_and_browser_checks_before_authoring": "The run record, independent checks, reproduction check and the two native viewer screenshots were produced and frozen by the production side before this film source was written.",
-    "renderer_run": "checked by production; see production_verification and ../verification.json",
-    "frame_review_and_contact_sheet": "checked by production; see production_verification and ../verification.json",
-    "determinism_same_time_other_order_and_fresh_page": "checked by production; see production_verification and ../verification.json",
-    "mp4": "checked by production; see production_verification and ../verification.json",
-    "native_playback_review": "checked by production; see production_verification and ../verification.json",
-    "editor_controls_in_browser": "checked by production; see production_verification and ../verification.json",
-    "phone_width_reading_360px": "checked by production; see production_verification and ../verification.json",
-    "physical_ios_safari_voiceover": "not tested",
-    "human_approval": "not obtained",
-    "published": "Existing Pages and actual public URLs are verified separately after scoped publication."
+  "assets": {
+    "manifest": {
+      "path": "assets/manifest.json",
+      "sha256": "d6370b8ad33b837a2e47780e9250a3079f43f16f1de950ef4c3bdadf812a7080"
+    },
+    "files": [
+      {
+        "file": "automation-runs.json",
+        "sha256": "bc347cc3246fa36a9e4e7d5849e48ecf8119e67e2d6afcd166211e67f453c7b0",
+        "bytes": 74735,
+        "role": "8件の実行記録。図の状態と O04 のファイル名の出どころ"
+      },
+      {
+        "file": "automation-settings.json",
+        "sha256": "e982b4ca83fd92d9f012a44e98f35dc58b9dfc48a95eede6bb7daff57ce0be6b",
+        "bytes": 8430,
+        "role": "実行前に固定した架空の8件の入力"
+      },
+      {
+        "file": "expected.json",
+        "sha256": "d2e9892831156aa52d87eff81b7b28ce15caaafbde900d828a8763d66064d460",
+        "bytes": 730,
+        "role": "実行前の期待（照合だけに使う）"
+      },
+      {
+        "file": "independent-checks.json",
+        "sha256": "0210a265e0eadf9aa8382fde0fe8b54e529d9c7cc518d9304e3624e1e24376d5",
+        "bytes": 18287,
+        "role": "別に書いた照合155件"
+      },
+      {
+        "file": "narration-cues.json",
+        "sha256": "6a602a04608adaa6a61d141d20f42fe61774c191b70082ff2bb3552fec178ed8",
+        "bytes": 4649,
+        "role": "ナレーション5文と6場面の時刻"
+      },
+      {
+        "file": "narration.wav",
+        "sha256": "4be964f2ffc17338daa3366d09e6ad58547fa92c42fc2e3ee9d6c2a758a71fd4",
+        "bytes": 3168044,
+        "role": "プレビューと書き出しの唯一の音"
+      },
+      {
+        "file": "reproduction-checks.json",
+        "sha256": "c14352c2848f466e5f152fadbd2886020053071c4d7787990619c7177673bb65",
+        "bytes": 1418,
+        "role": "新しい Node での記録と6ファイルの再現"
+      },
+      {
+        "file": "vendor-lock.json",
+        "sha256": "34149d29d4d4cb0181f41f0b8ac998a5c8baa0c3e13e0af341338eae1dddea02",
+        "bytes": 12441,
+        "role": "原典12ファイルと依存29ファイルのハッシュ"
+      }
+    ],
+    "on_failure": "1件でも合わなければ motionReady を拒否し、canvas を隠し、操作を止め、理由と「もう一度読み込む」を出す。代わりの記録は持たない。"
   },
+  "source_pin": {
+    "repository": "OpenHands/OpenHands",
+    "commit": "e4775b4ba61a83ba80af5f7b0b826201b8e8ea05",
+    "version": "Agent Canvas 1.27.1",
+    "license": "MIT",
+    "dependency": "@openhands/extensions 0.30.0（MIT）",
+    "apis": [
+      "serializeAutomation",
+      "parseAutomationFile",
+      "getAutomationExportFilename"
+    ],
+    "runtime": "Node 24 で実際に呼んだ結果（制作時）。映像の中では原典を動かさない。"
+  },
+  "truth_limits": [
+    "図の部品（時計・フォルダー・ゲート・スマホ）は関係を見せる絵で、測った値や画面の録画ではない。",
+    "形式OKはファイルの形の点検を通ったという意味。cron の正しさ・実行時刻・参照先の存在・頼む内容の正しさや安全性は確かめていない。",
+    "予定の登録・実行、Webhook の配信、リポジトリの取得、エージェント・モデル、Agent Canvas のアプリ・サーバー、Cloud は使っていない。動くエージェントや予定表は描かない。",
+    "O07 のファイルは2件の参照先の完全な控えではない。",
+    "OpenHands の機能全体を試したものではない。",
+    "ナレーションの聞き取り・自然さ・読みの正しさの確認、人による承認は記録にない。実機の iPhone・Safari での確認もない。"
+  ],
+  "authorship": "図のページと解説動画の映像のコードは Claude Opus 5.5 が書いた（MIT License・Copyright (c) 2026 Studio Yebisu）。実行結果は原典の関数が返したもの、ナレーションの素材は制作側が Irodori-TTS で作ったもの。",
+  "remaining_stages": [
+    "書き出し（縦・横）",
+    "フレームと音の確認",
+    "公開"
+  ],
+  "renders": [
+    {
+      "name": "縦（本編）",
+      "command": "python render.py --out <ソースの外の空のフォルダー> --width 720 --height 1280",
+      "media": "media/openhands-example.mp4"
+    },
+    {
+      "name": "横",
+      "command": "python render.py --out <ソースの外の別の空のフォルダー> --width 1280 --height 720",
+      "media": "media/openhands-example-wide.mp4"
+    }
+  ],
   "production_verification": {
-    "status": "technical_and_agent_visual_checks_passed",
-    "duration_seconds": 28,
-    "frames": 840,
+    "duration_seconds": 33,
     "fps": 30,
-    "silent": true,
+    "frames": 990,
+    "primary": [
+      720,
+      1280
+    ],
+    "alternate": [
+      1280,
+      720
+    ],
+    "has_tts_narration": true,
+    "narration_cues": 5,
+    "audio_pcm_cues_match": true,
+    "asset_manifest_sha256": "d6370b8ad33b837a2e47780e9250a3079f43f16f1de950ef4c3bdadf812a7080",
     "same_environment_seek_png_match": true,
     "full_decode": true,
-    "native_playback_ended": true,
+    "native_playback_ended_both": true,
+    "portrait_sha256": "6caae8786ad56d760c1d31339a5aee1e264543fb30436fd7aa151281abc74678",
+    "wide_sha256": "7eceb095168d39248e2500bbab3bd0e3c1a17ad27595c831ee7c00e11ef2dbde",
+    "poster_sha256": "7d6b2b70aa33a2f30a5877deb5e12b287f9f0caf28e0075ac3b9db5896eb8498",
     "human_approval": false,
-    "physical_ios_tested": false,
-    "video_sha256": "7d10bae074a60b9dc801d10c991661839be468485204ec67ab27e48715d095ad"
+    "audio_listening_confirmed": false
   }
 }

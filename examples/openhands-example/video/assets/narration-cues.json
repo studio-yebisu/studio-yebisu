@@ -1,0 +1,133 @@
+{
+  "format": "studio-yebisu-narration-cues-v1",
+  "case": "openhands-example",
+  "duration": 33,
+  "fps": 30,
+  "frames": 990,
+  "sample_rate": 48000,
+  "channels": 1,
+  "encoding": "PCM16",
+  "cues": [
+    {
+      "id": "intro",
+      "text": "自動化の設定を、ファイルにして持ち運びます。",
+      "seed": 20261017,
+      "file": "audio/intro.wav",
+      "sha256": "0d9bf741920467ea76c07f3923e12742f4eea6273f42255186b0a710a5cecde2",
+      "bytes": 361004,
+      "start": 0.8,
+      "duration": 3.76,
+      "end": 4.56,
+      "source_start": 0,
+      "sample_exact": true
+    },
+    {
+      "id": "missing",
+      "text": "時刻が抜けていると、読み込みで止まります。",
+      "seed": 20261018,
+      "file": "audio/missing.wav",
+      "sha256": "b72e955a85463036c5dede198ee71addf500aad66b9ffd4b36be43eb29ebc757",
+      "bytes": 337964,
+      "start": 5.3,
+      "duration": 3.52,
+      "end": 8.82,
+      "source_start": 0,
+      "sample_exact": true
+    },
+    {
+      "id": "repair",
+      "text": "時刻をひとつ戻すと、形式の点検を通って保存できます。",
+      "seed": 20261019,
+      "file": "audio/repair.wav",
+      "sha256": "c1ddeef882c65dd6968b1bf4e3ab717340b8db61a68541d857b9b01b9dc9219e",
+      "bytes": 468524,
+      "start": 9.6,
+      "duration": 4.88,
+      "end": 14.48,
+      "source_start": 0,
+      "sample_exact": true
+    },
+    {
+      "id": "limits",
+      "text": "ただし、時刻が正しいか、実際に動くかは、別の確認です。",
+      "seed": 20261020,
+      "file": "audio/limits.wav",
+      "sha256": "e0b3f4f48faeb6e40bc612a4eb9144813f5d18343f4972d0b19b87bacd4c8812",
+      "bytes": 553004,
+      "start": 15.2,
+      "duration": 5.76,
+      "end": 20.96,
+      "source_start": 0,
+      "sample_exact": true
+    },
+    {
+      "id": "repository",
+      "text": "参照先がふたつあっても、保存されるのは先頭だけ。元の設定と見比べましょう。",
+      "seed": 20261021,
+      "file": "audio/repository.wav",
+      "sha256": "5107797c09e9d1ff1ec948dc67ae6778657e1d17b73eff7996d7bad06f4ae65d",
+      "bytes": 679724,
+      "start": 21.8,
+      "duration": 7.08,
+      "end": 28.880000000000003,
+      "source_start": 0,
+      "sample_exact": true
+    }
+  ],
+  "scenes": [
+    {
+      "id": "relation",
+      "in": 0,
+      "out": 5,
+      "label": "設定を、持ち運ぶ",
+      "case": "O01",
+      "action": "One configuration file, format inspection gate, output file. Same physical objects stay throughout."
+    },
+    {
+      "id": "missing",
+      "in": 5,
+      "out": 9.3,
+      "label": "時刻がないと、止まる",
+      "case": "O03",
+      "action": "The clock piece is visibly absent. This input file stops at the same inspection gate. No saved output appears."
+    },
+    {
+      "id": "repair",
+      "in": 9.3,
+      "out": 15,
+      "label": "時刻を戻して、保存",
+      "case": "O04",
+      "action": "Add only the schedule clock piece to the same O03 file, corresponding to frozen O04. The gate passes it and the real export file moves to a save/device icon."
+    },
+    {
+      "id": "limits",
+      "in": 15,
+      "out": 21.5,
+      "label": "形式と、実行は別",
+      "case": "O06",
+      "action": "The format gate accepts a filled but invalid cron string. A question-mark clock remains, visibly separating file shape from actual scheduling. Do not show actual scheduler execution."
+    },
+    {
+      "id": "repository",
+      "in": 21.5,
+      "out": 30,
+      "label": "参照先は、先頭だけ",
+      "case": "O07",
+      "action": "Two folder/reference pieces enter with input; only the first accompanies the serialized file. The second remains outside the export. Compare actual saved data."
+    },
+    {
+      "id": "save",
+      "in": 30,
+      "out": 33,
+      "label": "図で確かめ、設定を保存",
+      "case": "O04",
+      "action": "Hold the complete file-gate-output relationship and point to the real downloadable O04 file for at least three seconds. No blank ending."
+    }
+  ],
+  "mix": "Five real Irodori TTS segments placed without overlap or edits, padded with silence. No music or effects. MP4 renderer normalizes loudness and encodes AAC.",
+  "tts": "Aratako/Irodori-TTS-v4.1-Small",
+  "tts_revision": "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
+  "voice_reference": "Own caption-generated synthetic voice; no real-person recording.",
+  "listening_confirmed": false,
+  "human_approval": false
+}
