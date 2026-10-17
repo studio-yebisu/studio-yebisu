@@ -1,15 +1,18 @@
 /*
- * Studio Yebisu — Letta Code 作例・解説動画（28秒・無音・1280×720）
+ * Studio Yebisu — Letta Code 作例・解説動画（32秒・合成音声のナレーション）
  * Copyright (c) 2026 Studio Yebisu. MIT License.
  *
- * Every frame is drawn on one 2D canvas from absolute time only. File paths, HEAD values,
- * staged changes, original diagnostics, the L08 policy values and the counts are read from the
- * eight frozen assets after assets/data-hashes.json and every listed file match the SHA-256 and
- * byte lengths fixed below, and after the run record agrees with the frozen input, the pinned
- * upstream, the independent checks and the reproduction check. There is no built-in fallback:
- * on any mismatch window.motionReady rejects, the canvas is cleared and hidden, and the editor
- * shows the reason with a retry button that fetches everything again.
- * Page text is written with textContent only; record strings are painted as canvas text.
+ * One 2D canvas, painted from absolute time only (window.seek). Two native layouts:
+ * 720×1280 portrait (main) and 1280×720 landscape. Other sizes reuse the nearer layout, scaled and centred.
+ * Before window.motionReady resolves, assets/manifest.json must match its pinned SHA-256 and all eight listed
+ * files must match their SHA-256 and byte counts. The run record, inputs, expectations, independent checks,
+ * reproduction checks, lock and cue sheet are then cross-checked, and narration.wav is parsed (48 kHz mono PCM16,
+ * exactly 32 s) and measured for signal inside each of the five cue windows. There is no built-in result data:
+ * what the diagram shows (the missing guide in L02, the two staged changes kept, the separate L03 trial that saved,
+ * the short commit hashes and stage counts) comes from the verified record. On any mismatch motionReady rejects,
+ * the stage is hidden, controls are disabled and #retry loads again.
+ * The book, guide card, memos, tray, gate and Git dots are explanatory drawings of saved results,
+ * not measurements, screen recordings or a live agent at work.
  */
 (() => {
   "use strict";
@@ -19,127 +22,213 @@
   const RENDER = window.__MOTION_RENDER__ === true;
   const requested = window.renderConfig && typeof window.renderConfig === "object" ? window.renderConfig : {};
   const positiveInt = (value, fallback) => (Number.isInteger(value) && value > 0 ? value : fallback);
-  const W = positiveInt(requested.width, 1280);
-  const H = positiveInt(requested.height, 720);
+  const WIDE_PREVIEW = !RENDER && new URLSearchParams(location.search).get("layout") === "wide";
+  const W = positiveInt(requested.width, WIDE_PREVIEW ? 1280 : 720);
+  const H = positiveInt(requested.height, WIDE_PREVIEW ? 720 : 1280);
   const FPS = positiveInt(requested.fps, 30);
-  const DURATION = 28;
-  const POSTER_TIME = 13.5;
+  const DURATION = 32;
+  const POSTER_TIME = 19.4; // L02 kept: empty guide slot, broken links, two staged cards, closed gate, old dot, reason tag
   window.motionConfig = { duration: DURATION, fps: FPS, width: W, height: H, posterTime: POSTER_TIME, audioEvents: [] };
 
   // --- Frozen expectations --------------------------------------------------------------------
 
   const MANIFEST = {
-    path: "assets/data-hashes.json",
-    sha256: "7b865fd49e59aa5cf0ecd0786aa05e4eee906fb7f77d2f4314e1e46d59a605e8",
-    format: "studio-yebisu-letta-film-assets-v1",
+    path: "assets/manifest.json",
+    sha256: "abbf435514814f5ad76120d4670f94035bd9c484401eacaaa626ecd335024653",
+    format: "studio-yebisu-asset-lock-v1",
+    case: "letta-code-example",
   };
   // Same order as the manifest. Paths are relative to video/assets/.
   const ASSETS = [
-    { path: "memory-runs.json", sha256: "af6e58cb1f8ef95efc44ae266c51713aa1bad06bcc025cda5d42e4cd3bd49570", bytes: 167251 },
-    { path: "independent-checks.json", sha256: "f94c34d001bbd4f7529b2d058b411401526a5885d87f06b5a874c50f9767d1c6", bytes: 2797 },
-    { path: "reproduction-checks.json", sha256: "574c2fb858278f6b9e47410da12d355e585bbd73457f8e7116b9dcd534ad0431", bytes: 709 },
-    { path: "memory-changes.json", sha256: "852d6c0708eb9c42d31f71ad6fc6f8fcb95849d0d1eb72f4094e60a3e20311e0", bytes: 27161 },
-    { path: "vendor-lock.json", sha256: "a62fbf74fa35f609756adf4b9ef2bbfcfe7e46cfd291058be455601bbc8d4d57", bytes: 2476 },
-    { path: "screens.json", sha256: "63a15283cc3458b5892118a18f35aecede57e3936e86e3370f08bfe3afe9b23f", bytes: 1423 },
-    { path: "phone.jpg", sha256: "fe1ae07f35592dedc6448acb548cfa98a4c7f9595d2b38e6ae6416b739bd33e1", bytes: 48793 },
-    { path: "desktop.jpg", sha256: "cbb4ddd550a4259de533e9dfcf1b3922a158f1b9324e150ece597e915b62f496", bytes: 92051 },
+    { file: "expected.json", sha256: "0f61d8dd6a58b99100759421295ea24a7436a32cb91304111c78b0cb5227a1a8", bytes: 699 },
+    { file: "independent-checks.json", sha256: "f94c34d001bbd4f7529b2d058b411401526a5885d87f06b5a874c50f9767d1c6", bytes: 2797 },
+    { file: "memory-changes.json", sha256: "852d6c0708eb9c42d31f71ad6fc6f8fcb95849d0d1eb72f4094e60a3e20311e0", bytes: 27161 },
+    { file: "memory-runs.json", sha256: "af6e58cb1f8ef95efc44ae266c51713aa1bad06bcc025cda5d42e4cd3bd49570", bytes: 167251 },
+    { file: "narration-cues.json", sha256: "980eb6de5e6d6cd6fe2b9a5aca4ba5ce839676a6de395829c4c5bdb5818ebf96", bytes: 4916 },
+    { file: "narration.wav", sha256: "cb7cf4c63d0e36e2c632c2d832025af0c294d53e0a962ea152b00b9cc88b1ef2", bytes: 3072044 },
+    { file: "reproduction-checks.json", sha256: "574c2fb858278f6b9e47410da12d355e585bbd73457f8e7116b9dcd534ad0431", bytes: 709 },
+    { file: "vendor-lock.json", sha256: "a62fbf74fa35f609756adf4b9ef2bbfcfe7e46cfd291058be455601bbc8d4d57", bytes: 2476 },
   ];
-  const SHA = Object.fromEntries(ASSETS.map((a) => [a.path, a.sha256]));
+  const SHA = Object.fromEntries(ASSETS.map((a) => [a.file, a.sha256]));
   const PIN = {
+    format: "studio-yebisu-letta-memory-runs-v1",
+    inputFormat: "studio-yebisu-letta-memory-changes-v1",
     repository: "letta-ai/letta-code",
     commit: "316e4c0545b549c453e0f85cc81d3540404eff74",
     version: "0.34.14",
     license: "Apache-2.0",
-    validator: "9b815cf928feecc4e830095325983a5ab83d7f284f915807e8de61bbbe075829",
-    node: "v24.18.0",
+    vendorFiles: 8,
     checks: 208,
+    ids: ["L01", "L02", "L03", "L04", "L05", "L06", "L07", "L08"],
+    summary: { total: 8, committed: 2, blocked: 6 },
+    policy: { version: 1, maxDepth: 2, maxFileCharacters: 900, maxCoreMemoryCharacters: 1200, readOnlyFiles: ["persona.md"] },
+    repairPair: ["L02", "L03"],
+    guide: "bookclub/MEMORY.md",
+    detail: "bookclub/schedule.md",
+    tts: "Aratako/Irodori-TTS-v4.1-Small",
+    ttsRevision: "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
+    rate: 48000,
   };
-  const POLICY = { version: 1, maxDepth: 2, maxFileCharacters: 900, maxCoreMemoryCharacters: 1200, readOnlyFiles: ["persona.md"] };
-  const IDS = ["L01", "L02", "L03", "L04", "L05", "L06", "L07", "L08"];
-  const COMMITTED = new Set(["L01", "L03"]);
-  // Reason fragments fixed before execution (input/memory-changes.json expected_reason).
-  const REASONS = {
-    L02: "missing required index bookclub/MEMORY.md",
-    L04: "901 characters exceeds 900",
-    L05: "depth 3 exceeds maxDepth 2",
-    L06: "core memory: 1201 characters exceeds 1200",
-    L07: "persona.md: read-only file cannot be created, changed or removed",
-    L08: ".memfs.config.json is protected and requires human approval to change",
-  };
-  const RESTORED = "bookclub/MEMORY.md";
-  const CONFIG_PATH = ".memfs.config.json";
-  const SCREENS = {
-    phone: { image: "phone.jpg", case_id: "L02", width: 375, height: 812 },
-    desktop: { image: "desktop.jpg", case_id: "L03", width: 1265, height: 889 },
-  };
-  const FILE_MESSAGE = "このページをファイルとして直接開くと、素材を読み込んで照合できません。作例のフォルダー（render.py のある場所）で python -m http.server を実行し、http://localhost:8000/video/ を開いてください。";
-
-  // --- Scenes ---------------------------------------------------------------------------------
-
-  // read: a settled moment inside the reading hold, used by the scene buttons.
-  const SCENES = [
-    { n: 1, in: 0, out: 4, read: 2.6, title: "記憶の変更を、保存前に点検する", draw: sceneTitle },
-    { n: 2, in: 4, out: 8, read: 6.8, title: "案内を消すと？（L02）", draw: sceneEdit },
-    { n: 3, in: 8, out: 12, read: 10.6, title: "案内がないと commit は止まる（L02）", draw: sceneBlocked },
-    { n: 4, in: 12, out: 18, read: 13.5, title: "1つ戻して、もう一度点検（L03）", draw: sceneRestore },
-    { n: 5, in: 18, out: 22, read: 20.6, title: "APIが通っても保存できるとは限らない（L08）", draw: sceneProtected },
-    { n: 6, in: 22, out: 28, read: 25.5, title: "理由を見て、必要な箇所を直す", draw: sceneRead, last: true },
+  // Fixed before this film was written (narration-cues.json). The film checks the cue sheet agrees exactly.
+  const CUE_PLAN = [
+    { id: "intro", text: "記憶のメモを変えたら、保存する前に点検します。", seed: 20261117, file: "audio/intro.wav", sha256: "e82cf0a287575160a2f1ac8f9e1e3314c613121ceef2d151454b6f7e1e7ab429", bytes: 391724, start: 0.8, duration: 4.08, end: 4.88 },
+    { id: "missing", text: "案内のファイルがないと、保存は止まります。", seed: 20261118, file: "audio/missing.wav", sha256: "761ddb24608938f8924cd24baab28eab37f5e4a9fcbfc477fe557cdeda0ac984", bytes: 345644, start: 5.6, duration: 3.6, end: 9.2 },
+    { id: "repair", text: "案内だけを戻した別の試行では、変更を保存できました。", seed: 20261119, file: "audio/repair.wav", sha256: "399878af56df81225ae53bdf5451a035507c1df25da88207765c3a7adb669a60", bytes: 460844, start: 9.9, duration: 4.8, end: 14.7 },
+    { id: "retained", text: "止まった変更も、手元に残ります。理由を見て、必要なところを直します。", seed: 20261120, file: "audio/retained.wav", sha256: "cbcee3c71dd4003cf6990c670b24fb6e0c3f4c22531c30a518e23c6d0b753510", bytes: 668204, start: 15.4, duration: 6.96, end: 22.36 },
+    { id: "limits", text: "点検に通っても、内容の正しさは、別の確認です。", seed: 20261121, file: "audio/limits.wav", sha256: "4019382752ba6073ee9bb9ba75fbcd3a09deac9f36d38386ee46dde6d8b8ce3d", bytes: 449324, start: 23.1, duration: 4.68, end: 27.78 },
   ];
-  const RAIL = ["編集", "止まる", "戻す", "保護", "読む"];
+  const SCENE_PLAN = [
+    { id: "relation", in: 0, out: 5.3, label: "メモを変えたら、点検", case: "L01", badge: "記録 L01", read: 3.0, note: "関係の全体：ルート → 案内 → 2つの詳細、変更の台 → 点検の門 → Git の保存の点。門が形をたどる" },
+    { id: "missing", in: 5.3, out: 9.6, label: "案内がないと、止まる", case: "L02", badge: "記録 L02", read: 8.6, note: "案内のカードが抜けて台へ。空いた枠と切れた線。変更2件は門で止まって戻り、Git は前の点のまま" },
+    { id: "repair", in: 9.6, out: 15.1, label: "案内を戻した、別の試行", case: "L03", badge: "別の試行 L03", read: 14.2, note: "別のリポジトリの記録 L03：案内だけが枠に戻り、線がつながる。変更が門を通り、Git に新しい点" },
+    { id: "retained", in: 15.1, out: 22.8, label: "止まっても、変更は残る", case: "L02", badge: "記録 L02", read: 19.4, note: "記録 L02 に戻る：止まった変更2件は台に残り、理由の札が空いた枠を指す" },
+    { id: "limits", in: 22.8, out: 29, label: "点検と、正しさは別", case: "L03", badge: "別の試行 L03", read: 26.6, note: "形の点検は通っても、詳細メモの中身には「？」。正しさは別の確認" },
+    { id: "save", in: 29, out: 32, label: "理由を見て、必要な所を直す", case: "L03", badge: "別の試行 L03", read: 31.0, note: "関係の全体と、実行記録の保存をそのまま見せる（3秒）", last: true },
+  ];
+  const FILE_MESSAGE = "このページをファイルとして直接開くと、素材を読み込んで照合できません。作例のフォルダー（index.html のある場所）で python -m http.server を実行し、http://localhost:8000/video/ を開いてください。";
 
   // --- Page ------------------------------------------------------------------------------------
 
   const $ = (id) => document.getElementById(id);
   const ui = {
     editor: $("editor"),
-    status: $("editor-status"),
-    errorBox: $("error-box"),
+    count: $("asset-count"),
+    status: $("status"),
+    errorBox: $("error"),
     errorText: $("error-text"),
     retry: $("retry"),
     stage: $("stage"),
     canvas: $("film"),
+    narration: $("narration"),
     play: $("play"),
+    reset: $("reset"),
+    mute: $("mute"),
     time: $("time"),
-    timeLabel: $("time-label"),
+    clock: $("clock"),
+    audio: $("preview-audio"),
     sceneList: $("scene-list"),
-    assetSummary: $("asset-summary"),
     assetList: $("asset-list"),
+    layoutTall: $("layout-tall"),
+    layoutWide: $("layout-wide"),
   };
 
   if (RENDER) {
     document.documentElement.classList.add("is-render");
     ui.canvas.style.width = `${W}px`;
     ui.canvas.style.height = `${H}px`;
+  } else {
+    ui.canvas.style.aspectRatio = `${W} / ${H}`;
+    ui.stage.classList.toggle("is-tall", H >= W);
+    const current = H >= W ? ui.layoutTall : ui.layoutWide;
+    if (current) current.setAttribute("aria-current", "page");
   }
   ui.canvas.width = W;
   ui.canvas.height = H;
-  const ctx = ui.canvas.getContext("2d", { willReadFrequently: true });
-  // Layout is authored in a 1280×720 space and scaled to the requested size.
-  const SCALE = Math.min(W / 1280, H / 720);
-  const OFFSET_X = (W - 1280 * SCALE) / 2;
-  const OFFSET_Y = (H - 720 * SCALE) / 2;
+  const ctx = ui.canvas.getContext("2d");
+
+  // --- Layouts (authored natively for each orientation; same geometry as the example page) ------
+
+  function portraitLayout() {
+    return {
+      DW: 720, DH: 1280, u: 1, tall: true,
+      eyebrow: { x: 48, y: 72, size: 22 },
+      badge: { x: 672, y: 72, size: 26 },
+      title: { x: 48, y: 158, size: 56, min: 40, max: 624 },
+      foot: { y: 1246, size: 20 },
+      root: { cx: 360, cy: 270, w: 178, h: 112 }, rootLabel: { x: 150, y: 284, size: 38 },
+      slot: { cx: 360, cy: 452, w: 200, h: 120 }, guideLabel: { x: 150, y: 468, size: 44 },
+      details: [{ cx: 168, cy: 640, w: 200, h: 134 }, { cx: 552, cy: 640, w: 200, h: 134 }], detailLabel: { x: 360, y: 656, size: 44 },
+      tray: { x: 32, y: 792, w: 252, h: 318, r: 36 }, trayLabel: { x: 62, y: 852, size: 44 }, count: { cx: 244, cy: 832, r: 28, size: 32 },
+      card: { w: 92, h: 116 }, trayX: { center: 158, a: 104, b: 214 }, trackY: 958, gateFront: 276,
+      gate: {
+        cx: 410, lintel: { x: 316, y: 800, w: 188, h: 54 },
+        posts: [{ x: 330, y: 854, w: 22, h: 236 }, { x: 468, y: 854, w: 22, h: 236 }],
+        barrier: { x: 352, y: 866, w: 116, h: 180 }, lamp: { cx: 476, cy: 827, r: 15 },
+        labelX: 392, labelY: 841, labelSize: 40,
+        plate: { cx: 410, cy: 958, w: 150, h: 62, size: 36 }, shape: { cx: 410, cy: 958, w: 120, h: 66, size: 40 },
+      },
+      git: { x: 606, labelY: 808, labelSize: 44, top: 836, bottom: 1100, oldY: 1056, oldR: 24, newY: 958, newR: 30, hashSize: 24 },
+      rootLink: [360, 326, 360, 392],
+      detailLinks: [[310, 512, 310, 548, 168, 540, 168, 573], [410, 512, 410, 548, 552, 540, 552, 573]],
+      origin: [168, 707, 158, 792],
+      guideCtrl: { x: 380, y: 860 },
+      q: { r: 30, size: 40 },
+      tags: {
+        reason: { cx: 360, cy: 738, w: 236, h: 62, size: 36 },
+        content: { cx: 360, cy: 738, w: 236, h: 62, size: 36 },
+        keep: { cx: 158, cy: 1066, w: 150, h: 58, size: 34 },
+        trial: { cx: 574, cy: 452, w: 200, h: 64, size: 36 },
+        cta: { cx: 470, cy: 1166, w: 300, h: 66, size: 34 },
+      },
+    };
+  }
+
+  function landscapeLayout() {
+    return {
+      DW: 1280, DH: 720, u: 0.9, tall: false,
+      eyebrow: { x: 64, y: 56, size: 19 },
+      badge: { x: 1216, y: 56, size: 24 },
+      title: { x: 64, y: 122, size: 50, min: 34, max: 900 },
+      foot: { y: 698, size: 18 },
+      root: { cx: 118, cy: 430, w: 150, h: 100 }, rootLabel: { x: 118, y: 524, size: 34 },
+      slot: { cx: 318, cy: 430, w: 160, h: 104 }, guideLabel: { x: 318, y: 362, size: 40 },
+      details: [{ cx: 520, cy: 286, w: 172, h: 120 }, { cx: 520, cy: 574, w: 172, h: 120 }], detailLabel: { x: 520, y: 444, size: 40 },
+      tray: { x: 640, y: 236, w: 232, h: 388, r: 34 }, trayLabel: { x: 664, y: 290, size: 40 }, count: { cx: 836, cy: 274, r: 24, size: 28 },
+      card: { w: 88, h: 112 }, trayX: { center: 756, a: 704, b: 808 }, trackY: 430, gateFront: 872,
+      gate: {
+        cx: 1002, lintel: { x: 912, y: 232, w: 180, h: 50 },
+        posts: [{ x: 924, y: 282, w: 20, h: 318 }, { x: 1060, y: 282, w: 20, h: 318 }],
+        barrier: { x: 944, y: 300, w: 116, h: 260 }, lamp: { cx: 1068, cy: 257, r: 13 },
+        labelX: 988, labelY: 270, labelSize: 36,
+        plate: { cx: 1002, cy: 430, w: 140, h: 58, size: 34 }, shape: { cx: 1002, cy: 430, w: 112, h: 60, size: 36 },
+      },
+      git: { x: 1180, labelY: 224, labelSize: 40, top: 250, bottom: 612, oldY: 552, oldR: 22, newY: 430, newR: 26, hashSize: 22 },
+      rootLink: [193, 430, 238, 430],
+      detailLinks: [[398, 410, 424, 410, 404, 286, 434, 286], [398, 450, 424, 450, 404, 574, 434, 574]],
+      origin: [606, 286, 640, 330],
+      guideCtrl: { x: 510, y: 470 },
+      q: { r: 26, size: 36 },
+      tags: {
+        reason: { cx: 318, cy: 548, w: 214, h: 56, size: 34 },
+        content: { cx: 318, cy: 548, w: 214, h: 56, size: 34 },
+        keep: { cx: 756, cy: 560, w: 140, h: 54, size: 34 },
+        trial: { cx: 318, cy: 290, w: 180, h: 56, size: 34 },
+        cta: { cx: 1060, cy: 632, w: 300, h: 58, size: 34 },
+      },
+    };
+  }
+
+  const L = H >= W ? portraitLayout() : landscapeLayout();
+  const S = Math.min(W / L.DW, H / L.DH);
+  const OX = (W - L.DW * S) / 2;
+  const OY = (H - L.DH * S) / 2;
+  const u = (n) => n * L.u;
+  const boxOf = (b) => ({ x: b.cx - b.w / 2, y: b.cy - b.h / 2, w: b.w, h: b.h });
 
   // --- Loading and checks ---------------------------------------------------------------------
 
   class CheckError extends Error {}
-
   function check(condition, message) {
     if (!condition) throw new CheckError(message);
   }
-
-  const isObject = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
-  const own = (object, key) => isObject(object) && Object.prototype.hasOwnProperty.call(object, key);
-  const short = (commit) => String(commit).slice(0, 7);
+  const isObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+  const isString = (v) => typeof v === "string" && v.length > 0;
+  const obj = (v) => (isObject(v) ? v : {});
+  const own = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
+  const int = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const short = (commit) => (typeof commit === "string" ? commit.slice(0, 7) : "");
 
   function deepEqual(a, b) {
     if (a === b) return true;
-    if (Array.isArray(a)) return Array.isArray(b) && a.length === b.length && a.every((item, i) => deepEqual(item, b[i]));
+    if (Array.isArray(a)) return Array.isArray(b) && a.length === b.length && a.every((x, i) => deepEqual(x, b[i]));
     if (isObject(a) && isObject(b)) {
       const keys = Object.keys(a);
-      return keys.length === Object.keys(b).length && keys.every((key) => own(b, key) && deepEqual(a[key], b[key]));
+      return keys.length === Object.keys(b).length && keys.every((k) => own(b, k) && deepEqual(a[k], b[k]));
     }
     return false;
   }
+
+  const changedPaths = (a, b) => [...new Set([...Object.keys(a), ...Object.keys(b)])].filter((p) => a[p] !== b[p]).sort();
 
   async function fetchBytes(relative) {
     const url = new URL(relative, document.baseURI);
@@ -148,7 +237,7 @@
     try {
       response = await fetch(url.href, { cache: "no-store", credentials: "same-origin" });
     } catch {
-      throw new CheckError(`${relative} を読み込めませんでした。作例のフォルダーをローカルの HTTP サーバーで開いてください（例：python -m http.server）。`);
+      throw new CheckError(`${relative} を読み込めませんでした。作例のフォルダーをローカルの HTTP サーバーで開いてください。`);
     }
     check(response.ok, `${relative} を読み込めませんでした（HTTP ${response.status}）。`);
     return new Uint8Array(await response.arrayBuffer());
@@ -156,7 +245,7 @@
 
   async function sha256Hex(bytes) {
     const digest = await crypto.subtle.digest("SHA-256", bytes);
-    return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
+    return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, "0")).join("");
   }
 
   function parseJson(bytes, name) {
@@ -173,233 +262,217 @@
     }
   }
 
-  const assetState = new Map();
-  let manifestDigest = null;
+  const assetState = new Map(); // file → "match" | "mismatch"
 
   function showAssets() {
+    const ok = ASSETS.filter((a) => assetState.get(a.file) === "match").length;
+    ui.count.textContent = `${ok} / ${ASSETS.length}素材`;
+    ui.count.dataset.state = ok === ASSETS.length ? "match" : [...assetState.values()].includes("mismatch") ? "mismatch" : "pending";
     const rows = ASSETS.map((asset) => {
-      const item = assetState.get(asset.path) || { ok: null, actual: null };
       const li = document.createElement("li");
+      const st = assetState.get(asset.file) || "pending";
+      li.dataset.state = st;
       const name = document.createElement("code");
-      name.textContent = asset.path;
+      name.textContent = asset.file;
       const verdict = document.createElement("span");
-      verdict.className = item.ok === true ? "verdict is-ok" : item.ok === false ? "verdict is-ng" : "verdict";
-      verdict.textContent = item.ok === true ? "準備完了・一致" : item.ok === false ? "不一致" : "照合中";
+      verdict.className = "verdict";
+      verdict.textContent = st === "match" ? "一致" : st === "mismatch" ? "不一致" : "照合前";
       const size = document.createElement("span");
       size.className = "bytes";
-      size.textContent = `${asset.bytes.toLocaleString("ja-JP")} バイト`;
-      const digest = document.createElement("code");
-      digest.className = "digest";
-      digest.textContent = `SHA-256 ${item.actual || asset.sha256}${item.actual ? "" : "（固定値）"}`;
-      li.append(name, " ", verdict, " ", size, document.createElement("br"), digest);
+      size.textContent = `${int(asset.bytes)} バイト`;
+      li.append(name, " ", verdict, " ", size);
       return li;
     });
     ui.assetList.replaceChildren(...rows);
-    const ok = [...assetState.values()].filter((item) => item.ok === true).length;
-    ui.assetSummary.textContent = manifestDigest
-      ? `video/assets/data-hashes.json（SHA-256 ${manifestDigest}）は固定値と一致。素材${ASSETS.length}件のうち${ok}件の SHA-256 とバイト数が一致しました。`
-      : "video/assets/data-hashes.json の照合はまだ終わっていません。";
   }
 
-  function checkJpeg(bytes, name) {
-    check(bytes.length > 4 && bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff,
-      `${name} が JPEG ではありません。`);
-  }
-
-  let objectUrls = [];
-
-  async function decodeJpeg(bytes, name, expected) {
-    checkJpeg(bytes, name);
-    const blob = new Blob([bytes], { type: "image/jpeg" });
-    let image;
-    try {
-      if (typeof createImageBitmap === "function") {
-        image = await createImageBitmap(blob);
-      } else {
-        image = new Image();
-        const url = URL.createObjectURL(blob);
-        objectUrls.push(url);
-        image.src = url;
-        await image.decode();
+  // RIFF/WAVE, PCM 16-bit mono 48 kHz, exactly 32 s of samples.
+  function parseWav(bytes) {
+    const dv = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+    const tag = (o) => String.fromCharCode(bytes[o], bytes[o + 1], bytes[o + 2], bytes[o + 3]);
+    check(bytes.length >= 44 && tag(0) === "RIFF" && tag(8) === "WAVE", "narration.wav が WAV ではありません。");
+    let o = 12;
+    let fmt = null;
+    let data = null;
+    while (o + 8 <= bytes.length) {
+      const id = tag(o);
+      const size = dv.getUint32(o + 4, true);
+      const body = o + 8;
+      check(body + size <= bytes.length, "narration.wav のチャンクが途中で切れています。");
+      if (id === "fmt ") {
+        check(size >= 16, "narration.wav の fmt チャンクが短すぎます。");
+        fmt = { format: dv.getUint16(body, true), channels: dv.getUint16(body + 2, true), rate: dv.getUint32(body + 4, true), bits: dv.getUint16(body + 14, true) };
+      } else if (id === "data") {
+        data = { offset: body, size };
       }
-    } catch {
-      throw new CheckError(`${name} を画像として読み込めませんでした。`);
+      o = body + size + (size & 1);
     }
-    const width = image.naturalWidth || image.width;
-    const height = image.naturalHeight || image.height;
-    check(width === expected.width && height === expected.height, `${name} を読み込んだ大きさが screens.json と一致しません。`);
-    return image;
+    check(fmt && data && fmt.format === 1 && fmt.channels === 1 && fmt.rate === PIN.rate && fmt.bits === 16,
+      "narration.wav が PCM16・モノラル・48000Hz ではありません。");
+    check(data.size === DURATION * PIN.rate * 2, `narration.wav の長さが${DURATION}秒ではありません。`);
+    return { dv, offset: data.offset, frames: data.size / 2 };
   }
 
-  function verify(j) {
-    const runs = j["memory-runs.json"];
-    const indep = j["independent-checks.json"];
-    const repro = j["reproduction-checks.json"];
-    const changes = j["memory-changes.json"];
-    const lock = j["vendor-lock.json"];
-    const screens = j["screens.json"];
-    [runs, indep, repro, changes, lock, screens].forEach((value, i) => check(isObject(value), `${ASSETS[i].path} の形が想定と違います。`));
+  // The narration must actually be in the mix at each cue's place (RMS of the window).
+  function checkCueSignal(pcm, cue) {
+    const a = Math.round(cue.start * PIN.rate);
+    const b = Math.min(pcm.frames, Math.round(cue.end * PIN.rate));
+    check(a >= 0 && b > a, `ナレーション「${cue.id}」の位置が narration.wav に収まりません。`);
+    let sum = 0;
+    for (let i = a; i < b; i++) {
+      const v = pcm.dv.getInt16(pcm.offset + 2 * i, true) / 32768;
+      sum += v * v;
+    }
+    const rms = Math.sqrt(sum / (b - a));
+    check(rms > 0.003, `narration.wav の${cue.start.toFixed(2)}〜${cue.end.toFixed(2)}秒に、ナレーション「${cue.id}」の音が見つかりません（RMS ${rms.toFixed(5)}）。`);
+  }
 
-    // Pinned upstream, lock, inputs and runtime.
-    const up = runs.upstream;
-    const pinned = (o) => isObject(o) && o.repository === PIN.repository && o.commit === PIN.commit && o.version === PIN.version && o.license === PIN.license;
-    check(runs.format === "studio-yebisu-letta-memory-runs-v1", "memory-runs.json の形式が想定と違います。");
-    check(pinned(up), "実行記録の固定版（letta-ai/letta-code 316e4c0・0.34.14・Apache-2.0）が一致しません。");
-    check(pinned(lock), "vendor-lock.json の固定版が一致しません。");
-    check(Array.isArray(lock.files) && lock.files.length === 8 && deepEqual(lock.files, up.files), "原典8ファイルのハッシュが、実行記録と vendor-lock.json で一致しません。");
-    check(up.vendor_lock_sha256 === SHA["vendor-lock.json"] && isObject(runs.input_sha256) && runs.input_sha256["vendor-lock.json"] === SHA["vendor-lock.json"],
-      "実行記録が参照する vendor-lock.json の SHA-256 が素材と一致しません。");
-    check(runs.input_sha256["input/memory-changes.json"] === SHA["memory-changes.json"], "実行記録が参照する入力の SHA-256 が素材と一致しません。");
-    check(isObject(runs.validator_script) && runs.validator_script.sha256 === PIN.validator, "原典の検査スクリプトの SHA-256 が固定値と一致しません。");
-    check(isObject(runs.runtime) && runs.runtime.node === PIN.node && runs.runtime.packages_installed === 0, "実行環境（Node 24.18.0・npm の導入なし）が記録と一致しません。");
-    check(changes.format === "studio-yebisu-letta-memory-changes-v1" && changes.fictional === true, "memory-changes.json が架空の入力として記録されていません。");
-    check(deepEqual(runs.trusted_policy, POLICY) && deepEqual(changes.trusted_policy, POLICY), "初期方針が固定値と一致しません。");
+  const isChange = (c) => isObject(c) && isString(c.status) && isString(c.path);
 
-    // Eight results against the frozen input and the expected outcome.
+  function verifyRecord(runs, lock) {
+    check(runs.format === PIN.format, "memory-runs.json の形式が違います。");
+    const up = obj(runs.upstream);
+    check(up.repository === PIN.repository && up.commit === PIN.commit && up.version === PIN.version && up.license === PIN.license
+      && up.vendor_lock_sha256 === SHA["vendor-lock.json"] && Array.isArray(up.files) && up.files.length === PIN.vendorFiles,
+    "memory-runs.json の Letta Code の固定版が一致しません。");
+    check(Array.isArray(lock.files) && deepEqual(up.files, lock.files.map((f) => ({ path: f.path, sha256: f.sha256, bytes: f.bytes, git_blob_sha1: f.git_blob_sha1 }))),
+      "記録の原典8ファイルの照合が vendor-lock.json と一致しません。");
+    const sums = obj(runs.input_sha256);
+    check(sums["input/memory-changes.json"] === SHA["memory-changes.json"] && sums["input/expected.json"] === SHA["expected.json"]
+      && sums["vendor-lock.json"] === SHA["vendor-lock.json"], "記録が参照する入力・ロックの SHA-256 が素材と一致しません。");
+    check(deepEqual(runs.trusted_policy, PIN.policy), "記録の初期方針が、実行前に固定した値と一致しません。");
     const results = runs.results;
-    check(Array.isArray(results) && results.length === 8 && results.every((r, i) => isObject(r) && r.id === IDS[i]), "実行記録が L01〜L08 の8件ではありません。");
-    check(Array.isArray(changes.cases) && changes.cases.length === 8 && changes.cases.every((c, i) => isObject(c) && c.id === IDS[i]), "入力が L01〜L08 の8件ではありません。");
-    const byId = {};
-    results.forEach((r, i) => {
-      const c = changes.cases[i];
-      const g = r.git_commit;
-      const cli = r.cli;
-      check(isObject(r.input) && deepEqual(r.input.accepted_files, c.accepted_files) && deepEqual(r.input.proposed_files, c.proposed_files), `${r.id} の入力が、固定した入力と一致しません。`);
-      check(isObject(r.repository) && isObject(r.repository.validator) && r.repository.validator.sha256 === PIN.validator
-        && isObject(r.repository.hook) && r.repository.hook.text === runs.validator_script.hook.text, `${r.id} の pre-commit が原典の検査スクリプトと一致しません。`);
-      check(isObject(g) && isObject(cli) && isObject(r.api) && isObject(r.api.tree) && Array.isArray(r.api.tree.errors)
-        && Array.isArray(g.reported_errors) && Array.isArray(g.staged_changes_before) && Array.isArray(g.staged_changes_after)
-        && Array.isArray(cli.reported_errors) && isObject(r.baseline) && g.head_before === r.baseline.commit, `${r.id} の記録の形が想定と違います。`);
-      const ok = COMMITTED.has(r.id);
-      check(r.committed === ok && c.expected_commit_success === ok, `${r.id} の commit の成否が想定と違います。`);
-      if (ok) {
-        check(g.exit_code === 0 && cli.exit_code === 0 && g.head_changed === true && g.head_after !== g.head_before && g.parent_after === g.head_before
-          && g.stage_retained === false && g.staged_changes_after.length === 0 && g.reported_errors.length === 0, `${r.id} が、HEAD が進み stage が空になった commit として記録されていません。`);
-      } else {
-        check(g.exit_code === 1 && cli.exit_code === 1 && g.head_changed === false && g.head_after === g.head_before && g.stage_retained === true
-          && g.staged_changes_after.length > 0 && deepEqual(g.staged_changes_after, g.staged_changes_before), `${r.id} が、HEAD が変わらず stage が残った停止として記録されていません。`);
-        check(g.reported_errors.some((line) => line.includes(REASONS[r.id])) && cli.reported_errors.some((line) => line.includes(REASONS[r.id])),
-          `${r.id} の原典の診断に、実行前に決めた理由が見つかりません。`);
-      }
-      byId[r.id] = r;
-    });
-    const committedIds = IDS.filter((id) => byId[id].committed);
-    const blockedIds = IDS.filter((id) => !byId[id].committed);
-    check(isObject(runs.summary) && runs.summary.total === 8 && runs.summary.committed === committedIds.length && runs.summary.blocked === blockedIds.length
-      && committedIds.length === 2 && blockedIds.length === 6, "成功2件・停止6件の集計が記録と一致しません。");
-    const oracle = runs.oracle_comparison;
-    check(isObject(oracle) && Array.isArray(oracle.commit_success) && oracle.commit_success.length === 8 && oracle.commit_success.every((x) => x.match === true),
-      "実行前の期待との照合が一致していません。");
-    const v = runs.verification;
-    check(isObject(v) && v.status === "passed" && v.total === PIN.checks && Array.isArray(v.checks) && v.checks.length === PIN.checks && v.checks.every((x) => x && x.passed === true),
-      "実行時の208件の確認がすべて通った記録になっていません。");
-
-    // L02: the child index was deleted; both detail files report the missing index.
-    const l02 = byId.L02;
-    const baseline = l02.baseline.files.map((f) => f && f.path);
-    const children = baseline.filter((p) => typeof p === "string" && p.startsWith("bookclub/") && p !== RESTORED);
-    check(isObject(l02.change) && deepEqual(l02.change.removed, [RESTORED]) && baseline.includes("MEMORY.md") && baseline.includes("persona.md") && baseline.includes(RESTORED),
-      "L02 で消したファイルが bookclub/MEMORY.md ではありません。");
-    check(children.length === 2 && children.every((p) => l02.git_commit.reported_errors.includes(`${p}: missing required index ${RESTORED}`)),
-      "L02 の診断が、2つの詳細ファイルの案内不足として記録されていません。");
-    check(l02.git_commit.staged_changes_after.length === 2, "L02 の stage に残った変更が2件ではありません。");
-
-    // L02 → L03: a separate trial whose input differs only by restoring the same index.
-    const l03 = byId.L03;
-    const a = l02.input.proposed_files;
-    const b = l03.input.proposed_files;
-    const keys = [...new Set([...Object.keys(a), ...Object.keys(b)])];
-    const differ = keys.filter((k) => !own(a, k) || !own(b, k) || a[k] !== b[k]);
-    check(differ.length === 1 && differ[0] === RESTORED && !own(a, RESTORED) && own(b, RESTORED) && b[RESTORED] === l02.input.accepted_files[RESTORED]
-      && deepEqual(l02.input.accepted_files, l03.input.accepted_files), "L02 と L03 の入力の差が、bookclub/MEMORY.md を戻した1ファイルだけではありません。");
-    check(l02.repository.directory !== l03.repository.directory, "L02 と L03 が別のリポジトリとして記録されていません。");
-
-    // L08: the initial-policy tree API reports nothing, the original script blocks the config change.
-    const l08 = byId.L08;
-    const trusted = l08.api.trusted_config;
-    const staged = isObject(l08.api.staged_config) ? l08.api.staged_config.parsed : null;
-    check(isObject(staged) && deepEqual(trusted, POLICY) && l08.api.staged_config.differs_from_trusted === true && l08.api.tree.errors.length === 0,
-      "L08 の検査API（初期方針）の結果が、エラー0件として記録されていません。");
-    const changedKeys = [...new Set([...Object.keys(trusted), ...Object.keys(staged)])].filter((k) => !deepEqual(trusted[k], staged[k]));
-    check(changedKeys.length === 1 && changedKeys[0] === "maxFileCharacters" && trusted.maxFileCharacters === 900 && staged.maxFileCharacters === 1100,
-      "L08 の設定の変更が maxFileCharacters 900 → 1100 だけではありません。");
-    check(l08.git_commit.staged_changes_after.some((x) => x && x.status === "M" && x.path === CONFIG_PATH), "L08 の stage に設定の変更が残っていません。");
-
-    // Independent production-side checks.
-    check(indep.status === "passed" && indep.run_sha256 === SHA["memory-runs.json"] && indep.checks_in_runner === PIN.checks && indep.source_files === 8
-      && deepEqual(indep.repair_pair_diff, [RESTORED]), "independent-checks.json が実行記録と一致しません。");
-    check(Array.isArray(indep.cases) && indep.cases.length === 8 && indep.cases.every((c, i) => isObject(c) && c.id === IDS[i]
-      && c.actual_git_head_and_index_checked === true && c.accepted_and_proposed_bytes_match === true && c.original_hook_sha256 === PIN.validator
-      && c.committed === byId[c.id].committed && isObject(byId[c.id].unicode) && c.root_code_points === byId[c.id].unicode.root_markdown_code_points),
-      "independent-checks.json の8件が実行記録と一致しません。");
-    check(byId.L06.unicode.root_markdown_code_points === 1201, "L06 のルートの合計文字数が記録と一致しません。");
-
-    // Reproduction in a separate copy and fresh Node process.
-    check(repro.status === "passed" && repro.original_sha256 === SHA["memory-runs.json"] && repro.reproduced_sha256 === SHA["memory-runs.json"]
-      && repro.entire_record_byte_identical === true && repro.result_objects_identical === true && repro.cases === 8
-      && repro.successful_commits === 2 && repro.blocked_commits === 6 && repro.fixed_fictional_git_dates === true,
-      "reproduction-checks.json が、記録全体のバイト一致として記録されていません。");
-
-    // Screenshot provenance.
-    check(screens.format === "studio-yebisu-letta-screens-v1" && screens.no_image_editing === true && screens.actual_outputs_unchanged === true
-      && Array.isArray(screens.screens) && screens.screens.length === 2, "screens.json の形が想定と違います。");
-    const shotMeta = {};
-    for (const [id, expected] of Object.entries(SCREENS)) {
-      const s = screens.screens.find((x) => isObject(x) && x.id === id);
-      check(s && s.image === expected.image && s.case_id === expected.case_id && s.width === expected.width && s.height === expected.height
-        && s.file_sha256 === SHA[expected.image] && s.run_sha256 === SHA["memory-runs.json"] && /^[0-9a-f]{64}$/.test(s.rgb_sha256 || ""),
-        `screens.json の ${expected.image} の記録が素材と一致しません。`);
-      shotMeta[id] = s;
+    check(Array.isArray(results) && results.length === PIN.ids.length && results.every(isObject)
+      && new Set(results.map((r) => r.id)).size === PIN.ids.length && results.every((r, i) => r.id === PIN.ids[i]),
+    "memory-runs.json が L01〜L08 の8件（重複なし）ではありません。");
+    for (const r of results) {
+      const git = obj(r.git_commit);
+      check(typeof r.committed === "boolean" && isObject(r.input) && isObject(r.input.accepted_files) && isObject(r.input.proposed_files)
+        && isObject(r.baseline) && isString(r.baseline.commit) && typeof git.exit_code === "number"
+        && isString(git.head_before) && isString(git.head_after) && Array.isArray(git.reported_errors)
+        && Array.isArray(git.staged_changes_before) && git.staged_changes_before.every(isChange)
+        && Array.isArray(git.staged_changes_after) && git.staged_changes_after.every(isChange),
+      `${r.id} の記録の形が想定と違います。`);
+      const moved = git.head_after !== git.head_before;
+      check(r.committed === (git.exit_code === 0) && r.committed === moved && git.head_before === r.baseline.commit
+        && (r.committed ? git.staged_changes_after.length === 0 : git.staged_changes_after.length > 0),
+      `${r.id} の commit の成否・HEAD・stage の記録が合いません。`);
     }
+    const committed = results.filter((r) => r.committed).length;
+    check(deepEqual(runs.summary, { total: results.length, committed, blocked: results.length - committed }) && deepEqual(runs.summary, PIN.summary),
+      "memory-runs.json の件数のまとめが一致しません。");
+    const v = obj(runs.verification);
+    check(v.status === "passed" && Array.isArray(v.checks) && v.checks.length === PIN.checks && v.total === PIN.checks
+      && v.checks.every((c) => isObject(c) && isString(c.name) && c.passed === true), `実行記録の${PIN.checks}件の確認がすべて合格になっていません。`);
+    return { results, rows: new Map(results.map((r) => [r.id, r])) };
+  }
 
-    const stderrFirst = (s) => String(s).split("\n")[0];
+  // What the six scenes draw, taken from the verified rows. Anything else stops the film.
+  function sceneFacts(rows) {
+    const G = PIN.guide;
+    const D = PIN.detail;
+    const l01 = rows.get("L01");
+    const l02 = rows.get("L02");
+    const l03 = rows.get("L03");
+    const g1 = l01.git_commit;
+    const g2 = l02.git_commit;
+    const g3 = l03.git_commit;
+
+    check(l01.committed && own(l01.input.proposed_files, G) && deepEqual(g1.staged_changes_before, [{ status: "M", path: D }]),
+      "L01 の記録が「案内があり、詳細メモ1件だけを変えた変更」になっていません。");
+    check(!l02.committed && g2.exit_code === 1 && g2.head_after === g2.head_before && !own(l02.input.proposed_files, G)
+      && deepEqual(g2.staged_changes_after, [{ status: "D", path: G }, { status: "M", path: D }])
+      && g2.reported_errors.length === 2 && g2.reported_errors.every((line) => typeof line === "string" && line.endsWith(`missing required index ${G}`)),
+    "L02 の記録が「案内 bookclub/MEMORY.md を消して止まり、変更2件が stage に残った1件」になっていません。");
+    check(l03.committed && g3.exit_code === 0 && g3.head_after !== g3.head_before && g3.parent_after === l03.baseline.commit
+      && l03.baseline.commit === l02.baseline.commit && l01.baseline.commit === l02.baseline.commit
+      && deepEqual(l03.input.accepted_files, l02.input.accepted_files)
+      && deepEqual(changedPaths(l02.input.proposed_files, l03.input.proposed_files), [G])
+      && l03.input.proposed_files[G] === l02.input.accepted_files[G]
+      && deepEqual(g3.staged_changes_before, [{ status: "M", path: D }]) && g3.staged_changes_after.length === 0,
+    "L03 の記録が「L02 と同じ変更で案内だけを残し、保存された別の試行」になっていません。");
+
     return {
-      repository: up.repository,
-      commit: up.commit,
-      version: up.version,
-      node: runs.runtime.node,
-      checks: v.total,
-      shotMeta,
-      l02: {
-        baseline,
-        children,
-        removed: RESTORED,
-        written: l02.change.written,
-        staged: l02.git_commit.staged_changes_after,
-        headBefore: short(l02.git_commit.head_before),
-        headAfter: short(l02.git_commit.head_after),
-        exit: l02.git_commit.exit_code,
-        stderrFirst: stderrFirst(l02.git_commit.stderr),
-        errors: l02.git_commit.reported_errors,
-      },
-      repair: {
-        rows: Object.keys(b).map((path) => ({ path, inL02: own(a, path), restored: path === RESTORED })),
-        headBefore: short(l03.git_commit.head_before),
-        headAfter: short(l03.git_commit.head_after),
-        stagedAfter: l03.git_commit.staged_changes_after.length,
-        directory: l03.repository.directory,
-      },
-      l08: {
-        key: changedKeys[0],
-        from: trusted.maxFileCharacters,
-        to: staged.maxFileCharacters,
-        apiErrors: l08.api.tree.errors.length,
-        gitExit: l08.git_commit.exit_code,
-        error: l08.git_commit.reported_errors[0],
-      },
-      summary: { total: results.length, committed: committedIds.length, blocked: blockedIds.length, committedIds, blockedIds },
+      base: short(g2.head_before),
+      saved: short(g3.head_after),
+      counts: { l01: g1.staged_changes_before.length, l02: g2.staged_changes_after.length, l03: g3.staged_changes_before.length, l03After: g3.staged_changes_after.length },
     };
   }
 
-  const SERIF = '"Yu Mincho", YuMincho, "Hiragino Mincho ProN", "Noto Serif JP", serif';
-  const SANS = '"Yu Gothic UI", "Yu Gothic", YuGothic, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", Meiryo, system-ui, sans-serif';
-  const MONO = 'Consolas, "Cascadia Mono", Menlo, ui-monospace, monospace';
-  const font = (size, weight = 500, family = SANS) => `${weight} ${size}px ${family}`;
+  function verify(j, wavBytes) {
+    const runs = j["memory-runs.json"];
+    const changes = j["memory-changes.json"];
+    const expected = j["expected.json"];
+    const indep = j["independent-checks.json"];
+    const repro = j["reproduction-checks.json"];
+    const lock = j["vendor-lock.json"];
+    const cues = j["narration-cues.json"];
+    [runs, changes, expected, indep, repro, lock, cues].forEach((value) => check(isObject(value), "素材の JSON の形が想定と違います。"));
+
+    check(lock.repository === PIN.repository && lock.commit === PIN.commit && lock.version === PIN.version && lock.license === PIN.license
+      && Array.isArray(lock.files) && lock.files.length === PIN.vendorFiles, "vendor-lock.json の固定版・原典8ファイルが一致しません。");
+    const rec = verifyRecord(runs, lock);
+
+    // Inputs and expectations frozen before the run.
+    check(changes.format === PIN.inputFormat && changes.fictional === true && deepEqual(changes.trusted_policy, PIN.policy)
+      && Array.isArray(changes.cases) && changes.cases.length === PIN.ids.length
+      && changes.cases.every((c, i) => isObject(c) && c.id === PIN.ids[i] && c.label === rec.results[i].label
+        && deepEqual({ accepted_files: c.accepted_files, proposed_files: c.proposed_files }, rec.results[i].input)),
+    "memory-changes.json の8件の入力が、記録の入力と一致しません。");
+    check(isObject(expected.commit_success) && PIN.ids.every((id) => expected.commit_success[id] === rec.rows.get(id).committed)
+      && expected.case_count === PIN.summary.total && expected.successful_commits === PIN.summary.committed
+      && expected.blocked_commits === PIN.summary.blocked && deepEqual(expected.repair_pair, PIN.repairPair),
+    "expected.json（実行前の期待）が記録と一致しません。");
+
+    // Independent audit of the real repositories and the fresh reproduction of the same record.
+    const hook = obj(runs.validator_script).sha256;
+    check(indep.status === "passed" && indep.run_sha256 === SHA["memory-runs.json"] && indep.checks_in_runner === PIN.checks
+      && indep.source_files === PIN.vendorFiles && deepEqual(indep.repair_pair_diff, [PIN.guide])
+      && Array.isArray(indep.cases) && indep.cases.length === PIN.ids.length
+      && indep.cases.every((c, i) => isObject(c) && c.id === PIN.ids[i] && c.committed === rec.results[i].committed
+        && c.actual_git_head_and_index_checked === true && c.accepted_and_proposed_bytes_match === true && c.original_hook_sha256 === hook),
+    "independent-checks.json が、この記録の8つの Git リポジトリの照合になっていません。");
+    check(repro.status === "passed" && repro.cases === PIN.ids.length && repro.result_objects_identical === true
+      && repro.entire_record_byte_identical === true && repro.original_sha256 === SHA["memory-runs.json"]
+      && repro.reproduced_sha256 === SHA["memory-runs.json"] && repro.successful_commits === PIN.summary.committed
+      && repro.blocked_commits === PIN.summary.blocked, "reproduction-checks.json が、この記録の全バイトの再現になっていません。");
+
+    // Cue sheet: five real TTS segments and six scenes, exactly as frozen.
+    check(cues.format === "studio-yebisu-narration-cues-v1" && cues.case === MANIFEST.case && cues.duration === DURATION && cues.fps === 30
+      && cues.frames === DURATION * 30 && cues.sample_rate === PIN.rate && cues.channels === 1 && cues.encoding === "PCM16"
+      && cues.tts === PIN.tts && cues.tts_revision === PIN.ttsRevision && cues.listening_confirmed === false && cues.human_approval === false
+      && Array.isArray(cues.cues) && cues.cues.length === CUE_PLAN.length && Array.isArray(cues.scenes) && cues.scenes.length === SCENE_PLAN.length,
+    "narration-cues.json の形が想定と違います。");
+    CUE_PLAN.forEach((plan, i) => {
+      const c = cues.cues[i];
+      check(isObject(c) && c.id === plan.id && c.text === plan.text && c.seed === plan.seed && c.file === plan.file && c.sha256 === plan.sha256
+        && c.bytes === plan.bytes && Math.abs(c.start - plan.start) < 1e-9 && Math.abs(c.duration - plan.duration) < 1e-9
+        && Math.abs(c.end - plan.end) < 1e-9 && c.source_start === 0 && c.sample_exact === true,
+      `narration-cues.json のナレーション「${plan.id}」が固定した文・時刻と一致しません。`);
+      if (i > 0) check(c.start >= cues.cues[i - 1].end, "ナレーションが重なっています。");
+    });
+    SCENE_PLAN.forEach((plan, i) => {
+      const s = cues.scenes[i];
+      check(isObject(s) && s.id === plan.id && s.in === plan.in && s.out === plan.out && s.label === plan.label && s.case === plan.case,
+        `narration-cues.json の場面「${plan.id}」が固定した時刻・見出しと一致しません。`);
+    });
+
+    const pcm = parseWav(wavBytes);
+    CUE_PLAN.forEach((cue) => checkCueSignal(pcm, cue));
+
+    return { facts: sceneFacts(rec.rows), wav: wavBytes };
+  }
+
+  // --- Fonts -----------------------------------------------------------------------------------
+
+  const SANS = '"Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", YuGothic, "Noto Sans JP", Meiryo, system-ui, sans-serif';
+  const MONO = 'ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace';
+  const font = (size, weight = 500) => `${weight} ${size}px ${SANS}`;
 
   async function loadFonts() {
     if (!document.fonts || typeof document.fonts.load !== "function") return;
-    const sample = "記憶の変更を保存前に点検する案内消すと止まる戻して別試行理由直す 0123456789 → bookclub/MEMORY.md";
-    const specs = [font(64, 700, SERIF), font(28, 500), font(28, 700), font(28, 800), font(20, 500, MONO), font(20, 700, MONO)];
+    const sample = "LETTA CODE ・ 記憶の点検 記録 別の試行 L01 L02 L03 メモを変えたら、点検 案内がないと、止まる 案内を戻した、別の試行 止まっても、変更は残る 点検と、正しさは別 理由を見て、必要な所を直す ルート 案内 詳細 変更 点検 保存 止まる 残る 案内がない 中身は別 形 記録を保存 保存済みの実行結果をもとにした図 STUDIO YEBISU ? 0123456789";
+    const specs = [font(56, 800), font(50, 800), font(44, 800), font(40, 800), font(36, 800), font(34, 800), font(32, 800), font(26, 700), font(22, 600), font(20, 500), `600 24px ${MONO}`];
     await Promise.all(specs.map((spec) => document.fonts.load(spec, sample).catch(() => [])));
     await document.fonts.ready;
   }
@@ -409,39 +482,35 @@
     check(globalThis.crypto && crypto.subtle, "このブラウザーでは SHA-256 を計算できません。https か http://localhost で開いてください。");
     const manifestBytes = await fetchBytes(MANIFEST.path);
     const digest = await sha256Hex(manifestBytes);
-    check(digest === MANIFEST.sha256, `data-hashes.json の SHA-256 が固定値と一致しません（読み込んだ値 ${digest}）。`);
-    const manifest = parseJson(manifestBytes, "data-hashes.json");
-    check(isObject(manifest) && manifest.format === MANIFEST.format && manifest.source_commit === PIN.commit && Array.isArray(manifest.files)
-      && manifest.files.length === ASSETS.length && ASSETS.every((a, i) => isObject(manifest.files[i]) && manifest.files[i].path === a.path
-        && manifest.files[i].sha256 === a.sha256 && manifest.files[i].bytes === a.bytes),
-      "data-hashes.json の8件の対象・SHA-256・バイト数が、この映像ソースに固定した値と一致しません。");
-    manifestDigest = digest;
-    showAssets();
+    check(digest === MANIFEST.sha256, `manifest.json の SHA-256 が固定値と一致しません（読み込んだ値 ${digest}）。`);
+    const manifest = parseJson(manifestBytes, "manifest.json");
+    check(isObject(manifest) && manifest.format === MANIFEST.format && manifest.case === MANIFEST.case && Array.isArray(manifest.assets)
+      && manifest.assets.length === ASSETS.length && ASSETS.every((a, i) => isObject(manifest.assets[i]) && manifest.assets[i].file === a.file
+        && manifest.assets[i].sha256 === a.sha256 && manifest.assets[i].bytes === a.bytes),
+    `manifest.json の${ASSETS.length}件の対象・SHA-256・バイト数が、この映像ソースに固定した値と一致しません。`);
 
     const bytes = {};
-    await Promise.all(ASSETS.map(async (asset) => {
-      const data = await fetchBytes(`assets/${asset.path}`);
+    const outcomes = await Promise.allSettled(ASSETS.map(async (asset) => {
+      const data = await fetchBytes(`assets/${asset.file}`);
       const actual = await sha256Hex(data);
       const ok = actual === asset.sha256 && data.byteLength === asset.bytes;
-      assetState.set(asset.path, { ok, actual });
+      assetState.set(asset.file, ok ? "match" : "mismatch");
       showAssets();
-      check(ok, `${asset.path} の SHA-256 またはバイト数が data-hashes.json と一致しません。`);
-      bytes[asset.path] = data;
+      check(ok, `${asset.file} の SHA-256 またはバイト数が manifest.json と一致しません（読み込んだ値 ${actual}・${int(data.byteLength)} バイト）。`);
+      bytes[asset.file] = data;
     }));
+    const failed = outcomes.find((o) => o.status === "rejected");
+    if (failed) throw failed.reason;
 
     const json = {};
-    for (const asset of ASSETS) if (asset.path.endsWith(".json")) json[asset.path] = parseJson(bytes[asset.path], asset.path);
+    for (const asset of ASSETS) if (asset.file.endsWith(".json")) json[asset.file] = parseJson(bytes[asset.file], asset.file);
     let data;
     try {
-      data = verify(json);
+      data = verify(json, bytes["narration.wav"]);
     } catch (error) {
       if (error instanceof CheckError) throw error;
       throw new CheckError(`素材の形が想定と違います（${error && error.message ? error.message : "不明"}）。`);
     }
-    data.images = {
-      phone: await decodeJpeg(bytes["phone.jpg"], "phone.jpg", SCREENS.phone),
-      desktop: await decodeJpeg(bytes["desktop.jpg"], "desktop.jpg", SCREENS.desktop),
-    };
     await loadFonts();
     return data;
   }
@@ -452,513 +521,1020 @@
   const ramp = (t, a, b) => clamp01((t - a) / (b - a));
   const ease = (x) => 1 - Math.pow(1 - x, 3);
   const inOut = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
-  const enter = (t, at, d = 0.45) => ease(ramp(t, at, at + d));
+  const lerp = (a, b, k) => a + (b - a) * k;
+  const bump = (t, at, len = 0.5) => Math.sin(Math.PI * ramp(t, at - 0.05, at + len));
 
-  function sceneAlpha(t, s) {
-    if (t < s.in || (t >= s.out && !s.last)) return 0;
-    const fadeIn = s.n === 1 ? 1 : ease(ramp(t, s.in, s.in + 0.35));
-    const fadeOut = s.last ? 1 : 1 - ramp(t, s.out - 0.35, s.out);
-    return Math.min(fadeIn, fadeOut);
+  // A value that holds between changes: steps are [start, end, target] in time order.
+  function seq(t, start, steps, shape = inOut) {
+    let v = start;
+    for (const [a, b, to] of steps) {
+      if (t < a) return v;
+      if (t < b) return lerp(v, to, shape(ramp(t, a, b)));
+      v = to;
+    }
+    return v;
+  }
+
+  // Picture beats. Scene borders and narration come from the verified cue sheet; these are the moves inside them.
+  // Guide card: 0 = in its slot, 1 = staged as a deletion in the tray.
+  const GUIDE_STEPS = [[5.6, 6.5, 1], [10.1, 11.0, 0], [15.5, 16.4, 1], [22.9, 23.7, 0]];
+  const LINK_STEPS = [[6.0, 6.6, 0], [10.9, 11.5, 1], [16.1, 16.6, 0], [23.5, 23.9, 1]];
+  const BARRIER_STEPS = [[7.35, 7.6, 1], [9.7, 10.1, 0], [16.3, 16.6, 1], [23.0, 23.3, 0]];
+  const STOP_STEPS = [[7.6, 7.75, 1], [9.7, 9.9, 0], [16.55, 16.7, 1], [23.0, 23.2, 0]];
+  const OK_STEPS = [[11.8, 12.0, 1], [15.3, 15.5, 0], [23.3, 23.5, 1]];
+  const PLATE_STEPS = [[7.7, 7.9, 1], [9.7, 9.9, 0], [16.6, 16.8, 1], [22.9, 23.1, 0]];
+  const DOT_STEPS = [[13.4, 13.85, 1], [15.3, 15.55, 0], [24.45, 24.85, 1]];
+  const GHOST_STEPS = [[8.0, 8.4, 1], [9.7, 10.0, 0], [15.5, 15.9, 1], [23.0, 23.3, 0]];
+  const KEPT_STEPS = [[7.8, 8.4, 1], [9.7, 10.0, 0], [16.6, 17.0, 1], [22.9, 23.2, 0]];
+  const STOPLINE_STEPS = [[6.9, 7.7, 1], [9.7, 10.0, 0], [16.0, 16.6, 1], [22.9, 23.2, 0]];
+  const PASS_STEPS = [[11.9, 13.5, 1], [15.3, 15.5, 0], [23.6, 24.6, 1]];
+  // Change card along the track: C tray centre, B tray right slot, F in front of the gate, M gate, D Git dot.
+  const CARD_KEYS = [[0, "C"], [5.8, "C"], [6.3, "B"], [6.9, "B"], [7.7, "F"], [7.75, "F"], [8.6, "B"], [10.4, "B"], [10.9, "C"],
+    [11.9, "C"], [12.6, "M"], [13.5, "D"], [15.3, "D"], [16.3, "B"], [23.2, "B"], [23.6, "C"], [24.1, "M"], [24.6, "D"]];
+  const COUNT_CHANGES = [6.4, 10.6, 13.5, 16.3, 23.3, 24.6];
+
+  function cardPos(t) {
+    const P = { C: L.trayX.center, B: L.trayX.b, F: L.gateFront, M: L.gate.cx, D: L.git.x };
+    let x = P[CARD_KEYS[CARD_KEYS.length - 1][1]];
+    for (let i = 0; i < CARD_KEYS.length - 1; i++) {
+      const [ta, a] = CARD_KEYS[i];
+      const [tb, b] = CARD_KEYS[i + 1];
+      if (t < tb) {
+        x = lerp(P[a], P[b], inOut(ramp(t, ta, tb)));
+        break;
+      }
+    }
+    if (t >= 7.7 && t < 8.1) x -= u(14) * Math.exp(-8 * (t - 7.7)) * Math.abs(Math.sin((t - 7.7) * 26));
+    const near = L.gate.cx + u(80);
+    const s = x <= near ? 1 : lerp(1, 0.32, ramp(x, near, P.D));
+    const a = 1 - ramp(x, P.D - u(70), P.D - u(6));
+    return { x, y: L.trackY, s, a };
+  }
+
+  function countAt(t) {
+    const c = film.facts.counts;
+    const values = [c.l01, c.l02, c.l03, c.l03After, c.l02, c.l03, c.l03After];
+    let i = 0;
+    while (i < COUNT_CHANGES.length && t >= COUNT_CHANGES[i]) i++;
+    return values[i];
+  }
+
+  function stateAt(t) {
+    const card = cardPos(t);
+    const k = seq(t, 0, GUIDE_STEPS);
+    return {
+      k,
+      attempt: t >= 6.9 && t < 8.6 ? card.x - L.trayX.b : 0,
+      links: seq(t, 1, LINK_STEPS),
+      barrier: seq(t, 0, BARRIER_STEPS, ease),
+      stop: seq(t, 0, STOP_STEPS),
+      ok: seq(t, 0, OK_STEPS),
+      plate: seq(t, 0, PLATE_STEPS, ease),
+      dot: seq(t, 0, DOT_STEPS, ease),
+      ghost: seq(t, 0, GHOST_STEPS),
+      kept: seq(t, 0, KEPT_STEPS),
+      stopLine: seq(t, 0, STOPLINE_STEPS),
+      pass: seq(t, 0, PASS_STEPS),
+      card,
+      count: countAt(t),
+      countPulse: Math.max(...COUNT_CHANGES.map((at) => bump(t, at, 0.35))),
+      // relation (scene 1): the edited memo, then the gate following the memory structure, then the order to Git
+      edit: ramp(t, 0.9, 1.1) * (1 - ramp(t, 2.0, 2.3)),
+      origin: ramp(t, 1.1, 1.4) * (1 - ramp(t, 2.2, 2.5)),
+      cardBump: bump(t, 1.4, 0.4),
+      scanLintel: ramp(t, 2.0, 2.3) * (1 - ramp(t, 3.3, 3.6)),
+      scanRoot: ramp(t, 2.3, 2.6) * (1 - ramp(t, 4.4, 4.8)),
+      scanDetail: ramp(t, 2.7, 3.0) * (1 - ramp(t, 4.4, 4.8)),
+      route: ramp(t, 3.6, 4.8),
+      routeAlpha: 1 - ramp(t, 4.9, 5.3),
+      // retained (scene 4)
+      trial: seq(t, 0, [[9.7, 10.0, 1], [15.1, 15.4, 0], [22.9, 23.2, 1]]),
+      keep: seq(t, 0, [[16.8, 17.2, 1], [22.8, 23.1, 0]]),
+      hopB: Math.sin(Math.PI * ramp(t, 17.2, 17.7)),
+      hopA: Math.sin(Math.PI * ramp(t, 17.5, 18.0)),
+      reason: seq(t, 0, [[18.4, 18.9, 1], [22.8, 23.1, 0]]),
+      reasonDraw: ramp(t, 18.4, 19.0),
+      fix: seq(t, 0, [[20.2, 20.5, 1], [22.8, 23.1, 0]]),
+      fixDraw: ramp(t, 20.2, 21.0),
+      slotPulse: t >= 19.8 && t < 23.1 ? (0.5 + 0.5 * Math.sin(((t - 19.8) / 1.1) * Math.PI * 2 - Math.PI / 2)) * (1 - ramp(t, 22.8, 23.1)) * ramp(t, 19.8, 20.1) : 0,
+      // limits and save (scenes 5–6)
+      shape: seq(t, 0, [[24.9, 25.3, 1]], ease),
+      q: seq(t, 0, [[25.4, 25.8, 1]], ease),
+      qBob: t > 25.8 ? u(4) * Math.sin(((t - 25.8) / 1.8) * Math.PI * 2) : 0,
+      content: seq(t, 0, [[25.7, 26.1, 1]], ease),
+      cta: seq(t, 0, [[28.5, 28.9, 1]], ease),
+      ring: seq(t, 0, [[28.6, 29.0, 1]], ease),
+    };
   }
 
   // --- Drawing helpers ------------------------------------------------------------------------
 
   const C = {
-    paper: "#f4eee2",
-    raised: "#fbf8f2",
-    sunk: "#ebe3d3",
-    ink: "#1c211f",
-    soft: "#4f5753",
-    green: "#1f3d33",
-    greenSoft: "#dfe8e2",
-    rust: "#a84a24",
-    rustSoft: "#f4e0d4",
-    line: "#d6ccb8",
+    paper: "#f5f3eb",
+    card: "#fffdf6",
+    ink: "#252c2a",
+    muted: "#646a63",
+    line: "#a6aba1",
+    purple: "#8581ee",
+    purpleDeep: "#6a65cd",
+    purpleWash: "#e7e4f8",
+    purpleFold: "#cfcaf3",
+    purpleBar: "#bdb8ec",
+    peach: "#f7a86e",
+    peachLine: "#e0894f",
+    peachWash: "#fbe0cb",
+    peachDeep: "#a2522c",
+    warn: "#d99a72",
+    green: "#51a696",
+    greenWash: "#deebe3",
+    deep: "#325c50",
+    tray: "#ece8dc",
+    trayKept: "#f4e7da",
+    trayLine: "#d2cdbf",
+    trayKeptLine: "#e2b896",
+    slotLine: "#b9b5aa",
+    future: "#b9c6bd",
+    ghost: "#9fb3a8",
+    lampIdle: "#c9c6bb",
+    lampOk: "#6fd0b9",
+    lampStop: "#f08a52",
   };
+
+  const rgb = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+  function mix(a, b, k) {
+    const A = rgb(a);
+    const B = rgb(b);
+    return `rgb(${A.map((v, i) => Math.round(lerp(v, B[i], clamp01(k)))).join(",")})`;
+  }
 
   let film = null;
 
-  function layer(alpha, dy, fn) {
-    if (alpha <= 0.001) return;
-    ctx.save();
-    ctx.globalAlpha *= alpha;
-    if (dy) ctx.translate(0, dy);
-    fn();
-    ctx.restore();
+  function rr(x, y, w, h, r) {
+    const q = Math.max(0, Math.min(r, w / 2, h / 2));
+    ctx.beginPath();
+    ctx.moveTo(x + q, y);
+    ctx.arcTo(x + w, y, x + w, y + h, q);
+    ctx.arcTo(x + w, y + h, x, y + h, q);
+    ctx.arcTo(x, y + h, x, y, q);
+    ctx.arcTo(x, y, x + w, y, q);
+    ctx.closePath();
   }
 
-  // Draws one line; shrinks to fit `max` down to `min`, then compresses as a last resort.
+  function circle(x, y, r) {
+    ctx.beginPath();
+    ctx.arc(x, y, Math.max(0, r), 0, Math.PI * 2);
+  }
+
+  function line(x1, y1, x2, y2) {
+    ctx.beginPath();
+    ctx.moveTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.stroke();
+  }
+
+  // One line of text; shrinks to fit `max` down to `min`. `halo` draws a paper outline first.
   function text(str, x, y, o = {}) {
-    const family = o.family || SANS;
-    const weight = o.weight || 500;
     let size = o.size || 24;
-    ctx.font = font(size, weight, family);
+    const weight = o.weight || 500;
+    const family = o.mono ? MONO : SANS;
+    const f = (s) => `${weight} ${s}px ${family}`;
+    ctx.font = f(size);
     if (o.max) {
       const min = o.min || size;
       while (size > min && ctx.measureText(str).width > o.max) {
         size -= 1;
-        ctx.font = font(size, weight, family);
+        ctx.font = f(size);
       }
     }
-    ctx.fillStyle = o.color || C.ink;
     ctx.textAlign = o.align || "left";
     ctx.textBaseline = "alphabetic";
-    if (o.max) ctx.fillText(str, x, y, o.max);
-    else ctx.fillText(str, x, y);
-    return Math.min(ctx.measureText(str).width, o.max || Infinity);
-  }
-
-  function wrapWords(str, maxWidth, size, family) {
-    ctx.font = font(size, 500, family);
-    const lines = [];
-    let line = "";
-    for (const word of str.split(" ")) {
-      const next = line ? `${line} ${word}` : word;
-      if (line && ctx.measureText(next).width > maxWidth) {
-        lines.push(line);
-        line = word;
-      } else {
-        line = next;
-      }
+    if (o.spacing && "letterSpacing" in ctx) ctx.letterSpacing = o.spacing;
+    if (o.halo) {
+      ctx.lineJoin = "round";
+      ctx.lineWidth = size * 0.32;
+      ctx.strokeStyle = o.halo;
+      ctx.strokeText(str, x, y);
     }
-    if (line) lines.push(line);
-    return lines;
+    ctx.fillStyle = o.color || C.ink;
+    ctx.fillText(str, x, y);
+    const width = ctx.measureText(str).width;
+    if (o.spacing && "letterSpacing" in ctx) ctx.letterSpacing = "0px";
+    return width;
   }
 
-  function rr(x, y, w, h, r) {
+  function withAlpha(alpha, fn) {
+    if (alpha <= 0.002) return;
+    ctx.save();
+    ctx.globalAlpha *= Math.min(1, alpha);
+    fn();
+    ctx.restore();
+  }
+
+  function scaled(cx, cy, k, fn) {
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.scale(k, k);
+    ctx.translate(-cx, -cy);
+    fn();
+    ctx.restore();
+  }
+
+  // o: { outline, color }
+  function pill(p, str, fill, alpha, o = {}) {
+    withAlpha(alpha, () => {
+      scaled(p.cx, p.cy, 0.9 + 0.1 * clamp01(alpha), () => {
+        rr(p.cx - p.w / 2, p.cy - p.h / 2, p.w, p.h, p.h / 2);
+        ctx.fillStyle = o.outline ? C.card : fill;
+        ctx.fill();
+        if (o.outline) {
+          ctx.lineWidth = u(3);
+          ctx.strokeStyle = fill;
+          ctx.stroke();
+        }
+        text(str, p.cx + (o.dx || 0), p.cy + p.size * 0.36, { size: p.size, weight: 800, color: o.outline ? fill : C.card, align: "center" });
+      });
+    });
+  }
+
+  function bezPoint(c, t) {
+    const [x0, y0, x1, y1, x2, y2, x3, y3] = c;
+    const v = 1 - t;
+    return [v * v * v * x0 + 3 * v * v * t * x1 + 3 * v * t * t * x2 + t * t * t * x3, v * v * v * y0 + 3 * v * v * t * y1 + 3 * v * t * t * y2 + t * t * t * y3];
+  }
+
+  function strokeBez(c, a, b) {
+    ctx.beginPath();
+    for (let i = 0; i <= 20; i++) {
+      const [x, y] = bezPoint(c, a + ((b - a) * i) / 20);
+      if (i) ctx.lineTo(x, y);
+      else ctx.moveTo(x, y);
+    }
+    ctx.stroke();
+  }
+
+  // --- Shapes ---------------------------------------------------------------------------------
+
+  function memoPath(x, y, w, h, f) {
+    const r = Math.min(10, w * 0.06);
     ctx.beginPath();
     ctx.moveTo(x + r, y);
-    ctx.arcTo(x + w, y, x + w, y + h, r);
-    ctx.arcTo(x + w, y + h, x, y + h, r);
-    ctx.arcTo(x, y + h, x, y, r);
-    ctx.arcTo(x, y, x + w, y, r);
+    ctx.lineTo(x + w - f, y);
+    ctx.lineTo(x + w, y + f);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
     ctx.closePath();
   }
 
-  function box(x, y, w, h, o = {}) {
-    rr(x, y, w, h, o.r === undefined ? 10 : o.r);
-    if (o.fill) {
-      ctx.fillStyle = o.fill;
+  function bars(x, y, w, h, list) {
+    const bh = Math.max(4, 0.075 * h);
+    for (const [k, len, color] of list) {
+      rr(x + 0.13 * w, y + k * h, len * w, bh, bh / 2);
+      ctx.fillStyle = color;
       ctx.fill();
     }
-    if (o.stroke) {
-      ctx.lineWidth = o.lw || 2;
-      ctx.strokeStyle = o.stroke;
-      ctx.setLineDash(o.dash || []);
-      ctx.stroke();
-      ctx.setLineDash([]);
+  }
+
+  // A detail memo. edited: the line this change added (peach).
+  function drawMemo(b, o = {}) {
+    const { x, y, w, h } = boxOf(b);
+    const f = 0.2 * Math.min(w, h);
+    ctx.fillStyle = "rgba(37,44,42,0.07)";
+    memoPath(x + 4, y + 7, w, h, f);
+    ctx.fill();
+    memoPath(x, y, w, h, f);
+    ctx.fillStyle = C.purpleWash;
+    ctx.fill();
+    ctx.lineWidth = u(3);
+    ctx.lineJoin = "round";
+    ctx.strokeStyle = C.purple;
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x + w - f, y);
+    ctx.lineTo(x + w - f, y + f);
+    ctx.lineTo(x + w, y + f);
+    ctx.closePath();
+    ctx.fillStyle = C.purpleFold;
+    ctx.fill();
+    ctx.stroke();
+    const list = [[0.3, 0.46, C.purpleBar], [0.48, 0.72, C.purpleBar], [0.66, 0.72, C.purpleBar]];
+    if (o.edited) list.push([0.82, 0.56, C.peach]);
+    bars(x, y, w, h, list);
+  }
+
+  // The root guide: a closed book with a ribbon.
+  function drawBook(b) {
+    const { x, y, w, h } = boxOf(b);
+    rr(x + 4, y + 8, w, h, 12);
+    ctx.fillStyle = "rgba(37,44,42,0.07)";
+    ctx.fill();
+    rr(x + 10, y + 9, w - 10, h - 9, 10);
+    ctx.fillStyle = C.card;
+    ctx.fill();
+    ctx.lineWidth = u(3);
+    ctx.strokeStyle = C.purple;
+    ctx.stroke();
+    rr(x, y, w - 10, h - 8, 12);
+    ctx.fillStyle = C.purpleWash;
+    ctx.fill();
+    ctx.strokeStyle = C.purpleDeep;
+    ctx.stroke();
+    const s = 0.17 * w;
+    ctx.beginPath();
+    ctx.moveTo(x + 12, y);
+    ctx.lineTo(x + s, y);
+    ctx.lineTo(x + s, y + h - 8);
+    ctx.lineTo(x + 12, y + h - 8);
+    ctx.quadraticCurveTo(x, y + h - 8, x, y + h - 20);
+    ctx.lineTo(x, y + 12);
+    ctx.quadraticCurveTo(x, y, x + 12, y);
+    ctx.closePath();
+    ctx.fillStyle = C.purpleDeep;
+    ctx.fill();
+    ctx.fillStyle = C.purpleBar;
+    rr(x + 0.3 * w, y + 0.28 * h, 0.46 * w, 0.09 * h, 0.045 * h);
+    ctx.fill();
+    rr(x + 0.3 * w, y + 0.46 * h, 0.3 * w, 0.09 * h, 0.045 * h);
+    ctx.fill();
+    const rx = x + 0.7 * w;
+    ctx.beginPath();
+    ctx.moveTo(rx, y + h - 10);
+    ctx.lineTo(rx, y + h - 10 + 0.24 * h);
+    ctx.lineTo(rx + 0.045 * w, y + h - 10 + 0.17 * h);
+    ctx.lineTo(rx + 0.09 * w, y + h - 10 + 0.24 * h);
+    ctx.lineTo(rx + 0.09 * w, y + h - 10);
+    ctx.closePath();
+    ctx.fillStyle = C.peach;
+    ctx.fill();
+  }
+
+  // The child guide (index card with a tab and two rows, one per detail memo). ghost: staged as a deletion.
+  function drawIndex(b, ghost) {
+    const { x, y, w, h } = boxOf(b);
+    const g = ghost > 0.5;
+    if (!g) {
+      rr(x + 4, y + 8, w, h, 12);
+      ctx.fillStyle = "rgba(37,44,42,0.07)";
+      ctx.fill();
+    }
+    rr(x + 0.1 * w, y - 0.13 * h, 0.34 * w, 0.22 * h, 0.06 * h);
+    ctx.fillStyle = mix(C.purpleDeep, C.warn, ghost);
+    ctx.fill();
+    rr(x, y, w, h, 12);
+    ctx.fillStyle = g ? "rgba(255,253,246,0.7)" : C.card;
+    ctx.fill();
+    ctx.lineWidth = u(4);
+    ctx.strokeStyle = mix(C.purpleDeep, C.peachDeep, ghost);
+    if (g) ctx.setLineDash([u(9), u(7)]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    const r = Math.min(0.055 * w, 0.07 * h);
+    for (const k of [0.4, 0.72]) {
+      circle(x + 0.18 * w, y + k * h, r);
+      ctx.fillStyle = mix(C.purple, "#e7c6b0", ghost);
+      ctx.fill();
+      rr(x + 0.3 * w, y + k * h - 0.045 * h, 0.54 * w, 0.09 * h, 0.045 * h);
+      ctx.fillStyle = mix(C.purpleBar, "#e7c6b0", ghost);
+      ctx.fill();
     }
   }
 
-  function pill(label, x, y, o) {
-    const size = o.size || 16;
-    ctx.font = font(size, 700);
-    const w = ctx.measureText(label).width + 20;
-    const h = size + 12;
-    const left = o.align === "right" ? x - w : x;
-    box(left, y - h / 2, w, h, { fill: o.bg, r: h / 2 });
-    text(label, left + w / 2, y + size * 0.36, { size, weight: 700, color: o.color, align: "center" });
+  function drawBadgeEdit(cx, cy, r) {
+    circle(cx, cy, r);
+    ctx.fillStyle = C.peach;
+    ctx.fill();
+    ctx.lineWidth = u(3);
+    ctx.strokeStyle = C.card;
+    ctx.stroke();
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(-Math.PI / 4);
+    ctx.fillStyle = C.ink;
+    rr(-0.62 * r, -0.17 * r, 0.9 * r, 0.34 * r, 0.06 * r);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(0.3 * r, -0.17 * r);
+    ctx.lineTo(0.64 * r, 0);
+    ctx.lineTo(0.3 * r, 0.17 * r);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
   }
 
-  function segment(x1, y1, x2, y2, progress, o = {}) {
-    if (progress <= 0) return;
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x1 + (x2 - x1) * progress, y1 + (y2 - y1) * progress);
-    ctx.lineWidth = o.lw || 2;
-    ctx.strokeStyle = o.color || C.ink;
-    ctx.setLineDash(o.dash || []);
+  function drawBadgeMinus(cx, cy, r) {
+    circle(cx, cy, r);
+    ctx.fillStyle = C.peachDeep;
+    ctx.fill();
+    ctx.lineWidth = u(3);
+    ctx.strokeStyle = C.card;
+    ctx.stroke();
+    rr(cx - 0.5 * r, cy - 0.12 * r, r, 0.24 * r, 0.1 * r);
+    ctx.fillStyle = C.card;
+    ctx.fill();
+  }
+
+  // A staged change card (copy of the edited detail memo, with a pencil).
+  function drawChangeCard(cx, cy, k) {
+    const c = L.card;
+    scaled(cx, cy, k, () => {
+      drawMemo({ cx, cy, w: c.w, h: c.h }, { edited: true });
+      drawBadgeEdit(cx - c.w / 2 + 4, cy - c.h / 2 + 4, c.w * 0.21);
+    });
+  }
+
+  function stripes(x, y, w, h) {
+    if (h <= 0.5) return;
+    ctx.save();
+    rr(x, y, w, h, u(8));
+    ctx.clip();
+    ctx.fillStyle = C.peach;
+    ctx.fillRect(x, y, w, h);
+    ctx.fillStyle = "rgba(255,253,246,0.72)";
+    const step = u(34);
+    for (let s = -w - h; s < w + h; s += step) {
+      ctx.beginPath();
+      ctx.moveTo(x + s, y + h);
+      ctx.lineTo(x + s + h, y);
+      ctx.lineTo(x + s + h + step * 0.42, y);
+      ctx.lineTo(x + s + step * 0.42, y + h);
+      ctx.closePath();
+      ctx.fill();
+    }
+    ctx.restore();
+    rr(x, y, w, h, u(8));
+    ctx.strokeStyle = "#d98547";
+    ctx.lineWidth = u(3);
+    ctx.stroke();
+  }
+
+  // --- Chrome and titles ----------------------------------------------------------------------
+
+  function drawChrome(t) {
+    text("LETTA CODE ・ 記憶の点検", L.eyebrow.x, L.eyebrow.y, { size: L.eyebrow.size, weight: 600, color: C.muted, spacing: "2px" });
+    // Which saved record the picture shows.
+    for (const s of SCENE_PLAN) {
+      if (t < s.in - 0.01 || (!s.last && t >= s.out)) continue;
+      const a = (s.in === 0 ? 1 : ramp(t, s.in, s.in + 0.3)) * (s.last ? 1 : 1 - ramp(t, s.out - 0.2, s.out));
+      withAlpha(a, () => {
+        const b = L.badge;
+        const trial = s.badge.startsWith("別の試行");
+        ctx.font = font(b.size, 800);
+        const w = ctx.measureText(s.badge).width + u(36);
+        const h = b.size * 1.7;
+        rr(b.x - w, b.y - h * 0.68, w, h, h / 2);
+        if (trial) {
+          ctx.fillStyle = C.purpleDeep;
+          ctx.fill();
+        } else {
+          ctx.lineWidth = u(2.5);
+          ctx.strokeStyle = C.ink;
+          ctx.stroke();
+        }
+        text(s.badge, b.x - w / 2, b.y, { size: b.size, weight: 800, color: trial ? C.card : C.ink, align: "center" });
+      });
+    }
+    text("保存済みの実行結果をもとにした図", L.tall ? 48 : 64, L.foot.y, { size: L.foot.size, weight: 500, color: C.muted });
+    text("STUDIO YEBISU", L.DW - (L.tall ? 48 : 64), L.foot.y, { size: L.foot.size - 2, weight: 700, color: C.muted, align: "right", spacing: "3px" });
+  }
+
+  function drawTitles(t) {
+    for (const s of SCENE_PLAN) {
+      if (t < s.in || (t >= s.out && !s.last)) continue;
+      const fin = s.in === 0 ? 1 : ease(ramp(t, s.in, s.in + 0.3));
+      const fout = s.last ? 1 : 1 - ramp(t, s.out - 0.25, s.out);
+      withAlpha(Math.min(fin, fout), () => {
+        const dy = (1 - fin) * u(12);
+        text(s.label, L.title.x, L.title.y + dy, { size: L.title.size, weight: 800, color: C.ink, max: L.title.max, min: L.title.min });
+      });
+    }
+  }
+
+  // --- The memory structure -------------------------------------------------------------------
+
+  function drawLinks(st) {
+    const broken = 1 - st.links;
+    const r = L.rootLink;
+    ctx.lineCap = "round";
+    withAlpha(st.scanRoot, () => {
+      ctx.strokeStyle = "rgba(133,129,238,0.35)";
+      ctx.lineWidth = u(22);
+      line(r[0], r[1], r[2], r[3]);
+    });
+    withAlpha(st.scanDetail, () => {
+      ctx.strokeStyle = "rgba(133,129,238,0.35)";
+      ctx.lineWidth = u(22);
+      for (const c of L.detailLinks) strokeBez(c, 0, 1);
+    });
+    ctx.strokeStyle = mix(C.purple, C.warn, broken);
+    ctx.lineWidth = u(6);
+    line(r[0], r[1], r[2], r[3]);
+    for (const c of L.detailLinks) {
+      if (broken < 0.01) {
+        ctx.strokeStyle = C.purple;
+        ctx.lineWidth = u(6);
+        strokeBez(c, 0, 1);
+        continue;
+      }
+      const gap = 0.32 * broken;
+      ctx.strokeStyle = mix(C.purple, C.peachDeep, broken);
+      ctx.lineWidth = u(6 - broken);
+      if (broken > 0.5) ctx.setLineDash([u(10), u(12)]);
+      strokeBez(c, 0, 0.5 - gap / 2);
+      strokeBez(c, 0.5 + gap / 2, 1);
+      ctx.setLineDash([]);
+      withAlpha(broken, () => {
+        for (const at of [0.5 - gap / 2, 0.5 + gap / 2]) {
+          const [x, y] = bezPoint(c, at);
+          circle(x, y, u(7));
+          ctx.fillStyle = C.paper;
+          ctx.fill();
+          ctx.lineWidth = u(4);
+          ctx.strokeStyle = C.peachDeep;
+          ctx.stroke();
+        }
+      });
+    }
+    // The edited detail memo is where the staged change came from.
+    const o = L.origin;
+    withAlpha(st.origin, () => {
+      ctx.strokeStyle = "rgba(247,168,110,0.45)";
+      ctx.lineWidth = u(16);
+      line(o[0], o[1], o[2], o[3]);
+    });
+    ctx.strokeStyle = C.line;
+    ctx.lineWidth = u(3);
+    ctx.setLineDash([u(6), u(9)]);
+    line(o[0], o[1], o[2], o[3]);
+    ctx.setLineDash([]);
+  }
+
+  function drawSlot(st) {
+    const b = boxOf(L.slot);
+    const empty = 1 - st.links;
+    rr(b.x, b.y, b.w, b.h, 14);
+    ctx.fillStyle = "rgba(255,253,246,0.66)";
+    ctx.fill();
+    ctx.setLineDash([u(10), u(9)]);
+    ctx.lineWidth = u(3 + empty + 4 * st.slotPulse);
+    ctx.strokeStyle = mix(C.slotLine, C.peachDeep, Math.max(empty, st.slotPulse));
     ctx.stroke();
     ctx.setLineDash([]);
   }
 
-  function arrow(x1, y, x2, progress, color) {
-    if (progress <= 0) return;
-    const end = x1 + (x2 - x1) * progress;
-    segment(x1, y, end, y, 1, { color, lw: 4 });
-    ctx.beginPath();
-    ctx.moveTo(end + 4, y);
-    ctx.lineTo(end - 12, y - 9);
-    ctx.lineTo(end - 12, y + 9);
-    ctx.closePath();
+  function drawStructure(t, st) {
+    drawLinks(st);
+    drawBook(L.root);
+    text("ルート", L.rootLabel.x, L.rootLabel.y, { size: L.rootLabel.size, weight: 700, color: C.muted, align: "center" });
+    drawSlot(st);
+    L.details.forEach((d, i) => {
+      drawMemo(d, { edited: i === 0 });
+      if (i === 0) withAlpha(st.edit, () => drawBadgeEdit(d.cx - d.w / 2 + 6, d.cy - d.h / 2 + 6, u(26)));
+      withAlpha(st.q, () => {
+        const b = boxOf(d);
+        const cx = b.x + b.w - 10;
+        const cy = b.y + 4 + (i ? -st.qBob : st.qBob);
+        scaled(cx, cy, 0.7 + 0.3 * st.q, () => {
+          circle(cx, cy, L.q.r);
+          ctx.fillStyle = C.peachWash;
+          ctx.fill();
+          ctx.lineWidth = u(4);
+          ctx.strokeStyle = C.peach;
+          ctx.stroke();
+          text("?", cx, cy + L.q.size * 0.36, { size: L.q.size, weight: 900, color: C.ink, align: "center" });
+        });
+      });
+    });
+    text("案内", L.guideLabel.x, L.guideLabel.y, { size: L.guideLabel.size, weight: 800, color: C.ink, align: "center", halo: C.paper });
+    text("詳細", L.detailLabel.x, L.detailLabel.y, { size: L.detailLabel.size, weight: 800, color: C.ink, align: "center", halo: C.paper });
+  }
+
+  // --- Stage tray, route, Git, gate -----------------------------------------------------------
+
+  function drawTray(st) {
+    const tr = L.tray;
+    rr(tr.x, tr.y, tr.w, tr.h, tr.r);
+    ctx.fillStyle = mix(C.tray, C.trayKept, st.kept);
+    ctx.fill();
+    ctx.lineWidth = u(3);
+    ctx.strokeStyle = mix(C.trayLine, C.trayKeptLine, st.kept);
+    ctx.stroke();
+    text("変更", L.trayLabel.x, L.trayLabel.y, { size: L.trayLabel.size, weight: 800, color: C.ink });
+    const c = L.count;
+    scaled(c.cx, c.cy, 1 + 0.18 * st.countPulse, () => {
+      circle(c.cx, c.cy, c.r);
+      ctx.fillStyle = st.count > 0 && st.kept > 0.5 ? C.peachDeep : st.count > 0 ? C.ink : C.deep;
+      ctx.fill();
+      text(String(st.count), c.cx, c.cy + c.size * 0.36, { size: c.size, weight: 800, color: C.card, align: "center" });
+    });
+  }
+
+  function drawRoute(st) {
+    const y = L.trackY;
+    const x0 = L.tray.x + L.tray.w;
+    const x1 = L.git.x - L.git.newR;
+    const gateA = L.gate.posts[0].x;
+    ctx.lineCap = "round";
+    ctx.lineWidth = u(5);
+    ctx.strokeStyle = C.line;
+    ctx.setLineDash([u(10), u(12)]);
+    line(x0, y, x1, y);
+    ctx.setLineDash([]);
+    withAlpha(st.routeAlpha * (st.route > 0 ? 1 : 0), () => {
+      ctx.strokeStyle = C.purple;
+      ctx.lineWidth = u(6);
+      line(x0, y, lerp(x0, x1, st.route), y);
+    });
+    if (st.stopLine > 0.01) {
+      ctx.strokeStyle = C.purple;
+      ctx.lineWidth = u(5);
+      line(x0, y, lerp(x0, gateA, st.stopLine), y);
+    }
+    if (st.pass > 0.01) {
+      ctx.strokeStyle = C.green;
+      ctx.lineWidth = u(6);
+      line(x0, y, lerp(x0, x1, st.pass), y);
+    }
+  }
+
+  function drawGit(st) {
+    const g = L.git;
+    text("保存", g.x, g.labelY, { size: g.labelSize, weight: 800, color: C.ink, align: "center" });
+    ctx.lineCap = "round";
+    ctx.strokeStyle = C.deep;
+    ctx.lineWidth = u(6);
+    line(g.x, g.bottom, g.x, g.oldY);
+    ctx.strokeStyle = C.future;
+    ctx.lineWidth = u(5);
+    ctx.setLineDash([u(8), u(10)]);
+    line(g.x, g.oldY, g.x, g.top);
+    ctx.setLineDash([]);
+    withAlpha(st.dot, () => {
+      ctx.strokeStyle = C.green;
+      ctx.lineWidth = u(6);
+      line(g.x, g.oldY, g.x, lerp(g.oldY, g.newY, st.dot));
+    });
+    withAlpha(st.ghost, () => {
+      circle(g.x, g.newY, g.newR);
+      ctx.fillStyle = C.paper;
+      ctx.fill();
+      ctx.lineWidth = u(4);
+      ctx.setLineDash([u(8), u(7)]);
+      ctx.strokeStyle = C.ghost;
+      ctx.stroke();
+      ctx.setLineDash([]);
+    });
+    circle(g.x, g.oldY, g.oldR);
+    ctx.fillStyle = C.deep;
+    ctx.fill();
+    ctx.lineWidth = u(5);
+    ctx.strokeStyle = C.card;
+    ctx.stroke();
+    text(film.facts.base, g.x, g.oldY + g.oldR + g.hashSize + 2, { size: g.hashSize, weight: 600, color: C.muted, align: "center", mono: true });
+    if (st.dot > 0.002) {
+      const k = st.dot + 0.22 * Math.sin(Math.PI * st.dot);
+      circle(g.x, g.newY, g.newR * k);
+      ctx.fillStyle = C.green;
+      ctx.fill();
+      ctx.lineWidth = u(5);
+      ctx.strokeStyle = C.card;
+      ctx.stroke();
+      withAlpha(st.dot, () => text(film.facts.saved, g.x, g.newY + g.newR + g.hashSize + 2, { size: g.hashSize, weight: 800, color: C.deep, align: "center", mono: true }));
+    }
+    withAlpha(st.ring, () => {
+      circle(g.x, g.newY, g.newR + u(14));
+      ctx.lineWidth = u(4);
+      ctx.strokeStyle = C.deep;
+      ctx.stroke();
+    });
+  }
+
+  function lampColor(st) {
+    if (st.stop > 0.001) return mix(C.lampIdle, C.lampStop, st.stop);
+    return mix(C.lampIdle, C.lampOk, st.ok);
+  }
+
+  function drawGate(st) {
+    const G = L.gate;
+    const b = G.barrier;
+    stripes(b.x, b.y, b.w, b.h * st.barrier);
+    for (const p of G.posts) {
+      ctx.save();
+      ctx.shadowColor = "rgba(37,44,42,0.10)";
+      ctx.shadowBlur = u(10);
+      ctx.shadowOffsetY = u(4);
+      rr(p.x, p.y, p.w, p.h, p.w / 2);
+      ctx.fillStyle = C.purpleDeep;
+      ctx.fill();
+      ctx.restore();
+    }
+    const li = G.lintel;
+    withAlpha(st.scanLintel, () => {
+      rr(li.x - u(12), li.y - u(12), li.w + u(24), li.h + u(24), u(24));
+      ctx.fillStyle = "rgba(133,129,238,0.3)";
+      ctx.fill();
+    });
+    rr(li.x, li.y, li.w, li.h, u(14));
+    ctx.fillStyle = C.purpleDeep;
+    ctx.fill();
+    text("点検", G.labelX, G.labelY, { size: G.labelSize, weight: 800, color: C.card, align: "center" });
+    circle(G.lamp.cx, G.lamp.cy, G.lamp.r);
+    ctx.fillStyle = lampColor(st);
+    ctx.fill();
+    ctx.lineWidth = u(3);
+    ctx.strokeStyle = C.card;
+    ctx.stroke();
+    const pl = G.plate;
+    withAlpha(st.plate * (st.barrier > 0.9 ? 1 : 0), () => {
+      rr(pl.cx - pl.w / 2, pl.cy - pl.h / 2, pl.w, pl.h, u(10));
+      ctx.fillStyle = C.card;
+      ctx.fill();
+      ctx.lineWidth = u(3);
+      ctx.strokeStyle = C.peachDeep;
+      ctx.stroke();
+      text("止まる", pl.cx, pl.cy + pl.size * 0.36, { size: pl.size, weight: 800, color: C.ink, align: "center" });
+    });
+    const sp = G.shape;
+    withAlpha(st.shape, () => {
+      scaled(sp.cx, sp.cy, 0.8 + 0.2 * st.shape, () => {
+        rr(sp.cx - sp.w / 2, sp.cy - sp.h / 2, sp.w, sp.h, u(12));
+        ctx.fillStyle = C.deep;
+        ctx.fill();
+        text("形", sp.cx - sp.w * 0.17, sp.cy + sp.size * 0.36, { size: sp.size, weight: 800, color: C.card, align: "center" });
+        ctx.strokeStyle = C.card;
+        ctx.lineWidth = u(7);
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.beginPath();
+        ctx.moveTo(sp.cx + sp.w * 0.06, sp.cy + 2);
+        ctx.lineTo(sp.cx + sp.w * 0.15, sp.cy + 2 + sp.h * 0.17);
+        ctx.lineTo(sp.cx + sp.w * 0.32, sp.cy + 2 - sp.h * 0.19);
+        ctx.stroke();
+      });
+    });
+  }
+
+  // --- Moving cards ---------------------------------------------------------------------------
+
+  function guideBox(st) {
+    const k = st.k;
+    const Sx = L.slot.cx;
+    const Sy = L.slot.cy;
+    const Ax = L.trayX.a;
+    const Ay = L.trackY;
+    const Q = L.guideCtrl;
+    const v = 1 - k;
+    const x = v * v * Sx + 2 * v * k * Q.x + k * k * Ax + (k > 0.999 ? st.attempt : 0);
+    const y = v * v * Sy + 2 * v * k * Q.y + k * k * Ay - (k > 0.999 ? u(12) * st.hopA : 0);
+    return { cx: x, cy: y, w: lerp(L.slot.w, L.card.w, k), h: lerp(L.slot.h, L.card.h * 0.8, k) };
+  }
+
+  function drawGuide(st) {
+    const b = guideBox(st);
+    drawIndex(b, st.k);
+    withAlpha(ramp(st.k, 0.6, 1), () => drawBadgeMinus(b.cx - b.w / 2 + 4, b.cy - b.h / 2 + 4, L.card.w * 0.21));
+  }
+
+  function drawCard(st) {
+    const c = st.card;
+    if (c.a <= 0.002) return;
+    const hop = u(12) * st.hopB;
+    withAlpha(c.a, () => drawChangeCard(c.x, c.y - hop, c.s * (1 + 0.07 * st.cardBump)));
+  }
+
+  // --- Short tags -----------------------------------------------------------------------------
+
+  function leader(x1, y1, x2, y2, color, dash) {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = u(3);
+    ctx.lineCap = "round";
+    if (dash) ctx.setLineDash(dash);
+    line(x1, y1, x2, y2);
+    ctx.setLineDash([]);
+    circle(x2, y2, u(5));
     ctx.fillStyle = color;
     ctx.fill();
   }
 
-  // Draws a verified screenshot whole (contain), scaled only, with a thin paper frame.
-  function shot(image, x, y, w, h) {
-    const iw = image.naturalWidth || image.width;
-    const ih = image.naturalHeight || image.height;
-    const s = Math.min(w / iw, h / ih);
-    const dw = iw * s;
-    const dh = ih * s;
-    const dx = x + (w - dw) / 2;
-    const dy = y + (h - dh) / 2;
-    ctx.save();
-    ctx.shadowColor = "rgba(28, 33, 31, 0.18)";
-    ctx.shadowBlur = 18;
-    ctx.shadowOffsetY = 6;
-    ctx.fillStyle = C.raised;
-    ctx.fillRect(dx - 6, dy - 6, dw + 12, dh + 12);
-    ctx.restore();
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = "high";
-    ctx.drawImage(image, dx, dy, dw, dh);
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = C.line;
-    ctx.strokeRect(dx - 6, dy - 6, dw + 12, dh + 12);
-    return { x: dx, y: dy, w: dw, h: dh };
-  }
-
-  function headline(lines, x, y, lt, o) {
-    lines.forEach((line, i) => {
-      const e = enter(lt, (o.at || 0) + i * 0.14, 0.55);
-      layer(e, (1 - e) * 16, () => text(line, x, y + i * (o.lh || 0), { size: o.size, weight: 700, family: SERIF, max: o.max || 1120, min: 52 }));
-    });
-  }
-
-  function drawChrome(t) {
-    text(`Letta Code ${film.version} ・ 記憶の検査の作例`, 80, 50, { size: 18, weight: 700, color: C.green });
-    ctx.fillStyle = C.line;
-    ctx.fillRect(80, 68, 1120, 1);
-    const sceneIndex = t >= DURATION ? SCENES.length - 1 : SCENES.findIndex((s) => t >= s.in && t < s.out);
-    const active = sceneIndex - 1; // scene 1 is the title; scenes 2–6 map to the five steps
-    ctx.font = font(18, 700);
-    const gap = 26;
-    const widths = RAIL.map((label) => ctx.measureText(label).width);
-    let x = 1200 - widths.reduce((sum, w) => sum + w, 0) - gap * (RAIL.length - 1);
-    RAIL.forEach((label, i) => {
-      const on = i === active;
-      text(label, x, 50, { size: 18, weight: 700, color: on ? C.ink : C.soft });
-      if (on) {
-        ctx.fillStyle = C.rust;
-        ctx.fillRect(x, 58, widths[i], 3);
-      }
-      x += widths[i] + gap;
-    });
-    text("架空の記憶 ・ 保存済みの実行記録と閲覧ページの実画面 ・ 無音", 80, 702, { size: 15, color: C.soft });
-    text(`${film.repository} ${short(film.commit)}`, 1200, 702, { size: 14, family: MONO, color: C.soft, align: "right" });
-  }
-
-  // --- Scenes ----------------------------------------------------------------------------------
-
-  function sceneTitle(lt) {
-    headline(["記憶の変更を、", "保存前に点検する"], 96, 300, lt, { size: 76, lh: 96, at: 0.05, max: 660 });
-    const u = inOut(ramp(lt, 0.9, 1.5));
-    if (u > 0) {
-      ctx.font = font(76, 700, SERIF);
-      const w = Math.min(660, ctx.measureText("保存前に点検する").width);
-      ctx.fillStyle = C.rust;
-      ctx.fillRect(96, 418, w * u, 6);
-    }
-    layer(enter(lt, 0.7), 0, () => text("架空の記憶・実際のGit検査", 96, 488, { size: 34, weight: 700, color: C.green }));
-    layer(enter(lt, 0.9), 0, () => text(`固定版 ${film.repository} ${film.version}（${short(film.commit)}）`, 96, 530, { size: 18, color: C.soft }));
-
-    // The actual files of the L02 baseline commit; the file L02 edits is tagged.
-    const d = film.l02;
-    layer(enter(lt, 1.3), 0, () => text("commit の前に点検", 800, 140, { size: 20, weight: 700, color: C.green }));
-    d.baseline.forEach((path, i) => {
-      const e = enter(lt, 0.3 + i * 0.1, 0.45);
-      const nested = path.includes("/");
-      const x = 800 + (nested ? 36 : 0);
-      const y = 166 + i * 64;
-      const w = 400 - (nested ? 36 : 0);
-      layer(e, 0, () => {
-        ctx.translate((1 - e) * 40, 0);
-        box(x, y, w, 50, { fill: C.raised, stroke: C.line, lw: 1.5, r: 8 });
-        text(path, x + 18, y + 33, { size: 21, family: MONO, max: w - 100, min: 16 });
-        if (d.written.includes(path)) layer(enter(lt, 1.3, 0.4), 0, () => pill("編集", x + w - 12, y + 25, { color: C.rust, bg: C.rustSoft, align: "right" }));
-      });
-    });
-    const sweep = inOut(ramp(lt, 1.6, 2.8));
-    if (sweep > 0) {
-      const y = 158 + sweep * (d.baseline.length * 64);
-      ctx.fillStyle = C.green;
-      ctx.fillRect(784, y, 432, 3);
-      ctx.beginPath();
-      ctx.moveTo(784, y - 7);
-      ctx.lineTo(796, y + 1.5);
-      ctx.lineTo(784, y + 10);
-      ctx.closePath();
-      ctx.fill();
-    }
-  }
-
-  function sceneEdit(lt) {
-    const d = film.l02;
-    headline(["案内を消すと？"], 80, 176, lt, { size: 68, max: 520 });
-    layer(enter(lt, 0.35), 0, () => text("子フォルダーの案内を消して stage した", 80, 236, { size: 28, color: C.soft, max: 520, min: 22 }));
-    const removal = inOut(ramp(lt, 1.2, 1.8));
-
-    // Left: the actual staged name-status rows.
-    d.staged.forEach((row, i) => layer(enter(lt, 1.3 + i * 0.15), 0, () => {
-      const removed = row.status === "D";
-      text(row.status, 80, 330 + i * 46, { size: 26, family: MONO, weight: 700, color: removed ? C.rust : C.ink });
-      text(row.path, 120, 330 + i * 46, { size: 26, family: MONO, color: removed ? C.rust : C.ink, max: 440, min: 18 });
-    }));
-    layer(enter(lt, 1.6), 0, () => text("git の記号 D＝削除・M＝変更", 80, 330 + d.staged.length * 46, { size: 18, color: C.soft }));
-    layer(enter(lt, 0.6), 0, () => text("説明図：L02 の実際のファイル（基準の commit と stage）", 80, 652, { size: 17, color: C.soft }));
-
-    // Right: explanatory map of the real fixture.
-    const R = { x: 690, y: 150, w: 290, h: 56 };
-    const P = { x: 1010, y: 150, w: 190, h: 56 };
-    const I = { x: 690, y: 300, w: 290, h: 56 };
-    const K = [{ x: 600, y: 460, w: 280, h: 56 }, { x: 910, y: 460, w: 290, h: 56 }];
-    const node = (r, path, o = {}) => {
-      box(r.x, r.y, r.w, r.h, { fill: o.fill || C.raised, stroke: o.stroke || C.line, lw: o.lw || 1.5, dash: o.dash, r: 8 });
-      return text(path, r.x + 16, r.y + r.h / 2 + 7, { size: 20, family: MONO, weight: o.weight || 500, color: o.color || C.ink, max: r.w - 32, min: 15 });
-    };
-    layer(enter(lt, 0.15), 0, () => {
-      text("ルートの案内", R.x, R.y - 12, { size: 16, weight: 700, color: C.soft });
-      node(R, "MEMORY.md", { weight: 700 });
-      node(P, "persona.md");
-    });
-    const edge = enter(lt, 0.4, 0.5);
-    segment(R.x + R.w / 2, R.y + R.h, I.x + I.w / 2, I.y, edge, { color: C.ink });
-    layer(enter(lt, 0.3), 0, () => {
-      text("子の案内", I.x, I.y - 12, { size: 16, weight: 700, color: removal > 0.5 ? C.rust : C.soft });
-      layer(1 - removal, 0, () => box(I.x, I.y, I.w, I.h, { fill: C.greenSoft, stroke: C.green, lw: 2, r: 8 }));
-      layer(removal, 0, () => box(I.x, I.y, I.w, I.h, { fill: C.paper, stroke: C.rust, lw: 2, dash: [8, 6], r: 8 }));
-      const w = text(d.removed, I.x + 16, I.y + I.h / 2 + 7, { size: 20, family: MONO, weight: 700, color: removal > 0.5 ? C.rust : C.green, max: I.w - 32, min: 15 });
-      if (removal > 0) {
-        ctx.fillStyle = C.rust;
-        ctx.fillRect(I.x + 16, I.y + I.h / 2, w * removal, 2.5);
-      }
-      layer(removal, 0, () => pill("削除", I.x + I.w + 12, I.y + I.h / 2, { color: C.paper, bg: C.rust }));
-    });
-    d.children.forEach((path, i) => {
-      const k = K[i];
-      const from = { x: I.x + I.w / 2, y: I.y + I.h };
-      const to = { x: k.x + k.w / 2, y: k.y };
-      const p = enter(lt, 0.6 + i * 0.1, 0.5);
-      layer(1 - removal, 0, () => segment(from.x, from.y, to.x, to.y, p, { color: C.ink }));
-      layer(removal, 0, () => segment(from.x, from.y, to.x, to.y, p, { color: C.rust, dash: [7, 7] }));
-      layer(enter(lt, 0.7 + i * 0.1), 0, () => {
-        node(k, path);
-        if (d.written.includes(path)) layer(enter(lt, 0.8), 0, () => pill("編集", k.x + k.w, k.y - 16, { color: C.rust, bg: C.rustSoft, align: "right", size: 14 }));
-      });
-      layer(removal, 0, () => text("必要な案内がない", k.x + 4, k.y + k.h + 30, { size: 20, weight: 700, color: C.rust }));
-    });
-  }
-
-  function sceneBlocked(lt) {
-    const d = film.l02;
-    headline(["案内がないと", "commitは止まる"], 80, 170, lt, { size: 64, lh: 78, max: 760 });
-    layer(enter(lt, 0.55), 0, () => {
-      text("HEAD", 80, 330, { size: 22, family: MONO, weight: 700, color: C.soft });
-      text(`${d.headBefore} → ${d.headAfter}`, 170, 330, { size: 28, family: MONO });
-      text("変わらない", 480, 332, { size: 34, weight: 700, color: C.green });
-    });
-    layer(enter(lt, 0.75), 0, () => {
-      text("stage", 80, 392, { size: 22, family: MONO, weight: 700, color: C.soft });
-      text(`${d.staged.length}件の変更が残る`, 170, 394, { size: 34, weight: 700, color: C.green });
-      d.staged.forEach((row, i) => text(`${row.status}  ${row.path}`, 170, 432 + i * 27, { size: 19, family: MONO, color: row.status === "D" ? C.rust : C.ink }));
-    });
-    layer(enter(lt, 1.0), 0, () => {
-      box(80, 494, 770, 150, { fill: C.rustSoft, r: 10 });
-      ctx.fillStyle = C.rust;
-      ctx.fillRect(80, 504, 5, 130);
-      text(`原典の診断（git commit の stderr・終了コード ${d.exit}）`, 104, 526, { size: 18, weight: 700, color: C.rust, max: 726 });
-      text(d.stderrFirst, 104, 558, { size: 17, family: MONO, max: 726, min: 13 });
-      d.errors.forEach((line, i) => text(line, 104, 588 + i * 26, { size: 17, family: MONO, max: 726, min: 13 }));
-    });
-    const e = enter(lt, 0.35, 0.6);
-    layer(e, (1 - e) * 20, () => {
-      shot(film.images.phone, 900, 92, 300, 548);
-      text("閲覧ページの実画面（L02）", 1050, 666, { size: 16, color: C.soft, align: "center" });
-    });
-  }
-
-  function sceneRestore(lt) {
-    const d = film.repair;
-    headline(["1つ戻して、", "もう一度点検"], 80, 170, lt, { size: 64, lh: 78, max: 660 });
-    layer(enter(lt, 0.35), 0, () => {
-      text("L02（止まった）", 80, 318, { size: 20, weight: 700, color: C.rust });
-      text("L03（別の試行）", 430, 318, { size: 20, weight: 700, color: C.green });
-    });
-    const mark = inOut(ramp(lt, 0.9, 1.3));
-    d.rows.forEach((row, i) => {
-      const y = 336 + i * 38;
-      layer(enter(lt, 0.45 + i * 0.06, 0.4), 0, () => {
-        if (row.inL02) {
-          text(row.path, 80, y + 25, { size: 18, family: MONO, max: 300, min: 14 });
-        } else {
-          box(80, y + 2, 300, 32, { stroke: C.rust, dash: [6, 5], lw: 1.5, r: 6 });
-          text("（消したまま）", 92, y + 25, { size: 18, color: C.rust });
+  function drawTags(st) {
+    const T = L.tags;
+    // Reason marker: from the stopped record back to the empty guide slot.
+    if (st.reason > 0.002) {
+      const tg = T.reason;
+      const sb = boxOf(L.slot);
+      const y1 = tg.cy - tg.h / 2;
+      const y2 = sb.y + sb.h + u(6);
+      withAlpha(st.reason, () => {
+        if (st.reasonDraw > 0.01) leader(tg.cx, y1, tg.cx, lerp(y1, y2, st.reasonDraw), C.peachDeep);
+        if (L.tall) {
+          ctx.strokeStyle = C.peachDeep;
+          ctx.lineWidth = u(3);
+          ctx.setLineDash([u(5), u(6)]);
+          line(tg.cx, tg.cy + tg.h / 2, tg.cx, L.gate.lintel.y);
+          ctx.setLineDash([]);
         }
-        text(row.restored ? "＋" : "＝", 404, y + 25, { size: 20, weight: 700, color: row.restored ? C.green : C.soft, align: "center" });
-        if (row.restored) layer(mark, 0, () => box(422, y + 1, 318, 34, { fill: C.greenSoft, r: 6 }));
-        text(row.path, 430, y + 25, { size: 18, family: MONO, weight: row.restored ? 700 : 500, color: row.restored ? C.green : C.ink, max: 236, min: 14 });
-        if (row.restored) layer(mark, 0, () => pill("戻した", 736, y + 18, { color: C.paper, bg: C.green, align: "right", size: 14 }));
+      });
+      pill(tg, "案内がない", C.peachDeep, st.reason);
+    }
+    // Where to fix: a dotted path from the kept guide card back to its slot (a hint, not an edit).
+    if (st.fix > 0.002 && st.fixDraw > 0.01) {
+      withAlpha(st.fix, () => {
+        const Q = L.guideCtrl;
+        const A = { x: L.trayX.a, y: L.trackY - L.card.h * 0.4 - u(10) };
+        const sb = boxOf(L.slot);
+        const Sp = { x: L.slot.cx, y: sb.y + sb.h + u(4) };
+        ctx.strokeStyle = C.peachDeep;
+        ctx.lineWidth = u(4);
+        ctx.lineCap = "round";
+        ctx.setLineDash([u(2), u(12)]);
+        ctx.beginPath();
+        for (let i = 0; i <= 24; i++) {
+          const s = (st.fixDraw * i) / 24;
+          const v = 1 - s;
+          const x = v * v * A.x + 2 * v * s * Q.x + s * s * Sp.x;
+          const y = v * v * A.y + 2 * v * s * Q.y + s * s * Sp.y;
+          if (i) ctx.lineTo(x, y);
+          else ctx.moveTo(x, y);
+        }
+        ctx.stroke();
+        ctx.setLineDash([]);
+      });
+    }
+    pill(T.keep, "残る", C.peachDeep, st.keep, { outline: true });
+    pill(T.trial, "別の試行", C.purpleDeep, st.trial);
+    pill(T.content, "中身は別", C.ink, st.content);
+    // The page's real action: save the selected record as JSON.
+    const cta = T.cta;
+    withAlpha(st.cta, () => {
+      scaled(cta.cx, cta.cy, 0.9 + 0.1 * st.cta, () => {
+        rr(cta.cx - cta.w / 2, cta.cy - cta.h / 2, cta.w, cta.h, cta.h / 2);
+        ctx.fillStyle = C.deep;
+        ctx.fill();
+        const ix = cta.cx - cta.w / 2 + u(44);
+        const s = cta.size * 0.45;
+        ctx.strokeStyle = C.card;
+        ctx.lineWidth = u(4);
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+        ctx.beginPath();
+        ctx.moveTo(ix, cta.cy - s);
+        ctx.lineTo(ix, cta.cy + s * 0.5);
+        ctx.moveTo(ix - s * 0.6, cta.cy);
+        ctx.lineTo(ix, cta.cy + s * 0.6);
+        ctx.lineTo(ix + s * 0.6, cta.cy);
+        ctx.moveTo(ix - s, cta.cy + s * 1.05);
+        ctx.lineTo(ix + s, cta.cy + s * 1.05);
+        ctx.stroke();
+        text("記録を保存", cta.cx + u(22), cta.cy + cta.size * 0.36, { size: cta.size, weight: 800, color: C.card, align: "center" });
       });
     });
-    layer(enter(lt, 1.0, 0.35), 0, () => {
-      text("L03 は commit できた", 80, 606, { size: 32, weight: 700, color: C.green });
-      text(`HEAD ${d.headBefore} → ${d.headAfter} ・ stage に残った変更 ${d.stagedAfter}件`, 80, 642, { size: 19, color: C.soft, max: 660 });
-    });
-    const e = enter(lt, 0.6, 0.5);
-    layer(e, (1 - e) * 18, () => {
-      const r = shot(film.images.desktop, 780, 110, 420, 300);
-      text("閲覧ページの実画面（L03）", r.x + r.w / 2, r.y + r.h + 30, { size: 16, color: C.soft, align: "center" });
-    });
-    layer(enter(lt, 1.0, 0.35), 0, () => {
-      text("同じ内容に案内を戻した、別の試行", 780, 492, { size: 24, weight: 700, max: 420 });
-      text("自動修復ではなく、実行前に固定した別の入力", 780, 526, { size: 17, color: C.soft, max: 420 });
-      text(`新しい別の Git リポジトリ（${d.directory}）`, 780, 554, { size: 17, color: C.soft, max: 420 });
-    });
   }
 
-  function sceneProtected(lt) {
-    const d = film.l08;
-    headline(["APIが通っても", "保存できるとは限らない"], 80, 170, lt, { size: 64, lh: 78, max: 1120 });
-    layer(enter(lt, 0.4), 0, () => {
-      text("保護された設定を上げる変更（L08）", 80, 316, { size: 22, weight: 700, color: C.soft });
-      text(CONFIG_PATH, 80, 372, { size: 24, family: MONO });
-      text(d.key, 340, 372, { size: 22, family: MONO, color: C.soft });
-    });
-    layer(enter(lt, 0.55), 0, () => text(String(d.from), 600, 380, { size: 46, family: MONO, weight: 700 }));
-    arrow(698, 364, 770, inOut(ramp(lt, 0.7, 1.05)), C.rust);
-    layer(enter(lt, 0.95, 0.35), 0, () => text(String(d.to), 790, 380, { size: 46, family: MONO, weight: 700, color: C.rust }));
-
-    layer(enter(lt, 1.0), 0, () => {
-      box(80, 420, 540, 196, { fill: C.raised, stroke: C.line, lw: 1.5, r: 12 });
-      text("検査API（初期方針）", 108, 462, { size: 24, weight: 700 });
-      text(`エラー ${d.apiErrors}件`, 108, 528, { size: 50, weight: 800, color: C.green });
-      text(`初期方針（上限 ${d.from}）で stage の木を検査`, 108, 568, { size: 17, color: C.soft, max: 488 });
-      text("validateMemoryTreeConstraints", 108, 596, { size: 16, family: MONO, color: C.soft });
-    });
-    layer(enter(lt, 1.2), 0, () => {
-      box(660, 420, 540, 196, { fill: C.rustSoft, r: 12 });
-      ctx.fillStyle = C.rust;
-      ctx.fillRect(660, 432, 5, 172);
-      text("原典の検査（pre-commit）", 688, 462, { size: 24, weight: 700 });
-      text(`終了コード ${d.gitExit}`, 1176, 462, { size: 20, weight: 700, color: C.rust, align: "right" });
-      text("commit は止まる", 688, 528, { size: 50, weight: 800, color: C.rust, max: 488, min: 40 });
-      wrapWords(d.error, 488, 15, MONO).slice(0, 2).forEach((line, i) => text(line, 688, 568 + i * 22, { size: 15, family: MONO, max: 488 }));
-    });
-    layer(enter(lt, 1.4), 0, () => text("架空の試行です。承認の操作はしていません。", 80, 664, { size: 19, color: C.soft }));
-  }
-
-  function sceneRead(lt) {
-    const s = film.summary;
-    headline(["理由を見て、", "必要な箇所を直す"], 80, 160, lt, { size: 62, lh: 76, max: 700 });
-    const count = (y, n, label, ids, color, at) => layer(enter(lt, at), 0, () => {
-      const w = text(String(n), 80, y, { size: 100, weight: 800, color });
-      text(label, 80 + w + 14, y, { size: 40, weight: 700, max: 600 - w, min: 32 });
-      text(ids.join("・"), 80 + w + 16, y + 34, { size: 19, family: MONO, color: C.soft });
-    });
-    count(345, s.committed, "件 commit できた", s.committedIds, C.green, 0.35);
-    count(460, s.blocked, "件 予定どおり止まった", s.blockedIds, C.rust, 0.5);
-    layer(enter(lt, 0.65), 0, () => text(`全${s.total}件・それぞれ別の新しい Git リポジトリ`, 80, 540, { size: 20, color: C.soft }));
-    layer(enter(lt, 0.8), 0, () => {
-      let x = 80;
-      ["選ぶ", "理由", "JSONで保存"].forEach((word, i) => {
-        if (i) x += text("→", x + 18, 612, { size: 40, weight: 700, color: C.rust }) + 36;
-        x += text(word, x, 612, { size: 46, weight: 800 });
-      });
-    });
-    layer(enter(lt, 1.0), 0, () => text(`検査：Node ${film.node} / Git ・ 会話・AI推論なし ・ 実行時の照合 ${film.checks}件すべて通過`, 80, 660, { size: 18, color: C.soft, max: 720, min: 14 }));
-    const e = enter(lt, 0.45, 0.6);
-    layer(e, (1 - e) * 18, () => {
-      shot(film.images.desktop, 820, 108, 380, 270);
-      shot(film.images.phone, 1040, 300, 160, 330);
-      text("閲覧ページの実画面（L03・L02）", 1200, 664, { size: 16, color: C.soft, align: "right" });
-    });
-  }
+  // --- Frame ------------------------------------------------------------------------------------
 
   function drawFrame(t) {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = "source-over";
     ctx.fillStyle = C.paper;
     ctx.fillRect(0, 0, W, H);
-    ctx.setTransform(SCALE, 0, 0, SCALE, OFFSET_X, OFFSET_Y);
+    ctx.setTransform(S, 0, 0, S, OX, OY);
+    const st = stateAt(t);
     drawChrome(t);
-    for (const s of SCENES) {
-      const alpha = sceneAlpha(t, s);
-      if (alpha > 0.001) layer(alpha, 0, () => s.draw(t - s.in));
-    }
+    drawTitles(t);
+    drawStructure(t, st);
+    drawTray(st);
+    drawRoute(st);
+    drawGit(st);
+    drawGate(st);
+    drawGuide(st);
+    drawCard(st);
+    drawTags(st);
     ctx.setTransform(1, 0, 0, 1, 0, 0);
   }
 
-  // --- Seek, preview and editor state -------------------------------------------------------
+  // --- Seek, preview and editor state -----------------------------------------------------------
 
   let current = 0;
-  let playing = false;
+  let isPlaying = false;
+  let loading = false;
   let raf = 0;
+  let audioClock = false;
   let startNow = 0;
   let startTime = 0;
+  let audioUrl = "";
 
   const clampTime = (seconds) => {
     const value = Number(seconds);
     return Number.isFinite(value) ? Math.min(DURATION, Math.max(0, value)) : 0;
   };
 
+  function showTime() {
+    if (loading) ui.clock.textContent = "照合中";
+    else if (!film) ui.clock.textContent = "映像なし（照合失敗）";
+    else ui.clock.textContent = `${current.toFixed(1)} / ${DURATION.toFixed(1)} 秒`;
+  }
+
+  function showNarration(t) {
+    const cue = CUE_PLAN.find((c) => t >= c.start - 0.1 && t < c.end + 0.5);
+    ui.narration.textContent = cue ? cue.text : "";
+  }
+
   function paint(t) {
     if (!film) throw new Error("素材の照合が済んでいないため描けません。");
     current = t;
     drawFrame(t);
     ui.time.value = String(t);
-    ui.timeLabel.textContent = `${t.toFixed(1)} / ${DURATION.toFixed(1)} 秒`;
+    showTime();
+    showNarration(t);
   }
 
   window.seek = (seconds) => {
     const t = clampTime(seconds);
+    stop();
     return window.motionReady.then(() => paint(t));
   };
 
   function setPlaying(on) {
-    playing = on;
-    ui.play.setAttribute("aria-pressed", on ? "true" : "false");
+    isPlaying = on;
     ui.play.textContent = on ? "一時停止" : "再生";
+    showTime();
   }
 
+  // Seeking, reset and the end all stop here; audio never starts from a seek.
   function stop() {
     if (raf) cancelAnimationFrame(raf);
     raf = 0;
-    setPlaying(false);
+    audioClock = false;
+    if (!ui.audio.paused) ui.audio.pause();
+    if (isPlaying) setPlaying(false);
   }
 
-  function tick(now) {
-    if (!playing) return;
-    const t = Math.min(DURATION, startTime + (now - startNow) / 1000);
+  function previewFrame(now) {
+    if (!isPlaying) return;
+    const t = Math.min(DURATION, audioClock && !ui.audio.paused ? ui.audio.currentTime : startTime + (now - startNow) / 1000);
     try {
       paint(t);
     } catch (error) {
       fail(error);
       return;
     }
-    if (t >= DURATION) stop();
-    else raf = requestAnimationFrame(tick);
+    if (t >= DURATION - 1e-3) stop();
+    else raf = requestAnimationFrame(previewFrame);
   }
 
+  // Editor preview only: a user click starts the verified narration.wav and the picture follows its clock.
   function play() {
-    if (RENDER || !film) return;
-    if (current >= DURATION) current = 0;
-    startTime = current;
+    if (RENDER || !film || loading) return;
+    startTime = current >= DURATION - 0.05 ? 0 : current;
     startNow = performance.now();
     setPlaying(true);
-    raf = requestAnimationFrame(tick);
+    audioClock = false;
+    if (audioUrl) {
+      try {
+        ui.audio.currentTime = startTime;
+      } catch {
+        // メタデータの前に位置を変えられないブラウザーでは、映像だけで続ける。
+      }
+      const attempt = ui.audio.play();
+      audioClock = true;
+      if (attempt && typeof attempt.catch === "function") {
+        attempt.catch((error) => {
+          if (!isPlaying || (error && error.name === "AbortError")) return;
+          audioClock = false;
+          startTime = current;
+          startNow = performance.now();
+          ui.status.textContent = "音を再生できなかったため、映像だけを再生しています。";
+        });
+      }
+    }
+    raf = requestAnimationFrame(previewFrame);
   }
 
   function setControls(enabled) {
-    for (const control of [ui.play, ui.time, ...ui.sceneList.querySelectorAll("button")]) control.disabled = !enabled;
+    for (const control of [ui.play, ui.reset, ui.mute, ui.time, ...ui.sceneList.querySelectorAll("button")]) control.disabled = !enabled;
   }
 
   function buildSceneList() {
-    const items = SCENES.map((s) => {
+    const items = SCENE_PLAN.map((s) => {
       const li = document.createElement("li");
       const button = document.createElement("button");
       button.type = "button";
       button.disabled = true;
+      button.dataset.time = String(s.read);
       const time = document.createElement("span");
       time.className = "scene-time";
       time.textContent = `${s.in}–${s.out}秒`;
       const label = document.createElement("span");
-      label.textContent = s.title;
-      button.append(time, label);
+      label.textContent = `${s.label}（${s.badge}）`;
+      const note = document.createElement("span");
+      note.className = "scene-note";
+      note.textContent = s.note;
+      button.append(time, label, note);
       button.addEventListener("click", () => {
-        stop();
-        window.seek(s.read).catch(fail);
+        window.seek(Number(button.dataset.time)).catch(fail);
       });
       li.append(button);
       return li;
@@ -972,42 +1548,65 @@
     ui.status.textContent = message;
   }
 
+  function releaseAudio() {
+    if (!ui.audio.paused) ui.audio.pause();
+    if (ui.audio.getAttribute("src")) {
+      ui.audio.removeAttribute("src");
+      ui.audio.load();
+    }
+    if (audioUrl) URL.revokeObjectURL(audioUrl);
+    audioUrl = "";
+  }
+
   function fail(error) {
     stop();
+    loading = false;
     film = null;
+    releaseAudio();
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, W, H);
     ui.stage.hidden = true;
+    ui.narration.textContent = "";
     setControls(false);
     const reason = error && error.message ? error.message : String(error);
-    setState("error", `照合に失敗したため、映像を描いていません。${reason}`);
+    setState("error", "素材を確かめられなかったため、映像を描いていません。");
     ui.errorText.textContent = reason;
     ui.errorBox.hidden = false;
-    ui.retry.hidden = false;
     ui.retry.disabled = false;
     showAssets();
+    showTime();
   }
 
+  // One load at a time. Retry fetches the manifest and all eight files again; nothing is cached.
   function start() {
+    if (loading) return window.motionReady;
     stop();
+    loading = true;
     film = null;
-    current = 0;
-    manifestDigest = null;
+    releaseAudio();
     assetState.clear();
-    for (const url of objectUrls) URL.revokeObjectURL(url);
-    objectUrls = [];
-    ui.stage.hidden = false;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    ui.stage.hidden = true;
     ui.errorBox.hidden = true;
     ui.retry.disabled = true;
     setControls(false);
+    current = 0;
+    ui.time.value = "0";
     showAssets();
-    setState("loading", "素材8件を読み込み、SHA-256 と実行記録を照合しています…");
+    setState("loading", `素材${ASSETS.length}件の SHA-256 と記録を照合しています…`);
+    showTime();
     const ready = load().then((data) => {
+      loading = false;
       film = data;
-      paint(0);
-      ui.retry.hidden = true;
+      if (!RENDER) {
+        audioUrl = URL.createObjectURL(new Blob([data.wav], { type: "audio/wav" }));
+        ui.audio.src = audioUrl;
+      }
+      ui.stage.hidden = false;
+      paint(current);
       setControls(true);
-      setState("ready", `素材8件の SHA-256 と、固定版 ${short(PIN.commit)}・8件・確認${PIN.checks}件・成功2件と停止6件・L02とL03の差1ファイル・L08の結果の照合が通りました。時刻と再生を操作できます。この画面は保存済みの記録を描くだけで、Git や AI は動きません。`);
+      setState("ready", "照合済み。再生すると、映像と同じ時刻で照合済みのナレーション（narration.wav）が鳴ります。");
       return true;
     });
     ready.catch(fail);
@@ -1016,10 +1615,23 @@
   }
 
   buildSceneList();
-  ui.play.addEventListener("click", () => (playing ? stop() : play()));
+  ui.play.addEventListener("click", () => (isPlaying ? stop() : play()));
+  ui.reset.addEventListener("click", () => {
+    window.seek(0).catch(fail);
+  });
+  ui.mute.addEventListener("click", () => {
+    const muted = ui.mute.getAttribute("aria-pressed") !== "true";
+    ui.mute.setAttribute("aria-pressed", String(muted));
+    ui.audio.muted = muted;
+  });
   ui.time.addEventListener("input", () => {
-    stop();
     window.seek(ui.time.value).catch(fail);
+  });
+  ui.audio.addEventListener("ended", () => {
+    if (isPlaying) {
+      stop();
+      if (film) paint(DURATION);
+    }
   });
   ui.retry.addEventListener("click", () => {
     start();

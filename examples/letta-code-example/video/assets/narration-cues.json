@@ -1,0 +1,133 @@
+{
+  "format": "studio-yebisu-narration-cues-v1",
+  "case": "letta-code-example",
+  "duration": 32,
+  "fps": 30,
+  "frames": 960,
+  "sample_rate": 48000,
+  "channels": 1,
+  "encoding": "PCM16",
+  "cues": [
+    {
+      "id": "intro",
+      "text": "記憶のメモを変えたら、保存する前に点検します。",
+      "seed": 20261117,
+      "file": "audio/intro.wav",
+      "sha256": "e82cf0a287575160a2f1ac8f9e1e3314c613121ceef2d151454b6f7e1e7ab429",
+      "bytes": 391724,
+      "start": 0.8,
+      "duration": 4.08,
+      "end": 4.88,
+      "source_start": 0,
+      "sample_exact": true
+    },
+    {
+      "id": "missing",
+      "text": "案内のファイルがないと、保存は止まります。",
+      "seed": 20261118,
+      "file": "audio/missing.wav",
+      "sha256": "761ddb24608938f8924cd24baab28eab37f5e4a9fcbfc477fe557cdeda0ac984",
+      "bytes": 345644,
+      "start": 5.6,
+      "duration": 3.6,
+      "end": 9.2,
+      "source_start": 0,
+      "sample_exact": true
+    },
+    {
+      "id": "repair",
+      "text": "案内だけを戻した別の試行では、変更を保存できました。",
+      "seed": 20261119,
+      "file": "audio/repair.wav",
+      "sha256": "399878af56df81225ae53bdf5451a035507c1df25da88207765c3a7adb669a60",
+      "bytes": 460844,
+      "start": 9.9,
+      "duration": 4.8,
+      "end": 14.7,
+      "source_start": 0,
+      "sample_exact": true
+    },
+    {
+      "id": "retained",
+      "text": "止まった変更も、手元に残ります。理由を見て、必要なところを直します。",
+      "seed": 20261120,
+      "file": "audio/retained.wav",
+      "sha256": "cbcee3c71dd4003cf6990c670b24fb6e0c3f4c22531c30a518e23c6d0b753510",
+      "bytes": 668204,
+      "start": 15.4,
+      "duration": 6.96,
+      "end": 22.36,
+      "source_start": 0,
+      "sample_exact": true
+    },
+    {
+      "id": "limits",
+      "text": "点検に通っても、内容の正しさは、別の確認です。",
+      "seed": 20261121,
+      "file": "audio/limits.wav",
+      "sha256": "4019382752ba6073ee9bb9ba75fbcd3a09deac9f36d38386ee46dde6d8b8ce3d",
+      "bytes": 449324,
+      "start": 23.1,
+      "duration": 4.68,
+      "end": 27.78,
+      "source_start": 0,
+      "sample_exact": true
+    }
+  ],
+  "scenes": [
+    {
+      "id": "relation",
+      "in": 0,
+      "out": 5.3,
+      "label": "メモを変えたら、点検",
+      "case": "L01",
+      "action": "One continuous memory structure: root guide, child guide connected to two detail cards, staged change, Letta inspection gate, Git saved-history dot. Show relation from frame0; no blank intro."
+    },
+    {
+      "id": "missing",
+      "in": 5.3,
+      "out": 9.6,
+      "label": "案内がないと、止まる",
+      "case": "L02",
+      "action": "L02 deletes the child guide. Its empty slot breaks both connections to detail cards; the same staged-change card stops at the gate. Git old dot stays, no new commit."
+    },
+    {
+      "id": "repair",
+      "in": 9.6,
+      "out": 15.1,
+      "label": "案内を戻した、別の試行",
+      "case": "L03",
+      "action": "Switch explicitly to separate recorded L03 trial. Same frozen input as L02 except child guide restored. Guide returns and connects details, staged change passes same gate, Git adds one saved-history dot. No live edit or rerunning agent."
+    },
+    {
+      "id": "retained",
+      "in": 15.1,
+      "out": 22.8,
+      "label": "止まっても、変更は残る",
+      "case": "L02",
+      "action": "Return explicitly to saved L02 result. Its blocked change remains in the left tray/stage, old Git dot stays. No data shredded or erased. Draw short reason marker pointing back to empty guide slot."
+    },
+    {
+      "id": "limits",
+      "in": 22.8,
+      "out": 29,
+      "label": "点検と、正しさは別",
+      "case": "L03",
+      "action": "Keep diagram; a checked structure is distinct from a question mark next to content/book. Inspection of shape is not truth or human approval. No live memory extraction or agent conversation."
+    },
+    {
+      "id": "save",
+      "in": 29,
+      "out": 32,
+      "label": "理由を見て、必要な所を直す",
+      "case": "L03",
+      "action": "Hold the complete memory-to-inspection-to-save relationship and actual saved-record action for3s. Same physical illustrated objects, no fade to blank."
+    }
+  ],
+  "mix": "Five real Irodori TTS segments copied sample-exact, padded with silence. No music or effects. MP4 renderer normalizes loudness and encodes AAC.",
+  "tts": "Aratako/Irodori-TTS-v4.1-Small",
+  "tts_revision": "2b28324dc263ed5e6638b3cf3dd94c82ead07b4b",
+  "voice_reference": "Own caption-generated synthetic voice; no real-person recording.",
+  "listening_confirmed": false,
+  "human_approval": false
+}

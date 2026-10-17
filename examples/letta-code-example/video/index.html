@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Letta Code 作例・解説動画の編集ソース（28秒・無音）｜Studio Yebisu</title>
-<meta name="description" content="架空の読書会の記憶への変更を、固定版 Letta Code 0.34.14 の検査が実際の Git の pre-commit で通したか止めたかの保存記録と、閲覧ページの実画面から描く28秒・無音の映像の編集ソースです。">
+<title>Letta Code 作例・解説動画の編集ソース（32秒・ナレーションつき）｜Studio Yebisu</title>
+<meta name="description" content="記憶のメモ・stage の変更・Letta の点検・Git の保存の図を32秒で動かす解説動画の編集ソースです。案内のファイルがないと保存は止まり、案内だけを戻した別の試行では保存でき、止まった変更は手元に残ります。ナレーションは Irodori-TTS の合成音声です。">
 <meta name="color-scheme" content="light">
-<meta name="theme-color" content="#1f3d33">
+<meta name="theme-color" content="#f5f3eb">
 <link rel="stylesheet" href="video.css">
 </head>
 <body>
@@ -14,70 +14,71 @@
   <header class="chrome intro">
     <p class="kicker">Studio Yebisu ・ Letta Code 作例</p>
     <h1>解説動画の編集ソース</h1>
-    <p class="lede">記憶を編集 → 実際の Git の検査が止める → 案内を1つ戻した別の試行 → 保護された設定の停止 → 保存した結果を読む。28秒・無音・1280×720 の映像を、照合した実行記録から描きます。画面のパス・HEAD・stage・原典の診断・件数は、すべて素材の JSON から読みます。</p>
-    <p class="note">連続した画面録画ではありません。保存した実行記録と、閲覧ページを撮影した画像から組み立てた映像です。この画面では Letta Code・Git・AI は動きません。</p>
+    <p class="lede">記憶のメモ → 変更 → 点検 → 保存 の図を32秒で動かします。ナレーションは合成音声です。</p>
+    <nav class="layouts" aria-label="レイアウト">
+      <a id="layout-tall" href="./">縦 720×1280</a>
+      <a id="layout-wide" href="?layout=wide">横 1280×720</a>
+    </nav>
   </header>
 
-  <p id="editor-status" class="chrome status" role="status" aria-live="polite" data-state="loading">素材8件を読み込み、SHA-256 と実行記録を照合しています…</p>
-
-  <div id="error-box" class="chrome failure" role="alert" hidden>
-    <p class="failure-title">素材の照合に失敗したため、映像を描きません。</p>
-    <p id="error-text"></p>
-    <button id="retry" type="button" hidden>素材をもう一度読み込む</button>
+  <div class="chrome statusbar">
+    <p id="asset-count" class="count" data-state="pending" aria-live="polite">0 / 8素材</p>
+    <p id="status" class="status" role="status" aria-live="polite" data-state="loading">素材8件の SHA-256 と記録を照合しています…</p>
   </div>
 
-  <figure id="stage" class="stage">
-    <canvas id="film" width="1280" height="720" role="img" aria-label="Letta Code 作例の解説動画。架空の記憶の子フォルダーの案内 bookclub/MEMORY.md を消した変更（L02）を、原典の検査が実際の git commit で止め、HEAD は変わらず stage に2件が残ったこと。同じ内容に案内だけを戻した別の試行（L03）は commit できたこと。保護された設定の上限を900から1100へ上げる変更（L08）は、初期方針の検査APIがエラー0件でも原典の検査で止まったこと。8件のうち2件が commit でき、6件が予定どおり止まったことを、閲覧ページの実画面とともに見せる28秒の無音映像。">この映像の表示には canvas に対応したブラウザーが必要です。</canvas>
+  <div id="error" class="chrome failure" role="alert" hidden>
+    <p class="failure-title">素材を確かめられなかったため、映像を描いていません。</p>
+    <p id="error-text"></p>
+    <button id="retry" type="button">もう一度読み込む</button>
+  </div>
+
+  <figure id="stage" class="stage" hidden>
+    <canvas id="film" width="720" height="1280" role="img" aria-label="Letta Code の記憶の点検を図で見せる32秒の映像。上にルートの本、その下に案内のカード、案内から2つの詳細メモへの線。下の段に、左から変更の台（stage）、点検の門、Git の保存の点の線が最初から最後まで並ぶ。はじめに変更の札が台にあり、点検の門が記憶の形をたどる。記録 L02 では案内のカードが抜けて台に落ち、空いた枠と切れた線が残る。台の札は門で止まって戻り、Git は前の点のまま。別の試行 L03 では案内だけが枠に戻って線がつながり、変更が門を通って Git に新しい点が増える。記録 L02 に戻ると、止まった変更の札は台に残り、理由の札が空いた枠を指す。最後に別の試行 L03 の、形の点検は通っても詳細メモの中身には「？」が付く図と、実行記録の保存を3秒見せる。ナレーションは Irodori-TTS の合成音声。">この映像の表示には canvas に対応したブラウザーが必要です。</canvas>
+    <figcaption class="chrome narration"><span class="narration-label">ナレーション</span> <span id="narration"></span></figcaption>
   </figure>
 
   <section class="chrome controls" aria-label="再生と時刻">
     <div class="buttons">
-      <button id="play" type="button" aria-pressed="false" disabled>再生</button>
-      <span class="mute">音声なし</span>
+      <button id="play" type="button" disabled>再生</button>
+      <button id="reset" type="button" disabled>先頭へ</button>
+      <button id="mute" type="button" aria-pressed="false" disabled>消音</button>
     </div>
     <div class="scrub">
-      <label for="time">時刻を動かす（0〜28秒）</label>
-      <input id="time" type="range" min="0" max="28" step="0.1" value="0" disabled>
+      <label for="time">時刻（0〜32秒）</label>
+      <input id="time" type="range" min="0" max="32" step="any" value="0" disabled>
     </div>
-    <output id="time-label" for="time" aria-live="off">0.0 / 28.0 秒</output>
+    <output id="clock" for="time">照合中</output>
+    <audio id="preview-audio" preload="auto" hidden></audio>
   </section>
 
   <section class="chrome info" aria-labelledby="scenes-heading">
     <h2 id="scenes-heading">場面</h2>
-    <p class="hint">押すと、その場面の読みやすい時刻で止まります。</p>
+    <p class="hint">押すとその時刻の画で止まります。再生はボタンを押したときだけ始まり、時刻を動かすと止まります。</p>
     <ol id="scene-list" class="scene-list"></ol>
   </section>
 
-  <section class="chrome info" aria-labelledby="links-heading">
-    <h2 id="links-heading">記録と原典</h2>
-    <ul class="links">
-      <li><a href="../index.html#L02">作例ページへ戻る（L02 から8件を読む）</a></li>
-      <li><a href="../outputs/memory-runs.json">8件の実行記録の全文 outputs/memory-runs.json</a></li>
-      <li><a id="mp4-link" href="../../../media/letta-code-example.mp4">書き出したMP4を開く</a> <span class="link-note">公開先の media/letta-code-example.mp4 です。</span></li>
-      <li><a href="../outputs/method.md">手順と読み方 outputs/method.md</a></li>
-      <li><a href="README.md">この映像ソースの README（書き出し手順と確認の状態）</a></li>
-      <li><a href="storyboard.json">場面の設計と素材のハッシュ storyboard.json</a></li>
-      <li><a href="https://github.com/letta-ai/letta-code/tree/316e4c0545b549c453e0f85cc81d3540404eff74">Letta Code の原典（固定コミット 316e4c0）</a></li>
-    </ul>
-    <details id="asset-checks">
-      <summary>素材8件の SHA-256 照合</summary>
-      <p id="asset-summary">照合はまだ終わっていません。</p>
-      <ol id="asset-list" class="asset-list"></ol>
-    </details>
+  <section class="chrome info" aria-labelledby="assets-heading">
+    <h2 id="assets-heading">素材</h2>
+    <p class="hint">assets/manifest.json と8件すべての SHA-256・バイト数が合ってから描きます。合わないものが1つでもあれば止まります。</p>
+    <ol id="asset-list" class="asset-list"></ol>
   </section>
 
-  <section class="chrome info" aria-labelledby="scope-heading">
-    <h2 id="scope-heading">この映像が示す範囲</h2>
-    <p>固定版 letta-ai/letta-code（コミット 316e4c0545b549c453e0f85cc81d3540404eff74・0.34.14）の、改変していない検査API（parseMemoryConstraintsConfig・validateMemoryTreeConstraints・validateMemoryFileFrontmatter・detectMemoryFormat・isProjectedMemoryPath）と、原典の MEMORY_CONSTRAINTS_VALIDATOR_SCRIPT を実際の Git の pre-commit にして、架空の記憶への8つの変更を8つの別々の新しいリポジトリで試した記録です。</p>
-    <p>L03 は L02 と、bookclub/MEMORY.md を戻した1ファイルだけが違う、実行前に決めた別の入力です。モデルが直したのではありません。数え方の境目（ちょうど900文字・1200文字）の入力は試しておらず、上限を超えた入力だけを試しています。</p>
-    <p>エージェントとの会話、モデルの推論、記憶の自動抽出や想起、Letta Cloud・同期、/init、実際の利用者の記憶は使っていません。検査が通ったことは、内容の正しさや人の承認を意味しません。</p>
+  <section class="chrome info" aria-labelledby="links-heading">
+    <h2 id="links-heading">リンクと範囲</h2>
+    <ul class="links">
+      <li><a href="../index.html">作例ページへ戻る</a></li>
+      <li><a href="../comparison.html#L02">元の記録（8件の入力と出力の全文）</a></li>
+      <li><a href="../../../media/letta-code-example.mp4">書き出した動画（縦・MP4）</a></li>
+      <li><a href="../../../media/letta-code-example-wide.mp4">書き出した動画（横・MP4）</a></li>
+      <li><a href="storyboard.json">場面・音・素材の設計（storyboard.json）</a></li>
+      <li><a href="README.md">プレビューと書き出しの手順（README.md）</a></li>
+    </ul>
     <details>
-      <summary>原典・版・ライセンス</summary>
-      <ul class="links">
-        <li>Letta Code：letta-ai/letta-code 0.34.14（コミット 316e4c0545b549c453e0f85cc81d3540404eff74）。Apache License 2.0。<a href="../vendor/letta-code/LICENSE">全文</a></li>
-        <li>作例のコード・文章・架空の入力、閲覧ページ、この映像ソース：MIT License（Copyright (c) 2026 Studio Yebisu）。<a href="../LICENSE">全文</a></li>
-        <li>書き出しに使う Motion Reel のレンダラー：MIT License（Copyright (c) 2026 StudioYebisu）。<a href="../tools/motion-reel/LICENSE">全文</a></li>
-      </ul>
+      <summary>この映像が示す範囲</summary>
+      <p>図の状態（案内の有無とつながり、stage の件数、点検の門が止めるか通すか、Git の点の数と短いハッシュ）は、制作時に固定版 Letta Code 0.34.14 の原典の検査と実際の Git の commit で実行して保存した記録（L01・L02・L03）から決めています。本・メモ・門・台の絵は関係を見せるための図で、画面の録画やその場の実行ではありません。案内のカードが枠に戻る動きは、別の新しいリポジトリで試した L03 の記録を見せる絵で、ライブの修正やエージェントの操作ではありません。</p>
+      <p>点検は記憶の形（案内・文字数・深さ・保護）の検査です。通っても、中身の正しさ・事実の正確さ・人の承認・セキュリティの保証ではありません。エージェントとの会話、モデルの推論、記憶の自動抽出や想起、Letta Cloud・同期、/init は使っていません。</p>
+      <p>ナレーションは Aratako/Irodori-TTS-v4.1-Small（リビジョン 2b28324dc263ed5e6638b3cf3dd94c82ead07b4b・MIT License とモデルカードの利用上の制限）で、caption から作ったオリジナルの合成の声です。実在の人の録音や声のまねは使っていません。5つの文を重ならないように並べた narration.wav で、音楽や効果音はありません。聞いた印象や読みの正しさの確認、人による承認、実機の iPhone での確認は記録にありません。</p>
+      <p>映像のコードは Claude Opus 5.5 が書きました（MIT License・Copyright (c) 2026 Studio Yebisu）。</p>
     </details>
   </section>
 </main>
