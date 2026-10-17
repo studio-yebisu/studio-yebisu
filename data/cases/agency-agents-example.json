@@ -1,12 +1,12 @@
 {
   "id": "agency-agents-example",
-  "title": "Agency Agents作例：UX ArchitectとFrontend Developerを順に当て、架空イベントの企画ガイドを作る",
+  "title": "Agency Agents作例：役割をつなぎ、使える予定へ。",
   "title_lines": [
-    "2役を渡し、",
-    "動く案内へ"
+    "役割をつなぎ、",
+    "使える予定へ。"
   ],
   "category": "agents",
-  "summary": "Agency AgentsのUX設計とフロントエンド開発を、Opus5.5で順に適用。架空イベント6企画をスマホで比べ、時間の重なりを確かめながら、回る予定をJSONで保存できます。",
+  "summary": "6企画の入力が、UX設計・引継ぎ・実装を通って、触れる時間の図と保存できる予定に。重なりと14時の境界を比べる32秒の無音縦動画と、実際に操作できる作例です。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/agency-agents-example/index.html",
@@ -18,9 +18,9 @@
   "samples": "examples/agency-agents-example/samples.json",
   "sample_format": "input-output",
   "samples_title": "架空イベントの入力と、2段階の成果",
-  "samples_intro": "固定した2役を順に実適用し、実ブラウザーで案内ページを動かした入出力です。役割の引き継ぎ・重なりの判定・実JSON保存・再試行を確認しました。リンクは共通の入口で、記録画面を自動再現しません。",
-  "demo_description": "架空イベント「こもれび つくる日」の6企画を、スマホで比べて回る予定を作る企画ガイドです。カードに開始–終了と所要時間、種類、費用（0円は「無料」）、対象年齢、定員（企画上の設定で、残席ではありません）、予約の要否、部屋、説明、メモが出ます。種類・時間帯・費用・キーワード（企画名・内容・部屋・対象年齢・メモ、空白区切りのすべての語）で絞り込め、件数が出ます。「回る予定に入れる」で時間順の一覧と費用の合計が出て、時間が重なる企画は入れずに、どの企画と重なるかを知らせます。回る予定は komorebi-making-day-2026-11-07-itinerary.json としてダウンロードを要求でき、表示テーマはシステム／ライト／ダークを選べます。ページ下部では、引き継ぎ書から読んだ2つの役割の入力・成果物・確認項目と、採用しなかった提案を確かめられます。",
-  "demo_note": "表示している企画は作例のために書いた架空のデータで、予約・支払い・住所・地図・連絡先・空き状況はありません。ページは、制作時に Claude Opus 5.5 が2つの役割ファイルを別々の実行で順に適用して作ったもので、開いてもAIは動かず、新しいイベントからページを作る機能はありません。回る予定はブラウザーの中だけで扱い、再読み込みで空に戻ります。",
+  "samples_intro": "元の2役の実適用と、旧画面で実操作した記録です。今回の図中心版では同じ入力・出力を使い、重複拒否・境界・絞り込み・実保存と無音映像を別に確認しています。",
+  "demo_description": "大きな図で、6企画から設計と実装、回る予定へのつながりを見られます。帯を押して企画に注目し、「入れる」で時間が重ならない予定を作り、元と同じ全項目のJSONを保存できます。種類・時間・費用・キーワードの絞り込みや全項目の確認も使えます。",
+  "demo_note": "架空のイベントです。元の2役は同じOpus5.5の別実行で順に適用し、今回は元の入力・実出力・CSS土台を保持して表示と映像を改修しました。ページ内でAIや予約は動きません。重なる追加は拒否し、元の選択を残します。",
   "request_intro": "同じ2段階を自分のイベント情報で繰り返すときの依頼文です。イベント情報の欄を差し替え、固定版の2つの役割ファイルを読めるAIに渡してください。要らない機能は消してかまいません。",
   "request": "次の2つの役割ファイルを、この順番で1つずつ読んで当てはめ、下のイベント情報から、スマホで使える企画ガイドのページを作ってください。2つの役割は同じAIが順番に適用するもので、別々のエージェントを起動したり、自動で受け渡したりはしません。\n\n役割ファイル（msitarzewski/agency-agents 固定コミット bd956db032d907387e6b9ddebff3e18f1de8c679。MIT。コミュニティ作成で、Anthropic公式ではありません）\n1. UX Architect\nhttps://github.com/msitarzewski/agency-agents/blob/bd956db032d907387e6b9ddebff3e18f1de8c679/design/design-ux-architect.md\n2. Frontend Developer\nhttps://github.com/msitarzewski/agency-agents/blob/bd956db032d907387e6b9ddebff3e18f1de8c679/engineering/engineering-frontend-developer.md\n\nイベント情報（ここを差し替える。JSONで渡す）\n・架空か実在か：\n・題名、日付、タイムゾーン、会場、開場と閉場の時刻、入場の条件：\n・企画ごとに：ID、種類、題名、開始、終了、部屋、対象年齢、費用（円）、定員（設定がなければ null）、予約の要否、説明、メモ\n\n段階1：UX Architect\n・UX Architect の役割ファイルだけを読み、イベント情報を入力にして、引き継ぎ書（JSONとMarkdown）とCSSの土台（foundation.css）を作る。\n・引き継ぎ書には、目的、2つの役割それぞれの入力・成果物・確認項目、画面の流れ、部品と状態、データの検証規則、時間の重なりの判定式、書き出すJSONの形、画面幅ごとの振る舞い、受け入れ条件を書く。\n・CSSの土台には、色・文字・余白のトークン、ライト／ダーク／システムのテーマ、44px以上・16px以上の操作部品、3pxのフォーカス表示、hidden属性の要素を必ず隠す規則を入れる。\n・受け入れ条件は、まだ確かめていない将来の確認項目として書く。\n\n段階2：Frontend Developer\n・次に Frontend Developer の役割ファイルを読み、段階1の引き継ぎ書・foundation.css・イベント情報を入力にして、index.html・style.css・app.js と実装の記録を作る。\n・引き継ぎ書と違う判断をしたときは、採用しなかった項目と理由を実装の記録に書く。\n・ページの内容はイベント情報のJSONを読み込んで表示する。形が正しくなければ理由と「もう一度読み込む」を出し、内蔵の代わりのデータは使わない。\n\nページでできること（要らないものは消す）\n・企画ごとに、開始と終了の時刻、費用、対象年齢、定員、予約の要否を比べる。\n・種類・時間帯・費用・キーワードで絞り込み、表示している件数を出す。\n・「回る予定」に企画を入れ、時間順の一覧と費用の合計を見る。\n・時間が重なる企画は入れず、どの企画と重なるかを知らせる。今の予定を黙って入れ替えない。終了と開始が同時刻なら重ならない。予約不要の企画も、開始から終了までの枠全体を使う。\n・回る予定をJSONファイルで保存する。\n・ライト／ダーク／システムの表示テーマを選べる。\n・320px幅のスマホから1280px幅のパソコンまで、横スクロールなしで使える。\n\n守ること\n・架空のイベントなら、最初の画面でそう書く。予約・支払い・残席・住所・地図・連絡先の操作は作らない。\n・費用・対象年齢・定員は入力の値をそのまま出す。定員は企画上の設定として書き、残席として書かない。入力にない値（曜日・定員・費用など）を補わない。\n・外部のフォント・画像・CDN・計測・AIの呼び出しを使わない。\n・役割ファイルにあるフレームワーク・性能の数値目標・アクセシビリティ基準への準拠などは、今回に合うものだけ当てる。測っていない数値や、確かめていない準拠を成果として書かない。\n・最後に、作ったファイル、実際に行った確認、まだ確かめていない点を分けて書く。\n",
   "applied_skills": [
@@ -42,7 +42,7 @@
     {
       "name": "Motion Reel",
       "source": "examples/agency-agents-example/tools/motion-reel/render.mjs",
-      "applied": "実際に受領した設計、実装と保存結果、実ブラウザー画面からOpus5.5が28秒の無音動画を制作。任意時刻/別順/新ページ描画、代表・連続フレーム、全デコードと実MP4終端を確認しました。"
+      "applied": "元の6架空企画・実引継ぎ・実保存など8固定素材を用い、同じ文書と企画が動いて時間の図と保存へつながる32秒の無音縦横動画を制作。任意時刻、代表・連続/contact、スマホの図、全デコードと実MP4終了を確認。元28秒の確認とは別に記録。"
     }
   ],
   "steps": [
@@ -67,8 +67,12 @@
       "body": "ページは入力のJSONを読み、形を確かめてから6企画を時刻順に出します。絞り込み、回る予定への追加と重なりでの停止、件数と費用の合計、komorebi-making-day-2026-11-07-itinerary.json のダウンロード要求、テーマの切り替えができます。"
     },
     {
-      "title": "実際に動かして確かめる",
-      "body": "6企画の表示値、種類・時間帯・費用・全角AND検索、2組の重複拒否と14:00の境界、実JSON保存4企画1000円と別500円、テーマ3種・再読込、実503/JSON不正/不正時刻からの再試行を実ブラウザーで確認しました。6幅のライト/ダーク画面と28秒の無音動画も確認。物理iOS/Safari/VoiceOverや人による承認は未確認です。"
+      "title": "原制作で実際に確かめたこと",
+      "body": "以下は原制作時の履歴です。6企画の表示値、種類・時間帯・費用・全角AND検索、2組の重複拒否と14:00の境界、実JSON保存4企画1000円と別500円、テーマ3種・再読込、実503/JSON不正/不正時刻からの再試行を実ブラウザーで確認しました。6幅のライト/ダーク画面と28秒の無音動画も確認。物理iOS/Safari/VoiceOverや人による承認は未確認です。"
+    },
+    {
+      "title": "役割から時間の図、保存までをつなぐ",
+      "body": "元の2役・6企画・CSS土台と実保存を保持して、図と32秒の無音縦横動画を新しいOpus5.5実行で制作しました。8幅・全6企画・2組の重複拒否・14時の接点・AND検索・絞り込みで予定を保持・元と同じ実JSON保存・失敗復旧・両動画終了を確認。役割の推論は再実行していません。"
     }
   ],
   "limitations": [
@@ -78,7 +82,8 @@
     "相談室も14:00–15:00の枠全体を選ぶ簡単な予定表です。移動時間・途中入退場・人数や同伴者を考慮する予約サービスではありません。",
     "予定は再読込すると空になり、表示テーマだけを保存します。JSONは架空イベントの予定メモで、参加を確定しません。",
     "原典UX役割が参照するai/agents/architect.mdは固定アーカイブに存在せず、同梱した役割定義だけを適用しています。",
-    "物理iOS/Safari/VoiceOver・実際の支援技術・OSテーマ変更中の追従・storage拒否・通信切断・Lighthouse/CoreWebVitalsは未確認です。制作担当による実操作・映像確認や自動照合は、人による内容や美術の承認ではありません。"
+    "物理iOS/Safari/VoiceOver・実際の支援技術・OSテーマ変更中の追従・storage拒否・通信切断・Lighthouse/CoreWebVitalsは未確認です。制作担当による実操作・映像確認や自動照合は、人による内容や美術の承認ではありません。",
+    "今回の技術確認はverification.json、元28秒版はvideo/assets/original-verification.jsonに分けています。人の審美的承認、実機iOS、200%ズーム、storage拒否、OSテーマ変化中の追従、クリップボード内容の再取得は未確認です。"
   ],
   "sources": [
     {
@@ -152,14 +157,26 @@
     {
       "label": "入力・設計・ソース一式",
       "url": "examples/agency-agents-example/source.zip"
+    },
+    {
+      "label": "図中心の使い方",
+      "url": "examples/agency-agents-example/visual-guide.md"
+    },
+    {
+      "label": "7実ファイルとハッシュ",
+      "url": "examples/agency-agents-example/data-manifest.json"
+    },
+    {
+      "label": "8映像素材とハッシュ",
+      "url": "examples/agency-agents-example/video/assets/manifest.json"
     }
   ],
   "license": "MIT（作例・原典）",
   "license_note": "作例のコード・文章・データは MIT License（Copyright (c) 2026 Studio Yebisu）。同梱した Agency Agents の4ファイル（README.md・LICENSE・design/design-ux-architect.md・engineering/engineering-frontend-developer.md）は、msitarzewski/agency-agents の固定コミット bd956db のファイルを改変せずに vendor/agency-agents/ に置いたもので、MIT License（Copyright (c) 2025 AgentLand Contributors）です。コミュニティ作成のプロジェクトで、Anthropic 公式のエージェント集ではなく、Anthropic による承認や推奨を示すものではありません。役割ファイルを使うAIサービスの利用条件・料金は別です。",
-  "video_note": "28秒・720p・30fps・無音。実際の設計・案内画面・保存したJSONを用いた編集動画です。架空の地域イベントで、連続操作の録画や予約受付ではありません。",
+  "video_note": "32秒・30fps・無音。入力の文書から同じ6企画が設計・実装を経て時間の帯へ開き、選んだ4企画が実保存の予定メモへ移る概念図です。縦720×1280と横1280×720を用意しました。保存済みの成果の図解で、ライブAIや予約の録画ではありません。",
   "video_source": "examples/agency-agents-example/video/index.html",
   "skill_license": "examples/agency-agents-example/vendor/agency-agents/LICENSE",
-  "updated_on": "2026-10-16",
+  "updated_on": "2026-10-18",
   "verification_stage": "runtime-reviewed",
   "guide_url": "case.html?id=agency-agents-example",
   "catalog_entry": {
@@ -196,9 +213,10 @@
     "source_note": "コミュニティの固定版役割定義をREADME Option3の参照モードで適用。原典4filesとMIT表記を保持。Anthropic公式ではなく、Agentアプリ導入や自動協調の検証ではありません。",
     "prompt": "次の2つの役割ファイルを、この順番で1つずつ読んで当てはめ、下のイベント情報から、スマホで使える企画ガイドのページを作ってください。2つの役割は同じAIが順番に適用するもので、別々のエージェントを起動したり、自動で受け渡したりはしません。\n\n役割ファイル（msitarzewski/agency-agents 固定コミット bd956db032d907387e6b9ddebff3e18f1de8c679。MIT。コミュニティ作成で、Anthropic公式ではありません）\n1. UX Architect\nhttps://github.com/msitarzewski/agency-agents/blob/bd956db032d907387e6b9ddebff3e18f1de8c679/design/design-ux-architect.md\n2. Frontend Developer\nhttps://github.com/msitarzewski/agency-agents/blob/bd956db032d907387e6b9ddebff3e18f1de8c679/engineering/engineering-frontend-developer.md\n\nイベント情報（ここを差し替える。JSONで渡す）\n・架空か実在か：\n・題名、日付、タイムゾーン、会場、開場と閉場の時刻、入場の条件：\n・企画ごとに：ID、種類、題名、開始、終了、部屋、対象年齢、費用（円）、定員（設定がなければ null）、予約の要否、説明、メモ\n\n段階1：UX Architect\n・UX Architect の役割ファイルだけを読み、イベント情報を入力にして、引き継ぎ書（JSONとMarkdown）とCSSの土台（foundation.css）を作る。\n・引き継ぎ書には、目的、2つの役割それぞれの入力・成果物・確認項目、画面の流れ、部品と状態、データの検証規則、時間の重なりの判定式、書き出すJSONの形、画面幅ごとの振る舞い、受け入れ条件を書く。\n・CSSの土台には、色・文字・余白のトークン、ライト／ダーク／システムのテーマ、44px以上・16px以上の操作部品、3pxのフォーカス表示、hidden属性の要素を必ず隠す規則を入れる。\n・受け入れ条件は、まだ確かめていない将来の確認項目として書く。\n\n段階2：Frontend Developer\n・次に Frontend Developer の役割ファイルを読み、段階1の引き継ぎ書・foundation.css・イベント情報を入力にして、index.html・style.css・app.js と実装の記録を作る。\n・引き継ぎ書と違う判断をしたときは、採用しなかった項目と理由を実装の記録に書く。\n・ページの内容はイベント情報のJSONを読み込んで表示する。形が正しくなければ理由と「もう一度読み込む」を出し、内蔵の代わりのデータは使わない。\n\nページでできること（要らないものは消す）\n・企画ごとに、開始と終了の時刻、費用、対象年齢、定員、予約の要否を比べる。\n・種類・時間帯・費用・キーワードで絞り込み、表示している件数を出す。\n・「回る予定」に企画を入れ、時間順の一覧と費用の合計を見る。\n・時間が重なる企画は入れず、どの企画と重なるかを知らせる。今の予定を黙って入れ替えない。終了と開始が同時刻なら重ならない。予約不要の企画も、開始から終了までの枠全体を使う。\n・回る予定をJSONファイルで保存する。\n・ライト／ダーク／システムの表示テーマを選べる。\n・320px幅のスマホから1280px幅のパソコンまで、横スクロールなしで使える。\n\n守ること\n・架空のイベントなら、最初の画面でそう書く。予約・支払い・残席・住所・地図・連絡先の操作は作らない。\n・費用・対象年齢・定員は入力の値をそのまま出す。定員は企画上の設定として書き、残席として書かない。入力にない値（曜日・定員・費用など）を補わない。\n・外部のフォント・画像・CDN・計測・AIの呼び出しを使わない。\n・役割ファイルにあるフレームワーク・性能の数値目標・アクセシビリティ基準への準拠などは、今回に合うものだけ当てる。測っていない数値や、確かめていない準拠を成果として書かない。\n・最後に、作ったファイル、実際に行った確認、まだ確かめていない点を分けて書く。\n",
     "verification_stage": "runtime-reviewed",
-    "verification": "固定UX Architect→Frontend Developerを別のOpus5.5実行で実適用。架空6企画のスマホ案内、絞り込み/重複拒否/同時刻境界/実JSON保存とテーマ、6幅の実画面・28秒無音動画を確認。install/自動振り分け/独立した複数エージェントは未実行。",
+    "verification": "元4原典・逐次2役・6架空企画・CSS土台と実保存を保持し、大きな引継ぎ/時間図と32秒の無音縦横動画へ改修。8幅・重複拒否・14時接点・AND絞込・元と同じJSON実保存・復旧/再生を確認。独立エージェント/AI再実行/予約ではない。実機iOSと人の承認は未確認。",
     "reviewed_on": "2026-10-16",
     "example_url": "examples/agency-agents-example/index.html",
-    "image": "media/agency-agents-example.webp"
+    "image": "media/agency-agents-example.webp",
+    "updated_on": "2026-10-18"
   }
 }

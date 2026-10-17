@@ -1,22 +1,50 @@
 /*
- * style.css — こもれび つくる日 企画ガイド（架空イベントの作例）
+ * style.css — 役割をつなぎ、使える予定へ。（架空イベント「こもれび つくる日」の図のページ）
  *
- * Frontend Developer 段階のページ固有の配置。foundation.css（UX Architect 段階の土台）の後に読み込む。
- * 色・余白・文字はすべて foundation.css のトークンを使い、色を直書きしない。
+ * visual-r1 の再改修のページ固有の配置。foundation.css（UX Architect 段階の土台・変更なし）の後に読み込む。
+ * 色・余白・文字・部品の寸法は foundation.css のトークンだけを使い、色を直書きしない。
  * 100vw / 100vh / html・body の overflow:hidden は使わない。
+ * スマホ縦（375×812）で、題・図の全体・主操作（入れる・JSONで保存）が最初の画面に収まる寸法を基準にする。
  */
 
-/* ========== 見出しの改行 ========== */
+/* ========== 図の寸法（スマホ基準） ========== */
+:root {
+  --diagram-font: 1rem;      /* 帯の文字 */
+  --lane-h: 3rem;            /* 帯の高さ（48px。押せる高さ44px以上） */
+  --lane-gap: 0.25rem;
+  --axis-h: 1.375rem;        /* 時刻の目盛り */
+  --notes-h: 1.25rem;        /* 重なり・接するの印 */
+  --rail-gap: 0.25rem;
+  --rail-h: 2rem;            /* 回る予定の列 */
+  --row-gutter: 1.5rem;      /* 縦書きの「午前」「予定」 */
+}
+
+@media (max-width: 22.4375rem) { /* 359px 以下 */
+  :root {
+    --diagram-font: 0.875rem;
+    --row-gutter: 1.25rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --lane-h: 3.5rem;
+    --rail-h: 2.25rem;
+    --axis-h: 1.5rem;
+    --notes-h: 1.375rem;
+  }
+}
+
 h1,
 h2,
 h3,
-.c-decision__title {
+h4 {
   word-break: auto-phrase; /* 対応する環境では文節で折り返す */
 }
 
 /* ========== 上端: 戻るリンクとテーマ ========== */
 .c-site-header {
-  border-block-end: 3px double var(--color-border-strong);
+  padding-block: max(var(--space-2), env(safe-area-inset-top)) 0;
 }
 
 .c-topbar {
@@ -24,13 +52,13 @@ h3,
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-2) var(--space-4);
+  gap: var(--space-1) var(--space-2);
 }
 
 .c-topbar__back {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-1);
+  min-width: var(--control-min);
   min-height: var(--control-min);
   font-weight: var(--weight-bold);
 }
@@ -38,185 +66,806 @@ h3,
 .c-topbar__back::before {
   content: "←";
   content: "←" / "";
+  margin-inline-end: var(--space-1);
 }
 
-.c-theme {
+.c-theme-toggle__option {
+  padding-inline: var(--space-2);
+}
+
+/* ========== 題と表示 ========== */
+.c-hero {
+  display: grid;
+  gap: var(--space-1);
+  padding-block: var(--space-2);
+}
+
+.c-hero__title {
+  font-size: clamp(1.375rem, 0.9rem + 2.4vw, 2.5rem);
+}
+
+.c-hero__meta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-1) var(--space-3);
-  min-width: 0;
 }
 
-/* ========== 導入: 題名・架空の表示・開催情報 ========== */
-.c-intro {
-  display: grid;
-  gap: var(--space-3);
-  padding-block: var(--space-5) var(--space-2);
-}
-
-.c-intro__label {
-  display: flex;
+.c-badge {
+  display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  color: var(--color-accent);
+  padding: 0.0625rem var(--space-2);
+  border: var(--border-width) solid var(--color-accent);
+  border-radius: var(--radius-pill);
+  background-color: var(--color-notice-soft);
+  color: var(--color-text);
+  font-size: var(--text-sm);
   font-weight: var(--weight-bold);
-  letter-spacing: 0.08em;
+  line-height: 1.5;
 }
 
-.c-intro__label::before {
-  content: "";
-  inline-size: 1.75rem;
-  block-size: 2px;
-  background-color: currentColor;
-}
-
-.c-intro__heading {
-  font-size: clamp(1.875rem, 1.35rem + 2.2vw, 2.75rem);
-  line-height: 1.2;
-}
-
-.c-intro__title {
-  display: block;
-}
-
-.c-intro__title:empty {
-  display: none;
-}
-
-.c-intro__suffix {
-  display: block;
-  margin-block-start: var(--space-1);
-  font-family: var(--font-sans);
-  font-size: var(--text-lg);
-  letter-spacing: 0.12em;
+.c-hero__event {
   color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
 }
 
-.c-intro__subtitle {
-  font-family: var(--font-serif);
-  color: var(--color-text-muted);
-}
-
-.c-intro__notice {
-  display: grid;
-  gap: var(--space-1);
-}
-
-.c-intro__notice p:empty {
-  display: none;
-}
-
-.c-intro__loading {
+/* ========== 読み込みと失敗 ========== */
+.c-load {
+  padding-block: var(--space-6);
   color: var(--color-text-muted);
 }
 
 .c-load-error {
   display: grid;
-  gap: var(--space-2);
   justify-items: start;
+  gap: var(--space-2);
+  margin-block: var(--space-3);
 }
 
-/* 開催情報: スマホは「項目名 | 値」、48rem 以上は4列 */
-.c-facts {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  margin-block-start: var(--space-1);
-  border-block-start: 2px solid var(--color-text);
-  border-block-end: var(--border-width) solid var(--color-border-strong);
+/* ========== 図の器 ========== */
+.c-map {
+  scroll-margin-top: var(--space-2);
 }
 
-.c-facts__item {
+.c-figure {
+  position: relative;
   display: grid;
-  grid-template-columns: 3rem minmax(0, 1fr);
   gap: var(--space-3);
-  padding-block: var(--space-2);
-  border-block-end: var(--border-width) dotted var(--color-border-strong);
+  padding-block: var(--space-1) var(--space-2);
 }
 
-.c-facts__item:last-child {
-  border-block-end: 0;
+/* 関係の線は図の後ろの層に描き、文字や帯の下を通す */
+.c-figure__wires {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  max-width: none;
+  overflow: visible;
+  pointer-events: none;
 }
 
-.c-facts dt {
-  padding-block-start: 0.15em;
-  color: var(--color-text-muted);
-  font-size: var(--text-sm);
+.c-figure > :not(.c-figure__wires) {
+  position: relative;
+  z-index: 1;
 }
 
-.c-facts dd {
-  margin: 0;
+.c-wire {
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.c-wire--flow {
+  stroke: var(--color-text-muted);
+}
+
+.c-wire--drop {
+  stroke: var(--color-action);
+  stroke-dasharray: 3 3;
+}
+
+.c-wire--plan {
+  stroke: var(--color-action);
+  stroke-width: 2;
+}
+
+.c-arrow--flow {
+  fill: var(--color-text-muted);
+}
+
+.c-arrow--plan {
+  fill: var(--color-action);
+}
+
+/* ========== 役割の流れ（小さく、図の上端に） ========== */
+.c-trail {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+
+.c-node {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--control-min);
+  padding: var(--space-1) var(--space-2);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+}
+
+.c-node__label {
   font-weight: var(--weight-bold);
 }
 
-.c-facts__sub {
-  display: block;
+.c-node__sub {
   color: var(--color-text-muted);
   font-size: var(--text-sm);
-  font-weight: var(--weight-regular);
 }
 
-.c-more {
-  padding-block-end: var(--space-1);
+.c-node:hover .c-node__label {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
-.c-more > summary {
+/* 入力は紙の文書の形（右上の折り返し） */
+.c-node--doc {
+  border-start-end-radius: 0;
+  background-image: linear-gradient(225deg, var(--color-bg) 0.5rem, var(--color-border-strong) 0.5rem calc(0.5rem + 1px), transparent calc(0.5rem + 1px));
+}
+
+/* UX設計は土台CSSの実際の色トークンを小さな帯で添える */
+.c-node--ux {
+  padding-block-end: 0.625rem;
+}
+
+.c-node--ux::after {
+  content: "";
+  position: absolute;
+  bottom: 0.25rem;
+  left: 50%;
+  width: 2.5rem;
+  height: 0.25rem;
+  border-radius: 2px;
+  background-image: linear-gradient(90deg, var(--color-accent) 0 25%, var(--color-action) 25% 50%, var(--color-alert) 50% 75%, var(--color-focus) 75%);
+  transform: translateX(-50%);
+}
+
+/* 実装は、時間の図を生む節として太い線 */
+.c-node--fe {
+  border: 2px solid var(--color-text);
+}
+
+@media (max-width: 22.4375rem) {
+  .c-trail {
+    gap: var(--space-4);
+  }
+
+  .c-node__sub {
+    display: none;
+  }
+
+  .c-node--ux {
+    padding-block-end: var(--space-2);
+  }
+}
+
+/* Production layout correction after actual375x812 review: keep the complete
+   time map and primary actions visible. Secondary role labels remain in the
+   full handoff below; native48px session buttons retain their size. */
+@media (max-width: 30rem) {
+  :root { --rail-h: 1.75rem; }
+  .c-hero__title { font-size: 1.25rem; }
+  .c-node__sub { display: none; }
+  .c-node--ux { padding-block-end: var(--space-2); }
+  .c-figure { gap: var(--space-2); }
+}
+
+/* Production delivery: native inline movie controls, portrait first. */
+.c-film video { display: block; width: 100%; height: auto; margin-block: var(--space-3); background: var(--color-surface-sunk); }
+#film-portrait { max-width: 26.25rem; aspect-ratio: 9 / 16; }
+#film-wide { aspect-ratio: 16 / 9; }
+
+/* 絞り込み中だけ図の上に出す案内 */
+.c-filter-note {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  width: fit-content;
-  max-width: 100%;
-  color: var(--color-link);
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-inline-start-width: var(--mark-width);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
 }
 
-.c-more__body {
-  padding-block: var(--space-2) var(--space-1);
+.c-filter-note__text {
+  flex: 1 1 12rem;
+  font-size: 0.9375rem;
 }
 
-@media (min-width: 48rem) {
-  .c-facts {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .c-facts__item {
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-1);
-    padding: var(--space-3);
-    border-block-end: 0;
-    border-inline-start: var(--border-width) dotted var(--color-border-strong);
-  }
-
-  .c-facts__item:first-child {
-    padding-inline-start: 0;
-    border-inline-start: 0;
-  }
-}
-
-/* ========== 区切り見出し ========== */
-.c-section-title {
-  display: flex;
-  align-items: baseline;
+/* ========== 時間の図 ========== */
+.c-timemap {
+  display: grid;
   gap: var(--space-2);
 }
 
-.c-section-title::before {
+.c-row {
+  --lanes-h: calc(var(--lanes) * var(--lane-h) + (var(--lanes) - 1) * var(--lane-gap));
+  display: grid;
+  grid-template-columns: var(--row-gutter) minmax(0, 1fr);
+  column-gap: var(--space-1);
+}
+
+.c-row__gutter,
+.c-row__track {
+  display: grid;
+  grid-template-rows: var(--axis-h) var(--notes-h) var(--lanes-h) var(--rail-gap) var(--rail-h);
+  min-width: 0;
+}
+
+.c-row__name,
+.c-row__railname {
+  justify-self: center;
+  align-self: center;
+  padding-block: 2px;
+  background-color: var(--color-bg);
+  line-height: 1;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+
+.c-row__name {
+  grid-row: 3;
+  font-size: var(--diagram-font);
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.15em;
+}
+
+.c-row__railname {
+  grid-row: 5;
+  color: var(--color-action);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+}
+
+.c-row__track {
+  position: relative;
+  container-type: inline-size;
+}
+
+/* 目盛り: 1時間ごとの時刻。広い帯では30分ごと */
+.c-axis {
+  grid-row: 1;
+  position: relative;
+  border-block-end: var(--border-width) solid var(--color-border-strong);
+}
+
+.c-axis__tick {
+  position: absolute;
+  bottom: 0.125rem;
+  left: calc(var(--x) * 1%);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.c-axis__tick[data-edge="start"] {
+  transform: none;
+}
+
+.c-axis__tick[data-edge="end"] {
+  transform: translateX(-100%);
+}
+
+.c-axis__tick--half {
+  display: none;
+}
+
+@container (min-width: 30rem) {
+  .c-axis__tick--half {
+    display: block;
+  }
+}
+
+/* 重なり・接するの印 */
+.c-notes {
+  grid-row: 2;
+  position: relative;
+}
+
+.c-mark {
+  position: absolute;
+  bottom: 0;
+  left: calc(var(--x) * 1%);
+  width: calc(var(--w) * 1%);
+  height: 0.375rem;
+  border: 2px solid var(--color-alert);
+  border-block-end: 0;
+}
+
+.c-mark[data-live="true"] {
+  border-width: 3px;
+  border-block-end: 0;
+}
+
+.c-mark__label {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--x) * 1%);
+  display: flex;
+  align-items: center;
+  margin-inline-start: 0.25rem;
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.c-mark__label[data-anchor="end"] {
+  left: auto;
+  right: calc(var(--xr) * 1%);
+  margin-inline: 0 0.25rem;
+}
+
+.c-mark__label--overlap {
+  color: var(--color-alert);
+}
+
+.c-mark__label--touch {
+  color: var(--color-action);
+}
+
+.c-mark__m,
+.c-mark__l {
+  display: none;
+}
+
+@container (min-width: 19.5rem) {
+  .c-mark__s {
+    display: none;
+  }
+
+  .c-mark__m {
+    display: inline;
+  }
+}
+
+@container (min-width: 36rem) {
+  .c-mark__m {
+    display: none;
+  }
+
+  .c-mark__l {
+    display: inline;
+  }
+}
+
+/* 14:00 のように終了と開始が接する時刻の線。帯の後ろを通る */
+.c-touch {
+  position: absolute;
+  top: var(--axis-h);
+  bottom: 0;
+  left: calc(var(--x) * 1%);
+  z-index: 0;
+  width: 0;
+  border-inline-start: 2px solid var(--color-action);
+  transform: translateX(-1px);
+}
+
+.c-touch[data-live="true"] {
+  border-inline-start-width: 3px;
+}
+
+/* 帯の段。30分ごとの細い縦線を背景に引く */
+.c-lanes {
+  grid-row: 3;
+  position: relative;
+  z-index: 1;
+  background-image: linear-gradient(to right, var(--color-border) 1px, transparent 1px);
+  background-size: calc(100% / var(--cols)) 100%;
+}
+
+/* 企画の帯: 左端と幅が実際の開始・終了。押せる範囲を広げて長さを変えることはしない */
+.c-bar {
+  position: absolute;
+  top: calc(var(--lane) * (var(--lane-h) + var(--lane-gap)));
+  left: calc(var(--x) * 1%);
+  width: calc(var(--w) * 1%);
+  height: var(--lane-h);
+  margin: 0;
+  padding: 0 0.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.0625rem;
+  overflow: hidden;
+  isolation: isolate;
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--diagram-font);
+  font-weight: var(--weight-bold);
+  line-height: 1.2;
+  text-align: center;
+  touch-action: manipulation;
+}
+
+.c-bar__top,
+.c-bar__label {
+  max-width: 100%;
+  white-space: nowrap;
+}
+
+.c-bar__top {
+  display: flex;
+  gap: 0.25em;
+  font-variant-numeric: tabular-nums;
+}
+
+.c-bar__fee {
+  font-weight: var(--weight-regular);
+}
+
+/* 重なる時間の部分だけを、帯の中に印す */
+.c-bar__overlap {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--ox) * 1%);
+  z-index: -1;
+  width: calc(var(--ow) * 1%);
+  border-inline: var(--border-width) dashed var(--color-alert);
+  background-color: var(--color-alert-soft);
+}
+
+.c-bar[data-state="selected"] {
+  border: 3px solid var(--color-action);
+  background-color: var(--color-action-soft);
+}
+
+.c-bar[data-state="conflict"] {
+  border: 2px dashed var(--color-alert);
+  background-image: repeating-linear-gradient(135deg, var(--color-alert-soft) 0 0.3rem, transparent 0.3rem 0.6rem);
+}
+
+/* 注目中: 内側に墨の太枠（外へ広げない） */
+.c-bar[aria-current="true"] {
+  box-shadow: inset 0 0 0 2px var(--color-surface), inset 0 0 0 4px var(--color-text);
+}
+
+@media (hover: hover) {
+  .c-bar:hover .c-bar__label {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+}
+
+/* 回る予定の列 */
+.c-rail {
+  grid-row: 5;
+  position: relative;
+  border-radius: var(--radius-sm);
+  outline: var(--border-width) dashed var(--color-border-strong);
+  outline-offset: -1px;
+  background-color: var(--color-surface-sunk);
+}
+
+.c-seg {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  left: calc(var(--x) * 1%);
+  width: calc(var(--w) * 1%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  background-color: var(--color-action);
+  box-shadow: inset 0 0 0 1px var(--color-surface);
+  color: var(--color-on-action);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 入力の変化を一度だけ動きで示す。動きを減らす設定では foundation.css が動きを止め、枠の強調だけが残る */
+@keyframes seg-arrive {
+  from {
+    opacity: 0.3;
+    transform: translateY(-1.5rem) scaleY(1.4);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes bar-reject {
+  0% {
+    transform: none;
+  }
+
+  35% {
+    transform: translateY(0.375rem);
+  }
+
+  100% {
+    transform: none;
+  }
+}
+
+@keyframes mark-flash {
+  0%,
+  100% {
+    background-color: transparent;
+  }
+
+  50% {
+    background-color: var(--color-alert-soft);
+  }
+}
+
+.c-seg[data-recent="add"] {
+  outline: 2px solid var(--color-text);
+  outline-offset: 1px;
+  animation: seg-arrive 480ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.c-seg[data-recent="blocking"] {
+  outline: 3px solid var(--color-alert);
+  outline-offset: 1px;
+}
+
+.c-bar[data-recent="rejected"] {
+  border-width: 3px;
+  animation: bar-reject 420ms ease-out 1;
+}
+
+.c-mark[data-recent="conflict"] {
+  height: 0.5rem;
+  animation: mark-flash 360ms ease-in-out 2;
+}
+
+/* ========== 予定メモと主操作 ========== */
+.c-figure__out {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.c-plan {
+  position: relative;
+  padding: var(--space-1) var(--space-3) var(--space-2);
+  border: 2px solid var(--color-action);
+  border-radius: var(--radius-md);
+  border-start-end-radius: 0;
+  background-color: var(--color-surface);
+  container-type: inline-size;
+}
+
+/* 文書の折り返し */
+.c-plan::before {
   content: "";
-  flex: none;
-  inline-size: 0.5em;
-  block-size: 0.5em;
-  border-radius: var(--radius-pill);
-  background-color: var(--color-accent);
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 0.875rem;
+  height: 0.875rem;
+  background-image: linear-gradient(225deg, var(--color-bg) 50%, var(--color-action) 50% calc(50% + 2px), var(--color-action-soft) calc(50% + 2px));
 }
 
-/* ========== 絞り込み ========== */
-.c-main {
-  --stack-gap: var(--space-8);
+.c-plan__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0 var(--space-2);
 }
 
-.c-filters {
+.c-plan__title {
+  font-size: var(--text-base);
+}
+
+.c-plan__try {
+  padding-inline: var(--space-2);
+  font-weight: var(--weight-bold);
+}
+
+.c-plan__body {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-2);
+}
+
+.c-plan__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.c-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-height: 1.75rem;
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-action);
+  color: var(--color-on-action);
+  font-weight: var(--weight-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.c-chip__label {
+  display: none;
+  font-weight: var(--weight-regular);
+}
+
+@container (min-width: 30rem) {
+  .c-chip__label {
+    display: inline;
+  }
+}
+
+.c-plan__sum {
+  color: var(--color-text-muted);
+  font-size: 0.9375rem;
+}
+
+.c-plan__count {
+  color: var(--color-text);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.c-act {
+  display: grid;
+  align-content: start;
+  gap: var(--space-2);
+}
+
+.c-act__focus {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 var(--space-2);
+}
+
+.c-act__id,
+.c-full__id {
+  display: inline-flex;
+  padding: 0 0.375rem;
+  border: var(--border-width) solid currentColor;
+  border-radius: var(--radius-sm);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+}
+
+.c-act__id {
+  font-weight: var(--weight-bold);
+}
+
+.c-act__title {
+  font-weight: var(--weight-bold);
+}
+
+.c-act__meta {
+  color: var(--color-text-muted);
+}
+
+.c-act__buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+#toggle-session[data-state="conflict"] {
+  border: 2px dashed var(--color-alert);
+}
+
+.c-act__save:not(:disabled) {
+  border: 2px solid var(--color-action);
+}
+
+.c-act__note,
+.c-act__status {
+  font-size: 0.9375rem;
+}
+
+.c-act__status {
+  font-weight: var(--weight-bold);
+}
+
+/* ========== 広い画面: 午前と午後を並べ、図を大きく保つ ========== */
+@media (min-width: 48rem) {
+  .c-timemap {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-6);
+  }
+
+  .c-figure__out {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: var(--space-6);
+  }
+
+  .c-trail {
+    max-width: 40rem;
+  }
+}
+
+/* ========== 図の下: 詳しい内容と操作 ========== */
+.c-section {
+  display: grid;
+  gap: var(--space-3);
+  padding-block-start: var(--space-8);
+}
+
+.c-section__title {
+  font-size: var(--text-xl);
+}
+
+.c-detail__title,
+.c-full__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-size: var(--text-xl);
+}
+
+.c-full__id {
+  font-size: var(--text-base);
+}
+
+.c-facts {
+  margin-block: var(--space-3);
+}
+
+.c-detail__state {
+  font-weight: var(--weight-bold);
+}
+
+.c-full-list {
   display: grid;
   gap: var(--space-3);
 }
 
+.c-full__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--control-min);
+  font-weight: var(--weight-bold);
+}
+
+@media (min-width: 64rem) {
+  .c-full-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* 絞り込み */
 .c-filters__set {
   min-width: 0;
   margin: 0;
@@ -224,250 +873,55 @@ h3,
   border: 0;
 }
 
-.c-filters__reset-cell {
-  display: flex;
-  align-items: flex-end;
-  min-width: 0;
+.c-filters__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: end;
+  gap: var(--space-3);
 }
 
-.c-input:disabled,
-.c-select:disabled {
-  border-color: var(--color-border);
-  background-color: var(--color-surface-sunk);
-  color: var(--color-text-muted);
-  cursor: not-allowed;
-}
-
-.c-button[aria-disabled="true"] {
-  border-color: var(--color-border);
-  background-color: var(--color-surface-sunk);
-  color: var(--color-text-muted);
-}
-
-/* 48rem 以上: 検索を1行目の全幅、種類・時間帯・費用・クリアを2行目に並べる */
-@media (min-width: 48rem) {
+@media (min-width: 23.4375rem) {
   .c-filters__grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .c-filters__grid .l-filter-grid__wide {
+  .c-filters__wide {
     grid-column: 1 / -1;
   }
 }
 
-.c-results {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-1) var(--space-4);
-  padding-block-start: var(--space-3);
-  border-block-start: var(--border-width) solid var(--color-border);
+@media (min-width: 48rem) {
+  .c-filters__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
-.c-results__status {
-  flex: 1 1 14rem;
-  min-width: 0;
+.c-filters__status {
   font-weight: var(--weight-bold);
-}
-
-.c-results__jump {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--control-min);
-  font-weight: var(--weight-bold);
-}
-
-/* ========== 企画一覧 ========== */
-.c-sessions {
-  display: grid;
-  gap: var(--space-4);
 }
 
 .c-no-results {
   display: grid;
-  gap: var(--space-2);
   justify-items: start;
+  gap: var(--space-2);
 }
 
-.c-session-list {
+/* 回る予定の一覧 */
+.c-itinerary__list {
   display: grid;
-  gap: var(--space-4);
-}
-
-.c-session-list__item {
-  display: flex;
-  min-width: 0;
-}
-
-.c-session {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-width: 0;
-}
-
-.c-session > .l-session-grid {
-  flex: 1 1 auto;
-  grid-template-rows: auto 1fr;
-}
-
-.c-session__time {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0 var(--space-3);
-  padding-block-end: var(--space-2);
-  border-block-end: var(--border-width) solid var(--color-border);
-  font-family: var(--font-serif);
-  font-size: var(--text-lg);
-  font-weight: var(--weight-bold);
-  line-height: var(--leading-tight);
-  font-variant-numeric: tabular-nums;
-}
-
-.c-session__range {
-  white-space: nowrap;
-}
-
-.c-session__duration {
-  font-family: var(--font-sans);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-regular);
-  color: var(--color-text-muted);
-}
-
-.c-session__body {
-  --stack-gap: var(--space-3);
-  min-width: 0;
-}
-
-.c-session__tags {
-  --cluster-gap: var(--space-1) var(--space-2);
-}
-
-.c-tag--open {
-  border-style: dashed;
-  color: var(--color-text-muted);
-  background-color: var(--color-surface);
-}
-
-.c-session__meta dd {
-  overflow-wrap: anywhere;
-}
-
-.c-session__block {
-  padding-inline-start: var(--space-3);
-  border-inline-start: 2px solid var(--color-border-strong);
-  color: var(--color-text-muted);
-  font-size: var(--text-sm);
-}
-
-.c-session__selected {
-  color: var(--color-action);
-  font-weight: var(--weight-bold);
-}
-
-.c-session__conflict {
-  color: var(--color-alert);
-  font-weight: var(--weight-bold);
-}
-
-/* 重なる企画を押したとき: 同じ注記を面で強める（文言は変えない） */
-.c-session__conflict[data-attempted="true"] {
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-sm);
-  background-color: var(--color-alert-soft);
-}
-
-.c-session__toggle {
-  margin-block-start: auto;
-}
-
-.c-session__toggle[aria-pressed="true"] {
-  border-color: var(--color-action);
-  background-color: var(--color-action-soft);
-  color: var(--color-text);
-}
-
-.c-session__toggle[aria-pressed="true"]::before {
-  content: "✓";
-  content: "✓" / "";
-  color: var(--color-action);
-}
-
-/* 48rem〜64rem: カードは1列、中は「時刻列 | 内容」 */
-@media (min-width: 48rem) {
-  .c-session > .l-session-grid {
-    grid-template-rows: none;
-  }
-
-  .c-session__time {
-    flex-direction: column;
-    align-items: flex-start;
-    padding-block-end: 0;
-    padding-inline-end: var(--space-3);
-    border-block-end: 0;
-    border-inline-end: var(--border-width) solid var(--color-border);
-  }
-}
-
-/* 64rem 以上: カードを2列にし、中は縦積みに戻す */
-@media (min-width: 64rem) {
-  .c-session-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .c-session > .l-session-grid {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto 1fr;
-  }
-
-  .c-session__time {
-    flex-direction: row;
-    align-items: baseline;
-    padding-block-end: var(--space-2);
-    padding-inline-end: 0;
-    border-block-end: var(--border-width) solid var(--color-border);
-    border-inline-end: 0;
-  }
-
-  .c-results__jump {
-    display: none;
-  }
-}
-
-/* 「回る予定へ」は追従させない。カードの上に重ならないよう、一覧の末尾に置くだけにする */
-.c-jump-bar {
-  position: static;
-  padding-block: 0;
-  border-block-start: 0;
-  background-color: transparent;
-}
-
-/* ========== 回る予定 ========== */
-.c-itinerary__card {
-  display: grid;
-  gap: var(--space-3);
-  border-block-start: 3px solid var(--color-action);
-}
-
-.c-itinerary__empty {
-  color: var(--color-text-muted);
+  gap: var(--space-2);
 }
 
 .c-itinerary__item {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
   align-items: center;
-  gap: var(--space-1) var(--space-3);
-  padding-block: var(--space-3);
-  border-block-start: var(--border-width) solid var(--color-border);
-}
-
-.c-itinerary__item:first-child {
-  border-block-start: 0;
-  padding-block-start: 0;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: var(--border-width) solid var(--color-border);
+  border-inline-start: var(--mark-width) solid var(--color-action);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
 }
 
 .c-itinerary__info {
@@ -475,156 +929,107 @@ h3,
 }
 
 .c-itinerary__time {
-  font-family: var(--font-serif);
+  font-size: var(--text-lg);
   font-weight: var(--weight-bold);
-  font-variant-numeric: tabular-nums;
 }
 
 .c-itinerary__name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2);
   font-weight: var(--weight-bold);
 }
 
-.c-itinerary__detail {
-  color: var(--color-text-muted);
-  font-size: var(--text-sm);
+.c-itinerary__remove {
+  flex: none;
 }
 
 .c-itinerary__summary {
   display: grid;
-  gap: var(--space-1);
-  padding-block: var(--space-3);
-  border-block: 2px solid var(--color-text);
-}
-
-.c-itinerary__summary > div {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 0 var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: var(--space-2);
 }
 
 .c-itinerary__summary dt {
   color: var(--color-text-muted);
+  font-size: var(--text-sm);
 }
 
 .c-itinerary__summary dd {
   margin: 0;
+  font-size: var(--text-lg);
   font-weight: var(--weight-bold);
 }
 
-.c-itinerary__reservation {
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-sm);
-  background-color: var(--color-notice-soft);
-}
-
-.c-itinerary__actions {
-  display: grid;
-  gap: var(--space-2);
-}
-
-.c-itinerary__export-status {
+.c-itinerary__match {
+  color: var(--color-action);
   font-weight: var(--weight-bold);
 }
 
-.c-itinerary__export-status[data-tone="alert"] {
+.c-itinerary__export[data-tone="alert"] {
   color: var(--color-alert);
+  font-weight: var(--weight-bold);
 }
 
-.c-itinerary__clear {
-  justify-self: start;
+/* 折りたたみ */
+.c-fold {
+  margin-block-start: var(--space-8);
+  border-block-start: var(--border-width) solid var(--color-border-strong);
 }
 
-/* ========== この作例について（ページ下部の details） ========== */
-.c-appendix {
-  display: grid;
-  gap: var(--space-4);
-  padding-block: var(--space-8) var(--space-4);
-}
-
-.c-making {
-  border-block-start: 2px solid var(--color-text);
-}
-
-.c-making > summary {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
+.c-fold > summary {
   padding-block: var(--space-3);
 }
 
-.c-making__title {
+.c-fold__title {
   display: inline;
   font-size: var(--text-xl);
 }
 
-/* summary を flex にすると既定の三角が消えるため、開閉の印を文字で出す */
-.c-making > summary::before,
-.c-more > summary::before {
-  content: "＋";
-  content: "＋" / "";
-  flex: none;
-  color: var(--color-accent);
-  font-weight: var(--weight-bold);
+.c-fold__body {
+  padding-block: 0 var(--space-4);
 }
 
-.c-making[open] > summary::before,
-.c-more[open] > summary::before {
-  content: "−";
-  content: "−" / "";
+.c-fold__sub {
+  margin-block-start: var(--space-4);
+  font-size: var(--text-lg);
 }
 
-.c-making > summary::-webkit-details-marker,
-.c-more > summary::-webkit-details-marker {
-  display: none;
-}
-
-.c-making__body {
-  --stack-gap: var(--space-4);
-  padding-block: var(--space-2) var(--space-6);
+.c-info {
+  max-width: var(--measure);
 }
 
 .c-roles {
   display: grid;
-  gap: var(--space-4);
+  gap: var(--space-3);
 }
 
-.c-role {
-  display: grid;
-  gap: var(--space-3);
-  padding: var(--space-4);
-  border: var(--border-width) solid var(--color-border);
-  border-radius: var(--radius-md);
-  background-color: var(--color-surface);
+@media (min-width: 64rem) {
+  .c-roles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .c-role__title {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: var(--space-1) var(--space-2);
+  gap: var(--space-2);
   font-size: var(--text-lg);
 }
 
 .c-role__step {
   color: var(--color-accent);
   font-size: var(--text-sm);
-  letter-spacing: 0.08em;
 }
 
 .c-role__facts {
-  display: grid;
-  gap: var(--space-2);
+  margin-block: var(--space-3);
 }
 
-.c-role__facts dt {
-  color: var(--color-text-muted);
-  font-size: var(--text-sm);
-  font-weight: var(--weight-bold);
-}
-
-.c-role__facts dd {
-  margin: 0;
+.c-role__more + .c-role__more {
+  margin-block-start: var(--space-2);
 }
 
 .c-role__list {
@@ -633,22 +1038,13 @@ h3,
   padding-inline-start: 1.25em;
 }
 
-.c-role__list p + p {
-  color: var(--color-text-muted);
-}
-
-@media (min-width: 64rem) {
-  .c-roles {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
-  }
-}
-
 .c-decision {
   display: grid;
   gap: var(--space-2);
-  padding-inline-start: var(--space-3);
+  padding: var(--space-3) var(--space-4);
   border-inline-start: var(--mark-width) solid var(--color-accent);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
 }
 
 .c-decision__title {
@@ -657,34 +1053,44 @@ h3,
 
 .c-decision__quote blockquote {
   margin: var(--space-1) 0 0;
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-sm);
-  background-color: var(--color-surface-sunk);
+  padding-inline-start: var(--space-3);
+  border-inline-start: 2px solid var(--color-border-strong);
 }
 
-.c-decision__list {
+.c-samples {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.c-samples__item {
   display: grid;
   gap: var(--space-1);
-  padding-inline-start: 1.25em;
+  padding: var(--space-2) var(--space-3);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
 }
 
-/* リンクの一覧: 1件ごとに 44px 以上の行にする */
+.c-samples__label {
+  font-weight: var(--weight-bold);
+}
+
 .c-linklist {
   display: grid;
+  gap: 0;
 }
 
 .c-linklist a {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   min-height: var(--control-min);
-  padding-block: var(--space-1);
 }
 
 .c-request__text {
+  max-height: 20rem;
+  overflow: auto;
+  font-size: var(--text-sm);
   white-space: pre-wrap;
-  font-family: var(--font-sans);
-  font-size: var(--text-base);
-  line-height: var(--leading-body);
 }
 
 .c-request__file {
@@ -695,40 +1101,47 @@ h3,
 
 .c-request__fallback {
   min-height: 12rem;
-  resize: vertical;
+  font-family: var(--font-mono);
 }
 
-/* ========== 下端 ========== */
+.c-film {
+  padding-block-start: var(--space-8);
+}
+
+.c-film a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--control-min);
+  font-weight: var(--weight-bold);
+}
+
 .c-footer {
+  margin-block-start: var(--space-12);
   padding-block: var(--space-6) var(--page-pad-bottom);
-  border-block-start: var(--border-width) solid var(--color-border);
-  color: var(--color-text-muted);
-  font-size: var(--text-sm);
+  border-block-start: 3px double var(--color-border-strong);
 }
 
-.c-footer__links a {
-  font-size: var(--text-base);
+@media (forced-colors: active) {
+  .c-bar,
+  .c-seg,
+  .c-plan,
+  .c-node {
+    border-color: CanvasText;
+  }
+
+  .c-bar[aria-current="true"] {
+    outline: 3px solid CanvasText;
+    outline-offset: -5px;
+  }
+
+  .c-seg {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    color: HighlightText;
+  }
 }
 
-/* hidden 属性は、上で flex / grid にした部品でも必ず消す */
+/* foundation.css の後でも hidden を必ず効かせる */
 [hidden] {
   display: none !important;
-}
-
-/* 掲載前の実画面確認: 検索欄までをスマホの最初の画面へ。元のCSS土台は保持。 */
-.c-site-header { padding-block-start:max(8px,env(safe-area-inset-top)); padding-block-end:8px; }
-.c-topbar { flex-wrap:nowrap; gap:4px; }
-.c-topbar__back { flex-shrink:0; }
-.c-theme { flex-wrap:nowrap; }
-.c-theme-toggle { flex-wrap:nowrap; }
-.c-theme-toggle__option { padding-inline:6px; }
-.c-intro { gap:8px; }
-.c-intro__notice { padding:8px 12px; }
-.c-intro__notice .c-notice__title { font-size:14px; font-weight:400; }
-@media(max-width:47.999rem) {
- .c-facts { grid-template-columns:repeat(2,minmax(0,1fr)); }
- .c-facts__item:nth-child(-n+2) { grid-template-columns:minmax(0,1fr); gap:2px; }
- .c-facts__item:nth-child(n+3) { grid-column:1/-1; }
- .c-facts dt { padding-block-start:0; }
- .l-page { padding-block-start:16px; }
 }

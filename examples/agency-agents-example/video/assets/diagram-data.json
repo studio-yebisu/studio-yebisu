@@ -1,0 +1,152 @@
+{
+  "format": "studio-yebisu-agency-handoff-timeline-v1",
+  "fictional": true,
+  "role_mode": "sequential-reference-application",
+  "stages": [
+    {
+      "id": "input",
+      "label": "6企画",
+      "paths": [
+        "input/event.json"
+      ]
+    },
+    {
+      "id": "ux",
+      "label": "設計",
+      "role": "UX Architect",
+      "paths": [
+        "outputs/ux-handoff.json",
+        "outputs/ux-handoff.md",
+        "foundation.css"
+      ]
+    },
+    {
+      "id": "frontend",
+      "label": "実装",
+      "role": "Frontend Developer",
+      "paths": [
+        "comparison.html",
+        "comparison.js",
+        "comparison.css",
+        "outputs/implementation.md"
+      ]
+    },
+    {
+      "id": "itinerary",
+      "label": "回る予定",
+      "paths": [
+        "outputs/browser-itinerary.json"
+      ]
+    }
+  ],
+  "sessions": [
+    {
+      "id": "S01",
+      "short_label": "押し花",
+      "start": "10:00",
+      "end": "10:45",
+      "price_yen": 300,
+      "room": "工作の間",
+      "kind": "workshop"
+    },
+    {
+      "id": "S02",
+      "short_label": "種の話",
+      "start": "10:30",
+      "end": "11:00",
+      "price_yen": 0,
+      "room": "話の間",
+      "kind": "talk"
+    },
+    {
+      "id": "S03",
+      "short_label": "紙の町",
+      "start": "11:15",
+      "end": "12:00",
+      "price_yen": 200,
+      "room": "工作の間",
+      "kind": "workshop"
+    },
+    {
+      "id": "S04",
+      "short_label": "音さんぽ",
+      "start": "13:00",
+      "end": "13:30",
+      "price_yen": 0,
+      "room": "話の間",
+      "kind": "talk"
+    },
+    {
+      "id": "S05",
+      "short_label": "糸の布",
+      "start": "13:15",
+      "end": "14:00",
+      "price_yen": 500,
+      "room": "工作の間",
+      "kind": "workshop"
+    },
+    {
+      "id": "S06",
+      "short_label": "ほつれ相談",
+      "start": "14:00",
+      "end": "15:00",
+      "price_yen": 0,
+      "room": "相談の間",
+      "kind": "consultation"
+    }
+  ],
+  "overlaps": [
+    {
+      "ids": [
+        "S01",
+        "S02"
+      ],
+      "start": "10:30",
+      "end": "10:45"
+    },
+    {
+      "ids": [
+        "S04",
+        "S05"
+      ],
+      "start": "13:15",
+      "end": "13:30"
+    }
+  ],
+  "touching": {
+    "ids": [
+      "S05",
+      "S06"
+    ],
+    "at": "14:00",
+    "allowed": true,
+    "movement_allowance": false
+  },
+  "recorded_selection": [
+    "S01",
+    "S03",
+    "S05",
+    "S06"
+  ],
+  "recorded_total_yen": 1000,
+  "alternative_selection": [
+    "S01",
+    "S03",
+    "S04",
+    "S06"
+  ],
+  "alternative_total_yen": 500,
+  "selection_after_conflict": [
+    "S01"
+  ],
+  "rejected_addition": "S02",
+  "limitations": [
+    "Two separate sequential invocations of same exact Opus5.5, not independent collaborating agents or runtime role engine.",
+    "Original UX A09 automatic replacement explicitly rejected by original Frontend implementation: block new overlapping addition and retain previous selection. A06 amended.",
+    "Original role application and stored browser exports preserved, no model rerun. New browser UI can execute local schedule controls.",
+    "Fictional setting, planned capacity not remaining seats; no booking/payment/map/contact/live AI.",
+    "All times same day Asia/Tokyo; reservation-free sessions consume full interval. End14:00/start14:00 allowed, no travel allowance.",
+    "No weekday inferred; source event date only. Theme persists, selected itinerary does not.",
+    "No audio/narration/guide assets. S04 is fictional event text only, not real audio content."
+  ]
+}

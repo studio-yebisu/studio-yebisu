@@ -1,0 +1,303 @@
+{
+  "meta": {
+    "fictional": true,
+    "event_id": "komorebi-making-day",
+    "source_commit": "bd956db032d907387e6b9ddebff3e18f1de8c679",
+    "mode": "sequential-role-application",
+    "stage": "ux-handoff"
+  },
+  "goal": "架空イベント「こもれび つくる日」（2026-11-07、6企画）の企画ガイドをスマホ優先で作る。来場想定者が開始・終了・費用・対象年齢・予約の要否を比べ、時間が重ならない企画だけを「回る予定」に選び、端末内でJSONとして保存できるようにする。予約・支払い・残席確認・地図・連絡先・AI呼び出し・計測は行わない。",
+  "roles": [
+    {
+      "id": "ux-architect",
+      "name": "UX Architect",
+      "source_path": "vendor/agency-agents/design/design-ux-architect.md",
+      "inputs": ["input/event.json"],
+      "deliverables": ["outputs/ux-handoff.json", "outputs/ux-handoff.md", "foundation.css"],
+      "checks": [
+        "foundation.css に light・dark・system（prefers-color-scheme）の3系統で同じ色トークン名がそろっている",
+        "foundation.css に 100vw・100vh・html/body の overflow:hidden・全画面ヒーローがない",
+        "操作部品の土台が min-height 2.75rem（44px）・font-size max(1rem,16px)、フォーカスが 3px outline になっている",
+        "[hidden] が display:none !important で、.c-button や .l-cluster などの flex/grid 部品にも勝つ",
+        "入力の6企画すべてについて、時刻・費用・年齢・定員・予約フラグの表示規則が data_contract に書かれている",
+        "重なりの例（S01×S02、S04×S05）と接する例（S05→S06）が入力の時刻と一致している",
+        "受け入れ条件はすべて未実施の将来条件として書き、合格済みとしていない",
+        "参照先の ai/agents/architect.md が固定アーカイブにないことを limits に書き、内容を補っていない",
+        "上の確認はファイルを読んで行う静的な確認で、ブラウザ表示・テスト・コントラスト測定ツールは使っていない"
+      ],
+      "applied_instructions": [
+        {
+          "instruction": "変数・余白の段階・文字の階層を持つCSSデザインシステムを渡す（Create Developer-Ready Foundations）",
+          "application": "foundation.css に色の役割名トークン（--color-bg / -surface / -text / -accent / -action / -alert / -focus など）、4px 単位の --space-1〜16、--text-sm〜3xl、行間 1.6 を定義した"
+        },
+        {
+          "instruction": "Grid/Flexbox でレイアウトの枠組みを作る",
+          "application": ".l-container（セーフエリア込みの左右余白）、.l-stack、.l-cluster、.l-page（64rem で本体 + 回る予定列）、.l-filter-grid、.l-session-grid を foundation.css に用意した"
+        },
+        {
+          "instruction": "コンポーネント構成と命名規則を決める",
+          "application": "l-（レイアウト）、c-（部品、BEM風の __要素 / --変種）、u-（補助）の接頭辞と、状態は data-state / aria-pressed / disabled で表す規則を決め、components に責任と状態を書いた"
+        },
+        {
+          "instruction": "モバイルファーストのブレークポイント戦略を立てる",
+          "application": "320px を基準に min-width 23.4375rem（375）・48rem・64rem、横向きの低い画面（max-height 32rem）を定義し、responsive に 320/375/390/430/844横/1280 の振る舞いを書いた"
+        },
+        {
+          "instruction": "新しいサイトには必ず light/dark/system のテーマ切替を入れる（Default requirement）",
+          "application": "ヘッダーに「システム／ライト／ダーク」の3ボタンを置く。保存値は light/dark/system、不正値は system、保存できない場合もその場では反映する。system 選択中は OS の変化に追従する"
+        },
+        {
+          "instruction": "データスキーマと契約を定義して守らせる（System Architecture Leadership）",
+          "application": "data_contract に input/event.json の検証規則、重なりの判定式、書き出しJSONの形、読み込み中・失敗の扱いを書いた。フォールバック用の内蔵データは置かない"
+        },
+        {
+          "instruction": "部品の境界とサブシステム間の明確な接点を決める",
+          "application": "状態を持つのは app の1か所（status / event / filters / selected / theme）。各部品は状態から描くだけにし、選択の追加・削除・入れ替えは1つの選択関数を通す"
+        },
+        {
+          "instruction": "情報設計と内容の階層を仕様にする",
+          "application": "h1（企画ガイド）→ 架空の表示 → 開催情報 → h2 企画を探す / 企画一覧（h3 は企画名）→ h2 回る予定 → h2 この作例のつくり方（details）の順に固定した"
+        },
+        {
+          "instruction": "操作パターンとアクセシビリティ上の配慮を決める",
+          "application": "各カードの操作ボタンは1つで、状態に応じて文言と動作を変え、フォーカス中に要素を消さない。重なりは role=status で知らせ、色だけに頼らず文言で示す。キーボードの移動順を定めた"
+        },
+        {
+          "instruction": "実装の優先順位と依存関係を決める",
+          "application": "P0 土台と読み込み → P1 一覧と選択・重なり → P2 回る予定と書き出し・テーマ → P3 補足の details と仕上げ、の順を components の責任欄と md に書いた"
+        },
+        {
+          "instruction": "実装の前に拡張できるCSS構成を作る（Foundation-First Approach）",
+          "application": "Frontend Developer の実行より前に foundation.css を書いた。style.css は色を直書きせず、このトークンと部品の上にカード固有の配置だけを足す"
+        },
+        {
+          "instruction": "テンプレートのレイアウト例（Hero Section: Full viewport height）",
+          "application": "例示として扱い採用しない。このページは企画を早く見せることが目的なので、短い導入（題名・1行の説明・架空の表示・開催情報）の直後に絞り込みと企画一覧を置く"
+        },
+        {
+          "instruction": "テーマ切替のJS例（light/dark だけ保存し、storage が使えなくても反映する）",
+          "application": "try/catch で保存失敗を吸収する方針は採用。保存値は依頼どおり light/dark/system の3値にし、system 中の OS 変化を matchMedia の change で拾う処理を追加した"
+        },
+        {
+          "instruction": "テーマ切替のHTML例（role=radiogroup / role=radio のボタン、絵文字アイコン）",
+          "application": "role=radio は矢印キーでの移動が必要になるため、role=group 内の aria-pressed 付き button 3つに変えた。絵文字は使わず日本語の文字だけにした"
+        },
+        {
+          "instruction": "Step 1: ai/memory-bank/site-setup.md とタスク一覧を読む",
+          "application": "この作業にその資料はない。入力は input/event.json と依頼文だけで、コマンドも実行していない"
+        },
+        {
+          "instruction": "ファイル構成例（css/design-system.css, layout.css, components.css, utilities.css, main.css と js/theme-manager.js）",
+          "application": "6企画の静的ページには分けすぎなので、指定どおり foundation.css（トークン・土台・共通部品）と style.css（ページ固有）と app.js の3つにまとめた"
+        },
+        {
+          "instruction": "性能予算とSLAに照らして設計を確かめる",
+          "application": "入力に予算やSLAはなく、数値は作らない。外部依存・画像・フォント読み込みを置かない構成にとどめ、測定は行っていない"
+        },
+        {
+          "instruction": "LuxuryDeveloper への引き継ぎ仕様を渡す（Bridge PM and Development）",
+          "application": "このアーカイブの引き継ぎ先は Frontend Developer の役割ファイル（engineering/engineering-frontend-developer.md）。別の実行で読む前提で、この JSON と md を渡す"
+        },
+        {
+          "instruction": "詳しい手法は ai/agents/architect.md を参照する（Instructions Reference）",
+          "application": "固定コミットのアーカイブにこのファイルはない。内容は推測で補わず、渡された design-ux-architect.md だけを適用した"
+        }
+      ]
+    },
+    {
+      "id": "frontend-developer",
+      "name": "Frontend Developer",
+      "source_path": "vendor/agency-agents/engineering/engineering-frontend-developer.md",
+      "inputs": ["input/event.json", "outputs/ux-handoff.json", "foundation.css"],
+      "deliverables": ["index.html", "style.css", "app.js", "outputs/implementation.md"],
+      "checks": [
+        "index.html が foundation.css → style.css の順で読み込み、外部のCDN・フォント・画像・計測を読み込まない",
+        "viewport が width=device-width, initial-scale=1, viewport-fit=cover で、maximum-scale や user-scalable を含まない",
+        "app.js が input/event.json だけを fetch し、検証に失敗したら一覧を描かずに理由と再読み込みボタンを出す",
+        "6企画の表示値が入力と一致し、時刻順（開始→終了→ID）に並ぶ",
+        "S01 を選ぶと S02 が重なりの状態になり、S04 を選ぶと S05 が重なりの状態になる。S05 と S06 は両方選べる",
+        "入れ替えは利用者の操作でだけ起き、外した企画名が role=status で読み上げられる",
+        "書き出しJSONが data_contract.export の形と一致し、selected_ids が時刻順、fictional=true、reserved=false",
+        "テーマ切替の保存値と storage 失敗時の動作、system 中の OS 変化への追従",
+        "320px 幅でページ全体の横スクロールが出ない、操作部品が 44px 以上・16px 以上",
+        "implementation.md に、実行した確認と実行していない確認（Lighthouse・Core Web Vitals・支援技術での試験など）を分けて書く"
+      ],
+      "applied_instructions": []
+    }
+  ],
+  "flow": [
+    "1. 読み込み: <head> 内の小さな inline script が保存済みテーマを適用（不正値・読み出し失敗は system）。本文には「企画データを読み込んでいます…」を表示し、絞り込みと書き出しは無効",
+    "2. 取得と検証: input/event.json を fetch。通信失敗・HTTPエラー・JSON不正・検証失敗のどれでも、理由つきのエラーと「もう一度読み込む」を出す。内蔵の代替データは使わない",
+    "3. 把握: h1「こもれび つくる日 企画ガイド」、何ができるかの1行、架空イベントの注記（area と reservation_note の原文）、日付・開場〜閉場・会場・入場を見る",
+    "4. 絞り込み: 種類（すべて／ワークショップ／トーク／相談）、時間帯（すべて／午前に始まる／午後に始まる）、キーワード検索。件数は role=status で知らせ、0件なら理由と「条件をクリア」を出す",
+    "5. 比較: 各カードで 開始–終了と所要分、種類、費用（0円は「無料」）、対象年齢、予約の要否、定員（企画上の設定、null は「設定なし」）、部屋、説明、メモを見る",
+    "6. 選択: 「回る予定に入れる」で追加。追加後、時間が重なる他の企画は重なりの状態になり、その旨を role=status で知らせる",
+    "7. 入れ替え: 重なりの状態のカードでは同じボタンが「入れ替える」になり、押すと重なる企画を外してこちらを入れ、外した企画名も読み上げる。黙って外すことはない",
+    "8. 確認: 一覧下端の「回る予定 n件を見る」（href=\"#itinerary\" の通常のリンク）で回る予定へ移動。時刻順の一覧、費用の合計、外すボタンを見る",
+    "9. 保存: 「回る予定をJSONで保存」で komorebi-making-day-2026-11-07-itinerary.json をダウンロード。0件・読み込み中・失敗時は理由つきで無効",
+    "10. 再読み込み: 回る予定は保存しないので空に戻る（画面に明記）。テーマだけが残る"
+  ],
+  "components": [
+    {
+      "id": "theme-init",
+      "responsibility": "[P0] <head> の inline script。localStorage 'komorebi-theme' を try/catch で読み、light/dark/system 以外は system として <html data-theme> を最初の描画前に設定する",
+      "state": "theme: 'system' | 'light' | 'dark'（既定 system）"
+    },
+    {
+      "id": "skip-link",
+      "responsibility": "[P0] 最初のフォーカス先。「企画一覧へ移動」で #sessions に飛ぶ（.c-skip-link）",
+      "state": "状態なし"
+    },
+    {
+      "id": "site-header",
+      "responsibility": "[P0] 「架空イベントの作例」のラベルとテーマ切替を置く。全画面ヒーローにしない（.c-site-header）",
+      "state": "状態なし"
+    },
+    {
+      "id": "theme-toggle",
+      "responsibility": "[P2] role=group aria-label=「表示テーマ」内に button 3つ（システム／ライト／ダーク、aria-pressed）。押すと data-theme と保存値を更新。system 中は matchMedia('(prefers-color-scheme: dark)') の change で <meta name=theme-color> と補足文「いまはダーク」を更新。保存に失敗したら近くの role=status に「表示テーマを保存できませんでした。この画面を開いている間だけ反映します。」",
+      "state": "theme と themePersisted: boolean。ボタンはフォーカス中も消さない"
+    },
+    {
+      "id": "event-intro",
+      "responsibility": "[P1] h1「{title} 企画ガイド」、説明文「{sessions.length}つの企画の時間・費用・対象年齢・予約の要否を比べ、時間が重ならない「回る予定」を作ってJSONで保存できます。」、subtitle は小さく添える。c-meta で 日付（2026年11月7日。曜日は入力にないので出さない）・開場 09:45–15:30・会場・入場、details「開催情報の補足」に access と weather の原文",
+      "state": "event が ready のときだけ描く"
+    },
+    {
+      "id": "fiction-notice",
+      "responsibility": "[P1] .c-notice--fiction。見出し「架空のイベントです」と area・reservation_note の原文を、h1 の直後・絞り込みより前に置く",
+      "state": "常に表示（読み込み失敗時も文言は静的HTMLで出す）"
+    },
+    {
+      "id": "load-state",
+      "responsibility": "[P0] 読み込み中の文言（role=status）と、失敗時の .c-notice--alert（role=alert）+「もう一度読み込む」ボタン。file:// で開いた場合の注意文を添える",
+      "state": "status: 'loading' | 'ready' | 'error'、error: { kind: 'network' | 'http' | 'parse' | 'validation', detail }。再読み込み中はボタンを disabled にし「読み込み中…」と表示"
+    },
+    {
+      "id": "filter-toolbar",
+      "responsibility": "[P1] h2「企画を探す」。.l-filter-grid に 検索（input type=search、ラベル「企画名・内容で探す」、.l-filter-grid__wide）、種類 select、時間帯 select。label 要素で必ず名前を付ける",
+      "state": "filters: { kind: 'all' | kind, time: 'all' | 'morning' | 'afternoon', query: string }。ready 前は disabled。再読み込みでリセット"
+    },
+    {
+      "id": "result-status",
+      "responsibility": "[P1] role=status で「6件中3件を表示しています。」。選択済みが条件で隠れているときは「回る予定のうち1件は今の条件では一覧に出ていません。」を足す。0件なら「条件に合う企画はありません。」と「条件をクリア」ボタン",
+      "state": "filters と selected から導く。検索入力の読み上げは打鍵ごとではなく入力が止まってから更新する"
+    },
+    {
+      "id": "session-list",
+      "responsibility": "[P1] h2「企画一覧」、id=sessions。<ol class=u-list-reset role=list> に session-card を時刻順で並べる",
+      "state": "event.sessions を filters で絞った結果。並び順は 開始→終了→ID"
+    },
+    {
+      "id": "session-card",
+      "responsibility": "[P1] <li><article class=\"c-card c-session\" aria-labelledby> 。.l-session-grid の時刻列に <time datetime=HH:MM> の開始–終了と所要分、内容列に .c-tag（種類・予約の要否）、h3 企画名、.c-meta（部屋・費用・対象・定員・予約）、説明、メモ、注記、操作ボタン1つ。予約不要の企画には「予約不要の企画も、回る予定では{start}–{end}の枠全体を使うものとして重なりを判定します。」を出す（S02・S04・S06。S06 は 14:00–15:00 を占める）",
+      "state": "data-state: 'available' | 'selected' | 'conflict'。ボタンは同じ要素のまま文言を変える: available「回る予定に入れる」(.c-button--primary)／selected「回る予定から外す」＋バッジ「回る予定に入っています」／conflict「入れ替える」＋注記「「押し花のしおり」（10:00–10:45）と時間が重なっています」。ボタン名には視覚的に隠した企画名を含める"
+    },
+    {
+      "id": "selection-store",
+      "responsibility": "[P1] 選択の唯一の入口。add(id) は 重なり・上限6件・存在しないID を確かめ、だめなら理由を返して何も変えない。swap(id) は重なる選択をすべて外して id を入れる。remove(id)、clear()。localStorage には保存しない",
+      "state": "selected: string[]（常に時刻順）。上限6件。再読み込みで空"
+    },
+    {
+      "id": "app-status",
+      "responsibility": "[P1] 視覚的に隠した role=status。追加・削除・入れ替え・重なり発生・上限・全削除・書き出しの結果を1文で知らせる",
+      "state": "最新の1文だけを持つ。同じ文が続くときも読み上げられるよう一度空にしてから入れる"
+    },
+    {
+      "id": "jump-bar",
+      "responsibility": "[P1] .l-page__main の最後の子として .c-jump-bar を置き、<a class=\"c-button c-button--block\" href=\"#itinerary\">回る予定 n件を見る</a> を入れる。スマホ縦では一覧の下端に追従、横向きの低い画面では追従しない、64rem 以上は出さない",
+      "state": "selected.length を表示するだけ"
+    },
+    {
+      "id": "itinerary",
+      "responsibility": "[P2] <section id=itinerary class=\"l-page__aside\" aria-labelledby> と h2「回る予定」（tabindex=-1）。説明「選んだ企画を時間順に並べます。この一覧はブラウザに保存されず、再読み込みすると空に戻ります。予約・参加確定ではありません。」。空のとき「まだ企画を選んでいません。企画一覧で「回る予定に入れる」を押すと、ここに時間順で並びます。」。項目は 時刻・企画名・費用・予約の要否・「外す」。合計「n件・費用の合計 500円」。「すべて外す」は1件以上のときだけ表示",
+      "state": "selected から導く。外したときのフォーカスは 次の項目の「外す」→ 前の項目の「外す」→ h2 の順に移す"
+    },
+    {
+      "id": "export-button",
+      "responsibility": "[P2] 「回る予定をJSONで保存」。Blob（application/json、2スペース整形、末尾改行）を作り、download 属性付きの a で保存させ、URL を revoke する。理由文を aria-describedby で結ぶ",
+      "state": "disabled の条件と理由文: loading「企画データの読み込み後に保存できます。」／error「企画データを読み込めなかったため保存できません。」／0件「企画を1件以上選ぶと保存できます。」。成功時は「…の保存を開始しました。」、失敗時は「JSONファイルを作れませんでした。回る予定はそのまま残っています。」"
+    },
+    {
+      "id": "making-guide",
+      "responsibility": "[P3] ページ下部の <details>「この作例のつくり方」。2つの役割の入力→成果→確認、固定コミット、MIT・コミュニティ作成で Anthropic 公式ではないこと、ai/agents/architect.md がないこと、ページ表示時にAIは動かないこと（役割の適用は制作時）を書く。大きな制作パネルにはしない",
+      "state": "閉じた状態が既定"
+    },
+    {
+      "id": "site-footer",
+      "responsibility": "[P3] 出典の1行（msitarzewski/agency-agents @ bd956db、MIT）と架空イベントの再掲。下端はセーフエリア分の余白",
+      "state": "状態なし"
+    }
+  ],
+  "data_contract": {
+    "input": "input/event.json を fetch('input/event.json', { cache: 'no-store' }) で読む。入力ファイルは変更しない。検証: 最上位に id・title・subtitle・date（YYYY-MM-DD）・timezone・venue・area・opening/closing（HH:MM、opening < closing）・admission・reservation_note・access・weather の文字列、fictional === true、sessions は1件以上の配列。各企画: id は空でない一意の文字列、kind は workshop / talk / consultation のどれか、title・room・age・description・note は文字列、start/end は HH:MM で start < end、price_yen は0以上の整数、capacity は1以上の整数か null、reservation_required は boolean。時刻は同じ日付・同じ timezone の分（時×60+分）として比べる。表示: 時刻は入力の文字列そのまま、費用は 0 なら「無料」それ以外は「300円」、定員は「8人（企画上の設定。残席ではありません）」か null なら「設定なし」、予約は true なら「必要（この作例では受付しません）」false なら「不要」。種類の表示名は workshop=ワークショップ、talk=トーク、consultation=相談。時間帯は start が 12:00 より前なら午前、以降なら午後。検索は title・description・note・room を NFKC と小文字化で正規化して部分一致",
+    "conflict_rule": "startA < endB AND startB < endA; full sessions; touching endpoints allowed",
+    "export": "ファイル名 `${event.id}-${event.date}-itinerary.json`（= komorebi-making-day-2026-11-07-itinerary.json）。中身: { format: 'komorebi-itinerary/v1', fictional: true, reserved: false, notice: '架空のイベントの予定メモです。予約・支払い・参加確定ではありません。', event: { id, title, date, timezone, venue（入力の値をそのまま） }, source: { event_file: 'input/event.json', role_source: 'msitarzewski/agency-agents', role_source_commit: 'bd956db032d907387e6b9ddebff3e18f1de8c679' }, selection_rule: 重なりの規則の日本語文, selected_ids: 時刻順のID配列, sessions: 選んだ企画の入力オブジェクトを全フィールドそのまま時刻順で, derived: { count, total_price_yen }（計算値であることを分ける） }。名前・連絡先・端末情報・日時のスタンプなど利用者の情報は入れない",
+    "loading_error": "読み込み中は status=loading で文言を表示し、絞り込み・選択・書き出しを無効にする。失敗は4種類を区別して文言を出す: network「通信に失敗しました。」、http「サーバーが {status} を返しました。」、parse「JSONとして読めませんでした。」、validation「{path}（例: sessions[3].end）の形式が正しくありません。」。どれも role=alert の .c-notice--alert に「企画データを読み込めませんでした。」と理由、「もう一度読み込む」ボタン、「ファイルを直接開いた場合は読み込めないことがあります。HTTPで配信して開いてください。」を出す。一部だけ描く・内蔵データで代用する・黙って空の一覧を出す、はしない"
+  },
+  "responsive": [
+    {
+      "width": 320,
+      "behavior": "基準。1列。左右余白 16px（セーフエリアが大きければそちら）。テーマ切替はヘッダーで題名ラベルの下に折り返す。絞り込みは検索・種類・時間帯を縦積み。企画カードは時刻→タグ→企画名→c-meta→説明→メモ→注記→全幅ボタンの縦積み。c-meta は 項目名|値 の2列。回る予定は一覧の後ろ。一覧の下端に「回る予定 n件を見る」が追従する。ページ全体の横スクロールを出さない"
+    },
+    {
+      "width": 375,
+      "behavior": "23.4375rem 以上。絞り込みが 検索（全幅）＋ 種類・時間帯の2列 になる。それ以外は 320 と同じ"
+    },
+    {
+      "width": 390,
+      "behavior": "375 と同じ配置。テーマ切替の3ボタンが1行に収まることを期待するが、収まらなければ折り返してよい（.c-theme-toggle は flex-wrap）"
+    },
+    {
+      "width": 430,
+      "behavior": "375 と同じ配置。行長が伸びるだけで追加の段組みはしない。カードのボタンは全幅のまま"
+    },
+    {
+      "width": 844,
+      "behavior": "横向き（高さ約390px想定）。48rem 以上なので絞り込みは1行（検索 2fr・種類・時間帯）、企画カードは 時刻列 7.5rem ＋ 内容。回る予定はまだ一覧の後ろ。高さ 32rem 以下なので jump-bar は追従させず一覧の末尾に置く。ノッチ側の左右余白は env(safe-area-inset-left/right) を下回らない"
+    },
+    {
+      "width": 1280,
+      "behavior": "64rem 以上。最大幅 72rem の中央寄せで、本体（企画を探す・企画一覧）と右列 18–22rem の回る予定。高さ 48rem 以上なら右列は top 16px で追従。jump-bar は出さない。企画カードは 844 と同じ2列構成"
+    }
+  ],
+  "acceptance": [
+    { "id": "A01", "criterion": "viewport の meta が width=device-width, initial-scale=1, viewport-fit=cover で、maximum-scale・user-scalable=no を含まない", "owner": "frontend-developer" },
+    { "id": "A02", "criterion": "320・375・390・430・844横・1280 の各幅でページ全体の横スクロールが出ない。CSSに 100vw・100vh・html/body の overflow:hidden・画面の高さいっぱいの導入部がない", "owner": "frontend-developer" },
+    { "id": "A03", "criterion": "h1 の直後、絞り込みより前に「架空のイベントです」と area・reservation_note の原文が見える", "owner": "frontend-developer" },
+    { "id": "A04", "criterion": "6企画が 開始→終了→ID の順に並び、開始・終了・所要分・種類・費用（0は「無料」）・対象年齢・予約の要否・定員（S06 は「設定なし」）・部屋・説明・メモが入力と一致する", "owner": "frontend-developer" },
+    { "id": "A05", "criterion": "種類・時間帯・検索で絞ると件数文が role=status 内で更新され、0件では「条件に合う企画はありません。」と動く「条件をクリア」が出る", "owner": "frontend-developer" },
+    { "id": "A06", "criterion": "S01 を入れると S02 のカードが重なりの状態（注記に「押し花のしおり」10:00–10:45）になり、role=status でその旨が告げられる。S02 は入れ替えを押さない限り回る予定に入らない", "owner": "frontend-developer" },
+    { "id": "A07", "criterion": "S04 を入れると S05 が重なりの状態になる（逆も同じ）。同じ会場の別の部屋であることを理由に重なりを許していない", "owner": "frontend-developer" },
+    { "id": "A08", "criterion": "S05 と S06 を両方入れられる（14:00 で接するだけ）。S06 のカードと回る予定に 14:00–15:00 の枠全体を使う旨が出る", "owner": "frontend-developer" },
+    { "id": "A09", "criterion": "「入れ替える」を押すと重なる企画が外れて押した企画が入り、外した企画名と入れた企画名が role=status で告げられる。フォーカスは同じボタン上に残る", "owner": "frontend-developer" },
+    { "id": "A10", "criterion": "絞り込みで隠れた選択済みの企画が回る予定から消えず、件数文にその件数が出る", "owner": "frontend-developer" },
+    { "id": "A11", "criterion": "回る予定は0件で空の説明を出し、ページを再読み込みすると空に戻る。保存されないことが回る予定の説明に書いてある", "owner": "frontend-developer" },
+    { "id": "A12", "criterion": "「回る予定 n件を見る」は href=\"#itinerary\" の通常のリンクで、JSなしでも移動先へ飛べる", "owner": "frontend-developer" },
+    { "id": "A13", "criterion": "回る予定の項目を「外す」と、フォーカスが 次の項目→前の項目→見出し の順で移り、行方不明にならない", "owner": "frontend-developer" },
+    { "id": "A14", "criterion": "書き出しボタンは 読み込み中・失敗・0件 で disabled になり、その理由文が見えて aria-describedby で結ばれている", "owner": "frontend-developer" },
+    { "id": "A15", "criterion": "S01・S03・S04・S06 を選んで書き出すと、ファイル名が komorebi-making-day-2026-11-07-itinerary.json で、selected_ids が [\"S01\",\"S03\",\"S04\",\"S06\"]、fictional=true、reserved=false、event と sessions が入力の値そのまま、derived.total_price_yen が 500 になる", "owner": "frontend-developer" },
+    { "id": "A16", "criterion": "書き出しJSONに利用者の名前・連絡先・端末情報・日時スタンプが入っていない", "owner": "frontend-developer" },
+    { "id": "A17", "criterion": "fetch 失敗・HTTPエラー・JSON不正・検証失敗のそれぞれで理由つきのエラーと「もう一度読み込む」が出て、一覧は描かれない。再読み込みボタンで再取得する", "owner": "frontend-developer" },
+    { "id": "A18", "criterion": "テーマ切替が見える位置にあり、選んだボタンが aria-pressed=true。保存値は light・dark・system のどれかで、不正値は system 扱い。storage が使えない環境でも見た目は切り替わり、保存できない旨が出る", "owner": "frontend-developer" },
+    { "id": "A19", "criterion": "システム選択中に OS の表示設定を切り替えると、再読み込みなしで配色が追従する。ライト・ダークを明示しているときは追従しない", "owner": "frontend-developer" },
+    { "id": "A20", "criterion": "すべてのボタン・リンク・select・検索欄が 44×44px 以上で、操作部品の文字が 16px 以上", "owner": "frontend-developer" },
+    { "id": "A21", "criterion": "キーボードだけで スキップリンク→テーマ→絞り込み→各カードのボタン→回る予定へ→回る予定の操作→書き出し→つくり方 の順に移動でき、フォーカスが 3px の線で見える", "owner": "frontend-developer" },
+    { "id": "A22", "criterion": "hidden 属性の付いた要素は、c-button や l-cluster などの flex 部品でも表示されない", "owner": "frontend-developer" },
+    { "id": "A23", "criterion": "通信は input/event.json の取得だけで、CDN・外部フォント・画像・計測・AI API への要求がない", "owner": "frontend-developer" },
+    { "id": "A24", "criterion": "予約・支払い・残席・住所・地図・連絡先の操作や、押しても何も起きないボタン（「近日公開」など）がない", "owner": "frontend-developer" },
+    { "id": "A25", "criterion": "ページ下部の details に2役割の入力→成果→確認、固定コミット、MIT、コミュニティ作成で Anthropic 公式ではないこと、ai/agents/architect.md がないこと、ページ表示時にAIが動かないことが書かれている", "owner": "frontend-developer" },
+    { "id": "A26", "criterion": "implementation.md は、実行した確認と実行していない確認を分けて書き、Lighthouse の点数・Core Web Vitals・WCAG 準拠・支援技術での試験を、実施していなければ成果として書かない", "owner": "frontend-developer" }
+  ],
+  "limits": [
+    "fictional: 「こもれび つくる日」は架空のイベントで、実在の開催・会場・予約受付はない",
+    "missing referenced path: design-ux-architect.md が参照する ai/agents/architect.md は、固定コミット bd956db032d907387e6b9ddebff3e18f1de8c679 のアーカイブにない。内容は補っておらず、渡された役割ファイルだけを適用した",
+    "future QA not run: この段階ではファイルの読み書きだけを行った。ブラウザでの表示確認、テスト、コントラストの測定ツール、支援技術での確認はしていない。acceptance はすべて将来の確認項目で、合格済みではない",
+    "コントラストの値は設計上の狙いとして手計算で概算しただけで、測定はしていない",
+    "役割ファイルは msitarzewski/agency-agents のコミュニティ作成のもので、Anthropic 公式ではない。MIT（Copyright (c) 2025 AgentLand Contributors）。README の Option 3（参照して使う）に沿って読んだだけで、アプリ・install スクリプト・サブエージェント機構・自動起動は使っていない",
+    "2つの役割は、同じ指定モデル（Claude Opus 5.5）を別々の実行で順に適用するもの。独立したエージェント同士の協調や自動ルーティングではなく、第三者のレビューや人の承認もない",
+    "役割ファイルにある性能予算・SLA・Lighthouse・Core Web Vitals・React/TypeScript・PWA の項目は、入力に該当する条件がないため数値を作らず、採用もしていない",
+    "回る予定は保存しない（テーマだけ localStorage）。ダウンロードの挙動はブラウザによって違い、JSONが新しいタブで開くだけの場合がありうる（未確認）",
+    "曜日は入力にないため表示しない"
+  ]
+}

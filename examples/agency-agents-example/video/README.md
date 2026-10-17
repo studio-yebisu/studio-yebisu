@@ -1,79 +1,79 @@
-# 解説動画の元ページ：2役を渡し、動く案内へ。
+# 役割をつなぎ、使える予定へ。— 32秒・無音の図解（編集ソース）
 
-Agency Agents 作例（架空イベント「こもれび つくる日」の企画ガイド）の、28秒・無音・1280×720・30fps（840フレーム）の解説動画を描く編集用のページです。`index.html` を開くと canvas に映像が出ます。
+架空イベント「こもれび つくる日」の6企画を表す1枚の文書が、UX設計（UX Architect）で引継ぎ書と土台CSSの色を受け取り、実装（Frontend Developer）で6本の時間の帯に開き、重ならない4企画が保存済みの予定メモになるまでを、同じ図形の動きで見せる動画の編集ソースです。
 
-この映像は、実画面の**静止キャプチャ**と、実際に保存されたファイルを編集して組み直したものです。続けて録画したものではありません。ページでも映像でも、AIは動きません。音はありません（`audioEvents` は空）。
+- 長さ 32秒・30fps（960フレーム）。縦 720×1280 が基準で、横 1280×720 は別に配置を組みます。
+- **音はありません。** ナレーション・読み上げ・効果音・音の素材・字幕の原稿はなく、`audioEvents` は空です。S04「音のさんぽを聞く」は架空の企画名で、音は出しません。
+- 保存済みの成果をつないだ図解です。動画の中で新しいAIの実行、予約、エージェントのインストールや自動の協調は描いていません。
 
-## 伝えること
+## ファイル
 
-- 元の依頼「地域イベントを、スマホで案内したい。」に、固定版の UX Architect と Frontend Developer の役割ファイル（msitarzewski/agency-agents `bd956db`）を、同じ Claude Opus 5.5 が**別々の実行で順に**当てた。独立した2エージェント・自動の受け渡し・インストールしたエージェント・MCP ではありません。
-- UX Architect の成果（`outputs/ux-handoff.json`・`foundation.css`）を Frontend Developer が読み、動く企画ガイド（`index.html`・`app.js` など）を作った。
-- 重なる企画の追加は止まり、予定は変わらない。引き継ぎ書の「入れ替える」案（A09）は採用していません。
-- 終わりと始まりが同時刻（14:00）なら両方選べる。実際に保存したJSONは4件・合計1,000円・`fictional: true`・`reserved: false`。
-
-場面ごとの時刻・入り方・出方・素材は `storyboard.json` にあります。
-
-## 読み込むファイル（12件、すべて SHA-256 で照合）
-
-`video.js` は、まず `assets/data-hashes.json` を読み、そのバイト列の SHA-256 が `runtime/frozen-reviewed-source.json` に記録された値（`9a433954…a546210`）と一致するかを確かめます。次に、照合表にある12ファイルを読み、それぞれの SHA-256 が照合表と一致するかを確かめます。1つでも読めない・違う場合は、代わりのデータや仮の映像を出さず、canvas とページに理由を出し、`window.motionReady` を失敗にします。
-
-| ファイル | 映像での使い道 |
+| ファイル | 中身 |
 |---|---|
-| `input/event.json` | 6企画のID・題名・時刻・費用・対象。重なり（S01×S02、S04×S05）と接する時刻（S05→S06）をここから計算する |
-| `outputs/ux-handoff.json` | 2役の名前・役割ファイル・入力・成果・確認項目の数、A09 の提案。Frontend の確認項目は「提案」として扱う（`frontend-developer.applied_instructions` は空のまま） |
-| `outputs/implementation.md` | A09 を採用しなかった記録・モデル名・`ai/agents/architect.md` がないことの確認 |
-| `outputs/browser-itinerary.json` | 実際に保存したJSON。selected_ids・入力と同じ企画オブジェクト4件・count・total_price_yen・fictional・reserved |
-| `outputs/browser-record.json` | 実操作の記録。保存JSONの SHA-256、`conflict-S02`（selected [S01]、「1件のまま」）、`touching-S06`、要求したファイル名 |
-| `video/assets/screen-manifest.json` | 実画面6枚の大きさと SHA-256、DOM の範囲（切り抜きが範囲を含むかの確認） |
-| `video/assets/desktop-all.png` ほか PNG 6枚 | 実画面の静止キャプチャ。`desktop-plan.png` は照合して読み込むが、文字が小さくなるため映像には出さない |
+| `index.html` | プレビュー画面。`../foundation.css`（元の土台・変更なし）と `video.css`・`video.js` を読み込む |
+| `video.js` | 素材の確認、縦横の配置、1フレームの描画、`window.seek`・`window.motionConfig`・`window.motionReady`、プレビューの操作 |
+| `video.css` | プレビュー画面と、書き出し時（`.is-render`）の画面いっぱいのキャンバス |
+| `storyboard.json` | 場面ごとの入る状態・出る状態・動き・使う素材 |
+| `assets/` | 8つの素材と `manifest.json`（この作業では変更していません） |
 
-パスは作例フォルダーからの相対で、`new URL('../' + path, import.meta.url)` で解決します。書き出し時に `render.py` が `<base href="video/">` を入れても同じ場所を指します。外部の通信はありません。
+## 使う素材（固定の SHA-256 で確かめる）
 
-## 実画面の切り抜き（画像の画素座標）
+`video.js` は `assets/manifest.json` を読み、SHA-256 が `3e5aa40af6c6c8c0fcda8b6cd5ddd740cba09e34fe44944013b30d22e8a3e70e` と一致することを確かめてから、記載の8ファイルそれぞれのバイト数と SHA-256、形を確かめます。どれか1つでも違えば、キャンバスを消して理由と「ページを読み込み直す」を出し、操作を止め、`window.motionReady` を reject します。内蔵の代わりのデータはありません。
 
-画素の大きさを正とし、DOM の記録は全体撮影後の近似値として扱います。縦横同じ倍率で置き、画素を伸ばしたり、画面の中の文字を書き換えたり、アプリの部品に見える枠を重ねたりしていません。
+| 素材 | 動画での使いみち |
+|---|---|
+| `event.json` | 6企画の ID・開始・終了・費用、イベント名と日付（入力 `input/event.json` と同じバイト列） |
+| `ux-handoff.json` | 2つの役割の名前（節の添え書き）、UX段階の成果物に `foundation.css` と引継ぎ書があること |
+| `recorded-itinerary.json` | 予定メモに入る4企画・件数・費用の合計・`fictional`・`reserved`。元の書き出し方で同じバイト列になることを照合 |
+| `diagram-data.json` | 段階名（6企画・設計・実装・回る予定）、短い呼び名、重なり、14:00 で接する組、保存済みの選択 |
+| `implementation-decisions.json` | A09（入れ替え案）が不採用、A06 が修正済みであること |
+| `timeline.json` | 7場面の境目と見出し、重なりの場面で残す企画と入らない企画 |
+| `upstream.json` | 出典の行（リポジトリ・固定コミット・MIT・著作権表示） |
+| `original-verification.json` | 元の画面でブラウザーから保存した記録であること（履歴。この32秒版の確認ではない） |
 
-| 名前 | ファイル | x, y, w, h | 倍率 | 中身 |
-|---|---|---|---|---|
-| phoneTop | phone-initial.png | 0, 0, 375, 594 | 0.79 / 0.66 | 見出し〜「企画を探す」（「キーワードで探す」の手前で切る） |
-| darkTop | phone-dark.png | 0, 0, 375, 594 | 0.66 | 同じ範囲のダーク |
-| cards | desktop-all.png | 64, 880, 752, 422 | 0.8 | 何も選ぶ前の S01・S02 のカード上部（`#session-1-title`・`#session-2-title` を含む） |
-| conflictNote | desktop-conflict.png | 452, 1358, 353, 197 | 1.4 | S01 を選んだ後の S02 の注記と、その下の実際のボタン（`#session-2-conflict` を含む） |
-| planLower | phone-plan.png | 0, 20, 375, 540 | 0.86 | 回る予定の下部：最後の S06・件数・予定の時間・合計・予約の注意・保存ボタン（4件すべての一覧ではない） |
+色は `../foundation.css` のライトのトークン（`--color-bg`・`--color-action`・`--color-alert` など）を `getComputedStyle` で読みます。設計の場面で文書に付く色の見本は、このトークンの実際の値です。新しいCSSの文を作って見せることはしていません。書体は端末の日本語書体（foundation.css の `--font-sans`・`--font-serif`）で、外部のフォントや画像は読み込みません。
 
-区間の図、役割の札、JSONの値の一覧は、読み込んだデータから描いた**説明の図**で、実画面ではありません。映像の中でもそう書いています。
+## 時間の契約（Motion Reel）
 
-## 時間の契約
+- `window.motionConfig = { duration: 32, fps, width, height, posterTime: 31, audioEvents: [] }`
+- `window.renderConfig` の `width`・`height`・`fps` を起動時に反映します。高さが幅より大きければ縦、そうでなければ横の配置です。指定がなければ横 1280×720（同梱の `render.py` が大きさを渡さないため）。プレビューでは `?format=portrait` で縦、`?format=wide` で横になります。
+- `window.motionReady` は、8つの素材の確認・トークンの読み込み・`document.fonts.ready` のあとに解決します。
+- `window.seek(秒)` は 0〜32 の任意の時刻の完成した1枚を、その時刻だけから描きます（乱数・壁時計・前のフレームを使わず、毎回 `ctx.save()`／`ctx.restore()` でまるごと描く）。準備前に呼ばれた場合は Promise を返します。
+- `window.__MOTION_RENDER__ === true` のときは操作部を出さず、プレビュー用のタイマーを動かしません。
+- 29.3秒以降は何も動きません（終わりの2.5秒以上が止まった状態）。ポスターは31秒。
 
-- `window.motionConfig = {duration: 28, fps: 30, width: 1280, height: 720, posterTime: 13.5, audioEvents: []}`。`window.renderConfig` の幅・高さ・FPS があれば最初に反映します。16:9 以外の大きさでは、1280×720 の画を等倍率で収め、余りを紙の色で埋めます（その大きさでのレビューはしていません）。
-- `window.seek(seconds)` は、その秒の完成した画面を描きます。毎回 canvas をリセットし、変換・クリップ・透明度を戻してから描くので、呼んだ順番・壁時計・乱数・前のフレームに依存しません。
-- `window.motionReady` は、フォントの準備と12ファイルの照合・画像の復元が終わったときに成功します。
-- ポスターは13.5秒（重なりを止めた場面が完成した状態）。最後の場面は24.6秒までに止まり、28秒まで3秒以上そのまま読めます。
+## プレビュー
 
-## 編集用のプレビュー
+サイトのフォルダー（この `video/` の1つ上）で HTTP サーバーを立てて開きます。
 
-- 最初は停止しています。自動では再生しません（動きを減らす設定でも同じ）。「再生」を押したときだけ `requestAnimationFrame` で進み、ボタンの `aria-pressed` が実際の再生状態を示します。書き出し時（`window.__MOTION_RENDER__ === true`）はプレビューの仕組みを動かしません。
-- 再生位置のスライダーは0〜28秒・0.1秒刻み。← → で0.1秒、PageUp・PageDown で2秒、Home・End で先頭・末尾（Home のあと PageUp を7回で14秒）。
-- 操作部品は44px以上・文字16px。320・375・390px 幅で横スクロールが出ないように、`100vw` を使わず、セーフエリアの余白を取っています（実機での確認はしていません）。
-
-## 書き出し
-
-作例フォルダー（このフォルダーの1つ上）で、Node.js 20以上・Chrome・FFmpeg/ffprobe・Python を用意して実行します。出力先は元のフォルダーの外の、空のフォルダーにします。
-
+```text
+python -m http.server 8863 --bind 127.0.0.1
 ```
+
+`http://127.0.0.1:8863/video/index.html` を開きます。最初は止まっています。「再生」「最初へ」「最後へ」「もう一度再生」、再生位置の帯、7つの場面ボタンで操作でき、最後まで再生すると止まります（くり返しません）。ブラウザーの開発者ツールでは次のように1枚を描けます。
+
+```js
+await window.motionReady;
+window.seek(31);
+```
+
+## 制作担当の書き出しと確認
+
+Opusの執筆時点では描画・QAは未実施でした。受領8原本を保全した後に、制作担当が縦横32秒・30fps・960フレーム、任意時刻・代表/連続/contact・スマホ表示・実保存・全デコードと実MP4の終了を確認しました。音声ストリーム0、人の承認と実機iOSは未確認です。現在の範囲は[verification.json](../verification.json)にあります。
+
+元のrender.pyを保持し、新しいrender-visual.pyで縦横の大きさを明示します。ソース一式を展開し、ケースのフォルダーで実行します。出力は別の空のフォルダーに置きます。
+
+```text
 npm ci --ignore-scripts --no-audit --no-fund --prefix tools/motion-reel
-python render.py --out ../agency-render-first
+python render-visual.py --out ../rendered-portrait --width 720 --height 1280 --strip-at 11.8
+python render-visual.py --out ../rendered-wide --width 1280 --height 720 --strip-at 11.8
 ```
 
-`render.py` は作例フォルダーを一時フォルダーへ写し、この `video/index.html` を入口にして `tools/motion-reel/render.mjs` で静止画・連続フレーム・ポスター・MP4 を作ります。既存の出力は上書きしません。
+最初のnpmコマンドは依存がない場合だけ必要です。入口は使い捨ての写しとbase URLを用意し、同梱のMotion Reelを使います。音の指定は付けません。原典・元の入力/出力・8固定素材は再生成しません。改修した表示と、元の役割適用の実行記録は別です。
 
-## 確認の状態
+## 出典と条件
 
-この README と映像のソースを書いた時点では、書き出し・フレームのレビュー・MP4 の通し再生を**していません**。親の工程が実際のレンダラーと目視で確かめます。MP4 はまだないため、ページからは動画ファイルへリンクしていません。人によるレビューや承認は受けていません。
-
-作例の企画ガイドについての確認の範囲（実ブラウザーでの操作・画面幅・保存）は、作例の `README.md` と `outputs/implementation.md` を参照してください。物理的な iOS・Safari・VoiceOver、性能の値は確かめていません。
-
-## ライセンス
-
-- 映像のコードと文章：MIT License, Copyright (c) 2026 Studio Yebisu（制作：Claude Opus 5.5）。
-- 役割ファイルの原典 msitarzewski/agency-agents（`bd956db032d907387e6b9ddebff3e18f1de8c679`）：MIT License, Copyright (c) 2025 AgentLand Contributors。コミュニティ作成のもので、Anthropic 公式ではありません。
+- 役割ファイル: [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents/tree/bd956db032d907387e6b9ddebff3e18f1de8c679)（固定コミット `bd956db032d907387e6b9ddebff3e18f1de8c679`、MIT、Copyright (c) 2025 AgentLand Contributors）。コミュニティ作成のもので、Anthropic 公式ではありません。README の「Option 3: Use as Reference」の使い方です。
+- 2つの役割は、同じ Claude Opus 5.5 を別々の実行で順に当てたものです。この動画の編集ソース（visual-r1）は、そのあとの別の Claude Opus 5.5 の実行で書いたもので、元の2段階の出力を書き換えていません。
+- UX Architect の役割ファイルが参照する `ai/agents/architect.md` は固定版になく、内容を補っていません。
+- 描画のしくみは Motion Reel の時間の契約（Studio Yebisu、MIT）に沿っています。この作例のコードと文章は MIT License（Copyright (c) 2026 Studio Yebisu）です。

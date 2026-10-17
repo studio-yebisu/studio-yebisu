@@ -1,70 +1,63 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" data-theme="light">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>28秒・無音の解説動画の元ページ — 2役を渡し、動く案内へ（Agency Agents 作例）</title>
-<script>if (window.__MOTION_RENDER__ === true) document.documentElement.classList.add('is-render');</script>
-<link rel="stylesheet" href="video.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>役割をつなぎ、使える予定へ。— 32秒・無音の図解（編集ソース）</title>
+  <meta name="description" content="架空イベントの6企画が、UX設計の引継ぎと土台CSS、Frontend実装を経て時間の帯になり、保存済みの4企画の予定メモになるまでを、同じ図形の動きで見せる32秒・無音の動画の編集ソースです。">
+  <script>
+    // 書き出し（window.__MOTION_RENDER__ === true）では操作部を出さず、最初の描画から画面いっぱいの1枚だけにする
+    if (window.__MOTION_RENDER__ === true) document.documentElement.classList.add('is-render');
+  </script>
+  <link rel="stylesheet" href="../foundation.css">
+  <link rel="stylesheet" href="video.css">
+  <script src="video.js" defer></script>
 </head>
 <body>
-<header class="intro">
-  <p class="eyebrow">Studio Yebisu · Agency Agents 作例 · 解説動画の元ページ</p>
-  <h1>2役を渡し、動く案内へ。<span class="sub">28秒・無音の解説動画</span></h1>
-  <p>架空の地域イベント「こもれび つくる日」の企画ガイドを、固定版の UX Architect と Frontend Developer の役割ファイル（msitarzewski/agency-agents bd956db）を同じ Claude Opus 5.5 が別々の実行で順に当てて作った作例です。入力の6企画、引き継ぎ書、実画面の静止キャプチャ、ブラウザーで実際に保存したJSONで組み直した映像で、続けて録画したものではありません。ページでも映像でも、AIは動きません。</p>
-</header>
+  <main class="v-page">
+    <div class="v-stage">
+      <canvas id="film" class="v-film" width="1280" height="720" role="img" aria-label="架空イベントの6企画を表す文書が、UX設計で引継ぎ書と土台CSSの色を受け取り、実装で6本の時間の帯に開きます。押し花（S01）を予定に入れたあと、時間が重なる種の話（S02）は入らずに戻り、S01が残ります。続いてS03・S05・S06が入り、14:00で接するS05とS06は両方入ります。選んだ4企画が保存済みの予定メモへ移り、4件・1,000円になります。音はありません。"></canvas>
+    </div>
 
-<figure class="stage">
-  <canvas id="film" width="1280" height="720" role="img"
-    aria-label="解説動画の画面。上に4段階（入力・設計・実装・保存）。元の依頼と入力の6企画、UX Architect と Frontend Developer を同じ Opus 5.5 で順に適用すること、役割ごとの入力・成果・確認、スマホの初期表示と企画カードの実画面、10:30–10:45 が重なる S02 の追加を止めて予定が1件のままの記録、14:00 で接する S05 と S06 が両方入り4件・合計1,000円になること、実際に保存したJSONとスマホのライト・ダークの実画面を順に示します。"></canvas>
-  <figcaption>無音の映像です。足元に「架空イベントの作例・予約受付なし／実画面を編集・無音」をいつも表示しています。</figcaption>
-</figure>
+    <div id="film-error" class="c-notice c-notice--alert v-error" role="alert" hidden>
+      <p class="c-notice__title">動画の素材を確かめられなかったため、描画と操作を止めています。</p>
+      <p id="film-error-reason"></p>
+      <p class="u-small">古い内容や内蔵の代わりのデータは描きません。ファイルを直接開いた場合は読み込めないことがあります。HTTP で配信して開いてください。</p>
+      <button type="button" id="film-reload" class="c-button">ページを読み込み直す</button>
+    </div>
 
-<section class="controls" aria-label="プレビューの操作">
-  <button id="play" type="button" aria-pressed="false" disabled>再生</button>
-  <div class="scrub">
-    <label for="time">再生位置（0〜28秒）</label>
-    <input id="time" type="range" min="0" max="28" step="0.1" value="0" disabled aria-describedby="keys">
-  </div>
-  <output id="clock" for="time">0.0秒 / 28.0秒</output>
-</section>
-<p id="keys" class="hint">自動では再生しません（動きを減らす設定でも同じです）。スライダーでは ← → で0.1秒、PageUp・PageDown で2秒ずつ、Home・End で先頭・末尾へ移ります（Home のあと PageUp を7回で14秒）。</p>
-<p id="status" class="status" role="status" data-state="loading">保存済みのファイルと実画面を確かめています…</p>
-<p id="detail" class="hint"></p>
-<ul id="verified" class="verified" aria-label="照合したファイル" hidden></ul>
-<p><button id="reload" class="reload" type="button" hidden>再読み込み</button></p>
+    <section class="v-controls" aria-label="プレビューの操作">
+      <p id="film-status" class="v-status" role="status">8つの素材のバイト数と SHA-256 を確かめています…</p>
+      <div class="v-controls__row">
+        <button type="button" id="film-play" class="c-button c-button--primary" aria-pressed="false" disabled>再生</button>
+        <button type="button" id="film-reset" class="c-button" disabled>最初へ</button>
+        <button type="button" id="film-end" class="c-button" disabled>最後へ</button>
+        <button type="button" id="film-replay" class="c-button" disabled>もう一度再生</button>
+        <output id="film-clock" class="v-clock u-tabular" for="film-scrub">0.0秒 / 32.0秒</output>
+      </div>
+      <div class="c-field v-scrub">
+        <label class="c-field__label" for="film-scrub">再生位置（秒）</label>
+        <input id="film-scrub" class="v-scrub__input" type="range" min="0" max="32" step="0.1" value="0" disabled>
+      </div>
+      <div id="film-scenes" class="v-scenes" role="group" aria-label="場面へ移動"></div>
+      <p class="v-formats">
+        <span class="u-muted">画面の形：</span>
+        <a href="?format=portrait">縦 720×1280</a>
+        <a href="?format=wide">横 1280×720</a>
+      </p>
+    </section>
 
-<section class="scenes" aria-labelledby="scenes-title">
-  <h2 id="scenes-title">場面</h2>
-  <ol>
-    <li><span class="time">0〜4秒</span> 入力：元の依頼「地域イベントを、スマホで案内したい。」と、入力の6企画。UX Architect → Frontend Developer を同じ Opus 5.5 で順に適用（別々の実行）。</li>
-    <li><span class="time">4〜8秒</span> 設計：役割ごとの入力・成果・確認（引き継ぎ書の roles から）。渡したのは ux-handoff.json と foundation.css。重なる企画の「入れ替える」案（A09）は採用せず。</li>
-    <li><span class="time">8〜12秒</span> 実装：スマホの初期表示と企画カードの実画面。S01・S02 の時間・費用・対象を入力の値で添える。</li>
-    <li><span class="time">12〜18秒</span> 実装：S01（10:00–10:45）を選んだ後、S02（10:30–11:00）は 10:30–10:45 が重なるため入らない。S02 の注記の実画面と、実操作の記録 conflict-S02（予定は1件のまま）。</li>
-    <li><span class="time">18〜23秒</span> 保存：S05 の終わりと S06 の始まりが同じ 14:00 なので両方入る。書き出した予定は4件・合計1,000円。スマホの回る予定の下部の実画面。</li>
-    <li><span class="time">23〜28秒</span> 保存：実際に保存したJSON（outputs/browser-itinerary.json）の selected_ids・件数・合計・fictional・reserved と、スマホのライト・ダークの初期表示。「作例で選んで、予定を保存。」</li>
-  </ol>
-</section>
-
-<nav class="links" aria-label="関連するファイル">
-  <h2>関連するファイル</h2>
-  <ul>
-    <li><a href="../index.html">作例の企画ガイドを開く（比べる・選ぶ・保存する）</a></li>
-    <li><a href="../outputs/ux-handoff.json">UX Architect の引き継ぎ書（outputs/ux-handoff.json）</a></li>
-    <li><a href="../outputs/implementation.md">Frontend Developer の実装の記録（outputs/implementation.md）</a></li>
-    <li><a href="../outputs/browser-itinerary.json">ブラウザーで実際に保存したJSON（outputs/browser-itinerary.json）</a></li>
-    <li><a href="assets/screen-manifest.json">実画面の記録（assets/screen-manifest.json）</a></li>
-    <li><a href="storyboard.json">場面の設計（storyboard.json）</a></li>
-    <li><a href="README.md">この映像の説明（README.md）</a></li>
-    <li><a href="../vendor/agency-agents/LICENSE">役割ファイルの原典のライセンス（MIT）</a></li>
-  </ul>
-</nav>
-
-<footer class="foot">
-  <p>「こもれび つくる日」は作例のための架空のイベントです。予約・支払い・残席・地図・住所・連絡先は扱いません。保存したJSONは予定のメモで、予約や参加確定ではありません。人によるレビューや承認は受けていません。</p>
-  <p>映像のコードと文章：MIT License, Copyright (c) 2026 Studio Yebisu（制作：Claude Opus 5.5）。役割ファイルの原典 msitarzewski/agency-agents：MIT License, Copyright (c) 2025 AgentLand Contributors。コミュニティ作成のもので、Anthropic 公式ではなく、Anthropic による承認や推奨を示すものではありません。</p>
-</footer>
-
-<script type="module" src="video.js"></script>
+    <section class="v-about" aria-labelledby="about-title">
+      <h1 id="about-title" class="v-about__title">役割をつなぎ、使える予定へ。（32秒・無音）</h1>
+      <p class="u-measure">保存済みの制作（元の入力・引継ぎ書・土台CSS・実装・ブラウザーで保存した予定）を、同じ図形の動きでつないだ図解です。動画の中で新しいAIの実行や予約はしていません。架空のイベントで、定員や予約の表示はありません。</p>
+      <p class="u-measure">再生は最初は止まっています。ボタン・再生位置・場面のボタンで、どの時刻でも同じ1枚を描きます。</p>
+      <ul class="u-list-reset c-linklist v-links" role="list">
+        <li><a href="storyboard.json">場面ごとの入力・出力・動き（storyboard.json）</a></li>
+        <li><a href="README.md">この動画の作り方と書き出しの手順（README.md）</a></li>
+        <li><a href="assets/manifest.json">素材の一覧と SHA-256（assets/manifest.json）</a></li>
+        <li><a href="../index.html">図のページへ戻る</a></li>
+      </ul>
+    </section>
+  </main>
 </body>
 </html>
