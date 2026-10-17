@@ -1,0 +1,1314 @@
+{
+  "format": "input-output",
+  "notice": "原典OSS Memory APIの保存済み実行結果。実モデルによる埋め込み、直接保存 infer=False。ライブAIではありません。全文と機械で読める実応答は各recordおよびoutputs/memory-run.jsonにあります。",
+  "samples": [
+    {
+      "id": "M01",
+      "label": "7件を保存する",
+      "input": "infer=False で次の7件を直接保存\n\nA01 / aya: あやさんはスマートフォンで読むので、説明は短い段落と箇条書きを好みます。\nA02 / aya: あやさんはモーションの作例を、音声なし・20秒程度の動画で見たいです。\nA03 / aya: あやさんはサンプルの入力と出力をJSONで保存して見返します。\nA04 / aya: あやさんとの仮の打ち合わせは来週の火曜日です。\nK01 / ken: けんさんは大きなデスクトップ画面で、図と詳しい説明を並べて読みます。\nK02 / ken: けんさんはモーションの作例を、ナレーション付き・60秒程度の動画で見たいです。\nK03 / ken: けんさんはサンプルの実装コードをダウンロードして手元で動かします。",
+      "output": "A01: ADD / dfaf2947-37c3-436e-bc9c-670696e41c36\nA02: ADD / c29f6400-783a-4521-b1f7-d74c8785d97c\nA03: ADD / 0db4a0b9-d568-45de-b2a8-29cc2679f09c\nA04: ADD / 9902eb13-a97d-4f06-9546-049d5d5eb990\nK01: ADD / f1c905a7-44ec-43b4-8d7d-773c17755519\nK02: ADD / 0b51e4b0-106b-42fc-a4f6-dbd26694e2f5\nK03: ADD / 9b4ff99a-1d2a-441b-97c3-141f4413c4a5\n\n7件を infer=False でそのまま保存。aya に4件、ken に3件。",
+      "record": {
+        "id": "M01",
+        "label": "7件を保存する",
+        "operation": "add",
+        "summary": "7件を infer=False でそのまま保存。aya に4件、ken に3件。",
+        "input": {
+          "api": "Memory.add",
+          "calls": [
+            {
+              "key": "A01",
+              "messages": "あやさんはスマートフォンで読むので、説明は短い段落と箇条書きを好みます。",
+              "user_id": "aya",
+              "metadata": {
+                "topic": "layout",
+                "source_key": "A01"
+              },
+              "infer": false
+            },
+            {
+              "key": "A02",
+              "messages": "あやさんはモーションの作例を、音声なし・20秒程度の動画で見たいです。",
+              "user_id": "aya",
+              "metadata": {
+                "topic": "video",
+                "source_key": "A02"
+              },
+              "infer": false
+            },
+            {
+              "key": "A03",
+              "messages": "あやさんはサンプルの入力と出力をJSONで保存して見返します。",
+              "user_id": "aya",
+              "metadata": {
+                "topic": "workflow",
+                "source_key": "A03"
+              },
+              "infer": false
+            },
+            {
+              "key": "A04",
+              "messages": "あやさんとの仮の打ち合わせは来週の火曜日です。",
+              "user_id": "aya",
+              "metadata": {
+                "topic": "temporary",
+                "source_key": "A04"
+              },
+              "infer": false
+            },
+            {
+              "key": "K01",
+              "messages": "けんさんは大きなデスクトップ画面で、図と詳しい説明を並べて読みます。",
+              "user_id": "ken",
+              "metadata": {
+                "topic": "layout",
+                "source_key": "K01"
+              },
+              "infer": false
+            },
+            {
+              "key": "K02",
+              "messages": "けんさんはモーションの作例を、ナレーション付き・60秒程度の動画で見たいです。",
+              "user_id": "ken",
+              "metadata": {
+                "topic": "video",
+                "source_key": "K02"
+              },
+              "infer": false
+            },
+            {
+              "key": "K03",
+              "messages": "けんさんはサンプルの実装コードをダウンロードして手元で動かします。",
+              "user_id": "ken",
+              "metadata": {
+                "topic": "workflow",
+                "source_key": "K03"
+              },
+              "infer": false
+            }
+          ]
+        },
+        "output": {
+          "responses": [
+            {
+              "key": "A01",
+              "response": {
+                "results": [
+                  {
+                    "id": "dfaf2947-37c3-436e-bc9c-670696e41c36",
+                    "memory": "あやさんはスマートフォンで読むので、説明は短い段落と箇条書きを好みます。",
+                    "event": "ADD",
+                    "actor_id": null,
+                    "role": "user"
+                  }
+                ]
+              }
+            },
+            {
+              "key": "A02",
+              "response": {
+                "results": [
+                  {
+                    "id": "c29f6400-783a-4521-b1f7-d74c8785d97c",
+                    "memory": "あやさんはモーションの作例を、音声なし・20秒程度の動画で見たいです。",
+                    "event": "ADD",
+                    "actor_id": null,
+                    "role": "user"
+                  }
+                ]
+              }
+            },
+            {
+              "key": "A03",
+              "response": {
+                "results": [
+                  {
+                    "id": "0db4a0b9-d568-45de-b2a8-29cc2679f09c",
+                    "memory": "あやさんはサンプルの入力と出力をJSONで保存して見返します。",
+                    "event": "ADD",
+                    "actor_id": null,
+                    "role": "user"
+                  }
+                ]
+              }
+            },
+            {
+              "key": "A04",
+              "response": {
+                "results": [
+                  {
+                    "id": "9902eb13-a97d-4f06-9546-049d5d5eb990",
+                    "memory": "あやさんとの仮の打ち合わせは来週の火曜日です。",
+                    "event": "ADD",
+                    "actor_id": null,
+                    "role": "user"
+                  }
+                ]
+              }
+            },
+            {
+              "key": "K01",
+              "response": {
+                "results": [
+                  {
+                    "id": "f1c905a7-44ec-43b4-8d7d-773c17755519",
+                    "memory": "けんさんは大きなデスクトップ画面で、図と詳しい説明を並べて読みます。",
+                    "event": "ADD",
+                    "actor_id": null,
+                    "role": "user"
+                  }
+                ]
+              }
+            },
+            {
+              "key": "K02",
+              "response": {
+                "results": [
+                  {
+                    "id": "0b51e4b0-106b-42fc-a4f6-dbd26694e2f5",
+                    "memory": "けんさんはモーションの作例を、ナレーション付き・60秒程度の動画で見たいです。",
+                    "event": "ADD",
+                    "actor_id": null,
+                    "role": "user"
+                  }
+                ]
+              }
+            },
+            {
+              "key": "K03",
+              "response": {
+                "results": [
+                  {
+                    "id": "9b4ff99a-1d2a-441b-97c3-141f4413c4a5",
+                    "memory": "けんさんはサンプルの実装コードをダウンロードして手元で動かします。",
+                    "event": "ADD",
+                    "actor_id": null,
+                    "role": "user"
+                  }
+                ]
+              }
+            }
+          ],
+          "memory_ids": {
+            "A01": "dfaf2947-37c3-436e-bc9c-670696e41c36",
+            "A02": "c29f6400-783a-4521-b1f7-d74c8785d97c",
+            "A03": "0db4a0b9-d568-45de-b2a8-29cc2679f09c",
+            "A04": "9902eb13-a97d-4f06-9546-049d5d5eb990",
+            "K01": "f1c905a7-44ec-43b4-8d7d-773c17755519",
+            "K02": "0b51e4b0-106b-42fc-a4f6-dbd26694e2f5",
+            "K03": "9b4ff99a-1d2a-441b-97c3-141f4413c4a5"
+          },
+          "get_all": {
+            "aya": {
+              "call": {
+                "filters": {
+                  "user_id": "aya"
+                },
+                "top_k": 20
+              },
+              "response": {
+                "results": [
+                  {
+                    "id": "0db4a0b9-d568-45de-b2a8-29cc2679f09c",
+                    "memory": "あやさんはサンプルの入力と出力をJSONで保存して見返します。",
+                    "hash": "05361e42c5056c3c0d69774c3f0f52f6",
+                    "metadata": {
+                      "topic": "workflow",
+                      "source_key": "A03"
+                    },
+                    "created_at": "2026-10-16T17:34:26.379917+00:00",
+                    "updated_at": "2026-10-16T17:34:26.379917+00:00",
+                    "user_id": "aya",
+                    "role": "user"
+                  },
+                  {
+                    "id": "9902eb13-a97d-4f06-9546-049d5d5eb990",
+                    "memory": "あやさんとの仮の打ち合わせは来週の火曜日です。",
+                    "hash": "e875fd3ded892c29280c7a8a7d676d23",
+                    "metadata": {
+                      "topic": "temporary",
+                      "source_key": "A04"
+                    },
+                    "created_at": "2026-10-16T17:34:26.401327+00:00",
+                    "updated_at": "2026-10-16T17:34:26.401327+00:00",
+                    "user_id": "aya",
+                    "role": "user"
+                  },
+                  {
+                    "id": "c29f6400-783a-4521-b1f7-d74c8785d97c",
+                    "memory": "あやさんはモーションの作例を、音声なし・20秒程度の動画で見たいです。",
+                    "hash": "df1228311f9ced0940bcf490621b6583",
+                    "metadata": {
+                      "topic": "video",
+                      "source_key": "A02"
+                    },
+                    "created_at": "2026-10-16T17:34:26.356521+00:00",
+                    "updated_at": "2026-10-16T17:34:26.356521+00:00",
+                    "user_id": "aya",
+                    "role": "user"
+                  },
+                  {
+                    "id": "dfaf2947-37c3-436e-bc9c-670696e41c36",
+                    "memory": "あやさんはスマートフォンで読むので、説明は短い段落と箇条書きを好みます。",
+                    "hash": "fad375ae6d1c7030fe1e0ea14e616872",
+                    "metadata": {
+                      "topic": "layout",
+                      "source_key": "A01"
+                    },
+                    "created_at": "2026-10-16T17:34:26.329196+00:00",
+                    "updated_at": "2026-10-16T17:34:26.329196+00:00",
+                    "user_id": "aya",
+                    "role": "user"
+                  }
+                ]
+              }
+            },
+            "ken": {
+              "call": {
+                "filters": {
+                  "user_id": "ken"
+                },
+                "top_k": 20
+              },
+              "response": {
+                "results": [
+                  {
+                    "id": "0b51e4b0-106b-42fc-a4f6-dbd26694e2f5",
+                    "memory": "けんさんはモーションの作例を、ナレーション付き・60秒程度の動画で見たいです。",
+                    "hash": "def364c950b5012b2cd24fcdd6de848f",
+                    "metadata": {
+                      "topic": "video",
+                      "source_key": "K02"
+                    },
+                    "created_at": "2026-10-16T17:34:26.447732+00:00",
+                    "updated_at": "2026-10-16T17:34:26.447732+00:00",
+                    "user_id": "ken",
+                    "role": "user"
+                  },
+                  {
+                    "id": "9b4ff99a-1d2a-441b-97c3-141f4413c4a5",
+                    "memory": "けんさんはサンプルの実装コードをダウンロードして手元で動かします。",
+                    "hash": "314f0c9603de88ddca11a7f286398145",
+                    "metadata": {
+                      "topic": "workflow",
+                      "source_key": "K03"
+                    },
+                    "created_at": "2026-10-16T17:34:26.470628+00:00",
+                    "updated_at": "2026-10-16T17:34:26.470628+00:00",
+                    "user_id": "ken",
+                    "role": "user"
+                  },
+                  {
+                    "id": "f1c905a7-44ec-43b4-8d7d-773c17755519",
+                    "memory": "けんさんは大きなデスクトップ画面で、図と詳しい説明を並べて読みます。",
+                    "hash": "302538044a572f6780c7808f8f0e51b0",
+                    "metadata": {
+                      "topic": "layout",
+                      "source_key": "K01"
+                    },
+                    "created_at": "2026-10-16T17:34:26.424768+00:00",
+                    "updated_at": "2026-10-16T17:34:26.424768+00:00",
+                    "user_id": "ken",
+                    "role": "user"
+                  }
+                ]
+              }
+            }
+          },
+          "checks": {
+            "adds": 7,
+            "all_events_add": true,
+            "texts_exact": true,
+            "metadata_exact": true,
+            "scope_counts": {
+              "aya": 4,
+              "ken": 3
+            },
+            "llm_used": false
+          },
+          "vector_check": {
+            "key": "A01",
+            "text": "あやさんはスマートフォンで読むので、説明は短い段落と箇条書きを好みます。",
+            "call": "m.embedding_model.embed(text, 'add')",
+            "dimensions": 384,
+            "all_finite": true,
+            "l2_norm": 3.7300838190114853,
+            "first8": [
+              -0.3016764223575592,
+              0.17122741043567657,
+              -0.06261648237705231,
+              -0.16578052937984467,
+              0.014719710685312748,
+              -0.04724784195423126,
+              0.02579193189740181,
+              0.3264561593532562
+            ],
+            "sha256_of_json": "6c0849d5bac5ce6286a1181a90bcff35b76caf5120b697cea7fd58fcaa08c3a0",
+            "stored_dimensions": 384,
+            "stored_vs_fresh_cosine": 0.9999999999999997
+          }
+        }
+      },
+      "demo_hash": "#M01"
+    },
+    {
+      "id": "M02",
+      "label": "あやさんの好みを探す",
+      "input": "{\n  \"query\": \"説明を見せるとき、どんな見せ方が好み？\",\n  \"filters\": {\n    \"user_id\": \"aya\"\n  },\n  \"top_k\": 3,\n  \"threshold\": 0.0,\n  \"explain\": true\n}",
+      "output": "aya / dfaf2947-37c3-436e-bc9c-670696e41c36\nあやさんはスマートフォンで読むので、説明は短い段落と箇条書きを好みます。\nMem0スコア: 0.499636（確率ではありません）\n\naya / c29f6400-783a-4521-b1f7-d74c8785d97c\nあやさんはモーションの作例を、音声なし・20秒程度の動画で見たいです。\nMem0スコア: 0.344649（確率ではありません）\n\naya / 0db4a0b9-d568-45de-b2a8-29cc2679f09c\nあやさんはサンプルの入力と出力をJSONで保存して見返します。\nMem0スコア: 0.132877（確率ではありません）",
+      "record": {
+        "id": "M02",
+        "label": "あやさんの好みを探す",
+        "operation": "search",
+        "summary": "aya の記録から3件。1位は A01（Mem0スコア 0.500）。",
+        "input": {
+          "api": "Memory.search",
+          "call": {
+            "query": "説明を見せるとき、どんな見せ方が好み？",
+            "filters": {
+              "user_id": "aya"
+            },
+            "top_k": 3,
+            "threshold": 0.0,
+            "explain": true
+          }
+        },
+        "output": {
+          "response": {
+            "results": [
+              {
+                "id": "dfaf2947-37c3-436e-bc9c-670696e41c36",
+                "memory": "あやさんはスマートフォンで読むので、説明は短い段落と箇条書きを好みます。",
+                "hash": "fad375ae6d1c7030fe1e0ea14e616872",
+                "metadata": {
+                  "topic": "layout",
+                  "source_key": "A01"
+                },
+                "score": 0.49963619207850285,
+                "created_at": "2026-10-16T17:34:26.329196+00:00",
+                "updated_at": "2026-10-16T17:34:26.329196+00:00",
+                "user_id": "aya",
+                "role": "user",
+                "score_details": {
+                  "semantic_score": 0.49963619207850285,
+                  "bm25_score": 0.0,
+                  "entity_boost": 0.0,
+                  "raw_score": 0.49963619207850285,
+                  "max_possible_score": 1.0,
+                  "final_score": 0.49963619207850285,
+                  "threshold": 0.0
+                }
+              },
+              {
+                "id": "c29f6400-783a-4521-b1f7-d74c8785d97c",
+                "memory": "あやさんはモーションの作例を、音声なし・20秒程度の動画で見たいです。",
+                "hash": "df1228311f9ced0940bcf490621b6583",
+                "metadata": {
+                  "topic": "video",
+                  "source_key": "A02"
+                },
+                "score": 0.3446488143017341,
+                "created_at": "2026-10-16T17:34:26.356521+00:00",
+                "updated_at": "2026-10-16T17:34:26.356521+00:00",
+                "user_id": "aya",
+                "role": "user",
+                "score_details": {
+                  "semantic_score": 0.3446488143017341,
+                  "bm25_score": 0.0,
+                  "entity_boost": 0.0,
+                  "raw_score": 0.3446488143017341,
+                  "max_possible_score": 1.0,
+                  "final_score": 0.3446488143017341,
+                  "threshold": 0.0
+                }
+              },
+              {
+                "id": "0db4a0b9-d568-45de-b2a8-29cc2679f09c",
+                "memory": "あやさんはサンプルの入力と出力をJSONで保存して見返します。",
+                "hash": "05361e42c5056c3c0d69774c3f0f52f6",
+                "metadata": {
+                  "topic": "workflow",
+                  "source_key": "A03"
+                },
+                "score": 0.1328770192022351,
+                "created_at": "2026-10-16T17:34:26.379917+00:00",
+                "updated_at": "2026-10-16T17:34:26.379917+00:00",
+                "user_id": "aya",
+                "role": "user",
+                "score_details": {
+                  "semantic_score": 0.1328770192022351,
+                  "bm25_score": 0.0,
+                  "entity_boost": 0.0,
+                  "raw_score": 0.1328770192022351,
+                  "max_possible_score": 1.0,
+                  "final_score": 0.1328770192022351,
+                  "threshold": 0.0
+                }
+              }
+            ]
+          },
+          "result_keys": [
+            "A01",
+            "A02",
+            "A03"
+          ],
+          "checks": {
+            "results": 3,
+            "all_user": true,
+            "overlap_with_other_user": 0,
+            "scores_are": "Mem0 search scores (ranking values, not probabilities)"
+          }
+        }
+      },
+      "demo_hash": "#M02"
+    },
+    {
+      "id": "M03",
+      "label": "同じ質問をけんさんに",
+      "input": "{\n  \"query\": \"説明を見せるとき、どんな見せ方が好み？\",\n  \"filters\": {\n    \"user_id\": \"ken\"\n  },\n  \"top_k\": 3,\n  \"threshold\": 0.0,\n  \"explain\": true\n}",
+      "output": "ken / 0b51e4b0-106b-42fc-a4f6-dbd26694e2f5\nけんさんはモーションの作例を、ナレーション付き・60秒程度の動画で見たいです。\nMem0スコア: 0.350851（確率ではありません）\n\nken / f1c905a7-44ec-43b4-8d7d-773c17755519\nけんさんは大きなデスクトップ画面で、図と詳しい説明を並べて読みます。\nMem0スコア: 0.250544（確率ではありません）\n\nken / 9b4ff99a-1d2a-441b-97c3-141f4413c4a5\nけんさんはサンプルの実装コードをダウンロードして手元で動かします。\nMem0スコア: 0.169009（確率ではありません）",
+      "record": {
+        "id": "M03",
+        "label": "同じ質問をけんさんに",
+        "operation": "search",
+        "summary": "ken の記録から3件。aya のIDとの重なりは0件。",
+        "input": {
+          "api": "Memory.search",
+          "call": {
+            "query": "説明を見せるとき、どんな見せ方が好み？",
+            "filters": {
+              "user_id": "ken"
+            },
+            "top_k": 3,
+            "threshold": 0.0,
+            "explain": true
+          }
+        },
+        "output": {
+          "response": {
+            "results": [
+              {
+                "id": "0b51e4b0-106b-42fc-a4f6-dbd26694e2f5",
+                "memory": "けんさんはモーションの作例を、ナレーション付き・60秒程度の動画で見たいです。",
+                "hash": "def364c950b5012b2cd24fcdd6de848f",
+                "metadata": {
+                  "topic": "video",
+                  "source_key": "K02"
+                },
+                "score": 0.3508505104330683,
+                "created_at": "2026-10-16T17:34:26.447732+00:00",
+                "updated_at": "2026-10-16T17:34:26.447732+00:00",
+                "user_id": "ken",
+                "role": "user",
+                "score_details": {
+                  "semantic_score": 0.3508505104330683,
+                  "bm25_score": 0.0,
+                  "entity_boost": 0.0,
+                  "raw_score": 0.3508505104330683,
+                  "max_possible_score": 1.0,
+                  "final_score": 0.3508505104330683,
+                  "threshold": 0.0
+                }
+              },
+              {
+                "id": "f1c905a7-44ec-43b4-8d7d-773c17755519",
+                "memory": "けんさんは大きなデスクトップ画面で、図と詳しい説明を並べて読みます。",
+                "hash": "302538044a572f6780c7808f8f0e51b0",
+                "metadata": {
+                  "topic": "layout",
+                  "source_key": "K01"
+                },
+                "score": 0.25054430758558066,
+                "created_at": "2026-10-16T17:34:26.424768+00:00",
+                "updated_at": "2026-10-16T17:34:26.424768+00:00",
+                "user_id": "ken",
+                "role": "user",
+                "score_details": {
+                  "semantic_score": 0.25054430758558066,
+                  "bm25_score": 0.0,
+                  "entity_boost": 0.0,
+                  "raw_score": 0.25054430758558066,
+                  "max_possible_score": 1.0,
+                  "final_score": 0.25054430758558066,
+                  "threshold": 0.0
+                }
+              },
+              {
+                "id": "9b4ff99a-1d2a-441b-97c3-141f4413c4a5",
+                "memory": "けんさんはサンプルの実装コードをダウンロードして手元で動かします。",
+                "hash": "314f0c9603de88ddca11a7f286398145",
+                "metadata": {
+                  "topic": "workflow",
+                  "source_key": "K03"
+                },
+                "score": 0.1690088474811301,
+                "created_at": "2026-10-16T17:34:26.470628+00:00",
+                "updated_at": "2026-10-16T17:34:26.470628+00:00",
+                "user_id": "ken",
+                "role": "user",
+                "score_details": {
+                  "semantic_score": 0.1690088474811301,
+                  "bm25_score": 0.0,
+                  "entity_boost": 0.0,
+                  "raw_score": 0.1690088474811301,
+                  "max_possible_score": 1.0,
+                  "final_score": 0.1690088474811301,
+                  "threshold": 0.0
+                }
+              }
+            ]
+          },
+          "result_keys": [
+            "K02",
+            "K01",
+            "K03"
+          ],
+          "checks": {
+            "results": 3,
+            "all_user": true,
+            "overlap_with_other_user": 0,
+            "scores_are": "Mem0 search scores (ranking values, not probabilities)"
+          }
+        }
+      },
+      "demo_hash": "#M03"
+    },
+    {
+      "id": "M04",
+      "label": "動画の好みだけに絞る",
+      "input": "{\n  \"query\": \"作例動画の長さと音声は？\",\n  \"filters\": {\n    \"user_id\": \"aya\",\n    \"topic\": \"video\"\n  },\n  \"top_k\": 3,\n  \"threshold\": 0.0,\n  \"explain\": true\n}",
+      "output": "aya / c29f6400-783a-4521-b1f7-d74c8785d97c\nあやさんはモーションの作例を、音声なし・20秒程度の動画で見たいです。\nMem0スコア: 0.721500（確率ではありません）",
+      "record": {
+        "id": "M04",
+        "label": "動画の好みだけに絞る",
+        "operation": "search",
+        "summary": "user_id=aya・topic=video の絞り込みで1件：A02。",
+        "input": {
+          "api": "Memory.search",
+          "call": {
+            "query": "作例動画の長さと音声は？",
+            "filters": {
+              "user_id": "aya",
+              "topic": "video"
+            },
+            "top_k": 3,
+            "threshold": 0.0,
+            "explain": true
+          }
+        },
+        "output": {
+          "response": {
+            "results": [
+              {
+                "id": "c29f6400-783a-4521-b1f7-d74c8785d97c",
+                "memory": "あやさんはモーションの作例を、音声なし・20秒程度の動画で見たいです。",
+                "hash": "df1228311f9ced0940bcf490621b6583",
+                "metadata": {
+                  "topic": "video",
+                  "source_key": "A02"
+                },
+                "score": 0.7214995496511459,
+                "created_at": "2026-10-16T17:34:26.356521+00:00",
+                "updated_at": "2026-10-16T17:34:26.356521+00:00",
+                "user_id": "aya",
+                "role": "user",
+                "score_details": {
+                  "semantic_score": 0.7214995496511459,
+                  "bm25_score": 0.0,
+                  "entity_boost": 0.0,
+                  "raw_score": 0.7214995496511459,
+                  "max_possible_score": 1.0,
+                  "final_score": 0.7214995496511459,
+                  "threshold": 0.0
+                }
+              }
+            ]
+          },
+          "result_keys": [
+            "A02"
+          ],
+          "checks": {
+            "results": 1,
+            "all_user": true,
+            "overlap_with_other_user": 0,
+            "scores_are": "Mem0 search scores (ranking values, not probabilities)",
+            "only_A02": true
+          }
+        }
+      },
+      "demo_hash": "#M04"
+    },
+    {
+      "id": "M05",
+      "label": "20秒から30秒へ更新",
+      "input": "{\n  \"memory_id\": \"c29f6400-783a-4521-b1f7-d74c8785d97c\",\n  \"text\": \"あやさんはモーションの作例を、音声なし・30秒程度の動画で見たいです。\"\n}",
+      "output": "更新前: あやさんはモーションの作例を、音声なし・20秒程度の動画で見たいです。\n更新後: あやさんはモーションの作例を、音声なし・30秒程度の動画で見たいです。\n同じID: c29f6400-783a-4521-b1f7-d74c8785d97c\nAPI応答: Memory updated successfully!\n履歴: ADD → UPDATE",
+      "record": {
+        "id": "M05",
+        "label": "20秒から30秒へ更新",
+        "operation": "update",
+        "summary": "A02 を同じID（c29f6400…）のまま更新：20秒→30秒。履歴は2件（ADD・UPDATE）。",
+        "input": {
+          "api": [
+            "Memory.get",
+            "Memory.update",
+            "Memory.get",
+            "Memory.history",
+            "Memory.search"
+          ],
+          "key": "A02",
+          "memory_id": "c29f6400-783a-4521-b1f7-d74c8785d97c",
+          "update_call": {
+            "memory_id": "c29f6400-783a-4521-b1f7-d74c8785d97c",
+            "text": "あやさんはモーションの作例を、音声なし・30秒程度の動画で見たいです。"
+          },
+          "search_call": {
+            "query": "作例動画の長さと音声は？",
+            "filters": {
+              "user_id": "aya",
+              "topic": "video"
+            },
+            "top_k": 3,
+            "threshold": 0.0,
+            "explain": true
+          },
+          "search_call_from": "M04"
+        },
+        "output": {
+          "before": {
+            "id": "c29f6400-783a-4521-b1f7-d74c8785d97c",
+            "memory": "あやさんはモーションの作例を、音声なし・20秒程度の動画で見たいです。",
+            "hash": "df1228311f9ced0940bcf490621b6583",
+            "metadata": {
+              "topic": "video",
+              "source_key": "A02"
+            },
+            "score": null,
+            "created_at": "2026-10-16T17:34:26.356521+00:00",
+            "updated_at": "2026-10-16T17:34:26.356521+00:00",
+            "user_id": "aya",
+            "role": "user"
+          },
+          "update_response": {
+            "message": "Memory updated successfully!"
+          },
+          "after": {
+            "id": "c29f6400-783a-4521-b1f7-d74c8785d97c",
+            "memory": "あやさんはモーションの作例を、音声なし・30秒程度の動画で見たいです。",
+            "hash": "794aabb3540445de416e8e6cf1bc35a6",
+            "metadata": {
+              "topic": "video",
+              "source_key": "A02"
+            },
+            "score": null,
+            "created_at": "2026-10-16T17:34:26.356521+00:00",
+            "updated_at": "2026-10-16T17:34:26.553279+00:00",
+            "user_id": "aya",
+            "role": "user"
+          },
+          "history": [
+            {
+              "id": "782613e4-9ec8-411d-a307-8daa5d12a9f8",
+              "memory_id": "c29f6400-783a-4521-b1f7-d74c8785d97c",
+              "old_memory": null,
+              "new_memory": "あやさんはモーションの作例を、音声なし・20秒程度の動画で見たいです。",
+              "event": "ADD",
+              "created_at": "2026-10-16T17:34:26.356521+00:00",
+              "updated_at": "2026-10-16T17:34:26.356521+00:00",
+              "is_deleted": false,
+              "actor_id": null,
+              "role": "user"
+            },
+            {
+              "id": "3b4fe1b2-6aad-4fb4-bb97-0918b24e5308",
+              "memory_id": "c29f6400-783a-4521-b1f7-d74c8785d97c",
+              "old_memory": "あやさんはモーションの作例を、音声なし・20秒程度の動画で見たいです。",
+              "new_memory": "あやさんはモーションの作例を、音声なし・30秒程度の動画で見たいです。",
+              "event": "UPDATE",
+              "created_at": "2026-10-16T17:34:26.356521+00:00",
+              "updated_at": "2026-10-16T17:34:26.553279+00:00",
+              "is_deleted": false,
+              "actor_id": null,
+              "role": "user"
+            }
+          ],
+          "search_response": {
+            "results": [
+              {
+                "id": "c29f6400-783a-4521-b1f7-d74c8785d97c",
+                "memory": "あやさんはモーションの作例を、音声なし・30秒程度の動画で見たいです。",
+                "hash": "794aabb3540445de416e8e6cf1bc35a6",
+                "metadata": {
+                  "topic": "video",
+                  "source_key": "A02"
+                },
+                "score": 0.7363008627794754,
+                "created_at": "2026-10-16T17:34:26.356521+00:00",
+                "updated_at": "2026-10-16T17:34:26.553279+00:00",
+                "user_id": "aya",
+                "role": "user",
+                "score_details": {
+                  "semantic_score": 0.7363008627794754,
+                  "bm25_score": 0.0,
+                  "entity_boost": 0.0,
+                  "raw_score": 0.7363008627794754,
+                  "max_possible_score": 1.0,
+                  "final_score": 0.7363008627794754,
+                  "threshold": 0.0
+                }
+              }
+            ]
+          },
+          "checks": {
+            "same_id": true,
+            "text_replaced": true,
+            "created_at_kept": true,
+            "history_events": [
+              "ADD",
+              "UPDATE"
+            ],
+            "search_returns_updated": true,
+            "explicit_update_by_wrapper": true
+          }
+        }
+      },
+      "demo_hash": "#M05"
+    },
+    {
+      "id": "M06",
+      "label": "仮の予定を削除する",
+      "input": "あやさんとの仮の打ち合わせは来週の火曜日です。\n\n{\n  \"memory_id\": \"9902eb13-a97d-4f06-9546-049d5d5eb990\"\n}",
+      "output": "API応答: Memory deleted successfully!\nget: null\n現在の件数: {\n  \"aya\": 3,\n  \"ken\": 3\n}\n履歴: ADD → DELETE\n元の文は履歴に残ります。物理消去の確認ではありません。",
+      "record": {
+        "id": "M06",
+        "label": "仮の予定を削除する",
+        "operation": "delete",
+        "summary": "A04 を削除。get は None、aya の有効な記録は3件。履歴には ADD・DELETE の2件が残る。",
+        "input": {
+          "api": [
+            "Memory.get",
+            "Memory.delete",
+            "Memory.get",
+            "Memory.get_all",
+            "Memory.history"
+          ],
+          "key": "A04",
+          "memory_id": "9902eb13-a97d-4f06-9546-049d5d5eb990",
+          "delete_call": {
+            "memory_id": "9902eb13-a97d-4f06-9546-049d5d5eb990"
+          }
+        },
+        "output": {
+          "before": {
+            "id": "9902eb13-a97d-4f06-9546-049d5d5eb990",
+            "memory": "あやさんとの仮の打ち合わせは来週の火曜日です。",
+            "hash": "e875fd3ded892c29280c7a8a7d676d23",
+            "metadata": {
+              "topic": "temporary",
+              "source_key": "A04"
+            },
+            "score": null,
+            "created_at": "2026-10-16T17:34:26.401327+00:00",
+            "updated_at": "2026-10-16T17:34:26.401327+00:00",
+            "user_id": "aya",
+            "role": "user"
+          },
+          "delete_response": {
+            "message": "Memory deleted successfully!"
+          },
+          "after": null,
+          "get_all": {
+            "aya": {
+              "call": {
+                "filters": {
+                  "user_id": "aya"
+                },
+                "top_k": 20
+              },
+              "response": {
+                "results": [
+                  {
+                    "id": "0db4a0b9-d568-45de-b2a8-29cc2679f09c",
+                    "memory": "あやさんはサンプルの入力と出力をJSONで保存して見返します。",
+                    "hash": "05361e42c5056c3c0d69774c3f0f52f6",
+                    "metadata": {
+                      "topic": "workflow",
+                      "source_key": "A03"
+                    },
+                    "created_at": "2026-10-16T17:34:26.379917+00:00",
+                    "updated_at": "2026-10-16T17:34:26.379917+00:00",
+                    "user_id": "aya",
+                    "role": "user"
+                  },
+                  {
+                    "id": "c29f6400-783a-4521-b1f7-d74c8785d97c",
+                    "memory": "あやさんはモーションの作例を、音声なし・30秒程度の動画で見たいです。",
+                    "hash": "794aabb3540445de416e8e6cf1bc35a6",
+                    "metadata": {
+                      "topic": "video",
+                      "source_key": "A02"
+                    },
+                    "created_at": "2026-10-16T17:34:26.356521+00:00",
+                    "updated_at": "2026-10-16T17:34:26.553279+00:00",
+                    "user_id": "aya",
+                    "role": "user"
+                  },
+                  {
+                    "id": "dfaf2947-37c3-436e-bc9c-670696e41c36",
+                    "memory": "あやさんはスマートフォンで読むので、説明は短い段落と箇条書きを好みます。",
+                    "hash": "fad375ae6d1c7030fe1e0ea14e616872",
+                    "metadata": {
+                      "topic": "layout",
+                      "source_key": "A01"
+                    },
+                    "created_at": "2026-10-16T17:34:26.329196+00:00",
+                    "updated_at": "2026-10-16T17:34:26.329196+00:00",
+                    "user_id": "aya",
+                    "role": "user"
+                  }
+                ]
+              }
+            },
+            "ken": {
+              "call": {
+                "filters": {
+                  "user_id": "ken"
+                },
+                "top_k": 20
+              },
+              "response": {
+                "results": [
+                  {
+                    "id": "0b51e4b0-106b-42fc-a4f6-dbd26694e2f5",
+                    "memory": "けんさんはモーションの作例を、ナレーション付き・60秒程度の動画で見たいです。",
+                    "hash": "def364c950b5012b2cd24fcdd6de848f",
+                    "metadata": {
+                      "topic": "video",
+                      "source_key": "K02"
+                    },
+                    "created_at": "2026-10-16T17:34:26.447732+00:00",
+                    "updated_at": "2026-10-16T17:34:26.447732+00:00",
+                    "user_id": "ken",
+                    "role": "user"
+                  },
+                  {
+                    "id": "9b4ff99a-1d2a-441b-97c3-141f4413c4a5",
+                    "memory": "けんさんはサンプルの実装コードをダウンロードして手元で動かします。",
+                    "hash": "314f0c9603de88ddca11a7f286398145",
+                    "metadata": {
+                      "topic": "workflow",
+                      "source_key": "K03"
+                    },
+                    "created_at": "2026-10-16T17:34:26.470628+00:00",
+                    "updated_at": "2026-10-16T17:34:26.470628+00:00",
+                    "user_id": "ken",
+                    "role": "user"
+                  },
+                  {
+                    "id": "f1c905a7-44ec-43b4-8d7d-773c17755519",
+                    "memory": "けんさんは大きなデスクトップ画面で、図と詳しい説明を並べて読みます。",
+                    "hash": "302538044a572f6780c7808f8f0e51b0",
+                    "metadata": {
+                      "topic": "layout",
+                      "source_key": "K01"
+                    },
+                    "created_at": "2026-10-16T17:34:26.424768+00:00",
+                    "updated_at": "2026-10-16T17:34:26.424768+00:00",
+                    "user_id": "ken",
+                    "role": "user"
+                  }
+                ]
+              }
+            }
+          },
+          "history": [
+            {
+              "id": "0ebe7b26-a121-4ba8-8448-e2b170c7ac84",
+              "memory_id": "9902eb13-a97d-4f06-9546-049d5d5eb990",
+              "old_memory": null,
+              "new_memory": "あやさんとの仮の打ち合わせは来週の火曜日です。",
+              "event": "ADD",
+              "created_at": "2026-10-16T17:34:26.401327+00:00",
+              "updated_at": "2026-10-16T17:34:26.401327+00:00",
+              "is_deleted": false,
+              "actor_id": null,
+              "role": "user"
+            },
+            {
+              "id": "3e37b3a3-12d8-4480-be61-90d8e13fca32",
+              "memory_id": "9902eb13-a97d-4f06-9546-049d5d5eb990",
+              "old_memory": "あやさんとの仮の打ち合わせは来週の火曜日です。",
+              "new_memory": null,
+              "event": "DELETE",
+              "created_at": "2026-10-16T17:34:26.401327+00:00",
+              "updated_at": "2026-10-16T17:34:26.576762+00:00",
+              "is_deleted": true,
+              "actor_id": null,
+              "role": "user"
+            }
+          ],
+          "checks": {
+            "get_returns_none": true,
+            "removed_from_get_all": true,
+            "active_counts": {
+              "aya": 3,
+              "ken": 3
+            },
+            "other_user_unchanged": true,
+            "history_events": [
+              "ADD",
+              "DELETE"
+            ],
+            "history_retains_deleted_text": true,
+            "physical_erasure_verified": false
+          }
+        }
+      },
+      "demo_hash": "#M06"
+    },
+    {
+      "id": "M07",
+      "label": "別プロセスで読み直す",
+      "input": "python run.py --reopen-worker <ARTIFACT_DIR> --model-dir <MODEL_DIR>\n\n{\n  \"query\": \"作例動画の長さと音声は？\",\n  \"filters\": {\n    \"user_id\": \"aya\",\n    \"topic\": \"video\"\n  },\n  \"top_k\": 3,\n  \"threshold\": 0.0,\n  \"explain\": true\n}",
+      "output": "aya / c29f6400-783a-4521-b1f7-d74c8785d97c\nあやさんはモーションの作例を、音声なし・30秒程度の動画で見たいです。\nMem0スコア: 0.736301（確率ではありません）\n\n別プロセスで開き直し：aya 3件・ken 3件。A02 は「30秒」の本文、A04 は get で None。",
+      "record": {
+        "id": "M07",
+        "label": "別プロセスで読み直す",
+        "operation": "reopen",
+        "summary": "別プロセスで開き直し：aya 3件・ken 3件。A02 は「30秒」の本文、A04 は get で None。",
+        "input": {
+          "api": [
+            "Memory.from_config",
+            "Memory.search",
+            "Memory.get_all",
+            "Memory.get",
+            "Memory.history"
+          ],
+          "process": "fresh",
+          "command": "python run.py --reopen-worker <ARTIFACT_DIR> --model-dir <MODEL_DIR>",
+          "search_call": {
+            "query": "作例動画の長さと音声は？",
+            "filters": {
+              "user_id": "aya",
+              "topic": "video"
+            },
+            "top_k": 3,
+            "threshold": 0.0,
+            "explain": true
+          },
+          "memory_ids": {
+            "A02": "c29f6400-783a-4521-b1f7-d74c8785d97c",
+            "A04": "9902eb13-a97d-4f06-9546-049d5d5eb990"
+          }
+        },
+        "output": {
+          "worker": {
+            "exit_code": 0,
+            "process_is_new": true
+          },
+          "search_response": {
+            "results": [
+              {
+                "id": "c29f6400-783a-4521-b1f7-d74c8785d97c",
+                "memory": "あやさんはモーションの作例を、音声なし・30秒程度の動画で見たいです。",
+                "hash": "794aabb3540445de416e8e6cf1bc35a6",
+                "metadata": {
+                  "topic": "video",
+                  "source_key": "A02"
+                },
+                "score": 0.7363008627662084,
+                "created_at": "2026-10-16T17:34:26.356521+00:00",
+                "updated_at": "2026-10-16T17:34:26.553279+00:00",
+                "user_id": "aya",
+                "role": "user",
+                "score_details": {
+                  "semantic_score": 0.7363008627662084,
+                  "bm25_score": 0.0,
+                  "entity_boost": 0.0,
+                  "raw_score": 0.7363008627662084,
+                  "max_possible_score": 1.0,
+                  "final_score": 0.7363008627662084,
+                  "threshold": 0.0
+                }
+              }
+            ]
+          },
+          "get_all": {
+            "aya": {
+              "call": {
+                "filters": {
+                  "user_id": "aya"
+                },
+                "top_k": 20
+              },
+              "response": {
+                "results": [
+                  {
+                    "id": "0db4a0b9-d568-45de-b2a8-29cc2679f09c",
+                    "memory": "あやさんはサンプルの入力と出力をJSONで保存して見返します。",
+                    "hash": "05361e42c5056c3c0d69774c3f0f52f6",
+                    "metadata": {
+                      "topic": "workflow",
+                      "source_key": "A03"
+                    },
+                    "created_at": "2026-10-16T17:34:26.379917+00:00",
+                    "updated_at": "2026-10-16T17:34:26.379917+00:00",
+                    "user_id": "aya",
+                    "role": "user"
+                  },
+                  {
+                    "id": "c29f6400-783a-4521-b1f7-d74c8785d97c",
+                    "memory": "あやさんはモーションの作例を、音声なし・30秒程度の動画で見たいです。",
+                    "hash": "794aabb3540445de416e8e6cf1bc35a6",
+                    "metadata": {
+                      "topic": "video",
+                      "source_key": "A02"
+                    },
+                    "created_at": "2026-10-16T17:34:26.356521+00:00",
+                    "updated_at": "2026-10-16T17:34:26.553279+00:00",
+                    "user_id": "aya",
+                    "role": "user"
+                  },
+                  {
+                    "id": "dfaf2947-37c3-436e-bc9c-670696e41c36",
+                    "memory": "あやさんはスマートフォンで読むので、説明は短い段落と箇条書きを好みます。",
+                    "hash": "fad375ae6d1c7030fe1e0ea14e616872",
+                    "metadata": {
+                      "topic": "layout",
+                      "source_key": "A01"
+                    },
+                    "created_at": "2026-10-16T17:34:26.329196+00:00",
+                    "updated_at": "2026-10-16T17:34:26.329196+00:00",
+                    "user_id": "aya",
+                    "role": "user"
+                  }
+                ]
+              }
+            },
+            "ken": {
+              "call": {
+                "filters": {
+                  "user_id": "ken"
+                },
+                "top_k": 20
+              },
+              "response": {
+                "results": [
+                  {
+                    "id": "0b51e4b0-106b-42fc-a4f6-dbd26694e2f5",
+                    "memory": "けんさんはモーションの作例を、ナレーション付き・60秒程度の動画で見たいです。",
+                    "hash": "def364c950b5012b2cd24fcdd6de848f",
+                    "metadata": {
+                      "topic": "video",
+                      "source_key": "K02"
+                    },
+                    "created_at": "2026-10-16T17:34:26.447732+00:00",
+                    "updated_at": "2026-10-16T17:34:26.447732+00:00",
+                    "user_id": "ken",
+                    "role": "user"
+                  },
+                  {
+                    "id": "9b4ff99a-1d2a-441b-97c3-141f4413c4a5",
+                    "memory": "けんさんはサンプルの実装コードをダウンロードして手元で動かします。",
+                    "hash": "314f0c9603de88ddca11a7f286398145",
+                    "metadata": {
+                      "topic": "workflow",
+                      "source_key": "K03"
+                    },
+                    "created_at": "2026-10-16T17:34:26.470628+00:00",
+                    "updated_at": "2026-10-16T17:34:26.470628+00:00",
+                    "user_id": "ken",
+                    "role": "user"
+                  },
+                  {
+                    "id": "f1c905a7-44ec-43b4-8d7d-773c17755519",
+                    "memory": "けんさんは大きなデスクトップ画面で、図と詳しい説明を並べて読みます。",
+                    "hash": "302538044a572f6780c7808f8f0e51b0",
+                    "metadata": {
+                      "topic": "layout",
+                      "source_key": "K01"
+                    },
+                    "created_at": "2026-10-16T17:34:26.424768+00:00",
+                    "updated_at": "2026-10-16T17:34:26.424768+00:00",
+                    "user_id": "ken",
+                    "role": "user"
+                  }
+                ]
+              }
+            }
+          },
+          "get_updated": {
+            "id": "c29f6400-783a-4521-b1f7-d74c8785d97c",
+            "memory": "あやさんはモーションの作例を、音声なし・30秒程度の動画で見たいです。",
+            "hash": "794aabb3540445de416e8e6cf1bc35a6",
+            "metadata": {
+              "topic": "video",
+              "source_key": "A02"
+            },
+            "score": null,
+            "created_at": "2026-10-16T17:34:26.356521+00:00",
+            "updated_at": "2026-10-16T17:34:26.553279+00:00",
+            "user_id": "aya",
+            "role": "user"
+          },
+          "get_deleted": null,
+          "history_updated": [
+            {
+              "id": "782613e4-9ec8-411d-a307-8daa5d12a9f8",
+              "memory_id": "c29f6400-783a-4521-b1f7-d74c8785d97c",
+              "old_memory": null,
+              "new_memory": "あやさんはモーションの作例を、音声なし・20秒程度の動画で見たいです。",
+              "event": "ADD",
+              "created_at": "2026-10-16T17:34:26.356521+00:00",
+              "updated_at": "2026-10-16T17:34:26.356521+00:00",
+              "is_deleted": false,
+              "actor_id": null,
+              "role": "user"
+            },
+            {
+              "id": "3b4fe1b2-6aad-4fb4-bb97-0918b24e5308",
+              "memory_id": "c29f6400-783a-4521-b1f7-d74c8785d97c",
+              "old_memory": "あやさんはモーションの作例を、音声なし・20秒程度の動画で見たいです。",
+              "new_memory": "あやさんはモーションの作例を、音声なし・30秒程度の動画で見たいです。",
+              "event": "UPDATE",
+              "created_at": "2026-10-16T17:34:26.356521+00:00",
+              "updated_at": "2026-10-16T17:34:26.553279+00:00",
+              "is_deleted": false,
+              "actor_id": null,
+              "role": "user"
+            }
+          ],
+          "history_deleted": [
+            {
+              "id": "0ebe7b26-a121-4ba8-8448-e2b170c7ac84",
+              "memory_id": "9902eb13-a97d-4f06-9546-049d5d5eb990",
+              "old_memory": null,
+              "new_memory": "あやさんとの仮の打ち合わせは来週の火曜日です。",
+              "event": "ADD",
+              "created_at": "2026-10-16T17:34:26.401327+00:00",
+              "updated_at": "2026-10-16T17:34:26.401327+00:00",
+              "is_deleted": false,
+              "actor_id": null,
+              "role": "user"
+            },
+            {
+              "id": "3e37b3a3-12d8-4480-be61-90d8e13fca32",
+              "memory_id": "9902eb13-a97d-4f06-9546-049d5d5eb990",
+              "old_memory": "あやさんとの仮の打ち合わせは来週の火曜日です。",
+              "new_memory": null,
+              "event": "DELETE",
+              "created_at": "2026-10-16T17:34:26.401327+00:00",
+              "updated_at": "2026-10-16T17:34:26.576762+00:00",
+              "is_deleted": true,
+              "actor_id": null,
+              "role": "user"
+            }
+          ],
+          "checks": {
+            "fresh_process": true,
+            "active_counts": {
+              "aya": 3,
+              "ken": 3
+            },
+            "updated_text_persisted": true,
+            "deleted_not_returned": true,
+            "same_ids_after_reopen": true
+          }
+        }
+      },
+      "demo_hash": "#M07"
+    },
+    {
+      "id": "M08",
+      "label": "未登録ユーザーは0件",
+      "input": "{\n  \"api\": \"Memory.search\",\n  \"unknown_user_call\": {\n    \"query\": \"説明の好みは？\",\n    \"filters\": {\n      \"user_id\": \"nobody\"\n    },\n    \"top_k\": 3,\n    \"threshold\": 0.0,\n    \"explain\": true\n  },\n  \"validation_calls\": [\n    {\n      \"case\": \"missing_filters\",\n      \"call\": {\n        \"query\": \"説明の好みは？\",\n        \"top_k\": 3,\n        \"threshold\": 0.0,\n        \"explain\": true\n      }\n    },\n    {\n      \"case\": \"top_level_user_id\",\n      \"call\": {\n        \"query\": \"説明の好みは？\",\n        \"user_id\": \"nobody\",\n        \"top_k\": 3,\n        \"threshold\": 0.0,\n        \"explain\": true\n      }\n    },\n    {\n      \"case\": \"threshold_out_of_range\",\n      \"call\": {\n        \"query\": \"説明の好みは？\",\n        \"filters\": {\n          \"user_id\": \"nobody\"\n        },\n        \"top_k\": 3,\n        \"threshold\": 1.1,\n        \"explain\": true\n      }\n    }\n  ]\n}",
+      "output": "検索結果: {\n  \"results\": []\n}\n\n入力検証の実エラー\n[\n  {\n    \"case\": \"missing_filters\",\n    \"type\": \"ValueError\",\n    \"module\": \"builtins\",\n    \"message\": \"filters must contain at least one of: user_id, agent_id, run_id. Example: filters={'user_id': 'u1'}\"\n  },\n  {\n    \"case\": \"top_level_user_id\",\n    \"type\": \"ValueError\",\n    \"module\": \"builtins\",\n    \"message\": \"Top-level entity parameters frozenset({'user_id'}) are not supported in search(). Use filters={'user_id': '...'} instead.\"\n  },\n  {\n    \"case\": \"threshold_out_of_range\",\n    \"type\": \"ValueError\",\n    \"module\": \"builtins\",\n    \"message\": \"Invalid threshold: 1.1. Must be between 0 and 1 (inclusive).\"\n  }\n]",
+      "record": {
+        "id": "M08",
+        "label": "未登録ユーザーは0件",
+        "operation": "guard",
+        "summary": "未登録の user_id=nobody の検索は0件。誤った呼び出し3件は ValueError で止まった。",
+        "input": {
+          "api": "Memory.search",
+          "unknown_user_call": {
+            "query": "説明の好みは？",
+            "filters": {
+              "user_id": "nobody"
+            },
+            "top_k": 3,
+            "threshold": 0.0,
+            "explain": true
+          },
+          "validation_calls": [
+            {
+              "case": "missing_filters",
+              "call": {
+                "query": "説明の好みは？",
+                "top_k": 3,
+                "threshold": 0.0,
+                "explain": true
+              }
+            },
+            {
+              "case": "top_level_user_id",
+              "call": {
+                "query": "説明の好みは？",
+                "user_id": "nobody",
+                "top_k": 3,
+                "threshold": 0.0,
+                "explain": true
+              }
+            },
+            {
+              "case": "threshold_out_of_range",
+              "call": {
+                "query": "説明の好みは？",
+                "filters": {
+                  "user_id": "nobody"
+                },
+                "top_k": 3,
+                "threshold": 1.1,
+                "explain": true
+              }
+            }
+          ]
+        },
+        "output": {
+          "unknown_user_response": {
+            "results": []
+          },
+          "validation_errors": [
+            {
+              "case": "missing_filters",
+              "type": "ValueError",
+              "module": "builtins",
+              "message": "filters must contain at least one of: user_id, agent_id, run_id. Example: filters={'user_id': 'u1'}"
+            },
+            {
+              "case": "top_level_user_id",
+              "type": "ValueError",
+              "module": "builtins",
+              "message": "Top-level entity parameters frozenset({'user_id'}) are not supported in search(). Use filters={'user_id': '...'} instead."
+            },
+            {
+              "case": "threshold_out_of_range",
+              "type": "ValueError",
+              "module": "builtins",
+              "message": "Invalid threshold: 1.1. Must be between 0 and 1 (inclusive)."
+            }
+          ],
+          "checks": {
+            "unknown_user_results": 0,
+            "validation_errors": 3,
+            "error_types": [
+              "ValueError",
+              "ValueError",
+              "ValueError"
+            ],
+            "isolation_is_not_authentication": true
+          }
+        }
+      },
+      "demo_hash": "#M08"
+    }
+  ]
+}

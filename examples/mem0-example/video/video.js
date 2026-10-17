@@ -1,1016 +1,1383 @@
-/* 好みを覚えて、次に引き出す（Mem0 OSS 作例）— 28秒・無音の解説映像（編集できる元ページ）
- * Canvas 2D で、時刻 t の完成した画面を毎回最初から描く。前のフレーム・壁時計・乱数には依存しない。
- * 使う素材は照合表 assets/data-hashes.json に書かれた8ファイルだけ。照合表自体を制作記録の SHA-256 で確かめ、
- * 8件の生のバイト列を照合してから描く。件数・問い・絞り込み・本文の抜粋・秒数・ID は、読み込んだファイルから取り出す。
- * 映像は保存済みの実結果と実画面の静止画を編集したもので、APIの実行や操作の録画ではない。ブラウザーで Mem0・Python・AI は動かない。
- * Copyright (c) 2026 Studio Yebisu. MIT License. */
+/*
+ * Studio Yebisu — Mem0 作例・動く概念図（32秒・無音）
+ * Copyright (c) 2026 Studio Yebisu. MIT License. Diagram and film authored by Claude Opus 5.5.
+ *
+ * One connected drawing: two fictional people → preference tokens → one persistent store with two scoped
+ * sections → a query/filter route → the actually retrieved tokens. Every token, count, ID and change is
+ * read from the saved original run (assets/memory-run.json) after the manifest and all seven assets
+ * match their pinned SHA-256 and byte counts. No audio, no narration, no live inference.
+ */
+(() => {
+  "use strict";
 
-// ---- 書き出し条件 ---------------------------------------------------------
-const RENDER = window.__MOTION_RENDER__ === true;
-const DURATION = 28;
-const POSTER_TIME = 13.5;
-const given = window.renderConfig && typeof window.renderConfig === 'object' ? window.renderConfig : {};
-const evenSize = (v, fallback) => (Number.isInteger(v) && v >= 16 && v <= 4096 && v % 2 === 0 ? v : fallback);
-const WIDTH = evenSize(given.width, 1280);
-const HEIGHT = evenSize(given.height, 720);
-const FPS = Number.isInteger(given.fps) && given.fps >= 1 && given.fps <= 120 ? given.fps : 30;
-window.motionConfig = {duration: DURATION, fps: FPS, width: WIDTH, height: HEIGHT, posterTime: POSTER_TIME, audioEvents: []};
+  // --- Composition contract -------------------------------------------------------------------
 
-// 論理座標：1280×720 の構図を基準に、渡された縦横比へ短い辺を合わせて広げる。
-// 上の帯と足元の帯は実際の端に置き、本文はその間の中央に置く（1280×720 以外は未確認）
-const LW = Math.max(1280, Math.round(720 * WIDTH / HEIGHT));
-const LH = Math.max(720, Math.round(1280 * HEIGHT / WIDTH));
-const OX = (LW - 1280) / 2, OY = (LH - 720) / 2;
+  const RENDER = window.__MOTION_RENDER__ === true;
+  const requested = window.renderConfig && typeof window.renderConfig === "object" ? window.renderConfig : {};
+  const positiveInt = (value, fallback) => (Number.isInteger(value) && value > 0 ? value : fallback);
+  const WIDE_PREVIEW = !RENDER && new URLSearchParams(location.search).get("layout") === "wide";
+  const W = positiveInt(requested.width, WIDE_PREVIEW ? 1280 : 720);
+  const H = positiveInt(requested.height, WIDE_PREVIEW ? 720 : 1280);
+  const FPS = positiveInt(requested.fps, 30);
+  const DURATION = 32;
+  const POSTER_TIME = 16;
+  window.motionConfig = { duration: DURATION, fps: FPS, width: W, height: H, posterTime: POSTER_TIME, audioEvents: [] };
 
-const root = document.documentElement;
-if (RENDER) root.classList.add('is-render');
-const canvas = document.getElementById('film');
-const ctx = canvas.getContext('2d', {willReadFrequently: true});
-const density = RENDER ? 1 : Math.min(2, Math.max(1, window.devicePixelRatio || 1));
-canvas.width = Math.round(WIDTH * density);
-canvas.height = Math.round(HEIGHT * density);
-canvas.style.aspectRatio = WIDTH + ' / ' + HEIGHT;
-if (RENDER) {
-  canvas.style.width = WIDTH + 'px';
-  canvas.style.height = HEIGHT + 'px';
-}
+  // --- Frozen expectations --------------------------------------------------------------------
 
-// ---- 見た目（閲覧ページ style.css と同じ、アイボリー・紺・コバルト・ティール） --------
-const C = {
-  ivory: '#f7f3ea', paper: '#fffdf8', navy: '#14213d', soft: '#3d4a66', line: '#d8d0bf',
-  cobalt: '#2747c4', cobaltSoft: '#e7ebfa', teal: '#0d6e66', tealSoft: '#e2f1ee', rose: '#9d2b3c'
-};
-const SANS = '"Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", Meiryo, system-ui, sans-serif';
-const SERIF = '"Hiragino Mincho ProN", "Yu Mincho", YuMincho, "Noto Serif JP", serif';
-const MONO = 'ui-monospace, "SFMono-Regular", "Cascadia Mono", Consolas, "Liberation Mono", monospace';
-
-// ---- 素材 ------------------------------------------------------------------
-// 照合表 video/assets/data-hashes.json 自体の SHA-256（runtime/frozen-reviewed-source.json の files_sha256 の値）。
-// パスは作例フォルダーからの相対。このモジュール（video/video.js）の1つ上を基準に解決するので、
-// 書き出し時に <base href="video/"> が入っても同じ場所を指す。
-const HASH_MANIFEST = {path: 'video/assets/data-hashes.json', sha256: 'eea89cbc9568b1df3754abf816e3d840157f3d4463298e9c1df0dbe09c213122'};
-const FILES = {
-  'outputs/memory-run.json': {key: 'run', kind: 'json'},
-  'outputs/independent-checks.json': {key: 'independent', kind: 'json'},
-  'input/memories.json': {key: 'memories', kind: 'json'},
-  'input/scenarios.json': {key: 'scenarios', kind: 'json'},
-  'input/model-source.json': {key: 'modelSource', kind: 'json'},
-  'video/assets/screen-manifest.json': {key: 'screens', kind: 'json'},
-  'video/assets/workbench-phone.png': {key: 'phone', kind: 'png'},
-  'video/assets/workbench-desktop.png': {key: 'desktop', kind: 'png'}
-};
-const INPUTS = ['input/memories.json', 'input/model-source.json', 'input/scenarios.json'];
-const SOURCE = {repository: 'mem0ai/mem0', commit: '0724291bd864cf807e88ee8981c8226644e8fb42', version: '2.2.1', license: 'Apache-2.0'};
-const MODEL = {repository: 'sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2', commit: 'e8f8c211226b894fcb81acc59f3b34ba3efd5f42', license: 'Apache-2.0'};
-// 照合にだけ使う期待値。映像に出す数・文は、読み込んだファイルの値
-const EXPECT = {
-  sourceFiles: 156, modelFiles: 11, dims: 384, rows: 7, users: ['aya', 'ken'],
-  history: {ADD: 7, UPDATE: 1, DELETE: 1}, activePoints: 6, rankings: ['M02', 'M03', 'M04', 'M05', 'M07']
-};
-const IDS = ['M01', 'M02', 'M03', 'M04', 'M05', 'M06', 'M07', 'M08'];
-const SCREENS = [{file: 'workbench-phone.png', scenario: 'M05'}, {file: 'workbench-desktop.png', scenario: 'M02'}];
-const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
-
-// 実画面の切り抜き（画像の画素座標）と置き場所。倍率1で置き、画素を伸ばさず、消さず、上に文字を重ねない
-const CROPS = {
-  // スマホ幅・M05：「出力」の見出し、更新前（20秒）と更新後（30秒）のカード
-  phoneUpdate: {img: 'phone', x: 22, y: 237, w: 322, h: 435, at: {x: 910, y: 172, s: 1}},
-  // 広い幅・M02：「8場面・照合済み」と M01〜M08 の8つのボタン
-  desktopScenes: {img: 'desktop', x: 80, y: 306, w: 1092, h: 168, at: {x: 94, y: 330, s: 1}}
-};
-const CONTENT_TOP = 152, CONTENT_BOTTOM = 664;
-
-const MAIN_MESSAGE = '好みを覚えて、次に引き出す。';
-const FOOTER_LEFT = '実行記録と実画面を編集・無音';
-const SCOPE_NOTE = 'user_id は検索範囲の指定です。認証ではありません。';
-const REOPEN_NOTE = '更新した本文が、同じIDのまま保存先に残っている。';
-const AUTHORSHIP = '映像・コード・文章：Claude Opus 5.5 ／ ベクトル：埋め込みモデル（CPU）';
-const CREDIT = `${DURATION}秒・無音／実行記録を編集`;
-const SCENES = [
-  {id: 'opening', start: 0, end: 4, headline: () => MAIN_MESSAGE},
-  {id: 'save', start: 4, end: 8, headline: f => `${f.users.length}人の好みを、別々に保存。`},
-  {id: 'search', start: 8, end: 12, headline: () => '同じ問いでも、返る記録は別。'},
-  {id: 'update', start: 12, end: 18, headline: () => '好みが変わったら、書き換える。'},
-  {id: 'reopen', start: 18, end: 22, headline: f => `開き直しても、${f.update.after}秒のまま。`},
-  {id: 'ending', start: 22, end: 28, headline: f => `${f.samples}つの実結果を、サイトで読む。`}
-];
-
-// ---- 時刻の関数（すべて絶対時刻 t から閉形式で求める） ---------------------
-const clamp01 = x => (x < 0 ? 0 : x > 1 ? 1 : x);
-const prog = (t, a, b) => clamp01((t - a) / (b - a));
-const easeOut = x => 1 - Math.pow(1 - x, 3);
-const easeInOut = x => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
-const enter = (t, at, dur = 0.45) => easeOut(prog(t, at, at + dur));
-const rise = (t, at, dur = 0.45, px = 14) => px * (1 - enter(t, at, dur));
-// 場面は重ねない。終わりの0.25秒で紙の色へ消え、次の場面は始まりの0.25秒で現れる（境目に約0.5秒の静かな間）
-const FADE = 0.25;
-function sceneAlpha(t, i) {
-  const s = SCENES[i];
-  const a = i === 0 ? (t >= s.start ? 1 : 0) : easeInOut(prog(t, s.start, s.start + FADE));
-  const b = i === SCENES.length - 1 ? 1 : 1 - easeInOut(prog(t, s.end - FADE, s.end));
-  return Math.min(a, b);
-}
-
-// ---- 読み込みと確認 --------------------------------------------------------
-const hex = buffer => [...new Uint8Array(buffer)].map(b => b.toString(16).padStart(2, '0')).join('');
-const check = (ok, message) => {
-  if (!ok) throw new Error('記録の確認に失敗：' + message);
-};
-const sameList = (a, b) => Array.isArray(a) && Array.isArray(b) && a.length === b.length && a.every((v, i) => v === b[i]);
-function deepEqual(a, b) {
-  if (a === b) return true;
-  if (typeof a !== 'object' || typeof b !== 'object' || a === null || b === null) return false;
-  if (Array.isArray(a) !== Array.isArray(b)) return false;
-  if (Array.isArray(a)) return a.length === b.length && a.every((v, i) => deepEqual(v, b[i]));
-  const ka = Object.keys(a).sort(), kb = Object.keys(b).sort();
-  return sameList(ka, kb) && ka.every(k => deepEqual(a[k], b[k]));
-}
-
-async function fetchVerified(url, label, expected) {
-  let response;
-  try {
-    response = await fetch(url, {cache: 'no-store'});
-  } catch {
-    throw new Error(`${label} を読み込めません。file:// ではなくローカルサーバーで開いてください`);
-  }
-  if (!response.ok) throw new Error(`${label} が HTTP ${response.status} でした`);
-  const bytes = await response.arrayBuffer();
-  const digest = hex(await crypto.subtle.digest('SHA-256', bytes));
-  if (digest !== expected) throw new Error(`${label} のSHA-256が制作記録と違います（${digest}）`);
-  return {bytes, digest};
-}
-function decodeText(bytes, label) {
-  let body;
-  try {
-    body = new TextDecoder('utf-8', {fatal: true}).decode(bytes);
-  } catch {
-    throw new Error(`${label} がUTF-8として読めません`);
-  }
-  if (body.charCodeAt(0) === 0xfeff) body = body.slice(1);
-  return body;
-}
-function parseJson(bytes, label) {
-  try {
-    return JSON.parse(decodeText(bytes, label));
-  } catch (error) {
-    throw new Error(`${label} をJSONとして読めません（${error.message}）`);
-  }
-}
-// 照合済みのバイト列だけから画像を作る（元の縦横比のまま）
-async function decodePng(bytes, label) {
-  try {
-    return await createImageBitmap(new Blob([bytes], {type: 'image/png'}));
-  } catch {
-    throw new Error(`${label} を画像として読み込めません`);
-  }
-}
-
-async function loadAll() {
-  // 照合表は、生のバイト列の SHA-256 を確かめてから JSON として読む
-  const manifest = await fetchVerified(new URL('../' + HASH_MANIFEST.path, import.meta.url), HASH_MANIFEST.path, HASH_MANIFEST.sha256);
-  const table = parseJson(manifest.bytes, HASH_MANIFEST.path);
-  const hashes = table && table.files;
-  check(hashes && typeof hashes === 'object' && !Array.isArray(hashes), '照合表の形');
-  const listed = Object.keys(hashes).sort();
-  check(sameList(listed, Object.keys(FILES).sort()), `照合表のファイル（${listed.length}件）`);
-  const data = {}, verified = [];
-  await Promise.all(listed.map(async path => {
-    check(/^[A-Za-z0-9_\-/.]+$/.test(path) && !path.split('/').includes('..') && !path.startsWith('/'), `${path} のパス`);
-    const expected = String(hashes[path]);
-    check(/^[0-9a-f]{64}$/.test(expected), `${path} の照合値`);
-    const {bytes, digest} = await fetchVerified(new URL('../' + path, import.meta.url), path, expected);
-    const spec = FILES[path];
-    if (spec.kind === 'png') data[spec.key] = await decodePng(bytes, path);
-    else data[spec.key] = parseJson(bytes, path);
-    verified.push({path, digest});
-  }));
-  verified.sort((a, b) => a.path.localeCompare(b.path));
-  check(verified.length === Object.keys(FILES).length, '照合したファイルの数');
-  return {data, verified, hashes, manifestDigest: manifest.digest};
-}
-
-// 本文から取り出す句。規則は固定し、文字そのものは記録から取る
-// 動画の好みの句：「、」「。」を含まない、「N秒程度の動画」で終わる部分（例：音声なし・20秒程度の動画）
-const VIDEO_PHRASE = /[^、。]*\d+秒程度の動画/;
-function phraseOf(text, label) {
-  const m = typeof text === 'string' ? text.match(VIDEO_PHRASE) : null;
-  check(m && m[0].length > 0 && text.includes(m[0]), `${label} の動画の好みの句`);
-  return m[0];
-}
-function secondsOf(text, label) {
-  const all = [...String(text).matchAll(/(\d+)秒/g)];
-  check(all.length === 1, `${label} の秒数がひとつ`);
-  return Number(all[0][1]);
-}
-// 検索結果の抜粋：最後の「、」の後（なければ「〇〇さんは」の後）から文末まで。先頭を省いたら「…」を付けて描く
-function clauseExcerpt(text, label) {
-  const i = text.lastIndexOf('、');
-  const body = i >= 0 ? text.slice(i + 1) : text.replace(/^[^、。]*?さんは/, '');
-  check(body.length > 0 && text.endsWith(body), `${label} の抜粋`);
-  return {body, cut: body !== text, display: (body !== text ? '…' : '') + body};
-}
-const shortId = id => `${id.slice(0, 8)}…${id.slice(-6)}`;
-const searchCall = s => ({query: s.query, filters: s.filters, top_k: s.top_k, threshold: s.threshold, explain: s.explain});
-
-function buildFacts(d, hashes) {
-  const {run, independent: ind, memories: mem, scenarios: sc, modelSource: ms, screens} = d;
-
-  // 原典：固定コミット・2.2.1・Apache-2.0、156ファイルを照合し実行後も無改変
-  check(run && run.format === 'studio-yebisu-mem0-run-v1', '実行記録の形式');
-  const src = run.source || {}, rc = run.checks || {};
-  check(src.repository === SOURCE.repository && src.commit === SOURCE.commit && src.version === SOURCE.version && src.license === SOURCE.license, '原典の固定版（mem0ai/mem0 0724291・2.2.1・Apache-2.0）');
-  check(src.files_verified === EXPECT.sourceFiles && rc.source_files_verified === EXPECT.sourceFiles && rc.vendor_unchanged_after_run === true, `原典${EXPECT.sourceFiles}ファイルの照合と無改変`);
-
-  // 埋め込みモデル：固定コミット e8f8c21・384次元・CPU・11ファイル（LLMではない）
-  const model = run.model || {};
-  check(model.repository === MODEL.repository && model.commit === MODEL.commit && model.license === MODEL.license &&
-    ms.repository === MODEL.repository && ms.commit === MODEL.commit, '埋め込みモデルの固定版');
-  check(model.dimensions === EXPECT.dims && ms.dimensions === EXPECT.dims && rc.vector_dimensions === EXPECT.dims && model.device === 'cpu', `${EXPECT.dims}次元・CPU`);
-  check(model.files_verified === EXPECT.modelFiles && rc.model_files_verified === EXPECT.modelFiles && Array.isArray(ms.files) && ms.files.length === EXPECT.modelFiles, `モデル${EXPECT.modelFiles}ファイル`);
-
-  // infer=False・LLM 0回・実行中の通信0件・確認すべて通過・別プロセス
-  const cfg = run.config || {}, net = run.network || {};
-  check(cfg.infer === false && cfg.telemetry === false && cfg.network_blocked === true, 'infer=False・送信停止・通信拒否');
-  check(cfg.memory_facts && cfg.memory_facts.llm_called === false && rc.llm_calls === 0, 'LLMを呼んでいない');
-  check(net.total_attempts === 0 && sameList(net.parent_attempts, []) && sameList(net.worker_attempts, []) && rc.network_attempts === 0, '実行中の通信の試み0件');
-  check(rc.passed === true, '実行記録の確認がすべて通過');
-  check(run.worker && run.worker.exit_code === 0 && run.worker.fresh_process === true, '別プロセスでの読み直し');
-
-  // 実行の前に固定した入力3つ：実行記録の SHA-256 と、照合表の値が同じ
-  check(sameList(Object.keys(run.input_sha256 || {}).sort(), INPUTS), '実行記録の入力の一覧');
-  INPUTS.forEach(p => check(run.input_sha256[p] === hashes[p], `${p} のSHA-256が実行記録と同じ`));
-
-  // 架空の好み7件と2人
-  const rows = mem.memories;
-  check(mem.fictional === true && Array.isArray(rows) && rows.length === EXPECT.rows, `架空の好み${EXPECT.rows}件`);
-  const users = [...new Set(rows.map(r => r.user_id))];
-  check(sameList(users, EXPECT.users), '架空の2人（aya・ken）');
-  const rowByKey = Object.fromEntries(rows.map(r => [r.key, r]));
-  check(Object.keys(rowByKey).length === rows.length, '好みのキーが重複しない');
-
-  // 8場面：実結果が M01〜M08 の順で、ラベルと操作が固定の場面と同じ
-  const scen = sc.scenarios;
-  check(Array.isArray(scen) && sameList(scen.map(s => s.id), IDS), '場面 M01〜M08');
-  check(Array.isArray(run.samples) && sameList(run.samples.map(s => s && s.id), IDS), '実結果8件');
-  const S = {}, P = {};
-  run.samples.forEach((s, i) => {
-    const p = scen[i];
-    check(s.label === p.label && s.operation === p.operation && s.input && s.output, `${s.id} のラベルと操作が固定の場面と同じ`);
-    S[s.id] = s;
-    P[p.id] = p;
-  });
-
-  // M01：7回の add（infer=False）がすべて入力の本文どおり1件の ADD。get_all は利用者ごとに保存した本文
-  const m01 = S.M01, o1 = m01.output;
-  check(P.M01.infer === false && Array.isArray(m01.input.calls) && m01.input.calls.length === rows.length, 'M01 の呼び出し7件');
-  check(Array.isArray(o1.responses) && o1.responses.length === rows.length && o1.memory_ids, 'M01 の応答7件');
-  rows.forEach((r, i) => {
-    const call = m01.input.calls[i], res = o1.responses[i];
-    check(call.key === r.key && call.messages === r.text && call.user_id === r.user_id && deepEqual(call.metadata, r.metadata) && call.infer === false, `M01 ${r.key} の入力が固定の好みと同じ`);
-    const out = res && res.key === r.key && res.response && Array.isArray(res.response.results) && res.response.results.length === 1 ? res.response.results[0] : null;
-    check(out && out.event === 'ADD' && out.memory === r.text && UUID.test(out.id) && o1.memory_ids[r.key] === out.id, `M01 ${r.key} が本文どおり1件の ADD`);
-  });
-  check(rc.adds === rows.length && rc.add_events_all_add === true, 'M01 の ADD 7件');
-  const ids = o1.memory_ids;
-  const listing = {};
-  users.forEach(u => {
-    const listed = o1.get_all && o1.get_all[u] && o1.get_all[u].response && o1.get_all[u].response.results;
-    const mine = rows.filter(r => r.user_id === u);
-    check(Array.isArray(listed) && listed.length === mine.length, `M01 ${u} の一覧の件数`);
-    check(listed.every(x => x.user_id === u && mine.some(r => ids[r.key] === x.id && r.text === x.memory && deepEqual(r.metadata, x.metadata))), `M01 ${u} の一覧が保存した本文と同じ`);
-    check(rc.scope_counts && rc.scope_counts[u] === listed.length, `M01 ${u} の件数が実行記録と同じ`);
-    listing[u] = listed;
-  });
-
-  // M02・M03：同じ問いを user_id だけ変えて検索。返った記録はすべてその利用者の保存した本文
-  const searches = ['M02', 'M03'].map(id => {
-    const s = S[id], p = P[id], u = p.filters && p.filters.user_id;
-    check(deepEqual(s.input.call, searchCall(p)), `${id} の検索条件が固定の場面と同じ`);
-    const results = s.output.response && s.output.response.results;
-    check(Array.isArray(results) && results.length > 0 && results.length <= p.top_k, `${id} の結果の件数`);
-    results.forEach(x => {
-      const key = x.metadata && x.metadata.source_key, r = rowByKey[key];
-      check(x.user_id === u && r && r.user_id === u && ids[key] === x.id && r.text === x.memory, `${id} の結果が ${u} の保存した記録`);
-    });
-    check(sameList(s.output.result_keys, results.map(x => x.metadata.source_key)), `${id} の結果のキー`);
-    check(s.output.checks && s.output.checks.overlap_with_other_user === 0, `${id} がもう1人の記録と重ならない`);
-    const first = results[0];
-    return {id, filters: p.filters, user: u, key: first.metadata.source_key, excerpt: clauseExcerpt(first.memory, `${id} の1件目`), count: results.length};
-  });
-  check(S.M02.input.call.query === S.M03.input.call.query, 'M02 と M03 は同じ問い');
-
-  // M05：実行スクリプトが Memory.update を明示的に呼び、同じIDのまま秒数だけ変わる
-  const m05 = S.M05, p5 = P.M05, o5 = m05.output, target = rowByKey[p5.key];
-  check(target && m05.input.key === p5.key && m05.input.memory_id === ids[p5.key] && m05.input.update_call &&
-    m05.input.update_call.memory_id === ids[p5.key] && m05.input.update_call.text === p5.text, 'M05 の対象と新しい本文が固定の場面と同じ');
-  check(o5.before && o5.after && o5.before.id === ids[p5.key] && o5.after.id === ids[p5.key], 'M05 の更新前後で同じID');
-  check(o5.before.memory === target.text && o5.after.memory === p5.text && o5.after.created_at === o5.before.created_at, 'M05 の更新前後の本文');
-  check(Array.isArray(o5.history) && sameList(o5.history.map(h => h.event), ['ADD', 'UPDATE']) &&
-    o5.history[1].old_memory === target.text && o5.history[1].new_memory === p5.text, 'M05 の履歴 ADD・UPDATE');
-  check(o5.checks && o5.checks.explicit_update_by_wrapper === true, 'M05 は明示的な update');
-  const r5 = o5.search_response && o5.search_response.results;
-  check(Array.isArray(r5) && r5.length > 0 && r5[0].id === ids[p5.key] && r5[0].memory === p5.text, 'M05 の更新後の検索');
-  const before = secondsOf(target.text, `${p5.key} 更新前`), after = secondsOf(p5.text, `${p5.key} 更新後`);
-  check(before !== after && target.text.replace(`${before}秒`, `${after}秒`) === p5.text, 'M05 で変わったのは秒数だけ');
-
-  // M06：削除は有効な取得・一覧から外す操作。履歴には ADD・DELETE と削除前の本文が残る（物理消去は未確認）
-  const m06 = S.M06, p6 = P.M06, o6 = m06.output;
-  check(m06.input.memory_id === ids[p6.key] && o6.after === null && Array.isArray(o6.history) &&
-    sameList(o6.history.map(h => h.event), ['ADD', 'DELETE']) && o6.checks && o6.checks.history_retains_deleted_text === true &&
-    o6.checks.physical_erasure_verified === false, 'M06 の削除と残る履歴');
-
-  // M07：保存先を閉じ、新しいプロセスで同じ検索。1件目が更新後の本文・同じID
-  const m07 = S.M07, p7 = P.M07, o7 = m07.output;
-  check(deepEqual(m07.input.search_call, searchCall(p7)) && m07.input.process === 'fresh', 'M07 の検索条件が固定の場面と同じ');
-  check(o7.worker && o7.worker.exit_code === 0 && o7.worker.process_is_new === true && rc.m07_fresh_process === true, 'M07 は新しいプロセス（終了コード0）');
-  const r7 = o7.search_response && o7.search_response.results;
-  check(Array.isArray(r7) && r7.length > 0 && r7[0].id === ids[p5.key] && r7[0].memory === p5.text &&
-    r7[0].user_id === p7.filters.user_id && target.user_id === p7.filters.user_id, 'M07 の1件目が更新後の本文・同じID');
-  check(o7.get_updated && o7.get_updated.memory === p5.text && o7.get_deleted === null && o7.checks && o7.checks.same_ids_after_reopen === true, 'M07 の更新と削除が残る');
-
-  // M08：未登録の利用者は0件、誤った呼び出し3件は ValueError
-  const o8 = S.M08.output;
-  check(o8.unknown_user_response && sameList(o8.unknown_user_response.results, []) && Array.isArray(o8.validation_errors) &&
-    o8.validation_errors.length === P.M08.validation_cases.length && o8.validation_errors.every(e => e.type === 'ValueError'), 'M08 の0件と誤った呼び出し');
-
-  // 別の検証：保存ベクトル6件・検索5件の順位とスコア・SQLite の履歴 ADD7/UPDATE1/DELETE1
-  check(ind.status === 'passed' && ind.sample_count === IDS.length && ind.source_files_verified === EXPECT.sourceFiles, '別の検証の状態');
-  check(ind.active_points === EXPECT.activePoints && deepEqual(ind.active_users, rc.m07_active_counts), '別の検証：有効な記録6件');
-  check(deepEqual(ind.history_events, EXPECT.history) && rc.history_db && deepEqual(rc.history_db.history_rows_by_event, EXPECT.history), 'SQLite の履歴 ADD 7・UPDATE 1・DELETE 1');
-  check(Array.isArray(ind.vectors) && ind.vectors.length === EXPECT.activePoints &&
-    ind.vectors.every(v => v.dimensions === EXPECT.dims && v.max_abs_difference === 0 && ids[v.key] === v.id), '別の検証：保存ベクトル6件が一致');
-  const recordKeys = {
-    M02: S.M02.output.result_keys, M03: S.M03.output.result_keys, M04: S.M04.output.result_keys,
-    M05: r5.map(x => x.metadata.source_key), M07: r7.map(x => x.metadata.source_key)
+  const MANIFEST = {
+    path: "assets/manifest.json",
+    sha256: "10c7aed7d3f649f2522823957529e8f7a45c3e2b36777a2a3d1cf352d1c9fdca",
+    format: "studio-yebisu-visual-assets-v1",
   };
-  check(Array.isArray(ind.searches) && sameList(ind.searches.map(s => s.id), EXPECT.rankings), '別の検証：検索5件');
-  ind.searches.forEach(s => check(s.ranking_matches === true && sameList(s.result_keys, recordKeys[s.id]), `別の検証：${s.id} の順位が実行記録と同じ`));
-  check(ind.updated_same_id === true && ind.deleted_note_retained_in_history === true && sameList(ind.network_attempts, []), '別の検証：同じIDの更新・履歴に残る削除・通信0件');
-
-  // 実画面：記録の SHA-256・大きさ（画像の実寸と記録の値）・場面、切り抜きが画像の内側で本文の範囲に収まること
-  check(screens && Array.isArray(screens.screens) && sameList(screens.screens.map(s => s.file), SCREENS.map(s => s.file)), '実画面2枚の記録');
-  screens.screens.forEach((s, i) => {
-    const path = 'video/assets/' + s.file, img = d[FILES[path].key];
-    check(img && img.width === s.width && img.height === s.height, `${s.file} の大きさ（${s.width}×${s.height}）`);
-    check(s.sha256 === hashes[path] && s.scenario_id === SCREENS[i].scenario, `${s.file} のSHA-256と場面`);
-  });
-  for (const [name, crop] of Object.entries(CROPS)) {
-    const img = d[crop.img];
-    check(crop.x >= 0 && crop.y >= 0 && crop.x + crop.w <= img.width && crop.y + crop.h <= img.height, `${name} の切り抜き範囲`);
-    const right = crop.at.x + crop.w * crop.at.s, bottom = crop.at.y + crop.h * crop.at.s;
-    check(crop.at.x >= 48 && right <= 1232.5 && crop.at.y >= CONTENT_TOP + 16 && bottom <= 620, `${name} の置き場所`);
-  }
-
-  // 映像に出す値（すべて読み込んだファイルから取り出す）
-  return {
-    img: d,
-    pin: `mem0 ${src.version} ・ ${src.commit.slice(0, 7)} ・ ${src.license}`,
-    version: src.version,
-    rows: rows.length,
-    adds: o1.responses.length,
-    llmCalls: rc.llm_calls,
-    users: users.map(u => {
-      const video = rows.filter(r => r.user_id === u && r.metadata && r.metadata.topic === 'video');
-      check(video.length === 1, `${u} の動画の好みが1件`);
-      const saved = listing[u].find(x => x.id === ids[video[0].key]);
-      check(saved, `${u} の動画の好みが一覧にある`);
-      return {id: u, count: listing[u].length, key: video[0].key, phrase: phraseOf(saved.memory, video[0].key)};
-    }),
-    query: S.M02.input.call.query,
-    searches,
-    update: {
-      id: m05.id, key: p5.key, before, after, shortId: shortId(o5.after.id),
-      phrase: phraseOf(o5.after.memory, `${m05.id} 更新後`), history: o5.history.map(h => h.event)
-    },
-    reopen: {
-      id: m07.id, key: r7[0].metadata.source_key, query: p7.query, filters: p7.filters,
-      shortId: shortId(r7[0].id), excerpt: clauseExcerpt(r7[0].memory, `${m07.id} の1件目`), mark: `${after}秒`
-    },
-    spine: {save: m01.id, search: searches.map(s => s.id).join('・'), update: m05.id},
-    samples: run.samples.length,
-    check: {vectors: ind.vectors.length, rankings: ind.searches.length, history: rc.history_db.history_rows_by_event}
+  // Same order and values as the manifest. Paths are relative to video/assets/.
+  const ASSETS = [
+    { file: "memory-run.json", sha256: "a2ef19d1461611c28b56824a21f30839dd45210fe285c40695624ee4447750dc", bytes: 54026, source: "outputs/memory-run.json" },
+    { file: "memories.json", sha256: "ef9f585026e5cb4e5c0f32fa02af0117ede2dd2d7b0b5d9a4fb6fe87386c161c", bytes: 2107, source: "input/memories.json" },
+    { file: "scenarios.json", sha256: "ec089d59c70d1442313fe797349acbbbb9999e7ec6ba2c04131df02bf8a2acdb", bytes: 2263, source: "input/scenarios.json" },
+    { file: "model-source.json", sha256: "4e51d6fc32c2b93c5c5dfdad32bc870ebeb379548ea87e90cd50bd10f5fcd9af", bytes: 2255, source: "input/model-source.json" },
+    { file: "vendor-lock.json", sha256: "5d9c8621c664d589a4be8d9b13cadd25370811ad1e5967409cd1e9feb83a1e94", bytes: 16677, source: "vendor-lock.json" },
+    { file: "samples.json", sha256: "4beebb4570b6266bebf29f1c12c96b3e1a02d36e3cdb1b51feac3c19d6be9e6c", bytes: 57929, source: "samples.json" },
+    { file: "timeline.json", sha256: "6f7fe7e5d9bb10728a5a31c86a80587561179163ecde3bddab0f044a0dc1ed4e", bytes: 1979, source: "independent visual timeline based on saved runtime" },
+  ];
+  const SHA = Object.fromEntries(ASSETS.map((a) => [a.file, a.sha256]));
+  const PIN = {
+    format: "studio-yebisu-mem0-run-v1",
+    repository: "mem0ai/mem0",
+    commit: "0724291bd864cf807e88ee8981c8226644e8fb42",
+    version: "2.2.1",
+    license: "Apache-2.0",
+    sourceFiles: 156,
+    modelRepository: "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    modelCommit: "e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+    dimensions: 384,
+    modelFiles: 11,
+    ids: ["M01", "M02", "M03", "M04", "M05", "M06", "M07", "M08"],
+    timelineFormat: "studio-yebisu-mem0-visual-timeline-v1",
   };
-}
-
-// ---- 描画の部品 ------------------------------------------------------------
-function font(o) {
-  const family = o.family === 'serif' ? SERIF : o.family === 'mono' ? MONO : SANS;
-  return `${o.weight || 400} ${o.size || 32}px ${family}`;
-}
-function text(c, s, x, y, o = {}) {
-  c.save();
-  c.font = font(o);
-  c.fillStyle = o.color || C.navy;
-  c.textAlign = o.align || 'left';
-  c.textBaseline = 'alphabetic';
-  c.fillText(s, x, y);
-  c.restore();
-}
-function measure(c, s, o) {
-  c.save();
-  c.font = font(o);
-  const w = c.measureText(s).width;
-  c.restore();
-  return w;
-}
-// 測った幅に収まるまで1pxずつ小さくする（下限あり。下限でも収まらないかは checkLayout で確かめる）
-function fitSize(c, s, maxWidth, o, min) {
-  let size = o.size;
-  while (size > min && measure(c, s, {...o, size}) > maxWidth) size -= 1;
-  return size;
-}
-// 一部の文字（秒数など）だけ色を変えて1行に描く
-function richLine(c, s, mark, x, y, o, markColor) {
-  const i = mark ? s.indexOf(mark) : -1;
-  if (i < 0) return text(c, s, x, y, o);
-  let cx = x;
-  for (const [seg, color] of [[s.slice(0, i), o.color], [mark, markColor], [s.slice(i + mark.length), o.color]]) {
-    if (!seg) continue;
-    text(c, seg, cx, y, {...o, color});
-    cx += measure(c, seg, o);
-  }
-}
-// 日本語の折り返し：測った幅で文字ごとに折り、行頭・行末の禁則を守る。英数字の語の途中では折らない
-const NO_START = '、。，．・：；？！ー）」』】〕〉》ぁぃぅぇぉっゃゅょゎァィゥェォッャュョヮ…‥';
-const NO_END = '（「『【〔〈《';
-const ASCII_WORD = /[A-Za-z0-9._]/;
-function wrapRanges(c, chars, maxWidth, o) {
-  c.save();
-  c.font = font(o);
-  const lines = [];
-  let start = 0;
-  while (start < chars.length) {
-    let end = start + 1;
-    while (end < chars.length && c.measureText(chars.slice(start, end + 1).join('')).width <= maxWidth) end++;
-    if (end < chars.length) {
-      while (end - start > 1 && NO_START.includes(chars[end])) end--;
-      while (end - start > 1 && NO_END.includes(chars[end - 1])) end--;
-      let k = end;
-      while (k - start > 1 && ASCII_WORD.test(chars[k]) && ASCII_WORD.test(chars[k - 1])) k--;
-      if (k - start > 1) end = k;
-    }
-    lines.push([start, end]);
-    start = end;
-    while (start < chars.length && chars[start] === ' ') start++;
-  }
-  c.restore();
-  return lines;
-}
-const lineCount = (c, s, maxWidth, o) => wrapRanges(c, [...s], maxWidth, o).length;
-function jaBlock(c, s, x, y, maxWidth, lineHeight, o) {
-  const chars = [...s];
-  const ranges = wrapRanges(c, chars, maxWidth, o);
-  ranges.forEach(([a, b], i) => text(c, chars.slice(a, b).join('').trimEnd(), x, y + i * lineHeight, o));
-  return ranges.length;
-}
-function roundRect(c, x, y, w, h, r) {
-  const radius = Math.min(r, w / 2, h / 2);
-  c.beginPath();
-  c.moveTo(x + radius, y);
-  c.arcTo(x + w, y, x + w, y + h, radius);
-  c.arcTo(x + w, y + h, x, y + h, radius);
-  c.arcTo(x, y + h, x, y, radius);
-  c.arcTo(x, y, x + w, y, radius);
-  c.closePath();
-}
-// 紙の上の記録カード（実画面ではない。保存した記録を編集で読みやすく置いたもの）
-function card(c, x, y, w, h, o = {}) {
-  roundRect(c, x, y, w, h, 10);
-  c.fillStyle = o.fill || C.paper;
-  c.fill();
-  c.strokeStyle = o.stroke || C.line;
-  c.lineWidth = o.lineWidth || 1.5;
-  roundRect(c, x + 0.75, y + 0.75, w - 1.5, h - 1.5, 10);
-  c.stroke();
-  if (o.bar) {
-    c.fillStyle = o.bar;
-    c.fillRect(x, y + 8, 5, h - 16);
-  }
-}
-function chip(c, s, x, y, o = {}) {
-  const size = o.size || 30, h = o.h || 48, pad = o.pad || 14, weight = o.weight || 700;
-  const fo = {size, weight, family: o.family};
-  const w = measure(c, s, fo) + pad * 2;
-  roundRect(c, x, y, w, h, 8);
-  c.fillStyle = o.fill || C.paper;
-  c.fill();
-  if (o.stroke) {
-    c.strokeStyle = o.stroke;
-    c.lineWidth = 1.5;
-    roundRect(c, x + 0.75, y + 0.75, w - 1.5, h - 1.5, 8);
-    c.stroke();
-  }
-  text(c, s, x + pad, y + h / 2 + size * 0.36, {...fo, color: o.color || C.navy});
-  return w;
-}
-const chipWidth = (c, s, o = {}) => measure(c, s, {size: o.size || 30, weight: o.weight || 700, family: o.family}) + (o.pad || 14) * 2;
-function bigCount(c, n, x, y, size, color, unit) {
-  const o = {size, weight: 700};
-  text(c, String(n), x, y, {...o, color});
-  const w = measure(c, String(n), o);
-  const uo = {size: Math.round(size * 0.3), weight: 700};
-  text(c, unit, x + w + 12, y, {...uo, color});
-  return w + 12 + measure(c, unit, uo);
-}
-function arrow(c, x1, x2, y, color = C.navy, width = 3) {
-  const head = 8 + width * 2;
-  c.strokeStyle = color;
-  c.fillStyle = color;
-  c.lineWidth = width;
-  c.beginPath();
-  c.moveTo(x1, y);
-  c.lineTo(x2 - head, y);
-  c.stroke();
-  c.beginPath();
-  c.moveTo(x2, y);
-  c.lineTo(x2 - head - 2, y - head * 0.7);
-  c.lineTo(x2 - head - 2, y + head * 0.7);
-  c.closePath();
-  c.fill();
-}
-function arrowDown(c, x, y1, y2, color = C.navy) {
-  c.strokeStyle = color;
-  c.fillStyle = color;
-  c.lineWidth = 3;
-  c.beginPath();
-  c.moveTo(x, y1);
-  c.lineTo(x, y2 - 12);
-  c.stroke();
-  c.beginPath();
-  c.moveTo(x, y2);
-  c.lineTo(x - 10, y2 - 16);
-  c.lineTo(x + 10, y2 - 16);
-  c.closePath();
-  c.fill();
-}
-// 実画面の切り抜きを、等倍率でそのまま置く（画素は変えず、文字も重ねない）
-function shot(c, f, key, alpha, dy = 0) {
-  if (alpha <= 0.001) return;
-  const crop = CROPS[key], img = f.img[crop.img];
-  const x = crop.at.x, y = crop.at.y + dy, w = crop.w * crop.at.s, h = crop.h * crop.at.s;
-  c.save();
-  c.globalAlpha *= alpha;
-  c.save();
-  c.shadowColor = 'rgba(20, 33, 61, 0.14)';
-  c.shadowBlur = 16;
-  c.shadowOffsetY = 5;
-  roundRect(c, x, y, w, h, 8);
-  c.fillStyle = C.paper;
-  c.fill();
-  c.restore();
-  c.save();
-  roundRect(c, x, y, w, h, 8);
-  c.clip();
-  c.drawImage(img, crop.x, crop.y, crop.w, crop.h, x, y, w, h);
-  c.restore();
-  roundRect(c, x + 0.5, y + 0.5, w - 1, h - 1, 8);
-  c.strokeStyle = C.line;
-  c.lineWidth = 1;
-  c.stroke();
-  c.restore();
-}
-
-// ---- いつも出ている枠：題名と原典、足元の注記（実際の端に置く） -------------------
-function drawChrome(c, f) {
-  text(c, 'Mem0 OSS 作例', 48, 38, {size: 26, weight: 700, color: C.navy});
-  if (f) text(c, f.pin, LW - 48, 38, {size: 26, weight: 500, color: C.soft, align: 'right'});
-  c.save();
-  c.fillStyle = C.line;
-  c.fillRect(48, 54, LW - 96, 1);
-  c.fillRect(48, LH - 54, LW - 96, 1);
-  c.restore();
-  text(c, FOOTER_LEFT, 48, LH - 16, {size: 26, weight: 700, color: C.navy});
-  if (f) text(c, `${f.users.map(u => u.id).join('・')} と好み${f.rows}件は架空`, LW - 48, LH - 16, {size: 26, weight: 700, color: C.teal, align: 'right'});
-}
-
-function drawHeadlines(c, t, f) {
-  SCENES.forEach((s, i) => {
-    const a = sceneAlpha(t, i);
-    if (a <= 0.001) return;
-    const dy = i === 0 ? 0 : 10 * (1 - easeOut(prog(t, s.start, s.start + 0.4)));
-    c.save();
-    c.globalAlpha = a;
-    text(c, s.headline(f), 48, 134 + dy, {size: 72, weight: 700, family: 'serif', color: C.navy});
-    c.restore();
-  });
-}
-
-// ---- 場面 ------------------------------------------------------------------
-// 0〜4秒：架空の2人・実際の Mem0 OSS の Memory API・infer=False でそのまま保存
-function drawOpening(c, t, f, a, L) {
-  const W = 376, G = 28, Y = 188, H = 244;
-  const cards = [
-    {label: '誰の好み', big: `架空の${f.users.length}人`, sub: `${f.users.map(u => u.id).join(' と ')}。実在しない人物`, bar: C.teal},
-    {label: '使ったもの', big: 'Mem0 OSS', sub: `Memory API ${f.version} を改変せずに実行`, bar: C.navy},
-    {label: '保存のしかた', big: 'infer=False', family: 'mono', sub: '渡した文を、1件ずつそのまま保存', bar: C.cobalt}
+  // Scene timing is fixed in timeline.json; `read` is where the scene buttons land.
+  const SCENE_PLAN = [
+    { id: "store", in: 0, out: 5, case: "M01", headline: "好みを、別々に保存", read: 4.2 },
+    { id: "search", in: 5, out: 11, case: "M02", compare: "M03", headline: "同じ問い、違う好み", read: 7.6 },
+    { id: "update", in: 11, out: 17, case: "M05", headline: "20秒から、30秒へ", read: 16.0 },
+    { id: "delete", in: 17, out: 22, case: "M06", headline: "仮の予定を、一覧から外す", read: 21.2 },
+    { id: "reopen", in: 22, out: 28, case: "M07", headline: "開き直しても、30秒", read: 27.2 },
+    { id: "finish", in: 28, out: 32, case: "M07", headline: "覚えて、引き出す", read: 31.5, last: true },
   ];
-  cards.forEach((k, i) => {
-    const at = 0.2 + i * 0.15, x = 48 + i * (W + G), y = Y + rise(t, at);
-    c.globalAlpha = a * enter(t, at);
-    card(c, x, y, W, H, {bar: k.bar});
-    text(c, k.label, x + 28, y + 50, {size: 30, weight: 700, color: k.bar});
-    text(c, k.big, x + 28, y + 128, {size: L.openingBig[i], weight: 700, family: k.family, color: C.navy});
-    jaBlock(c, k.sub, x + 28, y + 180, W - 56, 40, {size: 30, weight: 600, color: C.soft});
-  });
-  c.globalAlpha = a * enter(t, 0.85);
-  text(c, L.openingNote, 48, 540 + rise(t, 0.85), {size: 36, weight: 700, color: C.navy});
-}
+  const COMPARE_AT = 8.1; // inside the search scene: the same query, now for ken (record M03)
+  const FILE_MESSAGE = "このページをファイルとして直接開くと、素材を読み込んで照合できません。作例のフォルダー（index.html のある場所）で python -m http.server を実行し、http://localhost:8000/video/ を開いてください。";
 
-// 4〜8秒：M01 の get_all の件数（aya 4件・ken 3件）と、各自の動画の好みの句（本文の一部そのまま）
-function drawSave(c, t, f, a) {
-  f.users.forEach((u, i) => {
-    const at = 4.25 + i * 0.2, x = 48 + i * 612, y = 180 + rise(t, at);
-    c.globalAlpha = a * enter(t, at);
-    card(c, x, y, 572, 400, {bar: i ? C.teal : C.cobalt});
-    const cw = chip(c, u.id, x + 32, y + 28, {size: 36, h: 56, pad: 18, family: 'mono', fill: C.navy, color: '#ffffff'});
-    text(c, '架空の人物', x + 32 + cw + 16, y + 68, {size: 30, weight: 600, color: C.soft});
-    c.globalAlpha = a * enter(t, at + 0.15);
-    bigCount(c, u.count, x + 32, y + 212, 140, C.navy, '件を保存');
-    c.globalAlpha = a * enter(t, at + 0.3);
-    text(c, `${u.key} の本文から`, x + 32, y + 268, {size: 30, weight: 600, color: C.soft});
-    jaBlock(c, `…${u.phrase}…`, x + 32, y + 324, 508, 56, {size: 44, weight: 700, color: C.navy});
-  });
-  c.globalAlpha = a * enter(t, 5.15);
-  text(c, `${f.adds}件とも、渡した文のまま保存（ADD）`, 48, 640 + rise(t, 5.15), {size: 36, weight: 700, color: C.navy});
-}
+  const USERS = { aya: "あや", ken: "けん" };
+  const KEYS = { aya: ["A01", "A02", "A03", "A04"], ken: ["K01", "K02", "K03"] };
+  // Picture headings for the stored sentences; each must match the actual stored text.
+  const SHORT = {
+    A01: { mark: "短い段落", text: "短い段落" },
+    A02: { mark: "音声なし", prefix: "無音", suffix: "秒" },
+    A03: { mark: "JSON", text: "JSON保存" },
+    A04: { mark: "仮の打ち合わせ", text: "仮の予定" },
+    K01: { mark: "図と詳しい説明", text: "図と詳細" },
+    K02: { mark: "ナレーション付き", prefix: "語り", suffix: "秒" },
+    K03: { mark: "実装コード", text: "コード取得" },
+  };
+  const QUERY_SHORT = { "説明を見せるとき、どんな見せ方が好み？": "見せ方は？", "作例動画の長さと音声は？": "動画は？" };
+  const TOPIC_SHORT = { video: "動画" };
+  const EVENT_JA = { ADD: "追加", UPDATE: "更新", DELETE: "削除" };
 
-// 8〜12秒：M02・M03 の同じ問いと filters。各応答の1件目の本文（どれが1件目かは記録のまま）
-function drawSearch(c, t, f, a) {
-  c.globalAlpha = a * enter(t, 8.2);
-  const dy = rise(t, 8.2);
-  card(c, 48, 172 + dy, 1184, 92, {stroke: C.navy, lineWidth: 2});
-  const cw = chip(c, '問い', 72, 194 + dy, {size: 30, h: 48, fill: C.navy, color: '#ffffff'});
-  text(c, f.query, 72 + cw + 20, 236 + dy, {size: 44, weight: 700, color: C.navy});
-  f.searches.forEach((s, i) => {
-    const at = 8.45 + i * 0.2, x = 48 + i * 612, y = 292 + rise(t, at);
-    c.globalAlpha = a * enter(t, at);
-    card(c, x, y, 572, 318, {bar: i ? C.teal : C.cobalt});
-    text(c, s.id, x + 32, y + 56, {size: 30, weight: 700, family: 'mono', color: C.soft});
-    const iw = measure(c, s.id, {size: 30, weight: 700, family: 'mono'});
-    chip(c, JSON.stringify(s.filters), x + 32 + iw + 16, y + 22, {size: 30, h: 46, family: 'mono', weight: 600, fill: i ? C.tealSoft : C.cobaltSoft, color: i ? C.teal : C.cobalt});
-    c.globalAlpha = a * enter(t, at + 0.2);
-    text(c, `1件目に返った記録（${s.key}）`, x + 32, y + 116, {size: 30, weight: 600, color: C.soft});
-    jaBlock(c, s.excerpt.display, x + 32, y + 176, 508, 52, {size: 40, weight: 700, color: C.navy});
-  });
-  c.globalAlpha = a * enter(t, 9.1);
-  text(c, SCOPE_NOTE, 48, 652, {size: 30, weight: 600, color: C.soft});
-}
+  // --- Page ------------------------------------------------------------------------------------
 
-// 12〜18秒：M05。20秒→30秒、更新後の本文の句、同じID、履歴 ADD→UPDATE、スマホ幅の実画面。
-// ポスター13.5秒（13.4秒までに全要素が着地）
-function drawUpdate(c, t, f, a, L) {
-  const u = f.update, size = L.bigSize, by = 352;
-  c.globalAlpha = a * enter(t, 12.25);
-  text(c, L.updateLabel, 48, 204, {size: 30, weight: 700, color: C.teal});
-  const bTxt = `${u.before}秒`, aTxt = `${u.after}秒`;
-  const bw = measure(c, bTxt, {size, weight: 700}), gap = 28, aw = 112;
-  const ax = 48 + bw + gap * 2 + aw;
-  c.globalAlpha = a * enter(t, 12.35);
-  text(c, bTxt, 48, by + rise(t, 12.35), {size, weight: 700, color: C.soft});
-  text(c, '更新前', 48, by + 52, {size: 30, weight: 600, color: C.soft});
-  c.globalAlpha = a * enter(t, 12.6);
-  arrow(c, 48 + bw + gap, 48 + bw + gap + aw, by - size * 0.34, C.cobalt, 6);
-  text(c, aTxt, ax, by + rise(t, 12.6), {size, weight: 700, color: C.cobalt});
-  text(c, '更新後', ax, by + 52, {size: 30, weight: 700, color: C.cobalt});
-  c.globalAlpha = a * enter(t, 12.8);
-  const dy = rise(t, 12.8);
-  card(c, 48, 436 + dy, 832, 96, {stroke: C.cobalt, lineWidth: 2, bar: C.cobalt});
-  richLine(c, `…${u.phrase}…`, aTxt, 80, 500 + dy, {size: 44, weight: 700, color: C.navy}, C.cobalt);
-  c.globalAlpha = a * enter(t, 12.95);
-  let x = 48;
-  x += chip(c, '同じID', x, 560, {size: 30, h: 48, fill: C.tealSoft, color: C.teal}) + 14;
-  text(c, u.shortId, x, 595, {size: 30, weight: 600, family: 'mono', color: C.navy});
-  x += measure(c, u.shortId, {size: 30, weight: 600, family: 'mono'}) + 32;
-  text(c, '履歴', x, 595, {size: 30, weight: 600, color: C.soft});
-  x += measure(c, '履歴', {size: 30, weight: 600}) + 12;
-  u.history.forEach((ev, i) => {
-    if (i) {
-      arrow(c, x + 4, x + 36, 584, C.soft, 3);
-      x += 46;
+  const $ = (id) => document.getElementById(id);
+  const ui = {
+    editor: $("editor"),
+    count: $("asset-count"),
+    status: $("status"),
+    errorBox: $("error"),
+    errorText: $("error-text"),
+    retry: $("retry"),
+    stage: $("stage"),
+    canvas: $("film"),
+    play: $("play"),
+    reset: $("reset"),
+    time: $("time"),
+    clock: $("clock"),
+    sceneList: $("scene-list"),
+    assetList: $("asset-list"),
+    layoutTall: $("layout-tall"),
+    layoutWide: $("layout-wide"),
+  };
+  for (const [name, node] of Object.entries(ui)) {
+    if (!node) throw new Error(`video/index.html に必要な要素がありません：${name}`);
+  }
+
+  if (RENDER) {
+    document.documentElement.classList.add("is-render");
+    ui.canvas.style.width = `${W}px`;
+    ui.canvas.style.height = `${H}px`;
+  } else {
+    ui.canvas.style.aspectRatio = `${W} / ${H}`;
+    ui.stage.classList.toggle("is-tall", H >= W);
+    (H >= W ? ui.layoutTall : ui.layoutWide).setAttribute("aria-current", "page");
+  }
+  ui.canvas.width = W;
+  ui.canvas.height = H;
+  ui.time.max = String(DURATION);
+  const ctx = ui.canvas.getContext("2d");
+
+  // --- Layouts (authored natively for each orientation) ------------------------------------
+
+  function portraitLayout() {
+    const sec = { aya: { x: 54, y: 426, w: 298, h: 420 }, ken: { x: 368, y: 426, w: 298, h: 420 } };
+    return {
+      DW: 720, DH: 1280, tall: true,
+      eyebrow: { x: 48, y: 64, size: 22 },
+      badge: { x: 672, y: 64, size: 24 },
+      title: { x: 48, y: 142, size: 56, min: 40, max: 624 },
+      person: { aya: { x: 96, y: 236, lx: 140, ly: 251, align: "left" }, ken: { x: 624, y: 236, lx: 580, ly: 251, align: "right" }, size: 42, k: 1.8 },
+      inflow: { aya: [[96, 282], [26, 322], [26, 610], [48, 610]], ken: [[624, 282], [694, 322], [694, 610], [672, 610]] },
+      bubble: { cx: 360, cy: 236, w: 260, h: 76, size: 36 },
+      connector: [[360, 274], [360, 303]],
+      funnel: { cx: 360, cy: 324, k: 1.6, lx: 396, ly: 340, size: 38, max: 280 },
+      route: { aya: [[360, 346], [360, 370], [300, 398], [300, 424]], ken: [[360, 346], [360, 370], [460, 398], [460, 424]] },
+      tab: { x: 40, y: 370, h: 42, size: 32 },
+      store: { x: 40, y: 412, w: 640, h: 448 },
+      sec,
+      token: { w: 282, h: 80, size: 40, min: 26, stack: false },
+      slot: (user, i) => ({ x: sec[user].x + 8, y: sec[user].y + 14 + i * 94 }),
+      count: { w: 96, h: 44, size: 28, at: (user) => ({ cx: sec[user].x + sec[user].w - 56, cy: sec[user].y + sec[user].h }) },
+      drawer: { x: 40, y: 878, w: 640, h: 92, tx: 60, ty: 936, size: 30, slot: { x: 136, y: 884, k: 1 }, lx: 438, ly: [916, 952], lsize: 24, lmax: 236 },
+      tray: { tx: 48, ty: 1016, size: 36, slots: [{ x: 40, y: 1030 }, { x: 262, y: 1030 }, { x: 484, y: 1030 }], w: 196, h: 92, label: 36, min: 24, msg: { x: 48, y: 1094, size: 40, max: 624 } },
+      overlay: { x: 360, y: 650, size: 44 },
+      cta: { cx: 360, cy: 1166, w: 520, h: 64, size: 30 },
+      foot: { y: 1246, size: 20, x1: 48, x2: 672 },
+    };
+  }
+
+  function landscapeLayout() {
+    const sec = { aya: { x: 242, y: 240, w: 676, h: 116 }, ken: { x: 242, y: 364, w: 676, h: 116 } };
+    return {
+      DW: 1280, DH: 720, tall: false,
+      eyebrow: { x: 64, y: 52, size: 19 },
+      badge: { x: 1216, y: 52, size: 22 },
+      title: { x: 64, y: 114, size: 50, min: 34, max: 860 },
+      person: { aya: { x: 160, y: 292, lx: 118, ly: 306, align: "right" }, ken: { x: 160, y: 416, lx: 118, ly: 430, align: "right" }, size: 36, k: 1.6 },
+      inflow: { aya: [[194, 298], [230, 298]], ken: [[194, 422], [230, 422]] },
+      bubble: { cx: 600, cy: 176, w: 260, h: 64, size: 32 },
+      connector: [[730, 176], [770, 176]],
+      funnel: { cx: 780, cy: 176, k: 1.4, lx: 810, ly: 188, size: 34, max: 170 },
+      route: { aya: [[780, 196], [780, 238]], ken: [[780, 196], [780, 212], [955, 212], [955, 422], [932, 422]] },
+      tab: { x: 230, y: 190, h: 40, size: 30 },
+      store: { x: 230, y: 230, w: 700, h: 260 },
+      sec,
+      token: { w: 158, h: 88, size: 34, min: 24, stack: true },
+      slot: (user, i) => ({ x: sec[user].x + 10 + i * 166, y: sec[user].y + 12 }),
+      count: { w: 72, h: 36, size: 24, at: (user) => ({ cx: sec[user].x + sec[user].w - 40, cy: sec[user].y + sec[user].h }) },
+      drawer: { x: 230, y: 504, w: 700, h: 80, tx: 250, ty: 554, size: 30, slot: { x: 330, y: 510, k: 0.75 }, lx: 470, ly: [536, 568], lsize: 24, lmax: 440 },
+      tray: { tx: 1000, ty: 262, size: 32, slots: [{ x: 1000, y: 280 }, { x: 1000, y: 384 }, { x: 1000, y: 488 }], w: 224, h: 88, label: 34, min: 24, msg: { x: 1000, y: 330, size: 30, max: 240 } },
+      overlay: { x: 580, y: 372, size: 44 },
+      cta: { cx: 1112, cy: 630, w: 240, h: 60, size: 24 },
+      foot: { y: 698, size: 18, x1: 64, x2: 1216 },
+    };
+  }
+
+  const L = H >= W ? portraitLayout() : landscapeLayout();
+  const S = Math.min(W / L.DW, H / L.DH);
+  const OX = (W - L.DW * S) / 2;
+  const OY = (H - L.DH * S) / 2;
+
+  // --- Loading and checks ---------------------------------------------------------------------
+
+  class CheckError extends Error {}
+  function check(condition, message) {
+    if (!condition) throw new CheckError(message);
+  }
+  const isObject = (v) => v !== null && typeof v === "object" && !Array.isArray(v);
+  const own = (o, k) => Object.prototype.hasOwnProperty.call(o, k);
+  const HEX64 = /^[0-9a-f]{64}$/;
+  const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+  const int = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  function deepEqual(a, b) {
+    if (a === b) return true;
+    if (Array.isArray(a)) return Array.isArray(b) && a.length === b.length && a.every((x, i) => deepEqual(x, b[i]));
+    if (isObject(a) && isObject(b)) {
+      const keys = Object.keys(a);
+      return keys.length === Object.keys(b).length && keys.every((k) => own(b, k) && deepEqual(a[k], b[k]));
     }
-    x += chip(c, ev, x, 562, {size: 26, h: 44, pad: 12, family: 'mono', stroke: C.line, color: C.navy});
-  });
-  c.globalAlpha = a;
-  shot(c, f, 'phoneUpdate', enter(t, 12.5), rise(t, 12.5));
-  c.globalAlpha = a * enter(t, 12.7);
-  text(c, `実画面・スマホ幅（${u.id}）`, 910, 642, {size: 26, weight: 600, color: C.soft});
-}
+    return false;
+  }
 
-// 18〜22秒：M07。保存先を閉じ、新しい Python プロセスで同じ問い。1件目は更新後の本文・同じID
-function drawReopen(c, t, f, a) {
-  const r = f.reopen;
-  c.globalAlpha = a * enter(t, 18.2);
-  text(c, `${r.id}・保存先を閉じ、新しい Python プロセスで検索`, 48, 204, {size: 30, weight: 700, color: C.teal});
-  c.globalAlpha = a * enter(t, 18.3);
-  const dy = rise(t, 18.3);
-  card(c, 48, 226 + dy, 1184, 88, {stroke: C.navy, lineWidth: 2});
-  const cw = chip(c, '問い', 72, 246 + dy, {size: 30, h: 48, fill: C.navy, color: '#ffffff'});
-  text(c, r.query, 72 + cw + 20, 286 + dy, {size: 44, weight: 700, color: C.navy});
-  c.globalAlpha = a * enter(t, 18.45);
-  text(c, `filters ${JSON.stringify(r.filters)}`, 48, 354, {size: 30, weight: 500, family: 'mono', color: C.soft});
-  c.globalAlpha = a * enter(t, 18.6);
-  arrowDown(c, 96, 370, 416, C.cobalt);
-  text(c, '1件目に返った記録', 128, 404, {size: 30, weight: 700, color: C.cobalt});
-  c.globalAlpha = a * enter(t, 18.75);
-  const dy2 = rise(t, 18.75);
-  card(c, 48, 428 + dy2, 1184, 168, {stroke: C.cobalt, lineWidth: 2.5});
-  let x = 76;
-  x += chip(c, r.key, x, 448 + dy2, {size: 28, h: 44, pad: 12, family: 'mono', stroke: C.line, color: C.navy}) + 14;
-  x += chip(c, '同じID', x, 448 + dy2, {size: 28, h: 44, pad: 12, fill: C.tealSoft, color: C.teal}) + 12;
-  text(c, r.shortId, x, 480 + dy2, {size: 28, weight: 600, family: 'mono', color: C.navy});
-  richLine(c, r.excerpt.display, r.mark, 76, 560 + dy2, {size: 48, weight: 700, color: C.navy}, C.cobalt);
-  c.globalAlpha = a * enter(t, 19.1);
-  text(c, REOPEN_NOTE, 48, 648, {size: 30, weight: 600, color: C.soft});
-}
-
-// 22〜28秒：保存→検索→更新の3段、閲覧ページの実画面（8つの場面）、Studio Yebisu と制作の区別。24秒以降は静止
-function drawEnding(c, t, f, a) {
-  const u = f.update;
-  const steps = [
-    {k: '保存', id: f.spine.save, v: `${f.adds}件をそのまま`},
-    {k: '検索', id: f.spine.search, v: 'user_id ごとに'},
-    {k: '更新', id: f.spine.update, v: `${u.before}秒 → ${u.after}秒`}
-  ];
-  const W = 376, G = 28, Y = 172, H = 100;
-  steps.forEach((s, i) => {
-    const at = 22.2 + i * 0.15, x = 48 + i * (W + G), y = Y + rise(t, at, 0.45, 10);
-    c.globalAlpha = a * enter(t, at);
-    card(c, x, y, W, H, {bar: C.cobalt});
-    text(c, s.k, x + 26, y + 40, {size: 30, weight: 700, color: C.teal});
-    text(c, s.id, x + W - 22, y + 40, {size: 26, weight: 600, family: 'mono', color: C.soft, align: 'right'});
-    text(c, s.v, x + 26, y + 84, {size: 36, weight: 700, color: C.navy});
-    if (i > 0) {
-      c.fillStyle = C.cobalt;
-      c.beginPath();
-      c.moveTo(x - 6, Y + H / 2);
-      c.lineTo(x - 20, Y + H / 2 - 10);
-      c.lineTo(x - 20, Y + H / 2 + 10);
-      c.closePath();
-      c.fill();
+  async function fetchBytes(relative) {
+    const url = new URL(relative, document.baseURI);
+    check(url.origin === new URL(document.baseURI).origin, `${relative} が同じ場所のファイルではありません。`);
+    let response;
+    try {
+      response = await fetch(url.href, { cache: "no-store", credentials: "same-origin" });
+    } catch {
+      throw new CheckError(`${relative} を読み込めませんでした。作例のフォルダーをローカルの HTTP サーバーで開いてください。`);
     }
-  });
-  const crop = CROPS.desktopScenes;
-  c.globalAlpha = a * enter(t, 22.75);
-  text(c, '閲覧ページの実画面・8つの場面', crop.at.x, 316, {size: 30, weight: 600, color: C.soft});
-  text(c, 'outputs/memory-run.json', crop.at.x + crop.w * crop.at.s, 316, {size: 26, weight: 500, family: 'mono', color: C.soft, align: 'right'});
-  c.globalAlpha = a;
-  shot(c, f, 'desktopScenes', enter(t, 22.85), rise(t, 22.85));
-  c.globalAlpha = a * enter(t, 23.3);
-  text(c, 'Studio Yebisu', 48, 572, {size: 52, weight: 700, family: 'serif', color: C.navy});
-  text(c, CREDIT, 1232, 572, {size: 36, weight: 700, color: C.navy, align: 'right'});
-  c.globalAlpha = a * enter(t, 23.5);
-  text(c, AUTHORSHIP, 48, 628, {size: 30, weight: 600, color: C.soft});
-}
-
-const DRAW = [drawOpening, drawSave, drawSearch, drawUpdate, drawReopen, drawEnding];
-
-// 文字の大きさは下限より小さくしない。収まらない場合は描かずに理由を出す
-function checkLayout(c, f) {
-  const fits = (s, o, max, label) => check(measure(c, s, o) <= max, `「${label || s}」が幅に収まる`);
-  SCENES.forEach(s => fits(s.headline(f), {size: 72, weight: 700, family: 'serif'}, 1184));
-  // 0〜4秒
-  const bigs = [`架空の${f.users.length}人`, 'Mem0 OSS', 'infer=False'];
-  const openingBig = bigs.map((s, i) => fitSize(c, s, 320, {size: 56, weight: 700, family: i === 2 ? 'mono' : undefined}, 40));
-  bigs.forEach((s, i) => fits(s, {size: openingBig[i], weight: 700, family: i === 2 ? 'mono' : undefined}, 320));
-  [`${f.users.map(u => u.id).join(' と ')}。実在しない人物`, `Memory API ${f.version} を改変せずに実行`, '渡した文を、1件ずつそのまま保存']
-    .forEach(s => check(lineCount(c, s, 320, {size: 30, weight: 600}) <= 2, `「${s}」が2行に収まる`));
-  const openingNote = `LLMの呼び出し ${f.llmCalls}回。抽出・要約はしていません。`;
-  fits(openingNote, {size: 36, weight: 700}, 1184);
-  // 4〜8秒
-  f.users.forEach(u => check(lineCount(c, `…${u.phrase}…`, 508, {size: 44, weight: 700}) <= 2, `${u.key} の句が2行に収まる`));
-  fits(`${f.adds}件とも、渡した文のまま保存（ADD）`, {size: 36, weight: 700}, 1184);
-  // 8〜12秒
-  check(chipWidth(c, '問い') + 20 + measure(c, f.query, {size: 44, weight: 700}) <= 1136, '問いが枠に収まる');
-  f.searches.forEach(s => {
-    check(measure(c, s.id, {size: 30, weight: 700, family: 'mono'}) + 16 + chipWidth(c, JSON.stringify(s.filters), {family: 'mono', weight: 600}) <= 508, `${s.id} の filters が枠に収まる`);
-    check(lineCount(c, s.excerpt.display, 508, {size: 40, weight: 700}) <= 2, `${s.id} の1件目の抜粋が2行に収まる`);
-  });
-  fits(SCOPE_NOTE, {size: 30, weight: 600}, 1184);
-  // 12〜18秒
-  const u = f.update;
-  const updateLabel = `${u.id}・${u.key} を Memory.update で明示的に更新`;
-  fits(updateLabel, {size: 30, weight: 700}, 832);
-  const pair = size => measure(c, `${u.before}秒`, {size, weight: 700}) + 28 * 2 + 112 + measure(c, `${u.after}秒`, {size, weight: 700});
-  let bigSize = 140;
-  while (bigSize > 112 && pair(bigSize) > 832) bigSize -= 1;
-  check(pair(bigSize) <= 832, '「秒 → 秒」が幅に収まる');
-  fits(`…${u.phrase}…`, {size: 44, weight: 700}, 768);
-  const idLine = chipWidth(c, '同じID') + 14 + measure(c, u.shortId, {size: 30, weight: 600, family: 'mono'}) + 32 + measure(c, '履歴', {size: 30, weight: 600}) + 12 +
-    u.history.reduce((w, ev, i) => w + (i ? 46 : 0) + chipWidth(c, ev, {size: 26, pad: 12, family: 'mono'}), 0);
-  check(idLine <= 832, 'IDと履歴の行が幅に収まる');
-  fits(`実画面・スマホ幅（${u.id}）`, {size: 26, weight: 600}, 322);
-  // 18〜22秒
-  const r = f.reopen;
-  fits(`${r.id}・保存先を閉じ、新しい Python プロセスで検索`, {size: 30, weight: 700}, 1184);
-  check(chipWidth(c, '問い') + 20 + measure(c, r.query, {size: 44, weight: 700}) <= 1136, 'M07 の問いが枠に収まる');
-  fits(`filters ${JSON.stringify(r.filters)}`, {size: 30, weight: 500, family: 'mono'}, 1184);
-  fits(r.excerpt.display, {size: 48, weight: 700}, 1128, `${r.id} の1件目の抜粋`);
-  fits(REOPEN_NOTE, {size: 30, weight: 600}, 1184);
-  // 22〜28秒
-  [`${f.adds}件をそのまま`, 'user_id ごとに', `${u.before}秒 → ${u.after}秒`].forEach(s => fits(s, {size: 36, weight: 700}, 328));
-  [f.spine.save, f.spine.search, f.spine.update].forEach((s, i) =>
-    check(measure(c, ['保存', '検索', '更新'][i], {size: 30, weight: 700}) + 24 + measure(c, s, {size: 26, weight: 600, family: 'mono'}) <= 328, `${s} が段に収まる`));
-  check(measure(c, 'Studio Yebisu', {size: 52, weight: 700, family: 'serif'}) + 40 + measure(c, CREDIT, {size: 36, weight: 700}) <= 1184, 'Studio Yebisu と尺の表示が重ならない');
-  fits(AUTHORSHIP, {size: 30, weight: 600}, 1184);
-  check(measure(c, '閲覧ページの実画面・8つの場面', {size: 30, weight: 600}) + 32 + measure(c, 'outputs/memory-run.json', {size: 26, weight: 500, family: 'mono'}) <= CROPS.desktopScenes.w, '実画面の見出しが重ならない');
-  return {openingBig, openingNote, bigSize, updateLabel};
-}
-
-// ---- 1フレームを描く --------------------------------------------------------
-let facts = null;
-let layout = null;
-let failure = null;
-let currentT = 0;
-
-function render(t) {
-  canvas.width = canvas.width; // 前のフレームの変換・クリップ・状態をすべて捨てる
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.globalAlpha = 1;
-  ctx.globalCompositeOperation = 'source-over';
-  ctx.fillStyle = C.ivory;
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-  const scale = Math.min(canvas.width / LW, canvas.height / LH);
-  ctx.setTransform(scale, 0, 0, scale, (canvas.width - LW * scale) / 2, (canvas.height - LH * scale) / 2);
-  ctx.beginPath();
-  ctx.rect(0, 0, LW, LH);
-  ctx.clip();
-  ctx.imageSmoothingEnabled = true;
-  ctx.imageSmoothingQuality = 'high';
-  drawChrome(ctx, facts);
-  ctx.save();
-  ctx.translate(OX, OY);
-  if (!facts) {
-    const message = failure ? '読み込みに失敗しました。代わりの映像は出しません。' : '保存済みの記録と実画面を確かめています…';
-    text(ctx, message, 48, 300, {size: 36, weight: 700, color: failure ? C.rose : C.soft});
-    if (failure) jaBlock(ctx, failure.message, 48, 356, 1184, 44, {size: 30, color: C.navy});
-    ctx.restore();
-    return;
+    check(response.ok, `${relative} を読み込めませんでした（HTTP ${response.status}）。`);
+    return new Uint8Array(await response.arrayBuffer());
   }
-  drawHeadlines(ctx, t, facts);
-  ctx.beginPath();
-  ctx.rect(0, CONTENT_TOP, 1280, CONTENT_BOTTOM - CONTENT_TOP);
-  ctx.clip();
-  DRAW.forEach((draw, i) => {
-    const a = sceneAlpha(t, i);
-    if (a <= 0.001) return;
-    ctx.save();
-    draw(ctx, t, facts, a, layout);
-    ctx.restore();
-  });
-  ctx.restore();
-}
 
-const statusEl = document.getElementById('status');
-const detailEl = document.getElementById('detail');
-const verifiedEl = document.getElementById('verified');
-function setStatus(state, message, detail = '') {
-  root.dataset.motionStatus = state;
-  if (statusEl) {
-    statusEl.dataset.state = state;
-    statusEl.textContent = message;
+  async function sha256Hex(bytes) {
+    const digest = await crypto.subtle.digest("SHA-256", bytes);
+    return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, "0")).join("");
   }
-  if (detailEl) detailEl.textContent = detail;
-}
-const clampTime = v => {
-  const n = Number(v);
-  return Number.isFinite(n) ? Math.min(DURATION, Math.max(0, n)) : 0;
-};
 
-render(0);
-setStatus('loading', '保存済みの記録と実画面を確かめています…');
+  function parseJson(bytes, name) {
+    let text;
+    try {
+      text = new TextDecoder("utf-8", { fatal: true }).decode(bytes);
+    } catch {
+      throw new CheckError(`${name} が UTF-8 の文字として読めません。`);
+    }
+    try {
+      return JSON.parse(text);
+    } catch {
+      throw new CheckError(`${name} が正しい JSON ではありません。`);
+    }
+  }
 
-window.motionReady = (async () => {
-  if (!window.crypto || !window.crypto.subtle) {
-    throw new Error('この環境ではSHA-256を確かめられません。http://127.0.0.1 などのローカルサーバーか https で開いてください');
-  }
-  const fontSpecs = [`700 72px ${SERIF}`, `700 52px ${SERIF}`, `700 140px ${SANS}`, `700 44px ${SANS}`, `600 30px ${SANS}`, `700 30px ${MONO}`, `600 30px ${MONO}`];
-  if (document.fonts && document.fonts.load) {
-    await Promise.all(fontSpecs.map(spec => document.fonts.load(spec, '好みを覚えて次に引き出す架空保存検索更新秒 Mem0 infer=False aya ken 0123456789')));
-    await document.fonts.ready;
-  }
-  const {data, verified, hashes, manifestDigest} = await loadAll();
-  const built = buildFacts(data, hashes);
-  const lay = checkLayout(ctx, built);
-  facts = built;
-  layout = lay;
-  render(currentT);
-  const u = built.update;
-  canvas.setAttribute('aria-label',
-    `解説映像（${DURATION}秒・無音）。架空の${built.users.length}人（${built.users.map(x => x.id).join('・')}）の好み${built.rows}件を、Mem0 OSS の Memory API に infer=False でそのまま保存した実行記録から描きます。` +
-    built.users.map(x => `${x.id} は${x.count}件（例：${x.phrase}）`).join('、') + '。' +
-    `同じ問い「${built.query}」を user_id だけ変えて検索し、` + built.searches.map(s => `${s.user} の1件目は「${s.excerpt.display}」`).join('、') + '。user_id は検索範囲の指定で、認証ではありません。' +
-    `${u.id} で実行スクリプトが Memory.update を明示的に呼び、${u.key} を同じIDのまま${u.before}秒から${u.after}秒へ書き換え、スマホ幅の閲覧ページの実画面を添えます。` +
-    `${built.reopen.id} では保存先を閉じて新しい Python プロセスで同じ問いを検索し、1件目は同じIDの「${built.reopen.excerpt.display}」。` +
-    `最後に保存・検索・更新の3段と、${built.samples}つの場面を選ぶ閲覧ページの実画面、Studio Yebisu と制作の区別を示します。`);
-  setStatus('ready', `照合した${verified.length}ファイルから描いています`,
-    `照合表のSHA-256 ${manifestDigest} を確かめ、実行記録の${built.samples}場面、架空の好み${built.rows}件、別の検証（保存ベクトル${built.check.vectors}件・検索${built.check.rankings}件の順位・` +
-    `履歴 ADD ${built.check.history.ADD}・UPDATE ${built.check.history.UPDATE}・DELETE ${built.check.history.DELETE}）、実画面2枚を照合しました。ページでも映像でも Mem0・Python・AI は動きません。`);
-  if (verifiedEl) {
-    verifiedEl.replaceChildren(...verified.map(v => {
-      const li = document.createElement('li');
-      const path = document.createElement('code');
-      path.textContent = v.path;
-      const digest = document.createElement('code');
-      digest.className = 'digest';
-      digest.textContent = v.digest;
-      li.append(path, ' — SHA-256 ', digest);
+  const assetState = new Map(); // file → "match" | "mismatch"
+
+  function showAssets() {
+    const ok = ASSETS.filter((a) => assetState.get(a.file) === "match").length;
+    ui.count.textContent = `${ok} / ${ASSETS.length}素材`;
+    ui.count.dataset.state = ok === ASSETS.length ? "match" : [...assetState.values()].includes("mismatch") ? "mismatch" : "pending";
+    ui.assetList.replaceChildren(...ASSETS.map((asset) => {
+      const li = document.createElement("li");
+      const st = assetState.get(asset.file) || "pending";
+      li.dataset.state = st;
+      const name = document.createElement("code");
+      name.textContent = asset.file;
+      const verdict = document.createElement("span");
+      verdict.className = "verdict";
+      verdict.textContent = st === "match" ? "一致" : st === "mismatch" ? "不一致" : "照合前";
+      const size = document.createElement("span");
+      size.className = "bytes";
+      size.textContent = `${int(asset.bytes)} バイト ・ ${asset.source}`;
+      li.append(name, " ", verdict, " ", size);
       return li;
     }));
-    verifiedEl.hidden = false;
   }
-  return true;
-})().catch(error => {
-  failure = error;
-  render(currentT);
-  setStatus('error', '読み込みに失敗しました：' + error.message, '代わりの映像は出しません。ファイルを確かめてから、もう一度読み込んでください。');
-  throw error;
-});
-window.motionReady.catch(() => {});
 
-// 任意の時刻の完成した画面を描く。呼んだ順番や壁時計には依存しない
-window.seek = seconds => {
-  const t = clampTime(seconds);
-  currentT = t;
-  return window.motionReady.then(() => {
-    render(t);
-    return t;
-  });
-};
-
-// ---- 編集用のプレビュー（書き出し時は何も動かさない） --------------------------
-// 自動では再生しない（動きを減らす設定でも同じく停止から始まる）。再生は「再生」を押したときだけ
-function setupPreview() {
-  const play = document.getElementById('play');
-  const range = document.getElementById('time');
-  const clock = document.getElementById('clock');
-  const reload = document.getElementById('reload');
-  let playing = false, raf = 0, from = 0, startedAt = 0;
-  const sec = v => v.toFixed(1) + '秒';
-
-  function sync() {
-    range.value = (Math.round(currentT * 10) / 10).toFixed(1);
-    range.setAttribute('aria-valuetext', `${sec(currentT)}（全${DURATION}秒）`);
-    clock.textContent = `${sec(currentT)} / ${sec(DURATION)}`;
-    play.textContent = playing ? '一時停止' : '再生';
-    play.setAttribute('aria-pressed', playing ? 'true' : 'false');
+  // The original run record: the same pins and checks the example page enforces.
+  function verifyRecord(run) {
+    check(run.format === PIN.format, "memory-run.json の形式が違います。");
+    const src = isObject(run.source) ? run.source : {};
+    check(src.repository === PIN.repository && src.commit === PIN.commit && src.version === PIN.version && src.license === PIN.license
+      && src.files_verified === PIN.sourceFiles && src.vendor_lock_sha256 === SHA["vendor-lock.json"],
+    "memory-run.json の Mem0 の固定版・原典156ファイル・ロックが一致しません。");
+    const model = isObject(run.model) ? run.model : {};
+    check(model.repository === PIN.modelRepository && model.commit === PIN.modelCommit && model.dimensions === PIN.dimensions
+      && model.device === "cpu" && model.files_verified === PIN.modelFiles && model.weights_published === false,
+    "memory-run.json の埋め込みモデルの固定版（384次元・CPU）が一致しません。");
+    const config = isObject(run.config) ? run.config : {};
+    check(config.infer === false && config.telemetry === false && config.network_blocked === true, "memory-run.json の設定（infer=False・通信拒否）が一致しません。");
+    const net = isObject(run.network) ? run.network : {};
+    check(net.total_attempts === 0 && Array.isArray(net.parent_attempts) && net.parent_attempts.length === 0
+      && Array.isArray(net.worker_attempts) && net.worker_attempts.length === 0, "実行中の通信の試みが0件ではありません。");
+    const checks = isObject(run.checks) ? run.checks : {};
+    check(checks.passed === true && checks.network_attempts === 0 && checks.llm_calls === 0 && checks.source_files_verified === PIN.sourceFiles
+      && checks.inputs_verified === 3 && checks.model_files_verified === PIN.modelFiles, "memory-run.json の確認（合格・通信0・LLM 0回）がそろっていません。");
+    check(isObject(run.worker) && run.worker.exit_code === 0 && run.worker.fresh_process === true, "別プロセスでの読み直しの記録がありません。");
+    const sums = isObject(run.input_sha256) ? run.input_sha256 : {};
+    check(sums["input/memories.json"] === SHA["memories.json"] && sums["input/scenarios.json"] === SHA["scenarios.json"]
+      && sums["input/model-source.json"] === SHA["model-source.json"], "記録が参照する入力3件の SHA-256 が素材と一致しません。");
+    const samples = run.samples;
+    check(Array.isArray(samples) && samples.length === PIN.ids.length && samples.every((s, i) => isObject(s) && s.id === PIN.ids[i])
+      && new Set(samples.map((s) => s.id)).size === PIN.ids.length, "memory-run.json が M01〜M08 の8件（重複なし）ではありません。");
+    return Object.fromEntries(samples.map((s) => [s.id, s]));
   }
-  function tick(now) {
-    if (!playing) return;
-    const t = Math.min(DURATION, from + (now - startedAt) / 1000);
-    currentT = t;
-    render(t);
-    if (t >= DURATION) {
-      // 最後まで進んだら停止の状態へ戻す
-      playing = false;
-      raf = 0;
-    } else {
-      raf = requestAnimationFrame(tick);
+
+  function durationOf(text, key) {
+    const found = typeof text === "string" ? text.match(/(\d+)秒/) : null;
+    check(found, `${key} の本文に秒数がありません。`);
+    return found[1];
+  }
+
+  function headingOf(key, text) {
+    const spec = SHORT[key];
+    check(spec && typeof text === "string" && text.includes(spec.mark), `${key} の本文が図の見出しと対応しません。`);
+    return spec.text || `${spec.prefix}${durationOf(text, key)}${spec.suffix}`;
+  }
+
+  function keyOf(item, ids, what) {
+    check(isObject(item) && isObject(item.metadata) && own(ids, item.metadata.source_key) && ids[item.metadata.source_key] === item.id,
+      `${what} の ID が M01 で保存した ID と一致しません。`);
+    return item.metadata.source_key;
+  }
+
+  function activeFrom(getAll, ids, what) {
+    check(isObject(getAll), `${what} の一覧がありません。`);
+    const active = {};
+    for (const user of ["aya", "ken"]) {
+      const rows = getAll[user] && getAll[user].response && getAll[user].response.results;
+      check(Array.isArray(rows), `${what} の ${user} の一覧がありません。`);
+      for (const item of rows) {
+        const key = keyOf(item, ids, what);
+        check(item.user_id === user && KEYS[user].includes(key) && !own(active, key), `${what} の一覧の利用者または重複が想定と違います。`);
+        active[key] = item.memory;
+      }
     }
-    sync();
+    return active;
   }
-  function start() {
-    if (!facts || playing) return;
-    if (currentT >= DURATION - 0.05) currentT = 0;
-    from = currentT;
-    startedAt = performance.now();
-    playing = true;
-    raf = requestAnimationFrame(tick);
-    sync();
+
+  const countsOf = (active) => ({ aya: KEYS.aya.filter((k) => own(active, k)).length, ken: KEYS.ken.filter((k) => own(active, k)).length });
+
+  function resultsFrom(response, ids, filters, what) {
+    check(isObject(response) && Array.isArray(response.results), `${what} の results がありません。`);
+    return response.results.map((item) => {
+      const key = keyOf(item, ids, what);
+      check(item.user_id === filters.user_id && (!filters.topic || item.metadata.topic === filters.topic), `${what} の結果が絞り込みの外です。`);
+      return { key, text: item.memory };
+    });
   }
+
+  function eventsOf(rows, id, expected, what) {
+    check(Array.isArray(rows) && rows.every((r) => isObject(r) && r.memory_id === id) && deepEqual(rows.map((r) => r.event), expected),
+      `${what} の履歴が ${expected.join("・")} になっていません。`);
+    return rows.map((r) => r.event);
+  }
+
+  function filterLabel(filters) {
+    check(isObject(filters) && own(USERS, filters.user_id), "絞り込みの利用者が想定と違います。");
+    if (!filters.topic) return `${USERS[filters.user_id]}だけ`;
+    check(own(TOPIC_SHORT, filters.topic), "絞り込みの topic が想定と違います。");
+    return `${USERS[filters.user_id]}＋${TOPIC_SHORT[filters.topic]}`;
+  }
+
+  function shortQuery(query) {
+    check(own(QUERY_SHORT, query), "検索の問いが想定と違います。");
+    return QUERY_SHORT[query];
+  }
+
+  // What the film draws, all taken from the verified record. Anything unexpected stops the film.
+  function sceneFacts(s) {
+    const ids = s.M01.output && s.M01.output.memory_ids;
+    check(isObject(ids) && Object.keys(ids).length === 7 && Object.values(ids).every((v) => UUID.test(v)), "M01 の ID の対応がありません。");
+    const stored = activeFrom(s.M01.output.get_all, ids, "M01");
+    const storedCounts = countsOf(stored);
+    check(deepEqual(storedCounts, { aya: 4, ken: 3 }), "M01 が aya 4件・ken 3件になっていません。");
+    const labels = {};
+    for (const key of [...KEYS.aya, ...KEYS.ken]) labels[key] = headingOf(key, stored[key]);
+
+    const search = (id) => {
+      const call = s[id].input && s[id].input.call;
+      check(isObject(call), `${id} の検索条件がありません。`);
+      const out = resultsFrom(s[id].output.response, ids, call.filters, id);
+      check(out.length > 0 && out.every((o) => stored[o.key] === o.text) && deepEqual(out.map((o) => o.key), s[id].output.result_keys),
+        `${id} の結果が保存した本文と一致しません。`);
+      return { query: shortQuery(call.query), filter: filterLabel(call.filters), user: call.filters.user_id, hits: out.map((o) => ({ key: o.key, label: labels[o.key] })) };
+    };
+    const m02 = search("M02");
+    const m03 = search("M03");
+    check(m02.query === m03.query && m02.user === "aya" && m03.user === "ken", "M02 と M03 が同じ問いの aya と ken になっていません。");
+    const ayaIds = new Set(m02.hits.map((h) => ids[h.key]));
+    check(m03.hits.every((h) => !ayaIds.has(ids[h.key])), "M02 と M03 の結果に同じ ID があります。");
+
+    const m05 = s.M05;
+    const before = m05.output.before;
+    const after = m05.output.after;
+    check(m05.input.memory_id === ids.A02 && before.id === ids.A02 && after.id === ids.A02 && before.memory === stored.A02
+      && after.memory === m05.input.update_call.text && after.memory !== before.memory, "M05 が「同じ ID のまま本文の置き換え」になっていません。");
+    const h05 = eventsOf(m05.output.history, ids.A02, ["ADD", "UPDATE"], "M05");
+    const out05 = resultsFrom(m05.output.search_response, ids, m05.input.search_call.filters, "M05");
+    check(out05.length === 1 && out05[0].key === "A02" && out05[0].text === after.memory, "M05 の検索が更新後の本文を返していません。");
+
+    const m06 = s.M06;
+    check(m06.input.memory_id === ids.A04 && m06.output.before.memory === stored.A04 && m06.output.after === null, "M06 の削除の前後が想定と違います。");
+    const active06 = activeFrom(m06.output.get_all, ids, "M06");
+    check(!own(active06, "A04") && active06.A02 === after.memory, "M06 の一覧に A04 が残っているか、A02 が更新後になっていません。");
+    const h06 = eventsOf(m06.output.history, ids.A04, ["ADD", "DELETE"], "M06");
+    check(m06.output.history[1].old_memory === stored.A04, "M06 の履歴に削除前の本文が残っていません。");
+
+    const m07 = s.M07;
+    check(m07.output.worker && m07.output.worker.exit_code === 0 && m07.output.worker.process_is_new === true, "M07 が新しいプロセスの記録になっていません。");
+    const active07 = activeFrom(m07.output.get_all, ids, "M07");
+    check(!own(active07, "A04") && active07.A02 === after.memory && m07.output.get_updated.id === ids.A02
+      && m07.output.get_updated.memory === after.memory && m07.output.get_deleted === null, "M07 の開き直しで更新・削除が残っていません。");
+    check(deepEqual(eventsOf(m07.output.history_updated, ids.A02, ["ADD", "UPDATE"], "M07 A02"), h05)
+      && deepEqual(eventsOf(m07.output.history_deleted, ids.A04, ["ADD", "DELETE"], "M07 A04"), h06), "M07 の履歴が M05・M06 と一致しません。");
+    const out07 = resultsFrom(m07.output.search_response, ids, m07.input.search_call.filters, "M07");
+    check(out07.length === 1 && out07[0].key === "A02" && out07[0].text === after.memory, "M07 の検索が30秒の本文を返していません。");
+
+    const spec = SHORT.A02;
+    const from = durationOf(before.memory, "A02");
+    const to = durationOf(after.memory, "A02");
+    return {
+      labels,
+      m02, m03,
+      update: {
+        id: ids.A02, idShort: `${ids.A02.slice(0, 8)}…`, from, to, prefix: spec.prefix, suffix: spec.suffix,
+        afterLabel: headingOf("A02", after.memory), query: shortQuery(m05.input.search_call.query), filter: filterLabel(m05.input.search_call.filters),
+      },
+      reopen: { query: shortQuery(m07.input.search_call.query), filter: filterLabel(m07.input.search_call.filters) },
+      removed: "A04",
+      counts: { stored: storedCounts, deleted: countsOf(active06), reopened: countsOf(active07) },
+      history: { A02: h05, A04: h06 },
+    };
+  }
+
+  function verify(j) {
+    const run = j["memory-run.json"];
+    const mem = j["memories.json"];
+    const sc = j["scenarios.json"];
+    const ms = j["model-source.json"];
+    const lock = j["vendor-lock.json"];
+    const samples = j["samples.json"];
+    const timeline = j["timeline.json"];
+    [run, mem, sc, ms, lock, samples, timeline].forEach((value) => check(isObject(value), "素材の JSON の形が想定と違います。"));
+
+    const s = verifyRecord(run);
+
+    // Inputs frozen before the run.
+    check(mem.fictional === true && Array.isArray(mem.memories) && mem.memories.length === 7 && Array.isArray(s.M01.input.calls)
+      && mem.memories.every((row, i) => {
+        const call = s.M01.input.calls[i];
+        return isObject(call) && call.key === row.key && call.messages === row.text && call.user_id === row.user_id
+          && deepEqual(call.metadata, row.metadata) && call.infer === false;
+      }), "memories.json の架空の7件が、記録の保存の呼び出しと一致しません。");
+    check(Array.isArray(sc.scenarios) && sc.scenarios.length === PIN.ids.length && sc.scenarios.every((x, i) => isObject(x) && x.id === PIN.ids[i]
+      && x.label === s[x.id].label && x.operation === s[x.id].operation), "scenarios.json の8場面が記録と一致しません。");
+    check(ms.repository === PIN.modelRepository && ms.commit === PIN.modelCommit, "model-source.json の固定版が一致しません。");
+
+    // The lock the record verified: same commit, 156 files.
+    const files = isObject(lock.files_sha256) ? Object.entries(lock.files_sha256) : [];
+    check(lock.repository === PIN.repository && lock.commit === PIN.commit && lock.license === PIN.license
+      && files.length === PIN.sourceFiles && files.every(([path, sum]) => path.length > 0 && HEX64.test(sum)),
+    "vendor-lock.json の固定版・156ファイルが一致しません。");
+
+    // samples.json carries the same original records, byte-for-byte as values.
+    check(samples.format === "input-output" && Array.isArray(samples.samples) && samples.samples.length === PIN.ids.length
+      && samples.samples.every((x, i) => isObject(x) && x.id === PIN.ids[i] && x.label === s[x.id].label && x.demo_hash === `#${x.id}`
+        && deepEqual(x.record, run.samples[i])), "samples.json の8件が実行記録と一致しません。");
+
+    // Timeline frozen for this film.
+    check(timeline.format === PIN.timelineFormat && timeline.silent === true && timeline.duration === DURATION && timeline.fps === 30
+      && timeline.frames === DURATION * 30 && Array.isArray(timeline.scenes) && timeline.scenes.length === SCENE_PLAN.length,
+    "timeline.json（32秒・30fps・960フレーム・無音・6場面）が一致しません。");
+    SCENE_PLAN.forEach((plan, i) => {
+      const x = timeline.scenes[i];
+      check(isObject(x) && x.id === plan.id && x.in === plan.in && x.out === plan.out && x.case === plan.case && x.headline === plan.headline
+        && (plan.compare ? x.compare_case === plan.compare : !own(x, "compare_case")), `timeline.json の場面 ${plan.id} が一致しません。`);
+    });
+
+    return sceneFacts(s);
+  }
+
+  // --- Fonts -----------------------------------------------------------------------------------
+
+  const SANS = '"Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", YuGothic, "Noto Sans JP", Meiryo, system-ui, sans-serif';
+  const font = (size, weight = 700) => `${weight} ${size}px ${SANS}`;
+
+  async function loadFonts() {
+    if (!document.fonts || typeof document.fonts.load !== "function") return;
+    const sample = "MEM0 OSS ・ 架空の2人の好み 記録 好みを、別々に保存 同じ問い、違う好み 20秒から、30秒へ 仮の予定を、一覧から外す 開き直しても、30秒 覚えて、引き出す あや けん 保存先 同じ保存先 履歴 引き出した 7件を保存 見せ方は？ 動画は？ IDで更新 IDで削除 別プロセス だけ ＋ 短い段落 無音 語り 秒 JSON保存 仮の予定 図と詳細 コード取得 一覧の外 のまま 追加 更新 削除 → 件 閉じる 別プロセスで開く get なし 記録をJSONで保存 保存済みの実行結果をもとにした図 無音 STUDIO YEBISU A01 K03 0123456789 c29f6400… ×";
+    const specs = [font(56, 800), font(50, 800), font(44, 800), font(42, 800), font(36, 800), font(34, 800), font(32, 800), font(30, 800), font(28, 800), font(24, 700), font(22, 700), font(20, 600), font(17, 800), font(16, 700)];
+    await Promise.all(specs.map((spec) => document.fonts.load(spec, sample).catch(() => [])));
+    await document.fonts.ready;
+  }
+
+  async function load() {
+    check(location.protocol !== "file:", FILE_MESSAGE);
+    check(globalThis.crypto && crypto.subtle, "このブラウザーでは SHA-256 を計算できません。https か http://localhost で開いてください。");
+    const manifestBytes = await fetchBytes(MANIFEST.path);
+    const digest = await sha256Hex(manifestBytes);
+    check(digest === MANIFEST.sha256, `manifest.json の SHA-256 が固定値と一致しません（読み込んだ値 ${digest}）。`);
+    const manifest = parseJson(manifestBytes, "manifest.json");
+    check(isObject(manifest) && manifest.format === MANIFEST.format && Array.isArray(manifest.assets) && manifest.assets.length === ASSETS.length
+      && ASSETS.every((a, i) => isObject(manifest.assets[i]) && manifest.assets[i].file === a.file && manifest.assets[i].sha256 === a.sha256
+        && manifest.assets[i].bytes === a.bytes && manifest.assets[i].source === a.source),
+    `manifest.json の${ASSETS.length}件の対象・SHA-256・バイト数が、この映像ソースに固定した値と一致しません。`);
+
+    const bytes = {};
+    const outcomes = await Promise.allSettled(ASSETS.map(async (asset) => {
+      const data = await fetchBytes(`assets/${asset.file}`);
+      const actual = await sha256Hex(data);
+      const ok = actual === asset.sha256 && data.byteLength === asset.bytes;
+      assetState.set(asset.file, ok ? "match" : "mismatch");
+      showAssets();
+      check(ok, `${asset.file} の SHA-256 またはバイト数が manifest.json と一致しません（読み込んだ値 ${actual}・${int(data.byteLength)} バイト）。`);
+      bytes[asset.file] = data;
+    }));
+    const failed = outcomes.find((o) => o.status === "rejected");
+    if (failed) throw failed.reason;
+
+    const json = {};
+    for (const asset of ASSETS) json[asset.file] = parseJson(bytes[asset.file], asset.file);
+    let facts;
+    try {
+      facts = verify(json);
+    } catch (error) {
+      if (error instanceof CheckError) throw error;
+      throw new CheckError(`素材の形が想定と違います（${error && error.message ? error.message : "不明"}）。`);
+    }
+    await loadFonts();
+    return facts;
+  }
+
+  // --- Time helpers (every value derives from t) ----------------------------------------------
+
+  const clamp01 = (x) => (x < 0 ? 0 : x > 1 ? 1 : x);
+  const ramp = (t, a, b) => clamp01((t - a) / (b - a));
+  const ease = (x) => 1 - Math.pow(1 - x, 3);
+  const inOut = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+  const lerp = (a, b, k) => a + (b - a) * k;
+  const fadeIn = (t, a, b) => ease(ramp(t, a, b));
+  const fadeOut = (t, a, b) => 1 - ramp(t, a, b);
+  const pulse = (t, at, len = 0.5) => Math.sin(Math.PI * ramp(t, at, at + len));
+  const window01 = (t, a, b, f = 0.3) => fadeIn(t, a, a + f) * (b === Infinity ? 1 : fadeOut(t, b, b + f));
+
+  // Picture beats inside the frozen scenes.
+  const FLY = { A01: 0.5, A02: 1.05, A03: 1.6, A04: 2.15, K01: 0.75, K02: 1.3, K03: 1.85 };
+  const FLY_LEN = 0.9;
+  const T = {
+    storedMsgA: 3.4, storedMsgB: 5.0,
+    updLift: 11.5, updMorphA: 12.6, updMorphB: 13.3, updHist: 13.6,
+    delMark: 17.4, delMoveA: 18.0, delMoveB: 19.3, delCount: 19.1, delHist: 19.4, delMsgA: 19.8, delMsgB: 22.0,
+    closeA: 22.3, closeB: 22.9, spinA: 22.9, spinB: 24.0, openA: 23.8, openB: 24.4, sameTab: 23.3, keepTag: 26.2, countPulse: 26.2,
+    ctaA: 28.5,
+  };
+
+  // --- Drawing helpers ------------------------------------------------------------------------
+
+  const C = {
+    ivory: "#f7f3ea", paper: "#fffdf8", ink: "#1f2430", muted: "#5b6070", rule: "#ddd5c4",
+    aya: "#0f7a70", ayaWash: "#dcefea", ken: "#6a4fc6", kenWash: "#ebe5fa",
+    warm: "#d9692a", warmWash: "#fbe2cf", warmDeep: "#9c4416",
+  };
+  const rgb = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+  function mix(a, b, k) {
+    const A = rgb(a);
+    const B = rgb(b);
+    return `rgb(${A.map((v, i) => Math.round(lerp(v, B[i], clamp01(k)))).join(",")})`;
+  }
+
+  let film = null;
+
+  function rr(x, y, w, h, r) {
+    const q = Math.max(0, Math.min(r, w / 2, h / 2));
+    ctx.beginPath();
+    ctx.moveTo(x + q, y);
+    ctx.arcTo(x + w, y, x + w, y + h, q);
+    ctx.arcTo(x + w, y + h, x, y + h, q);
+    ctx.arcTo(x, y + h, x, y, q);
+    ctx.arcTo(x, y, x + w, y, q);
+    ctx.closePath();
+  }
+
+  function circle(x, y, r) {
+    ctx.beginPath();
+    ctx.arc(x, y, Math.max(0, r), 0, Math.PI * 2);
+  }
+
+  function fitSize(str, max, size, min, weight) {
+    let s = size;
+    ctx.font = font(s, weight);
+    while (s > min && ctx.measureText(str).width > max) {
+      s -= 1;
+      ctx.font = font(s, weight);
+    }
+    return s;
+  }
+
+  // One line of text; shrinks to fit `max` down to `min`.
+  function text(str, x, y, o = {}) {
+    const weight = o.weight || 700;
+    const size = o.max ? fitSize(str, o.max, o.size || 24, o.min || o.size || 24, weight) : o.size || 24;
+    ctx.font = font(size, weight);
+    ctx.textAlign = o.align || "left";
+    ctx.textBaseline = "alphabetic";
+    if (o.spacing && "letterSpacing" in ctx) ctx.letterSpacing = o.spacing;
+    ctx.fillStyle = o.color || C.ink;
+    ctx.fillText(str, x, y);
+    const width = ctx.measureText(str).width;
+    if (o.spacing && "letterSpacing" in ctx) ctx.letterSpacing = "0px";
+    return width;
+  }
+
+  function withAlpha(alpha, fn) {
+    if (alpha <= 0.002) return;
+    ctx.save();
+    ctx.globalAlpha *= Math.min(1, alpha);
+    fn();
+    ctx.restore();
+  }
+
+  function polyline(points, progress = 1) {
+    const segs = [];
+    let total = 0;
+    for (let i = 1; i < points.length; i++) {
+      const len = Math.hypot(points[i][0] - points[i - 1][0], points[i][1] - points[i - 1][1]);
+      segs.push(len);
+      total += len;
+    }
+    let left = total * clamp01(progress);
+    ctx.beginPath();
+    ctx.moveTo(points[0][0], points[0][1]);
+    let end = points[0];
+    let dir = [0, 1];
+    for (let i = 1; i < points.length && left > 0; i++) {
+      const k = Math.min(1, left / segs[i - 1]);
+      const a = points[i - 1];
+      const b = points[i];
+      end = [lerp(a[0], b[0], k), lerp(a[1], b[1], k)];
+      dir = [b[0] - a[0], b[1] - a[1]];
+      ctx.lineTo(end[0], end[1]);
+      left -= segs[i - 1];
+    }
+    return { end, dir };
+  }
+
+  function arrow(points, color, width, progress = 1, alpha = 1) {
+    withAlpha(alpha, () => {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = width;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      const { end, dir } = polyline(points, progress);
+      ctx.stroke();
+      if (progress > 0.05) {
+        const a = Math.atan2(dir[1], dir[0]);
+        const s = width * 3.4;
+        ctx.beginPath();
+        ctx.moveTo(end[0] - s * Math.cos(a - 0.5), end[1] - s * Math.sin(a - 0.5));
+        ctx.lineTo(end[0], end[1]);
+        ctx.lineTo(end[0] - s * Math.cos(a + 0.5), end[1] - s * Math.sin(a + 0.5));
+        ctx.stroke();
+      }
+    });
+  }
+
+  function personIcon(x, y, k, color) {
+    ctx.fillStyle = color;
+    circle(x, y - 9 * k, 10 * k);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(x - 17 * k, y + 20 * k);
+    ctx.quadraticCurveTo(x - 17 * k, y + 3 * k, x, y + 3 * k);
+    ctx.quadraticCurveTo(x + 17 * k, y + 3 * k, x + 17 * k, y + 20 * k);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  function restartIcon(x, y, r, angle, color) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(angle);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = Math.max(2, r * 0.22);
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.beginPath();
+    ctx.arc(0, 0, r * 0.62, -Math.PI * 0.35, Math.PI * 1.35);
+    ctx.stroke();
+    const ex = r * 0.62 * Math.cos(-Math.PI * 0.35);
+    const ey = r * 0.62 * Math.sin(-Math.PI * 0.35);
+    ctx.beginPath();
+    ctx.moveTo(ex - r * 0.36, ey - r * 0.06);
+    ctx.lineTo(ex, ey);
+    ctx.lineTo(ex + r * 0.04, ey + r * 0.38);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  function opIcon(kind, x, y, s) {
+    ctx.strokeStyle = C.ink;
+    ctx.lineWidth = Math.max(2.5, s * 0.16);
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+    ctx.beginPath();
+    if (kind === "search") {
+      ctx.arc(x - s * 0.12, y - s * 0.12, s * 0.42, 0, Math.PI * 2);
+      ctx.moveTo(x + s * 0.2, y + s * 0.2);
+      ctx.lineTo(x + s * 0.52, y + s * 0.52);
+    } else if (kind === "add") {
+      ctx.moveTo(x, y - s * 0.5);
+      ctx.lineTo(x, y + s * 0.5);
+      ctx.moveTo(x - s * 0.5, y);
+      ctx.lineTo(x + s * 0.5, y);
+    } else if (kind === "delete") {
+      ctx.moveTo(x - s * 0.4, y - s * 0.4);
+      ctx.lineTo(x + s * 0.4, y + s * 0.4);
+      ctx.moveTo(x + s * 0.4, y - s * 0.4);
+      ctx.lineTo(x - s * 0.4, y + s * 0.4);
+    } else if (kind === "update") {
+      // A pencil: body and tip.
+      ctx.moveTo(x - s * 0.45, y + s * 0.45);
+      ctx.lineTo(x - s * 0.3, y + s * 0.05);
+      ctx.lineTo(x + s * 0.3, y - s * 0.55);
+      ctx.lineTo(x + s * 0.55, y - s * 0.3);
+      ctx.lineTo(x - s * 0.05, y + s * 0.3);
+      ctx.closePath();
+    }
+    ctx.stroke();
+    if (kind === "restart") restartIcon(x, y, s * 0.9, 0, C.ink);
+  }
+
+  function pill(cx, cy, str, o) {
+    ctx.font = font(o.size, 800);
+    const w = o.w || ctx.measureText(str).width + o.size * 1.2;
+    const h = o.h || o.size * 1.6;
+    rr(cx - w / 2, cy - h / 2, w, h, h / 2);
+    ctx.fillStyle = o.fill;
+    ctx.fill();
+    text(str, cx, cy + o.size * 0.36, { size: o.size, weight: 800, color: o.color || C.paper, align: "center", max: w - o.size, min: o.min || o.size });
+  }
+
+  // --- Tokens ----------------------------------------------------------------------------------
+
+  // o: key, user, label | morph{prefix,from,to,suffix,p}, w, h, size, min, stack, fill, stroke, lw, dashed, rank, tag, tagFill, id
+  function drawToken(cx, cy, k, alpha, o) {
+    withAlpha(alpha, () => {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.scale(k, k);
+      ctx.translate(-o.w / 2, -o.h / 2);
+      const { w, h } = o;
+      rr(3, 6, w, h, 14);
+      ctx.fillStyle = "rgba(31,36,48,0.08)";
+      ctx.fill();
+      rr(0, 0, w, h, 14);
+      ctx.fillStyle = o.fill;
+      ctx.fill();
+      ctx.lineWidth = o.lw;
+      ctx.strokeStyle = o.stroke;
+      if (o.dashed) ctx.setLineDash([10, 8]);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      const color = C[o.user];
+      let lx;
+      let ly;
+      let room;
+      if (o.stack) {
+        rr(10, 10, 52, 26, 8);
+        ctx.fillStyle = color;
+        ctx.fill();
+        text(o.key, 36, 29, { size: 17, weight: 800, color: C.paper, align: "center" });
+        if (o.id) text(o.id, 70, 29, { size: 16, weight: 700, color: C.muted, max: w - 78, min: 11 });
+        lx = 12;
+        ly = h - 16;
+        room = w - 24;
+      } else {
+        rr(10, h / 2 - 16, 56, 32, 8);
+        ctx.fillStyle = color;
+        ctx.fill();
+        text(o.key, 38, h / 2 + 6, { size: 17, weight: 800, color: C.paper, align: "center" });
+        lx = 78;
+        ly = h / 2 + o.size * 0.36 - (o.id ? 8 : 0);
+        room = w - 88;
+        if (o.id) text(o.id, lx, h - 9, { size: 16, weight: 700, color: C.muted, max: room, min: 11 });
+      }
+      drawLabel(o, lx, ly, room);
+      if (o.tag) {
+        ctx.font = font(20, 800);
+        const tw = ctx.measureText(o.tag).width + 28;
+        rr(-10, -20, tw, 34, 17);
+        ctx.fillStyle = o.tagFill || C.warm;
+        ctx.fill();
+        text(o.tag, -10 + tw / 2, 4, { size: 20, weight: 800, color: C.paper, align: "center" });
+      }
+      if (o.rank) {
+        ctx.fillStyle = C.ink;
+        circle(w - 4, 4, 20);
+        ctx.fill();
+        text(String(o.rank), w - 4, 12.5, { size: 24, weight: 800, color: C.paper, align: "center" });
+      }
+      ctx.restore();
+    });
+  }
+
+  function drawLabel(o, x, y, room) {
+    if (!o.morph) {
+      text(o.label, x, y, { size: o.size, weight: 800, color: C.ink, max: room, min: o.min });
+      return;
+    }
+    // Digits roll from the old value to the new one inside the same tile.
+    const m = o.morph;
+    const size = fitSize(`${m.prefix}${m.to}${m.suffix}`, room, o.size, o.min, 800);
+    ctx.font = font(size, 800);
+    const pw = ctx.measureText(m.prefix).width;
+    const dw = Math.max(ctx.measureText(m.from).width, ctx.measureText(m.to).width);
+    text(m.prefix, x, y, { size, weight: 800 });
+    ctx.save();
+    ctx.beginPath();
+    ctx.rect(x + pw - 2, y - size * 1.05, dw + 4, size * 1.35);
+    ctx.clip();
+    const p = inOut(m.p);
+    withAlpha(1 - p, () => text(m.from, x + pw, y - p * size * 0.9, { size, weight: 800 }));
+    withAlpha(p, () => text(m.to, x + pw, y + (1 - p) * size * 0.9, { size, weight: 800, color: C.warmDeep }));
+    ctx.restore();
+    text(m.suffix, x + pw + dw, y, { size, weight: 800 });
+  }
+
+  // --- State at time t ------------------------------------------------------------------------
+
+  function caseAt(t) {
+    for (const s of SCENE_PLAN) {
+      if (t >= s.in && (t < s.out || s.last)) return s.compare && t >= COMPARE_AT ? s.compare : s.case;
+    }
+    return SCENE_PLAN[0].case;
+  }
+
+  // Search windows: route, funnel label, hits and copies in the tray.
+  function searches(f) {
+    return [
+      { user: f.m02.user, filter: f.m02.filter, in: 5.4, out: 8.0, hits: f.m02.hits, copyIn: 6.3 },
+      { user: f.m03.user, filter: f.m03.filter, in: 8.2, out: 11.0, hits: f.m03.hits, copyIn: 8.7 },
+      { user: "aya", filter: f.update.filter, in: 14.2, out: 17.0, hits: [{ key: "A02", label: f.update.afterLabel }], copyIn: 14.7 },
+      { user: "aya", filter: f.reopen.filter, in: 24.8, out: Infinity, hits: [{ key: "A02", label: f.update.afterLabel }], copyIn: 25.3 },
+    ];
+  }
+
+  function bubbleAt(t, f) {
+    const list = [
+      { at: 0, str: "7件を保存", kind: "add" },
+      { at: 5.0, str: f.m02.query, kind: "search" },
+      { at: 11.2, str: "IDで更新", kind: "update" },
+      { at: 14.0, str: f.update.query, kind: "search" },
+      { at: 17.1, str: "IDで削除", kind: "delete" },
+      { at: 22.2, str: "別プロセス", kind: "restart" },
+      { at: 24.6, str: f.reopen.query, kind: "search" },
+    ];
+    let i = 0;
+    while (i + 1 < list.length && t >= list[i + 1].at) i++;
+    return { cur: list[i], prev: i > 0 ? list[i - 1] : null, k: i > 0 ? ramp(t, list[i].at, list[i].at + 0.3) : 1 };
+  }
+
+  function countsAt(t, f) {
+    if (t < 5) {
+      const landed = (user) => KEYS[user].filter((key) => t >= FLY[key] + FLY_LEN).length;
+      return { aya: landed("aya"), ken: landed("ken") };
+    }
+    if (t < T.delCount) return f.counts.stored;
+    if (t < T.openB) return f.counts.deleted;
+    return f.counts.reopened;
+  }
+
+  const userOf = (key) => (KEYS.aya.includes(key) ? "aya" : "ken");
+  const slotCenter = (key) => {
+    const user = userOf(key);
+    const s = L.slot(user, KEYS[user].indexOf(key));
+    return { x: s.x + L.token.w / 2, y: s.y + L.token.h / 2 };
+  };
+  const drawerCenter = () => ({ x: L.drawer.slot.x + (L.token.w * L.drawer.slot.k) / 2, y: L.drawer.slot.y + (L.token.h * L.drawer.slot.k) / 2 });
+  const personCenter = (user) => ({ x: L.person[user].x, y: L.person[user].y });
+
+  // --- Scene parts ------------------------------------------------------------------------------
+
+  function drawChrome(t) {
+    text("MEM0 OSS ・ 架空の2人の好み", L.eyebrow.x, L.eyebrow.y, { size: L.eyebrow.size, weight: 700, color: C.muted, spacing: "2px" });
+    const id = caseAt(t);
+    const str = `記録 ${id}`;
+    const b = L.badge;
+    ctx.font = font(b.size, 800);
+    const w = ctx.measureText(str).width + 32;
+    const h = b.size * 1.7;
+    rr(b.x - w, b.y - h * 0.68, w, h, h / 2);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = C.ink;
+    ctx.stroke();
+    text(str, b.x - w / 2, b.y, { size: b.size, weight: 800, align: "center" });
+    text("保存済みの実行結果をもとにした図 ・ 無音", L.foot.x1, L.foot.y, { size: L.foot.size, weight: 600, color: C.muted });
+    text("STUDIO YEBISU", L.foot.x2, L.foot.y, { size: L.foot.size - 2, weight: 800, color: C.muted, align: "right", spacing: "3px" });
+  }
+
+  function drawTitle(t) {
+    for (const s of SCENE_PLAN) {
+      if (t < s.in - 0.001 || (t >= s.out && !s.last)) continue;
+      const fin = s.in === 0 ? 1 : ease(ramp(t, s.in, s.in + 0.35));
+      const fout = s.last ? 1 : 1 - ramp(t, s.out - 0.25, s.out);
+      withAlpha(Math.min(fin, fout), () => {
+        text(s.headline, L.title.x, L.title.y + (1 - fin) * 12, { size: L.title.size, weight: 800, max: L.title.max, min: L.title.min });
+      });
+    }
+  }
+
+  function drawPeople(t) {
+    const strong = window01(t, 0.2, 3.6, 0.6);
+    for (const user of ["aya", "ken"]) {
+      const p = L.person[user];
+      arrow(L.inflow[user], C[user], 4, 1, 0.3 + 0.7 * strong);
+      personIcon(p.x, p.y, L.person.k, C[user]);
+      text(USERS[user], p.lx, p.ly, { size: L.person.size, weight: 800, color: C[user], align: p.align });
+    }
+  }
+
+  function drawBubble(t, f) {
+    const B = L.bubble;
+    rr(B.cx - B.w / 2, B.cy - B.h / 2, B.w, B.h, B.h / 2);
+    ctx.fillStyle = C.paper;
+    ctx.fill();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = C.ink;
+    ctx.stroke();
+    const { cur, prev, k } = bubbleAt(t, f);
+    const icon = B.cx - B.w / 2 + B.h * 0.5;
+    const draw = (b, a) => withAlpha(a, () => {
+      opIcon(b.kind, icon, B.cy, B.size * 0.62);
+      text(b.str, B.cx + B.h * 0.25, B.cy + B.size * 0.36, { size: B.size, weight: 800, align: "center", max: B.w - B.h * 1.1, min: 20 });
+    });
+    if (prev && k < 1) draw(prev, 1 - k);
+    draw(cur, k);
+    // Connector to the funnel.
+    ctx.strokeStyle = C.ink;
+    ctx.lineWidth = 3;
+    ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(L.connector[0][0], L.connector[0][1]);
+    ctx.lineTo(L.connector[1][0], L.connector[1][1]);
+    ctx.stroke();
+  }
+
+  function drawFunnelAndRoute(t, f) {
+    const F = L.funnel;
+    // Idle funnel outline keeps the drawing connected between searches.
+    const shape = () => {
+      const k = F.k;
+      ctx.beginPath();
+      ctx.moveTo(F.cx - 16 * k, F.cy - 13 * k);
+      ctx.lineTo(F.cx + 16 * k, F.cy - 13 * k);
+      ctx.lineTo(F.cx + 4 * k, F.cy + 3 * k);
+      ctx.lineTo(F.cx + 4 * k, F.cy + 13 * k);
+      ctx.lineTo(F.cx - 4 * k, F.cy + 13 * k);
+      ctx.lineTo(F.cx - 4 * k, F.cy + 3 * k);
+      ctx.closePath();
+    };
+    shape();
+    ctx.lineWidth = 2.5;
+    ctx.strokeStyle = C.muted;
+    ctx.fillStyle = C.paper;
+    ctx.fill();
+    ctx.stroke();
+    for (const w of searches(f)) {
+      const a = window01(t, w.in, w.out);
+      if (a <= 0.002) continue;
+      withAlpha(a, () => {
+        shape();
+        ctx.fillStyle = C[w.user];
+        ctx.fill();
+        text(w.filter, F.lx, F.ly, { size: F.size, weight: 800, color: C[w.user], max: F.max, min: 20 });
+      });
+      arrow(L.route[w.user], C[w.user], 5, ease(ramp(t, w.in + 0.1, w.in + 0.6)), a);
+    }
+  }
+
+  function tabWidth(label, withIcon) {
+    ctx.font = font(L.tab.size, 800);
+    return ctx.measureText(label).width + 30 + (withIcon ? L.tab.h : 0);
+  }
+
+  function drawStore(t, f) {
+    const st = L.store;
+    const Tb = L.tab;
+    const same = ramp(t, T.sameTab, T.sameTab + 0.3);
+    const icon = t >= T.spinA;
+    const wNow = lerp(tabWidth("保存先", false), tabWidth("同じ保存先", true), icon ? ease(ramp(t, T.spinA, T.spinA + 0.4)) : 0);
+    ctx.beginPath();
+    ctx.moveTo(Tb.x, Tb.y + Tb.h);
+    ctx.lineTo(Tb.x, Tb.y + 10);
+    ctx.quadraticCurveTo(Tb.x, Tb.y, Tb.x + 10, Tb.y);
+    ctx.lineTo(Tb.x + wNow - 14, Tb.y);
+    ctx.lineTo(Tb.x + wNow, Tb.y + Tb.h);
+    ctx.closePath();
+    ctx.fillStyle = t >= T.spinA ? mix(C.ink, C.warmDeep, ramp(t, T.spinA, T.spinA + 0.4)) : C.ink;
+    ctx.fill();
+    let tx = Tb.x + 12;
+    if (icon) {
+      const spin = inOut(ramp(t, T.spinA, T.spinB)) * Math.PI * 2;
+      withAlpha(ramp(t, T.spinA, T.spinA + 0.3), () => restartIcon(Tb.x + 12 + Tb.h * 0.4, Tb.y + Tb.h / 2, Tb.h * 0.42, spin, C.paper));
+      tx += Tb.h * ramp(t, T.spinA, T.spinA + 0.4);
+    }
+    withAlpha(1 - same, () => text("保存先", tx, Tb.y + Tb.h / 2 + Tb.size * 0.38, { size: Tb.size, weight: 800, color: C.paper }));
+    withAlpha(same, () => text("同じ保存先", tx, Tb.y + Tb.h / 2 + Tb.size * 0.38, { size: Tb.size, weight: 800, color: C.paper }));
+
+    rr(st.x, st.y, st.w, st.h, 22);
+    ctx.fillStyle = C.paper;
+    ctx.fill();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = t >= T.spinA ? mix(C.ink, C.warm, ramp(t, T.spinA, T.spinA + 0.4)) : C.ink;
+    ctx.stroke();
+
+    // Scoped sections; the one outside the current filter steps back.
+    for (const user of ["aya", "ken"]) {
+      const s = L.sec[user];
+      let dim = 0;
+      for (const w of searches(f)) if (w.user !== user) dim = Math.max(dim, window01(t, w.in, w.out));
+      withAlpha(1 - 0.55 * dim, () => {
+        rr(s.x, s.y, s.w, s.h, 16);
+        ctx.fillStyle = C[`${user}Wash`];
+        ctx.fill();
+        ctx.lineWidth = 2.5;
+        ctx.strokeStyle = C[user];
+        ctx.stroke();
+      });
+    }
+  }
+
+  function drawCounts(t, f) {
+    const c = countsAt(t, f);
+    const K = L.count;
+    for (const user of ["aya", "ken"]) {
+      const at = K.at(user);
+      const k = 1 + 0.12 * Math.max(user === "aya" ? pulse(t, T.delCount) : 0, pulse(t, T.countPulse));
+      ctx.save();
+      ctx.translate(at.cx, at.cy);
+      ctx.scale(k, k);
+      rr(-K.w / 2, -K.h / 2, K.w, K.h, K.h / 2);
+      ctx.fillStyle = C[user];
+      ctx.fill();
+      text(`${c[user]}件`, 0, K.size * 0.36, { size: K.size, weight: 800, color: C.paper, align: "center" });
+      ctx.restore();
+    }
+  }
+
+  function tokenStyle(key, t, f) {
+    const user = userOf(key);
+    const tk = L.token;
+    const o = {
+      key, user, w: tk.w, h: tk.h, size: tk.size, min: tk.min, stack: tk.stack, label: f.labels[key],
+      fill: C.paper, stroke: C[user], lw: 3, dashed: false, rank: 0, tag: "", tagFill: C.warm, id: "",
+    };
+    // Rank marks and dimming during searches.
+    let dim = 0;
+    for (const w of searches(f)) {
+      const a = window01(t, w.in + 0.4, w.out);
+      const idx = w.hits.findIndex((h) => h.key === key);
+      if (idx >= 0 && a > 0.5) {
+        o.rank = idx + 1;
+        o.lw = 5;
+        o.stroke = C.ink;
+      }
+      if (idx < 0) dim = Math.max(dim, a);
+    }
+    if (key === "A02") {
+      const warm = ramp(t, T.updLift, T.updLift + 0.4);
+      if (warm > 0) {
+        o.fill = mix(C.paper, C.warmWash, warm);
+        if (!o.rank) o.stroke = mix(C[user], C.warm, warm);
+        o.id = t >= T.updLift ? `ID ${f.update.idShort}` : "";
+      }
+      if (t >= T.updMorphA && t < T.updMorphB) {
+        o.morph = { prefix: f.update.prefix, from: f.update.from, to: f.update.to, suffix: f.update.suffix, p: ramp(t, T.updMorphA, T.updMorphB) };
+      } else if (t >= T.updMorphB) {
+        o.label = f.update.afterLabel;
+      }
+      if (t >= T.updMorphB && t < 22.0) o.tag = `${f.update.from}→${f.update.to}`;
+      if (t >= T.keepTag) o.tag = `${f.update.to}秒のまま`;
+    }
+    if (key === f.removed) {
+      if (t >= T.delMark && t < T.delMoveA + 0.6) {
+        o.tag = "削除";
+        o.stroke = C.warm;
+      }
+      if (t >= T.delMoveA + 0.7) {
+        o.dashed = true;
+        o.fill = C.ivory;
+        o.stroke = C.muted;
+      }
+      if (t >= T.delMoveB) {
+        o.tag = "一覧の外";
+        o.tagFill = C.muted;
+      }
+    }
+    return { o, dim };
+  }
+
+  function drawTokens(t, f) {
+    for (const user of ["aya", "ken"]) {
+      for (const key of KEYS[user]) {
+        const p = ramp(t, FLY[key], FLY[key] + FLY_LEN);
+        if (p <= 0) continue;
+        const { o, dim } = tokenStyle(key, t, f);
+        const home = slotCenter(key);
+        let c = home;
+        let k = 1;
+        let alpha = 1 - 0.6 * dim;
+        if (p < 1) {
+          const e = inOut(p);
+          const from = personCenter(user);
+          c = { x: lerp(from.x, home.x, e), y: lerp(from.y, home.y, e) };
+          k = lerp(0.3, 1, e);
+          alpha = ramp(p, 0, 0.25);
+        }
+        if (key === "A02") k *= 1 + 0.06 * Math.sin(Math.PI * ramp(t, T.updLift, T.updHist));
+        if (key === f.removed && t >= T.delMoveA) {
+          const e = inOut(ramp(t, T.delMoveA, T.delMoveB));
+          const to = drawerCenter();
+          c = { x: lerp(home.x, to.x, e), y: lerp(home.y, to.y, e) };
+          k = lerp(1, L.drawer.slot.k, e);
+          alpha = 1;
+        }
+        drawToken(c.x, c.y, k, alpha, o);
+      }
+    }
+  }
+
+  function drawClosing(t) {
+    const a = 0.62 * (ramp(t, T.closeA, T.closeB) - ramp(t, T.openA, T.openB));
+    const st = L.store;
+    withAlpha(a, () => {
+      rr(st.x, st.y, st.w, st.h, 22);
+      ctx.fillStyle = C.ivory;
+      ctx.fill();
+    });
+    const O = L.overlay;
+    const lab1 = window01(t, T.closeA + 0.1, T.openA - 0.25, 0.2);
+    const lab2 = window01(t, T.openA - 0.2, T.openB + 0.2, 0.2);
+    withAlpha(lab1, () => pill(O.x, O.y, "閉じる", { size: O.size, fill: C.ink }));
+    withAlpha(lab2, () => pill(O.x, O.y, "別プロセスで開く", { size: O.size, fill: C.warmDeep }));
+  }
+
+  function drawDrawer(t, f) {
+    const D = L.drawer;
+    rr(D.x, D.y, D.w, D.h, 16);
+    ctx.fillStyle = C.ivory;
+    ctx.fill();
+    ctx.lineWidth = 2.5;
+    ctx.strokeStyle = C.muted;
+    ctx.setLineDash([10, 8]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    text("履歴", D.tx, D.ty, { size: D.size, weight: 800, color: C.muted });
+    const lines = [
+      { key: "A02", events: f.history.A02, at: T.updHist },
+      { key: f.removed, events: f.history[f.removed], at: T.delHist },
+    ];
+    lines.forEach((line, i) => {
+      withAlpha(fadeIn(t, line.at, line.at + 0.35), () => {
+        text(`${line.key} ${line.events.map((e) => EVENT_JA[e] || e).join("→")}`, D.lx, D.ly[i], { size: D.lsize, weight: 800, color: C[userOf(line.key)], max: D.lmax, min: 14 });
+      });
+    });
+  }
+
+  function drawTray(t, f) {
+    const O = L.tray;
+    text("引き出した", O.tx, O.ty, { size: O.size, weight: 800 });
+    const M = O.msg;
+    const c = f.counts.stored;
+    withAlpha(window01(t, T.storedMsgA, T.storedMsgB), () => text(`あや${c.aya}件・けん${c.ken}件を保存`, M.x, M.y, { size: M.size, weight: 800, max: M.max, min: 18 }));
+    withAlpha(window01(t, T.delMsgA, T.delMsgB), () => text(`get ${f.removed} → なし`, M.x, M.y, { size: M.size, weight: 800, max: M.max, min: 18 }));
+
+    // Copies of the retrieved tokens travel from their stored tile to the tray.
+    for (const w of searches(f)) {
+      w.hits.forEach((hit, i) => {
+        const tin = w.copyIn + i * 0.22;
+        const p = ramp(t, tin, tin + 0.85);
+        if (p <= 0) return;
+        const a = w.out === Infinity ? 1 : fadeOut(t, w.out, w.out + 0.3);
+        if (a <= 0.002) return;
+        const slot = O.slots[i];
+        const to = { x: slot.x + O.w / 2, y: slot.y + O.h / 2 };
+        const from = slotCenter(hit.key);
+        const e = inOut(p);
+        const user = userOf(hit.key);
+        const changed = hit.key === "A02" && t >= T.updLift;
+        drawToken(lerp(from.x, to.x, e), lerp(from.y, to.y, e), lerp(0.8, 1, e), a * ramp(p, 0, 0.2), {
+          key: hit.key, user, w: O.w, h: O.h, size: O.label, min: O.min, stack: true, label: hit.label,
+          fill: changed ? C.warmWash : C.paper, stroke: changed ? C.warm : C[user], lw: 3, rank: i + 1, tag: "", id: "",
+        });
+      });
+    }
+  }
+
+  function drawCta(t) {
+    const a = fadeIn(t, T.ctaA, T.ctaA + 0.4);
+    if (a <= 0.002) return;
+    const Cc = L.cta;
+    withAlpha(a, () => {
+      const dy = (1 - a) * 10;
+      rr(Cc.cx - Cc.w / 2, Cc.cy - Cc.h / 2 + dy, Cc.w, Cc.h, Cc.h / 2);
+      ctx.fillStyle = C.ink;
+      ctx.fill();
+      // Handmade download mark.
+      const ix = Cc.cx - Cc.w / 2 + Cc.h * 0.55;
+      const iy = Cc.cy + dy;
+      const s = Cc.size * 0.5;
+      ctx.strokeStyle = C.paper;
+      ctx.lineWidth = 3;
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
+      ctx.beginPath();
+      ctx.moveTo(ix, iy - s);
+      ctx.lineTo(ix, iy + s * 0.5);
+      ctx.moveTo(ix - s * 0.55, iy);
+      ctx.lineTo(ix, iy + s * 0.55);
+      ctx.lineTo(ix + s * 0.55, iy);
+      ctx.moveTo(ix - s * 0.7, iy + s);
+      ctx.lineTo(ix + s * 0.7, iy + s);
+      ctx.stroke();
+      text("記録をJSONで保存", Cc.cx + Cc.h * 0.3, Cc.cy + dy + Cc.size * 0.36, { size: Cc.size, weight: 800, color: C.paper, align: "center", max: Cc.w - Cc.h * 1.3, min: 16 });
+    });
+  }
+
+  // --- Frame ------------------------------------------------------------------------------------
+
+  function drawFrame(t) {
+    const f = film;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.globalAlpha = 1;
+    ctx.globalCompositeOperation = "source-over";
+    ctx.fillStyle = C.ivory;
+    ctx.fillRect(0, 0, W, H);
+    ctx.setTransform(S, 0, 0, S, OX, OY);
+    drawChrome(t);
+    drawTitle(t);
+    drawPeople(t);
+    drawBubble(t, f);
+    drawFunnelAndRoute(t, f);
+    drawStore(t, f);
+    drawDrawer(t, f);
+    drawTokens(t, f);
+    drawCounts(t, f);
+    drawClosing(t);
+    drawTray(t, f);
+    drawCta(t);
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+  }
+
+  // --- Silent preview: the picture follows elapsed time; export seeks are pure. ----------------
+
+  let current = 0;
+  let isPlaying = false;
+  let loading = false;
+  let raf = 0;
+  let startNow = 0;
+  let startTime = 0;
+  const clampTime = (seconds) => {
+    const v = Number(seconds);
+    return Number.isFinite(v) ? Math.max(0, Math.min(DURATION, v)) : 0;
+  };
+
+  function showTime() {
+    ui.clock.textContent = loading ? "照合中" : !film ? "映像なし（照合失敗）" : `${current.toFixed(1)} / ${DURATION.toFixed(1)} 秒`;
+  }
+
+  function playLabel() {
+    ui.play.textContent = isPlaying ? "一時停止" : current >= DURATION - 0.001 ? "もう一度再生" : "再生";
+  }
+
+  function paint(t) {
+    if (!film) throw new Error("素材の照合前は描けません。");
+    current = t;
+    drawFrame(t);
+    ui.time.value = String(t);
+    showTime();
+    playLabel();
+  }
+
   function stop() {
-    playing = false;
     if (raf) cancelAnimationFrame(raf);
     raf = 0;
-    sync();
-  }
-  function jump(t) {
-    stop();
-    currentT = clampTime(Math.round(t * 10) / 10);
-    if (facts) render(currentT);
-    sync();
+    isPlaying = false;
+    playLabel();
   }
 
-  play.addEventListener('click', () => (playing ? stop() : start()));
-  range.addEventListener('input', () => jump(Number(range.value)));
-  // 左右（上下）の矢印は0.1秒、PageUp・PageDown は2秒、Home・End は先頭・末尾（Home から PageUp 7回で14秒）
-  const moves = {ArrowRight: 0.1, ArrowUp: 0.1, ArrowLeft: -0.1, ArrowDown: -0.1, PageUp: 2, PageDown: -2};
-  range.addEventListener('keydown', event => {
-    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
-    let next = null;
-    if (event.key === 'Home') next = 0;
-    else if (event.key === 'End') next = DURATION;
-    else if (Object.hasOwn(moves, event.key)) next = currentT + moves[event.key];
-    if (next === null) return;
-    event.preventDefault();
-    jump(next);
-  });
-  reload.addEventListener('click', () => location.reload());
-  window.motionReady.then(() => {
-    play.disabled = false;
-    range.disabled = false;
-    sync();
-  }, () => {
-    reload.hidden = false;
-  });
-}
-if (!RENDER) setupPreview();
+  window.seek = (seconds) => {
+    const t = clampTime(seconds);
+    stop();
+    return window.motionReady.then(() => paint(t));
+  };
+
+  function previewFrame(now) {
+    if (!isPlaying) return;
+    const t = Math.min(DURATION, startTime + (now - startNow) / 1000);
+    try {
+      paint(t);
+    } catch (error) {
+      fail(error);
+      return;
+    }
+    if (t >= DURATION) stop();
+    else raf = requestAnimationFrame(previewFrame);
+  }
+
+  function play() {
+    if (RENDER || !film || loading) return;
+    startTime = current >= DURATION - 0.05 ? 0 : current;
+    startNow = performance.now();
+    isPlaying = true;
+    playLabel();
+    raf = requestAnimationFrame(previewFrame);
+  }
+
+  function setControls(enabled) {
+    for (const c of [ui.play, ui.reset, ui.time, ...ui.sceneList.querySelectorAll("button")]) c.disabled = !enabled || RENDER;
+  }
+
+  function buildSceneList() {
+    ui.sceneList.replaceChildren(...SCENE_PLAN.map((s) => {
+      const li = document.createElement("li");
+      const b = document.createElement("button");
+      b.type = "button";
+      b.disabled = true;
+      const time = document.createElement("span");
+      time.className = "scene-time";
+      time.textContent = `${s.in}–${s.out}秒`;
+      b.append(time, `${s.headline}（記録 ${s.compare ? `${s.case}・${s.compare}` : s.case}）`);
+      b.addEventListener("click", () => window.seek(s.read).catch(fail));
+      li.append(b);
+      return li;
+    }));
+  }
+
+  function setState(name, message) {
+    ui.editor.dataset.state = name;
+    ui.status.dataset.state = name;
+    ui.status.textContent = message;
+  }
+
+  function fail(error) {
+    stop();
+    loading = false;
+    film = null;
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    ui.stage.hidden = true;
+    setControls(false);
+    setState("error", "素材を確かめられなかったため、映像を描いていません。");
+    ui.errorText.textContent = error && error.message ? error.message : String(error);
+    ui.errorBox.hidden = false;
+    ui.retry.disabled = false;
+    showAssets();
+    showTime();
+  }
+
+  function start() {
+    if (loading) return window.motionReady;
+    stop();
+    loading = true;
+    film = null;
+    assetState.clear();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    ui.stage.hidden = true;
+    ui.errorBox.hidden = true;
+    ui.retry.disabled = true;
+    setControls(false);
+    current = 0;
+    ui.time.value = "0";
+    showAssets();
+    setState("loading", `manifest と素材${ASSETS.length}件の SHA-256、元の実行記録を照合しています…`);
+    showTime();
+    const ready = load().then((data) => {
+      loading = false;
+      film = data;
+      ui.stage.hidden = false;
+      paint(current);
+      setControls(true);
+      setState("ready", "照合済み（7 / 7素材）。無音の動く概念図です。再生は操作したときだけ始まります。");
+      return true;
+    });
+    ready.catch(fail);
+    window.motionReady = ready;
+    return ready;
+  }
+
+  buildSceneList();
+  ui.play.addEventListener("click", () => (isPlaying ? stop() : play()));
+  ui.reset.addEventListener("click", () => window.seek(0).catch(fail));
+  ui.time.addEventListener("input", () => window.seek(ui.time.value).catch(fail));
+  ui.retry.addEventListener("click", start);
+  start();
+})();
