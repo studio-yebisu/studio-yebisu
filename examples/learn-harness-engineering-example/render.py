@@ -11,6 +11,8 @@ def main():
     p.add_argument('--work-root',type=Path)
     p.add_argument('--stills-only',action='store_true')
     p.add_argument('--strip-at',type=float,default=8.1)
+    p.add_argument('--width',type=int,default=720)
+    p.add_argument('--height',type=int,default=1280)
     a=p.parse_args();source=Path(__file__).resolve().parent;output=a.out.resolve();renderer=a.renderer.resolve(strict=True)
     if output.is_relative_to(source) or source.is_relative_to(output):p.error('Output must be separate from source.')
     if output.exists() and any(output.iterdir()):p.error('Output must be empty; existing renders are never overwritten.')
@@ -21,13 +23,13 @@ def main():
     base=a.work_root.resolve() if a.work_root else Path(tempfile.gettempdir()).resolve()
     if base.is_relative_to(source):p.error('Disposable copy must be outside source.')
     base.mkdir(parents=True,exist_ok=True)
-    with tempfile.TemporaryDirectory(prefix='studio-yebisu-learn-harness-engineering-',dir=base) as temporary:
+    with tempfile.TemporaryDirectory(prefix='studio-yebisu-harness-',dir=base) as temporary:
         disposable=Path(temporary).resolve()
-        assert disposable.is_relative_to(base) and disposable.name.startswith('studio-yebisu-learn-harness-engineering-')
+        assert disposable.is_relative_to(base) and disposable.name.startswith('studio-yebisu-harness-')
         project=disposable/'project'
         shutil.copytree(source,project,ignore=shutil.ignore_patterns('.git','.local','.venv','node_modules','__pycache__','*.pyc','*.mp4','*.zip'))
         (project/'index.html').write_text(entry,encoding='utf-8')
-        command=['node',str(renderer),'--project',str(project),'--out',str(output),'--step','2','--strip-at',str(a.strip_at)]
+        command=['node',str(renderer),'--project',str(project),'--out',str(output),'--step','2','--strip-at',str(a.strip_at),'--width',str(a.width),'--height',str(a.height)]
         if not a.stills_only:command+=['--video']
         subprocess.run(command,check=True)
 

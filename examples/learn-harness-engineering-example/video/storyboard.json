@@ -1,271 +1,126 @@
 {
-  "format": "studio-yebisu-motion-storyboard-v1",
-  "title": "架空の書店メモ：検証してから、続きを渡す（28秒）",
-  "status": "書き出し・代表/連続フレーム・360px表示・全デコード・MP4終端を制作担当が確認。実機iOS/VoiceOverと人による承認は未確認。公開の実確認は別記録。",
-  "authorship": "映像の編集元は、この作例の3回目の Claude Opus 5.5 による執筆（実装セッション・再開セッションとは別）。モデルの会話履歴は公開しない。CLI と ./init.sh の実行は制作担当が行ったもので、執筆とは別。",
-  "brief": {
-    "goal": "Harness Creator の5ファイルで1機能だけを進め、実際の検証の記録がそろってから新しいセッションへ続きを渡した流れを、実出力と状態ファイルで伝える",
-    "audience": "AIに開発を任せるときの状態ファイルや検証の置き方を、小さな実例で学びたい日本語の初学者。iPhone の縦持ちで見る人が多い前提",
-    "message": "検証してから、続きを渡す。",
-    "next_action": "メモを試す → 実行記録を見る",
-    "facts": [
-      "原典：walkinglabs/learn-harness-engineering 38ddcd2bf8d65271f668b94e7c875ca1d629d622（MIT、Copyright (c) 2025 WalkingLab）",
-      "改変なしの create-harness.mjs が終了コード0で AGENTS.md・feature_list.json・progress.md・session-handoff.md・init.sh を作った（outputs/harness-created.json）",
-      "入力：書き下ろしの架空の書店メモ N01〜N08 と、実装前に固定した問い Q01〜Q08（project/input/queries.json）",
-      "CLI の保存出力：Q01 8件・Q02 N02,N07・Q03 N02・Q04 N01,N04・Q05 N03・Q06 0件・Q07 N01・Q08 N01,N04（outputs/exercise-run.json）",
-      "Q03：問い「　読書会　土曜　」（全角空白を含む）・タグなし → 区切った語「読書会」「土曜」→ N02「土曜の読書会」だけ",
-      "検索の規則：NFKC・小文字・空白区切りの全語AND（id・title・tags・body）とタグの完全一致。点数・あいまい検索・LLM なし",
-      "検証：制作担当が Git Bash で生成されたままの ./init.sh を実行し終了コード0。verification.json は passed・8件・8問・source_integrity true、8問すべて期待どおり、意図的な不正入力11件（NC01〜NC11）すべて終了コード1・成功の出力なし",
-      "状態：1回目のセッション後は feat-001 in-progress（未検証）・feat-002 not-started。検証の後、新しい Opus 5.5 の再開セッションが保存記録を読み、状態ファイル3つだけを更新して feat-001 done・feat-002 not-started。再開の前後でコードと入力は変わっていない（制作担当の runtime/data-checks.json）"
-    ],
-    "not_claimed": [
-      "講座の Project 01・02 の比較実験、Electron アプリ、模擬Q&A、LLM の繰り返し実行、自律的に動き続けるエージェント",
-      "ハーネスの効果・速さ・コスト・信頼性の向上（ハーネスなしとの公平な比較はしていない）",
-      "構造の点検の点数を成功の証拠とすること（映像に点数は出さない）",
-      "検索結果を AI の回答・引用・意味の判断とすること",
-      "セッションが「忘れた」ことの証明や、エージェントの思考・打鍵・端末の様子（どれも記録にないので描かない）",
-      "実在の書店・サービス",
-      "物理 iOS/Safari/VoiceOver での確認、人による承認"
-    ],
-    "look": {
-      "palette": {
-        "paper": "#f6f0e4",
-        "card": "#fffcf5",
-        "ink": "#1f2433",
-        "muted": "#565c69",
-        "navy": "#1c2d52",
-        "navy_2": "#2d4579",
-        "navy_soft": "#e3e8f2",
-        "red": "#b83d26",
-        "red_soft": "#f6ddd4",
-        "green": "#2c6449",
-        "line": "#dcd2bf"
-      },
-      "palette_source": "閲覧ページ style.css の色（紙・紺・朱・緑）",
-      "type": "見出しは明朝の太字72px（紺）、主な文は52px、大きな数は150〜200px、補足は32px以上、上の帯は26px、足元の範囲の注記は30px。1280px幅の論理座標で、360px幅に縮めると見出しは約20px、主な文は約15px",
-      "layout": "左右48pxの余白。上の帯（作例名と原典の版）、見出し（y134）、本文（y164〜652）、足元の帯（左：架空メモの実作例・実出力を編集・無音／右：独自の小課題／比較実験ではありません）。実画面は枠つきの切り抜きで、上に文字を重ねない。記録カードは紙の上に描き直した保存記録で、アプリ画面や端末に見せない"
-    },
-    "output": {
-      "duration_seconds": 28,
-      "fps": 30,
-      "frames": 840,
-      "width": 1280,
-      "height": 720,
-      "poster_seconds": 13.5,
-      "audio": "なし（audioEvents は空）",
-      "loop": false,
-      "other_aspect": "renderConfig の大きさへ等倍率で収め、余りは紙の色で埋める。1280×720 以外は未確認"
-    }
+  "format": "studio-yebisu-storyboard-v1",
+  "case": "learn-harness-engineering-example",
+  "title": "1件だけ進めて、続きはファイルへ。",
+  "message": "Harness Creator の5つのファイルが、小さな作業を1件だけに絞り、制作担当の実行記録を根拠に、新しいセッションへファイルで引き継がせる。",
+  "duration": 32,
+  "fps": 30,
+  "frames": 960,
+  "sizes": {
+    "portrait": { "width": 720, "height": 1280, "layout": "上から下へ：実装の机 → 確かめる門 → フォルダー → セッションの区切り → 新しい机。左の列に5つのファイル。" },
+    "wide": { "width": 1280, "height": 720, "layout": "左から右へ：実装の机 → 確かめる門 → フォルダー → 区切り → 新しい机。5つのファイルは各場所の真上に並ぶ。" }
   },
-  "sources": [
-    {
-      "path": "outputs/exercise-run.json",
-      "use": "原典の固定コミット、入力の SHA-256、生成した5ファイルの名前、検証のコマンド・終了コード・件数、2つのセッションの状態、8問の保存出力（入力・区切った語・結果IDと全項目）"
-    },
-    {
-      "path": "project/outputs/index.json",
-      "use": "CLI の build が作った索引。メモ8件のID・題名・本文と、結果の全項目の照合"
-    },
-    {
-      "path": "project/outputs/verification.json",
-      "use": "./init.sh の検証の記録。8問の actual_ids と expected_ids、意図的な不正入力11件"
-    },
-    {
-      "path": "outputs/harness-created.json",
-      "use": "create-harness.mjs の実行記録。5ファイルの名前・終了コード0・標準出力の WRITTEN 行"
-    },
-    {
-      "path": "outputs/harness-assessment.json",
-      "use": "形の照合だけ。点数は映像に出さない"
-    },
-    {
-      "path": "outputs/sessions/implementation/feature_list.json",
-      "use": "1回目のセッション後の状態（feat-001 in-progress・未検証、feat-002 not-started）"
-    },
-    {
-      "path": "outputs/sessions/resume/feature_list.json",
-      "use": "再開セッション後の状態（feat-001 done・根拠つき、feat-002 not-started）"
-    },
-    {
-      "path": "project/session-handoff.md",
-      "use": "引き継ぎ。done・not-started・./init.sh・状態ファイル名と、feat-002 を始める前に条件の承認が要ること"
-    },
-    {
-      "path": "project/input/queries.json",
-      "use": "実装前に固定した8問と期待ID"
-    },
-    {
-      "path": "video/assets/screen-manifest.json",
-      "use": "実画面2枚の大きさと SHA-256"
-    },
-    {
-      "path": "video/assets/workbench-phone.png",
-      "use": "スマホ幅（375×812）の閲覧ページ、Q03 を選んだ状態"
-    },
-    {
-      "path": "video/assets/workbench-desktop.png",
-      "use": "広い幅（1265×889）の閲覧ページ、Q03 を選んだ状態"
-    }
+  "silent": true,
+  "audioEvents": [],
+  "time_contract": "window.seek(t) は t（0〜32秒）だけから全体を描く。前のフレーム・壁時計・乱数・CSSアニメーションを使わない。最後の2.5秒（29.5〜32秒）は静止。",
+  "sources": {
+    "manifest": "assets/manifest.json（SHA-256 9e049f50bdaf51486d705800e9d19bef93d143037362586dc76437c4a84f5050）",
+    "timeline": "assets/timeline.json（6場面の時刻・見出し・検索・時点。この絵コンテはその場面に合わせる）",
+    "actual_outputs": "assets/exercise-run.json の queries[Q03].output（N02）と queries[Q06].output（0件）",
+    "states": "assets/exercise-run.json の sessions（implementation：feat-001 in-progress・feat-002 not-started／resume：feat-001 done・feat-002 not-started）",
+    "verification": "assets/verification-run.json（8問 passed・negative_controls 11件 exit_code 1・success_artifact_created false）",
+    "roles": "assets/diagram-data.json の file_roles（5つのファイルの役割の短い名前）",
+    "not_used_as_qa": "assets/original-verification.json は旧28秒版の確認記録。読み込みと照合のみで、この動画の確認には使わない。"
+  },
+  "persistent_objects": [
+    { "id": "file-agents", "shape": "紙（線3本の印）", "label": "作業の決まり", "file": "AGENTS.md", "home": "左の列1／机の上", "connects_to": "実装の机" },
+    { "id": "file-feature-list", "shape": "紙（チェック欄の印）", "label": "1件に絞る", "file": "feature_list.json", "home": "左の列2／机の上", "connects_to": "実装の机（作業カード）", "travels": "フォルダーに入り、新しい机で「更新」の印、列へ戻る" },
+    { "id": "file-init", "shape": "紙（再生と確認の印）", "label": "実行して確かめる", "file": "init.sh", "home": "左の列3／門の上", "connects_to": "確かめる門" },
+    { "id": "file-progress", "shape": "紙（ピンの印）", "label": "今どこか", "file": "progress.md", "home": "左の列4／フォルダーの上", "connects_to": "フォルダー", "travels": "同上" },
+    { "id": "file-handoff", "shape": "紙（矢印の印）", "label": "次へ渡す", "file": "session-handoff.md", "home": "左の列5／新しい机の上", "connects_to": "新しい机", "travels": "同上" },
+    { "id": "card-feat-001", "shape": "作業カード（緑の帯）", "label": "feat-001 メモの索引と検索", "path": "実装の机 → 門 → フォルダー → 区切りを越える → 新しい机", "status": "作業中のまま門を通り、新しい机で初めて完了" },
+    { "id": "card-feat-002", "shape": "作業カード（灰色の帯）", "label": "feat-002 引用付き回答", "path": "待機の場所から動かない", "status": "最初から最後まで未着手" },
+    { "id": "notes-8", "shape": "紙の束 → 8枚に広がる", "label": "メモ8件（N01〜N08）", "path": "実装の机" },
+    { "id": "result-card", "shape": "結果カード（実際の出力・明朝の抜粋）", "label": "Q03 → N02／Q06 → 0件", "path": "実装の机の右" },
+    { "id": "gate", "shape": "梁と2本の柱", "label": "確かめる（制作担当が実行）", "path": "固定" },
+    { "id": "folder", "shape": "フォルダー", "label": "ファイルに残す", "path": "棚 → 区切りを越えて新しい机へ" },
+    { "id": "evidence", "shape": "紙（確認の印）", "label": "検証の記録", "path": "門から生まれてフォルダーへ" },
+    { "id": "record", "shape": "紙（保存の印）", "label": "Q03.json 保存", "path": "最後に結果カードから出る" }
   ],
-  "persistent": {
-    "top": "Learn Harness Engineering 作例 ／ learn-harness-engineering 38ddcd2 ・ MIT（コミットは読み込んだ記録から）",
-    "footer_left": "架空メモの実作例・実出力を編集・無音",
-    "footer_right": "独自の小課題／比較実験ではありません"
-  },
   "scenes": [
     {
-      "id": "harness",
-      "start": 0,
-      "end": 4,
-      "headline": "次の作業、どこから？",
-      "subtitle": "始め方と、続き方をファイルに。",
-      "message": "固定版の create-harness.mjs を改変なしで実行し、5ファイルができた（終了コード0）",
-      "enter": "見出しは最初から表示。0.15秒に副題、0.35秒から0.16秒おきに5ファイルの札が、ずれた位置と小さな傾きから1つの束へ0.7秒でそろう（1.69秒に着地）。1.3〜1.7秒に右の create-harness.mjs・改変なしで実行・5ファイル・終了コード0",
-      "exit": "3.7〜4.0秒で消える（次の場面と重ねない）",
-      "sources": [
-        "outputs/harness-created.json（created_files_sha256 の名前・exit_code）",
-        "outputs/exercise-run.json（harness.created_files）"
-      ],
-      "crops": [],
-      "scope": "端末・実行中の画面・打鍵は描かない。札の役割名（作業の決まり・機能と状態・進み具合・引き継ぎ・標準の検証）は編集で添えた説明",
-      "motion": "減速の3次曲線。札ごとに横のずれ・小さな回転が0へ",
-      "read_dwell_seconds": 2.0
+      "id": "overview",
+      "in": 0,
+      "out": 5,
+      "headline_source": "timeline.json scenes[0].headline",
+      "stage": "all",
+      "query": "Q03",
+      "entry": "紙の色の背景だけ。",
+      "change": "机・門・待機・区切り・新しい机が順に現れ、0.9〜2.7秒で机→門→フォルダー→新しい机の矢印が描かれる。メモの束、作業カード feat-001（作業中）、Q03 の検索条件と実際の結果 N02、待機の feat-002（未着手）が置かれる。左の列は5つの空の枠。2.8〜4.6秒に緑の点が経路全体をたどる。",
+      "exit": "つながった全体図が静止。5つのファイルの枠はまだ空。",
+      "actual_source": "exercise-run.json queries[Q03].input/output、sessions[implementation].features",
+      "cue": "経路をたどる点（視覚の合図のみ・音なし）"
     },
     {
-      "id": "notes",
-      "start": 4,
-      "end": 8,
-      "headline": "8件のメモを、検索課題に。（件数は索引の notes の数）",
-      "message": "CLI の build が作った索引にある架空の書店メモ8件。問い8つは実装前に固定",
-      "enter": "4.1〜4.7秒に左の「CLIで作った索引」・8件・架空の書店メモ・実在のお店ではありません・問い8つは実装前に固定。4.25秒から0.08秒おきに N01〜N08 の札（IDと題名）",
-      "exit": "7.7〜8.0秒で消える",
-      "sources": [
-        "project/outputs/index.json（notes の id・title）",
-        "project/input/queries.json（問いの数）"
-      ],
-      "crops": [],
-      "scope": "架空のメモで、実在のお店ではないと明記",
-      "motion": "札は0.4秒で12px持ち上がりながら現れる",
-      "read_dwell_seconds": 2.5
+      "id": "five-files",
+      "in": 5,
+      "out": 10,
+      "headline_source": "timeline.json scenes[1].headline",
+      "stage": "implementation",
+      "query": "Q03",
+      "entry": "全体図の上に薄い紙が重なる。",
+      "change": "「Harness Creator / create-harness.mjs」の札から5つのファイルが0.5秒おきに大きく現れる（役割の短い名前つき、ファイル名は小さく下に）。8.6秒から同じ紙が縮みながら左の列（横向きでは各場所の真上）の枠へ入り、9.4〜10秒で各ファイルから受け持つ場所への線が引かれる。",
+      "exit": "5つのファイルが自分の場所とつながった全体図。",
+      "actual_source": "harness-created.json（5ファイルと生成時のSHA-256）、diagram-data.json file_roles",
+      "cue": "札から紙が出る・線が伸びる"
     },
     {
-      "id": "and",
-      "start": 8,
-      "end": 12,
-      "headline": "読書会 ＋ 土曜 → 1件（区切った語と件数は Q03 の保存出力）",
-      "subtitle": "NFKCで空白をそろえ、2語とも含むメモだけ",
-      "message": "全角空白を含む問い「　読書会　土曜　」を区切ると「読書会」「土曜」。両方を含むのは N02「土曜の読書会」だけ。CLI の保存出力で、AI の回答ではない",
-      "enter": "8.1秒に「Q03・CLIの保存出力（AIの回答ではない）」、8.2秒に問いの枠（全角空白の位置に朱の下地）、8.45〜8.75秒に区切った語の札と「＝全角空白」、8.9秒に副題、9.1秒に N02 の題名と本文（2語に朱の下地）。右は8.5秒に見出し、8.6秒に実画面、8.8秒に「閲覧ページの検索も N02」",
-      "exit": "11.7〜12.0秒で消える",
-      "sources": [
-        "outputs/exercise-run.json queries[Q03]（input.query・output.tokens・result_ids・results[N02] の title・body）",
-        "video/assets/workbench-phone.png"
-      ],
-      "crops": [
-        {
-          "name": "phoneResult",
-          "image": "workbench-phone.png",
-          "x": 6,
-          "y": 572,
-          "w": 352,
-          "h": 232,
-          "place": "x852 y226 倍率1.07",
-          "note": "スマホ幅のブラウザー検索「1件／全8件」と N02 のカード。右端のスクロールバーは含めない"
-        }
-      ],
-      "scope": "問いの文字は変えず、全角空白の位置に下地を敷くだけ。検索は規則による一致で、意味の判断ではない",
-      "motion": "要素ごとに0.1〜0.2秒ずらして現れる",
-      "read_dwell_seconds": 2.5
+      "id": "one-feature",
+      "in": 10,
+      "out": 16,
+      "headline_source": "timeline.json scenes[2].headline",
+      "stage": "implementation",
+      "query": "Q03",
+      "entry": "実装の机に緑の枠。",
+      "change": "feat-001 に輪と「1件だけ」の札。「作業の決まり」「1件に絞る」の紙と線が光る。待機の feat-002 に輪（未着手のまま）。結果カードがいったん消え、Q03 の条件から実際の tokens「読書会」「土曜」が出る。メモの束が N01〜N08 の8枚に広がり、N02 だけが残って緑になり、その写しが結果カードへ移って N02「土曜の読書会」と本文の抜粋になる。",
+      "exit": "メモは束に戻り、結果カード N02 と抜粋が残る。feat-001 は作業中。",
+      "actual_source": "exercise-run.json queries[Q03].output.tokens/result_ids/results[0]（N02 の title・body）、note-index.json",
+      "cue": "メモが広がる・1枚だけ残る"
     },
     {
-      "id": "verify",
-      "start": 12,
-      "end": 18,
-      "headline": "検証してから、続きを渡す。",
-      "message": "制作担当の ./init.sh（終了コード0）で8問すべてが期待どおり。その後で、新しい再開セッションが feat-001 を in-progress から done にした",
-      "enter": "12.25秒に feat-001 メモの索引と検索、12.3秒に1つ目の状態（1回目のセッション後・in-progress・作業中・未検証）、12.35秒に 8/8、12.4秒に実画面、12.45〜12.65秒に「8問とも期待どおり」・./init.sh 終了コード0・制作担当が実行・passed、12.6秒に2つ目（制作担当が実行・./init.sh・検証 8/8）、12.7秒に実画面の注記、12.95秒に3つ目（新しい再開セッション・done・完了・根拠つき）。13.4秒までに全要素が着地",
-      "exit": "17.7〜18.0秒で消える",
-      "poster": "13.5秒。主なメッセージ・8/8・in-progress → ./init.sh → done の3段がすべて静止した状態",
-      "sources": [
-        "project/outputs/verification.json（queries の status・actual_ids・expected_ids、query_count）",
-        "outputs/exercise-run.json（verification.command・exit_code）",
-        "outputs/sessions/implementation/feature_list.json",
-        "outputs/sessions/resume/feature_list.json",
-        "video/assets/workbench-desktop.png"
-      ],
-      "crops": [
-        {
-          "name": "queryGrid",
-          "image": "workbench-desktop.png",
-          "x": 754,
-          "y": 288,
-          "w": 438,
-          "h": 282,
-          "place": "x880 y180 倍率0.8",
-          "note": "閲覧ページの「保存したCLIの検索記録」Q01〜Q08 の8つ（件数つき）"
-        }
-      ],
-      "scope": "done は検証の札より後に、右側に現れる。検証の前に完了と書かない。構造の点検の点数は出さない",
-      "motion": "3段は左から0.3〜0.35秒ずつ。矢印は次の段と一緒に現れる。ポスター前に動きを止める",
-      "read_dwell_seconds": 4.6
+      "id": "verification",
+      "in": 16,
+      "out": 22,
+      "headline_source": "timeline.json scenes[3].headline",
+      "stage": "verified",
+      "query": "Q06",
+      "entry": "門のまわりに緑の面。",
+      "change": "feat-001（作業中のまま）が机から門へ移る。「制作担当が実行」「./init.sh」「終了コード 0」が門の横に出て、「実行して確かめる」の紙と線が光る。8つの丸が順に埋まって「8問 一致」。不正入力11件の小さな札が門へ向かって止まり×になり、「拒否 ✓」（正しく断った印）。19.6〜22秒は条件と結果カードが実際の Q06「存在しない星の棚」→ 0件に替わり、8つの丸のうち Q06 に輪。20.6秒から「検証の記録」の紙が門から出てフォルダーへ入り、21秒から feat-001 と「1件に絞る」「今どこか」「次へ渡す」の紙もフォルダーへ入る。",
+      "exit": "フォルダーにカード・状態の紙3枚・検証の記録。feat-001 はまだ完了ではない。",
+      "actual_source": "verification-run.json queries（8件 passed）・negative_controls（11件 exit_code 1）、exercise-run.json verification.exit_code、queries[Q06].output",
+      "cue": "丸が埋まる・×で止まる（AIの3つ目のセッションではなく制作担当の実行）"
     },
     {
-      "id": "zero",
-      "start": 18,
-      "end": 22,
-      "headline": "0件も、正しい結果。（件数は Q06 の保存出力）",
-      "message": "Q06「存在しない星の棚」は入力に一致するメモがなく0件（期待も0件・passed）。わざと壊した入力11件を CLI が終了コード1で断った確認は、別に記録した",
-      "enter": "左の Q06 を18.1〜18.7秒、区切り線を18.6秒、右の実画面と不正入力の確認を18.75〜19.35秒で順に",
-      "exit": "21.7〜22.0秒で消える",
-      "sources": [
-        "outputs/exercise-run.json queries[Q06]",
-        "project/outputs/verification.json negative_controls（件数・exit_code・success_artifact_created・label）",
-        "video/assets/workbench-desktop.png"
-      ],
-      "crops": [
-        {
-          "name": "q06Card",
-          "image": "workbench-desktop.png",
-          "x": 972,
-          "y": 428,
-          "w": 220,
-          "h": 68,
-          "place": "x672 y228 倍率1.5",
-          "note": "閲覧ページの Q06「該当なしを確かめる」0件のボタン"
-        }
-      ],
-      "scope": "0件を「エラー」「失敗」と呼ばない。不正入力は意図的に作ったもので、作業の失敗の印（×など）は使わない",
-      "motion": "左右を約0.7秒ずらす",
-      "read_dwell_seconds": 2.3
+      "id": "resume",
+      "in": 22,
+      "out": 27,
+      "headline_source": "timeline.json scenes[4].headline",
+      "stage": "resume",
+      "query": "Q03",
+      "entry": "結果カードが Q03 に戻り、新しい机が明るくなる。",
+      "change": "22.4〜24秒にフォルダーが区切りを越えて新しい机へ移る（元の棚には点線の跡）。「根拠を読んで状態更新」。24.2秒からカードと3枚の紙がフォルダーから出て、3枚は横長に並んで25〜25.75秒に「更新」の印（「更新は3つだけ」）。25.6秒に feat-001 の札が作業中から完了に替わる。26秒に待機の feat-002 に輪、未着手のまま。",
+      "exit": "新しい机に完了の feat-001、フォルダーに検証の記録。feat-002 は未着手。",
+      "actual_source": "exercise-run.json sessions[resume].features、handoff-data.json facts.resume_updates_only（3ファイル）",
+      "cue": "区切りを越える・印が押される（記録を読んで状態を書き換えた。再開のセッションは実行していない）"
     },
     {
-      "id": "handoff",
-      "start": 22,
-      "end": 28,
-      "headline": "続きを、ファイルで渡す。",
-      "message": "新しい Opus 5.5 の再開セッションは保存記録を読み、feature_list.json・progress.md・session-handoff.md の3つだけを更新。コードと入力は変更なし。feat-001 done、feat-002 not-started。次のfeat-002は未着手。ここまでを引き継ぐ",
-      "enter": "22.1〜22.65秒に左の説明・3ファイル名・コードと入力は変更なし、22.45・22.6秒に右の機能の札、22.95秒に次の一歩。24.55〜25.0秒に案内の帯",
-      "exit": "最後まで静止（25〜28秒は案内を含めて動かない）",
-      "cta": "メモを試す → 実行記録を見る",
-      "sources": [
-        "outputs/sessions/resume/feature_list.json（id・name・status）",
-        "project/session-handoff.md（Recommended Next Step）",
-        "runtime/data-checks.json（再開の前後でコード・入力が変わっていないこと。制作担当の確認で、映像の照合対象ではない）"
-      ],
-      "crops": [],
-      "scope": "前のセッションを「忘れた」ことの証明や、引き継ぎによる効果の数値は示さない。モデルの会話履歴は出さない",
-      "motion": "ファイル名は0.1秒ずつ。案内の帯は24.55秒から0.45秒で現れ、そのまま静止",
-      "read_dwell_seconds": 5.0
+      "id": "finish",
+      "in": 27,
+      "out": 32,
+      "headline_source": "timeline.json scenes[5].headline",
+      "stage": "all",
+      "query": "Q03",
+      "entry": "全体図。",
+      "change": "27〜28.4秒に3枚の紙が「更新」の印をつけたまま元の場所へ戻る。27.4〜28.4秒に結果カードから「Q03.json 保存」の紙が出て、28.2〜28.8秒に矢印でつながる。",
+      "exit": "29.5〜32秒は静止：5つのファイル、完了の feat-001、未着手の feat-002、Q03 の実際の結果 N02 と保存の紙。ポスターは31秒。",
+      "actual_source": "exercise-run.json queries[Q03]（作例ページの保存ボタンはこの記録をそのまま書き出す）",
+      "cue": "保存の紙が出る"
     }
   ],
-  "verification_in_code": [
-    "照合表 video/assets/data-hashes.json の SHA-256 が 3796bdd73b59b7fca32c39355f3b8af4104e3443c5abf2cd7a2a17f1e5076134（runtime/frozen-reviewed-source.json の files_sha256）と一致",
-    "照合表の12ファイルの生のバイト列の SHA-256。画像は照合済みのバイト列から復号",
-    "原典のリポジトリと固定コミット、create-harness.mjs の終了コード0と5ファイルの名前・WRITTEN 行",
-    "メモ8件のIDと全項目、入力の SHA-256 が索引と実行記録で一致。8問のIDと期待ID",
-    "8問の保存出力：入力が固定の問いと同じ、区切った語、結果IDが期待と同じ、結果の全項目が索引と同じ、CLI と同じ規則で求め直した結果と同じ",
-    "検証の記録：passed・source_integrity true・8件・8問すべて passed で actual_ids＝expected_ids＝保存出力、意図的な不正入力11件すべて終了コード1・成功の出力なし",
-    "状態：実行記録の2つのセッションが状態ファイルと同じ。1回目の後 in-progress・not-started、再開の後 done・not-started。done の根拠に ./init.sh と verification.json",
-    "実画面2枚の大きさ・SHA-256、切り抜きが画像の内側で置き場所が本文の範囲に収まること"
+  "not_claimed": [
+    "自動で作業を回す仕組み、信頼性・速度・効果の向上、ハーネスなしとの比較",
+    "再開のセッションがシェル・CLIを実行したこと（記録を読んで状態ファイルを更新しただけ）",
+    "構造の点検の点数（動画には出さない）",
+    "AIの記憶の再現（動きは考え方の説明）"
   ]
 }

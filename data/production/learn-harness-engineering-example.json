@@ -1,6 +1,6 @@
 {
   "id": "learn-harness-engineering-example",
-  "verified_at": "2026-10-16T15:45:27.761136+00:00",
+  "verified_at": "2026-10-17T17:20:31.731728+00:00",
   "model": {
     "requested": "claude-opus-5-5",
     "reported": [
@@ -24,9 +24,16 @@
         "receipt_sha256": "d05faf1cdabe50ac0291f01eed9510fb81f03681e4e59c324826a03ef28d480d",
         "execution_sha256": "67f77b680fcc2579b54e3814ed2daa23c1367916bce7c61e49917c58ee542e01",
         "prompt_sha256": "93133f7b2ec14dcf13e77b4c1b48361c9fdad7c9d8c99067423571e661c97a8a"
+      },
+      {
+        "phase": "visual-r1",
+        "receipt_sha256": "2b05b5c910a3bca76181d941d94f74bd2a539d360fca2032be7899cdf7b7e811",
+        "execution_sha256": "7d90a9647c9fd168a3f39a877da20a8fc805bda004055efea074a6caeca60a5d",
+        "prompt_sha256": "710e728eade5008d3f5cb936381df8b9b3663688248c7cf57cc9ec82e70a68b7"
       }
     ],
-    "receipt_published": false
+    "receipt_published": false,
+    "scope": "New exact Opus5.5 authors eight diagram UI/film files. Original skill application, CLI execution and two prior model-session receipts retained. Production rendering/QA/packaging separate; no rerun or audio guide."
   },
   "upstream": {
     "repository": "walkinglabs/learn-harness-engineering",
@@ -79,266 +86,940 @@
   },
   "verification": {
     "id": "learn-harness-engineering-example",
-    "verified_at": "2026-10-16T15:39:52.357794+00:00",
-    "stage": "runtime-and-agent-visual-reviewed",
-    "source_commit": "38ddcd2bf8d65271f668b94e7c875ca1d629d622",
-    "runtime_environment": {
-      "node": "v24.18.0",
-      "git_bash": "GNU bash, version 5.3.15(1)-release (x86_64-pc-cygwin)",
-      "cli_dependencies": "Node built-ins only; no install or API/key",
-      "upstream_source_matches_fixed": true
-    },
-    "data_checks": {
-      "status": "passed",
-      "sample_count": 8,
-      "query_count": 8,
-      "note_count": 8,
-      "negative_control_count": 11,
-      "input_hashes_unchanged": true,
-      "upstream_hashes_unchanged": true,
-      "resume_only_state_files_changed": true,
-      "first_feature_statuses": [
-        "in-progress",
-        "not-started"
+    "verified_at": "2026-10-17T17:20:31.731728+00:00",
+    "revision": "visual-r1",
+    "stage": "technical_qa_complete",
+    "runtime_preserved_files": 73,
+    "original_runtime_scope": "Harness Creator skill and its unmodified create-harness.mjs/validate-harness.mjs, applied to an original Node.js note-search exercise. Two fresh Claude Opus5.5 authoring sessions with actual verification between them. Not the course Project01/02 comparison, Electron app, or an effectiveness benchmark.",
+    "upstream": {
+      "repository": "walkinglabs/learn-harness-engineering",
+      "commit": "38ddcd2bf8d65271f668b94e7c875ca1d629d622",
+      "license": "MIT",
+      "copyright_notice": "Copyright (c) 2025 WalkingLab",
+      "official_git_blobs_verified": [
+        {
+          "path": "CLAUDE.md",
+          "git_blob": "5d5782c0fdf56762964173a6a0843a352b254cf4",
+          "sha256": "b5a3ee4fdd55e372c5734dc3bb992ddf1abc4656324955f3f2aa34afc3c62a50"
+        },
+        {
+          "path": "docs/en/projects/project-01-baseline-vs-minimal-harness/index.md",
+          "git_blob": "0dad51bb8a600dc53476825cd13ac22b9322dad2",
+          "sha256": "1f2395b04d69966f232d4c278ce1a3d5ce159931fb32d10cd119803d42600d4e"
+        },
+        {
+          "path": "docs/en/projects/project-02-agent-readable-workspace/index.md",
+          "git_blob": "a42f8a879373407407e870836f467125a765a97a",
+          "sha256": "f070e3e0050a09e5e4e0d78fd065cd1c5826217e94dfde6ab1090e4d9200f1cd"
+        },
+        {
+          "path": "LICENSE",
+          "git_blob": "828bd8559abead81e06920d2424d92f76d158f99",
+          "sha256": "86036cb714ed31ba2f5ba18e8fa2715eefb79da193a0789c90b4588d0609967e"
+        },
+        {
+          "path": "projects/project-01/README.md",
+          "git_blob": "37d8696a1dd6f146526a1053f7c1bf8099784c9b",
+          "sha256": "3c566899eb6d97b120fcba1afd193afe89f5fe4d2daa39745bbbae0128af8f5c"
+        },
+        {
+          "path": "projects/project-01/solution/AGENTS.md",
+          "git_blob": "f0b52f2b49f7ac1639be5e956a662a8fea2b4dde",
+          "sha256": "ded18b2597f46932872a9f653e42a45cc278b06237fc73cc69c14d09b542d5f4"
+        },
+        {
+          "path": "projects/project-01/solution/feature_list.json",
+          "git_blob": "e21680152399e39fc8ef37a4da4fca362c433741",
+          "sha256": "02fb058c3a913c66ba76872e7b568415e6072c7f685fddf4f6ec382a8a1cb814"
+        },
+        {
+          "path": "projects/project-01/solution/init.sh",
+          "git_blob": "ea4202e6f62f31ce3e050fd5b3ded4f11749e092",
+          "sha256": "c70bf16b10782dfcd5b0aebc7501dc27b0f44652e58ed37ebdb712b356f9a237"
+        },
+        {
+          "path": "projects/project-01/starter/package.json",
+          "git_blob": "c57e5748750222f3502e1deaca0bc73b7c816e2e",
+          "sha256": "80dcc29b69720dd421a181c0f5ec937944ed79a068cd1080a00cbec9ee4d5ef2"
+        },
+        {
+          "path": "projects/project-01/starter/task-prompt.md",
+          "git_blob": "d17a6edfd448d92bc1ded68f4350bda2e7728743",
+          "sha256": "5d7549e8ad7e93ebdc9e87fd727b68736496212d37b6118b9edd77d10be7aced"
+        },
+        {
+          "path": "README.md",
+          "git_blob": "2c031cf5e0d8af1aa507b50378c31989e8765670",
+          "sha256": "40f3c713ee115d660f93e9df85053daabc3d0be550d352f57223ce4267cdbff8"
+        },
+        {
+          "path": "skills/harness-creator/README.md",
+          "git_blob": "8627663385daa0b7c1a0d1c2ea3201ef13f78965",
+          "sha256": "f388d7869cf5e383c811726ee694a686b115dfe2b940df4edb048a9be8e3f498"
+        },
+        {
+          "path": "skills/harness-creator/references/gotchas.md",
+          "git_blob": "c8cd51b787e75c3997a9eba1631b5946cb68b28f",
+          "sha256": "6c90a161cd2f928df5109ad12bf5d849d838256de61e76fc1c8868d0d5d154e6"
+        },
+        {
+          "path": "skills/harness-creator/scripts/create-harness.mjs",
+          "git_blob": "1a33a7f644a156cde236e3cd434b7ba75c8565f2",
+          "sha256": "df82ef49c6ff1395bf3365d80f3df1e6a620eba6563b7599f85ca2fa2b27324b"
+        },
+        {
+          "path": "skills/harness-creator/scripts/lib/harness-utils.mjs",
+          "git_blob": "ca9de417da7f1c5a99192476463b4f03069d65da",
+          "sha256": "5aeb3516ae055a23d8129b61a3997f3be91db1efc746f6d81c89cf4d837af3fa"
+        },
+        {
+          "path": "skills/harness-creator/scripts/render-assessment-html.mjs",
+          "git_blob": "4d8d85fdb5ab1294b1d2cdfbc5b88b4b8f9cbdb0",
+          "sha256": "f656d7010a45e3a160e984c59666d57bc0816c47e438bd077faaa17b63b56095"
+        },
+        {
+          "path": "skills/harness-creator/scripts/run-benchmark.mjs",
+          "git_blob": "132bd3c1577c99b70cdf0664e1ab102b458598f7",
+          "sha256": "b7d71aa1b8bf3c3df1c4f9bb040202e07a6140f3c174d790f1678de5c939f379"
+        },
+        {
+          "path": "skills/harness-creator/scripts/validate-harness.mjs",
+          "git_blob": "3ae16d30fe01dccd455d5e5530e53854be059be8",
+          "sha256": "ac060dfd2fe7f49e7fb010ea013ab0b2b16f3da075244a90e5c1f8ce2bbe484d"
+        },
+        {
+          "path": "skills/harness-creator/SKILL.md",
+          "git_blob": "a75f1cad16e72c7807b39b167633c6ecc671318a",
+          "sha256": "6b152a8c5191fb3092f8371046e43846b8f42c60509c7c6eec282658beee81df"
+        },
+        {
+          "path": "skills/harness-creator/templates/agents.md",
+          "git_blob": "0b41e940be13e9e7e9bc07f942d352b56c5dcac0",
+          "sha256": "6cf46f72a3d1fcc950e423703392d3cd73e8e2f809137b9e5fb638f6b5a77cb5"
+        },
+        {
+          "path": "skills/harness-creator/templates/feature-list.json",
+          "git_blob": "fff05b01caf493af33184e4485e90989f854abc8",
+          "sha256": "53864068deec1260751391fd107654442f6c937ee712ecde6669415e546d6c5e"
+        },
+        {
+          "path": "skills/harness-creator/templates/feature-list.schema.json",
+          "git_blob": "45b8521613cd1356b48cc1e0eea718e765419e95",
+          "sha256": "535150b9e613cd289ab9016f44a1e7cf0e14cbeabf1f85fb2533e8503710098e"
+        },
+        {
+          "path": "skills/harness-creator/templates/init.sh",
+          "git_blob": "15c2b7f713fc12d9410acc5db2f4f38a186a7dab",
+          "sha256": "39d914bd66183bcfe8baba53d2ea241068a59965ceebd8c2c4fd82b97517e5fd"
+        },
+        {
+          "path": "skills/harness-creator/templates/progress.md",
+          "git_blob": "3710d5c35caf93bfd770a8c075c5cd742a872172",
+          "sha256": "dc8ed5780eb7daa861597a59e0d0ae096e7e23e7dcd7ae4bde7eeed691ee4433"
+        },
+        {
+          "path": "skills/harness-creator/templates/session-handoff.md",
+          "git_blob": "d9168cb72a0039c1afb23ca15d6ff8b866e653d7",
+          "sha256": "a71e92389c56f9a84e7afd2ee0578377f08e40afcb7a8efe15105553d234fc49"
+        }
       ],
-      "resumed_feature_statuses": [
-        "done",
-        "not-started"
-      ],
-      "structural_score": 92,
-      "structural_exit_code": 0,
       "scope": "Harness Creator skill and its unmodified create-harness.mjs/validate-harness.mjs, applied to an original Node.js note-search exercise. Two fresh Claude Opus5.5 authoring sessions with actual verification between them. Not the course Project01/02 comparison, Electron app, or an effectiveness benchmark.",
-      "exercise_sha256": "c5a4e424fac780b59472aaba58d6fee58da87ad00eb505feecf1ab2c3d93538d",
-      "retained_outputs_unchanged_after_resume": true,
-      "state_snapshots_match_original_model_deliveries": true
+      "verified_at": "2026-10-17T16:08:58.420205+00:00"
+    },
+    "video": {
+      "portrait": {
+        "video": {
+          "file": "video.mp4",
+          "sha256": "a19f213098e4b86208e6e8e425e8f85f8abad51e3003b064a4028208da61ec10",
+          "width": 720,
+          "height": 1280,
+          "fps": 30,
+          "frameCount": 960,
+          "duration": 32,
+          "hasAudio": false
+        },
+        "determinism": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "5f77a39d9754b6580de18721738ad8312a546e5a4db093ca3d7df025f349c7ef",
+          "afterOtherTimes": "5f77a39d9754b6580de18721738ad8312a546e5a4db093ca3d7df025f349c7ef",
+          "freshPage": "5f77a39d9754b6580de18721738ad8312a546e5a4db093ca3d7df025f349c7ef",
+          "match": true
+        }
+      },
+      "wide": {
+        "video": {
+          "file": "video.mp4",
+          "sha256": "3a09760967a8379cf3e723a3de19c2ed8450f918e2c8ad8c1f7e2e99361410f2",
+          "width": 1280,
+          "height": 720,
+          "fps": 30,
+          "frameCount": 960,
+          "duration": 32,
+          "hasAudio": false
+        },
+        "determinism": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "89f9a3986f74b6550530d7f34d9052f41c853910196f55a8a3eaac0941fcfa31",
+          "afterOtherTimes": "89f9a3986f74b6550530d7f34d9052f41c853910196f55a8a3eaac0941fcfa31",
+          "freshPage": "89f9a3986f74b6550530d7f34d9052f41c853910196f55a8a3eaac0941fcfa31",
+          "match": true
+        }
+      }
     },
     "browser": {
       "status": "passed",
-      "responsive_states": 6,
-      "widths": [
+      "verified_at": "2026-10-17T17:20:16.668534+00:00",
+      "layouts": 28,
+      "requested_widths": [
         320,
         375,
         390,
         430,
+        768,
         844,
         1280
       ],
-      "target_minimum_px": 44,
+      "overflow_views": 0,
+      "primary_targets_minimum_px": 44,
       "form_font_minimum_px": 16,
-      "all_eight_records_match": true,
-      "all_eight_browser_search_matches_cli": true,
-      "custom_normalized_and_zero_reset": true,
-      "native_export_matches_record": true,
-      "native_export_bytes": 803,
-      "http503_parse_validation_retry": true,
-      "clipboard_matches_original_request": true,
-      "keyboard_enter_space": true,
-      "agent_visual_review": true,
-      "physical_ios_tested": false,
-      "voiceover_tested": false,
-      "human_approval": false
-    },
-    "semantic_review": {
-      "agent_semantic_review": true,
+      "phone_diagram_and_save_fit": true,
+      "all8original_query_and_note_fields_match": true,
+      "exact_downloads": [
+        {
+          "id": "Q01",
+          "filename": "learn-harness-Q01.json",
+          "bytes": 3747,
+          "sha256": "4cd399bb224abb44228582f4e1d4b76b296ffb2401db26a503d030195187a93a"
+        },
+        {
+          "id": "Q02",
+          "filename": "learn-harness-Q02.json",
+          "bytes": 1219,
+          "sha256": "c093d20e822b9949f9cf6ebf84b6a5c0892b4b554971f8c728f3b409b938c7dd"
+        },
+        {
+          "id": "Q03",
+          "filename": "learn-harness-Q03.json",
+          "bytes": 803,
+          "sha256": "a0db3ce3097d1a3492dafa3c4bc9724d376382a9a123ab9fb2c868fd97a123c9"
+        },
+        {
+          "id": "Q04",
+          "filename": "learn-harness-Q04.json",
+          "bytes": 1168,
+          "sha256": "34c884ebda1390906a66a2d5cd83ea0892ac1f8339ab7ef53cea2c6922328a18"
+        },
+        {
+          "id": "Q05",
+          "filename": "learn-harness-Q05.json",
+          "bytes": 797,
+          "sha256": "025e27c5797d395ded867adcacc8e0cf047f50d9e8cf5467dd63c4e35d0b1cc8"
+        },
+        {
+          "id": "Q06",
+          "filename": "learn-harness-Q06.json",
+          "bytes": 372,
+          "sha256": "ad74ad9dc0fde20f92a4511e0152f1cf5f49cc31a2c4514069b6ce0f4367a6a7"
+        },
+        {
+          "id": "Q07",
+          "filename": "learn-harness-Q07.json",
+          "bytes": 765,
+          "sha256": "172da8e90b52444ed49dd719922970554967bfbad3d9e865d3d9e670df795098"
+        },
+        {
+          "id": "Q08",
+          "filename": "learn-harness-Q08.json",
+          "bytes": 1203,
+          "sha256": "ad0a8e16103f515d88ab4a2c1eeefc66d7e604dfcb319a67050353c9a0867da0"
+        }
+      ],
+      "phase_toggles": 24,
+      "stage_evidence_before_done": true,
+      "extra_direct_links": [
+        "Q01",
+        "Q02",
+        "Q04",
+        "Q08"
+      ],
+      "legacy_Q08_selection_verified": true,
+      "custom_browser_search_and_saved_record_separate": true,
+      "custom_NFKC_tag_zero_reset_verified": true,
+      "scaffold_files": 5,
+      "state_snapshots": 2,
+      "verification_queries": 8,
+      "correctly_rejected_invalid_inputs": 11,
+      "original_files_byte_and_sha_verified": 29,
+      "record_fail_closed_and_recovered": [
+        "HTTP503",
+        "truncatedJSON rejected by byte length",
+        "changedBytes rejected by byte length"
+      ],
+      "editor_assets_verified": 10,
+      "editor_audio_elements": 0,
+      "editor_scene_jumps": 6,
+      "editor_seek_reset_pause_end_replay_verified": true,
+      "asset_failure_and_recovery_verified": true,
+      "wide_editor": [
+        1280,
+        720
+      ],
+      "native_movies": [
+        {
+          "currentTime": 32,
+          "duration": 32,
+          "ended": true,
+          "error": null,
+          "height": 1280,
+          "src": "http://127.0.0.1:8876/media/learn-harness-engineering-example.mp4",
+          "width": 720
+        },
+        {
+          "currentTime": 32,
+          "duration": 32,
+          "ended": true,
+          "error": null,
+          "height": 720,
+          "src": "http://127.0.0.1:8876/media/learn-harness-engineering-example-wide.mp4",
+          "width": 1280
+        }
+      ],
+      "movies_ended": 2,
+      "request_copy_ui": "success reported by browser",
+      "clipboard_content_readback_verified": false,
+      "physical_ios_safari_voiceover": false,
       "human_approval": false,
+      "scope": "New UI/film technical review only. Original Harness Creator generation, actual CLI build/search/tests and two historical authoring/state-resume sessions were not rerun."
+    },
+    "frame_review": {
+      "status": "passed",
+      "verified_at": "2026-10-17T17:20:16.668534+00:00",
+      "reviewer": "Production agent visual inspection, not human approval",
       "unresolved_blockers": [],
-      "reviewed": "All8 actual CLI full outputs independently matched8originalfictionalnotes/frozenqueries and nativebrowserrecords/liveJSsearch. Q03N02 only/zero genuine/NFKCAND/tag. Unmodified upstream5file creation and structuralvalidator recordedseparately. Actualparentverification precedes freshexactOpus state-onlyresume feat001done/F02notstarted; not P01/P02comparison/Electron/LLManswer/agent-effectivenessproof. Intentionalnegativecontrols notaccidentalagentfailures. PublicstaticJSsearch notNode/AIruntime."
-    },
-    "parent_adjustments": {
-      "upstream_modified": false,
-      "original_opus_deliveries_kept_privately": true,
-      "changes": [
-        "Shortened the phone introduction and moved input-hash detail into the existing technical section; actualsearch result is visible early.",
-        "Replaced draft documentation with actual CLI execution, fresh state-only resume and retained public evidence. Changed README rebuild example to a new output filename to preserve the bundled original index.",
-        "Normalized only local target absolute path in the public upstream CLI creation stdout to project; original stdout retained privately.",
-        "At24-28s, reduced state badge typography from34px/50px to28px/42px so not-started does not touch the Japanese feature title. Initial film and review preserved privately.",
-        "Changed the final next-feature caption to factual未着手/引き継ぐ without an unnecessary approval prompt.",
-        "Public article sample links #Q01..#Q08 now select the corresponding real savedrecord on initialload and hashchange; unknown initialfragment falls back toQ03. Searchlogic/input/CLIoutputs/film12inputs unchanged.",
-        "Qualified the article cost sentence to refer only to CLI re-execution; Opus5.5 source authoring requires its own supported usage environment."
+      "viewed": [
+        "portrait/contact.png and wide/contact.png from still-review-r2",
+        "portrait/strip.png",
+        "wide/strip.png",
+        "portrait/poster.png",
+        "portrait/mobile-poster.png",
+        "wide/final.png",
+        "native375x812diagram and save"
       ],
-      "cli_source_modified": false,
-      "state_source_modified_after_resume": false,
-      "input_or_expected_ids_modified": false,
-      "model_history_distributed": false,
-      "human_approval": false
-    },
-    "video": {
-      "video_sha256": "ee7e09dd34d5d210da43f2627d1929ad9bb41ef5bb876924c3bf1c4349970dfc",
-      "poster_sha256": "f1acf54b11974f955b85072c3523a1a34e31979aadad92c489adfba5bec58b8c",
-      "poster_from_mp4_seconds": 13.5,
-      "full_decode_passed": true,
-      "review_files": [
-        "contact.png",
-        "poster.png",
-        "strip.png",
-        "stills/frame-000000.png",
-        "stills/frame-000001.png",
-        "stills/frame-000002.png",
-        "stills/frame-000003.png",
-        "stills/frame-000004.png",
-        "stills/frame-000005.png",
-        "stills/frame-000006.png",
-        "stills/frame-000007.png",
-        "stills/frame-000008.png",
-        "stills/frame-000009.png",
-        "stills/frame-000010.png",
-        "stills/frame-000011.png",
-        "stills/frame-000012.png",
-        "stills/frame-000013.png",
-        "cut-01.png",
-        "cut-02.png",
-        "cut-03.png",
-        "cut-04.png",
-        "cut-05.png",
-        "final.png"
+      "findings": [
+        "Five paper components keep their roles and identities through one active task, actual-production verification gate, persistent folder and new resume session. Native portrait and separate wide layouts remain connected.",
+        "The same task card stays in-progress through actual production-editor verification and becomes done only after the new session reads stored evidence. The second feature stays not-started.",
+        "Q03real two-token AND resultN02 and Q06correct zero remain distinct from narration/labels. Eight valid queries and11correct rejections are actual historical outputs, not invented logs or failures.",
+        "Three state papers travel into the folder/next session and return with update badges. Text supports the moving objects; no JSON or checklist hero.",
+        "Poster31 and final31.9667 hold the saved Q03record, original note excerpt, finished first task and untouched next task. Main labels are readable at360-wide portrait scale; paths/some body excerpts are supplemental and smaller.",
+        "Initial still export revealed inherited canvas state affecting seek order. Per-frame save/restore fixed the fault; both full renders now pass alternate-order/fresh-page19.2s equality. Main UI drawing order aligns init.sh with the gate; no original files or results changed."
       ],
-      "render_label": "final",
-      "bundled_renderer_executed": true,
-      "reviewed_at": "2026-10-16T15:39:51.871024+00:00",
-      "agent_visual_review": true,
-      "human_approval": false,
-      "native_playback": {
-        "time": 28,
-        "ended": true,
-        "error": null,
-        "initial_observed_seconds": 0,
-        "native_reload_before_replay": true,
-        "no_manual_seek_during_replay": true
-      },
-      "source_editor": {
-        "client": 375,
-        "paused": true,
-        "play_enabled": true,
-        "position": 14,
-        "scroll": 375,
-        "verified_files": 12,
-        "widths": [
-          {
-            "client": 305,
-            "font": "16px",
-            "scroll": 305,
-            "targets": [
-              {
-                "height": 45.1875,
-                "id": "play",
-                "width": 74
-              },
-              {
-                "height": 44,
-                "id": "time",
-                "width": 273
-              },
-              {
-                "height": 44,
-                "id": "メモを試す（閲覧ページ）",
-                "width": 166.890625
-              },
-              {
-                "height": 54.375,
-                "id": "実行記録 outputs/exercise-run.json",
-                "width": 253
-              },
-              {
-                "height": 54.375,
-                "id": "検証の記録 project/outputs/verification.json",
-                "width": 253
-              },
-              {
-                "height": 54.375,
-                "id": "引き継ぎ project/session-handoff.md",
-                "width": 253
-              },
-              {
-                "height": 54.375,
-                "id": "実画面2枚の記録 assets/screen-manifest.json",
-                "width": 253
-              },
-              {
-                "height": 54.375,
-                "id": "Learn Harness Engineering のライセンス（MIT）",
-                "width": 253
-              }
-            ],
-            "width": 320
+      "frame_evidence": {
+        "portrait": {
+          "representative_frames": 16,
+          "continuous_frames": 12,
+          "determinism": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "5f77a39d9754b6580de18721738ad8312a546e5a4db093ca3d7df025f349c7ef",
+            "afterOtherTimes": "5f77a39d9754b6580de18721738ad8312a546e5a4db093ca3d7df025f349c7ef",
+            "freshPage": "5f77a39d9754b6580de18721738ad8312a546e5a4db093ca3d7df025f349c7ef",
+            "match": true
           },
-          {
-            "client": 375,
-            "font": "16px",
-            "scroll": 375,
-            "targets": [
-              {
-                "height": 45.1875,
-                "id": "play",
-                "width": 74
-              },
-              {
-                "height": 44,
-                "id": "time",
-                "width": 257
-              },
-              {
-                "height": 44,
-                "id": "メモを試す（閲覧ページ）",
-                "width": 166.890625
-              },
-              {
-                "height": 44,
-                "id": "実行記録 outputs/exercise-run.json",
-                "width": 254.234375
-              },
-              {
-                "height": 44,
-                "id": "検証の記録 project/outputs/verification.json",
-                "width": 317.015625
-              },
-              {
-                "height": 44,
-                "id": "引き継ぎ project/session-handoff.md",
-                "width": 263.140625
-              },
-              {
-                "height": 44,
-                "id": "実画面2枚の記録 assets/screen-manifest.json",
-                "width": 322.28125
-              },
-              {
-                "height": 54.375,
-                "id": "Learn Harness Engineering のライセンス（MIT）",
-                "width": 323
-              }
-            ],
-            "width": 390
+          "video": {
+            "file": "video.mp4",
+            "sha256": "a19f213098e4b86208e6e8e425e8f85f8abad51e3003b064a4028208da61ec10",
+            "width": 720,
+            "height": 1280,
+            "fps": 30,
+            "frameCount": 960,
+            "duration": 32,
+            "hasAudio": false
           }
-        ],
-        "play_then_pause_verified": true
+        },
+        "wide": {
+          "representative_frames": 16,
+          "continuous_frames": 12,
+          "determinism": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "89f9a3986f74b6550530d7f34d9052f41c853910196f55a8a3eaac0941fcfa31",
+            "afterOtherTimes": "89f9a3986f74b6550530d7f34d9052f41c853910196f55a8a3eaac0941fcfa31",
+            "freshPage": "89f9a3986f74b6550530d7f34d9052f41c853910196f55a8a3eaac0941fcfa31",
+            "match": true
+          },
+          "video": {
+            "file": "video.mp4",
+            "sha256": "3a09760967a8379cf3e723a3de19c2ed8450f918e2c8ad8c1f7e2e99361410f2",
+            "width": 1280,
+            "height": 720,
+            "fps": 30,
+            "frameCount": 960,
+            "duration": 32,
+            "hasAudio": false
+          }
+        }
       },
-      "visual_review": {
-        "contact_sheet": "video/review/contact.png",
-        "all14representative_stills": true,
-        "poster_time": 13.5,
-        "decoded_cut_strips": [
-          3.85,
-          7.85,
-          11.85,
-          17.85,
-          21.85
-        ],
-        "final_frame": 27.966666666666665,
-        "phone_width_preview": 360,
-        "core_message": "実検証の後に完了として、新しいセッションへファイルで引き継ぐ。",
-        "findings": "Large primary headings/counts are readable at360px. Source/userfields reflect actual8CLI queries and11 intentional negativecontrols. Paper-dip transitions separate scenes without overlapping headings. Original end-card longnot-started label touched Japanese title; reducedbadge and finalcaption, re-rendered and confirmed clear at27.966s. Supplemental source paths/footers are small and remain available in linked sources. No human aesthetic approval."
-      },
-      "unresolved_blockers": []
+      "full_ffmpeg_decode": "Both exact MP4s decoded to null with exit0; both native full playbacks ended at32seconds.",
+      "limits": [
+        "Agent review/automatic checks do not establish human approval or effectiveness/causality.",
+        "Physical iOS/Safari/VoiceOver and performance metrics unverified.",
+        "Silent; no narration or audio stream."
+      ]
     },
+    "production_adjustments": [
+      {
+        "file": "video/video.js",
+        "change": "Isolate each absolute-time canvas draw with save/restore. Initial native still check found19.2s PNG depended on previously visited frames; inherited stroke/text state now restores per frame. Geometry/timing/assets/real outputs unchanged."
+      },
+      {
+        "file": "app.js",
+        "change": "Align drawing-only file order with semantic connectors and film: init.sh at the verification gate, progress at saved state, handoff at next session. Fixed manifest/scaffold order, geometry, states and real outputs remain unchanged."
+      }
+    ],
     "human_approval": false,
-    "production_contributions": {
-      "Opus5.5": "Exact-model implementation authored original Node note-search CLI, verification script, project harness adaptation, Japanese interactive viewer and explanation. A fresh exact-model resume session read retained verification evidence and updated only three state files. A third exact-model run authored the editable28second silent film from actual outputs and actual UI screenshots.",
-      "production_editor": "Created original fictional8notes and8frozen queries; ran the pinned unmodified Harness Creator CLI and validator, actual generated init.sh, CLI build/search, independent source/output checks and native mobile UI. Rendered/inspected actualfilm and performed scoped publication.",
-      "limits": "One original small CLI exercise. Not a controlled courseProject01/02 comparison, Electron course completion, autonomous question-answering agent, or effectiveness benchmark. Negative controls are deliberately invalid test inputs. No physicaliOS or human approval. Staticviewer runs JavaScript search and displays retained NodeCLI records, without running Node or AI.",
-      "post_render_additions": "Final verification/article/sourceZIP and native movie section; frozen originalinputs, actualoutputs, state snapshots, screens and filmcode preserved. Publication URL-fragment routing and documentation/cost clarification were updated after rendering; the12film inputs and video composition code remain unchanged."
-    }
+    "physical_ios_safari_voiceover": false,
+    "silent": true
   },
   "explanation": {
+    "scope": "New concept-diagram UI and film only. Original real execution/results/scaffold/session states retained.",
+    "parent_adjustments": [
+      {
+        "file": "video/video.js",
+        "change": "Isolate each absolute-time canvas draw with save/restore. Initial native still check found19.2s PNG depended on previously visited frames; inherited stroke/text state now restores per frame. Geometry/timing/assets/real outputs unchanged."
+      },
+      {
+        "file": "app.js",
+        "change": "Align drawing-only file order with semantic connectors and film: init.sh at the verification gate, progress at saved state, handoff at next session. Fixed manifest/scaffold order, geometry, states and real outputs remain unchanged."
+      }
+    ]
+  },
+  "video_review": {
+    "status": "passed",
+    "verified_at": "2026-10-17T17:20:16.668534+00:00",
+    "reviewer": "Production agent visual inspection, not human approval",
+    "unresolved_blockers": [],
+    "viewed": [
+      "portrait/contact.png and wide/contact.png from still-review-r2",
+      "portrait/strip.png",
+      "wide/strip.png",
+      "portrait/poster.png",
+      "portrait/mobile-poster.png",
+      "wide/final.png",
+      "native375x812diagram and save"
+    ],
+    "findings": [
+      "Five paper components keep their roles and identities through one active task, actual-production verification gate, persistent folder and new resume session. Native portrait and separate wide layouts remain connected.",
+      "The same task card stays in-progress through actual production-editor verification and becomes done only after the new session reads stored evidence. The second feature stays not-started.",
+      "Q03real two-token AND resultN02 and Q06correct zero remain distinct from narration/labels. Eight valid queries and11correct rejections are actual historical outputs, not invented logs or failures.",
+      "Three state papers travel into the folder/next session and return with update badges. Text supports the moving objects; no JSON or checklist hero.",
+      "Poster31 and final31.9667 hold the saved Q03record, original note excerpt, finished first task and untouched next task. Main labels are readable at360-wide portrait scale; paths/some body excerpts are supplemental and smaller.",
+      "Initial still export revealed inherited canvas state affecting seek order. Per-frame save/restore fixed the fault; both full renders now pass alternate-order/fresh-page19.2s equality. Main UI drawing order aligns init.sh with the gate; no original files or results changed."
+    ],
+    "frame_evidence": {
+      "portrait": {
+        "representative_frames": 16,
+        "continuous_frames": 12,
+        "determinism": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "5f77a39d9754b6580de18721738ad8312a546e5a4db093ca3d7df025f349c7ef",
+          "afterOtherTimes": "5f77a39d9754b6580de18721738ad8312a546e5a4db093ca3d7df025f349c7ef",
+          "freshPage": "5f77a39d9754b6580de18721738ad8312a546e5a4db093ca3d7df025f349c7ef",
+          "match": true
+        },
+        "video": {
+          "file": "video.mp4",
+          "sha256": "a19f213098e4b86208e6e8e425e8f85f8abad51e3003b064a4028208da61ec10",
+          "width": 720,
+          "height": 1280,
+          "fps": 30,
+          "frameCount": 960,
+          "duration": 32,
+          "hasAudio": false
+        }
+      },
+      "wide": {
+        "representative_frames": 16,
+        "continuous_frames": 12,
+        "determinism": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "89f9a3986f74b6550530d7f34d9052f41c853910196f55a8a3eaac0941fcfa31",
+          "afterOtherTimes": "89f9a3986f74b6550530d7f34d9052f41c853910196f55a8a3eaac0941fcfa31",
+          "freshPage": "89f9a3986f74b6550530d7f34d9052f41c853910196f55a8a3eaac0941fcfa31",
+          "match": true
+        },
+        "video": {
+          "file": "video.mp4",
+          "sha256": "3a09760967a8379cf3e723a3de19c2ed8450f918e2c8ad8c1f7e2e99361410f2",
+          "width": 1280,
+          "height": 720,
+          "fps": 30,
+          "frameCount": 960,
+          "duration": 32,
+          "hasAudio": false
+        }
+      }
+    },
+    "full_ffmpeg_decode": "Both exact MP4s decoded to null with exit0; both native full playbacks ended at32seconds.",
+    "limits": [
+      "Agent review/automatic checks do not establish human approval or effectiveness/causality.",
+      "Physical iOS/Safari/VoiceOver and performance metrics unverified.",
+      "Silent; no narration or audio stream."
+    ]
+  },
+  "publication": {
+    "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=learn-harness-engineering-example",
+    "authorization": "User requested sequential publication of40cases toexistingmain andPages.",
+    "editorial_refinement": "Article sample-fragment routing and CLI-only usage qualification; no media or realCLI output change."
+  },
+  "artifacts_sha256": {
+    "examples/learn-harness-engineering-example/app.js": "6101272aa7b9aa5395237b085b15565f6428f4fe4f590d48b657ebd6d6b1eddf",
+    "examples/learn-harness-engineering-example/brief.json": "49e4ef16f331db45bd57e92dcf8803fc392fbf64b916dd7bbe1140cc436520c7",
+    "examples/learn-harness-engineering-example/comparison.css": "fb77a1c7bb0349f4938f48b1dd19a1e911eb1293cb73fb2a32eb53393c4e62f3",
+    "examples/learn-harness-engineering-example/comparison.html": "a5d85fc259dc81a821cd301083b7086deb7ebe5a6b724632d02829c8e6da1c6c",
+    "examples/learn-harness-engineering-example/comparison.js": "26ad9bd34b00805ffcdfcd7173fca2b08a0134e7ae20e8127c7efcb2de7405b8",
+    "examples/learn-harness-engineering-example/data-manifest.json": "d26b983e3e0895ba9d0aa4e9c106f5c2d1145675aafc876cc96ec7841a8152da",
+    "examples/learn-harness-engineering-example/index.html": "7048d79ff0bbcce493d68717bce36deef9add33a96a433efa98c150f6b969ee3",
+    "examples/learn-harness-engineering-example/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
+    "examples/learn-harness-engineering-example/README.md": "e96021c3217e321e713d1c4935d0335c1309c667356a184f7cb9ff02102b5d27",
+    "examples/learn-harness-engineering-example/render.py": "93b716f998ea781a2562096bd9abef264839d37d327ddf6c3d2e8ae4259e5083",
+    "examples/learn-harness-engineering-example/request.txt": "972d44cebab0727dd6766fd64881086278c7601f3fa21c516b785daabe143017",
+    "examples/learn-harness-engineering-example/samples.json": "f9f021ad9c1468d41ea9b61fc773cad53ed14301a4f5169be59c4f9b0a922751",
+    "examples/learn-harness-engineering-example/source.zip": "ad6ffb1fc2de4fe0c50c4fa888aeed6f9223e178e870ff02a9896819a6877ea9",
+    "examples/learn-harness-engineering-example/style.css": "97046aa3ac9d47d5e6b2db322e32daefd4911dc4ca177368d5bc6667b1f8c59a",
+    "examples/learn-harness-engineering-example/verification.json": "b413684747c07f959dcceea1f78c2ac5a3aa23320965358598c1fd430206dd38",
+    "examples/learn-harness-engineering-example/visual-guide.md": "4907d06e4d24ec53c31e0495c9e99d0e50625ee96959c5052089a8099f8f21e3",
+    "examples/learn-harness-engineering-example/outputs/exercise-run.json": "c5a4e424fac780b59472aaba58d6fee58da87ad00eb505feecf1ab2c3d93538d",
+    "examples/learn-harness-engineering-example/outputs/harness-assessment-execution.json": "e8a9c488e9c0363ede4aac33be2cc59bf6ee64146dce7b31077e1078e83cd9b7",
+    "examples/learn-harness-engineering-example/outputs/harness-assessment.json": "bdd498765a6ef43bc7f9753a5d1d1928ed90a3da77dcd0a45ef0264e2966fefa",
+    "examples/learn-harness-engineering-example/outputs/harness-created.json": "6d713a0c4d41ddeb6f07406485474e42e430373b06d661538d12a9d5fb631f80",
+    "examples/learn-harness-engineering-example/outputs/init.stdout.txt": "433e4a6f7f25465edbbb01a2e4d66ec257a5d1284a443a6d1c7129025762e6ba",
+    "examples/learn-harness-engineering-example/outputs/method.md": "9b1bef461abe129bca904b922a1902b2fcf8f7f115736cd1a38e85190a37534b",
+    "examples/learn-harness-engineering-example/outputs/selected-query.json": "a0db3ce3097d1a3492dafa3c4bc9724d376382a9a123ab9fb2c868fd97a123c9",
+    "examples/learn-harness-engineering-example/project/AGENTS.md": "9ce20b43e0b2de59709f2001f818218b16ae4bef8178523245d37969680f1130",
+    "examples/learn-harness-engineering-example/project/feature_list.json": "ea5c36857505ae491bdbdc8402c748f9f16a1d962ba3968fc7d56f48a046d5c9",
+    "examples/learn-harness-engineering-example/project/init.sh": "6bf0588e5d01e9984d9dfce7342e0cb64d88edb09e61e8bc4e5944ce9e0660ce",
+    "examples/learn-harness-engineering-example/project/package.json": "01c0f64089cb73d484a0e683bdd3f929a219a424988bb1121dd01460c131e1f2",
+    "examples/learn-harness-engineering-example/project/progress.md": "fedd24363e67ad49bb32a4b37cb18d94a21a8802246efe143e124f4ac02c2cd0",
+    "examples/learn-harness-engineering-example/project/session-handoff.md": "f4cae24f18e1446f903c2dae55c6365aa136d5746db416677ddbf685678e1a4d",
+    "examples/learn-harness-engineering-example/video/index.html": "5e926e39794c5473ae37ce576f27ae19a4efe92352b121b805a2e038829d2815",
+    "examples/learn-harness-engineering-example/video/README.md": "c0408cf18d159a5e28537505cc9ab0e4dfb54af7bc288892d9738c79d9e56c32",
+    "examples/learn-harness-engineering-example/video/storyboard.json": "a00d9aaee1b3fdcd92115a21648c0cc508f706531d066e1376719055f699cda2",
+    "examples/learn-harness-engineering-example/video/video.css": "423a213206d586317bfff5587c5cb9c27606c5725757550457274e207c8e2fb0",
+    "examples/learn-harness-engineering-example/video/video.js": "081a10288b72709d7ac2d5bb942ded37dbe2b76c66c1687516f5199f3d2b8f9a",
+    "examples/learn-harness-engineering-example/video/assets/diagram-data.json": "cfbbd300c1dbc025445464297fda79c7cf26442e3d5f6e9b0ee6252f53e4a3af",
+    "examples/learn-harness-engineering-example/video/assets/exercise-run.json": "c5a4e424fac780b59472aaba58d6fee58da87ad00eb505feecf1ab2c3d93538d",
+    "examples/learn-harness-engineering-example/video/assets/handoff-data.json": "fdd181a97d1217ddf4d8705e86a858cc3e939202776853ec156177f3e5a74868",
+    "examples/learn-harness-engineering-example/video/assets/harness-created.json": "6d713a0c4d41ddeb6f07406485474e42e430373b06d661538d12a9d5fb631f80",
+    "examples/learn-harness-engineering-example/video/assets/manifest.json": "9e049f50bdaf51486d705800e9d19bef93d143037362586dc76437c4a84f5050",
+    "examples/learn-harness-engineering-example/video/assets/note-index.json": "af531bef8f172757e0ec43d3781a6c477332b58f576951fcf01764a71b522120",
+    "examples/learn-harness-engineering-example/video/assets/original-verification.json": "100d702589c44d853f47e968f63df5bb066a0bddd3587db0e69e2e90d24ae13c",
+    "examples/learn-harness-engineering-example/video/assets/queries.json": "6c4f6c81e08c225844b1cb8233f77aaecd87a8fc836ffbf3159a07b6d9d4c74b",
+    "examples/learn-harness-engineering-example/video/assets/timeline.json": "a53542cf2848e04824c24170de8cdcd35cb7d5c9b1846e3d0c1bad7aed9ce294",
+    "examples/learn-harness-engineering-example/video/assets/upstream.json": "24e413fcc48927ebefd40017ef66068824d80e860bb99928073b3957831fe515",
+    "examples/learn-harness-engineering-example/video/assets/verification-run.json": "d4fedecb7cf30e1b4fec41901c3a283d1863222de40ac09b10888babcdf36833",
+    "examples/learn-harness-engineering-example/video/review/portrait/contact.png": "cbc23821db59cf09ec0172f81a3068bf744e0110889c6ee2ce2aa1e94812c722",
+    "examples/learn-harness-engineering-example/video/review/portrait/final.png": "ef237c0dae9fcf5b76f00a8a00b37b7c4cc3188e7ed630158cec151678fdb510",
+    "examples/learn-harness-engineering-example/video/review/portrait/mobile-poster.png": "ca5a3418a910c0a44c18b3601e31d374f623ce791834c2bf38d5e8376fc44b69",
+    "examples/learn-harness-engineering-example/video/review/portrait/poster.png": "941eba4cbe9349080913804d1ef6ba3d4b68ec2648bcb43a4af6d20bab040e42",
+    "examples/learn-harness-engineering-example/video/review/portrait/strip.png": "ff0362f4739c0136ef43cdd9c285502f9d0b8bf80bca45267ea61361ed47b0da",
+    "examples/learn-harness-engineering-example/video/review/wide/contact.png": "16ab32236bab3828168c909016dd195f03027a672f2562fac2f5d8ef4d52c7b9",
+    "examples/learn-harness-engineering-example/video/review/wide/final.png": "50d2d52df6b03876bbcdd5a80d46676d4332b2d4dc8ab74de9232a19c376d565",
+    "examples/learn-harness-engineering-example/video/review/wide/mobile-poster.png": "faecf92a5b79bec6394b4c328a752b70ce292f371bd863d54e533ea545a112bb",
+    "examples/learn-harness-engineering-example/video/review/wide/poster.png": "b23737fe744cc7679d04bd5ca796fb417543b880705cae12bf207b6c6c497259",
+    "examples/learn-harness-engineering-example/video/review/wide/strip.png": "e15cc829f54ff85d61041720eb089ab9c98f69603ee4e85c35eaf92b41e6efbb",
+    "examples/learn-harness-engineering-example/video/review/wide/stills/frame-000000.png": "db1144eecc25e3d2f17f7fc7021b738158c57d3f232c6befd0744bab92cb7c6d",
+    "examples/learn-harness-engineering-example/video/review/wide/stills/frame-000001.png": "0fe96ded048f0d44849e076fe60577ad45ee042206b8e1df9fcac3ebe29395e9",
+    "examples/learn-harness-engineering-example/video/review/wide/stills/frame-000002.png": "56313659e8a94a0ab1c9797afbe3c0624cfc637b83c12d7db3174a6d948eb9fe",
+    "examples/learn-harness-engineering-example/video/review/wide/stills/frame-000003.png": "38b686401d0dc8b5da7b103a02a03aa327d4a6e49c057b8e93710fa1562a0501",
+    "examples/learn-harness-engineering-example/video/review/wide/stills/frame-000004.png": "ada6d1b9dd7295791c4e4719a7df73eba7e852419792822023bde9cfbb467bf3",
+    "examples/learn-harness-engineering-example/video/review/wide/stills/frame-000005.png": "b0b7ebfac904f3657d15ae98ab3b3857ad97d66b3aa90f6865f384055cbaf402",
+    "examples/learn-harness-engineering-example/video/review/wide/stills/frame-000006.png": "11f7d35c6754b95b5708d61c9aee22a928575c905ca88eb1a7bbb59eebe8190e",
+    "examples/learn-harness-engineering-example/video/review/wide/stills/frame-000007.png": "8e1f197b4621564c48dc8383c45b44a3860a5b9cd48bdf316f2ebda5b9366429",
+    "examples/learn-harness-engineering-example/video/review/wide/stills/frame-000008.png": "6fccecaefc20d0abd77f9822ad2df046e07e63336e8681b244f66bff4afe74df",
+    "examples/learn-harness-engineering-example/video/review/wide/stills/frame-000009.png": "8e2fae3e56ead850019877929bdef30d064bbf97bc127c3830240827041070c5",
+    "examples/learn-harness-engineering-example/video/review/wide/stills/frame-000010.png": "d4d4288bb99efc0391766197d06ab1cb8a1036798564dbf6a1578838fd5d3e86",
+    "examples/learn-harness-engineering-example/video/review/wide/stills/frame-000011.png": "22e79b5a3950d011a1a6ca9c1fb5f698ed7e452347f4e23b258c959455469e64",
+    "examples/learn-harness-engineering-example/video/review/wide/stills/frame-000012.png": "22fb4c24f5b44455ff0b232a6139a1b27a83cd2e0de55cccbf2bffa682924923",
+    "examples/learn-harness-engineering-example/video/review/wide/stills/frame-000013.png": "dccf918dd3f079dbee6c096e5ede9b7d7d4ebcac71594ae3540a8e3e905d0204",
+    "examples/learn-harness-engineering-example/video/review/wide/stills/frame-000014.png": "7a418dbf65441b2f5dec176fede7ee768467d0a838712cabfa2a5317786db8a7",
+    "examples/learn-harness-engineering-example/video/review/wide/stills/frame-000015.png": "b23737fe744cc7679d04bd5ca796fb417543b880705cae12bf207b6c6c497259",
+    "examples/learn-harness-engineering-example/video/review/wide/strip/frame-000000.png": "97125b2a5db97d4b87127ae8dea761ad564d39ef19933d17edce7189478bdb55",
+    "examples/learn-harness-engineering-example/video/review/wide/strip/frame-000001.png": "f6dde9e63f0147d5a2fd034c5320e02b32a8e885ce0de4d2d37dd13302d8114c",
+    "examples/learn-harness-engineering-example/video/review/wide/strip/frame-000002.png": "d56097bb29c78827c644c05a90e2f1858ef3edc2d1920be7558b7519bd85d116",
+    "examples/learn-harness-engineering-example/video/review/wide/strip/frame-000003.png": "fa1394b9486966b54983943a4a289306effa35ee0892cdc3ddb62860c5efd0b5",
+    "examples/learn-harness-engineering-example/video/review/wide/strip/frame-000004.png": "39ad91434b801841ad752a2fa8c7bb0c61d8789c7bc474561cec428f2038c542",
+    "examples/learn-harness-engineering-example/video/review/wide/strip/frame-000005.png": "0654da1d5fc4ed9b57dfdb35a2000c1ada5ee06e915b39d22f7f69d43e82a90f",
+    "examples/learn-harness-engineering-example/video/review/wide/strip/frame-000006.png": "3801fd034b646f6fa5cede685c5a67601760b7f6a496d9660c7d964cccc4a4de",
+    "examples/learn-harness-engineering-example/video/review/wide/strip/frame-000007.png": "5bd37e7344f226878e5b7acf083d1bedbe7512f690a757c4b42d540b3e1c5462",
+    "examples/learn-harness-engineering-example/video/review/wide/strip/frame-000008.png": "43fa700260d1b0a7fad72b2eaa91e6344680f0e70b8c08568aac44343ccae479",
+    "examples/learn-harness-engineering-example/video/review/wide/strip/frame-000009.png": "43e764fe187db95163c0ec1b997f49b57ee8b6d089cdf86ee8a107e19f5f94dc",
+    "examples/learn-harness-engineering-example/video/review/wide/strip/frame-000010.png": "7755c4c425a04dc010fbe8b403ae6b655209c81aa33b4c7cb23eabc274b72f38",
+    "examples/learn-harness-engineering-example/video/review/wide/strip/frame-000011.png": "3901e6729bb9e0e28f900080f41d49e914c39516c1b9282dc51aac3a06c9d780",
+    "examples/learn-harness-engineering-example/video/review/portrait/stills/frame-000000.png": "9183eaf0a15568cf9b91bf6654efd2b3bc21f7a9555ba7e2912a0becb1997872",
+    "examples/learn-harness-engineering-example/video/review/portrait/stills/frame-000001.png": "a2f6d99d909f54c6582d527758459c7df6c0272029533340714c3e91cbf07bdb",
+    "examples/learn-harness-engineering-example/video/review/portrait/stills/frame-000002.png": "91191f77601e330014de1565467d669924d5bcbae83ba6dbd197ab8a4d342ae0",
+    "examples/learn-harness-engineering-example/video/review/portrait/stills/frame-000003.png": "a7ea7f09ca6be8fa55c3e3935784cc35aea7b06ba5188d352c55b1a75e3383fe",
+    "examples/learn-harness-engineering-example/video/review/portrait/stills/frame-000004.png": "017e1c6773a1e238e86a996e3ab9ba6b5aaf30f550babe621538b7d6ff892f89",
+    "examples/learn-harness-engineering-example/video/review/portrait/stills/frame-000005.png": "89e352714692a471dadc1ee7e705c65e57244e1e243b589f4d3a88ec41c0c4a6",
+    "examples/learn-harness-engineering-example/video/review/portrait/stills/frame-000006.png": "faec6086ef8c6914fcb03fe928767a68caa6ffbaf72075a2220863e93754478c",
+    "examples/learn-harness-engineering-example/video/review/portrait/stills/frame-000007.png": "29fb50b121f8e88477a16e03987c3150a9ce954fa37093c5d523437d3c34df8a",
+    "examples/learn-harness-engineering-example/video/review/portrait/stills/frame-000008.png": "87c5f32fc15535acb621dd0841525b6c424b7bb48d45d6cb8343b4307f186698",
+    "examples/learn-harness-engineering-example/video/review/portrait/stills/frame-000009.png": "54931f3841eead674a614fc15adf3f7516c40fc9d6ad715059f1b43f802bea59",
+    "examples/learn-harness-engineering-example/video/review/portrait/stills/frame-000010.png": "b058e743baa2d84d8c2b149b22961055219fadcc1ab0903d26c81aad14a7be01",
+    "examples/learn-harness-engineering-example/video/review/portrait/stills/frame-000011.png": "90302da6a7ec56cc82ed1696eb68343b52c4dbe346e65865cf513237a0f56d56",
+    "examples/learn-harness-engineering-example/video/review/portrait/stills/frame-000012.png": "3878fac6eb36c843ab5141dbcb932efb5cad7f8102a63af9aa5c7ca8032fcc7a",
+    "examples/learn-harness-engineering-example/video/review/portrait/stills/frame-000013.png": "e57251b3b8a938bad1d830f34dd08839cb97838ce0fc6ee1ac403044af8ece8f",
+    "examples/learn-harness-engineering-example/video/review/portrait/stills/frame-000014.png": "134fc19793de154846dedb0a7a1ffb9e6dcd65366352f75d295a370a92771fed",
+    "examples/learn-harness-engineering-example/video/review/portrait/stills/frame-000015.png": "941eba4cbe9349080913804d1ef6ba3d4b68ec2648bcb43a4af6d20bab040e42",
+    "examples/learn-harness-engineering-example/video/review/portrait/strip/frame-000000.png": "2e66f03bad55250e1855eb45cd9af4cdb1b7076a10ac93befde8a5cf19fc266f",
+    "examples/learn-harness-engineering-example/video/review/portrait/strip/frame-000001.png": "2888b4e388e0f689a58cbde2659f57fcd877aa469e241b10ab1d6f980e90caf5",
+    "examples/learn-harness-engineering-example/video/review/portrait/strip/frame-000002.png": "fdba7e8b28aeb05e64db1c9e7fea8f86525d636a5add285a64c9fc0bf6a82fbd",
+    "examples/learn-harness-engineering-example/video/review/portrait/strip/frame-000003.png": "ca65c1e1b2ae305d51a864dcf9954b5416570e321fee991695e3952e6464d9fc",
+    "examples/learn-harness-engineering-example/video/review/portrait/strip/frame-000004.png": "4dfb79b6353acfdf75ae50111003120e714a22e09d4122ca497af9ed73b8608f",
+    "examples/learn-harness-engineering-example/video/review/portrait/strip/frame-000005.png": "debcd9bab5fdcca46f75effcbfba46ba1cd22bf6243b3517404c1b5ddb1729e4",
+    "examples/learn-harness-engineering-example/video/review/portrait/strip/frame-000006.png": "cf97d211595f0d22fe77d2b452e2d14cb1f8296d0a1150e13dbe7f1e876b191f",
+    "examples/learn-harness-engineering-example/video/review/portrait/strip/frame-000007.png": "5172ade4b5e93daa0da8b96397d22a2569b5b7ee3bbd47073b8c90475ee6d0cd",
+    "examples/learn-harness-engineering-example/video/review/portrait/strip/frame-000008.png": "95710803d6fe39707cf5af6148ca5ff4073d7e8f2bb7c462efaf7ac0ecf089e3",
+    "examples/learn-harness-engineering-example/video/review/portrait/strip/frame-000009.png": "830e2bbaffd3165746c9daa0aa2c8416eb4dff2b97f1044a0c8f7f84baf0939f",
+    "examples/learn-harness-engineering-example/video/review/portrait/strip/frame-000010.png": "c089b5281315653b4ac8e27ccd44a386cf4864bb118d24689aa54cd6fa8892dd",
+    "examples/learn-harness-engineering-example/video/review/portrait/strip/frame-000011.png": "0f0575745cbdbc4be3ed3dcfece5c66f97b314c34ee7340d132bb7e81f61534a",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/CLAUDE.md": "b5a3ee4fdd55e372c5734dc3bb992ddf1abc4656324955f3f2aa34afc3c62a50",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/LICENSE": "86036cb714ed31ba2f5ba18e8fa2715eefb79da193a0789c90b4588d0609967e",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/README.md": "40f3c713ee115d660f93e9df85053daabc3d0be550d352f57223ce4267cdbff8",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/README.md": "f388d7869cf5e383c811726ee694a686b115dfe2b940df4edb048a9be8e3f498",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/SKILL.md": "6b152a8c5191fb3092f8371046e43846b8f42c60509c7c6eec282658beee81df",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/references/gotchas.md": "6c90a161cd2f928df5109ad12bf5d849d838256de61e76fc1c8868d0d5d154e6",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/scripts/create-harness.mjs": "df82ef49c6ff1395bf3365d80f3df1e6a620eba6563b7599f85ca2fa2b27324b",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/scripts/render-assessment-html.mjs": "f656d7010a45e3a160e984c59666d57bc0816c47e438bd077faaa17b63b56095",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/scripts/run-benchmark.mjs": "b7d71aa1b8bf3c3df1c4f9bb040202e07a6140f3c174d790f1678de5c939f379",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/scripts/validate-harness.mjs": "ac060dfd2fe7f49e7fb010ea013ab0b2b16f3da075244a90e5c1f8ce2bbe484d",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/templates/agents.md": "6cf46f72a3d1fcc950e423703392d3cd73e8e2f809137b9e5fb638f6b5a77cb5",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/templates/feature-list.json": "53864068deec1260751391fd107654442f6c937ee712ecde6669415e546d6c5e",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/templates/feature-list.schema.json": "535150b9e613cd289ab9016f44a1e7cf0e14cbeabf1f85fb2533e8503710098e",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/templates/init.sh": "39d914bd66183bcfe8baba53d2ea241068a59965ceebd8c2c4fd82b97517e5fd",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/templates/progress.md": "dc8ed5780eb7daa861597a59e0d0ae096e7e23e7dcd7ae4bde7eeed691ee4433",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/templates/session-handoff.md": "a71e92389c56f9a84e7afd2ee0578377f08e40afcb7a8efe15105553d234fc49",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/scripts/lib/harness-utils.mjs": "5aeb3516ae055a23d8129b61a3997f3be91db1efc746f6d81c89cf4d837af3fa",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/projects/project-01/README.md": "3c566899eb6d97b120fcba1afd193afe89f5fe4d2daa39745bbbae0128af8f5c",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/projects/project-01/solution/AGENTS.md": "ded18b2597f46932872a9f653e42a45cc278b06237fc73cc69c14d09b542d5f4",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/projects/project-01/solution/feature_list.json": "02fb058c3a913c66ba76872e7b568415e6072c7f685fddf4f6ec382a8a1cb814",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/projects/project-01/solution/init.sh": "c70bf16b10782dfcd5b0aebc7501dc27b0f44652e58ed37ebdb712b356f9a237",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/projects/project-01/starter/package.json": "80dcc29b69720dd421a181c0f5ec937944ed79a068cd1080a00cbec9ee4d5ef2",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/projects/project-01/starter/task-prompt.md": "5d7549e8ad7e93ebdc9e87fd727b68736496212d37b6118b9edd77d10be7aced",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/docs/en/projects/project-01-baseline-vs-minimal-harness/index.md": "1f2395b04d69966f232d4c278ce1a3d5ce159931fb32d10cd119803d42600d4e",
+    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/docs/en/projects/project-02-agent-readable-workspace/index.md": "f070e3e0050a09e5e4e0d78fd065cd1c5826217e94dfde6ab1090e4d9200f1cd",
+    "examples/learn-harness-engineering-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/learn-harness-engineering-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/learn-harness-engineering-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/learn-harness-engineering-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/learn-harness-engineering-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "examples/learn-harness-engineering-example/project/docs/project.md": "abe2f92375b20245f3ef22e5f0e823a154a1de45220950ea743c16e7df19be47",
+    "examples/learn-harness-engineering-example/project/input/queries.json": "6c4f6c81e08c225844b1cb8233f77aaecd87a8fc836ffbf3159a07b6d9d4c74b",
+    "examples/learn-harness-engineering-example/project/outputs/index.json": "af531bef8f172757e0ec43d3781a6c477332b58f576951fcf01764a71b522120",
+    "examples/learn-harness-engineering-example/project/outputs/verification.json": "d4fedecb7cf30e1b4fec41901c3a283d1863222de40ac09b10888babcdf36833",
+    "examples/learn-harness-engineering-example/project/scripts/verify.mjs": "b48d1d9ac459ac2245ec60bd80a1e2bab6202b94bb7570569ba5fdac54b895c7",
+    "examples/learn-harness-engineering-example/project/src/notes.mjs": "e36250eec09fecea4a6c5cf61d360c867434353df1b99b96b3d83c6f224fff93",
+    "examples/learn-harness-engineering-example/project/outputs/queries/Q01.json": "805d820eb052477d52deb9cb0856b8b8d1718757cab5d63deb95127e2ce283fa",
+    "examples/learn-harness-engineering-example/project/outputs/queries/Q02.json": "cd94d3cfd75f98a813d25cb5def28652176a00f87409565ed844c3d59bc24a97",
+    "examples/learn-harness-engineering-example/project/outputs/queries/Q03.json": "f60e49c3487069a9e6edbcf2c6d6fcc88169004a1ff5ac80ba723cd52fe89a1e",
+    "examples/learn-harness-engineering-example/project/outputs/queries/Q04.json": "300afd67e6f9ead170576a56d0f0fd10667b8fa8709176e5a33f4682b7e8023b",
+    "examples/learn-harness-engineering-example/project/outputs/queries/Q05.json": "0634cc50ae72967f78482349008b4b0a984a5906f236d019155ddef52b73c842",
+    "examples/learn-harness-engineering-example/project/outputs/queries/Q06.json": "f9d1a5e052e3a0ae26d044ae90207dd9db837e4ee1465d366f133c952d938222",
+    "examples/learn-harness-engineering-example/project/outputs/queries/Q07.json": "ad9748b370b0506ad8715c1bd7f7267f3787ae3187298c96ae035df96857391a",
+    "examples/learn-harness-engineering-example/project/outputs/queries/Q08.json": "c0f0fa5cb94d1220e3c7480a9aa4a9bd111dd744eeb2363f06f1c058ea292565",
+    "examples/learn-harness-engineering-example/project/input/notes/N01.md": "375d06db8f7c1e6620aeeed79ebb27c7781fa7cfbec8dd14e465d7b7e32bffe1",
+    "examples/learn-harness-engineering-example/project/input/notes/N02.md": "9d2fa594b869d6dfe3966426009b89fffbbead16a558b1e88a7fcf5b3c068333",
+    "examples/learn-harness-engineering-example/project/input/notes/N03.md": "80d936ebb2b83097ab7771791e027d7dd72f2f89478bd4ca5afd7f16b32fcee8",
+    "examples/learn-harness-engineering-example/project/input/notes/N04.md": "aa6790c6ce79bb6177f7dc6dcdbf449283d4fa75534e0da9496fa377ce138014",
+    "examples/learn-harness-engineering-example/project/input/notes/N05.md": "4d9e5bc7564481570c2579c7580cb2f291ab09144d8cb7f73f643daa68405f09",
+    "examples/learn-harness-engineering-example/project/input/notes/N06.md": "0f22cb1ae3e5cb334bc6851dab026fc54bf312d3e2e2301898b7e02e717a2b18",
+    "examples/learn-harness-engineering-example/project/input/notes/N07.md": "9ce81e06d5768d00b0054da2b99bf8d01c0209ed6b1ea37df3f7689840cfd26f",
+    "examples/learn-harness-engineering-example/project/input/notes/N08.md": "07bc24de00fff7b8be0c82ed62532dc3a36c06d508820f9d0b3a9834992cc095",
+    "examples/learn-harness-engineering-example/outputs/scaffold/AGENTS.md": "bae99b114a172cef675c17d2b38f50464db08da79417f7d5def83f54079266e8",
+    "examples/learn-harness-engineering-example/outputs/scaffold/feature_list.json": "53864068deec1260751391fd107654442f6c937ee712ecde6669415e546d6c5e",
+    "examples/learn-harness-engineering-example/outputs/scaffold/init.sh": "6bf0588e5d01e9984d9dfce7342e0cb64d88edb09e61e8bc4e5944ce9e0660ce",
+    "examples/learn-harness-engineering-example/outputs/scaffold/progress.md": "dc8ed5780eb7daa861597a59e0d0ae096e7e23e7dcd7ae4bde7eeed691ee4433",
+    "examples/learn-harness-engineering-example/outputs/scaffold/session-handoff.md": "a71e92389c56f9a84e7afd2ee0578377f08e40afcb7a8efe15105553d234fc49",
+    "examples/learn-harness-engineering-example/outputs/sessions/implementation/feature_list.json": "ed27a936ac5c981b5056bf85a1faea9670be2245387e340ab64bdc29661baeb2",
+    "examples/learn-harness-engineering-example/outputs/sessions/implementation/progress.md": "07c9025e32c8ded07a0c344699f97b36bb7b05a260b3791474e7ee77e05e21a6",
+    "examples/learn-harness-engineering-example/outputs/sessions/implementation/session-handoff.md": "50ddd95a8fa9dd3cc9c030be592b2ded26b4d3fcd25ede26a1e13b1cd10f4a20",
+    "examples/learn-harness-engineering-example/outputs/sessions/resume/feature_list.json": "ea5c36857505ae491bdbdc8402c748f9f16a1d962ba3968fc7d56f48a046d5c9",
+    "examples/learn-harness-engineering-example/outputs/sessions/resume/progress.md": "fedd24363e67ad49bb32a4b37cb18d94a21a8802246efe143e124f4ac02c2cd0",
+    "examples/learn-harness-engineering-example/outputs/sessions/resume/session-handoff.md": "f4cae24f18e1446f903c2dae55c6365aa136d5746db416677ddbf685678e1a4d",
+    "media/learn-harness-engineering-example-wide.mp4": "3a09760967a8379cf3e723a3de19c2ed8450f918e2c8ad8c1f7e2e99361410f2",
+    "media/learn-harness-engineering-example.mp4": "a19f213098e4b86208e6e8e425e8f85f8abad51e3003b064a4028208da61ec10",
+    "media/learn-harness-engineering-example.webp": "c8cba125f16ca3a0ae27cd1f904fa8c039be412a0904dd2b54107144888aa7e8",
+    "data/cases/learn-harness-engineering-example.json": "23b154593c8ca0484642a010ff0722fe9cbde636291d94629b00ac7a4d70fe54"
+  },
+  "original_runtime_verification": {
+    "verification": {
+      "id": "learn-harness-engineering-example",
+      "verified_at": "2026-10-16T15:39:52.357794+00:00",
+      "stage": "runtime-and-agent-visual-reviewed",
+      "source_commit": "38ddcd2bf8d65271f668b94e7c875ca1d629d622",
+      "runtime_environment": {
+        "node": "v24.18.0",
+        "git_bash": "GNU bash, version 5.3.15(1)-release (x86_64-pc-cygwin)",
+        "cli_dependencies": "Node built-ins only; no install or API/key",
+        "upstream_source_matches_fixed": true
+      },
+      "data_checks": {
+        "status": "passed",
+        "sample_count": 8,
+        "query_count": 8,
+        "note_count": 8,
+        "negative_control_count": 11,
+        "input_hashes_unchanged": true,
+        "upstream_hashes_unchanged": true,
+        "resume_only_state_files_changed": true,
+        "first_feature_statuses": [
+          "in-progress",
+          "not-started"
+        ],
+        "resumed_feature_statuses": [
+          "done",
+          "not-started"
+        ],
+        "structural_score": 92,
+        "structural_exit_code": 0,
+        "scope": "Harness Creator skill and its unmodified create-harness.mjs/validate-harness.mjs, applied to an original Node.js note-search exercise. Two fresh Claude Opus5.5 authoring sessions with actual verification between them. Not the course Project01/02 comparison, Electron app, or an effectiveness benchmark.",
+        "exercise_sha256": "c5a4e424fac780b59472aaba58d6fee58da87ad00eb505feecf1ab2c3d93538d",
+        "retained_outputs_unchanged_after_resume": true,
+        "state_snapshots_match_original_model_deliveries": true
+      },
+      "browser": {
+        "status": "passed",
+        "responsive_states": 6,
+        "widths": [
+          320,
+          375,
+          390,
+          430,
+          844,
+          1280
+        ],
+        "target_minimum_px": 44,
+        "form_font_minimum_px": 16,
+        "all_eight_records_match": true,
+        "all_eight_browser_search_matches_cli": true,
+        "custom_normalized_and_zero_reset": true,
+        "native_export_matches_record": true,
+        "native_export_bytes": 803,
+        "http503_parse_validation_retry": true,
+        "clipboard_matches_original_request": true,
+        "keyboard_enter_space": true,
+        "agent_visual_review": true,
+        "physical_ios_tested": false,
+        "voiceover_tested": false,
+        "human_approval": false
+      },
+      "semantic_review": {
+        "agent_semantic_review": true,
+        "human_approval": false,
+        "unresolved_blockers": [],
+        "reviewed": "All8 actual CLI full outputs independently matched8originalfictionalnotes/frozenqueries and nativebrowserrecords/liveJSsearch. Q03N02 only/zero genuine/NFKCAND/tag. Unmodified upstream5file creation and structuralvalidator recordedseparately. Actualparentverification precedes freshexactOpus state-onlyresume feat001done/F02notstarted; not P01/P02comparison/Electron/LLManswer/agent-effectivenessproof. Intentionalnegativecontrols notaccidentalagentfailures. PublicstaticJSsearch notNode/AIruntime."
+      },
+      "parent_adjustments": {
+        "upstream_modified": false,
+        "original_opus_deliveries_kept_privately": true,
+        "changes": [
+          "Shortened the phone introduction and moved input-hash detail into the existing technical section; actualsearch result is visible early.",
+          "Replaced draft documentation with actual CLI execution, fresh state-only resume and retained public evidence. Changed README rebuild example to a new output filename to preserve the bundled original index.",
+          "Normalized only local target absolute path in the public upstream CLI creation stdout to project; original stdout retained privately.",
+          "At24-28s, reduced state badge typography from34px/50px to28px/42px so not-started does not touch the Japanese feature title. Initial film and review preserved privately.",
+          "Changed the final next-feature caption to factual未着手/引き継ぐ without an unnecessary approval prompt.",
+          "Public article sample links #Q01..#Q08 now select the corresponding real savedrecord on initialload and hashchange; unknown initialfragment falls back toQ03. Searchlogic/input/CLIoutputs/film12inputs unchanged.",
+          "Qualified the article cost sentence to refer only to CLI re-execution; Opus5.5 source authoring requires its own supported usage environment."
+        ],
+        "cli_source_modified": false,
+        "state_source_modified_after_resume": false,
+        "input_or_expected_ids_modified": false,
+        "model_history_distributed": false,
+        "human_approval": false
+      },
+      "video": {
+        "video_sha256": "ee7e09dd34d5d210da43f2627d1929ad9bb41ef5bb876924c3bf1c4349970dfc",
+        "poster_sha256": "f1acf54b11974f955b85072c3523a1a34e31979aadad92c489adfba5bec58b8c",
+        "poster_from_mp4_seconds": 13.5,
+        "full_decode_passed": true,
+        "review_files": [
+          "contact.png",
+          "poster.png",
+          "strip.png",
+          "stills/frame-000000.png",
+          "stills/frame-000001.png",
+          "stills/frame-000002.png",
+          "stills/frame-000003.png",
+          "stills/frame-000004.png",
+          "stills/frame-000005.png",
+          "stills/frame-000006.png",
+          "stills/frame-000007.png",
+          "stills/frame-000008.png",
+          "stills/frame-000009.png",
+          "stills/frame-000010.png",
+          "stills/frame-000011.png",
+          "stills/frame-000012.png",
+          "stills/frame-000013.png",
+          "cut-01.png",
+          "cut-02.png",
+          "cut-03.png",
+          "cut-04.png",
+          "cut-05.png",
+          "final.png"
+        ],
+        "render_label": "final",
+        "bundled_renderer_executed": true,
+        "reviewed_at": "2026-10-16T15:39:51.871024+00:00",
+        "agent_visual_review": true,
+        "human_approval": false,
+        "native_playback": {
+          "time": 28,
+          "ended": true,
+          "error": null,
+          "initial_observed_seconds": 0,
+          "native_reload_before_replay": true,
+          "no_manual_seek_during_replay": true
+        },
+        "source_editor": {
+          "client": 375,
+          "paused": true,
+          "play_enabled": true,
+          "position": 14,
+          "scroll": 375,
+          "verified_files": 12,
+          "widths": [
+            {
+              "client": 305,
+              "font": "16px",
+              "scroll": 305,
+              "targets": [
+                {
+                  "height": 45.1875,
+                  "id": "play",
+                  "width": 74
+                },
+                {
+                  "height": 44,
+                  "id": "time",
+                  "width": 273
+                },
+                {
+                  "height": 44,
+                  "id": "メモを試す（閲覧ページ）",
+                  "width": 166.890625
+                },
+                {
+                  "height": 54.375,
+                  "id": "実行記録 outputs/exercise-run.json",
+                  "width": 253
+                },
+                {
+                  "height": 54.375,
+                  "id": "検証の記録 project/outputs/verification.json",
+                  "width": 253
+                },
+                {
+                  "height": 54.375,
+                  "id": "引き継ぎ project/session-handoff.md",
+                  "width": 253
+                },
+                {
+                  "height": 54.375,
+                  "id": "実画面2枚の記録 assets/screen-manifest.json",
+                  "width": 253
+                },
+                {
+                  "height": 54.375,
+                  "id": "Learn Harness Engineering のライセンス（MIT）",
+                  "width": 253
+                }
+              ],
+              "width": 320
+            },
+            {
+              "client": 375,
+              "font": "16px",
+              "scroll": 375,
+              "targets": [
+                {
+                  "height": 45.1875,
+                  "id": "play",
+                  "width": 74
+                },
+                {
+                  "height": 44,
+                  "id": "time",
+                  "width": 257
+                },
+                {
+                  "height": 44,
+                  "id": "メモを試す（閲覧ページ）",
+                  "width": 166.890625
+                },
+                {
+                  "height": 44,
+                  "id": "実行記録 outputs/exercise-run.json",
+                  "width": 254.234375
+                },
+                {
+                  "height": 44,
+                  "id": "検証の記録 project/outputs/verification.json",
+                  "width": 317.015625
+                },
+                {
+                  "height": 44,
+                  "id": "引き継ぎ project/session-handoff.md",
+                  "width": 263.140625
+                },
+                {
+                  "height": 44,
+                  "id": "実画面2枚の記録 assets/screen-manifest.json",
+                  "width": 322.28125
+                },
+                {
+                  "height": 54.375,
+                  "id": "Learn Harness Engineering のライセンス（MIT）",
+                  "width": 323
+                }
+              ],
+              "width": 390
+            }
+          ],
+          "play_then_pause_verified": true
+        },
+        "visual_review": {
+          "contact_sheet": "video/review/contact.png",
+          "all14representative_stills": true,
+          "poster_time": 13.5,
+          "decoded_cut_strips": [
+            3.85,
+            7.85,
+            11.85,
+            17.85,
+            21.85
+          ],
+          "final_frame": 27.966666666666665,
+          "phone_width_preview": 360,
+          "core_message": "実検証の後に完了として、新しいセッションへファイルで引き継ぐ。",
+          "findings": "Large primary headings/counts are readable at360px. Source/userfields reflect actual8CLI queries and11 intentional negativecontrols. Paper-dip transitions separate scenes without overlapping headings. Original end-card longnot-started label touched Japanese title; reducedbadge and finalcaption, re-rendered and confirmed clear at27.966s. Supplemental source paths/footers are small and remain available in linked sources. No human aesthetic approval."
+        },
+        "unresolved_blockers": []
+      },
+      "human_approval": false,
+      "production_contributions": {
+        "Opus5.5": "Exact-model implementation authored original Node note-search CLI, verification script, project harness adaptation, Japanese interactive viewer and explanation. A fresh exact-model resume session read retained verification evidence and updated only three state files. A third exact-model run authored the editable28second silent film from actual outputs and actual UI screenshots.",
+        "production_editor": "Created original fictional8notes and8frozen queries; ran the pinned unmodified Harness Creator CLI and validator, actual generated init.sh, CLI build/search, independent source/output checks and native mobile UI. Rendered/inspected actualfilm and performed scoped publication.",
+        "limits": "One original small CLI exercise. Not a controlled courseProject01/02 comparison, Electron course completion, autonomous question-answering agent, or effectiveness benchmark. Negative controls are deliberately invalid test inputs. No physicaliOS or human approval. Staticviewer runs JavaScript search and displays retained NodeCLI records, without running Node or AI.",
+        "post_render_additions": "Final verification/article/sourceZIP and native movie section; frozen originalinputs, actualoutputs, state snapshots, screens and filmcode preserved. Publication URL-fragment routing and documentation/cost clarification were updated after rendering; the12film inputs and video composition code remain unchanged."
+      }
+    },
+    "scope_note": "Original actual skill/CLI creation, note build/search/verification, independent checks and two authoring/state-resume sessions retained. No repeated execution. New visual QA is separate."
+  },
+  "original_explanation": {
     "video": {
       "file": "video.mp4",
       "sha256": "ee7e09dd34d5d210da43f2627d1929ad9bb41ef5bb876924c3bf1c4349970dfc",
@@ -360,7 +1041,7 @@
     "errors": [],
     "blockedExternalRequests": []
   },
-  "video_review": {
+  "original_video_review": {
     "video_sha256": "ee7e09dd34d5d210da43f2627d1929ad9bb41ef5bb876924c3bf1c4349970dfc",
     "poster_sha256": "f1acf54b11974f955b85072c3523a1a34e31979aadad92c489adfba5bec58b8c",
     "poster_from_mp4_seconds": 13.5,
@@ -528,133 +1209,14 @@
     },
     "unresolved_blockers": []
   },
-  "publication": {
-    "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=learn-harness-engineering-example",
-    "authorization": "User requested sequential publication of40cases toexistingmain andPages.",
-    "editorial_refinement": "Article sample-fragment routing and CLI-only usage qualification; no media or realCLI output change."
+  "visual_revision": {
+    "id": "visual-r1",
+    "original_runtime_preserved_files": 73,
+    "silent": true
   },
-  "artifacts_sha256": {
-    "data/cases/learn-harness-engineering-example.json": "904569c2467e376cd00731eb94ced88f691163d61623a06e953be1e0cc159366",
-    "examples/learn-harness-engineering-example/app.js": "26ad9bd34b00805ffcdfcd7173fca2b08a0134e7ae20e8127c7efcb2de7405b8",
-    "examples/learn-harness-engineering-example/brief.json": "c9ecea61317e6f43f0c243a45985d766ee109d33f6a890e255afe2d625cc49b5",
-    "examples/learn-harness-engineering-example/index.html": "cb21c9ef91c4fb7b1f7d771b694e33aa18efd9bc1de25798e7601bf06fb19324",
-    "examples/learn-harness-engineering-example/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
-    "examples/learn-harness-engineering-example/outputs/exercise-run.json": "c5a4e424fac780b59472aaba58d6fee58da87ad00eb505feecf1ab2c3d93538d",
-    "examples/learn-harness-engineering-example/outputs/harness-assessment-execution.json": "e8a9c488e9c0363ede4aac33be2cc59bf6ee64146dce7b31077e1078e83cd9b7",
-    "examples/learn-harness-engineering-example/outputs/harness-assessment.json": "bdd498765a6ef43bc7f9753a5d1d1928ed90a3da77dcd0a45ef0264e2966fefa",
-    "examples/learn-harness-engineering-example/outputs/harness-created.json": "6d713a0c4d41ddeb6f07406485474e42e430373b06d661538d12a9d5fb631f80",
-    "examples/learn-harness-engineering-example/outputs/init.stdout.txt": "433e4a6f7f25465edbbb01a2e4d66ec257a5d1284a443a6d1c7129025762e6ba",
-    "examples/learn-harness-engineering-example/outputs/method.md": "9b1bef461abe129bca904b922a1902b2fcf8f7f115736cd1a38e85190a37534b",
-    "examples/learn-harness-engineering-example/outputs/scaffold/AGENTS.md": "bae99b114a172cef675c17d2b38f50464db08da79417f7d5def83f54079266e8",
-    "examples/learn-harness-engineering-example/outputs/scaffold/feature_list.json": "53864068deec1260751391fd107654442f6c937ee712ecde6669415e546d6c5e",
-    "examples/learn-harness-engineering-example/outputs/scaffold/init.sh": "6bf0588e5d01e9984d9dfce7342e0cb64d88edb09e61e8bc4e5944ce9e0660ce",
-    "examples/learn-harness-engineering-example/outputs/scaffold/progress.md": "dc8ed5780eb7daa861597a59e0d0ae096e7e23e7dcd7ae4bde7eeed691ee4433",
-    "examples/learn-harness-engineering-example/outputs/scaffold/session-handoff.md": "a71e92389c56f9a84e7afd2ee0578377f08e40afcb7a8efe15105553d234fc49",
-    "examples/learn-harness-engineering-example/outputs/selected-query.json": "a0db3ce3097d1a3492dafa3c4bc9724d376382a9a123ab9fb2c868fd97a123c9",
-    "examples/learn-harness-engineering-example/outputs/sessions/implementation/feature_list.json": "ed27a936ac5c981b5056bf85a1faea9670be2245387e340ab64bdc29661baeb2",
-    "examples/learn-harness-engineering-example/outputs/sessions/implementation/progress.md": "07c9025e32c8ded07a0c344699f97b36bb7b05a260b3791474e7ee77e05e21a6",
-    "examples/learn-harness-engineering-example/outputs/sessions/implementation/session-handoff.md": "50ddd95a8fa9dd3cc9c030be592b2ded26b4d3fcd25ede26a1e13b1cd10f4a20",
-    "examples/learn-harness-engineering-example/outputs/sessions/resume/feature_list.json": "ea5c36857505ae491bdbdc8402c748f9f16a1d962ba3968fc7d56f48a046d5c9",
-    "examples/learn-harness-engineering-example/outputs/sessions/resume/progress.md": "fedd24363e67ad49bb32a4b37cb18d94a21a8802246efe143e124f4ac02c2cd0",
-    "examples/learn-harness-engineering-example/outputs/sessions/resume/session-handoff.md": "f4cae24f18e1446f903c2dae55c6365aa136d5746db416677ddbf685678e1a4d",
-    "examples/learn-harness-engineering-example/project/AGENTS.md": "9ce20b43e0b2de59709f2001f818218b16ae4bef8178523245d37969680f1130",
-    "examples/learn-harness-engineering-example/project/docs/project.md": "abe2f92375b20245f3ef22e5f0e823a154a1de45220950ea743c16e7df19be47",
-    "examples/learn-harness-engineering-example/project/feature_list.json": "ea5c36857505ae491bdbdc8402c748f9f16a1d962ba3968fc7d56f48a046d5c9",
-    "examples/learn-harness-engineering-example/project/init.sh": "6bf0588e5d01e9984d9dfce7342e0cb64d88edb09e61e8bc4e5944ce9e0660ce",
-    "examples/learn-harness-engineering-example/project/input/notes/N01.md": "375d06db8f7c1e6620aeeed79ebb27c7781fa7cfbec8dd14e465d7b7e32bffe1",
-    "examples/learn-harness-engineering-example/project/input/notes/N02.md": "9d2fa594b869d6dfe3966426009b89fffbbead16a558b1e88a7fcf5b3c068333",
-    "examples/learn-harness-engineering-example/project/input/notes/N03.md": "80d936ebb2b83097ab7771791e027d7dd72f2f89478bd4ca5afd7f16b32fcee8",
-    "examples/learn-harness-engineering-example/project/input/notes/N04.md": "aa6790c6ce79bb6177f7dc6dcdbf449283d4fa75534e0da9496fa377ce138014",
-    "examples/learn-harness-engineering-example/project/input/notes/N05.md": "4d9e5bc7564481570c2579c7580cb2f291ab09144d8cb7f73f643daa68405f09",
-    "examples/learn-harness-engineering-example/project/input/notes/N06.md": "0f22cb1ae3e5cb334bc6851dab026fc54bf312d3e2e2301898b7e02e717a2b18",
-    "examples/learn-harness-engineering-example/project/input/notes/N07.md": "9ce81e06d5768d00b0054da2b99bf8d01c0209ed6b1ea37df3f7689840cfd26f",
-    "examples/learn-harness-engineering-example/project/input/notes/N08.md": "07bc24de00fff7b8be0c82ed62532dc3a36c06d508820f9d0b3a9834992cc095",
-    "examples/learn-harness-engineering-example/project/input/queries.json": "6c4f6c81e08c225844b1cb8233f77aaecd87a8fc836ffbf3159a07b6d9d4c74b",
-    "examples/learn-harness-engineering-example/project/outputs/index.json": "af531bef8f172757e0ec43d3781a6c477332b58f576951fcf01764a71b522120",
-    "examples/learn-harness-engineering-example/project/outputs/queries/Q01.json": "805d820eb052477d52deb9cb0856b8b8d1718757cab5d63deb95127e2ce283fa",
-    "examples/learn-harness-engineering-example/project/outputs/queries/Q02.json": "cd94d3cfd75f98a813d25cb5def28652176a00f87409565ed844c3d59bc24a97",
-    "examples/learn-harness-engineering-example/project/outputs/queries/Q03.json": "f60e49c3487069a9e6edbcf2c6d6fcc88169004a1ff5ac80ba723cd52fe89a1e",
-    "examples/learn-harness-engineering-example/project/outputs/queries/Q04.json": "300afd67e6f9ead170576a56d0f0fd10667b8fa8709176e5a33f4682b7e8023b",
-    "examples/learn-harness-engineering-example/project/outputs/queries/Q05.json": "0634cc50ae72967f78482349008b4b0a984a5906f236d019155ddef52b73c842",
-    "examples/learn-harness-engineering-example/project/outputs/queries/Q06.json": "f9d1a5e052e3a0ae26d044ae90207dd9db837e4ee1465d366f133c952d938222",
-    "examples/learn-harness-engineering-example/project/outputs/queries/Q07.json": "ad9748b370b0506ad8715c1bd7f7267f3787ae3187298c96ae035df96857391a",
-    "examples/learn-harness-engineering-example/project/outputs/queries/Q08.json": "c0f0fa5cb94d1220e3c7480a9aa4a9bd111dd744eeb2363f06f1c058ea292565",
-    "examples/learn-harness-engineering-example/project/outputs/verification.json": "d4fedecb7cf30e1b4fec41901c3a283d1863222de40ac09b10888babcdf36833",
-    "examples/learn-harness-engineering-example/project/package.json": "01c0f64089cb73d484a0e683bdd3f929a219a424988bb1121dd01460c131e1f2",
-    "examples/learn-harness-engineering-example/project/progress.md": "fedd24363e67ad49bb32a4b37cb18d94a21a8802246efe143e124f4ac02c2cd0",
-    "examples/learn-harness-engineering-example/project/scripts/verify.mjs": "b48d1d9ac459ac2245ec60bd80a1e2bab6202b94bb7570569ba5fdac54b895c7",
-    "examples/learn-harness-engineering-example/project/session-handoff.md": "f4cae24f18e1446f903c2dae55c6365aa136d5746db416677ddbf685678e1a4d",
-    "examples/learn-harness-engineering-example/project/src/notes.mjs": "e36250eec09fecea4a6c5cf61d360c867434353df1b99b96b3d83c6f224fff93",
-    "examples/learn-harness-engineering-example/README.md": "0aaf0cfdcdb8493207cd27a1d2f50f42ede054afae868954fb6531bbae7521e3",
-    "examples/learn-harness-engineering-example/render.py": "e9827a33a0237eb67595dd4ce8bd9448fc587e2f0206fb937a108631c4b90f40",
-    "examples/learn-harness-engineering-example/request.txt": "972d44cebab0727dd6766fd64881086278c7601f3fa21c516b785daabe143017",
-    "examples/learn-harness-engineering-example/samples.json": "f9f021ad9c1468d41ea9b61fc773cad53ed14301a4f5169be59c4f9b0a922751",
-    "examples/learn-harness-engineering-example/source.zip": "dc50ef823c44894fcefea680d93d4d1f5a506d2aabfe6023d4b9e48b3ed942f2",
-    "examples/learn-harness-engineering-example/style.css": "fb77a1c7bb0349f4938f48b1dd19a1e911eb1293cb73fb2a32eb53393c4e62f3",
-    "examples/learn-harness-engineering-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
-    "examples/learn-harness-engineering-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
-    "examples/learn-harness-engineering-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
-    "examples/learn-harness-engineering-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
-    "examples/learn-harness-engineering-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/CLAUDE.md": "b5a3ee4fdd55e372c5734dc3bb992ddf1abc4656324955f3f2aa34afc3c62a50",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/docs/en/projects/project-01-baseline-vs-minimal-harness/index.md": "1f2395b04d69966f232d4c278ce1a3d5ce159931fb32d10cd119803d42600d4e",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/docs/en/projects/project-02-agent-readable-workspace/index.md": "f070e3e0050a09e5e4e0d78fd065cd1c5826217e94dfde6ab1090e4d9200f1cd",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/LICENSE": "86036cb714ed31ba2f5ba18e8fa2715eefb79da193a0789c90b4588d0609967e",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/projects/project-01/README.md": "3c566899eb6d97b120fcba1afd193afe89f5fe4d2daa39745bbbae0128af8f5c",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/projects/project-01/solution/AGENTS.md": "ded18b2597f46932872a9f653e42a45cc278b06237fc73cc69c14d09b542d5f4",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/projects/project-01/solution/feature_list.json": "02fb058c3a913c66ba76872e7b568415e6072c7f685fddf4f6ec382a8a1cb814",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/projects/project-01/solution/init.sh": "c70bf16b10782dfcd5b0aebc7501dc27b0f44652e58ed37ebdb712b356f9a237",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/projects/project-01/starter/package.json": "80dcc29b69720dd421a181c0f5ec937944ed79a068cd1080a00cbec9ee4d5ef2",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/projects/project-01/starter/task-prompt.md": "5d7549e8ad7e93ebdc9e87fd727b68736496212d37b6118b9edd77d10be7aced",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/README.md": "40f3c713ee115d660f93e9df85053daabc3d0be550d352f57223ce4267cdbff8",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/README.md": "f388d7869cf5e383c811726ee694a686b115dfe2b940df4edb048a9be8e3f498",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/references/gotchas.md": "6c90a161cd2f928df5109ad12bf5d849d838256de61e76fc1c8868d0d5d154e6",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/scripts/create-harness.mjs": "df82ef49c6ff1395bf3365d80f3df1e6a620eba6563b7599f85ca2fa2b27324b",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/scripts/lib/harness-utils.mjs": "5aeb3516ae055a23d8129b61a3997f3be91db1efc746f6d81c89cf4d837af3fa",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/scripts/render-assessment-html.mjs": "f656d7010a45e3a160e984c59666d57bc0816c47e438bd077faaa17b63b56095",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/scripts/run-benchmark.mjs": "b7d71aa1b8bf3c3df1c4f9bb040202e07a6140f3c174d790f1678de5c939f379",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/scripts/validate-harness.mjs": "ac060dfd2fe7f49e7fb010ea013ab0b2b16f3da075244a90e5c1f8ce2bbe484d",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/SKILL.md": "6b152a8c5191fb3092f8371046e43846b8f42c60509c7c6eec282658beee81df",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/templates/agents.md": "6cf46f72a3d1fcc950e423703392d3cd73e8e2f809137b9e5fb638f6b5a77cb5",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/templates/feature-list.json": "53864068deec1260751391fd107654442f6c937ee712ecde6669415e546d6c5e",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/templates/feature-list.schema.json": "535150b9e613cd289ab9016f44a1e7cf0e14cbeabf1f85fb2533e8503710098e",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/templates/init.sh": "39d914bd66183bcfe8baba53d2ea241068a59965ceebd8c2c4fd82b97517e5fd",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/templates/progress.md": "dc8ed5780eb7daa861597a59e0d0ae096e7e23e7dcd7ae4bde7eeed691ee4433",
-    "examples/learn-harness-engineering-example/vendor/learn-harness-engineering/skills/harness-creator/templates/session-handoff.md": "a71e92389c56f9a84e7afd2ee0578377f08e40afcb7a8efe15105553d234fc49",
-    "examples/learn-harness-engineering-example/verification.json": "100d702589c44d853f47e968f63df5bb066a0bddd3587db0e69e2e90d24ae13c",
-    "examples/learn-harness-engineering-example/video/assets/data-hashes.json": "3796bdd73b59b7fca32c39355f3b8af4104e3443c5abf2cd7a2a17f1e5076134",
-    "examples/learn-harness-engineering-example/video/assets/screen-manifest.json": "976e4798c9d00e0a0542d5fe490b7f06abdf1c13d0fc6e355e93a7d4164e0bde",
-    "examples/learn-harness-engineering-example/video/assets/workbench-desktop.png": "c88bfbfa3a3a559a5123cc668a1e3f0fbf75ed53edcfe7d9252cffc5f6cecfbb",
-    "examples/learn-harness-engineering-example/video/assets/workbench-phone.png": "709ec108394a63f7abeb2ee941c65692d66a431a925dd0381810830eeaa84e6a",
-    "examples/learn-harness-engineering-example/video/index.html": "c92f9baf37031af0dd7f3b7ac15bc39cf207f3766db5e6fe3fbbf24d57f9e88d",
-    "examples/learn-harness-engineering-example/video/README.md": "8501f02bdd44e93af4ee94df92e9a97a7db1990e7ecc64c756c807f075ac37c6",
-    "examples/learn-harness-engineering-example/video/review/contact.png": "868ba02135ce10ad0c48498f6f86249ad516b0a8544cb6d0297176f35d57e5f9",
-    "examples/learn-harness-engineering-example/video/review/cut-01.png": "91a0dec5bdb7f8ecedb96552dcb920d52a12d3fb34f0fdd8b3db461ce93f681d",
-    "examples/learn-harness-engineering-example/video/review/cut-02.png": "33a82c527d88b0910800ce40b380553af40d0bc2d1f11f24950769849d1e0758",
-    "examples/learn-harness-engineering-example/video/review/cut-03.png": "dcbc3746e57ae6dc6da4a93676a6b0bd9937761f727e6d492cf4205cb9eab349",
-    "examples/learn-harness-engineering-example/video/review/cut-04.png": "8f13d4f8ff61eb4a4a223a5b1bb85043d5b0461d644bbbf2bfa2a8a0cabf3492",
-    "examples/learn-harness-engineering-example/video/review/cut-05.png": "a74a4fefe7e5b96261526ff49ffa64658ee00615c0315a7d373a4206d3918600",
-    "examples/learn-harness-engineering-example/video/review/final.png": "bbbc785ac26fe46a3416c3b6613c5791444b2c354cc197a99c4e741f7cf8bdfe",
-    "examples/learn-harness-engineering-example/video/review/poster.png": "c7c310dec005dcfec06d7217831121262b778d7ba5f896b8b1e2576eba17771d",
-    "examples/learn-harness-engineering-example/video/review/stills/frame-000000.png": "c65aad4dcc7103695d89b6d8c1449d17762bddab960381d98fd1e5f7f090de1e",
-    "examples/learn-harness-engineering-example/video/review/stills/frame-000001.png": "6a2e7c10c8c697fb46b9f8ee3f2d21186eb56ba3bce2e8c1e0353db8b6122c31",
-    "examples/learn-harness-engineering-example/video/review/stills/frame-000002.png": "be75e9ef92d651f9eab4bc403a0cc9afa823a0b657998ed1ef6e9562ea6e2552",
-    "examples/learn-harness-engineering-example/video/review/stills/frame-000003.png": "23d7f1c111a52681f17fd873e55c7ca49caccb33d2bb59328a6795410e1091bd",
-    "examples/learn-harness-engineering-example/video/review/stills/frame-000004.png": "be75e9ef92d651f9eab4bc403a0cc9afa823a0b657998ed1ef6e9562ea6e2552",
-    "examples/learn-harness-engineering-example/video/review/stills/frame-000005.png": "ca7837e7ea4a70ad5315df39a41f6ee31d0648e9f8064b87ad20ffffe62df3e5",
-    "examples/learn-harness-engineering-example/video/review/stills/frame-000006.png": "be75e9ef92d651f9eab4bc403a0cc9afa823a0b657998ed1ef6e9562ea6e2552",
-    "examples/learn-harness-engineering-example/video/review/stills/frame-000007.png": "c7c310dec005dcfec06d7217831121262b778d7ba5f896b8b1e2576eba17771d",
-    "examples/learn-harness-engineering-example/video/review/stills/frame-000008.png": "c7c310dec005dcfec06d7217831121262b778d7ba5f896b8b1e2576eba17771d",
-    "examples/learn-harness-engineering-example/video/review/stills/frame-000009.png": "be75e9ef92d651f9eab4bc403a0cc9afa823a0b657998ed1ef6e9562ea6e2552",
-    "examples/learn-harness-engineering-example/video/review/stills/frame-000010.png": "d2d32e40e4ea637c1b974714fd53e2e991232ac115948849ebaa5b4952bf163f",
-    "examples/learn-harness-engineering-example/video/review/stills/frame-000011.png": "be75e9ef92d651f9eab4bc403a0cc9afa823a0b657998ed1ef6e9562ea6e2552",
-    "examples/learn-harness-engineering-example/video/review/stills/frame-000012.png": "49b74536d31b94c9eed14c433c261bf0154a7cbbc1b192297b204e6d09a3d7af",
-    "examples/learn-harness-engineering-example/video/review/stills/frame-000013.png": "2c6816b3c6fe0f5a6633bec65e49580a83f20db40655dc618f2c6c6ec8f828fb",
-    "examples/learn-harness-engineering-example/video/review/strip.png": "7ff20b82ea3fbc71f647ec21bdd61bb481ac8a49ed9b3d0abb160d85740629ea",
-    "examples/learn-harness-engineering-example/video/storyboard.json": "7db4c1255b95e45070de20e27220a3136d8f5a9c8f3c6a041ed6b3906382de17",
-    "examples/learn-harness-engineering-example/video/video.css": "1276d795bd703fab97c0ab1623084caf788a77fca9f4b531af070803f291fa4d",
-    "examples/learn-harness-engineering-example/video/video.js": "3980ad0fb2529a4cbd5039e998ed473de546f2fcd164a24158f2e9fd7518e58b",
-    "media/learn-harness-engineering-example.mp4": "ee7e09dd34d5d210da43f2627d1929ad9bb41ef5bb876924c3bf1c4349970dfc",
-    "media/learn-harness-engineering-example.webp": "f1acf54b11974f955b85072c3523a1a34e31979aadad92c489adfba5bec58b8c"
+  "previous_publication": {
+    "baseline_head": "ec3461a59b886760c6e1db8b28ae5d45ad62d5f0",
+    "original_video_sha256": "ee7e09dd34d5d210da43f2627d1929ad9bb41ef5bb876924c3bf1c4349970dfc",
+    "original_runtime_preserved_files": 73
   }
 }

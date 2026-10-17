@@ -3,75 +3,47 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>解説映像の編集元｜架空の書店メモ（Learn Harness Engineering 作例）</title>
-<meta name="description" content="Harness Creator が作った5ファイルで、架空の書店メモを探す小さなCLIを1機能だけ進め、実際の検証のあとに新しいセッションへ引き継いだ記録を、28秒・無音の映像に編集する元ページです。">
+<meta name="color-scheme" content="light">
+<title>編集できる動画ソース｜1件だけ進めて、続きはファイルへ。｜Studio Yebisu</title>
+<script>if (window.__MOTION_RENDER__ === true) document.documentElement.classList.add('render');</script>
 <link rel="stylesheet" href="video.css">
-<script>if (window.__MOTION_RENDER__ === true) document.documentElement.classList.add('is-render');</script>
-<script type="module" src="video.js"></script>
 </head>
 <body>
-<main class="page">
-  <header class="intro">
-    <p class="kicker">Studio Yebisu・Learn Harness Engineering 作例</p>
-    <h1>検証してから、続きを渡す。</h1>
-    <p class="lead">固定版 Harness Creator が作った5ファイル、架空の書店メモ8件、CLI の保存出力（Q03 と Q06）、制作担当が実行した <code>./init.sh</code> の検証、2つの時点の状態ファイルから描く28秒・無音の解説映像の編集元です。</p>
+<main class="pv">
+  <header class="pv-head">
+    <a class="pv-back" href="../index.html">← 作例の図</a>
+    <h1>動画ソース：1件だけ進めて、続きはファイルへ。</h1>
+    <p class="pv-note">無音・32秒。1枚の図の中で、同じファイルとカードが動きます。再生は押したときだけ始まります。</p>
+    <nav class="pv-layout" aria-label="画面の向き">
+      <a id="lay-portrait" href="index.html">縦 720×1280</a>
+      <a id="lay-wide" href="index.html?layout=wide">横 1280×720</a>
+    </nav>
   </header>
 
-  <figure class="stage">
-    <canvas id="film" width="1280" height="720" role="img" aria-label="解説映像。固定版 create-harness.mjs が作った AGENTS.md・feature_list.json・progress.md・session-handoff.md・init.sh の5ファイル、架空の書店メモ8件、全角空白で区切った「読書会」「土曜」の2語を両方含む N02「土曜の読書会」だけが返る CLI の保存出力、制作担当の ./init.sh で8問すべてが期待どおりだったあとに feat-001 が in-progress から done になった流れ、該当なしが正しい Q06 の0件と、わざと壊した入力11件を CLI が拒否した別の確認、新しいセッションが状態ファイル3つだけを更新し feat-002 が未着手のまま残ったことを順に示します。"></canvas>
-    <figcaption>架空メモの実作例・実出力を編集・無音。独自の小課題で、講座の比較実験ではありません。</figcaption>
-  </figure>
-
-  <div class="controls">
-    <button id="play" type="button" aria-pressed="false" disabled>再生</button>
-    <label class="range">
-      <span class="visually-hidden">再生位置（秒）</span>
-      <input id="time" type="range" min="0" max="28" step="0.1" value="0" aria-valuetext="0.0秒（全28秒）" disabled>
-    </label>
-    <output id="clock" for="time">0.0秒 / 28.0秒</output>
-  </div>
-  <p class="keys">スライダーでは、矢印キーで0.1秒、PageUp・PageDownで2秒、Home・Endで先頭・末尾へ移動します。自動では再生しません。</p>
-
-  <div class="state" aria-live="polite">
-    <p id="status" data-state="loading">保存済みのファイルと実画面を確かめています…</p>
-    <p id="detail"></p>
-    <button id="reload" type="button" hidden>もう一度読み込む</button>
+  <div class="stage">
+    <canvas id="film" role="img" aria-label="Harness Creatorの5つのファイルで、1件の作業が制作担当の検証を通り、フォルダーに入って新しいセッションへ渡る無音の図解動画"></canvas>
+    <div id="film-error" class="film-error" role="alert" hidden>
+      <p class="fe-title">動画の素材を確かめられませんでした</p>
+      <p id="film-error-text" class="fe-text"></p>
+      <p class="fe-hint">代わりのデータは使いません。</p>
+      <button type="button" id="film-retry" class="pv-btn">もう一度読み込む</button>
+    </div>
   </div>
 
-  <section class="block" aria-labelledby="scope-title">
-    <h2 id="scope-title">この映像が示すこと・示さないこと</h2>
-    <ul>
-      <li>固定版 walkinglabs/learn-harness-engineering（<code>38ddcd2</code>、MIT）の Harness Creator を、書き下ろしの小さな CLI 練習1件に当てはめた記録です。講座の Project 01・02 の比較実験、Electron アプリ、模擬Q&amp;A ではありません。</li>
-      <li>検索は NFKC・小文字・空白区切りの全語AND とタグの完全一致です。結果は保存した CLI の出力で、AI の回答や意味の判断ではありません。</li>
-      <li>feat-001 は、1回目のセッションの後は作業中・未検証でした。制作担当が <code>./init.sh</code> を実行して8問と意図的な不正入力11件の確認が通った後、新しいセッションが保存記録を読んで done にしました。feat-002 は未着手です。</li>
-      <li>Q06 の0件は「入力に一致するメモなし」という正しい結果です。不正入力11件は、わざと作った入力を CLI が断るかの確認で、作業の失敗ではありません。</li>
-      <li>映像は保存した記録と実画面の静止画を編集したもので、操作の連続録画ではありません。記録カードは編集で描き直したもので、実画面の画素は変えていません。</li>
-      <li>ハーネスなしとの比較はしておらず、効果・速さ・信頼性の向上は測っていません。構造の点検の点数は映像に出していません。</li>
-      <li>メモと書店は架空です。このページでも映像でも、Node・CLI・AI は動きません。</li>
-    </ul>
-  </section>
-
-  <section class="block" aria-labelledby="files-title">
-    <h2 id="files-title">照合してから使うファイル</h2>
-    <p>照合表 <code>assets/data-hashes.json</code> を制作記録の SHA-256 で確かめ、そこに書かれたファイルの生のバイト列を照合してから描きます。合わなければ理由を出して止まり、代わりの映像は描きません。</p>
-    <ol id="verified" class="verified" hidden></ol>
-  </section>
-
-  <nav class="block links" aria-labelledby="links-title">
-    <h2 id="links-title">関連するページとファイル</h2>
-    <ul>
-      <li><a href="../index.html">メモを試す（閲覧ページ）</a></li>
-      <li><a href="../outputs/exercise-run.json">実行記録 outputs/exercise-run.json</a></li>
-      <li><a href="../project/outputs/verification.json">検証の記録 project/outputs/verification.json</a></li>
-      <li><a href="../project/session-handoff.md">引き継ぎ project/session-handoff.md</a></li>
-      <li><a href="assets/screen-manifest.json">実画面2枚の記録 assets/screen-manifest.json</a></li>
-      <li><a href="../vendor/learn-harness-engineering/LICENSE">Learn Harness Engineering のライセンス（MIT）</a></li>
-    </ul>
-  </nav>
-
-  <footer class="foot">
-    <p>映像の構成・コード・文章は MIT License（Copyright (c) 2026 Studio Yebisu）。Learn Harness Engineering は MIT License（Copyright (c) 2025 WalkingLab）。</p>
-  </footer>
+  <div class="pv-controls">
+    <div class="pv-row">
+      <button type="button" id="play" class="pv-btn pv-main" disabled>再生</button>
+      <button type="button" id="replay" class="pv-btn" disabled>最初から再生</button>
+      <button type="button" id="to-start" class="pv-btn" disabled>先頭へ</button>
+      <button type="button" id="to-end" class="pv-btn" disabled>最後へ</button>
+      <output id="time" class="pv-time" for="scrub">0.00 / 32.00 秒</output>
+    </div>
+    <label for="scrub" class="visually-hidden">再生位置（秒）</label>
+    <input id="scrub" class="pv-scrub" type="range" min="0" max="32" step="0.001" value="0" disabled>
+    <div id="scenes" class="pv-scenes" role="group" aria-label="場面へ移動"></div>
+    <p id="film-status" class="pv-status" role="status" aria-live="polite">素材10件を読み込み、SHA-256を確かめています…</p>
+  </div>
 </main>
+<script src="video.js"></script>
 </body>
 </html>

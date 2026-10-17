@@ -1,143 +1,115 @@
-/* 架空の書店メモ（Learn Harness Engineering 作例）— 解説映像の編集元。スマホを基準に、閲覧ページと同じ温かい白・紺・朱・緑 */
-:root {
-  --paper: #f6f0e4;
-  --card: #fffcf5;
-  --ink: #1f2433;
-  --muted: #565c69;
-  --navy: #1c2d52;
-  --navy-2: #2d4579;
-  --navy-soft: #e3e8f2;
-  --red: #b83d26;
-  --red-soft: #f6ddd4;
-  --green: #2c6449;
-  --line: #dcd2bf;
-  --error: #8c1d18;
-  --serif: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
-  color-scheme: light;
-}
-
+/* 動画ソースのプレビュー。書き出し時（html.render）はキャンバスだけを実寸で置く。 */
 *, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
 
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body {
   margin: 0;
-  min-width: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+  background: #ece4d3;
+  color: #182238;
+  font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Meiryo", "Noto Sans JP", system-ui, sans-serif;
   font-size: 16px;
-  line-height: 1.7;
-  overflow-wrap: anywhere;
+  line-height: 1.6;
 }
-
-.page {
-  width: 100%;
-  max-width: 1040px;
-  min-width: 0;
-  margin: 0 auto;
-  padding: max(20px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(32px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
-}
-
-.kicker { margin: 0; color: var(--muted); font-size: 0.875rem; font-weight: 700; }
-h1 {
-  margin: 4px 0 8px;
-  color: var(--navy);
-  font-family: var(--serif);
-  font-size: clamp(1.5rem, 1.1rem + 2vw, 2.25rem);
-  line-height: 1.35;
-}
-.lead { margin: 0 0 20px; max-width: 46em; }
-
-.stage { margin: 0; min-width: 0; }
-#film {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-}
-.stage figcaption { margin-top: 8px; color: var(--muted); font-size: 0.875rem; }
-
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 12px;
-  margin-top: 12px;
-  min-width: 0;
-}
-button {
-  min-height: 44px;
-  min-width: 44px;
-  padding: 8px 20px;
-  border: 1px solid var(--navy);
-  border-radius: 8px;
-  background: var(--navy);
-  color: #fff;
-  font: inherit;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-}
-button[aria-pressed="true"] { background: var(--card); color: var(--navy); }
-button:disabled { opacity: 0.55; cursor: not-allowed; }
-button:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
-.range { flex: 1 1 200px; min-width: 0; display: flex; align-items: center; min-height: 44px; }
-#time { width: 100%; min-width: 0; min-height: 44px; margin: 0; accent-color: var(--navy); font-size: 16px; }
-#clock { font-variant-numeric: tabular-nums; font-weight: 700; min-width: 8.5em; }
-.keys { margin: 4px 0 0; color: var(--muted); font-size: 0.875rem; }
-
-.state { margin-top: 16px; }
-#status { margin: 0; font-weight: 700; }
-#status[data-state="loading"] { color: var(--muted); }
-#status[data-state="ready"] { color: var(--green); }
-#status[data-state="error"] { color: var(--error); }
-#detail { margin: 4px 0 0; color: var(--muted); }
-#detail:empty { display: none; }
-#reload { margin-top: 8px; }
-
-.block {
-  margin-top: 28px;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
-}
-.block h2 { margin: 0 0 8px; color: var(--navy); font-family: var(--serif); font-size: 1.25rem; line-height: 1.4; }
-.block ul, .block ol { margin: 0; padding-left: 1.25em; }
-.block li + li { margin-top: 4px; }
-.block p { margin: 0 0 8px; }
-code { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 0.875em; }
-.verified { font-size: 0.875rem; }
-
-.links a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  color: var(--navy-2);
-  font-weight: 700;
-}
-.links li + li { margin-top: 0; }
-
-.foot { margin-top: 28px; color: var(--muted); font-size: 0.875rem; }
-.foot p { margin: 0; }
+a { color: #1d2c4f; }
+:focus-visible { outline: 3px solid #a86c14; outline-offset: 2px; }
 
 .visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
   overflow: hidden;
   clip: rect(0 0 0 0);
   white-space: nowrap;
   border: 0;
 }
 
-/* 書き出し時：キャンバスだけを、指定の大きさちょうどで置く（はみ出し・動作中のアニメーションなし） */
-html.is-render, html.is-render body { margin: 0; padding: 0; overflow: hidden; background: var(--paper); }
-html.is-render .page { max-width: none; padding: 0; margin: 0; }
-html.is-render .page > :not(.stage) { display: none !important; }
-html.is-render .stage figcaption { display: none; }
-html.is-render #film { border: 0; border-radius: 0; max-width: none; }
+.pv {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: max(8px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+}
+.pv-head h1 { margin: 2px 0; font-size: 1.125rem; line-height: 1.4; }
+.pv-back { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; text-decoration: none; }
+.pv-note { margin: 2px 0 6px; font-size: 0.875rem; color: #555b69; }
+.pv-layout { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+.pv-layout a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 6px 14px;
+  border: 1px solid #b3a88f;
+  border-radius: 999px;
+  background: #fffaf0;
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+.pv-layout a[aria-current="page"] { background: #1d2c4f; border-color: #1d2c4f; color: #fff; }
+
+.stage { position: relative; }
+#film {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 76vh;
+  margin: 0 auto;
+  background: #f5efe2;
+  box-shadow: 0 0 0 1px #cdbf9f;
+}
+
+.film-error {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  background: rgba(251, 235, 229, 0.96);
+}
+.fe-title { margin: 0 0 6px; font-weight: 700; color: #a8432c; }
+.fe-text { margin: 0 0 4px; max-width: 34em; }
+.fe-hint { margin: 0 0 12px; font-size: 0.875rem; color: #555b69; }
+
+.pv-controls { max-width: 760px; margin: 10px auto 0; }
+.pv-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.pv-btn {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 8px 14px;
+  border: 1.5px solid #1d2c4f;
+  border-radius: 8px;
+  background: #fffaf0;
+  color: #1d2c4f;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.pv-main { background: #1d2c4f; color: #fff; }
+.pv-btn:disabled { border-color: #a9aeb8; background: #eee9de; color: #8d93a0; cursor: default; }
+.pv-time { margin-left: auto; font-variant-numeric: tabular-nums; font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 0.9375rem; }
+.pv-scrub { display: block; width: 100%; min-height: 44px; margin: 6px 0; accent-color: #1f7a72; }
+.pv-scenes { display: grid; grid-template-columns: repeat(auto-fit, minmax(104px, 1fr)); gap: 6px; }
+.pv-scene {
+  min-height: 44px;
+  padding: 4px 8px;
+  border: 1px solid #1f7a72;
+  border-radius: 8px;
+  background: #fffaf0;
+  color: #135049;
+  font: inherit;
+  font-size: 0.875rem;
+  line-height: 1.3;
+  cursor: pointer;
+}
+.pv-scene[aria-current="true"] { background: #1f7a72; color: #fff; }
+.pv-scene:disabled { border-color: #a9aeb8; color: #8d93a0; cursor: default; }
+.pv-status { margin: 8px 0 0; font-size: 0.875rem; color: #555b69; }
+
+/* 書き出し：キャンバスだけを実寸で、はみ出しなし */
+html.render, html.render body { margin: 0; padding: 0; overflow: hidden; background: #f5efe2; }
+html.render .pv { max-width: none; margin: 0; padding: 0; }
+html.render .pv-head, html.render .pv-controls { display: none !important; }
+html.render #film { max-width: none; max-height: none; margin: 0; box-shadow: none; }
