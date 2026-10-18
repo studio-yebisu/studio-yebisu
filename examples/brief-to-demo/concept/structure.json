@@ -1,0 +1,474 @@
+{
+  "format": "brief-to-demo-structure/v1",
+  "case_id": "brief-to-demo",
+  "source_commit": "bc2984ab4208e349aded79b3694cc2cb98b8a4a6",
+  "definition": "AIに読ませる、短い依頼を制作ブリーフへ整えるMarkdownスキル",
+  "parts": [
+    {
+      "id": "manual",
+      "label": "AIが読む指示書",
+      "meaning": "このMarkdown自体が推論や生成を実行するわけではありません。",
+      "quote": "曖昧な依頼を、そのまま制作へ渡せる短いブリーフにする。",
+      "source_path": "vendor/brief-to-demo/SKILL.md",
+      "line_start": 8
+    },
+    {
+      "id": "input",
+      "label": "元の依頼と使える素材",
+      "meaning": "今回の実入力は3つの短い依頼文。各ブリーフのinputsは次に受け取る素材の計画です。",
+      "quote": "入力は紹介したいスキルの原典、利用者がしたいこと、使える素材。",
+      "source_path": "vendor/brief-to-demo/SKILL.md",
+      "line_start": 10
+    },
+    {
+      "id": "category",
+      "label": "成果物から分野を選ぶ",
+      "meaning": "UI/スライド/動画の3件。agentsもschemaにありますが保存済み作例はありません。",
+      "quote": "カテゴリは成果物から選ぶ。",
+      "source_path": "vendor/brief-to-demo/SKILL.md",
+      "line_start": 16
+    },
+    {
+      "id": "schema",
+      "label": "11項目のブリーフ",
+      "meaning": "元の依頼を残し、目的・素材・読むスキル・手順・完成条件を同じ書類へ整理します。",
+      "quote": "{\"title\":\"依頼の題名\"",
+      "source_path": "vendor/brief-to-demo/SKILL.md",
+      "line_start": 13
+    },
+    {
+      "id": "assumptions",
+      "label": "未指定と仮定を分ける",
+      "meaning": "未提供の日時や製品名を作らず、解釈や仮の設計もassumptionsへ残します。",
+      "quote": "推測した条件は `assumptions` に分ける。",
+      "source_path": "vendor/brief-to-demo/SKILL.md",
+      "line_start": 10
+    },
+    {
+      "id": "handoff",
+      "label": "次の制作へ渡す",
+      "meaning": "JSONと依頼文を保存・コピーするところまで。次の制作の実行や完成は示しません。",
+      "quote": "原典を読んだだけ、コードを実行した、成果物を見た、を制作記録で区別する。",
+      "source_path": "vendor/brief-to-demo/SKILL.md",
+      "line_start": 18
+    }
+  ],
+  "rules": [
+    {
+      "id": "by-result",
+      "label": "成果物から分野へ",
+      "meaning": "今回の3件はUI/スライド/動画の分野へ。",
+      "quote": "カテゴリは成果物から選ぶ。",
+      "source_path": "vendor/brief-to-demo/SKILL.md",
+      "line_start": 16
+    },
+    {
+      "id": "no-facts",
+      "label": "受け取っていない事実を足さない",
+      "meaning": "日時・製品名・実績を架空の確定値にしません。",
+      "quote": "足りない製品機能・測定値・実績を作らない。",
+      "source_path": "vendor/brief-to-demo/SKILL.md",
+      "line_start": 8
+    },
+    {
+      "id": "separate",
+      "label": "推測した条件は別に",
+      "meaning": "仮の設計や未提供の情報はassumptionsへ。",
+      "quote": "推測した条件は `assumptions` に分ける。",
+      "source_path": "vendor/brief-to-demo/SKILL.md",
+      "line_start": 10
+    }
+  ],
+  "fields": [
+    {
+      "id": "title",
+      "label": "題名",
+      "schema_example": "依頼の題名",
+      "group": "core",
+      "source_path": "vendor/brief-to-demo/SKILL.md",
+      "line_start": 13
+    },
+    {
+      "id": "request",
+      "label": "元の依頼",
+      "schema_example": "元の依頼",
+      "group": "core",
+      "source_path": "vendor/brief-to-demo/SKILL.md",
+      "line_start": 13
+    },
+    {
+      "id": "category",
+      "label": "分野",
+      "schema_example": "ui-ux | slides | motion | agents",
+      "group": "core",
+      "source_path": "vendor/brief-to-demo/SKILL.md",
+      "line_start": 13
+    },
+    {
+      "id": "audience",
+      "label": "見る人",
+      "schema_example": "誰が見るか",
+      "group": "core",
+      "source_path": "vendor/brief-to-demo/SKILL.md",
+      "line_start": 13
+    },
+    {
+      "id": "goal",
+      "label": "目的",
+      "schema_example": "達成すること一つ",
+      "group": "core",
+      "source_path": "vendor/brief-to-demo/SKILL.md",
+      "line_start": 13
+    },
+    {
+      "id": "inputs",
+      "label": "次に受け取る素材",
+      "schema_example": [
+        "実際に渡す素材"
+      ],
+      "group": "materials",
+      "source_path": "vendor/brief-to-demo/SKILL.md",
+      "line_start": 13
+    },
+    {
+      "id": "skill_refs",
+      "label": "読むスキル",
+      "schema_example": [
+        "読むSKILL.mdまたは固定原典URL"
+      ],
+      "group": "materials",
+      "source_path": "vendor/brief-to-demo/SKILL.md",
+      "line_start": 13
+    },
+    {
+      "id": "deliverables",
+      "label": "成果物の計画",
+      "schema_example": [
+        "開ける成果物"
+      ],
+      "group": "production",
+      "source_path": "vendor/brief-to-demo/SKILL.md",
+      "line_start": 13
+    },
+    {
+      "id": "steps",
+      "label": "制作の手順",
+      "schema_example": [
+        "素材から成果へ進む操作"
+      ],
+      "group": "production",
+      "source_path": "vendor/brief-to-demo/SKILL.md",
+      "line_start": 13
+    },
+    {
+      "id": "acceptance",
+      "label": "完成の条件",
+      "schema_example": [
+        "利用者が確認できる完了条件"
+      ],
+      "group": "production",
+      "source_path": "vendor/brief-to-demo/SKILL.md",
+      "line_start": 13
+    },
+    {
+      "id": "assumptions",
+      "label": "未指定・仮に置いた条件",
+      "schema_example": [
+        "未指定の条件"
+      ],
+      "group": "assumptions",
+      "source_path": "vendor/brief-to-demo/SKILL.md",
+      "line_start": 13
+    }
+  ],
+  "field_groups": [
+    {
+      "id": "core",
+      "label": "依頼の芯",
+      "fields": [
+        "title",
+        "request",
+        "category",
+        "audience",
+        "goal"
+      ]
+    },
+    {
+      "id": "materials",
+      "label": "制作に必要なもの",
+      "fields": [
+        "inputs",
+        "skill_refs"
+      ]
+    },
+    {
+      "id": "production",
+      "label": "作り方と完成",
+      "fields": [
+        "deliverables",
+        "steps",
+        "acceptance"
+      ]
+    },
+    {
+      "id": "assumptions",
+      "label": "未指定・仮の条件",
+      "fields": [
+        "assumptions"
+      ]
+    }
+  ],
+  "grouping_note": "4群と6部品は説明用整理。11JSON項目は固定原典そのもの。",
+  "categories": [
+    {
+      "id": "ui-ux",
+      "label": "UI・UX",
+      "saved_example": true
+    },
+    {
+      "id": "slides",
+      "label": "スライド",
+      "saved_example": true
+    },
+    {
+      "id": "motion",
+      "label": "動画",
+      "saved_example": true
+    },
+    {
+      "id": "agents",
+      "label": "調査・整理",
+      "saved_example": false
+    }
+  ],
+  "jobs": [
+    {
+      "id": "ui",
+      "label": "UIをつくる",
+      "route": {
+        "category_label": "UI・UX",
+        "reason": "欲しいのはスマホで操作できる画面。完成は「画面を最後まで操作できること」で確かめる。",
+        "skills": [
+          {
+            "name": "frontend-design",
+            "ref": "https://github.com/anthropics/skills/blob/dbd4588f9e1033efb41dad4bef2f7947c8993d44/skills/frontend-design/SKILL.md",
+            "why": "題材から色・書体・配置を決め、モバイルとキーボード操作まで含めて画面を作るため。"
+          }
+        ]
+      },
+      "brief": {
+        "title": "地域イベントのスマホ受付画面",
+        "request": "地域のイベント受付を、スマホでも迷わず使える画面にしたい",
+        "category": "ui-ux",
+        "audience": "地域イベントに申し込む人。初めて参加する人や、スマホの操作に慣れていない人も含む",
+        "goal": "参加者がスマホで迷わず受付を済ませられる画面を作る",
+        "inputs": [
+          "イベントの名称・日時・会場・定員（主催者から受け取る）",
+          "受付で聞く項目の一覧（例：氏名、連絡先、参加人数）",
+          "主催者が使っている案内文や告知画像（あれば）"
+        ],
+        "skill_refs": [
+          "https://github.com/anthropics/skills/blob/dbd4588f9e1033efb41dad4bef2f7947c8993d44/skills/frontend-design/SKILL.md"
+        ],
+        "deliverables": [
+          "スマホ幅（360px）から操作できる受付画面のHTML・CSS・JavaScript一式",
+          "入力・確認・完了の3つの画面",
+          "入力エラーと受付完了の表示"
+        ],
+        "steps": [
+          "主催者からイベントの名称・日時・会場・聞く項目を受け取り、足りない項目を未確定として一覧にする",
+          "frontend-designのSKILL.mdを読み、地域イベントという題材から色・書体・配置の計画を作る",
+          "入力→確認→完了の流れを360px幅で組み、1つの画面に1つの判断だけを置く",
+          "キーボード操作、見える焦点、エラー文、読み上げでの項目名を確認する",
+          "360px幅のブラウザか実機で、受付を最初から最後まで通して操作する"
+        ],
+        "acceptance": [
+          "360px幅で横スクロールせずに、入力から完了まで進める",
+          "必須項目を空のまま進もうとすると、どの項目をどう直すかがその項目のそばに表示される",
+          "ボタンや入力欄は指で押しやすい大きさ（44px四方以上）がある",
+          "キーボードだけで全項目の入力と送信ができ、焦点の位置が見える",
+          "確認画面で入力内容を見直し、戻って直せる"
+        ],
+        "assumptions": [
+          "「受付」は、参加者が自分のスマホで行う参加申し込みとして扱う。会場で運営者が使うチェックイン画面は含めない",
+          "イベントの名称・日時・会場・定員は未提供。制作時は仮の値と分かる表記にする",
+          "送信先のサーバーや管理画面は未定。今回は受付完了の表示までとし、入力内容を外部へ送らない",
+          "聞く項目は氏名・連絡先・参加人数の3つから始め、主催者の確認で増減する"
+        ]
+      },
+      "original_request": "地域のイベント受付を、スマホでも迷わず使える画面にしたい",
+      "output_file": {
+        "path": "outputs/ui.json",
+        "bytes": 2733,
+        "sha256": "b6a8268425e870d94dce568b89a122bd9074fd802bdcf71fbb30333031c295ff"
+      },
+      "handoff_file": {
+        "path": "outputs/ui-handoff.txt",
+        "bytes": 3156,
+        "sha256": "e7fcd958c98bd77fc32a7f2426918c5fb78924cd899868bdd70309a1bb7ecb5a"
+      },
+      "source_provenance": "Saved original publication. Opus initial brief with documented original parent slide-route edits; not new generated content.",
+      "inputs_are_materials_to_obtain": true,
+      "acceptance_is_future_plan_not_verified": true,
+      "next_production_executed": false
+    },
+    {
+      "id": "slides",
+      "label": "スライドをつくる",
+      "route": {
+        "category_label": "AIスライド",
+        "reason": "欲しいのは実際に開いて見せる5枚の資料。完成は「ファイルを開いて5枚を確かめること」で確かめる。",
+        "skills": [
+          {
+            "name": "sol-editorial-ja",
+            "ref": "https://github.com/likaku/Mck-ppt-design-skill/tree/e190e083b715b63172e1c4fea01bc5f9bb21a021",
+            "why": "現行の日本語スキルを読み、原典MckEngineを使う編集誌風の制作ルートを選んだ。文字と図形を編集できるPPTXとして作るため。"
+          }
+        ]
+      },
+      "brief": {
+        "title": "小さな書店の読書会を紹介する5枚のスライド",
+        "request": "小さな書店の読書会を紹介する、5枚の日本語スライドを作りたい",
+        "category": "slides",
+        "audience": "書店に来るお客さんや、読書会に興味がある近所の人",
+        "goal": "初めての人が、読書会で何をするかと参加のしかたを5枚で分かるようにする",
+        "inputs": [
+          "読書会の名前、開催の頻度、次回の日時と課題本（書店から受け取る）",
+          "参加のしかた（申し込み先、参加費の有無、定員）",
+          "店内や過去の会の写真（書店が使用を許可したもの、あれば）"
+        ],
+        "skill_refs": [
+          "workspace/slides/AGENTS.md",
+          "workspace/slides/skill-forks/sol-editorial-ja/SKILL.md",
+          "https://github.com/likaku/Mck-ppt-design-skill/tree/e190e083b715b63172e1c4fea01bc5f9bb21a021"
+        ],
+        "deliverables": [
+          "sol-editorial-jaの原典MckEngineで作る、編集可能な5枚の日本語PPTX",
+          "確認用に5枚を書き出した画像またはPDF"
+        ],
+        "steps": [
+          "AIスライドのAGENTS.mdとsol-editorial-ja/SKILL.mdを読み、原典のschemaとMckEngineを使う",
+          "input/storyline.jsonを編集し、source/rebuild.pyでPPTXを作る。原典のLICENSE・NOTICEと書体の条件を保持する",
+          "5枚の構成を決める：表紙／読書会でしていること／1回の流れ／次回の日時と課題本／参加のしかた",
+          "書店から受け取った文と写真だけで本文を書き、受け取っていない情報は空欄として残す",
+          "書き出したファイルを実際に開き、文字のはみ出し・誤字・小さすぎる文字がないか見る"
+        ],
+        "acceptance": [
+          "ちょうど5枚で、書き出したファイルを実際に開ける",
+          "5枚目だけを見ても、申し込み先と次回の日時が分かる",
+          "本文はすべて日本語で、どのページも文字が枠からはみ出していない",
+          "書店から受け取っていない日時・人数・参加者の感想を書いていない",
+          "使った写真はすべて書店が使用を許可したもの"
+        ],
+        "assumptions": [
+          "書店名・開催日時・課題本・参加費は未提供。仮の値を入れず、空欄として示す",
+          "店頭のモニターとSNSでの共有の両方で見せるため、16:9で作る",
+          "読書会は、これからも続けて開く会として紹介する",
+          "作風は編集誌風のsol-editorial-jaを選択した。受け取る原稿と写真に合わせて5枚へ調整する"
+        ]
+      },
+      "original_request": "小さな書店の読書会を紹介する、5枚の日本語スライドを作りたい",
+      "output_file": {
+        "path": "outputs/slides.json",
+        "bytes": 2687,
+        "sha256": "ba67e0e00ea4cdc478842671e47a54f3a3c041e6212ee9c484ed7788cb8e93c4"
+      },
+      "handoff_file": {
+        "path": "outputs/slides-handoff.txt",
+        "bytes": 3110,
+        "sha256": "a4dd15961802ff504cfa5169a8ea0e3ef4999651969816d21a92502516bab352"
+      },
+      "source_provenance": "Saved original publication. Opus initial brief with documented original parent slide-route edits; not new generated content.",
+      "inputs_are_materials_to_obtain": true,
+      "acceptance_is_future_plan_not_verified": true,
+      "next_production_executed": false
+    },
+    {
+      "id": "motion",
+      "label": "動画をつくる",
+      "route": {
+        "category_label": "モーション",
+        "reason": "欲しいのは20秒の書き出した映像。完成は「MP4を再生して3点を読み切れること」で確かめる。",
+        "skills": [
+          {
+            "name": "Motion Reel",
+            "ref": "https://github.com/studio-yebisu/motion-reel/tree/56198544e69201b1c202e0c00fb90b568a729824",
+            "why": "文字と図形の短いコード動画を、任意時刻の描画・フレームの確認・MP4の書き出しまで通すため。"
+          }
+        ]
+      },
+      "brief": {
+        "title": "新機能の3つの変更点を伝える20秒動画",
+        "request": "新機能の3つの変更点を、20秒の文字と図形の動画で伝えたい",
+        "category": "motion",
+        "audience": "その製品をすでに使っている人",
+        "goal": "見終わった人が、3つの変更点を一つずつ言えるようにする",
+        "inputs": [
+          "3つの変更点それぞれの名前と一文の説明（リリースノートなど一次資料から）",
+          "製品名と、ロゴを使う場合はその使用条件",
+          "変更前と変更後の画面（あれば）"
+        ],
+        "skill_refs": [
+          "https://github.com/studio-yebisu/motion-reel/tree/56198544e69201b1c202e0c00fb90b568a729824"
+        ],
+        "deliverables": [
+          "20秒・1280×720・30fpsのMP4（音なし）",
+          "編集できるHTMLの映像ソースとポスター画像",
+          "全体を並べた確認用のコンタクトシート"
+        ],
+        "steps": [
+          "一次資料から3つの変更点を一文ずつ確定する。確定できないものは未確定のまま止める",
+          "Motion Reelのブリーフに、残す一文・20秒・16:9・音なしを書く",
+          "場面表を作る：0〜3秒 導入／3〜8秒 変更点1／8〜13秒 変更点2／13〜18秒 変更点3／18〜20秒 まとめ",
+          "window.seek(秒)で任意時刻を描くHTMLを書き、同じ図形を変形させて3点をつなぐ",
+          "コンタクトシートと通し再生で、各変更点の文字を読み切れるか確かめて直す"
+        ],
+        "acceptance": [
+          "ちょうど20秒のMP4が最後まで再生できる",
+          "3つの変更点が、それぞれ4秒以上止まった状態で読める",
+          "画面の文字は720pで読める大きさで、変更点の文は一次資料と一致している",
+          "同じ時刻を別の順番で描いても、同じ画になる",
+          "音を出さなくても、3つの変更点が伝わる"
+        ],
+        "assumptions": [
+          "製品名と3つの変更点の内容は未提供。受け取るまで文言を作らない",
+          "依頼が文字と図形の動画なので、音声とナレーションは付けない",
+          "横長の1280×720を基本にする。縦型が必要なら、別に配置を作り直す",
+          "変更前後の画面がない場合は、実在の画面に見せかけず図形で示す"
+        ]
+      },
+      "original_request": "新機能の3つの変更点を、20秒の文字と図形の動画で伝えたい",
+      "output_file": {
+        "path": "outputs/motion.json",
+        "bytes": 2370,
+        "sha256": "2b21f9eb87b70c6c85274a79dc46ce059c7c4ec58af9fa06f70dd39b9dd9184b"
+      },
+      "handoff_file": {
+        "path": "outputs/motion-handoff.txt",
+        "bytes": 2793,
+        "sha256": "14b9da5b6fcd6cea8c502adaba711b2037c8e7320fb55f9d2dba6872b107df36"
+      },
+      "source_provenance": "Saved original publication. Opus initial brief with documented original parent slide-route edits; not new generated content.",
+      "inputs_are_materials_to_obtain": true,
+      "acceptance_is_future_plan_not_verified": true,
+      "next_production_executed": false
+    }
+  ],
+  "counts": {
+    "jobs": 3,
+    "schema_fields": 11,
+    "proposed_inputs": 9,
+    "planned_steps": 15,
+    "planned_acceptance": 15,
+    "assumptions": 12
+  },
+  "guardrails": {
+    "new_original_brief_generation": false,
+    "live_ai_in_browser": false,
+    "next_production_executed": false,
+    "human_approval": false,
+    "quality_guarantee": false,
+    "original_parent_slide_route_adjustment": true
+  },
+  "actual_scope": "Original initial Opus writing with original parent slide-route integration; static saved briefs. No new original rewriting or downstream UI/PPTX/20s product-video creation. New32s explainer is separate."
+}

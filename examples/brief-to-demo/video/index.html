@@ -1,113 +1,87 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" data-page="brief-to-demo-film">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>brief-to-demo の使い方｜解説動画のソース｜Studio Yebisu</title>
-  <script>
-    // Recording mode: show only the canvas, at the composition size.
-    if (window.__MOTION_RENDER__ || /[?&]render(=|&|$)/.test(location.search)) document.documentElement.classList.add('render');
-  </script>
-  <style>
-    * { box-sizing: border-box; }
-    html, body { margin: 0; }
-    body {
-      background: #f2eee3; color: #17150f;
-      font: 16px/1.8 "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", Meiryo, "Noto Sans JP", sans-serif;
-    }
-    canvas { display: block; }
-
-    html.render, html.render body { width: 100%; height: 100%; overflow: hidden; }
-    html.render .page { max-width: none; margin: 0; padding: 0; }
-    html.render .frame { border: 0; }
-    html.render canvas, html.render .frame canvas { width: 100vw; height: 100vh; }
-    html.render .preview-only { display: none !important; }
-
-    .page { max-width: 1320px; margin: 0 auto; padding: 1.25rem clamp(1rem, 3vw, 2rem) 2.5rem; }
-    .top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid #17150f; margin-bottom: 1.25rem; font-size: 0.9375rem; }
-    .top a { color: inherit; text-underline-offset: 0.2em; }
-    h1 { margin: 0; font: 700 1.375rem/1.4 "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif; }
-    .frame { border: 1px solid #17150f; }
-    .frame canvas { width: 100%; height: auto; }
-    .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; padding: 0.75rem 0; border-bottom: 1px solid rgba(23, 21, 15, 0.22); }
-    .controls button { font: inherit; font-weight: 700; min-height: 2.75rem; padding: 0.35rem 1.1rem; border: 1px solid #17150f; background: #17150f; color: #f2eee3; border-radius: 0; cursor: pointer; }
-    .controls input[type="range"] { flex: 1 1 14rem; accent-color: #ff4f00; min-height: 2.75rem; }
-    .controls output { font-variant-numeric: tabular-nums; min-width: 6.5em; }
-    .chapters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0 0; padding: 0; list-style: none; }
-    .chapters button { font: inherit; font-size: 0.9375rem; min-height: 2.5rem; padding: 0.25rem 0.85rem; border: 1px solid #17150f; background: transparent; color: inherit; border-radius: 0; cursor: pointer; }
-    .chapters button:hover { background: #17150f; color: #f2eee3; }
-    .note { margin: 1rem 0 0; font-size: 0.875rem; color: #4f4a3f; max-width: 46em; }
-    :focus-visible { outline: 3px solid #17150f; outline-offset: 3px; box-shadow: 0 0 0 3px #cbef3a; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>図解32秒・無音の元ページ — ひと言を、制作の設計図へ（brief-to-demo 作例）</title>
+<link rel="stylesheet" href="video.css">
 </head>
 <body>
-  <div class="page">
-    <header class="top preview-only">
-      <h1>brief-to-demo の使い方（解説動画のソース）</h1>
-      <nav aria-label="関連"><a href="../index.html">3件のブリーフを見る</a>　<a href="../../../case.html?id=brief-to-demo">作例の記事</a></nav>
-    </header>
-    <div class="frame">
-      <canvas id="scene" role="img" aria-label="「イベント受付を使いやすくしたい」という依頼が、UI・UXの分野を選び、目的・入力・スキル・完成条件の項目に分かれ、完成したブリーフとしてAIの入力欄へ渡るまでを示す28秒の解説動画"></canvas>
-    </div>
-    <div class="controls preview-only" id="controls">
-      <button type="button" id="play" aria-pressed="false">再生</button>
-      <input id="scrub" type="range" min="0" max="28" step="0.0333" value="0" aria-label="再生位置（秒）">
-      <output id="time" for="scrub">0.00 / 28.00秒</output>
-    </div>
-    <ol class="chapters preview-only" aria-label="場面へ移動">
-      <li><button type="button" data-at="3">1 依頼</button></li>
-      <li><button type="button" data-at="9.2">2 分野</button></li>
-      <li><button type="button" data-at="15">3 項目</button></li>
-      <li><button type="button" data-at="20.5">4 ブリーフ</button></li>
-      <li><button type="button" data-at="26.5">5 渡す</button></li>
-    </ol>
-    <p class="note preview-only">1280×720、30fps、28秒、音声なし。このページの再生と移動は確認用の操作で、書き出す映像には含まれません。どの時刻を指定しても、その時刻の画面だけを描き直します。</p>
+<header class="intro">
+  <p class="kicker">brief-to-demo 作例・図解動画の元ページ</p>
+  <h1>ひと言を、制作の設計図へ<span class="sub">図解32秒・無音（<span id="film-dims">縦 720×1280</span>・30fps）</span></h1>
+  <p>作例ページと同じ12件の素材を照合してから、同じ概念図を描きます。指示書の本と、受け取った依頼文1枚が1つのAIに入り、同じ紙が11項目のブリーフに開きます。未指定・仮の条件は別のポケットに分かれ、保存済みのブリーフJSONと引き継ぎ文になります。次の制作は点線の枠だけです。例はUI画面の依頼です。ここではAIは動かず、音もありません。</p>
+</header>
+
+<figure id="stage" class="stage" data-orient="portrait">
+  <canvas id="film" width="720" height="1280" role="img"
+    aria-label="図解動画の画面。SKILL.mdの本に「成果物から分野へ」「受け取っていない事実を足さない」「推測した条件は別に」の3つの札が現れます。受け取ったものの枠には依頼文「地域のイベント受付を、スマホでも迷わず使える画面にしたい」の1枚だけがあり、素材はありません。本と依頼文の線が1つのAIへ入り、紙がAIの作業台へ移ります。同じ紙が開いて11項目の制作ブリーフになり、依頼の芯5・制作に必要なもの2・作り方と完成3の区画が埋まります。次に受け取る素材3つは点線の計画のままで、分野はUI・UXが選ばれ、読むスキルはfrontend-designです。未指定・仮の条件のポケットが分かれ、中空の印4つと「日時・会場・定員は未提供」が値のないまま残ります。ブリーフは保存済みのui.json（2,733 B）と引き継ぎ文ui-handoff.txt（3,156 B）になり、点線の「次の制作・未実行」の枠へつながります。完成の条件の四角はすべて空のままです。"></canvas>
+  <figcaption id="film-caption" class="caption" aria-live="polite"></figcaption>
+</figure>
+
+<section class="controls" aria-label="プレビューの操作">
+  <div class="row">
+    <button id="play" type="button" aria-pressed="false" disabled>再生</button>
+    <button id="reset" type="button" disabled>先頭へ</button>
+    <button id="replay" type="button" disabled>最初から再生</button>
+    <button id="end" type="button" disabled>末尾へ</button>
   </div>
-  <script src="scene.js"></script>
-  <script>
-    (() => {
-      if (document.documentElement.classList.contains('render')) {
-        for (const el of document.querySelectorAll('.preview-only')) el.remove();
-        return;
-      }
-      const duration = window.motionConfig.duration;
-      const play = document.getElementById('play'), scrub = document.getElementById('scrub'), output = document.getElementById('time');
-      let playing = false, seconds = 0, start = 0, raf = 0;
-      function draw(t) {
-        seconds = Math.max(0, Math.min(duration, t));
-        window.seek(seconds);
-        scrub.value = String(seconds);
-        output.value = seconds.toFixed(2) + ' / ' + duration.toFixed(2) + '秒';
-      }
-      function stop() {
-        playing = false;
-        cancelAnimationFrame(raf);
-        play.textContent = seconds >= duration ? 'もう一度再生' : '再生';
-        play.setAttribute('aria-pressed', 'false');
-      }
-      function tick(now) {
-        if (!playing) return;
-        const t = (now - start) / 1000;
-        if (t >= duration) { draw(duration); stop(); return; }
-        draw(t);
-        raf = requestAnimationFrame(tick);
-      }
-      play.addEventListener('click', () => {
-        if (playing) return stop();
-        if (seconds >= duration) seconds = 0;
-        playing = true;
-        start = performance.now() - seconds * 1000;
-        play.textContent = '一時停止';
-        play.setAttribute('aria-pressed', 'true');
-        raf = requestAnimationFrame(tick);
-      });
-      scrub.addEventListener('input', () => { stop(); draw(Number(scrub.value)); });
-      for (const button of document.querySelectorAll('[data-at]')) {
-        button.addEventListener('click', () => { stop(); draw(Number(button.dataset.at)); });
-      }
-      document.addEventListener('visibilitychange', () => { if (document.hidden && playing) stop(); });
-      draw(0);
-    })();
-  </script>
+  <div class="scrub">
+    <label for="time">再生位置（0〜32秒）</label>
+    <input id="time" type="range" min="0" max="32" step="0.1" value="0" disabled>
+    <output id="clock" for="time">0.0秒 / 32.0秒</output>
+  </div>
+  <div class="row jumps" role="group" aria-label="場面へ移る">
+    <button type="button" data-jump="0" disabled>0秒</button>
+    <button type="button" data-jump="4" disabled>4秒</button>
+    <button type="button" data-jump="8" disabled>8秒</button>
+    <button type="button" data-jump="13" disabled>13秒</button>
+    <button type="button" data-jump="18" disabled>18秒</button>
+    <button type="button" data-jump="23" disabled>23秒</button>
+    <button type="button" data-jump="29" disabled>29秒</button>
+  </div>
+  <div class="row" role="group" aria-label="画面の向き">
+    <button type="button" data-orient="portrait" aria-pressed="true" disabled>縦 720×1280</button>
+    <button type="button" data-orient="wide" aria-pressed="false" disabled>横 1280×720</button>
+  </div>
+</section>
+<p id="asset-status" class="status" role="status" data-state="loading">素材 0/12 を照合しています…</p>
+<p class="retry-row"><button id="retry" class="retry" type="button" hidden>もう一度読み込む</button></p>
+<p class="hint">自動では再生しません。スライダーは ← → で0.1秒、Home・End で先頭・末尾へ移ります。</p>
+
+<section class="scenes" aria-labelledby="scenes-title">
+  <h2 id="scenes-title">場面</h2>
+  <ol>
+    <li><span class="time">0〜4秒</span>AIが読む指示書：0秒から本（SKILL.md）が見え、開きながら3つの決まりの札が順に現れます。</li>
+    <li><span class="time">4〜8秒</span>指示書と依頼1枚を、1つのAIへ：受け取ったものは依頼文1枚だけで、素材の欄は空です。本と依頼文の線がAIへ入り、紙がAIの作業台へ移ります。</li>
+    <li><span class="time">8〜13秒</span>同じ紙が、11項目のブリーフに開く：紙が袋に開き、依頼の帯と、依頼の芯5・制作に必要なもの2・作り方と完成3の区画が埋まります。仮の条件のポケットが袋の端から少し出ます。</li>
+    <li><span class="time">13〜18秒</span>次に受け取る素材と、読むスキル：受け取った依頼と、点線のままの「次に受け取る素材」3つを並べて光らせます。分野はUI・UXが選ばれ、読むスキルにfrontend-designが入ります。</li>
+    <li><span class="time">18〜23秒</span>仮の条件は、別のポケットへ：ポケットが分かれ、中空の印4つと「日時・会場・定員は未提供」が値のないまま残ります。承認の印は描きません。</li>
+    <li><span class="time">23〜29秒</span>保存したJSONと、引き継ぎ文：ブリーフが保存済みのui.json（2,733 B）とui-handoff.txt（3,156 B）になり、点線の「次の制作・未実行」の枠へつながります。</li>
+    <li><span class="time">29〜32秒</span>ひと言を、制作の設計図へ：全体の経路を同じ濃さで静止（入りは28.3〜28.9秒、ポスターは31秒）。</li>
+  </ol>
+</section>
+
+<nav class="links" aria-label="関連するファイル">
+  <h2>関連するファイル</h2>
+  <ul>
+    <li><a href="../index.html">作例のページ（図・3件・JSONの保存・引き継ぎ文のコピー）</a></li>
+    <li><a href="../desk.html#ui">以前のビューア（UI画面の依頼のブリーフ全文）</a></li>
+    <li><a href="../outputs/ui.json">保存済みのブリーフ（outputs/ui.json）</a></li>
+    <li><a href="../outputs/ui-handoff.txt">保存済みの引き継ぎ文（outputs/ui-handoff.txt）</a></li>
+    <li><a href="../concept/manifest.json">照合する12件（concept/manifest.json）</a></li>
+    <li><a href="storyboard.json">場面の設計（storyboard.json）</a></li>
+    <li><a href="README.md">この映像の説明（README.md）</a></li>
+    <li><a href="legacy.html">以前の28秒の映像ソース（legacy.html）</a></li>
+    <li><a href="../source.zip">入力・出力・ソース一式（source.zip）</a></li>
+  </ul>
+</nav>
+
+<footer class="foot">
+  <p>この映像は保存済みの記録だけから描いた図解です。ページや映像の中でAIを動かしたり、ブリーフを書き直したり、次の制作を行ったりはしていません。</p>
+  <p>原典：<a href="https://github.com/studio-yebisu/studio-yebisu/blob/bc2984ab4208e349aded79b3694cc2cb98b8a4a6/skills/brief-to-demo/SKILL.md" rel="noopener">studio-yebisu/studio-yebisu の skills/brief-to-demo</a>（コミット bc2984a）。brief-to-demo と映像のコードと文章：MIT License, Copyright (c) 2026 Studio Yebisu。</p>
+</footer>
+
+<script type="module" src="video.js"></script>
 </body>
 </html>

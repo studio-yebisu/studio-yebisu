@@ -1,7 +1,7 @@
 {
   "id": "brief-to-demo",
-  "updated_at": "2026-10-15T04:42:48.657645+09:00",
-  "stage": "published",
+  "updated_at": "2026-10-18T13:33:57.902969+00:00",
+  "stage": "technical_qa_complete",
   "model": {
     "requested": "claude-opus-5-5",
     "reported": [
@@ -9,7 +9,16 @@
     ],
     "completed": true,
     "permission_denials": 0,
-    "receipt_sha256": "9ed6d427f5b85ab097c71470dd3ff120fcbfb5af6d1b149dde86a2a8a6ccf1f0"
+    "receipt_sha256": "9ed6d427f5b85ab097c71470dd3ff120fcbfb5af6d1b149dde86a2a8a6ccf1f0",
+    "visual_revision_receipts": [
+      {
+        "phase": "visual-r1",
+        "receipt_sha256": "5bd4402eddd3fcfeae7ee0e164cb5e22301fb851e09b7dfb201d446c39021642",
+        "execution_sha256": "c23b92fd6e0499d2ff9c2ea5669e82315d6233b9be15d8cc5e75b41c53f3ac8d",
+        "prompt_sha256": "5fd72bd31669b436fadf47a9a13626f14ffd70eeaa64ec353aeef95ba3b0e9ce"
+      }
+    ],
+    "scope": "OriginalOpus brief drafts plus documented original parent slide-route integration unchanged. Exact newOpus5.5 authored8conceptUI/silentfilm originals; parent factual structure/packaged savedJSON-handoff, source identity/readability/camera corrections/rendering/QA/publication separate. Full history private."
   },
   "applied_skills": [
     "brief-to-demo",
@@ -23,7 +32,14 @@
     "Selected the existing sol-editorial-ja route after reading its canonical skill; no PPTX was produced in this brief example.",
     "Kept routine unspecified conditions from requiring repeated approval."
   ],
-  "render": {
+  "original_windows_files_sha256": {
+    "skills/brief-to-demo/SKILL.md": "90022b14f4954de50bb8179e6cfd1510891442ad8ca02e9bc1305e56f648ed64",
+    "examples/brief-to-demo/samples.json": "371724fb5e775ece750e4ad177b005f6d2a9bd4340f8c578bf3dd85998e590a1",
+    "examples/brief-to-demo/video/scene.js": "2eab364c38a2ad5186d70011c3f566659e726a7dc2dfb03052e8a64d9e14425e",
+    "media/brief-to-demo.mp4": "cf3eeaa4989925b67041ded048a277f6e42330bf51b17d34556a789390d53f47",
+    "media/brief-to-demo.webp": "1770f293bb50ba8f8a414f80301cc69ff45701a7c68f58430ce556886a6e0587"
+  },
+  "original_render": {
     "width": 1280,
     "height": 720,
     "fps": 30,
@@ -33,7 +49,7 @@
     "determinism_match": true,
     "video_sha256": "cf3eeaa4989925b67041ded048a277f6e42330bf51b17d34556a789390d53f47"
   },
-  "verification": {
+  "original_verification": {
     "site": {
       "status": "passed",
       "catalogEntries": 110,
@@ -72,14 +88,7 @@
       "embedded_ui_guide_and_demo": "HTTP 200"
     }
   },
-  "files": {
-    "skills/brief-to-demo/SKILL.md": "90022b14f4954de50bb8179e6cfd1510891442ad8ca02e9bc1305e56f648ed64",
-    "examples/brief-to-demo/samples.json": "371724fb5e775ece750e4ad177b005f6d2a9bd4340f8c578bf3dd85998e590a1",
-    "examples/brief-to-demo/video/scene.js": "2eab364c38a2ad5186d70011c3f566659e726a7dc2dfb03052e8a64d9e14425e",
-    "media/brief-to-demo.mp4": "cf3eeaa4989925b67041ded048a277f6e42330bf51b17d34556a789390d53f47",
-    "media/brief-to-demo.webp": "1770f293bb50ba8f8a414f80301cc69ff45701a7c68f58430ce556886a6e0587"
-  },
-  "publication": {
+  "previous_publication": {
     "status": "verified_live",
     "url": "https://studio-yebisu.github.io/studio-yebisu/",
     "case_url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=brief-to-demo",
@@ -93,5 +102,1042 @@
       "/guides/ui-ux/examples/studio-desk/index.html",
       "/media/brief-to-demo.mp4"
     ]
+  },
+  "upstream": {
+    "repository": "studio-yebisu/studio-yebisu",
+    "commit": "bc2984ab4208e349aded79b3694cc2cb98b8a4a6",
+    "license": "MIT",
+    "copyright": "Copyright (c) 2026 Studio Yebisu",
+    "official_vendor_files": [
+      {
+        "repository": "studio-yebisu/studio-yebisu",
+        "commit": "bc2984ab4208e349aded79b3694cc2cb98b8a4a6",
+        "path": "skills/brief-to-demo/SKILL.md",
+        "git_blob": "7633556bbf9b73d72ac96b543376f8709b7d36f0",
+        "sha256": "90022b14f4954de50bb8179e6cfd1510891442ad8ca02e9bc1305e56f648ed64",
+        "bytes": 1830
+      },
+      {
+        "repository": "studio-yebisu/studio-yebisu",
+        "commit": "bc2984ab4208e349aded79b3694cc2cb98b8a4a6",
+        "path": "skills/brief-to-demo/LICENSE",
+        "git_blob": "2c64cb6fbbaf851c1c62c6d9f82977f418c112fc",
+        "sha256": "fb74b9b6e529197ce24b127b687e4e349cf46864059da001a3d9d63db39cdb19",
+        "bytes": 1070
+      }
+    ],
+    "secondary_routing_sources": [
+      {
+        "tag": "frontend-design",
+        "status": "retrieved",
+        "private_reading": "runtime/source-readings/frontend-design.txt",
+        "repository": "anthropics/skills",
+        "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+        "path": "skills/frontend-design/SKILL.md",
+        "git_blob": "a5333457c414d20d625f307df945842c0952ecc3",
+        "sha256": "d91970639e9f5c37682ac7ab60094d35f1c7c1f38d731bd56396563aee10c1d3",
+        "bytes": 9390
+      },
+      {
+        "tag": "frontend-design-license",
+        "status": "retrieved",
+        "private_reading": "runtime/source-readings/frontend-design-license.txt",
+        "repository": "anthropics/skills",
+        "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+        "path": "skills/frontend-design/LICENSE.txt",
+        "git_blob": "f433b1a53f5b830a205fd2df78e2b34974656c7b",
+        "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+        "bytes": 10174
+      },
+      {
+        "tag": "motion-license",
+        "status": "retrieved",
+        "private_reading": "runtime/source-readings/motion-license.txt",
+        "repository": "studio-yebisu/motion-reel",
+        "commit": "56198544e69201b1c202e0c00fb90b568a729824",
+        "path": "LICENSE",
+        "git_blob": "27a3983eba858dfd99db7b2630952e0d373d696f",
+        "sha256": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+        "bytes": 1069
+      },
+      {
+        "tag": "slides-license",
+        "status": "retrieved",
+        "private_reading": "runtime/source-readings/slides-license.txt",
+        "repository": "likaku/Mck-ppt-design-skill",
+        "commit": "e190e083b715b63172e1c4fea01bc5f9bb21a021",
+        "path": "LICENSE",
+        "git_blob": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+        "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+        "bytes": 11358
+      },
+      {
+        "tag": "slides-readme",
+        "status": "retrieved",
+        "private_reading": "runtime/source-readings/slides-readme.txt",
+        "repository": "likaku/Mck-ppt-design-skill",
+        "commit": "e190e083b715b63172e1c4fea01bc5f9bb21a021",
+        "path": "README.md",
+        "git_blob": "d166a699e7c8a4b3bff803c45f14d87b0767b1bc",
+        "sha256": "f2058627f43aaccb54f96391e27f5f0a7847e04f770f3598ca316829ad754692",
+        "bytes": 21362
+      }
+    ],
+    "scope": "Original2ownskill files are exact pinned Git bytes. Original saved briefs reused; routing skills identify future production, not executed UI/PPTX/product-video outputs. Slides route was adjusted by original parent, not a new Opus rewriting output.",
+    "checked_at": "2026-10-18T12:51:47.250632+00:00"
+  },
+  "verified_at": "2026-10-18T13:33:57.902969+00:00",
+  "runtime": {
+    "status": "passed",
+    "sample_count": 3,
+    "scope": "Original3saved skill-applied briefs reused with parent edits retained; new UI/data/films checked. No original generation rerun or downstream production execution."
+  },
+  "browser": {
+    "jobs_checked": 3,
+    "stages": 3,
+    "phone375x812_primary_action_fits_all9": true,
+    "parts": 6,
+    "rules": 3,
+    "field_values_checked": 33,
+    "theme_width_views": 16,
+    "final_phone_widths": [
+      320,
+      375
+    ],
+    "keyboard_focus": {
+      "id": "copy-handoff",
+      "outline": "3px",
+      "style": "solid"
+    },
+    "asset_failures": [
+      {
+        "mode": "http",
+        "controls": true,
+        "handoff": "",
+        "href": null,
+        "readouts": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "request": "",
+        "retryVisible": true,
+        "state": "error",
+        "status": "concept/structure.json が HTTP 503 でした。図と読み出しを止めました。ファイルを直接開いた場合は、ローカルのHTTPサーバー経由で開いてください。",
+        "recovered": {
+          "enabled": true,
+          "href": "http://127.0.0.1:8876/examples/brief-to-demo/outputs/ui.json",
+          "retryHidden": true,
+          "state": "ready"
+        }
+      },
+      {
+        "mode": "json",
+        "controls": true,
+        "handoff": "",
+        "href": null,
+        "readouts": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "request": "",
+        "retryVisible": true,
+        "state": "error",
+        "status": "concept/structure.json の大きさが記録と違います。図と読み出しを止めました。ファイルを直接開いた場合は、ローカルのHTTPサーバー経由で開いてください。",
+        "recovered": {
+          "enabled": true,
+          "href": "http://127.0.0.1:8876/examples/brief-to-demo/outputs/ui.json",
+          "retryHidden": true,
+          "state": "ready"
+        }
+      },
+      {
+        "mode": "hash",
+        "controls": true,
+        "handoff": "",
+        "href": null,
+        "readouts": [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        "request": "",
+        "retryVisible": true,
+        "state": "error",
+        "status": "concept/structure.json のSHA-256が記録と違います。図と読み出しを止めました。ファイルを直接開いた場合は、ローカルのHTTPサーバー経由で開いてください。",
+        "recovered": {
+          "enabled": true,
+          "href": "http://127.0.0.1:8876/examples/brief-to-demo/outputs/ui.json",
+          "retryHidden": true,
+          "state": "ready"
+        }
+      }
+    ],
+    "json_save_request": {
+      "href": "http://127.0.0.1:8876/examples/brief-to-demo/outputs/ui.json",
+      "download": "brief-to-demo-ui.json",
+      "requested": true,
+      "returnedFile": null,
+      "note": "Native save request activated; browser returned no file within timeout. Raw URL bytes are checked separately."
+    },
+    "json_file_receipt": "No browser-download file returned. Native link activated; pinned actualURL bytes checked separately.",
+    "legacy_saved_briefs_checked": 3,
+    "editor": {
+      "jumps": [
+        {
+          "caption": "0〜4秒　AIが読む指示書",
+          "clock": "0.0秒 / 32.0秒",
+          "time": "0"
+        },
+        {
+          "caption": "4〜8秒　指示書と依頼1枚を、1つのAIへ",
+          "clock": "4.0秒 / 32.0秒",
+          "time": "4"
+        },
+        {
+          "caption": "8〜13秒　同じ紙が、11項目のブリーフに開く",
+          "clock": "8.0秒 / 32.0秒",
+          "time": "8"
+        },
+        {
+          "caption": "13〜18秒　次に受け取る素材と、読むスキル",
+          "clock": "13.0秒 / 32.0秒",
+          "time": "13"
+        },
+        {
+          "caption": "18〜23秒　仮の条件は、別のポケットへ",
+          "clock": "18.0秒 / 32.0秒",
+          "time": "18"
+        },
+        {
+          "caption": "23〜29秒　保存したJSONと、引き継ぎ文",
+          "clock": "23.0秒 / 32.0秒",
+          "time": "23"
+        },
+        {
+          "caption": "29〜32秒　ひと言を、制作の設計図へ",
+          "clock": "29.0秒 / 32.0秒",
+          "time": "29"
+        }
+      ],
+      "arbitrary": "7.2秒 / 32.0秒",
+      "wide": {
+        "dimensions": [
+          1280,
+          720
+        ],
+        "status": "12件の素材を、大きさとSHA-256で照合しました。いまの画面：横 1280×720・30fps・32秒・無音。"
+      },
+      "play": {
+        "label": "一時停止",
+        "time": "0.3"
+      },
+      "paused": {
+        "audioElements": 0,
+        "label": "再生",
+        "retryHidden": true,
+        "time": "0.3"
+      },
+      "end": "32.0秒 / 32.0秒",
+      "failures": [
+        {
+          "mode": "http",
+          "disabled": true,
+          "retryVisible": true,
+          "state": "error",
+          "status": "concept/structure.json が HTTP 503 でした。描画を止めました。ローカルのHTTPサーバー経由で開いてください。",
+          "recovered": {
+            "enabled": true,
+            "retryHidden": true,
+            "state": "ready",
+            "status": "12件の素材を、大きさとSHA-256で照合しました。いまの画面：縦 720×1280・30fps・32秒・無音。"
+          }
+        },
+        {
+          "mode": "json",
+          "disabled": true,
+          "retryVisible": true,
+          "state": "error",
+          "status": "concept/structure.json の大きさが記録と違います。描画を止めました。ローカルのHTTPサーバー経由で開いてください。",
+          "recovered": {
+            "enabled": true,
+            "retryHidden": true,
+            "state": "ready",
+            "status": "12件の素材を、大きさとSHA-256で照合しました。いまの画面：縦 720×1280・30fps・32秒・無音。"
+          }
+        },
+        {
+          "mode": "hash",
+          "disabled": true,
+          "retryVisible": true,
+          "state": "error",
+          "status": "concept/structure.json のSHA-256が記録と違います。描画を止めました。ローカルのHTTPサーバー経由で開いてください。",
+          "recovered": {
+            "enabled": true,
+            "retryHidden": true,
+            "state": "ready",
+            "status": "12件の素材を、大きさとSHA-256で照合しました。いまの画面：縦 720×1280・30fps・32秒・無音。"
+          }
+        }
+      ]
+    },
+    "movies_ended": 2,
+    "theme_persistence": {
+      "persisted": "dark",
+      "final": "system"
+    },
+    "copy_status": {
+      "handoff": "引き継ぎ文をコピーしました。",
+      "request": "request.txt の依頼文をコピーしました。"
+    },
+    "clipboard_readback_confirmed": false,
+    "unconfirmed": [
+      "Physical iOS/Safari/VoiceOver",
+      "200percent zoom",
+      "Human aesthetic approval",
+      "Effectiveness of briefs in downstream production",
+      "Clipboard readback",
+      "Returned JSON download file; native request and original URL bytes are separate checks"
+    ],
+    "human_approval": false
+  },
+  "video": {
+    "revision": "visual-r1",
+    "films": {
+      "portrait": {
+        "file": "video.mp4",
+        "sha256": "92695b23702fe4e5161e269a1b2fcd97b56e828e5a4df610addc2ba7d67a9b67",
+        "width": 720,
+        "height": 1280,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      },
+      "wide": {
+        "file": "video.mp4",
+        "sha256": "0a7762e901eedd53d7a91745f65a36afd82d17f6b769f97500fa9de01ad089dc",
+        "width": 1280,
+        "height": 720,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      }
+    },
+    "frame_review": {
+      "reviewed_by": "production agent",
+      "human_approval": false,
+      "scope": "Final portrait/wide16representative frames/contact and12consecutive renderer/decodedMP4 frames; instruction book3rules/oneAI/same-paper11compartments/assumptions/future-materials/realJSON-handoff/unexecuted-next-production. Intro centered/enlarged after actual preflight, opaque paper behind rule labels. Same source reproduces62PNG.",
+      "layouts": 2,
+      "representative_frames_per_layout": 16,
+      "consecutive_frames_per_layout": 12,
+      "actual_MP4_motion_frames_per_layout": 12,
+      "strip_start": 10.2,
+      "determinism": {
+        "portrait": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "afe55b98bec0122ea80ad75d785002ee5c9ab3967d6682994e8648511640b3d7",
+          "afterOtherTimes": "afe55b98bec0122ea80ad75d785002ee5c9ab3967d6682994e8648511640b3d7",
+          "freshPage": "afe55b98bec0122ea80ad75d785002ee5c9ab3967d6682994e8648511640b3d7",
+          "match": true
+        },
+        "wide": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "47c841e2a1c48950bbbac9cd452ffb7abf80abb59d3ec07187263333ab464024",
+          "afterOtherTimes": "47c841e2a1c48950bbbac9cd452ffb7abf80abb59d3ec07187263333ab464024",
+          "freshPage": "47c841e2a1c48950bbbac9cd452ffb7abf80abb59d3ec07187263333ab464024",
+          "match": true
+        }
+      },
+      "final30_and31_stable": true,
+      "audio_streams": 0
+    },
+    "native_movies_ended": 2,
+    "audio_streams": 0,
+    "human_approval": false
+  },
+  "visual_revision": {
+    "id": "visual-r1",
+    "purpose": "Instruction book3rules plus shortrequest enter oneAI,11field brief with distinct assumptions, planned route, actualJSON/handoff, downstream unexecuted.",
+    "original_briefs_reused": true,
+    "original_parent_slide_route_preserved": true,
+    "new_original_inference": false,
+    "next_production_executed": false,
+    "protected_files": 8,
+    "assets": 12,
+    "manifest_sha256": "843aaa40a8d024d8711cbca739924124a5470066a2fe2d87dcdeb72e906cd21d",
+    "verification": {
+      "id": "brief-to-demo",
+      "revision": "visual-r1",
+      "verified_at": "2026-10-18T13:33:57.902969+00:00",
+      "stage": "technical_qa_complete",
+      "scope": "New conceptual instruction structure UI and32s silent films. Original3briefs and original parent slide-route adjustment reused; no original generation rerun and no downstream UI/PPTX/20sproduct-film execution.",
+      "original_execution_record": "verification.json",
+      "original_public_case_files_preserved": 4,
+      "legacy_html_aliases_preserved": 2,
+      "official_vendor_files_preserved": 2,
+      "upstream": {
+        "repository": "studio-yebisu/studio-yebisu",
+        "commit": "bc2984ab4208e349aded79b3694cc2cb98b8a4a6",
+        "license": "MIT",
+        "copyright": "Copyright (c) 2026 Studio Yebisu",
+        "official_vendor_files": [
+          {
+            "repository": "studio-yebisu/studio-yebisu",
+            "commit": "bc2984ab4208e349aded79b3694cc2cb98b8a4a6",
+            "path": "skills/brief-to-demo/SKILL.md",
+            "git_blob": "7633556bbf9b73d72ac96b543376f8709b7d36f0",
+            "sha256": "90022b14f4954de50bb8179e6cfd1510891442ad8ca02e9bc1305e56f648ed64",
+            "bytes": 1830
+          },
+          {
+            "repository": "studio-yebisu/studio-yebisu",
+            "commit": "bc2984ab4208e349aded79b3694cc2cb98b8a4a6",
+            "path": "skills/brief-to-demo/LICENSE",
+            "git_blob": "2c64cb6fbbaf851c1c62c6d9f82977f418c112fc",
+            "sha256": "fb74b9b6e529197ce24b127b687e4e349cf46864059da001a3d9d63db39cdb19",
+            "bytes": 1070
+          }
+        ],
+        "secondary_routing_sources": [
+          {
+            "tag": "frontend-design",
+            "status": "retrieved",
+            "private_reading": "runtime/source-readings/frontend-design.txt",
+            "repository": "anthropics/skills",
+            "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+            "path": "skills/frontend-design/SKILL.md",
+            "git_blob": "a5333457c414d20d625f307df945842c0952ecc3",
+            "sha256": "d91970639e9f5c37682ac7ab60094d35f1c7c1f38d731bd56396563aee10c1d3",
+            "bytes": 9390
+          },
+          {
+            "tag": "frontend-design-license",
+            "status": "retrieved",
+            "private_reading": "runtime/source-readings/frontend-design-license.txt",
+            "repository": "anthropics/skills",
+            "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+            "path": "skills/frontend-design/LICENSE.txt",
+            "git_blob": "f433b1a53f5b830a205fd2df78e2b34974656c7b",
+            "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+            "bytes": 10174
+          },
+          {
+            "tag": "motion-license",
+            "status": "retrieved",
+            "private_reading": "runtime/source-readings/motion-license.txt",
+            "repository": "studio-yebisu/motion-reel",
+            "commit": "56198544e69201b1c202e0c00fb90b568a729824",
+            "path": "LICENSE",
+            "git_blob": "27a3983eba858dfd99db7b2630952e0d373d696f",
+            "sha256": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+            "bytes": 1069
+          },
+          {
+            "tag": "slides-license",
+            "status": "retrieved",
+            "private_reading": "runtime/source-readings/slides-license.txt",
+            "repository": "likaku/Mck-ppt-design-skill",
+            "commit": "e190e083b715b63172e1c4fea01bc5f9bb21a021",
+            "path": "LICENSE",
+            "git_blob": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+            "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+            "bytes": 11358
+          },
+          {
+            "tag": "slides-readme",
+            "status": "retrieved",
+            "private_reading": "runtime/source-readings/slides-readme.txt",
+            "repository": "likaku/Mck-ppt-design-skill",
+            "commit": "e190e083b715b63172e1c4fea01bc5f9bb21a021",
+            "path": "README.md",
+            "git_blob": "d166a699e7c8a4b3bff803c45f14d87b0767b1bc",
+            "sha256": "f2058627f43aaccb54f96391e27f5f0a7847e04f770f3598ca316829ad754692",
+            "bytes": 21362
+          }
+        ],
+        "scope": "Original2ownskill files are exact pinned Git bytes. Original saved briefs reused; routing skills identify future production, not executed UI/PPTX/product-video outputs. Slides route was adjusted by original parent, not a new Opus rewriting output.",
+        "checked_at": "2026-10-18T12:51:47.250632+00:00"
+      },
+      "frozen_assets": 12,
+      "manifest_sha256": "843aaa40a8d024d8711cbca739924124a5470066a2fe2d87dcdeb72e906cd21d",
+      "source_data_checks": {
+        "status": "passed",
+        "checked_at": "2026-10-18T13:12:09.506577+00:00",
+        "original_saved_briefs": [
+          {
+            "id": "ui",
+            "fields": 11,
+            "planned_inputs": 3,
+            "planned_steps": 5,
+            "planned_criteria": 5,
+            "unconfirmed_assumptions": 4,
+            "next_production_executed": false,
+            "json": {
+              "path": "outputs/ui.json",
+              "bytes": 2733,
+              "sha256": "b6a8268425e870d94dce568b89a122bd9074fd802bdcf71fbb30333031c295ff"
+            },
+            "handoff": {
+              "path": "outputs/ui-handoff.txt",
+              "bytes": 3156,
+              "sha256": "e7fcd958c98bd77fc32a7f2426918c5fb78924cd899868bdd70309a1bb7ecb5a"
+            }
+          },
+          {
+            "id": "slides",
+            "fields": 11,
+            "planned_inputs": 3,
+            "planned_steps": 5,
+            "planned_criteria": 5,
+            "unconfirmed_assumptions": 4,
+            "next_production_executed": false,
+            "json": {
+              "path": "outputs/slides.json",
+              "bytes": 2687,
+              "sha256": "ba67e0e00ea4cdc478842671e47a54f3a3c041e6212ee9c484ed7788cb8e93c4"
+            },
+            "handoff": {
+              "path": "outputs/slides-handoff.txt",
+              "bytes": 3110,
+              "sha256": "a4dd15961802ff504cfa5169a8ea0e3ef4999651969816d21a92502516bab352"
+            }
+          },
+          {
+            "id": "motion",
+            "fields": 11,
+            "planned_inputs": 3,
+            "planned_steps": 5,
+            "planned_criteria": 5,
+            "unconfirmed_assumptions": 4,
+            "next_production_executed": false,
+            "json": {
+              "path": "outputs/motion.json",
+              "bytes": 2370,
+              "sha256": "2b21f9eb87b70c6c85274a79dc46ce059c7c4ec58af9fa06f70dd39b9dd9184b"
+            },
+            "handoff": {
+              "path": "outputs/motion-handoff.txt",
+              "bytes": 2793,
+              "sha256": "14b9da5b6fcd6cea8c502adaba711b2037c8e7320fb55f9d2dba6872b107df36"
+            }
+          }
+        ],
+        "fields": 11,
+        "explanation_groups": 4,
+        "parts": 6,
+        "rules": 3,
+        "category_choices": 4,
+        "agents_saved_example": false,
+        "planned_criteria": 15,
+        "assumptions": 12,
+        "official_source_blobs": 2,
+        "protected_files": 8,
+        "frozen_assets": 12,
+        "new_original_generation": false,
+        "next_production_executed": false,
+        "scope": "Data/source identity and original brief packaging checks only. New UI/film/native action verification separate.",
+        "new_output_line_endings": "Parent-packaged JSON/handoff are WindowsCRLF, rawbytes/SHA fixed. JSON object matches original. Handoff text equals oldLF function after CRLF-only normalization; not rawbyte identity."
+      },
+      "browser": {
+        "jobs_checked": 3,
+        "stages": 3,
+        "phone375x812_primary_action_fits_all9": true,
+        "parts": 6,
+        "rules": 3,
+        "field_values_checked": 33,
+        "theme_width_views": 16,
+        "final_phone_widths": [
+          320,
+          375
+        ],
+        "keyboard_focus": {
+          "id": "copy-handoff",
+          "outline": "3px",
+          "style": "solid"
+        },
+        "asset_failures": [
+          {
+            "mode": "http",
+            "controls": true,
+            "handoff": "",
+            "href": null,
+            "readouts": [
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "request": "",
+            "retryVisible": true,
+            "state": "error",
+            "status": "concept/structure.json が HTTP 503 でした。図と読み出しを止めました。ファイルを直接開いた場合は、ローカルのHTTPサーバー経由で開いてください。",
+            "recovered": {
+              "enabled": true,
+              "href": "http://127.0.0.1:8876/examples/brief-to-demo/outputs/ui.json",
+              "retryHidden": true,
+              "state": "ready"
+            }
+          },
+          {
+            "mode": "json",
+            "controls": true,
+            "handoff": "",
+            "href": null,
+            "readouts": [
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "request": "",
+            "retryVisible": true,
+            "state": "error",
+            "status": "concept/structure.json の大きさが記録と違います。図と読み出しを止めました。ファイルを直接開いた場合は、ローカルのHTTPサーバー経由で開いてください。",
+            "recovered": {
+              "enabled": true,
+              "href": "http://127.0.0.1:8876/examples/brief-to-demo/outputs/ui.json",
+              "retryHidden": true,
+              "state": "ready"
+            }
+          },
+          {
+            "mode": "hash",
+            "controls": true,
+            "handoff": "",
+            "href": null,
+            "readouts": [
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            "request": "",
+            "retryVisible": true,
+            "state": "error",
+            "status": "concept/structure.json のSHA-256が記録と違います。図と読み出しを止めました。ファイルを直接開いた場合は、ローカルのHTTPサーバー経由で開いてください。",
+            "recovered": {
+              "enabled": true,
+              "href": "http://127.0.0.1:8876/examples/brief-to-demo/outputs/ui.json",
+              "retryHidden": true,
+              "state": "ready"
+            }
+          }
+        ],
+        "json_save_request": {
+          "href": "http://127.0.0.1:8876/examples/brief-to-demo/outputs/ui.json",
+          "download": "brief-to-demo-ui.json",
+          "requested": true,
+          "returnedFile": null,
+          "note": "Native save request activated; browser returned no file within timeout. Raw URL bytes are checked separately."
+        },
+        "json_file_receipt": "No browser-download file returned. Native link activated; pinned actualURL bytes checked separately.",
+        "legacy_saved_briefs_checked": 3,
+        "editor": {
+          "jumps": [
+            {
+              "caption": "0〜4秒　AIが読む指示書",
+              "clock": "0.0秒 / 32.0秒",
+              "time": "0"
+            },
+            {
+              "caption": "4〜8秒　指示書と依頼1枚を、1つのAIへ",
+              "clock": "4.0秒 / 32.0秒",
+              "time": "4"
+            },
+            {
+              "caption": "8〜13秒　同じ紙が、11項目のブリーフに開く",
+              "clock": "8.0秒 / 32.0秒",
+              "time": "8"
+            },
+            {
+              "caption": "13〜18秒　次に受け取る素材と、読むスキル",
+              "clock": "13.0秒 / 32.0秒",
+              "time": "13"
+            },
+            {
+              "caption": "18〜23秒　仮の条件は、別のポケットへ",
+              "clock": "18.0秒 / 32.0秒",
+              "time": "18"
+            },
+            {
+              "caption": "23〜29秒　保存したJSONと、引き継ぎ文",
+              "clock": "23.0秒 / 32.0秒",
+              "time": "23"
+            },
+            {
+              "caption": "29〜32秒　ひと言を、制作の設計図へ",
+              "clock": "29.0秒 / 32.0秒",
+              "time": "29"
+            }
+          ],
+          "arbitrary": "7.2秒 / 32.0秒",
+          "wide": {
+            "dimensions": [
+              1280,
+              720
+            ],
+            "status": "12件の素材を、大きさとSHA-256で照合しました。いまの画面：横 1280×720・30fps・32秒・無音。"
+          },
+          "play": {
+            "label": "一時停止",
+            "time": "0.3"
+          },
+          "paused": {
+            "audioElements": 0,
+            "label": "再生",
+            "retryHidden": true,
+            "time": "0.3"
+          },
+          "end": "32.0秒 / 32.0秒",
+          "failures": [
+            {
+              "mode": "http",
+              "disabled": true,
+              "retryVisible": true,
+              "state": "error",
+              "status": "concept/structure.json が HTTP 503 でした。描画を止めました。ローカルのHTTPサーバー経由で開いてください。",
+              "recovered": {
+                "enabled": true,
+                "retryHidden": true,
+                "state": "ready",
+                "status": "12件の素材を、大きさとSHA-256で照合しました。いまの画面：縦 720×1280・30fps・32秒・無音。"
+              }
+            },
+            {
+              "mode": "json",
+              "disabled": true,
+              "retryVisible": true,
+              "state": "error",
+              "status": "concept/structure.json の大きさが記録と違います。描画を止めました。ローカルのHTTPサーバー経由で開いてください。",
+              "recovered": {
+                "enabled": true,
+                "retryHidden": true,
+                "state": "ready",
+                "status": "12件の素材を、大きさとSHA-256で照合しました。いまの画面：縦 720×1280・30fps・32秒・無音。"
+              }
+            },
+            {
+              "mode": "hash",
+              "disabled": true,
+              "retryVisible": true,
+              "state": "error",
+              "status": "concept/structure.json のSHA-256が記録と違います。描画を止めました。ローカルのHTTPサーバー経由で開いてください。",
+              "recovered": {
+                "enabled": true,
+                "retryHidden": true,
+                "state": "ready",
+                "status": "12件の素材を、大きさとSHA-256で照合しました。いまの画面：縦 720×1280・30fps・32秒・無音。"
+              }
+            }
+          ]
+        },
+        "movies_ended": 2,
+        "theme_persistence": {
+          "persisted": "dark",
+          "final": "system"
+        },
+        "copy_status": {
+          "handoff": "引き継ぎ文をコピーしました。",
+          "request": "request.txt の依頼文をコピーしました。"
+        },
+        "clipboard_readback_confirmed": false,
+        "unconfirmed": [
+          "Physical iOS/Safari/VoiceOver",
+          "200percent zoom",
+          "Human aesthetic approval",
+          "Effectiveness of briefs in downstream production",
+          "Clipboard readback",
+          "Returned JSON download file; native request and original URL bytes are separate checks"
+        ],
+        "human_approval": false
+      },
+      "frame_review": {
+        "reviewed_by": "production agent",
+        "human_approval": false,
+        "scope": "Final portrait/wide16representative frames/contact and12consecutive renderer/decodedMP4 frames; instruction book3rules/oneAI/same-paper11compartments/assumptions/future-materials/realJSON-handoff/unexecuted-next-production. Intro centered/enlarged after actual preflight, opaque paper behind rule labels. Same source reproduces62PNG.",
+        "layouts": 2,
+        "representative_frames_per_layout": 16,
+        "consecutive_frames_per_layout": 12,
+        "actual_MP4_motion_frames_per_layout": 12,
+        "strip_start": 10.2,
+        "determinism": {
+          "portrait": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "afe55b98bec0122ea80ad75d785002ee5c9ab3967d6682994e8648511640b3d7",
+            "afterOtherTimes": "afe55b98bec0122ea80ad75d785002ee5c9ab3967d6682994e8648511640b3d7",
+            "freshPage": "afe55b98bec0122ea80ad75d785002ee5c9ab3967d6682994e8648511640b3d7",
+            "match": true
+          },
+          "wide": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "47c841e2a1c48950bbbac9cd452ffb7abf80abb59d3ec07187263333ab464024",
+            "afterOtherTimes": "47c841e2a1c48950bbbac9cd452ffb7abf80abb59d3ec07187263333ab464024",
+            "freshPage": "47c841e2a1c48950bbbac9cd452ffb7abf80abb59d3ec07187263333ab464024",
+            "match": true
+          }
+        },
+        "final30_and31_stable": true,
+        "audio_streams": 0
+      },
+      "video": {
+        "portrait": {
+          "video": {
+            "file": "video.mp4",
+            "sha256": "92695b23702fe4e5161e269a1b2fcd97b56e828e5a4df610addc2ba7d67a9b67",
+            "width": 720,
+            "height": 1280,
+            "fps": 30,
+            "frameCount": 960,
+            "duration": 32,
+            "hasAudio": false
+          },
+          "determinism": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "afe55b98bec0122ea80ad75d785002ee5c9ab3967d6682994e8648511640b3d7",
+            "afterOtherTimes": "afe55b98bec0122ea80ad75d785002ee5c9ab3967d6682994e8648511640b3d7",
+            "freshPage": "afe55b98bec0122ea80ad75d785002ee5c9ab3967d6682994e8648511640b3d7",
+            "match": true
+          },
+          "full_decode_passed": true,
+          "faststart": true
+        },
+        "wide": {
+          "video": {
+            "file": "video.mp4",
+            "sha256": "0a7762e901eedd53d7a91745f65a36afd82d17f6b769f97500fa9de01ad089dc",
+            "width": 1280,
+            "height": 720,
+            "fps": 30,
+            "frameCount": 960,
+            "duration": 32,
+            "hasAudio": false
+          },
+          "determinism": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "47c841e2a1c48950bbbac9cd452ffb7abf80abb59d3ec07187263333ab464024",
+            "afterOtherTimes": "47c841e2a1c48950bbbac9cd452ffb7abf80abb59d3ec07187263333ab464024",
+            "freshPage": "47c841e2a1c48950bbbac9cd452ffb7abf80abb59d3ec07187263333ab464024",
+            "match": true
+          },
+          "full_decode_passed": true,
+          "faststart": true
+        }
+      },
+      "shipped_source_reproduction": {
+        "status": "passed",
+        "checked_at": "2026-10-18T13:33:28.955368+00:00",
+        "png_files_byte_identical": 62,
+        "layouts": [
+          {
+            "layout": "portrait",
+            "png_files_byte_identical": 31,
+            "final30_and31_stable": true
+          },
+          {
+            "layout": "wide",
+            "png_files_byte_identical": 31,
+            "final30_and31_stable": true
+          }
+        ],
+        "scope": "Actual shipped root wrapper and final sources rendered16representative+12consecutive+contact/poster/strip perlayout. Same-environment pixel identity and final-frame stability; not cross-OS font equality or human approval."
+      },
+      "human_approval": false,
+      "downstream_production_executed": false,
+      "physical_ios_safari_voiceover": false
+    },
+    "production_adjustments": [
+      {
+        "files": [
+          "concept/structure.json",
+          "inputs/requests.json",
+          "outputs/*.json",
+          "outputs/*-handoff.txt",
+          "concept/manifest.json"
+        ],
+        "reason": "Parent factual source-field mapping and pure packaging of saved original brief objects/handoffText, not new model outputs."
+      },
+      {
+        "files": [
+          "render-visual.py",
+          "visual-guide.md",
+          "README.md",
+          "video/README.md",
+          "article-candidate.json"
+        ],
+        "reason": "Concrete reproduction/current versus old source entries; original WindowsCRLF versus publicLF identity; original/parent/newOpus authorship and unexecuted next-production boundaries."
+      },
+      {
+        "files": [
+          "index.html",
+          "concept.js",
+          "video/README.md"
+        ],
+        "reason": "Correct original line-ending identity: only original Windows app.js/samples.json wereCRLF; scene.js wasLF. New parent JSON/handoff packaging usesWindowsCRLF; preserve fixedrawhashes, normalizeCRLF ONLY toLF then require exact handoffText content. General whitespace normalization removed. Eight rawOpus originals preserved."
+      },
+      {
+        "files": [
+          "concept.js",
+          "video/video.js"
+        ],
+        "reason": "Actual phone/still review: book spine crossed3rule labels; add opaque paper behind labels. Intro occupied small corner with blank video area; center/enlarge currently visible original diagram and continuously pull back as original request/AI/packet join. Closed absolute-time camera, no new nodes/data/scene timing; final whole-map pose unchanged. Re-render and new QA required."
+      },
+      {
+        "files": [
+          "concept.js"
+        ],
+        "reason": "Clarify skill_refs field note: pinned routing sources were read/verified, but next UI/PPTX/product-film production was not executed. Remove overly broad not-read claim. This readout text does not affect film pixels."
+      }
+    ],
+    "source_originals_sha256": {
+      "index.html": "5b346bb1ff6cb47031b00068f3204c4963ac098eee0d13695ca34da55e23a331",
+      "concept.css": "745b53ace85ebbb37aba8feb6bd7ff17fa9d0e21ae5ac34f83fdf05aa37f42b9",
+      "concept.js": "2517799e0fe17d03e4ad1c6a2c9e58e99861302b668bc5dcc0727e51b3f6a99d",
+      "video/index.html": "bb1ca99c294ad598aaaeac44c5e0a9d5dc2cecdfcdc7fadbd742129829a83112",
+      "video/video.css": "7a4bb41fa1a2140cb9823536d41c514f1ddf32d0419d67b004192ffabb07ffd6",
+      "video/video.js": "14dc44b87cba6f6bb63ab8d61c78b034c8ffa396518eda438408ac14fa3d2c09",
+      "video/storyboard.json": "f7004df46d7ea869ee16444d8948a83dfb648b80e98ce63109d6a60d9215c38a",
+      "video/README.md": "506a163ffcaa378cda5a72e5114ab157a996fdb7d1235b1743f486cd28c30053"
+    },
+    "final_source_sha256": {
+      "index.html": "df1d2011486b82d64080d010dde79cc7331544872d62ec7b8f6438f299044ba5",
+      "concept.css": "745b53ace85ebbb37aba8feb6bd7ff17fa9d0e21ae5ac34f83fdf05aa37f42b9",
+      "concept.js": "da3c5c86637939e5b237cac32e99f8de1b667a508161af4f2a721acd54822f6f",
+      "video/index.html": "bb1ca99c294ad598aaaeac44c5e0a9d5dc2cecdfcdc7fadbd742129829a83112",
+      "video/video.css": "7a4bb41fa1a2140cb9823536d41c514f1ddf32d0419d67b004192ffabb07ffd6",
+      "video/video.js": "5f26b15fae56b54347969b99d825be8cdadcc2f11407b28977d86094845ff2e8",
+      "video/storyboard.json": "f7004df46d7ea869ee16444d8948a83dfb648b80e98ce63109d6a60d9215c38a",
+      "video/README.md": "990fea181a2169c90a5508711808ee071b28945a4086cc002a9f52ee30a825ed"
+    },
+    "silent_film": true
+  },
+  "artifacts_sha256": {
+    "data/cases/brief-to-demo.json": "c9ca9f4cbad8549911fd59bd41302095658800fb81fd31c1d4586b35aaf58f53",
+    "examples/brief-to-demo/LICENSE": "fb74b9b6e529197ce24b127b687e4e349cf46864059da001a3d9d63db39cdb19",
+    "examples/brief-to-demo/README.md": "6d794fcfd4e368a018bd2d77d32502d767ec6f46e6b628927823a7ad69159be0",
+    "examples/brief-to-demo/app.js": "1b557899b64e21ff5d10c6f645495020f4c7e95216914c810ececa98ec13da0d",
+    "examples/brief-to-demo/concept.css": "745b53ace85ebbb37aba8feb6bd7ff17fa9d0e21ae5ac34f83fdf05aa37f42b9",
+    "examples/brief-to-demo/concept.js": "da3c5c86637939e5b237cac32e99f8de1b667a508161af4f2a721acd54822f6f",
+    "examples/brief-to-demo/concept/manifest.json": "843aaa40a8d024d8711cbca739924124a5470066a2fe2d87dcdeb72e906cd21d",
+    "examples/brief-to-demo/concept/structure.json": "b755319c0c2530ae2780f93af78fa1945ebbd0a2d05315efd90c87b0ab648fcf",
+    "examples/brief-to-demo/desk.html": "cde818a3a690a2833dca02f8e183e24faaf54f98161a0196ade2114a4bd391d2",
+    "examples/brief-to-demo/index.html": "df1d2011486b82d64080d010dde79cc7331544872d62ec7b8f6438f299044ba5",
+    "examples/brief-to-demo/inputs/requests.json": "57c1c1ae99f735a4a17162779d07a136215c8544deaeaa6932d8d4b224a745dc",
+    "examples/brief-to-demo/outputs/motion-handoff.txt": "14b9da5b6fcd6cea8c502adaba711b2037c8e7320fb55f9d2dba6872b107df36",
+    "examples/brief-to-demo/outputs/motion.json": "2b21f9eb87b70c6c85274a79dc46ce059c7c4ec58af9fa06f70dd39b9dd9184b",
+    "examples/brief-to-demo/outputs/slides-handoff.txt": "a4dd15961802ff504cfa5169a8ea0e3ef4999651969816d21a92502516bab352",
+    "examples/brief-to-demo/outputs/slides.json": "ba67e0e00ea4cdc478842671e47a54f3a3c041e6212ee9c484ed7788cb8e93c4",
+    "examples/brief-to-demo/outputs/ui-handoff.txt": "e7fcd958c98bd77fc32a7f2426918c5fb78924cd899868bdd70309a1bb7ecb5a",
+    "examples/brief-to-demo/outputs/ui.json": "b6a8268425e870d94dce568b89a122bd9074fd802bdcf71fbb30333031c295ff",
+    "examples/brief-to-demo/render-visual.py": "f8b5a19341e25116dd88d1cc8bd5af9563602e6810198a645942673dad6c147c",
+    "examples/brief-to-demo/request.txt": "70affcc3f3a4a3e2c1632ae4bd5fd2b63736c43437a08f0297e55588eafa68dc",
+    "examples/brief-to-demo/samples.json": "859dd1124c27924f77588e52bbf4c638adc42cb62539246b1e26062619dfe73c",
+    "examples/brief-to-demo/source.zip": "7552cbca8014a668252b7753084f4d80fed1e8c1bf3b8720a88c32172a2ea569",
+    "examples/brief-to-demo/styles.css": "244ad5e82237715b257c492745991203e054563d458075be1f0d78eebfa17e39",
+    "examples/brief-to-demo/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/brief-to-demo/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/brief-to-demo/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/brief-to-demo/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/brief-to-demo/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "examples/brief-to-demo/vendor/brief-to-demo/LICENSE": "fb74b9b6e529197ce24b127b687e4e349cf46864059da001a3d9d63db39cdb19",
+    "examples/brief-to-demo/vendor/brief-to-demo/SKILL.md": "90022b14f4954de50bb8179e6cfd1510891442ad8ca02e9bc1305e56f648ed64",
+    "examples/brief-to-demo/verification.json": "12b8c9d066c1fa0224a5b3144887acfb7af1b02f4007f4c2003fed98b3525607",
+    "examples/brief-to-demo/video/README.md": "990fea181a2169c90a5508711808ee071b28945a4086cc002a9f52ee30a825ed",
+    "examples/brief-to-demo/video/index.html": "bb1ca99c294ad598aaaeac44c5e0a9d5dc2cecdfcdc7fadbd742129829a83112",
+    "examples/brief-to-demo/video/legacy.html": "28f7ae52802e4d8d9773cb5ab3b5d6d82df8b4b856aa2442b2e742bf2fd2229d",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/capture.json": "438ef60aa4e78cbce154e4a3ab4bd1e45995670318c014ce549c22c50be523ba",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/contact.png": "a7daa42fd13f0c82788b47fb40f8eea928ad28c5b8fb4f6d02f0ac68a0c78f68",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/mp4-moving-strip.png": "d8cb4152ff3661c41a36fa0dd26fdecec8b4db79232ec596cc5fdf09b921d548",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/poster.png": "cbeb3aeca13e41694c93deb185641ff73091f63e8826971497c085bbb7f98cf3",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/stills/frame-000000.png": "8b109503daabcb8ab854d1c3420a054a6336944c742ff38cf3544389875016ba",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/stills/frame-000001.png": "37b8bb736fb7bbd854358c67a469813244fe8241adeab2eb77c6a2361d7ae23e",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/stills/frame-000002.png": "0d650d48e545606c2446eb6b3086917052eea145a7d3a0f519272e1c6e80ca88",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/stills/frame-000003.png": "5f67f0b4a676f7c116fb4eb24956bc7ba46dddfae2870bfc167fd6364e4b5b08",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/stills/frame-000004.png": "470dda06f1242ec7e2f8a62d87fb36c161dfb0162126e6320c37f06b36a01003",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/stills/frame-000005.png": "98f5771e7d42c437572e400a1163959fafe20987a48c2caea87c1e584952845a",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/stills/frame-000006.png": "6db5db823e04cc67893d62d3e9d9109ec4d97cc2ccd7e0ff771b5ec6abfedcb0",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/stills/frame-000007.png": "e599a9e42b49ce4a0c3c21413f6663b29d30467a7fb06ae7f2df3e99d58bf101",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/stills/frame-000008.png": "c908fe1539af0df552d6feab335832a18aae47f8d97e6c2cd3036f371553bbf3",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/stills/frame-000009.png": "fc9cc3fdb8ed29a3f0bd4072ce93fbf969315d01ef6b9dc63e067aa1ab1ea868",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/stills/frame-000010.png": "ef0df9a61ffb0e8f0c9d7e95654b61b8b8bc6dbb69589be19fb03f009946380a",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/stills/frame-000011.png": "3cb2130c877a09f3b4aa014510f2c95f92f65d27d595cdd5c89634bd0610a053",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/stills/frame-000012.png": "704597fb1c42036a31d6caf48cd810182c69ee0d4fdace7db05b3c8dd4eed911",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/stills/frame-000013.png": "c411d7272b2c3b576ea11b25c0f1b436b99d4fff0acd7a256c4d4c725b605ba0",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/stills/frame-000014.png": "61faf12668f4a5a9886728c69fcb8c789791813b3b670a8c1c0c615676f41c55",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/stills/frame-000015.png": "cbeb3aeca13e41694c93deb185641ff73091f63e8826971497c085bbb7f98cf3",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/strip.png": "7f2bdd1e16352d05ccf4a7e320b98ddc9c5fcb5d8b9167a478bfbefe884483cf",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/strip/frame-000000.png": "98f5771e7d42c437572e400a1163959fafe20987a48c2caea87c1e584952845a",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/strip/frame-000001.png": "12ce349212d6b215e55ce35c22c5a55674d3e1182af3ec5acc347202fafd9739",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/strip/frame-000002.png": "43f9f3aea5bbe632917ec434124ac0d4d542cc2a2c39ab27a0e6d17286606108",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/strip/frame-000003.png": "50144e3f1c6868bcc0b782faf24f2b45226498cd96692eceb96d11d302507f45",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/strip/frame-000004.png": "7c6c46ac788a6ca8600f99f5ae8dd70e0b7f03bd6ccb054967b188f5fa83a46b",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/strip/frame-000005.png": "5d472ec76123c41246ca1bd9bb85815d4f0718743bffe837bea0e12ba7f2d2f4",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/strip/frame-000006.png": "cf9f0b5eca9889a5c4551d90e913560bb919e009ffab775a7bec0d487050336e",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/strip/frame-000007.png": "cca8b82bf942e8272efee834ab7cc6d3d93acd25413ae579275308fdcc25dff4",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/strip/frame-000008.png": "01526a4f59d27c08167d1a7501c6700888768b0778d76150a94e6051c50ba384",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/strip/frame-000009.png": "13cf4e9c9928c725dd7490d368b8b9673c5d6ac473cdf4e599326d66b9dbd9f1",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/strip/frame-000010.png": "a0580a2dfc36dd1bc17d78c7c092c781294890a3c0d048028a0d271f82afd641",
+    "examples/brief-to-demo/video/review/visual-r1/portrait/strip/frame-000011.png": "fd3f85a077f38a94f909413fb3893a68d72ff6cc1e119042dd12b3e8aa089420",
+    "examples/brief-to-demo/video/review/visual-r1/wide/capture.json": "602fc31bfb010c0b5d0e49034bfd5decd85672c1b35e59be3da199a25a453ce4",
+    "examples/brief-to-demo/video/review/visual-r1/wide/contact.png": "6485dc53c650c60da3c115b8ec3b817df4609e2256d2440412bf70d19733ab84",
+    "examples/brief-to-demo/video/review/visual-r1/wide/mp4-moving-strip.png": "a75b39a7f7284db5942995b51cd92408bdaa33264e4785fe7b8ff96b3082b1a4",
+    "examples/brief-to-demo/video/review/visual-r1/wide/poster.png": "4e46d3398d64e0cd542240a6c81a39dd585625a63c9f8b14eb68ef54f8e50b53",
+    "examples/brief-to-demo/video/review/visual-r1/wide/stills/frame-000000.png": "d5d5961f92132d7fa035e7971330774270df1c0ef646d948f1cf662cc597d16b",
+    "examples/brief-to-demo/video/review/visual-r1/wide/stills/frame-000001.png": "f240cdf401489fdbcf1b5d775f3447f6e5f2e8ab327aa04e6c3d360eb2cb84e3",
+    "examples/brief-to-demo/video/review/visual-r1/wide/stills/frame-000002.png": "84645d9f6030e816acb717cb0b128f7cefe08f0bb2513496c02654c1c847e902",
+    "examples/brief-to-demo/video/review/visual-r1/wide/stills/frame-000003.png": "0c14ae266df1c18fbbd9c9c0ee0d4902ede49e718dddb3c8a3fbf8864c6ac17a",
+    "examples/brief-to-demo/video/review/visual-r1/wide/stills/frame-000004.png": "9ccde1b0afe2edef80ca2e409633a8dc812522f6a3480e6ea548d8f0a7429049",
+    "examples/brief-to-demo/video/review/visual-r1/wide/stills/frame-000005.png": "b63a84998458ec3252ec4f66aa8f91057408ffe48e7e64263ffca00d946603c9",
+    "examples/brief-to-demo/video/review/visual-r1/wide/stills/frame-000006.png": "79c75d9bc19ab59a1a16a0edf161126509f4ef94b97d96dc498635b95bfdc30e",
+    "examples/brief-to-demo/video/review/visual-r1/wide/stills/frame-000007.png": "1000440837bf06ac14625e490702f22b7b0aa7a654d48fb6c510f790bf6e1b37",
+    "examples/brief-to-demo/video/review/visual-r1/wide/stills/frame-000008.png": "fdcfc5cd4bacf758416e98c46b04a450e03c033121970be3bf1f1ec5cd010f4e",
+    "examples/brief-to-demo/video/review/visual-r1/wide/stills/frame-000009.png": "147e640eaa464d3312335ff9fdf1cf0f638165173d0c352a454f1f28f56690f5",
+    "examples/brief-to-demo/video/review/visual-r1/wide/stills/frame-000010.png": "ad5e74774f48dd35aec8cdaa0a18b2b3497bb8521fbecab40672909aeeeb630f",
+    "examples/brief-to-demo/video/review/visual-r1/wide/stills/frame-000011.png": "f940dba8954f0b306f9833ebd52b6a800eab44677ccfa52750f463239a050946",
+    "examples/brief-to-demo/video/review/visual-r1/wide/stills/frame-000012.png": "1327ad5abb1a9f30b29c71ace3c6532bcfd78f3de98ea264f21a1fa5d9777604",
+    "examples/brief-to-demo/video/review/visual-r1/wide/stills/frame-000013.png": "5178d691360e9d2628e36057982932a6d00b35bbbf7a14d5a377d12c8529f36f",
+    "examples/brief-to-demo/video/review/visual-r1/wide/stills/frame-000014.png": "40ebb4662c680eda98bf1f6e475b48f83b0b35e83d00e0c6d93496047606dcd0",
+    "examples/brief-to-demo/video/review/visual-r1/wide/stills/frame-000015.png": "4e46d3398d64e0cd542240a6c81a39dd585625a63c9f8b14eb68ef54f8e50b53",
+    "examples/brief-to-demo/video/review/visual-r1/wide/strip.png": "4ce36ebf410dd95fe818f83ff04548a9ae0840b4edf56a699cc19cafb1d33fe3",
+    "examples/brief-to-demo/video/review/visual-r1/wide/strip/frame-000000.png": "b63a84998458ec3252ec4f66aa8f91057408ffe48e7e64263ffca00d946603c9",
+    "examples/brief-to-demo/video/review/visual-r1/wide/strip/frame-000001.png": "05f898d8f1fcd71dffac1142606306bcc8ac381d8538e74d5cffe75683b8c308",
+    "examples/brief-to-demo/video/review/visual-r1/wide/strip/frame-000002.png": "8e580c132830ef1780872f957aa38457ef5261ee42cf77f3e476295a2d1af990",
+    "examples/brief-to-demo/video/review/visual-r1/wide/strip/frame-000003.png": "8dcf75c561374a10f128ca7db75108313f43abbaa3c250121a0bac03514297b1",
+    "examples/brief-to-demo/video/review/visual-r1/wide/strip/frame-000004.png": "59bf82683e2e1e1b47df7bcf63d4102b9159c506d7ff4b2c7427646a5d3cb7e9",
+    "examples/brief-to-demo/video/review/visual-r1/wide/strip/frame-000005.png": "9c3db7aa73e9c789c3f50a13e700898ef4cc9554666d70403151a4901d8a8579",
+    "examples/brief-to-demo/video/review/visual-r1/wide/strip/frame-000006.png": "b190289c5e45692a97e5e02fb83d58859fc05c8669f3b30cd5a2f8edebc7c830",
+    "examples/brief-to-demo/video/review/visual-r1/wide/strip/frame-000007.png": "c8b23cb4e525b232d963b46f9a61ae1f44fc23b854dd16d96ac3557253a0f715",
+    "examples/brief-to-demo/video/review/visual-r1/wide/strip/frame-000008.png": "fbd4fbed0726c3c716769abfe07926410222d0a30d57c701bc3761dd8fce1a70",
+    "examples/brief-to-demo/video/review/visual-r1/wide/strip/frame-000009.png": "2df2dcbce083d688edbcc55ee7e6b53e9be88f17aec26ecf068f273b211352a1",
+    "examples/brief-to-demo/video/review/visual-r1/wide/strip/frame-000010.png": "14364173ed4e487e229c91430e4aaa7d625f41ea9ac73d71069d4d67668c67ce",
+    "examples/brief-to-demo/video/review/visual-r1/wide/strip/frame-000011.png": "010473ee5cd40a344a866832a95409c0b3134cce093b39434cc01a566d17fee2",
+    "examples/brief-to-demo/video/scene.js": "2eab364c38a2ad5186d70011c3f566659e726a7dc2dfb03052e8a64d9e14425e",
+    "examples/brief-to-demo/video/storyboard.json": "f7004df46d7ea869ee16444d8948a83dfb648b80e98ce63109d6a60d9215c38a",
+    "examples/brief-to-demo/video/video.css": "7a4bb41fa1a2140cb9823536d41c514f1ddf32d0419d67b004192ffabb07ffd6",
+    "examples/brief-to-demo/video/video.js": "5f26b15fae56b54347969b99d825be8cdadcc2f11407b28977d86094845ff2e8",
+    "examples/brief-to-demo/visual-guide.md": "be67686c0fdb47bb807bed1d5a7a5077ba788147e30b2fec8638bac3752aeabc",
+    "examples/brief-to-demo/visual-verification.json": "f287661213ff212033d12d3af67af93f15b6ac058dc26c950e6dae74b0afcc95",
+    "media/brief-to-demo-wide.mp4": "0a7762e901eedd53d7a91745f65a36afd82d17f6b769f97500fa9de01ad089dc",
+    "media/brief-to-demo.mp4": "92695b23702fe4e5161e269a1b2fcd97b56e828e5a4df610addc2ba7d67a9b67",
+    "media/brief-to-demo.webp": "cae65d00db5cebce5581d706b484b882c72390f1fb406f2abc1b444f40352045",
+    "skills/brief-to-demo/LICENSE": "fb74b9b6e529197ce24b127b687e4e349cf46864059da001a3d9d63db39cdb19",
+    "skills/brief-to-demo/SKILL.md": "90022b14f4954de50bb8179e6cfd1510891442ad8ca02e9bc1305e56f648ed64"
   }
 }
