@@ -1,0 +1,189 @@
+{
+  "format": "crawl4ai-structure/v1",
+  "case_id": "crawl4ai-example",
+  "source_commit": "6192d5e5b59cb21f9ca418fd6b798de47c0741d3",
+  "version": "0.9.5",
+  "definition": "Pythonからブラウザーを動かし、ページを文章と項目に変えるライブラリ",
+  "parts": [
+    {
+      "id": "browser",
+      "label": "ブラウザー",
+      "api": "BrowserConfig + AsyncWebCrawler.arun",
+      "source_path": "workflow.py",
+      "quote": "async with AsyncWebCrawler(config=browser_config, base_directory=str(cache_dir)) as crawler:",
+      "meaning": "PythonからChromeで指定URLを開く。今回のURLは手元の架空ページ。",
+      "line_start": 313
+    },
+    {
+      "id": "scope",
+      "label": "待つ・範囲を選ぶ",
+      "api": "CrawlerRunConfig",
+      "source_path": "workflow.py",
+      "quote": "CSS_SELECTOR = \"main#guide\"",
+      "meaning": "readyを待ち、本文main#guideを対象にしてnav/footerを除く。",
+      "line_start": 50
+    },
+    {
+      "id": "fields",
+      "label": "項目を取り出す",
+      "api": "JsonCssExtractionStrategy",
+      "source_path": "workflow.py",
+      "quote": "\"baseSelector\": \"article.doc-section\"",
+      "meaning": "節ごとにh2をheading、p.keypointをkeypointとして原文のまま取り出す。",
+      "line_start": 44
+    },
+    {
+      "id": "markdown",
+      "label": "文章の形へ",
+      "api": "DefaultMarkdownGenerator",
+      "source_path": "vendor/crawl4ai/docs/md_v2/core/markdown-generation.md",
+      "quote": "DefaultMarkdownGenerator",
+      "meaning": "HTMLの見出しや段落をMarkdownへ変換。今回LLMによる要約はしていない。",
+      "line_start": 19
+    }
+  ],
+  "selectors": {
+    "css_selector": "main#guide",
+    "excluded_tags": [
+      "nav",
+      "footer"
+    ],
+    "wait_for": "css:#guide[data-ready=\"true\"]",
+    "baseSelector": "article.doc-section"
+  },
+  "schema": {
+    "name": "Guide sections",
+    "baseSelector": "article.doc-section",
+    "fields": [
+      {
+        "name": "heading",
+        "selector": "h2",
+        "type": "text"
+      },
+      {
+        "name": "keypoint",
+        "selector": "p.keypoint",
+        "type": "text"
+      }
+    ]
+  },
+  "documents": [
+    {
+      "id": "start",
+      "label": "準備",
+      "path": "/docs/start.html",
+      "source_section_count": 2,
+      "rendered_section_count": 2,
+      "origins": [
+        "html",
+        "html"
+      ],
+      "sections": [
+        {
+          "heading": "参加者名簿を作る",
+          "keypoint": "名簿は開催の前日までに作り、氏名と卓番号の2列だけにします。"
+        },
+        {
+          "heading": "工具の数をそろえる",
+          "keypoint": "のこぎりと小刀は卓ごとに同じ数を用意し、箱のふたに本数を書きます。"
+        }
+      ]
+    },
+    {
+      "id": "review",
+      "label": "当日の確認",
+      "path": "/docs/review.html",
+      "source_section_count": 2,
+      "rendered_section_count": 2,
+      "origins": [
+        "html",
+        "html"
+      ],
+      "sections": [
+        {
+          "heading": "刃物を確かめる",
+          "keypoint": "刃こぼれのある工具は赤い箱に分け、その日は使いません。"
+        },
+        {
+          "heading": "質問を集める",
+          "keypoint": "質問は付箋1枚に1つ書いてもらい、卓番号を左上に添えます。"
+        }
+      ]
+    },
+    {
+      "id": "export",
+      "label": "書き出し",
+      "path": "/docs/export.html",
+      "source_section_count": 1,
+      "rendered_section_count": 2,
+      "origins": [
+        "html",
+        "script"
+      ],
+      "sections": [
+        {
+          "heading": "記録をまとめる",
+          "keypoint": "終了後30分以内に、付箋の写真と名簿をひとつのフォルダに入れます。"
+        },
+        {
+          "heading": "書き出す前に確かめる",
+          "keypoint": "フォルダ名を日付と会場名にし、参加者の顔や連絡先が写った写真を除きます。"
+        }
+      ]
+    }
+  ],
+  "flow": {
+    "input": "指定URL + BrowserConfig + CrawlerRunConfig + 自作CSSスキーマ",
+    "runtime": "Python AsyncWebCrawler.arunがChromeで開く。書き出しページはJavaScriptで節が加わりreadyになってから処理。",
+    "parallel_outputs": [
+      "本文HTML→DefaultMarkdownGenerator→response.markdown",
+      "本文HTMLの節→JsonCssExtractionStrategy→response.extracted_content"
+    ],
+    "combined_memo": "outputs/result.mdは自作workflowが複数結果をまとめた日本語メモ。Crawl4AIの生Markdownそのものではない。",
+    "acceptance": "この作例の採用条件はsuccessがtrueかつHTTP200。HTTP404はsuccess=trueでも資料へ入れない。"
+  },
+  "dynamic": {
+    "document_id": "export",
+    "delay_in_fixture_ms": 400,
+    "wait_for": "css:#guide[data-ready=\"true\"]",
+    "heading": "書き出す前に確かめる",
+    "note": "ソースHTML1節と実描画後2節。JavaScript無効版の別クロール比較や速度測定ではない。"
+  },
+  "diagnostic": {
+    "id": "missing",
+    "path": "/docs/missing.html",
+    "status_code": 404,
+    "success": true,
+    "accepted": false,
+    "extraction_configured": false,
+    "extracted_content": null,
+    "note": "診断にはwait_for/css_selector/extraction_strategyを渡していない。404本文のMarkdownは保存したが資料へは採用しない。"
+  },
+  "actual_execution": {
+    "actor": "制作担当が元のPython workflowを実行",
+    "arun_calls": 4,
+    "accepted_documents": 3,
+    "sections": 6,
+    "linked_page_requests": 0,
+    "source_section_counts": [
+      2,
+      2,
+      1
+    ],
+    "rendered_section_counts": [
+      2,
+      2,
+      2
+    ],
+    "inference_used": false,
+    "live_in_this_browser": false,
+    "scope": "手元127.0.0.1の架空3ページと診断1件。公開Web/リンク巡回/検索/LLM/Cloud/APIキーは未使用。ローカルaccess_logは外部ホスト通信の観測ではない。"
+  },
+  "license": {
+    "upstream": "Apache License2.0 with appended attribution requirement",
+    "required_attribution": "This product includes software developed by UncleCode (https://x.com/unclecode) as part of the Crawl4AI project (https://github.com/unclecode/crawl4ai).",
+    "readme_attribution": "This project uses Crawl4AI (https://github.com/unclecode/crawl4ai) for web data extraction.",
+    "own": "Original example/fixture/UI/motion: MIT, Copyright(c)2026 Studio Yebisu."
+  },
+  "editorial_note": "4部品は今回のAPI利用を説明する整理で、Crawl4AI全機能の共通スキーマではない。保存済みの実入力と実出力で仕組みを図解する。"
+}

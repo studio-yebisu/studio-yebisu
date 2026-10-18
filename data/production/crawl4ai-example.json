@@ -1,6 +1,6 @@
 {
   "id": "crawl4ai-example",
-  "verified_at": "2026-10-16T03:11:27.569336+00:00",
+  "verified_at": "2026-10-18T03:54:50.477543+00:00",
   "model": {
     "requested": "claude-opus-5-5",
     "reported": [
@@ -18,9 +18,16 @@
         "receipt_sha256": "b940675d0fa607c2f0fecc0a14752a5f8cc15800e329fdb720b7e907cb855f35",
         "execution_sha256": "1e69ca624f4089e2931d0e3201205e5c2518d3a8e30d5e90ef9aacc16328b3d2",
         "prompt_sha256": "71d3c80b0e3959bc529fa36bc74a68af005ae65ec0d13c905f7f4016431c1647"
+      },
+      {
+        "phase": "visual-r1",
+        "receipt_sha256": "909ed371426a689adf24961736bc42b0cc6c2ea9ed60ab88483e5bd01aa3fe9e",
+        "execution_sha256": "74afe48f41e1a122c5c59cac9ecd36f722ec20345da1400f3fe0ad0ce30c0ffe",
+        "prompt_sha256": "eeba474a4991b4c4c929682ebaa3877031464e2b134dfd8abe98de3d51b950cd"
       }
     ],
-    "receipt_published": false
+    "receipt_published": false,
+    "scope": "Original implementation/execution/film receipts retained. New exact Opus5.5 execution authored8concept UI/film files only; producer contrast, editor-state, legacy-video-link and reproduction-document corrections, QA, article, rendering and packaging separate. Full model history private."
   },
   "upstream": {
     "repository": "unclecode/crawl4ai",
@@ -430,100 +437,210 @@
     "blockedExternalRequests": []
   },
   "video_review": {
-    "video_sha256": "75725dcade8f0d7302285d2fc37feb7ec93464818051ed401abf0ae36f6bd302",
-    "poster_sha256": "db403413eed15ff45597b57f559bc50d0870fa9351178d9273f3b064db6d7507",
-    "poster_from_mp4_seconds": 13.5,
-    "full_decode_passed": true,
-    "review_files": [
-      "contact.png",
-      "poster.png",
-      "strip.png",
-      "stills/frame-000000.png",
-      "stills/frame-000001.png",
-      "stills/frame-000002.png",
-      "stills/frame-000003.png",
-      "stills/frame-000004.png",
-      "stills/frame-000005.png",
-      "stills/frame-000006.png",
-      "stills/frame-000007.png",
-      "stills/frame-000008.png",
-      "stills/frame-000009.png",
-      "stills/frame-000010.png",
-      "stills/frame-000011.png",
-      "stills/frame-000012.png",
-      "stills/frame-000013.png",
-      "cut-01.png",
-      "cut-02.png",
-      "cut-03.png",
-      "cut-04.png",
-      "cut-05.png",
-      "final.png"
-    ],
-    "render_label": "final-v1",
-    "bundled_renderer_executed": true,
-    "reviewed_at": "2026-10-16T03:11:27.196550+00:00",
-    "agent_visual_review": true,
-    "human_approval": false,
-    "native_playback": {
-      "duration": 28,
-      "ended": true,
-      "error": null,
-      "paused": true,
-      "ready": 4,
-      "time": 28,
-      "first_observed_seconds": 0,
-      "initial_paused": true,
-      "initial_ready_state": 1,
-      "no_manual_seek": true
+    "revision": "visual-r1",
+    "films": {
+      "portrait": {
+        "sha256": "e85aabbef80a633c12d14876f6b7a7e117bae8af0618cb034fa8bc9ccd595e45",
+        "bytes": 2450071,
+        "full_decode_passed": true
+      },
+      "wide": {
+        "sha256": "93bf4f29ff75a06a1f2ba11848cf50598bb81fcdd2d841cc52368e9555e9b9cc",
+        "bytes": 2164913,
+        "full_decode_passed": true
+      }
     },
-    "source_editor": {
-      "canvas": [
-        1280,
-        720
+    "frame_review": {
+      "status": "passed",
+      "reviewed_at": "2026-10-18T03:54:50.477543+00:00",
+      "human_approval": false,
+      "unresolved_blockers": [],
+      "scope": "Agent inspected portrait/wide contacts, portrait poster, continuous JS-join and CSS-extraction strips, actual MP4 moving strips, and native complete playback of both32s films. Automatic source determinism and decoding are separate evidence.",
+      "observations": [
+        "URL and self-written settings visibly enter a Python call; BrowserConfig and CrawlerRunConfig configure the browser and per-page work. This is a library, without an AI brain in its runtime.",
+        "Same export-page section joins after page JS; data-ready changes only after it is present. Diagram is explanatory saved-time animation, not a new disabled-JS crawl or benchmark.",
+        "Main-content boundary excludes nav/footer; Markdown formatting and manually defined CSS heading/keypoint extraction branch in parallel. Actual source paragraphs are not described as AI summaries.",
+        "Three documents/six sections remain separate from HTTP404/success:true. Diagnostic omits the doc extraction settings and goes to a separate saved diagnostic.",
+        "Original result.md is a workflow-authored combined memo, separate from per-page raw Markdown. Native source and main viewer show unchanged actual text.",
+        "Native375x812 shows the whole main diagram and primary action for all9doc/stage choices. Continuous shapes move into field cells; final30s and31s PNGs match. Wide layout is recomposed."
       ],
-      "client": 360,
-      "play_enabled": true,
-      "play_size": [
-        112,
-        48
-      ],
-      "position": 14,
-      "range_font": "16px",
-      "range_height": 44,
-      "readout": "14.0 / 28.0 秒 ・ 3 取り出した節",
-      "scroll": 360,
-      "status": "準備完了：保存済みの結果と実際の画面から描画しています（28秒・無音・自動再生なし）。",
-      "viewport": 375
+      "final_render": "renders-r1",
+      "representative_frames_per_layout": 16,
+      "continuous_frames_per_layout": 12,
+      "determinism": {
+        "portrait": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "5863cc6892e60e4f4f7429228e77ae993dbc45b381bb5e729e80635f46348602",
+          "afterOtherTimes": "5863cc6892e60e4f4f7429228e77ae993dbc45b381bb5e729e80635f46348602",
+          "freshPage": "5863cc6892e60e4f4f7429228e77ae993dbc45b381bb5e729e80635f46348602",
+          "match": true
+        },
+        "wide": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "1a63103569089eb8fda8fd0543209ea906cc9a8bac2c9ae4601241d5c73c17b7",
+          "afterOtherTimes": "1a63103569089eb8fda8fd0543209ea906cc9a8bac2c9ae4601241d5c73c17b7",
+          "freshPage": "1a63103569089eb8fda8fd0543209ea906cc9a8bac2c9ae4601241d5c73c17b7",
+          "match": true
+        }
+      },
+      "audio_streams": 0
     },
-    "determinism": {
-      "frame": 504,
-      "seconds": 16.8,
-      "first": "e569ef5652aec03c1e5a7abc8f4716f8b31260d252f26e429dd838b7e9ae9482",
-      "afterOtherTimes": "e569ef5652aec03c1e5a7abc8f4716f8b31260d252f26e429dd838b7e9ae9482",
-      "freshPage": "e569ef5652aec03c1e5a7abc8f4716f8b31260d252f26e429dd838b7e9ae9482",
-      "match": true
-    },
-    "audio": "silent; no audio track",
-    "unresolved_blockers": [],
-    "review_scope": [
-      "Inspected14frame contact, full13.5sposter,18sJSsourcecount/actual2sections,22s404,26sresultcard+phonecrop,finalMP4frame; no text clipping orincorrectdata observed.",
-      "Inspected12framesource stripat9.0 and23.3 plus five12frame actualMP4strips3.85/8.85/14.85/18.85/22.85. Brief contentfades retainpage/tabs/footer as visualcontinuity; no accumulatedcliporfullframeflash observed.",
-      "Actualstart/exportrenderedcards align withnative screenshotcrops; JS1meanssourceHTMLcount, notJSdisabledcrawl.",
-      "404actualsuccess=true andHTTP404 explicitly rejected withdocumentacceptance3/3; lastcardkeepsdiagnosticseparate.",
-      "Lastphonecrop highlights actualsaved-resultlabel and3/3,6,404; fullfixedcommit fits.",
-      "NativeMP4reloadedat0/ready1/paused thenautomaticallyplayedto28/ended/ready4/errornullwithoutmanualseek.",
-      "WindowsIAB375pxsourceeditor nooverflow,112x48play,44pxrange16pxfont; nativeHome+7PageUp→14sready.",
-      "Agentrepresentative/continuousframe inspection andbrowserplayback are nothumanaestheticapproval."
-    ],
-    "remaining": [
-      "PhysicaliOS/Safari/VoiceOver, otheraspectratios andhumanartisticapproval untested."
-    ]
+    "native_movies_ended": 2,
+    "audio_streams": 0,
+    "human_approval": false
   },
   "publication": {
     "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=crawl4ai-example",
     "authorization": "User requested sequential publication of40 cases to existing main andPages."
   },
   "artifacts_sha256": {
+    "data/cases/crawl4ai-example.json": "ca384f7f9017e7d64d51122eb2f3cc18101c4584f91b11faab98cd4ce06d15ee",
+    "examples/crawl4ai-example/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
+    "examples/crawl4ai-example/NOTICE.txt": "38c9cb422445ce6bed0484f2d482ba2711d4ea975152e94287296b14445d9ca4",
+    "examples/crawl4ai-example/README.md": "31040c93332330f9f999ee0ff7e3590eea266a2f0b6c85fd7961592efe1fcc26",
+    "examples/crawl4ai-example/app.js": "7a8f114fc24b24381360a288f5e597b865bddf281d4526514dd7f5107c6f6319",
+    "examples/crawl4ai-example/app.mjs": "29b0684f3c6d2473b4db1f9e7d5801a3996c8daebd4adda0a8d4d316192457aa",
+    "examples/crawl4ai-example/assets/screen-export.png": "85282c68266a6b36d1f4ca770367320e7d48787487d490e216609e6147765007",
+    "examples/crawl4ai-example/assets/screen-missing.png": "17e3d762ff595eb580254b72fb6cd1fd3bfb6059c3410b6f36c7cbfb89585188",
+    "examples/crawl4ai-example/assets/screen-phone.png": "f231f447bb88bae83cb053e2c149ecea93c0bc1692eabf525afe9ea37b46def0",
+    "examples/crawl4ai-example/assets/screen-start.png": "af94e3a81beef17371b3da012b4199723b49751a7d94edf69e879b8dac0dcb9c",
+    "examples/crawl4ai-example/brief.json": "c75a32f7f9747d6e001926a5d4c7aaa9ea382ca0cd1e209e51f25e17bb63b8ef",
+    "examples/crawl4ai-example/concept/manifest.json": "3d551e51493965163f6d04ff45217904733da852dda723ecb4c2bbe851a79260",
+    "examples/crawl4ai-example/concept/structure.json": "c58aeb8ed0dfc5c40ea911d41aca6389736f366c9f2769349daa18ce3405a4d9",
+    "examples/crawl4ai-example/desk.css": "f1c0b59cfd4c86a991ebe4fe93edbfa7dd7fd4fd95ea104b0a647371d8fa01b7",
+    "examples/crawl4ai-example/desk.html": "60c4e10c7573184c7ec4b50e367603ebf7a51a109d01332a6ec688918b24b3e0",
+    "examples/crawl4ai-example/fixture/docs/dynamic-export.js": "5ba74a6c7a24e473493a75a090e331c29b717c9cd77d5c9a478d0431cddfdb7b",
+    "examples/crawl4ai-example/fixture/docs/export.html": "aea275efe3d13485411cf5154b6ad5c239b7d0edce50e7c33faa25ad9e6615e5",
+    "examples/crawl4ai-example/fixture/docs/review.html": "91c0c3c77ef2f5aa06ca0b8dea12206fd5f9ec222457c3527675b9023b0b4a77",
+    "examples/crawl4ai-example/fixture/docs/start.html": "8780e13670852bbc97bfa8f10c7811c86b053baf91a3526913de907f3d9f31c3",
+    "examples/crawl4ai-example/fixture/not-selected.html": "6dc2817386028afcb8067927f4f24c419a878cbaeb553e808ab91b6fc116674c",
+    "examples/crawl4ai-example/fixture/robots.txt": "70ee272f9065535357f4a9850f0a3d470a7082699e4f00ee81addfdf1b5be5a0",
+    "examples/crawl4ai-example/fixture/style.css": "851fe8516cb5e493b5ad3ac79880b42e3fd6d1466fccb64389f083a7b1d323bc",
+    "examples/crawl4ai-example/index.html": "372381d518a621790a8c6f7ba1ad6deb6dcffc251b00689b0acdb96b94f475ae",
+    "examples/crawl4ai-example/outputs/result.md": "aba3649b3e65334086b1bf9cf5f708eebf90b6e80c2e6257d30050a0892316e6",
+    "examples/crawl4ai-example/outputs/runs.json": "0b932f3a4ac8190d70ff8e320dc0c0354746bc4ec3279a05d55f591aca4418f5",
+    "examples/crawl4ai-example/render-visual.py": "8acccea7f807422423acc59aa7b63a7782fd7a3179cfe4bb5c0f62ed96b488b0",
+    "examples/crawl4ai-example/render.py": "5188c2919c775f311a0124120e18f7e1067201ccd934c0a019b393f38efdd315",
+    "examples/crawl4ai-example/request.txt": "1406c1610b6eae2a219d7aff4b3dbbfc34be0a054bf34788c7b293f2788d8666",
+    "examples/crawl4ai-example/requirements-tested.txt": "ff1a7566978632bf2f51808a17b08e49f3f510fe65f249dbe97fbda4acb57a67",
+    "examples/crawl4ai-example/samples.json": "a1fda4dc710b5a22d7873cac19550fee61baca2865ac46e576c693248a993377",
+    "examples/crawl4ai-example/source.zip": "fdabccef37544d35fe4932ab371a440de09fbd17172251859936a12414d517b1",
+    "examples/crawl4ai-example/style.css": "1b71b8b72699e5d29df358c7dbc70faed013679225bc3ac3d986c68d902f1c19",
+    "examples/crawl4ai-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/crawl4ai-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/crawl4ai-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/crawl4ai-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/crawl4ai-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "examples/crawl4ai-example/vendor/crawl4ai/LICENSE": "193fe32704bee15cd74f5153e569cdf830e26445e19798a55daee32da40758aa",
+    "examples/crawl4ai-example/vendor/crawl4ai/README.md": "11482274919bdf6f760b9b3e18c48620a8bbef4a20be86f1bd5f3850b3c2560f",
+    "examples/crawl4ai-example/vendor/crawl4ai/docs/md_v2/core/markdown-generation.md": "46306a98161cff57c630f53a94e221d1e8de5a7aebfd7677925da5d96d7aab0c",
+    "examples/crawl4ai-example/vendor/crawl4ai/docs/md_v2/extraction/no-llm-strategies.md": "ce752ca69a71801a344de149cb521cb622cb9c1b2230c646b490c96766593b76",
+    "examples/crawl4ai-example/vendor/crawl4ai/pyproject.toml": "eb91415ecd274425525ad815fec168c18ecd4524e23e00b45925ff0aa2489663",
+    "examples/crawl4ai-example/verification.json": "0ec974f84f269986321d8b57ce9c45e28cff6127b764db5e5dd0e622f95a31d1",
+    "examples/crawl4ai-example/video/README.md": "5b9bd30bc4fe7a58254824b21d8e2e59cc2730645b4a22ad862b787365bfd569",
+    "examples/crawl4ai-example/video/index.html": "0659f2a379444fbfce0273d9b9054dfe9c5f2010e24b0a7b2f491ad0c8402ed9",
+    "examples/crawl4ai-example/video/review/contact.png": "83c70c35684525eff003f917dbdae492e563d7f16ebd930507516955b3b38f69",
+    "examples/crawl4ai-example/video/review/cut-01.png": "9670c3d03c4a5d29dd080514877b367681b569f3c449990b4d69bffdc2333b67",
+    "examples/crawl4ai-example/video/review/cut-02.png": "b38834b9e7a1a8fb089e20b06da48e1f3f241b7d37c2da3e39c60d014c672483",
+    "examples/crawl4ai-example/video/review/cut-03.png": "d74e10a71f9ffafe6f8c47aeca7489720d5cdf5529af6fc161ab52d34ae48839",
+    "examples/crawl4ai-example/video/review/cut-04.png": "ae6650b4c727767599842e53164300cd38c56461d6ca02dc740fbda7b5de1472",
+    "examples/crawl4ai-example/video/review/cut-05.png": "4c20c302f9583cf4e0af61df7a126ac137855ad5bff759c0b6e563ecda52d1f9",
+    "examples/crawl4ai-example/video/review/final.png": "68b295cfa65c583a40e690a88def25b96e5a63354bdd408f77803f3d91f06cdf",
+    "examples/crawl4ai-example/video/review/poster.png": "b6ed0ddcef581b33773c95cd22f66b04089c7d7a4ddb7c8b2d9dc921dcaafc6f",
+    "examples/crawl4ai-example/video/review/stills/frame-000000.png": "ea9d7d168e8c9a0087e2bd73494231d05217f2df944b84abbd4d696478be5fec",
+    "examples/crawl4ai-example/video/review/stills/frame-000001.png": "410fc7d9d524c1f852fb2dcdb7cec10f6b3d4a8e905cdeaea336bf0890ee229a",
+    "examples/crawl4ai-example/video/review/stills/frame-000002.png": "3e496fb224d06758ecfc76eeadee3a003b2984ab3c5e9ae6b2b3b2e6d1b4c6fa",
+    "examples/crawl4ai-example/video/review/stills/frame-000003.png": "077970ea3600068b43aa438995eb63ff28398f131c36d44158088358ae551cb0",
+    "examples/crawl4ai-example/video/review/stills/frame-000004.png": "0eed8f902c7a3800ec1a968c1f315dd54ebbf56cc9e4fac4736557ef966f9cbd",
+    "examples/crawl4ai-example/video/review/stills/frame-000005.png": "9d0674bbb85c9c4cde750c74e53c7003d10b3c545bdbf9e7d62ddbc1e5b49f3f",
+    "examples/crawl4ai-example/video/review/stills/frame-000006.png": "b6ed0ddcef581b33773c95cd22f66b04089c7d7a4ddb7c8b2d9dc921dcaafc6f",
+    "examples/crawl4ai-example/video/review/stills/frame-000007.png": "b6ed0ddcef581b33773c95cd22f66b04089c7d7a4ddb7c8b2d9dc921dcaafc6f",
+    "examples/crawl4ai-example/video/review/stills/frame-000008.png": "7d24fb661f6cceda869e1ee4b58fb7711d19d598e7aa3413597391c50ebe9815",
+    "examples/crawl4ai-example/video/review/stills/frame-000009.png": "47de75059c425b4ab71d0b892e081ebc4d73590d73e590b3502588568044a793",
+    "examples/crawl4ai-example/video/review/stills/frame-000010.png": "056cf99cb14a9c6ac85147fd9fe5a27730c305089695c0ab522e60ad81de92b4",
+    "examples/crawl4ai-example/video/review/stills/frame-000011.png": "71625a77de0770df4fa1f9ac39a384ed01b894c26f10e04d257e4e40a9b2435d",
+    "examples/crawl4ai-example/video/review/stills/frame-000012.png": "00a140b7feda1bce209d8cf0b49fccf88c0a1cca84c71f133663f8e14e242dbb",
+    "examples/crawl4ai-example/video/review/stills/frame-000013.png": "a1cd860200275ba9ecab61d041d831e8c8f011bf64684166b974429751b0e47c",
+    "examples/crawl4ai-example/video/review/strip.png": "6d908b89dcf092b80e05f2366d1025771e55497501b0767f94fa686772a6832e",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/capture.json": "396a54cabd98bc7bcb8eb695a3be479cfb1bfa3a105a2808f6b6cef60c920005",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/contact.png": "c7a332b23de2ad4d7686e123e9977d52e6a999ca2f0b505e9479f17f0c7a13cb",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/mp4-moving-strip.png": "63578cacafb23648b4ed726229eb839f903ceb25dbce60016eac8900f1abcf22",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/poster.png": "0e16017e531d3b423a0144bc7156cfba2fa5d9dd87079c2aa04ea22dd9165791",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/stills/frame-000000.png": "9223b378b0ec391cf2827431bc81488eadfecaf401dc212b962e0f244fdf9dac",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/stills/frame-000001.png": "78e3cdfe87c6e828b451a8ddbc2035d73afdc8390a0cc61d59d1acc521c665ae",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/stills/frame-000002.png": "2a5a47e850fe71526d1ea3a744ec70be1ac23f6f9b5c3dd4ba017168c64f6b12",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/stills/frame-000003.png": "ea473a5c20065a1897b8dafcd6b6e1e8908367f1cf1769a12d227c30647ab612",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/stills/frame-000004.png": "ea473a5c20065a1897b8dafcd6b6e1e8908367f1cf1769a12d227c30647ab612",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/stills/frame-000005.png": "322d5d7a22f2247ccf155996ca15c29714cf39ddb1c10bc1d569f553d86bad71",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/stills/frame-000006.png": "c4289a4412c9877fa543e2a711ddde8a809c8e5f4086c4748cb762e74f3325f7",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/stills/frame-000007.png": "4fc83b1c0dc46bef2d661671a00fd395fa0af3f947f0358b48c3b2ffd80e71c5",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/stills/frame-000008.png": "94a272ddc7fd17e95c7b102bd01e885a08cfbda1ff58a94aa297ecf6ccdfdf40",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/stills/frame-000009.png": "9e81d8ba85c3e781a43161def61f28ebf3a98bd2f262b5189e35252e875c8cf4",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/stills/frame-000010.png": "8f36f0d4f8b66839b03aa872fd134525386baa788b8edf3e35fe6730a6add740",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/stills/frame-000011.png": "44674ac0cccbf75de8f0cbbcc0a2d8c9a49fc2531d5f24c60ca436ca6b2a96b5",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/stills/frame-000012.png": "c505de37f83cc96f0569ce4723aba89ef80b922cfb01679b005c8e1f4d65c6d9",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/stills/frame-000013.png": "9fb7ad9cb3d746b4bedd557fb23fdb6835198348019a05881f8fc338f3c21521",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/stills/frame-000014.png": "7952fa315f9a4750814dd69f426e92173ed4a0a8e1100c0064be188218ac331c",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/stills/frame-000015.png": "0e16017e531d3b423a0144bc7156cfba2fa5d9dd87079c2aa04ea22dd9165791",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/strip.png": "0c4af39d3fd5a4149b422a59727b654eadd64e6e1236e2e457bcb4880f6ad330",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/strip/frame-000000.png": "51907ad644740919611926250f2fe107deecf3b8a8cff862504b7812f69db193",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/strip/frame-000001.png": "d34c3f18a4733228bd208502c60a7b3f47e67bd2e7241b7b70b073b5dc8a9923",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/strip/frame-000002.png": "1e0b94ac79b1556e5fb321e48ee86dd1eefd0d5b34867a2c4176041c1c109a8b",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/strip/frame-000003.png": "9999c441f379410afc1f7731cc9637bb8e57dd301901248b1511f47ed25434fa",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/strip/frame-000004.png": "b94dfafd0c67fdd308b08f9927934c8c84bf0465f3de21211bc681e552a903a0",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/strip/frame-000005.png": "0ce658fa52f768041f1b0ebd55f8e9419eb027262e026c419e33ee924d5fcd62",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/strip/frame-000006.png": "00d48cec2d00ef3cb1183c64c7970b7bccbbd8f21a166dad2016d4264aa3266e",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/strip/frame-000007.png": "d4e24099f95bf9edbd5285cbe37d5c71e72db7eb68d49b8f364d4062b954ee2b",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/strip/frame-000008.png": "f060d5ec4585a8b0ce0be72802723c185985dae946c6293fdab536c02d75a8ec",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/strip/frame-000009.png": "e4aff0bf2518747866148fa75332343ef4fd967e41d6a7fbdcf7c308f7102739",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/strip/frame-000010.png": "5c5c51a7e3db524e36237809de0eece19422339a561b3de1bf0903529a1bdd44",
+    "examples/crawl4ai-example/video/review/visual-r1/portrait/strip/frame-000011.png": "56e03d1a57fc2fd0621265da107332942cde82fe0df600c367d8a4e554c5cbf9",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/capture.json": "68252f83637cbd946f8574abf6eac6e1b9d4b488ec589877db8f6215c8d59835",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/contact.png": "c8711b30693d72e082e3b502f90d9b305192a9d0c15961cd63d7c46c79439cdb",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/mp4-moving-strip.png": "c0f253988b11bdc143aab8c042268475a37d588e6f091902f142abe7161b2525",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/poster.png": "231387784a95168b71eb5b3df70ca3d22612d7c3a41e44daf861c4e2b5f4742e",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/stills/frame-000000.png": "98a529baa0fe6a48eee5abfdbec79e479e02523bf6820ec128858bb9bd2e2f62",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/stills/frame-000001.png": "0bbe3ef313f2050dae8dfd94e7eb535da4ada2b7fd185919863f67f478f00ea7",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/stills/frame-000002.png": "6b8abcb29efc429d3dfd0b1ffae045bb9d6864ac43654839c4d9424af31b4ad0",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/stills/frame-000003.png": "a19cbbe94993febfbfbeb5e37a20dd3b8d0e289bc38fb3d022c2d90d19e3eaf4",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/stills/frame-000004.png": "a19cbbe94993febfbfbeb5e37a20dd3b8d0e289bc38fb3d022c2d90d19e3eaf4",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/stills/frame-000005.png": "6f07703963955ddd857e9eb22a7007b1f2fef7d9e1300fd21dd4e931343f7a2f",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/stills/frame-000006.png": "f790df1d0eab6cc5dbda7ba72a31e273ea34308c6cc44f281baaf251efbb45d6",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/stills/frame-000007.png": "2939bebecc8015fefbe2cafa2186596626731c705c39e6a060cafceb3de99daf",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/stills/frame-000008.png": "94553f696e5cf99ee7b21e131196aac7da9e78372897f9a907c0f8586d115de2",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/stills/frame-000009.png": "1f05c24bd67da82277141e0a58f8ae337565b5689492cfb3ddf76ec3f3a0d6ac",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/stills/frame-000010.png": "55ac0356c3492655624f24e5a9a0bf42e6197ad6f3534fa0c73baa65f0f39d04",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/stills/frame-000011.png": "6973d3a698b3560c1c8f7909d9aed6ea733e16d8d9e06df1827eb214556e349e",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/stills/frame-000012.png": "99bd1c2e56248371dee8639831c1cef90c6daab781b6ebe89c7be6dbb814a7b7",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/stills/frame-000013.png": "36ea9af0b8e1684efdaba7cd78aeff2907941c892f848677024d12b1f14226b7",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/stills/frame-000014.png": "66c6596380978a97bac13b23dfb3a7734a1937af3157d6e67699844c23e75c76",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/stills/frame-000015.png": "231387784a95168b71eb5b3df70ca3d22612d7c3a41e44daf861c4e2b5f4742e",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/strip.png": "328ae66529f2190d5d8214ad751dffd66a3b5306f7fd1ccc8d862e66a2207841",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/strip/frame-000000.png": "2cf6e8f7f2fccaa37eebef8d0330f900530b5dbb8d3866ba30f880420fa42d00",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/strip/frame-000001.png": "b343a0ec8b94526bb9c1fdbc1ed9ce395a2223993c1747bd27ef3432ae8050a4",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/strip/frame-000002.png": "1d57dfef1c81d2d02cdd55640b9f99d41aa48aeba677a05ecf45dc4d0ffcb9eb",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/strip/frame-000003.png": "f1a47b75e7f33f13779d090c65684c58cf8b24edbcec1c7336f700dc5859089a",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/strip/frame-000004.png": "7c1b4bfdfbfa3a67e72ce8bc10784530d5eb4bbe6fb298b5f0219da90550859d",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/strip/frame-000005.png": "e29ba593d22b60a737c9a235255e536b74cf730a50ace29302e131e4b2b3e9df",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/strip/frame-000006.png": "a7a1d24f2b63c3ea4342de36286f7825baee03741bbeea217843f5d923cb198e",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/strip/frame-000007.png": "f0c4452cee254445519b69d5173d0c4e2af2b9ded7efe23898b31f87e750fa06",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/strip/frame-000008.png": "64f6a69c647ffcd643330fd500ad3d9b5cf2fe9df2b966b2877414f7bd8326b6",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/strip/frame-000009.png": "bd170d6db931e03a3213c8e9de1fd1c3a95f8922faa2341015ae20aaefbac4db",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/strip/frame-000010.png": "bd170d6db931e03a3213c8e9de1fd1c3a95f8922faa2341015ae20aaefbac4db",
+    "examples/crawl4ai-example/video/review/visual-r1/wide/strip/frame-000011.png": "bd170d6db931e03a3213c8e9de1fd1c3a95f8922faa2341015ae20aaefbac4db",
+    "examples/crawl4ai-example/video/storyboard.json": "e1cff23bf5b8e7731e6ef800c0dd4fdde2271db3b56407a1c76189568cd3c7fb",
+    "examples/crawl4ai-example/video/video.css": "b7215920809b73da166b454e7028bedfecedb304af5a16ee1e531d88a4efc487",
+    "examples/crawl4ai-example/video/video.js": "63ff4fba12eb57f143263385d0947c310e075537a3af308835a16dd5e552c32d",
+    "examples/crawl4ai-example/visual-guide.md": "2f17bebcd95a7e3e38d6d7ab464dbfd86a2416f4b5ef941440165c95411521c4",
+    "examples/crawl4ai-example/visual-verification.json": "652e856050a72898a5047e0a8b655b1eb3762e5a2a50632586feffd87ed978b8",
+    "examples/crawl4ai-example/workflow.py": "832ae5a66a16e7b2ad6cf9081fa55df19b18f155e4d18117c1fb78df76be763c",
+    "media/crawl4ai-example-wide.mp4": "93bf4f29ff75a06a1f2ba11848cf50598bb81fcdd2d841cc52368e9555e9b9cc",
+    "media/crawl4ai-example.mp4": "e85aabbef80a633c12d14876f6b7a7e117bae8af0618cb034fa8bc9ccd595e45",
+    "media/crawl4ai-example.webp": "a0cff569c678876a964cdfa082f4b4bb2cc05cbfd101f56d3d274d3cbe88192d"
+  },
+  "original_publication_artifacts_sha256": {
     "data/cases/crawl4ai-example.json": "9de80f176cf9860c32d075e15ff70959ff6b9c924a930adc46e20894f6d4e323",
     "examples/crawl4ai-example/app.mjs": "29b0684f3c6d2473b4db1f9e7d5801a3996c8daebd4adda0a8d4d316192457aa",
     "examples/crawl4ai-example/assets/screen-export.png": "85282c68266a6b36d1f4ca770367320e7d48787487d490e216609e6147765007",
@@ -592,5 +709,281 @@
     "examples/crawl4ai-example/workflow.py": "832ae5a66a16e7b2ad6cf9081fa55df19b18f155e4d18117c1fb78df76be763c",
     "media/crawl4ai-example.mp4": "75725dcade8f0d7302285d2fc37feb7ec93464818051ed401abf0ae36f6bd302",
     "media/crawl4ai-example.webp": "db403413eed15ff45597b57f559bc50d0870fa9351178d9273f3b064db6d7507"
+  },
+  "visual_revision": {
+    "id": "visual-r1",
+    "purpose": "Understand Crawl4AI as a Python browser library: URL/config, wait for rendered content, select main range and create parallel Markdown and CSS-defined field outputs.",
+    "original_execution_reused": true,
+    "new_crawl": false,
+    "new_inference": false,
+    "original_runtime_source_files_preserved": 25,
+    "derived_legacy_viewer_files": 2,
+    "official_source_documents_verified": 5,
+    "installed_source_files_verified": 86,
+    "assets": 17,
+    "manifest_sha256": "3d551e51493965163f6d04ff45217904733da852dda723ecb4c2bbe851a79260",
+    "verification": {
+      "id": "crawl4ai-example",
+      "revision": "visual-r1",
+      "verified_at": "2026-10-18T03:54:50.477543+00:00",
+      "stage": "technical_qa_complete",
+      "original_execution_record": "verification.json",
+      "scope": "New Python-library/browser/settings/wait/content-range/parallel-output conceptual UI and silent films. Original4arun execution, fictional input and actual output reused; no new crawl, LLM inference or Cloud access.",
+      "original_runtime_source_files_preserved": 25,
+      "derived_legacy_viewer_files": 2,
+      "upstream": {
+        "repository": "unclecode/crawl4ai",
+        "commit": "6192d5e5b59cb21f9ca418fd6b798de47c0741d3",
+        "version": "0.9.5",
+        "license": "Apache License2.0 with appended attribution requirement",
+        "official_document_git_blobs_verified": 5,
+        "installed_library_git_blobs_verified": 86
+      },
+      "browser": {
+        "states_checked": 12,
+        "document_stages": 9,
+        "diagnostic_stages": 3,
+        "parts": 4,
+        "theme_width_views": 16,
+        "phone375x812_primary_action_fits_all9": true,
+        "touch_targets_min44x44": true,
+        "keyboard_focus": "3px, native Enter stage buttons",
+        "actual_heading_keypoint_and_raw_response_matches": true,
+        "js_ready_transition": {
+          "before": {
+            "gate": "data-ready=\"false\"",
+            "join": "out",
+            "ready": "false"
+          },
+          "after": {
+            "gate": "data-ready=\"true\"",
+            "join": "in",
+            "ready": "true"
+          }
+        },
+        "failures": [
+          {
+            "kind": "http",
+            "message": "concept/structure.json を読み込めませんでした（HTTP 503）。",
+            "diagram_cleared": true,
+            "controls_disabled": true,
+            "retry_restored": true
+          },
+          {
+            "kind": "json",
+            "message": "concept/structure.json のバイト数またはSHA-256が素材一覧と一致しません。",
+            "diagram_cleared": true,
+            "controls_disabled": true,
+            "retry_restored": true
+          },
+          {
+            "kind": "hash",
+            "message": "concept/structure.json のバイト数またはSHA-256が素材一覧と一致しません。",
+            "diagram_cleared": true,
+            "controls_disabled": true,
+            "retry_restored": true
+          }
+        ],
+        "downloads": [
+          {
+            "file": "outputs/result.md",
+            "bytes": 5852,
+            "sha256": "aba3649b3e65334086b1bf9cf5f708eebf90b6e80c2e6257d30050a0892316e6",
+            "method": "native link click attempted; file-link download verified"
+          }
+        ],
+        "secondary_runs_json_file_save": "Browser download tool did not return a file; public URL bytes checked separately. No claim of a successful native JSON save.",
+        "legacy_panels": 4,
+        "legacy_actual_raw_markdown_matches": true,
+        "editor": {
+          "assets": 17,
+          "scene_jumps": 7,
+          "arbitrary_seek": {
+            "caption": "4–9秒：設定がBrowserConfigとCrawlerRunConfigに分かれ、同じURLのページが広がり、待機の門が現れる。",
+            "clock": "7.2 / 32.0 秒",
+            "value": 7.1999928
+          },
+          "end_clock": "32.0 / 32.0 秒",
+          "wide": {
+            "height": 720,
+            "status": "準備完了：17件すべて一致。1280×720・30fps・32秒・音声なし。",
+            "width": 1280
+          },
+          "all_controls_disabled_on_asset_failure": true,
+          "asset_failure_recovered": true,
+          "audio_elements": 0
+        },
+        "movies_ended": 2,
+        "theme_persistence": {
+          "attribute": null,
+          "choice": "system"
+        },
+        "request_copy_status": "依頼文をコピーしました。",
+        "request_text_exact": true,
+        "clipboard_readback": false,
+        "unconfirmed": [
+          "physical iOS Safari/VoiceOver",
+          "200percent zoom",
+          "human aesthetic approval",
+          "clipboard readback",
+          "secondary JSON native file-save tool did not return a file"
+        ],
+        "human_approval": false
+      },
+      "frame_review": {
+        "status": "passed",
+        "reviewed_at": "2026-10-18T03:54:50.477543+00:00",
+        "human_approval": false,
+        "unresolved_blockers": [],
+        "scope": "Agent inspected portrait/wide contacts, portrait poster, continuous JS-join and CSS-extraction strips, actual MP4 moving strips, and native complete playback of both32s films. Automatic source determinism and decoding are separate evidence.",
+        "observations": [
+          "URL and self-written settings visibly enter a Python call; BrowserConfig and CrawlerRunConfig configure the browser and per-page work. This is a library, without an AI brain in its runtime.",
+          "Same export-page section joins after page JS; data-ready changes only after it is present. Diagram is explanatory saved-time animation, not a new disabled-JS crawl or benchmark.",
+          "Main-content boundary excludes nav/footer; Markdown formatting and manually defined CSS heading/keypoint extraction branch in parallel. Actual source paragraphs are not described as AI summaries.",
+          "Three documents/six sections remain separate from HTTP404/success:true. Diagnostic omits the doc extraction settings and goes to a separate saved diagnostic.",
+          "Original result.md is a workflow-authored combined memo, separate from per-page raw Markdown. Native source and main viewer show unchanged actual text.",
+          "Native375x812 shows the whole main diagram and primary action for all9doc/stage choices. Continuous shapes move into field cells; final30s and31s PNGs match. Wide layout is recomposed."
+        ],
+        "final_render": "renders-r1",
+        "representative_frames_per_layout": 16,
+        "continuous_frames_per_layout": 12,
+        "determinism": {
+          "portrait": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "5863cc6892e60e4f4f7429228e77ae993dbc45b381bb5e729e80635f46348602",
+            "afterOtherTimes": "5863cc6892e60e4f4f7429228e77ae993dbc45b381bb5e729e80635f46348602",
+            "freshPage": "5863cc6892e60e4f4f7429228e77ae993dbc45b381bb5e729e80635f46348602",
+            "match": true
+          },
+          "wide": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "1a63103569089eb8fda8fd0543209ea906cc9a8bac2c9ae4601241d5c73c17b7",
+            "afterOtherTimes": "1a63103569089eb8fda8fd0543209ea906cc9a8bac2c9ae4601241d5c73c17b7",
+            "freshPage": "1a63103569089eb8fda8fd0543209ea906cc9a8bac2c9ae4601241d5c73c17b7",
+            "match": true
+          }
+        },
+        "audio_streams": 0
+      },
+      "video": {
+        "portrait": {
+          "video": {
+            "file": "video.mp4",
+            "sha256": "e85aabbef80a633c12d14876f6b7a7e117bae8af0618cb034fa8bc9ccd595e45",
+            "width": 720,
+            "height": 1280,
+            "fps": 30,
+            "frameCount": 960,
+            "duration": 32,
+            "hasAudio": false
+          },
+          "determinism": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "5863cc6892e60e4f4f7429228e77ae993dbc45b381bb5e729e80635f46348602",
+            "afterOtherTimes": "5863cc6892e60e4f4f7429228e77ae993dbc45b381bb5e729e80635f46348602",
+            "freshPage": "5863cc6892e60e4f4f7429228e77ae993dbc45b381bb5e729e80635f46348602",
+            "match": true
+          },
+          "full_decode_passed": true,
+          "faststart": true
+        },
+        "wide": {
+          "video": {
+            "file": "video.mp4",
+            "sha256": "93bf4f29ff75a06a1f2ba11848cf50598bb81fcdd2d841cc52368e9555e9b9cc",
+            "width": 1280,
+            "height": 720,
+            "fps": 30,
+            "frameCount": 960,
+            "duration": 32,
+            "hasAudio": false
+          },
+          "determinism": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "1a63103569089eb8fda8fd0543209ea906cc9a8bac2c9ae4601241d5c73c17b7",
+            "afterOtherTimes": "1a63103569089eb8fda8fd0543209ea906cc9a8bac2c9ae4601241d5c73c17b7",
+            "freshPage": "1a63103569089eb8fda8fd0543209ea906cc9a8bac2c9ae4601241d5c73c17b7",
+            "match": true
+          },
+          "full_decode_passed": true,
+          "faststart": true
+        }
+      },
+      "shipped_source_reproduction": {
+        "status": "passed",
+        "png_files_byte_identical": 62,
+        "layouts": {
+          "portrait": {
+            "png_files_byte_identical": 31,
+            "same_environment": true,
+            "last_representative30s_matches_poster31s": true
+          },
+          "wide": {
+            "png_files_byte_identical": 31,
+            "same_environment": true,
+            "last_representative30s_matches_poster31s": true
+          }
+        },
+        "scope": "Shipped render-visual.py and final source rerendered representative/continuous/poster/contact PNGs. Per-layout31PNGs match final MP4-render source capture; same installed runtime/font environment only."
+      },
+      "human_approval": false,
+      "physical_ios_safari_voiceover": false
+    },
+    "production_adjustments": [
+      {
+        "file": "style.css",
+        "change": "Increase dimmed future-output opacity from0.38 to0.70.",
+        "basis": "375x812 dark initial diagram made the two output papers and saved memo too faint to understand the whole structure."
+      },
+      {
+        "file": "index.html",
+        "change": "Describe workflow.py as the original caller implementation, without attributing original authorship to the execution producer.",
+        "basis": "Original workflow was authored in the previous Opus session; the producer executed it."
+      },
+      {
+        "file": "video/video.js",
+        "change": "Update the editor size status on orientation change and disable orientation controls during asset loading/error.",
+        "basis": "Native wide switch kept a stale720x1280 status even when the canvas was1280x720. Disabled failed-asset controls must include layout buttons. Canvas drawing and timeline unchanged."
+      },
+      {
+        "file": "video/README.md",
+        "change": "Align reproduction commands with the actual root wrapper and supported arguments; distinguish original delivery pending checks from current producer verification.",
+        "basis": "Authored command used ../render-visual.py from the case root and unsupported --fps. Current QA is recorded separately in visual-verification.json."
+      },
+      {
+        "file": "desk.html",
+        "change": "Replace the original28-second embedded film section with a link to the new32-second concept film. Result-viewer code and data remain unchanged.",
+        "basis": "Its shared media URL now serves the revised film; keep duration and evidence attribution correct. Initial derived desk alias archived."
+      }
+    ],
+    "source_originals_sha256": {
+      "index.html": "15fbbe258aeeb703e7cca2b38c7e1a4e2aea79abb2b45913d55a84b1bb20b0e8",
+      "style.css": "a414b6fbb47c874a6539de037eeb05bee2b21be8468a375f2b086b8b1fc0aaba",
+      "app.js": "7a8f114fc24b24381360a288f5e597b865bddf281d4526514dd7f5107c6f6319",
+      "video/index.html": "0659f2a379444fbfce0273d9b9054dfe9c5f2010e24b0a7b2f491ad0c8402ed9",
+      "video/video.css": "b7215920809b73da166b454e7028bedfecedb304af5a16ee1e531d88a4efc487",
+      "video/video.js": "51e7da25e3683635f9578012481b941c3bd422666dcba8529f052a5f9b2a3f1e",
+      "video/storyboard.json": "e1cff23bf5b8e7731e6ef800c0dd4fdde2271db3b56407a1c76189568cd3c7fb",
+      "video/README.md": "8b49277466cc95a3345747f8cf8afa87daf9f0c4085d39cc608c185a3e7156a1"
+    },
+    "final_source_sha256": {
+      "index.html": "372381d518a621790a8c6f7ba1ad6deb6dcffc251b00689b0acdb96b94f475ae",
+      "style.css": "1b71b8b72699e5d29df358c7dbc70faed013679225bc3ac3d986c68d902f1c19",
+      "app.js": "7a8f114fc24b24381360a288f5e597b865bddf281d4526514dd7f5107c6f6319",
+      "video/index.html": "0659f2a379444fbfce0273d9b9054dfe9c5f2010e24b0a7b2f491ad0c8402ed9",
+      "video/video.css": "b7215920809b73da166b454e7028bedfecedb304af5a16ee1e531d88a4efc487",
+      "video/video.js": "63ff4fba12eb57f143263385d0947c310e075537a3af308835a16dd5e552c32d",
+      "video/storyboard.json": "e1cff23bf5b8e7731e6ef800c0dd4fdde2271db3b56407a1c76189568cd3c7fb",
+      "video/README.md": "5b9bd30bc4fe7a58254824b21d8e2e59cc2730645b4a22ad862b787365bfd569"
+    },
+    "silent": true
+  },
+  "previous_publication": {
+    "git_commit": "5157821a7e46f71cf8dfc44aa80d91eb7c2ff56b",
+    "pages_run_id": 38844646359
   }
 }
