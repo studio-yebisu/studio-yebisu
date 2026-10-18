@@ -24,3 +24,5 @@ Python、Node20以上、Chrome、FFmpegとMotion Reelの依存が必要です。
 blader/humanizer @225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8、3.1.0。MIT License、Copyright (c) 2025 Siqi Chen。14同梱ファイルを公式Gitblobと照合しました。型の出典はSKILL.mdが示すWikipediaですが、その本文は転載していません。独自作例・図・映像はMIT、Copyright(c)2026 Studio Yebisu。
 
 新しいOpusの8原本を保存し、制作側の複数文の引用照合補正、事実構造、説明、描画、確認、包装とは区別しています。自動照合やエージェントの画面確認は、人による審美的承認や意味の保証ではありません。実機iOS/Safari/VoiceOver、200%ズーム、クリップボード内容の再取得は未確認です。
+
+配布範囲：既存のGitHub Pages用upload-pages-artifact@v3は.githubフォルダーを除外するため、原典のIssue/Workflow設定4ファイルは個別URLでは配信されません。原典14ファイルは未改変のままGitとsource.zipに含め、残り10ファイルは個別URLでも開けます。公開検査では直接配信するファイルとZIP内の4ファイルを分けて全バイトを照合します。共通の公開処理は変更していません。
