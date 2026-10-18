@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>解説映像の編集元｜まちの作業席（Browser Use 作例）</title>
-<meta name="description" content="架空の検索画面を、Browser Use の操作APIで決めた手順どおりに操作した実結果を、28秒・無音の映像に編集する元ページです。">
+<meta name="color-scheme" content="light">
+<title>32秒の図解の編集元｜手順を、ブラウザーの操作へ（Browser Use作例）｜Studio Yebisu</title>
+<meta name="description" content="Browser Useの参照スキル・Python・Browser/Page/Element・実DOMと画面PNG・保存したJSONを、一つの動く図で示す32秒・無音の映像の編集元です。保存済みの実行記録から描きます。">
 <link rel="stylesheet" href="video.css">
 <script>if (window.__MOTION_RENDER__ === true) document.documentElement.classList.add('is-render');</script>
 <script type="module" src="video.js"></script>
@@ -12,65 +13,79 @@
 <body>
 <main class="page">
   <header class="intro">
-    <p class="kicker">Studio Yebisu・Browser Use 作例</p>
-    <h1>条件で探す手順を、28秒で。</h1>
-    <p class="lead">文字の検索、エリアと予算、土曜・電源ありの絞り込み、0件とリセット、選んだ状態のJSON保存までを、保存済みの実行記録と実画面から描く解説映像の編集元です。</p>
+    <p class="kicker"><a href="../index.html">← 図解のページ</a></p>
+    <h1>手順を、ブラウザーの操作へ（32秒・無音）</h1>
+    <p class="lead">同じ図が動き、手引き → Python → Browser・Page・Element → 実DOMと画面PNG → 保存した結果 の順に示します。保存済みの実行記録から描く図で、録画や新しい実行ではありません。</p>
   </header>
 
   <figure class="stage">
-    <canvas id="film" width="1280" height="720" role="img" aria-label="解説映像。架空の作業席12件を、キーワード「電源」で12件、恵比寿・800円以内で4件、土曜・電源ありで2件（W01 こもれびラウンジ 700円、W11 朝のアトリエ 800円）、存在しない条件で0件、リセットで12件と、事前に決めた手順で操作した実結果を順に示し、最後に選んだS04の記録をJSONで保存したことを示します。"></canvas>
-    <figcaption>架空データ・決めた手順を実行／実結果を編集・無音。操作APIの作例で、LLMの判断はありません。</figcaption>
+    <canvas id="film" width="720" height="1280" role="img" aria-label="無音の図解映像。素材を確かめています。"></canvas>
+    <figcaption id="caption" class="caption" aria-live="polite"></figcaption>
   </figure>
 
-  <div class="controls">
+  <div class="controls" role="group" aria-label="再生の操作">
     <button id="play" type="button" aria-pressed="false" disabled>再生</button>
-    <label class="range">
-      <span class="visually-hidden">再生位置（秒）</span>
-      <input id="time" type="range" min="0" max="28" step="0.1" value="0" aria-valuetext="0.0秒（全28秒）" disabled>
-    </label>
-    <output id="clock" for="time">0.0秒 / 28.0秒</output>
+    <button id="reset" type="button" disabled>先頭へ</button>
+    <button id="replay" type="button" disabled>最初から再生</button>
+    <button id="end" type="button" disabled>末尾へ</button>
   </div>
-  <p class="keys">スライダーでは、矢印キーで0.1秒、PageUp・PageDownで2秒、Home・Endで先頭・末尾へ移動します。自動では再生しません。</p>
+  <div class="scrub">
+    <label for="time" class="visually-hidden">再生位置（秒）</label>
+    <input id="time" type="range" min="0" max="32" step="0.1" value="0" aria-valuetext="0.0秒（全32秒）" disabled>
+    <output id="clock" for="time">0.0秒 / 32.0秒</output>
+  </div>
+  <div class="jumps" role="group" aria-label="場面へ移動">
+    <button type="button" data-jump="0" disabled>0 手引き</button>
+    <button type="button" data-jump="4" disabled>4 階層</button>
+    <button type="button" data-jump="9" disabled>9 検索</button>
+    <button type="button" data-jump="14" disabled>14 チェック</button>
+    <button type="button" data-jump="20" disabled>20 受け取る</button>
+    <button type="button" data-jump="25" disabled>25 保存</button>
+    <button type="button" data-jump="29" disabled>29 全体</button>
+  </div>
+  <div class="layouts" role="group" aria-label="映像の向き">
+    <button type="button" data-layout="portrait" aria-pressed="true" disabled>縦 720×1280</button>
+    <button type="button" data-layout="wide" aria-pressed="false" disabled>横 1280×720</button>
+  </div>
+  <p class="keys">自動では再生しません。再生位置のスライダーは矢印キーで0.1秒、Home・Endで先頭・末尾へ移動します。音声はありません。</p>
 
   <div class="state" aria-live="polite">
-    <p id="status" data-state="loading">保存済みのファイルと実画面を確かめています…</p>
+    <p id="status" data-state="loading">18ファイルを確かめています…</p>
     <p id="detail"></p>
-    <button id="reload" type="button" hidden>もう一度読み込む</button>
+    <button id="retry" type="button" hidden>もう一度読み込む</button>
   </div>
 
   <section class="block" aria-labelledby="scope-title">
     <h2 id="scope-title">この映像が示すこと・示さないこと</h2>
     <ul>
-      <li>固定版 Browser Use（browser-use/browser-use <code>c75e847</code>、配布版 0.13.11）の操作API（Actor API）で、事前に決めた6状態の手順を、制作側で実際に実行した結果です。</li>
-      <li>キーワードは文字の一致です。説明文に「電源なし」とある席も「電源」に一致して残ります。電源の有無で絞るのは「電源あり」のチェックです。</li>
-      <li>0件は「該当なし」という正しい結果です。</li>
-      <li>映像は保存した記録と実画面の静止画を編集したもので、操作の連続録画ではありません。文字・枠・強調は編集で重ねたもので、実画面の画素は変えていません。</li>
-      <li>Agent.run、LLMによる操作の判断、Browser Use Cloud、APIキー、既存のブラウザープロファイルは使っていません。自律エージェントの能力はこの作例では確かめていません。</li>
-      <li>作業席の名前・エリア・料金・設備は作例用の架空データで、実在の施設・料金・予約ではありません。</li>
-      <li>このページでも映像でも、Browser Use・Python・AI は動きません。</li>
+      <li>Browser UseはPythonでブラウザーを動かすライブラリです。同梱の参照スキル（SKILL.md）はPython実装のための手引きで、話題ごとに読む文書を選びます。今回はActorとBrowserの文書だけを使いました。スキル自体はブラウザーを動かしません。</li>
+      <li>元の制作でOpusがrun_browser.pyを書き、制作担当がPythonを実行しました。事前に書いた手順を、Browser（BrowserSession）→ Page → Element のActor APIで11回操作しています。</li>
+      <li>件数・席の番号・名前・料金・条件は、保存済みの実行記録（outputs/browser-run.json）から描いています。期待IDは照合だけに使い、結果の値は画面のDOMから読んだものです。</li>
+      <li>Agent.run、LLMによる操作の判断、AIによる要素探し・抽出、Browser Use Cloud、APIキーは使っていません。</li>
+      <li>作業席は架空のデータで、実在の施設・料金・予約ではありません。この映像とページでは、Browser Use・Python・AIは動きません。音声・ナレーションはありません。</li>
     </ul>
   </section>
 
   <section class="block" aria-labelledby="files-title">
-    <h2 id="files-title">照合してから使うファイル</h2>
-    <p>照合表 <code>assets/data-hashes.json</code> を制作記録のSHA-256で確かめ、そこに書かれた14ファイルの生のバイト列を照合してから描きます。合わなければ理由を出して止まり、代わりの映像は描きません。</p>
-    <ol id="verified" class="verified" hidden></ol>
+    <h2 id="files-title">照合してから使うファイル <span id="asset-count" class="count">0/18</span></h2>
+    <p><code>../concept/manifest.json</code> を固定したSHA-256で確かめ、載っている18ファイルのバイト数とSHA-256、中身の照合（件数12・12・4・2・0・12、操作11回、LLM 0回、保存したS04の一致、原文の引用）が通ってから描きます。合わなければ理由を出して止まり、代わりの映像は描きません。</p>
+    <ol id="assets" class="assets" hidden></ol>
   </section>
 
   <nav class="block links" aria-labelledby="links-title">
     <h2 id="links-title">関連するページとファイル</h2>
     <ul>
-      <li><a href="../index.html">操作の記録を読む（閲覧ページ）</a></li>
+      <li><a href="../index.html">図解のページ（保存・6状態・原文）</a></li>
       <li><a href="../fixture.html">架空の検索画面を試す</a></li>
-      <li><a href="../outputs/browser-run.json">実行記録 outputs/browser-run.json</a></li>
-      <li><a href="../outputs/browser-selection.json">保存したJSON outputs/browser-selection.json</a></li>
-      <li><a href="assets/screen-manifest.json">実画面7枚の記録 assets/screen-manifest.json</a></li>
-      <li><a href="../vendor/browser-use/LICENSE">Browser Use のライセンス（MIT）</a></li>
+      <li><a href="../desk.html#S04">元の6状態を見る</a></li>
+      <li><a href="storyboard.json">絵コンテ storyboard.json</a>・<a href="README.md">README.md</a></li>
+      <li><a href="../outputs/browser-run.json">実行記録 browser-run.json</a>・<a href="../outputs/browser-selection.json">保存したS04 browser-selection.json</a></li>
+      <li><a href="../vendor/browser-use/skills/open-source/SKILL.md">参照スキル SKILL.md</a>・<a href="../vendor/browser-use/LICENSE">Browser UseのLICENSE（MIT）</a></li>
     </ul>
   </nav>
 
   <footer class="foot">
-    <p>映像の構成・コード・文章は MIT License（Copyright (c) 2026 Studio Yebisu）。Browser Use は MIT License（Copyright (c) 2024 Gregor Zunic）。</p>
+    <p>図・映像・コード：MIT License（Copyright (c) 2026 Studio Yebisu）。Browser Use：MIT License（Copyright (c) 2024 Gregor Zunic）。</p>
   </footer>
 </main>
 </body>

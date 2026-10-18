@@ -1,12 +1,13 @@
 {
   "id": "browser-use-example",
-  "title": "Browser Use作例：架空の検索画面を、事前に決めた6状態の手順で操作して記録する",
+  "title": "Browser Use作例：参照スキルと、ブラウザーを動かす仕組み",
   "title_lines": [
-    "条件で探す、",
-    "手順を残す"
+    "Browser Useの手引きと、",
+    "Pythonから画面を",
+    "操作する仕組み"
   ],
   "category": "research",
-  "summary": "Browser Use の Actor API（Element.fill・select_option・check・click）で、架空の作業席12件を探すローカルの検索画面を、事前に決めた6状態の手順どおりに操作する作例です。各状態で DOM から読んだ条件と結果の全項目を入力と照合し、実行時の画面の PNG と一緒に JSON へ残します。LLM は操作を判断しません。",
+  "summary": "Browser UseはPythonでブラウザーを動かすライブラリです。同梱の参照スキルから必要な文書を選び、Pythonを書く流れと、Browser・Page・Elementを通して画面を操作する流れを、一枚の大きな概念図と32秒の無音動画でつなぎました。元の事前手順による11操作・6状態の実記録を使っています。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/browser-use-example/index.html",
@@ -19,8 +20,8 @@
   "sample_format": "input-output",
   "samples_title": "6状態の操作手順と、画面から読み取った条件・結果",
   "samples_intro": "固定Browser Useの実APIで操作した6状態の入力と出力です。文字検索と設備チェックを分け、0件とリセットも実DOMで確認しました。",
-  "demo_description": "架空の検索画面「まちの作業席」で記録した6状態を切り替え、実行した操作・読み取った条件・結果・実行時の画面を並べて読むビューアです。初期表示は S04（土曜・電源あり）。S02 ではキーワード「電源」が説明文の「電源なし」にも一致して12件が残ること、S05 では0件が正しい結果であることを確かめられます。選んだ状態を JSON で保存でき、操作した検索画面そのものも開けます。",
-  "demo_note": "表示するのは、Browser Useの操作APIで実際に保存した記録です。検索画面も自分で試せます。閲覧者のブラウザーでPython・Browser Use・AIを実行するものではありません。事前に決めた手順と架空の作業席を用い、実在の施設・予約は扱っていません。",
+  "demo_description": "「手引き・動かす・受け取る」で同じ図が動きます。手引きの話題表、Python、ブラウザー内のページと要素、実DOMと画面PNG、保存先の関係を見られます。6状態と5つの部品を選び、文字の検索と設備の条件の違いも確かめられます。実際に使える検索画面と元の記録ビューアも開けます。",
+  "demo_note": "保存済みの実行を図解しています。このページではBrowser UseやAIは動きません。元のOpusがPython実装を書き、制作担当がActor APIの事前手順を実行しました。参照スキル自体が画面を操作するわけではなく、Agent.runによるLLMの判断は実行していません。",
   "request_intro": "同じ作りを自分の検索画面と手順で試すときの依頼文です。入力の欄を自分の一覧・画面の部品・手順に差し替え、固定版の Browser Use を読めるAIや開発者に渡してください。要らない機能は消してかまいません。",
   "request": "Browser Use（browser-use/browser-use 固定コミット c75e8476e26d18b7617643bc2ae082fae8eae431、配布版 0.13.11、MIT）の Actor API（Browser・Page・Element の直接操作）を使い、手元で配る自作の検索画面を、事前に決めた手順どおりに操作して、各状態の条件・結果・画面を記録する Python スクリプトを書いて、実際に実行してください。結果はスマホで読める日本語のページで見られるようにしてください。\n\n読む原典（固定版）\n・スキル：https://github.com/browser-use/browser-use/blob/c75e8476e26d18b7617643bc2ae082fae8eae431/skills/open-source/SKILL.md\n・Actor API：https://github.com/browser-use/browser-use/blob/c75e8476e26d18b7617643bc2ae082fae8eae431/skills/open-source/references/actor.md\n・Browser の設定：https://github.com/browser-use/browser-use/blob/c75e8476e26d18b7617643bc2ae082fae8eae431/skills/open-source/references/browser.md\n・実装：browser_use/actor/page.py・browser_use/actor/element.py・browser_use/browser/session.py・browser_use/browser/profile.py・browser_use/config.py\n\n入力（ここを差し替える。JSONで渡す）\n・架空か実在か：\n・一覧の項目（12件程度）：ID、名前、エリア、料金、曜日や設備の有無、説明文\n・検索画面の部品：キーワード欄、選択肢（エリア・予算など）、チェックボックス、「この条件で探す」ボタン、「条件をリセット」ボタンと、それぞれの id\n・状態ごとの手順（6つ程度）：使う操作（fill・select_option・check・click）、セレクター、値、期待するIDの並び。条件は前の状態から引き継ぐか：\n\n検索画面に求めること\n・入力のJSONだけを読む静的なページ。取得失敗や形の違いでは結果を隠し、操作部品を無効にして「もう一度読み込む」を出す。代わりのデータは使わない。\n・読み込みの状態を #load-status の data-state（loading・ready・error）で示し、ready まで操作部品を無効にする。\n・絞り込みはボタンを押したときだけ行い、リセットは押した時点で全件に戻す。\n・結果カードに ID・名前・エリア・料金・設備の表示と data 属性を出し、件数と0件の案内を出す。\n・キーワードは文字の一致にとどめ、設備の判定とは書かない（「電源なし」の説明文が「電源」に一致することを画面で説明する）。\n\nスクリプトで守ること\n・browser_use を読み込む前に ANONYMIZED_TELEMETRY=false、BROWSER_USE_CLOUD_SYNC=false、BROWSER_USE_DISABLE_EXTENSIONS=true、BROWSER_USE_SETUP_LOGGING=false、BROWSER_USE_CONFIG_DIR=専用の作業フォルダ を設定する。\n・Agent・Agent.run・LLM・ChatBrowserUse・get_element_by_prompt・extract_content・Cloud・APIキー・既存のChromeプロファイルは使わない。.env も読まない。\n・Browser(headless=True、executable_path=既存のChrome、user_data_dir=作業フォルダ内の新しいプロファイル、enable_default_extensions=False、allowed_domains=[配信元]、permissions=[]、accept_downloads=False、auto_download_pdfs=False、window_size と viewport を 1280×900、keep_alive=False) で起動し、エラーでも最後に stop() を呼ぶ。Chromium の自動ダウンロードはしない。\n・--base-url は http://127.0.0.1:<port> か http://localhost:<port> だけを受け付け、認証情報・パス・クエリ・他のホストは拒否する。\n・入力を Pydantic v2 で厳密に確かめ、操作は決めた API とセレクターの組み合わせだけを許す。手順から求めた条件で期待するIDになるかを起動前に確かめ、合わなければ入力を変えずに止まる。\n・get_elements_by_css_selector はすぐ返るので、短い間隔・上限つきで問い合わせ直し、ちょうど1件の要素だけを操作する。決め打ちの待ち時間で済ませない。\n・各状態で Element.fill・select_option・check・click を手順の順に呼び、成功したあとに記録する。JavaScript で値を入れたり DOM を書き換えたりしない。Page.evaluate は DOM の読み取りだけに使う。\n・各状態のあと、結果のID・全項目・件数・0件の表示・フォームの値を読み取り、入力と1項目ずつ照合する。期待するIDは判定にだけ使い、記録には実際に読んだ値を使う。\n・Page.screenshot(format='png') の画像を保存し、SHA-256 と PNG の幅・高さを記録する。\n・既にある出力と画像は上書きしない。すべて通ったときだけ JSON を書く。時刻・手元のパス・ポート・環境変数・認証情報は書かない。\n\n出力\n・実行記録のJSON：原典のリポジトリとコミット、入力のSHA-256、範囲（Actor API・事前の手順・Agent と LLM なし）、Python と browser-use の版、成功した操作の回数、状態ごとの操作・条件・結果の全項目・件数・期待するID・画像の情報。\n・状態ごとのPNG画像。\n\nページでできること（要らないものは消す）\n・状態のボタンを選ぶと、実行した操作・読み取った条件・結果・実行時の画面が並ぶ。0件の状態は失敗ではないと分かるようにする。\n・入力と実行記録を取得して、形・固定コミット・入力のSHA-256・操作と結果の一致を確かめ、合わなければ理由と「もう一度読み込む」を出す。内蔵の代わりのデータは使わない。\n・選んだ状態をJSONで保存する。\n・320px幅のスマホから1280px幅のパソコンまで、横スクロールなしで使える。操作部品は44px以上、入力欄の文字は16px以上。外部のフォント・CDN・計測・AIの呼び出しは使わない。\n\n書かないこと\n・事前に決めた手順の実行を、AIが自分で判断して操作したように書かない。Browser Use の自律エージェントの能力を確かめたとは書かない。\n・架空の一覧を、実在の施設・料金・予約のように書かない。\n・allowed_domains を、OS全体の通信の遮断やオフラインの保証として書かない。\n\n最後に、作ったファイル、実際に実行した確認とその出力、まだ確かめていない点を分けて書いてください。\n",
   "applied_skills": [
@@ -37,36 +38,31 @@
     {
       "name": "Motion Reel",
       "source": "examples/browser-use-example/tools/motion-reel/render.mjs",
-      "applied": "実APIで取得した6状態の結果と実ブラウザー画面から、Opus5.5が28秒の無音動画を制作。代表・連続フレーム、同時刻の別順・新ページ描画、全デコード、実MP4終端を確認しました。"
+      "applied": "原制作の28秒動画の記録は保持。今回の改修では18素材を固定し、Opus5.5が参照スキル・Python・Actor API・実DOM/PNG/JSONをつなぐ概念図と32秒無音動画の8編集原本を執筆しました。制作側の可読性・冒頭の拡大・編集操作・包装の補正と、新しい任意時刻/代表/連続フレーム・縦横MP4の確認は原制作と分けています。"
     }
   ],
   "steps": [
     {
-      "title": "架空の一覧と手順を固定する",
-      "body": "作例のために、架空の作業席12件（W01〜W12：名前・エリア・1時間の料金・土曜・電源・説明文）を input/workspaces.json に、6状態の操作（API・セレクター・値）と期待するIDを input/scenarios.json に書きました。手順は事前に決めたもので、LLM の判断の履歴ではありません。"
+      "title": "参照スキルから必要な文書を選ぶ",
+      "body": "skills/open-source/SKILL.mdはPython実装用の手引きです。今回の話題に沿ってActor APIとBrowser設定の文書を読み、元のrun_browser.pyに適用しました。手引き自体は実行プログラムではありません。"
     },
     {
-      "title": "入力だけを読む検索画面を作る",
-      "body": "fixture.html は input/workspaces.json を取得して形を確かめ、読み込みの状態を #load-status の data-state で示します。キーワード・エリア・予算・土曜・電源の条件は「この条件で探す」を押したときだけ反映し、「条件をリセット」は押した時点で12件に戻します。キーワードは名前・エリア・説明文の文字の一致で、設備の判定ではありません。"
+      "title": "Pythonからページの要素を操作する",
+      "body": "BrowserはBrowserSessionの別名です。new_pageでPageを開き、CSSセレクターでElementを得て、fill・select_option・check・clickを呼びます。元の実行は事前に書いた6状態の手順で11操作。LLMは次の操作を選んでいません。"
     },
     {
-      "title": "Browser Use で手順どおりに操作する",
-      "body": "run_browser.py が送信・同期・拡張を止める環境変数を設定してから browser_use を読み込み、既存の Chrome を専用の新しいプロファイルと allowed_domains で起動します。6状態の順に、1件に決まった要素へ Element.fill・select_option・check・click を呼びます。"
+      "title": "文字の検索と設備の条件を分ける",
+      "body": "文字「電源」は「電源なし」にも含まれ、S02は12件のまま。恵比寿・800円以内を加えると4件、土曜・電源ありを加えるとW01とW11の2件です。該当なしの0件も正常な結果で、リセットすると12件に戻ります。"
     },
     {
-      "title": "画面を読み取り、入力と照合する",
-      "body": "各状態のあと、読み取り専用の Page.evaluate でフォームの値・適用中の条件・結果カードの全項目・件数・0件の表示を読み、入力の作業席と1項目ずつ照合します。通ったら Page.screenshot の PNG を保存し、6状態すべてが通ったときだけ outputs/browser-run.json を書きます。"
-    },
-    {
-      "title": "記録を読み比べて保存する",
-      "body": "閲覧ページは入力と記録を取得し、固定コミット・入力のSHA-256・操作と結果の一致を確かめてから、6状態の操作・条件・結果・実行時の画面を並べます。選んだ状態を JSON で保存でき、依頼文もコピーできます。"
-    },
-    {
-      "title": "実行結果と公開用動画を確認する",
-      "body": "6状態の実DOMと全結果、6枚の実画面、JSON保存と再試行を確認。検索画面と記録ページを6幅で確認し、28秒の無音動画の代表・連続フレーム、別順・新ページの同時刻一致、全デコードとMP4終端を確認しました。物理iOS/Safari/VoiceOverと人の承認は未確認です。"
+      "title": "実画面を読んで記録する",
+      "body": "Page.evaluateは読み取り専用で実DOMの条件と結果を取得し、Page.screenshotで6枚の画面PNGを保存しました。期待IDは照合にだけ使います。保存済みの実行から選んだ状態をJSONにし、検索画面も自分で試せます。"
     }
   ],
   "limitations": [
+    "図の5部品は今回の利用経路を説明する整理で、Browser Use全体の共通構造や自律Agentの動作実証ではありません。",
+    "元の11Actor操作・6状態・原入力と実出力は再生成していません。新しいOpus制作は図と映像の編集ソースで、制作側の補正・描画・検証・包装とは区別しています。",
+    "実機iOS/Safari/VoiceOver、200%ズーム、人による審美的承認は未確認です。自動照合やエージェントによる画面確認とは区別しています。",
     "施設名・料金・設備・営業条件は独自の架空データ12件です。実在施設の紹介・現行料金・空席・予約の確認ではありません。",
     "実行したのは、事前に決めた手順を実行するBrowser UseのActor APIです。Agent.runやLLMによる次の操作の判断は実行していません。原典はこのAPIをlegacy direct controlと記載しています。",
     "文字検索は入力の語句を照合します。「電源なし」も「電源」に一致します。設備の有無は別のチェック条件で扱い、AIの意味理解や施設の品質判定と区別します。",
@@ -132,20 +128,40 @@
       "url": "examples/browser-use-example/fixture.html"
     },
     {
-      "label": "確認の範囲",
+      "label": "原制作で確認したActor APIの実行と検証",
       "url": "examples/browser-use-example/verification.json"
     },
     {
       "label": "入力・結果・編集ソース一式",
       "url": "examples/browser-use-example/source.zip"
+    },
+    {
+      "label": "参照スキルとActor APIの関係を説明する図の構造",
+      "url": "examples/browser-use-example/concept/structure.json"
+    },
+    {
+      "label": "今回の図と無音動画の確認範囲",
+      "url": "examples/browser-use-example/visual-verification.json"
+    },
+    {
+      "label": "保全した元の6状態ビューア",
+      "url": "examples/browser-use-example/desk.html"
+    },
+    {
+      "label": "縦横の無音動画を再現するスクリプト",
+      "url": "examples/browser-use-example/render-visual.py"
+    },
+    {
+      "label": "図の改修と原制作の違い",
+      "url": "examples/browser-use-example/visual-guide.md"
     }
   ],
   "license": "MIT",
   "license_note": "作例のコード・文章・架空データは MIT License（Copyright (c) 2026 Studio Yebisu）。vendor/browser-use/ のファイルは browser-use/browser-use の固定コミット c75e847 のものを改変せずに置いたもので、MIT License（Copyright (c) 2024 Gregor Zunic）です。原典の LICENSE はそのまま同梱しています。この作例は LLM・API キー・Cloud を使わず、推論 API やホスト型ブラウザーの料金はかかりません。依存パッケージと Chrome は同梱していません。",
-  "video_note": "28秒・720p・30fps・無音。固定Browser Useの操作APIで得た実際の画面と結果を使う編集動画です。架空データ・事前に決めた手順で、連続録画やLLMの自律判断の実行ではありません。",
+  "video_note": "32秒・30fps・無音。縦720×1280と横1280×720を別配置で描きます。手引きからPythonへ、事前の手順からブラウザー内の要素へ、実DOMと画面PNGから保存先へ、同じ図形が動く概念図です。元の実記録に基づく編集映像で、操作の録画や新しいAPI実行ではありません。音声トラックはありません。",
   "video_source": "examples/browser-use-example/video/index.html",
   "skill_license": "examples/browser-use-example/vendor/browser-use/LICENSE",
-  "updated_on": "2026-10-16",
+  "updated_on": "2026-10-18",
   "verification_stage": "runtime-reviewed",
   "guide_url": "case.html?id=browser-use-example",
   "catalog_entry": {
@@ -153,7 +169,7 @@
     "name": "Browser Use",
     "category": "research",
     "kind": "ブラウザー操作ツール",
-    "summary": "AIエージェントからブラウザーを操作するためのライブラリとCLI。",
+    "summary": "Pythonからブラウザーのページや要素を操作するライブラリ。公式のPython実装用参照スキルを含みます。作例は事前手順のActor APIを実行し、自律Agentは未使用です。",
     "use_case": "ページ内の操作を含むWeb調査や、ブラウザーを使う作業を組み立てたいとき。",
     "tags": [
       "Web",

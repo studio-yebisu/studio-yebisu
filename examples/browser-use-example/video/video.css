@@ -1,141 +1,92 @@
-/* まちの作業席（Browser Use 作例）— 解説映像の編集元。スマホを基準に、閲覧ページと同じ温かい白・紺・黄 */
+/* Browser Use作例 — 32秒・無音の図解の編集元。スマホを基準に、図解のページと同じ墨・紙・ペトロール・琥珀
+ * Copyright (c) 2026 Studio Yebisu. MIT License. */
 :root {
-  --paper: #faf6ee;
+  --paper: #f6f1e7;
   --card: #fffdf8;
-  --ink: #1d2433;
-  --muted: #535a6a;
-  --navy: #1b2f5e;
-  --navy-2: #2b4a8b;
-  --navy-soft: #e6ebf5;
-  --amber: #f0b429;
-  --amber-soft: #fbecc4;
-  --line: #d9d2c3;
-  --error: #9b3f1d;
-  --serif: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+  --ink: #1d2422;
+  --muted: #56615d;
+  --line: #c8bfae;
+  --petrol: #1f5c60;
+  --amber: #d98a1e;
+  --amber-soft: #f5dfb8;
+  --error: #9b3a1d;
+  --sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", Meiryo, "Noto Sans JP", system-ui, sans-serif;
+  --serif: "Hiragino Mincho ProN", "Yu Mincho", YuMincho, "Noto Serif JP", serif;
+  --mono: ui-monospace, "SFMono-Regular", "Cascadia Mono", Consolas, Menlo, monospace;
   color-scheme: light;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 [hidden] { display: none !important; }
-
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body {
   margin: 0;
   min-width: 0;
   background: var(--paper);
   color: var(--ink);
-  font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Noto Sans JP", system-ui, sans-serif;
+  font-family: var(--sans);
   font-size: 16px;
   line-height: 1.7;
   overflow-wrap: anywhere;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
 }
+a { color: var(--petrol); text-underline-offset: 3px; }
+code { font-family: var(--mono); font-size: .9em; }
+:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
-.page {
-  width: 100%;
-  max-width: 1040px;
-  min-width: 0;
-  margin: 0 auto;
-  padding: 20px max(16px, env(safe-area-inset-right)) max(32px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
-}
+.page { max-width: 980px; margin: 0 auto; padding: 8px 16px 32px; }
+.kicker { margin: 0; }
+.kicker a { display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; color: var(--muted); }
+h1 { margin: 0 0 6px; font-family: var(--serif); font-size: clamp(20px, 5.4vw, 30px); line-height: 1.35; }
+.lead { margin: 0 0 12px; font-size: 14px; color: var(--muted); }
+h2 { font-family: var(--serif); font-size: 19px; margin: 24px 0 6px; line-height: 1.4; }
 
-.kicker { margin: 0; color: var(--muted); font-size: 0.875rem; font-weight: 700; }
-h1 {
-  margin: 4px 0 8px;
-  color: var(--navy);
-  font-family: var(--serif);
-  font-size: clamp(1.5rem, 1.1rem + 2vw, 2.25rem);
-  line-height: 1.35;
-}
-.lead { margin: 0 0 20px; max-width: 46em; }
-
-.stage { margin: 0; min-width: 0; }
+.stage { margin: 0; display: grid; justify-items: center; gap: 8px; }
 #film {
-  display: block;
-  width: 100%;
-  height: auto;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: 10px;
+  display: block; width: auto; max-width: 100%; height: auto;
+  max-height: min(78svh, 900px);
+  border: 1px solid var(--line); border-radius: 12px; background: var(--paper);
 }
-.stage figcaption { margin-top: 8px; color: var(--muted); font-size: 0.875rem; }
+#film[data-layout="wide"] { width: 100%; max-height: none; }
+.caption { margin: 0; font-size: 14px; line-height: 1.6; min-height: 3.2em; width: 100%; }
 
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 12px;
-  margin-top: 12px;
-  min-width: 0;
+.controls, .jumps, .layouts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.controls button, .jumps button, .layouts button, #retry {
+  min-height: 44px; min-width: 44px; padding: 0 14px; border-radius: 999px;
+  border: 1px solid var(--petrol); background: var(--card); color: var(--petrol);
+  font: inherit; font-size: 14px; font-weight: 700; cursor: pointer;
 }
-button {
-  min-height: 44px;
-  min-width: 44px;
-  padding: 8px 20px;
-  border: 1px solid var(--navy);
-  border-radius: 8px;
-  background: var(--navy);
-  color: #fff;
-  font: inherit;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-}
-button[aria-pressed="true"] { background: var(--card); color: var(--navy); }
-button:disabled { opacity: 0.55; cursor: not-allowed; }
-button:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
-.range { flex: 1 1 200px; min-width: 0; display: flex; align-items: center; min-height: 44px; }
-#time { width: 100%; min-height: 44px; margin: 0; accent-color: var(--navy); font-size: 16px; }
-#clock { font-variant-numeric: tabular-nums; font-weight: 700; min-width: 8.5em; }
-.keys { margin: 4px 0 0; color: var(--muted); font-size: 0.875rem; }
+#play { background: var(--petrol); color: var(--paper); min-width: 96px; }
+.jumps button[aria-current="true"], .layouts button[aria-pressed="true"] { background: var(--amber-soft); border-color: var(--amber); color: var(--ink); }
+button:disabled, input:disabled { opacity: .45; cursor: not-allowed; }
+.scrub { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.scrub input { flex: 1 1 auto; min-height: 44px; accent-color: var(--petrol); }
+.scrub output { font-family: var(--mono); font-size: 14px; white-space: nowrap; }
+.keys { font-size: 13px; color: var(--muted); margin: 8px 0 0; }
 
-.state { margin-top: 16px; }
-#status { margin: 0; font-weight: 700; }
-#status[data-state="loading"] { color: var(--muted); }
-#status[data-state="ready"] { color: var(--navy); }
-#status[data-state="error"] { color: var(--error); }
-#detail { margin: 4px 0 0; color: var(--muted); }
-#detail:empty { display: none; }
-#reload { margin-top: 8px; }
+.state { margin-top: 12px; font-size: 14px; }
+.state p { margin: 0 0 6px; }
+#status[data-state="error"] { color: var(--error); font-weight: 700; }
+.block ul { padding-left: 1.2em; margin: 0; font-size: 14px; }
+.block li { margin: 4px 0; }
+.block p { font-size: 14px; }
+.count { font-family: var(--mono); font-size: 14px; color: var(--petrol); }
+.assets { margin: 8px 0 0; padding-left: 1.6em; font-family: var(--mono); font-size: 12px; }
+.links a { display: inline-block; padding: 6px 0; }
+.foot { margin-top: 28px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
 
-.block {
-  margin-top: 28px;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
-}
-.block h2 { margin: 0 0 8px; color: var(--navy); font-family: var(--serif); font-size: 1.25rem; line-height: 1.4; }
-.block ul, .block ol { margin: 0; padding-left: 1.25em; }
-.block li + li { margin-top: 4px; }
-.block p { margin: 0 0 8px; }
-code { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 0.875em; }
-.verified { font-size: 0.875rem; }
-
-.links a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  color: var(--navy-2);
-  font-weight: 700;
-}
-.links li + li { margin-top: 0; }
-
-.foot { margin-top: 28px; color: var(--muted); font-size: 0.875rem; }
-.foot p { margin: 0; }
-
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
+@media (min-width: 760px) {
+  .page { padding-top: 16px; }
 }
 
-/* 書き出し時：キャンバスだけを、指定の大きさちょうどで置く（はみ出し・動作中のアニメーションなし） */
-html.is-render, html.is-render body { margin: 0; padding: 0; overflow: hidden; background: var(--paper); }
-html.is-render .page { max-width: none; padding: 0; margin: 0; }
+/* 書き出し時：キャンバスだけを表示領域いっぱいに置く（はみ出し・スクロールなし） */
+html.is-render, html.is-render body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: var(--paper); }
+html.is-render .page { max-width: none; margin: 0; padding: 0; }
 html.is-render .page > :not(.stage) { display: none !important; }
-html.is-render .stage figcaption { display: none; }
-html.is-render #film { border: 0; border-radius: 0; }
+html.is-render .stage { display: block; margin: 0; }
+html.is-render .caption { display: none; }
+html.is-render #film {
+  position: fixed; left: 0; top: 0; max-width: none; max-height: none;
+  border: 0; border-radius: 0;
+}

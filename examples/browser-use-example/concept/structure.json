@@ -1,0 +1,362 @@
+{
+  "format": "browser-use-structure/v1",
+  "case_id": "browser-use-example",
+  "source_commit": "c75e8476e26d18b7617643bc2ae082fae8eae431",
+  "version": "0.13.11",
+  "definition": "Pythonからブラウザーを動かすライブラリと、その実装を助ける参照スキル",
+  "parts": [
+    {
+      "id": "skill",
+      "label": "実装の手引き",
+      "api": "skills/open-source/SKILL.md",
+      "source_path": "vendor/browser-use/skills/open-source/SKILL.md",
+      "quote": "| Actor API: Page/Element/Mouse (legacy) | `references/actor.md` |",
+      "meaning": "Python実装用の参照スキル。必要な話題から文書を選ぶ。今回はActorとBrowserを読む。手引き自体がブラウザーを動かすわけではない。",
+      "line_start": 29
+    },
+    {
+      "id": "browser",
+      "label": "ブラウザー",
+      "api": "Browser (BrowserSession)",
+      "source_path": "run_browser.py",
+      "quote": "page = await browser.new_page(f'{origin}/fixture.html')",
+      "meaning": "Pythonから専用のChromeとページを開く。設定はBrowserへ渡し、終了時にstopする。",
+      "line_start": 638
+    },
+    {
+      "id": "page",
+      "label": "ページと要素",
+      "api": "Page → Element",
+      "source_path": "run_browser.py",
+      "quote": "elements = await page.get_elements_by_css_selector(selector)",
+      "meaning": "ページからCSSセレクターで対象を選ぶ。自動で表示を待たないので元実装が期限内に問い合わせ直す。",
+      "line_start": 432
+    },
+    {
+      "id": "actions",
+      "label": "直接操作",
+      "api": "Element.fill / select_option / check / click",
+      "source_path": "run_browser.py",
+      "quote": "await element.fill(action.value)",
+      "meaning": "事前に書いた手順に従って入力欄・選択・チェック・ボタンを操作。AIによる次の操作の判断は使っていない。",
+      "line_start": 658
+    },
+    {
+      "id": "output",
+      "label": "実画面を読む",
+      "api": "Page.evaluate / screenshot",
+      "source_path": "run_browser.py",
+      "quote": "raw = await page.evaluate(READ_STATE_JS)",
+      "meaning": "実DOMを読み取り、画面PNGも保存。期待IDは照合専用で、出力の値は実際のDOMから得る。",
+      "line_start": 469
+    }
+  ],
+  "skill": {
+    "path": "vendor/browser-use/skills/open-source/SKILL.md",
+    "kind": "Pythonライブラリ実装用の参照スキル",
+    "selected_references": [
+      "vendor/browser-use/skills/open-source/references/actor.md",
+      "vendor/browser-use/skills/open-source/references/browser.md"
+    ],
+    "applied_by": "元のOpus執筆が参照スキルから必要な文書を選びrun_browser.pyを書き、制作担当がPythonを実行した。",
+    "routes": [
+      "Agent/Browser/Tools等の話題→対応する文書",
+      "今回：Actor APIとBrowser設定→Python実装"
+    ],
+    "not_a_runtime": "SKILL本文は説明と参照先。単独でブラウザーを操作する実行プログラムではない。"
+  },
+  "hierarchy": {
+    "browser": "BrowserはBrowserSessionの別名",
+    "page": "Browser.new_pageでPageを得る",
+    "element": "Page.get_elements_by_css_selectorでElementを得る",
+    "cdp": "ActorはCDPに基づくlegacy direct control。Playwrightそのものではない。",
+    "actual_branch": "今回：事前手順→Python Actor API→Chrome→実DOM/PNG→JSON",
+    "unexercised_branch": "Agent.runによるLLMの判断ループ・AI要素検索/抽出・Cloudは未実行。"
+  },
+  "flow": {
+    "inputs": [
+      "input/workspaces.json：架空の作業席12件",
+      "input/scenarios.json：6状態の事前手順と照合用の期待ID"
+    ],
+    "authorship": "元のOpusが実装、制作担当が実行。新しい図は保存済みの記録を説明。",
+    "execution": "11回のElement操作。fill2/select_option2/check2/click5。",
+    "readback": "実DOMの条件と全結果を読み取り、入力から独立照合。期待IDは出力生成には使わない。",
+    "outputs": [
+      "実DOMの6状態",
+      "Page.screenshotの6PNG",
+      "browser-run.jsonとS04を保存したbrowser-selection.json"
+    ]
+  },
+  "scenarios": [
+    {
+      "id": "S01",
+      "label": "一覧を開く",
+      "actions": [],
+      "conditions": {
+        "keyword": "",
+        "area": "",
+        "budget": "",
+        "saturday": false,
+        "power": false
+      },
+      "result_count": 12,
+      "result_ids": [
+        "W01",
+        "W02",
+        "W03",
+        "W04",
+        "W05",
+        "W06",
+        "W07",
+        "W08",
+        "W09",
+        "W10",
+        "W11",
+        "W12"
+      ],
+      "screenshot": {
+        "src": "captures/S01.png",
+        "sha256": "5631f7815432f0f716dcb2d760a64fa5cf1169c76260adea448f81b4a3084ca2",
+        "width": 1280,
+        "height": 900
+      },
+      "empty_visible": false
+    },
+    {
+      "id": "S02",
+      "label": "「電源」の文字を検索",
+      "actions": [
+        {
+          "api": "fill",
+          "call": "Element.fill",
+          "selector": "#search",
+          "value": "電源"
+        },
+        {
+          "api": "click",
+          "call": "Element.click",
+          "selector": "#apply"
+        }
+      ],
+      "conditions": {
+        "keyword": "電源",
+        "area": "",
+        "budget": "",
+        "saturday": false,
+        "power": false
+      },
+      "result_count": 12,
+      "result_ids": [
+        "W01",
+        "W02",
+        "W03",
+        "W04",
+        "W05",
+        "W06",
+        "W07",
+        "W08",
+        "W09",
+        "W10",
+        "W11",
+        "W12"
+      ],
+      "screenshot": {
+        "src": "captures/S02.png",
+        "sha256": "7c8eed0a57486202102a2201c1eaad13150faf2d0d4168039ea5daf17948adca",
+        "width": 1280,
+        "height": 900
+      },
+      "empty_visible": false
+    },
+    {
+      "id": "S03",
+      "label": "恵比寿・800円以内に絞る",
+      "actions": [
+        {
+          "api": "select_option",
+          "call": "Element.select_option",
+          "selector": "#area",
+          "value": "恵比寿"
+        },
+        {
+          "api": "select_option",
+          "call": "Element.select_option",
+          "selector": "#budget",
+          "value": "800"
+        },
+        {
+          "api": "click",
+          "call": "Element.click",
+          "selector": "#apply"
+        }
+      ],
+      "conditions": {
+        "keyword": "電源",
+        "area": "恵比寿",
+        "budget": "800",
+        "saturday": false,
+        "power": false
+      },
+      "result_count": 4,
+      "result_ids": [
+        "W01",
+        "W02",
+        "W04",
+        "W11"
+      ],
+      "screenshot": {
+        "src": "captures/S03.png",
+        "sha256": "31e669a23bedc4a0f5138a2aa8c91bd6db9e2ecb38383813bb1c7ad3655cd4d2",
+        "width": 1280,
+        "height": 900
+      },
+      "empty_visible": false
+    },
+    {
+      "id": "S04",
+      "label": "土曜・電源ありを条件にする",
+      "actions": [
+        {
+          "api": "check",
+          "call": "Element.check",
+          "selector": "#saturday"
+        },
+        {
+          "api": "check",
+          "call": "Element.check",
+          "selector": "#power"
+        },
+        {
+          "api": "click",
+          "call": "Element.click",
+          "selector": "#apply"
+        }
+      ],
+      "conditions": {
+        "keyword": "電源",
+        "area": "恵比寿",
+        "budget": "800",
+        "saturday": true,
+        "power": true
+      },
+      "result_count": 2,
+      "result_ids": [
+        "W01",
+        "W11"
+      ],
+      "screenshot": {
+        "src": "captures/S04.png",
+        "sha256": "627e9d9b2cbaf393d7faaf82d2b16fba2902874ac4affde7778cb6d41926b090",
+        "width": 1280,
+        "height": 900
+      },
+      "empty_visible": false
+    },
+    {
+      "id": "S05",
+      "label": "該当なしを確認する",
+      "actions": [
+        {
+          "api": "fill",
+          "call": "Element.fill",
+          "selector": "#search",
+          "value": "存在しない条件"
+        },
+        {
+          "api": "click",
+          "call": "Element.click",
+          "selector": "#apply"
+        }
+      ],
+      "conditions": {
+        "keyword": "存在しない条件",
+        "area": "恵比寿",
+        "budget": "800",
+        "saturday": true,
+        "power": true
+      },
+      "result_count": 0,
+      "result_ids": [],
+      "screenshot": {
+        "src": "captures/S05.png",
+        "sha256": "e6f3a06394787ba48b77673af357b5dda049516b097272563172fddd671d9234",
+        "width": 1280,
+        "height": 900
+      },
+      "empty_visible": true
+    },
+    {
+      "id": "S06",
+      "label": "条件をリセットする",
+      "actions": [
+        {
+          "api": "click",
+          "call": "Element.click",
+          "selector": "#reset"
+        }
+      ],
+      "conditions": {
+        "keyword": "",
+        "area": "",
+        "budget": "",
+        "saturday": false,
+        "power": false
+      },
+      "result_count": 12,
+      "result_ids": [
+        "W01",
+        "W02",
+        "W03",
+        "W04",
+        "W05",
+        "W06",
+        "W07",
+        "W08",
+        "W09",
+        "W10",
+        "W11",
+        "W12"
+      ],
+      "screenshot": {
+        "src": "captures/S06.png",
+        "sha256": "5d15c387e3ed1ef8a6f21f4294fc04531886c15407387aeeb6bb3e66a229264d",
+        "width": 1280,
+        "height": 900
+      },
+      "empty_visible": false
+    }
+  ],
+  "default_id": "S04",
+  "selection_path": "outputs/browser-selection.json",
+  "selection_bytes": 3012,
+  "selection_sha256": "de9d3974a70fc523642b4c119f2fc627c3cf9366a813c08467514877e3909dd8",
+  "distinctions": {
+    "S02": "文字「電源」は「電源なし」にも含まれるため12件。設備の意味による検索ではない。",
+    "S03": "電源の文字＋恵比寿＋800円以内のANDでW01/W02/W04/W11。電源なしW04も残る。",
+    "S04": "S03の条件に土曜・電源ありを足しW01/W11の2件。",
+    "S05": "該当なしは正常な結果。0件を失敗にしない。",
+    "S06": "resetで全条件が外れ12件へ戻る。"
+  },
+  "actual_execution": {
+    "performed_by": "制作担当が元のrun_browser.pyを実行",
+    "actions": 11,
+    "states": 6,
+    "llm_calls": 0,
+    "agent_run": false,
+    "live_in_this_browser": false,
+    "scope": "手元の架空の検索画面。既存Chrome、新しい専用プロファイル、既存認証なし。",
+    "navigation_limit": "allowed_domainsは移動先の制限でありOS通信の遮断ではない。",
+    "not_exercised": [
+      "Agent.run",
+      "ChatBrowserUse",
+      "LLMによる操作判断・要素検索・抽出",
+      "Browser Use Cloud",
+      "実在施設の検索・予約"
+    ]
+  },
+  "license": {
+    "upstream": "MIT, Copyright (c) 2024 Gregor Zunic",
+    "own": "Original example/fixture/UI/motion MIT, Copyright (c) 2026 Studio Yebisu."
+  },
+  "editorial_note": "5部品は今回の利用経路を説明するための整理で、全機能の共通スキーマや自律Agentの実行証拠ではない。スキルは実装の参照文書で、実操作はPythonのActor API。"
+}

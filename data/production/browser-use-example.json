@@ -1,6 +1,6 @@
 {
   "id": "browser-use-example",
-  "verified_at": "2026-10-16T14:36:06.649351+00:00",
+  "verified_at": "2026-10-18T05:50:13.891060+00:00",
   "model": {
     "requested": "claude-opus-5-5",
     "reported": [
@@ -18,9 +18,16 @@
         "receipt_sha256": "8e2c7b6d2b6ae9ac5a8bc633b44e388f96da32368f9a68f4f14706cfb804abd4",
         "execution_sha256": "924e9d552db71742961705a50fb7e79745d51f9115faab32c2571952d3c00ff2",
         "prompt_sha256": "093d772e173bb94d966583ef0c2239c54967dbaa35152a38c9af60ddaa3ac4bc"
+      },
+      {
+        "phase": "visual-r1",
+        "receipt_sha256": "809abe571f5734bdeee31300cbc545e1cdea16cc956b22fb407721c3535766fb",
+        "execution_sha256": "49cc8ec09c49a610fc90446f8f50dface9cce2b033f49429d20014520739556a",
+        "prompt_sha256": "4e566eaa94c98941102d5b0f551d27198439d21e423fa7805a2a3c793d715f4b"
       }
     ],
-    "receipt_published": false
+    "receipt_published": false,
+    "scope": "Original implementation/actual execution/film records retained. Exact newOpus5.5 authored8concept UI/film originals; parent factual structure input, contrast, opening framing, editor handler, article, original-viewer film link, rendering/QA/packaging separate. Full model history private."
   },
   "upstream": {
     "repository": "browser-use/browser-use",
@@ -1514,95 +1521,220 @@
     "blockedExternalRequests": []
   },
   "video_review": {
-    "video_sha256": "9fac55dbd66bd47cda62ad9d8df404f5a6eba4bc6c1d1ea1d250a5f7c447913c",
-    "poster_sha256": "4668bf044a86c4abade5fb4401f13cdec1b5deaf2845855f9934c824936d2ef0",
-    "poster_from_mp4_seconds": 13.5,
-    "full_decode_passed": true,
-    "review_files": [
-      "contact.png",
-      "poster.png",
-      "strip.png",
-      "stills/frame-000000.png",
-      "stills/frame-000001.png",
-      "stills/frame-000002.png",
-      "stills/frame-000003.png",
-      "stills/frame-000004.png",
-      "stills/frame-000005.png",
-      "stills/frame-000006.png",
-      "stills/frame-000007.png",
-      "stills/frame-000008.png",
-      "stills/frame-000009.png",
-      "stills/frame-000010.png",
-      "stills/frame-000011.png",
-      "stills/frame-000012.png",
-      "stills/frame-000013.png",
-      "cut-01.png",
-      "cut-02.png",
-      "cut-03.png",
-      "cut-04.png",
-      "cut-05.png",
-      "final.png"
-    ],
-    "render_label": "final",
-    "bundled_renderer_executed": true,
-    "agent_visual_review": true,
-    "human_approval": false,
-    "unresolved_blockers": [],
-    "representative_frames_reviewed": 14,
-    "continuous_cut_strips_reviewed": [
-      3.85,
-      7.85,
-      11.85,
-      17.85,
-      21.85
-    ],
-    "poster_phone_width_px": 360,
-    "source_editor": {
-      "client": 375,
-      "paused": true,
-      "play_enabled": true,
-      "play_height": 45.1875,
-      "position": 14,
-      "range_font": "16px",
-      "range_height": 44,
-      "scroll": 375,
-      "status": "照合した14ファイルから描いています",
-      "verified_files": 14,
-      "play_pressed": "true"
+    "revision": "visual-r1",
+    "films": {
+      "portrait": {
+        "sha256": "1d37dec9c51ac831e3d96fe97ea26db8fe15dd84b311db58e3d3e307fcf3cbc0",
+        "bytes": 1314494,
+        "full_decode_passed": true
+      },
+      "wide": {
+        "sha256": "a4e83800422011c97cfa8593d651b4eb47b6113e6951c5e34bbb6f8cd5e303c4",
+        "bytes": 1152804,
+        "full_decode_passed": true
+      }
     },
-    "native_playback": {
-      "duration": 28,
-      "ended": true,
-      "error": null,
-      "height": 720,
-      "paused": true,
-      "time": 28,
-      "url": "http://127.0.0.1:8864/media/browser-use-example.mp4",
-      "width": 1280,
-      "first_observed_seconds": 0,
-      "no_manual_seek": true
+    "frame_review": {
+      "reviewed_by": "production agent",
+      "human_approval": false,
+      "scope": "Portrait/wide contact sheets, actual720px representative/poster and consecutive strips, decoded-MP4 motion frames, arbitrary-time/new-page equality. Opening manual enlarged and inactive shapes made readable after actual review. No physical-iOS or human aesthetic approval.",
+      "layouts": 2,
+      "representative_frames_per_layout": 16,
+      "consecutive_frames_per_layout": 12,
+      "actual_MP4_motion_frames_per_layout": 12,
+      "determinism": {
+        "portrait": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "1cec560918c2dc76ab8a412e4016c85718a9b3ba93329a4b558e0816391ec536",
+          "afterOtherTimes": "1cec560918c2dc76ab8a412e4016c85718a9b3ba93329a4b558e0816391ec536",
+          "freshPage": "1cec560918c2dc76ab8a412e4016c85718a9b3ba93329a4b558e0816391ec536",
+          "match": true
+        },
+        "wide": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "911e98a58e4ecfd91e57a46a09f6f18eff1b897107ab8de18b94a933d4eb3c38",
+          "afterOtherTimes": "911e98a58e4ecfd91e57a46a09f6f18eff1b897107ab8de18b94a933d4eb3c38",
+          "freshPage": "911e98a58e4ecfd91e57a46a09f6f18eff1b897107ab8de18b94a933d4eb3c38",
+          "match": true
+        }
+      },
+      "final30_and31_stable": true,
+      "audio_streams": 0
     },
-    "codec": "h264",
-    "pixel_format": "yuv420p",
-    "mp4_atoms": [
-      "ftyp",
-      "moov",
-      "free",
-      "mdat"
-    ],
-    "video_bytes": 1847333,
-    "visual_notes": [
-      "Read all14contactstills, actual13.5sMP4poster, last27.9667sframe, all5decoded12framecutstrips and360pxposter. Core12→4→2/0/reset12/selectedS04 data and names/prices match actualrun.",
-      "Brief headline crossfades overlap atscenechanges, withclear reading holds andpersistentfictional/API/noLLM/silentfooter. No critical textclip or unresolvedreadabilityblocker found.",
-      "Initial fresh-page strictPNGprobe differed only7glyph-edge pixels by1colorunit. Canvas willReadFrequently hint selectedstableCPUreadback; unchangedbundledrenderer thenpassed exactsame-order/fresh-page16.8sPNG. No tolerance lowered or gate bypassed.",
-      "No humanartisticapproval orphysicaliOS/Safari/VoiceOver claims."
-    ]
+    "native_movies_ended": 2,
+    "audio_streams": 0,
+    "human_approval": false
   },
   "publication": {
     "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=browser-use-example",
     "authorization": "User requested sequential publication of40cases toexistingmain andPages."
   },
   "artifacts_sha256": {
+    "data/cases/browser-use-example.json": "de7952b3091d61bf5b6b8823a8f981ec81eb04d80f9dc3c99c13363984c944ab",
+    "examples/browser-use-example/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
+    "examples/browser-use-example/README.md": "afc93870ea0bf7f5b38a8fb4407a27f9b5b206783dfd1e00c6bc0906e5f46176",
+    "examples/browser-use-example/app.js": "eaad2f2bdcf26f133b38fca014deac344934502ffe0b3646c0ede798a7d59384",
+    "examples/browser-use-example/brief.json": "5084c7000f0d102c2626065a94825be6b949bc654c7cf17f2c63b75c016cf0b2",
+    "examples/browser-use-example/concept/manifest.json": "98fa56dccf5aec3d1c24ad24d05145b799fd42e72a148700b389360b4272c3c3",
+    "examples/browser-use-example/concept/structure.json": "a52f281738b597fcd4b4c599c8721e93f3c525aa5faf3be7bd4c88ca7403a644",
+    "examples/browser-use-example/desk.css": "84a10f5b1b97f765dfdc1e94c175ede23e5d6b10f0c0cda08d9db30489360db9",
+    "examples/browser-use-example/desk.html": "bd2f14895af2de527100f3a74333ca790bb729ef45e4425fe8b62ee955c6fd9c",
+    "examples/browser-use-example/desk.js": "0c090106653bc665354e002a2f2b9923a1033624433088bb4cdcee3f861f390c",
+    "examples/browser-use-example/fixture.css": "1578017882702d1c9b8ffc05a24629da8f829ba8ae7e9813b5932a883ce2c21e",
+    "examples/browser-use-example/fixture.html": "e1dbf7b46702b24c502eafa6621db40df9855d6817c32eaad27ce12ce9cfbc43",
+    "examples/browser-use-example/fixture.js": "a506ac8fa1848dcf466f8c0ba1c3d5af0814e01370dea94bd5191fa3090c9ef1",
+    "examples/browser-use-example/index.html": "0e067541a354f46a8171e832b901954aa787ebaa7251e826f84e9eec140127ef",
+    "examples/browser-use-example/input/scenarios.json": "00ef5dfcb66017b1431bb7ed62d64ead7426a07af8878c156c782e50a2d08116",
+    "examples/browser-use-example/input/workspaces.json": "06b640998c2754eff15473cb21ac9bbbe9fb94efa8eef1959c7a4193c16807df",
+    "examples/browser-use-example/outputs/browser-record.json": "542d6673bd277c612071903fe14fdca431c8d3d9f6a4cbad7f2760da8a38e65f",
+    "examples/browser-use-example/outputs/browser-run.json": "3ee814513c55e1c6ed54160aa089e2e42ee47858d6a04eb44aeca140d695cd9b",
+    "examples/browser-use-example/outputs/browser-selection.json": "de9d3974a70fc523642b4c119f2fc627c3cf9366a813c08467514877e3909dd8",
+    "examples/browser-use-example/outputs/captures/S01.png": "5631f7815432f0f716dcb2d760a64fa5cf1169c76260adea448f81b4a3084ca2",
+    "examples/browser-use-example/outputs/captures/S02.png": "7c8eed0a57486202102a2201c1eaad13150faf2d0d4168039ea5daf17948adca",
+    "examples/browser-use-example/outputs/captures/S03.png": "31e669a23bedc4a0f5138a2aa8c91bd6db9e2ecb38383813bb1c7ad3655cd4d2",
+    "examples/browser-use-example/outputs/captures/S04.png": "627e9d9b2cbaf393d7faaf82d2b16fba2902874ac4affde7778cb6d41926b090",
+    "examples/browser-use-example/outputs/captures/S05.png": "e6f3a06394787ba48b77673af357b5dda049516b097272563172fddd671d9234",
+    "examples/browser-use-example/outputs/captures/S06.png": "5d15c387e3ed1ef8a6f21f4294fc04531886c15407387aeeb6bb3e66a229264d",
+    "examples/browser-use-example/outputs/method.md": "72485821b1bedc7bb4253fd45dc552d33a985d52c8f60f9a53833efdd015fa32",
+    "examples/browser-use-example/render-visual.py": "7482397bd851caf264d5aa5f479e17165a9021c17147bb66ae519f115a4c20f7",
+    "examples/browser-use-example/render.py": "f8772365f77442ecd6b6c6e2cb68f8ca7d99b62e871069cb36327095901c8ae1",
+    "examples/browser-use-example/request.txt": "fd2d02c42c443856894ac75103928286e62c1daaa61d5f9e9d6aeb76691e25d9",
+    "examples/browser-use-example/requirements.lock.txt": "aca8be60ed8549563c594bacad225d74ce0f43c418468914c25ec3b618f78360",
+    "examples/browser-use-example/requirements.txt": "b5cf35675b71ec82973879d971525ae16f1a687f467b592ebad3314b335d0ffd",
+    "examples/browser-use-example/run_browser.py": "e02961852fd1d9db0be1beebb973610b20134cb99ea130c7c713359a33d9a466",
+    "examples/browser-use-example/samples.json": "39fb8bcaf689f9b3a7b736b09ad10ba0438bd78511871c1b135831c403acf6a9",
+    "examples/browser-use-example/source.zip": "5ca289508836b9613a1abcbd1b615038b803c4e4fb752c9b7b28057f1714bfaf",
+    "examples/browser-use-example/style.css": "4c92d9e6ac27a8019e69b3bfb7079a8a6c02d12889efdbde13a52121d9c228fc",
+    "examples/browser-use-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/browser-use-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/browser-use-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/browser-use-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/browser-use-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "examples/browser-use-example/vendor/browser-use/LICENSE": "135c57671b0ee957669b05a0ca00cc06f645496d351e2e732832c6e276da9a5e",
+    "examples/browser-use-example/vendor/browser-use/README.md": "251ae2f71548b320d57b58f6690ec47afa001f1ae7832fe8e8c16584e078ca6d",
+    "examples/browser-use-example/vendor/browser-use/browser_use/actor/element.py": "744a0540b14fda48bc2de80f959547f0d2e0e4e9f886fe8468fc7b40e4039738",
+    "examples/browser-use-example/vendor/browser-use/browser_use/actor/page.py": "37b90366ec6a4c7561f573660505081a705e8cb4ebce7c59bb6c2667bb8abbac",
+    "examples/browser-use-example/vendor/browser-use/browser_use/browser/profile.py": "5b42a8285bab5116c08ec61cad643ed71b546cc9c82cfd77a7d7929330b40a47",
+    "examples/browser-use-example/vendor/browser-use/browser_use/browser/session.py": "797866229df7757c821c44da118b04ec0a78c2c3eb8e10c22eff9c44598dc8d5",
+    "examples/browser-use-example/vendor/browser-use/browser_use/config.py": "b1050f3e636644037bce4f42a725ae4c3e95b4ff3b78b5734400042d2a1dbb37",
+    "examples/browser-use-example/vendor/browser-use/pyproject.toml": "5a61c6cc0b66c5e51972c7deeabefe00cf9a8127d7408bdbf3e573bdaf582f87",
+    "examples/browser-use-example/vendor/browser-use/skills/open-source/SKILL.md": "cd6fb7f57c65a0897b32c468cf81e8fc61906dba6d2a14423c4e698da9dd02c8",
+    "examples/browser-use-example/vendor/browser-use/skills/open-source/references/actor.md": "1015ae6a2822f71d17fb4e2e24c96819e29e1ee99e1613dbc388315df4630152",
+    "examples/browser-use-example/vendor/browser-use/skills/open-source/references/browser.md": "eae86468196bab2b9caad985d2e233bf48c7f1fa4046133ae30bfa4ceff61d43",
+    "examples/browser-use-example/verification.json": "38fcd1635cefd6687935c83aa6a85641a96325576cc3b89dd52d96d5da8666ea",
+    "examples/browser-use-example/video/README.md": "09fadf9e42adc89a988ba64b09b5b67778f70931ae5782c0caed93ae303777c2",
+    "examples/browser-use-example/video/assets/api-S02.png": "92829e012d68ae4c9b0b84e8a0968278211badbeafdf2fc355c14a395f4de3ab",
+    "examples/browser-use-example/video/assets/api-S03.png": "716916bb0aaf54090b035538858461b12a5e94ea5ef279a2152c41798ba194fa",
+    "examples/browser-use-example/video/assets/api-S04.png": "31dab7fa7ce1190bee6f511dfbb6c3ced3384e8bfad5a9ec41921895da50ee9c",
+    "examples/browser-use-example/video/assets/api-S05.png": "c9b5889ea03694a1cb54a40065248dc0c2da822f82d195080f7ec28f9dfc6da8",
+    "examples/browser-use-example/video/assets/data-hashes.json": "48950d5de1fee5032f1c465efa96199a36f0de2a0425389fe636d6a24b7dc336",
+    "examples/browser-use-example/video/assets/phone-fixture-full.png": "008d0c9db14db4609bc18f14f109f5c1b8d26828497d3c0103d5fe7e9d0795d1",
+    "examples/browser-use-example/video/assets/phone-fixture-top.png": "cb1ce941da6af218b25695a0d23245058c852d302f7b95456c2aad2de0d4693a",
+    "examples/browser-use-example/video/assets/phone-record-S04.png": "27e4cde69d58bd510a37d14096052ea4a4b83eacbef1562412124a40e9d73d72",
+    "examples/browser-use-example/video/assets/screen-manifest.json": "29ef6f3410554bdc5313327f012be1616ee3fc5894c7388bd802c7a265e23c01",
+    "examples/browser-use-example/video/index.html": "faca9f5bc47fef095e1a77f78a64a47497a2cddb87d2621e6962999198f0adbe",
+    "examples/browser-use-example/video/review/contact.png": "351b94c4c919c84d0d64fcd76054d066c02150141e9a372e3e31fdbabf1b1ed1",
+    "examples/browser-use-example/video/review/cut-01.png": "b49f1ecd86c1c5dde7c53ed055b53caeb6ca5a8a99666e7998e44a48a9db204f",
+    "examples/browser-use-example/video/review/cut-02.png": "1dcbc1e33266bcbd9ddad2a9d3c062cced97e252d7062b0a408a86096cef90d3",
+    "examples/browser-use-example/video/review/cut-03.png": "a113709ec974d7775786cb13a6ca111c13d094c9c0f7d008a4bc0fc53f949406",
+    "examples/browser-use-example/video/review/cut-04.png": "827d3431367edeb944fee6f7c3c505cc4f2852bb819eb25e55f0a0a6b04c9683",
+    "examples/browser-use-example/video/review/cut-05.png": "4ad3cd4e3fd16d30c24fe5619df3431f14e15a4d0dca2dba477a9c47836bfd28",
+    "examples/browser-use-example/video/review/final.png": "e86de0bbf653dc9a6fb162c7d7aa18941a0bcebe13330f76197ec37f6af3b996",
+    "examples/browser-use-example/video/review/poster-phone360.png": "2fb2fe49bb92ae695b128f7b849d86aa638c4da9e0a54c4be104213f4a56716a",
+    "examples/browser-use-example/video/review/poster.png": "00ed4cc3a4242a259aa579c08204fccf1badcf462151424a8bcb7757568b8033",
+    "examples/browser-use-example/video/review/stills/frame-000000.png": "4fda39c44d5d41f4bce94e9f4bae3cef16f098344e1bb09b94b652bd23982118",
+    "examples/browser-use-example/video/review/stills/frame-000001.png": "6abd7b81b1cb1329deaaec1522667cdcfd4b881df8f5851bfede62f88bd0c7fc",
+    "examples/browser-use-example/video/review/stills/frame-000002.png": "f9da0f7ff2c08fcad43b99c4f717531d81b901906706b7c042ae5c9e78261dba",
+    "examples/browser-use-example/video/review/stills/frame-000003.png": "1c80fc70ebf3fa1a4795768701a0b5eb67612308927b376a1939cd1c53d38fc2",
+    "examples/browser-use-example/video/review/stills/frame-000004.png": "c42a979b3ba5feda2f3ec290f888f1a20b7c3e1c47ea58279bdc78d9548c494f",
+    "examples/browser-use-example/video/review/stills/frame-000005.png": "7519ead48444958f0f2f4ce269c848c50be21b106e15e1b580cbd7632a4126b0",
+    "examples/browser-use-example/video/review/stills/frame-000006.png": "4f00e396a3097623427654e06782e0371ecef4d6ecb8480080933ca29583c685",
+    "examples/browser-use-example/video/review/stills/frame-000007.png": "00ed4cc3a4242a259aa579c08204fccf1badcf462151424a8bcb7757568b8033",
+    "examples/browser-use-example/video/review/stills/frame-000008.png": "00ed4cc3a4242a259aa579c08204fccf1badcf462151424a8bcb7757568b8033",
+    "examples/browser-use-example/video/review/stills/frame-000009.png": "b7a6a4c9ea423f26fe9365e03670452d9c3c9688951b933c3047e0e0b1a3b1b7",
+    "examples/browser-use-example/video/review/stills/frame-000010.png": "abbcbf287243d0fcc5b975b5841e0b598dc8e4d844a7fb282930c4e3c6844710",
+    "examples/browser-use-example/video/review/stills/frame-000011.png": "342b1e6ef5ef73c4b6f7f31a6c97373090c15d5b4cd151fd59f605f737c9a738",
+    "examples/browser-use-example/video/review/stills/frame-000012.png": "1863068bdd209250fc433ee3ae7138bf2d5cbb08104f58d904b4e229529b19ba",
+    "examples/browser-use-example/video/review/stills/frame-000013.png": "d4535cdfd574aaf037f970e1f0e0dce7d6ff7e66a5c25483f467ece791355f71",
+    "examples/browser-use-example/video/review/strip.png": "4bff5eaceb038ad248c6fa0284f8f0e2a6716dea0e3721922523c4581bcafd00",
+    "examples/browser-use-example/video/review/visual-r1/portrait/capture.json": "ab45d914ae3e8f3cf9ba3aa99f024215ec90555a391c6afcdfb5a18d851da26a",
+    "examples/browser-use-example/video/review/visual-r1/portrait/contact.png": "4ca8f57982b40542cada933ee892a7877d7640358ace959ca8de0353d1b07467",
+    "examples/browser-use-example/video/review/visual-r1/portrait/mp4-moving-strip.png": "d3fa0ce456eb15ad8d05ed413fe931503b618869b4e5bf17807fb5b79cc4c304",
+    "examples/browser-use-example/video/review/visual-r1/portrait/poster.png": "42c2ed0a08712b0b90209a01f72ce28dd2336027e5bc5a8a55a7d4690b97f9ac",
+    "examples/browser-use-example/video/review/visual-r1/portrait/stills/frame-000000.png": "494e03c646bfc09ba88d9492064d0667ef5811eea219d512dff91aa3d5b8ee7b",
+    "examples/browser-use-example/video/review/visual-r1/portrait/stills/frame-000001.png": "66cc68cf9aecfafd34b11638ec8c10967458b80052c45a5e071d3923e0a67e1b",
+    "examples/browser-use-example/video/review/visual-r1/portrait/stills/frame-000002.png": "17f9e6c41afab8a6661ae90543397150b6c273239250ce2e8bd30517be0d6400",
+    "examples/browser-use-example/video/review/visual-r1/portrait/stills/frame-000003.png": "5eaabbe8ea2a43b830a53e78314a4f3072d61566fb9537af21258094fda40d38",
+    "examples/browser-use-example/video/review/visual-r1/portrait/stills/frame-000004.png": "1b14584e69eb30c0e3a3d7c7ad175c52e1394117b64be3c7d61e90d3355092b7",
+    "examples/browser-use-example/video/review/visual-r1/portrait/stills/frame-000005.png": "09b3f5aa450027a9db000c3cbd829e5e25c2e4c6223434cd93d957c7baef0493",
+    "examples/browser-use-example/video/review/visual-r1/portrait/stills/frame-000006.png": "b10ebedc6e0da8fcd09760102b1b6f77d99604fb6f33df8e662206bd93d6f737",
+    "examples/browser-use-example/video/review/visual-r1/portrait/stills/frame-000007.png": "b1f89e452d5ee7e67b5730e7157cd937f17b1c8da60788598893abde3a1e6c3e",
+    "examples/browser-use-example/video/review/visual-r1/portrait/stills/frame-000008.png": "5e3175ea806f9b99ef67567107c5431843384d08ce8f3cc55da88feca022e2bc",
+    "examples/browser-use-example/video/review/visual-r1/portrait/stills/frame-000009.png": "86c0f36c13e4edfad877d49389f24edf71a8ed7435be7c3f70dcad5f6e8e56d9",
+    "examples/browser-use-example/video/review/visual-r1/portrait/stills/frame-000010.png": "9e33f0642cac325a05d2cc2b91c1af37223deecc8d7c296b4a9580b050b31a56",
+    "examples/browser-use-example/video/review/visual-r1/portrait/stills/frame-000011.png": "6d1baa6d74094d41471cbc59f5a8ab345103842e3b2bd017a93040e9a3d52716",
+    "examples/browser-use-example/video/review/visual-r1/portrait/stills/frame-000012.png": "fa562581168f2fcc00fb818fc1085dd37f9259026652d131e1f7854acdf63c43",
+    "examples/browser-use-example/video/review/visual-r1/portrait/stills/frame-000013.png": "fcf87a76afa82a32e691893476df7421b5c2989080169544b35f236134173f15",
+    "examples/browser-use-example/video/review/visual-r1/portrait/stills/frame-000014.png": "e7ea8ff902f7005b37c372b80863041c2ad6e80d6f8b45491a688c6d37cdb7e0",
+    "examples/browser-use-example/video/review/visual-r1/portrait/stills/frame-000015.png": "42c2ed0a08712b0b90209a01f72ce28dd2336027e5bc5a8a55a7d4690b97f9ac",
+    "examples/browser-use-example/video/review/visual-r1/portrait/strip.png": "990ecd1b4a43f22e0603fb069e50893d918321b5b6dbb792b5ed6ef71fde7cf5",
+    "examples/browser-use-example/video/review/visual-r1/portrait/strip/frame-000000.png": "e7e319af1ab5c6759d8110839cf66e559885b72d499be110a3b95ce456cd0b5a",
+    "examples/browser-use-example/video/review/visual-r1/portrait/strip/frame-000001.png": "e7e319af1ab5c6759d8110839cf66e559885b72d499be110a3b95ce456cd0b5a",
+    "examples/browser-use-example/video/review/visual-r1/portrait/strip/frame-000002.png": "6f909c8890f98026fcd0ce2d3bd2b1cc6c7dd5b22b235cada4b8f2623bc473fc",
+    "examples/browser-use-example/video/review/visual-r1/portrait/strip/frame-000003.png": "3c7723ed50ace5d400853840e1c4cd75031046787ad768ed0d135257cf104971",
+    "examples/browser-use-example/video/review/visual-r1/portrait/strip/frame-000004.png": "c3d2725bf994e9eb57f4dc3297b12371430ccc0f83d3835b4dcef5fa4ceb4bbd",
+    "examples/browser-use-example/video/review/visual-r1/portrait/strip/frame-000005.png": "7c273de373b2f16e3b3f8acbe498e3f31b42ced615aa27a7a5508562760ebe50",
+    "examples/browser-use-example/video/review/visual-r1/portrait/strip/frame-000006.png": "f17bfd3f62e76c480b91600d95efed48bcd2d3e3b27b7ade52c26911f3452819",
+    "examples/browser-use-example/video/review/visual-r1/portrait/strip/frame-000007.png": "9c49a8bd61fe4791058774108c6fa82887794dfc960d60b3b5fcb54da8f01545",
+    "examples/browser-use-example/video/review/visual-r1/portrait/strip/frame-000008.png": "0471be07f9b6696087f223bf85043f40f31d9c48233eb79fa9556755f2f14eb7",
+    "examples/browser-use-example/video/review/visual-r1/portrait/strip/frame-000009.png": "f72898d5a840741c3ccc2d8a6aa34e95ca45f66f2433426df043a1942b0bb586",
+    "examples/browser-use-example/video/review/visual-r1/portrait/strip/frame-000010.png": "1738ef27a15d1454aa62a107e1c45dbf42c7320df61efa82a5cae2c5cb7cf4ae",
+    "examples/browser-use-example/video/review/visual-r1/portrait/strip/frame-000011.png": "ac5995120d8a2dbb0e92ac2bc2da6392b798f241d0427cd622daf0d8927cc192",
+    "examples/browser-use-example/video/review/visual-r1/wide/capture.json": "c41d9b76a0fd2bb8e5e7fe4e311835e4e4535c88e5b218f48b14fba5384be46a",
+    "examples/browser-use-example/video/review/visual-r1/wide/contact.png": "a4ff5197b676f635fff5eef999c989fa359082cec3d677995c477ce3cb81c028",
+    "examples/browser-use-example/video/review/visual-r1/wide/mp4-moving-strip.png": "24b628f0c25111454d755a7ce377cac5972192840007013fe258cdfe90f7e3d6",
+    "examples/browser-use-example/video/review/visual-r1/wide/poster.png": "111fe13b89516c6bdd7e942814aeb7df4042fd97d0461165d94fa30b45d761d1",
+    "examples/browser-use-example/video/review/visual-r1/wide/stills/frame-000000.png": "8f39499e150973fa53bb573ecdc16f361a61cc7a544fd2473d0feae12986a189",
+    "examples/browser-use-example/video/review/visual-r1/wide/stills/frame-000001.png": "6ca27de50f7ffa626cf7dcc9772507b73c4aea0ff3be2693a6275d718616dc68",
+    "examples/browser-use-example/video/review/visual-r1/wide/stills/frame-000002.png": "add9c9db0eb6e606f8c5dc5525c9725109e9cdc77e4e0327f63e07a1eaf578c8",
+    "examples/browser-use-example/video/review/visual-r1/wide/stills/frame-000003.png": "422d19441a5c21505517165ddd0c65bd08f6f1a34fb9b418a5e27a6c84b0b607",
+    "examples/browser-use-example/video/review/visual-r1/wide/stills/frame-000004.png": "03bf5ec1c375761f8a6291eb663e90958ccc147300932cb7c38c9a176a594ec5",
+    "examples/browser-use-example/video/review/visual-r1/wide/stills/frame-000005.png": "238176272f909c7dd6a4691c2be36da31d7c1bba5024448ab4ac5ddbe9b2aabd",
+    "examples/browser-use-example/video/review/visual-r1/wide/stills/frame-000006.png": "4e17660f28f2756de28fd341ccbaab55c8c20863daaa7540bb575e40dc5d8ce2",
+    "examples/browser-use-example/video/review/visual-r1/wide/stills/frame-000007.png": "d806e2edcd1cab6227e1240a2e58b274fc2ce91ab25890b2f1a1418ef271e796",
+    "examples/browser-use-example/video/review/visual-r1/wide/stills/frame-000008.png": "5485f8ae3497c84d890b988e2348b3bdb00213b38d66c06a79e4244f1dfed2c9",
+    "examples/browser-use-example/video/review/visual-r1/wide/stills/frame-000009.png": "f0425fe9b5cea7f4b4181a6935af942768437bb900694210795f73d2f83ad2bf",
+    "examples/browser-use-example/video/review/visual-r1/wide/stills/frame-000010.png": "e947ec6c3137094d750ec805b3b03a7cb8fa318ed411590e500dcfec42a09bcd",
+    "examples/browser-use-example/video/review/visual-r1/wide/stills/frame-000011.png": "ce29d67d14ec0be7d0f3468bd7aeb782501ab659b9ae62d2cfe4ef7165207cb9",
+    "examples/browser-use-example/video/review/visual-r1/wide/stills/frame-000012.png": "50c13b916eae9831e781eaa426a629e53775fec321f21695ee55ee95833e95a1",
+    "examples/browser-use-example/video/review/visual-r1/wide/stills/frame-000013.png": "38237f12237dc8728b630d0b876e2b99a4be2b543eab7aa246b24ed990a90ba5",
+    "examples/browser-use-example/video/review/visual-r1/wide/stills/frame-000014.png": "065c4084aa90ef579bb4d435af85fd33a9bf1998def8fd15067bd4abb2ef0f70",
+    "examples/browser-use-example/video/review/visual-r1/wide/stills/frame-000015.png": "111fe13b89516c6bdd7e942814aeb7df4042fd97d0461165d94fa30b45d761d1",
+    "examples/browser-use-example/video/review/visual-r1/wide/strip.png": "f5a3586605bc1dfd99a37a68bd8428562914c77142f837c03ee70470d9cc1975",
+    "examples/browser-use-example/video/review/visual-r1/wide/strip/frame-000000.png": "8c23151a3efaac23c8d485156343588bc1c7dcd1c89bcb1753b793724955b867",
+    "examples/browser-use-example/video/review/visual-r1/wide/strip/frame-000001.png": "8c23151a3efaac23c8d485156343588bc1c7dcd1c89bcb1753b793724955b867",
+    "examples/browser-use-example/video/review/visual-r1/wide/strip/frame-000002.png": "8ed222f4a0e2bbb6adcb9efb8fc3c7dd88f7f18d8c73f39d3408dd7f5f8c0ba5",
+    "examples/browser-use-example/video/review/visual-r1/wide/strip/frame-000003.png": "0cb89c36d8b5d18f1f9ad258b18c60cd8517b379ffd9b9e95edd717082e33d9e",
+    "examples/browser-use-example/video/review/visual-r1/wide/strip/frame-000004.png": "db4b0473e7a0fd2da1388aa88190e9532a37dfae32b5fd4bb80502ebae702edf",
+    "examples/browser-use-example/video/review/visual-r1/wide/strip/frame-000005.png": "98bf5a48fe49da1af9001ee4b4c743d0fab0a023b8fa68712a6635b1f819225f",
+    "examples/browser-use-example/video/review/visual-r1/wide/strip/frame-000006.png": "95848b45583bdd23428d14c066d66a39cb3cbaaa7aac72b7f35810c5ad0303fc",
+    "examples/browser-use-example/video/review/visual-r1/wide/strip/frame-000007.png": "c2ed1cd93a985a1184763f09dc2723b05692219d3c01695db3ae08141ec51e48",
+    "examples/browser-use-example/video/review/visual-r1/wide/strip/frame-000008.png": "6e0255586ad82ba843848ddf73acccc070c74167c98275cdcd20a3e7b4d3a839",
+    "examples/browser-use-example/video/review/visual-r1/wide/strip/frame-000009.png": "4cc4bb46c8f531d2b9b50415d2b3288995f868a1df6d668b7b5f26f8f3dbe716",
+    "examples/browser-use-example/video/review/visual-r1/wide/strip/frame-000010.png": "5a2fcead26d65b00b8ede077c2a7712b5499d9222c4faf96fdf2c1efaf113c5b",
+    "examples/browser-use-example/video/review/visual-r1/wide/strip/frame-000011.png": "fbc14ad08fb5e6d682e190da568614f2caa6eccd8831169e70e827f6f04e203c",
+    "examples/browser-use-example/video/storyboard.json": "c9856a55624dd7da5e6a078f91bfa58187efd4b6cb2631fa34b631988b786105",
+    "examples/browser-use-example/video/video.css": "ada6e898f4be0bfde3c1ed8c39c221e510a7149e5a53cc5d3549668bc779cb7a",
+    "examples/browser-use-example/video/video.js": "fb654a9c826ccc60dfabaf9c96ab88e14245b09ab84f67dccfda75e095c8d42d",
+    "examples/browser-use-example/visual-guide.md": "f2c5b963cc737d01b91bdbd4be9e9c24c32c64aee237a509270b6a84129a26f1",
+    "examples/browser-use-example/visual-verification.json": "754466ed8c66a916461a5041b33712197f51fd715d03e14c2fadcf84e787ba85",
+    "media/browser-use-example-wide.mp4": "a4e83800422011c97cfa8593d651b4eb47b6113e6951c5e34bbb6f8cd5e303c4",
+    "media/browser-use-example.mp4": "1d37dec9c51ac831e3d96fe97ea26db8fe15dd84b311db58e3d3e307fcf3cbc0",
+    "media/browser-use-example.webp": "4faee5d0aca2042fcfcc5e93e92522205c473eea58a5e1cb123efcfca72dfa67"
+  },
+  "original_publication_artifacts_sha256": {
     "data/cases/browser-use-example.json": "70c88408674635166d6162e8ab0d26e05b8173ab898ae39e61540e4aa4726ac4",
     "examples/browser-use-example/app.js": "0c090106653bc665354e002a2f2b9923a1033624433088bb4cdcee3f861f390c",
     "examples/browser-use-example/brief.json": "5084c7000f0d102c2626065a94825be6b949bc654c7cf17f2c63b75c016cf0b2",
@@ -1689,5 +1821,280 @@
     "examples/browser-use-example/video/video.js": "cdd9bd3aca80b92966f4097cb9083243ad7b471833fc7ea8a6fc7cbcce71c986",
     "media/browser-use-example.mp4": "9fac55dbd66bd47cda62ad9d8df404f5a6eba4bc6c1d1ea1d250a5f7c447913c",
     "media/browser-use-example.webp": "4668bf044a86c4abade5fb4401f13cdec1b5deaf2845855f9934c824936d2ef0"
+  },
+  "visual_revision": {
+    "id": "visual-r1",
+    "purpose": "Understand reference-skill topic routing to Actor/Browser docs, Python implementation and prescribed Browser/Page/Element control, actual DOM/PNG and saved JSON.",
+    "original_execution_reused": true,
+    "new_actor_api_execution": false,
+    "new_original_inference": false,
+    "original_runtime_source_files_preserved": 36,
+    "derived_legacy_viewer_files": 3,
+    "official_vendor_files_verified": 11,
+    "installed_python_files_verified": 168,
+    "upstream_python_files": 175,
+    "distribution_excluded_test_count": 7,
+    "assets": 18,
+    "manifest_sha256": "98fa56dccf5aec3d1c24ad24d05145b799fd42e72a148700b389360b4272c3c3",
+    "verification": {
+      "id": "browser-use-example",
+      "revision": "visual-r1",
+      "verified_at": "2026-10-18T05:50:13.891060+00:00",
+      "stage": "technical_qa_complete",
+      "original_execution_record": "verification.json",
+      "scope": "New reference-skill/Python/Browser-Page-Element conceptual UI and silent films only. Original11realActor actions/6states and fictional input/output preserved; no new Browser Use API execution, Agent.run, original model inference or Cloud access.",
+      "original_runtime_source_files_preserved": 36,
+      "derived_legacy_viewer_files": 3,
+      "upstream": {
+        "repository": "browser-use/browser-use",
+        "commit": "c75e8476e26d18b7617643bc2ae082fae8eae431",
+        "version": "0.13.11",
+        "license": "MIT",
+        "copyright": "Copyright (c) 2024 Gregor Zunic",
+        "official_vendor_git_blobs_verified": 11,
+        "installed_python_git_blobs_verified": 168,
+        "upstream_python_files": 175,
+        "distribution_excluded_tests": [
+          "llm/tests/test_anthropic_cache.py",
+          "llm/tests/test_chat_models.py",
+          "llm/tests/test_gemini_image.py",
+          "llm/tests/test_groq_loop.py",
+          "llm/tests/test_mistral_schema.py",
+          "llm/tests/test_single_step.py",
+          "tokens/tests/test_cost.py"
+        ]
+      },
+      "browser": {
+        "states_checked": 18,
+        "scenario_states": 6,
+        "stages": 3,
+        "parts": 5,
+        "theme_width_views": 16,
+        "phone375x812_primary_action_fits_all18": true,
+        "touch_targets_min44x44": true,
+        "keyboard_focus": {
+          "focusOutline": "3px",
+          "pressed": "receive",
+          "pulses": 5
+        },
+        "semantic_distinctions": [
+          "S02 literal電源 includes電源なし,12items",
+          "S03 four cumulative constraints candidates",
+          "S04 W01/W11 from addedcheckboxes",
+          "S05 valid empty0",
+          "S06 reset12"
+        ],
+        "failures": [
+          {
+            "kind": "http",
+            "message": "concept/structure.json を取得できません（HTTP 503）。代わりのデータは使いません。",
+            "diagram_cleared": true,
+            "dependent_controls_disabled": true,
+            "retry_restored": true
+          },
+          {
+            "kind": "json",
+            "message": "concept/structure.json の大きさが記録と違います（1 / 11646 bytes）。代わりのデータは使いません。",
+            "diagram_cleared": true,
+            "dependent_controls_disabled": true,
+            "retry_restored": true
+          },
+          {
+            "kind": "hash",
+            "message": "concept/structure.json のSHA-256が記録と違います。代わりのデータは使いません。",
+            "diagram_cleared": true,
+            "dependent_controls_disabled": true,
+            "retry_restored": true
+          }
+        ],
+        "save_button_status": "browser-use-selection-S04.json の保存をブラウザーに求めました（保存した原本と同じバイト列）。",
+        "native_json_file_receipt": "Not returned by browser download tool; native request status and actual HTTP URL bytes are separate checks. Do not claim a returned browser-saved file.",
+        "legacy_saved_states_checked": 6,
+        "fixture_native_result_counts": [
+          12,
+          4,
+          2,
+          0,
+          12
+        ],
+        "editor": {
+          "assets": 18,
+          "scene_jumps": 7,
+          "arbitrary_seek": "7.2秒 / 32.0秒",
+          "end_clock": "32.0秒 / 32.0秒",
+          "wide": {
+            "height": 720,
+            "layout": "wide",
+            "width": 1280
+          },
+          "all_controls_disabled_on_asset_failure": true,
+          "asset_failure_recovered": true,
+          "audio_elements": 0
+        },
+        "movies_ended": 2,
+        "theme_persistence": {
+          "choice": "system",
+          "pressed": "system"
+        },
+        "request_copy_status": "依頼文をコピーしました。",
+        "request_text_exact": true,
+        "clipboard_readback_confirmed": false,
+        "unconfirmed": [
+          "physical iOS/Safari/VoiceOver",
+          "200% zoom",
+          "human aesthetic approval"
+        ],
+        "human_approval": false
+      },
+      "frame_review": {
+        "reviewed_by": "production agent",
+        "human_approval": false,
+        "scope": "Portrait/wide contact sheets, actual720px representative/poster and consecutive strips, decoded-MP4 motion frames, arbitrary-time/new-page equality. Opening manual enlarged and inactive shapes made readable after actual review. No physical-iOS or human aesthetic approval.",
+        "layouts": 2,
+        "representative_frames_per_layout": 16,
+        "consecutive_frames_per_layout": 12,
+        "actual_MP4_motion_frames_per_layout": 12,
+        "determinism": {
+          "portrait": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "1cec560918c2dc76ab8a412e4016c85718a9b3ba93329a4b558e0816391ec536",
+            "afterOtherTimes": "1cec560918c2dc76ab8a412e4016c85718a9b3ba93329a4b558e0816391ec536",
+            "freshPage": "1cec560918c2dc76ab8a412e4016c85718a9b3ba93329a4b558e0816391ec536",
+            "match": true
+          },
+          "wide": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "911e98a58e4ecfd91e57a46a09f6f18eff1b897107ab8de18b94a933d4eb3c38",
+            "afterOtherTimes": "911e98a58e4ecfd91e57a46a09f6f18eff1b897107ab8de18b94a933d4eb3c38",
+            "freshPage": "911e98a58e4ecfd91e57a46a09f6f18eff1b897107ab8de18b94a933d4eb3c38",
+            "match": true
+          }
+        },
+        "final30_and31_stable": true,
+        "audio_streams": 0
+      },
+      "video": {
+        "portrait": {
+          "video": {
+            "file": "video.mp4",
+            "sha256": "1d37dec9c51ac831e3d96fe97ea26db8fe15dd84b311db58e3d3e307fcf3cbc0",
+            "width": 720,
+            "height": 1280,
+            "fps": 30,
+            "frameCount": 960,
+            "duration": 32,
+            "hasAudio": false
+          },
+          "determinism": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "1cec560918c2dc76ab8a412e4016c85718a9b3ba93329a4b558e0816391ec536",
+            "afterOtherTimes": "1cec560918c2dc76ab8a412e4016c85718a9b3ba93329a4b558e0816391ec536",
+            "freshPage": "1cec560918c2dc76ab8a412e4016c85718a9b3ba93329a4b558e0816391ec536",
+            "match": true
+          },
+          "full_decode_passed": true,
+          "faststart": true
+        },
+        "wide": {
+          "video": {
+            "file": "video.mp4",
+            "sha256": "a4e83800422011c97cfa8593d651b4eb47b6113e6951c5e34bbb6f8cd5e303c4",
+            "width": 1280,
+            "height": 720,
+            "fps": 30,
+            "frameCount": 960,
+            "duration": 32,
+            "hasAudio": false
+          },
+          "determinism": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "911e98a58e4ecfd91e57a46a09f6f18eff1b897107ab8de18b94a933d4eb3c38",
+            "afterOtherTimes": "911e98a58e4ecfd91e57a46a09f6f18eff1b897107ab8de18b94a933d4eb3c38",
+            "freshPage": "911e98a58e4ecfd91e57a46a09f6f18eff1b897107ab8de18b94a933d4eb3c38",
+            "match": true
+          },
+          "full_decode_passed": true,
+          "faststart": true
+        }
+      },
+      "shipped_source_reproduction": {
+        "status": "passed",
+        "checked_at": "2026-10-18T05:46:37.421309+00:00",
+        "png_files_byte_identical": 62,
+        "layouts": [
+          {
+            "layout": "portrait",
+            "png_files_byte_identical": 31,
+            "final30_and31_stable": true
+          },
+          {
+            "layout": "wide",
+            "png_files_byte_identical": 31,
+            "final30_and31_stable": true
+          }
+        ],
+        "scope": "Actual shipped root wrapper and final sources rendered16representative+12consecutive+contact/poster/strip perlayout. Same-environment pixel identity and final-frame stability; not cross-OS font equality or human approval."
+      },
+      "human_approval": false,
+      "physical_ios_safari_voiceover": false
+    },
+    "production_adjustments": [
+      {
+        "files": [
+          "style.css"
+        ],
+        "reason": "Inactive parts of the full conceptual path were too faint on phone dark theme. Raise opacity .30 to .72."
+      },
+      {
+        "files": [
+          "video/video.js"
+        ],
+        "reason": "Raise previous-scene visibility floor to .68; enlarge opening manual and return to the same layout by4s; scope orientation handlers to buttons and refresh accessible caption on layout switch. No story/data/API result change."
+      },
+      {
+        "files": [
+          "desk.html"
+        ],
+        "reason": "Derived old viewer film block referenced obsolete28s movie. Replace only that block with link to current32s concept film; original viewer JS/CSS/data retained."
+      },
+      {
+        "files": [
+          "video/README.md",
+          "render-visual.py",
+          "visual-guide.md",
+          "article-candidate.json"
+        ],
+        "reason": "Required --out paths, wrapper, current QA separation, factual article and packaging documentation."
+      }
+    ],
+    "source_originals_sha256": {
+      "index.html": "0e067541a354f46a8171e832b901954aa787ebaa7251e826f84e9eec140127ef",
+      "style.css": "9255babe2cc24ae8bc62552f85cfce753c7f79c3a6e6d24b320d01206811965b",
+      "app.js": "eaad2f2bdcf26f133b38fca014deac344934502ffe0b3646c0ede798a7d59384",
+      "video/index.html": "faca9f5bc47fef095e1a77f78a64a47497a2cddb87d2621e6962999198f0adbe",
+      "video/video.css": "ada6e898f4be0bfde3c1ed8c39c221e510a7149e5a53cc5d3549668bc779cb7a",
+      "video/video.js": "cc8d9669e3e5e3126085af054d06ad9fef6466c42ae60f77d2732ff447276c7a",
+      "video/storyboard.json": "c9856a55624dd7da5e6a078f91bfa58187efd4b6cb2631fa34b631988b786105",
+      "video/README.md": "142427e002e16d3b6812ba313eab7387b3f1664a98fd6252ebea620d67c81284"
+    },
+    "final_source_sha256": {
+      "index.html": "0e067541a354f46a8171e832b901954aa787ebaa7251e826f84e9eec140127ef",
+      "style.css": "4c92d9e6ac27a8019e69b3bfb7079a8a6c02d12889efdbde13a52121d9c228fc",
+      "app.js": "eaad2f2bdcf26f133b38fca014deac344934502ffe0b3646c0ede798a7d59384",
+      "video/index.html": "faca9f5bc47fef095e1a77f78a64a47497a2cddb87d2621e6962999198f0adbe",
+      "video/video.css": "ada6e898f4be0bfde3c1ed8c39c221e510a7149e5a53cc5d3549668bc779cb7a",
+      "video/video.js": "fb654a9c826ccc60dfabaf9c96ab88e14245b09ab84f67dccfda75e095c8d42d",
+      "video/storyboard.json": "c9856a55624dd7da5e6a078f91bfa58187efd4b6cb2631fa34b631988b786105",
+      "video/README.md": "09fadf9e42adc89a988ba64b09b5b67778f70931ae5782c0caed93ae303777c2"
+    },
+    "silent": true
+  },
+  "previous_publication": {
+    "git_commit": "8de88f16e3711f178b49ddcfc4753ae79c827d15",
+    "pages_run_id": 38917337947
   }
 }
