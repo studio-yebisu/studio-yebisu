@@ -1554,6 +1554,15 @@ function applyStoredTheme() {
 }
 
 function initPage() {
+  // Original article sample links retain all8IDs; the5notinthisthree-presetdiagram open their unchanged real records.
+  function routeOriginalRecord() {
+    const id = location.hash.slice(1);
+    if (!['A01', 'A02', 'A03', 'A05', 'A06'].includes(id)) return false;
+    location.replace(new URL(`desk.html#${id}`, import.meta.url).href);
+    return true;
+  }
+  if (routeOriginalRecord()) return;
+  window.addEventListener('hashchange', routeOriginalRecord);
   const $ = (id) => document.getElementById(id);
   const root = document.documentElement;
   const canvas = $('concept-map');
