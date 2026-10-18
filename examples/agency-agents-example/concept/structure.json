@@ -1,0 +1,165 @@
+{
+  "format": "agency-structure/v1",
+  "case_id": "agency-agents-example",
+  "repository": "msitarzewski/agency-agents",
+  "commit": "bd956db032d907387e6b9ddebff3e18f1de8c679",
+  "definition": "専門家ごとの役割・仕事・進め方をMarkdownにまとめた指示書集",
+  "usage": "README Option 3: Use as Reference",
+  "parts": [
+    {
+      "id": "identity",
+      "label": "担当",
+      "section": "Your Identity & Memory",
+      "meaning": "どんな専門家として考えるか"
+    },
+    {
+      "id": "mission",
+      "label": "仕事",
+      "section": "Your Core Mission",
+      "meaning": "何を作り、どこまで受け持つか"
+    },
+    {
+      "id": "rules",
+      "label": "約束",
+      "section": "Critical Rules You Must Follow",
+      "meaning": "進めるときに守ること"
+    },
+    {
+      "id": "workflow",
+      "label": "進め方",
+      "section": "Your Workflow Process",
+      "meaning": "どんな順序で進めるか"
+    },
+    {
+      "id": "deliverables",
+      "label": "成果物",
+      "section": "Your Deliverable Template",
+      "meaning": "どんな形で渡すか"
+    },
+    {
+      "id": "success",
+      "label": "確認観点",
+      "section": "Your Success Metrics",
+      "meaning": "目指す状態。検証済みという意味ではない"
+    }
+  ],
+  "roles": [
+    {
+      "id": "ux",
+      "name": "UX Architect",
+      "short": "UX設計",
+      "file": "vendor/agency-agents/design/design-ux-architect.md",
+      "parts": {
+        "identity": {
+          "source": "Technical architecture and UX foundation specialist",
+          "applied": "画面の土台を設計する"
+        },
+        "mission": {
+          "source": "Provide CSS design systems with variables, spacing scales, typography hierarchies",
+          "applied": "色・余白・文字をCSSの土台へ"
+        },
+        "rules": {
+          "source": "Create scalable CSS architecture before implementation begins",
+          "applied": "実装の前に共通の土台を作る"
+        },
+        "workflow": {
+          "source": "Step 4: Developer Handoff Documentation",
+          "applied": "依頼を読み、土台と引き継ぎ書を渡す"
+        },
+        "deliverables": {
+          "source": "CSS Architecture",
+          "applied": "引き継ぎ書＋foundation.css"
+        },
+        "success": {
+          "source": "Developers can implement designs without architectural decisions",
+          "applied": "次の実装が判断できる状態を目指す"
+        }
+      },
+      "input_files": [
+        "input/event.json",
+        "request.txt"
+      ],
+      "output_files": [
+        "outputs/ux-handoff.json",
+        "outputs/ux-handoff.md",
+        "foundation.css"
+      ],
+      "output_short": "引き継ぎ書とCSS土台"
+    },
+    {
+      "id": "frontend",
+      "name": "Frontend Developer",
+      "short": "画面実装",
+      "file": "vendor/agency-agents/engineering/engineering-frontend-developer.md",
+      "parts": {
+        "identity": {
+          "source": "Modern web application and UI implementation specialist",
+          "applied": "使える画面を実装する"
+        },
+        "mission": {
+          "source": "Integrate with backend APIs and manage application state effectively",
+          "applied": "今回はローカル入力と選択状態を扱う"
+        },
+        "rules": {
+          "source": "Implement proper ARIA labels and semantic HTML structure",
+          "applied": "意味のあるHTMLとキーボード操作"
+        },
+        "workflow": {
+          "source": "Step 4: Testing and Quality Assurance",
+          "applied": "引き継ぎを読み、実装と確認を進める"
+        },
+        "deliverables": {
+          "source": "Frontend Implementation",
+          "applied": "動くHTML・CSS・JavaScript"
+        },
+        "success": {
+          "source": "Zero console errors in production environments",
+          "applied": "エラーや使い勝手を確かめる観点"
+        }
+      },
+      "input_files": [
+        "input/event.json",
+        "outputs/ux-handoff.json",
+        "foundation.css",
+        "request.txt"
+      ],
+      "output_files": [
+        "guide.html",
+        "guide.css",
+        "guide.js",
+        "outputs/implementation.md"
+      ],
+      "output_short": "比べて選べる企画ガイド"
+    }
+  ],
+  "example": {
+    "event_file": "input/event.json",
+    "event_title": "こもれび つくる日",
+    "fictional": true,
+    "session_count": 6,
+    "sequence": [
+      "依頼と6企画",
+      "UX設計の指示書を読む",
+      "引き継ぎ書とCSS土台",
+      "画面実装の指示書と一緒に読む",
+      "実際に使える企画ガイド"
+    ],
+    "execution": "同じOpus 5.5の別実行を、制作担当が順につないだ保存済みの成果",
+    "accepted_decision": "元UX案のA09自動入替は不採用。時間が重なる追加は止め、今の予定を残す。",
+    "recorded_export": "outputs/browser-itinerary.json",
+    "selected_ids": [
+      "S01",
+      "S03",
+      "S05",
+      "S06"
+    ],
+    "total_price_yen": 1000
+  },
+  "limits": [
+    "図の切替は説明。ページ内でAIを新規実行しない。",
+    "役割ファイルは専門性や品質を保証するものではない。",
+    "独立した複数エージェントや自動振り分けは試していない。",
+    "原典の目標値・テンプレートは、この作例の測定結果ではない。"
+  ],
+  "editorial_note": "6項目は、この2つの原典の共通構造を制作担当が説明用に整理したもの。全役割を統一する機械スキーマではない。日本語の適用欄は原文の直訳ではなく今回の実例。"
+}

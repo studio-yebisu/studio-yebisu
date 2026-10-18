@@ -41,6 +41,10 @@
   gap: var(--space-3);
 }
 
+.v-silent {
+  font-weight: var(--weight-bold);
+}
+
 .v-status {
   color: var(--color-text-muted);
 }
@@ -65,8 +69,13 @@
 
 .v-scenes {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
   gap: var(--space-2);
+}
+
+.v-scene {
+  flex-direction: column;
+  gap: 0;
 }
 
 .v-scene[aria-current="true"] {
@@ -139,9 +148,5 @@
 
 .is-render .v-controls,
 .is-render .v-about {
-  display: none !important;
-}
-
-[hidden] {
   display: none !important;
 }

@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>役割をつなぎ、使える予定へ。— 32秒・無音の図解（編集ソース）</title>
-  <meta name="description" content="架空イベントの6企画が、UX設計の引継ぎと土台CSS、Frontend実装を経て時間の帯になり、保存済みの4企画の予定メモになるまでを、同じ図形の動きで見せる32秒・無音の動画の編集ソースです。">
+  <title>AIに渡す、専門家の指示書集 — 32秒・無音の図解（編集ソース）</title>
+  <meta name="description" content="Agency Agents の役割の指示書の中身と、今回の依頼と一緒にAIへ渡して成果物を次の役割へつなぐ流れを、同じ図形の動きで見せる32秒・無音の動画の編集ソースです。">
   <script>
     // 書き出し（window.__MOTION_RENDER__ === true）では操作部を出さず、最初の描画から画面いっぱいの1枚だけにする
     if (window.__MOTION_RENDER__ === true) document.documentElement.classList.add('is-render');
@@ -16,18 +16,19 @@
 <body>
   <main class="v-page">
     <div class="v-stage">
-      <canvas id="film" class="v-film" width="1280" height="720" role="img" aria-label="架空イベントの6企画を表す文書が、UX設計で引継ぎ書と土台CSSの色を受け取り、実装で6本の時間の帯に開きます。押し花（S01）を予定に入れたあと、時間が重なる種の話（S02）は入らずに戻り、S01が残ります。続いてS03・S05・S06が入り、14:00で接するS05とS06は両方入ります。選んだ4企画が保存済みの予定メモへ移り、4件・1,000円になります。音はありません。"></canvas>
+      <canvas id="film" class="v-film" width="720" height="1280" role="img" aria-label="Agency Agents の指示書が並ぶ棚から UX Architect の指示書が前に出て、担当・仕事・約束・進め方・成果物・確認観点の6つの部分に開きます。指示書は今回の依頼と架空の6企画の材料と一緒にAIへ入り、引き継ぎ書とCSS土台が出ます。その成果物が Frontend Developer の指示書と一緒に同じAIの2回目の入力になり、企画ガイドの画面と、保存した予定の4企画・1,000円が出ます。最後に全体の流れと「実際の作例を触る」が残ります。音はありません。"></canvas>
     </div>
 
     <div id="film-error" class="c-notice c-notice--alert v-error" role="alert" hidden>
       <p class="c-notice__title">動画の素材を確かめられなかったため、描画と操作を止めています。</p>
       <p id="film-error-reason"></p>
-      <p class="u-small">古い内容や内蔵の代わりのデータは描きません。ファイルを直接開いた場合は読み込めないことがあります。HTTP で配信して開いてください。</p>
-      <button type="button" id="film-reload" class="c-button">ページを読み込み直す</button>
+      <p class="u-small">古い内容や内蔵の代わりのデータは描きません。ファイルを直接開いた場合は読み込めないことがあります。HTTPS か localhost で配信して開いてください。</p>
+      <button type="button" id="film-retry" class="c-button">もう一度読み込む</button>
     </div>
 
     <section class="v-controls" aria-label="プレビューの操作">
-      <p id="film-status" class="v-status" role="status">8つの素材のバイト数と SHA-256 を確かめています…</p>
+      <p class="v-silent">32秒・音なし（ナレーション・効果音はありません）</p>
+      <p id="film-status" class="v-status" role="status">11の素材のバイト数と SHA-256 を確かめています…</p>
       <div class="v-controls__row">
         <button type="button" id="film-play" class="c-button c-button--primary" aria-pressed="false" disabled>再生</button>
         <button type="button" id="film-reset" class="c-button" disabled>最初へ</button>
@@ -48,13 +49,13 @@
     </section>
 
     <section class="v-about" aria-labelledby="about-title">
-      <h1 id="about-title" class="v-about__title">役割をつなぎ、使える予定へ。（32秒・無音）</h1>
-      <p class="u-measure">保存済みの制作（元の入力・引継ぎ書・土台CSS・実装・ブラウザーで保存した予定）を、同じ図形の動きでつないだ図解です。動画の中で新しいAIの実行や予約はしていません。架空のイベントで、定員や予約の表示はありません。</p>
-      <p class="u-measure">再生は最初は止まっています。ボタン・再生位置・場面のボタンで、どの時刻でも同じ1枚を描きます。</p>
+      <h1 id="about-title" class="v-about__title">AIに渡す、専門家の指示書集（32秒・無音）</h1>
+      <p class="u-measure">主役は役割の指示書の中身と、その渡し方です。保存済みの制作（2つの役割ファイル・依頼文・架空の6企画・引き継ぎ書・CSS土台・実装記録・保存した予定）から図を描いています。動画の中で新しいAIの実行はしていません。</p>
+      <p class="u-measure">再生は最初は止まっています。ボタン・再生位置・場面のボタンで、どの時刻でも同じ1枚を描きます。最後まで再生すると止まり、くり返しません。</p>
       <ul class="u-list-reset c-linklist v-links" role="list">
-        <li><a href="storyboard.json">場面ごとの入力・出力・動き（storyboard.json）</a></li>
+        <li><a href="storyboard.json">場面ごとの入る状態・出る状態・動き・使うファイル（storyboard.json）</a></li>
         <li><a href="README.md">この動画の作り方と書き出しの手順（README.md）</a></li>
-        <li><a href="assets/manifest.json">素材の一覧と SHA-256（assets/manifest.json）</a></li>
+        <li><a href="../concept/manifest.json">素材の一覧と SHA-256（concept/manifest.json）</a></li>
         <li><a href="../index.html">図のページへ戻る</a></li>
       </ul>
     </section>
