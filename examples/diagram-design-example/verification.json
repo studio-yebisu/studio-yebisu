@@ -1,0 +1,209 @@
+{
+  "id": "diagram-design-example",
+  "created_in_revision": "visual-r1",
+  "scope": "Newly packaged summary of originalrecords, not a rerun. Original source/outputs remain unchanged.",
+  "original_verified_at": "2026-10-15T04:29:59.005178+00:00",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "receipts": [
+      {
+        "phase": "Skill-guided original figure, semantic data, Japanese guide, demo and video source",
+        "receipt_sha256": "f72a0d970be03e8c89dc94623993571696b1a421fd78a4b14b5c38020cd9b571",
+        "execution_sha256": "e7837254d9d50a5a4e21630c5e274eb783cb6e7e60ed1c114e4636109c9f6fcd"
+      },
+      {
+        "phase": "Longer final save scene and updated scene/chapter timings after visual review",
+        "receipt_sha256": "bfbeb13f3565fe31b794fcb07d192965a20a528c33a11362c33b7c8890fb129e",
+        "execution_sha256": "33819834b6c470659e97cdc5002286ce3eef7707421c6606ba3e01272c61962c"
+      }
+    ],
+    "receipt_published": false
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 1,
+    "synthetic": true,
+    "type": "swimlane",
+    "nodes": 9,
+    "edges": 10,
+    "lanes": 3,
+    "skill_applied_to": "Actual synthetic inquiry-handling request; original hand-authored static HTML/SVG with input-to-node/edge map.",
+    "original_tools": [
+      {
+        "tool": "skills/diagram-design/scripts/self_check.py",
+        "options": [
+          "--offline"
+        ],
+        "input": "diagrams/intake.html",
+        "exit_code": 0,
+        "input_sha256": "c83b3cf45b135adb971b36b4dcc0ff9df57a6e6c28f9d44b76365ffe1eb8f222"
+      },
+      {
+        "tool": "scripts/verify-geometry.py",
+        "options": [],
+        "input": "diagrams/intake.html",
+        "exit_code": 0,
+        "input_sha256": "c83b3cf45b135adb971b36b4dcc0ff9df57a6e6c28f9d44b76365ffe1eb8f222"
+      },
+      {
+        "tool": "skills/diagram-design/scripts/export_svg.py",
+        "options": [
+          "--system-fonts"
+        ],
+        "input": "diagrams/intake.html",
+        "exit_code": 0,
+        "input_sha256": "c83b3cf45b135adb971b36b4dcc0ff9df57a6e6c28f9d44b76365ffe1eb8f222"
+      }
+    ],
+    "condition_comparison": [
+      "Actual HTML node names, owners, bounds and 4px grid match the semantic data.",
+      "All10 actual SVG edge endpoints match the9 requested business steps and both return paths.",
+      "Only resolution-confirmed route enters the intake record-and-complete step.",
+      "Actual12px Japanese label masks are8px from their connectors and overlap no node, independently of original geometry heuristic.",
+      "Request text matches published input and sample; no invented SLA/automation/metric in painted labels.",
+      "Exported SVG retains actual edge IDs and endpoints; PNG hash is bound to unchanged canonical HTML."
+    ],
+    "business_workflow_executed": false,
+    "human_approval": false,
+    "scope": "Skill-guided authoring, actual original static checker/geometry/exporter execution, real rasterization and browser controls. No fictional API or business automation run."
+  },
+  "exports": {
+    "svg": [
+      {
+        "input": "diagrams/intake.html",
+        "input_sha256": "c83b3cf45b135adb971b36b4dcc0ff9df57a6e6c28f9d44b76365ffe1eb8f222",
+        "svg": "diagrams/intake.svg",
+        "svg_sha256": "4bc47a4ee04979370e59db7341a35de401b73251cb9b663a37dcfe0f1fb80f4a"
+      }
+    ],
+    "png": {
+      "method": "Upstream references/export.md PNG procedure: rasterize canonical local HTML, wait for fonts, release clipping ancestors, screenshot actual SVG with omit_background=True. Temporary SVG capture origin aligned to0,0 to avoid fractional-header pixel rounding; source HTML unchanged.",
+      "source": "diagrams/intake.html",
+      "source_sha256": "c83b3cf45b135adb971b36b4dcc0ff9df57a6e6c28f9d44b76365ffe1eb8f222",
+      "output": "diagrams/intake.png",
+      "output_sha256": "0572396cd477faa482914b2a22c831f7bfd5404e3dd1e6e019a2c3579af9ed66",
+      "device_scale_factor": 2,
+      "svg_size": [
+        1280,
+        720
+      ],
+      "output_size": [
+        2560,
+        1440
+      ],
+      "browser": "149.0.7827.55",
+      "external_requests": [],
+      "fonts": "Intentional local system font stacks; no web fonts."
+    }
+  },
+  "browser": {
+    "requested_widths": [
+      390,
+      1280
+    ],
+    "mobile": {
+      "frameWidth": 375,
+      "scrollWidth": 375,
+      "tabs": [
+        {
+          "height": 44.375,
+          "id": "tab-route-main",
+          "left": 20,
+          "right": 187.5
+        },
+        {
+          "height": 44.375,
+          "id": "tab-route-missing",
+          "left": 187.5,
+          "right": 355
+        },
+        {
+          "height": 44,
+          "id": "tab-route-unresolved",
+          "left": 20,
+          "right": 187.5
+        },
+        {
+          "height": 44,
+          "id": "tab-route-complete",
+          "left": 187.5,
+          "right": 355
+        }
+      ],
+      "width": 375,
+      "frameScroller": {
+        "scrollWidth": 1280,
+        "svgWidth": 1280,
+        "width": 343
+      }
+    },
+    "desktop": {
+      "iframeWidth": 1265,
+      "scrollWidth": 1265,
+      "tabsVisible": true,
+      "width": 1265
+    },
+    "horizontal_page_overflow": false,
+    "route_tabs": 4,
+    "keyboard": [
+      "Home",
+      "ArrowRight",
+      "End",
+      "ArrowLeft"
+    ],
+    "clipboard_matches": true,
+    "clipboard_method": "OS clipboard readback, CRLF normalized to LF; IAB tab clipboard returned an older value.",
+    "svg_download_matches": true,
+    "svg_download_sha256": "4bc47a4ee04979370e59db7341a35de401b73251cb9b663a37dcfe0f1fb80f4a",
+    "standalone_svg": {
+      "edges": 10,
+      "externalElementCount": 0,
+      "fonts": "loaded",
+      "nodes": 9,
+      "title": "よりみちラボの問い合わせ対応（顧客・受付・専門担当）",
+      "viewBox": "0 0 1280 720"
+    },
+    "print_css": {
+      "page": [
+        1265,
+        1265
+      ],
+      "svgMinWidth": "0px",
+      "svgWidth": 1265,
+      "wrapperOverflow": "visible"
+    },
+    "host_console_observation": "IAB emitted an anonymous MutationObserver exception during iframe page loading. Captured stack ends in node:electron/js2c/sandbox_bundle; authored app.js and static diagram do not use MutationObserver. Retained separately from actual control checks; no zero-console claim."
+  },
+  "video": {
+    "duration": 28,
+    "fps": 30,
+    "resolution": [
+      1280,
+      720
+    ],
+    "frame_count": 840,
+    "audio": "none",
+    "actual_diagram_png_sha256": "0572396cd477faa482914b2a22c831f7bfd5404e3dd1e6e019a2c3579af9ed66",
+    "motion_reel_determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "e5bf3227049a7b061eb58ad9b0ba4cd155c55727200cce50de8e6f6d541f2c67",
+      "afterOtherTimes": "e5bf3227049a7b061eb58ad9b0ba4cd155c55727200cce50de8e6f6d541f2c67",
+      "freshPage": "e5bf3227049a7b061eb58ad9b0ba4cd155c55727200cce50de8e6f6d541f2c67",
+      "match": true
+    },
+    "renderer_sha256": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "representative_frames_contact_and_strip": "Reviewed final original outputs; corrected PNG crop, used2x raster and extended final handoff reading time.",
+    "mp4_browser_playback": {
+      "currentTime": 28,
+      "duration": 28,
+      "ended": true,
+      "errorCode": null,
+      "paused": true,
+      "readyState": 4
+    }
+  }
+}

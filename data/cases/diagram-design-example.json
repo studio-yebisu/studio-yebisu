@@ -1,12 +1,13 @@
 {
   "id": "diagram-design-example",
-  "title": "問い合わせ対応の担当と分岐を、1枚の図に。",
+  "title": "Diagram Design作例：手順を読み、編集できる図へ",
   "title_lines": [
-    "問い合わせ対応の担当と分岐を、",
-    "1枚の図に。"
+    "手順を読み、",
+    "AIが図を書き、",
+    "編集できる形へ。"
   ],
   "category": "graphics",
-  "summary": "Diagram Design は、図の種類の選び方・配色・文字・矢印の引き方を決めて、単独で開けるHTMLとSVGの図を書くためのスキル（手順書）です。架空の共同作業スペース「よりみちラボ」の問い合わせ業務を、顧客・受付・専門担当の3段のスイムレーン図にしました。情報が足りないときと解決しなかったときの2本の戻り道、解決の確認と対応記録で完了する条件を、図の番号でたどれます。図はOpus 5.5がスキルの手順に沿って直接書き、SVGは原典の書き出し用スクリプトで作りました。",
+  "summary": "Diagram Designは、AIが図の種類・配色・矢印を決めてHTML内のSVGを書くための指針と、検査・書き出しの補助です。指針と依頼がAIへ合流し、HTMLを制作担当が別工程で確かめ、SVGとPNGを受け取って使う構造を、大きな動く図と32秒の無音動画にしました。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/diagram-design-example/index.html",
@@ -18,64 +19,63 @@
   "samples": "examples/diagram-design-example/samples.json",
   "sample_format": "input-output",
   "samples_title": "業務の文章と、できた図",
-  "samples_intro": "入力は、この作例のために書いた架空の業務の説明です。結果の欄は、できた図の段・工程・分かれ道・完了の条件と、ファイルの場所です。工程と矢印の座標や、依頼の各文との対応は diagram-data.json に残しています。",
-  "demo_description": "できあがった図のHTMLを、そのまま枠の中に表示します。狭い画面では図の中だけを横にスクロールして読めます。「基本の流れ」「情報が足りないとき」「解決しなかったとき」「完了の条件」を選ぶと、図と同じ番号（C1・R2・E03 など）で通る工程と矢印が順に並びます。表にした場合との比べ方、依頼文のコピー、HTML・SVG・PNG・記録のJSONの保存もできます。経路は左右の矢印キーでも切り替えられます。",
-  "demo_note": "表示するのは、制作時に書いて保存した図のファイルです。ページ上で図を描いたり、生成したり、AIを動かしたりすることはありません。外部のサービスやWebフォントにも接続しません。よりみちラボと業務は架空です。",
+  "samples_intro": "元の1件の実入力と、AIが書いたスイムレーン図です。9工程・10矢印・3段と18文片の対応を保持し、F1〜F12の業務事実と元の12検査条件を分けます。4つの経路JSONは元diagram-data.routesの同じオブジェクトを包んだもので、新しいAI出力ではありません。",
+  "demo_description": "渡す・描く・使うの3段階で、指針・参照・ひな形、依頼の担当/分岐/戻り/完了条件、AIが書く正本HTML、制作担当の点検とSVG書出し・PNG撮影、実際の図へつながる関係を見られます。元の4経路と同じ記録を選び、実HTML・SVG・PNGと元ビューアを開けます。",
+  "demo_note": "新しい図は保存済みのHTML/SVG/PNGと意味対応JSONを読みます。図の生成・書き出しや問い合わせ業務を実行する機能ではありません。元の推論・原典CLI検査とSVG書き出し・PNG撮影は再実行していません。新しい動きは紹介用のMotion Reelによるもので、原典の図へ追加したアニメーションではありません。",
   "request_intro": "Diagram Design の原典を固定版でcheckoutした環境で、AIに次の文章を渡します。【】の部分を自分の業務と条件に置き換えて使ってください。",
   "request": "Diagram Design（cathrynlavery/diagram-design、固定コミット d97c5c7477e54cee17cfa6459190610da0643a05）の skills/diagram-design/SKILL.md を読み、図の種類の参照資料 references/type-swimlane.md と、style-guide.md・primitives-core.md・layout-budget.md・output-spec.md を読んでから、次の業務をスイムレーン図にしてください。\n\n業務の事実：【担当・順番・分かれ道の条件・完了の条件を文章で。例：顧客が問い合わせを送る。受付は内容を確認し、不足があれば追加を依頼する…】\n図に足さないもの：【日数・自動処理・数値の指標など】\n配色：【使う色。なければ原典の標準の色】\n\n守ること：段は担当ごとに1つにし、工程はどれか1つの段に置く。分かれ道の矢印にはラベルを付け、前の工程へ戻る矢印は破線にする。強調色は2か所まで。工程が9、矢印が12を超えるなら全体図と詳細図に分ける。大きさは doc-wide（1280×720）。フォントはOSのものを使ってWebフォントは読み込まず、スクリプトのない単独のHTMLにする。SVGの min-width は1280pxにして、狭い画面では図の中だけを横にスクロールさせる。SVGのファイルを直接書かず、HTMLを正本にする。\n\n終わったら、checkoutしたリポジトリから skills/diagram-design/scripts/self_check.py --offline と scripts/verify-geometry.py を実行し、SVGは skills/diagram-design/scripts/export_svg.py に --system-fonts を付けて書き出してください。業務の各文が図のどの工程・矢印になったか、主語のない文をどう読んだか、実行した確認と未確認のことを分けて報告してください。",
-  "video_note": "28秒、音声なし。依頼の文と3者の受け持ち、書き出した実際の図（diagrams/intake.png）の全体、図を拡大した「情報が足りないとき」「解決しなかったとき」の戻り道と完了の条件、保存するファイルの順に進みます。拡大する位置・強調の枠・経路の番号は diagram-data.json から読み、図そのものは描き直していません。 実際に書き出した28秒の無音MP4を終端まで再生し、コンタクトシート・代表フレーム・連続フレームを確認しました。",
+  "video_note": "32秒・30fps・完全無音。縦720×1280と横1280×720を別配置で描きます。指針と依頼→AIがHTML内SVGを執筆→制作担当の別工程の確認→元HTMLからSVGとPNGの別経路→開いて編集する、という構造を同じ図形で示します。原の28秒映像の拡大解説や実業務の操作録画とは別の映像です。",
   "video_source": "examples/diagram-design-example/video/index.html",
   "skill_license": "examples/diagram-design-example/vendor/diagram-design/LICENSE",
   "applied_skills": [
     {
       "name": "Diagram Design",
       "source": "https://github.com/cathrynlavery/diagram-design/blob/d97c5c7477e54cee17cfa6459190610da0643a05/skills/diagram-design/SKILL.md",
-      "applied": "固定版のSKILL.md（metadata 2.6）の図の選び方、避けるべき作り方、配色の役割、矢印の6つの規則、量の上限、仕上げ前の確認表を読み、references/ の type-swimlane.md・semantic-patterns.md・style-guide.md・primitives-core.md・layout-budget.md・output-spec.md・export.md と assets/template.html に沿って書いた。semantic-patterns.md の9つの型を確かめ、完了や戻りがあっても主役は担当の間の受け渡しなので、状態遷移の型は使わずスイムレーンを選んだ。依頼の文を事実ごとに分け、工程9・矢印10・段3と上限（9・12・5）に収まったため分割していない。「追加情報を依頼する」は受付の段から出る矢印のラベルにし、「引き継ぐ」と「未解決なら戻す」は受付の工程R3にまとめた。どの文がどの工程・矢印になったかは diagram-data.json に残した。type-swimlane.md のとおり各工程は1つの段だけに置き、矢印は直角で角の半径8、同じ辺の付け根は12px以上離し、関係のない箱の裏を通さず、矢印を先に描いてから箱を描いた。日本語のラベルは style-guide.md の決まりで12pxのゴシック、下地の高さ16px、線から8px離した。強調色は完了のR5と、そこへ進む矢印E09の2か所だけ。配色は Studio Yebisu のサイトのCSSを役割に当てはめ、Webフォントを読み込まない system の扱いにした。配色と書体の前提を design-profile.md に記録した。viewBox は 0 0 1280 720、SVGの min-width は1280px、外側の枠だけを横にスクロールし、印刷では縮めて収める。SVGの題名・説明・IDの付け方は Accessible SVG contract に従った。SVGは export.md の手順どおり原典の export_svg.py で書き出し、手で書いたSVGファイルは作らない。"
+      "applied": "固定版のSKILL.md（metadata 2.6）の図の選び方、避けるべき作り方、配色の役割、矢印の6つの規則、量の上限、仕上げ前の確認表を読み、references/ の type-swimlane.md・semantic-patterns.md・style-guide.md・primitives-core.md・layout-budget.md・output-spec.md・export.md と assets/template.html に沿って書いた。semantic-patterns.md の9つの型を確かめ、完了や戻りがあっても主役は担当の間の受け渡しなので、状態遷移の型は使わずスイムレーンを選んだ。依頼の文を事実ごとに分け、工程9・矢印10・段3と上限（9・12・5）に収まったため分割していない。「追加情報を依頼する」は受付の段から出る矢印のラベルにし、「引き継ぐ」と「未解決なら戻す」は受付の工程R3にまとめた。どの文がどの工程・矢印になったかは diagram-data.json に残した。type-swimlane.md のとおり各工程は1つの段だけに置き、矢印は直角で角の半径8、同じ辺の付け根は12px以上離し、関係のない箱の裏を通さず、矢印を先に描いてから箱を描いた。日本語のラベルは style-guide.md の決まりで12pxのゴシック、下地の高さ16px、線から8px離した。強調色は完了のR5と、そこへ進む矢印E09の2か所だけ。配色は Studio Yebisu のサイトのCSSを役割に当てはめ、Webフォントを読み込まない system の扱いにした。配色と書体の前提を design-profile.md に記録した。viewBox は 0 0 1280 720、SVGの min-width は1280px、外側の枠だけを横にスクロールし、印刷では縮めて収める。SVGの題名・説明・IDの付け方は Accessible SVG contract に従った。SVGは export.md の手順どおり原典の export_svg.py で書き出し、手で書いたSVGファイルは作らない。 原制作の入力/HTML内SVG/原典CLI/実SVGとPNG/12条件は保全し再実行していません。新しい図は指針の中身、AIの執筆と制作担当の実行、正本と派生の構造を示す紹介用で、原の静的図を変更していません。"
     },
     {
       "name": "Motion Reel",
-      "source": "https://github.com/studio-yebisu/motion-reel/tree/56198544e69201b1c202e0c00fb90b568a729824",
-      "applied": "解説動画のソースを、window.seek(秒)がその時刻の完成した画面だけを描く契約で書いた。motionConfig（28秒・30fps・1280×720・posterTime 11・audioEventsなし）、renderConfigのサイズとFPSの反映、../diagrams/intake.png のデコードと ../diagram-data.json とフォントの準備を待つ motionReady、書き出し中のプレビュー停止に従った。画像やJSONがない、または画像の縦横が viewBox と合わない場合は motionReady を失敗させ、代わりの図は描かない。拡大の位置・強調の枠・経路の番号・段をまたぐ矢印の本数は diagram-data.json から求め、本数や完了へ入る矢印が記録と合わなければ失敗させる。図を拡大して段の名前が画面の外に出るときは、同じ画像の段の名前の部分を左に固定して見せる。場面ごとに「伝わること」と開始・終了の時刻を決め、見出し・字幕の日本語は24px以上にした。 実画像は原典のPNG書き出し手順で2560×1440にラスタライズした。最初の映像を見て、保存するファイルを読む時間を約5秒へ延ばし、場面と章の時刻をそろえて再出力した。最終の28秒・1280×720・30fps・無音MP4、代表フレーム、コンタクトシート、連続フレームを確認。16.8秒は異なる順序と新しいページで同じ画像になり、実MP4も終端まで再生した（同じ実行環境内での確認）。"
+      "source": "examples/diagram-design-example/tools/motion-reel/render.mjs",
+      "applied": "新しい概念構造UIと32秒の完全無音動画をOpus5.5が執筆。27固定素材、任意時刻の描画、縦横の別配置、代表/連続/contact、実MP4を制作側で新QAしました。原の28秒映像とその検査、原典animation controllerとは分けています。"
     }
   ],
   "steps": [
     {
-      "title": "原典を固定する",
-      "body": "cathrynlavery/diagram-design のコミット d97c5c7（SKILL.md の metadata 2.6、plugin.json 2.6.99、MIT）を固定しました。作例の vendor/diagram-design/ には、SKILL.md・references・assets のひな形・scripts・README・LICENSE・THIRD_PARTY_LICENSES.md を変更せずに置いています。"
+      "title": "指針・参照・補助スクリプトの役割を見る",
+      "body": "AIが読むMarkdownと、選ぶ図の参照・HTMLひな形・Pythonの点検/SVG書き出しを分けます。45種類と9つの意味の型のうち元はスイムレーン1種類だけ。6部品は説明用整理です。"
     },
     {
-      "title": "SKILL.mdと参照資料を読む",
-      "body": "図の種類の選び方、配色の役割、矢印の6つの規則、量の上限、仕上げ前の確認表を読みました。スイムレーンの参照資料、型の一覧、配色と文字、矢印と箱の書き方、方眼と上限、大きさの決まり、書き出しの手順もあわせて読んでいます。"
+      "title": "依頼と既存の配色をAIへ渡す",
+      "body": "架空のよりみちラボの3担当、分かれ道、2本の戻り道、解決確認と対応記録の完了条件を依頼にします。元のStudio Yebisu配色と端末書体はdesign-profile.mdに記録済みです。"
     },
     {
-      "title": "業務の文を、事実に分ける",
-      "body": "依頼の文章を「顧客が問い合わせを送る」「不足があれば受付が追加情報を依頼し」のように事実ごとに分け、担当・分かれ道・戻り道・完了の条件を取り出しました。「未解決なら専門担当へ戻す」は主語がないため、顧客と専門担当の両方と連絡を取る受付が戻すと読み、その読み方を記録しています。"
+      "title": "AIが形式を選びHTML内のSVGを書く",
+      "body": "担当間の受け渡しが主役なのでスイムレーンを選びました。元のAIがHTMLを正本として、9工程・10矢印・3段を座標とIDで書き、依頼の18文片との対応をJSONにしました。自動分類器や図生成APIではありません。"
     },
     {
-      "title": "図の種類と量を決める",
-      "body": "主役は担当の間の受け渡しなので、スイムレーンを選びました。表にすると、戻り先の番号を頼りに行を探し直す必要があります。工程9・矢印10・段3で、1枚の上限に収まるため分けていません。大きさは doc-wide（1280×720）です。"
+      "title": "制作担当が別工程で点検する",
+      "body": "元の制作担当がself_check.py --offlineと原典リポジトリのverify-geometry.pyを実行。日本語ラベルの16px高下地は後者の検査範囲外なので、8px間隔と重なりを別に座標で照合しました。12条件の原記録と今回の図の確認を区別します。"
     },
     {
-      "title": "HTMLとSVGを書く",
-      "body": "ひな形の template.html を元に、段・工程・矢印・ラベル・凡例を座標で書きました。分かれ道の工程には「判断」の印、戻り道は破線、完了は朱色の工程と矢印の2か所だけです。工程と矢印には、記録のJSONと同じIDを付けています。"
+      "title": "正本HTMLから、編集と画像の2経路へ",
+      "body": "元の制作担当がexport_svg.py --system-fontsでSVGを書き出し、別にブラウザーで同じHTMLの図だけを2倍のPNGへ撮影しました。PNGはSVG書出しスクリプトの出力ではありません。3つの同じ実ファイルを保全し、今回は再実行していません。"
     },
     {
-      "title": "画面と28秒の動画にする",
-      "body": "図をそのまま表示し、経路を番号でたどれる画面を作りました。動画は Motion Reel の時間の契約に沿って、書き出した実際の図の画像を拡大しながら、戻り道と完了の条件を順に示します。"
-    },
-    {
-      "title": "実ファイルを検査し、表示と再生を確かめる",
-      "body": "原典の self_check.py --offline・verify-geometry.py・export_svg.py --system-fonts を実行。日本語ラベルの下地は別途、実SVGの座標で8pxの間と箱との重なりがないことを照合しました。入力12条件、9工程・10矢印・3担当、2つの戻り道と完了条件を確認。390px・1280px表示、図の内部スクロール、4経路の切替、Home/End/左右キー、依頼文のOSクリップボード照合、SVG保存のバイト一致、単独SVG、印刷用表示、28秒の無音MP4の終端再生を確認しました。"
+      "title": "構造から実際の図へつなぐ",
+      "body": "新しい紹介図は全体をスマホに収め、実HTML/SVG/PNGの保存と元の4経路ビューアへつなぎます。原典の図の1280px内部スクロールはそのままです。32秒の縦横無音動画と編集ソースを制作側で新QAしました。"
     }
   ],
   "limitations": [
-    "業務と「よりみちラボ」は架空です。所要日数・自動処理・達成率は描いていません。",
-    "Diagram Design は手順書で、図を自動で描く機能はありません。図はAIが手順に沿って書いたもので、同じ依頼でも書く人やAIによって配置は変わります。",
-    "作例の画面は保存した図を表示するだけです。自分の文章から図を作る機能はありません。",
-    "試したのはスイムレーン1種類と、Webフォントを使わないSVGの書き出しです。原典が扱うほかの図の種類、draw.io・Mermaid・Excalidrawからの取り込み、動きのある図は試していません。",
-    "書体はOSに入っているものを使うため、OSによって文字の幅や見え方が少し変わります。SVGを編集ソフトで開くと、書体が置き換わることがあります。",
-    "日本語のラベルの下地（高さ16px）は、原典の verify-geometry.py が下地として調べる高さの外です。この部分は別途、実SVGの座標と表示で照合しました。",
-    "解説動画は音声なしです。"
+    "業務とよりみちラボは架空です。図で示す経路は実際の問い合わせを実行した履歴ではなく、日数・自動処理・達成率は描いていません。",
+    "Diagram DesignはAIが読む手順書と補助で、図生成API・業務の実行エンジンではありません。新しい画面は保存した図と記録を読むだけで、自分の文章から生成・書き出しをする機能はありません。",
+    "試したのはスイムレーン1種類とWebフォントなしのSVG書き出しだけです。ほかの44種類、意味の型、draw.io/Mermaid/Excalidraw取込み、原典animation controller、保存プロファイルは未適用です。",
+    "未解決の主語を受付R3としたA1など4つの読み方は元の制作AIの解釈で、人の確認はありません。新しい紹介図の6部品は説明用整理で、原典の共通スキーマではありません。",
+    "元のAIの2受領、原典CLI検査・SVG書き出し・PNG撮影、原の12条件照合を保持し、再実行していません。新しい図と32秒映像の受領・QAへ付け替えていません。",
+    "元の配布289件は固定Windowsチェックアウトと同じバイトを保持します。公式Gitblobとは8件が生バイト一致、281件がCRLFだけ正規化した内容一致です。289件の公式生バイト一致とは扱いません。",
+    "書体は端末や編集ソフトで変わります。原図の1280px幅と内部スクロールを保ち、新しい紹介図だけ全体をスマホへ収めています。原図のすべての文字をスマホで一度に読めるという保証ではありません。",
+    "原典のgeometry検査が見つける下地は高さ8〜14pxで、元の日本語16px下地はその対象外です。自動検査やエージェント確認は意味・見た目・アクセシビリティ全体の保証や人の審美的承認ではありません。",
+    "実機iOS/Safari/VoiceOver、200%ズーム、人の審美的承認、全入力や性能、クリップボード内容の再取得は未確認です。新しい縦横MP4と編集ソースに音声ガイド・原稿・音源・音声トラックはありません。",
+    "4経路JSONは元のrouteobjectのUTF8/LF包装です。保存要求、公開原本のバイト一致、保存ツールから返却されたファイルは分けて記録しました。"
   ],
   "sources": [
     {
@@ -113,16 +113,40 @@
     {
       "label": "作例の再現手順（README）",
       "url": "examples/diagram-design-example/README.md"
+    },
+    {
+      "label": "指針と執筆・検査・実出力の構造",
+      "url": "examples/diagram-design-example/concept/structure.json"
+    },
+    {
+      "label": "元の図と4経路のビューア",
+      "url": "examples/diagram-design-example/desk.html"
+    },
+    {
+      "label": "実SVG（編集用、同じ原本）",
+      "url": "examples/diagram-design-example/diagrams/intake.svg"
+    },
+    {
+      "label": "原制作と新しい確認の区別",
+      "url": "examples/diagram-design-example/visual-verification.json"
+    },
+    {
+      "label": "図と縦横映像の再現手順",
+      "url": "examples/diagram-design-example/visual-guide.md"
+    },
+    {
+      "label": "映像の再現スクリプト",
+      "url": "examples/diagram-design-example/render-visual.py"
     }
   ],
   "license": "MIT",
-  "license_note": "この作例の画面構成・図・文言・記録・映像ソースは Studio Yebisu の独自制作で、MIT License です。vendor/diagram-design/ の SKILL.md・参照資料・ひな形・スクリプトは上流の MIT License（Copyright (c) 2025 Cathryn Lavery）で、LICENSE と原典の THIRD_PARTY_LICENSES.md を同梱しています。図に第三者のアイコンや画像は使っていません。",
+  "license_note": "この作例の画面構成・図・文言・記録・映像ソースは Studio Yebisu の独自制作で、MIT License です。vendor/diagram-design/ の SKILL.md・参照資料・ひな形・スクリプトは上流の MIT License（Copyright (c) 2025 Cathryn Lavery）で、LICENSE と原典の THIRD_PARTY_LICENSES.md を同梱しています。図に第三者のアイコンや画像は使っていません。 元289配布はWindowsチェックアウトのままで、公式Gitblobへの照合は8件が生バイト一致、281件がCRLFだけ正規化した内容一致です。第三者通知を保持し、原典のアイコンは作例や新しい図に使っていません。",
   "catalog_entry": {
     "id": "resource-diagram-design",
     "name": "Diagram Design",
     "category": "graphics",
     "kind": "スキル",
-    "summary": "仕組みや関係を、配色・文字・配置を整えたHTMLとSVGの図へまとめる。",
+    "summary": "AIが図の形式・配色・矢印を決めてHTML内SVGを書く指針。依頼と手順から、別工程の点検・SVG/PNGと使う入口へつながる図で構造が分かります。",
     "use_case": "説明資料や設計書に、読みやすく編集できる構成図や業務フローを載せたいとき。",
     "tags": [
       "画像",
@@ -153,8 +177,8 @@
     "source_note": "公開リポジトリのREADME・SKILL.md・参照資料と利用条件を確認し、用途と最初の試し方を日本語で整理しました。原典は確認時のコミットへ固定しています。原典は45種類の図、draw.io・Mermaid・Excalidrawからの取り込み、動きのある図も扱いますが、作例で試したのはスイムレーン1種類と、Webフォントを使わないSVGの書き出しです。",
     "prompt": "Diagram Design の原典（https://github.com/cathrynlavery/diagram-design/tree/d97c5c7477e54cee17cfa6459190610da0643a05/skills/diagram-design）を読んで、次を進めてください。\n問い合わせ受付から担当者の回答までを説明する業務フローを、単独で開けるHTMLとSVGで作ってください。分岐、担当者、完了条件がわかる図にしてください。\n入力、出力、実行した検証、未確認の点を記録してください。",
     "verification_stage": "runtime-reviewed",
-    "verification": "Opus5.5のモデル実報告を確認。実入力からスイムレーン1枚（9工程・10矢印・3担当）を制作し、原典のオフライン検査・幾何検査・SVG書き出しを実行。HTMLからPNGを2560×1440で描画し、入力12条件と図を照合。390px/1280px、図の内部スクロール、4経路・キー操作・OSコピー照合・SVG保存一致を確認。28秒の無音MP4のフレームと終端再生も確認。ほかの図種・取り込み・実業務の自動化は未検証。",
-    "reviewed_on": "2026-10-15"
+    "verification": "元の架空業務1件/9工程10矢印3段、2受領、原典CLIと実HTML/SVG/PNGを保持。新図は保存済みファイルと4経路を読み、27素材編集/32秒縦横無音動画を別QA。再生成や実業務の実行、人の承認ではありません。",
+    "reviewed_on": "2026-10-19"
   },
-  "updated_on": "2026-10-15"
+  "updated_on": "2026-10-19"
 }

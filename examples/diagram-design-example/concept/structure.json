@@ -1,0 +1,247 @@
+{
+  "format": "diagram-design-structure/v1",
+  "case_id": "diagram-design-example",
+  "source_commit": "d97c5c7477e54cee17cfa6459190610da0643a05",
+  "definition": "AIが読むMarkdownの図づくり手順書、参照資料とHTMLひな形、検査とSVG書出しのPython補助。AIが依頼からHTML内のSVGを書く。図生成APIや業務実行ツールではない。",
+  "parts": [
+    {
+      "id": "choose",
+      "label": "関係に合う図を選ぶ",
+      "source_path": "vendor/diagram-design/SKILL.md",
+      "upstream_path": "skills/diagram-design/SKILL.md",
+      "line_start": 65,
+      "quote": "Selection: semantic pattern, then visual type",
+      "meaning": "45種類の図の選び方と9つの意味の型。元の作例は担当間の受け渡しが主役なのでスイムレーンを選び、意味の型は当てはめなかった。自動分類器ではなくAIが読む指針。"
+    },
+    {
+      "id": "style",
+      "label": "色と文字を役割へ",
+      "source_path": "vendor/diagram-design/references/style-guide.md",
+      "upstream_path": "skills/diagram-design/references/style-guide.md",
+      "line_start": 15,
+      "quote": "Every token is referred to by",
+      "meaning": "元のStudio Yebisu配色を役割へ。元のdesign-profile.mdで紙・墨・朱と端末書体を決めた。原典のstyle-guideは改変せず、保存プロファイルや.diagram-design印も作っていない。"
+    },
+    {
+      "id": "draw",
+      "label": "担当ごとに置く",
+      "source_path": "vendor/diagram-design/references/type-swimlane.md",
+      "upstream_path": "skills/diagram-design/references/type-swimlane.md",
+      "line_start": 10,
+      "quote": "Process steps are rectangles placed inside the lane",
+      "meaning": "担当を3段に分け、各工程は担当する1段だけへ。矢印が受け渡しを示す。元のAIがひな形をもとにHTML内のSVGを直接執筆した。実業務を実行したものではない。"
+    },
+    {
+      "id": "budget",
+      "label": "1枚の量を決める",
+      "source_path": "vendor/diagram-design/references/layout-budget.md",
+      "upstream_path": "skills/diagram-design/references/layout-budget.md",
+      "line_start": 20,
+      "quote": "These are the per-type limits.",
+      "meaning": "元の図は9工程・10矢印・3段、上限9/12/5の範囲。R5とE09だけ朱の2要素。上限に収まることは意味や見た目の品質保証ではない。"
+    },
+    {
+      "id": "check",
+      "label": "作った図を点検する",
+      "source_path": "vendor/diagram-design/SKILL.md",
+      "upstream_path": "skills/diagram-design/SKILL.md",
+      "line_start": 300,
+      "quote": "From the installed skill directory, did `python3 scripts/self_check.py",
+      "meaning": "制作担当が別工程でself_check.py --offlineと元リポジトリのverify-geometry.pyを実行。日本語の高さ16px下地は後者の検査範囲外なので別に座標で確認した。元検査を今回再実行していない。"
+    },
+    {
+      "id": "export",
+      "label": "HTMLから書き出す",
+      "source_path": "vendor/diagram-design/references/export.md",
+      "upstream_path": "skills/diagram-design/references/export.md",
+      "line_start": 37,
+      "quote": "`--system-fonts` skips the Google Fonts",
+      "meaning": "制作担当が原典export_svg.py --system-fontsでSVGを書き出し、ブラウザーでPNGを撮影。HTMLが正本。SVGもPNGも同じ図の派生で、別々のAIや新生成ではない。"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "route-main",
+      "label": "基本の流れ",
+      "nodes": [
+        "C1",
+        "R1",
+        "R2",
+        "R3",
+        "S1",
+        "R4",
+        "C3",
+        "R5"
+      ],
+      "edges": [
+        "E01",
+        "E02",
+        "E05",
+        "E06",
+        "E07",
+        "E08",
+        "E09"
+      ],
+      "output_file": {
+        "path": "concept/records/route-main.json",
+        "bytes": 245,
+        "sha256": "c4053ffbf07331b3d9532e18e5e2997a98406c80aafd8bb4a76927bd5a2eea27"
+      }
+    },
+    {
+      "id": "route-missing",
+      "label": "情報が足りないとき",
+      "nodes": [
+        "R2",
+        "C2",
+        "R2"
+      ],
+      "edges": [
+        "E03",
+        "E04"
+      ],
+      "output_file": {
+        "path": "concept/records/route-missing.json",
+        "bytes": 155,
+        "sha256": "258edc79345ee3409d932aeb1b8decb9bab14fe67dcdfa548b369b610af3e83f"
+      }
+    },
+    {
+      "id": "route-unresolved",
+      "label": "解決しなかったとき",
+      "nodes": [
+        "C3",
+        "R3",
+        "S1",
+        "R4",
+        "C3"
+      ],
+      "edges": [
+        "E10",
+        "E06",
+        "E07",
+        "E08"
+      ],
+      "output_file": {
+        "path": "concept/records/route-unresolved.json",
+        "bytes": 200,
+        "sha256": "0bd75c2cb2d71cfb6e42a2a462cf4f736e361db1c7da3675a07c616ff9bac5c1"
+      }
+    },
+    {
+      "id": "route-complete",
+      "label": "完了の条件",
+      "nodes": [
+        "C3",
+        "R5"
+      ],
+      "edges": [
+        "E09"
+      ],
+      "output_file": {
+        "path": "concept/records/route-complete.json",
+        "bytes": 257,
+        "sha256": "359c0c36ad3b623cbac47632faba4d07898e3471478fd2ba5c2d09952998a91a"
+      }
+    }
+  ],
+  "outputs": {
+    "html": {
+      "path": "diagrams/intake.html",
+      "bytes": 20504,
+      "sha256": "c83b3cf45b135adb971b36b4dcc0ff9df57a6e6c28f9d44b76365ffe1eb8f222"
+    },
+    "svg": {
+      "path": "diagrams/intake.svg",
+      "bytes": 18412,
+      "sha256": "4bc47a4ee04979370e59db7341a35de401b73251cb9b663a37dcfe0f1fb80f4a"
+    },
+    "png": {
+      "path": "diagrams/intake.png",
+      "bytes": 190200,
+      "sha256": "0572396cd477faa482914b2a22c831f7bfd5404e3dd1e6e019a2c3579af9ed66"
+    },
+    "data": {
+      "path": "diagram-data.json",
+      "bytes": 17679,
+      "sha256": "6ac63148f8ef20e68df479d60a8886a064d93da9a297ba370a337321cd74cede"
+    }
+  },
+  "counts": {
+    "visual_types_at_pin": 45,
+    "semantic_patterns_at_pin": 9,
+    "applied_visual_types": 1,
+    "nodes": 9,
+    "edges": 10,
+    "lanes": 3,
+    "cross_lane_edges": 8,
+    "return_edges": 2,
+    "input_fragments": 18,
+    "business_facts": 12,
+    "original_checked_conditions": 12,
+    "assumptions": 4,
+    "parts": 6
+  },
+  "actors": {
+    "AI": "元のOpus5.5が手順/必要な参照/ひな形と実依頼を読み、図のHTML内SVGと意味対応JSONを執筆。",
+    "operator": "制作担当が別に原典self_check/geometry/exporterを実行し、日本語下地を補足照合、PNGをブラウザー撮影した。元のAIがCLIを動かした図にはしない。",
+    "viewer": "保存されたHTML/SVG/PNGを開く・編集用に保存する。新しい図の生成や実業務の問い合わせ処理は行わない。"
+  },
+  "input": {
+    "request": "request.txt",
+    "style": "design-profile.md",
+    "synthetic": true,
+    "audience": "新しく入る受付スタッフ",
+    "roles": [
+      "顧客",
+      "受付",
+      "専門担当"
+    ],
+    "not_added": [
+      "所要日数",
+      "自動処理",
+      "達成率"
+    ]
+  },
+  "chosen": {
+    "type": "swimlane",
+    "type_reason": "読む人が知りたいのは、3者の間で仕事がどう受け渡されるかです。段（レーン）を担当にすると、どの工程が誰のものか、段をまたぐ矢印で受け渡しが見えます。",
+    "semantic_pattern": null,
+    "semantic_pattern_reason": "semantic-patterns.md の9つを確認しました。完了・戻りがあっても、主役は1つの対象の状態の移り変わりではなく担当の間の受け渡しなので、Lifecycle phase map（状態遷移図）は選んでいません。待ち行列・権限の境界などの型にも当たらないため、型を通さずスイムレーンを直接選びました。",
+    "not_a_table": "表にすると「3情報を確認する→不足ならC2→確認へ戻る」「未解決ならR3へ戻る」が、行の並び順の外にある飛び先として「次へ」の欄に文字で書かれるだけになります。読む人は行を探して戻り先を見つける必要があり、戻り道が2本あることも、段をまたぐ受け渡しが何回あるかも見えません。図では破線の戻り道と段をまたぐ矢印を目で追えます。",
+    "size_preset": "doc-wide",
+    "viewBox": "0 0 1280 720",
+    "audience": "mixed",
+    "detail": "balanced",
+    "font_source": "system",
+    "skin": "Studio Yebisu（design-profile.md）。保存したプロファイルや印は作っていません。",
+    "type_sizes_px": {
+      "title": 28,
+      "node_name": 16,
+      "lane_name": 16,
+      "sublabel_ja": 12,
+      "branch_label_ja": 12,
+      "chip_ja": 12,
+      "step_id_mono": 12,
+      "legend_ja": 12
+    },
+    "split": false,
+    "split_reason": "工程9・矢印10・段3で、1枚の上限（工程9・矢印12・段5）に収まるため、全体図と詳細図に分けていません。"
+  },
+  "limits": {
+    "one_synthetic_swimlane": true,
+    "business_workflow_executed": false,
+    "original_AI_or_checkers_or_export_rerun": false,
+    "new_UI_generated_figure": false,
+    "upstream_animation_controller_used": false,
+    "new_motion": "Motion Reelによる紹介用canvas概念図。原典の図に新しいアニメーションcontrollerを追加したものではない。",
+    "human_approval": false
+  },
+  "notes": [
+    "6部品と工程のまとめ方は説明用整理で原典の共通スキーマではない。",
+    "未解決の主語を受付としたA1、R2に判断をまとめたA2、追加依頼を矢印ラベルとしたA3、初回と未解決の引継ぎをR3にまとめたA4は元の制作AIの解釈で人の確認はない。",
+    "完了はC3で解決を確認した後、E09でR5の対応記録へ進むときだけ。戻り道E04とE10は別の経路で、実問い合わせを実行した記録ではない。",
+    "元の289vendorは固定Windowsチェックアウトのまま。8件は公式rawbytes一致、281件はCRLFだけ正規化して公式Gitblob一致。元のコピー一致を289rawbytes一致と扱わない。",
+    "原典図の横スクロール仕様と実出力を保持し、新しい紹介図は全体をスマホに収める。原典図の文字を縮めて読みやすさを保証するものではない。"
+  ]
+}

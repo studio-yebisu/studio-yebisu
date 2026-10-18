@@ -1,0 +1,115 @@
+{
+  "format": "studio-yebisu-storyboard/v1",
+  "case_id": "diagram-design-example",
+  "title": "Diagram Design 紹介映像（32秒・無音）",
+  "status": {
+    "authored_by": "claude-opus-5-5",
+    "rendered_by_author": false,
+    "frames_reviewed_by_author": false,
+    "qa": "未実施。描画・書き出し・確認の結果は親工程が別に記録する。",
+    "human_approval": false
+  },
+  "source": {
+    "editor": "video/index.html",
+    "script": "video/video.js",
+    "shared_drawing": "concept.js?v=visual-r1（紹介ページと同じレイアウト・描画関数）",
+    "legacy_kept": ["video/legacy.html", "video/scene.js"]
+  },
+  "timing": {
+    "duration_s": 32,
+    "fps": 30,
+    "frames": 960,
+    "motion_ends_s": 28.9,
+    "poster_s": 31,
+    "scene_jumps_s": [0, 4, 8, 14, 20, 26, 29]
+  },
+  "formats": [
+    {"id": "portrait", "width": 720, "height": 1280, "priority": 1, "layout": "portraitLayout（360×420の配置を縦の画面向けに組んだもの）"},
+    {"id": "wide", "width": 1280, "height": 720, "priority": 2, "layout": "wideLayout（960×420の配置を横の画面向けに組んだもの）"}
+  ],
+  "audio": {"tracks": 0, "audioEvents": [], "narration": false, "captions": false},
+  "one_graph": "本（指針・6つの見出し）＋依頼（3担当の帯）→ AIが執筆 → HTML（SVG入り）→ 制作担当（点検）→ HTML・SVG・PNG → 実際の図 → 開く・編集。同じ形が移動・合流・変形し、カメラが1つの図を寄り引きする。",
+  "scenes": [
+    {
+      "id": "A", "start": 0, "end": 4,
+      "message": "Diagram Design は、AIが読む書かれた指針と補助スクリプトの束",
+      "enters": "閉じた本",
+      "exits": "開いた本に6つの見出し（選ぶ・配色・描く・分量・点検・書出）、手順書・参照・ひな形・補助の印",
+      "headline": "関係を読み、図の形を選ぶ",
+      "camera": "本に寄る"
+    },
+    {
+      "id": "B", "start": 4, "end": 8,
+      "message": "指針と依頼が同じ1つのAIへ入る",
+      "enters": "依頼の紙（顧客・受付・専門担当の帯、分岐の印、戻りの印）",
+      "exits": "目的・不足・戻り・完了の印が付き、本のページと3本の帯がAIへ合流",
+      "headline": "指針＋依頼 → AI",
+      "camera": "本・依頼・AIへ引く"
+    },
+    {
+      "id": "C", "start": 8, "end": 14,
+      "message": "AIがスイムレーンを選び、SVG入りのHTMLを書く（保存済みの判断の図解）",
+      "enters": "AIから出る矢印に「スイムレーン」の札。下の帯に45種類のうち1つを選ぶ小さな格子",
+      "exits": "同じ3本の帯が紙の段に広がり、9つの小さな工程と破線の戻り2本が入ったHTML",
+      "headline": "AIが形を選び、HTMLに描く",
+      "camera": "AIとHTMLに寄る",
+      "not_shown": "新しいAIの実行や業務の実行"
+    },
+    {
+      "id": "D", "start": 14, "end": 20,
+      "message": "別の制作担当が点検し、HTMLは正本のまま、SVGとPNGを派生として作る",
+      "enters": "本の補助の印が制作担当へ移り、HTMLの紙が渡る",
+      "exits": "点検の印、12条件の照合は別という小さな注記、HTML・SVG・PNGへの3本の分岐（PNGはHTMLからブラウザーで撮影し、SVGからは作らない）",
+      "headline": "AIが執筆 / 制作担当が実行",
+      "camera": "全体",
+      "not_shown": "点数・合格率・日本語16px下地まで検査が見たかのような表示"
+    },
+    {
+      "id": "E", "start": 20, "end": 26,
+      "message": "実際の図：E04の戻り、E10の戻り、E09→R5の完了",
+      "enters": "出力の枠から実際のPNGが大きく出る。HTMLの紙の3本の帯がPNGの段の高さにそろう",
+      "exits": "route-missing・route-unresolved・route-complete の矢印と工程を、diagram-data.json の座標で順に重ねる",
+      "headline": "実際の図：戻り道と完了",
+      "camera": "全体を小さくし、実際の図を大きく（縦は下、横は右）",
+      "figure_source": "diagrams/intake.png（照合したバイトから表示。描き直さない）"
+    },
+    {
+      "id": "F", "start": 26, "end": 29,
+      "message": "HTML・SVG・PNGを開く・編集に使う",
+      "enters": "実際の図が出力の枠へ戻る",
+      "exits": "3つの札が淡く灯り、「開く・編集」がつながる。HTML 20,504 B・SVG 18,412 B・PNG 2560×1440 の表示",
+      "headline": "開く・編集に使う",
+      "not_shown": "OSのダウンロード操作"
+    },
+    {
+      "id": "G", "start": 29, "end": 32,
+      "message": "指針＋依頼 → AIが図を書く → 確認・書出し → 使う",
+      "enters": "28.9秒で動きが止まった全体図",
+      "exits": "同じ静止画（31秒がポスター）",
+      "headline": "指針＋依頼 → AIが図を書く → 確認・書出し → 使う"
+    }
+  ],
+  "assets": {
+    "manifest": "concept/manifest.json",
+    "manifest_sha256": "fc782021a55f03dec70a20fdfbd01d743ac55d19ae0b188889a803f012f8e201",
+    "count": 27,
+    "check": "目録のSHA-256、27ファイルの組、各ファイルの大きさとSHA-256、引用6行、経路4件、図のID、viewBox、PNGの2560×1440をmotionReadyの前に照合",
+    "used_on_screen": ["diagrams/intake.png", "diagram-data.json", "concept/structure.json"],
+    "fonts": "OSの書体のみ。Webフォントなし",
+    "audio": []
+  },
+  "contract": {
+    "motionConfig": {"duration": 32, "fps": "renderConfig.fps または 30", "width": "renderConfig.width または 720/1280", "height": "renderConfig.height または 1280/720", "posterTime": 31, "audioEvents": []},
+    "seek": "window.seek(t) は t だけから画面を作る。呼ぶ順番・壁時計・前フレームに依存しない",
+    "motionReady": "フォント・27ファイルの照合・PNGの復号が済むと解決。失敗すると拒否し、代わりの図は描かない",
+    "preview_stop": "window.__MOTION_RENDER__ が真ならプレビュー再生を止める",
+    "render_mode": "?render または __MOTION_RENDER__ で操作パネルを隠し、canvasだけを表示"
+  },
+  "limits": [
+    "動く紙・帯・札は説明用の図解で、AI・検査・書出し・撮影の再実行ではない。",
+    "原典の図には新しいアニメーションを加えていない。原典の template-motion の仕組みも使っていない。",
+    "経路は架空の手順として描いたもので、実際の問い合わせ処理の記録ではない。",
+    "6つの見出しは説明用の整理で、原典の形式ではない。",
+    "作者はこの映像を描画・再生・確認していない。"
+  ]
+}
