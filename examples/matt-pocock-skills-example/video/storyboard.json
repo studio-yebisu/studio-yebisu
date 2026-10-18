@@ -1,0 +1,138 @@
+{
+  "format": "studio-yebisu-storyboard/v1",
+  "case_id": "matt-pocock-skills-example",
+  "revision": "visual-r1",
+  "title": "AIに、開発の手順を渡す",
+  "source": {
+    "repository": "mattpocock/skills",
+    "commit": "49dd158d1076134a641b33efb035946536778336",
+    "version_number": null,
+    "license": "MIT, Copyright (c) 2026 Matt Pocock",
+    "skills_used": ["domain-modeling", "codebase-design", "tdd", "code-review"],
+    "what_it_is": "A collection of Markdown engineering instructions that an AI reads. Not a search library, API, model, quality detector or automatic four-agent application. This case used four of the collection's skills, partially (no user seam confirmation)."
+  },
+  "authored_by_model": "claude-opus-5-5",
+  "duration": 32,
+  "fps": 30,
+  "frames": 960,
+  "sizes": [
+    {"orient": "portrait", "width": 720, "height": 1280, "layout": "tall", "role": "main", "composition": "rail/title/sub at top, diagram world 700x1026 at y=206 using the tall concept layout, foot line at y=1256"},
+    {"orient": "wide", "width": 1280, "height": 720, "layout": "wide", "role": "secondary, recomposed natively", "composition": "title/sub left, rail right, diagram world 1240x576 at y=112 using the separate wide concept layout (2x2 shelf, four columns), foot line at y=706"}
+  ],
+  "poster_time": 31,
+  "motion_ends": 28.9,
+  "audio": {"tracks": 0, "audio_events": [], "narration": false, "tts": false, "web_speech": false, "web_audio": false, "silent": true},
+  "example_job": "wide-ui",
+  "assets": {
+    "manifest": "concept/manifest.json",
+    "manifest_sha256": "86d1b8195471beefe34e8b084f65219647253b9c5b1d9d7a77b5520a3deb41c6",
+    "count": 25,
+    "refs_used_in_frames": [
+      "concept/structure.json",
+      "entries.json",
+      "results.json",
+      "tdd-history.json",
+      "acceptance.json",
+      "GLOSSARY.md",
+      "SPEC.md",
+      "input.md",
+      "review.md",
+      "outputs/wide-ui.json",
+      "search.mjs",
+      "baseline/search.mjs"
+    ],
+    "original_function_calls": "search.mjs and baseline/search.mjs are imported and called once after the 25-file gate, for all 3 saved cases; ordered IDs must equal results.json. The film draws the objects returned for wide-ui. No call per frame, no Node test run, no AI inference."
+  },
+  "persistent_shapes": [
+    "books: 4 instruction books (言葉 domain-modeling / 入口 codebase-design / テスト tdd / 照合 code-review); big 2x2 in 0-4 s portrait, then the shelf row",
+    "req + old: 依頼（架空） paper with the input.md quote, and 旧コード paper (表題だけを探す)",
+    "ai: one dark slab labelled AIが執筆 / 工程ごとに別の実行 — represents the separate original Opus 5.5 calls, never a Node runner",
+    "docsG + docsS: 用語集 8語 and 仕様 7条件 papers (counts parsed from GLOSSARY.md and SPEC.md)",
+    "module: searchEntries module with a narrow 入口 bar (the one seam) and three inner layers named by the cycles; dashed red tag seam：利用者未確認",
+    "node: Node station run by the production owner; one badge (既存/RED/GREEN with words and numbers) and three tabs 段1-3 — the same loop for all cycles",
+    "test paper / code paper: テスト+1 and 最小の変更 papers that travel AI -> Node; results return on the lower arrow in red or green",
+    "extra: separate chip 別の確認 18/18 (not added to the 4 tests)",
+    "diff + lensA + lensB: 固定差分 paper and two lenses 規約 / 仕様 with separate counts; dashed sight lines only, no arrow back to code",
+    "entries: the same 6 entry strips from entries.json; ghosts travel into the 入口 bar",
+    "results: cards drawn from the objects returned by the original search.mjs, yellow band; header shows the baseline count",
+    "json + desk: outputs/wide-ui.json with name and bytes, and the original searchable desk (desk.html)"
+  ],
+  "scenes": [
+    {
+      "start": 0, "end": 4, "rail": "読む",
+      "title": "AIが読む、開発の手順書",
+      "sub": "Matt Pocock Skills から、この作例で4冊を選んだ",
+      "conveys": "The skill is a collection of instruction books for an AI; this case picked four.",
+      "incoming": "Empty frame with the shelf header; camera fitted on the large 2x2 shelf.",
+      "events": "Books appear one by one (0.2-2.4 s).",
+      "outgoing": "Books slide from the 2x2 into the shelf row while the camera pulls back (3.3-4.0 s)."
+    },
+    {
+      "start": 4, "end": 8, "rail": "読む",
+      "title": "依頼と旧コードを読み、AIが書く",
+      "sub": "用語集8語・仕様7条件・入口は1つ（事前に決定・利用者は未確認）",
+      "conveys": "Request and old code meet the instructions in the AI writing slab; glossary, spec and one small interface materialize. The seam was decided beforehand by the production owner; no interview, no user confirmation.",
+      "incoming": "Shelf row; request and old-code papers, AI slab appear (4.0-4.8 s).",
+      "events": "Input lines draw and flow (4.6-5.9 s); docs appear (5.6-6.7 s); module with the 入口 bar (6.3-7.2 s); seam tag (7.0-7.5 s).",
+      "outgoing": "Input flows fade (7.6-8.2 s); camera moves to AI/Node/module (7.6-8.3 s)."
+    },
+    {
+      "start": 8, "end": 13, "rail": "確かめる",
+      "title": "同じテストを、別のNodeで実行",
+      "sub": "段1：2件中 失敗1 → 最小の変更 → 2件中 成功2",
+      "conveys": "The same test paper travels from the AI to the separate Node station run by the production owner. RED first, then a minimal change, then GREEN. The AI is never drawn running Node.",
+      "incoming": "Node station with the baseline badge 既存 成功1 全1件 (8.0-8.5 s); loop arrows (8.2-8.9 s).",
+      "events": "Cycle 1 over 8.8-12.6 s: test paper (to 9.7 s), RED 失敗1 全2件 with red return line, code paper, GREEN 成功2 全2件 with green return line, code flows into the module and the first layer fills.",
+      "outgoing": "Tab 段1 shown done."
+    },
+    {
+      "start": 13, "end": 18, "rail": "確かめる",
+      "title": "同じ輪で、1件ずつ足す",
+      "sub": "段2：3件・段3：4件で全件成功　テストとは別に18項目の確認",
+      "conveys": "Cycles 2 and 3 on the same loop and tabs, one new test each, from the saved runs. The 18 separate acceptance checks are a separate chip, not merged into 22 tests.",
+      "incoming": "Same loop after cycle 1.",
+      "events": "Cycle 2 over 13.0-15.2 s (RED 失敗1 全3件 -> GREEN 成功3), cycle 3 over 15.2-17.4 s (RED 失敗1 全4件 -> GREEN 成功4); layers 2 and 3 fill; chip 別の確認 18/18 (17.0-17.7 s).",
+      "outgoing": "Camera moves to module/diff/lenses (17.6-18.3 s)."
+    },
+    {
+      "start": 18, "end": 23, "rail": "確かめる",
+      "title": "固定差分を、2つの目で別々に",
+      "sub": "規約 0件・仕様 0件　元の独立AIの記録・書き換えなし・人の承認ではない",
+      "conveys": "The final fixed diff (original fixture history 8ec362f..8a1e0bf, 4 commits) is inspected by two independent AI review axes whose findings stay separate. Lenses do not modify code; this is a saved record, not a review of this film and not human approval.",
+      "incoming": "Module with three layers.",
+      "events": "Line module -> diff and diff paper (18.3-19.1 s); lens 規約 (19.2-19.9 s) and lens 仕様 (19.6-20.3 s) with dashed sight lines; counts 0件 (20.6-21.1 s) and 0件 (21.1-21.6 s) appear separately.",
+      "outgoing": "Diff flow fades (22.4-23.0 s); camera moves to the use area (22.6-23.3 s)."
+    },
+    {
+      "start": 23, "end": 29, "rail": "使う",
+      "title": "原関数に、同じ6件を通す",
+      "sub": "「ＵＩ」 → 3件（旧コード 0件）・wide-ui.json 634 B",
+      "conveys": "The original final search function becomes usable: the same 6 entry papers go into its one interface and the objects it actually returned appear in original order, linked to the saved 634 B JSON and the original searchable desk.",
+      "incoming": "Six entry strips (23.0-23.6 s); entry line (23.5-23.9 s).",
+      "events": "Entry ghosts travel into the 入口 bar (24.0-25.4 s); result cards from the returned objects ui-notes, color-lab, motion-cards emerge (25.4-26.6 s) with header 「ＵＩ」全分野 → 3件 and 旧コード 0件; matched strips get the yellow notch; JSON and desk join (26.6-27.6 s).",
+      "outgoing": "All shapes in place."
+    },
+    {
+      "start": 29, "end": 32, "rail": "全体",
+      "title": "AIに、開発の手順を渡す",
+      "sub": "手順書 → AIが執筆 → Nodeで確認 → 2つの照合 → 呼べる検索",
+      "conveys": "Stable whole path, understandable without sound.",
+      "incoming": "All edges flow-coloured and emphasis back to full (28.3-28.9 s); camera to the whole diagram (28.2-28.9 s); title and rail switch 28.5-28.9 s.",
+      "events": "None. Still from 28.9 s to 32 s; poster at 31 s.",
+      "outgoing": "End at 32 s."
+    }
+  ],
+  "quoted_values_source": "Counts (8 terms, 7 conditions, 2/3/4 tests, RED fail 1, 18 checks, 0/0 findings), labels, the request quote, file name and bytes are read at runtime from validated assets. Result cards are the objects returned by the original search.mjs for wide-ui; the baseline count is the length returned by baseline/search.mjs.",
+  "scope": {
+    "original_production": "Original Opus 5.5 authoring of glossary/spec/tests/code in separate calls, 7 Node v24.18.0 runs by the production owner, 18 acceptance checks, and two independent AI review axes (Standards 0, Spec 0). All preserved; none rerun for this revision.",
+    "parent_packaging": "concept/structure.json, concept/manifest.json and outputs/*.json (repackaging of the same saved sample objects, UTF-8/LF), desk.html and video/legacy.html archives.",
+    "new_authoring": "This revision's diagram, motion, controls and Japanese copy (index.html, concept.css, concept.js, video/*), written by claude-opus-5-5."
+  },
+  "status": {
+    "authored": "source files written by claude-opus-5-5 without running a browser, renderer or MP4 encoder",
+    "browser_preview": "not run at authoring",
+    "frame_render": "not run at authoring",
+    "mp4": "not created at authoring",
+    "review": "pending; the producer adds actual verification records later"
+  }
+}

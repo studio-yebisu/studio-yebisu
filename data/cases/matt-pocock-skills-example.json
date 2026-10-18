@@ -1,101 +1,98 @@
 {
   "id": "matt-pocock-skills-example",
-  "title": "『探しやすくして』を、確かめられる検索にする",
+  "title": "Matt Pocock Skills作例：AIへ渡す、開発の手順",
   "title_lines": [
-    "『探しやすくして』を、",
-    "確かめられる検索にする"
+    "AIへ渡す、",
+    "開発の手順。",
+    "Matt Pocock Skillsの構造"
   ],
   "category": "development",
-  "summary": "Matt Pocock Skills は、仕様の言葉をそろえる・テストから進める・設計を保つ・レビューするといった開発の手順を、必要なものだけ選んで使えるエージェント向けのスキル集です。架空の依頼「UIでもｕｉでも探せて、タグも見てほしい。言葉を足したら絞れて、分野でも選べると便利。」と合成データ6件の既存検索を、domain-modeling で用語と完成条件にし、tdd の規則で「新しいテスト1件 → 実際の失敗 → 最小の変更 → 成功」を3段繰り返して直しました。Node v24.18.0 で7回の実行を記録し、最後は4件のテストがすべて成功、別の18項目の受け入れ確認もすべて期待どおりでした。作例のページでは、変更前と変更後の同じ関数に好きな検索語を通して比べられます。仕様は制作担当が決めたもので、利用者との合意やテストの境界の確認はしていません。",
+  "summary": "Matt Pocock Skillsは、AIが読む開発手順のMarkdownスキル集です。選んだ4つの指示書から、用語と検索の入口を決め、AIがテスト・コードを書き、制作担当がNodeで失敗と成功を確かめ、独立した2つの観点で差分を見る構造を、大きな図と32秒の無音動画にしました。元の検索関数と実行記録をそのまま使います。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/matt-pocock-skills-example/index.html",
   "video": "media/matt-pocock-skills-example.mp4",
   "poster": "media/matt-pocock-skills-example.webp",
-  "skill": "examples/matt-pocock-skills-example/vendor/matt-pocock-skills/skills/engineering/tdd/SKILL.md",
-  "skill_label": "原典の tdd SKILL.md（固定コミット 49dd158）",
-  "skill_description": "失敗するテストから1段ずつ進めるための規則と、残す価値のあるテストの条件",
+  "skill": "examples/matt-pocock-skills-example/vendor/matt-pocock-skills/README.md",
+  "skill_label": "原典README（固定版のスキル集の案内）",
+  "skill_description": "必要な開発手順を選ぶための案内。今回説明するのはdomain-modeling・codebase-design・tdd・code-reviewの4つです。",
   "samples": "examples/matt-pocock-skills-example/samples.json",
   "sample_format": "input-output",
-  "samples_title": "架空の検索の、3つの変更前と変更後",
-  "samples_intro": "入力は、この作例の合成データ6件に対する検索語と分野です。結果は、変更前（baseline/search.mjs）と変更後（search.mjs）の searchEntries を制作時に Node v24.18.0 で実行して保存した掲載項目です。作例のページでは同じ入力をその場で計算し、保存した結果と一致するかを表示します。",
-  "demo_description": "検索語と分野を入れると、変更前と変更後の searchEntries に同じ合成データ6件を通し、結果の件数・表題・タグを並べて比べられます。関数はブラウザーの中で実際に動き、入力は外へ送りません。「全角でもタグまで探す」「語を足して1件へ絞る」「空語で分野だけを選ぶ」の3つの例は、#wide-ui・#and-query・#slides-only のリンクで直接開けます。保存した例や受け入れ確認と同じ入力なら記録との一致を、新しい入力ならその場の計算であることを表示します。依頼から仕様への決め方、3回の失敗と成功の記録、変更前後のコード、依頼文のコピー、スキルの選び方とファイルの一覧もあります。",
-  "demo_note": "検索の計算は、作例に同梱した search.mjs と baseline/search.mjs をページが読み込んで行います。AIは動かず、外部のサービスやWebフォントにも接続しません。テストと受け入れ確認の結果は制作時に保存した記録で、ページを開くたびに再実行してはいません。新しい検索語の結果は、制作時に確かめたものではありません。依頼とデータは架空です。",
+  "samples_title": "合成データ6件に対する、保存済みの3つの検索",
+  "samples_intro": "元のNode実行で保存した入力と結果です。全角ＵＩは0→3件、UIと設計の2語は0→1件、空の語とslidesは6→2件。新しい図でも同じ元関数を呼んでIDと掲載順を照合しますが、原テストや推論を再実行した記録にはしません。",
+  "demo_description": "読む・確かめる・使うの3段階で、4冊の手順書、依頼、執筆するAI、別に実行するNode、2軸の照合、実際に使える検索関数の関係を見られます。3つの例を選ぶと元の関数がその場で計算し、保存済みの結果と一致する掲載項目を同じ紙で示します。実結果JSONの保存と、元の検索画面への移動ができます。",
+  "demo_note": "原作例の推論、Nodeテスト、独立AIレビューを再実行したものではありません。用語・仕様・seamは制作担当の事前の決定で、利用者との合意はありません。元の独立レビューの対象は検索コードと仕様で、新しい図・画面・映像は対象外です。新画面の原関数の呼び出しと、制作時の実行記録を区別します。",
   "request_intro": "Matt Pocock Skills の domain-modeling・codebase-design・tdd を読めるコーディングエージェントに、次の文章を渡します。【】を自分の依頼と対象に置き換えてください。この作例では手順3の確認を制作担当の事前の決定で代えましたが、依頼文では原典どおり確認を待つ形にしています。",
   "request": "Matt Pocock Skills（mattpocock/skills、固定コミット 49dd158d1076134a641b33efb035946536778336）の skills/engineering/domain-modeling/SKILL.md と GLOSSARY-FORMAT.md、skills/engineering/codebase-design/SKILL.md、skills/engineering/tdd/SKILL.md と tests.md・mocking.md を読んでから、既存の検索機能を直してください。\n\n元の依頼：【例：UIでもｕｉでも探せて、タグも見てほしい。言葉を足したら絞れて、分野でも選べると便利。】\n対象の関数とファイル：【例：search.mjs の searchEntries(entries, query, { category })】\nテストの実行コマンド：【例：node --test search.test.mjs】\n\n進め方：\n1. 依頼の言葉のうち読み方が分かれるものを挙げ、GLOSSARY.md に用語として決めてください。実装の詳細は GLOSSARY.md に書かず、仕様の文書に書いてください。\n2. 曖昧な点ごとに決め方と対象外を書き、データに対する期待値を、実装と同じ計算ではなく固定の値で書いてください。決められない点は推測で埋めず、私に質問してください。\n3. テストを置く公開の境界（seam）を提案し、それぞれ捉えるものと捉えないものを1行で書いて、テストを書く前に私の確認を待ってください。\n4. 確認したseamで新しいテストを1件だけ足して実行し、期待値の不一致で失敗することを確かめてから、通るだけの最小の変更をしてください。これを1段ずつ繰り返し、次の段を先回りして実装しないでください。整理し直し（リファクタリング）はこの繰り返しに含めず、別に提案してください。\n5. 各段の実行コマンド、終了コード、テスト数・成功・失敗の数を、実際の出力から記録してください。\n\n報告では、決めた用語と仕様、各段の失敗と成功の記録、変更したファイル、試していない入力と対象外を分けて書いてください。",
-  "video_note": "28秒、音声なし。架空の依頼から用語と完成条件を先に決めること、検索語「ＵＩ」で変更前0件・変更後3件になること、「UI　設計」で1件に絞れること、3段それぞれの失敗1件から全成功（2件・3件・4件）への記録、持ち帰れるファイルの順に進みます。名前・タグ・件数は results.json、テストの数とNodeの版は tdd-history.json から読み、記録の形が合わなければ描きません。28秒・1280×720・30fpsの無音MP4を書き出し、14枚のコンタクトシート・12枚の連続フレーム・代表フレームと実MP4の14秒を見て、ブラウザーで28秒の終端まで再生しました。16.8秒は異なる移動順と新しいページで同じ画像でした。同じ実行環境内での確認で、人の承認ではありません。",
+  "video_note": "32秒・30fps・完全無音。縦720×1280と横1280×720を別配置で描きます。4冊の指示書→依頼と用語・仕様→同じ小さな入口→AIの執筆と制作担当のNode実行の反復→独立AIの規約と仕様の2軸→元の検索関数に6枚の掲載項目を渡し実結果へ進みます。TDDの数字は元の保存記録で、動画内でNodeやAIは実行しません。",
   "video_source": "examples/matt-pocock-skills-example/video/index.html",
   "skill_license": "examples/matt-pocock-skills-example/vendor/matt-pocock-skills/LICENSE",
   "applied_skills": [
     {
       "name": "domain-modeling（Matt Pocock Skills）",
       "source": "https://github.com/mattpocock/skills/blob/49dd158d1076134a641b33efb035946536778336/skills/engineering/domain-modeling/SKILL.md",
-      "applied": "固定版の SKILL.md と GLOSSARY-FORMAT.md を読んで適用した。既存の GLOSSARY.md がなかったため、最初の語が決まった時点で作った（Create files lazily）。依頼の「UI/ｕｉ」「タグ」「言葉」「分野」を、表記ゆれ・タグ・語・分野などに固定し（Sharpen fuzzy language）、検索語・語・タグのどれにも読める「キーワード」は各語の _Avoid_ に入れた。GLOSSARY-FORMAT.md の「# 文脈名」「## Language」の形で、何であるかだけを1〜2文で書き、NFKC・小文字化・関数名・ANDの手順などの実装の詳細は SPEC.md 側に置いた。原典の「具体的な場面で話し合う」は利用者との対話を前提にするが、この作例では質問しておらず、代わりに全角の検索語・全角空白でのAND・未知の分野・空白だけの検索語を SPEC.md の受け入れ例として書き出した。既存コードとの照合（Cross-reference with code）で、元の実装が表題だけを見て category を使っていないことを確かめ、3段の対象にした。作例は可逆でトレードオフも小さいため、ADRは作っていない。"
+      "applied": "固定版の SKILL.md と GLOSSARY-FORMAT.md を読んで適用した。既存の GLOSSARY.md がなかったため、最初の語が決まった時点で作った（Create files lazily）。依頼の「UI/ｕｉ」「タグ」「言葉」「分野」を、表記ゆれ・タグ・語・分野などに固定し（Sharpen fuzzy language）、検索語・語・タグのどれにも読める「キーワード」は各語の _Avoid_ に入れた。GLOSSARY-FORMAT.md の「# 文脈名」「## Language」の形で、何であるかだけを1〜2文で書き、NFKC・小文字化・関数名・ANDの手順などの実装の詳細は SPEC.md 側に置いた。原典の「具体的な場面で話し合う」は利用者との対話を前提にするが、この作例では質問しておらず、代わりに全角の検索語・全角空白でのAND・未知の分野・空白だけの検索語を SPEC.md の受け入れ例として書き出した。既存コードとの照合（Cross-reference with code）で、元の実装が表題だけを見て category を使っていないことを確かめ、3段の対象にした。作例は可逆でトレードオフも小さいため、ADRは作っていない。 今回の改修は、この原実行と出力を再制作せず保全し、指示書の役割・渡す素材・執筆と実行の担当・受け取る成果の構造へ対応させました。"
     },
     {
       "name": "codebase-design（Matt Pocock Skills）",
       "source": "https://github.com/mattpocock/skills/blob/49dd158d1076134a641b33efb035946536778336/skills/engineering/codebase-design/SKILL.md",
-      "applied": "参照として読み、公開する関数を searchEntries(entries, query, { category }) の1つに保った。表記ゆれ・タグ・AND・分野を、引数を増やさずにその内側へ入れ（小さなinterfaceの後ろに多くの振る舞い）、テストもページも同じ関数を通す。渡された作例集を変更せず新しい配列を返すことを SPEC.md と CODING_STANDARDS.md に書いた。正規化や語の分割のための内部の境界は作らず、補助関数はexportしない。"
+      "applied": "参照として読み、公開する関数を searchEntries(entries, query, { category }) の1つに保った。表記ゆれ・タグ・AND・分野を、引数を増やさずにその内側へ入れ（小さなinterfaceの後ろに多くの振る舞い）、テストもページも同じ関数を通す。渡された作例集を変更せず新しい配列を返すことを SPEC.md と CODING_STANDARDS.md に書いた。正規化や語の分割のための内部の境界は作らず、補助関数はexportしない。 今回の改修は、この原実行と出力を再制作せず保全し、指示書の役割・渡す素材・執筆と実行の担当・受け取る成果の構造へ対応させました。"
     },
     {
       "name": "tdd（Matt Pocock Skills、RED/GREEN の規則を限定して適用）",
       "source": "https://github.com/mattpocock/skills/blob/49dd158d1076134a641b33efb035946536778336/skills/engineering/tdd/SKILL.md",
-      "applied": "固定版の SKILL.md・tests.md・mocking.md を各段の前に読み直した。GLOSSARY.md を読み、テスト名に検索語・表題・タグ・掲載項目・分野・掲載順を使った。「Red before green」「One slice at a time」に沿い、各段で新しいテストを1件だけ足し、実装は変えずに実行して、期待した識別子の配列との不一致（ERR_ASSERTION）で失敗することを親の制作工程の実行で確かめてから、通るだけの変更をした。記録は baseline 1件成功、red1 2件中1件失敗 → green1 2件成功、red2 3件中1件失敗 → green2 3件成功、red3 4件中1件失敗 → green3 4件成功（Node v24.18.0）。次の段の振る舞いは先回りして実装せず、整理し直しも繰り返しに含めていない（Refactoring is not part of the loop）。期待値は実装と同じ計算ではなく、合成データを読んで決めた固定の識別子のリストにした（Tautological を避ける）。自分で制御するものはモックせず、entries.json を実データとして読む。原典の「Test only at pre-agreed seams … confirm them with the user」は満たしていない。境界は制作担当が searchEntries の1つに事前に決め、捉えるもの・捉えないものを SPEC.md に書いたが、利用者との確認はしていない。"
+      "applied": "固定版の SKILL.md・tests.md・mocking.md を各段の前に読み直した。GLOSSARY.md を読み、テスト名に検索語・表題・タグ・掲載項目・分野・掲載順を使った。「Red before green」「One slice at a time」に沿い、各段で新しいテストを1件だけ足し、実装は変えずに実行して、期待した識別子の配列との不一致（ERR_ASSERTION）で失敗することを親の制作工程の実行で確かめてから、通るだけの変更をした。記録は baseline 1件成功、red1 2件中1件失敗 → green1 2件成功、red2 3件中1件失敗 → green2 3件成功、red3 4件中1件失敗 → green3 4件成功（Node v24.18.0）。次の段の振る舞いは先回りして実装せず、整理し直しも繰り返しに含めていない（Refactoring is not part of the loop）。期待値は実装と同じ計算ではなく、合成データを読んで決めた固定の識別子のリストにした（Tautological を避ける）。自分で制御するものはモックせず、entries.json を実データとして読む。原典の「Test only at pre-agreed seams … confirm them with the user」は満たしていない。境界は制作担当が searchEntries の1つに事前に決め、捉えるもの・捉えないものを SPEC.md に書いたが、利用者との確認はしていない。 今回の改修は、この原実行と出力を再制作せず保全し、指示書の役割・渡す素材・執筆と実行の担当・受け取る成果の構造へ対応させました。"
     },
     {
       "name": "code-review（Matt Pocock Skills、独立AIの2軸レビュー）",
       "source": "https://github.com/mattpocock/skills/blob/49dd158d1076134a641b33efb035946536778336/skills/engineering/code-review/SKILL.md",
-      "applied": "架空の既存実装の基準コミット8ec362fdce723a627e60cd801b1db6de04e6ed47から、検索コード・テスト・仕様のHEAD8a1e0bf291d1da2b897507b1ebccbe725e9418abまでをgit diffの3点比較で固定し、コミット4件を捕捉。コーディング基準と12項目のsmell baselineを照合するStandards担当、SPEC.mdを照合するSpec担当を独立AIへ並列に割り当て、それぞれ400語以内で報告した。Standards0件、Spec0件を別々に保存し、軸を統合して再順位付けしていない。元のGit履歴・tracker・基準点・仕様は制作担当が作例用に与えたもので、利用者が別途指定した基準点や人の承認ではない。画面と映像はこのレビューの対象外。"
+      "applied": "架空の既存実装の基準コミット8ec362fdce723a627e60cd801b1db6de04e6ed47から、検索コード・テスト・仕様のHEAD8a1e0bf291d1da2b897507b1ebccbe725e9418abまでをgit diffの3点比較で固定し、コミット4件を捕捉。コーディング基準と12項目のsmell baselineを照合するStandards担当、SPEC.mdを照合するSpec担当を独立AIへ並列に割り当て、それぞれ400語以内で報告した。Standards0件、Spec0件を別々に保存し、軸を統合して再順位付けしていない。元のGit履歴・tracker・基準点・仕様は制作担当が作例用に与えたもので、利用者が別途指定した基準点や人の承認ではない。画面と映像はこのレビューの対象外。 今回の改修は、この原実行と出力を再制作せず保全し、指示書の役割・渡す素材・執筆と実行の担当・受け取る成果の構造へ対応させました。"
     },
     {
       "name": "Motion Reel",
       "source": "https://github.com/studio-yebisu/motion-reel/tree/56198544e69201b1c202e0c00fb90b568a729824",
-      "applied": "解説動画のソースを、window.seek(秒) がその時刻の完成した画面だけを描く契約で書いた。motionConfig（28秒・30fps・1280×720・posterTime 8・audioEventsなし）、renderConfig の幅・高さ・FPSの反映（縦長の配置は作らず、縮尺だけを合わせる）、../results.json・../tdd-history.json・../input.md・../GLOSSARY.md の読み込みと検証とフォントの準備を待つ motionReady、書き出し中のプレビュー停止に従った。素材が欠けたり、各段の記録が「失敗1件 → 全成功」の形でなかったりすると motionReady を失敗させ、代わりの図は描かない。名前・タグ・件数・テストの数・Nodeの版はすべて読み込んだ記録から作り、架空のターミナルの画面は作っていない。場面ごとに伝えることを1つにし、文字は24px以上、CSSの動きは使わず、最後の場面は24.4秒までに出し終えて3.5秒以上止める。実際に840フレームを書き出し、コンタクトシート14枚・連続12枚・8/20/24/26秒の代表と実MP4の14秒を見た。16.8秒の画像が任意順・新しいページで一致し、実MP4はブラウザーで28秒終端・errorなし。これは技術検査と制作担当の視覚確認で、人の承認ではない。"
+      "applied": "原作例の28秒編集ソース・検索データ・テスト記録を保全。新しいOpus5.5が、4つの手順書とAI執筆・別のNode実行・独立した2軸の記録・元の実関数と掲載項目をつなぐ図と32秒完全無音動画の8原本を書きました。25固定素材、任意時刻の描画、別の縦横配置、代表・連続フレーム、コンタクトシート、編集ソースと実MP4は制作側の新QAで確認しました。"
+    },
+    {
+      "name": "frontend-design（新しい概念図のUI）",
+      "source": "https://github.com/anthropics/skills/blob/dbd4588f9e1033efb41dad4bef2f7947c8993d44/skills/frontend-design/SKILL.md",
+      "applied": "固定版の指示を新しいOpusへ読み込ませ、4冊の指示書と同じ紙が動く仕事台の構成、短いラベル、スマホの全体図と主操作、配色・焦点・動きを減らす設定へ適用しました。"
     }
   ],
   "steps": [
     {
-      "title": "原典を固定し、使うスキルを選ぶ",
-      "body": "mattpocock/skills のコミット 49dd158 を固定し、README・LICENSE と、domain-modeling・codebase-design・tdd・code-review の本文を変更せずに作例へ同梱しました。利用者との対話を前提にする grill-with-docs・grilling・to-spec・setup-matt-pocock-skills は、対話がないこの作例では使っていません。"
+      "title": "4つの手順書を選ぶ",
+      "body": "大きなスキル集から、言葉を決めるdomain-modeling、同じ小さなinterfaceを使うcodebase-design、失敗を見てから通すtdd、差分を規約と仕様で分けて見るcode-reviewを選びました。4つの自動エージェントや、検索APIそのものではありません。"
     },
     {
-      "title": "依頼の言葉を、用語に決める",
-      "body": "架空の依頼の「UI/ｕｉ」「タグ」「言葉」「分野」を、表記ゆれ・タグ・語・分野などの用語として GLOSSARY.md に書きました。避ける言い方も添え、実装の詳細は入れていません。"
+      "title": "依頼の言葉と、テストする入口を定める",
+      "body": "架空の依頼から用語8つと仕様7条件を書き、searchEntries(entries, query, {category})の1つをテストのseamにしました。制作担当が先に決めた条件を元のAIが文章化したもので、利用者への聞き取りやseamの合意はしていません。"
     },
     {
-      "title": "曖昧さの決め方と、完成条件を書く",
-      "body": "どこまでを同じ書き方とみなすか、どこを探すか、語を足したらどう効くか、未知の分野はどうするかを決め、7つの完成条件と、合成データ6件に対する固定の期待値、対象外を SPEC.md に書きました。決めたのは制作担当で、利用者からの回答ではありません。"
+      "title": "AIの執筆と、Nodeの実行を往復する",
+      "body": "元のOpusがテストと最小のコード変更を書き、制作担当が別工程でNode v24.18.0を実行しました。テスト2件・3件・4件の各段で、新しい1件が失敗してから全件成功した実記録を保持しています。別の18項目の受け入れ確認は、4件のテストと混ぜません。"
     },
     {
-      "title": "テストの境界を1つに決める",
-      "body": "テストを置く境界は searchEntries(entries, query, { category }) の1つにし、捉えるもの（返る掲載項目の集合と順序）と捉えないもの（画面・速度・大きなデータなど）を書きました。原典は利用者との確認を求めますが、この作例では行っていません。"
+      "title": "同じ差分を、独立した2つの観点で照合する",
+      "body": "元の固定差分をStandardsとSpecの独立AIへ渡し、指摘各0件を別々に保存しました。人の承認や全入力の品質保証ではありません。このレビューは原作例の検索コード・仕様のもので、新しい図・映像へのレビューとは区別します。"
     },
     {
-      "title": "失敗してから通す、を3回",
-      "body": "表記ゆれとタグ、語を足して絞る、分野で選ぶの順に、新しいテストを1件足して実行し、期待した掲載項目との不一致で失敗するのを見てから、通るだけの変更をしました。テスト数は2件・3件・4件と増え、各段の失敗時と成功時のファイルを tdd/ に残しています。"
-    },
-    {
-      "title": "テストとは別に、18項目を確かめる",
-      "body": "空白だけの検索語、半角カタカナ、未知の分野、分野名や識別子を検索語にした場合、記号を含む入力など18項目を別の確認で実行し、すべて期待どおりでした。毎回新しい配列を返し、渡したデータを変えていないことも確かめています。"
-    },
-    {
-      "title": "比べられるページと28秒の動画にする",
-      "body": "変更前と変更後の関数をブラウザーで読み込み、好きな検索語で比べられるページを作りました。Motion Reel の時間の契約に沿って、保存した結果と実行記録だけを使う28秒の解説動画のソースも書いています。"
-    },
-    {
-      "title": "規約・仕様、表示と映像を確かめる",
-      "body": "独立AI2軸は指摘各0。390pxと1280pxで横溢れなし、3プリセットと任意入力、Enter、0件と保存記録/新しい入力の区別、依頼文945文字のOSクリップボード一致、UTF-8の依頼文別ページの一致を確認。無音MP4は書き出した実物を終端まで再生しました。"
+      "title": "元の検索関数を、本当に呼んで使う",
+      "body": "新しい図は保全したbaseline/search.mjsとsearch.mjsを実際に呼び、保存済み3例と掲載項目のID・順序が一致することを確かめて描きます。実結果JSONを保存し、元の全文・任意検索ビューアへ進めます。共有サイトの検索コードは変更していません。"
     }
   ],
   "limitations": [
-    "依頼・合成データ6件・既存のコードは、この作例のために作った架空のものです。Studio Yebisu のサイトの検索は変えていません。",
-    "仕様とテストの境界は制作担当が事前に決めました。利用者への聞き取り、仕様や境界の合意、人による承認はしていません。原典の手順の全体を実行したわけではありません。",
-    "テストと受け入れ確認は、制作時に Node v24.18.0 で実行した自動の確認です。ページを開くたびに再実行してはいません。",
-    "ページで新しく入れた検索語の結果は、その場で関数が計算したもので、制作時のテストや受け入れ確認では確かめていません。",
-    "誤字の許容、同義語、ひらがなとカタカナの同一視、並べ替えや関連度順、一致箇所の強調、型が不正な入力、速度、大きなデータ、サーバー側の検索は扱っていません。",
-    "スキルのインストールの手順そのものは試していません。",
-    "解説動画は音声なしです。",
-    "規約・仕様の独立レビューはAIによる、固定した検索コードの差分の照合です。人の承認、画面の審査、全入力や大規模データの品質保証ではありません。動画の再現性は同じ環境の16.8秒だけを照合しています。"
+    "選んだ4つの手順を、この架空の検索に限定して使った作例です。コレクション全体やインストール手順を適用したものではありません。",
+    "用語・仕様・seamは制作担当が事前に決めています。原典tddが要求する利用者とのseam合意は行っておらず、手順全体を満たした実施例ではありません。",
+    "元のOpusによる執筆、7回のNodeテスト実行、別の18受け入れ確認、2軸の独立AIレビューは保全し、再実行していません。元の4テスト・18項目を新しい画面の検査として流用しません。",
+    "独立レビューは元の固定した検索コードの差分・用語・仕様が対象です。利用者指定の基準点や人の承認ではなく、新しい画面・映像へのレビューでもありません。",
+    "ページではAI・Nodeのテストを実行しません。元のJavaScript関数はブラウザーで実際に呼びます。元ビューアで自由入力した検索は、その場の計算で、保存済みの全入力テストとは区別します。",
+    "ひらがなとカタカナの同一視、誤字・同義語、並べ替え、関連度順、型が不正な入力、速度・大規模データ、サーバー検索は扱いません。IDや分野名は語の検索対象ではありません。",
+    "公式9資料のGitblobを確認していますが、元の配布9ファイルはCRLF、公式のLFとはバイトとSHAが異なります。CRLFのみ正規化した内容・Gitblobの一致と、元配布バイトの保全を区別しています。",
+    "実結果JSON3件は元のresult sampleobjectをUTF8/LFで包装したもので、新しいモデル出力やテスト実行記録ではありません。",
+    "新しい図と32秒映像の8原本はOpus5.5が執筆し、制作側の事実構造・JSON包装・描画・QA・公開とは区別します。自動検査とエージェントの画面確認は人の審美的承認ではありません。",
+    "実機iOS/Safari/VoiceOver、200%ズーム、人の審美的承認、クリップボード内容の再取得は未確認です。縦横の解説MP4に音声トラックはありません。",
+    "元の63保護ファイルは同じバイトで保持しています。旧desk.htmlだけ、28秒の編集ソースへのリンクを保全先video/legacy.htmlへ向け、元HTMLは基準コミットと私的原本に残しました。"
   ],
   "sources": [
     {
@@ -169,16 +166,40 @@
     {
       "label": "架空の既存実装からの変更差分",
       "url": "examples/matt-pocock-skills-example/changes.diff"
+    },
+    {
+      "label": "スキルと実行の概念構造",
+      "url": "examples/matt-pocock-skills-example/concept/structure.json"
+    },
+    {
+      "label": "全角UIの実結果JSON",
+      "url": "examples/matt-pocock-skills-example/outputs/wide-ui.json"
+    },
+    {
+      "label": "原出力と今回の確認の区別",
+      "url": "examples/matt-pocock-skills-example/visual-verification.json"
+    },
+    {
+      "label": "元の任意検索ビューア",
+      "url": "examples/matt-pocock-skills-example/desk.html"
+    },
+    {
+      "label": "概念図・無音動画の再現手順",
+      "url": "examples/matt-pocock-skills-example/visual-guide.md"
+    },
+    {
+      "label": "縦横動画の再現スクリプト",
+      "url": "examples/matt-pocock-skills-example/render-visual.py"
     }
   ],
   "license": "MIT",
-  "license_note": "この作例の画面構成・文言・依頼文・合成データ・コード・テスト・記録・映像ソースは Studio Yebisu の独自制作で、MIT License です。vendor/matt-pocock-skills/ は Matt Pocock Skills の固定コミット 49dd158 から選んだ README・LICENSE と domain-modeling・codebase-design・tdd・code-review の本文を変更せずに置いたもので、上流の MIT License（Copyright (c) 2026 Matt Pocock）に従います。上流の画像は使っていません。",
+  "license_note": "原作例と新しい図・映像の独自制作部分はMIT、Studio Yebisu。vendor/matt-pocock-skills/の9ファイルは固定49dd158のMIT、Copyright(c)2026 Matt Pocockの通知を保持します。元の配布CRLFを保ち、公式GitblobのLFとの正規化内容一致を、未改変rawbytes一致と混同しません。原典画像は使っていません。",
   "catalog_entry": {
     "id": "resource-matt-pocock-skills",
     "name": "Matt Pocock Skills",
     "category": "development",
     "kind": "スキル",
-    "summary": "仕様の明確化、実装、レビューなどを、組み合わせて使える開発スキル集。",
+    "summary": "AIが読む開発手順のスキル集。4つの手順書、用語と小さな入口、執筆と実行の反復、独立した規約・仕様の照合から実関数へつながる構造を図で理解できます。",
     "use_case": "既存プロジェクトに合う開発手順を選び、小さく適用したいとき。",
     "tags": [
       "実装",
@@ -210,8 +231,9 @@
     "source_note": "公開リポジトリのREADMEと利用条件を確認し、用途と最初の試し方を日本語で整理しました。スキルは入口または代表の本文も参照しています。原典は確認時のコミットへ固定しています。作例で使ったのは domain-modeling・codebase-design・tdd の3つで、tdd は失敗と成功の規則を限定して適用し、利用者とのテストの境界の確認はしていません。 code-reviewの2軸照合も別々のAIで実施。基準点とローカルtrackerは制作担当が指定した。",
     "prompt": "Matt Pocock Skills の原典（https://github.com/mattpocock/skills/tree/49dd158d1076134a641b33efb035946536778336）を読んで、次を進めてください。\n既存の検索機能について、曖昧な仕様を整理するスキルと実装に合うスキルを選んでください。変更範囲を絞り、検証できる完成条件を作ってください。\n入力、出力、実行した検証、未確認の点を記録してください。",
     "verification_stage": "runtime-reviewed",
-    "verification": "Opus5.5で架空の既存検索・合成6件にdomain-modeling/codebase-design/tddのRED-GREENを適用。実Node v24.18.0で3段それぞれassertion失敗1件→全成功、最後4/4、別の18条件もpassed。独立AIレビューは規約/仕様の各0件。390/1280pxの横溢れなし、3プリセット・任意入力・Enter・0件表示・945文字OSコピー・依頼文別ページ一致を確認。28秒1280×720/30fpsの無音MP4をレンダーし、フレーム確認と終端再生。人の承認・利用者との仕様/seam合意・インストール手順・大規模/速度検証は未実施。",
-    "reviewed_on": "2026-10-15"
+    "verification": "元の架空検索/6掲載項目/3保存例、7Node実行/3RED-GREEN循環/別18確認/独立AI2軸を保全。新図は元関数を本当に呼んで一致を照合し、実JSON保存・元ビューア・32秒縦横無音動画を確認。利用者のseam合意、人の承認、大規模/速度/インストールは未確認。原典9CRLF配布と公式LFの正規化内容一致を区別。",
+    "reviewed_on": "2026-10-18"
   },
-  "updated_on": "2026-10-15"
+  "updated_on": "2026-10-18",
+  "verification_stage": "runtime-reviewed"
 }

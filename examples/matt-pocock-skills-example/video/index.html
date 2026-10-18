@@ -1,33 +1,87 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" data-page="matt-pocock-skills-film">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; font-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-  <title>解説動画のソース：『探しやすくして』を、確かめられる検索にする</title>
-  <link rel="stylesheet" href="scene.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
+<title>図解32秒・無音の元ページ — AIに、開発の手順を渡す（Matt Pocock Skills 作例）</title>
+<link rel="stylesheet" href="video.css">
 </head>
 <body>
-  <div class="viewport">
-    <div class="holder" id="holder">
-      <div class="stage" id="stage" role="img" aria-label="解説動画：架空の依頼から用語と完成条件を決め、検索語「ＵＩ」と「UI　設計」で変更前と変更後の実際の結果を比べ、3回の失敗と成功の記録を示し、持ち帰れるファイルを並べる28秒の映像。">
-        <div class="box" id="box"></div>
-      </div>
-    </div>
+<header class="intro">
+  <p class="kicker">Matt Pocock Skills 作例・図解動画の元ページ</p>
+  <h1>AIに、開発の手順を渡す<span class="sub">図解32秒・無音（<span id="film-dims">縦 720×1280</span>・30fps）</span></h1>
+  <p>作例ページと同じ25件の素材を照合し、元の search.mjs と baseline/search.mjs を読み込み時に1回だけ実際に呼んでから、同じ概念図を描きます。4冊の手順書、AIの執筆、同じテストの紙が往復する制作担当のNode、規約と仕様の2つの目、同じ6件が入る1つの入口、原関数が返した掲載項目、保存したJSONまでが、同じ形のままつながります。例は「全角UI」です。ここではAIもNodeのテストも動かず、音もありません。</p>
+</header>
+
+<figure id="stage" class="stage" data-orient="portrait">
+  <canvas id="film" width="720" height="1280" role="img"
+    aria-label="図解動画の画面。0秒から4秒：AIが読む手順書4冊（言葉・入口・テスト・照合）が大きく1冊ずつ並び、棚の並びへ戻ります。4秒から8秒：架空の依頼と旧コードが「AIが執筆」へ入り、用語集8語と仕様7条件が書かれ、searchEntriesという1つの入口を持つ検索モジュールが現れます。入口には「seam：利用者未確認」の札が付きます。8秒から13秒：AIが書いたテストの紙が、制作担当が実行するNodeへ移り、2件中1件の失敗（RED）が出ます。最小の変更の紙が続き、2件とも成功（GREEN）して、入口の中身に「表記とタグ」の層が入ります。13秒から18秒：同じ輪とタブで段2と段3が進み、テストは3件、4件で全件成功、中身は3層になります。テストとは別の18項目の確認の札が付きます。18秒から23秒：入口のコードから固定差分が出て、規約と仕様の2つの目が別々に見ます。指摘は各0件で、目からコードへ戻る矢印はありません。23秒から29秒：同じ6件の掲載項目が入口へ入り、原関数が返した3件（UI設計ノート・配色ラボ・カードの動き）が黄色の帯で順に現れ、旧コードは0件と示されます。保存したwide-ui.json（634バイト）と元の検索台へつながります。29秒から32秒：全体の経路が同じ濃さで止まります。"></canvas>
+  <figcaption id="film-caption" class="caption" aria-live="polite"></figcaption>
+</figure>
+
+<section class="controls" aria-label="プレビューの操作">
+  <div class="row">
+    <button id="play" type="button" aria-pressed="false" disabled>再生</button>
+    <button id="reset" type="button" disabled>先頭へ</button>
+    <button id="replay" type="button" disabled>最初から再生</button>
+    <button id="end" type="button" disabled>末尾へ</button>
   </div>
-  <div class="controls" id="controls" hidden>
-    <button type="button" id="play" aria-pressed="false">再生</button>
-    <input type="range" id="scrub" min="0" max="28" step="0.0333333" value="0" aria-label="時刻（秒）">
-    <output id="time" for="scrub">0.00秒</output>
-    <div class="chapters" role="group" aria-label="場面へ移動">
-      <button type="button" data-at="0">1 依頼</button>
-      <button type="button" data-at="4.5">2 ＵＩ</button>
-      <button type="button" data-at="10.5">3 UI　設計</button>
-      <button type="button" data-at="16.5">4 記録</button>
-      <button type="button" data-at="22.5">5 持ち帰る</button>
-    </div>
-    <p class="hint">プレビューです。書き出しでは、この操作の欄は表示しません。名前・タグ・件数・テストの数は <a href="../results.json">results.json</a> と <a href="../tdd-history.json">tdd-history.json</a> から読み込みます。<a href="../index.html">作例のページへ戻る</a></p>
+  <div class="scrub">
+    <label for="time">再生位置（0〜32秒）</label>
+    <input id="time" type="range" min="0" max="32" step="0.1" value="0" disabled>
+    <output id="clock" for="time">0.0秒 / 32.0秒</output>
   </div>
-  <script src="scene.js"></script>
+  <div class="row jumps" role="group" aria-label="場面へ移る">
+    <button type="button" data-jump="0" disabled>0秒</button>
+    <button type="button" data-jump="4" disabled>4秒</button>
+    <button type="button" data-jump="8" disabled>8秒</button>
+    <button type="button" data-jump="13" disabled>13秒</button>
+    <button type="button" data-jump="18" disabled>18秒</button>
+    <button type="button" data-jump="23" disabled>23秒</button>
+    <button type="button" data-jump="29" disabled>29秒</button>
+  </div>
+  <div class="row" role="group" aria-label="画面の向き">
+    <button type="button" data-orient="portrait" aria-pressed="true" disabled>縦 720×1280</button>
+    <button type="button" data-orient="wide" aria-pressed="false" disabled>横 1280×720</button>
+  </div>
+</section>
+<p id="asset-status" class="status" role="status" data-state="loading">素材 0/25 を照合しています…</p>
+<p class="retry-row"><button id="retry" class="retry" type="button" hidden>もう一度読み込む</button></p>
+<p class="hint">自動では再生しません。スライダーは ← → で0.1秒、Home・End で先頭・末尾へ移ります。</p>
+
+<section class="scenes" aria-labelledby="scenes-title">
+  <h2 id="scenes-title">場面</h2>
+  <ol>
+    <li><span class="time">0〜4秒</span>AIが読む、開発の手順書：言葉・入口・テスト・照合の4冊が、大きな2×2で1冊ずつ現れ、3.3〜4秒で棚の並びへ戻りながら全体へ引きます。</li>
+    <li><span class="time">4〜8秒</span>依頼と旧コードを読み、AIが書く：架空の依頼と旧コードが「AIが執筆」へ入り、用語集8語・仕様7条件と、1つの入口を持つ検索モジュールが現れます。入口の札は「事前に決定・利用者は未確認」です。</li>
+    <li><span class="time">8〜13秒</span>同じテストを、別のNodeで実行：テストの紙がNodeへ移ってRED（2件中 失敗1）、最小の変更の紙のあとGREEN（2件とも成功）。結果の線はAIへ戻り、入口の中身に1層入ります。AIがNodeを動かす絵にはしていません。</li>
+    <li><span class="time">13〜18秒</span>同じ輪で、1件ずつ足す：同じ輪とタブで段2（3件）・段3（4件）。最後にテストとは別の18項目の札。22件とは合算しません。</li>
+    <li><span class="time">18〜23秒</span>固定差分を、2つの目で別々に：入口のコードから固定差分が出て、規約と仕様の目が別々に見ます。指摘は各0件。目からコードへの矢印はなく、承認の印も描きません。</li>
+    <li><span class="time">23〜29秒</span>原関数に、同じ6件を通す：同じ6件が入口へ入り、原関数が返した掲載項目が順に現れます（旧コードは0件）。保存したJSONと元の検索台へつながります。</li>
+    <li><span class="time">29〜32秒</span>AIに、開発の手順を渡す：全体の経路を同じ濃さで静止（入りは28.3〜28.9秒、ポスターは31秒）。</li>
+  </ol>
+</section>
+
+<nav class="links" aria-label="関連するファイル">
+  <h2>関連するファイル</h2>
+  <ul>
+    <li><a href="../index.html">作例のページ（図・3件・実結果JSONの保存）</a></li>
+    <li><a href="../desk.html#wide-ui">元の検索台（任意の語で変更前と変更後を比べる）</a></li>
+    <li><a href="../outputs/wide-ui.json">保存した実結果（outputs/wide-ui.json）</a></li>
+    <li><a href="../concept/manifest.json">照合する25件（concept/manifest.json）</a></li>
+    <li><a href="storyboard.json">場面の設計（storyboard.json）</a></li>
+    <li><a href="README.md">この映像の説明（README.md）</a></li>
+    <li><a href="legacy.html">以前の28秒の映像ソース（legacy.html）</a></li>
+    <li><a href="../source.zip">入力・出力・ソース一式（source.zip）</a></li>
+  </ul>
+</nav>
+
+<footer class="foot">
+  <p>この映像は、保存済みの記録と、読み込み時に1回だけ行う原関数の実際の呼び出しから描いた図解です。AIの推論、Nodeのテスト、独立レビューは、ここでは実行していません。</p>
+  <p>原典：<a href="https://github.com/mattpocock/skills/tree/49dd158d1076134a641b33efb035946536778336" rel="noopener">mattpocock/skills</a>（コミット 49dd158）、MIT License、Copyright (c) 2026 Matt Pocock。映像のコードと文章：MIT License、Copyright (c) 2026 Studio Yebisu。</p>
+</footer>
+
+<script type="module" src="video.js"></script>
 </body>
 </html>

@@ -1,0 +1,298 @@
+{
+  "format": "matt-skills-structure/v1",
+  "case_id": "matt-pocock-skills-example",
+  "source_commit": "49dd158d1076134a641b33efb035946536778336",
+  "definition": "AIが読む開発手順のMarkdownスキル集。今回選んだ4つを、言葉・入口・実行の反復・独立した照合へ使う。",
+  "skills": [
+    {
+      "id": "domain",
+      "label": "言葉をそろえる",
+      "meaning": "domain-modeling：用語を決めGLOSSARY.mdへ。実装の詳細を用語集へ混ぜない。",
+      "source_path": "vendor/matt-pocock-skills/skills/engineering/domain-modeling/SKILL.md",
+      "line_start": 64,
+      "quote": "GLOSSARY.md` should be totally devoid of implementation details."
+    },
+    {
+      "id": "design",
+      "label": "小さな入口を決める",
+      "meaning": "codebase-design：小さなinterfaceに振る舞いをまとめ、そのseamを呼び出し側とテストで共有する。",
+      "source_path": "vendor/matt-pocock-skills/skills/engineering/codebase-design/SKILL.md",
+      "line_start": 64,
+      "quote": "The interface is the test surface."
+    },
+    {
+      "id": "tdd",
+      "label": "失敗してから通す",
+      "meaning": "tdd：一度に1つのテストを足し、実際の失敗を見てから最小の変更で通す。",
+      "source_path": "vendor/matt-pocock-skills/skills/engineering/tdd/SKILL.md",
+      "line_start": 36,
+      "quote": "Red before green."
+    },
+    {
+      "id": "review",
+      "label": "規約と仕様を分けて見る",
+      "meaning": "code-review：固定差分をStandardsとSpecの独立したAIで照合し、結果を別々に報告する。",
+      "source_path": "vendor/matt-pocock-skills/skills/engineering/code-review/SKILL.md",
+      "line_start": 11,
+      "quote": "Both axes run as **parallel sub-agents**"
+    }
+  ],
+  "parts": [
+    {
+      "id": "books",
+      "label": "AIが読む4つの手順書",
+      "meaning": "必要な工程を選ぶMarkdownスキル集。検索APIやモデルそのものではない。",
+      "source_path": "vendor/matt-pocock-skills/README.md",
+      "line_start": 15,
+      "quote": "My agent skills that I use every day"
+    },
+    {
+      "id": "terms",
+      "label": "依頼の言葉と用語集",
+      "meaning": "架空の依頼から掲載項目・表題・タグ・分野・検索語・語・表記ゆれなど8語を定めた。",
+      "source_path": "vendor/matt-pocock-skills/skills/engineering/domain-modeling/SKILL.md",
+      "line_start": 60,
+      "quote": "Update GLOSSARY.md inline"
+    },
+    {
+      "id": "interface",
+      "label": "検索の入口は1つ",
+      "meaning": "searchEntries(entries,query,{category})を制作担当が事前に選んだ。利用者とのseam合意はない。",
+      "source_path": "vendor/matt-pocock-skills/skills/engineering/codebase-design/SKILL.md",
+      "line_start": 64,
+      "quote": "Callers and tests cross the same seam."
+    },
+    {
+      "id": "loop",
+      "label": "AIの執筆とNodeの実行",
+      "meaning": "元のOpusがテストとコードを書き、制作担当が別工程でNodeを実行した。",
+      "source_path": "vendor/matt-pocock-skills/skills/engineering/tdd/SKILL.md",
+      "line_start": 37,
+      "quote": "One slice at a time."
+    },
+    {
+      "id": "review",
+      "label": "独立した2つの照合",
+      "meaning": "元の固定差分を独立AI2軸で照合した保存記録。両0件でも品質保証・人の承認ではない。",
+      "source_path": "vendor/matt-pocock-skills/skills/engineering/code-review/SKILL.md",
+      "line_start": 78,
+      "quote": "Do **not** merge or rerank findings"
+    },
+    {
+      "id": "result",
+      "label": "実際に呼べる検索関数",
+      "meaning": "保存済み結果と、ページで原関数を実際に呼んだ結果を照合し、同じ掲載項目の紙へつなぐ。",
+      "source_path": "vendor/matt-pocock-skills/skills/engineering/codebase-design/SKILL.md",
+      "line_start": 83,
+      "quote": "Return results, don't produce side effects."
+    }
+  ],
+  "jobs": [
+    {
+      "id": "wide-ui",
+      "label": "全角でもタグまで探す",
+      "query": "ＵＩ",
+      "category": "all",
+      "cycle": 1,
+      "before_ids": [],
+      "after_ids": [
+        "ui-notes",
+        "color-lab",
+        "motion-cards"
+      ],
+      "output_file": {
+        "path": "outputs/wide-ui.json",
+        "bytes": 634,
+        "sha256": "0ceaa5d8c9a079df1e0fbd9f9889ecb7d13d2ae32aeea61bdf54caa06b9b4320"
+      }
+    },
+    {
+      "id": "and-query",
+      "label": "語を足して1件へ絞る",
+      "query": "UI　設計",
+      "category": "all",
+      "cycle": 2,
+      "before_ids": [],
+      "after_ids": [
+        "ui-notes"
+      ],
+      "output_file": {
+        "path": "outputs/and-query.json",
+        "bytes": 315,
+        "sha256": "9394ab16b8336b73d03613e03890e65240b8715833ab8c575a4bb371a6211208"
+      }
+    },
+    {
+      "id": "slides-only",
+      "label": "空語で分野だけを選ぶ",
+      "query": "",
+      "category": "slides",
+      "cycle": 3,
+      "before_ids": [
+        "ui-notes",
+        "color-lab",
+        "slide-story",
+        "slide-layout",
+        "motion-cards",
+        "agent-check"
+      ],
+      "after_ids": [
+        "slide-story",
+        "slide-layout"
+      ],
+      "output_file": {
+        "path": "outputs/slides-only.json",
+        "bytes": 1486,
+        "sha256": "9b0f48fd316b506b683b1cabc930d6f8ba3d1f2f30e7883d09fbc42b21abb185"
+      }
+    }
+  ],
+  "cycles": [
+    {
+      "id": 1,
+      "label": "表記とタグ",
+      "sample_id": "wide-ui",
+      "red": {
+        "phase": "red1",
+        "tests": 2,
+        "pass": 1,
+        "fail": 1,
+        "exit_code": 1,
+        "command": "node --test --test-reporter=tap search.test.mjs",
+        "node": "v24.18.0"
+      },
+      "green": {
+        "phase": "green1",
+        "tests": 2,
+        "pass": 2,
+        "fail": 0,
+        "exit_code": 0,
+        "command": "node --test --test-reporter=tap search.test.mjs",
+        "node": "v24.18.0"
+      },
+      "new_test_per_cycle": 1,
+      "executor": "制作担当がNodeを実行",
+      "writer": "元のOpus5.5の別実行"
+    },
+    {
+      "id": 2,
+      "label": "語をANDで絞る",
+      "sample_id": "and-query",
+      "red": {
+        "phase": "red2",
+        "tests": 3,
+        "pass": 2,
+        "fail": 1,
+        "exit_code": 1,
+        "command": "node --test --test-reporter=tap search.test.mjs",
+        "node": "v24.18.0"
+      },
+      "green": {
+        "phase": "green2",
+        "tests": 3,
+        "pass": 3,
+        "fail": 0,
+        "exit_code": 0,
+        "command": "node --test --test-reporter=tap search.test.mjs",
+        "node": "v24.18.0"
+      },
+      "new_test_per_cycle": 1,
+      "executor": "制作担当がNodeを実行",
+      "writer": "元のOpus5.5の別実行"
+    },
+    {
+      "id": 3,
+      "label": "分野で絞る",
+      "sample_id": "slides-only",
+      "red": {
+        "phase": "red3",
+        "tests": 4,
+        "pass": 3,
+        "fail": 1,
+        "exit_code": 1,
+        "command": "node --test --test-reporter=tap search.test.mjs",
+        "node": "v24.18.0"
+      },
+      "green": {
+        "phase": "green3",
+        "tests": 4,
+        "pass": 4,
+        "fail": 0,
+        "exit_code": 0,
+        "command": "node --test --test-reporter=tap search.test.mjs",
+        "node": "v24.18.0"
+      },
+      "new_test_per_cycle": 1,
+      "executor": "制作担当がNodeを実行",
+      "writer": "元のOpus5.5の別実行"
+    }
+  ],
+  "seam": {
+    "call": "searchEntries(entries, query, { category })",
+    "actor": "制作担当が事前に1つ選択",
+    "human_confirmed": false,
+    "catch": "返る掲載項目の集合と掲載順",
+    "miss": "DOM・速度・大規模データ・外部データ・AIの正しさ",
+    "source_quote": {
+      "id": "pre-agreed",
+      "label": "原典が求める合意",
+      "meaning": "今回は行っていない。",
+      "source_path": "vendor/matt-pocock-skills/skills/engineering/tdd/SKILL.md",
+      "line_start": 22,
+      "quote": "No test is written at an unconfirmed seam."
+    }
+  },
+  "documents": {
+    "glossary_terms": 8,
+    "spec_acceptance_conditions": 7,
+    "accepted_by_human": false,
+    "author": "元のOpusが、制作担当の事前条件を文章化"
+  },
+  "independent_review": {
+    "reviewed_at": "2026-10-15T06:13:45.263960+00:00",
+    "type": "independent parallel AI reviews",
+    "standards": {
+      "findings": 0,
+      "worst": null
+    },
+    "spec": {
+      "findings": 0,
+      "worst": null
+    },
+    "base": "8ec362fdce723a627e60cd801b1db6de04e6ed47",
+    "head": "8a1e0bf291d1da2b897507b1ebccbe725e9418ab",
+    "human_approval": false,
+    "user_supplied_base": false,
+    "synthetic_local_tracker": true,
+    "scope": [
+      "search.mjs",
+      "search.test.mjs",
+      "SPEC.md",
+      "GLOSSARY.md",
+      "CODING_STANDARDS.md"
+    ],
+    "ui_reviewed": false
+  },
+  "counts": {
+    "entries": 6,
+    "samples": 3,
+    "baseline_tests": 1,
+    "red_green_cycles": 3,
+    "final_tests": 4,
+    "final_pass": 4,
+    "additional_acceptance_checks": 18,
+    "chosen_skills": 4,
+    "vendor_files": 9
+  },
+  "guardrails": {
+    "original_inference_rerun": false,
+    "original_node_tests_rerun": false,
+    "new_independent_review": false,
+    "human_approval": false,
+    "production_site_search_modified": false,
+    "live_ai_in_browser": false,
+    "new_ui_calls_original_search_functions": true,
+    "entire_skill_collection_applied": false
+  },
+  "scope": "Original3synthetic saved cases,7actualNode test runs/3RED-GREEN cycles plus18checks and original2axisAI reviews preserved. Native demo calls original baseline/final search functions, not new tests/AI inference. No upstream interviews/seam user confirmation/install workflow."
+}
