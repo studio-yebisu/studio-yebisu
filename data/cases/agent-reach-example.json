@@ -1,13 +1,13 @@
 {
   "id": "agent-reach-example",
-  "title": "Agent Reach作例：公開URL2件を根拠メモに仕分ける",
+  "title": "Agent Reach作例：手順書・接続点検・既存CLIのつながりを図で見る",
   "title_lines": [
-    "Agent Reachで、",
-    "公開URL2件を",
-    "根拠メモへ"
+    "Agent Reachの中身と、",
+    "既存の道具で",
+    "情報を読む仕組み"
   ],
   "category": "research",
-  "summary": "Agent Reachのdoctorと読み取り経路に従い、紹介投稿1件と固定版リポジトリを実際に読んで、原典の記述・今回読めた結果・未確認を8枚の根拠カードと持ち帰れる日本語メモに分けました。doctorの判定はGitHub・Xともwarnのまま記録しています。",
+  "summary": "Agent Reachは、読み方をAIに伝える手順書と、接続を点検するCLIの組み合わせです。経路表と分野別手順からgh・twitter-cliを使い、戻った材料を別の作業で根拠メモへまとめる関係を、大きな動く図と32秒の無音動画にしました。制作時に実取得した原典6ファイル・公開投稿1件と元のメモを引き継いでいます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/agent-reach-example/index.html",
@@ -15,13 +15,13 @@
   "poster": "media/agent-reach-example.webp",
   "skill": "examples/agent-reach-example/vendor/agent-reach/agent_reach/skill/SKILL.md",
   "skill_label": "Agent Reach",
-  "skill_description": "接続先ごとのCLIをインストール・確認・設定するコマンドラインツール（doctorなど）と、調べたい内容やURLに応じて既存のCLI・APIへ読み取りを振り分けるskillの組み合わせです。読み取りそのものはghやtwitter-cliなどの既存ツールが行います。",
+  "skill_description": "AIに経路表と分野別手順を渡すMarkdownのスキルと、インストール・設定・接続点検（doctorなど）のCLIを組み合わせた仕組みです。読み取りはAIや利用者がgh・twitter-cliなどを直接呼び出して行います。今回の作例では制作担当が取得を実行し、保存結果の整理をOpusへ渡しました。",
   "samples": "examples/agent-reach-example/samples.json",
   "sample_format": "input-output",
   "samples_title": "実際に読んだ3つの結果",
   "samples_intro": "制作時に実行して得た結果だけを載せています。YouTube・Reddit・Webなど、実行していない分野は例に含めていません。",
-  "demo_description": "保存済みの比較データと実行記録を読み込み、根拠カードを「原典で確認」「今回実際に読んだ」「未確認」で絞り込んで、固定版の該当行や実行記録を開けるビューアです。調査メモのMarkdownをそのままダウンロードでき、依頼文もコピーできます。",
-  "demo_note": "表示しているのは2026-10-15（UTC）に制作側で実行した結果の保存データです。ページを開いても新しい取得やAIの実行は行いません。",
+  "demo_description": "「中身・読む・まとめる」で同じ図形が移動します。経路表・分野別手順・接続点検の部品とGitHub・Xの経路を選び、手順書と道具の役割、依頼とURL、実際に戻った材料のつながりを確かめられます。「実際の根拠メモを保存」で元のMarkdownを保存でき、8枚の根拠は保全したビューアで開けます。",
+  "demo_note": "図が示すのは2026-10-15 UTCの保存記録です。制作担当が手順を適用して実取得し、その保存結果をOpusが別の工程で整理しました。図の操作で新しい取得やAIを実行するものではありません。doctorのGitHub・Xの判定はwarn／active_backend:nullのままです。",
   "request_intro": "別のリポジトリと公開投稿で同じ調べ方をするときの依頼文です。3つの欄を埋めて、Agent Reachの固定版を読めるAIエージェントに渡してください。",
   "request": "使用するAgent Reachの固定版：https://github.com/Panniantong/Agent-Reach/tree/94f06c1969dfc1834001269d79d3ad0972d9dee6\n\nAgent Reach の固定版 SKILL.md と references（dev.md・social.md）を読み、その手順に沿って次の公開URLを調べ、日本語の根拠メモにしてください。\n\n公開リポジトリURL：\n固定コミット：\n公開投稿URL：\n\n1. 最初に agent-reach doctor --json を実行し、各プラットフォームの status と active_backend をそのまま記録してください。warn を ok に読み替えないでください。\n2. 対象に必要な読み取り専用のバックエンドだけを選んでください（例：GitHub は gh、X は twitter-cli）。新しいサービスの設定や自動更新はしないでください。\n3. 認証は既存の明示的な設定だけを、その子プロセスに安全に渡してください。値はログや出力に出さないでください。認証がない・期限切れの場合は、そのプラットフォームで止めて報告してください。ブラウザーCookieの自動読み取りや新規ログインはしないでください。\n4. 読めたかどうかは、終了コード、返ってきたIDが対象と一致すること、本文が空でないことで判定してください。\n5. 結果は「原典の記述」「紹介投稿の主張」「今回実際に読めたこと」「未確認」に分けてください。\n6. 投稿の全文・引用・返信・メディア・数値、ユーザーの保存状況は公開物に載せないでください。\n7. 日本語メモに加えて、実行したコマンド・終了コード・出力のSHA-256を非公開の記録として保存してください。\n8. 1つのプラットフォームで読めたことから、すべてで動く・無料・認証不要とは推測しないでください。",
   "applied_skills": [
@@ -38,23 +38,23 @@
   ],
   "steps": [
     {
-      "title": "接続確認",
-      "body": "固定版の agent-reach doctor --json を実行。GitHub・Xとも warn／active_backend: null で、この判定は後の成功で書き換えずに残しました。"
+      "title": "手順書と依頼を渡す",
+      "body": "調べたいURLと目的を、SKILL.mdの経路表と対象分野のreferencesと一緒にAIへ渡す構造です。今回はGitHubをdev、Xをsocialへ振り分けています。"
     },
     {
-      "title": "実際に読む",
-      "body": "gh api で固定コミットの原典6ファイルを取得し、SHA-256一致を確認。twitter-cli 0.8.5 で公開投稿1件を既存の明示認証で読み、ID一致と非空の本文を確認しました。"
+      "title": "点検と読み取りを分ける",
+      "body": "doctorは接続の状態を見るCLIです。今回はGitHub・Xともwarn／active_backend:null。その後、制作担当がgh APIで固定原典6ファイル、twitter-cliで公開投稿1件を実際に読みました。"
     },
     {
-      "title": "根拠を整理",
-      "body": "紹介投稿の説明・原典の記述・今回読めた結果・未確認を分け、固定版の該当行と実行記録へのリンクを付けた8枚の根拠カードにしました。"
-    },
-    {
-      "title": "メモを保存",
-      "body": "入力URL・固定版・doctorと実取得の結果・最小の実行手順・未確認・ライセンスをまとめた日本語の調査メモを保存しました。"
+      "title": "戻った材料を整理する",
+      "body": "整理は取得の後の別作業です。保存結果を読んだOpusが原典3・実取得3・未確認2の根拠に分け、日本語メモにしました。Agent Reach自身のレポート生成機能を示すものではありません。"
     }
   ],
   "limitations": [
+    "接続点検と実際の読み取りは別です。doctorのwarnを取得後の成功でokに変えていません。",
+    "この図の3部品は原典を説明用に整理したものです。すべての接続先に同じ認証条件や動作を保証する機械スキーマではありません。",
+    "新しい図と映像はOpus5.5の新規制作ですが、元の取得や根拠の整理は再実行していません。",
+    "画面幅・操作・素材・動画の確認は、実機iOS／VoiceOverや人による審美的承認を意味しません。",
     "YouTube・Reddit・Webの実際の読み取りは行っていません。",
     "Hermes Agentの中での実行は行っていません。紹介投稿はHermesとの連携を示す検証結果ではありません。",
     "全プラットフォームの無料利用・認証不要、取得の速さ、常に使えることは確かめていません。実行記録の時刻は速度の測定ではありません。",
@@ -109,28 +109,48 @@
       "url": "examples/agent-reach-example/collect.py"
     },
     {
-      "label": "実行・確認の範囲",
+      "label": "原制作で確認した実行と検証の範囲",
       "url": "examples/agent-reach-example/verification.json"
     },
     {
       "label": "作例・実結果・動画のソース一式",
       "url": "examples/agent-reach-example/source.zip"
+    },
+    {
+      "label": "経路と手順・点検を説明する概念図の構造",
+      "url": "examples/agent-reach-example/concept/structure.json"
+    },
+    {
+      "label": "今回の図と無音動画の確認範囲",
+      "url": "examples/agent-reach-example/visual-verification.json"
+    },
+    {
+      "label": "保全した8枚の根拠ビューア",
+      "url": "examples/agent-reach-example/desk.html"
+    },
+    {
+      "label": "縦横の無音動画を再現するスクリプト",
+      "url": "examples/agent-reach-example/render-visual.py"
+    },
+    {
+      "label": "今回の改修と原制作の違い",
+      "url": "examples/agent-reach-example/visual-guide.md"
     }
   ],
   "license": "MIT",
   "license_note": "作例の文章・データ・コードはMIT License（Copyright (c) 2026 Studio Yebisu）。同梱したAgent Reach原典はMIT License（Copyright (c) 2025 Agent Eyes）で、表示を保っています。MITはAgent Reachの条件で、X・GitHubなどのサービス規約、ほかのCLIのライセンス、第三者の投稿には及びません。紹介投稿の本文・動画・画像は同梱していません。",
-  "video_note": "28秒・720p・30fps・無音。実際に取得した結果と作例画面を使い、入力URL→接続確認→根拠を分ける→日本語メモを保存する流れを説明する編集動画。連続操作の録画ではありません。",
+  "video_note": "32秒・30fps・無音。縦720×1280と横1280×720の別配置。手順書が開き、同じURLや資料が既存CLI・接続先・整理・メモへ移動する概念図の編集動画です。実際の取得は制作時の記録を使い、録画やライブ取得としては扱いません。音声トラックはありません。",
   "video_source": "examples/agent-reach-example/video/index.html",
   "skill_license": "examples/agent-reach-example/vendor/agent-reach/LICENSE",
-  "updated_on": "2026-10-16",
-  "verification_stage": "source-reviewed",
+  "updated_on": "2026-10-18",
+  "verification_stage": "runtime-reviewed",
   "guide_url": "case.html?id=agent-reach-example",
   "catalog_entry": {
     "id": "resource-agent-reach",
     "name": "Agent Reach",
     "category": "research",
     "kind": "ツール",
-    "summary": "複数のプラットフォームを読むためのCLIや接続方法をまとめ、AIの情報収集を助ける。",
+    "summary": "AIへ読み方を渡す手順書と接続点検CLI。既存の読み取りツールを選び、直接呼び出すための仕組み。",
     "use_case": "公開投稿、動画、GitHubなどの情報を原典までたどって整理したいとき。",
     "tags": [
       "Web",

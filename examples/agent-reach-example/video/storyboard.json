@@ -1,162 +1,110 @@
 {
-  "title": "URLから、根拠メモへ：Agent Reach 作例の編集動画",
-  "message": "URLを渡す→接続確認→実際に読む→根拠を分ける→日本語メモを持ち帰る",
-  "audience": "公開URLから根拠つきの調査メモを作りたい日本語の利用者",
+  "title": "情報を読む、手順書と点検キット：Agent Reach 作例の概念図フィルム",
+  "message": "Agent Reach＝AIが情報を読むための、手順書と接続点検キット。読み取りは既存のCLIが直接行い、整理は取得のあとの別工程。",
+  "audience": "Agent Reachが何で、どう使い、何が手元に残るかを知りたい日本語の利用者（iOS中心）",
   "format": {
-    "duration": 28,
+    "duration": 32,
     "fps": 30,
-    "frames": 840,
-    "width": 1280,
-    "height": 720,
-    "posterTime": 13.5,
+    "frames": 960,
+    "sizes": [
+      {"name": "portrait", "width": 720, "height": 1280, "layout": "縦。上から 入力 → キット → 読む人 → 道具 → 接続先 → 材料 → 整理/メモ。左がGitHub、右がX。"},
+      {"name": "wide", "width": 1280, "height": 720, "layout": "横。左から右へ流れ、上の段がGitHub、下の段がX。整理とメモは下段中央。"}
+    ],
+    "posterTime": 31,
     "audio": "silent",
     "audioEvents": []
   },
-  "nature": "保存結果ビューアの実際のスクリーンショット5枚と、保存済みのメモ・比較データ・実行記録を素材に編集した説明動画。連続した画面録画ではない。新しい取得・AIの実行・ダウンロードは映像内で行っていない。端末画面・進行表示・ブラウザー枠・URLバーは作っていない。",
-  "persistentLabels": [
-    "実取得をもとにした編集動画 ／ 無音（右上・全編）",
-    "各時刻の素材名（左下・全編）",
-    "工程の見出し：1 URLを渡す → 2 接続確認 → 3 実際に読む → 4 根拠を分ける → 5 メモを持ち帰る（上部・全編）"
+  "nature": "照合した保存素材13件から描く概念図。スクリーンショット、画面録画、端末のログ、文字だけの場面は使わない。新しい取得・AIの実行・ダウンロードは映像内で行わない。",
+  "rendering": "Canvas 2D 1枚。window.renderConfig の幅・高さ・fpsを初期化時に反映し、縦か横かで別の配置表（TP / TL）を選ぶ。window.seek(秒) ごとにCanvasを初期化し、ctx.save/restore の中で全図形を時刻だけから描き直す。各図形は区間ごとの到達値を持ち、区間内はイーズ補間、区間外は保持する（前の描画・壁時計・乱数に依存しない）。window.__MOTION_RENDER__ が真のときはプレビュー用のタイマーを動かさない。",
+  "persistentObjects": [
+    {"id": "urlG / urlX", "shape": "URLの丸札2枚", "source": "inputs/brief.json repository・post_url、outputs/collection.json post.id", "movement": "0–3秒で手順書へ近づく → 4–5秒で上段に並ぶ → 10–13秒で道具を通って接続先の手前に止まる → 18–19秒で縮んで道筋に残る"},
+    {"id": "task", "shape": "依頼の札", "source": "request.txt（文言は映像に載せない）", "movement": "URLとともに手順書へ近づき、以後は上段に残る"},
+    {"id": "book", "shape": "手順書（表紙 → 経路表のページ ＋ 折り出しの分野別手順）", "source": "SKILL.md L50–L56の経路表、references/dev.md L49、references/social.md L100、concept/structure.json parts", "movement": "4–5秒で開く → 5–5.8秒で分野別手順が折り出る → 10–10.8秒で折りたたみ、読む人の横へ移る"},
+    {"id": "gauge", "shape": "接続点検の計器（doctor・CLI）", "source": "outputs/collection.json doctor.github / doctor.twitter（status: warn・active_backend: null）", "movement": "手順書の横に置かれ、4.8–5.6秒で2本の針がwarnの帯へ振れたまま。okの帯は灰色で一度も点灯しない"},
+    {"id": "reader", "shape": "読む人（目の記号）", "source": "concept/structure.json workflow", "movement": "4.6秒に登場（一般の使い方：AIエージェント）→ 10–18秒は「取得は制作担当が実行」→ 19–20秒で整理の箱へ入る → 24–25秒で元の位置へ戻る（AI）"},
+    {"id": "toolG / toolX", "shape": "既存CLIの道具（gh api / twitter-cli）", "source": "outputs/collection.json versions・executions", "movement": "0秒から手順書と離れた場所にある → 10–11秒で道筋の中心へ。上にdoctor: warnの札"},
+    {"id": "pG / pX", "shape": "接続先（GitHub / X）", "source": "concept/structure.json routes[].source", "movement": "10–11秒で道具の先に現れる"},
+    {"id": "files / post", "shape": "原典6枚の紙と投稿の記録1件", "source": "collection.json executions（contents/…?ref=固定コミット）のファイル名、post.returned_target_posts・body_present・body_republished", "movement": "14.3–16.1秒に接続先から1枚ずつ戻る → 18–19.6秒で整理の箱の口へ集まる"},
+    {"id": "cards", "shape": "根拠カード8枚", "source": "outputs/comparison.json items[].category（3・3・2）", "movement": "19.8–22.7秒に整理の箱の口から3つの区画へ振り分け → 24.1–25.5秒にメモの見出し札へ吸い込まれる"},
+    {"id": "sort → memo", "shape": "整理の箱 → 日本語の根拠メモ", "source": "outputs/research-note.md の1行目とバイト数（全文は載せない）", "movement": "18.6–19.3秒に箱が現れ、24.4–25.4秒に同じ位置でメモへ置き換わる。原典・実取得・未確認の札が残る"}
   ],
-  "rendering": "Canvas 2D 1枚。window.seek(秒)ごとにCanvasを初期化し、全レイヤーを時刻だけから描き直す。実画面は元画像の座標で、表示先と同じ縦横比に切り抜いて描く（伸縮なし）。数値・判定・見出しは保存データから読み、素材一覧のSHA-256と寸法が一致しない場合はエラーを表示して描画しない。",
   "scenes": [
     {
-      "id": "url",
-      "start": 0,
-      "end": 4,
-      "enter": "題字は0秒から表示。実画面の入力欄が0.2–0.8秒でフェードイン、ラベルが1.0秒と1.4秒、説明が1.9秒から。切り抜きは4秒かけてわずかに寄る。",
-      "exit": "3.65–4.0秒でフェードアウト（紙色へ）。",
-      "purpose": "使う人が公開URLを2つ渡すところから始まることを示す。",
-      "captions": [
-        "URLから、根拠メモへ",
-        "GitHub原典",
-        "X紹介投稿",
-        "まず、公開URLを2つ渡す",
-        "固定版のGitHubリポジトリと、それを紹介した第三者のX投稿"
-      ],
-      "assets": [
-        {"path": "assets/desk-all.png", "crop": "入力した公開URLの2行（元画像 x100–1150, y355–565 付近）"}
-      ]
+      "id": "intro", "start": 0, "end": 4,
+      "purpose": "Agent Reachが「手順書と点検キット」であり、読む道具（既存CLI）とは別だと一目で分かる。",
+      "enter": "題字は0秒から表示。キットの枠と表紙・計器は0.2–1.0秒、道具は0.6–1.4秒、区切り線と「読む道具は別：既存のCLI」は0.8–1.4秒、依頼とURL2枚は0.3–1.3秒にフェードイン。1.2–3.2秒でURLと依頼が手順書へ近づく。",
+      "exit": "3.8–4.4秒に題字が消え、上部の短い定義へ切り替わる。キットの枠と区切り線は3.8–4.3秒に消える。",
+      "labels": ["Agent Reach", "情報を読む、", "手順書と点検キット", "Agent Reach ＝ 手順書 ＋ 接続点検", "読む道具は別：既存のCLI"],
+      "source": ["concept/structure.json definition", "inputs/brief.json"]
     },
     {
-      "id": "doctor",
-      "start": 4,
-      "end": 9,
-      "enter": "4.0–4.5秒で場面と見出し。4.5–6.2秒で実行結果の表全体からdoctor：GitHub／doctor：Xの欄へ寄る。6.2秒から両欄をwarnの色で囲む。①は5.6秒、②と矢印は6.9秒から。",
-      "exit": "8.65–9.0秒でフェードアウト。",
-      "purpose": "接続確認（doctor）の判定はwarnのまま記録し、実際の読み取りは別の手順で行うことを示す。warnを緑やokに変えない。",
-      "captions": [
-        "接続の確認と、実取得は分ける",
-        "warn GitHub",
-        "warn X",
-        "どちらも active_backend: null",
-        "warnは「読めない」でも「読める保証」でもない",
-        "① 接続確認（doctor）／判定は warn のまま記録する",
-        "② 実際に読む／gh API と twitter-cli で直接読む"
-      ],
-      "assets": [
-        {"path": "assets/desk-facts.png", "crop": "保存された実行結果の表 → doctor：GitHub／doctor：Xの欄（元画像 x602–1162, y94–246 まで寄る）"},
-        {"path": "outputs/collection.json", "fields": ["doctor.github.status", "doctor.twitter.status", "doctor.*.active_backend"]}
-      ]
+      "id": "open", "start": 4, "end": 10,
+      "purpose": "手順書の中身（経路表・分野別手順）と、横に置かれた接続点検の役割の違いを示す。",
+      "enter": "4.0–5.0秒に手順書が開き、5.0–5.8秒に分野別手順が折り出る。4.8–7.4秒はGitHub→dev→dev.md、7.2–10.0秒はX→social→social.mdを強調。4.8–5.6秒に計器の針がwarnへ。5.4秒から道具にdoctor: warnの札。",
+      "exit": "9.6–10.3秒に強調とURLからの線が消える。",
+      "labels": ["何を、どの道具で読むか", "経路表で振り分け、分野別手順でコマンドを知る", "GitHub/代码 → dev", "小红书/推特/… → social", "gh api repos/owner/repo", "twitter tweet URL_OR_ID", "GitHub・X：warn", "active_backend: null"],
+      "source": ["vendor/agent-reach/agent_reach/skill/SKILL.md L50–L56", "vendor/agent-reach/agent_reach/skill/references/dev.md L49", "vendor/agent-reach/agent_reach/skill/references/social.md L100", "outputs/collection.json doctor"]
     },
     {
-      "id": "read",
-      "start": 9,
-      "end": 14,
-      "enter": "9.0–9.7秒で見出しと実画面。数値は9.8秒・10.3秒、注記は11.0秒から。切り抜きは9.2–13.8秒でゆっくり寄る。",
-      "exit": "13.65–14.0秒でフェードアウト。ポスター（13.5秒）は全要素が表示された状態。",
-      "purpose": "今回この環境で実際に読めた範囲を、件数と確認条件で示す。速度の比較ではない。",
-      "captions": [
-        "原典6ファイル・公開投稿1件を実取得",
-        "6 原典ファイル／gh API・Git上とSHA-256一致",
-        "1 対象の公開投稿／twitter-cli 0.8.5・ID一致・本文あり",
-        "gh api 8回・twitter-cli 1回、すべて終了コード0",
-        "結果は今回の2つのURLの範囲だけ。記録の時刻は速度の測定ではない",
-        "投稿の本文は転載していない"
-      ],
-      "assets": [
-        {"path": "assets/desk-facts.png", "crop": "原典の照合（6ファイル）と紹介投稿（対象1件・本文あり）の欄（元画像 x90–650, y222–374 付近）"},
-        {"path": "outputs/collection.json", "fields": ["repository.files_verified", "post.returned_target_posts", "post.body_present", "post.body_republished", "executions[].command[0]", "executions[].exit_code", "versions.twitter_cli"]}
-      ]
+      "id": "route", "start": 10, "end": 14,
+      "purpose": "読み取りは既存のgh apiとtwitter-cliが接続先へ直接行い、Agent Reachは中継しないことを示す。今回の取得の実行者は制作担当。",
+      "enter": "10.0–10.8秒に手順書を折りたたみ、10.4–11.4秒に読む人の横へ。10.0–11.0秒に道具と接続先が中央へ。URLは10.3–11.5秒に道具へ入り、11.6–12.8秒に接続先の手前で止まる。役割の札「取得は制作担当が実行」と「2026-10-15の保存記録」は10.0–10.9秒から。",
+      "exit": "場面の境で見出しだけが入れ替わる。",
+      "labels": ["既存のCLIで、直接読む", "手順書は道筋を示すだけ。読み取りを中継しない", "取得は制作担当が実行", "2026-10-15の保存記録"],
+      "source": ["outputs/collection.json executions・versions・collected_at", "concept/structure.json workflow.actual"]
     },
     {
-      "id": "sort",
-      "start": 14,
-      "end": 21,
-      "enter": "14.0秒から見出しと「原典で確認」の実画面。16.0秒に「今回実際に読んだ」、18.0秒に「未確認」の実画面へ0.3秒で切り替え、押された絞り込みボタンを囲む。下の3枠は各時刻に色が入り、説明は各0.2秒後から。",
-      "exit": "20.65–21.0秒でフェードアウト。",
-      "purpose": "8枚の根拠を、原典で確認・実取得・未確認に分けたことを実際の絞り込み画面で示す。未確認（YouTube・Reddit・Web、Hermes内の実行、無料、速度）を成功のように見せない。",
-      "captions": [
-        "根拠8枚を、3つに分ける",
-        "原典で確認 3件／実取得 3件／未確認 2件",
-        "原典で確認＝固定版の原典に書いてあること／README・SKILL.md・接続コードを照合（14.0–16.0秒）",
-        "実取得＝今回この環境で実際に読めたこと／doctorのwarnは書き換えずに残す（16.0–18.0秒）",
-        "YouTube・Reddit・Webは今回未確認／Hermes内での実行・無料・速度も確かめていない（18.0–21.0秒）"
-      ],
-      "assets": [
-        {"path": "assets/desk-source.png", "crop": "絞り込みボタンとカード見出し（元画像 x95–1155, y409–611 付近）"},
-        {"path": "assets/desk-runtime.png", "crop": "同じ範囲"},
-        {"path": "assets/desk-unknown.png", "crop": "同じ範囲"},
-        {"path": "outputs/comparison.json", "fields": ["items[].category"]},
-        {"path": "outputs/collection.json", "fields": ["unverified"]}
-      ]
+      "id": "return", "start": 14, "end": 18,
+      "purpose": "戻ってくる材料は、原典6ファイルと投稿1件の記録。計器はwarnのまま変わらない。",
+      "enter": "14.3–16.1秒にGitHubから6枚の紙が順に戻る。14.8–15.8秒にXから投稿の記録が戻る。ラベルは14.6秒から。",
+      "exit": "17.4–18.0秒に取得の線と役割の札が消える。",
+      "labels": ["原典6ファイルと、投稿1件の記録", "点検の表示はwarnのまま", "README.md・LICENSE・SKILL.md・dev.md・social.md・twitter.py", "gh api 8回・終了コード0", "投稿の記録 1件／ID一致・本文あり／本文は掲載しません"],
+      "source": ["outputs/collection.json executions[].command（contents/…?ref=94f06c1…）", "outputs/collection.json post"]
     },
     {
-      "id": "memo",
-      "start": 21,
-      "end": 28,
-      "enter": "21.0秒から見出し。21.2秒に実画面のメモ操作部、21.8秒に「メモを開く・保存する」、22.3秒にメモの内容。23.9–24.3秒にこれらが消え、24.2秒から実際のメモの見出しを紙面として表示し、24.9秒から根拠と未確認の見出しに印をつける。右の3段は24.7・24.95・25.2秒、出典は25.4秒から。",
-      "exit": "退場なし。26.0–28.0秒は全要素が静止して読める状態のまま終わる（暗転なし）。",
-      "purpose": "制作時に作成済みの実際の調査メモを、根拠と未確認を添えて持ち帰れることを示す。ダウンロード完了の表示は作らない。",
-      "captions": [
-        "根拠と未確認を添えて、メモで持ち帰る",
-        "メモを開く・保存する",
-        "制作時に作成済みの実ファイル（outputs/research-note.md）",
-        "入力URL・固定版・doctorと実取得の結果・手順・未確認の点を1つのメモに",
-        "outputs/research-note.md ／ 実際の見出し",
-        "2つのURL ↓ 根拠を分ける ↓ 日本語メモ",
-        "原典3・実取得3・未確認2を添えて",
-        "原典：Agent Reach @ 94f06c1（MIT License, © 2025 Agent Eyes）／ 映像・メモ：© 2026 Studio Yebisu（MIT）"
-      ],
-      "assets": [
-        {"path": "assets/desk-all.png", "crop": "メモのダウンロード・開くリンクの部分（元画像 x100–1150, y568–692 付近）"},
-        {"path": "outputs/research-note.md", "fields": ["# 見出し", "## 見出し8件"]},
-        {"path": "outputs/collection.json", "fields": ["repository.commit", "repository.license", "repository.copyright"]}
-      ]
+      "id": "sort", "start": 18, "end": 24,
+      "purpose": "整理は取得のあとの別工程。AIが保存結果を読み、原典の主張・実際の結果・未確認を分ける。",
+      "enter": "18.0–19.0秒に上側を縮め、18.0–19.6秒に材料が整理の箱の口へ集まる。18.6–19.3秒に箱、19.2–20.0秒に読む人が箱へ入る。19.8秒から0.32秒ごとにカード8枚が区画へ。各区画の件数は最後のカードが入った後に表示。",
+      "exit": "24.1秒からカードがメモへ移り、24.4–25.2秒に箱が消える。",
+      "labels": ["整理は、取得のあと", "原典の主張と、実際の結果を分ける", "保存結果の整理：AI", "原典 3", "実取得 3", "未確認 2"],
+      "source": ["outputs/comparison.json items[].category", "concept/structure.json evidence_counts・workflow.memo"]
+    },
+    {
+      "id": "memo", "start": 24, "end": 29,
+      "purpose": "同じカードが日本語の根拠メモへまとまり、依頼と手順書 → 道具 → 材料 → メモの流れが一本につながる。",
+      "enter": "24.4–25.4秒にメモが現れ、24.0–25.0秒に読む人が元の位置へ。25.4秒から順に道筋をなぞる：依頼・手順書→読む人（25.4）、読む人→道具（26.0）、道具→接続先（26.6）、接続先→材料（27.2）、材料→メモ（27.8）。",
+      "exit": "28.8–29.0秒に見出しが消える。",
+      "labels": ["依頼と手順書 → 道具 → 材料 → メモ", "research-note.md（日本語の根拠メモ）", "Agent Reach 調査メモ", "7,453 bytes・日本語"],
+      "source": ["outputs/research-note.md 1行目・バイト数", "concept/manifest.json"]
+    },
+    {
+      "id": "settle", "start": 29, "end": 32,
+      "purpose": "全体の構造を静止状態で読ませ、実際の根拠メモへ誘導する（映像内のボタンは操作できない）。",
+      "enter": "29.0–29.5秒に「実際の根拠メモを開く」。",
+      "exit": "退場なし。29.5–32.0秒は完全に静止。暗転しない。",
+      "labels": ["実際の根拠メモを開く", "保存済みの記録を図解／無音"],
+      "source": []
     }
   ],
+  "persistentLabels": ["Agent Reach ＋ 定義（4秒以降・上部）", "保存済みの記録を図解／無音（全編・左下）", "Agent Reach @94f06c1 ・ MIT © 2025 Agent Eyes（全編・右下）"],
   "provenance": {
-    "manifest": "outputs/movie-materials.json",
-    "screenshots": [
-      {"path": "assets/desk-all.png", "width": 1265, "height": 889, "sha256": "cbad90b6ce553344d26ee1d317f339bcaf51d3019971face4c2e1c87513ac950"},
-      {"path": "assets/desk-facts.png", "width": 1265, "height": 889, "sha256": "72871eaea1ef3c8a24f1d8acbe963b400728de4c8bb15b25b8bef2b17ec259b8"},
-      {"path": "assets/desk-source.png", "width": 1265, "height": 889, "sha256": "fc747c5926a92a9b223bf403a1fcdabfd334236cf1903d3fc1e2e49c78dc47c9"},
-      {"path": "assets/desk-runtime.png", "width": 1265, "height": 889, "sha256": "1948e444897c9f7391ea58520cb364e790fbb625e23ccc496d07b168f1a5eec9"},
-      {"path": "assets/desk-unknown.png", "width": 1265, "height": 889, "sha256": "28917ac95f0f2cf03652ee7f35d42ae28683a3729fbf1f07eaf459779065f996"}
-    ],
-    "screenshotNote": "保存結果ビューアを実際に開いたブラウザーのスクリーンショット。連続した画面録画ではない。",
-    "memo": {"path": "outputs/research-note.md", "sha256": "98c07c4974d2e7383491a2747326061134d62e47884c75596f97cf9ca3cf3867"},
-    "comparison": {"path": "outputs/comparison.json", "sha256": "0d55869f65a244500c7fd1d066542ead98fe88edc1502599f78a08c93a24c096"},
-    "collection": {"path": "outputs/collection.json", "sha256": "9b4ce217252e415d358e2799b2e8ea83c0d88a6e4376d0a274b8ea55b920194a"},
-    "notIncluded": "紹介投稿の本文・引用・返信・動画・画像・数値、ほかのツールの画面。"
+    "manifest": {"path": "concept/manifest.json", "sha256": "c75b9b1a0d790f7698a083dbe0a4307e7584c3175a0ef6413e7474df30ed8c3c"},
+    "assets": 13,
+    "checks": "素材一覧の生バイトのSHA-256 → 形式・case_id・固定コミット・13件の経路 → 各ファイルのバイト数とSHA-256 → 内容（3部品ID・引用が原典の該当行にある・2経路ID・doctorはwarn/null・gh api 8回/twitter 1回・原典6ファイル・投稿1件・根拠8枚3/3/2・メモの期待SHA-256）。どれかが合わなければ描画しない。",
+    "notIncluded": "投稿の本文・引用・返信・数値・画像・動画、認証情報、第三者の画面、音声。"
   },
   "scope": {
-    "actuallyRead": "gh APIで固定版の原典6ファイル、twitter-cli 0.8.5で公開投稿1件（2026-10-15 UTC、制作側で1回）",
-    "doctor": "GitHub・Xともwarn／active_backend: null のまま。後の成功で書き換えていない。",
-    "notVerified": [
-      "YouTube・Reddit・Webの読み取り",
-      "Hermes Agent内での実行",
-      "全プラットフォームの無料利用・認証不要",
-      "取得の速さや常に使えること",
-      "メモ保存時のブラウザー標準のファイル保存イベント"
-    ]
+    "acquisition": "2026-10-15（UTC）に制作担当が固定版の手順を適用し、doctor・gh api 8回・twitter tweet 1回を実行した保存記録。",
+    "organization": "保存結果をAI（claude-opus-5-5）が読み、比較と根拠メモを作成した。AIがCLIを実行したとは示さない。",
+    "doctor": "GitHub・Xともwarn／active_backend: null。後の取得成功で書き換えない。nullは未検証の意味で、未導入や読み取り失敗の証拠ではない。",
+    "notExercised": ["YouTube・Reddit・Webなどほかの接続先", "Hermes内での実行", "初回インストール・設定・自動更新", "全般的な無料・認証不要・速度・常時利用の保証"]
   },
   "pendingChecks": [
-    "同梱レンダラーによる実際の描画（静止画・コンタクトシート・連続フレーム）は未実施",
-    "描画されたフレームの文字の収まり・読む時間・切り抜き位置の目視確認は未実施",
-    "ネイティブのMP4書き出し（840フレーム・無音）と再生確認は未実施",
-    "同じ時刻の再描画一致の記録は未実施",
-    "320px幅でのプレビュー表示の確認は未実施",
+    "render-visual.py（制作側が追加するラッパー）による720×1280と1280×720の実描画は未実施",
+    "静止画・コンタクトシート・連続フレームでの文字の収まり、線とラベルの重なりの目視確認は未実施",
+    "960フレーム・無音MP4の書き出し、全デコード、終端の静止（29.5–32秒）の確認は未実施",
+    "同じ時刻を別の順序・新しいページで描いた一致の記録は未実施",
+    "照合失敗（HTTPエラー・壊れたJSON・同じ長さでハッシュだけ違う素材）の表示確認は未実施",
     "人による承認は未実施"
   ],
   "human_approval": false

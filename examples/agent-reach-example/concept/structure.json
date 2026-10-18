@@ -1,0 +1,88 @@
+{
+  "format": "agent-reach-structure/v1",
+  "case_id": "agent-reach-example",
+  "source_commit": "94f06c1969dfc1834001269d79d3ad0972d9dee6",
+  "definition": "AIが情報を読むための、手順書と接続点検キット",
+  "parts": [
+    {
+      "id": "routing",
+      "label": "経路表",
+      "meaning": "内容やURLから、読む手順を選ぶ",
+      "source_path": "vendor/agent-reach/agent_reach/skill/SKILL.md",
+      "quote": "GitHub/代码 | dev",
+      "applied": "GitHubはdev.md、Xはsocial.mdへ",
+      "line_start": 53
+    },
+    {
+      "id": "reference",
+      "label": "分野別手順",
+      "meaning": "その接続先のコマンドと前提を読む",
+      "source_path": "vendor/agent-reach/agent_reach/skill/references/social.md",
+      "quote": "twitter tweet URL_OR_ID",
+      "applied": "今回はgh apiとtwitter tweet",
+      "line_start": 100
+    },
+    {
+      "id": "doctor",
+      "label": "接続点検",
+      "meaning": "CLIや明示設定の状態を別に調べる",
+      "source_path": "vendor/agent-reach/agent_reach/skill/SKILL.md",
+      "quote": "active_backend: null",
+      "applied": "今回GitHubもXもwarnのまま",
+      "line_start": 33
+    }
+  ],
+  "routes": [
+    {
+      "id": "github",
+      "label": "GitHub",
+      "reference": "references/dev.md",
+      "tool": "gh api",
+      "source": "固定版の原典",
+      "output": "6ファイル",
+      "files": 6,
+      "status": "warn",
+      "active_backend": null,
+      "source_path": "vendor/agent-reach/agent_reach/skill/references/dev.md"
+    },
+    {
+      "id": "twitter",
+      "label": "X",
+      "reference": "references/social.md",
+      "tool": "twitter-cli",
+      "source": "公開投稿",
+      "output": "対象1件",
+      "posts": 1,
+      "status": "warn",
+      "active_backend": null,
+      "source_path": "vendor/agent-reach/agent_reach/skill/references/social.md"
+    }
+  ],
+  "workflow": {
+    "general": "AIが手順を読み、既存CLIを直接使う。Agent Reachは下層の読み取りを包むAPIではない。",
+    "actual": "今回は制作担当が手順を適用して実取得し、Opusが保存結果を読んで根拠を整理した。Opus自身がCLIを実行したとは扱わない。",
+    "memo": "整理は取得の後の別工程。Agent Reach自体のレポート自動生成機能ではない。"
+  },
+  "recorded_at": "2026-10-15 UTC",
+  "evidence_counts": {
+    "source": 3,
+    "runtime": 3,
+    "unknown": 2
+  },
+  "source_paths": [
+    "vendor/agent-reach/README.md",
+    "vendor/agent-reach/agent_reach/skill/SKILL.md",
+    "vendor/agent-reach/agent_reach/skill/references/dev.md",
+    "vendor/agent-reach/agent_reach/skill/references/social.md",
+    "vendor/agent-reach/agent_reach/channels/twitter.py",
+    "vendor/agent-reach/agent_reach/channels/github.py"
+  ],
+  "not_exercised": [
+    "新しい取得・AIの実行をブラウザーで行うこと",
+    "初回インストール・設定変更・自動更新",
+    "YouTube・Reddit・Web等の取得",
+    "Hermes内での実行・全般的な無料/認証不要/速度保証"
+  ],
+  "credential_scope": "既存の明示認証を子プロセスだけに渡した。値・投稿本文・媒体・返信は公開せず、認証やCookieを閲覧者へ要求しない。",
+  "attribution": "3つの部品は説明用の整理。手順書はAIへの指示、doctorはCLI。今回は保存済みの実記録で流れを示す。"
+}

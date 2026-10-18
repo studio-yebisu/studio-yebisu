@@ -1,27 +1,30 @@
-# 編集動画：URLから、根拠メモへ（28秒・無音）
+# 概念図フィルム：情報を読む、手順書と点検キット（32秒・無音）
 
-Agent Reach 作例の使い方を、公開URLを渡す → 接続確認 → 実際に読む → 根拠を分ける → 日本語メモを持ち帰る、の順で説明する短い動画です。素材は、制作時に実際に読んだ結果を表示した保存結果ビューアのスクリーンショット5枚と、保存済みのメモ・比較データ・実行記録です。連続した画面録画ではなく、映像内で新しい取得やAIの実行はしていません。
+Agent Reach を「AIが情報を読むための、手順書と接続点検キット」として示す編集ソースです。同じ図形（URLの札・手順書・接続点検の計器・読む人・既存CLI・接続先・材料・根拠カード・メモ）が移動・変形し、何を渡し、何がどの道具で読まれ、何が手元に残るかを描きます。スクリーンショット、画面録画、ログ、音声は使いません。
 
 | 項目 | 値 |
 |---|---|
-| 尺・サイズ | 28.0秒、1280×720、30fps（840フレーム） |
-| 音 | なし（`audioEvents: []`） |
-| ポスター | 13.5秒（実取得の結果の場面） |
-| 編集ソース | `index.html`（プレビュー）、`video.js`（描画）、`video.css`、`storyboard.json`（場面・字幕・素材・未確認の点） |
+| 尺・fps | 32.0秒、30fps（960フレーム） |
+| サイズ | 縦 720×1280、横 1280×720。どちらも同じ時刻表で、配置は別々に組んでいます（帯をつけた縮小ではありません） |
+| 音 | なし（`audioEvents: []`）。ナレーション・音声ガイド・字幕音声もありません |
+| ポスター | 31.0秒（全体の道筋が静止した状態） |
+| 編集ソース | `index.html`（プレビュー）、`video.js`（照合と描画）、`video.css`、`storyboard.json`（場面・図形・出典・未確認の点） |
+
+## 素材
+
+`../concept/manifest.json` の生バイトを固定SHA-256（`c75b9b1a…8c3c`）で照合し、そこに載る13件だけを読みます。各ファイルのバイト数とSHA-256、内容（3部品・引用が原典の該当行にあること・2経路・doctorのwarn/null・gh api 8回とtwitter 1回・原典6ファイル・投稿1件・根拠8枚の3/3/2・メモの期待SHA-256）が一致しないときは描画せず、エラーと「もう一度読み込む」だけを出します。代わりのデータは持っていません。フォントはOSの日本語フォントだけを使い、外部から読み込みません。
 
 ## プレビュー
 
-ソースバンドルのルート（`examples/` がある階層）で次を実行し、ブラウザーで開きます。
+ソースバンドルのルート（`examples/` がある階層）で配信して開きます。SHA-256の照合にブラウザーの暗号機能を使うため、`file://` では開けません。
 
 ```bash
 python -m http.server 8000
-# http://localhost:8000/examples/agent-reach-example/video/
+# 縦：http://localhost:8000/examples/agent-reach-example/video/?w=720&h=1280
+# 横：http://localhost:8000/examples/agent-reach-example/video/?w=1280&h=720
 ```
 
-- 「再生」で再生・一時停止、スライダーで任意の秒へ移動できます。どちらも同じ `window.seek(秒)` で描きます。
-- 読み込み時に、`../outputs/movie-materials.json` にあるSHA-256と寸法で、スクリーンショット5枚とメモ・比較データ・実行記録を照合します。一致しない・読めないときはエラーを表示し、再生ボタンを無効にします。代わりの画面は出しません。
-- SHA-256の照合にブラウザーの暗号機能を使うため、`file://` やlocalhost以外のHTTPでは開けません。
-- 作例ページへ戻る：[../index.html#all](../index.html#all)／実際のメモ：[../outputs/research-note.md](../outputs/research-note.md)
+最初は0秒で停止しています。再生・一時停止、最初へ、最後へ、最初から再生、スライダー、7つの場面（0・4・10・14・18・24・29秒）への移動があり、どれも同じ `window.seek(秒)` で描きます。場面の説明は字幕欄に出ます。
 
 ## 書き出し（再現手順）
 
@@ -29,26 +32,27 @@ python -m http.server 8000
 
 ```bash
 npm ci --ignore-scripts --no-audit --no-fund --prefix examples/agent-reach-example/tools/motion-reel
-python examples/agent-reach-example/render.py --out renders/video-first
+python examples/agent-reach-example/render-visual.py --out renders/portrait --width 720 --height 1280
+python examples/agent-reach-example/render-visual.py --out renders/wide --width 1280 --height 720
 ```
 
-- `render.py` は作例フォルダを一時フォルダへ複製し、`video/index.html` を入口にして（`<base href="video/">` を加えて）同梱のMotion Reelレンダラーを動かします。出力先は作例フォルダの外の空フォルダにしてください。既存の出力は上書きしません。
-- 出力：2秒ごとの静止画、全体シート、ポスター、8.1秒前後の連続フレーム、`video.mp4`、`capture.json`、`review.html`。静止画だけなら `--stills-only` を付けます。
-- 描画は1枚のCanvas 2Dで、`seek` のたびにCanvasを初期化して時刻だけから全体を描き直します。タイマー・乱数・CSSアニメーション・前フレームの積み重ねには依存しません。`window.renderConfig` の幅・高さ・fpsを反映しますが、配置は16:9用で、ほかの比率では余白つきで縮小表示になります。
-- フォントは外部から読み込まず、OSの日本語フォント（游ゴシック・游明朝、ヒラギノなど）を使います。別のOSやフォントでは文字の形と幅が変わることがあります。
+- `render-visual.py` は制作側がこの後に追加するラッパーです（この編集ソースの作成時点では存在しません）。既存の `render.py` と同じく作例を一時フォルダへ複製し、`video/index.html` を入口（`<base href="video/">`）にして同梱の `tools/motion-reel/render.mjs` へ `--width`・`--height`・`--fps 30`・`--video` を渡す想定です。音声の指定はしません。
+- 出力先は作例フォルダの外の空フォルダにしてください。既存の出力は上書きしません。
+- 描画は `window.renderConfig` の幅・高さ・fpsを反映します。縦長なら縦の配置、横長なら横の配置を選びます。書き出し時（`window.__MOTION_RENDER__`）はタイマーを動かさず、Canvasだけを画面いっぱいに置きます。
 
-同梱render.pyで28秒・720p・30fps・840フレーム・無音のMP4を実際に出力しました。代表/連続フレーム、MP4の全デコードと再生終端、同じ実行環境で16.8秒を別の順序と新しいページで再描画した一致を確認しています。現在の範囲は [../verification.json](../verification.json)。人による承認ではありません。storyboard.jsonのpendingチェック欄は元の制作設計記録です。
+## 確認の状態
 
-## この動画が示す範囲
+この編集ソースは作成しただけで、実際の描画・書き出し・目視の確認はまだ行っていません。未実施の項目は `storyboard.json` の `pendingChecks` にあります。保証や合格の記録ではありません。
 
-- 実際に読んだのは、gh APIによる固定版（コミット `94f06c1`）の原典6ファイルと、twitter-cli 0.8.5による公開投稿1件だけです（2026-10-15 UTC、制作側で1回）。
-- doctorの判定はGitHub・Xとも `warn`／`active_backend: null` のまま示しています。warnは「読めない」でも「読める保証」でもありません。
-- YouTube・Reddit・Webの読み取り、Hermes Agent内での実行、全プラットフォームの無料利用・認証不要、取得の速さは確かめていません。実行記録の時刻は速度の測定ではありません。
-- メモは制作時に作成済みのファイルです。映像内のダウンロード完了表示はなく、ブラウザー標準のファイル保存イベントも確認していません。
-- 紹介投稿の本文・引用・返信・動画・画像・数値は映像に使っていません。
+## この映像が示す範囲
+
+- 取得は2026-10-15（UTC）に制作担当が実行した記録です（doctor、gh api 8回、twitter tweet 1回）。保存結果の整理と根拠メモはAIが別工程で作りました。映像はAIがCLIを実行したとは示しません。
+- doctorの判定はGitHub・Xともwarn／active_backend: nullのままです。warnは「読めない」でも「読める保証」でもありません。
+- YouTube・Reddit・Web、Hermes内での実行、初回インストール・自動更新、料金・認証不要・速度は確かめていません。
+- 投稿の本文・返信・数値・画像は映像に使っていません。
 
 ## 出典とライセンス
 
-- Agent Reach 原典：[Panniantong/Agent-Reach @ 94f06c1](https://github.com/Panniantong/Agent-Reach/tree/94f06c1969dfc1834001269d79d3ad0972d9dee6)、MIT License、Copyright (c) 2025 Agent Eyes。作例には固定コミットの54ファイルを書き換えずに同梱しています（[../vendor/agent-reach/LICENSE](../vendor/agent-reach/LICENSE)）。
-- この動画の構成・文字・コード、スクリーンショットに写る保存結果ビューア、メモ：MIT License、Copyright (c) 2026 Studio Yebisu（[../LICENSE](../LICENSE)）。
-- MITはAgent Reachとこの作例の条件です。X・GitHubなど接続先サービスの規約、ghやtwitter-cliなど別のCLIのライセンス、第三者の投稿の権利には及びません。
+- Agent Reach 原典：[Panniantong/Agent-Reach @ 94f06c1](https://github.com/Panniantong/Agent-Reach/tree/94f06c1969dfc1834001269d79d3ad0972d9dee6)、MIT License、Copyright (c) 2025 Agent Eyes（[../vendor/agent-reach/LICENSE](../vendor/agent-reach/LICENSE)）。
+- この映像の構成・図形・コード：MIT License、Copyright (c) 2026 Studio Yebisu（[../LICENSE](../LICENSE)）。
+- MITはAgent Reachとこの作例の条件です。X・GitHubなど接続先の規約、ghやtwitter-cliのライセンス、第三者の投稿の権利には及びません。
