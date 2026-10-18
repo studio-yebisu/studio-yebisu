@@ -1,0 +1,187 @@
+{
+  "format": "langgraph-structure/v1",
+  "case_id": "langgraph-example",
+  "source_commit": "d4149cc1f5384364d1a21092b4c2f582a6e7af8f",
+  "definition": "Pythonで共有状態と処理の工程・分岐をつなぎ、チェックポイントを使って停止・再開できるフレームワーク。SKILL.mdやモデル・ホスト型APIではない。",
+  "parts": [
+    {
+      "id": "state",
+      "label": "状態と工程",
+      "source_path": "vendor/langgraph/libs/langgraph/langgraph/graph/state.py",
+      "upstream_path": "libs/langgraph/langgraph/graph/state.py",
+      "line_start": 132,
+      "quote": "A graph whose nodes communicate by reading and writing to a shared state.",
+      "meaning": "共有する状態の型とPython関数をつなぐ。今回の5工程は規則で動き、5つのAIではない。各ノードは状態を読み、更新する項目を返す。"
+    },
+    {
+      "id": "edges",
+      "label": "道を分ける",
+      "source_path": "vendor/langgraph/libs/langgraph/langgraph/graph/state.py",
+      "upstream_path": "libs/langgraph/langgraph/graph/state.py",
+      "line_start": 990,
+      "quote": "Add a conditional edge from the starting node to any number of destination nodes.",
+      "meaning": "入力の不足や誤りで道を選ぶ。返却日が空ならneeds_inputで終わり、見積もinterruptもない。金額で承認・差し戻しへ分ける分岐ではない。"
+    },
+    {
+      "id": "compile",
+      "label": "実行する形へ",
+      "source_path": "vendor/langgraph/libs/langgraph/langgraph/graph/state.py",
+      "upstream_path": "libs/langgraph/langgraph/graph/state.py",
+      "line_start": 1189,
+      "quote": "Compiles the `StateGraph` into a `CompiledStateGraph` object.",
+      "meaning": "builderは設計用。compile(checkpointer=InMemorySaver())して、申請ごとのthread_idを付けたinvokeへ入力を渡した。元の制作担当がPythonを実行した。"
+    },
+    {
+      "id": "memory",
+      "label": "同じメモリに保つ",
+      "source_path": "vendor/langgraph/libs/checkpoint/langgraph/checkpoint/memory/__init__.py",
+      "upstream_path": "libs/checkpoint/langgraph/checkpoint/memory/__init__.py",
+      "line_start": 37,
+      "quote": "An in-memory checkpoint saver.",
+      "meaning": "同じPythonプロセスのメモリに状態を置き、thread_idで申請を分けた。6/4/6件のチェックポイントは元の記録で速さや品質の点数ではない。再起動後の再開は試していない。"
+    },
+    {
+      "id": "interrupt",
+      "label": "確認待ちで止める",
+      "source_path": "vendor/langgraph/libs/langgraph/langgraph/types.py",
+      "upstream_path": "libs/langgraph/langgraph/types.py",
+      "line_start": 906,
+      "quote": "Interrupt the graph with a resumable exception from within a node.",
+      "meaning": "完全な申請は金額によらずreviewのinterruptで止まる。payloadとnext=[review]を保存。再開時はreviewノードの先頭から再実行されるため、その前に送信などの副作用を置いていない。"
+    },
+    {
+      "id": "resume",
+      "label": "回答で続きを動かす",
+      "source_path": "vendor/langgraph/libs/langgraph/langgraph/types.py",
+      "upstream_path": "libs/langgraph/langgraph/types.py",
+      "line_start": 842,
+      "quote": "resume: Value to resume execution with.",
+      "meaning": "同じグラフ・thread_idへCommand(resume=テスト値)を渡す。型を通ったtrue/falseとcommentがreviewの返り値になり、finalizeで要約する。人が確認した回答ではない。"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "approved",
+      "label": "通常の申請",
+      "record_path": "concept/jobs/approved.json",
+      "record_bytes": 13841,
+      "route": [
+        "validate",
+        "estimate",
+        "review",
+        "finalize",
+        "END"
+      ],
+      "total_yen": 8000,
+      "status": "approved",
+      "budget_flag": false,
+      "interrupt_count": 1,
+      "checkpoint_count": 6,
+      "thread_id": "studio-yebisu-langgraph-example-approved"
+    },
+    {
+      "id": "missing",
+      "label": "返却日のない申請",
+      "record_path": "concept/jobs/missing.json",
+      "record_bytes": 3921,
+      "route": [
+        "validate",
+        "needs_input",
+        "END"
+      ],
+      "total_yen": null,
+      "status": "needs_input",
+      "budget_flag": null,
+      "interrupt_count": 0,
+      "checkpoint_count": 4,
+      "thread_id": "studio-yebisu-langgraph-example-missing"
+    },
+    {
+      "id": "rejected",
+      "label": "高額の申請",
+      "record_path": "concept/jobs/rejected.json",
+      "record_bytes": 13900,
+      "route": [
+        "validate",
+        "estimate",
+        "review",
+        "finalize",
+        "END"
+      ],
+      "total_yen": 36000,
+      "status": "rejected",
+      "budget_flag": true,
+      "interrupt_count": 1,
+      "checkpoint_count": 6,
+      "thread_id": "studio-yebisu-langgraph-example-rejected"
+    }
+  ],
+  "actors": {
+    "author": "元のOpus5.5が依頼と原典APIを読みworkflow.py/画面を執筆。",
+    "operator": "制作担当が別工程でPythonを実行し、本物のLangGraphで3件を処理した。",
+    "runtime": "実行時の5ノードはPythonの規則。LLM推論・人の判断は使わない。",
+    "browser": "今の図は元の保存結果を読むだけで、PythonやLangGraphを実行しない。"
+  },
+  "graph": {
+    "nodes": [
+      "validate",
+      "needs_input",
+      "estimate",
+      "review",
+      "finalize"
+    ],
+    "edges": [
+      [
+        "START",
+        "validate"
+      ],
+      [
+        "validate",
+        "needs_input"
+      ],
+      [
+        "validate",
+        "estimate"
+      ],
+      [
+        "needs_input",
+        "END"
+      ],
+      [
+        "estimate",
+        "review"
+      ],
+      [
+        "review",
+        "finalize"
+      ],
+      [
+        "finalize",
+        "END"
+      ]
+    ],
+    "condition": "validate後の不足/誤りだけで分岐。完全なら金額にかかわらずreviewで一度停止。",
+    "resume": "同じグラフ・同じthread_idへCommand(resume=入力のテスト値)。reviewの先頭から再実行。"
+  },
+  "state_fields": [
+    "request",
+    "status",
+    "missing_fields",
+    "input_errors",
+    "line_items",
+    "total_yen",
+    "budget_flag",
+    "needs_review",
+    "review",
+    "summary"
+  ],
+  "limits": [
+    "入力/氏名/催し/単価/基準額は架空。",
+    "テスト回答は人の承認ではない。予算フラグtrueは自動拒否ではない。",
+    "InMemorySaverは同一プロセスのメモリだけ。永続化・再起動後の再開は未実行。",
+    "LLM、LangSmith、Cloud、実予約、在庫確保、送信、決済は使っていない。",
+    "元の推論・Pythonグラフ実行・インストール・検査は今回再実行しない。",
+    "6部品は選んだAPIの説明用整理で原典の共通スキーマではない。",
+    "原の2Opus受領と157installedfiles/172sourcesの確認を新図や動画の確認へ付け替えない。"
+  ]
+}

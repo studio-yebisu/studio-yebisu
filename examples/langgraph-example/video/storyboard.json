@@ -1,244 +1,96 @@
 {
-  "title": "申請を止めて、テスト回答で続きを動かす：LangGraph 作例の編集動画",
-  "message": "具体的な申請を渡す → review ノードの interrupt で処理が本当に止まる → テスト回答を渡すと同じ thread の続きが動く → 入力不足は止まらずに戻り、確認の回答で承認と差し戻しに分かれる → 保存した runs.json・result.md で、あとから確かめて持ち帰れる",
-  "audience": "LangGraph を初めて見る日本語の利用者。処理を途中で止めて回答を待つ仕組みが、具体的な入力でどう動き、何が保存されるかを知りたい人",
-  "format": {
-    "duration": 28,
+  "format": "studio-yebisu-storyboard/v1",
+  "case_id": "langgraph-example",
+  "title": "LangGraph：共有state＋関数＋分岐＋止めて、続ける",
+  "status": {
+    "authored": "8 source files of this conceptual introduction (index.html, concept.css, concept.js, video/index.html, video/video.css, video/video.js, video/storyboard.json, video/README.md), written by claude-opus-5-5",
+    "rendered": false,
+    "reviewed": false,
+    "note": "Written without running a browser, renderer, Python or tests. Rendering, frame review, encoding, packaging and publication are later steps by the production operator; nothing here claims they passed. This storyboard records the intended scenes, not an execution log."
+  },
+  "composition": {
+    "duration_seconds": 32,
     "fps": 30,
-    "frames": 840,
-    "width": 1280,
-    "height": 720,
-    "aspect": "16:9（横長）のみ。window.renderConfig の幅・高さは反映するが、ほかの比率は余白つきの縮小表示で、配置は作り直していない",
-    "posterTime": 13.5,
-    "audio": "silent",
-    "audioEvents": []
-  },
-  "nature": "edited_explainer：制作時に保存した実行結果（outputs/runs.json）と入力（inputs/requests.json）から値を取り出して組版し、保存結果ビューアの実際のスクリーンショット1枚を切り抜いて編集した説明動画。連続した画面録画ではない（screen_recording: false）。映像内で Python・LangGraph・AI の実行、入力の動き、端末画面、実行ログ、進行表示、成功率などの数値、ダウンロード処理は作っていない。",
-  "source": {
-    "library": "LangGraph 1.2.15（langchain-ai/langgraph 固定コミット d4149cc1f5384364d1a21092b4c2f582a6e7af8f）。Python のオーケストレーション用ライブラリで、Markdown の AgentSkill でも LLM でもない",
-    "execution": "workflow.py のコードはモデルが書いた。データの処理は、決まった規則で動く Python 関数のノード（validate・needs_input・estimate・review・finalize）が行った。LLM・外部 API は使っていない",
-    "checkpointer": "InMemorySaver。停止と再開は同じ Python プロセス内で行った。プロセス再起動後の再開・永続化は試していない",
-    "resumeValues": "approved・comment は inputs/requests.json の test_resume をスクリプトが Command(resume=…) に渡したテスト値。人が確認・承認したものではない",
-    "external": "予約・在庫確保・通知・決済・外部トレースは行っていない。名前・催し・単価・基準額はすべて架空"
-  },
-  "persistentLabels": [
-    "工程の見出し：1 渡す → 2 止める → 3 再開する → 4 分ける → 5 確かめる（上部・全編、20px）",
-    "範囲の札（右上、20px、1つだけ）：0–22秒「架空入力・保存済みの実行結果」→ 22.0–22.4秒で「28秒・無音 ／ 架空入力・テスト回答」へ替わる",
-    "各時刻の素材名（左下・全編、20px）と「Studio Yebisu 作例」（右下）"
-  ],
-  "typography": {
-    "fonts": "OSの日本語フォントのみ（明朝：ヒラギノ明朝・游明朝ほか、ゴシック：ヒラギノ角ゴ・游ゴシック・メイリオほか、等幅：Consolasほか）。外部フォント・外部画像・ロゴなし",
-    "sizes": "見出し52px（最小44px）、データ30–36px、字幕24px、説明22–24px、意味のある札・ラベル20px以上。安全余白は上下左右64px",
-    "colors": "紙 #f4eee2、墨 #1e1c19、承認 #2b684a（下地 #e0ebe2）、停止 #85560a（下地 #f5e5c3）、差し戻し #9e2f29（下地 #f5dedb）。作例ページの style.css と同じ値"
-  },
-  "rendering": "Canvas 2D 1枚（getContext('2d', {willReadFrequently: true})）。window.seek(秒) ごとに Canvas の幅・高さを設定し直して内容と状態を初期化し、コンテキストを取り直してから、全レイヤーを時刻だけから描き直す。タイマー・乱数・CSSアニメーション・前フレームの積算に依存しない。動きは閉形式の補間（3次のイーズ）だけ。値は保存データの該当フィールドから読み込み時に取り出し、打ち直さない。素材一覧の SHA-256・寸法と一致しない、または取り出し条件（must）を満たさない場合は、エラーを Canvas に描き、motionReady を拒否する。代わりの画面は出さない。",
-  "continuity": [
-    "申請の紙（0.7–4.0秒）が、経路の先頭の札へ縮んで（4.0–4.7秒）、催し名「はじめての撮影会」の札になる。",
-    "同じ札が経路の上を進み（5.4–5.9秒 入力確認→見積、6.2–6.7秒 見積→確認待ち）、確認待ちの札で止まる。札が琥珀色になり「ここで停止」の印が付く（6.2–6.7秒）。印は再開まで残る。",
-    "止まった時点の get_state の欄（6.9秒〜）が左の小さな欄に縮み（9.7–10.3秒）、同じ欄の next が [\"review\"] から [] に替わる（12.0–12.3秒）。",
-    "テスト回答の欄から、止まっている同じ札へ矢印が伸び（11.3–11.8秒）、琥珀の面は「停止→再開」の帯と印に替わる（11.9–12.2秒）。同じ札が続きの要約・終了へ進み（12.1–13.15秒）、緑に替わる（13.15–13.35秒）。",
-    "実際の画面に、映像で見せた停止位置と見積合計を囲み（22.9・23.2秒）、同じ番号で右に保存データの値を組版する。"
-  ],
-  "scenes": [
-    {
-      "id": "pass",
-      "start": 0,
-      "end": 4,
-      "message": "具体的な申請を、workflow.py の StateGraph に渡す",
-      "enter": "見出し0.15秒、申請の紙0.7秒、矢印と「渡す先」1.3秒、LLMを使わない注記1.6秒、版と件数1.9秒。",
-      "exit": "4.0–4.3秒で見出しと右の欄が退く。申請の紙は4.0–4.7秒で経路の先頭の札へ縮む（紙の文字は4.0–4.2秒で退き、札の面は4.3–4.6秒で現れる）。",
-      "captions": {
-        "editorial": [
-          "機材の貸出を、途中で確かめる",
-          "申請（入力）",
-          "申請者 ／ 催し ／ 日程 ／ 品目",
-          "渡す先",
-          "workflow.py の StateGraph",
-          "LangGraph 1.2.15（Python のライブラリ）",
-          "架空の申請3件を実行し、結果を保存"
-        ],
-        "fromData": [
-          {"text": "広報係・青木（架空）", "source": "outputs/runs.json jobs[id=approved].input.applicant（inputs/requests.json の request と一致を確認）"},
-          {"text": "はじめての撮影会", "source": "同 input.event"},
-          {"text": "2026-11-08 〜 2026-11-08", "source": "同 input.start_date・end_date"},
-          {"text": "カメラ ×1　三脚 ×2", "source": "同 input.items[].sku・quantity と rules.catalog[].name"},
-          {"text": "inputs/requests.json", "source": "outputs/movie-materials.json inputs.path"},
-          {"text": "ノードは決まった規則の Python 関数で、LLM・外部 API は使っていない。", "source": "outputs/runs.json scope_note の「LLM」を含む文"},
-          {"text": "1.2.15 ／ 3件", "source": "outputs/runs.json framework.version ／ jobs の数"}
-        ]
-      },
-      "assets": [
-        {"path": "outputs/runs.json", "fields": ["fictional", "framework.version", "scope_note", "rules.catalog", "jobs[id=approved].input"]},
-        {"path": "inputs/requests.json", "fields": ["fictional", "rules", "jobs[id=approved].request", "jobs[id=approved].test_resume"]}
-      ]
-    },
-    {
-      "id": "pause",
-      "start": 4,
-      "end": 10,
-      "message": "review ノードの interrupt で、処理が確認待ちの位置で本当に止まる（自動の審査ではない）",
-      "enter": "見出し4.3秒。経路の札4.4秒から0.08秒おき（破線＝未到達）。札が進み、到達した札は実線に。見積の欄6.0秒、確認待ちで停止6.2–6.7秒、get_state の欄6.9秒、字幕7.4秒。",
-      "exit": "9.6–10.0秒で見出し・見積の欄・字幕が退く。経路・札・停止の印・get_state の欄は次の場面へ続く。",
-      "readingHold": "停止の印は6.7–11.9秒の約5秒、next と interrupt 件数は6.9–9.6秒の約2.7秒、字幕は7.4–9.6秒の約2.2秒。",
-      "captions": {
-        "editorial": [
-          "確認待ちで止める",
-          "ここで停止",
-          "estimate ノードの見積",
-          "合計",
-          "止まった時点の get_state",
-          "完全な申請は、金額にかかわらず review で止まる"
-        ],
-        "fromData": [
-          {"text": "入力確認 validate → 見積 estimate → 確認待ち review → 要約 finalize → 終了", "source": "outputs/runs.json jobs[id=approved].checkpoints[].next を古い順に並べ、end_state.next が空なら終了を加える（作例ビューア app.mjs と同じ規則）。日本語のノード名も app.mjs と同じ"},
-          {"text": "next: [\"review\"]", "source": "同 pause.state.next（interrupt_ids を持つチェックポイントの next と一致を確認）"},
-          {"text": "interrupt 1件（review ノード）", "source": "同 pause.interrupts の数と pause.state.next"},
-          {"text": "カメラ　1 × 6,000円　6,000円 ／ 三脚　2 × 1,000円　2,000円 ／ 合計 8,000円", "source": "同 pause.state.values.line_items・total_yen（final.total_yen と一致を確認）"},
-          {"text": "金額にかかわらず", "source": "rules.all_complete_requests_pause_for_review が true で、budget_flag が false の通常の申請も止まったことを確認"}
-        ]
-      },
-      "assets": [
-        {"path": "outputs/runs.json", "fields": ["rules.all_complete_requests_pause_for_review", "jobs[id=approved].checkpoints", "jobs[id=approved].end_state.next", "jobs[id=approved].pause"]}
-      ],
-      "note": "停止は LangGraph の interrupt による処理の中断で、人やAIによる自動の審査を表すものではない。"
-    },
-    {
-      "id": "resume",
-      "start": 10,
-      "end": 16,
-      "message": "テスト回答を渡すと、止まっていた同じ札から続きが動き、approved・8,000円で終わる",
-      "enter": "見出し10.1秒、小さな get_state の欄10.2秒、テスト回答の欄10.5秒、矢印11.3–11.8秒と「Command(resume=…)」11.5秒、停止→再開11.9–12.2秒、next が [] に12.0–12.3秒、字幕12.4秒、札が要約・終了へ12.1–13.15秒、最終状態の欄13.0秒、札が緑に13.15–13.35秒。",
-      "exit": "15.6–16.0秒で経路・札・欄ごと退く。ポスター（13.5秒）は全要素が表示された状態。",
-      "readingHold": "テスト回答は10.5–15.6秒の約5秒、最終状態は13.45–15.6秒の約2.2秒、字幕は12.4–15.6秒の約3.2秒。",
-      "captions": {
-        "editorial": [
-          "回答を渡して、続きを動かす",
-          "テスト回答",
-          "get_state の next ／ 停止中 ／ 再開後・終了",
-          "Command(resume=…)",
-          "停止→再開",
-          "最終状態（status）",
-          "同じ thread を、同じ Python プロセス内で再開（InMemorySaver）"
-        ],
-        "fromData": [
-          {"text": "test_resume（requests.json）", "source": "inputs/requests.json のファイル名（movie-materials.json inputs.path）"},
-          {"text": "approved: true", "source": "outputs/runs.json jobs[id=approved].test_resume.approved（inputs/requests.json と一致、final.review と一致を確認）"},
-          {"text": "テスト入力：内容を確認し、貸出可とする。", "source": "同 test_resume.comment"},
-          {"text": "[\"review\"] → []", "source": "同 pause.state.next → after_resume.next"},
-          {"text": "approved ／ 承認 ／ 8,000円", "source": "同 final.status（日本語は app.mjs の表記）・final.total_yen"},
-          {"text": "InMemorySaver・同じ Python プロセス内", "source": "outputs/runs.json scope_note に「InMemorySaver」「同じ Python プロセス内」があることを確認。workflow.py に checkpointer=InMemorySaver()・Command(resume= があることも確認"}
-        ]
-      },
-      "assets": [
-        {"path": "outputs/runs.json", "fields": ["scope_note", "jobs[id=approved].test_resume", "jobs[id=approved].after_resume.next", "jobs[id=approved].final"]},
-        {"path": "workflow.py", "use": "映像には描かない。interrupt(payload・Command(resume=・checkpointer=InMemorySaver() の記述があることだけを読み込み時に確かめる（素材一覧にハッシュはない）"}
-      ],
-      "note": "テスト回答はスクリプトが入力ファイルから渡した値で、人の操作・承認やAIの推論ではない。クリックやカーソルの演出は作らない。"
-    },
-    {
-      "id": "branch",
-      "start": 16,
-      "end": 22,
-      "message": "入力が足りない申請は止まらずに戻る。止まった申請は、確認の回答で承認と差し戻しに分かれる（差し戻しは金額による自動判定ではない）",
-      "enter": "見出し16.1秒。返却日のない申請：見出し16.4秒、札16.5秒から0.12秒おき、interrupt 0件17.0秒、needs_input 17.2秒。高額の申請：見出し17.6秒、札17.7秒から0.12秒おき、テスト回答 false 18.5秒、rejected 18.8秒。字幕19.2秒。",
-      "exit": "21.6–22.0秒で退く。",
-      "readingHold": "2つの結果は18.8/17.2–21.6秒の約2.8秒以上、字幕は19.2–21.6秒の約2.4秒。",
-      "captions": {
-        "editorial": [
-          "入力不足は戻す。確認の回答で分ける。",
-          "（空）",
-          "止まらずに終了",
-          "テスト回答",
-          "差し戻しはテスト回答 false による。30,000円以上は目印（budget_flag）を付けるだけ"
-        ],
-        "fromData": [
-          {"text": "返却日のない申請 ／ end_date：（空）", "source": "outputs/runs.json jobs[id=missing].label・final.missing_fields[0]（input の該当項目が空であることを確認）"},
-          {"text": "入力確認 validate → 追加入力 needs_input → 終了", "source": "同 checkpoints[].next（estimate・review を含まないことを確認）。「追加入力」は app.mjs の「追加入力を求める」を札に収めるため短くした"},
-          {"text": "interrupt 0件", "source": "同 checks.interrupt_count（全チェックポイントの interrupt_ids が空、pause・test_resume が null であることも確認）"},
-          {"text": "needs_input（追加入力が必要）", "source": "同 final.status（日本語は app.mjs の表記）"},
-          {"text": "高額の申請 ／ 見積 36,000円・budget_flag: true", "source": "outputs/runs.json jobs[id=rejected].label・final.total_yen・final.budget_flag"},
-          {"text": "入力確認 → 見積 → 確認待ち（琥珀）→ 要約 → 終了", "source": "同 checkpoints[].next と pause.state.next"},
-          {"text": "テスト回答 approved: false", "source": "同 test_resume.approved（final.review と一致を確認）"},
-          {"text": "rejected（差し戻し）", "source": "同 final.status"},
-          {"text": "30,000円", "source": "outputs/runs.json rules.budget_review_from_yen"}
-        ]
-      },
-      "assets": [
-        {"path": "outputs/runs.json", "fields": ["rules.budget_review_from_yen", "jobs[id=missing]", "jobs[id=rejected]"]}
-      ],
-      "note": "全レコードは出さず、経路・止まったかどうか・回答・結果だけを並べる。review ノードの結果は回答の approved だけで決まり、budget_flag は判定に使われない（workflow.py の review 関数）。"
-    },
-    {
-      "id": "inspect",
-      "start": 22,
-      "end": 28,
-      "message": "入力・停止・再開は保存したファイルで、あとから確かめて持ち帰れる",
-      "enter": "範囲の札の切り替え22.0–22.4秒、見出し22.0秒、実際の画面22.2–22.6秒、右の見出し22.8秒、①の行23.0秒、②の行23.3秒、①の囲み22.9秒、②の囲み23.2秒、区切りと「持ち帰るファイル」23.8秒、ファイル3行24.0・24.2・24.4秒（各0.45秒）。",
-      "exit": "退場なし。24.85–28.0秒（約3.1秒）は全要素が静止して読める状態のまま終わる（暗転なし）。",
-      "captions": {
-        "editorial": [
-          "入力・停止・再開を、あとから確かめる",
-          "画面の値（outputs/runs.json と同じ）",
-          "① 止まった位置（next）",
-          "② 見積合計（interrupt の payload）",
-          "持ち帰るファイル（作例フォルダに保存済み）",
-          "3件の入力・停止時と再開後の状態・チェックポイント",
-          "3件の経路と結果の日本語メモ",
-          "同じ3件を手元で作り直すときのコマンド",
-          "28秒・無音 ／ 架空入力・テスト回答"
-        ],
-        "fromData": [
-          {"text": "review", "source": "outputs/runs.json jobs[id=approved].pause.state.next[0]"},
-          {"text": "8,000円", "source": "同 pause.interrupts[0].value.total_yen（state の total_yen と一致を確認）"},
-          {"text": "outputs/runs.json ／ outputs/result.md", "source": "outputs/movie-materials.json results.path・memo.path"},
-          {"text": "python workflow.py", "source": "README.md・index.html の「実行し直す」手順に書かれた実在のコマンド。映像内で実行はしない（端末画面・出力は作らない）"}
-        ]
-      },
-      "assets": [
-        {"path": "assets/desk-pause.png", "crop": "通常の申請の「2 通った経路」から「見積合計 8,000円」まで（元画像 x280–970, y92–612、0.8倍）。囲み：① 確認待ち review ここで停止→再開の札 x629–893,y134–207 ／ ② 見積合計の行 x296–556,y574–604"},
-        {"path": "outputs/result.md", "use": "映像には描かない。持ち帰るファイルとして示すため、読み込み時に SHA-256 で実在と一致を確かめる"}
-      ],
-      "note": "画面内の小さな文字に主な情報を任せず、同じ値を右に大きく組版する。ダウンロード・実行・完了の表示は作らない。"
-    }
-  ],
-  "provenance": {
-    "manifest": "outputs/movie-materials.json",
-    "screenshotsUsed": [
-      {"path": "assets/desk-pause.png", "width": 1265, "height": 834, "sha256": "77055db5fc4952ddf83e72cd0464e36e97cad4567e7a0f166dcb161a72c47aaf"}
-    ],
-    "screenshotsNotUsed": [
-      {"path": "assets/desk-top.png", "sha256": "099944177a764e7debab1381c9f549346034e01076b10ff2e6a4885cda98c991", "reason": "冒頭とタブの画面。映像の主題（停止と再開）は desk-pause.png に写っているため"},
-      {"path": "assets/desk-rejected.png", "sha256": "487bc5acf8119578cc0a1666ee759796b5372f334109ee8ece9464dd26f0e0ab", "reason": "差し戻しは保存データの組版で短く示したため"},
-      {"path": "assets/desk-mobile.png", "sha256": "5432cbc786a5010450119b4c39bbb13929661a547d6a25c9d10423031763af05", "reason": "横長1280×720の構成に使わないため"}
-    ],
-    "screenshotNote": "素材一覧の記載どおり、保存結果ビューアを実際に開いて確認した画面のスクリーンショット。連続した画面録画ではない。ファイルは改変せず、Canvas 上で切り抜いて描くだけ。",
-    "results": {"path": "outputs/runs.json", "sha256": "d5bc61f421cbde99f2f60446a3418d7a5f81df92a4fe4f75b6db9306475360f4"},
-    "inputs": {"path": "inputs/requests.json", "sha256": "8c4a878099191da6e92891b77711f261676e750d3604e20d03de83f560a9b22a"},
-    "memo": {"path": "outputs/result.md", "sha256": "d277ee41fd60dcaf5dd69b2a989d8c0755ced77306f48ef3c2f15c432e631ce5"},
-    "hashCheck": "上のハッシュは素材一覧から写した値。video.js が読み込み時に、各ファイルの SHA-256（とスクリーンショットの寸法）を素材一覧と照合する。この照合はまだブラウザーで実行していない。",
-    "notIncluded": "外部フォント・外部画像・ロゴ・音声・生成画像。"
-  },
-  "scope": {
-    "editSource": "この編集ソース（index.html・video.js・video.css・storyboard.json・README.md）は Claude Opus 5.5 が作成した。描画時にAIは実行しない。",
-    "results": "保存済みの実行結果は、固定版 LangGraph 1.2.15 で workflow.py を実際に実行して得たもの。この動画のために実行し直してはいない。",
-    "notClaimed": [
-      "人による確認・承認（承認・差し戻しはテスト値）",
-      "AI・LLM による判断や推論",
-      "プロセス再起動後の再開・永続的な保存",
-      "予約・在庫確保・通知・決済などの外部処理",
-      "処理速度・品質・成功率の数値",
-      "金額による自動の差し戻し"
+    "frames": 960,
+    "portrait": [720, 1280],
+    "wide": [1280, 720],
+    "poster_time": 31,
+    "motion_ends": 28.9,
+    "audio": "none: no narration, TTS, audio guide, audio elements, audio scripts, audio assets or tracks; motionConfig.audioEvents is []",
+    "outputs_expected_from_parent": [
+      "../../media/langgraph-example.mp4",
+      "../../media/langgraph-example.webp",
+      "../../media/langgraph-example-wide.mp4"
     ]
   },
-  "pendingChecks": [
-    "同梱レンダラー（render.py）による実際の描画（静止画・全体シート・連続フレーム）は未実施",
-    "ブラウザーでの読み込み（SHA-256 と寸法の照合、取り出し条件、workflow.py の確認）は未実施",
-    "描画されたフレームでの文字の収まり・重なり・読む時間・切り抜きと囲みの位置の目視確認は未実施（切り抜きと囲みの座標はスクリーンショットを見て決めた値で、描画結果では未確認）",
-    "ネイティブの MP4 書き出し（840フレーム・無音）と、全デコード・通し再生の確認は未実施",
-    "同じ時刻を別の順序と新しいページで描いたときの一致の記録は未実施",
-    "Windows 以外の OS・別の日本語フォントでの文字幅の確認は未実施",
-    "プレビュー画面（狭い幅を含む）の再生・スライダー・キーボード操作の確認は未実施",
-    "人による承認は未実施"
+  "diagram": {
+    "idea": "One connected moving map shared with ../index.html (../concept.js). One state card travels the real route, gains fields from the saved checkpoints, waits at the review gate, and leaves as a saved record. Portrait and wide are separate native arrangements of the same map.",
+    "nodes": {
+      "authoring": "原典API ＋ 依頼文 → one circle 元の制作AI → workflow.py paper. This is the original authoring by Opus 5.5, shown once; the AI is not part of the running graph.",
+      "operator": "制作担当 ▶ Python box → compile pill → invoke pill → START. The operator ran Python in a separate step; compile carries the InMemorySaver (dashed tie to the memory tray in portrait).",
+      "graph": "LangGraph zone labelled 規則で動く5関数 / 紙＝共有state: START → validate → diamond fork → estimate → review (gate with posts, 'interrupt', sliding amber bar) → finalize → END; side branch 不足 → needs_input → END. The fork label is input validity (不足 / そろう), not amount or approval.",
+      "card": "The shared state card. Phases are saved checkpoints of the selected job: RequestState (field names only) → 申請（入力）(items) → validated → awaiting_review (sku unit×quantity, 合計, 予算フラグ) → 停止 stamp at review → approved/rejected (+テスト回答) → final (+要約). Missing: needs_input with 不足 end_date and 要約, never a total.",
+      "memory": "InMemorySaver / プロセス内メモリ tray with three thread slots A/B/C; small sheets are the saved snapshots of that thread (6/4/6 at the end, counts of records, not scores).",
+      "reply": "Command card: テスト値 true / false from inputs/requests.json; for B it reads 停止なし. Path: reply → memory slot of the same thread → back into the top of review, labelled 先頭から.",
+      "outputs": "保存記録 <id>.json paper → 元の実データ desk.html screen."
+    },
+    "explanatory_shapes": "Paper, gate, tray, screen and token shapes are diagram drawings, not execution evidence. The film never shows a human approval UI, a disk or server store, a restart, or resume starting at finalize."
+  },
+  "jumps": [0, 4, 8, 14, 20, 26, 29],
+  "scenes": [
+    {
+      "from": 0, "to": 4,
+      "caption": "LangGraphは、Pythonの部品集",
+      "subcaptions": ["AIモデルでもAPIでもない", "StateGraph：共有state＋5つの関数", "add_conditional_edges：入力で道を分ける", "compile → invoke", "InMemorySaver：同じプロセスのメモリ", "interrupt：reviewで止める", "Command：回答で続きを動かす"],
+      "action": "The map starts as a readable faint skeleton. The five function nodes and the empty RequestState card appear, then the fork, compile/invoke, the memory tray, the gate (its bar closes once briefly and opens again) and the Command card, each part lit in turn. The authoring band stays faint until 4 s."
+    },
+    {
+      "from": 4, "to": 8,
+      "caption": "AIが書き、制作担当が動かす",
+      "subcaptions": ["原典API＋依頼文 → workflow.py → Python実行"],
+      "action": "原典API and 依頼文 appear; a page travels into the one 元の制作AI circle, which pulses once; a code page leaves it and becomes workflow.py; the code page goes to 制作担当 ▶ Python, which pulses; a dot passes compile → invoke. At 6.8 s the empty card fills with request A's items (camera ×1, tripod ×2), with two waiting requests behind it."
+    },
+    {
+      "from": 8, "to": 14,
+      "caption": "申請Aが道をたどり、止まる",
+      "subcaptions": ["validate → estimate 8,000円 → reviewで停止", "完全な申請は金額にかかわらず停止"],
+      "action": "The same card moves to validate (header validated), to estimate (rows camera 6,000×1, tripod 1,000×2, 合計 8,000円, 予算フラグ false flash in), and to review. The gate bar slides shut, the card gets the 停止 stamp, and a snapshot copy goes into memory slot A (4 sheets). Hold until 14 s."
+    },
+    {
+      "from": 14, "to": 20,
+      "caption": "テスト値で、reviewの先頭から",
+      "subcaptions": ["Command(resume=テスト値 true) → 同じthread A"],
+      "action": "The Command card (テスト値 true) lights and a reply token goes into slot A; snapshot and reply return together into the top of review (先頭から lights). The bar opens, the card becomes approved with テスト回答 true, moves to finalize (+要約), passes END into 保存記録 approved.json, and a file token reaches 元の実データ. Strip chip A appears at 18.1 s."
+    },
+    {
+      "from": 20, "to": 26,
+      "caption": "同じグラフで、別の申請",
+      "subcaptions": ["B：返却日が空 → needs_input・停止なし", "C：36,000円・予算フラグは目印だけ → false → rejected"],
+      "action": "Request B enters at the same input (camera ×1, end_date 空), becomes needs_input with 不足 end_date at validate, and takes the side branch to needs_input → END; estimate, review, finalize and Command are drawn dashed as not visited, the Command card reads 停止なし, slot B gets 4 sheets. Request C then runs at double pace: estimate 36,000円 / 予算フラグ true, the same stop at review, slot C, テスト値 false through Command into the top of review, rejected, finalize."
+    },
+    {
+      "from": 26, "to": 29,
+      "caption": "最終stateを保存して開く",
+      "subcaptions": ["concept/jobs/rejected.json → 元の実データ"],
+      "action": "Card C passes END into 保存記録 rejected.json, which pulses; a file token reaches 元の実データ, which pulses (ends 28.0 s). Strip chip C appears at 26.8 s. From 28.4 s every highlight clears and the closing title fades in, complete by 28.7 s."
+    },
+    {
+      "from": 29, "to": 32,
+      "caption": "state＋関数＋分岐 / ＋止めて、続ける",
+      "action": "Hold: the full connected map with card C's final fields (rejected, 合計 36,000円, 予算フラグ true, テスト回答 false, 要約), the memory tray 6/4/6 and the strip A approved 8,000円 · B needs_input end_date 不足 · C rejected 36,000円. Nothing moves after 28.9 s; poster at 31 s."
+    }
   ],
-  "human_approval": false
+  "fixed_labels": ["規則処理", "保存記録の図解", "回答はテスト値", "同じプロセスのメモリ"],
+  "data": {
+    "gate": "concept/manifest.json (SHA-256 3147f2fff01f9ae8e548ebd4af6084648f357232d49b0bdb2530916feaedf4ed) lists 21 frozen files; every file is checked for size and SHA-256 and the records for meaning before anything is drawn",
+    "values_from": "concept/jobs/{approved,missing,rejected}.json, the same objects as outputs/runs.json jobs[0..2]; card phases read checkpoints[1..5].values",
+    "never": ["new graph execution or Python run", "model inference", "invented zero cost or pause for the missing request", "human approval"]
+  },
+  "limits": [
+    "LangGraph is a Python library; the six parts are an explanatory grouping of selected APIs, not an upstream schema; the five runtime nodes are deterministic Python functions, not five AIs.",
+    "The branch depends only on missing or invalid input; every complete request stops at review, including 8,000円 with budget_flag false; budget_flag true is only a flag.",
+    "Test replies are scripted values, not human approval; no booking, stock reservation, notification or payment.",
+    "InMemorySaver keeps state in the memory of one Python process; no disk/server/cloud persistence or restart was tested.",
+    "crypto.subtle is required (HTTPS or localhost); without it the page and film stop with a clear message."
+  ]
 }

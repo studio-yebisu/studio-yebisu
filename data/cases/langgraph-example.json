@@ -1,13 +1,13 @@
 {
   "id": "langgraph-example",
-  "title": "LangGraph作例：貸出申請を確認待ちで止め、テスト回答で続きを動かす",
+  "title": "LangGraph作例：状態と工程をつなぎ、確認待ちから続きを動かす",
   "title_lines": [
-    "LangGraphで、",
-    "申請を確認待ちで止め、",
-    "続きを動かす"
+    "状態をつなぎ、",
+    "確認待ちで止め、",
+    "同じ続きへ。"
   ],
   "category": "agents",
-  "summary": "架空の機材貸出申請3件を、LangGraph の StateGraph で実際に処理する作例です。入力確認の結果で条件付きエッジが分かれ、完全な申請は見積のあと interrupt で止まります。同じ thread に Command(resume=テスト値) を渡して再開し、再開前後の get_state とチェックポイントを保存しました。ページはその保存結果を読むビューアです。",
+  "summary": "LangGraphは、Pythonで共有する状態と処理の工程・分岐を組むフレームワークです。6つのAPI部品から、元のAIによる実装と制作担当のPython実行、メモリに状態を保つ停止、同じthreadへテスト回答を渡す再開までを、大きな動く図と32秒の無音動画で追えます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/langgraph-example/index.html",
@@ -19,9 +19,9 @@
   "samples": "examples/langgraph-example/samples.json",
   "sample_format": "input-output",
   "samples_title": "3件の申請と、グラフが残した最終 state",
-  "samples_intro": "input は inputs/requests.json の申請そのまま、output は workflow.py が LangGraph で処理し終えたときの state です。承認・差し戻しはスクリプトが渡したテスト値で、人の判断ではありません。",
-  "demo_description": "架空の申請3件を切り替えて、申請内容 → チェックポイントから並べた経路 → interrupt の payload とテスト回答 → 最終状態の順に確かめるビューアです。再開前後の get_state と全チェックポイントは JSON のまま開けます。入力・実行結果・結果メモ・ソースを保存でき、依頼文もコピーできます。",
-  "demo_note": "表示しているのは、制作側で workflow.py を実行して保存した結果です。ページを開いても Python・LangGraph・AI は動きません。名前・単価・基準額は架空で、承認はテスト値です。",
+  "samples_intro": "inputは元のinputs/requests.json、outputは元のworkflow.pyが実際に処理した最終stateです。同じ3件・同じID・同じ固定版を保持します。承認と差し戻しは入力のtest_resumeをスクリプトが渡した結果で、人の承認ではありません。",
+  "demo_description": "組む・止まるまで・再開後の3段階と、同じ架空申請3件を切り替えます。状態の紙がPython関数の道を進み、確認待ちの門とメモリの置き場、別経路のテスト回答、保存できる元の実記録へつながります。",
+  "demo_note": "図は保存された実行結果を読むものです。ブラウザーでPython・LangGraph・AIを実行しません。元の3グラフ実行・インストール・推論は再実行せず、通常8000円と高額36000円の両方が停止すること、返却日なしは見積も停止もしないことを保持します。",
   "request_intro": "同じ作りを自分の申請データで試すときの依頼文です。LangGraph の固定版を読めるAIエージェントや開発者に渡してください。",
   "request": "LangGraph（langchain-ai/langgraph 固定コミット d4149cc1f5384364d1a21092b4c2f582a6e7af8f、langgraph 1.2.15）を使い、機材の貸出申請を処理する Python の StateGraph を作って、実際に実行してください。\n\n入力：inputs/requests.json（架空の申請3件、単価表、期待値）。各申請の項目は applicant・event・start_date・end_date・items（sku と quantity）です。\n\n処理：\n1. validate ノードで、必須5項目の空欄、YYYY-MM-DD 形式の日付、貸出日が返却日より後でないこと、単価表にない sku、1未満の数量を調べる。\n2. add_conditional_edges で、不備があれば needs_input ノードに進めて終了する（interrupt しない）。不備がなければ estimate へ進める。\n3. estimate で「数量×単価」を合計する（日数は掛けない）。合計が30,000円以上なら budget_flag を true にする。\n4. review ノードで interrupt を呼び、申請・見積・budget_flag を payload にして止める。金額に関係なく、完全な申請はすべて止める。interrupt より前に副作用を置かない。\n5. checkpointer に InMemorySaver を使い、申請ごとに固定の thread_id を付ける。同じプロセスの同じグラフに Command(resume=テスト値) を渡して再開し、approved と comment を state に残す。\n6. finalize で日本語の要約を作る。\n\n保存：再開前・後の get_state と get_state_history（古い順）を outputs/runs.json に、入力と最終 state の対を samples.json に、結果メモを outputs/result.md に書く。\n\n完了条件：通常の8,000円が承認、返却日のない申請が needs_input（missing_fields は end_date だけ、interrupt 0件）、高額の36,000円が差し戻しになり、3件とも期待値と一致すること。一致しなければ出力を書かずに失敗すること。\n\n範囲：規則だけで動く処理なので、LLM や API キーは使いません。テスト値は人の承認ではありません。実際に人が確認するには、回答する画面と、プロセスを再起動しても残る保存先（例：Postgres のチェックポインター）が別に必要です。\n",
   "applied_skills": [
@@ -33,44 +33,48 @@
     {
       "name": "LangGraph",
       "source": "https://github.com/langchain-ai/langgraph/blob/d4149cc1f5384364d1a21092b4c2f582a6e7af8f/README.md",
-      "applied": "フレームワークであり SKILL.md ではありません。固定版の StateGraph・add_conditional_edges・interrupt（response_schema 付き）・Command・InMemorySaver の定義と docstring を読み、その API だけで workflow.py を書きました。compile(checkpointer=InMemorySaver()) したグラフを申請ごとの thread_id で invoke し、戻り値の __interrupt__ を数え、get_state で停止位置（next が review）を確かめてから、同じ config に Command(resume=...) を渡します。最後に get_state_history を古い順に保存します。「再開時は interrupt したノードが先頭から再実行される」という docstring の注意に合わせ、review ノードの interrupt より前には副作用を置いていません。"
+      "applied": "フレームワークであり SKILL.md ではありません。固定版の StateGraph・add_conditional_edges・interrupt（response_schema 付き）・Command・InMemorySaver の定義と docstring を読み、その API だけで workflow.py を書きました。compile(checkpointer=InMemorySaver()) したグラフを申請ごとの thread_id で invoke し、戻り値の __interrupt__ を数え、get_state で停止位置（next が review）を確かめてから、同じ config に Command(resume=...) を渡します。最後に get_state_history を古い順に保存します。「再開時は interrupt したノードが先頭から再実行される」という docstring の注意に合わせ、review ノードの interrupt より前には副作用を置いていません。 元の推論と3グラフ実行は保全して再実行していません。紹介図の6部品は今回選んだAPIの説明用整理で、元の処理と新しい映像を分けます。"
     },
     {
       "name": "Motion Reel",
       "source": "examples/langgraph-example/tools/motion-reel/render.mjs",
-      "applied": "実行結果と実際の閲覧画面から、任意時刻を描くwindow.seek、motionReady、renderConfigに対応する28秒の編集動画を制作。同梱レンダラーで840フレームの無音MP4を実描画し、代表・連続フレーム、別順と新ページで同時刻の一致、全デコード、実MP4再生終端を確認しました。"
+      "applied": "新しい図と32秒縦横無音映像の8原本をOpus5.5が執筆。制作側が21固定素材/3実記録/6引用/任意時刻/縦横別配置/代表連続contact/MP4再生を新QAしました。旧28秒と元グラフの検査は保全し流用しません。"
     }
   ],
   "steps": [
     {
-      "title": "入力を読む",
-      "body": "inputs/requests.json の架空申請3件・単価表・期待値をそのまま読みます。名前・催し・単価・基準額はすべて作例用です。"
+      "title": "共有状態と工程を組む",
+      "body": "StateGraphの共有状態、条件の道、compile、InMemorySaver、interrupt、Commandの6部品を図でつなぎます。6つは選んだAPIの説明用整理で、6人のAIや原典の共通スキーマではありません。"
     },
     {
-      "title": "確認して分ける",
-      "body": "validate ノードが必須5項目・日付の形式と前後・単価表にない品目・数量を調べ、add_conditional_edges が needs_input か estimate へ分けます。返却日のない申請はここで needs_input へ進み、interrupt せずに終わります。"
+      "title": "執筆と実行を分ける",
+      "body": "元のOpus5.5が依頼と固定APIを読みworkflow.pyを執筆し、制作担当が別工程でPythonを実行しました。実行中の5ノードはPythonの規則で、LLM推論をしません。"
     },
     {
-      "title": "見積して止める",
-      "body": "estimate が「数量×単価」を合計します（通常8,000円、高額36,000円）。review ノードが申請・見積・budget_flag を payload にして interrupt を呼び、グラフはここで止まります。止まった時点の get_state と payload を保存します。"
+      "title": "入力の不備だけで道を分ける",
+      "body": "返却日が空ならneeds_inputで終了し、見積もinterruptもありません。完全な通常8000円と高額36000円は、どちらもreviewで一度止まります。30000円以上のbudget_flagは目印だけで拒否条件ではありません。"
     },
     {
-      "title": "テスト回答で再開する",
-      "body": "同じグラフ・同じ thread_id に Command(resume=テスト値) を渡します。approved（真偽値）と comment だけを受け付ける型で LangGraph が検証し、approved または rejected とコメントが state に残ります。"
+      "title": "同じメモリ・同じthreadへ回答を渡す",
+      "body": "InMemorySaverは同一Pythonプロセスのメモリです。Command(resume=テスト値)を同じグラフ/threadへ渡すと、reviewノードの先頭から再実行されます。interruptより前に送信などの副作用を置かず、回答が型を通った後にfinalizeへ進みます。"
     },
     {
-      "title": "保存して照合する",
-      "body": "get_state_history の全チェックポイントを古い順に保存し、期待値と interrupt の件数を照合します。すべて一致したときだけ runs.json・samples.json・result.md を書き出します。"
+      "title": "保存した実記録を使う",
+      "body": "3つのJSONは元のruns.jobsオブジェクトそのままの包装です。元の全実行記録、結果メモと全文ビューアへ進めます。新しい図・編集・縦横32秒無音動画を新QAしました。"
     }
   ],
   "limitations": [
-    "承認・差し戻しは入力ファイルの test_resume をスクリプトが渡したテスト値です。人が確認して押した承認ではありません。",
-    "チェックポイントは InMemorySaver のメモリ上だけにあります。停止と再開は同じ Python プロセスの中で行い、プロセス再起動後の再開や永続化は試していません。実際の運用には Postgres などの永続的なチェックポインターと、回答する画面が別に必要です。",
-    "各ノードは決まった規則で動く Python 関数です。LLM の推論・判断は使っていません。モデルを組み込んだ処理の動作・費用はこの作例の範囲外です。",
-    "機材の予約・在庫の確保・通知・決済は行っていません。LangSmith などのトレース用サービスにも送っていません。",
-    "チェックポイントの件数や created_at は記録された値で、処理の速さや品質の指標ではありません。期待値との照合は実装と実行結果の確認で、品質の評価ではありません。",
-    "使った版は langchain-ai/langgraph 固定コミット d4149cc の langgraph 1.2.15・langgraph-checkpoint 4.3.0・langgraph-prebuilt 1.1.0・langgraph-sdk 0.4.7 です。ほかの版や JavaScript 版の動作は確かめていません。",
-    "閲覧ページは保存済みの結果を読むだけです。ページから申請を送ったり、グラフを実行し直したりはできません。"
+    "新しい紹介図は保存済みの実記録を読み、状態と関係を説明するものです。Python/LangGraph/モデルを再実行した証拠ではありません。元の推論・インストール・3実グラフを再実行していません。",
+    "6部品は選んだAPIの説明用整理です。StateGraphの5ノードは決まった規則のPython関数で、5つのAIではありません。",
+    "通常8000円と高額36000円は、どちらも確認待ちで停止します。金額のフラグは拒否条件ではなく、承認・差し戻しはスクリプトから渡すテスト値です。人による承認ではありません。",
+    "返却日が空の申請はneeds_inputで終了します。見積/interrupt/再開がないため、金額0や確認待ちを作って表示しません。",
+    "InMemorySaverは同一プロセスのメモリだけです。6/4/6件のチェックポイントは保存された件数で、速さや品質の点数ではありません。再起動後の再開や永続化は試していません。",
+    "再開はreviewノードの先頭からです。途中のCPU命令やfinalizeから再開するものではありません。",
+    "元の申請・氏名・催し・単価・基準額は架空です。LLM推論、LangSmith/Cloud、実予約、在庫確保、送信、決済は行っていません。",
+    "4Pythonパッケージの固定版1.2.15/4.3.0/1.1.0/0.4.7と172公式Gitblobを確認しました。元の157インストール済みファイル確認や3実行の検査を、新しい図や動画の検査へ流用しません。",
+    "新しい3JSONは元jobsオブジェクトのUTF8/LF包装です。新しいモデル出力やグラフ実行記録ではありません。公開request.txtは再現の依頼文で、私的な原推論promptそのものではありません。",
+    "実機iOS/Safari/VoiceOver、200%ズーム、人の審美的承認、全入力や意味/性能の保証、クリップボード内容の再取得は未確認です。音声ガイド・原稿・音源・音声トラックは作っていません。",
+    "JSON/メモの保存要求、公開原本のバイト一致、ブラウザー保存ツールから返却されたファイルは区別して記録します。"
   ],
   "sources": [
     {
@@ -114,16 +118,36 @@
       "url": "examples/langgraph-example/verification.json"
     },
     {
-      "label": "作例・固定ソース・動画の一式",
+      "label": "作例・固定ソース・図と動画の編集ソース一式",
       "url": "examples/langgraph-example/source.zip"
+    },
+    {
+      "label": "状態と工程・停止・再開の構造",
+      "url": "examples/langgraph-example/concept/structure.json"
+    },
+    {
+      "label": "元の全文・状態・チェックポイントのビューア",
+      "url": "examples/langgraph-example/desk.html#approved"
+    },
+    {
+      "label": "原制作と新しい紹介図の確認の区別",
+      "url": "examples/langgraph-example/visual-verification.json"
+    },
+    {
+      "label": "図と縦横映像の再現手順",
+      "url": "examples/langgraph-example/visual-guide.md"
+    },
+    {
+      "label": "新32秒映像の再現スクリプト",
+      "url": "examples/langgraph-example/render-visual.py"
     }
   ],
   "license": "MIT",
   "license_note": "作例のコード・文章・データはMIT License（Copyright (c) 2026 Studio Yebisu）。同梱した LangGraph の4パッケージはMIT License（Copyright (c) 2024 LangChain, Inc.）で、ルートと各パッケージの LICENSE を残しています。MITは LangGraph の条件で、モデルAPIやホスト型サービス（LangSmith など）の料金・利用条件は別です。",
-  "video_note": "28秒・720p・30fps・無音。実際の機材貸出申請3件の入力・分岐・確認待ち・テスト回答による再開と、保存結果の画面を使う編集動画です。連続操作の録画ではありません。申請・単価は架空で、承認や差し戻しはスクリプトから渡すテスト値です。",
+  "video_note": "32秒・30fps・完全無音。縦720×1280/横1280×720を別配置で描きます。API部品と依頼→元のAIが実装を執筆→制作担当がPythonで実行→同じ状態が分岐/メモリ/中断/テスト回答の道を通る→実記録を使う、という構造の図解です。連続操作の録画や新しいLangGraph実行ではありません。元の28秒映像と検査は履歴へ保全し、編集ソースはlegacyへ残します。",
   "video_source": "examples/langgraph-example/video/index.html",
   "skill_license": "examples/langgraph-example/vendor/langgraph/LICENSE",
-  "updated_on": "2026-10-16",
+  "updated_on": "2026-10-19",
   "verification_stage": "runtime-reviewed",
   "guide_url": "case.html?id=langgraph-example",
   "catalog_entry": {
@@ -131,7 +155,7 @@
     "name": "LangGraph",
     "category": "agents",
     "kind": "フレームワーク",
-    "summary": "状態を持つ処理をグラフとしてつなぎ、エージェントの複数段階の実行を管理する。",
+    "summary": "Pythonで共有状態と工程・分岐を組み、メモリのチェックポイントとテスト回答で停止・再開を追う図解。",
     "use_case": "調査、下書き、検証などの工程を分け、途中から再開できるAI処理を作りたいとき。",
     "tags": [
       "エージェント",
@@ -161,8 +185,8 @@
     "source_note": "公開リポジトリのREADMEと利用条件を確認し、用途と最初の試し方を日本語で整理しました。原典は確認時のコミットへ固定しています。",
     "prompt": "LangGraph（langchain-ai/langgraph 固定コミット d4149cc1f5384364d1a21092b4c2f582a6e7af8f、langgraph 1.2.15）を使い、機材の貸出申請を処理する Python の StateGraph を作って、実際に実行してください。\n\n入力：inputs/requests.json（架空の申請3件、単価表、期待値）。各申請の項目は applicant・event・start_date・end_date・items（sku と quantity）です。\n\n処理：\n1. validate ノードで、必須5項目の空欄、YYYY-MM-DD 形式の日付、貸出日が返却日より後でないこと、単価表にない sku、1未満の数量を調べる。\n2. add_conditional_edges で、不備があれば needs_input ノードに進めて終了する（interrupt しない）。不備がなければ estimate へ進める。\n3. estimate で「数量×単価」を合計する（日数は掛けない）。合計が30,000円以上なら budget_flag を true にする。\n4. review ノードで interrupt を呼び、申請・見積・budget_flag を payload にして止める。金額に関係なく、完全な申請はすべて止める。interrupt より前に副作用を置かない。\n5. checkpointer に InMemorySaver を使い、申請ごとに固定の thread_id を付ける。同じプロセスの同じグラフに Command(resume=テスト値) を渡して再開し、approved と comment を state に残す。\n6. finalize で日本語の要約を作る。\n\n保存：再開前・後の get_state と get_state_history（古い順）を outputs/runs.json に、入力と最終 state の対を samples.json に、結果メモを outputs/result.md に書く。\n\n完了条件：通常の8,000円が承認、返却日のない申請が needs_input（missing_fields は end_date だけ、interrupt 0件）、高額の36,000円が差し戻しになり、3件とも期待値と一致すること。一致しなければ出力を書かずに失敗すること。\n\n範囲：規則だけで動く処理なので、LLM や API キーは使いません。テスト値は人の承認ではありません。実際に人が確認するには、回答する画面と、プロセスを再起動しても残る保存先（例：Postgres のチェックポインター）が別に必要です。\n",
     "verification_stage": "runtime-reviewed",
-    "verification": "固定LangGraph1.2.15のStateGraphを実実行。架空の機材申請3件で条件分岐、InMemorySaver、interrupt、Commandのテスト値による再開、get_stateと全チェックポイントを保存し、閲覧画面と28秒無音動画を確認。LLM推論、人の承認、実予約、再起動後の永続化は行っていません。",
-    "reviewed_on": "2026-10-15",
+    "verification": "元3実グラフ/2Opus受領/157installed確認と172固定ソースを保全。新図は21素材と3保存記録を読み、32秒縦横無音動画を別QA。LLM判断/人の承認/再起動後の永続化は未実行。",
+    "reviewed_on": "2026-10-19",
     "example_url": "examples/langgraph-example/index.html#approved",
     "image": "media/langgraph-example.webp"
   }

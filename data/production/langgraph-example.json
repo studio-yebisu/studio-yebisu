@@ -1,6 +1,6 @@
 {
   "id": "langgraph-example",
-  "verified_at": "2026-10-16T00:40:22.389838+00:00",
+  "verified_at": "2026-10-18T22:02:11.892598+00:00",
   "model": {
     "requested": "claude-opus-5-5",
     "reported": [
@@ -20,7 +20,16 @@
         "prompt_sha256": "674c8509c073e859413191cff387dbd0b785c083beb36d6edac9caf40928de1e"
       }
     ],
-    "receipt_published": false
+    "receipt_published": false,
+    "visual_revision_receipts": [
+      {
+        "phase": "visual-r1",
+        "receipt_sha256": "f571cdb7f733eaaf8f2f3bc38dfb37370bc1e3248836a32698edba97f7c8f761",
+        "execution_sha256": "fcbc7fb05ec16e0e04a454a175ee1a47d4b98ae4296267a6299e175f7d57f79f",
+        "prompt_sha256": "b03d35c400ba843af432341792b46afaf26ecda8c9b52d1cc216e25cc34d903c"
+      }
+    ],
+    "scope": "Original two receipts remain original. Exact newOpus5.5 authored8conceptUI/film originals. Parent factual structure/recordpackaging/corrections/render/QA/publication distinct; no original inference/installation/graph rerun."
   },
   "upstream": {
     "repository": "langchain-ai/langgraph",
@@ -202,15 +211,74 @@
       "libs/sdk-py/langgraph_sdk/stream/transport/ws.py": "7be103616087bab02365ed18d019e5b8bb0c3c7009fde8642aa251179b6b103a",
       "libs/sdk-py/pyproject.toml": "f4f14718045cfa6999c13a82a964557fdba8e5eeabe5896be5f890fc60c67fa4"
     },
-    "scope": "Unmodified four Python runtime package source trees plus their packaging metadata and licenses. Original deterministic StateGraph example invokes real conditional edges, InMemorySaver, interrupt, Command(resume), and snapshots; no model API, external approval or durable storage service."
+    "scope": "Unmodified four Python runtime package source trees plus their packaging metadata and licenses. Original deterministic StateGraph example invokes real conditional edges, InMemorySaver, interrupt, Command(resume), and snapshots; no model API, external approval or durable storage service.",
+    "visual_revision_source_check": {
+      "repository": "langchain-ai/langgraph",
+      "source_commit": "d4149cc1f5384364d1a21092b4c2f582a6e7af8f",
+      "license": "MIT",
+      "copyright": "2024 LangChain, Inc.",
+      "shipped_source_files": 172,
+      "exact_raw_byte_matches": 172,
+      "CRLF_only_content_matches": 0,
+      "all_shipped_content_matches": 172,
+      "official_readings": [
+        {
+          "path": "README.md",
+          "official_git_blob": "97c31e9cb4d8fe56be8d768ce3eb5e22400e897e",
+          "sha256": "3a13e257af1216962d53d72414a7f44ac1fc5cea34d994bdff60ea2a3b045933"
+        },
+        {
+          "path": "LICENSE",
+          "official_git_blob": "fc0602feecdd6748623c852ab534e1ca612673c7",
+          "sha256": "d9bb52f2e3540d60ff50d8f0f5b6ba649b7fd346948c4c3d086c8afb120763c7"
+        },
+        {
+          "path": "libs/langgraph/langgraph/graph/state.py",
+          "official_git_blob": "9a87f16fa91a794b2e9be09352c1cb03ae89a90d",
+          "sha256": "d8c8021a93a8fc895d62335a9482e50d51353343bf885901e6487611dcd0d212"
+        },
+        {
+          "path": "libs/langgraph/langgraph/types.py",
+          "official_git_blob": "8fba752a1d20d98721d2afcdfff8ee92dfa4c84b",
+          "sha256": "062583a1c0af9833477935a9a78d336408cc9a33c425722a1191e000d032107a"
+        },
+        {
+          "path": "libs/checkpoint/langgraph/checkpoint/memory/__init__.py",
+          "official_git_blob": "ff6f7b1caaab88f01363dc8d6b249d5ad0c338e8",
+          "sha256": "9e81ce01b41fc1bf591e930e350629282fb4ac86d667e211899bae9b5b573a84"
+        },
+        {
+          "path": "libs/langgraph/pyproject.toml",
+          "official_git_blob": "508c15567f63cfa334148a592faf253c5e5e18a6",
+          "sha256": "73b0f61add1aa1a4b3e97ce160d1a75db8c2f72339b719897c9b5596e24dfbfd"
+        },
+        {
+          "path": "libs/checkpoint/pyproject.toml",
+          "official_git_blob": "72a0590a4534a7145a2f0fa829278f424fad9a0d",
+          "sha256": "43f8c55e8d2d4ccf5e7710643e4320380f0f916ad897a6e9a5ae844eb87f08b7"
+        },
+        {
+          "path": "libs/prebuilt/pyproject.toml",
+          "official_git_blob": "3c9c573154140ddc555de7c39581c4aa0601990a",
+          "sha256": "40075e205608aa643360965d7144387561a578ce91200956a78ac3d3232af663"
+        },
+        {
+          "path": "libs/sdk-py/pyproject.toml",
+          "official_git_blob": "b4c55bafb971f43d597279a759e5d2ef42faae90",
+          "sha256": "f4f14718045cfa6999c13a82a964557fdba8e5eeabe5896be5f890fc60c67fa4"
+        }
+      ],
+      "checked_at": "2026-10-18T21:14:05.656751+00:00",
+      "full_source_check_record_sha256": "32baadf712f8bb88ddf414582ea69fcb6054ed38c14f6a0cf998741c63447da1"
+    }
   },
-  "runtime": {
+  "original_runtime": {
     "status": "passed",
     "sample_count": 3,
     "scope": "Actual deterministic StateGraph/conditional edges/interrupt/Command resume/checkpoints, memory-only within one process and scripted test replies. No model inference, external reservation or production service.",
     "human_approval": false
   },
-  "verification": {
+  "original_verification": {
     "id": "langgraph-example",
     "verified_at": "2026-10-16T00:40:22.113106+00:00",
     "stage": "runtime-and-agent-visual-reviewed",
@@ -564,7 +632,7 @@
     },
     "human_approval": false
   },
-  "explanation": {
+  "original_explanation": {
     "video": {
       "file": "video.mp4",
       "sha256": "1642089afb4f309a72e5af2fb3e42eda8846cfc623e76c65737fe499daaa3309",
@@ -586,7 +654,7 @@
     "errors": [],
     "blockedExternalRequests": []
   },
-  "video_review": {
+  "original_video_review": {
     "video_sha256": "1642089afb4f309a72e5af2fb3e42eda8846cfc623e76c65737fe499daaa3309",
     "poster_sha256": "7f3fe0d0b15d25c5c79365889de5297d3f577100058e634f68829553a6e6dda0",
     "poster_from_mp4_seconds": 13.5,
@@ -654,11 +722,11 @@
       "Other aspect ratios, audio and physical iOS not exercised."
     ]
   },
-  "publication": {
+  "original_publication": {
     "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=langgraph-example",
     "authorization": "User requested sequential publication of40 examples to existing main and Pages."
   },
-  "artifacts_sha256": {
+  "original_publication_artifacts_sha256": {
     "data/cases/langgraph-example.json": "48da38069a461b531e360ae0d90127b631eae1d0c809b712a9bb4f66b3d8cab0",
     "examples/langgraph-example/app.mjs": "d9d98582ee3b275f87791b7e36a8cd71774567e8dd304ce658ef9af024f70b7b",
     "examples/langgraph-example/assets/desk-mobile.png": "5432cbc786a5010450119b4c39bbb13929661a547d6a25c9d10423031763af05",
@@ -886,5 +954,544 @@
     "examples/langgraph-example/workflow.py": "c2fcb28f4920804c517b92bb4aeed68f933e2e8b3d8dd51dd2d42382e3af5142",
     "media/langgraph-example.mp4": "1642089afb4f309a72e5af2fb3e42eda8846cfc623e76c65737fe499daaa3309",
     "media/langgraph-example.webp": "7f3fe0d0b15d25c5c79365889de5297d3f577100058e634f68829553a6e6dda0"
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 3,
+    "scope": "Same original3deterministic LangGraphjobs reused. NewUI only reads unchanged savedobjects; originalPython/inference/installation notrerun. Originalviewer retained.",
+    "original_record": "verification.json",
+    "browser": {
+      "presets_checked": 3,
+      "stage_case_states_checked": 9,
+      "source_quote_pairs_checked": 6,
+      "theme_width_views": 16,
+      "asset_failure_cases": 3,
+      "editor_assets": 21,
+      "editor_scenes": 7,
+      "editor_arbitrary_time": 7.2,
+      "editor_portrait_dimensions": [
+        720,
+        1280
+      ],
+      "editor_wide_dimensions": [
+        1280,
+        720
+      ],
+      "editor_play_pause_end": true,
+      "legacy_jobs_checked": 3,
+      "full_selected_job_equal_actual_saved": true,
+      "original_outputs_match": true,
+      "original_checkpoints_per_job": [
+        6,
+        4,
+        6
+      ],
+      "phone_full_graph_and_primary_action": true,
+      "primary_min_height_px": 44,
+      "viewport_widths": [
+        320,
+        375,
+        768,
+        1280
+      ],
+      "themes": [
+        "light",
+        "dark"
+      ],
+      "motion": [
+        "reduce",
+        "no-preference"
+      ],
+      "request_font_px": 16,
+      "native_JSON_save_requested": true,
+      "native_JSON_returned_file": false,
+      "copy_status_observed": "依頼文をコピーしました。",
+      "clipboard_readback": false,
+      "human_approval": false,
+      "physical_ios_safari_voiceover": false,
+      "zoom200percent": false,
+      "failure_scope": "HTTP503, truncatedJSON stopped atsize gate, same-size alteration stopped atSHA gate. Main/editor clear dependent state and recover21assets onretry. Not JSONparse-branch coverage.",
+      "scope": "Production-agent native actions/DOM/images of the newconceptUI. It onlyreads originalrecords; original3Python graphjobs/model/installation checks notrerun. Not human approval or proof of frameworkexecution by the diagram."
+    }
+  },
+  "video": {
+    "revision": "visual-r1",
+    "films": {
+      "portrait": {
+        "file": "video.mp4",
+        "sha256": "24737bd61c769f10146adf9c83ecbc4693a7e7654d0c30dda829a9357530f03d",
+        "width": 720,
+        "height": 1280,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      },
+      "wide": {
+        "file": "video.mp4",
+        "sha256": "e36651328e4774fdf7e88ba8a90d9c9e06576929aa32f325a549e2bef1bd693e",
+        "width": 1280,
+        "height": 720,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      }
+    },
+    "frame_review": {
+      "reviewed_by": "production agent",
+      "checked_at": "2026-10-18T22:02:11.183739+00:00",
+      "layouts": 2,
+      "audio_streams": 0,
+      "human_approval": false,
+      "representative_frames_each": 16,
+      "source_consecutive_each": 12,
+      "source_consecutive_center": 14.2,
+      "source_consecutive_start": 14.0,
+      "decoded_MP4_consecutive_each": 12,
+      "decoded_MP4_consecutive_start": 14.0,
+      "native_32second_movies_ended": 2,
+      "arbitrary_editor_time": 7.2,
+      "observations": [
+        "縦横の最終contactで、原典APIと依頼から同じ作者AIがworkflowを書き、制作担当のPython実行へ渡す構造を確認。関数は別AIに見せず、同じ状態の紙がvalidate/estimate/review/保存へつながる。",
+        "通常8000円と高額36000円は両方reviewで停止し、Commandのテストtrue/falseと同じthreadへ戻る線を確認。返却日なしはneeds_input側に抜け、未訪問の見積/停止/再開の部品は破線。段階強調で未訪問の部品が青くなる点は親が補正。",
+        "14.0秒から12枚は章切替と停止表示を確認。別途15.2秒から12枚の描画/MP4復号で、メモリの小さい紙がreviewの先頭へ移動する過程を確認。大きいstate紙の結果は元チェックポイントの値で、新しいLangGraph実行ではない。",
+        "375pxと320pxの全図と保存操作を画像で確認。縦は上下につながる図、横は左右の図で、終端30/31秒は同じ図に3件の結果を保持する。配色/幅の技術検査は人の審美的承認や実機iOSの確認ではない。",
+        "最終renders-r3では冒頭のAPI境界をホストAPIへ限定した。0秒の縦横文字が収まり、他28枚/向きの代表・連続・posterはr2と同じbytes。最終r3のMP4をローカルで縦横32秒とも自然終端まで再生して確認。"
+      ],
+      "limits": [
+        "No physicaliOS/Safari/VoiceOver/200percentzoom or human aesthetic approval.",
+        "No new graph/inference/installation execution or wholeinput/meaning/performance guarantee."
+      ],
+      "extra_restore_motion_review": [
+        {
+          "layout": "portrait",
+          "start": 15.2,
+          "frames": 12,
+          "final_video_sha256": "24737bd61c769f10146adf9c83ecbc4693a7e7654d0c30dda829a9357530f03d",
+          "source_strip": "restore-motion-review/portrait/strip.png",
+          "decoded_strip": "restore-motion-review/portrait/mp4-final-restore-strip.png",
+          "unchanged_r2_representatives_strip_poster": 28,
+          "boundary_correction": "Only intro0-0.3s caption changed from API to hostedAPI. Other sampledimages byteidentical."
+        },
+        {
+          "layout": "wide",
+          "start": 15.2,
+          "frames": 12,
+          "final_video_sha256": "e36651328e4774fdf7e88ba8a90d9c9e06576929aa32f325a549e2bef1bd693e",
+          "source_strip": "restore-motion-review/wide/strip.png",
+          "decoded_strip": "restore-motion-review/wide/mp4-final-restore-strip.png",
+          "unchanged_r2_representatives_strip_poster": 28,
+          "boundary_correction": "Only intro0-0.3s caption changed from API to hostedAPI. Other sampledimages byteidentical."
+        }
+      ],
+      "final_render": "renders-r3"
+    },
+    "native_movies_ended": 2,
+    "audio_streams": 0,
+    "human_approval": false
+  },
+  "visual_revision": {
+    "id": "visual-r1",
+    "purpose": "FrameworkAPI parts and originalauthor/operator roles; shared state/conditional route/compile/memory/checkpoints/interrupt/scriptedCommand same-thread resume and realrecordsave.",
+    "original_execution_rerun": false,
+    "assets": 21,
+    "manifest_sha256": "3147f2fff01f9ae8e548ebd4af6084648f357232d49b0bdb2530916feaedf4ed",
+    "verification": "examples/langgraph-example/visual-verification.json",
+    "production_adjustments": [
+      {
+        "files": [
+          "concept/structure.json",
+          "concept/original-run.json",
+          "concept/jobs/*.json",
+          "concept/manifest.json"
+        ],
+        "reason": "Factual source/actor/graph mapping and exact original jobobject packaging. No new graph, model or installation execution."
+      },
+      {
+        "files": [
+          "article-candidate.json",
+          "visual-guide.md",
+          "render-visual.py",
+          "render.py",
+          "desk.html",
+          "README.md",
+          "video/legacy.html"
+        ],
+        "reason": "Current/originalscope, publicroot ZIP/reproduction metadata and legacy entry binding. Originalsourcebytes and old8rawfiles preserved privately."
+      },
+      {
+        "files": [
+          "index.html"
+        ],
+        "reason": "Avoid claiming all5node definitions are visited. Completejobs visit4; missing visits2. Factualcopyonly, diagram unchanged.",
+        "before_sha256": "f7971c099806f15ba27f2c816ded0fbcf5ae524ffa32246fbafb0e466a1ab9d3",
+        "after_sha256": "9a767005d716b2aaf2aea764d165372155ad40c41af8aaaa172cbcf1ff28d4f7"
+      },
+      {
+        "files": [
+          "concept.js"
+        ],
+        "reason": "Keep unused dashed paths grey during stage emphasis. Completejobs must not highlight needs_input; missingjob must not highlight review/finalize/resume. Explicit component selection remains available. No route/data changes.",
+        "before_sha256": "fa1c399b67d94a8b7321f1ac330b65a5224a10d8253d64b6c36b3c7cba6079f6",
+        "after_sha256": "59dcab3f714f8c04f1cfd1e0c29b78f74b02053e18ffa06538c25af8bb6aedf7"
+      },
+      {
+        "files": [
+          "video/video.js"
+        ],
+        "reason": "Clarify intro boundary as hostedAPI: the Python library does expose the APIs explained by the film. Copyonly, timings/structure unchanged.",
+        "before_sha256": "616bc762cf064c43c967f8efa923464721bc9a310eb3f669e999b9f5a5837285",
+        "after_sha256": "7e54dae4a0d39d96fa044e6f0b85212c52a7e8268d80660c571223853562dd02"
+      },
+      {
+        "files": [
+          "video/index.html"
+        ],
+        "reason": "Separate author-time unrendered record from later technicalQA; point to actualverification. Editor-only metadata; renderedcomposition unchanged.",
+        "before_sha256": "3dbb8099a44f1079c0407fa0c33298a716f65b3cf9cbad7924287ca45a3e6dc1",
+        "after_sha256": "f2e1ad11476c96bc1215e08121e1f9ed01f250a05ceb307486c961f254983682"
+      },
+      {
+        "files": [
+          "video/README.md"
+        ],
+        "reason": "Record actual later productionQA/reproduction and distinguish author-time unrendered state."
+      }
+    ],
+    "source_originals_sha256": {
+      "index.html": "f7971c099806f15ba27f2c816ded0fbcf5ae524ffa32246fbafb0e466a1ab9d3",
+      "concept.css": "b3d14dbb0a42b5b64d26e0fceb8801d73fa232435fe00dd6af4f1a8797af6cab",
+      "concept.js": "fa1c399b67d94a8b7321f1ac330b65a5224a10d8253d64b6c36b3c7cba6079f6",
+      "video/index.html": "3dbb8099a44f1079c0407fa0c33298a716f65b3cf9cbad7924287ca45a3e6dc1",
+      "video/video.css": "c91fd6bce9066ce7264f03a6a28625189658925a030d20ea69bd0ec0017848d9",
+      "video/video.js": "616bc762cf064c43c967f8efa923464721bc9a310eb3f669e999b9f5a5837285",
+      "video/storyboard.json": "289e5aac54b3a2a1e7d1a0edadaf88b25595186bc8decfd6752ac67646cd3235",
+      "video/README.md": "cd3b1dfb96f80c7cdbfc09c2591bc3f03cfa28cb405b951ac00a5195e4ae78be"
+    },
+    "final_source_sha256": {
+      "index.html": "9a767005d716b2aaf2aea764d165372155ad40c41af8aaaa172cbcf1ff28d4f7",
+      "concept.css": "b3d14dbb0a42b5b64d26e0fceb8801d73fa232435fe00dd6af4f1a8797af6cab",
+      "concept.js": "59dcab3f714f8c04f1cfd1e0c29b78f74b02053e18ffa06538c25af8bb6aedf7",
+      "video/index.html": "f2e1ad11476c96bc1215e08121e1f9ed01f250a05ceb307486c961f254983682",
+      "video/video.css": "c91fd6bce9066ce7264f03a6a28625189658925a030d20ea69bd0ec0017848d9",
+      "video/video.js": "7e54dae4a0d39d96fa044e6f0b85212c52a7e8268d80660c571223853562dd02",
+      "video/storyboard.json": "289e5aac54b3a2a1e7d1a0edadaf88b25595186bc8decfd6752ac67646cd3235",
+      "video/README.md": "bc2365c4070331d9d69a80101ef5d94084c74c8f6abf1aafc17a0588eee955e4"
+    },
+    "silent_film": true
+  },
+  "artifacts_sha256": {
+    "data/cases/langgraph-example.json": "0398433624df80ae3f12f31797df4cbdb07963b593e05f5a710238e0d0eba5e6",
+    "examples/langgraph-example/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
+    "examples/langgraph-example/README.md": "7d89e52702d4d547f329e41268bce46d9a53a01d35ceaba1df6374120cd15a0d",
+    "examples/langgraph-example/app.mjs": "d9d98582ee3b275f87791b7e36a8cd71774567e8dd304ce658ef9af024f70b7b",
+    "examples/langgraph-example/assets/desk-mobile.png": "5432cbc786a5010450119b4c39bbb13929661a547d6a25c9d10423031763af05",
+    "examples/langgraph-example/assets/desk-pause.png": "77055db5fc4952ddf83e72cd0464e36e97cad4567e7a0f166dcb161a72c47aaf",
+    "examples/langgraph-example/assets/desk-rejected.png": "487bc5acf8119578cc0a1666ee759796b5372f334109ee8ece9464dd26f0e0ab",
+    "examples/langgraph-example/assets/desk-top.png": "099944177a764e7debab1381c9f549346034e01076b10ff2e6a4885cda98c991",
+    "examples/langgraph-example/concept.css": "b3d14dbb0a42b5b64d26e0fceb8801d73fa232435fe00dd6af4f1a8797af6cab",
+    "examples/langgraph-example/concept.js": "59dcab3f714f8c04f1cfd1e0c29b78f74b02053e18ffa06538c25af8bb6aedf7",
+    "examples/langgraph-example/concept/jobs/approved.json": "f20f82c1840f0e3a96577944ba62aacdb7191445c376ea74249d7e9d451d048f",
+    "examples/langgraph-example/concept/jobs/missing.json": "9cf34e4df674e6cb540321cab0e42e08b25aa2bbb748b30b9063e3d57f0bfc6f",
+    "examples/langgraph-example/concept/jobs/rejected.json": "6a2f3f4392d72c7fefbf2041c670c9690dae3e8cde3f90df0120115c2b4ec2b9",
+    "examples/langgraph-example/concept/manifest.json": "3147f2fff01f9ae8e548ebd4af6084648f357232d49b0bdb2530916feaedf4ed",
+    "examples/langgraph-example/concept/original-run.json": "af601e1f683de7389199e0b90b2bb0a0dd73f56aa74b97f1ba63eaaaa6f57402",
+    "examples/langgraph-example/concept/structure.json": "98f0905cf3b0b4d4b0781e8c937c81eceabc896f4206e9766036060d7a1fe589",
+    "examples/langgraph-example/desk.html": "b9a645ba1e601c95a9c08f89fc10b0cba5d9a1bfd8fb0d400addc4957712b24b",
+    "examples/langgraph-example/index.html": "9a767005d716b2aaf2aea764d165372155ad40c41af8aaaa172cbcf1ff28d4f7",
+    "examples/langgraph-example/inputs/requests.json": "8c4a878099191da6e92891b77711f261676e750d3604e20d03de83f560a9b22a",
+    "examples/langgraph-example/outputs/movie-materials.json": "2a82a947507ea5455ca000a9ce6428e3b96d8b0b197e4e07dd7ebc5838196403",
+    "examples/langgraph-example/outputs/result.md": "d277ee41fd60dcaf5dd69b2a989d8c0755ced77306f48ef3c2f15c432e631ce5",
+    "examples/langgraph-example/outputs/runs.json": "d5bc61f421cbde99f2f60446a3418d7a5f81df92a4fe4f75b6db9306475360f4",
+    "examples/langgraph-example/render-visual.py": "b22c768572127166343345e1a4ed0829985c6ba4a52aba07f5f8eec3e8911c6d",
+    "examples/langgraph-example/render.py": "61f59da366d0e0d950d0d106b1cf3709c3f1329a5bee99b5cf06114e92997ac7",
+    "examples/langgraph-example/request.txt": "615ef1d88250a8962e4664255f9d8e7acba92a8db5429ec59512263deb9661d7",
+    "examples/langgraph-example/requirements.lock.txt": "81ceafda86a4d97d390bb73babc26599db81fac9a2f6c633221f242b720130de",
+    "examples/langgraph-example/samples.json": "0cda3abee1f5dcd2aa9bc44718f34a199457cb97e743cf3d674213be189f7725",
+    "examples/langgraph-example/source.zip": "c75384af4b85e2d3a8e3b71f0d3c10518c0ee50998bf36c2862d71bfe33c5161",
+    "examples/langgraph-example/style.css": "308c754c4c159f33fa8f8a52ef0841d371577257dfb4eab6da61cbcd08a744c9",
+    "examples/langgraph-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/langgraph-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/langgraph-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/langgraph-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/langgraph-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "examples/langgraph-example/vendor/langgraph/AGENTS.md": "e5a0e5318267faba2f0abd022a4c89a8c3e6fc021f03137641efa118bc5618de",
+    "examples/langgraph-example/vendor/langgraph/LICENSE": "d9bb52f2e3540d60ff50d8f0f5b6ba649b7fd346948c4c3d086c8afb120763c7",
+    "examples/langgraph-example/vendor/langgraph/README.md": "3a13e257af1216962d53d72414a7f44ac1fc5cea34d994bdff60ea2a3b045933",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/LICENSE": "d9bb52f2e3540d60ff50d8f0f5b6ba649b7fd346948c4c3d086c8afb120763c7",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/README.md": "efedc0a489d4ab9147d69c8575a9cfd2344d01040322ec6330302887c65aa80e",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/cache/base/__init__.py": "b0da57a4a15b6b67a266526f167ab7d34dd997dfd15cfbf6fce0ae3fd02f5dd4",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/cache/base/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/cache/memory/__init__.py": "839cc985739246b03553269b3004296a3593ddac782a6a6a74b170b95f5c3367",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/cache/redis/__init__.py": "8c16eeb1961711abf1cf8ee625d935afe4c502d745bfd2b9aa5e2269c4e4d20d",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/checkpoint/base/__init__.py": "e1b412fb541b47cf9ab0657f5c160c955c71ce929d8ac786f0bcc94d356481e9",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/checkpoint/base/id.py": "f4635d8f5f1e713c0f55eb111ad32a323121b318e1b2456eb5d61b305c25785b",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/checkpoint/base/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/checkpoint/memory/__init__.py": "9e81ce01b41fc1bf591e930e350629282fb4ac86d667e211899bae9b5b573a84",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/checkpoint/memory/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/checkpoint/serde/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/checkpoint/serde/_msgpack.py": "0c861f9e2288b3cb886b819d264f4488e604c0213fb3838a46a641666e0edb7c",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/checkpoint/serde/base.py": "1f3bd8194dbc25ae6f8e24c14304632868d1ba42bcb9c732dc45edb61dd92bcb",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/checkpoint/serde/encrypted.py": "d1a15ed8f9d97f916bbc02ad51db965994ee736c81dd6af887d4f2cd17568be0",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/checkpoint/serde/event_hooks.py": "437c5184fed52e229dafb367eca936b52cf4f8189af49a79e9261344d2effc92",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/checkpoint/serde/jsonplus.py": "2320cc0ee720048b6cc68872c226ea0c9c8b4a9e8a3d17af64477204b6430c03",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/checkpoint/serde/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/checkpoint/serde/types.py": "a2c029b31b149804744063033a8b116570c504de86d0b5e8f76db4b465f0c503",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/store/base/__init__.py": "4120ffad1d8c5f7915dce2979a70acedb55ee9e6704986e487289604beed0542",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/store/base/batch.py": "9df0a3fd928491150a08ac0d9194deec659c8dd9c67aa5b0e4a8a674b5fa73bc",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/store/base/embed.py": "e8340c0734b49fa79c5bbb11adf3fa339b1ea1137fed5833a72a74bd80aadc66",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/store/base/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/store/memory/__init__.py": "3992c9bc44f1883fa9fb83482fb3a364d68f24e51fc7296aa11e165b79d8aa24",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/langgraph/store/memory/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "examples/langgraph-example/vendor/langgraph/libs/checkpoint/pyproject.toml": "43f8c55e8d2d4ccf5e7710643e4320380f0f916ad897a6e9a5ae844eb87f08b7",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/LICENSE": "d9bb52f2e3540d60ff50d8f0f5b6ba649b7fd346948c4c3d086c8afb120763c7",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/README.md": "53f07ad40471df77ddd3b5afd24a75e3f5c64ee0d2c979241c316687f443eab3",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/_internal/__init__.py": "0ef92d8f5b3845fe7923378fcf39891380657b5fba21c491b922443aac592ca0",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/_internal/_cache.py": "25cf2d24b029be5671da777507f4078dc1d2dc0f472a131af8df19edcb3a96cf",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/_internal/_config.py": "a0f8b4533ab09aeeb7b477d47e4e9a69a47d03abf0de0909c087bc2aabe1e00e",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/_internal/_constants.py": "723fea9177c98c660e5ca2f6e2ecb094d54780015e193a928b9798918f8c7e6b",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/_internal/_fields.py": "22d0c7e2b7540f106f1feb91f63e2aaf902cd4a67eaf152f70abe041089ee752",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/_internal/_future.py": "87d95f6ee355270b4a1503fe0a43c8912511b6c9fa791a990caa6f144c3aa134",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/_internal/_pydantic.py": "e3ca9b3189a4cf768fa2bb34bee69c49bbe6a6e724297e06471870f730490b0c",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/_internal/_queue.py": "64fef539eb7c10a25e73fc9ac76974c860116a376a767fdaf6949586ec2f1053",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/_internal/_replay.py": "6d0ad54ebd4f805d94e4ff54eb2eae445771c8cee3ebdff8da4d8d5609ac460d",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/_internal/_retry.py": "cee7f2f7b1541bc0ac90484e9f48879f80a407e2d92c52d9a8a3bab78face13e",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/_internal/_runnable.py": "ae3f2bd1c5c01f20200ccbab84a088c3e7ba1377117e01e823deafec28d9b9f3",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/_internal/_scratchpad.py": "8d60ef91c783d8aae3e3c393f384a5940430d74cd280de543e6de48e5bbdd446",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/_internal/_serde.py": "4c75a54590e8ed27b463e990e4c61e12b7485fc0669d758007eaffdc78509ffe",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/_internal/_timeout.py": "28401803595016dec23371d92d0fb32977cbafb5b904e9a9f18b3e5ba411684b",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/_internal/_typing.py": "bc6e3cf0cc2f8c62eeb5eec485f20e9a5857e881ac03469afa87142089f00936",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/callbacks.py": "bedc1d843b61aab93b13b9465613106e0a81054cd6f8a00177772651ef5fb726",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/channels/__init__.py": "2d28bd4f3f21a55cf4bf2505629b176ba5b99c52083d5072e20f651387cc39b6",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/channels/any_value.py": "cab1ae7537ac45c7cf02511b4277305bc0f4891c9216d056015541394e74a8ab",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/channels/base.py": "d64a543b37985534719bc1479d96813f4f6a0fa252c1844ba2f542e602a8c5e9",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/channels/binop.py": "775399a9680071cf662b4a131ab80aa36fe8b8302270361d1e8e9e0d709df80f",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/channels/delta.py": "c7de0e212055fcbc6508ef39fa6080653f9e7d25554c093b1507970feca03435",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/channels/ephemeral_value.py": "81a498846249762ca3ba3b77538507a994b35fb9f9cf29257a577902223f6572",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/channels/last_value.py": "36cbc586aeaac0f8c9b5a8d8b903039023a7d24294408391eb8c7f10aab3a308",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/channels/named_barrier_value.py": "18498401cfec1bc6c735d81f2d113945effd5520dac6cbae17c58ca791b6434c",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/channels/topic.py": "abb4058990997c484d38f03401e4741ad54307a538258794ee3799ea7caa2564",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/channels/untracked_value.py": "ea15573ce7899269b75b4aa81dec04a08a5efc7b0887d64bb8ff9810155aafee",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/config.py": "dd52c5ef1e9af7d2de534305c8a934abd00d736971b19f65f56e6114cc7ffba7",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/constants.py": "a9d1e6e5877bd98009ca105ec8667d82d5de7df8f31e318ade6fa14bcca6c6e3",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/errors.py": "1509401fe7829cea84c5e36f2984e5acfd60a24b7369cd1fe3cb5906d117e8a2",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/func/__init__.py": "f07e4a9f9bac75e2b48ac987fb91ca8c13a0a3d40723aa1997840bcde56732b7",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/graph/__init__.py": "b357457698c9603ae999a295d082c2c55319a7e03517e012135f6813e6a71a52",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/graph/_branch.py": "2d0e8da9936edaa6ca0202f59178fe50326d10f34ef2c5c882a59cd34430fe40",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/graph/_node.py": "105cdf869cc1a5d187afafd00c3ccdf752dffaecdc38d7ee3a4e287c023b5a07",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/graph/message.py": "1f918f3555cfbdd92aaf888da7395778526de0a15a47b65608549ec10ed43565",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/graph/state.py": "d8c8021a93a8fc895d62335a9482e50d51353343bf885901e6487611dcd0d212",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/graph/ui.py": "74c59c49c37ebf2859d14235dfa7f3ba13b6bf0b634b8fa7994a3290896caf76",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/managed/__init__.py": "7257008527ef47513b9765ec8284cd740d2f781ad6ff0b7cabe066848232e741",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/managed/base.py": "1ffbac50065dc163dcee0d9ee21d42891652c5d5e9ab4c9f7c74e26e37cd3689",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/managed/is_last_step.py": "6fe0e58317aa0b0b01cb119e2589fcc9d5b788c6c06645a4282d3032d993f791",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/__init__.py": "88ea6667a370774432125df7d4fa78f86e18f844d17ed860098736180703b676",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/_algo.py": "39a8eab7c318ca866b8b394447063444403ea668df6fd173af21bfcb5270e976",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/_call.py": "38aa434fc1624e4e2e9140729b8b750f78cd17012620fcb33458a63585e8793d",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/_checkpoint.py": "49065ded9a05d6a0df806449eea8ab9a59fe24f3ce1739e7e5c34725b3022fb8",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/_config.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/_draw.py": "4039bab2d51151dbb1d32d07c33caa2720b5fdafd948ac0674b6fb7ec3c68028",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/_executor.py": "5afb1e7e7bd768fc5ff7ed5e222539abb73bd11f88d8e150eb75c30a8484364d",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/_io.py": "a9c2c16bff60d8e42b2d6f92f4d8b004896987ba526355148a9c778a99c0e544",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/_log.py": "b7ec6e7780aa404ba4b0faa35d99bbdbc04bd9c150bc75d1bd39b95e0535dc13",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/_loop.py": "1485e5d299b71b91f59f4685ef33318ac4543bb1c81f6282e9e15323eec4526c",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/_messages.py": "10add889c79f523a74f8e4abfce064cef5f4a846de57610a9fb173e624b99bcf",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/_read.py": "c44cc0c8597055fee343a65f4d8c1841bdf07a67e0b7d5e0a291523ec970a3dd",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/_remote_run_stream.py": "49eed21a9d1521e17a4412f5930313f61a50509fa80a7df0ecc65adfc1e7c0af",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/_retry.py": "b48301fdcaf7d932449c75be0f25c32e6cd5799de935abc26825dbda746ea51d",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/_runner.py": "437f4cdf1fa619055b4ea4ff5fcd9ec7c7ee6491725bf6aa36ba37f7db669b42",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/_task_status.py": "d26e5d6ba7772ab4f0fa9e8cc0ea13aa8c4c0bef6674dd425137c0ca8a4832e5",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/_tools.py": "e3b995731a56af5d6d0198f50592b7052e31e43eae4a831b8c561978b42c974a",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/_utils.py": "f9bc501c3a8d9c31808be0f9edc8dcb3d5a7b5be5638fc28c683c5100c24fafb",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/_validate.py": "62641424580d0dc5f7796c4750520a7b660b80c6a7b57df463d426745ba6a476",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/_write.py": "4f067c1c034fab2be682ec52b6101631d44494a0d23f9048aafbe65f660218d2",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/debug.py": "4845d5420bacf8c6ec2592fd535ec9418cd9e49318a013515dd7add14d497922",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/main.py": "c96d4424e7a75388aef09afeaa8fcfe17c026e60dafca1331003775ca1bf0ffc",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/protocol.py": "bb01f15b767867ce23ca80f3f90cea567e1f714dfa61bc2ca16d1d4fa3f06ce5",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/remote.py": "4b24f97d92d819ef0f9cc28e318738a9be860980978a08fa2ce65192aeb8facb",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/pregel/types.py": "b58b92541130b1713204631f2f998c5caa0f814f383556feb2bc0c4d92323d97",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/runtime.py": "5a5e3aad147f67397481ea47c67cde97938d85b5762a7aa4d4ce511dcd693c42",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/stream/__init__.py": "2f1d6dfb3f16672498632dfa56036e19a5d1fd1252b3f22dd74fa01d44467f38",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/stream/_convert.py": "9aa68288f83885709a4ffdd368f390e9a4c5d5f0b6ac814d8e3ebd4f635bfc40",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/stream/_mux.py": "4a41a05ba1d4be6ba7d3fe3a4366d2e9844fbd0d8ff417cf1f93f8eb4ce99732",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/stream/_types.py": "fa3c59acb554cd466ab0d0d1aa113cf2163c8efa9e03e74e61bf1aece21bf192",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/stream/run_stream.py": "994660f7f872233ad460fea5f4fd76814d7c9bdd16d2a9f5d109b024a571747a",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/stream/stream_channel.py": "0425e8aca9ed1ea0eb84abb4c49d5a676f85b8cb7b8c335db7339f8ee2cfdb6d",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/stream/transformers.py": "551a93a37057ce1a312e7e7588a76d29ba5a2b1710e9421f2e33a7a281d52719",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/types.py": "062583a1c0af9833477935a9a78d336408cc9a33c425722a1191e000d032107a",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/typing.py": "1bfa647f6597a09b37da8d898c4224e30db64a68ed6a523c431df67d56ab3ccb",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/utils/__init__.py": "aee9f1d5c280a2f3d4d3472e52b7de657c927b7cb5e7f98e9e65dc675543046a",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/utils/config.py": "17ffd08dbd41f5d3175d54be5a4b12d22480170007d078f33c26677531cff071",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/utils/runnable.py": "0a75564d27dd54e9f9d4e5bdf628e64c0f9d3d52e141880f0908d235914ec67a",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/version.py": "1305c05070d77bc45324dbe09c478830bf7ff11694dacf0dbfd59c6f78551ac8",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/langgraph/warnings.py": "382d8b3778a1c113b2f3e2652da407b553be3b65acc4a655cc60c2b061ee2763",
+    "examples/langgraph-example/vendor/langgraph/libs/langgraph/pyproject.toml": "73b0f61add1aa1a4b3e97ce160d1a75db8c2f72339b719897c9b5596e24dfbfd",
+    "examples/langgraph-example/vendor/langgraph/libs/prebuilt/LICENSE": "d9bb52f2e3540d60ff50d8f0f5b6ba649b7fd346948c4c3d086c8afb120763c7",
+    "examples/langgraph-example/vendor/langgraph/libs/prebuilt/README.md": "f0f69f64d26a8c3b0d1cd53bd02041051ee981a1cc797610d92c7f49009d76c3",
+    "examples/langgraph-example/vendor/langgraph/libs/prebuilt/langgraph/prebuilt/__init__.py": "b44259999e2ccda2a90223741bd975d1bcfae5d7523c9457028288ee9e0bc6cc",
+    "examples/langgraph-example/vendor/langgraph/libs/prebuilt/langgraph/prebuilt/_tool_call_stream.py": "3da9912edd0a2ecded21222859c7acda2998583f969463f4df4bd2c212c692f8",
+    "examples/langgraph-example/vendor/langgraph/libs/prebuilt/langgraph/prebuilt/_tool_call_transformer.py": "a52adfc36fbed234953c8aef2e10c373cb59c56d4da6db2f86bee2a46e8f1080",
+    "examples/langgraph-example/vendor/langgraph/libs/prebuilt/langgraph/prebuilt/chat_agent_executor.py": "d3b98412c47daba13de4fca50fb7ab2e37f08705db6ab549f3ab8fab6600bc8d",
+    "examples/langgraph-example/vendor/langgraph/libs/prebuilt/langgraph/prebuilt/interrupt.py": "4ec639c642ccfb76eeaff602557ee88cc3dc31e9dfbc7b1721510184f07bd044",
+    "examples/langgraph-example/vendor/langgraph/libs/prebuilt/langgraph/prebuilt/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "examples/langgraph-example/vendor/langgraph/libs/prebuilt/langgraph/prebuilt/tool_node.py": "433aecca1f020addea7425196443d1c4185f328ba2ceeda94f48fb625b496ab3",
+    "examples/langgraph-example/vendor/langgraph/libs/prebuilt/langgraph/prebuilt/tool_validator.py": "97e2986e28e39711b00016757db2bfc0720e9905d8c4a4e28aecec1376c3c250",
+    "examples/langgraph-example/vendor/langgraph/libs/prebuilt/pyproject.toml": "40075e205608aa643360965d7144387561a578ce91200956a78ac3d3232af663",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/LICENSE": "d9bb52f2e3540d60ff50d8f0f5b6ba649b7fd346948c4c3d086c8afb120763c7",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/README.md": "c6b9bd58cbd3e74abf0ce98e08f29608a2bf4e5bb8bef14c731846a02a542268",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/__init__.py": "65f4570ca71d6f2432fca65c0f364bf12e0a9ccc633df526ae6375d857643d6c",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/_async/__init__.py": "1a750ecc76e448f55e2cf23c1dcf483de35996e7485391f363edbc2dd7eac9e0",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/_async/assistants.py": "33d57934c401d4c517a9185f7f9cca6d0a979d6de41c279190bda03263b9e16e",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/_async/client.py": "1b55564227f926341cf2f819f1e64e1dae6b2e578436c707c207407b7c9df8e0",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/_async/cron.py": "177135fa1917be8324df332b4344526e9cf11e526784558228a46a1eebf1a559",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/_async/http.py": "12d9fbea56acf32273743ec55567ad96eb1df473ba805eb89b97786d5515b177",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/_async/runs.py": "cdc35b5f69139729264be73370195d88c410a0fd206538acfc492b2cd99e301d",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/_async/store.py": "cf986e59a48d11a6adaf95eb241954ed0a74ec8de0eed1c093c54b771726730a",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/_async/stream.py": "5be2abbc036daa55cf0159c8ebc2f273098dd38f0be084b4ea2490c83c9697d8",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/_async/threads.py": "93745296ac13ea55f625e9adaf0182047691c2280bce24cb77227249339583f4",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/_shared/__init__.py": "785f0ec8a2db9e1ad2ee2f901d09672e19790e25f786993a4b1e333bec3cb53f",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/_shared/types.py": "143ba591ccbecc138016335d112488552054e9466ef623c682b552f98b78191c",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/_shared/utilities.py": "d9c79bea534e19d69faee50959407506ea88f2c0734c29e88c08b55b549cfca5",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/_sync/__init__.py": "0ba6f0d26ef783b0900f15efbe5e3455be03a16f6ae05872eaef5cf4367621b2",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/_sync/assistants.py": "25f1449d41e86bd2564bc325e881fa35c49b3d5341eb93967834df8a051d543f",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/_sync/client.py": "0c536b0397eb1acc6ab3e00beae5a635790e3844f1165f374aca4ee507497f5e",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/_sync/cron.py": "9fcb77c9026793f4872a7256c873a5aee5113014b9aaf068ab3e28685a9023a7",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/_sync/http.py": "8815cb7cd7627b5ea618e7cb1c4aa6193395cef2fa958bcfab31c2e81dea66f3",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/_sync/runs.py": "eae92661bdfe096e9eb9ab6167888781845ac02b220172dcdac0831a77fb9e3b",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/_sync/store.py": "78882460cb824530f19109736dc5be102be61e27e64b9149c51d9dcacde05029",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/_sync/stream.py": "96ae0b3bf7ad98a41481065314d12b38c3771677d4f820f95136b7d1133c02f6",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/_sync/threads.py": "bc51360084dd1505addd1dfc5db8ceac3bb7c5c3f4a42fc6f916fcece88d199d",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/auth/__init__.py": "b620e0541214a87506604315589e47ed49b588b8ee256d26df22b2f8ccc57fad",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/auth/exceptions.py": "b599bb881610bb136c40c6614efe18692aef6b9a44b81852d4fbd635ac6748fc",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/auth/types.py": "5d7bc74584a65982b8f83e874af6ef8ffed5eb024296fea5022e669164e27d63",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/cache.py": "4e81a7abe59124d5432739c869409a237e790de2343112a6fc992be3179ac41a",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/client.py": "912401f11f38b2c1e774ea65458bd4e3e8d4a24256ff9cf51d65dbb0fd4c5386",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/encryption/__init__.py": "cc55db2d437df1a05b83ef9fb12a01215c0ba5d62bfe19a7eeaf30dbb22814de",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/encryption/types.py": "471d0cad21bc75046265afe164a0758ae72a629a61dd47c7f98cbed2c793411d",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/errors.py": "9e87b06bc8303a72e81b2cc4512365fe861840b1845177ce70367a1046523cf6",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/runtime.py": "3b9f216c3d59e03a4b84c1f4395498df2429c080631c4543c2de6b7c21d0566e",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/schema.py": "6ca69175be2310efe3d94bb418a0b5915f9cc0048cc762d2f8ffe1f77e856033",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/sse.py": "333d2a7fb4a66939c6f27c96506aae60eafa71b74fa3ffab081b5613b6ca97fe",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/stream/__init__.py": "9c2b330417c0b016f12c1a09e6a37c66c12d024ac96b40d0094866b75efe7ca8",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/stream/controller.py": "40597565e9343b487582232cbd21f7913f998c2a97b1681e52bd4e81b9d80f49",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/stream/decoders.py": "872216467673568395f5439e6e082079a793f919cf124873d075134a266052a6",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/stream/multi_cursor_buffer.py": "8b813860f6acca8bf7618e1cf91479b85d7c56072c1459cce6bb8d011691c753",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/stream/subscription.py": "54ba6cf883e2e92aa6af17554a60a77a9733750abd7c5502f8224a39133d2a08",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/stream/sync_controller.py": "117f9099bd3b8c56541e1e39dcd2c922925d47ed435a990c8dd2c839c62423c8",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/stream/transport/__init__.py": "80b6d129e8bd4f96c2055a631aa9e771391cf332112ab1714d303e055a94a549",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/stream/transport/base.py": "a320a3483a0260d2fc1880c24ec396dfcd3d0019515dc2fc32c495422afb0f16",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/stream/transport/http.py": "4544470edec75393751f59c9a29d0cc82de72c924087014dc850cf50fce72753",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/stream/transport/sync_http.py": "94aaef5f55c37e11487c6498d445b1909f20c65775ed0268c0b72b139740505b",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/stream/transport/sync_ws.py": "f2cff89db983e2644fb4b6d0ce2e199be9f138d3dd34703a80e3389885d2ca36",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/langgraph_sdk/stream/transport/ws.py": "7be103616087bab02365ed18d019e5b8bb0c3c7009fde8642aa251179b6b103a",
+    "examples/langgraph-example/vendor/langgraph/libs/sdk-py/pyproject.toml": "f4f14718045cfa6999c13a82a964557fdba8e5eeabe5896be5f890fc60c67fa4",
+    "examples/langgraph-example/verification.json": "2250947ac7f09a04569e6b3070c8a746bff0fb00f23785e3329d5b55c68af7a2",
+    "examples/langgraph-example/video/README.md": "bc2365c4070331d9d69a80101ef5d94084c74c8f6abf1aafc17a0588eee955e4",
+    "examples/langgraph-example/video/index.html": "f2e1ad11476c96bc1215e08121e1f9ed01f250a05ceb307486c961f254983682",
+    "examples/langgraph-example/video/legacy-README.md": "93d4618f5cd4d20e094cffeb1714b30f2501a83f51db0952f38f3976fb9baedc",
+    "examples/langgraph-example/video/legacy-storyboard.json": "23e7decd1f5b7b25df4877b8f75fd369324c050d8d8758935716545d8cac8c80",
+    "examples/langgraph-example/video/legacy.css": "26153cb17e0536d68fc0289ee8de6666ece1c7cd7d483ab5e6ea56ab457d4d2a",
+    "examples/langgraph-example/video/legacy.html": "f4146e3a64861331bd66cd676a20a0bdb8166a5ccfcb56b44e1e892484cba2cd",
+    "examples/langgraph-example/video/legacy.js": "75b0114d0a6186282979b842c039ca90ff795bc7ccc2145d2e648467e018358a",
+    "examples/langgraph-example/video/review/contact.png": "a86d94af80f915ab2d42632900add96b80049f349d01272a597060b4e86a1a07",
+    "examples/langgraph-example/video/review/cut-01.png": "8ce18060f67f21a038aece38c64da5f622ad826973b926c11af28b5f7e0f53a1",
+    "examples/langgraph-example/video/review/cut-02.png": "94962cc866f50a1777455d9925ff521d178c5ea7ec13ac6f178041104af3fe38",
+    "examples/langgraph-example/video/review/cut-03.png": "a51df3050ac3a021b8770603c63fd4b2b77c4aa4edddc0642fb889a86252ecd5",
+    "examples/langgraph-example/video/review/cut-04.png": "42f13c2a33e3cad49d9207af1111e1ffeb3d118176ae43cfae4db46f920178f5",
+    "examples/langgraph-example/video/review/final.png": "59d6f0ac7020f554a7d194aa90a8d4136a01152165dd423fc82767eaaddce12d",
+    "examples/langgraph-example/video/review/poster.png": "e824fc7adb8dfa8f5746a7e4aefcfa9ebbd9ebcefe904d9a3a7d65005ffbdb03",
+    "examples/langgraph-example/video/review/stills/frame-000000.png": "a47d83bbb70cc4c08c9c3af23386f1e84760553efa9986fcdd693a006447db69",
+    "examples/langgraph-example/video/review/stills/frame-000001.png": "526add040ac52e492c3fbd16ea2831176496320593f7652149c8b5fe063194e0",
+    "examples/langgraph-example/video/review/stills/frame-000002.png": "2557286a7e4fd21eaed58426599fa205d9dbef621d825f479b0894b1c95d4a0d",
+    "examples/langgraph-example/video/review/stills/frame-000003.png": "aee33f594f4bfbdc83fab488a961b591dcace4db23c49705c9eb604507cde25d",
+    "examples/langgraph-example/video/review/stills/frame-000004.png": "eece0d833f590399a3a389310e95d9d133249c4fc1b1b172cd662f99990b521b",
+    "examples/langgraph-example/video/review/stills/frame-000005.png": "94257cc5c342b23f343ae9bebc11fa56bc6000af50f4ace2e965b20c5e81bee7",
+    "examples/langgraph-example/video/review/stills/frame-000006.png": "abc6eb9128f259aca030335c4b0194224f40f4d29967c2cbc3420a33e38c9baf",
+    "examples/langgraph-example/video/review/stills/frame-000007.png": "e824fc7adb8dfa8f5746a7e4aefcfa9ebbd9ebcefe904d9a3a7d65005ffbdb03",
+    "examples/langgraph-example/video/review/stills/frame-000008.png": "3ac04f05e0463eef47b314dbe8d09b3b609e7a9059ad4a0114eff586a24b3b60",
+    "examples/langgraph-example/video/review/stills/frame-000009.png": "7fb6b74b9e16b63c69cbe31506366438ae6394f93490e85b0d585a1b233b14af",
+    "examples/langgraph-example/video/review/stills/frame-000010.png": "849cdc2129445d562521e67cc7f7b7a14f2a6c1c91d616705c577f80bc3fb0da",
+    "examples/langgraph-example/video/review/stills/frame-000011.png": "8ecfd4c667557adca7d803158cb291179d3e9ac7c399c9f47d2231f3b931708a",
+    "examples/langgraph-example/video/review/stills/frame-000012.png": "c0cf54b8d4aa6d1093a27423bc46d477b3959c59473a84a44574ee727852e607",
+    "examples/langgraph-example/video/review/stills/frame-000013.png": "7c2a9eace8f7537abb628769614ef7136b53aef6f3fe1574d981d72ece24508c",
+    "examples/langgraph-example/video/review/strip.png": "27fd4aa762de25bf8e68c4bf7bd4a4c80304d6635e33d38874669dba6c0e4585",
+    "examples/langgraph-example/video/review/visual-r1/portrait/capture.json": "459ad140e29421069d846e101610881c3488019cb3b445270596396a4de66329",
+    "examples/langgraph-example/video/review/visual-r1/portrait/contact.png": "90e1a8e2a35ffcb9298e28e5d41594c4ae5ab3b9661eef6666eb6b6c16e43c32",
+    "examples/langgraph-example/video/review/visual-r1/portrait/mp4-moving-strip.png": "9a11eb8bcea66ca5f95ad0b8a2dc6b9c29ab7a33458d710aaad815a1357f8866",
+    "examples/langgraph-example/video/review/visual-r1/portrait/poster.png": "da3a8711398f868d1eb2e4545c240918f5ca22b853a4f153a90b0d5e3ba254ff",
+    "examples/langgraph-example/video/review/visual-r1/portrait/stills/frame-000000.png": "0e6e61a4792300f04f03778c3e3479e5f634fa4ce77c63ae05eb9ce0927a57ac",
+    "examples/langgraph-example/video/review/visual-r1/portrait/stills/frame-000001.png": "0dfd9f1f834c7a3af967129570ff4cd81a4bcd52bf02e7894c51ade9850791b3",
+    "examples/langgraph-example/video/review/visual-r1/portrait/stills/frame-000002.png": "392ae018a9062ea75024ac257b4e2e6cfc02542e4d68454935bc91031a2b68de",
+    "examples/langgraph-example/video/review/visual-r1/portrait/stills/frame-000003.png": "7ecf65c1225912723804bd4db5351fd261d5c2a0a47fc994c377652459f7c1dd",
+    "examples/langgraph-example/video/review/visual-r1/portrait/stills/frame-000004.png": "8484ba3a376356fd01421a459a4d72a409a31acb387622570aa1a6517cccc1e4",
+    "examples/langgraph-example/video/review/visual-r1/portrait/stills/frame-000005.png": "b5769c6c78eb01078e2382e56fc1f79de06719490ae2ffd4276c2084be516fe6",
+    "examples/langgraph-example/video/review/visual-r1/portrait/stills/frame-000006.png": "b82db9c46ff4a273ebf748a14744c60411094a6dbcedd161eabd4c1137f8b12a",
+    "examples/langgraph-example/video/review/visual-r1/portrait/stills/frame-000007.png": "9b8d690a7d9f9fa3b3d430b48fa10eabf5399c781e8443d02c4fd4f49c4798fe",
+    "examples/langgraph-example/video/review/visual-r1/portrait/stills/frame-000008.png": "95a5fc5b712a2075db90b3b2a8aab63718125fd56d03363937656a16b5a229ed",
+    "examples/langgraph-example/video/review/visual-r1/portrait/stills/frame-000009.png": "9845ff0195d0818f6660d9168a3ee3a9344bc26f7d08a56b0a0dca14dd62131b",
+    "examples/langgraph-example/video/review/visual-r1/portrait/stills/frame-000010.png": "f9d1ed1fceb42a60dcd6eec8301407949de8517e91069a07e531373a4b438eaf",
+    "examples/langgraph-example/video/review/visual-r1/portrait/stills/frame-000011.png": "87b9b34a56c7916790cd460ba4bcafcabddad66fb255fa7c3b07e51473402ff3",
+    "examples/langgraph-example/video/review/visual-r1/portrait/stills/frame-000012.png": "e2ef260683e2f372678a695af0a5dc1f8be7e8f29d76686eb7eb1ed3c92ae5b6",
+    "examples/langgraph-example/video/review/visual-r1/portrait/stills/frame-000013.png": "bf3217bd295f4f508a50f9c4c348a87a8d7ddefc31fc77f3983afe6143f26560",
+    "examples/langgraph-example/video/review/visual-r1/portrait/stills/frame-000014.png": "900f7dd5dba30ceef1bc0ae56b7e5231f79d47ff136b110f473f8116478d6b82",
+    "examples/langgraph-example/video/review/visual-r1/portrait/stills/frame-000015.png": "da3a8711398f868d1eb2e4545c240918f5ca22b853a4f153a90b0d5e3ba254ff",
+    "examples/langgraph-example/video/review/visual-r1/portrait/strip.png": "58e5aff3227ad12448ddc6b946582a40d4c96d51dcd1b193d0981e909b8ffbaa",
+    "examples/langgraph-example/video/review/visual-r1/portrait/strip/frame-000000.png": "9b8d690a7d9f9fa3b3d430b48fa10eabf5399c781e8443d02c4fd4f49c4798fe",
+    "examples/langgraph-example/video/review/visual-r1/portrait/strip/frame-000001.png": "eab7defd1d5e6e88f4a2dd0e13f19a4bb6550e75708cdcf4ed8b69cc3d164374",
+    "examples/langgraph-example/video/review/visual-r1/portrait/strip/frame-000002.png": "bd116c78f04529d98623842b4a8b1a81de043158a3502a5d4cc16141954eb7df",
+    "examples/langgraph-example/video/review/visual-r1/portrait/strip/frame-000003.png": "faa8b0483bdfd92f1dbb0b45198c917268b4144875b34366ef42be9b010225a9",
+    "examples/langgraph-example/video/review/visual-r1/portrait/strip/frame-000004.png": "cb428a97194f1df7c5da04a10857ba27bfb21c9fd30c84e3f429d261b87571dd",
+    "examples/langgraph-example/video/review/visual-r1/portrait/strip/frame-000005.png": "0500c8ddb24eacadbfcc005ee2052f86473c770c39dead7c75ff653dfd1c9c14",
+    "examples/langgraph-example/video/review/visual-r1/portrait/strip/frame-000006.png": "3b326a5f937a86c4305e372da58ea2f116f84680e1f1834799eb3bfaf22f0ce0",
+    "examples/langgraph-example/video/review/visual-r1/portrait/strip/frame-000007.png": "f83f065264612e8294757c143275b89d6834144b7939fd26ada8e870921d8d4e",
+    "examples/langgraph-example/video/review/visual-r1/portrait/strip/frame-000008.png": "0a681f9cd267130f9ef50b232e1e31456766d723d9e1c3b4d7fc90a6a252614f",
+    "examples/langgraph-example/video/review/visual-r1/portrait/strip/frame-000009.png": "63156f4e27511edb87bed1d4ee8d3bb87f312a608ed40df134cd4d7934aab3bd",
+    "examples/langgraph-example/video/review/visual-r1/portrait/strip/frame-000010.png": "a397232612d425aba151959046352fc438f44376dcf05378238f1de8fb1923a7",
+    "examples/langgraph-example/video/review/visual-r1/portrait/strip/frame-000011.png": "70a25ff2ee5aaa829685471129b2fa3233e0219b3b7aa64e49007c4008f47332",
+    "examples/langgraph-example/video/review/visual-r1/wide/capture.json": "3dcde41970b5d1b3bbbe5d6d84f1e43d31f48f5f2aa7c8bc6e6fdc45cea98883",
+    "examples/langgraph-example/video/review/visual-r1/wide/contact.png": "c1e785c79411ee4996d4db3f439b541c5f7e5c7550715e751ac6d92d28b6aa16",
+    "examples/langgraph-example/video/review/visual-r1/wide/mp4-moving-strip.png": "0d12263d0b41b81c07d7bbeea078b99b7f678c84c50c023a553cfd41f63c8b4e",
+    "examples/langgraph-example/video/review/visual-r1/wide/poster.png": "0a79f293e28873c9b963adfdfa2ebbb9d0a8661f0cdb15afd159a6a56b18884f",
+    "examples/langgraph-example/video/review/visual-r1/wide/stills/frame-000000.png": "dc0a204d49b90a586378c7c3b4ca34cddb0b3c6caff2c2b67b70921a93785d1f",
+    "examples/langgraph-example/video/review/visual-r1/wide/stills/frame-000001.png": "54843b109abc0b9713b68dfc98ecfb3f6ee8ec0f354dc4069131c2566dbf424e",
+    "examples/langgraph-example/video/review/visual-r1/wide/stills/frame-000002.png": "b8e610a883e955f33e5c2db59bd90c8056fe17bc5608f91137c0490ab5213fa9",
+    "examples/langgraph-example/video/review/visual-r1/wide/stills/frame-000003.png": "3bc67e920d1155c5dcf260c8a098176333c6b388296a4b5384cc33d431c98e0b",
+    "examples/langgraph-example/video/review/visual-r1/wide/stills/frame-000004.png": "1fe0c72873183cf8b45d54598a7567114aad33163651162c2e64ad0f3fb79f5c",
+    "examples/langgraph-example/video/review/visual-r1/wide/stills/frame-000005.png": "97af6d1283aaa652d35849af29bb60ce5c9266e8cecb94f09b73d3abfb9d6f10",
+    "examples/langgraph-example/video/review/visual-r1/wide/stills/frame-000006.png": "5cf949d4d16aa048fa6eaec5485fb1dd8aa9215e3ff31a4a280f7b0809e11e2b",
+    "examples/langgraph-example/video/review/visual-r1/wide/stills/frame-000007.png": "95dd5bd087c1dc14ba34f4b863c75e1eee868285cae116a01168de83ec69c76c",
+    "examples/langgraph-example/video/review/visual-r1/wide/stills/frame-000008.png": "0bc59e4d106b3bb747d8451a89d74685137eeda930e257d39c00ad663a32c745",
+    "examples/langgraph-example/video/review/visual-r1/wide/stills/frame-000009.png": "1a61b8ca01e8504ff0d237624280d843532df106a66aa968f4c552103e5895e4",
+    "examples/langgraph-example/video/review/visual-r1/wide/stills/frame-000010.png": "0bb5662e5c4bd9beac98aa3b61723e342501750ae92a4bd37f428bedf0691846",
+    "examples/langgraph-example/video/review/visual-r1/wide/stills/frame-000011.png": "21c0c15e89dce3759dd61b3ef75f29af9f560ad09f26e432db11e6a6836a60bf",
+    "examples/langgraph-example/video/review/visual-r1/wide/stills/frame-000012.png": "2f26c14345f7a46cd2b0b10f6ed7678cb8938fff47940759ad604ad260bb31d5",
+    "examples/langgraph-example/video/review/visual-r1/wide/stills/frame-000013.png": "cf09f7adf784ed01e6e2cb6c4f8f4d6c5df92be34378523e8fbd4a288b9679af",
+    "examples/langgraph-example/video/review/visual-r1/wide/stills/frame-000014.png": "51aec9ec3d70ce6e84f387cee5c11b155274e693a2d2053bb2bc11b4ef4f0518",
+    "examples/langgraph-example/video/review/visual-r1/wide/stills/frame-000015.png": "0a79f293e28873c9b963adfdfa2ebbb9d0a8661f0cdb15afd159a6a56b18884f",
+    "examples/langgraph-example/video/review/visual-r1/wide/strip.png": "02bdbf25c69fb9e69c0b1a0e51f5dbc56543891d62977006f471103a8ff3de41",
+    "examples/langgraph-example/video/review/visual-r1/wide/strip/frame-000000.png": "95dd5bd087c1dc14ba34f4b863c75e1eee868285cae116a01168de83ec69c76c",
+    "examples/langgraph-example/video/review/visual-r1/wide/strip/frame-000001.png": "753210dac0b532ca97f51ba5ae1fdfd3ee35c6114d56959332ed9a966d2e3757",
+    "examples/langgraph-example/video/review/visual-r1/wide/strip/frame-000002.png": "51c68a4db8c3ba1d3b5b25a0127343d0d358c593336d75a95d5a09f0509fd8d3",
+    "examples/langgraph-example/video/review/visual-r1/wide/strip/frame-000003.png": "abb674622e6bf00292a41a27f5c70d303b2f77d9739737dafb0d5baa282d5ab1",
+    "examples/langgraph-example/video/review/visual-r1/wide/strip/frame-000004.png": "6f0b2a094930eab7d263fe080f96a57668fecae2ce6f0e4841360a16ab531903",
+    "examples/langgraph-example/video/review/visual-r1/wide/strip/frame-000005.png": "d4155c2dbe5ac10fb5aa47703dfb6e9c9c04f4f3e4cb101dbb6d0cf9bbd3e599",
+    "examples/langgraph-example/video/review/visual-r1/wide/strip/frame-000006.png": "c7f10dd4b7b4f9b7e8118045a0fbdb6f7ef6356556c5218f9cd9ea6ef9753afb",
+    "examples/langgraph-example/video/review/visual-r1/wide/strip/frame-000007.png": "2fd382810eae6e7f8241850ed2ac235c56055d5a5ac6489bc967dca9968bc5c3",
+    "examples/langgraph-example/video/review/visual-r1/wide/strip/frame-000008.png": "690061f4a6591f1fcced91e1078a10a04085a9a0ccb0c136e93241d110c38495",
+    "examples/langgraph-example/video/review/visual-r1/wide/strip/frame-000009.png": "d75062f1d4dafe072603e245d7052d39a7d3725245b03940cbf56808ee7b4fcf",
+    "examples/langgraph-example/video/review/visual-r1/wide/strip/frame-000010.png": "4801171d3a9b9a7d10f8d146ace6ee9ac58252178a4012717a4709971d4bf28a",
+    "examples/langgraph-example/video/review/visual-r1/wide/strip/frame-000011.png": "eea9fc8f68443ef5c02e0d78e60f207a8c2cca9fb8421c03f6d9e0b95c8d9552",
+    "examples/langgraph-example/video/storyboard.json": "289e5aac54b3a2a1e7d1a0edadaf88b25595186bc8decfd6752ac67646cd3235",
+    "examples/langgraph-example/video/video.css": "c91fd6bce9066ce7264f03a6a28625189658925a030d20ea69bd0ec0017848d9",
+    "examples/langgraph-example/video/video.js": "7e54dae4a0d39d96fa044e6f0b85212c52a7e8268d80660c571223853562dd02",
+    "examples/langgraph-example/visual-guide.md": "83c2f3b55648261d6dd30d703af7d8a7eb3bea4a4fc37cc0254d65a317aad340",
+    "examples/langgraph-example/visual-verification.json": "e2552d38ba22b46e561eff9541a330f77b2295bf97866f638c11c36098bc6cf3",
+    "examples/langgraph-example/workflow.py": "c2fcb28f4920804c517b92bb4aeed68f933e2e8b3d8dd51dd2d42382e3af5142",
+    "media/langgraph-example-wide.mp4": "e36651328e4774fdf7e88ba8a90d9c9e06576929aa32f325a549e2bef1bd693e",
+    "media/langgraph-example.mp4": "24737bd61c769f10146adf9c83ecbc4693a7e7654d0c30dda829a9357530f03d",
+    "media/langgraph-example.webp": "9568a41c0ad608823685d302bc2415aab40f42c566d402346eb1d8314f6fd8e7"
   }
 }

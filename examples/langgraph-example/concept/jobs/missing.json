@@ -1,0 +1,163 @@
+{
+  "id": "missing",
+  "label": "返却日のない申請",
+  "thread_id": "studio-yebisu-langgraph-example-missing",
+  "input": {
+    "applicant": "企画係・木村（架空）",
+    "event": "展示記録",
+    "start_date": "2026-11-10",
+    "end_date": "",
+    "items": [
+      {
+        "sku": "camera",
+        "quantity": 1
+      }
+    ]
+  },
+  "test_resume": null,
+  "pause": null,
+  "after_resume": null,
+  "final": {
+    "job_id": "missing",
+    "request": {
+      "applicant": "企画係・木村（架空）",
+      "event": "展示記録",
+      "start_date": "2026-11-10",
+      "end_date": "",
+      "items": [
+        {
+          "sku": "camera",
+          "quantity": 1
+        }
+      ]
+    },
+    "status": "needs_input",
+    "missing_fields": [
+      "end_date"
+    ],
+    "input_errors": [],
+    "summary": "返却日（end_date）が空です。見積と確認待ちには進まず、追加入力を求めて終了しました。"
+  },
+  "end_state": {
+    "values": {
+      "job_id": "missing",
+      "request": {
+        "applicant": "企画係・木村（架空）",
+        "event": "展示記録",
+        "start_date": "2026-11-10",
+        "end_date": "",
+        "items": [
+          {
+            "sku": "camera",
+            "quantity": 1
+          }
+        ]
+      },
+      "status": "needs_input",
+      "missing_fields": [
+        "end_date"
+      ],
+      "input_errors": [],
+      "summary": "返却日（end_date）が空です。見積と確認待ちには進まず、追加入力を求めて終了しました。"
+    },
+    "next": []
+  },
+  "checkpoints": [
+    {
+      "step": -1,
+      "source": "input",
+      "values": {},
+      "next": [
+        "__start__"
+      ],
+      "interrupt_ids": [],
+      "created_at": "2026-10-16T00:14:02.941881+00:00"
+    },
+    {
+      "step": 0,
+      "source": "loop",
+      "values": {
+        "job_id": "missing",
+        "request": {
+          "applicant": "企画係・木村（架空）",
+          "event": "展示記録",
+          "start_date": "2026-11-10",
+          "end_date": "",
+          "items": [
+            {
+              "sku": "camera",
+              "quantity": 1
+            }
+          ]
+        }
+      },
+      "next": [
+        "validate"
+      ],
+      "interrupt_ids": [],
+      "created_at": "2026-10-16T00:14:02.942204+00:00"
+    },
+    {
+      "step": 1,
+      "source": "loop",
+      "values": {
+        "job_id": "missing",
+        "request": {
+          "applicant": "企画係・木村（架空）",
+          "event": "展示記録",
+          "start_date": "2026-11-10",
+          "end_date": "",
+          "items": [
+            {
+              "sku": "camera",
+              "quantity": 1
+            }
+          ]
+        },
+        "status": "needs_input",
+        "missing_fields": [
+          "end_date"
+        ],
+        "input_errors": []
+      },
+      "next": [
+        "needs_input"
+      ],
+      "interrupt_ids": [],
+      "created_at": "2026-10-16T00:14:02.942624+00:00"
+    },
+    {
+      "step": 2,
+      "source": "loop",
+      "values": {
+        "job_id": "missing",
+        "request": {
+          "applicant": "企画係・木村（架空）",
+          "event": "展示記録",
+          "start_date": "2026-11-10",
+          "end_date": "",
+          "items": [
+            {
+              "sku": "camera",
+              "quantity": 1
+            }
+          ]
+        },
+        "status": "needs_input",
+        "missing_fields": [
+          "end_date"
+        ],
+        "input_errors": [],
+        "summary": "返却日（end_date）が空です。見積と確認待ちには進まず、追加入力を求めて終了しました。"
+      },
+      "next": [],
+      "interrupt_ids": [],
+      "created_at": "2026-10-16T00:14:02.943150+00:00"
+    }
+  ],
+  "checks": {
+    "expected_status": "needs_input",
+    "interrupt_count": 0,
+    "expected_values_match": true
+  }
+}

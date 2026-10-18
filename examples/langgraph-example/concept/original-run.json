@@ -1,0 +1,87 @@
+{
+  "framework": {
+    "name": "LangGraph",
+    "version": "1.2.15",
+    "commit": "d4149cc1f5384364d1a21092b4c2f582a6e7af8f",
+    "packages": {
+      "langgraph": "1.2.15",
+      "langgraph-checkpoint": "4.3.0",
+      "langgraph-prebuilt": "1.1.0",
+      "langgraph-sdk": "0.4.7"
+    }
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 3,
+    "scope": "Actual deterministic StateGraph/conditional edges/interrupt/Command resume/checkpoints, memory-only within one process and scripted test replies. No model inference, external reservation or production service.",
+    "human_approval": false
+  },
+  "original_verified_at": "2026-10-16T00:40:22.389838+00:00",
+  "original_model_receipts": [
+    {
+      "phase": "implement",
+      "receipt_sha256": "194a3f9298b334ebbd023f2c2eb60b0cb91611470c1c6b96172a6bef8a5376ee",
+      "execution_sha256": "0bc8c6c582ce2d17265c47c9143a6c23b80608c2ff687323da78682b4e95f663",
+      "prompt_sha256": "82107bbbe11e043d1ef607c548c8121da5196264fdec9e560658def3762e4aa3"
+    },
+    {
+      "phase": "video",
+      "receipt_sha256": "a2d3e4263e0b620d99eddf01b516fd10ae84523598e543459c3b81bf0d376426",
+      "execution_sha256": "5ba6ff28b07d8364d94394daa4014d55f7931767eaf4b79acf4e303a764f2627",
+      "prompt_sha256": "674c8509c073e859413191cff387dbd0b785c083beb36d6edac9caf40928de1e"
+    }
+  ],
+  "original_data_checks": {
+    "checked_at": "2026-10-16T00:14:03.050816+00:00",
+    "status": "passed",
+    "sample_count": 3,
+    "summary": [
+      {
+        "id": "approved",
+        "status": "approved",
+        "total_yen": 8000,
+        "interrupt_count": 1,
+        "checkpoints": 6
+      },
+      {
+        "id": "missing",
+        "status": "needs_input",
+        "total_yen": null,
+        "interrupt_count": 0,
+        "checkpoints": 4
+      },
+      {
+        "id": "rejected",
+        "status": "rejected",
+        "total_yen": 36000,
+        "interrupt_count": 1,
+        "checkpoints": 6
+      }
+    ],
+    "installed_runtime_files_equal_fixed_source": 157,
+    "source_files_unchanged": 172,
+    "input_sha256": "8c4a878099191da6e92891b77711f261676e750d3604e20d03de83f560a9b22a",
+    "output_sha256": "d5bc61f421cbde99f2f60446a3418d7a5f81df92a4fe4f75b6db9306475360f4",
+    "sample_sha256": "0cda3abee1f5dcd2aa9bc44718f34a199457cb97e743cf3d674213be189f7725",
+    "workflow_sha256": "c2fcb28f4920804c517b92bb4aeed68f933e2e8b3d8dd51dd2d42382e3af5142",
+    "external_connections_attempted": 0,
+    "human_approval": false,
+    "scope": "Actual deterministic StateGraph/conditional edges/interrupt/Command resume/checkpoints, memory-only within one process and scripted test replies. No model inference, external reservation or production service."
+  },
+  "original_environment": {
+    "checked_at": "2026-10-16T00:04:11.327213+00:00",
+    "python": "Python 3.13.7",
+    "versions": {
+      "langgraph": "1.2.15",
+      "langgraph-checkpoint": "4.3.0",
+      "langgraph-prebuilt": "1.1.0",
+      "langgraph-sdk": "0.4.7",
+      "pydantic": "2.14.1",
+      "langchain-core": "1.6.11"
+    },
+    "registry_dependencies": 34,
+    "registry_lock_sha256": "81ceafda86a4d97d390bb73babc26599db81fac9a2f6c633221f242b720130de",
+    "all_fixed_runtime_source_blobs_unchanged": true
+  },
+  "scope": "Projection of original published records, not a new graph execution or inference."
+}

@@ -100,3 +100,8 @@ python examples/langgraph-example/render.py --out renders/video-first
 ```
 
 依存本体、仮想環境、認証、モデル履歴は配布していません。物理iPhone/Safariでの実機確認は未実施です。
+
+
+## 概念構造版 visual-r1
+
+上の28秒動画と実行確認は元制作時の記録です。現在のindex.html/video/index.htmlは、API部品・共有状態・分岐・メモリ・中断/再開をつなぐ新しい図と32秒縦横無音動画です。原制作の3グラフ/2Opus受領/157installed確認は保全して再実行していません。全文ビューアはdesk.html、旧28秒の編集ソースはvideo/legacy.html、上のrender.pyはその旧入口へ向けました。新32秒はrender-visual.pyを使い、手順と確認範囲はvisual-guide.mdとvisual-verification.jsonへ分けます。実JSON3件は元jobsの包装で新推論ではありません。元source.zipと旧MP4は私的履歴へ保全し、現在のZIPは同じ展開ルート形式で新しい編集ソース/縦横MP4を包んだものです。

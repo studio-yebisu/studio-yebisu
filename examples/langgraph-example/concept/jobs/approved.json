@@ -1,0 +1,517 @@
+{
+  "id": "approved",
+  "label": "通常の申請",
+  "thread_id": "studio-yebisu-langgraph-example-approved",
+  "input": {
+    "applicant": "広報係・青木（架空）",
+    "event": "はじめての撮影会",
+    "start_date": "2026-11-08",
+    "end_date": "2026-11-08",
+    "items": [
+      {
+        "sku": "camera",
+        "quantity": 1
+      },
+      {
+        "sku": "tripod",
+        "quantity": 2
+      }
+    ]
+  },
+  "test_resume": {
+    "approved": true,
+    "comment": "テスト入力：内容を確認し、貸出可とする。"
+  },
+  "pause": {
+    "interrupts": [
+      {
+        "id": "592f4fe7a3d7b70a2b0cdcc6fd589aef",
+        "value": {
+          "question": "この見積で貸し出してよいか、approved（true/false）と comment で回答してください。",
+          "job_id": "approved",
+          "request": {
+            "applicant": "広報係・青木（架空）",
+            "event": "はじめての撮影会",
+            "start_date": "2026-11-08",
+            "end_date": "2026-11-08",
+            "items": [
+              {
+                "sku": "camera",
+                "quantity": 1
+              },
+              {
+                "sku": "tripod",
+                "quantity": 2
+              }
+            ]
+          },
+          "line_items": [
+            {
+              "sku": "camera",
+              "name": "カメラ",
+              "quantity": 1,
+              "unit_yen": 6000,
+              "subtotal_yen": 6000
+            },
+            {
+              "sku": "tripod",
+              "name": "三脚",
+              "quantity": 2,
+              "unit_yen": 1000,
+              "subtotal_yen": 2000
+            }
+          ],
+          "total_yen": 8000,
+          "budget_flag": false,
+          "budget_review_from_yen": 30000,
+          "context": "架空の申請。この作例ではスクリプトがテスト値で再開します。"
+        },
+        "response_schema": {
+          "additionalProperties": false,
+          "description": "interrupt の再開値の型。LangGraph が Command(resume=...) の値をこの型で検証する。",
+          "properties": {
+            "approved": {
+              "title": "Approved",
+              "type": "boolean"
+            },
+            "comment": {
+              "title": "Comment",
+              "type": "string"
+            }
+          },
+          "required": [
+            "approved",
+            "comment"
+          ],
+          "title": "ReviewDecision",
+          "type": "object"
+        }
+      }
+    ],
+    "state": {
+      "values": {
+        "job_id": "approved",
+        "request": {
+          "applicant": "広報係・青木（架空）",
+          "event": "はじめての撮影会",
+          "start_date": "2026-11-08",
+          "end_date": "2026-11-08",
+          "items": [
+            {
+              "sku": "camera",
+              "quantity": 1
+            },
+            {
+              "sku": "tripod",
+              "quantity": 2
+            }
+          ]
+        },
+        "status": "awaiting_review",
+        "missing_fields": [],
+        "input_errors": [],
+        "line_items": [
+          {
+            "sku": "camera",
+            "name": "カメラ",
+            "quantity": 1,
+            "unit_yen": 6000,
+            "subtotal_yen": 6000
+          },
+          {
+            "sku": "tripod",
+            "name": "三脚",
+            "quantity": 2,
+            "unit_yen": 1000,
+            "subtotal_yen": 2000
+          }
+        ],
+        "total_yen": 8000,
+        "budget_flag": false,
+        "needs_review": true
+      },
+      "next": [
+        "review"
+      ]
+    }
+  },
+  "after_resume": {
+    "values": {
+      "job_id": "approved",
+      "request": {
+        "applicant": "広報係・青木（架空）",
+        "event": "はじめての撮影会",
+        "start_date": "2026-11-08",
+        "end_date": "2026-11-08",
+        "items": [
+          {
+            "sku": "camera",
+            "quantity": 1
+          },
+          {
+            "sku": "tripod",
+            "quantity": 2
+          }
+        ]
+      },
+      "status": "approved",
+      "missing_fields": [],
+      "input_errors": [],
+      "line_items": [
+        {
+          "sku": "camera",
+          "name": "カメラ",
+          "quantity": 1,
+          "unit_yen": 6000,
+          "subtotal_yen": 6000
+        },
+        {
+          "sku": "tripod",
+          "name": "三脚",
+          "quantity": 2,
+          "unit_yen": 1000,
+          "subtotal_yen": 2000
+        }
+      ],
+      "total_yen": 8000,
+      "budget_flag": false,
+      "needs_review": true,
+      "review": {
+        "approved": true,
+        "comment": "テスト入力：内容を確認し、貸出可とする。"
+      },
+      "summary": "見積合計 8,000円（予算確認の基準 30,000円 未満）。確認待ちで一時停止し、同じ thread に渡されたテスト回答（approved=true）で再開して「承認」で終了しました。コメント：テスト入力：内容を確認し、貸出可とする。"
+    },
+    "next": []
+  },
+  "final": {
+    "job_id": "approved",
+    "request": {
+      "applicant": "広報係・青木（架空）",
+      "event": "はじめての撮影会",
+      "start_date": "2026-11-08",
+      "end_date": "2026-11-08",
+      "items": [
+        {
+          "sku": "camera",
+          "quantity": 1
+        },
+        {
+          "sku": "tripod",
+          "quantity": 2
+        }
+      ]
+    },
+    "status": "approved",
+    "missing_fields": [],
+    "input_errors": [],
+    "line_items": [
+      {
+        "sku": "camera",
+        "name": "カメラ",
+        "quantity": 1,
+        "unit_yen": 6000,
+        "subtotal_yen": 6000
+      },
+      {
+        "sku": "tripod",
+        "name": "三脚",
+        "quantity": 2,
+        "unit_yen": 1000,
+        "subtotal_yen": 2000
+      }
+    ],
+    "total_yen": 8000,
+    "budget_flag": false,
+    "needs_review": true,
+    "review": {
+      "approved": true,
+      "comment": "テスト入力：内容を確認し、貸出可とする。"
+    },
+    "summary": "見積合計 8,000円（予算確認の基準 30,000円 未満）。確認待ちで一時停止し、同じ thread に渡されたテスト回答（approved=true）で再開して「承認」で終了しました。コメント：テスト入力：内容を確認し、貸出可とする。"
+  },
+  "end_state": {
+    "values": {
+      "job_id": "approved",
+      "request": {
+        "applicant": "広報係・青木（架空）",
+        "event": "はじめての撮影会",
+        "start_date": "2026-11-08",
+        "end_date": "2026-11-08",
+        "items": [
+          {
+            "sku": "camera",
+            "quantity": 1
+          },
+          {
+            "sku": "tripod",
+            "quantity": 2
+          }
+        ]
+      },
+      "status": "approved",
+      "missing_fields": [],
+      "input_errors": [],
+      "line_items": [
+        {
+          "sku": "camera",
+          "name": "カメラ",
+          "quantity": 1,
+          "unit_yen": 6000,
+          "subtotal_yen": 6000
+        },
+        {
+          "sku": "tripod",
+          "name": "三脚",
+          "quantity": 2,
+          "unit_yen": 1000,
+          "subtotal_yen": 2000
+        }
+      ],
+      "total_yen": 8000,
+      "budget_flag": false,
+      "needs_review": true,
+      "review": {
+        "approved": true,
+        "comment": "テスト入力：内容を確認し、貸出可とする。"
+      },
+      "summary": "見積合計 8,000円（予算確認の基準 30,000円 未満）。確認待ちで一時停止し、同じ thread に渡されたテスト回答（approved=true）で再開して「承認」で終了しました。コメント：テスト入力：内容を確認し、貸出可とする。"
+    },
+    "next": []
+  },
+  "checkpoints": [
+    {
+      "step": -1,
+      "source": "input",
+      "values": {},
+      "next": [
+        "__start__"
+      ],
+      "interrupt_ids": [],
+      "created_at": "2026-10-16T00:14:02.936027+00:00"
+    },
+    {
+      "step": 0,
+      "source": "loop",
+      "values": {
+        "job_id": "approved",
+        "request": {
+          "applicant": "広報係・青木（架空）",
+          "event": "はじめての撮影会",
+          "start_date": "2026-11-08",
+          "end_date": "2026-11-08",
+          "items": [
+            {
+              "sku": "camera",
+              "quantity": 1
+            },
+            {
+              "sku": "tripod",
+              "quantity": 2
+            }
+          ]
+        }
+      },
+      "next": [
+        "validate"
+      ],
+      "interrupt_ids": [],
+      "created_at": "2026-10-16T00:14:02.936978+00:00"
+    },
+    {
+      "step": 1,
+      "source": "loop",
+      "values": {
+        "job_id": "approved",
+        "request": {
+          "applicant": "広報係・青木（架空）",
+          "event": "はじめての撮影会",
+          "start_date": "2026-11-08",
+          "end_date": "2026-11-08",
+          "items": [
+            {
+              "sku": "camera",
+              "quantity": 1
+            },
+            {
+              "sku": "tripod",
+              "quantity": 2
+            }
+          ]
+        },
+        "status": "validated",
+        "missing_fields": [],
+        "input_errors": []
+      },
+      "next": [
+        "estimate"
+      ],
+      "interrupt_ids": [],
+      "created_at": "2026-10-16T00:14:02.937526+00:00"
+    },
+    {
+      "step": 2,
+      "source": "loop",
+      "values": {
+        "job_id": "approved",
+        "request": {
+          "applicant": "広報係・青木（架空）",
+          "event": "はじめての撮影会",
+          "start_date": "2026-11-08",
+          "end_date": "2026-11-08",
+          "items": [
+            {
+              "sku": "camera",
+              "quantity": 1
+            },
+            {
+              "sku": "tripod",
+              "quantity": 2
+            }
+          ]
+        },
+        "status": "awaiting_review",
+        "missing_fields": [],
+        "input_errors": [],
+        "line_items": [
+          {
+            "sku": "camera",
+            "name": "カメラ",
+            "quantity": 1,
+            "unit_yen": 6000,
+            "subtotal_yen": 6000
+          },
+          {
+            "sku": "tripod",
+            "name": "三脚",
+            "quantity": 2,
+            "unit_yen": 1000,
+            "subtotal_yen": 2000
+          }
+        ],
+        "total_yen": 8000,
+        "budget_flag": false,
+        "needs_review": true
+      },
+      "next": [
+        "review"
+      ],
+      "interrupt_ids": [
+        "592f4fe7a3d7b70a2b0cdcc6fd589aef"
+      ],
+      "created_at": "2026-10-16T00:14:02.937968+00:00"
+    },
+    {
+      "step": 3,
+      "source": "loop",
+      "values": {
+        "job_id": "approved",
+        "request": {
+          "applicant": "広報係・青木（架空）",
+          "event": "はじめての撮影会",
+          "start_date": "2026-11-08",
+          "end_date": "2026-11-08",
+          "items": [
+            {
+              "sku": "camera",
+              "quantity": 1
+            },
+            {
+              "sku": "tripod",
+              "quantity": 2
+            }
+          ]
+        },
+        "status": "approved",
+        "missing_fields": [],
+        "input_errors": [],
+        "line_items": [
+          {
+            "sku": "camera",
+            "name": "カメラ",
+            "quantity": 1,
+            "unit_yen": 6000,
+            "subtotal_yen": 6000
+          },
+          {
+            "sku": "tripod",
+            "name": "三脚",
+            "quantity": 2,
+            "unit_yen": 1000,
+            "subtotal_yen": 2000
+          }
+        ],
+        "total_yen": 8000,
+        "budget_flag": false,
+        "needs_review": true,
+        "review": {
+          "approved": true,
+          "comment": "テスト入力：内容を確認し、貸出可とする。"
+        }
+      },
+      "next": [
+        "finalize"
+      ],
+      "interrupt_ids": [],
+      "created_at": "2026-10-16T00:14:02.940219+00:00"
+    },
+    {
+      "step": 4,
+      "source": "loop",
+      "values": {
+        "job_id": "approved",
+        "request": {
+          "applicant": "広報係・青木（架空）",
+          "event": "はじめての撮影会",
+          "start_date": "2026-11-08",
+          "end_date": "2026-11-08",
+          "items": [
+            {
+              "sku": "camera",
+              "quantity": 1
+            },
+            {
+              "sku": "tripod",
+              "quantity": 2
+            }
+          ]
+        },
+        "status": "approved",
+        "missing_fields": [],
+        "input_errors": [],
+        "line_items": [
+          {
+            "sku": "camera",
+            "name": "カメラ",
+            "quantity": 1,
+            "unit_yen": 6000,
+            "subtotal_yen": 6000
+          },
+          {
+            "sku": "tripod",
+            "name": "三脚",
+            "quantity": 2,
+            "unit_yen": 1000,
+            "subtotal_yen": 2000
+          }
+        ],
+        "total_yen": 8000,
+        "budget_flag": false,
+        "needs_review": true,
+        "review": {
+          "approved": true,
+          "comment": "テスト入力：内容を確認し、貸出可とする。"
+        },
+        "summary": "見積合計 8,000円（予算確認の基準 30,000円 未満）。確認待ちで一時停止し、同じ thread に渡されたテスト回答（approved=true）で再開して「承認」で終了しました。コメント：テスト入力：内容を確認し、貸出可とする。"
+      },
+      "next": [],
+      "interrupt_ids": [],
+      "created_at": "2026-10-16T00:14:02.940602+00:00"
+    }
+  ],
+  "checks": {
+    "expected_status": "approved",
+    "interrupt_count": 1,
+    "expected_values_match": true
+  }
+}
