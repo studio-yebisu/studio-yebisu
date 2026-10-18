@@ -1,0 +1,100 @@
+{
+  "format": "studio-yebisu-storyboard/v1",
+  "case_id": "effekseer-vfx-example",
+  "title": "Effekseer VFX スキル：手順＋依頼→レシピ→実描画→見て直す→使う",
+  "status": {
+    "authored": "8 new source files of this introduction (index.html, concept.css, concept.js, video/index.html, video/video.css, video/video.js, video/storyboard.json, video/README.md)",
+    "rendered": false,
+    "reviewed": false,
+    "note": "Written without running a browser, renderer or tests. Rendering, frame review, encoding, packaging and publication are later steps; nothing here claims they passed. No new independent AI review or score of this introduction exists."
+  },
+  "composition": {
+    "duration_seconds": 32,
+    "fps": 30,
+    "frames": 960,
+    "portrait": [720, 1280],
+    "wide": [1280, 720],
+    "poster_time": 31,
+    "motion_ends": 28.9,
+    "audio": "none: no narration, TTS, audio elements, audio scripts, audio assets or tracks; motionConfig.audioEvents is []",
+    "outputs_expected_from_parent": [
+      "../../media/effekseer-vfx-example.mp4",
+      "../../media/effekseer-vfx-example.webp",
+      "../../media/effekseer-vfx-example-wide.mp4"
+    ]
+  },
+  "diagram": {
+    "idea": "One connected moving diagram. The same shapes travel, merge and transform; the layout is rebuilt natively for portrait and wide.",
+    "nodes": {
+      "book": "手順書 (Markdown instructions/references + Python CLI) with 6 explanatory tabs 設計/レシピ/ビルド/描画/直す/別AI; the six-part grouping is explanatory, not an upstream schema and not six agents",
+      "request": "依頼 page with five time beats 輪郭→接点→波紋→破片→消失 (the 279-byte concept/request.txt)",
+      "ai": "制作AI: the one author AI that wrote the brief, the Python recipe and the fixes",
+      "brief": "設計メモ with the 7 brief beats (f2, f5, f10, f16, f18, f23, f30)",
+      "recipe": "Pythonレシピ whose 15 entries are a coloured layer stack; 2 dashed rows are the invisible pivots; swatches are recipe palette roles, not an effect image",
+      "lane": "制作担当が実行: the operator lane; the diagram never shows the author AI running commands",
+      "tex_core_chip": "5テクスチャ + Core gear (official Effekseer Core) → .efk",
+      "godot": "Godot viewport showing a saved 1280×800 PNG through the original crops (defender 240,296,360×288; f16 comparison 290,330,270×240)",
+      "loop": "thick loop from the actual image through the eye 見て、1種類直す back to the same author AI, with 3 round dots",
+      "branch": "actual images + 基準 (rubric) → 別のAI (no recipe edge) → レビュー → 証拠確認 → 効果一式 → 開く / 保存して使う"
+    },
+    "explanatory_shapes": "Book, paper, gear, eye, folder and token shapes are diagram drawings, not engine execution evidence. Effect pixels are only the saved Godot PNGs."
+  },
+  "jumps": [0, 4, 8, 14, 20, 26, 29],
+  "scenes": [
+    {
+      "from": 0, "to": 4,
+      "caption": "効果を、コードと実描画で作る",
+      "action": "The book appears and opens; six tabs slide out one by one (each lit as it arrives). The rest of the graph is a faint skeleton so the network is one picture from the start."
+    },
+    {
+      "from": 4, "to": 8,
+      "caption": "手順＋依頼 → 制作AI",
+      "action": "The request page and its five beats appear; a page from the book and a page from the request travel into 制作AI, which pulses; the same page leaves as two, becoming 設計メモ and Pythonレシピ (short labels only, no code wall)."
+    },
+    {
+      "from": 8, "to": 14,
+      "caption": "レシピ → Core → Godot",
+      "action": "The layer stack lights; the stack token and the texture token enter the operator lane and the Core gear turns; a .efk token goes to Godot. The viewport enlarges and plays saved f0–f30 once at the original 0.5 s pace (11.0–11.5 s, every other frame at 30 fps), then again slowed over 1.8 s, then holds f10. Labels use frame/60 (e.g. f10 · 0.167秒), never the film time."
+    },
+    {
+      "from": 14, "to": 20,
+      "caption": "見て、1種類ずつ直す",
+      "action": "Round 1: the viewport shows the saved first-pass f16 (white plate pieces), enlarged to 75 %; the image travels round the loop to the eye and the author; one fix travels back through recipe → Core → Godot. Round 2: saved final f16 (blue pieces). Round 3: the same image, tagged 2回目と同じ (the round 2 and round 3 captures are all 32 files byte-identical). No hue animation and no third visual improvement is shown.",
+      "images": ["../assets/first-pass-f016.png", "../assets/frames/guard-f016.png"]
+    },
+    {
+      "from": 20, "to": 26,
+      "caption": "画像と基準だけを別のAIへ / 元の別AIレビュー / 人の承認ではない",
+      "action": "A saved image and the rubric paper travel to 別のAI; there is no edge from the recipe. A review paper goes to 証拠確認 and on to 効果一式; the built .efk joins the same folder (dashed). From 23.6 to 26.0 the viewport is enlarged on saved f10 (blue body), fully large 24.0–25.6. No scores and no fresh verification counter appear."
+    },
+    {
+      "from": 26, "to": 29,
+      "caption": "開く・保存して使う",
+      "action": "The library token joins 開く / 保存して使う, which pulses once (ends 28.0). From 28.4 every highlight clears and the closing line fades in, complete by 28.7."
+    },
+    {
+      "from": 29, "to": 32,
+      "caption": "手順＋依頼→レシピ→実描画 / →見て直す→使う",
+      "action": "Hold: the full network stays still with saved f10 in the viewport. Nothing moves after 28.9 s; poster at 31 s."
+    }
+  ],
+  "actual_assets": {
+    "gate": "concept/manifest.json (SHA-256 605460bc81b15be72ca2c52eb2f04df8c63d74a9b06411f066b72e463de1c233) lists 51 frozen files; every file is checked for size and SHA-256 before anything is drawn",
+    "images_decoded_once": 33,
+    "images": "assets/frames/guard-f000.png … guard-f030.png, guard-f036.png and assets/first-pass-f016.png (all 1280×800, decoded once and shared by the page and the film)",
+    "never": ["redrawn, glow-generated or shader-imitated effect", "new textures or image generation", "fresh build, render, inference or review"]
+  },
+  "facts_shown": {
+    "effect": "VFX_Yebisu_Guard, one synthetic guard reaction, 0.5 s at 60 FPS, seed 1729, 15 recipe entries including 2 invisible pivots, particle budget 27 (a budget, not a performance measurement)",
+    "rounds": 3,
+    "independent_review": "original separate AI received image handoff and rubric, not the recipe or author history; verdict ship; its optional f2–f4 faint-oval suggestion was not applied",
+    "effect_verify": "original verified: true is an evidence-correspondence check, not human approval, visual quality, device performance or game integration",
+    "runtime_api": "original TestApi.gd 12 checks; projectiles, beams and device performance not exercised"
+  },
+  "limits": [
+    "The browser only reads saved data and PNGs; it does not run Python, Effekseer Core, Godot or a model.",
+    "effect-library.zip is the original library (28 files) plus README, LICENSE and notices (31 members); it is not a finished game, its runtime integration is untested and it does not carry verified: true to a local copy.",
+    "f30 and f36 show the dummy without effect; that is the real end of the effect, not a load error.",
+    "crypto.subtle is required (HTTPS or localhost); without it the page and film stop with a clear message."
+  ]
+}

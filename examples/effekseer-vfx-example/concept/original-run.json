@@ -1,0 +1,147 @@
+{
+  "scope": "Projection of alreadypublic original proof, not a new run.",
+  "runtime": {
+    "status": "passed",
+    "sample_count": 1,
+    "effect_id": "VFX_Yebisu_Guard",
+    "synthetic": true,
+    "duration_seconds": 0.5,
+    "recipe_fps": 60,
+    "layers": 15,
+    "particle_budget": 27,
+    "authoring_build_render_rounds": 3,
+    "core_readback": {
+      "verified": true,
+      "writes": 1198
+    },
+    "capture_frames": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      36
+    ],
+    "actual_frame_resolution": [
+      1280,
+      800
+    ],
+    "variant_checks": [
+      "standard/bare",
+      "standard/default_bright"
+    ],
+    "api": {
+      "api_checks": 12,
+      "failures": [],
+      "status": "passed",
+      "scope": [
+        "play handle",
+        "world position",
+        "scale",
+        "speed propagation",
+        "pause propagation",
+        "paused simulation clock",
+        "finite cleanup",
+        "active-list cleanup",
+        "loop survives cycles",
+        "native emitter restart",
+        "stop cleanup"
+      ],
+      "not_exercised": [
+        "projectiles",
+        "beams",
+        "device performance"
+      ],
+      "original_test_script_sha256": "852ee38ae7f871609e2ba0055c890df760a3edb9116f69bc141e2a319fa22631"
+    },
+    "effect_verify": {
+      "verified": true,
+      "issues": [],
+      "evidence_id": "1baab471467543aaa685f60514924a1b"
+    },
+    "independent_ai_review": {
+      "id": "VFX_Yebisu_Guard",
+      "scores": {
+        "read": 2,
+        "timing": 3,
+        "layering": 3,
+        "shape_change": 3,
+        "motion": 2,
+        "placement": 3,
+        "tail": 3,
+        "identity": 2
+      },
+      "worst": "read",
+      "fix": "From f2 to f4, show a faint complete vertical oval in the guard-outline layer beneath the bright drawing sweep, so the shield silhouette is identifiable from its first lit frame.",
+      "verdict": "ship",
+      "observed_frames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        14,
+        16,
+        17,
+        18,
+        20,
+        21,
+        23,
+        24,
+        27,
+        29,
+        30,
+        36
+      ]
+    },
+    "independence": "Separate agent received only the original generated handoff, image paths and rubric; no recipe or author history.",
+    "human_approval": false,
+    "device_performance_tested": false,
+    "browser_demo": "Viewer of recorded Godot frames; no browser-side engine or fresh generation.",
+    "portable_recipe_snapshot": "Only absolute texture/material paths normalized; original recipe source and compiled effects remain unchanged."
+  },
+  "upstream": {
+    "repository": "kanaworksai-hue/effekseer-vfx-skill",
+    "commit": "c28919890f0483c0f968a884ea03979803d3b528",
+    "skill_version": "0.2.0",
+    "license": "MIT",
+    "vendor_files_match_fixed_checkout": 134,
+    "checkout_text_line_endings": "Windows Git core.autocrlf=true",
+    "effekseer_core": "1.80.7",
+    "godot": "4.7.stable.official.5b4e0cb0f",
+    "godot_plugin": "1.80.5.1",
+    "dotnet": "9.0.20"
+  }
+}

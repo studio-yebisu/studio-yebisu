@@ -1,0 +1,71 @@
+/* Studio Yebisu: Effekseer VFX film source (visual-r1). Editor around the canvas; render mode shows only the canvas. */
+
+:root {
+  --vx-bg: #f3eee3;
+  --vx-card: #fbf8f1;
+  --vx-ink: #1e1b17;
+  --vx-sub: #5f574b;
+  --vx-rule: #b9ad97;
+  --vx-verm: #c23b17;
+  --vx-font: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Noto Sans JP", Meiryo, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+html { background: var(--vx-bg); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+body.vx {
+  overflow-x: hidden;
+  color: var(--vx-ink);
+  background: var(--vx-bg);
+  font: 16px/1.75 var(--vx-font);
+}
+canvas { display: block; }
+:focus-visible { outline: 3px solid var(--vx-verm); outline-offset: 2px; }
+a { color: inherit; text-underline-offset: 0.2em; }
+
+.vx-page {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding:
+    max(12px, env(safe-area-inset-top))
+    max(12px, env(safe-area-inset-right))
+    max(28px, env(safe-area-inset-bottom))
+    max(12px, env(safe-area-inset-left));
+}
+.vx-top {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 20px;
+  padding-bottom: 8px; margin-bottom: 12px; border-bottom: 2px solid var(--vx-ink); font-size: 15px;
+}
+.vx-top h1 { margin: 0; font: 700 19px/1.4 "Hiragino Mincho ProN", "Yu Mincho", serif; }
+
+.vx-frame { border: 1.5px solid var(--vx-ink); background: var(--vx-bg); margin: 0 auto; }
+html[data-orient="portrait"] .vx-frame { width: min(100%, calc(72vh * 9 / 16), 420px); }
+html[data-orient="wide"] .vx-frame { width: 100%; max-width: 1280px; }
+.vx-frame canvas { width: 100%; height: auto; }
+
+.vx-controls { max-width: 860px; margin: 12px auto 0; }
+.vx-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: 8px 0; }
+.vx-btn {
+  min-height: 44px; min-width: 44px; padding: 0 14px;
+  border: 1.5px solid var(--vx-ink); border-radius: 0; background: var(--vx-card); color: var(--vx-ink);
+  font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; touch-action: manipulation;
+}
+.vx-btn-primary { background: var(--vx-ink); color: var(--vx-bg); }
+.vx-btn[aria-pressed="true"] { background: var(--vx-ink); color: var(--vx-bg); }
+.vx-btn:disabled, .vx-scrub input:disabled { opacity: 0.45; cursor: not-allowed; }
+.vx-scrub label { font-size: 14px; font-weight: 700; }
+.vx-scrub input { flex: 1 1 12rem; min-width: 0; min-height: 44px; accent-color: var(--vx-verm); }
+.vx-scrub output { min-width: 7.5em; font-variant-numeric: tabular-nums; }
+.vx-jumps .vx-btn { font-size: 14px; padding: 0 10px; }
+.vx-status { margin: 0; font-size: 14px; font-weight: 700; color: var(--vx-sub); }
+.vx-status[data-state="error"] { color: var(--vx-verm); }
+.vx-note { margin: 12px 0 0; font-size: 14px; line-height: 1.7; color: var(--vx-sub); }
+
+/* Render mode: the canvas alone at the composition size. */
+html.render, html.render body { width: 100%; height: 100%; overflow: hidden; }
+html.render .vx-page { max-width: none; margin: 0; padding: 0; }
+html.render .vx-editor { display: none !important; }
+html.render .vx-frame { width: 100vw !important; max-width: none; border: 0; }
+html.render .vx-frame canvas { width: 100vw; height: 100vh; }

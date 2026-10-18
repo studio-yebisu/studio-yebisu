@@ -1,0 +1,277 @@
+{
+  "id": "effekseer-vfx-example",
+  "created_in_revision": "visual-r1",
+  "scope": "Newly packaged summary of alreadypublic originalrecords, not a rerun or transfer of privateverified state.",
+  "original_verified_at": "2026-10-15T03:38:38.084859+00:00",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "receipts": [
+      {
+        "phase": "original recipe and brief",
+        "receipt_sha256": "f927a9a281b0c2bcd4c650ba766eeb1a22b444aba415a353d2bbb7c0e1f12cf5",
+        "execution_sha256": "28ff282f2eb40525b800679b8607c934e27d470617140c91b02651dd4ccd738f"
+      },
+      {
+        "phase": "blue fragment correction",
+        "receipt_sha256": "569ade5cf974e6147c19815b23396bb09ad5da35cfc82c40ac7f9485dfc37b1c",
+        "execution_sha256": "b9dacc54d4b4e074c3660b4d47590da35fa0d048a7e99f814ecb4c765b87ef43"
+      },
+      {
+        "phase": "recipe and brief consistency",
+        "receipt_sha256": "2f552ae09f59a9c676cb9e87bc0e4e1f13aa05bbb060cd02d763dfc892afba88",
+        "execution_sha256": "7de3e7a03c9c181d733eae5cc47f64c7cf917188ca317996e2bb66aa75aaa091"
+      },
+      {
+        "phase": "demo, Japanese guide and video source",
+        "receipt_sha256": "a5692619ffdcd6683c003aa572a9e374dc44a4da0324a1521bb24aab5b3170bb",
+        "execution_sha256": "7c29e5396cfd528eafb7df5b67f9b99390ab8e40f9e125019cce678863446c0a"
+      }
+    ],
+    "receipt_published": false
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 1,
+    "effect_id": "VFX_Yebisu_Guard",
+    "synthetic": true,
+    "duration_seconds": 0.5,
+    "recipe_fps": 60,
+    "layers": 15,
+    "particle_budget": 27,
+    "authoring_build_render_rounds": 3,
+    "core_readback": {
+      "verified": true,
+      "writes": 1198
+    },
+    "capture_frames": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      36
+    ],
+    "actual_frame_resolution": [
+      1280,
+      800
+    ],
+    "variant_checks": [
+      "standard/bare",
+      "standard/default_bright"
+    ],
+    "api": {
+      "api_checks": 12,
+      "failures": [],
+      "status": "passed",
+      "scope": [
+        "play handle",
+        "world position",
+        "scale",
+        "speed propagation",
+        "pause propagation",
+        "paused simulation clock",
+        "finite cleanup",
+        "active-list cleanup",
+        "loop survives cycles",
+        "native emitter restart",
+        "stop cleanup"
+      ],
+      "not_exercised": [
+        "projectiles",
+        "beams",
+        "device performance"
+      ],
+      "original_test_script_sha256": "852ee38ae7f871609e2ba0055c890df760a3edb9116f69bc141e2a319fa22631"
+    },
+    "effect_verify": {
+      "verified": true,
+      "issues": [],
+      "evidence_id": "1baab471467543aaa685f60514924a1b"
+    },
+    "independent_ai_review": {
+      "id": "VFX_Yebisu_Guard",
+      "scores": {
+        "read": 2,
+        "timing": 3,
+        "layering": 3,
+        "shape_change": 3,
+        "motion": 2,
+        "placement": 3,
+        "tail": 3,
+        "identity": 2
+      },
+      "worst": "read",
+      "fix": "From f2 to f4, show a faint complete vertical oval in the guard-outline layer beneath the bright drawing sweep, so the shield silhouette is identifiable from its first lit frame.",
+      "verdict": "ship",
+      "observed_frames": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        14,
+        16,
+        17,
+        18,
+        20,
+        21,
+        23,
+        24,
+        27,
+        29,
+        30,
+        36
+      ]
+    },
+    "independence": "Separate agent received only the original generated handoff, image paths and rubric; no recipe or author history.",
+    "human_approval": false,
+    "device_performance_tested": false,
+    "browser_demo": "Viewer of recorded Godot frames; no browser-side engine or fresh generation.",
+    "portable_recipe_snapshot": "Only absolute texture/material paths normalized; original recipe source and compiled effects remain unchanged."
+  },
+  "browser": {
+    "requested_widths": [
+      390,
+      1280
+    ],
+    "controls": {
+      "keyframes": [
+        {
+          "loaded": true,
+          "readout": "f2",
+          "source": "examples/effekseer-vfx-example/assets/frames/guard-f002.png"
+        },
+        {
+          "loaded": true,
+          "readout": "f6",
+          "source": "examples/effekseer-vfx-example/assets/frames/guard-f006.png"
+        },
+        {
+          "loaded": true,
+          "readout": "f10",
+          "source": "examples/effekseer-vfx-example/assets/frames/guard-f010.png"
+        },
+        {
+          "loaded": true,
+          "readout": "f16",
+          "source": "examples/effekseer-vfx-example/assets/frames/guard-f016.png"
+        },
+        {
+          "loaded": true,
+          "readout": "f23",
+          "source": "examples/effekseer-vfx-example/assets/frames/guard-f023.png"
+        },
+        {
+          "loaded": true,
+          "readout": "f30",
+          "source": "examples/effekseer-vfx-example/assets/frames/guard-f030.png"
+        }
+      ],
+      "home": "f0",
+      "arrow": "f1",
+      "sliderEnd": "f30",
+      "normalEnd": {
+        "frame": "f30",
+        "playing": "false"
+      },
+      "slowStarted": {
+        "frame": "f4",
+        "playing": "true",
+        "speed": "0.25"
+      },
+      "clipboardMatches": true,
+      "mobile": {
+        "allImagesLoaded": true,
+        "controlsFit": true,
+        "crop": "crop",
+        "scrollWidth": 375,
+        "width": 375
+      },
+      "mobileFullView": {
+        "cropLabelHidden": true,
+        "full": true,
+        "scrollWidth": 375,
+        "width": 375
+      },
+      "slowEnd": {
+        "frame": "f30",
+        "playing": "false"
+      },
+      "console": [],
+      "desktop": {
+        "allImagesLoaded": true,
+        "scrollWidth": 1265,
+        "width": 1265
+      },
+      "horizontalPageOverflow": false,
+      "pause": {
+        "frame": "f5",
+        "playing": "false"
+      },
+      "clipboardScope": "OS clipboard readback with CRLF normalized to LF",
+      "downloadMatches": true
+    }
+  },
+  "video": {
+    "duration": 28,
+    "fps": 30,
+    "resolution": [
+      1280,
+      720
+    ],
+    "audio": "none",
+    "motion_reel_determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "e84fbb7a71bcadfcd0a781493504339944826a5064a1b4c1b4e81193251f9858",
+      "afterOtherTimes": "e84fbb7a71bcadfcd0a781493504339944826a5064a1b4c1b4e81193251f9858",
+      "freshPage": "e84fbb7a71bcadfcd0a781493504339944826a5064a1b4c1b4e81193251f9858",
+      "match": true
+    },
+    "source_uses": "Actual Godot captures, real f16 before/after; UI and explanatory typography authored by Opus 5.5.",
+    "representative_frames_and_contact_sheet": "Reviewed locally; original captures kept privately.",
+    "mp4_browser_playback": {
+      "currentSrc": "media/effekseer-vfx-example.mp4",
+      "currentTime": 28,
+      "duration": 28,
+      "ended": true,
+      "errorCode": null,
+      "paused": true
+    }
+  }
+}

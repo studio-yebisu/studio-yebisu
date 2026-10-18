@@ -1,0 +1,245 @@
+{
+  "format": "effekseer-vfx-structure/v1",
+  "case_id": "effekseer-vfx-example",
+  "source_commit": "c28919890f0483c0f968a884ea03979803d3b528",
+  "definition": "AIが読むVFX制作の手順・参照とPython CLI、Effekseer Coreへのコンパイラー、Godotの実描画Lab、別のAIに渡すvfx-review。AIモデルやブラウザー上のVFX生成器ではない。",
+  "parts": [
+    {
+      "id": "brief",
+      "label": "見え方を設計",
+      "source_path": "vendor/effekseer-vfx/SKILL.md",
+      "upstream_path": "skills/effekseer-vfx/SKILL.md",
+      "line_start": 43,
+      "quote": "2. **Brief.** Write `vfx/briefs/<ID>.json`",
+      "meaning": "依頼を時間・色・層・避けることへ。元は0.5秒の架空ガードの7場面をブリーフにした。合格の条件は計画で、自動保証ではない。"
+    },
+    {
+      "id": "recipe",
+      "label": "層をコードに",
+      "source_path": "vendor/effekseer-vfx/SKILL.md",
+      "upstream_path": "skills/effekseer-vfx/SKILL.md",
+      "line_start": 45,
+      "quote": "4. **Recipe.** Write `vfx/src/<ID>.py` defining `recipe()`",
+      "meaning": "AIがPythonのrecipe()とブリーフを執筆。15項目には見えない2つの基準点も含む。数式由来の5テクスチャを使い、今回新しい画像生成はしない。"
+    },
+    {
+      "id": "build",
+      "label": "Coreでビルド",
+      "source_path": "vendor/effekseer-vfx/SKILL.md",
+      "upstream_path": "skills/effekseer-vfx/SKILL.md",
+      "line_start": 47,
+      "quote": "6. `vfx build --ids <ID>`, then `vfx review --ids <ID> --note \"<what this round changed>\"`.",
+      "meaning": "制作担当が別工程でbrief-validate/lint/build。公式Effekseer Coreが.efkefcと.efkを書き、保存して開き直した値を確認した。AIがCLIを実行した図にはしない。"
+    },
+    {
+      "id": "render",
+      "label": "Godotで描く",
+      "source_path": "vendor/effekseer-vfx/references/review.md",
+      "upstream_path": "skills/effekseer-vfx/references/review.md",
+      "line_start": 11,
+      "quote": "The Godot Lab renders the effect",
+      "meaning": "制作担当がGodot Labで描画し、AIは実画像を見て判断する。f0〜f30とf36の32枚で、ブラウザーは保存PNGを読むだけ。"
+    },
+    {
+      "id": "iterate",
+      "label": "1種類ずつ直す",
+      "source_path": "vendor/effekseer-vfx/references/review.md",
+      "upstream_path": "skills/effekseer-vfx/references/review.md",
+      "line_start": 62,
+      "quote": "Each round fixes **one class of problem**",
+      "meaning": "白かったRingの破片を2回目で固定の頂点色へ変更。3回目は効かない指定を削除して説明を合わせた。2回目と3回目は保存済み32枚が全一致。"
+    },
+    {
+      "id": "independent",
+      "label": "別のAIが確認",
+      "source_path": "vendor/vfx-review/SKILL.md",
+      "upstream_path": "skills/vfx-review/SKILL.md",
+      "line_start": 11,
+      "quote": "You are the reviewer, not the author.",
+      "meaning": "別のAIへ渡したのは描画画像と引き継ぎ書・採点基準で、レシピと作者履歴は見せていない。元のship判定とeffect-verifyの記録を読む。人の承認や性能保証ではない。"
+    }
+  ],
+  "presets": [
+    {
+      "id": "f02",
+      "label": "輪郭",
+      "frame": 2,
+      "time_seconds": 0.03333333333333333,
+      "path": "assets/frames/guard-f002.png",
+      "sha256": "a51ea0fb270ee7392fa023cd54a5c7fe50e61c4d1dbfc002f430f1604d491e93"
+    },
+    {
+      "id": "f06",
+      "label": "接点",
+      "frame": 6,
+      "time_seconds": 0.1,
+      "path": "assets/frames/guard-f006.png",
+      "sha256": "8622e21991007f4a0617240fdde7da1428aed5f08ed25a867cd9f9c1eaa0516c"
+    },
+    {
+      "id": "f10",
+      "label": "波紋",
+      "frame": 10,
+      "time_seconds": 0.16666666666666666,
+      "path": "assets/frames/guard-f010.png",
+      "sha256": "197defc3ef96dd2b4584a3c3787a873af472ff247c8599bbc8d4cd4b8217ef4d"
+    },
+    {
+      "id": "f16",
+      "label": "破片",
+      "frame": 16,
+      "time_seconds": 0.26666666666666666,
+      "path": "assets/frames/guard-f016.png",
+      "sha256": "5423fb7e9a5faf9fc1d44376e1b04538ffeac3b28ce1ff4aabb28ee0f06c29cd"
+    },
+    {
+      "id": "f23",
+      "label": "消える途中",
+      "frame": 23,
+      "time_seconds": 0.38333333333333336,
+      "path": "assets/frames/guard-f023.png",
+      "sha256": "b1a9730310fbe114905aa6524a2942e105beb2bdc2125f8187635f009bcad847"
+    },
+    {
+      "id": "f30",
+      "label": "消失",
+      "frame": 30,
+      "time_seconds": 0.5,
+      "path": "assets/frames/guard-f030.png",
+      "sha256": "0828048c1ac18ac9d7616e6c0b63a7471758f1696b5cc115ce25757da0d527ae"
+    }
+  ],
+  "counts": {
+    "examples": 1,
+    "original_authoring_receipts": 4,
+    "rounds": 3,
+    "recipe_entries": 15,
+    "invisible_pivots": 2,
+    "particle_budget": 27,
+    "capture_files": 32,
+    "interactive_frames": 31,
+    "recipe_fps": 60,
+    "effect_duration": 0.5,
+    "new_concept_movie_seconds": 32,
+    "round2_round3_identical_files": 32
+  },
+  "actors": {
+    "author": "元のOpus5.5がブリーフとPythonレシピを執筆し、制作担当が取得した画像を見て修正を執筆。",
+    "operator": "制作担当が別工程でdoctor/brief-validate/lint/build/reviewとGodot API検査を実行。元のAIがシェルを実行したという図にはしない。",
+    "independent_reviewer": "レシピ/作者履歴を見ていない別のAIが画像と基準だけで元の効果をレビュー。新しい紹介図/動画のレビューではない。",
+    "viewer": "ブラウザーは保存PNG/元記録を読む。新しい推論/ビルド/Godot/独立採点を実行しない。"
+  },
+  "rounds": [
+    {
+      "id": "round1",
+      "label": "1回目",
+      "change": "最初のレシピを描画",
+      "image": "assets/first-pass-f016.png",
+      "frame": 16,
+      "observation": "破片が白い",
+      "new_comparison": false
+    },
+    {
+      "id": "round2",
+      "label": "2回目",
+      "change": "Ringの固定の頂点色を青と紺に変更",
+      "image": "assets/frames/guard-f016.png",
+      "frame": 16,
+      "observation": "破片が青い",
+      "new_comparison": false
+    },
+    {
+      "id": "round3",
+      "label": "3回目・最終",
+      "change": "効かないcolor_curve指定を削除し説明を実描画に合わせる",
+      "image": "assets/frames/guard-f016.png",
+      "frame": 16,
+      "observation": "2回目と32枚とも同じ",
+      "new_comparison": false
+    }
+  ],
+  "input": {
+    "synthetic": true,
+    "request_path": "concept/request.txt",
+    "effect_id": "VFX_Yebisu_Guard",
+    "brief_path": "library/vfx/briefs/VFX_Yebisu_Guard.json",
+    "timing": "薄い輪郭→短い白い接点→青い面と波紋→隙間のある破片→消失",
+    "not_added": [
+      "持続する防壁",
+      "実際のゲームへの組込み",
+      "実機の性能保証"
+    ],
+    "request_source": "samples.json samples[0].input (same public synthetic actual input, not article how-to template)"
+  },
+  "image": {
+    "resolution": [
+      1280,
+      800
+    ],
+    "defender_crop": [
+      240,
+      296,
+      360,
+      288
+    ],
+    "comparison_crop": [
+      290,
+      330,
+      270,
+      240
+    ],
+    "crop_source": "元styles.cssの同じ範囲。元PNGの切抜きで効果を描き直していない。"
+  },
+  "outputs": {
+    "library/vfx/src/VFX_Yebisu_Guard.py": {
+      "path": "library/vfx/src/VFX_Yebisu_Guard.py",
+      "bytes": 5461,
+      "sha256": "e716190ac3e73d4b0345f0977b1d8b0c664b291d82ff072ddde0f7d4094b5bed"
+    },
+    "library/vfx/briefs/VFX_Yebisu_Guard.json": {
+      "path": "library/vfx/briefs/VFX_Yebisu_Guard.json",
+      "bytes": 7677,
+      "sha256": "6b67cfe2d81f2d9d665a0e65d907a99269253a9404cecf7265dfef38ad55d215"
+    },
+    "library/vfx/exports/VFX_Yebisu_Guard.efk": {
+      "path": "library/vfx/exports/VFX_Yebisu_Guard.efk",
+      "bytes": 17490,
+      "sha256": "7a9c5f15ac725f897d364f098496736955377c687bdb2d864d8d13e696fc6c49"
+    },
+    "library/vfx/effects/VFX_Yebisu_Guard.efkefc": {
+      "path": "library/vfx/effects/VFX_Yebisu_Guard.efkefc",
+      "bytes": 21561,
+      "sha256": "3ba334d5e296871f111ab3c53d273fb692005f844955247b3beef0c063c568e6"
+    },
+    "capture-manifest.json": {
+      "path": "capture-manifest.json",
+      "bytes": 9607,
+      "sha256": "ede39a14604ed4f7aac6916998a98b53e2277dc52f2e0f94b30acb06d4c79bc2"
+    },
+    "assets/guard-real-render.mp4": {
+      "path": "assets/guard-real-render.mp4",
+      "bytes": 69495,
+      "sha256": "9930588a3efc7f0041f4fabac97a8d7d8d99778b4af6199722a1d9daa2af8072"
+    }
+  },
+  "runtime": {
+    "core": "1.80.7",
+    "godot": "4.7.stable.official.5b4e0cb0f",
+    "plugin": "1.80.5.1",
+    "dotnet": "9.0.20",
+    "api_checks": 12,
+    "original_effect_verified": true,
+    "independent_verdict": "ship",
+    "human_approval": false,
+    "production_integration": false,
+    "device_performance": false
+  },
+  "notes": [
+    "6部品は説明用整理で原典の共通スキーマではない。",
+    "この紹介は元の効果や図の実行証拠を保全し、再推論・再ビルド・Godot再描画・再採点を行わない。",
+    "公開の展開レシピJSONは元の絶対テクスチャ/マテリアルパスだけを相対化した包装で新しいモデル出力ではない。",
+    "verified:trueは元の固定レシピ/描画/採点/根拠の対応確認で意味や見た目の保証ではない。独立AIのf2〜f4の薄い楕円の提案は元の最終効果に追加していない。",
+    "原典134配布は133件が公式rawbytes一致、vfx.cmd1件だけ元CRLFを保って公式LFへの正規化内容一致。",
+    "効果.efkと.efkefc、5種テクスチャとレシピを保持。ツールチェーン/モデル/cacheは配布しない。"
+  ]
+}
