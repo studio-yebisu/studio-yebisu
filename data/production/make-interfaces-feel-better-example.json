@@ -1,6 +1,6 @@
 {
   "id": "make-interfaces-feel-better-example",
-  "verified_at": "2026-10-15T20:52:44.136723+00:00",
+  "verified_at": "2026-10-18T23:09:06.855221+00:00",
   "model": {
     "requested": "claude-opus-5-5",
     "reported": [
@@ -20,7 +20,16 @@
         "prompt_sha256": "043d85423cf81694408eb1444f01062eaea7cab4ff72dbfb66985149e55b8d14"
       }
     ],
-    "receipt_published": false
+    "receipt_published": false,
+    "visual_revision_receipts": [
+      {
+        "phase": "visual-r1",
+        "receipt_sha256": "e12b87cb7411746db6c8ff94c878e21d3a7848039f3983977d2d1c0878d1d832",
+        "execution_sha256": "619d61c06585711cf909d1dd77fcc952249ff94da6a56c5c028e22c78c584a78",
+        "prompt_sha256": "4f3dce1997687ffac2f0ba46728d6d54fa68b8c53557a125a7ee65b31f6d4acc"
+      }
+    ],
+    "scope": "Original two receipts remain original. Exact newOpus5.5 authored8conceptUI/film originals. Parent factualstructure/technicalcorrections/render/QA/publication distinct; no originalreview/inference/Node8suite/oldcontrolledtest rerun."
   },
   "upstream": {
     "repository": "jakubkrehel/make-interfaces-feel-better",
@@ -36,15 +45,69 @@
       "skills/make-interfaces-feel-better/animations.md": "248ad6d995b4a80038c7fec2ec2c4761fdad49738aca070bd3ca727e19a5f2c8",
       "skills/make-interfaces-feel-better/icons.md": "746601dcf81a322c8ba5cc5730f991496dd94dc63279bc363f781666f84fa6b0",
       "skills/make-interfaces-feel-better/performance.md": "f1e8b9f22de1081d1d22cd2923fdec4441ff6192082dc6988435310635e76e8f"
+    },
+    "visual_revision_source_check": {
+      "repository": "jakubkrehel/make-interfaces-feel-better",
+      "source_commit": "35545ea1512ad59fa463e6b1f95ca9c052981fe6",
+      "license": "MIT",
+      "copyright": "2026 Jakub Krehel",
+      "shipped_source_files": 8,
+      "exact_raw_byte_matches": 8,
+      "CRLF_only_content_matches": 0,
+      "all_shipped_content_matches": 8,
+      "official_readings": [
+        {
+          "path": "LICENSE",
+          "official_git_blob": "6a067e906e1346e640a0cda6ed37c5fb793104e4",
+          "sha256": "ed1dfe988fc40511b4845ccd9050a143a2002fee3bedc8064c47fa342b5d8d4f"
+        },
+        {
+          "path": "README.md",
+          "official_git_blob": "201b1b7f498864b09479be10b3421d43cefa8744",
+          "sha256": "d1357d0aa07aa105bab5775c23124c197ab0b921891cf6876a05e5afb24255bd"
+        },
+        {
+          "path": "skills/make-interfaces-feel-better/animations.md",
+          "official_git_blob": "d319874bb69b596b25c23f9bfcb5a933ab3e4dc0",
+          "sha256": "248ad6d995b4a80038c7fec2ec2c4761fdad49738aca070bd3ca727e19a5f2c8"
+        },
+        {
+          "path": "skills/make-interfaces-feel-better/icons.md",
+          "official_git_blob": "6bdc0078c08cb6a6c0c2ebd7b4957870d0043554",
+          "sha256": "746601dcf81a322c8ba5cc5730f991496dd94dc63279bc363f781666f84fa6b0"
+        },
+        {
+          "path": "skills/make-interfaces-feel-better/performance.md",
+          "official_git_blob": "c12257a2ba29c5f6275dfda77467f688a0339b11",
+          "sha256": "f1e8b9f22de1081d1d22cd2923fdec4441ff6192082dc6988435310635e76e8f"
+        },
+        {
+          "path": "skills/make-interfaces-feel-better/SKILL.md",
+          "official_git_blob": "e47b87b369396655fa6bea7240c17f108ea494d5",
+          "sha256": "c1d508fa7bef8e47ee682b4f214c7a4ed1416b91d05a97285e555bad1c41a23e"
+        },
+        {
+          "path": "skills/make-interfaces-feel-better/surfaces.md",
+          "official_git_blob": "e66d44cb83ff614d286b06b71fef8084b608d1cf",
+          "sha256": "36d7845774eb331d9889112c5339c80bbe72a342c61dd941372e5e168b9ebf45"
+        },
+        {
+          "path": "skills/make-interfaces-feel-better/typography.md",
+          "official_git_blob": "a9505359425ed0af9c8b6053937e3fa96f1142b2",
+          "sha256": "518cae9f0d48d48081cd87739993d76e145c0fe2394bb9f95cbde2b003c44549"
+        }
+      ],
+      "checked_at": "2026-10-18T22:14:28.057093+00:00",
+      "full_source_check_record_sha256": "1ba1d22868ccde216c17638f7aca26f641f174cc0cdd5fbe8c89bc9ec9b4cc84"
     }
   },
-  "runtime": {
+  "original_runtime": {
     "status": "passed",
     "sample_count": 3,
     "scope": "Written UI-polish skill applied to a real synthetic3-clip input and functional before/after browser JSON exporter. Node8 and scoped native browser interaction/download checks.",
     "human_approval": false
   },
-  "node": {
+  "original_node": {
     "status": "passed",
     "command": "node verify.mjs",
     "scope": "Actual shared export module and synthetic 3-clip input; UI/motion not tested by this command",
@@ -125,7 +188,7 @@
       }
     ]
   },
-  "browser": {
+  "original_browser": {
     "presets": [
       {
         "id": "all",
@@ -637,11 +700,11 @@
       "macOS, screen reader and all environments not tested."
     ]
   },
-  "production_contributions": {
+  "original_production_contributions": {
     "Opus5.5": "Fixed-skill quick review, improved UI, Japanese guide/article/reusable prompt, editable explainer composition.",
     "production_editor": "Synthetic input and before screen/shared export module, actual execution, scoped technical/copy corrections, visual/technical verification, renderer packaging and publication."
   },
-  "parent_technical_adjustments": {
+  "original_parent_technical_adjustments": {
     "recorded_at": "2026-10-15T20:03:31.391392+00:00",
     "original_opus_delivery_preserved": true,
     "changes": [
@@ -673,7 +736,7 @@
       "index.html": "838db093584d4ff0c444684348dfb92f160ef049f31dd770bb225ce6ce9cf351"
     }
   },
-  "video_parent_adjustments": {
+  "original_video_parent_adjustments": {
     "recorded_at": "2026-10-15T20:44:38.987333+00:00",
     "original_opus_preserved": true,
     "cause": "DOM is identical, but transformed PNG sampling differs in51pixels at16.8s after time jumps.",
@@ -687,7 +750,7 @@
     "final_video_sha256": "e46bb7f31253d038e6349a1a12250377597bb0beca0d5fad847f8a18a9798b5c",
     "determinism_match": true
   },
-  "motion_reel": {
+  "original_motion_reel": {
     "name": "Studio Yebisu Motion Reel rendering runtime",
     "license": "MIT",
     "copyright": "2026 StudioYebisu",
@@ -701,7 +764,7 @@
     },
     "dependency_lock": "Playwright1.64.0/playwright-core1.64.0 from registry.npmjs.org, Apache-2.0. Dependencies installed for execution but not redistributed in the source archive."
   },
-  "explanation": {
+  "original_explanation": {
     "video": {
       "file": "video.mp4",
       "sha256": "e46bb7f31253d038e6349a1a12250377597bb0beca0d5fad847f8a18a9798b5c",
@@ -723,7 +786,7 @@
     "errors": [],
     "blockedExternalRequests": []
   },
-  "video_review": {
+  "original_video_review": {
     "verified_at": "2026-10-15T20:50:01.082821+00:00",
     "video_sha256": "e46bb7f31253d038e6349a1a12250377597bb0beca0d5fad847f8a18a9798b5c",
     "agent_visual_review": true,
@@ -792,7 +855,7 @@
     },
     "remaining": []
   },
-  "captures": {
+  "original_captures": {
     "capture_method": "Actual CUA browser screenshots. Observed geometry/crops are DOM CSS coordinates; viewport PNGs may be rescaled. Video uses the explicit DOM-to-PNG scale. Edited film is not continuous recording.",
     "human_approval": false,
     "synthetic_input": true,
@@ -1052,18 +1115,18 @@
       }
     ]
   },
-  "limitations": [
+  "original_limitations": [
     "Scoped checks and agent visual observation are not full accessibility certification or human approval.",
     "Browser Animations panel/Animation.setPlaybackRate unavailable;10x transition durations and a hold class in a private copy provide a10%-speed equivalent inspection.",
     "Busy/error checks use disclosed controlled fixtures. The normal preparation interval is too short to claim a separately visible waiting duration.",
     "Initial global-rAF fixture interfered with the driver and was discarded; accepted busy fixture changes only one private awaited checkpoint.",
     "macOS, screen reader and all environments not tested."
   ],
-  "publication": {
+  "original_publication": {
     "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=make-interfaces-feel-better-example",
     "authorization": "User requested sequential publication of40 examples to existing main and GitHub Pages."
   },
-  "artifacts_sha256": {
+  "original_publication_artifacts_sha256": {
     "data/cases/make-interfaces-feel-better-example.json": "4bf2847bdd11f9a7e2e91a2223610f895185e26b8acbb905b1298d8662229116",
     "examples/make-interfaces-feel-better-example/app.mjs": "6ea30d325a5ae9adadf25ae4fe6dc72064911e73191fade1a75272ad854e10db",
     "examples/make-interfaces-feel-better-example/assets/after-all.png": "ef3f12e6cf94af63657fff54b530779990e689635eb60674df908ee7292bc557",
@@ -1138,5 +1201,400 @@
     "examples/make-interfaces-feel-better-example/video/video.js": "dfa65a639360f3375ae198d518ce2b47104747ec31e242364d5235504c581e32",
     "media/make-interfaces-feel-better-example.mp4": "e46bb7f31253d038e6349a1a12250377597bb0beca0d5fad847f8a18a9798b5c",
     "media/make-interfaces-feel-better-example.webp": "f83c9ab5a988bc66394d75f44b73304679c77b4e103a12bbc9555d02b532dea3"
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 3,
+    "scope": "NewconceptUI reallycalls originalexport.mjs summarize/serializeExport for the same3inputs and matches originalJSON; oldactualapp/before UI preserved. OriginalNode8suite/review/model/controlledbrowser tests notrerun.",
+    "original_record": "verification.json",
+    "browser": {
+      "presets_checked": 3,
+      "stage_case_states_checked": 9,
+      "source_quote_pairs_checked": 6,
+      "finding_groups_checked": 3,
+      "theme_width_views": 16,
+      "asset_failure_cases": 3,
+      "editor_assets": 34,
+      "editor_scenes": 7,
+      "editor_arbitrary_time": 7.2,
+      "editor_portrait_dimensions": [
+        720,
+        1280
+      ],
+      "editor_wide_dimensions": [
+        1280,
+        720
+      ],
+      "editor_play_pause_end": true,
+      "legacy_ui": {
+        "after_presets": 3,
+        "empty_and_restore": true,
+        "notes_off": true,
+        "handoff_observed": true,
+        "before_opened": true,
+        "before_check": {
+          "ids": [
+            "clip-c01",
+            "clip-c02",
+            "clip-c03"
+          ],
+          "title": "納品メモ | 修正前",
+          "url": "http://127.0.0.1:8881/examples/make-interfaces-feel-better-example/before/desk.html"
+        },
+        "roundtrip": true
+      },
+      "real_original_export_module_called": true,
+      "new_module_results_equal_original_JSON": true,
+      "original_outputs_match": true,
+      "phone_full_graph_and_primary_action": true,
+      "primary_min_height_px": 44,
+      "viewport_widths": [
+        320,
+        375,
+        768,
+        1280
+      ],
+      "themes": [
+        "light",
+        "dark"
+      ],
+      "motion": [
+        "reduce",
+        "no-preference"
+      ],
+      "request_font_px": 16,
+      "native_JSON_save_requested": true,
+      "native_JSON_returned_file": false,
+      "copy_status_observed": true,
+      "clipboard_readback": false,
+      "human_approval": false,
+      "physical_ios_safari_voiceover_macos": false,
+      "zoom200percent": false,
+      "failure_scope": "HTTP503, truncatedJSON stopped atsize gate, same-size alteration stopped atSHA gate. Main/editor clear dependent state and recover34assets onretry. Not JSONparse-branch coverage.",
+      "scope": "Production-agent native actions/DOM/images of newconceptUI, realcalls to originalexportmodule. Original review/inference/Node8suite/controlledoldbrowser checks notrerun. Newdiagram is not proof of new skillreview execution or human approval."
+    }
+  },
+  "video": {
+    "revision": "visual-r1",
+    "films": {
+      "portrait": {
+        "file": "video.mp4",
+        "sha256": "ff5d299c23cb892a8dbb0d5346f023c172247ead2a3feb51db32a55a47938c37",
+        "width": 720,
+        "height": 1280,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      },
+      "wide": {
+        "file": "video.mp4",
+        "sha256": "3c605cee676d177e8e38a39495fb00c8f2da33381039c6f83f57f134f1afc9c3",
+        "width": 1280,
+        "height": 720,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      }
+    },
+    "frame_review": {
+      "reviewed_by": "production agent",
+      "checked_at": "2026-10-18T23:09:06.512666+00:00",
+      "layouts": 2,
+      "audio_streams": 0,
+      "human_approval": false,
+      "representative_frames_each": 16,
+      "source_consecutive_each": 12,
+      "source_consecutive_start": 14.4,
+      "decoded_MP4_consecutive_each": 12,
+      "decoded_MP4_consecutive_start": 14.4,
+      "native_32second_movies_ended": 2,
+      "arbitrary_editor_time": 7.2,
+      "observations": [
+        "縦横の16代表場面で、同じSKILL本/依頼/一つのAI/納品メモから3か所の変更と共通の入力・関数・JSONへつながる構造を確認。冒頭は本と5参照を強調し、終端は図全体を保持する。",
+        "14.4秒から12連続フレームと同時刻の復号MP4で、16pxチェック周辺から行全体へ広がる枠を確認。レンズと同じUIの部分の変形で、別画面の切替だけにしていない。",
+        "元の実UI/JSONの値と、説明図の寸法や完了アイコンを区別。図の「ブラウザーへ渡しました」は元の変更内容の説明で、今回の利用者の保存完了表示ではない。",
+        "320/375pxで図全体と44px以上の主操作が見える。暗い配色では非強調の経路が読めるよう不透明度だけ補正し再確認。固定の明るい映像の描画は変わらず、出荷ソース62PNG一致で照合。",
+        "縦横32秒MP4は音声トラック0でネイティブ再生終端まで確認。横長は小画面では補足、縦長を主に提示。人の審美的承認・実機iOS/Safari/VoiceOverは未確認。"
+      ],
+      "limits": [
+        "No physicaliOS/Safari/VoiceOver/macOS/200percentzoom or human aesthetic approval.",
+        "No original review/inference/Node8suite rerun; no general UIeffectiveness/meaning/performance guarantee."
+      ]
+    },
+    "native_movies_ended": 2,
+    "audio_streams": 0,
+    "human_approval": false
+  },
+  "visual_revision": {
+    "id": "visual-r1",
+    "purpose": "Written skill and5reference topics; givenbeforeUI/mainpath/scope/contract to oneAI author, constrainedquick3groups, separateproduction consolidation/checks, sameinput/exportmodule to usable realUI/JSON.",
+    "original_execution_rerun": false,
+    "assets": 34,
+    "manifest_sha256": "a4075c5d1bda1e89cbae006fd7d65268d9e1784704df569cd719c5bb738c1426",
+    "verification": "examples/make-interfaces-feel-better-example/visual-verification.json",
+    "production_adjustments": [
+      {
+        "files": [
+          "concept/structure.json",
+          "concept/original-run.json",
+          "concept/manifest.json"
+        ],
+        "reason": "Factual skill/actor/originalreview and output mapping; no new originalreview/inference/Node run."
+      },
+      {
+        "files": [
+          "desk.html",
+          "before/desk.html",
+          "video/legacy.html",
+          "render.py"
+        ],
+        "reason": "Preserved originalUI/editor aliases and navigation binding. BeforeinputHTML/app/CSS/export/data remain unchanged."
+      },
+      {
+        "files": [
+          "article-candidate.json",
+          "visual-guide.md",
+          "render-visual.py",
+          "desk.html",
+          "README.md"
+        ],
+        "reason": "Current/original scopes, publicrootZIP/reproduction metadata and movie labels. Preserved actualUI logic/data and originalsourcebytes."
+      },
+      {
+        "files": [
+          "concept.js"
+        ],
+        "reason": "Read preserved capture headers as JPEG or PNG, matching actual encoding instead of historical .png extension. All seven original JPEG bytes, dimensions and hashes remain unchanged. Native initial load caught the overstrict PNG-only gate.",
+        "before_sha256": "d521168c278afe93bf4e28ea754899cb0064052f64f4da18fa101cbf2da3af5b",
+        "after_sha256": "76e17e388d65414655c61dd97706697ed8b4a7c375940bd3a32c49cf085b438a"
+      },
+      {
+        "files": [
+          "concept.js"
+        ],
+        "reason": "Correct exact source fragment: original16px CSS rule continues with margin and accent colour before closing brace. OriginalCSS unchanged.",
+        "after_sha256": "4d9f84de21fedcecdb9d91f6e88b34f049a90507e6794b3de49d67d0b25893fb"
+      },
+      {
+        "files": [
+          "index.html",
+          "concept.js",
+          "render-visual.py",
+          "visual-guide.md"
+        ],
+        "reason": "Clarify originalAI authored review/implementation and operator consolidated10rows into3groups. Choose14.6s strip inside actual hit-area expansion rather than its preparation.",
+        "after_sha256": {
+          "index.html": "9d3646abe8cb34a8a6ff47b4a937b83b6366b7b133a1ce1dedf4e705b5b7a51a",
+          "concept.js": "988e73d08fbe8e1a6d1b3ee954313b825acf9d727f7f82878e4940902b76baf8",
+          "render-visual.py": "523cec0b4ba46e86aaadde4779560d1944369b4223726714d66b32cb79c9191f",
+          "visual-guide.md": "1d4fa422cb6c4e713b135c8bb26a3c8193e6dd638a1a17bdaec1a54292aebd7a"
+        }
+      },
+      {
+        "files": [
+          "concept.js"
+        ],
+        "reason": "Raise nonhighlighted diagram opacity only for dark page palette, following native320px observation of unreadable background nodes. Fixed light film palette is numerically unchanged; source reproduction still required.",
+        "after_sha256": "305421b2cb1e3a7422d560ae969fb420b164c18275f18178e7e831aa52e87be7"
+      },
+      {
+        "files": [
+          "video/README.md"
+        ],
+        "reason": "Record actuallater productionQA/reproduction and distinguish author-time unrendered state."
+      },
+      {
+        "files": [
+          "index.html",
+          "video/storyboard.json"
+        ],
+        "reason": "Unmodified pipeline found a link to an unproduced optional wide poster. Remove that attribute and expected output; preserve actual two MP4s and portrait poster. No diagram/timeline/media or original runtime change.",
+        "after_sha256": {
+          "index.html": "0133219c6b2e6acf0d6a330b05ecda0ae83f531f3f18933d9c816ccfc887aad4",
+          "video/storyboard.json": "bbfb6a9dfef70aee5774bb22cfce52fcaf5bad8897cf8d90d1f62e649f5eabe9"
+        }
+      }
+    ],
+    "source_originals_sha256": {
+      "index.html": "70c3671c42ab97b7bc6123dbfd7fa1d4ef2fde0f182014d406d205f300089c12",
+      "concept.css": "5692b3a61d227e200f777913cb63fda6948634863e78536572894bff09a9dc96",
+      "concept.js": "d521168c278afe93bf4e28ea754899cb0064052f64f4da18fa101cbf2da3af5b",
+      "video/index.html": "c7df19da256b9e66a14fac36d43112b3db9b98fb68c96e532e9091f2c2ab852d",
+      "video/video.css": "e2205fb1fb12824ec5aa988105efc06d167d33c8e736a8508223480c8e7fd962",
+      "video/video.js": "8ae5ff8c506533c074551b37cbdf781dc11f0d1b8426f8ac4a82918cc2a063a3",
+      "video/storyboard.json": "9225b6ee2657f0d62a6d7e9f51cdd8db23341aa04cef5b2be82af8403ff95b0f",
+      "video/README.md": "913229c7d17cd4901ac3f37c52abf592eeb513500d251275e7f61a1bb586e31d"
+    },
+    "final_source_sha256": {
+      "index.html": "0133219c6b2e6acf0d6a330b05ecda0ae83f531f3f18933d9c816ccfc887aad4",
+      "concept.css": "5692b3a61d227e200f777913cb63fda6948634863e78536572894bff09a9dc96",
+      "concept.js": "305421b2cb1e3a7422d560ae969fb420b164c18275f18178e7e831aa52e87be7",
+      "video/index.html": "c7df19da256b9e66a14fac36d43112b3db9b98fb68c96e532e9091f2c2ab852d",
+      "video/video.css": "e2205fb1fb12824ec5aa988105efc06d167d33c8e736a8508223480c8e7fd962",
+      "video/video.js": "8ae5ff8c506533c074551b37cbdf781dc11f0d1b8426f8ac4a82918cc2a063a3",
+      "video/storyboard.json": "bbfb6a9dfef70aee5774bb22cfce52fcaf5bad8897cf8d90d1f62e649f5eabe9",
+      "video/README.md": "18890c848eb68807316d965b3b1d5d489d45f659aab4f1f8515a9453ce9da2a3"
+    },
+    "silent_film": true
+  },
+  "artifacts_sha256": {
+    "data/cases/make-interfaces-feel-better-example.json": "6a77d0d905d8105625c1586b80b1b1283f48f1735a35b9ef5fcbcd8ccc1e64e7",
+    "examples/make-interfaces-feel-better-example/LICENSE": "fb74b9b6e529197ce24b127b687e4e349cf46864059da001a3d9d63db39cdb19",
+    "examples/make-interfaces-feel-better-example/README.md": "2a8b9785828e2a6090221419866553052d1ac28a872bc36840473da6c28a7fee",
+    "examples/make-interfaces-feel-better-example/app.mjs": "6ea30d325a5ae9adadf25ae4fe6dc72064911e73191fade1a75272ad854e10db",
+    "examples/make-interfaces-feel-better-example/assets/after-all.png": "ef3f12e6cf94af63657fff54b530779990e689635eb60674df908ee7292bc557",
+    "examples/make-interfaces-feel-better-example/assets/after-empty.png": "5577c09c1ee0d48c1bd4ddfd2ca0dda169d406faa1e5d56bd40a49f39875f73d",
+    "examples/make-interfaces-feel-better-example/assets/after-focus.png": "94b638250fc4ba0d2ef52074b0b6aff1486c026d9a0a7930a60786e214848f5b",
+    "examples/make-interfaces-feel-better-example/assets/after-handoff.png": "25f68ab90d5ae2786aee8ca741c62cf4180211926787af461d6f187dde381096",
+    "examples/make-interfaces-feel-better-example/assets/after-mobile.png": "eef40c7e2221e4d0e60a0701c108f1299715c5657d2925e9d24def6fd5f8ae51",
+    "examples/make-interfaces-feel-better-example/assets/after-two.png": "ec89e812334abeb17081b02883c73caf892be26ceeb1d7d95e0729a7601c83e2",
+    "examples/make-interfaces-feel-better-example/assets/before.png": "9d4a84c99c9f0c3d5ce3754177099610377d8a2819a80c26fb3e7b1531fe8b7f",
+    "examples/make-interfaces-feel-better-example/before/before.css": "b3a2cdabee53aff35f821e22335b1d151558f352bad227987908d7f73615b6fe",
+    "examples/make-interfaces-feel-better-example/before/before.mjs": "368610e9be137df285ab78fb3221d3e205d9d2518f4e012cb6bbc0c7f33a2364",
+    "examples/make-interfaces-feel-better-example/before/desk.html": "46e9afe104395284da50bddac0912d0652eb8547c571125ff376175820b2edbf",
+    "examples/make-interfaces-feel-better-example/before/index.html": "d7c042defbeb327f5653e9393426a9edfe8042cdb173369b377a2acff69c3a55",
+    "examples/make-interfaces-feel-better-example/captures.json": "cf50db2d1d2807dbba9cbebe21b9a543eef506cdb9d0fb0ac1de7152b062c9c9",
+    "examples/make-interfaces-feel-better-example/clips.json": "49dde88e55e15039cfa454f4cc6612f6f756bef0b0116f04ff81ecda820ddc97",
+    "examples/make-interfaces-feel-better-example/concept.css": "5692b3a61d227e200f777913cb63fda6948634863e78536572894bff09a9dc96",
+    "examples/make-interfaces-feel-better-example/concept.js": "305421b2cb1e3a7422d560ae969fb420b164c18275f18178e7e831aa52e87be7",
+    "examples/make-interfaces-feel-better-example/concept/manifest.json": "a4075c5d1bda1e89cbae006fd7d65268d9e1784704df569cd719c5bb738c1426",
+    "examples/make-interfaces-feel-better-example/concept/original-run.json": "1007fed104d5a90b8c76fd7ee51d3b7a18d150aa3d62d2a706ca0d5757500be5",
+    "examples/make-interfaces-feel-better-example/concept/structure.json": "25f5e4e942bc24c9f739d2bad41ee9165eb0419492927d36482ef2656ca1357d",
+    "examples/make-interfaces-feel-better-example/desk.html": "965268f95e06bfb429f057f2f5c3051a0163aa1efd2dd60989f89781873a0b27",
+    "examples/make-interfaces-feel-better-example/export.mjs": "ba2778ad1f2ca6e318a6f45b73e5fc4ca6856793a64b22d2d7f37c3bf6a5a729",
+    "examples/make-interfaces-feel-better-example/index.html": "0133219c6b2e6acf0d6a330b05ecda0ae83f531f3f18933d9c816ccfc887aad4",
+    "examples/make-interfaces-feel-better-example/input.md": "bab996e4a6ad89106d60fe763c5f5fe36850832195c1d3138f1cc69908d69791",
+    "examples/make-interfaces-feel-better-example/outputs/all.json": "a95ccf7b7fe0f91002d8503066dde3e9cc4bcb00aadd00c95a09ea89d98ba0bf",
+    "examples/make-interfaces-feel-better-example/outputs/before-all.json": "a95ccf7b7fe0f91002d8503066dde3e9cc4bcb00aadd00c95a09ea89d98ba0bf",
+    "examples/make-interfaces-feel-better-example/outputs/no-notes.json": "406c968b4a9c2f7d624365ec7998c0de86a1b6d6f5d0a431c710ea2e2e70cdee",
+    "examples/make-interfaces-feel-better-example/outputs/one.json": "bcde922c201d270bb0a3f9ad1f5949bac8c3085a06d4a0a7d6bb3f8945f96be7",
+    "examples/make-interfaces-feel-better-example/outputs/two.json": "48e9c2708d4f953ffc6400430e6b0e6c3b5d793666ef26bd45c7a91627ef394b",
+    "examples/make-interfaces-feel-better-example/render-visual.py": "523cec0b4ba46e86aaadde4779560d1944369b4223726714d66b32cb79c9191f",
+    "examples/make-interfaces-feel-better-example/render.py": "55f56e3dd7eebe759c6b90be7042e68a033852ef9b6883530d69e3dbdd3a25f7",
+    "examples/make-interfaces-feel-better-example/request.txt": "455ceec929a683b138c4e71f005172389fb2841752cddfec5f23c14e720c49d1",
+    "examples/make-interfaces-feel-better-example/review.md": "8c18948822485baf793c07eb4f08a0ee298348c43c357c23a716e044c2679f27",
+    "examples/make-interfaces-feel-better-example/samples.json": "06584fa419842635a376142a95a084aae55212ad3b9507b670ed824afd88506f",
+    "examples/make-interfaces-feel-better-example/source.zip": "d4cf58f6075a6c136e15856deba8a56ea6bc4ae4a6759f77ed49d7b07f5500fc",
+    "examples/make-interfaces-feel-better-example/style.css": "2f1556d00a530a3de66c1e1be52bc91aeb5cf779749aee646187fe896519ade3",
+    "examples/make-interfaces-feel-better-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/make-interfaces-feel-better-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/make-interfaces-feel-better-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/make-interfaces-feel-better-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/make-interfaces-feel-better-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "examples/make-interfaces-feel-better-example/validation.json": "b0ab85e32a670ee44f958364f3788e8171afb8da02432b3f86c432c7298afffe",
+    "examples/make-interfaces-feel-better-example/vendor/make-interfaces-feel-better/LICENSE": "ed1dfe988fc40511b4845ccd9050a143a2002fee3bedc8064c47fa342b5d8d4f",
+    "examples/make-interfaces-feel-better-example/vendor/make-interfaces-feel-better/README.md": "d1357d0aa07aa105bab5775c23124c197ab0b921891cf6876a05e5afb24255bd",
+    "examples/make-interfaces-feel-better-example/vendor/make-interfaces-feel-better/skills/make-interfaces-feel-better/SKILL.md": "c1d508fa7bef8e47ee682b4f214c7a4ed1416b91d05a97285e555bad1c41a23e",
+    "examples/make-interfaces-feel-better-example/vendor/make-interfaces-feel-better/skills/make-interfaces-feel-better/animations.md": "248ad6d995b4a80038c7fec2ec2c4761fdad49738aca070bd3ca727e19a5f2c8",
+    "examples/make-interfaces-feel-better-example/vendor/make-interfaces-feel-better/skills/make-interfaces-feel-better/icons.md": "746601dcf81a322c8ba5cc5730f991496dd94dc63279bc363f781666f84fa6b0",
+    "examples/make-interfaces-feel-better-example/vendor/make-interfaces-feel-better/skills/make-interfaces-feel-better/performance.md": "f1e8b9f22de1081d1d22cd2923fdec4441ff6192082dc6988435310635e76e8f",
+    "examples/make-interfaces-feel-better-example/vendor/make-interfaces-feel-better/skills/make-interfaces-feel-better/surfaces.md": "36d7845774eb331d9889112c5339c80bbe72a342c61dd941372e5e168b9ebf45",
+    "examples/make-interfaces-feel-better-example/vendor/make-interfaces-feel-better/skills/make-interfaces-feel-better/typography.md": "518cae9f0d48d48081cd87739993d76e145c0fe2394bb9f95cbde2b003c44549",
+    "examples/make-interfaces-feel-better-example/verification.json": "11d5c42568204aff345fc4b1912f06186f8e37228d7146e2ea20139b5e217015",
+    "examples/make-interfaces-feel-better-example/verify.mjs": "14bb68b33d3995d6db1cf5ce6755ab7c357fb35b7f4f4cd8c6f156705d44098e",
+    "examples/make-interfaces-feel-better-example/video/README.md": "18890c848eb68807316d965b3b1d5d489d45f659aab4f1f8515a9453ce9da2a3",
+    "examples/make-interfaces-feel-better-example/video/index.html": "c7df19da256b9e66a14fac36d43112b3db9b98fb68c96e532e9091f2c2ab852d",
+    "examples/make-interfaces-feel-better-example/video/legacy-README.md": "207449b66355e638401a44e8ede194cc005a5a6e47219249f7440f9bfc4c07a6",
+    "examples/make-interfaces-feel-better-example/video/legacy-storyboard.json": "b5421e7868dd83060ce6341830cf15319b8b48493e83988339712b4b4b1e1851",
+    "examples/make-interfaces-feel-better-example/video/legacy.css": "9a35aefcef67de296118652d12aa1987ad3937086a278f42e8c5f873af944022",
+    "examples/make-interfaces-feel-better-example/video/legacy.html": "498b8085ff6e262887f09563df9a294ea977d087f4bfb69064d16fab0e119277",
+    "examples/make-interfaces-feel-better-example/video/legacy.js": "dfa65a639360f3375ae198d518ce2b47104747ec31e242364d5235504c581e32",
+    "examples/make-interfaces-feel-better-example/video/review/contact.png": "93340dc2a094d9fa72d22c6c353eef732e28ae367a8b067759f644ad582e2d83",
+    "examples/make-interfaces-feel-better-example/video/review/cut-01.png": "8ec2de633b2038a30ad121a88a62ba6c7ac1458d59e168f3db56014a9d08626d",
+    "examples/make-interfaces-feel-better-example/video/review/cut-02.png": "aa2a1f1ab3f88bbfee884a449ebeb9eb2bba19d383191f0629bdc2527ae41da0",
+    "examples/make-interfaces-feel-better-example/video/review/cut-03.png": "72638521291a1dcdfc5fd897a9314071817ce90257957e2b8afd056e4214c239",
+    "examples/make-interfaces-feel-better-example/video/review/final.png": "809277cceb315ee9e5ec252ab66b1c8aca837ce9c6ff0f4a6d7f21484646854d",
+    "examples/make-interfaces-feel-better-example/video/review/poster.png": "8ae600780276f75381cb07029b6a8e68c7513077be87ab94ead30ae6d6929764",
+    "examples/make-interfaces-feel-better-example/video/review/stills/frame-000000.png": "dd5f5f4c997b6d9db557aa4a7ae8b6583fddfd7e9c8a5b0cca06bff577f351eb",
+    "examples/make-interfaces-feel-better-example/video/review/stills/frame-000001.png": "dd5f5f4c997b6d9db557aa4a7ae8b6583fddfd7e9c8a5b0cca06bff577f351eb",
+    "examples/make-interfaces-feel-better-example/video/review/stills/frame-000002.png": "dd5f5f4c997b6d9db557aa4a7ae8b6583fddfd7e9c8a5b0cca06bff577f351eb",
+    "examples/make-interfaces-feel-better-example/video/review/stills/frame-000003.png": "943b1790ad3bbcbb953982a634534e6f87d4e486d1ef1b63ae9c0934e1ee782d",
+    "examples/make-interfaces-feel-better-example/video/review/stills/frame-000004.png": "d8b60f8c84de7f38603eba95b1e0c5ddfdcfe635709e162f3d9ed660ce34aae9",
+    "examples/make-interfaces-feel-better-example/video/review/stills/frame-000005.png": "d8b60f8c84de7f38603eba95b1e0c5ddfdcfe635709e162f3d9ed660ce34aae9",
+    "examples/make-interfaces-feel-better-example/video/review/stills/frame-000006.png": "2abce66ad81197b5cf2f7d79ad2ab5cab4a44fee00af91b9d013c36e601135bc",
+    "examples/make-interfaces-feel-better-example/video/review/stills/frame-000007.png": "8ae600780276f75381cb07029b6a8e68c7513077be87ab94ead30ae6d6929764",
+    "examples/make-interfaces-feel-better-example/video/review/stills/frame-000008.png": "fbec3cedd971ebd25e48972e879660cd81285781ecb87ca8ca11b05fa11dd15d",
+    "examples/make-interfaces-feel-better-example/video/review/stills/frame-000009.png": "0eb73e033ed4695254d3db6db4f0d79465cf2ae929d7708c65addc61aa28a27c",
+    "examples/make-interfaces-feel-better-example/video/review/stills/frame-000010.png": "0eb73e033ed4695254d3db6db4f0d79465cf2ae929d7708c65addc61aa28a27c",
+    "examples/make-interfaces-feel-better-example/video/review/stills/frame-000011.png": "a597a05db47bf365cdbdcf1690919bef59ca7e03e9952e622e6d680be15fbad9",
+    "examples/make-interfaces-feel-better-example/video/review/stills/frame-000012.png": "0ee945e8da3678c7c4a582293fb7c0eb8b191b620e3cabfffb79794b0d6866e8",
+    "examples/make-interfaces-feel-better-example/video/review/stills/frame-000013.png": "ae27e056d0a71e8f31a7ca9ca98c1436119c166621828cb800c31dc5ebc3e044",
+    "examples/make-interfaces-feel-better-example/video/review/strip.png": "14cf8bda60fd37937606bfabcbde9e40ba7b4c37e3bb2051c61bb768523f4787",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/capture.json": "7a2de86f611da3687710fb60ff6be6b6bb90d30917b758dc9690aeb675d36901",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/contact.png": "e0415994e645e930795a4c56e5cc311bbfb659bc3623e99c2e5612cd53b79f71",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/mp4-moving-strip.png": "078f88bac4534c2fba6826e3b9366d15f2faa44949adb0efaf46a202c670d95f",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/poster.png": "4cbd48b7165f28fbf11c4d5dad83789b97906138ec894c65d57d923ed781a552",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/stills/frame-000000.png": "8bab02a7859fa98411fb33733e1b8585c5a2d5e57d995673a491fd69c0209d97",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/stills/frame-000001.png": "fe9216bd020e98dc34fc44a44f0f074390191d7e1ca23ee6dadaed8585727765",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/stills/frame-000002.png": "9d4827e5bcd96c975c152ba8d83ab7582d6ac9a3a9d938b3f90ee5cf59287cea",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/stills/frame-000003.png": "ecd584acdb843bffbdbd88822eaa05dc20b1d11fcaa3c3b1b7dbaa24c26a8c6e",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/stills/frame-000004.png": "2abb74d999343bb7d5401090d4696de4f5cc72c84fc27fb86d822ce731072d12",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/stills/frame-000005.png": "160897338f04e29c991b7532425d9251c52f221ea85be3735b020d2b3bb0b3bd",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/stills/frame-000006.png": "2f6de9fba3953aee0de36dc7a29bbabc04c09a03bf02b5f5d919899f221b5a3c",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/stills/frame-000007.png": "ab906a96e65069e70d17697f2e4fda301995bd6752066d5e7d318db4ee23085f",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/stills/frame-000008.png": "40bf1331f305c4fdaed0d90b55b11730150ca0d2c413cc9c9222e97ba1ade570",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/stills/frame-000009.png": "d97d74f6ce15239735be0f5aeadad50e4f122c00a14b6a23d9841102e42f2b74",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/stills/frame-000010.png": "dfb48a2b8468eee33dc87eae2ede156d4d4827b71b837242ffbafb0122a2e338",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/stills/frame-000011.png": "543ac65eacbccfbdd1a7bcf4785be97da049500d20e6eb2bf07ea33a64374851",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/stills/frame-000012.png": "5584b22736868c8d71823bec71733d89495a30150862d31a3455a3d0195a444a",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/stills/frame-000013.png": "b4e18fe4434a0cd0229b71c16bb4340e8b453ab6d8000948a5ac413c7364120f",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/stills/frame-000014.png": "6058e6bf5aa931a2d7d40adfbe3858d0748266d729f8d699298dab756ba6872a",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/stills/frame-000015.png": "4cbd48b7165f28fbf11c4d5dad83789b97906138ec894c65d57d923ed781a552",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/strip.png": "b3fe68814e09499b5265d1d4531f8da5d8b9cca2d7306bebb53bb1f4611e5b92",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/strip/frame-000000.png": "697505dfe13000927183723621aae03268f4a7c036dfafa7dffab5d2d5e84105",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/strip/frame-000001.png": "5c17cf470cc23d499d993e5bdb887a172d70c21e71f3cbd165a4fa9aee301c41",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/strip/frame-000002.png": "007f5383ddad4de614214702c9d43c526e269eda07df882282ee7132a50b3fbd",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/strip/frame-000003.png": "6d8a8e18344d7a1a4837d1c559e965efb1726652f0c1789d8b9c24653b657b76",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/strip/frame-000004.png": "bd83345a76db159a7bea1d11c75f1e4697eaa3580a85db69e4a336ae8b802c9e",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/strip/frame-000005.png": "45933d05fb0bb3eb5fb17e762a9b19aa9786be48bf322c4cac3f4b991fea9c88",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/strip/frame-000006.png": "c242ced739174660a8ef6d8ecde86e09b6fa42a2e360150f694cff8936cf1760",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/strip/frame-000007.png": "a0b903f8e28dc6ca270f5cac0f2368849fe3e4e5bf242315e3ddb1614240b675",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/strip/frame-000008.png": "a1fd396050b812890530894a65dd494df28b0f3868744ab28e4b1140d9b82252",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/strip/frame-000009.png": "cad8f3658c1338e4cbe467456d285ad01482a401ee42b620eeecde0156b775cd",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/strip/frame-000010.png": "f1e6a43b9d246f1f45d128cbf89a13c83b327f6099cf6cef4c010106dbf82a9c",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/portrait/strip/frame-000011.png": "8a71a6078621efd29c4b82d63dc1436f8a30175b13129dd1e23bb83034c0cfe6",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/capture.json": "0a8bf7347c8b2f8e52b2d1c6be4d41a8414c033da9e5c0c6a11a4813814d9c2c",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/contact.png": "44d1697a5556d78e19b97bfb8fa7523835688f8d785642b3e9db32feea02589c",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/mp4-moving-strip.png": "06986ad75cc1c70338e6585e3c239e7ff361ea7e484edbe64f2502ae25570ddf",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/poster.png": "10a9b471c5ab8b403d2867900ba6f6ef80945029691909e8164ae663b1121b6e",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/stills/frame-000000.png": "e3065a2bca1d48faba52d924e9d64e08ae8ae959ab0732d5546acf73901836b5",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/stills/frame-000001.png": "4f9a7c1480c2e714a91ce83fb5716b59f315b0746b25a3de23a1de7f5e9e1276",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/stills/frame-000002.png": "00904d2d96fff1f5fdab4d12f5d1d50ae84f2d2c8432b8d9dd50925f8caf232b",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/stills/frame-000003.png": "9f687df8cdf08333fd2c9071fcee9230488e4dce4f8d47444b93ae95e339e512",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/stills/frame-000004.png": "17d4793f66d378337fdcfc8ed5de27c3dc51dd8ee155c4d459585917588f22a5",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/stills/frame-000005.png": "0433197a34750198577463ea7be0cf68f427175e2bf7aae9d1eab8611622ac13",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/stills/frame-000006.png": "b808d6b625896c6991fad51aa8df750609e1737c86445206be9ff02b956008af",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/stills/frame-000007.png": "daff101881a97ea891e6221297f2fa2c1c3778086c06de76bbd724a718911695",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/stills/frame-000008.png": "e328ce530c52011327a31083436d18141e4b726b52be42c158404893ccc0b5ac",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/stills/frame-000009.png": "d73e5601c3cde9b6e8347c3e755e2ba16ac7ae55d7e5fa7a9889e8e08313e271",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/stills/frame-000010.png": "5a9691c630115c6e2db3a98fe31ce1a974f9fa41768bef57752b2911271cd873",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/stills/frame-000011.png": "20f38daea8c19da1b5bace698c712aa4e92581e3cedc9950f02a2a34f80d02e1",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/stills/frame-000012.png": "e8df4f7bb42909ca9394c2be79db8effdf65d1108b735238e0fedaa8c8cd92a3",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/stills/frame-000013.png": "2043fb1d53d9eb7bda61d52c8add883ccca06aeec8964457ea1b1cab4ff616cf",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/stills/frame-000014.png": "650f0aaaf1b6348c59e776188328c5d8307e26ccbd325e137cf52b7f6a7885c9",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/stills/frame-000015.png": "10a9b471c5ab8b403d2867900ba6f6ef80945029691909e8164ae663b1121b6e",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/strip.png": "307df825ac325be1cc1751b761a89f7863c65d2b6545d8278ad67b843bbf7d06",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/strip/frame-000000.png": "fe7d49d4658e5d3aabf940e4d5784aef12661c2671cbc467b13d40d417af67b0",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/strip/frame-000001.png": "c960df68d24f3ff7c3a2a79612dcfe871185a1b6192d85d3b089c0c54973b8b3",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/strip/frame-000002.png": "e7b243696fdb6ac8a274613b82598beca9b924d1aea9cfb88591cbc806a1bab1",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/strip/frame-000003.png": "64fb8b8f6e1f1cae0e05a0964cc2cc02e7709d7893b175714818607e7a0c9537",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/strip/frame-000004.png": "ac9059c1ccc33e490b3c5e7caec582e30829ebcc3c1efdc622bc8d892ace7d09",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/strip/frame-000005.png": "52d41cf01e3743bf3aa8354f4eea856d4447f13529e0aae584e38321743c0638",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/strip/frame-000006.png": "3d317fe80739eafbd979fb26c38593489f2b79b1538543982ace6536c7c60ebb",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/strip/frame-000007.png": "941782e7a18ab9e7200a3150b8e4afb4809f03533b86d40c101b69df76076656",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/strip/frame-000008.png": "f18669b41115aad97967d11e9f1b82318919cd4b2d3b65dbd1db004078f3a6e0",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/strip/frame-000009.png": "05430478669df342a00332a4d9b6aa93f9bb449dda5818d71b2a0e640e2669a0",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/strip/frame-000010.png": "a851a544dfe968944b85a87a9cbd15fc9eb724e0e515fef96465b16121beb57b",
+    "examples/make-interfaces-feel-better-example/video/review/visual-r1/wide/strip/frame-000011.png": "98f0ac66782b5c4c0095aaa53b4bd5ff2a6a25dd74f3d165563357df39bc6b8c",
+    "examples/make-interfaces-feel-better-example/video/storyboard.json": "bbfb6a9dfef70aee5774bb22cfce52fcaf5bad8897cf8d90d1f62e649f5eabe9",
+    "examples/make-interfaces-feel-better-example/video/video.css": "e2205fb1fb12824ec5aa988105efc06d167d33c8e736a8508223480c8e7fd962",
+    "examples/make-interfaces-feel-better-example/video/video.js": "8ae5ff8c506533c074551b37cbdf781dc11f0d1b8426f8ac4a82918cc2a063a3",
+    "examples/make-interfaces-feel-better-example/visual-guide.md": "1d4fa422cb6c4e713b135c8bb26a3c8193e6dd638a1a17bdaec1a54292aebd7a",
+    "examples/make-interfaces-feel-better-example/visual-verification.json": "4999eef5124a8e0c94e9006319c8625fea904f1be7778ef192e467f59596279e",
+    "media/make-interfaces-feel-better-example-wide.mp4": "3c605cee676d177e8e38a39495fb00c8f2da33381039c6f83f57f134f1afc9c3",
+    "media/make-interfaces-feel-better-example.mp4": "ff5d299c23cb892a8dbb0d5346f023c172247ead2a3feb51db32a55a47938c37",
+    "media/make-interfaces-feel-better-example.webp": "2d43dd3e0296846eba8669ed40b55bfc37244e6c1a2ebaa9a2a035a9348d2bef"
   }
 }

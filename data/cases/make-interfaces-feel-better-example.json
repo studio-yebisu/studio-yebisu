@@ -1,12 +1,13 @@
 {
   "id": "make-interfaces-feel-better-example",
-  "title": "操作範囲・数値・ボタンの状態を直す：Make Interfaces Feel Better",
+  "title": "Make Interfaces Feel Better作例：指針を読み、直す場所を絞る",
   "title_lines": [
-    "操作範囲・数値・ボタンの状態を直す",
-    "Make Interfaces Feel Better"
+    "指針を読む。",
+    "直す場所を絞る。",
+    "同じ画面で確かめる。"
   ],
   "category": "ui-ux",
-  "summary": "UIの細部を見直す指針 Make Interfaces Feel Better を、作例：納品メモ画面に quick レビューで当てました。各行の44px以上の操作範囲とフォーカス、件数・時間の tabular-nums と空の状態、書き出しボタンの押下・準備・成功・失敗の3群を、入力と出力の契約を変えずに直しています。",
+  "summary": "AIに渡す、UIの細部を見るためのMarkdown指針です。1冊のSKILLと5つの参照、既存の画面と依頼、範囲を絞るレビュー、実装と別工程の確認がどうつながるかを、大きな動く図と32秒の無音動画で追えます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/make-interfaces-feel-better-example/index.html",
@@ -18,57 +19,66 @@
   "samples": "examples/make-interfaces-feel-better-example/samples.json",
   "sample_format": "input-output",
   "samples_title": "見本の入力と出力",
-  "samples_intro": "3つの見本は実際のチェックを切り替えて計算し、3/2/1件・06:10/04:35/03:10で一致。修正前後4種類の実ダウンロードも同じ参照ファイルとバイト一致しました。",
-  "demo_description": "修正後の納品メモ画面です。カットを選び、制作メモの有無を決めて「JSONを書き出す」を押すと、ブラウザー内で atelier-delivery.json を作ってブラウザーへ渡します。修正前の画面も同じデータを実際に書き出せます。",
-  "demo_note": "「ブラウザーへ渡しました」は、ファイルをブラウザーのダウンロードへ渡したという意味で、保存の完了までは示しません。外部への送信、待ち時間の演出、設定の保存はありません。ページ上でAIは動きません。",
+  "samples_intro": "同じ架空のカット3件から、all/two/oneの同じIDと選択を引き継ぎます。共通のexport.mjsが計算し、制作メモを原文のまま含むJSONです。映像素材そのものはありません。",
+  "demo_description": "スキルの中身、今回の依頼、同じAIのレビューと実装、制作担当による整理と実確認、同じ入力と共通関数から出るJSONを一枚でつなぎます。3つの直し方とall/two/oneの見本を選び、元の実画面でも試せます。",
+  "demo_note": "新しい紹介図は、元のレビュー・実装・実検証の構造を説明するものです。元の推論やNode8条件、制御試験は再実行していません。新図は元のexport.mjsをブラウザーで本当に呼び、3つの同じ保存JSONと照合します。",
   "request_intro": "自分の画面に当てるときは、［］の中を書き換えて使えます。見た目の印象ではなく、同じ入力から同じ出力が出ることと、各状態の操作結果で判断するよう頼んでいます。",
   "request": "次の固定版スキルを読み、既存の画面を quick モードでレビューして直してください。\nスキル：Make Interfaces Feel Better（SKILL.md と typography / surfaces / animations / icons / performance の5参照）\nhttps://github.com/jakubkrehel/make-interfaces-feel-better/tree/35545ea1512ad59fa463e6b1f95ca9c052981fe6/skills/make-interfaces-feel-better\n\n対象ファイル：［例：before/index.html、before/before.css、before/before.mjs］\n技術とスタイル：［例：HTML・plain CSS・ES module］。今のスタイル方式、配色、書体、文言、ページ構成を保ち、別のスタイル方式やライブラリーを足さない。\n主な操作：［例：カットを選ぶ → 制作メモの有無を選ぶ → JSONを書き出す］\n入力データと出力の契約：［例：clips.json の3件、export.mjs］。どちらも変えない。\n期待する結果：［例：全選択＝3件・06:10／c02だけ＝1件・03:10／0件＝書き出せず、理由を表示］\n重点：操作範囲とフォーカス、変わる数値の安定、主ボタンの各状態（hover・focus・押下・無効・準備・成功・失敗）\n\n納品物：\n1. review.md：quick 形式。5分類それぞれで実際に見た範囲（見ていない分類は理由付きで Not reviewed）。HIGH/MEDIUM を最大3群、各行に Severity・Location（ファイル:行）・Before・After・Why。却下した候補を1〜3件。最後に Verification と Verdict。\n2. 修正したファイル。\n3. 確認の記録：実行したコマンドと操作、その結果。実行していない確認（ブラウザー表示、キーボードだけの操作、10%速度の動き、動きを減らす設定、実ダウンロードの中身）は Not verified と書く。\n\n見た目の印象ではなく、同じ入力から同じ出力が出ることと、各状態を実際に操作した結果で判断してください。",
   "applied_skills": [
     {
       "name": "Make Interfaces Feel Better — Minimum Hit Area とフォーカス表示",
       "source": "https://github.com/jakubkrehel/make-interfaces-feel-better/tree/35545ea1512ad59fa463e6b1f95ca9c052981fe6/skills/make-interfaces-feel-better",
-      "applied": "surfaces.md の「44×44px、隣と重ねない」に従い、16pxのチェックボックスだけだった行全体をネイティブの label にしました。「制作メモを含める」も label で関連付け、消されていたフォーカス表示を :focus-visible で戻しています。"
+      "applied": "元の作例での適用：surfaces.md の「44×44px、隣と重ねない」に従い、16pxのチェックボックスだけだった行全体をネイティブの label にしました。「制作メモを含める」も label で関連付け、消されていたフォーカス表示を :focus-visible で戻しています。"
     },
     {
       "name": "Make Interfaces Feel Better — Tabular Numbers と空の状態",
       "source": "https://github.com/jakubkrehel/make-interfaces-feel-better/tree/35545ea1512ad59fa463e6b1f95ca9c052981fe6/skills/make-interfaces-feel-better",
-      "applied": "typography.md に従い、変わる件数と時間を tabular-nums にして幅を予約しました。SKILL.md のレビュー手順にある empty・loading の状態を確かめ、0件の理由と「すべて選ぶ」、読み込み失敗の理由と再読み込みを文字で出しています。"
+      "applied": "元の作例での適用：typography.md に従い、変わる件数と時間を tabular-nums にして幅を予約しました。SKILL.md のレビュー手順にある empty・loading の状態を確かめ、0件の理由と「すべて選ぶ」、読み込み失敗の理由と再読み込みを文字で出しています。"
     },
     {
       "name": "Make Interfaces Feel Better — Scale on Press・Contextual Icon・Motion Restraint",
       "source": "https://github.com/jakubkrehel/make-interfaces-feel-better/tree/35545ea1512ad59fa463e6b1f95ca9c052981fe6/skills/make-interfaces-feel-better",
-      "applied": "animations.md と performance.md に従い、押下を0.86から0.96へ、transition: all を scale と background-color だけに変えました。成功の合図が色だけだったため、準備中・ブラウザーへ渡した・エラーの文言を role=status に出し、アイコンは原典の値（scale 0.25→1、opacity 0→1、blur 4px→0、300ms、cubic-bezier(0.2, 0, 0, 1)）で切り替えます。動きを減らす設定では補間を外します。 高頻度の選択変更で完了アイコンを戻す場面は、Motion Restraintを優先して即時切り替えにしています。"
+      "applied": "元の作例での適用：animations.md と performance.md に従い、押下を0.86から0.96へ、transition: all を scale と background-color だけに変えました。成功の合図が色だけだったため、準備中・ブラウザーへ渡した・エラーの文言を role=status に出し、アイコンは原典の値（scale 0.25→1、opacity 0→1、blur 4px→0、300ms、cubic-bezier(0.2, 0, 0, 1)）で切り替えます。動きを減らす設定では補間を外します。 高頻度の選択変更で完了アイコンを戻す場面は、Motion Restraintを優先して即時切り替えにしています。"
+    },
+    {
+      "name": "Motion Reel（今回の概念構造版）",
+      "source": "examples/make-interfaces-feel-better-example/tools/motion-reel/render.mjs",
+      "applied": "新しい図と32秒縦横無音映像の8原本をOpus5.5が執筆。制作側が34固定素材/6部品/5参照/3群/3見本/実共通関数と同じJSON/スマホ/編集/任意時刻/代表連続contact/MP4を新QAしました。元のNodeや旧28秒の確認を流用しません。"
     }
   ],
   "steps": [
     {
-      "title": "既存画面と入力を用意する",
-      "body": "Studio Yebisu が依頼用に作った修正前の画面（HTML・plain CSS・ES module）と、3件の clips.json、入力→出力を決める export.mjs を用意しました。"
+      "title": "指針の本と5つの参照を渡す",
+      "body": "文字・面と操作範囲・動き・アイコン・性能の5つの見方を持つMarkdownスキルです。6部品は今回の説明用整理で、原典の共通スキーマではありません。"
     },
     {
-      "title": "SKILL.md と5参照を読む",
-      "body": "固定版の SKILL.md と typography・surfaces・animations・icons・performance の各参照を読み、plain CSS のまま直すこと、quick レビューの形式を確かめました。"
+      "title": "既存画面と困る操作・範囲を渡す",
+      "body": "依頼用にStudio Yebisuが作ったbefore画面、主操作、HTML/plain CSS/ES moduleの方式、配色・書体・文言・構成、clips.jsonとexport.mjsの契約を同じAIへ渡しました。"
     },
     {
-      "title": "quick レビューで3群に絞る",
-      "body": "主な操作の経路だけを見て、HIGH/MEDIUM を操作範囲とフォーカス、数値と空の状態、書き出しボタンの3群にまとめました。5分類の確認範囲と、却下した3候補も review.md に残しています。"
+      "title": "quickレビューと改善実装を受け取る",
+      "body": "原典quickのHIGH/MEDIUM上限5を、この依頼では最大3群へ絞りました。元のAIがレビューと改善UIを執筆し、制作担当が関連10行を3群へ統合。操作範囲/数字と状態/ボタンの3群と、却下候補3件を残します。"
     },
     {
-      "title": "契約を変えずに直す",
-      "body": "export.mjs と clips.json はそのまま、文言・配色・書体・ページ構成も保ち、index.html・style.css・app.mjs だけで3群を直しました。説明はフォームの下に置いています。"
+      "title": "制作担当が別工程で実際に確かめる",
+      "body": "元のNode8条件、実ブラウザー、修正前後4種類の本物のJSON、キーボード、4幅、失敗からの復旧を保存しています。元のApproveは限定範囲のエージェント確認です。これらを新しい図の確認と区別します。"
     },
     {
-      "title": "実操作・出力・映像を確かめる",
-      "body": "Node8条件、3見本と修正前後4種類の本物のJSON、キーボード、4幅、失敗からの復旧、動きを減らす設定を確認。10%速度は遷移時間を10倍にした私的コピーで代替観察し、方法を記録。保存した実画面と実出力から28秒の無音動画をレンダーし、コマ・全デコード・実MP4再生を確認しました。"
+      "title": "同じ入力と共通関数で使う",
+      "body": "新図は元のsummarize/serializeExportを呼び、3件370秒/2件275秒/1件190秒と保存JSON560/399/252Bへつなぎます。元の実UIは任意選択、メモOFF、0件と復帰も試せます。図と32秒縦横無音映像は新QAしました。"
     }
   ],
   "limitations": [
-    "修正前は、操作範囲やフォーカスの課題を含めて Studio Yebisu が制作した、この作例の入力です。",
-    "意図的に範囲を絞った作例で、スキルによる品質の向上率や、ほかの方法との比較は計測していません。",
-    "スクリーンリーダーでの読み上げ、macOS での表示、すべての環境での確認、人による承認は行っていません。",
-    "映像素材の変換、外部への送信、設定の保存はしません。ページ上でAIは動きません。",
-    "Animationsパネルは利用できず、遷移時間を10倍にした確認用コピーで10%速度相当の観察をしました。準備・例外・HTTP失敗も条件を作った制御試験で、通常の処理時間や失敗頻度を測ったものではありません。",
-    "映像は実画面を用いる編集動画です。操作を連続して録画したものではありません。"
+    "MarkdownのUIレビュー/実装指針です。画面を実行時に作るAPI、AIモデル、自動検出器、5つの自動エージェントではありません。",
+    "修正前は課題を含めてStudio Yebisuが作った依頼用の入力です。第三者製品との比較、使いやすさや品質の向上率、一般の効果は測っていません。",
+    "元のAIはレビューと改善UIを執筆。制作担当が10関連行を3群へ統合し、高頻度の選択時のアイコン復帰等を技術補正して、別にNodeとブラウザーを実行しました。独立AIの査読や人による承認ではありません。",
+    "原典quickはHIGH/MEDIUM上限5で、この依頼だけ最大3群です。5分類の確認範囲と却下3候補を記録しています。全画面や全19原則を適用したという意味ではありません。",
+    "新しい図の6部品は説明用整理です。新しい紹介図の動きや配色切替を、保全した元UIへ追加したものではありません。",
+    "元の2受領・Node8条件・ブラウザー制御試験は保全し、再実行していません。新図は同じ共通関数の実計算と同じ原出力との照合を行います。図だけをスキル実行の証拠にしません。",
+    "Animationsパネルでの10%速度再生は未実施です。元の私的コピーで遷移時間を10倍にした代替観察をしました。準備/例外/HTTP503も条件を作った制御試験で、通常の待ち時間や失敗率を測っていません。",
+    "カットは架空の映像メタ情報3件で映像素材はありません。映像の変換、外部送信、設定の永続保存、モデル呼出しは行いません。",
+    "JSONのブラウザーへの手渡しと、ディスクへの保存完了は別です。保存要求、公開原本のバイト一致、保存ツールから返却されたファイルは分けて記録します。",
+    "実機iOS/Safari/VoiceOver、macOS、200%ブラウザーズーム、人の審美的承認、全入力/意味/使いやすさ/性能の保証、クリップボード内容の再取得は未確認です。音声ガイド/TTS/原稿/音源/音声トラックは作っていません。"
   ],
   "sources": [
     {
@@ -106,20 +116,52 @@
     {
       "label": "入力・画面・動画・レンダラーのソース一式",
       "url": "examples/make-interfaces-feel-better-example/source.zip"
+    },
+    {
+      "label": "指針から実画面へつながる構造",
+      "url": "examples/make-interfaces-feel-better-example/concept/structure.json"
+    },
+    {
+      "label": "保全した修正後の実画面",
+      "url": "examples/make-interfaces-feel-better-example/desk.html#all"
+    },
+    {
+      "label": "保全した修正前の実画面",
+      "url": "examples/make-interfaces-feel-better-example/before/desk.html"
+    },
+    {
+      "label": "共通の計算・書き出し関数",
+      "url": "examples/make-interfaces-feel-better-example/export.mjs"
+    },
+    {
+      "label": "元のNode8条件の記録",
+      "url": "examples/make-interfaces-feel-better-example/validation.json"
+    },
+    {
+      "label": "原制作と新しい図解の確認の区別",
+      "url": "examples/make-interfaces-feel-better-example/visual-verification.json"
+    },
+    {
+      "label": "図と縦横映像の再現手順",
+      "url": "examples/make-interfaces-feel-better-example/visual-guide.md"
+    },
+    {
+      "label": "新32秒映像の再現スクリプト",
+      "url": "examples/make-interfaces-feel-better-example/render-visual.py"
     }
   ],
   "license": "MIT",
   "license_note": "作例のコードと文章は Copyright (c) 2026 Studio Yebisu の MIT License です。同梱した原典 vendor/make-interfaces-feel-better は Copyright (c) 2026 Jakub Krehel の MIT License のままです。",
-  "video_note": "28秒・720p・30fps・無音。実際の画面とJSONを使い、入力→操作範囲とフォーカス→2件の選択→実出力→再利用する依頼を説明します。連続操作の録画ではありません。",
+  "video_note": "32秒・30fps・完全無音。縦720×1280/横1280×720を別配置で描きます。指針と5参照＋既存画面と依頼→同じAIのレビュー/実装→制作担当の整理/実確認→同じ関数とデータから実JSON、の概念構造です。連続操作の録画や新しいレビュー実行ではありません。旧28秒の編集ソースはlegacyへ残し、旧MP4は履歴へ保全します。",
   "video_source": "examples/make-interfaces-feel-better-example/video/index.html",
   "skill_license": "examples/make-interfaces-feel-better-example/vendor/make-interfaces-feel-better/LICENSE",
-  "updated_on": "2026-10-16",
+  "updated_on": "2026-10-19",
   "catalog_entry": {
     "id": "resource-make-interfaces-feel-better",
     "name": "Make Interfaces Feel Better",
     "category": "ui-ux",
     "kind": "スキル",
-    "summary": "文字、アイコン、操作範囲、余白、アニメーションなど、UIの細部を見直す。",
+    "summary": "AIが読むUIの細部の指針。5つの参照と既存画面を渡し、レビュー/実装/別工程の確認から同じデータの実画面へつなぐ図解。",
     "use_case": "動く画面ができた後に、見た目と操作感の違和感を直したいとき。",
     "tags": [
       "UI",
@@ -148,9 +190,10 @@
     "source_note": "公開リポジトリのREADMEと利用条件を確認し、用途と最初の試し方を日本語で整理しました。スキルは入口または代表の本文も参照しています。原典は確認時のコミットへ固定しています。",
     "prompt": "次の固定版スキルを読み、既存の画面を quick モードでレビューして直してください。\nスキル：Make Interfaces Feel Better（SKILL.md と typography / surfaces / animations / icons / performance の5参照）\nhttps://github.com/jakubkrehel/make-interfaces-feel-better/tree/35545ea1512ad59fa463e6b1f95ca9c052981fe6/skills/make-interfaces-feel-better\n\n対象ファイル：［例：before/index.html、before/before.css、before/before.mjs］\n技術とスタイル：［例：HTML・plain CSS・ES module］。今のスタイル方式、配色、書体、文言、ページ構成を保ち、別のスタイル方式やライブラリーを足さない。\n主な操作：［例：カットを選ぶ → 制作メモの有無を選ぶ → JSONを書き出す］\n入力データと出力の契約：［例：clips.json の3件、export.mjs］。どちらも変えない。\n期待する結果：［例：全選択＝3件・06:10／c02だけ＝1件・03:10／0件＝書き出せず、理由を表示］\n重点：操作範囲とフォーカス、変わる数値の安定、主ボタンの各状態（hover・focus・押下・無効・準備・成功・失敗）\n\n納品物：\n1. review.md：quick 形式。5分類それぞれで実際に見た範囲（見ていない分類は理由付きで Not reviewed）。HIGH/MEDIUM を最大3群、各行に Severity・Location（ファイル:行）・Before・After・Why。却下した候補を1〜3件。最後に Verification と Verdict。\n2. 修正したファイル。\n3. 確認の記録：実行したコマンドと操作、その結果。実行していない確認（ブラウザー表示、キーボードだけの操作、10%速度の動き、動きを減らす設定、実ダウンロードの中身）は Not verified と書く。\n\n見た目の印象ではなく、同じ入力から同じ出力が出ることと、各状態を実際に操作した結果で判断してください。",
     "verification_stage": "runtime-reviewed",
-    "verification": "固定指針を実入力へ適用。実Node8条件、3見本、修正前後4種の実JSON一致、4幅・キーボード・状態復旧を確認。10%速度は方法を明記した代替観察。28秒無音動画を実レンダー・再生。人の承認/全アクセシビリティ保証とは区別。",
-    "reviewed_on": "2026-10-15",
+    "verification": "元2受領/Node8/修正前後4JSON/実UIを保全。新図は34素材と元の共通関数を使い3原出力と照合、32秒縦横無音動画を別QA。人の承認や一般の効果保証ではない。",
+    "reviewed_on": "2026-10-19",
     "example_url": "examples/make-interfaces-feel-better-example/index.html#all",
     "image": "media/make-interfaces-feel-better-example.webp"
-  }
+  },
+  "verification_stage": "runtime-reviewed"
 }

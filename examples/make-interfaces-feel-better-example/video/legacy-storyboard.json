@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "title": "解説映像：納品メモの操作を細かく直す",
+  "composition_authored_by": "Claude Opus 5.5 (claude-opus-5-5)",
+  "status": "source written; parent render, frame review and MP4 playback pending",
+  "format": {
+    "duration_seconds": 28,
+    "fps": 30,
+    "frame_count": 840,
+    "width": 1280,
+    "height": 720,
+    "aspect": "16:9 native only",
+    "poster_time_seconds": 13.5,
+    "edge_margin_px": 56,
+    "type_sizes_px": {"headings": "48-52", "explanatory_copy": 26, "json_excerpt": 26, "source_notes_and_tags": "18-20"}
+  },
+  "audio": {
+    "status": "silent",
+    "audioEvents": [],
+    "on_screen": "フッター右に「無音」。プレビューの操作欄にも「無音」"
+  },
+  "brief": {
+    "viewer": "AIにページを作らせることはできるが、細かい操作の質を上げたい人",
+    "message": "今の画面のソースと困っている操作をデザインエンジニアリングのスキルと一緒に渡し、実際の操作と書き出したファイルで確かめる",
+    "example": "Studio Yebisu が作った架空の納品メモ画面（週末のアトリエ、合成データ3件）。開いたときにAIは動かず、動画処理・送信・設定の永続保存もしない静的ページ。実際にJSONのダウンロードを作る",
+    "before_screen": "作例の入力として Studio Yebisu が意図的に作った既存画面。第三者製品ではない",
+    "skill_applied_by": "Claude Opus 5.5 が文章で書かれた原典の SKILL.md と参照を読み、quick レビューとして修正",
+    "edit_method": "保存した実際のブラウザー画面（PNG）を切り抜き・拡大・重ね替えして編集。連続した操作の録画ではない。ポインターや操作の動きは描かない"
+  },
+  "coordinate_systems": {
+    "panel_space": "フォームのパネル左上を原点とするページのCSS px。カメラ・強調枠はこの座標で定義し、video.js が毎フレーム計算する",
+    "before_png": "before.png（1265×1218）は等倍のページ全体の保存画像。PNG px = panel + (284.5, 434.96875)",
+    "after_png": "after-*.png（1265×712）は1280×720の表示領域を1265×712で保存した画像。PNG px = (panel + (284.5, -0.03125)) × 1265/1280。PNG上で件数欄（記録79px）が約78px、書き出しボタン下端（記録445.5px）が約440pxに写ることから読んだ",
+    "captures_json_crop_note": "captures.json の crop はCSS座標の値。下の crop_png_px は各PNGで実際に見える範囲を画素で示す（小数は外側へ丸め）"
+  },
+  "assets": [
+    {"capture_id": "before", "path": "../assets/before.png", "width": 1265, "height": 1218, "sha256": "9d4a84c99c9f0c3d5ce3754177099610377d8a2819a80c26fb3e7b1531fe8b7f", "observed": "c01・c02・c03 選択、3件 / 06:10、修正前"},
+    {"capture_id": "after-focus", "path": "../assets/after-focus.png", "width": 1265, "height": 712, "sha256": "94b638250fc4ba0d2ef52074b0b6aff1486c026d9a0a7930a60786e214848f5b", "observed": "c02・c03 選択、04:35、道具を並べる（clip-c02）に実キーボードフォーカス、枠 rgb(55, 88, 70) solid 2px"},
+    {"capture_id": "after-all", "path": "../assets/after-all.png", "width": 1265, "height": 712, "sha256": "ef3f12e6cf94af63657fff54b530779990e689635eb60674df908ee7292bc557", "observed": "3件 / 06:10、メモあり、書き出し前"},
+    {"capture_id": "after-two", "path": "../assets/after-two.png", "width": 1265, "height": 712, "sha256": "ec89e812334abeb17081b02883c73caf892be26ceeb1d7d95e0729a7601c83e2", "observed": "2件 / 04:35、メモあり、書き出し前"},
+    {"capture_id": "after-handoff", "path": "../assets/after-handoff.png", "width": 1265, "height": 712, "sha256": "25f68ab90d5ae2786aee8ca741c62cf4180211926787af461d6f187dde381096", "observed": "2件 / 04:35、ボタン「ブラウザーへ渡しました」、状態文「atelier-delivery.json（2件・メモあり）をブラウザーへ渡しました。保存できたかはブラウザーのダウンロード表示で確かめてください。」"}
+  ],
+  "unused_capture_ids": ["after-empty", "after-mobile"],
+  "outputs": [
+    {
+      "path": "../outputs/two.json",
+      "produced_by": "export.mjs（verify.mjs で実行、validation.json の two）",
+      "bytes": 399,
+      "sha256": "48e9c2708d4f953ffc6400430e6b0e6c3b5d793666ef26bd45c7a91627ef394b",
+      "download_match": "verification.json の download_checks（id two、after-production）で、ブラウザーから実際にダウンロードしたファイルとバイト一致と記録",
+      "excerpt_label": "実出力・一部｜outputs/two.json",
+      "excerpt_lines_exact": [
+        "  \"project\": \"週末のアトリエ\",",
+        "      \"id\": \"c02\",",
+        "      \"title\": \"道具を並べる\",",
+        "      \"id\": \"c03\",",
+        "      \"title\": \"片づけの合図\","
+      ],
+      "excerpt_method": "video.js が fetch した生の文字列を行に分け、上の行をそのまま抜き出す。行のまとまりの間は点線で省略を示す（文字は足さない）"
+    }
+  ],
+  "data_checks_in_motionReady": [
+    "captures.json：使う5枚の file・source・observed の値（選択ID、件数、時間、状態、フォーカス）・width・height・sha256",
+    "各PNG：fetchしたバイトのSHA-256、decode後の naturalWidth / naturalHeight",
+    "validation.json：all = c01・c02・c03 / 3件 / 06:10、two = c02・c03 / 2件 / 04:35。シーン3の文言に同じ値が入っていること",
+    "clips.json：c01 の題名「入口の光」。two.json が clips.json の c02・c03（メモあり）と完全一致すること",
+    "verification.json：1280px幅の実測（行 82px・メモ 48px・ボタン 48px、件数欄の幅79px）とシーン2・3の文言の一致。強調枠の位置もこの実測から計算",
+    "verification.json：two.json のバイト数とSHA-256",
+    "document.fonts.ready。いずれかが欠けるか一致しなければ motionReady は reject する"
+  ],
+  "scenes": [
+    {
+      "id": "s1",
+      "start": 0,
+      "end": 4.8,
+      "tells": "修正前の実際の画面。架空の3件を選んでJSONにする小さなフォーム",
+      "enter": "0秒から完成した画面（フェードなし）",
+      "exit": "文字は4.45〜4.8秒で消える。枠はそのまま次の画面へ",
+      "captions": {
+        "tag": "修正前・作例用に作った入力の画面（実際の表示）",
+        "heading": ["同じ処理を、", "操作しやすく。"],
+        "copy": ["架空の納品メモ画面で、", "3件を選んでJSONに。"]
+      },
+      "frame_px": {"x": 492, "y": 92, "w": 732, "h": 524},
+      "view_panel_css": {"cx": 348, "cy": 232, "zoom": 0.96},
+      "layers": [{"path": "../assets/before.png", "crop_png_px": {"x": 251, "y": 394, "w": 763, "h": 546}, "contains": "修正前／修正後の切り替えリンク、パネル全体（3行、制作メモを含める、JSONを書き出す、送信しない旨）"}],
+      "actual_result_shown": "修正前の実画面。3件 / 06:10"
+    },
+    {
+      "id": "s2",
+      "start": 4.8,
+      "end": 10.4,
+      "tells": "行全体と「制作メモを含める」が押せる範囲。キーボードフォーカスの緑の枠",
+      "enter": "4.8〜5.5秒で枠が縦に縮み、カメラが2行目以降へ。before→after-focus を4.8〜5.25秒で重ね替え（パネル座標で位置合わせ）",
+      "exit": "文字と強調は10.05〜10.4秒で消える",
+      "captions": {
+        "tag": "修正後・Claude Opus 5.5 が Make Interfaces Feel Better を当てた実画面",
+        "heading": ["押せる範囲を、", "行全体に。"],
+        "copy": ["行のどこを押しても選べる。", "キーボードの位置は、", "緑の枠で見える。"],
+        "measure_label": "1280px幅のブラウザーで実測（確認記録より）",
+        "measure_value": "行 82px・メモ 48px・ボタン 48px"
+      },
+      "text_times": {"copy_in": 5.1, "measure_in": 5.6, "highlights_in": 5.7},
+      "frame_px": {"x": 492, "y": 92, "w": 732, "h": 340},
+      "view_panel_css": {"cx": 348, "cy": 304, "zoom": 1.0765},
+      "layers": [{"path": "../assets/after-focus.png", "crop_png_px": {"x": 289, "y": 144, "w": 672, "h": 313}, "contains": "道具を並べる（フォーカス枠付きのチェック）、片づけの合図、制作メモを含める、JSONを書き出す。1行目と状態文は範囲外"}],
+      "highlights": [
+        {"kind": "淡い緑の面と細線", "what": "2行目の label の実測矩形", "panel_css": {"x": 29, "y": 161.3125, "w": 638, "h": 82.09375}, "png_px_approx": {"x": 309.8, "y": 159.4, "w": 630.5, "h": 81.1}},
+        {"kind": "淡い緑の面と細線", "what": "制作メモを含める の label の実測矩形", "panel_css": {"x": 29, "y": 337.5, "w": 638, "h": 48}, "png_px_approx": {"x": 309.8, "y": 333.5, "w": 630.5, "h": 47.4}}
+      ],
+      "actual_result_shown": "実キーボードフォーカスの保存画面と、1280px幅での実測値。クリック位置やポインターは描かない"
+    },
+    {
+      "id": "s3",
+      "start": 10.4,
+      "end": 16.2,
+      "tells": "選択を変えると件数と時間が変わり、数字の幅は動かない",
+      "enter": "10.4〜11.1秒で枠が下の横長へ移動し拡大。after-focus→after-all を10.4〜10.85秒で重ね替え（1行目は範囲外から入る）",
+      "hold": "after-all（3件 / 06:10）を12.4秒まで。after-two（2件 / 04:35）を12.4〜12.85秒で同じ位置に重ね替え、16.2秒まで保持",
+      "exit": "文字と強調は15.85〜16.2秒で消える",
+      "captions": {
+        "heading": "選んだ件数と時間が、ここで分かる。",
+        "copy": ["全3件・06:10 → 「入口の光」を外して 2件・04:35", "数字は等幅で、表示の幅は79pxのまま。"],
+        "tag": "修正後・保存した2枚の実画面（全3件／2件）"
+      },
+      "text_times": {"text_in": 10.95, "highlights_in": 11.2},
+      "frame_px": {"x": 56, "y": 264, "w": 1168, "h": 352},
+      "view_panel_css": {"cx": 348, "cy": 126.08, "zoom": 1.6591},
+      "layers": [
+        {"path": "../assets/after-all.png", "crop_png_px": {"x": 277, "y": 20, "w": 696, "h": 209}},
+        {"path": "../assets/after-two.png", "crop_png_px": {"x": 277, "y": 20, "w": 696, "h": 209}}
+      ],
+      "contains": "見出し「書き出すカット」、件数欄、1行目（入口の光・チェック）、2行目（道具を並べる）全体。3行目は範囲外",
+      "highlights": [
+        {"kind": "緑の輪郭", "what": "件数欄（PNGから読んだ位置）", "panel_css": {"x": 580, "y": 36, "w": 95, "h": 37}, "png_px_approx": {"x": 854.4, "y": 35.5, "w": 93.9, "h": 36.6}},
+        {"kind": "緑の輪郭", "what": "1行目のチェック", "panel_css": {"x": 21, "y": 102, "w": 36, "h": 36}, "png_px_approx": {"x": 301.9, "y": 100.8, "w": 35.6, "h": 35.6}}
+      ],
+      "poster": "13.5秒：after-two（2件 / 04:35）、見出し・文言・強調がすべて表示された状態",
+      "actual_result_shown": "保存画面の中の実際の数値が変わる。数値を上から描き直さない"
+    },
+    {
+      "id": "s4",
+      "start": 16.2,
+      "end": 22.2,
+      "tells": "書き出しは、ファイルをブラウザーへ渡したところまでを表示する。実出力の一部",
+      "enter": "16.2〜16.9秒で枠が上の横長へ移り、ボタンと状態文へカメラが下りる。after-two→after-handoff を16.2〜16.65秒で重ね替え",
+      "exit": "文字とカードは21.85〜22.2秒で消える",
+      "captions": {
+        "tag": "修正後・JSONを書き出した後の実画面（2件・メモあり）",
+        "heading": ["ファイルを、", "ブラウザーへ渡す。"],
+        "copy": ["表示は「渡しました」まで。", "保存はブラウザー側で確かめる。"],
+        "card_label": "実出力・一部｜outputs/two.json"
+      },
+      "text_times": {"text_in": 16.9, "card_in": 17.3},
+      "frame_px": {"x": 56, "y": 92, "w": 1168, "h": 244},
+      "view_panel_css": {"cx": 348, "cy": 448, "zoom": 1.6944},
+      "layers": [{"path": "../assets/after-handoff.png", "crop_png_px": {"x": 284, "y": 372, "w": 682, "h": 142}, "contains": "ボタン「ブラウザーへ渡しました」とチェックのアイコン、2行の状態文全体。制作メモの行と送信しない旨の行は範囲外"}],
+      "json_card_px": {"x": 640, "y": 352, "w": 584, "h": 264},
+      "actual_result_shown": "保存画面の完了表示と、outputs/two.json の生の行（project と2件の id・title）。ディスクへの保存完了やアップロードは主張しない"
+    },
+    {
+      "id": "s5",
+      "start": 22.2,
+      "end": 28,
+      "tells": "自分の画面で使うときに渡すもの3点と、確かめ方。作例ページへの案内と出典",
+      "enter": "22.2〜22.9秒で枠が右の列へ移り、パネル全体を表示。見出しと3項目は22.85秒、確かめ方・案内・出典は23.9秒から",
+      "exit": "28秒まで保持。28秒は最終の静止画面",
+      "captions": {
+        "tag": "修正後・実際の画面",
+        "heading": ["今の画面と困る操作を、", "スキルと一緒に渡す。"],
+        "cues": ["1 今の画面のソース", "2 困っている操作", "3 quickレビュー・優先は3つまで"],
+        "check": "確かめるのは、実際の操作と出力ファイル。",
+        "close": "修正前・修正後は、Webの作例で試せます。",
+        "source_note": [
+          "原典 Make Interfaces Feel Better @35545ea — MIT © 2026 Jakub Krehel ／ 作例・映像 © 2026 Studio Yebisu, MIT",
+          "作例は架空データの静的ページ。開いてもAIは動かず、送信・動画変換・設定の保存もしません。"
+        ]
+      },
+      "frame_px": {"x": 668, "y": 92, "w": 556, "h": 456},
+      "view_panel_css": {"cx": 348, "cy": 293.6, "zoom": 0.7765},
+      "layers": [{"path": "../assets/after-handoff.png", "crop_png_px": {"x": 271, "y": 0, "w": 708, "h": 580}, "contains": "完了状態のパネル全体（縮小表示）"}],
+      "actual_result_shown": "修正後の完了状態の実画面（振り返り用の縮小）"
+    }
+  ],
+  "persistent": {
+    "frame": "全場面で同じ角丸の枠を使い、位置・大きさ・カメラだけを0.7秒で移す（3次の ease-in-out、ズームは対数補間）",
+    "footer": ["保存した実際のブラウザー画面から編集した映像です（連続した録画ではありません）", "無音"],
+    "palette": {"paper": "#ebe8de", "page": "#f1f0e9", "card": "#fffefa", "ink": "#292d2a", "muted": "#586254", "forest": "#375846", "line": "#c9cdc3"},
+    "fonts": "端末にある日本語フォント（system-ui、Yu Gothic UI、Yu Gothic、Hiragino Sans、Noto Sans CJK JP）。等幅は BIZ UDGothic、ui-monospace、Consolas。外部フォントなし"
+  },
+  "boundaries": [
+    "使う画像は captures.json の実画面PNGだけ。アプリの部品や数値を描き直さない。ポインター、クリック位置、架空のログ、アップロード、待ち時間を描かない",
+    "強調は保存画素の上に重ねる半透明の面と輪郭だけ",
+    "ユーザビリティの向上率、他の方法との比較、アクセシビリティ全体の適合や認証は主張しない",
+    "スクリーンリーダー、macOS、全環境、人による承認は未実施（確認記録どおり）",
+    "完了表示は「ブラウザーへ渡した」までで、ディスクへの保存完了とは言わない"
+  ],
+  "source_and_license": {
+    "upstream_skill": {
+      "name": "Make Interfaces Feel Better",
+      "repository": "jakubkrehel/make-interfaces-feel-better",
+      "commit": "35545ea1512ad59fa463e6b1f95ca9c052981fe6",
+      "license": "MIT, Copyright (c) 2026 Jakub Krehel",
+      "local_copy": "../vendor/make-interfaces-feel-better/"
+    },
+    "example_and_film": "Original, Copyright (c) 2026 Studio Yebisu, MIT License（../LICENSE）",
+    "motion_reel": "Studio Yebisu Motion Reel（MIT, 2026 Studio Yebisu）。リモートの特定コミットは主張しない。使用するレンダラーは制作記録でファイルハッシュにより別途固定",
+    "third_party_media": "なし"
+  },
+  "parent_checks_pending": [
+    "render.py 経由の実レンダー（決定性の照合、静止画、コンタクトシート、連続フレーム）",
+    "各場面の切り抜きが状態文・チェック・件数欄を切っていないか、強調枠が実画素の位置に合うかのフレーム確認",
+    "遷移、読む時間、28秒の最終画面、13.5秒のポスターの確認",
+    "書き出したMP4のネイティブ再生（無音であることを含む）",
+    "公開前の人による確認"
+  ]
+}

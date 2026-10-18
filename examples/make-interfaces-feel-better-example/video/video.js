@@ -1,329 +1,332 @@
-/* Studio Yebisu — 納品メモの解説映像. Original composition, 2026. MIT License.
-   Motion Reel time contract: seek(t) paints any frame from t alone.
-   Only saved browser PNGs listed in ../captures.json and the real ../outputs/two.json are shown. */
-(() => {
-  'use strict';
-  const NATIVE_W = 1280, NATIVE_H = 720, DURATION = 28, POSTER = 13.5;
-  const config = window.renderConfig || {};
-  const RENDER = Boolean(window.__MOTION_RENDER__) || new URLSearchParams(location.search).has('render');
-  const whole = (value, fallback, min, max) => Number.isInteger(value) && value >= min && value <= max ? value : fallback;
-  const width = whole(config.width, NATIVE_W, 16, 4096);
-  const height = whole(config.height, NATIVE_H, 16, 4096);
-  const fps = whole(config.fps, 30, 1, 120);
-  window.motionConfig = {duration: DURATION, fps, width, height, posterTime: POSTER, audioEvents: []};
+// Studio Yebisu: Make Interfaces Feel Better 32 s silent film source (visual-r1).
+// The same connected map as ../index.html, drawn by the shared module at any time t. Native layouts for portrait
+// 720×1280 and wide 1280×720, 30 fps, 960 frames, no audio. Totals and JSON sizes come from the original export.mjs,
+// called once at load on the saved input and compared with the saved outputs; nothing here calls a model or reruns
+// the original review or checks. Asset paths resolve from ../concept.js's own module URL, so a renderer entry with
+// <base href="video/"> works the same.
 
-  const $ = id => document.getElementById(id);
-  const root = document.documentElement, stage = $('stage'), box = $('stage-box'), frame = $('frame');
+import {
+  loadAssets, drawMap, finalState, stageState, groupState, PALETTES, FONT, SERIF, LoadError, PART_FOCUS, STAGE_FOCUS,
+  CASE_IDS, GROUP_IDS, TOTAL_FILES, seg, ease,
+} from '../concept.js?v=visual-r1';
 
-  // The film is always laid out at 1280×720 and scaled as one piece.
-  if (RENDER) {
-    root.classList.add('is-render');
-    for (const el of document.querySelectorAll('[data-preview-only]')) el.remove();
-    root.style.setProperty('--film-w', width + 'px');
-    root.style.setProperty('--film-h', height + 'px');
-    const fit = Math.min(width / NATIVE_W, height / NATIVE_H);
-    stage.style.transform = 'translate(' + (width - NATIVE_W * fit) / 2 + 'px,' + (height - NATIVE_H * fit) / 2 + 'px) scale(' + fit + ')';
+const DURATION = 32, FPS = 30, POSTER = 31, MOTION_END = 28.9;
+const SIZES = {portrait: [720, 1280], wide: [1280, 720]};
+const LOGICAL = {portrait: [360, 640], wide: [640, 360]};
+const MAP_RECT = {portrait: {x: 8, y: 94, w: 344, h: 436}, wide: {x: 8, y: 42, w: 624, h: 274}};
+const STRIP = {portrait: {x: 14, y: 540, w: 332, h: 50}, wide: {x: 30, y: 320, w: 580, h: 22}};
+const pal = PALETTES.light;
+
+// Scenes start at the seven jump points (0, 4, 8, 14, 20, 26, 29). The closing line fades in from 28.4 so that
+// nothing changes after 28.9 s.
+const SCENES = [
+  {at: 0, title: 'AIが読む、UI細部の指針'},
+  {at: 4, title: '画面と依頼を、AIに渡す'},
+  {at: 8, title: '3か所に印、同じ画面を直す'},
+  {at: 14, title: '3つの変化'},
+  {at: 20, title: '同じ入力から、同じJSON'},
+  {at: 26, title: '確認は、制作担当の別工程'},
+  {at: 28.4, title: 'スキル＋画面＋依頼 →', title2: '直す場所・理由・同じJSON'},
+];
+const GROUP_SUB = {
+  area: '1 押せる範囲：16px → 行全体＋フォーカス',
+  numbers: '2 数字：升を固定、幅が動かない',
+  button: '3 押下 0.86 → 0.96・ブラウザーへ渡す',
+};
+// 20–26 s: the three saved presets in turn, each total rolling in the same slots and each file size real.
+const RUNS = [['one', 20, 23.4], ['two', 23.4, 24.7], ['all', 24.7, 26]];
+const STRIP_AT = {one: 23.1, two: 24.5, all: 25.8};
+
+const params = new URLSearchParams(location.search);
+const rendering = !!window.__MOTION_RENDER__ || params.has('render');
+if (rendering) document.documentElement.classList.add('render');
+const rc = window.renderConfig || {};
+let orient = rc.width && rc.height ? (rc.width > rc.height ? 'wide' : 'portrait') : params.get('orient') === 'wide' ? 'wide' : 'portrait';
+
+const config = {
+  duration: DURATION,
+  fps: Number.isInteger(rc.fps) && rc.fps > 0 ? rc.fps : FPS,
+  width: Number.isInteger(rc.width) ? rc.width : SIZES[orient][0],
+  height: Number.isInteger(rc.height) ? rc.height : SIZES[orient][1],
+  posterTime: POSTER,
+  audioEvents: [],
+};
+window.motionConfig = config;
+
+const canvas = document.getElementById('film');
+const frame = canvas.parentElement;
+const ctx = canvas.getContext('2d');
+canvas.width = config.width;
+canvas.height = config.height;
+frame.dataset.orient = orient;
+
+let assets = null, generation = 0, controller = null, current = 0;
+
+const sceneIndex = t => { let i = 0; while (i + 1 < SCENES.length && t >= SCENES[i + 1].at) i++; return i; };
+
+// The whole picture at time t, from t alone (no wall clock, no accumulation, no randomness). Returns the state and
+// the local time the lens needs.
+function filmState(t) {
+  const ev = (a, b) => ease(seg(t, a, b));
+  if (t < 4) {
+    // What it is: the book and its five reference tabs first, then the rest of the map as a faint skeleton.
+    const s = stageState(assets, 'all', 0, 0);
+    s.tokens = [];
+    s.tabs = [0, 1, 2, 3, 4].map(i => ev(0.9 + i * 0.3, 1.1 + i * 0.3));
+    const rest = ev(2.8, 3.6);
+    s.show = {book: ev(0.1, 0.6), req: rest, ai: rest, page: rest, quick: 0, rejected: 0, clips: rest, exp: rest, ribbon: rest, file: 0, verify: 0};
+    s.focus = t < 2.8 ? ['book', 'tabs'] : null;
+    return {s, e: 0};
   }
-
-  // Panel space: CSS px relative to the form panel's top-left corner.
-  // before.png is a 1:1 full-page capture (panel at 284.5, 434.97).
-  // after-*.png are 1280×720 viewport captures stored at 1265×712, so PNG px = CSS px × 1265/1280
-  // (read from the PNGs: the 79px totals read 78 PNG px; the button bottom 445.5 reads 440).
-  const SPACE = {
-    before: {k: 1, x: 284.5, y: 434.96875},
-    after: {k: 1265 / 1280, x: 284.5, y: -0.03125}
-  };
-
-  // Camera shots: frame rectangle on the film and the panel-space view centre and zoom.
-  const SHOTS = [
-    {at: 0, frame: {x: 492, y: 92, w: 732, h: 524}, view: {cx: 348, cy: 232, z: 0.96}},
-    {at: 4.8, frame: {x: 492, y: 92, w: 732, h: 340}, view: {cx: 348, cy: 304, z: 732 / 680}},
-    {at: 10.4, frame: {x: 56, y: 264, w: 1168, h: 352}, view: {cx: 348, cy: 20 + 176 / (1168 / 704), z: 1168 / 704}},
-    {at: 16.2, frame: {x: 56, y: 92, w: 1168, h: 244}, view: {cx: 348, cy: 448, z: 244 / 144}},
-    {at: 22.2, frame: {x: 668, y: 92, w: 556, h: 456}, view: {cx: 348, cy: 228 / (556 / 716), z: 556 / 716}}
-  ];
-  const MOVE = 0.7;
-
-  const clamp01 = x => Math.min(1, Math.max(0, x));
-  const ease = x => { x = clamp01(x); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; };
-  const lerp = (a, b, p) => a + (b - a) * p;
-  const rise = (t, start, length) => start === null ? 1 : ease((t - start) / length);
-  const shown = (t, start, end) => Math.min(rise(t, start, 0.45), end === null ? 1 : 1 - ease((t - end + 0.35) / 0.35));
-
-  // Image layers, later ones on top. A lower layer stays opaque until the upper one has fully arrived.
-  const LAYERS = [
-    {capture: 'before', space: 'before', expect: {ids: ['c01', 'c02', 'c03'], total: '3件 / 06:10'},
-      opacity: t => t < 5.25 ? 1 : 0},
-    {capture: 'after-focus', space: 'after', expect: {ids: ['c02', 'c03'], active: 'clip-c02', time: '04:35', outline: 'rgb(55, 88, 70) solid 2px'},
-      opacity: t => t < 10.85 ? rise(t, 4.8, 0.45) : 0},
-    {capture: 'after-all', space: 'after', expect: {ids: ['c01', 'c02', 'c03'], count: 3, time: '06:10', notes: true, state: 'ready'},
-      opacity: t => t < 12.85 ? rise(t, 10.4, 0.45) : 0},
-    {capture: 'after-two', space: 'after', expect: {ids: ['c02', 'c03'], count: 2, time: '04:35', notes: true, state: 'ready'},
-      opacity: t => t < 16.65 ? rise(t, 12.4, 0.45) : 0},
-    {capture: 'after-handoff', space: 'after', expect: {ids: ['c02', 'c03'], count: 2, time: '04:35', notes: true, state: 'done'},
-      opacity: t => rise(t, 16.2, 0.45)}
-  ];
-  for (const layer of LAYERS) {
-    layer.el = document.createElement('img');
-    layer.el.alt = '';
-    layer.el.decoding = 'sync';
-    // Decode the original PNG off-DOM; the bitmap plane is repainted explicitly below.
+  if (t < 8) return {s: stageState(assets, 'all', 0, t - 4), e: t - 4};
+  if (t < 14) { const e = (t - 8) * 7 / 6; return {s: stageState(assets, 'all', 1, e), e}; }
+  if (t < 20) {
+    const i = Math.min(2, Math.floor((t - 14) / 2));
+    return {s: groupState(assets, 'all', GROUP_IDS[i], (t - 14 - 2 * i) * 1.3), e: 0};
   }
-
-  // Explicit CPU rasterization avoids Chromium transform-image resampling caches
-  // retaining a different rounding result after jumping through other times.
-  const picture = document.createElement('canvas');
-  picture.setAttribute('aria-hidden', 'true');
-  $('frame-images').append(picture);
-  const pictureContext = picture.getContext('2d', {alpha: true, willReadFrequently: true, colorSpace: 'srgb'});
-
-  // Highlights in panel space. Row and option rectangles are replaced by measured values on load.
-  const MARKS = [
-    {el: $('mark-row'), rect: [29, 161.31, 638, 82.09], from: 5.7, to: 10.4},
-    {el: $('mark-option'), rect: [29, 337.5, 638, 48], from: 5.7, to: 10.4},
-    {el: $('mark-total'), rect: [580, 36, 95, 37], from: 11.2, to: 16.2},
-    {el: $('mark-check'), rect: [21, 102, 36, 36], from: 11.2, to: 16.2}
-  ];
-
-  const TEXT = [
-    {el: $('s1'), from: null, to: 4.8},
-    {el: $('s2'), from: 5.1, to: 10.4},
-    {el: $('s2-measure'), from: 5.6, to: 10.4},
-    {el: $('s3'), from: 10.95, to: 16.2},
-    {el: $('s4'), from: 16.9, to: 22.2},
-    {el: $('s4-card'), from: 17.3, to: 22.2},
-    {el: $('s5a'), from: 22.85, to: null},
-    {el: $('s5b'), from: 23.9, to: null}
-  ];
-
-  function camera(t) {
-    let i = 0;
-    while (i + 1 < SHOTS.length && t >= SHOTS[i + 1].at) i++;
-    const shot = SHOTS[i];
-    if (i === 0 || t >= shot.at + MOVE) return shot;
-    const a = SHOTS[i - 1], p = ease((t - shot.at) / MOVE);
-    return {
-      frame: {x: lerp(a.frame.x, shot.frame.x, p), y: lerp(a.frame.y, shot.frame.y, p), w: lerp(a.frame.w, shot.frame.w, p), h: lerp(a.frame.h, shot.frame.h, p)},
-      view: {cx: lerp(a.view.cx, shot.view.cx, p), cy: lerp(a.view.cy, shot.view.cy, p), z: Math.exp(lerp(Math.log(a.view.z), Math.log(shot.view.z), p))}
-    };
+  if (t < 26) {
+    const [id, a, b] = RUNS.find(([, , end]) => t < end) || RUNS[2];
+    if (id === 'one') return {s: stageState(assets, 'one', 2, (t - a) * 1.6), e: 0};
+    const s = finalState(assets, id);
+    s.focus = STAGE_FOCUS[2];
+    s.from = id === 'two' ? 'one' : 'two';
+    s.roll = ev(a + 0.1, a + 0.6);
+    s.tokens.push({path: 'ribbon-b', kind: 'json', p: seg(t, a + 0.5, b - 0.5), live: t > a + 0.5 && t < b - 0.5});
+    s.pulse.file = seg(t, b - 0.6, b);
+    return {s, e: 0};
   }
+  const s = finalState(assets, 'all');
+  if (t < 27.4) { s.focus = PART_FOCUS.verify; s.pulse.verify = seg(t, 26.1, 26.9); }
+  else if (t < 28.4) s.focus = PART_FOCUS.rejected;
+  return {s, e: 0};
+}
 
-  function setShown(el, opacity) {
-    el.style.opacity = String(opacity);
-    el.style.visibility = opacity > 0 ? 'visible' : 'hidden';
+function subtitle(t) {
+  if (t < 4) return t < 2.8 ? '1冊・19原則・5参照／APIでもモデルでもない' : '画面・依頼・契約が1枚の図に';
+  if (t < 8) return '元のAIが一度だけ読んだ（いまは動かない）';
+  if (t < 14) return 'quick・上限3群／変えない3案も残す';
+  if (t < 20) return GROUP_SUB[GROUP_IDS[Math.min(2, Math.floor((t - 14) / 2))]];
+  if (t < 26) {
+    const [id] = RUNS.find(([, , end]) => t < end) || RUNS[2];
+    const p = assets.presets[id];
+    return `${id}：${p.count}件・${p.time}・${p.bytes}B（保存済みと一致）`;
   }
+  if (t < 28.4) return 'Node8条件・実ダウンロード／人の承認ではない';
+  return '';
+}
 
-  function seek(seconds) {
-    const t = Math.min(DURATION, Math.max(0, Number(seconds) || 0));
-    const {frame: f, view: v} = camera(t);
-    frame.style.left = f.x + 'px';
-    frame.style.top = f.y + 'px';
-    frame.style.width = f.w + 'px';
-    frame.style.height = f.h + 'px';
-    const fx = x => f.w / 2 + v.z * (x - v.cx), fy = y => f.h / 2 + v.z * (y - v.cy);
-    // Reset the whole pixel buffer on every seek; no prior frame contributes.
-    picture.width = Math.ceil(f.w);
-    picture.height = Math.ceil(f.h);
-    picture.style.width = f.w + 'px';
-    picture.style.height = f.h + 'px';
-    pictureContext.setTransform(picture.width / f.w, 0, 0, picture.height / f.h, 0, 0);
-    pictureContext.imageSmoothingEnabled = true;
-    pictureContext.imageSmoothingQuality = 'high';
-    for (const layer of LAYERS) {
-      const opacity = layer.el.naturalWidth ? layer.opacity(t) : 0;
-      if (opacity <= 0) continue;
-      const s = SPACE[layer.space];
-      pictureContext.globalAlpha = opacity;
-      pictureContext.drawImage(layer.el, fx(-s.x), fy(-s.y), layer.el.naturalWidth * v.z / s.k, layer.el.naturalHeight * v.z / s.k);
+function text(str, x, y, size, {weight = 500, align = 'left', color = pal.ink, family = FONT, max} = {}) {
+  ctx.font = `${weight} ${size}px ${family}`;
+  ctx.textAlign = align;
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillStyle = color;
+  if (max) ctx.fillText(str, x, y, max); else ctx.fillText(str, x, y);
+}
+
+function drawChrome(t) {
+  const index = sceneIndex(t), scene = SCENES[index];
+  const reveal = 0.4 + 0.6 * ease(seg(t, scene.at, scene.at + 0.3));
+  const [LW] = LOGICAL[orient];
+  const wide = orient === 'wide';
+  // Seven ticks for the seven scenes.
+  const tickW = (LW - 40) / SCENES.length;
+  for (let i = 0; i < SCENES.length; i++) {
+    ctx.fillStyle = i <= index ? pal.accent : pal.rule;
+    ctx.fillRect(20 + i * tickW, wide ? 8 : 14, tickW - 4, 2.5);
+  }
+  const sub = subtitle(t);
+  ctx.globalAlpha = reveal;
+  if (wide) {
+    text(scene.title + (scene.title2 || ''), 16, 32, 20, {weight: 700, family: SERIF, max: sub ? 290 : 608});
+    if (sub) text(sub, 624, 32, 13, {align: 'right', color: pal.sub, max: 310});
+  } else {
+    text(scene.title, 20, 50, 22, {weight: 700, family: SERIF, max: 320});
+    if (scene.title2) text(scene.title2, 20, 80, 22, {weight: 700, family: SERIF, max: 320});
+    else if (sub) text(sub, 20, 77, 13, {color: pal.sub, max: 320});
+  }
+  ctx.globalAlpha = 1;
+}
+
+// The three saved presets, each appearing when its run in the film is finished. Values are the real results.
+function drawStrip(t) {
+  const R = STRIP[orient];
+  const wide = orient === 'wide';
+  const gap = wide ? 10 : 6, cw = (R.w - gap * 2) / 3;
+  CASE_IDS.forEach((id, i) => {
+    const p = assets.presets[id];
+    const x = R.x + i * (cw + gap), y = R.y;
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = pal.paper; ctx.fillRect(x, y, cw, R.h);
+    ctx.lineWidth = 1; ctx.strokeStyle = pal.rule; ctx.strokeRect(x, y, cw, R.h);
+    text(id, x + 7, y + (wide ? 15 : 16), 12, {weight: 700, color: pal.green});
+    ctx.globalAlpha = ease(seg(t, STRIP_AT[id], STRIP_AT[id] + 0.4));
+    if (wide) {
+      text(`${p.count}件・${p.time}`, x + 40, y + 15, 12, {weight: 700, max: cw * 0.5});
+      text(`${p.bytes}B`, x + cw - 8, y + 15, 12, {align: 'right', max: cw * 0.3});
+    } else {
+      text(`${p.count}件・${p.time}`, x + 7, y + 32, 13, {weight: 700, max: cw - 12});
+      text(`JSON ${p.bytes}B`, x + 7, y + 45, 11, {color: pal.sub, max: cw - 12});
     }
-    pictureContext.globalAlpha = 1;
-    for (const mark of MARKS) {
-      const [x, y, w, h] = mark.rect;
-      mark.el.style.left = fx(x) + 'px';
-      mark.el.style.top = fy(y) + 'px';
-      mark.el.style.width = w * v.z + 'px';
-      mark.el.style.height = h * v.z + 'px';
-      setShown(mark.el, shown(t, mark.from, mark.to));
-    }
-    for (const group of TEXT) {
-      const lift = (1 - rise(t, group.from, 0.45)) * 8;
-      group.el.style.transform = lift > 0 ? 'translateY(' + lift + 'px)' : 'none';
-      setShown(group.el, shown(t, group.from, group.to));
-    }
-    return {time: t, frame: Math.round(t * fps)};
+    ctx.globalAlpha = 1;
+  });
+}
+
+function drawFoot() {
+  if (orient === 'wide') {
+    text('Markdownの指針・元のAIが書いた変更・図は説明用・実検証は別工程・無音', 320, 355, 11, {align: 'center', color: pal.sub});
+  } else {
+    text('Markdownの指針・元のAIが書いた変更', 180, 612, 11, {align: 'center', color: pal.sub});
+    text('図は説明用・実検証は別工程・無音', 180, 628, 11, {align: 'center', color: pal.sub});
   }
-  window.seek = seek;
+}
 
-  // ---- Assets: every file is fetched, checked against the public records, then decoded. ----
-  const resolve = path => new URL(path, document.baseURI).href;
-  const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-  function expect(ok, message) { if (!ok) throw new Error(message); }
-  async function fetchOk(path) {
-    const response = await fetch(resolve(path), {cache: 'no-store'});
-    if (!response.ok) throw new Error(path + ' を読み込めません（HTTP ' + response.status + '）');
-    return response;
+function draw(t) {
+  current = Math.max(0, Math.min(DURATION, t));
+  const W = canvas.width, H = canvas.height;
+  ctx.save();
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = pal.bg;
+  ctx.fillRect(0, 0, W, H);
+  if (assets) {
+    const motion = Math.min(current, MOTION_END);
+    const [LW, LH] = LOGICAL[orient];
+    const k = Math.min(W / LW, H / LH);
+    ctx.translate((W - LW * k) / 2, (H - LH * k) / 2);
+    ctx.scale(k, k);
+    drawChrome(motion);
+    const {s, e} = filmState(motion);
+    drawMap(ctx, orient, MAP_RECT[orient], s, pal, k, e);
+    drawStrip(motion);
+    drawFoot();
   }
-  const fetchJSON = async path => (await fetchOk(path)).json();
-  async function sha256(buffer) {
-    if (!globalThis.crypto || !crypto.subtle) {
-      if (RENDER) throw new Error('SHA-256 を計算できない環境のため、素材を照合できません');
-      return null; // Insecure preview origin: dimensions are still checked.
-    }
-    const bytes = new Uint8Array(await crypto.subtle.digest('SHA-256', buffer));
-    return Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('');
-  }
+  ctx.restore();
+}
 
-  async function loadLayer(layer, captures) {
-    const entry = captures.captures.find(c => c.id === layer.capture);
-    expect(entry, 'captures.json に ' + layer.capture + ' がありません');
-    expect(entry.file === 'assets/' + layer.capture + '.png', layer.capture + ' のファイル名が一致しません');
-    expect(entry.source === 'Actual browser screenshot, not recreated UI', layer.capture + ' が実画面の記録ではありません');
-    for (const [key, value] of Object.entries(layer.expect)) expect(same(entry.observed[key], value), layer.capture + ' の ' + key + ' が映像の説明と一致しません');
-    expect(entry.observed.viewport.width === 1280 && entry.width === 1265, layer.capture + ' の寸法の前提が一致しません');
-    const buffer = await (await fetchOk('../' + entry.file)).arrayBuffer();
-    const hash = await sha256(buffer);
-    expect(hash === null || hash === entry.sha256, entry.file + ' のSHA-256が captures.json と一致しません');
-    layer.el.src = URL.createObjectURL(new Blob([buffer], {type: 'image/png'}));
-    await layer.el.decode();
-    expect(layer.el.naturalWidth === entry.width && layer.el.naturalHeight === entry.height, entry.file + ' の画素数が captures.json と一致しません');
-    layer.el.alt = entry.label;
-  }
+window.seek = t => {
+  const time = Number(t) || 0;
+  if (assets) { draw(time); return Promise.resolve(); }
+  return window.motionReady.then(() => draw(time));
+};
 
-  async function prepare() {
-    const [captures, validation, verification, clips] = await Promise.all([
-      fetchJSON('../captures.json'), fetchJSON('../validation.json'), fetchJSON('../verification.json'), fetchJSON('../clips.json')
-    ]);
-    expect(captures.synthetic_input === true, 'captures.json の入力が作例用の架空データではありません');
+// ---- Loading (shared 34-file gate) and the editor around the canvas ----
 
-    // Panel origins used for alignment must match the recorded geometry.
-    const before = captures.captures.find(c => c.id === 'before'), focus = captures.captures.find(c => c.id === 'after-focus');
-    expect(before && before.observed.crop.x === SPACE.before.x && before.observed.crop.y === SPACE.before.y, 'before.png のパネル位置が一致しません');
-    expect(focus && focus.observed.crop.x === SPACE.after.x && focus.observed.crop.y === SPACE.after.y, 'after-focus.png のパネル位置が一致しません');
+const $ = id => document.getElementById(id);
+const status = $('asset-status');
+const timeInput = $('time'), clock = $('clock');
+const orientButtons = [...document.querySelectorAll('button[data-orient]')];
+const editorControls = rendering ? [] : [
+  $('play'), $('reset'), $('replay'), $('end'), timeInput, ...document.querySelectorAll('button[data-jump]'), ...orientButtons,
+];
+let playing = false, playStart = 0, playFrom = 0, raf = 0;
 
-    // Scene 3 numbers come from the executed export.mjs check and the saved screens.
-    const result = id => validation.results.find(r => r.id === id && r.status === 'passed');
-    const all = result('all'), two = result('two');
-    expect(all && same(all.input.ids, ['c01', 'c02', 'c03']) && two && same(two.input.ids, ['c02', 'c03']), 'validation.json の見本が一致しません');
-    const c01 = clips.clips.find(c => c.id === 'c01');
-    const widths = new Set(verification.browser.presets.map(p => p.totals_width));
-    expect(widths.size === 1, '件数欄の幅が見本ごとに異なります');
-    const copy3 = $('s3-copy').textContent;
-    for (const piece of [all.observed.count + '件・' + all.observed.time, two.observed.count + '件・' + two.observed.time, '「' + c01.title + '」', [...widths][0] + 'px']) {
-      expect(copy3.includes(piece), 'シーン3の文言が記録と一致しません：' + piece);
-    }
+const readyLine = () => `${TOTAL_FILES}件と実計算を確認済み・${orient === 'wide' ? '横長' : '縦長'} ${config.width}×${config.height}・32秒・30fps・無音`;
 
-    // Scene 2 measurements and highlight rectangles come from the 1280px browser check.
-    const w1280 = verification.browser.widths.find(w => w.width === 1280);
-    const panel = verification.browser.initial.panel;
-    expect(w1280 && w1280.labels.length === 4 && panel, 'verification.json に1280px幅の実測がありません');
-    const rows = w1280.labels.map(l => Math.round(l.height)), button = Math.round(w1280.button.height);
-    const measure = $('s2-measure-value').textContent;
-    for (const piece of ['行 ' + rows[1] + 'px', 'メモ ' + rows[3] + 'px', 'ボタン ' + button + 'px']) expect(measure.includes(piece), 'シーン2の実測値が記録と一致しません：' + piece);
-    const left = w1280.button.left - panel.left;
-    MARKS[0].rect = [left, w1280.labels[1].top - panel.top, w1280.labels[1].width, w1280.labels[1].height];
-    MARKS[1].rect = [left, w1280.labels[3].top - panel.top, w1280.labels[3].width, w1280.labels[3].height];
+function setStatus(state, message) {
+  if (!status) return;
+  status.dataset.state = state;
+  status.textContent = message;
+}
 
-    // Scene 4: the real two.json, checked against the recorded byte-identical download.
-    const check = verification.browser.download_checks.find(d => d.id === 'two' && d.phase === 'after-production');
-    expect(check && check.matches === true && check.reference === 'outputs/two.json', 'two.json の確認記録がありません');
-    const buffer = await (await fetchOk('../outputs/two.json')).arrayBuffer();
-    expect(buffer.byteLength === check.bytes, 'two.json のバイト数が確認記録と一致しません');
-    const hash = await sha256(buffer);
-    expect(hash === null || hash === check.sha256, 'two.json のSHA-256が確認記録と一致しません');
-    const text = new TextDecoder('utf-8', {fatal: true}).decode(buffer);
-    const data = JSON.parse(text);
-    const expected = {schema_version: 1, project: clips.project, clips: clips.clips.filter(c => two.input.ids.includes(c.id))};
-    expect(same(data, expected), 'two.json が clips.json の2件（メモあり）と一致しません');
-    renderExcerpt(text, data);
-
-    await Promise.all(LAYERS.map(layer => loadLayer(layer, captures)));
+function load() {
+  const mine = ++generation;
+  if (controller) controller.abort();
+  controller = new AbortController();
+  assets = null;
+  stop();
+  draw(current);
+  for (const control of editorControls) control.disabled = true;
+  if ($('retry')) { $('retry').hidden = true; $('retry').disabled = true; }
+  setStatus('loading', `固定した${TOTAL_FILES}件を確認中`);
+  const ready = (async () => {
+    const loaded = await loadAssets({signal: controller.signal, onProgress(info) {
+      if (mine !== generation) return;
+      setStatus('loading', `確認中 ${info.done}/${info.total}`);
+    }});
     await document.fonts.ready;
-    return true;
-  }
+    if (mine !== generation) throw new DOMException('superseded', 'AbortError');
+    assets = loaded;
+    draw(current);
+  })();
+  window.motionReady = ready;
+  ready.then(() => {
+    if (mine !== generation) return;
+    for (const control of editorControls) control.disabled = false;
+    setStatus('ready', readyLine());
+    syncClock();
+  }, error => {
+    if (mine !== generation) return;
+    assets = null;
+    draw(current);
+    const reason = error instanceof LoadError ? error.message : '読み込み中に予期しないエラーが起きました';
+    setStatus('error', `読み込みを止めました。${reason}。図と数値は表示していません。`);
+    if ($('retry')) { $('retry').hidden = false; $('retry').disabled = false; }
+  });
+  // The renderer awaits motionReady itself; avoid an unhandled rejection report in the editor.
+  ready.catch(() => {});
+}
 
-  // Exact lines of the raw output: the project line, then each clip's id and title lines.
-  function renderExcerpt(text, data) {
-    const lines = text.split(/\r?\n/);
-    const find = wanted => {
-      const index = lines.findIndex(line => line.trim() === wanted);
-      expect(index >= 0, 'two.json に行がありません：' + wanted);
-      return index;
-    };
-    const groups = [[lines[find('"project": ' + JSON.stringify(data.project) + ',')]]];
-    for (const clip of data.clips) {
-      const at = find('"id": ' + JSON.stringify(clip.id) + ',');
-      expect(lines[at + 1].trim() === '"title": ' + JSON.stringify(clip.title) + ',', 'two.json の題名の行が一致しません');
-      groups.push([lines[at], lines[at + 1]]);
-    }
-    const target = $('json-lines');
-    target.replaceChildren();
-    groups.forEach((group, i) => {
-      if (i) {
-        const gap = document.createElement('div');
-        gap.className = 'json-gap';
-        gap.setAttribute('aria-hidden', 'true');
-        target.append(gap);
-      }
-      for (const line of group) {
-        const row = document.createElement('div');
-        row.className = 'json-line';
-        row.textContent = line;
-        target.append(row);
-      }
-    });
-  }
+function syncClock() {
+  if (!timeInput) return;
+  timeInput.value = String(Math.round(current * 10) / 10);
+  clock.value = `${current.toFixed(1)} / ${DURATION.toFixed(1)}秒`;
+}
 
-  window.motionReady = prepare();
-  seek(0);
+function show(t) { draw(t); syncClock(); }
 
-  // ---- Preview only: native controls outside the film; no RAF while rendering. ----
-  if (!RENDER) {
-    const play = $('play'), scrub = $('scrub'), clock = $('clock'), status = $('preview-status');
-    let time = 0, playing = false, origin = 0, raf = 0;
-    function fit() {
-      const parent = box.parentElement, style = getComputedStyle(parent);
-      const room = parent.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
-      const scale = Math.min(1, room / NATIVE_W);
-      box.style.width = NATIVE_W * scale + 'px';
-      box.style.height = NATIVE_H * scale + 'px';
-      stage.style.transform = 'scale(' + scale + ')';
-    }
-    function show(seconds) {
-      time = seek(seconds).time;
-      scrub.value = time.toFixed(2);
-      clock.value = time.toFixed(1) + ' / 28.0 秒';
-    }
-    function stop() {
-      playing = false;
-      cancelAnimationFrame(raf);
-      play.textContent = '再生';
-    }
-    function tick(now) {
-      if (!playing) return;
-      const seconds = (now - origin) / 1000;
-      if (seconds >= DURATION) { show(DURATION); stop(); return; }
-      show(seconds);
-      raf = requestAnimationFrame(tick);
-    }
-    play.addEventListener('click', () => {
-      if (playing) return stop();
-      if (time >= DURATION) time = 0;
-      playing = true;
-      origin = performance.now() - time * 1000;
-      play.textContent = '一時停止';
-      raf = requestAnimationFrame(tick);
-    });
-    scrub.addEventListener('input', () => { stop(); show(Number(scrub.value)); });
-    document.addEventListener('visibilitychange', () => { if (document.hidden) stop(); });
-    addEventListener('resize', fit);
-    fit();
-    show(0);
-    window.motionReady.then(() => {
-      play.disabled = false;
-      scrub.disabled = false;
-      show(time);
-    }, error => {
-      status.textContent = '素材を確認できませんでした：' + error.message + ' 作例フォルダーをローカルサーバー（例：python -m http.server 8000）で開いてください。';
-    });
+function stop() {
+  playing = false;
+  cancelAnimationFrame(raf);
+  raf = 0;
+  const play = $('play');
+  if (play) { play.textContent = '再生'; play.setAttribute('aria-pressed', 'false'); }
+}
+
+function tick(now) {
+  raf = 0;
+  if (!playing || window.__MOTION_RENDER__) { stop(); return; }
+  const t = playFrom + (now - playStart) / 1000;
+  if (t >= DURATION) { show(DURATION); stop(); return; }
+  show(t);
+  raf = requestAnimationFrame(tick);
+}
+
+function play(from) {
+  if (!assets || window.__MOTION_RENDER__) return;
+  playing = true;
+  playFrom = from >= DURATION ? 0 : from;
+  playStart = performance.now();
+  const button = $('play');
+  button.textContent = '一時停止';
+  button.setAttribute('aria-pressed', 'true');
+  raf = requestAnimationFrame(tick);
+}
+
+// Orientation follows the two buttons; the frame element carries it for CSS, never the root element.
+function setOrient(next) {
+  orient = next;
+  [config.width, config.height] = SIZES[next];
+  canvas.width = config.width;
+  canvas.height = config.height;
+  frame.dataset.orient = next;
+  for (const button of orientButtons) button.setAttribute('aria-pressed', String(button.dataset.orient === next));
+  if (assets) setStatus('ready', readyLine());
+  show(current);
+}
+
+if (!rendering) {
+  $('play').addEventListener('click', () => { if (playing) stop(); else play(current); });
+  $('reset').addEventListener('click', () => { stop(); show(0); });
+  $('replay').addEventListener('click', () => { stop(); show(0); play(0); });
+  $('end').addEventListener('click', () => { stop(); show(DURATION); });
+  timeInput.addEventListener('input', () => { stop(); show(Number(timeInput.value)); });
+  for (const button of document.querySelectorAll('button[data-jump]')) {
+    button.addEventListener('click', () => { stop(); show(Number(button.dataset.jump)); });
   }
-})();
+  for (const button of orientButtons) button.addEventListener('click', () => { stop(); setOrient(button.dataset.orient); });
+  $('retry').addEventListener('click', load);
+  document.addEventListener('visibilitychange', () => { if (document.hidden && playing) stop(); });
+  for (const button of orientButtons) button.setAttribute('aria-pressed', String(button.dataset.orient === orient));
+}
+
+load();

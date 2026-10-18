@@ -98,3 +98,8 @@ Node8条件、3見本の3/2/1件、修正前後の実JSON4種類、キーボー�
 ## 制作の分担
 
 Opus5.5は固定スキルを使ったレビュー・改善画面・日本語解説・映像編集ソースを制作。制作担当は入力と修正前/共通関数、実行、確認、技術修正、レンダラーの梱包と公開を担当しました。個々の確認は verification.json に分けています。
+
+
+## 概念構造版 visual-r1
+
+上の28秒映像と実行・確認は元制作時の記録です。現在のindex.html/video/index.htmlは、指針と5参照＋既存画面と依頼→元AIのレビューと実装→制作担当の整理/実確認→同じ関数とデータの実UI/JSONへつなぐ新しい図と32秒縦横無音映像です。元の2受領/Node8条件/制御試験は保全し再実行していません。元UIはdesk.html、修正前はbefore/desk.html、旧28秒の編集はvideo/legacy.htmlへ保全。元before/index.html/app/CSS/共通関数/データ/JSON/レビュー/verificationは不変です。原典quickは上限5で、この依頼では3群。制作担当が10関連行を3群へ統合した履歴も保っています。新しい図は元export.mjsを実際に呼び、元の保存JSONと照合します。新32秒はrender-visual.pyを使い、手順/確認はvisual-guide.md/visual-verification.jsonへ。旧ZIPとMP4は私的履歴へ保全し、現在のZIPは同じ展開ルート形式です。
