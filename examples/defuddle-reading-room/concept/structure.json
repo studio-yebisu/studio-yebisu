@@ -1,0 +1,177 @@
+{
+  "format": "defuddle-structure/v1",
+  "case_id": "defuddle-reading-room",
+  "source_commit": "556d74e8c8fd68c49912d4b11a4ae9ec04d7b2b5",
+  "definition": "WebページのDocumentから本文とメタ情報を取り出すJavaScriptライブラリ。full版はMarkdownへ変換する。SKILL.md/モデル/TTS/要約AIではない。",
+  "parts": [
+    {
+      "id": "input",
+      "label": "HTMLとDocument",
+      "meaning": "HTMLは入力文字列。ブラウザーのDOMParserでDocumentへ。URLはページの文脈として渡すだけで、この作例はURLを取得しない。",
+      "source_path": "vendor/defuddle/README.md",
+      "upstream_path": "README.md",
+      "quote": "accepts a DOM `Document` from any implementation",
+      "line_start": 38
+    },
+    {
+      "id": "options",
+      "label": "3つの設定",
+      "meaning": "markdown:true、useAsync:false、removeImages:true。画像のない3記事へ適用。API補完や画像除去の効果をこの入力で実証したとはしない。",
+      "source_path": "vendor/defuddle/README.md",
+      "upstream_path": "README.md",
+      "quote": "You can disable this by setting `useAsync: false` in options.",
+      "line_start": 300
+    },
+    {
+      "id": "metadata",
+      "label": "題名と著者",
+      "meaning": "Documentのメタ情報から題名と著者を取り出し、本文とは別の文字列として返す。この3件の実際の値を使う。",
+      "source_path": "vendor/defuddle/README.md",
+      "upstream_path": "README.md",
+      "quote": "Author of the article",
+      "line_start": 156
+    },
+    {
+      "id": "extract",
+      "label": "本文を選んで整える",
+      "meaning": "Defuddle本体が本文を選んで余分な要素を除く。図の元ページの領域は入力HTMLから描いた説明で、内部の削除ログや選択器を計測したものではない。",
+      "source_path": "vendor/defuddle/README.md",
+      "upstream_path": "README.md",
+      "quote": "It cleans up web pages by removing clutter",
+      "line_start": 6
+    },
+    {
+      "id": "markdown",
+      "label": "Markdownへ変換",
+      "meaning": "full版は本文抽出のあとでMarkdownへ変換する。今回のcontentはMarkdownで、元の色や配置を保存した画像ではない。",
+      "source_path": "vendor/defuddle/source/src/index.full.ts",
+      "upstream_path": "src/index.full.ts",
+      "quote": "toMarkdown(result, this.options, this.options.url ??",
+      "line_start": 22
+    },
+    {
+      "id": "use",
+      "label": "受け取って読み比べる",
+      "meaning": "title・author・contentを受け取る。語句の残存/不在を調べるのは作例側の別工程で、Defuddleの意味判定や品質点数ではない。実Markdownを保存し元のページと比べる。",
+      "source_path": "vendor/defuddle/README.md",
+      "upstream_path": "README.md",
+      "quote": "Cleaned up string of the extracted content",
+      "line_start": 157
+    }
+  ],
+  "jobs": [
+    {
+      "id": "reading",
+      "label": "木かげ読書会の案内",
+      "url": "https://example.test/reading",
+      "fixture": "fixtures/reading.html",
+      "title": "木かげ読書会の案内｜こもれび図書室だより",
+      "author": "こもれび図書室 編集係",
+      "kept": [
+        "10月24日14時",
+        "定員8人",
+        "申込は前日18時まで",
+        "参加無料"
+      ],
+      "removed": [
+        "広告枠だけの文章",
+        "関連記事だけの案内",
+        "購読登録だけの案内"
+      ],
+      "output_file": {
+        "path": "outputs/reading.md",
+        "bytes": 1294,
+        "sha256": "25480a9e4d9b5b94f32243c0fd6af18d18dd436ff772c97cef7ff15faed6f1c1"
+      },
+      "source_content_sha256": "25480a9e4d9b5b94f32243c0fd6af18d18dd436ff772c97cef7ff15faed6f1c1"
+    },
+    {
+      "id": "operation",
+      "label": "記録ノートの保存手順",
+      "url": "https://example.test/operation",
+      "fixture": "fixtures/operation.html",
+      "title": "記録ノートの保存手順｜記録ノート ヘルプ",
+      "author": "記録ノート サポート係",
+      "kept": [
+        "保存ボタンを押すと、変更内容がノートに保存されます",
+        "画面の入力は残ります",
+        "ディスクには書き込まれません"
+      ],
+      "removed": [
+        "広告枠だけの文章",
+        "関連記事だけの案内",
+        "購読登録だけの案内"
+      ],
+      "output_file": {
+        "path": "outputs/operation.md",
+        "bytes": 1213,
+        "sha256": "95be1e92a1211339da505f54f6d71bc0a319b429171c732bfae607707b7fa828"
+      },
+      "source_content_sha256": "95be1e92a1211339da505f54f6d71bc0a319b429171c732bfae607707b7fa828"
+    },
+    {
+      "id": "research",
+      "label": "架空の検索画面テスト",
+      "url": "https://example.test/research",
+      "fixture": "fixtures/research.html",
+      "title": "架空の検索画面テスト｜検索画面の試作記録",
+      "author": "検索画面 試作チーム",
+      "kept": [
+        "8人中6人が旧画面より使いやすいと答えました",
+        "一人5分",
+        "実務での効果は未検証です"
+      ],
+      "removed": [
+        "広告枠だけの文章",
+        "関連記事だけの案内",
+        "購読登録だけの案内"
+      ],
+      "output_file": {
+        "path": "outputs/research.md",
+        "bytes": 1132,
+        "sha256": "55758d1395b572bbdee836806bd0e6e51fd57229bdb595be63d83bf1e7baa8e9"
+      },
+      "source_content_sha256": "55758d1395b572bbdee836806bd0e6e51fd57229bdb595be63d83bf1e7baa8e9"
+    }
+  ],
+  "options": {
+    "markdown": true,
+    "useAsync": false,
+    "removeImages": true
+  },
+  "entrypoints": {
+    "browser": "new Defuddle(document, {url, markdown:true,useAsync:false,removeImages:true}).parse()",
+    "original_node": "await Defuddle(jsdomDocument, url, options)",
+    "scope": "Nodeは元の制作で3件実行して保存。新図は同じfull UMDをブラウザーで本当に実行し、title/author/contentを全一致照合。Nodeや元のモデルを再実行しない。"
+  },
+  "inside": {
+    "metadata": "Documentのメタ情報→title/author",
+    "body": "本文を選ぶ・余分な部分を除く・文章構造を整える",
+    "markdown": "full版のtoMarkdown→content",
+    "diagram_not_internal_trace": true
+  },
+  "counts": {
+    "samples": 3,
+    "kept_phrases": 10,
+    "excluded_phrases_per_sample": 3,
+    "parts": 6
+  },
+  "limits": {
+    "synthetic": true,
+    "original_AI_or_Node_rerun": false,
+    "live_browser_library": true,
+    "arbitrary_URL_fetch": false,
+    "LLM": false,
+    "external_API_fallback": false,
+    "semantic_quality_judge": false,
+    "internal_trace_measured": false,
+    "human_approval": false,
+    "actual_app_save_or_research": false
+  },
+  "notes": [
+    "3群と6部分は説明用整理で原典の固定スキーマではない。",
+    "元のoperationは架空の保存手順文で実際のアプリ保存を実行していない。",
+    "researchの8人中6人/一人5分/実務効果未検証は架空入力の文章。実調査や効果測定ではない。",
+    "10条件は文字列包含だけ。ほかの欠落・意味・読みやすさ・すべてのWebページの成功を保証しない。"
+  ]
+}

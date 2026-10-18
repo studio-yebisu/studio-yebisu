@@ -1,0 +1,9 @@
+Defuddle（kepano/defuddle、固定コミット 556d74e8c8fd68c49912d4b11a4ae9ec04d7b2b5）で、手元のHTMLから記事の本文をMarkdownにしてください。
+
+使い方：Node.jsでは、jsdomなどで作ったDocumentと元のURLを Defuddle(document, url, { markdown: true, useAsync: false, removeImages: true }) に渡します。useAsync:false にして、外部サービスで補う機能は使わないでください。
+
+入力：【HTMLファイルのパスと、そのページのURL】
+残るべき条件：【日付・数値・手順など、本文に必ず残ってほしい語句】
+入らないでほしい文言：【広告・関連記事・購読の案内など、本文の外にある文の一部】
+
+出力は title・author・content（Markdown）にしてください。残るべき条件と入らないでほしい文言について、content に文字どおり含まれるか・含まれないかを一つずつ示してください。見つからない語句があれば、補わずにそのまま報告してください。

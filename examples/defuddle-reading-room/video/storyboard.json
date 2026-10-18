@@ -1,0 +1,137 @@
+{
+  "format": "studio-yebisu-storyboard/v1",
+  "case_id": "defuddle-reading-room",
+  "revision": "visual-r1",
+  "title": "Webページの本文を、Markdownで取り出す",
+  "source": {
+    "repository": "kepano/defuddle",
+    "commit": "556d74e8c8fd68c49912d4b11a4ae9ec04d7b2b5",
+    "version": "0.19.5",
+    "license": "MIT, Copyright (c) 2025 Steph Ango (@kepano); bundled dependency notices in vendor/defuddle/THIRD_PARTY_NOTICES.txt",
+    "what_it_is": "A JavaScript library that takes a DOM Document and returns the main content plus metadata (title, author, ...). The full bundle converts content to Markdown (full parse() = base parse() then toMarkdown). Not a SKILL.md, model, AI summarizer or quality judge.",
+    "bundle": "vendor/defuddle/defuddle.full.js: the full UMD bundle generated in the original production from this fixed source and lockfile; not an official raw source file; not rebuilt for this revision; loaded with SRI sha256-97OQdFKjN1nwxyEGxLwziIbt8vRY4/O6+CAt8TiUA5Q= after the 21-file gate"
+  },
+  "authored_by_model": "claude-opus-5-5",
+  "duration": 32,
+  "fps": 30,
+  "frames": 960,
+  "sizes": [
+    {"orient": "portrait", "width": 720, "height": 1280, "layout": "tall", "role": "main", "composition": "rail/title/sub at top, diagram world 700x1026 at y=206 using the tall concept layout (page left, file/Document/settings right column, Defuddle machine across, returned value + check/.md/memo/viewer below), foot line at y=1256"},
+    {"orient": "wide", "width": 1280, "height": 720, "layout": "wide", "role": "secondary, recomposed natively", "composition": "title/sub left, rail right, diagram world 1240x576 at y=112 using the separate wide concept layout (page | file-Document-settings | machine with stacked rooms | returned value, check, .md, memo, viewer), foot line at y=706"}
+  ],
+  "poster_time": 31,
+  "motion_ends": 28.9,
+  "audio": {"tracks": 0, "audio_events": [], "narration": false, "tts": false, "web_speech": false, "web_audio": false, "silent": true},
+  "example_job": "reading",
+  "assets": {
+    "manifest": "concept/manifest.json",
+    "manifest_sha256": "484374ed48ed16793c45dfa9edbd94ff51d2e2d11038bec68620160606faa699",
+    "count": 21,
+    "refs_used_in_frames": [
+      "concept/structure.json",
+      "samples.json",
+      "extraction-results.json",
+      "fixtures/reading.html",
+      "outputs/reading.md",
+      "vendor/defuddle/defuddle.full.js"
+    ],
+    "live_library_calls": "After the gate, the page loads the verified full UMD bundle once and calls new Defuddle(new DOMParser().parseFromString(sample.input, 'text/html'), {url: sample.url, markdown: true, useAsync: false, removeImages: true}).parse() once for each of the 3 samples. title, author and content must equal extraction-results.json / samples.json exactly, and the UTF-8 bytes of content must equal outputs/<id>.md (size and SHA-256). Frames draw the values returned for reading. No call per frame, no Node run, no AI, no network fetch of example.test."
+  },
+  "persistent_shapes": [
+    "page: the fictional reading page drawn from the input HTML regions (nav/header, ad, article, related sidebar, subscription footer). Outside regions become hatched grey with dashed borders and short labels ナビ/広告/関連/購読; the article gets a solid indigo frame with heading bars, two-line paragraphs and bullet rows in input order. Not a screenshot.",
+    "file: reading.html (dog-ear file, 'HTMLの文字列'); a shrinking copy of the page enters it",
+    "doc: Document (DOMParser) with head chips 題名/著者 (sepia tags) and body chips ナビ/広告/本文/関連/購読 in the same hatched/indigo forms",
+    "opts: url example.test/reading (not fetched), markdown true, useAsync false, removeImages true",
+    "machine: one Defuddle box with tab 'Defuddle full', note 中は説明図, and three rooms: 題名・著者 (tag icon), 本文を選ぶ (magnifier, dashed sieve 外す, tray), Markdown (## and - marks)",
+    "meta tags: two sepia tags travel Document -> intake -> 題名・著者 room -> top of the returned value",
+    "article blocks: the same block forms travel Document -> intake -> under the magnifier -> Markdown room -> rows of the returned value; then morph into ## / - marks and the real returned text",
+    "clutter blocks: four hatched blocks travel Document -> intake -> through the sieve into the tray (conceptual, not a deletion log)",
+    "card (返る値): title and author from the live result, content rows from the live Markdown blocks",
+    "check (語句の照合（作例）): 残る n/4 and 入らない n/3 counted from the live content; indigo marks on the rows that contain the kept phrases",
+    "mdfile: reading.md with its byte size; memo (メモ) and viewer (元のページ, the same page form in miniature)"
+  ],
+  "scenes": [
+    {
+      "start": 0, "end": 4, "rail": null,
+      "title": "Defuddle：本文を取り出すライブラリ",
+      "sub": "JavaScript・中に「題名・著者」「本文を選ぶ」「Markdown」",
+      "conveys": "What the tool is: a library box whose inside has three parts. No skill book, no AI brain.",
+      "incoming": "Empty frame; camera centred on the machine.",
+      "events": "Machine appears (0.2-0.9 s); lid lifts (1.0-2.0 s); rooms appear 題名・著者 (1.4-1.9 s), 本文を選ぶ (1.8-2.3 s), Markdown (2.2-2.7 s); inner lines draw (2.6-3.3 s).",
+      "outgoing": "Camera moves to the input area (3.3-4.0 s)."
+    },
+    {
+      "start": 4, "end": 8, "rail": "渡す",
+      "title": "渡す：ページのHTMLをDocumentに",
+      "sub": "fixtures/reading.html → DOMParser　URL（取得しない）と3つの設定を添える",
+      "conveys": "What is supplied: an HTML string parsed into a Document, plus a context URL and three settings. The page is a diagram drawn from the input HTML.",
+      "incoming": "Page appears plain (4.0-4.5 s).",
+      "events": "Regions separate and colour (4.5-5.6 s); file appears and the page copy shrinks into it (5.3-6.4 s); Document tree chips appear one by one (6.1-7.1 s); settings lines appear (6.7-7.7 s); line into the machine (7.4-8.1 s).",
+      "outgoing": "Camera moves to Document/settings/machine (7.6-8.3 s)."
+    },
+    {
+      "start": 8, "end": 14, "rail": "取り出す",
+      "title": "取り出す：題名・著者と本文を分ける",
+      "sub": "本文を選び、外側の領域を外す（説明図・内部の記録ではない）",
+      "conveys": "Inside: metadata is a separate branch; the article is kept and gathered under the magnifier; outside regions fall through the sieve. Conceptual, from the source documentation; not a measured trace, selector or timing.",
+      "incoming": "Machine with empty rooms.",
+      "events": "Meta tags travel to the 題名・著者 room (8.6-10.4 s); clutter blocks drop into the tray (9.4-12.4 s); article blocks gather under the magnifier (9.8-12.8 s).",
+      "outgoing": "Returned-value card appears (13.8-14.3 s); camera moves to machine + card (13.6-14.3 s)."
+    },
+    {
+      "start": 14, "end": 20, "rail": "取り出す",
+      "title": "本文が、Markdownの行になる",
+      "sub": "## 見出し3・段落4・- リスト4項目　title と author も返る (counts read from the live result at runtime)",
+      "conveys": "The same blocks become Markdown rows; metadata joins the returned value. Text is the actual returned content, shown as short rows, not a full-text slide.",
+      "incoming": "Tags resting in the meta room, blocks under the magnifier.",
+      "events": "Tags move to title/author and the real values appear (14.4-15.6 s); blocks pass the Markdown room into rows (14.8-17.0 s); camera zooms on the card (16.6-17.3 s); marks ## / - and the returned text replace the shapes (17.0-18.6 s).",
+      "outgoing": "Camera moves to card + check (19.6-20.3 s)."
+    },
+    {
+      "start": 20, "end": 26, "rail": "使う",
+      "title": "語句を文字どおり照合（作例側）",
+      "sub": "残る4語はすべてある・本文の外の3語は無い　意味や品質の採点ではない",
+      "conveys": "A separate case-side literal check on the live content: rows containing 10月24日14時 / 定員8人 / 申込は前日18時まで / 参加無料 get indigo marks; the three outside phrases are absent. Not a Defuddle feature, not semantic accuracy, no score.",
+      "incoming": "Card with Markdown rows.",
+      "events": "Check node appears (20.0-20.4 s); kept marks and counts appear one by one, then the absent count (20.8-25.0 s).",
+      "outgoing": "Camera moves to the use area (25.6-26.3 s)."
+    },
+    {
+      "start": 26, "end": 29, "rail": "使う",
+      "title": "保存して、読む・見比べる",
+      "sub": "reading.md（1,294 B）→ メモ・元のページ",
+      "conveys": "The same rows become the real reading.md (size from the validated file) and are used: pasted to a memo and compared with the original page. Illustration only; no OS clipboard or save happens in the film.",
+      "incoming": "Check complete.",
+      "events": ".md slot appears (26.0-26.4 s); the card rows shrink into reading.md (26.3-27.2 s); memo and viewer appear (27.0-27.4 s); a copy goes to the memo and the viewer shows the original page form (27.4-28.3 s).",
+      "outgoing": "All shapes in place."
+    },
+    {
+      "start": 29, "end": 32, "rail": "全体",
+      "title": "Webページの本文を、Markdownで取り出す",
+      "sub": "渡す → 取り出す → 使う　同梱のfull版の実際の戻り値から描画",
+      "conveys": "Stable whole path, understandable without sound.",
+      "incoming": "All lines flow-coloured and emphasis back to full (28.3-28.9 s); camera pulls back to the whole diagram (28.2-28.9 s); title and rail switch 28.5-28.9 s.",
+      "events": "None. Still from 28.9 s to 32 s; poster at 31 s.",
+      "outgoing": "End at 32 s."
+    }
+  ],
+  "quoted_values_source": "title, author, Markdown rows, heading/paragraph/list counts and kept-phrase rows come from the live parse() result for reading (equal to the saved results); file name and byte size from the validated outputs/reading.md; region forms from the input HTML in samples.json.",
+  "limits": [
+    "Inside-the-machine motion is an explanation, not Defuddle's internal deletion log, chosen content selector, order or timing.",
+    "removeImages has no demonstrated effect (the inputs contain no images); the third-party API fallback is disabled and not exercised.",
+    "HTML output, CLI, math, footnotes and arbitrary web pages are not tested. example.test URLs are context identifiers and are never fetched.",
+    "The research and operation pages are fictional; no real app save or real study."
+  ],
+  "scope": {
+    "original_production": "Original authoring of the fictional pages, desk page and 28 s film by the original Opus run; the production owner's build of the full bundle and the Node + jsdom extraction of the 3 samples (extraction-results.json). None rerun for this revision.",
+    "parent_packaging": "concept/structure.json, concept/manifest.json, outputs/*.md (UTF-8 bytes of the saved content, no added newline), desk.html and video/legacy.html archives, root LICENSE and later visual-guide.md / visual-verification.json / source.zip / media.",
+    "new_authoring": "This revision's diagram, motion, controls and Japanese copy (index.html, concept.css, concept.js, video/index.html, video/video.css, video/video.js, video/storyboard.json, video/README.md), written by claude-opus-5-5."
+  },
+  "status": {
+    "authored": "source files written by claude-opus-5-5 without running a browser, renderer or MP4 encoder",
+    "browser_preview": "not run at authoring",
+    "frame_render": "not run at authoring",
+    "mp4": "not created at authoring",
+    "review": "pending; the producer adds actual technical verification records later (not human approval)"
+  }
+}
