@@ -1,70 +1,280 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'self'"><title>工房のTODO | 期限の絞り込み作例</title><link rel="stylesheet" href="style.css"></head><body><main>
-<p class="eyebrow">STUDIO YEBISU / 合成データの作例</p>
-<h1>工房のTODO</h1>
-<p>このページの中だけで動きます。再読込すると合成データ6件に戻ります。</p>
-<p class="lede">架空の工房のTODOに「期限が指定日まで」の絞り込みを足した作例です。一覧は同梱の <code>tasks.mjs</code> をこの場で読み込んで計算しています。このページではAIは動かず、入力は外へ送りません。</p>
-<section aria-labelledby="list-title"><h2 id="list-title">やること</h2>
-<nav class="presets" aria-labelledby="presets-title"><h3 id="presets-title">記録した3つの例</h3><ul>
-<li id="due-open"><a href="#due-open" data-preset="due-open" data-status="open" data-cutoff="2026-10-15"><b>未完了を指定日まで</b><span>状態 未完了 ／ 期限 2026-10-15</span></a></li>
-<li id="due-all"><a href="#due-all" data-preset="due-all" data-status="all" data-cutoff="2026-10-15"><b>完了も含めて指定日まで</b><span>状態 すべて ／ 期限 2026-10-15</span></a></li>
-<li id="no-cutoff"><a href="#no-cutoff" data-preset="no-cutoff" data-status="all" data-cutoff=""><b>期限の条件を外す</b><span>状態 すべて ／ 期限 指定なし</span></a></li>
-</ul></nav>
-<div class="filters"><label>状態<select id="status"><option value="all">すべて</option><option value="open">未完了</option><option value="done">完了</option></select></label><label>期限（この日まで）<input id="cutoff" type="date" min="1000-01-01" max="9999-12-31" aria-describedby="cutoff-error"></label><button type="button" id="cutoff-clear" disabled>期限の指定を外す</button></div><p id="cutoff-error" role="alert" hidden></p><p id="count" role="status" aria-live="polite"></p><p id="origin" class="origin"></p><p id="empty" hidden>該当するTODOはありません。</p><ul id="tasks" aria-label="TODO一覧"></ul></section>
-<section aria-labelledby="add-title"><h2 id="add-title">TODOを追加</h2><form id="add-form"><label>名前<input id="title" maxlength="80" required></label><label>期限（任意）<input id="due" type="date" min="1000-01-01" max="9999-12-31"></label><button>追加する</button></form><p id="error" role="alert" hidden></p></section>
-<section aria-labelledby="checks-title"><h2 id="checks-title">確認した範囲</h2>
-<p>仕様と計画は制作担当が先に決め、人による段階承認はしていません。</p>
-<div class="checks"><div><h3>コードと実行結果</h3><ul>
-<li>2回の実RED/GREEN、最後のテスト5件成功。別の36条件はUTC+9・UTC+14・UTC−7で同じ結果（<a href="tdd-history.json">記録</a>）。</li>
-<li>比較の &lt;= を &lt; にすると1件失敗し、復元すると5件成功（<a href="mutation.json">条件反転</a>）。</li>
-<li>元のTODO差分をOpus著者とは別のCodex親が5軸でレビューし、修正必須0件。紹介用の画面と動画は対象外（<a href="core-review.json">レビュー範囲</a>）。</li>
-</ul></div><div><h3>画面と動画</h3><ul>
-<li>3つの例、追加・完了・解除・0件、0999年への案内と回復、キーボード操作、320/768/1024/1440pxを確認。</li>
-<li>依頼文のOSコピー1590文字とUTF-8の別ページが一致。28秒の無音MP4を終端まで再生。</li>
-<li>支援技術向けの名前・構造と警告ログを確認。NVDA/JAWS、axe、WCAG全項目の適合審査はしていません。自動検査と制作担当の確認で、人の承認ではありません。</li>
-</ul></div></div></section>
-<section aria-labelledby="request-title"><h2 id="request-title">同じ進め方を頼む依頼文</h2>
-<p>Agent Skills のファイルを読めるコーディングエージェントに渡します。【】を自分の依頼と対象に置き換えてください。スキル集のインストールは必須ではありません。</p>
-<label class="request-label">依頼文<textarea id="request" readonly rows="14">Addy Osmani の Agent Skills（addyosmani/agent-skills、固定コミット aeac41d4d005999432bb7312f7ff06383a91d59d）から、次のファイルを読んでから作業してください。スキルを1つずつ入れる方法ではリポジトリ直下の references/ が付いてこないため、下の参照ファイルもリポジトリから直接読んでください。
-- skills/using-agent-skills/SKILL.md（工程に合うスキルの選び方）
-- skills/spec-driven-development/SKILL.md と references/definition-of-done.md
-- skills/planning-and-task-breakdown/SKILL.md
-- skills/incremental-implementation/SKILL.md
-- skills/test-driven-development/SKILL.md と references/testing-patterns.md
-- skills/code-review-and-quality/SKILL.md
-- 画面を変えるときは skills/frontend-ui-engineering/SKILL.md と references/accessibility-checklist.md
+<!doctype html>
+<html lang="ja" data-page="addy-skills-concept" data-state="loading" data-theme="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; media-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; font-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
+  <meta name="referrer" content="no-referrer">
+  <title>AIに、小さな開発手順を渡す｜Addy Osmani Agent Skills 作例｜Studio Yebisu</title>
+  <meta name="description" content="Addy Osmani の Agent Skills は、AIが読む工程別の開発手順のMarkdown集です。この作例では7つの手順を選び、架空のTODOに「指定日までの期限の絞り込み」を1つ足しました。先に書いた仕様、2つの増分、失敗してから通すテスト、境界の反転、そして実際に呼べる関数までを、動く1枚の図で示します。">
+  <meta name="color-scheme" content="light dark">
+  <link rel="stylesheet" href="concept.css">
+  <script type="module" src="concept.js"></script>
+</head>
+<body>
+  <a class="skip" href="#case">図の下の説明へ</a>
 
-依頼：【例：小さなTODOアプリへ期限の絞り込みを追加して。まず仕様と完成条件を整理し、実装後に境界値と既存操作も確認してほしい。】
-対象のフォルダとファイル：【例：todo/ の tasks.mjs・app.mjs・index.html】
-テストと確認のコマンド：【例：npm test と npm run check】
-変えてはいけないもの：【例：依存パッケージ、保存の方法、既存の追加と完了の切り替え】
+  <header class="top wrap">
+    <h1>AIに、小さな開発手順を渡す</h1>
+    <p class="definition">Agent Skills＝AIが読む工程別の手順集</p>
+  </header>
 
-進め方：
-1. コードはまだ書かず、SPEC.md に仕様だけを書いてください。目的・コマンド・ファイル構成・コードの書き方・テストの方針・境界（必ず行う／先に聞く／行わない）の6つを含め、曖昧な点は推測で埋めずに前提として並べ、入力と期待値を固定した受入条件と、未確認の点を分けてください。書いたら止まり、私の確認を待ってください。
-2. 確認のあと、tasks/plan.md と tasks/todo.md に、画面まで通る小さな増分ごとの計画を作り、各増分に受入条件と確認方法を付けてください。
-3. 増分ごとに、新しいテストを先に足して実行し、狙いどおりの理由で失敗するのを確かめてから、通るだけの最小の変更をしてください。全テストと確認コマンドが成功してから commit し、次の増分へ進んでください。
-4. 全増分のあと、境界値（例：当日、前日、翌日、期限なし、実在しない日付、別のタイムゾーン）と既存の操作を確かめてください。さらに、追加した条件を1か所わざと反転してテストが失敗することを確かめ、元に戻してください。
-5. 正しさ・読みやすさ・設計・セキュリティ・性能の5つの観点で差分をレビューし、指摘と対応を書いてください。
-6. 画面を変えた場合は、ラベル、見出しの順、キーボード操作とフォーカスの見え方、色だけに頼らない表示、0件と入力エラーの表示、幅320・768・1024・1440pxを実際のブラウザーで確かめてください。確かめられなければ「未確認」と書いてください。
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <h2 id="hero-title" class="visually-hidden">手順集・AIの執筆・Nodeでの確認・境界の反転・実際に呼ぶ関数をつなぐ図</h2>
+      <div class="switches">
+        <div class="stages" role="group" aria-label="図の段階">
+          <button type="button" class="stage" data-stage="0" aria-pressed="true" disabled>決める</button>
+          <button type="button" class="stage" data-stage="1" aria-pressed="false" disabled>確かめる</button>
+          <button type="button" class="stage" data-stage="2" aria-pressed="false" disabled>使う</button>
+          <button type="button" id="replay" class="replay" aria-label="この段階の動きをもう一度" title="この段階の動きをもう一度" disabled>
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><path d="M12 5a7 7 0 1 1-6.6 4.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M4 4v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+        <div class="presets" role="group" aria-label="保存済みの3つの呼び出し">
+          <button type="button" class="preset" data-preset="due-open" aria-pressed="true" disabled>未完了</button>
+          <button type="button" class="preset" data-preset="due-all" aria-pressed="false" disabled>完了も</button>
+          <button type="button" class="preset" data-preset="no-cutoff" aria-pressed="false" disabled>指定なし</button>
+        </div>
+      </div>
 
-報告では、各段の実行コマンド・終了コード・テストの成功数と失敗数を実際の出力から書き、確かめたことと未確認のこと、人が承認したことと承認していないことを分けてください。</textarea></label>
-<div class="copy-row"><button type="button" id="copy-request">依頼文をコピー</button><a href="request.html">依頼文だけのページ</a><a href="request.txt">テキスト（request.txt）</a></div>
-<p id="copy-status" role="status" aria-live="polite"></p></section>
-<section aria-labelledby="files-title"><h2 id="files-title">ファイル</h2>
-<details><summary>仕様・計画・コード・テスト・記録・原典の一覧</summary><dl class="files">
-<dt><a href="SPEC.md">SPEC.md</a></dt><dd>コードより先に書いた仕様。6つの領域、制作担当が決めた前提、受入条件、未確認の点</dd>
-<dt><a href="plan/plan.md">plan/plan.md</a>・<a href="plan/todo.md">plan/todo.md</a></dt><dd>2つの増分に分けた計画とチェックポイント</dd>
-<dt><a href="tasks.mjs">tasks.mjs</a></dt><dd>期限の絞り込みと日付の検証（このページも同じファイルを使う）</dd>
-<dt><a href="app.mjs">app.mjs</a></dt><dd>画面の配線。判定は持たない</dd>
-<dt><a href="tasks.test.mjs">tasks.test.mjs</a></dt><dd>最後のテスト5件</dd>
-<dt><a href="seed.json">seed.json</a></dt><dd>架空のTODO6件</dd>
-<dt><a href="changes.diff">changes.diff</a>・<a href="baseline/tasks.mjs">baseline/</a></dt><dd>変更前のコードと、変更の差分</dd>
-<dt><a href="tdd/red1/record.json">tdd/</a></dt><dd>各段（baseline・red1・green1・red2・green2）のコードとテストと実行記録</dd>
-<dt><a href="results.json">results.json</a>・<a href="samples.json">samples.json</a></dt><dd>3つの例の保存結果</dd>
-<dt><a href="input.md">input.md</a></dt><dd>架空の依頼と、制作担当の事前の決め方</dd>
-<dt><a href="guide.mjs">guide.mjs</a></dt><dd>このページの例のリンクと依頼文のコピー。絞り込みは計算しない</dd>
-<dt><a href="video/index.html">video/index.html</a></dt><dd>28秒の解説動画の編集ソース</dd>
-<dt><a href="README.md">README.md</a></dt><dd>再現の手順</dd>
-<dt><a href="vendor/addy-agent-skills/README.md">vendor/addy-agent-skills/</a></dt><dd>原典から選んだ README・LICENSE・7つの SKILL.md・3つの参照ファイル</dd>
-</dl></details></section>
-<p class="license">画面・文言・依頼文・合成データ・コード・テスト・記録・映像ソースは Studio Yebisu の独自制作で MIT License（<a href="LICENSE">LICENSE</a>）。<code>vendor/addy-agent-skills/</code> は Addy Osmani の Agent Skills から選んだファイルで、上流の MIT License（<a href="vendor/addy-agent-skills/LICENSE">Copyright (c) 2025 Addy Osmani</a>）に従います。</p>
-<p><a href="../../case.html?id=addy-engineering-skills-example">作例の記事へ</a></p></main><script type="module" src="app.mjs"></script><script type="module" src="guide.mjs"></script></body></html>
+      <figure class="map">
+        <canvas id="concept-map" role="img" aria-describedby="map-live" aria-label="Addy Osmani Agent Skills の作例の図。上に、AIが読む手順集があります。選び方の地図（using-agent-skills）の下に、説明のための3つの束、決める（仕様・計画）、進める（増分・テスト）、確かめる（点検・画面）の6冊が並びます。手順集と、架空の依頼、旧TODOが「AIが書く」机へ入ります。AIはコードより先に SPEC.md を書き、目的・コマンド・構成・書き方・テスト・境界の6領域が開き、2枚の増分カードに分かれます。その間に「人の承認なし」の点線の札があります。増分ごとに、AIが書いたテストの紙が制作担当の Node へ移り、新しい1件が失敗（RED）してから最小の変更で全件成功（GREEN）します。テストは4件、5件と増え、カードにはCLIの確認の印が付き、画面の確認は全増分の後です。Node の横では、比較の <= を < に反転すると当日の10月15日が外れて1件失敗し、戻すと5件成功した記録と、別AIの5軸点検1回（必須0）が示されます。下では、同じ6枚のTODOが selectTasks の暦日の期限と状態の口を通り、返った紙だけが入力の順のまま右へ並び、保存した実結果JSONと元のTODOにつながります。"></canvas>
+      </figure>
+
+      <div class="actions">
+        <a id="save-json" class="btn btn-primary" aria-disabled="true">実結果JSONを保存</a>
+        <a id="open-desk" class="btn" aria-disabled="true">元のTODOで試す</a>
+      </div>
+      <p id="save-meta" class="save-meta"></p>
+      <p id="stage-note" class="caption" aria-live="polite"></p>
+      <p id="map-live" class="visually-hidden"></p>
+      <p id="load-status" class="load-status" role="status" data-state="loading">保存済みの素材32件を照合しています…</p>
+      <p class="retry-row"><button id="retry" class="btn" type="button" hidden>もう一度読み込む</button></p>
+      <noscript><p class="load-status" data-state="error">図と選択には JavaScript が必要です。下の一覧から実ファイルを直接開けます。</p></noscript>
+    </section>
+
+    <section id="case" class="wrap" aria-labelledby="case-title">
+      <h2 id="case-title">いまの例の実結果</h2>
+      <div class="readout readout--case" aria-live="polite">
+        <p id="case-io" class="case-io"></p>
+        <p id="case-result"></p>
+        <ol id="case-ids" class="case-ids"></ol>
+        <p class="case-match"><span id="case-match-text"></span><a id="json-current" aria-disabled="true"></a></p>
+      </div>
+      <p class="note">この結果は、ページを開いたときに元の tasks.mjs と baseline/tasks.mjs の selectTasks をそのまま呼んだものです。図の「返った紙」は、関数が返したTODOそのものから描いています。AIの推論でも、新しいNodeのテストでもありません。</p>
+      <details class="fold">
+        <summary>3つの呼び出しの実結果（このページで実行）</summary>
+        <ul id="calls" class="calls"></ul>
+        <p class="note">期限は YYYY-MM-DD の暦日の文字列のまま比べます。日付への変換やタイムゾーンの換算、自動の「今日」、並べ替えはありません。</p>
+      </details>
+    </section>
+
+    <section id="parts" class="wrap" aria-labelledby="parts-title">
+      <h2 id="parts-title">図の6つの部分</h2>
+      <p class="lead">この作例の説明のための分け方です。原典が決めた形式ではありません。選ぶと図に枠が付き、原典の該当行を示します。</p>
+      <div class="chip-buttons" role="group" aria-label="図の6つの部分">
+        <button type="button" data-part="guide" aria-pressed="false" disabled>工程の手順書</button>
+        <button type="button" data-part="spec" aria-pressed="false" disabled>仕様の6領域</button>
+        <button type="button" data-part="slices" aria-pressed="false" disabled>2枚の増分カード</button>
+        <button type="button" data-part="loop" aria-pressed="false" disabled>AIの執筆と別のNode</button>
+        <button type="button" data-part="challenge" aria-pressed="false" disabled>反転して検出できるか</button>
+        <button type="button" data-part="result" aria-pressed="false" disabled>実関数とTODOの紙</button>
+      </div>
+      <div class="readout" aria-live="polite">
+        <h3 id="part-label"></h3>
+        <p id="part-meaning"></p>
+        <ul id="part-extra" class="extra"></ul>
+        <blockquote class="quote" lang="en"><p id="part-quote"></p></blockquote>
+        <p id="part-source" class="source-link"></p>
+      </div>
+    </section>
+
+    <section id="skills" class="wrap" aria-labelledby="skills-title">
+      <h2 id="skills-title">選んだ7つの手順</h2>
+      <p class="lead">手順集の中から、この作例で選んだ7つです。上の6つの部分とは別の、原典のファイルの単位です。束の名前は説明のための分け方です。</p>
+      <div class="skill-groups">
+        <div class="skill-group" role="group" aria-labelledby="g-map"><p id="g-map" class="group-name">地図</p>
+          <div class="chip-buttons"><button type="button" data-skill="using" aria-pressed="false" disabled><span>選び方</span><small lang="en">using-agent-skills</small></button></div></div>
+        <div class="skill-group" role="group" aria-labelledby="g-decide"><p id="g-decide" class="group-name">決める</p>
+          <div class="chip-buttons">
+            <button type="button" data-skill="spec" aria-pressed="false" disabled><span>仕様</span><small lang="en">spec-driven-development</small></button>
+            <button type="button" data-skill="plan" aria-pressed="false" disabled><span>計画</span><small lang="en">planning-and-task-breakdown</small></button>
+          </div></div>
+        <div class="skill-group" role="group" aria-labelledby="g-advance"><p id="g-advance" class="group-name">進める</p>
+          <div class="chip-buttons">
+            <button type="button" data-skill="increment" aria-pressed="false" disabled><span>増分</span><small lang="en">incremental-implementation</small></button>
+            <button type="button" data-skill="tdd" aria-pressed="false" disabled><span>テスト</span><small lang="en">test-driven-development</small></button>
+          </div></div>
+        <div class="skill-group" role="group" aria-labelledby="g-check"><p id="g-check" class="group-name">確かめる</p>
+          <div class="chip-buttons">
+            <button type="button" data-skill="review" aria-pressed="false" disabled><span>点検</span><small lang="en">code-review-and-quality</small></button>
+            <button type="button" data-skill="frontend" aria-pressed="false" disabled><span>画面</span><small lang="en">frontend-ui-engineering</small></button>
+          </div></div>
+      </div>
+      <div class="readout" aria-live="polite">
+        <h3 id="skill-label"></h3>
+        <p id="skill-name" class="key"></p>
+        <p id="skill-meaning"></p>
+        <p id="skill-scope" class="status-tag"></p>
+        <ul id="skill-extra" class="extra"></ul>
+        <blockquote class="quote" lang="en"><p id="skill-quote"></p></blockquote>
+        <p id="skill-source" class="source-link"></p>
+      </div>
+      <p class="note">参照ファイル3つ（<a href="vendor/addy-agent-skills/references/definition-of-done.md">definition-of-done.md</a>・<a href="vendor/addy-agent-skills/references/testing-patterns.md">testing-patterns.md</a>・<a href="vendor/addy-agent-skills/references/accessibility-checklist.md">accessibility-checklist.md</a>）も、依頼文で一緒に読ませました。</p>
+    </section>
+
+    <section id="gates" class="wrap" aria-labelledby="gates-title">
+      <h2 id="gates-title">行っていない人の確認</h2>
+      <p class="lead">原典の spec-driven-development は、仕様・計画・作業・実装の各段で人が確かめてから進む形です。この作例では、次の段階を行っていません。手順の一部だけを使った例です。</p>
+      <ul class="gates">
+        <li><b>仕様の承認</b>　SPEC.md を書いたあと、人の承認を待たずに進みました。</li>
+        <li><b>計画の承認</b>　plan.md と todo.md のチェック欄は、原本のまま空です。</li>
+        <li><b>人への聞き取り</b>　曖昧な点は、制作担当が事前に決めた前提で埋めました。</li>
+        <li><b>増分ごとの人の確認</b>　制作担当のCLIの確認とcommitで次へ進みました。</li>
+        <li><b>最終の人の判断</b>　境界の反転と5軸点検は記録で、人の承認ではありません。</li>
+      </ul>
+    </section>
+
+    <section id="ask" class="wrap" aria-labelledby="ask-title">
+      <h2 id="ask-title">自分の機能で使う依頼文</h2>
+      <p class="lead">元の作例で使った request.txt です。Agent Skills のファイルを読めるコーディングエージェントに渡し、【】を自分の依頼と対象に置き換えます。依頼文では原典どおり、仕様を書いたら止まって確認を待つ形にしています。</p>
+      <p class="row-actions">
+        <button id="copy-request" class="btn" type="button" disabled>依頼文をコピー</button>
+        <a class="btn btn-quiet" href="request.txt">request.txt を開く</a>
+      </p>
+      <p id="request-status" class="copy-status" role="status"></p>
+      <details class="fold">
+        <summary>依頼文の全文（読み取り専用）</summary>
+        <label class="field-label" for="request-text">request.txt</label>
+        <textarea id="request-text" class="text-box" rows="10" readonly spellcheck="false"></textarea>
+      </details>
+    </section>
+
+    <section class="films wrap" aria-labelledby="films-title">
+      <h2 id="films-title">図解32秒・無音</h2>
+      <p class="lead">上の図と同じ形が動く、音のない32秒の解説です。ナレーションや音声ガイドはありません。例は「未完了」です。</p>
+      <video id="film-portrait" class="film film--portrait" controls playsinline muted preload="metadata" poster="../../media/addy-engineering-skills-example.webp" width="720" height="1280" aria-label="図解動画（縦・32秒・無音）">
+        <source src="../../media/addy-engineering-skills-example.mp4" type="video/mp4">
+        <a href="../../media/addy-engineering-skills-example.mp4">MP4を開く</a>
+      </video>
+      <details class="fold">
+        <summary>横長版（1280×720・32秒・無音）</summary>
+        <video id="film-wide" class="film film--wide" controls playsinline muted preload="none" width="1280" height="720" aria-label="図解動画（横・32秒・無音）">
+          <source src="../../media/addy-engineering-skills-example-wide.mp4" type="video/mp4">
+          <a href="../../media/addy-engineering-skills-example-wide.mp4">MP4を開く</a>
+        </video>
+      </details>
+      <p class="links"><a href="video/index.html">編集できる図解ソース</a><a href="visual-guide.md">開き方と再現手順</a><a href="visual-verification.json">確認の記録</a><a href="source.zip">入力・出力・ソース一式（source.zip）</a></p>
+    </section>
+
+    <section id="records" class="wrap" aria-labelledby="records-title">
+      <h2 id="records-title">元の制作の記録</h2>
+      <p class="lead">元の制作で保存した記録です。このページを開くたびに、Nodeのテスト・条件の反転・AIの点検をやり直してはいません。</p>
+      <details class="fold">
+        <summary>増分ごとのNode実行（5回の記録）</summary>
+        <p id="cycle-baseline" class="note"></p>
+        <ol id="cycle-list" class="cycle-list"></ol>
+        <p class="note">テストとコードは元の Opus 5.5 の別々の実行が書き、Node は制作担当が別の工程で実行しました。AIがNodeを動かしたわけではありません。各増分はCLIで確かめてcommitし、ブラウザーでの確認は全増分の後でした。原典の「整理し直し」の段は行っていません。数は <a href="tdd-history.json">tdd-history.json</a> の実際の出力から読んでいます。</p>
+      </details>
+      <details class="fold">
+        <summary>テストとは別の36条件（3つのタイムゾーン）</summary>
+        <p id="accept-line" class="note"></p>
+        <ul id="accept-zones" class="plain plain--tight"></ul>
+        <p class="note"><a href="acceptance-main.json">acceptance-main.json</a>・<a href="timezones.json">timezones.json</a>。自動の確認で、人の承認ではありません。</p>
+      </details>
+      <details class="fold">
+        <summary>境界の反転（&lt;= を &lt; に）</summary>
+        <p id="mutation-line" class="note"></p>
+        <p class="note"><a href="mutation.json">mutation.json</a></p>
+      </details>
+      <details class="fold">
+        <summary>別AIの5軸点検（1回）</summary>
+        <p id="review-line" class="note"></p>
+        <ul id="review-axes" class="axes"></ul>
+        <p class="note"><a href="core-review.json">core-review.json</a></p>
+      </details>
+      <details class="fold">
+        <summary>期限のきまり（tasks.mjs のまま）</summary>
+        <p id="rule-line" class="note"></p>
+        <ul class="plain">
+          <li>selectTasks(tasks, {status, cutoff}) が絞り込みを持ちます。画面の配線は判定を持ちません。</li>
+          <li>期限は YYYY-MM-DD の暦日の文字列で、指定日を含む（&lt;=）。状態の絞り込みと同時に効きます（かつ）。</li>
+          <li>期限のないTODOは、期限を指定したときだけ外れます。並びは入力の順のままです。</li>
+          <li>実在しない日付（例：2026-02-30）は RangeError('INVALID_CUTOFF') で拒みます。</li>
+          <li>自動の「今日」、並べ替え、通知、保存、サーバー、ブラウザー内のAIはありません。</li>
+        </ul>
+      </details>
+      <details class="fold">
+        <summary>元のモデル実行と、制作担当の作業</summary>
+        <ul class="plain">
+          <li>元のモデル実行の受領記録は6件です：仕様、RED1、GREEN1、RED2、GREEN2、画面。仕様は最初の別の実行で書きました。計画だけの受領記録はありません。</li>
+          <li>Node の実行（変更前と4回）、36条件、条件の反転は、元の制作担当が行いました。点検は、著者とは別の Codex の親が1回行いました。</li>
+          <li>outputs/*.json は、results.json の3件を制作担当がUTF-8・LFで分けて保存し直したものです。新しいAIやNodeの結果ではありません。</li>
+          <li>この図と映像は claude-opus-5-5 が新しく書いたもので、元の6回の執筆や、制作担当の梱包・確認とは別です。</li>
+        </ul>
+      </details>
+      <details class="fold">
+        <summary>試した範囲と、していないこと</summary>
+        <ul class="plain">
+          <li>Agent Skills は、AIが読む工程別のMarkdown手順集です。モデルやAPI、自動の流れ作業ではなく、7つのAIが自動で動く仕組みでもありません。</li>
+          <li>依頼・6件のTODO・既存のコードは架空です。足した能力は「指定日までの期限の絞り込み」1つだけです。</li>
+          <li>前提11個は制作担当が事前に決めました。人への聞き取り、仕様・計画・段階ごとの人の承認は行っていません。</li>
+          <li>図の6つの部分と3つの束は、この作例の説明のための整理です。</li>
+          <li>今回の図の改修では、元の仕様・計画・コード・テスト・記録・保存結果を書き換えていません。</li>
+        </ul>
+      </details>
+    </section>
+
+    <section class="wrap" aria-labelledby="files-title">
+      <h2 id="files-title">実ファイル</h2>
+      <ul class="files">
+        <li><a href="outputs/due-open.json">outputs/due-open.json</a><span>「未完了」の保存結果（926 B）</span></li>
+        <li><a href="outputs/due-all.json">outputs/due-all.json</a><span>「完了も」の保存結果（1,448 B）</span></li>
+        <li><a href="outputs/no-cutoff.json">outputs/no-cutoff.json</a><span>「指定なし」の保存結果（1,688 B）</span></li>
+        <li><a href="tasks.mjs">tasks.mjs</a><span>変更後の selectTasks（このページが呼ぶ元の関数）</span></li>
+        <li><a href="baseline/tasks.mjs">baseline/tasks.mjs</a><span>変更前の selectTasks</span></li>
+        <li><a href="tasks.test.mjs">tasks.test.mjs</a><span>最後のテスト5件</span></li>
+        <li><a href="seed.json">seed.json</a><span>合成TODO6件</span></li>
+        <li><a href="SPEC.md">SPEC.md</a><span>コードより先に書いた仕様（6領域・前提11個・受入条件・未確認の点）</span></li>
+        <li><a href="plan/plan.md">plan/plan.md</a>・<a href="plan/todo.md">plan/todo.md</a><span>2つの増分の計画（チェック欄は原本のまま）</span></li>
+        <li><a href="input.md">input.md</a><span>架空の依頼と、制作担当の事前の決め方</span></li>
+        <li><a href="tdd-history.json">tdd-history.json</a><span>Node 5回の実行記録</span></li>
+        <li><a href="tdd/red1/tasks.test.mjs">tdd/</a><span>各段の失敗時・成功時のファイル一式</span></li>
+        <li><a href="acceptance-main.json">acceptance-main.json</a><span>テストとは別の36条件</span></li>
+        <li><a href="mutation.json">mutation.json</a><span>境界の反転</span></li>
+        <li><a href="core-review.json">core-review.json</a><span>別AIの5軸点検</span></li>
+        <li><a href="results.json">results.json</a>・<a href="samples.json">samples.json</a><span>3件の変更前・変更後</span></li>
+        <li><a href="request.txt">request.txt</a><span>依頼文</span></li>
+        <li><a href="concept/structure.json">concept/structure.json</a><span>図の部分・引用の行・件数</span></li>
+        <li><a href="concept/manifest.json">concept/manifest.json</a><span>照合する32件の大きさとSHA-256</span></li>
+        <li><a href="desk.html">desk.html</a><span>元のTODO：日付・状態・追加・完了をこの場で試せる</span></li>
+        <li><a href="video/index.html">video/index.html</a><span>図解32秒の編集できるソース</span></li>
+        <li><a href="visual-guide.md">visual-guide.md</a><span>図と動画の開き方・再現手順</span></li>
+        <li><a href="source.zip">source.zip</a><span>入力・出力・ソース一式</span></li>
+        <li><a href="README.md">README.md</a><span>元の作例の説明と再現手順</span></li>
+      </ul>
+      <p class="links">
+        <a href="vendor/addy-agent-skills/skills/using-agent-skills/SKILL.md">using-agent-skills</a>
+        <a href="vendor/addy-agent-skills/skills/spec-driven-development/SKILL.md">spec-driven-development</a>
+        <a href="vendor/addy-agent-skills/skills/planning-and-task-breakdown/SKILL.md">planning-and-task-breakdown</a>
+        <a href="vendor/addy-agent-skills/skills/incremental-implementation/SKILL.md">incremental-implementation</a>
+        <a href="vendor/addy-agent-skills/skills/test-driven-development/SKILL.md">test-driven-development</a>
+        <a href="vendor/addy-agent-skills/skills/code-review-and-quality/SKILL.md">code-review-and-quality</a>
+        <a href="vendor/addy-agent-skills/skills/frontend-ui-engineering/SKILL.md">frontend-ui-engineering</a>
+        <a href="vendor/addy-agent-skills/README.md">README</a>
+      </p>
+    </section>
+  </main>
+
+  <footer class="foot wrap">
+    <div class="theme" role="group" aria-label="表示の色">
+      <button type="button" data-theme-choice="system" aria-pressed="true">端末に合わせる</button>
+      <button type="button" data-theme-choice="light" aria-pressed="false">ライト</button>
+      <button type="button" data-theme-choice="dark" aria-pressed="false">ダーク</button>
+    </div>
+    <p>原典：<a href="https://github.com/addyosmani/agent-skills/tree/aeac41d4d005999432bb7312f7ff06383a91d59d" rel="noopener">addyosmani/agent-skills</a>（コミット <code>aeac41d</code>）、MIT License、Copyright (c) 2025 Addy Osmani（<a href="vendor/addy-agent-skills/LICENSE">LICENSE</a>）。<code>vendor/addy-agent-skills/</code> は原典から選んだ12件をそのまま保っています。作例の画面・図解・文章・データ・コード・記録：MIT License、Copyright (c) 2026 Studio Yebisu（<a href="LICENSE">LICENSE</a>）。上流の画像は使っていません。</p>
+    <p class="foot-nav"><a href="../../case.html?id=addy-engineering-skills-example">作例の解説記事へ</a><a href="../../index.html">Studio Yebisuへ戻る</a></p>
+  </footer>
+</body>
+</html>

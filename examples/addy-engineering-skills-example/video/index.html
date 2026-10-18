@@ -1,31 +1,88 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" data-page="addy-skills-film">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; font-src 'self'; base-uri 'self'; form-action 'none'; object-src 'none'">
-  <title>解説動画の編集ソース：TODOの期限の絞り込みを、仕様から先に作る</title>
-  <link rel="stylesheet" href="scene.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self'; font-src 'self'; media-src 'none'; base-uri 'self'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<title>図解32秒・無音の元ページ — AIに、小さな開発手順を渡す（Addy Osmani Agent Skills 作例）</title>
+<link rel="stylesheet" href="video.css">
 </head>
 <body>
-  <div class="viewport" id="viewport">
-    <div class="holder" id="holder">
-      <div class="stage" id="stage" role="img" aria-label="解説動画：依頼と仕様で決めた3つの条件、状態「未完了」と期限2026-10-15で4件が2件になる保存結果、当日を含み翌日と期限なしを除く線の引き方、5回のテストの記録と比較を1か所反転したときの1件の失敗、持ち帰れる仕様・コード・テストを順に示す28秒の無音の映像。"></div>
-    </div>
+<header class="intro">
+  <p class="kicker">Addy Osmani Agent Skills 作例・図解動画の元ページ</p>
+  <h1>AIに、小さな開発手順を渡す<span class="sub">図解32秒・無音（<span id="film-dims">縦 720×1280</span>・30fps）</span></h1>
+  <p>作例ページと同じ32件の素材を照合し、元の tasks.mjs と baseline/tasks.mjs の selectTasks を読み込み時に1回だけ実際に呼んでから、同じ概念図を描きます。選び方の地図と3つの束、AIが書く机、先に書いた仕様の6領域、2枚の増分カード、制作担当のNode、境界の反転の記録、同じ6枚のTODOが通る関数、返った紙、保存した実結果JSONまでが、同じ形のままつながります。例は「未完了」です。ここではAIもNodeのテストも動かず、音もありません。</p>
+</header>
+
+<figure id="stage" class="stage" data-layout="portrait">
+  <canvas id="film" width="720" height="1280" role="img"
+    aria-label="図解動画の画面。0秒から4秒：AIが読む手順集が画面いっぱいに並びます。上に選び方の地図（using-agent-skills）、その下に説明のための3つの束、決める（仕様・計画）、進める（増分・テスト）、確かめる（点検・画面）の6冊があり、それぞれの中身のひとことが見えます。3.3秒から4秒で棚の段へ縮み、全体へ引きます。4秒から8秒：架空の依頼と旧TODOが「AIが書く」机へ入り、SPEC.md の6領域（目的・コマンド・構成・書き方・テスト・境界）が順に開いてから、2枚の増分カードに畳まれます。仕様からカードへの線の上に「人の承認なし」の点線の札が付きます。8秒から13秒：増分1のカードがAIへ戻り、テストの紙が制作担当のNodeへ移って4件中1件の失敗（RED）。最小の変更の紙のあと4件とも成功（GREEN）し、カードにCLIの印が付きます。13秒から18秒：増分2で同じ輪をたどり、5件中1件の失敗のあと5件とも成功。「画面の確認は全増分の後」の札が出ます。18秒から23秒：保存された反転の記録。比較の <= が < に変わり、当日の15日の点が外れて1件失敗、元に戻すと5件成功。別AIの5軸点検1回（必須0）の札が付きます。23秒から29秒：同じ6枚のTODOが selectTasks の口へ向かい、カレンダーの10月15日と「未完了だけ」を通った2枚（企画を見直す・作例を確認する）だけが入力の順のまま右へ並びます。10月16日・期限なし・完了の紙は理由の札を付けて残ります。保存した due-open.json（926バイト）と元のTODOへつながります。29秒から32秒：全体の経路が同じ濃さで止まります。"></canvas>
+  <figcaption id="film-caption" class="caption" aria-live="polite"></figcaption>
+</figure>
+
+<section class="controls" aria-label="プレビューの操作">
+  <div class="row">
+    <button id="play" type="button" aria-pressed="false" disabled>再生</button>
+    <button id="reset" type="button" disabled>先頭へ</button>
+    <button id="replay" type="button" disabled>最初から再生</button>
+    <button id="end" type="button" disabled>末尾へ</button>
   </div>
-  <div class="controls" id="controls" hidden>
-    <button type="button" id="play" aria-pressed="false">再生</button>
-    <input type="range" id="scrub" min="0" max="28" step="0.0333333" value="0" aria-label="時刻（秒）">
-    <output id="time" for="scrub">0.00秒</output>
-    <div class="chapters" role="group" aria-label="場面へ移動">
-      <button type="button" data-at="0">1 依頼と仕様</button>
-      <button type="button" data-at="4.5">2 4件から2件</button>
-      <button type="button" data-at="11">3 線の引き方</button>
-      <button type="button" data-at="17">4 テストの記録</button>
-      <button type="button" data-at="22.5">5 持ち帰る</button>
-    </div>
-    <p class="hint">プレビューです。書き出しではこの欄を表示しません。名前・日付・件数・テストの数は <a href="../results.json">results.json</a>・<a href="../tdd-history.json">tdd-history.json</a>・<a href="../mutation.json">mutation.json</a> などの保存記録から読みます。<a href="../index.html">作例のページへ戻る</a></p>
+  <div class="scrub">
+    <label for="time">再生位置（0〜32秒）</label>
+    <input id="time" type="range" min="0" max="32" step="0.1" value="0" disabled>
+    <output id="clock" for="time">0.0秒 / 32.0秒</output>
   </div>
-  <script src="scene.js"></script>
+  <div class="row jumps" role="group" aria-label="場面へ移る">
+    <button type="button" data-jump="0" disabled>0秒</button>
+    <button type="button" data-jump="4" disabled>4秒</button>
+    <button type="button" data-jump="8" disabled>8秒</button>
+    <button type="button" data-jump="13" disabled>13秒</button>
+    <button type="button" data-jump="18" disabled>18秒</button>
+    <button type="button" data-jump="23" disabled>23秒</button>
+    <button type="button" data-jump="29" disabled>29秒</button>
+  </div>
+  <div class="row" role="group" aria-label="画面の向き">
+    <button type="button" data-orient="portrait" aria-pressed="true" disabled>縦 720×1280</button>
+    <button type="button" data-orient="wide" aria-pressed="false" disabled>横 1280×720</button>
+  </div>
+</section>
+<p id="asset-status" class="status" role="status" data-state="loading">素材 0/32 を照合しています…</p>
+<p class="retry-row"><button id="retry" class="retry" type="button" hidden>もう一度読み込む</button></p>
+<p class="hint">自動では再生しません。スライダーは ← → で0.1秒、Home・End で先頭・末尾へ移ります。この元ページと映像は、執筆の時点では描画も再生も確かめていません。確認は制作担当が別に行います。</p>
+
+<section class="scenes" aria-labelledby="scenes-title">
+  <h2 id="scenes-title">場面</h2>
+  <ol>
+    <li><span class="time">0〜4秒</span>工程別の手順を、AIが読む：選び方の地図と3つの束（決める・進める・確かめる）の6冊が画面いっぱいに並び、中身のひとことが見えます。3.3〜4秒で棚の段へ縮み、全体へ引きます。3つの束は説明のための分け方です。</li>
+    <li><span class="time">4〜8秒</span>依頼と旧TODOから、先に仕様：架空の依頼と旧TODOが「AIが書く」机へ入り、SPEC.md の6領域が開いてから2枚の増分カードへ畳まれます。「人の承認なし」の点線の札は、通過の印ではありません。</li>
+    <li><span class="time">8〜13秒</span>増分1：失敗を見てから通す：テストの紙が制作担当のNodeへ移ってRED（4件中 失敗1）、最小の変更の紙のあとGREEN（4件とも成功）。結果の線はAIへ戻ります。AIがNodeを動かす絵にはしていません。</li>
+    <li><span class="time">13〜18秒</span>増分2：実在する日付だけ：同じ輪で5件中 失敗1 → 5件とも成功。2枚のカードはCLIの確認とcommitの印だけで、画面の確認は全増分の後です。計画のチェック欄は空のままです。</li>
+    <li><span class="time">18〜23秒</span>境界を反転して、見抜けるか：保存された記録として、<code>&lt;=</code> が <code>&lt;</code> になり当日の15日が外れて1件失敗、元のバイトに戻して5件成功。別AIの5軸点検1回（必須0）。人の承認ではありません。</li>
+    <li><span class="time">23〜29秒</span>同じ6枚を、元の関数に通す：読み込み時に呼んだ selectTasks が返した2枚が、入力の順のまま並びます（旧関数は4枚）。外れた紙には理由の札（期限後・期限なし・完了）。保存した due-open.json と元のTODOへつながります。</li>
+    <li><span class="time">29〜32秒</span>AIに、小さな開発手順を渡す：全体の経路を同じ濃さで静止（入りは28.3〜28.9秒、ポスターは31秒）。</li>
+  </ol>
+</section>
+
+<nav class="links" aria-label="関連するファイル">
+  <h2>関連するファイル</h2>
+  <ul>
+    <li><a href="../index.html">作例のページ（図・3つの呼び出し・実結果JSONの保存）</a></li>
+    <li><a href="../desk.html#due-open">元のTODO（日付と状態を変えて試す）</a></li>
+    <li><a href="../outputs/due-open.json">保存した実結果（outputs/due-open.json）</a></li>
+    <li><a href="../concept/manifest.json">照合する32件（concept/manifest.json）</a></li>
+    <li><a href="storyboard.json">場面の設計（storyboard.json）</a></li>
+    <li><a href="README.md">この映像の説明（README.md）</a></li>
+    <li><a href="legacy.html">以前の28秒の映像ソース（legacy.html）</a></li>
+    <li><a href="../source.zip">入力・出力・ソース一式（source.zip）</a></li>
+  </ul>
+</nav>
+
+<footer class="foot">
+  <p>この映像は、保存済みの記録と、読み込み時に1回だけ行う元の関数の実際の呼び出しから描いた図解です。AIの推論、Nodeのテスト、条件の反転、点検は、ここでは実行していません。</p>
+  <p>原典：<a href="https://github.com/addyosmani/agent-skills/tree/aeac41d4d005999432bb7312f7ff06383a91d59d" rel="noopener">addyosmani/agent-skills</a>（コミット aeac41d）、MIT License、Copyright (c) 2025 Addy Osmani。映像のコードと文章：MIT License、Copyright (c) 2026 Studio Yebisu。</p>
+</footer>
+
+<script type="module" src="video.js"></script>
 </body>
 </html>

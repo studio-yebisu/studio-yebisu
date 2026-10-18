@@ -1,0 +1,322 @@
+{
+  "format": "addy-skills-structure/v1",
+  "case_id": "addy-engineering-skills-example",
+  "source_commit": "aeac41d4d005999432bb7312f7ff06383a91d59d",
+  "definition": "AIが読む工程別Markdownの開発手順集。選んだ7つの手順を、仕様・2つの増分・実行と確認・実際のTODOへつなぐ。",
+  "skills": [
+    {
+      "id": "using",
+      "label": "選び方",
+      "source_path": "vendor/addy-agent-skills/skills/using-agent-skills/SKILL.md",
+      "line_start": 10,
+      "quote": "organized by development phase.",
+      "meaning": "工程を選ぶための案内。自動ルーターや7つのAIではない。"
+    },
+    {
+      "id": "spec",
+      "label": "先に仕様",
+      "source_path": "vendor/addy-agent-skills/skills/spec-driven-development/SKILL.md",
+      "line_start": 10,
+      "quote": "Write a structured specification before writing any code.",
+      "meaning": "6領域の仕様をコードより先に書く。原典の人の承認はこの作例では行っていない。"
+    },
+    {
+      "id": "plan",
+      "label": "2つに分ける",
+      "source_path": "vendor/addy-agent-skills/skills/planning-and-task-breakdown/SKILL.md",
+      "line_start": 77,
+      "quote": "Each vertical slice delivers working, testable functionality.",
+      "meaning": "仕様を2増分へ。計画の未チェック欄は原本のまま残す。"
+    },
+    {
+      "id": "increment",
+      "label": "小さく進める",
+      "source_path": "vendor/addy-agent-skills/skills/incremental-implementation/SKILL.md",
+      "line_start": 42,
+      "quote": "Move to the next slice",
+      "meaning": "AIが最小変更を書き、制作担当がCLIを確認して各増分をcommit。UIは全増分後の確認だった。"
+    },
+    {
+      "id": "tdd",
+      "label": "失敗を先に",
+      "source_path": "vendor/addy-agent-skills/skills/test-driven-development/SKILL.md",
+      "line_start": 10,
+      "quote": "Write a failing test before writing the code that makes it pass.",
+      "meaning": "新テストを1つ先に足して失敗を見てから通す。今回は2回、整理し直しは行っていない。"
+    },
+    {
+      "id": "review",
+      "label": "条件を反転",
+      "source_path": "vendor/addy-agent-skills/skills/code-review-and-quality/SKILL.md",
+      "line_start": 164,
+      "quote": "Invert one condition the change adds",
+      "meaning": "元の制作担当が<=を<へ反転して1件失敗、元へ戻して5件成功。別AIの親が5軸を見た。新画面・映像の審査ではない。"
+    },
+    {
+      "id": "frontend",
+      "label": "画面で確かめる",
+      "source_path": "vendor/addy-agent-skills/skills/frontend-ui-engineering/SKILL.md",
+      "line_start": 255,
+      "quote": "Design for mobile first, then expand:",
+      "meaning": "元の画面配線と読みやすさ・キー・0件・日付エラーを全増分後に確認。支援技術の全適合や人の承認ではない。"
+    }
+  ],
+  "parts": [
+    {
+      "id": "guide",
+      "label": "工程の手順書",
+      "source_path": "vendor/addy-agent-skills/skills/using-agent-skills/SKILL.md",
+      "line_start": 10,
+      "quote": "organized by development phase.",
+      "meaning": "工程を選ぶための案内。自動ルーターや7つのAIではない。"
+    },
+    {
+      "id": "spec",
+      "label": "仕様の6領域",
+      "source_path": "vendor/addy-agent-skills/skills/spec-driven-development/SKILL.md",
+      "line_start": 10,
+      "quote": "Write a structured specification before writing any code.",
+      "meaning": "6領域の仕様をコードより先に書く。原典の人の承認はこの作例では行っていない。"
+    },
+    {
+      "id": "slices",
+      "label": "2枚の増分カード",
+      "source_path": "vendor/addy-agent-skills/skills/planning-and-task-breakdown/SKILL.md",
+      "line_start": 77,
+      "quote": "Each vertical slice delivers working, testable functionality.",
+      "meaning": "仕様を2増分へ。計画の未チェック欄は原本のまま残す。"
+    },
+    {
+      "id": "loop",
+      "label": "AIの執筆と別のNode",
+      "source_path": "vendor/addy-agent-skills/skills/test-driven-development/SKILL.md",
+      "line_start": 10,
+      "quote": "Write a failing test before writing the code that makes it pass.",
+      "meaning": "新テストを1つ先に足して失敗を見てから通す。今回は2回、整理し直しは行っていない。"
+    },
+    {
+      "id": "challenge",
+      "label": "反転して検出できるか",
+      "source_path": "vendor/addy-agent-skills/skills/code-review-and-quality/SKILL.md",
+      "line_start": 164,
+      "quote": "Invert one condition the change adds",
+      "meaning": "元の制作担当が<=を<へ反転して1件失敗、元へ戻して5件成功。別AIの親が5軸を見た。新画面・映像の審査ではない。"
+    },
+    {
+      "id": "result",
+      "label": "実関数とTODOの紙",
+      "source_path": "vendor/addy-agent-skills/skills/frontend-ui-engineering/SKILL.md",
+      "line_start": 255,
+      "quote": "Design for mobile first, then expand:",
+      "meaning": "元の画面配線と読みやすさ・キー・0件・日付エラーを全増分後に確認。支援技術の全適合や人の承認ではない。"
+    }
+  ],
+  "spec_areas": [
+    {
+      "id": "objective",
+      "label": "目的"
+    },
+    {
+      "id": "commands",
+      "label": "コマンド"
+    },
+    {
+      "id": "structure",
+      "label": "構成"
+    },
+    {
+      "id": "style",
+      "label": "書き方"
+    },
+    {
+      "id": "testing",
+      "label": "テスト"
+    },
+    {
+      "id": "boundaries",
+      "label": "境界"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "due-open",
+      "label": "未完了を指定日まで",
+      "options": {
+        "status": "open",
+        "cutoff": "2026-10-15"
+      },
+      "before_ids": [
+        "proposal",
+        "sample",
+        "publish",
+        "idea"
+      ],
+      "after_ids": [
+        "proposal",
+        "sample"
+      ],
+      "output_file": {
+        "path": "outputs/due-open.json",
+        "bytes": 926,
+        "sha256": "f0dbce41f757a49a2f2cd05dd918682faadb7f3a3890e666e4297839f2d9a4fb"
+      }
+    },
+    {
+      "id": "due-all",
+      "label": "完了も含めて指定日まで",
+      "options": {
+        "status": "all",
+        "cutoff": "2026-10-15"
+      },
+      "before_ids": [
+        "proposal",
+        "sample",
+        "publish",
+        "idea",
+        "brief",
+        "memo"
+      ],
+      "after_ids": [
+        "proposal",
+        "sample",
+        "brief",
+        "memo"
+      ],
+      "output_file": {
+        "path": "outputs/due-all.json",
+        "bytes": 1448,
+        "sha256": "8dfba9bd6b2e7e2dc8725fc85caefdb7e20396deac01fe34efa1f7512cfd22a8"
+      }
+    },
+    {
+      "id": "no-cutoff",
+      "label": "期限の条件を外す",
+      "options": {
+        "status": "all",
+        "cutoff": null
+      },
+      "before_ids": [
+        "proposal",
+        "sample",
+        "publish",
+        "idea",
+        "brief",
+        "memo"
+      ],
+      "after_ids": [
+        "proposal",
+        "sample",
+        "publish",
+        "idea",
+        "brief",
+        "memo"
+      ],
+      "output_file": {
+        "path": "outputs/no-cutoff.json",
+        "bytes": 1688,
+        "sha256": "ad60d219bde9f9cc5a4d61311855233c8986243f9b0415a2c5c41a95182a483c"
+      }
+    }
+  ],
+  "cycles": [
+    {
+      "id": 1,
+      "label": "指定日を含む期限の絞り込み",
+      "red": {
+        "phase": "red1",
+        "tests": 4,
+        "pass": 3,
+        "fail": 1,
+        "exit_code": 1,
+        "node": "v24.18.0"
+      },
+      "green": {
+        "phase": "green1",
+        "tests": 4,
+        "pass": 4,
+        "fail": 0,
+        "exit_code": 0,
+        "node": "v24.18.0"
+      }
+    },
+    {
+      "id": 2,
+      "label": "実在する暦日だけを受け付ける",
+      "red": {
+        "phase": "red2",
+        "tests": 5,
+        "pass": 4,
+        "fail": 1,
+        "exit_code": 1,
+        "node": "v24.18.0"
+      },
+      "green": {
+        "phase": "green2",
+        "tests": 5,
+        "pass": 5,
+        "fail": 0,
+        "exit_code": 0,
+        "node": "v24.18.0"
+      }
+    }
+  ],
+  "mutation": {
+    "status": "caught",
+    "executed_at": "2026-10-15T07:16:29.255269+00:00",
+    "change": "task.dueDate <= cutoff -> task.dueDate < cutoff",
+    "command": "node --test --test-reporter=tap tasks.test.mjs",
+    "mutant_exit_code": 1,
+    "mutant_failures": 1,
+    "restored_exit_code": 0,
+    "restored_tests_pass": 5,
+    "original_sha256": "70a83eab0b989dfd3eed97c353f7486091dc640beed6159345d57c7a337e5f50",
+    "mutant_sha256": "8fd9988b94c98c6bfbf1a209367e6204a7fd73c9751694c81311b2373e645ad2",
+    "restored_sha256": "70a83eab0b989dfd3eed97c353f7486091dc640beed6159345d57c7a337e5f50",
+    "caught_by": "期限の指定日までの未完了TODOを当日を含めて表示する",
+    "human_approval": false
+  },
+  "review": {
+    "author": "元のOpus5.5",
+    "reviewer": "元のCodex親、著者と別AI",
+    "axes": [
+      "correctness",
+      "readability",
+      "architecture",
+      "security",
+      "performance"
+    ],
+    "required": 0,
+    "critical": 0,
+    "human_approval": false,
+    "scope": "元TODO差分・テスト・仕様・DOM配線。紹介用guide/映像・新しい図は対象外。"
+  },
+  "counts": {
+    "selected_skills": 7,
+    "parts": 6,
+    "spec_areas": 6,
+    "tasks": 6,
+    "saved_samples": 3,
+    "original_node_runs": 5,
+    "red_green_cycles": 2,
+    "final_tests": 5,
+    "separate_acceptance_checks_per_timezone": 36,
+    "timezone_scopes": [
+      "Asia/Tokyo",
+      "Pacific/Kiritimati",
+      "America/Los_Angeles"
+    ]
+  },
+  "limits": {
+    "human_spec_and_plan_approval": false,
+    "interviews": false,
+    "all_skills_applied": false,
+    "browser_each_increment": false,
+    "browser_after_all_increments": true,
+    "plans_are_original_unchecked": true,
+    "original_model_or_Node_rerun": false,
+    "live_ai_in_new_ui": false,
+    "new_ui_calls_original_functions": true,
+    "persistent_tasks": false
+  },
+  "rule": "期限は自動の今日ではなく指定日。YYYY-MM-DDの暦日文字列で当日を含む<=。状態とAND。期限なしは期限を指定したときだけ除外。並びは入力順。"
+}

@@ -1,0 +1,145 @@
+{
+  "format": "studio-yebisu-storyboard/v1",
+  "case_id": "addy-engineering-skills-example",
+  "revision": "visual-r1",
+  "title": "AIに、小さな開発手順を渡す",
+  "source": {
+    "repository": "addyosmani/agent-skills",
+    "commit": "aeac41d4d005999432bb7312f7ff06383a91d59d",
+    "license": "MIT, Copyright (c) 2025 Addy Osmani",
+    "skills_used": ["using-agent-skills", "spec-driven-development", "planning-and-task-breakdown", "incremental-implementation", "test-driven-development", "code-review-and-quality", "frontend-ui-engineering"],
+    "references_read": ["references/definition-of-done.md", "references/testing-patterns.md", "references/accessibility-checklist.md"],
+    "what_it_is": "A collection of Markdown engineering process instructions that an AI reads, organized by development phase. Not a model, API, automatic pipeline or seven autonomous agents. using-agent-skills is a map for choosing a process; this case chose seven instructions and used them partially (no human spec/plan/stage approval, no interview, no refactor step).",
+    "bundles_note": "The three bundles 決める (spec+plan), 進める (incremental+TDD), 確かめる (review+frontend) under the route map are an explanatory grouping for this film, not an upstream schema."
+  },
+  "authored_by_model": "claude-opus-5-5",
+  "duration": 32,
+  "fps": 30,
+  "frames": 960,
+  "sizes": [
+    {"orient": "portrait", "width": 720, "height": 1280, "layout": "tall", "role": "main", "composition": "rail/title/sub at top, diagram world 700x1026 at y=206 using the tall concept layout (library band, request/AI/SPEC row, challenge/Node/cards row, papers/function/returned row, scope/JSON/desk row), foot line at y=1256"},
+    {"orient": "wide", "width": 1280, "height": 720, "layout": "wide", "role": "secondary, recomposed natively", "composition": "title/sub left, rail right, diagram world 1240x576 at y=112 using the separate wide concept layout (three rows of four columns), foot line at y=706"}
+  ],
+  "poster_time": 31,
+  "motion_ends": 28.9,
+  "audio": {"tracks": 0, "audio_events": [], "narration": false, "tts": false, "web_speech": false, "web_audio": false, "silent": true},
+  "example_job": "due-open",
+  "assets": {
+    "manifest": "concept/manifest.json",
+    "manifest_sha256": "6be867b3f2127f80e595b182dddedc05e44ea187c50fc2ea030b1d208d018b50",
+    "count": 32,
+    "refs_used_in_frames": [
+      "concept/structure.json",
+      "seed.json",
+      "results.json",
+      "samples.json",
+      "tdd-history.json",
+      "mutation.json",
+      "core-review.json",
+      "acceptance-main.json",
+      "timezones.json",
+      "SPEC.md",
+      "plan/plan.md",
+      "plan/todo.md",
+      "input.md",
+      "outputs/due-open.json",
+      "tasks.mjs",
+      "baseline/tasks.mjs"
+    ],
+    "original_function_calls": "tasks.mjs and baseline/tasks.mjs are imported and selectTasks is called once after the 32-file gate, with the validated seed.json and the 3 saved option objects; ordered IDs must equal results.json and the returned objects must be the same references as the seed objects. The film draws the objects returned for due-open. No call per frame, no Node test run, no AI inference."
+  },
+  "persistent_shapes": [
+    "library: route book 選び方の地図 (using-agent-skills) above three explanatory bundles 決める/進める/確かめる with six books 仕様・計画・増分・テスト・点検・画面; large with vertical spine names and one-line contents in 0-4 s, then the compact top band",
+    "req + old: 依頼（架空） paper with the input.md quote, and 旧TODO paper (状態だけで絞る)",
+    "ai: one dark workbench AIが書く with a line naming what is being written; represents the separate original Opus 5.5 runs, never a Node runner",
+    "spec: SPEC.md paper whose six area tiles (目的・コマンド・構成・書き方・テスト・境界) open one by one",
+    "gate: dashed outlined tag 人の承認なし on the SPEC -> cards line; never a pass mark",
+    "cards: two increment cards that emerge from SPEC; each keeps an empty plan checkbox; a green CLI stamp appears only after its GREEN; dashed tag 画面の確認は全増分の後",
+    "node: Node station run by the production owner; one badge (既存/RED/GREEN with words and numbers) and two tabs 増分1/増分2; test and minimal-change papers travel AI -> Node, results return red or green",
+    "chal: boundary challenge box with the comparison sign (<= / <) and a 14-15-16 calendar line; the day-of point 15 drops out while flipped; badges 1件失敗 then 戻して5件成功; one review chip 5軸点検 必須0",
+    "papers: the same six dated TODO papers from seed.json in input order (date stamp, dashed なし for undated, strike-through for done)",
+    "fn: selectTasks with a calendar date box (10/15, 当日含む) AND a status chip (未完了だけ)",
+    "kept: the papers returned by the original selectTasks, moved physically from their input slots, in input order, stamped violet; excluded papers stay with reason tags 期限後/期限なし/完了",
+    "json + desk: outputs/due-open.json with bytes, and the original TODO screen (desk.html)",
+    "scope: dashed note that the request and data are fictional and no AI or Node runs here"
+  ],
+  "scenes": [
+    {
+      "start": 0, "end": 4, "rail": "決める",
+      "title": "工程別の手順を、AIが読む",
+      "sub": "Agent Skills から7つ・3つの束は説明のための分け方",
+      "conveys": "The skill is a phase-organized collection of process instructions for an AI. The route map chooses; this case picked six books in three explanatory bundles. Contents, not results.",
+      "incoming": "Empty frame; camera fitted on the large library that fills the world.",
+      "events": "Route book then six books appear one by one (0.3-2.6 s) with vertical spine names, an icon and a one-line contents note each.",
+      "outgoing": "Library shrinks into the compact top band while the camera pulls back (3.3-4.0 s)."
+    },
+    {
+      "start": 4, "end": 8, "rail": "決める",
+      "title": "依頼と旧TODOから、先に仕様",
+      "sub": "仕様6領域 → 2枚の増分。人の承認はしていない",
+      "conveys": "The same fictional request and old TODO enter the AI workbench with the instructions. The AI writes SPEC.md first (six areas), then a plan of two increments. The upstream human approval gate exists but was not performed; shown as an outlined tag, no human interaction drawn.",
+      "incoming": "Request and old-TODO papers and the AI workbench appear (4.0-4.8 s); input lines draw (4.6-5.1 s) and flow (5.0-5.6 s).",
+      "events": "SPEC.md appears (5.3-5.7 s); six area tiles open (5.7-6.5 s); two cards emerge from SPEC and travel to their slots (6.6-7.4 s); gate tag 人の承認なし (7.1-7.6 s).",
+      "outgoing": "Input flows fade (7.6-8.2 s); camera moves to AI/SPEC/Node/cards (7.6-8.3 s)."
+    },
+    {
+      "start": 8, "end": 13, "rail": "確かめる",
+      "title": "増分1：失敗を見てから通す",
+      "sub": "Nodeは制作担当：4件中 失敗1 → 最小の変更 → 4件成功",
+      "conveys": "Card 1 goes back to the AI; the same test paper travels to the separate Node station run by the production owner: RED 4 tests / 1 fail, then the AI's minimal change, then GREEN 4/4. The AI is never drawn running Node.",
+      "incoming": "Node station with the baseline badge 既存 成功3 全3件 (8.0-8.5 s); loop lines (8.2-8.8 s).",
+      "events": "Cycle 1 over 8.8-12.6 s: card->AI flow, test paper to Node, RED with red return line, minimal-change paper, GREEN with green return line, CLI stamp on card 1.",
+      "outgoing": "Tab 増分1 shown done."
+    },
+    {
+      "start": 13, "end": 18, "rail": "確かめる",
+      "title": "増分2：実在する日付だけ",
+      "sub": "5件中 失敗1 → 5件成功。CLIで確認、画面は全増分の後",
+      "conveys": "Card 2 (invalid calendar dates rejected) runs the same loop: RED 5/1 fail, GREEN 5/5. Both cards are marked complete for CLI only; the browser check came after all increments. Plan checkboxes stay empty.",
+      "incoming": "Same loop after cycle 1.",
+      "events": "Cycle 2 over 13.0-16.8 s; CLI stamp on card 2; tag 画面の確認は全増分の後 (16.9-17.4 s).",
+      "outgoing": "Camera moves to AI/Node/challenge (17.6-18.3 s)."
+    },
+    {
+      "start": 18, "end": 23, "rail": "確かめる",
+      "title": "境界を反転して、見抜けるか",
+      "sub": "<= を < にすると1件失敗、戻すと5件成功（記録）",
+      "conveys": "The preserved boundary challenge: the original production owner flipped task.dueDate <= cutoff to <, the day-of date leaves the included range and the real Node suite failed 1 test; the byte backup was restored and 5 passed. This shows detection of the tested boundary, not general quality. One separate AI parent review over five axes (required 0, critical 0) is a single inspection step, not five reviewers and not human approval.",
+      "incoming": "Challenge box with line from Node (18.2-18.7 s).",
+      "events": "Over 19.0-21.4 s: sign flips to < (red), point 15 drops out, badge 1件失敗; sign restores to <=, point 15 back in, badge 戻して5件成功. Review chip 5軸点検 必須0 (21.5-22.2 s).",
+      "outgoing": "Node->challenge flow fades (22.4-23.0 s); camera moves to the use area (22.6-23.3 s)."
+    },
+    {
+      "start": 23, "end": 29, "rail": "使う",
+      "title": "同じ6枚を、元の関数に通す",
+      "sub": "未完了・10/15まで → 2枚（旧関数 4枚）・due-open.json 926 B",
+      "conveys": "The original preserved selectTasks becomes usable: the same six dated papers pass the inclusive civil-date gate AND the status gate; the two objects it actually returned at page load (proposal 10/14, sample 10/15) move to the right in input order. 10/16, undated and done papers stay with reason tags. No date sorting. Linked to the saved 926 B JSON and the original TODO screen.",
+      "incoming": "Six papers and the function (23.0-23.6 s); calendar 10/15 and status chip (23.5-24.1 s); input line (23.8-24.2 s).",
+      "events": "Papers travel to the function mouth one by one (24.3-26.5 s); returned papers continue to the right slots, the others nudge and return with reason tags; header 返った紙 2枚; JSON and desk join (26.6-27.6 s); scope note (27.2-27.7 s).",
+      "outgoing": "All shapes in place."
+    },
+    {
+      "start": 29, "end": 32, "rail": "全体",
+      "title": "AIに、小さな開発手順を渡す",
+      "sub": "手順集 → 仕様と増分 → AIとNode → 反転 → 使える結果",
+      "conveys": "Stable whole path, understandable without sound.",
+      "incoming": "All edges flow-coloured and emphasis back to full (28.3-28.9 s); camera to the whole diagram (28.2-28.9 s); title and rail switch 28.5-28.9 s.",
+      "events": "None. Still from 28.9 s to 32 s; poster at 31 s. No cursor or blinking element.",
+      "outgoing": "End at 32 s."
+    }
+  ],
+  "quoted_values_source": "Counts (6 areas, 11 assumptions, 3 -> 4 -> 5 tests, RED fail 1, mutation 1 failure and 5 restored passes, review required 0 / critical 0), labels, the request quote, file name and bytes are read at runtime from validated assets. Returned papers are the objects returned by the original tasks.mjs for due-open; the old-function count is the length returned by baseline/tasks.mjs.",
+  "scope": {
+    "original_production": "Original Opus 5.5 authoring in separate runs (receipts: spec, red1, green1, red2, green2, site; no separate plan receipt), 5 Node v24.18.0 runs by the production owner (baseline + 4), 2 increments each CLI-checked and committed, browser check after all increments, 36 separate acceptance checks in Asia/Tokyo, Pacific/Kiritimati and America/Los_Angeles with the same outcomes, the <= -> < mutation (1 failure, restored, 5 passed) and one Codex parent five-axis review (required 0, critical 0). All preserved; none rerun for this revision.",
+    "parent_packaging": "concept/structure.json, concept/manifest.json and outputs/*.json (UTF-8/LF repackaging of the same saved results.samples objects), desk.html and video/legacy.html archives.",
+    "new_authoring": "This revision's diagram, motion, controls and Japanese copy (index.html, concept.css, concept.js, video/index.html, video/video.css, video/video.js, video/storyboard.json, video/README.md), written by claude-opus-5-5.",
+    "limits": "No human spec/plan/stage approval, no interview, no refactor step, plan checkboxes intentionally unchecked, timezone checks are not a general timezone or performance guarantee, the review did not cover the guide, the films or this new UI."
+  },
+  "status": {
+    "authored": "source files written by claude-opus-5-5 without running a browser, renderer or MP4 encoder",
+    "browser_preview": "not run at authoring",
+    "frame_render": "not run at authoring",
+    "mp4": "not created at authoring",
+    "review": "pending; the producer adds actual technical QA records later (not human approval)"
+  }
+}

@@ -1,0 +1,302 @@
+{
+  "id": "addy-engineering-skills-example",
+  "scope": "Original production summary newly packaged; preserved authoring/Node test/independent review records. No new original inference, Node test suite or independent review.",
+  "retained_at_public_baseline_head": "6b8399f4d2b68b398bd79a5e4f6a0809a49e6d73",
+  "first_case_commit": "c9faddb18e6c3590d0a08bc04f6f66444d08e899",
+  "original_verified_at": "2026-10-15T08:16:46.809640+00:00",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "receipts": [
+      {
+        "phase": "spec",
+        "receipt_sha256": "61fb123ff62a4b3b4522665525df34648fead79d63c71933c9e15ff6b0643f86",
+        "execution_sha256": "f8973c1782236103dfd35cd015c519069a0548dcb3477a793fab61b56d7a2214"
+      },
+      {
+        "phase": "red1",
+        "receipt_sha256": "c277fb8210860edeab7b399cea82161ba07f54cde0c2a0d87c75385295cef8cf",
+        "execution_sha256": "a35724defd7cad489b0559e54def510a6f39441f1061734922bbdb429daa1847"
+      },
+      {
+        "phase": "green1",
+        "receipt_sha256": "f618aa51e7c6f4e76d2ee2d8cb05573263b9853265d8c759eee2638ae414d99a",
+        "execution_sha256": "7e2e12e2809ec283d78e367d656242e3c6a136aef0f2c734bae441e497bcbef0"
+      },
+      {
+        "phase": "red2",
+        "receipt_sha256": "e1a7fe69264229ba0281c31e4433bfc0e6f12dbf73f4e522dba59dd2fbb38d03",
+        "execution_sha256": "f260fffac8dbea96dcee7c67af53c41e6a11ffaa916fbfdd046c75f59fdf6d74"
+      },
+      {
+        "phase": "green2",
+        "receipt_sha256": "81d7cc9d6f7e78ecdf650fe710d589487653c83fa310ce34ff5e1072d648bd08",
+        "execution_sha256": "b34d434ad4f0b707bd889ebbad088b8ac014663bd77e8150a442da62f9ce446f"
+      },
+      {
+        "phase": "site",
+        "receipt_sha256": "56590569544e8f9633dc53937374c7d500dd8823257c003483cfe26fbd870de6",
+        "execution_sha256": "fd96e5b5ae740bc5eb24cd10ce9985ac866cce47c78683c6fce5297dc1ec2524"
+      }
+    ],
+    "receipt_published": false
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 3,
+    "synthetic": true,
+    "entries": 6,
+    "node": "v24.18.0",
+    "baseline_pass": 3,
+    "red_green_cycles": 2,
+    "red_each_failures": 1,
+    "final_tests": 5,
+    "final_pass": 5,
+    "acceptance_checks": 36,
+    "timezones": {
+      "status": "passed",
+      "offsets_differ": true,
+      "same_outcomes": true,
+      "zones": [
+        {
+          "name": "Pacific/Kiritimati",
+          "offset_minutes": -840,
+          "checks": 36
+        },
+        {
+          "name": "America/Los_Angeles",
+          "offset_minutes": 420,
+          "checks": 36
+        }
+      ]
+    },
+    "mutation": {
+      "status": "caught",
+      "executed_at": "2026-10-15T07:16:29.255269+00:00",
+      "change": "task.dueDate <= cutoff -> task.dueDate < cutoff",
+      "command": "node --test --test-reporter=tap tasks.test.mjs",
+      "mutant_exit_code": 1,
+      "mutant_failures": 1,
+      "restored_exit_code": 0,
+      "restored_tests_pass": 5,
+      "original_sha256": "70a83eab0b989dfd3eed97c353f7486091dc640beed6159345d57c7a337e5f50",
+      "mutant_sha256": "8fd9988b94c98c6bfbf1a209367e6204a7fd73c9751694c81311b2373e645ad2",
+      "restored_sha256": "70a83eab0b989dfd3eed97c353f7486091dc640beed6159345d57c7a337e5f50",
+      "caught_by": "期限の指定日までの未完了TODOを当日を含めて表示する",
+      "human_approval": false
+    },
+    "all_retained_stage_sources_match_hashes": true,
+    "scope": "Selected upstream skills with agent-defined synthetic assumptions, CLI increments and later browser checks; not the full human stage-approval workflow",
+    "human_approval": false,
+    "source_history": "examples/addy-engineering-skills-example/tdd-history.json",
+    "results": "examples/addy-engineering-skills-example/results.json"
+  },
+  "independent_review": {
+    "author": "Claude Opus 5.5",
+    "reviewer": "Codex parent, different AI author/reviewer roles; no child review agent",
+    "axes": [
+      "correctness",
+      "readability",
+      "architecture",
+      "security",
+      "performance"
+    ],
+    "required": 0,
+    "critical": 0,
+    "scope": "Original TODO code/tests/spec and DOM wiring; guide and video excluded",
+    "human_approval": false,
+    "source": "examples/addy-engineering-skills-example/core-review.json"
+  },
+  "original_video": {
+    "duration": 28,
+    "fps": 30,
+    "width": 1280,
+    "height": 720,
+    "frames": 840,
+    "audio": false,
+    "sha256": "b86b4256a883834104122ab2a560e8910dabc6e244bf83056d30064a304d2dc0",
+    "render_errors": [],
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "a408f78b8c21daf89925777a0e0ecf495d4d7d6ca776039a60df83c2d01f1c99",
+      "afterOtherTimes": "a408f78b8c21daf89925777a0e0ecf495d4d7d6ca776039a60df83c2d01f1c99",
+      "freshPage": "a408f78b8c21daf89925777a0e0ecf495d4d7d6ca776039a60df83c2d01f1c99",
+      "match": true
+    },
+    "contact_stills": 14,
+    "strip_frames": 12,
+    "representative_frames_reviewed": [
+      2,
+      8,
+      22,
+      26
+    ],
+    "actual_mp4_decoded_frame_seconds": 14,
+    "final_hold_seconds": 3.6,
+    "playback": {
+      "final": {
+        "currentTime": 28,
+        "duration": 28,
+        "ended": true,
+        "error": null,
+        "paused": true,
+        "videoHeight": 720,
+        "videoWidth": 1280
+      },
+      "logs": []
+    },
+    "human_approval": false,
+    "renderer_fixed_commit": "56198544e69201b1c202e0c00fb90b568a729824"
+  },
+  "original_upstream_record": {
+    "repository": "addyosmani/agent-skills",
+    "commit": "aeac41d4d005999432bb7312f7ff06383a91d59d",
+    "license": "MIT",
+    "copyright": "2025 Addy Osmani",
+    "vendor_files_match_fixed_checkout": 12
+  },
+  "upstream_identity_clarification": {
+    "repository": "addyosmani/agent-skills",
+    "commit": "aeac41d4d005999432bb7312f7ff06383a91d59d",
+    "license": "MIT",
+    "copyright": "Copyright (c) 2025 Addy Osmani",
+    "official_vendor_files": [
+      {
+        "path": "LICENSE",
+        "git_blob": "d67778ada6b9cda6227e9130da182c13e73c8b2e",
+        "official_sha256": "6f202f8bd568cd730dbb2b0d1f8e243bc74c2fa1f64dbce9b2c7ea08bd5c9fd7",
+        "official_bytes": 1068,
+        "shipped_sha256": "6f202f8bd568cd730dbb2b0d1f8e243bc74c2fa1f64dbce9b2c7ea08bd5c9fd7",
+        "shipped_bytes": 1068,
+        "exact_upstream_bytes": true,
+        "content_gitblob_after_LF_normalization": "d67778ada6b9cda6227e9130da182c13e73c8b2e"
+      },
+      {
+        "path": "README.md",
+        "git_blob": "7f610b8ca80ff9bc7ba7f95f3209430c3481891d",
+        "official_sha256": "b74ab722eeee706ff1c5c3ee55f5f2328368ec28c6368900bc80b857b5bc6b72",
+        "official_bytes": 25930,
+        "shipped_sha256": "b74ab722eeee706ff1c5c3ee55f5f2328368ec28c6368900bc80b857b5bc6b72",
+        "shipped_bytes": 25930,
+        "exact_upstream_bytes": true,
+        "content_gitblob_after_LF_normalization": "7f610b8ca80ff9bc7ba7f95f3209430c3481891d"
+      },
+      {
+        "path": "references/accessibility-checklist.md",
+        "git_blob": "c8c61e5f3d5a010a0d0ecb918bfaffe6c76fca78",
+        "official_sha256": "61c759d94d52296231f5f310b92b401f56c44e4430dc3cc95ebac5d7b1d5ffac",
+        "official_bytes": 5206,
+        "shipped_sha256": "61c759d94d52296231f5f310b92b401f56c44e4430dc3cc95ebac5d7b1d5ffac",
+        "shipped_bytes": 5206,
+        "exact_upstream_bytes": true,
+        "content_gitblob_after_LF_normalization": "c8c61e5f3d5a010a0d0ecb918bfaffe6c76fca78"
+      },
+      {
+        "path": "references/definition-of-done.md",
+        "git_blob": "35e39f9e15f6dd0ff4725a6e5cbce7f2aa69064a",
+        "official_sha256": "d1c75d2ae65d2c7a9cd01f93fa8de63e00e75f2fe5d08be224d576157054dcee",
+        "official_bytes": 3798,
+        "shipped_sha256": "d1c75d2ae65d2c7a9cd01f93fa8de63e00e75f2fe5d08be224d576157054dcee",
+        "shipped_bytes": 3798,
+        "exact_upstream_bytes": true,
+        "content_gitblob_after_LF_normalization": "35e39f9e15f6dd0ff4725a6e5cbce7f2aa69064a"
+      },
+      {
+        "path": "references/testing-patterns.md",
+        "git_blob": "bc96e271ad241ca567f06d21c6ecc001455b80f1",
+        "official_sha256": "f0bf05acd0edcadc27297ad5b74f104c8103ccfedba1a05cd6d6ae4af8364c56",
+        "official_bytes": 7460,
+        "shipped_sha256": "f0bf05acd0edcadc27297ad5b74f104c8103ccfedba1a05cd6d6ae4af8364c56",
+        "shipped_bytes": 7460,
+        "exact_upstream_bytes": true,
+        "content_gitblob_after_LF_normalization": "bc96e271ad241ca567f06d21c6ecc001455b80f1"
+      },
+      {
+        "path": "skills/code-review-and-quality/SKILL.md",
+        "git_blob": "08209ff2208d2883d48d945f7754c428b77f8d87",
+        "official_sha256": "2db1e850379f255fd3091ef278cde24cd6c7d2ba23e360cc52ea522c40d4396e",
+        "official_bytes": 20976,
+        "shipped_sha256": "2db1e850379f255fd3091ef278cde24cd6c7d2ba23e360cc52ea522c40d4396e",
+        "shipped_bytes": 20976,
+        "exact_upstream_bytes": true,
+        "content_gitblob_after_LF_normalization": "08209ff2208d2883d48d945f7754c428b77f8d87"
+      },
+      {
+        "path": "skills/frontend-ui-engineering/SKILL.md",
+        "git_blob": "3c77256874f2990612d0c980fa9b73cc3116152c",
+        "official_sha256": "29a3e53d57c0a128831a20730ae874a8c4fda40c001fcdc15f8e9ad4b5f72f1b",
+        "official_bytes": 11721,
+        "shipped_sha256": "29a3e53d57c0a128831a20730ae874a8c4fda40c001fcdc15f8e9ad4b5f72f1b",
+        "shipped_bytes": 11721,
+        "exact_upstream_bytes": true,
+        "content_gitblob_after_LF_normalization": "3c77256874f2990612d0c980fa9b73cc3116152c"
+      },
+      {
+        "path": "skills/incremental-implementation/SKILL.md",
+        "git_blob": "9c4f49bc841adb3c0f98baaa9eabd435a5b64ef9",
+        "official_sha256": "df66536610071727feae1ca95f3c391c248ad828041750ccd3699cce763aa00b",
+        "official_bytes": 9629,
+        "shipped_sha256": "df66536610071727feae1ca95f3c391c248ad828041750ccd3699cce763aa00b",
+        "shipped_bytes": 9629,
+        "exact_upstream_bytes": true,
+        "content_gitblob_after_LF_normalization": "9c4f49bc841adb3c0f98baaa9eabd435a5b64ef9"
+      },
+      {
+        "path": "skills/planning-and-task-breakdown/SKILL.md",
+        "git_blob": "296249b64334bcfd1aeaefd27b9e3e5494e38ec0",
+        "official_sha256": "ed0f90cc5951ddd4bcab7f871f64efec93a49af9279ef93bc470da77ad8da3f7",
+        "official_bytes": 10564,
+        "shipped_sha256": "ed0f90cc5951ddd4bcab7f871f64efec93a49af9279ef93bc470da77ad8da3f7",
+        "shipped_bytes": 10564,
+        "exact_upstream_bytes": true,
+        "content_gitblob_after_LF_normalization": "296249b64334bcfd1aeaefd27b9e3e5494e38ec0"
+      },
+      {
+        "path": "skills/spec-driven-development/SKILL.md",
+        "git_blob": "f54426bec00bcda5f700ab3368eed7203306830f",
+        "official_sha256": "c4b97ce3d7f24be0e67fd612c7595f65504872e3a9f8d338d098b2363fdb66ef",
+        "official_bytes": 13096,
+        "shipped_sha256": "c4b97ce3d7f24be0e67fd612c7595f65504872e3a9f8d338d098b2363fdb66ef",
+        "shipped_bytes": 13096,
+        "exact_upstream_bytes": true,
+        "content_gitblob_after_LF_normalization": "f54426bec00bcda5f700ab3368eed7203306830f"
+      },
+      {
+        "path": "skills/test-driven-development/SKILL.md",
+        "git_blob": "2f9c4bad747df3c88f3cd443b4990ab12d77b7d0",
+        "official_sha256": "a3aa6ba95638497025577469eda10ed17918698209615aeafbc26f131bf2469d",
+        "official_bytes": 16676,
+        "shipped_sha256": "a3aa6ba95638497025577469eda10ed17918698209615aeafbc26f131bf2469d",
+        "shipped_bytes": 16676,
+        "exact_upstream_bytes": true,
+        "content_gitblob_after_LF_normalization": "2f9c4bad747df3c88f3cd443b4990ab12d77b7d0"
+      },
+      {
+        "path": "skills/using-agent-skills/SKILL.md",
+        "git_blob": "d56ac03ab057036c1bdcc9127c88952758ee2f0d",
+        "official_sha256": "30787ef2c77bf1a4729fffed0f6523ba6fcbe81bdc436b36371b78c21394d3c3",
+        "official_bytes": 10446,
+        "shipped_sha256": "30787ef2c77bf1a4729fffed0f6523ba6fcbe81bdc436b36371b78c21394d3c3",
+        "shipped_bytes": 10446,
+        "exact_upstream_bytes": true,
+        "content_gitblob_after_LF_normalization": "d56ac03ab057036c1bdcc9127c88952758ee2f0d"
+      }
+    ],
+    "exact_upstream_bytes": 12,
+    "CRLF_only_content_matches": 0,
+    "identity_clarification": "Keep original shipped bytes; officialGitblob rawLF identity and CRLF-only normalized content identity are distinguished.",
+    "scope": "12official fixedGitblobs; original specification/plan/twoincremental authorings/Node runs/mutation/parent5axis review preserved; no original inference or Node tests rerun.",
+    "checked_at": "2026-10-18T14:50:12.834542+00:00"
+  },
+  "legacy_html_link_adjustment": {
+    "file": "desk.html",
+    "original_sha256": "ff0aee7e10dd22b77b9463e692be68c4e272c31ecae838f962fb7df4b6678071",
+    "final_sha256": "2d565e5d0bb67aa00a084116eabcd58b790394c1da65f17b11ee06ad11e0a69e",
+    "from": "href=\"video/index.html\">video/index.html",
+    "to": "href=\"video/legacy.html\">video/legacy.html",
+    "scope": "Historical28s editor target and visible filename only, redirected to preserved28s legacy source. Original HTML remains in baseline/private history; other65protected files unchanged."
+  }
+}
