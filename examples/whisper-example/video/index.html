@@ -1,65 +1,82 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" data-page="whisper-film">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>28秒・無音の解説動画の元ページ — しおり工房 字幕デスク（Whisper作例）</title>
+<title>図解動画32秒・無音の元ページ — 声を、文と時刻へ（Whisper 作例）</title>
 <link rel="stylesheet" href="video.css">
 </head>
 <body>
 <header class="intro">
-  <p class="eyebrow">Studio Yebisu · Whisper 作例 · 解説動画の元ページ</p>
-  <h1>転記の誤りを、そのまま直せる。<span class="sub">28秒・無音の解説動画</span></h1>
-  <p>作例用の原稿を手元の音声合成で読み上げた音声1本を、固定版の Whisper（base・CPU）で制作時に1回だけ転記した実際の原出力から、原稿を参照して3区間の文を手で直し、時刻はそのまま SRT で保存するまでを、実画面の静止キャプチャと実際の記録で組み直した映像です。続けて録画したものではなく、音声を聞いて確かめた校正でもありません。</p>
+  <p class="eyebrow">Whisper 作例・図解動画の元ページ</p>
+  <h1>声を、文と時刻へ<span class="sub">図解動画32秒・無音（縦720×1280／横1280×720）</span></h1>
+  <p>作例ページと同じ26件の実記録を照合してから、同じ概念図を描きます。波形は実WAVのRMS、色面は同じ前処理APIのlog-Mel、区間・修正・SRTは保存済みの1回の実行です。Whisperはここでは動かず、音もありません。</p>
 </header>
 
-<figure class="stage">
-  <canvas id="film" width="1280" height="720" role="img"
-    aria-label="解説動画の画面。上に4段階（入力・実際の原出力・原稿を参照して直す・SRTで保存）。合成音声のRMS、Whisperの実際の原出力の区間一覧、id 0 の原出力と原稿と直した字幕、直した3区間と変わらない時刻、保存したSRTの最初と最後の区間、スマホ幅の初期画面と試す順番を順に示します。"></canvas>
-  <figcaption>無音の映像です。元の合成音声は<a href="../index.html">作例のページ</a>か<a href="../input/review-ja.wav">WAVファイル</a>で再生できます。</figcaption>
+<figure id="stage" class="stage" data-orient="portrait">
+  <canvas id="film" width="720" height="1280" role="img"
+    aria-label="図解動画の画面。実WAVの波形がlog-Melの色面になり、Pythonで動くWhisperのencoderとdecoderへ入り、文と推定時刻の5枚の区間になります。1番の原出力の誤り、原稿を見て1・2・5番の文だけを手で直す別経路、時刻はそのままで原出力SRTと修正例SRTへ書き出すまでを順に示します。"></canvas>
+  <figcaption id="film-caption" class="caption" aria-live="polite"></figcaption>
 </figure>
 
 <section class="controls" aria-label="プレビューの操作">
-  <button id="play" type="button" aria-pressed="false" disabled>再生</button>
-  <div class="scrub">
-    <label for="time">再生位置（0〜28秒）</label>
-    <input id="time" type="range" min="0" max="28" step="0.1" value="0" disabled aria-describedby="keys">
+  <div class="row">
+    <button id="play" type="button" aria-pressed="false" disabled>再生</button>
+    <button id="reset" type="button" disabled>先頭へ</button>
+    <button id="replay" type="button" disabled>最初から再生</button>
+    <button id="end" type="button" disabled>末尾へ</button>
   </div>
-  <output id="clock" for="time">0.0秒 / 28.0秒</output>
+  <div class="scrub">
+    <label for="time">再生位置（0〜32秒）</label>
+    <input id="time" type="range" min="0" max="32" step="0.1" value="0" disabled>
+    <output id="clock" for="time">0.0秒 / 32.0秒</output>
+  </div>
+  <div class="row jumps" role="group" aria-label="場面へ移る">
+    <button type="button" data-jump="0" disabled>0秒</button>
+    <button type="button" data-jump="4" disabled>4秒</button>
+    <button type="button" data-jump="9" disabled>9秒</button>
+    <button type="button" data-jump="14" disabled>14秒</button>
+    <button type="button" data-jump="20" disabled>20秒</button>
+    <button type="button" data-jump="25" disabled>25秒</button>
+    <button type="button" data-jump="29" disabled>29秒</button>
+  </div>
+  <div class="row" role="group" aria-label="画面の向き">
+    <button type="button" data-orient="portrait" aria-pressed="true" disabled>縦 720×1280</button>
+    <button type="button" data-orient="wide" aria-pressed="false" disabled>横 1280×720</button>
+  </div>
 </section>
-<p id="keys" class="hint">自動では再生しません。スライダーでは ← → で0.1秒、PageUp・PageDown で2秒ずつ、Home・End で先頭・末尾へ移ります。</p>
-<p id="status" class="status" role="status" data-state="loading">実入力・出力と画面を読み込んでいます…</p>
-<p id="detail" class="hint"></p>
-<p><button id="reload" class="reload" type="button" hidden>再読み込み</button></p>
+<p id="asset-status" class="status" role="status" data-state="loading">素材 0/26 を照合しています…</p>
+<p><button id="retry" class="retry" type="button" hidden>もう一度読み込む</button></p>
+<p class="hint">自動では再生しません。スライダーは ← → で0.1秒、Home・End で先頭・末尾へ移ります。</p>
 
 <section class="scenes" aria-labelledby="scenes-title">
   <h2 id="scenes-title">場面</h2>
   <ol>
-    <li><span class="time">0〜4秒</span> 入力：作例用の原稿を読み上げた合成音声（21.01秒・16kHz・モノラル）と、WAV から求めた0.1秒ごとの RMS。</li>
-    <li><span class="time">4〜8秒</span> 実際の原出力：保存済みの5区間の一覧と、工房名が原稿と違う文字になった id 0。</li>
-    <li><span class="time">8〜15.5秒</span> 原稿を参照して手で直す：id 0 の原出力・読み上げた原稿・直した字幕。編集前と後の実画面。</li>
-    <li><span class="time">15.5〜20秒</span> 直したのは3区間。5区間の時刻は推定値のまま。聞いての確認は未実施。</li>
-    <li><span class="time">20〜24秒</span> ブラウザーが保存した SRT の最初と最後の区間（実ファイルの抜粋）。</li>
-    <li><span class="time">24〜28秒</span> スマホ幅の初期画面と、試す順番「音声を開く → 文を直す → SRTで保存」。</li>
+    <li><span class="time">0〜4秒</span>声を、文と時刻へ：実WAVの波形が入り、Python・base重み・設定の枠へつながる。</li>
+    <li><span class="time">4〜9秒</span>音を、特徴にする：同じ波形の下から実際のlog-Mel色面が開く。</li>
+    <li><span class="time">9〜14秒</span>特徴から、文と推定時刻へ：色面がencoderへ入り、decoderのtokenが5枚の区間へ開く（構造の図）。</li>
+    <li><span class="time">14〜20秒</span>原出力には、誤りも残る：推定時刻の軸と、1番「塩リコーボー」0.00–4.12秒。</li>
+    <li><span class="time">20〜25秒</span>原稿と見比べ、文だけ手で直す：原稿の別経路と鉛筆が1・2・5番の文を替える。時刻は動かない。</li>
+    <li><span class="time">25〜29秒</span>時刻はそのまま、字幕に保存：同じ5枚がwriterの原出力SRTとデスクの修正例SRTへ。</li>
+    <li><span class="time">29〜32秒</span>仕組みを見て、字幕デスクへ：全体の経路で静止（入りは28.4〜28.9秒）。</li>
   </ol>
 </section>
 
 <nav class="links" aria-label="関連するファイル">
   <h2>関連するファイル</h2>
   <ul>
-    <li><a href="../index.html">作例のページを開く（音声の再生・文の編集・SRTの保存）</a></li>
-    <li><a href="../input/review-ja.wav">元の合成音声（input/review-ja.wav）</a></li>
-    <li><a href="../outputs/session.json">転記の記録（outputs/session.json）</a></li>
-    <li><a href="../outputs/browser-edited.srt">ブラウザーで保存したSRT（outputs/browser-edited.srt）</a></li>
-    <li><a href="assets/screen-manifest.json">実画面の記録（assets/screen-manifest.json）</a></li>
+    <li><a href="../index.html">作例のページ（図・5区間・実入力の再生・SRTの保存）</a></li>
+    <li><a href="../desk.html">字幕デスク（文を直してSRTを書き出す）</a></li>
+    <li><a href="../concept/manifest.json">照合する26件（concept/manifest.json）</a></li>
     <li><a href="storyboard.json">場面の設計（storyboard.json）</a></li>
     <li><a href="README.md">この映像の説明（README.md）</a></li>
+    <li><a href="../source.zip">入力・出力・ソース一式（source.zip）</a></li>
   </ul>
 </nav>
 
 <footer class="foot">
-  <p>このページを開いても、音声認識やAIは動きません。映像は保存済みのファイルだけから描いています。</p>
-  <p>映像のコードと文章：MIT License, Copyright (c) 2026 Studio Yebisu（制作：Claude Opus 5.5）。Whisper のコードと重み：MIT License, Copyright (c) 2022 OpenAI。</p>
+  <p>この映像は保存済みの記録だけから描いた図解です。モデルの内部の計測やページ上での音声認識ではありません。</p>
+  <p>映像のコードと文章：MIT License, Copyright (c) 2026 Studio Yebisu。Whisper のコードと重み：MIT License, Copyright (c) 2022 OpenAI。</p>
 </footer>
 
 <script type="module" src="video.js"></script>

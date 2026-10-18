@@ -1,6 +1,6 @@
 {
   "id": "whisper-example",
-  "verified_at": "2026-10-16T10:15:11.390303+00:00",
+  "verified_at": "2026-10-18T07:50:03.713222+00:00",
   "model": {
     "requested": "claude-opus-5-5",
     "reported": [
@@ -18,9 +18,16 @@
         "receipt_sha256": "62e0df7f4fc2935fdee231e1f3cbf54e034ff9431e78cc7fddc8e79c29de60bf",
         "execution_sha256": "24a35aa287fd590a50747d3a0d81a68f126a3f0d85c3f5862c3625f420d7c165",
         "prompt_sha256": "5b272227e4e6aef590b23413c4e9a33da16d6b96aab3d38481e0cdceb44c49c2"
+      },
+      {
+        "phase": "visual-r1",
+        "receipt_sha256": "14efad3b9979d0621fc523d7cf927a27a08ecbfcda3806650c38fc7e47a65ec3",
+        "execution_sha256": "ed0bfd2ff50b490b9a0a8ad4d8c5702ddd530b4c928864bc554250ee04f06db9",
+        "prompt_sha256": "8b56484085021aa073d7ab74cb75eed729d0f42caa6f09431af141c1741e7f2f"
       }
     ],
-    "receipt_published": false
+    "receipt_published": false,
+    "scope": "Original implementation, actualASR and oldfilm receipts retained. Exact newOpus5.5 authored8concept UI/silentfilm originals; parent factual input, realfeaturepreprocessing, contrast/error/editor fixes, article, legacyfilm links, rendering/QA/packaging separate. Full model history private."
   },
   "upstream": {
     "repository": "openai/whisper",
@@ -331,7 +338,306 @@
       "post_render_additions": "Only current root README, result/verification, movie section, ZIP and article/proof are added after rendering; film sources and data/screens are preserved."
     }
   },
-  "explanation": {
+  "video_review": {
+    "revision": "visual-r1",
+    "films": {
+      "portrait": {
+        "sha256": "c933fbb6efd6c1ee44269633175c138caab5643e38a67d1c412e3b2d8250faf6",
+        "bytes": 1085763,
+        "full_decode_passed": true
+      },
+      "wide": {
+        "sha256": "52cf24243f87b84ab199ad7f3b0160640aeff5eb77dfc40db066117a01bd0459",
+        "bytes": 967477,
+        "full_decode_passed": true
+      }
+    },
+    "frame_review": {
+      "reviewed_by": "production agent",
+      "human_approval": false,
+      "scope": "Portrait/wide contact sheets, fullsize representative/poster,12consecutive strips and decodedMP4 moving frames. Actual audio features connect to symbolic model structure; reference-based manual text edits are separate. Raised inactive-path contrast after phone review. No physicaliOS, listening or human aesthetic approval.",
+      "layouts": 2,
+      "representative_frames_per_layout": 16,
+      "consecutive_frames_per_layout": 12,
+      "actual_MP4_motion_frames_per_layout": 12,
+      "determinism": {
+        "portrait": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "52f6bcbd2bac50805b9a83c083f820a5341720649e6a3a6e065e6856d9649dd7",
+          "afterOtherTimes": "52f6bcbd2bac50805b9a83c083f820a5341720649e6a3a6e065e6856d9649dd7",
+          "freshPage": "52f6bcbd2bac50805b9a83c083f820a5341720649e6a3a6e065e6856d9649dd7",
+          "match": true
+        },
+        "wide": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "401192cff23a545b8bb002d6f3e9fc5bc7cb8b51ad85ff25f367367a53df0a74",
+          "afterOtherTimes": "401192cff23a545b8bb002d6f3e9fc5bc7cb8b51ad85ff25f367367a53df0a74",
+          "freshPage": "401192cff23a545b8bb002d6f3e9fc5bc7cb8b51ad85ff25f367367a53df0a74",
+          "match": true
+        }
+      },
+      "final30_and31_stable": true,
+      "audio_streams": 0
+    },
+    "native_movies_ended": 2,
+    "audio_streams": 0,
+    "human_approval": false,
+    "audio_listening_confirmed": false
+  },
+  "publication": {
+    "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=whisper-example",
+    "authorization": "User requested sequential publication of40cases toexistingmain andPages."
+  },
+  "artifacts_sha256": {
+    "data/cases/whisper-example.json": "b0daba2c62d207dcc774bae6e0d88a6b2b276c9c411a34fdcf3156c8517a59a7",
+    "examples/whisper-example/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
+    "examples/whisper-example/README.md": "adcda4357911dd3b7204ad5b8248bfeb2a0fdf1ffecb3224321813627b509b88",
+    "examples/whisper-example/app.js": "c1f41c93299db7f7ebe428d3e0a0fd170ea9d44ddf3da900200aa0de3bbaf962",
+    "examples/whisper-example/brief.json": "6895d777100c7188f5bf0c83c004ce2e37e16dbddbc5a0ad71ec2e9337961283",
+    "examples/whisper-example/concept/features.json": "69977f0af34a7aa85f644771111f94f10c5285e0909c84b6a3e6a3fc21f016d0",
+    "examples/whisper-example/concept/manifest.json": "faf7566d8b89263f22ebb65e7b80abd999f37ef20261e209377e4cf14b03788f",
+    "examples/whisper-example/concept/structure.json": "a045c02a1ab4830497228f34e1a9301217d58d96c5a437241543437e870732df",
+    "examples/whisper-example/derive-features.py": "9e268f7ce63986672a534d67bf7c413b08878b455926ce23aed889675e944df4",
+    "examples/whisper-example/desk.css": "5c6437a6f6c0912a64281f79710fb169a616461ef6c8b2460bc77e59cc4aeb4c",
+    "examples/whisper-example/desk.html": "6336f4d7e9fe084c3509b1fee7884def0fb9945c4c5219ac71aad1275124159f",
+    "examples/whisper-example/desk.js": "a2cb12f4e9b18dfa2886e1336db211148a2374b8f4a6fb85006e55d906fbfbf5",
+    "examples/whisper-example/index.html": "bec2eb111127a4d81941d32049912425df9bde71e0ecf3af2e4a6c42c9973196",
+    "examples/whisper-example/input/review-ja-source.wav": "46fb68642489a62ff2fbbce2b9a5263025e70655543054e6d3fde70bf1dd2c82",
+    "examples/whisper-example/input/review-ja.wav": "8b9fbf4aeba07b7f2887fd8b9f82e07ea9bc802a5e6907a355ec388e47df82c4",
+    "examples/whisper-example/input/script.json": "2ab9861f781ae0451d43e341cd7cb1104a65f8c891aa571622a659a0fb7e7fef",
+    "examples/whisper-example/make_input.ps1": "debdb9b2487f77358b71b473fa0e21166071fce4338d9e40fbcbca8cc8cbad4c",
+    "examples/whisper-example/outputs/browser-edited.srt": "976709c38a46dcc15f1d230729bdfb2a5390dd8a4fa3eeaf9cf4e93569e0716c",
+    "examples/whisper-example/outputs/browser-edited.txt": "39f50aa0649674efb8cbfe077449ef8f6f2289ff74ab43316be0a4c14e3a2d40",
+    "examples/whisper-example/outputs/browser-original.srt": "b82b9620667676c7008d0a0ece13422bfc792d0c0578df9458482e6f9b28d7ca",
+    "examples/whisper-example/outputs/browser-states.json": "0958fed3ad8e4bb73951ef64c7eef587e483adb6ca1667b6bac09f74b03553e7",
+    "examples/whisper-example/outputs/edit-record.json": "d236e2ed1d1f4ff62f647b9500018cff5e90d984bc7839a4e863a2e232a41c5c",
+    "examples/whisper-example/outputs/reference-review.json": "7338ec0dd65bc8c7c6d36a31a0d9bcea1f1f624657551db089acb0a46897178b",
+    "examples/whisper-example/outputs/result.md": "f11600d53d613c17f251986ee9e9a50a00f74d8301fed11001d4cd4906859ab9",
+    "examples/whisper-example/outputs/review-ja.json": "4b555120b7a369d46edebf3346d56d87aec211a6e0d39c859dac40097184d1c1",
+    "examples/whisper-example/outputs/review-ja.jsonl": "9cc82d6c3759d59626cd8910ad142641395993a68ab7f30ea888a20b05feddf8",
+    "examples/whisper-example/outputs/review-ja.srt": "a9d6ffb16a3d61d6e7b2700fc72f34d8bfbf49d40ddfc7befe3b06d4194ac2e1",
+    "examples/whisper-example/outputs/review-ja.tsv": "bf32c61396287cd884a37bda9d299afa7a097cca429a0c93c1bd7f049deb10f7",
+    "examples/whisper-example/outputs/review-ja.txt": "756613bdbfc0ebad2fa3d138fa60608afe125307816339fb5687eb92dbfa2567",
+    "examples/whisper-example/outputs/review-ja.vtt": "18941ed50f3bc09f988000ca4598cb91c1e3ed0c4b37e18d5d880b81159f8049",
+    "examples/whisper-example/outputs/session.json": "4cf1dc6fef3956147acad65b2c7937d9959a85af18ee245d4a9096cbea61cbc3",
+    "examples/whisper-example/render-visual.py": "1fc7fbc1c8e4028c45adde1a831b2c26ce1c7c2190cc34f4223a79300cb635c5",
+    "examples/whisper-example/render.py": "3147ad237955e2bae90106ab588b23c17418848335258483fee388e08da01930",
+    "examples/whisper-example/request.txt": "4a24bc1227f122514638a1c158a46fc2de043d4f7d09807ae9ebd1881fac3405",
+    "examples/whisper-example/requirements.txt": "63d2ccd6bce563b3b9a22a53b036f703905e04cceed7efec72c15eb37e7ac499",
+    "examples/whisper-example/run_transcribe.py": "4af431814f1bd795ee32df8d30e174bb9a2e6ee49c705211666104781a322995",
+    "examples/whisper-example/samples.json": "82fc6aff87878100aef4e168febe5f734dacbcea00f121fe5a4835ed1fcb468a",
+    "examples/whisper-example/source.zip": "581d4ff53c3979b833085b7154816c4464c2595407d3b05264a69978a24dc98d",
+    "examples/whisper-example/style.css": "3d2b9f95dc76558c9962105e70d3bd6fe38a77b0333e0268b2562c6950a6d746",
+    "examples/whisper-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/whisper-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/whisper-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/whisper-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/whisper-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "examples/whisper-example/vendor/whisper/LICENSE": "b5d65a59060e68c4ff940e1eddfa6f94b2d68fdf58ed7f4dd57721c997e35e9d",
+    "examples/whisper-example/vendor/whisper/README.md": "38c180c2a8d8ba628a3e131ad42bf06c8a51bb681efb30fbe28d5a0f4b65f288",
+    "examples/whisper-example/vendor/whisper/cpu-device.patch": "ed5d065aeb0fdd248c0fe36741946af728189d8c0b3706d5057756f336f69e8d",
+    "examples/whisper-example/vendor/whisper/model-card.md": "3c2dc15e0c4bf2f1067db8530b1ecd6675abb431c4bc09fad3bc4453434f3333",
+    "examples/whisper-example/vendor/whisper/pyproject.toml": "9c8111da3701070095304ea5e12b6301eddcca3bb65e491a982b102d6042b1c4",
+    "examples/whisper-example/vendor/whisper/whisper/__init__.py": "79ecbed714783b6230931a3dba6d5da6d386e2d44f9fc27256e4fc72751e1f62",
+    "examples/whisper-example/vendor/whisper/whisper/audio.py": "36ed287b2de3eaf40207cd2a44a8d45d57ea5c212a39df07401d4fcb4d5a5a1a",
+    "examples/whisper-example/vendor/whisper/whisper/decoding.py": "94084fedc5af74cabf8e1883a85552700057081f00ea669ad49435ecb29039db",
+    "examples/whisper-example/vendor/whisper/whisper/model.py": "f82b0f40e29076506f1e34607a8008782f0586750a8e8bd6d8e1cee5c41b9329",
+    "examples/whisper-example/vendor/whisper/whisper/transcribe.py": "176f5ab30e961bec2a7872f5701a1f5bf3cbfc77946e50512f0f0cf00a1ceacf",
+    "examples/whisper-example/vendor/whisper/whisper/utils.py": "f46aa555363ab42a455cd7c7f8c108dc2f69c5a94c6354c73ae96d671d9b1c37",
+    "examples/whisper-example/verification.json": "c28cab388799a281b3b2ff744d24ea01e8df0591e79ec5228a4140bce7663a4d",
+    "examples/whisper-example/video/README.md": "a7857057d99fdb3b69ecdb33175e1fc2dce501f2f05b38b1bd82a670f39833b6",
+    "examples/whisper-example/video/assets/desktop-edited-first.png": "3c27e243fd4ec2e074ce57205bfb430db8269eaf771014d86b3e8aa122246a07",
+    "examples/whisper-example/video/assets/desktop-edited-last.png": "41080772ef774af426dbb59b56490b922c9b103c0c02a498c06b7851461f8f1c",
+    "examples/whisper-example/video/assets/desktop-raw.png": "90b4d76631004a75adc246515ea1bc4e0524cededf593d6b64d794fa1bf6a985",
+    "examples/whisper-example/video/assets/phone-raw.png": "6f85e9f551cebd1e959332afe4120b31fec9bc52d192724f6ccefe43b17980d8",
+    "examples/whisper-example/video/assets/screen-manifest.json": "b543611de5bf83b199bdfccbdd531d5d252fe39d891023992f1127f6a160e558",
+    "examples/whisper-example/video/assets/waveform.json": "5dbe1cd9842a6b575557597a08c1f03fdd6d4ef7812678c5d1877e5ac6f833cb",
+    "examples/whisper-example/video/index.html": "2af15f1bc69c465c43b0bd6711f3d10e8c8951b835aca75cff38bd0710cc4f98",
+    "examples/whisper-example/video/review/contact.png": "bb23dfe8b84df41aa5fff472cd325bfcd198dba56ab58fd43a8b0c14d728ce0f",
+    "examples/whisper-example/video/review/cut-01.png": "2e601a4d41eb2d48421d0ef82e4526787bc3a8ae2f06a76ee2c39ef3ab83ffe2",
+    "examples/whisper-example/video/review/cut-02.png": "d4f72626e0db08fbce117eb84a9e3fbb5b185adfd18fa53df18b6f26ed8ee3d0",
+    "examples/whisper-example/video/review/cut-03.png": "81ff32d4288546a8d3cf716fb83091e1461b248ab6f3814640429822ca53c9c4",
+    "examples/whisper-example/video/review/cut-04.png": "651f56638607da9159ff7aab37e3e0d6a8deeaebfb517bb4fa058cfb8358f030",
+    "examples/whisper-example/video/review/cut-05.png": "bd025e634cecf34fdcaac97fd8f85a7bf2e45b8f4b139c98b76c8ef111ee6866",
+    "examples/whisper-example/video/review/final.png": "fac6d8339b5cc0417cc4ecbcbca911fd96fbe19364a13814265f1d431cdad01f",
+    "examples/whisper-example/video/review/poster.png": "58196632b14f9bae1d4e65da5803653bc698413d18855ec0f1fcd976529eb7ae",
+    "examples/whisper-example/video/review/stills/frame-000000.png": "b7638b918c040ef9e04f6cfc4b2fc2eee4fe3b7a8c7294cf13ab07686d2853a5",
+    "examples/whisper-example/video/review/stills/frame-000001.png": "2a213b6afb9654058a1500e0bdff7549b416ba94b2d2ed64728ef2ac87ce6c8e",
+    "examples/whisper-example/video/review/stills/frame-000002.png": "0db1e8f1834eb2cba6ebf37d7b9997bbbd7a039f22595279970467803fa70071",
+    "examples/whisper-example/video/review/stills/frame-000003.png": "9b5d9b5c987ee25c72bcd834aab27353d366397a82802cc28a043a752283ea9e",
+    "examples/whisper-example/video/review/stills/frame-000004.png": "36d43874ba19bee3c8fcdfcc287a158b1c3bdd75f2af289a50b082562bb88721",
+    "examples/whisper-example/video/review/stills/frame-000005.png": "89891da8ae1020fecfeb8863547e2a4c705d239b77165b438bf76b81721cecf4",
+    "examples/whisper-example/video/review/stills/frame-000006.png": "58196632b14f9bae1d4e65da5803653bc698413d18855ec0f1fcd976529eb7ae",
+    "examples/whisper-example/video/review/stills/frame-000007.png": "58196632b14f9bae1d4e65da5803653bc698413d18855ec0f1fcd976529eb7ae",
+    "examples/whisper-example/video/review/stills/frame-000008.png": "be7440364c4bc41efcfd8618a457d473bca304b7bd89e3e33ec466c8c8ca91fd",
+    "examples/whisper-example/video/review/stills/frame-000009.png": "78326803be45dc5af6bac53fd7456d67caf4ede73747655ab2b168230aecc090",
+    "examples/whisper-example/video/review/stills/frame-000010.png": "b769c2d085b0f9e6652afb1497ced0ad25eec78f9ff01362c330400e75040a22",
+    "examples/whisper-example/video/review/stills/frame-000011.png": "342b6cc9f8dbae52c3eaa442d78279e77c0b2ab5bc4c8aa3b13c5130b3f2c4c3",
+    "examples/whisper-example/video/review/stills/frame-000012.png": "fdcd8e5e7417aa6158e74265dc1ef19910848144df747b715d2fb50f8390a334",
+    "examples/whisper-example/video/review/stills/frame-000013.png": "760e3e38d4c89fdb030b9ef03236726a40fd6260b67a4284a94fc43e3f4190af",
+    "examples/whisper-example/video/review/strip.png": "87406ed80d3ab1ea71f1b3d9ebdd5e8fd2eacb85e7734cead2375343ffb3e20e",
+    "examples/whisper-example/video/review/visual-r1/portrait/capture.json": "1973b03cfac00f58088a9a2c8afbae98edea8239ea6ad83ad2299f1a75b32b1d",
+    "examples/whisper-example/video/review/visual-r1/portrait/contact.png": "a0ddfdd92dd1e54bb5e78234e193d6331b7fad6097fe49d66cc443e1ff0e85d2",
+    "examples/whisper-example/video/review/visual-r1/portrait/mp4-moving-strip.png": "de91b6464dd1fe5fccf89e99d494e47124af3fc987dc157511942f8220dc4a5e",
+    "examples/whisper-example/video/review/visual-r1/portrait/poster.png": "42a81bd108494a0dd88d11e755d4d42a6b8e00d92ea3d5e996efdfc0905a7e86",
+    "examples/whisper-example/video/review/visual-r1/portrait/stills/frame-000000.png": "b75b0e981149d32b9d9b0f956990142ce3f2824f11ef47b6e8e87a61aaf6d221",
+    "examples/whisper-example/video/review/visual-r1/portrait/stills/frame-000001.png": "81868f400572e1ca95ff7c20fa9d724f308e8b626d22c9182f9d9d6437a61160",
+    "examples/whisper-example/video/review/visual-r1/portrait/stills/frame-000002.png": "1d7e194fd706a7a06db5d968a21707094d0a1540e41a11fa23ac5b1c90d3498d",
+    "examples/whisper-example/video/review/visual-r1/portrait/stills/frame-000003.png": "a53fd68f4c561d8bb505a471cebf3816f1c208a18b81079b773dbb0bef42a77f",
+    "examples/whisper-example/video/review/visual-r1/portrait/stills/frame-000004.png": "d177025f4e648bf88864c1eca305613e8363d5fec9e7ad4f239d6088e07c4fe9",
+    "examples/whisper-example/video/review/visual-r1/portrait/stills/frame-000005.png": "10cf841e4454ea5299ed40cc5a1dd81bd6a32ce62dbb1ff8a5c4355dd99fdcf4",
+    "examples/whisper-example/video/review/visual-r1/portrait/stills/frame-000006.png": "dd07af59df6644d234d1adc78bf1b1a1f904386709f0771584139924317dc198",
+    "examples/whisper-example/video/review/visual-r1/portrait/stills/frame-000007.png": "3e0a83b717d66ee5317236fa669eaa8134b61e438993d72a6d51161e9e7ce281",
+    "examples/whisper-example/video/review/visual-r1/portrait/stills/frame-000008.png": "52f6bcbd2bac50805b9a83c083f820a5341720649e6a3a6e065e6856d9649dd7",
+    "examples/whisper-example/video/review/visual-r1/portrait/stills/frame-000009.png": "52f6bcbd2bac50805b9a83c083f820a5341720649e6a3a6e065e6856d9649dd7",
+    "examples/whisper-example/video/review/visual-r1/portrait/stills/frame-000010.png": "8d7bba181e0b488de917476df2296860f375b2d81afaa2bfe15f8173cf01cd48",
+    "examples/whisper-example/video/review/visual-r1/portrait/stills/frame-000011.png": "d8b3774551b548f1e6d9c38d9e0c24c7ce3bc0ac55a85d7e27f42cd338839ced",
+    "examples/whisper-example/video/review/visual-r1/portrait/stills/frame-000012.png": "ac3ba365a899a543595d2d867ad13e8060b803c70b36b4bfc426c67966f2802a",
+    "examples/whisper-example/video/review/visual-r1/portrait/stills/frame-000013.png": "bb91dfe87a7756c5ca9cdfb23ad61b36e3f1a21dce8704752ec1278a856c7079",
+    "examples/whisper-example/video/review/visual-r1/portrait/stills/frame-000014.png": "7fd8505deec12257b77ab7cb9209f446ec4cabe8617016d2c129ffd84f6345d9",
+    "examples/whisper-example/video/review/visual-r1/portrait/stills/frame-000015.png": "42a81bd108494a0dd88d11e755d4d42a6b8e00d92ea3d5e996efdfc0905a7e86",
+    "examples/whisper-example/video/review/visual-r1/portrait/strip.png": "7eccaba50b47aab049218e118972722a5e17d47cc4b20851e89d69b875535f4a",
+    "examples/whisper-example/video/review/visual-r1/portrait/strip/frame-000000.png": "0e764c6a1a2c919569662615619390f8f20420931c986aa841c1eea146aac148",
+    "examples/whisper-example/video/review/visual-r1/portrait/strip/frame-000001.png": "889f9fb9665ec41f281c6e061e4d78b70760b10e6b4cb2d4b349c94080668197",
+    "examples/whisper-example/video/review/visual-r1/portrait/strip/frame-000002.png": "c08a40197423daf27b9ecce139624f44654930e96e3e0de14fa424cc14ba41cf",
+    "examples/whisper-example/video/review/visual-r1/portrait/strip/frame-000003.png": "c6a6f623c2596cf94c29f46c593b1b88fd0f64e6855591158b7dfd5fc157f676",
+    "examples/whisper-example/video/review/visual-r1/portrait/strip/frame-000004.png": "7a9987ede7a2792c6dd68c6c0609d4aa8e8fd4ab0a66b9d2b3f770c8136def96",
+    "examples/whisper-example/video/review/visual-r1/portrait/strip/frame-000005.png": "761a7d2e8f010dae4d05d913d143ad83665b463a74b69a676b0af9ee0a323215",
+    "examples/whisper-example/video/review/visual-r1/portrait/strip/frame-000006.png": "606055c951a383e0f5dea9563dddc2ee962e2d75c38eb4ec1b441270932b8723",
+    "examples/whisper-example/video/review/visual-r1/portrait/strip/frame-000007.png": "3cc100e316dd10f212dac666a16f9b5361fc10ecfcce0d5b7bd1f569a007fb92",
+    "examples/whisper-example/video/review/visual-r1/portrait/strip/frame-000008.png": "19e04480f0c9579d8612ac9b83ecbc8b1d56ea851ceaf95561bc8c92f6c6837c",
+    "examples/whisper-example/video/review/visual-r1/portrait/strip/frame-000009.png": "a12a1f6a0c5ebcd1a254178b225e59dab27d1e0c0fe8cc0fa45cb7e7925f7c57",
+    "examples/whisper-example/video/review/visual-r1/portrait/strip/frame-000010.png": "c949914d16dee9cca1e5c94379ccbd0eb2f3f9c878c0e7177099f6ad9b43ba3e",
+    "examples/whisper-example/video/review/visual-r1/portrait/strip/frame-000011.png": "7e69862b429cfba252b39e595bac06daf990d000faa29d9c4d5b4f763a62c3b0",
+    "examples/whisper-example/video/review/visual-r1/wide/capture.json": "a56c959ce9533dd524cdedd614ec4750ddcc8a4e3186143935cee197d2123ffb",
+    "examples/whisper-example/video/review/visual-r1/wide/contact.png": "246ce4828024ba71589ff809e34c546e05a9adb45bf4660d59cb12cb58f2a0cd",
+    "examples/whisper-example/video/review/visual-r1/wide/mp4-moving-strip.png": "b6a86a119ba0651688e4a83062dc8dd4eace5807e2a30c8f3781ba6f8f519b69",
+    "examples/whisper-example/video/review/visual-r1/wide/poster.png": "69d8fe1bbdbfc2baa0046c6fd439b18c5311d3114bb2562512fabe03044c8047",
+    "examples/whisper-example/video/review/visual-r1/wide/stills/frame-000000.png": "6c5d5a0132681874c95d87cef714e45dc0ea8b3c04ec0e9cf4e7127b47bd10d8",
+    "examples/whisper-example/video/review/visual-r1/wide/stills/frame-000001.png": "302596bb057bc28e2ee78d3c7ac63918a19080312f1b0cb0b9679ef18ef91a03",
+    "examples/whisper-example/video/review/visual-r1/wide/stills/frame-000002.png": "5f923d0b2128597c112076a4706a9c8b2ebca336fae9fb94b4501401b17e9151",
+    "examples/whisper-example/video/review/visual-r1/wide/stills/frame-000003.png": "5aa7ed1dbb51a78bf6049b9d0a2baaf4871b8cb0b70433e73906d19663af21f4",
+    "examples/whisper-example/video/review/visual-r1/wide/stills/frame-000004.png": "54bc36b356a3a60fa0affd804d7b1bc53f28ee197aec3385f22eec1c98e77462",
+    "examples/whisper-example/video/review/visual-r1/wide/stills/frame-000005.png": "5a473d6a2e78f615e77fba693c389699ade991dbda1927cd94e7f420bae3c516",
+    "examples/whisper-example/video/review/visual-r1/wide/stills/frame-000006.png": "4fcb3175f4113a5e0bccc2a74d49537e48b31ba973d5264e801c9528eed539d1",
+    "examples/whisper-example/video/review/visual-r1/wide/stills/frame-000007.png": "d18c6fe38def2fe8c578b489c2b5f6fc6a183fce256359497a24fb479021cd16",
+    "examples/whisper-example/video/review/visual-r1/wide/stills/frame-000008.png": "401192cff23a545b8bb002d6f3e9fc5bc7cb8b51ad85ff25f367367a53df0a74",
+    "examples/whisper-example/video/review/visual-r1/wide/stills/frame-000009.png": "401192cff23a545b8bb002d6f3e9fc5bc7cb8b51ad85ff25f367367a53df0a74",
+    "examples/whisper-example/video/review/visual-r1/wide/stills/frame-000010.png": "00c23e8fbef60670789fbbf4bca000ef0dd46f5aa5bdfe3cb40c8908d20754aa",
+    "examples/whisper-example/video/review/visual-r1/wide/stills/frame-000011.png": "2f191c1222916f3c50b097be83d7a33f65afe666dff4da4819a64918b6c1c5e5",
+    "examples/whisper-example/video/review/visual-r1/wide/stills/frame-000012.png": "411669f940aef4e9f5c250eeb7aeffd4a6716c64aa3651d18b5542f1e1da1ca2",
+    "examples/whisper-example/video/review/visual-r1/wide/stills/frame-000013.png": "b43e3178369bedb4c0bc8cf2391042195288f6a4adc6071169d2427f4681ea80",
+    "examples/whisper-example/video/review/visual-r1/wide/stills/frame-000014.png": "64a03a6a73c45d77600fbe05da3094821120db47893a249805b4928bcc04daaa",
+    "examples/whisper-example/video/review/visual-r1/wide/stills/frame-000015.png": "69d8fe1bbdbfc2baa0046c6fd439b18c5311d3114bb2562512fabe03044c8047",
+    "examples/whisper-example/video/review/visual-r1/wide/strip.png": "d66567fe5638b8d1c12308983fb486b249c15b1cb036923e87fe7fde1be79977",
+    "examples/whisper-example/video/review/visual-r1/wide/strip/frame-000000.png": "51e30aad199c23c144210a5bf9a469e2fbf0bacb5702dc97a530d7c0eb5ac4f1",
+    "examples/whisper-example/video/review/visual-r1/wide/strip/frame-000001.png": "cc853ef76f59403df9c7b66946d9d8eca22c979721855b5e6c56558fbc7c9b85",
+    "examples/whisper-example/video/review/visual-r1/wide/strip/frame-000002.png": "90655bb5b6fc80f4a2c4ee81388cc299b7e10dbee221c95641d17713f497cfb6",
+    "examples/whisper-example/video/review/visual-r1/wide/strip/frame-000003.png": "ee7a6fad1f2052871de8feb8aba6dfba2e05638807db5e30b4a0bf5b9a917151",
+    "examples/whisper-example/video/review/visual-r1/wide/strip/frame-000004.png": "32cb5523f96dff9b1111bf12bf8902a44618b513cd4b7e96b3c46f1deb889ea4",
+    "examples/whisper-example/video/review/visual-r1/wide/strip/frame-000005.png": "3857d325f9ead3893ab2a8562da072eb2463ac6e2a5735396080ad617580bd81",
+    "examples/whisper-example/video/review/visual-r1/wide/strip/frame-000006.png": "6415117659a2853246c1c2d72f5b7175701172a824f9409927f2f138c54e5b65",
+    "examples/whisper-example/video/review/visual-r1/wide/strip/frame-000007.png": "259c91f61523829a1218b36a2e0ffccd6d8b3fa679c54de3ec3017fb94f133f0",
+    "examples/whisper-example/video/review/visual-r1/wide/strip/frame-000008.png": "7424b1ab6a8432b80b08f21710df712062cf3b94c275e24fba97b46ae315d6b2",
+    "examples/whisper-example/video/review/visual-r1/wide/strip/frame-000009.png": "4544ae26e390e415eb54c6391495d4e5fabec5fc63d73a0cd9bee9346598155f",
+    "examples/whisper-example/video/review/visual-r1/wide/strip/frame-000010.png": "f516f88ad72193f42e1795b12185e0030fd5a7760a8a2ccf053e8a3376c81485",
+    "examples/whisper-example/video/review/visual-r1/wide/strip/frame-000011.png": "51d49a50d253149a24eb0005db0da133ae643cb562afb043f39b9f0c65fb7b96",
+    "examples/whisper-example/video/storyboard.json": "1af5e70f815858bfd16944d8bab1b4def194a64de1ef8e32e2791d461310f954",
+    "examples/whisper-example/video/video.css": "154eac850b57498a8601b6e220806c2bdb59f9d975d6fb244ede32dab0b9d74a",
+    "examples/whisper-example/video/video.js": "0978d92c879c46013d2a77b51f40de78168f385126817c074c097906e39e309e",
+    "examples/whisper-example/visual-guide.md": "582954b302a7d578cfbecda81ec1fdb00da6678d2a75595bf63a400ce87f5f85",
+    "examples/whisper-example/visual-verification.json": "a6afdc7e0ef0ee6e9e4c23699b3c61a671c3481309e2c48eafc85e837fb21b18",
+    "media/whisper-example-wide.mp4": "52cf24243f87b84ab199ad7f3b0160640aeff5eb77dfc40db066117a01bd0459",
+    "media/whisper-example.mp4": "c933fbb6efd6c1ee44269633175c138caab5643e38a67d1c412e3b2d8250faf6",
+    "media/whisper-example.webp": "e3043d8bf1367d53acfeb85451dc9b292bc812d53dfb21b4eb3c0e849ef091f0"
+  },
+  "original_publication_artifacts_sha256": {
+    "data/cases/whisper-example.json": "e68abd17418f4b84618708a47e0f733bdffc2cc9ea8a114f91543b0ab09fca3f",
+    "examples/whisper-example/app.js": "a2cb12f4e9b18dfa2886e1336db211148a2374b8f4a6fb85006e55d906fbfbf5",
+    "examples/whisper-example/brief.json": "6895d777100c7188f5bf0c83c004ce2e37e16dbddbc5a0ad71ec2e9337961283",
+    "examples/whisper-example/index.html": "bd6bc96625d649333e7eaf64709e4c836622cfbd0775f5e8d953921967dc3c50",
+    "examples/whisper-example/input/review-ja-source.wav": "46fb68642489a62ff2fbbce2b9a5263025e70655543054e6d3fde70bf1dd2c82",
+    "examples/whisper-example/input/review-ja.wav": "8b9fbf4aeba07b7f2887fd8b9f82e07ea9bc802a5e6907a355ec388e47df82c4",
+    "examples/whisper-example/input/script.json": "2ab9861f781ae0451d43e341cd7cb1104a65f8c891aa571622a659a0fb7e7fef",
+    "examples/whisper-example/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
+    "examples/whisper-example/make_input.ps1": "debdb9b2487f77358b71b473fa0e21166071fce4338d9e40fbcbca8cc8cbad4c",
+    "examples/whisper-example/outputs/browser-edited.srt": "976709c38a46dcc15f1d230729bdfb2a5390dd8a4fa3eeaf9cf4e93569e0716c",
+    "examples/whisper-example/outputs/browser-edited.txt": "39f50aa0649674efb8cbfe077449ef8f6f2289ff74ab43316be0a4c14e3a2d40",
+    "examples/whisper-example/outputs/browser-original.srt": "b82b9620667676c7008d0a0ece13422bfc792d0c0578df9458482e6f9b28d7ca",
+    "examples/whisper-example/outputs/browser-states.json": "0958fed3ad8e4bb73951ef64c7eef587e483adb6ca1667b6bac09f74b03553e7",
+    "examples/whisper-example/outputs/edit-record.json": "d236e2ed1d1f4ff62f647b9500018cff5e90d984bc7839a4e863a2e232a41c5c",
+    "examples/whisper-example/outputs/reference-review.json": "7338ec0dd65bc8c7c6d36a31a0d9bcea1f1f624657551db089acb0a46897178b",
+    "examples/whisper-example/outputs/result.md": "f11600d53d613c17f251986ee9e9a50a00f74d8301fed11001d4cd4906859ab9",
+    "examples/whisper-example/outputs/review-ja.json": "4b555120b7a369d46edebf3346d56d87aec211a6e0d39c859dac40097184d1c1",
+    "examples/whisper-example/outputs/review-ja.jsonl": "9cc82d6c3759d59626cd8910ad142641395993a68ab7f30ea888a20b05feddf8",
+    "examples/whisper-example/outputs/review-ja.srt": "a9d6ffb16a3d61d6e7b2700fc72f34d8bfbf49d40ddfc7befe3b06d4194ac2e1",
+    "examples/whisper-example/outputs/review-ja.tsv": "bf32c61396287cd884a37bda9d299afa7a097cca429a0c93c1bd7f049deb10f7",
+    "examples/whisper-example/outputs/review-ja.txt": "756613bdbfc0ebad2fa3d138fa60608afe125307816339fb5687eb92dbfa2567",
+    "examples/whisper-example/outputs/review-ja.vtt": "18941ed50f3bc09f988000ca4598cb91c1e3ed0c4b37e18d5d880b81159f8049",
+    "examples/whisper-example/outputs/session.json": "4cf1dc6fef3956147acad65b2c7937d9959a85af18ee245d4a9096cbea61cbc3",
+    "examples/whisper-example/README.md": "adcda4357911dd3b7204ad5b8248bfeb2a0fdf1ffecb3224321813627b509b88",
+    "examples/whisper-example/render.py": "3147ad237955e2bae90106ab588b23c17418848335258483fee388e08da01930",
+    "examples/whisper-example/request.txt": "4a24bc1227f122514638a1c158a46fc2de043d4f7d09807ae9ebd1881fac3405",
+    "examples/whisper-example/requirements.txt": "63d2ccd6bce563b3b9a22a53b036f703905e04cceed7efec72c15eb37e7ac499",
+    "examples/whisper-example/run_transcribe.py": "4af431814f1bd795ee32df8d30e174bb9a2e6ee49c705211666104781a322995",
+    "examples/whisper-example/samples.json": "82fc6aff87878100aef4e168febe5f734dacbcea00f121fe5a4835ed1fcb468a",
+    "examples/whisper-example/source.zip": "ea81b4d8e79d3f7acdacce649b21831faeb0eaba33c0baad7b30b85ede3e6902",
+    "examples/whisper-example/style.css": "5c6437a6f6c0912a64281f79710fb169a616461ef6c8b2460bc77e59cc4aeb4c",
+    "examples/whisper-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/whisper-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/whisper-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/whisper-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/whisper-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "examples/whisper-example/vendor/whisper/cpu-device.patch": "ed5d065aeb0fdd248c0fe36741946af728189d8c0b3706d5057756f336f69e8d",
+    "examples/whisper-example/vendor/whisper/LICENSE": "b5d65a59060e68c4ff940e1eddfa6f94b2d68fdf58ed7f4dd57721c997e35e9d",
+    "examples/whisper-example/vendor/whisper/model-card.md": "3c2dc15e0c4bf2f1067db8530b1ecd6675abb431c4bc09fad3bc4453434f3333",
+    "examples/whisper-example/vendor/whisper/pyproject.toml": "9c8111da3701070095304ea5e12b6301eddcca3bb65e491a982b102d6042b1c4",
+    "examples/whisper-example/vendor/whisper/README.md": "38c180c2a8d8ba628a3e131ad42bf06c8a51bb681efb30fbe28d5a0f4b65f288",
+    "examples/whisper-example/vendor/whisper/whisper/__init__.py": "79ecbed714783b6230931a3dba6d5da6d386e2d44f9fc27256e4fc72751e1f62",
+    "examples/whisper-example/vendor/whisper/whisper/audio.py": "36ed287b2de3eaf40207cd2a44a8d45d57ea5c212a39df07401d4fcb4d5a5a1a",
+    "examples/whisper-example/vendor/whisper/whisper/transcribe.py": "176f5ab30e961bec2a7872f5701a1f5bf3cbfc77946e50512f0f0cf00a1ceacf",
+    "examples/whisper-example/vendor/whisper/whisper/utils.py": "f46aa555363ab42a455cd7c7f8c108dc2f69c5a94c6354c73ae96d671d9b1c37",
+    "examples/whisper-example/verification.json": "c28cab388799a281b3b2ff744d24ea01e8df0591e79ec5228a4140bce7663a4d",
+    "examples/whisper-example/video/assets/desktop-edited-first.png": "3c27e243fd4ec2e074ce57205bfb430db8269eaf771014d86b3e8aa122246a07",
+    "examples/whisper-example/video/assets/desktop-edited-last.png": "41080772ef774af426dbb59b56490b922c9b103c0c02a498c06b7851461f8f1c",
+    "examples/whisper-example/video/assets/desktop-raw.png": "90b4d76631004a75adc246515ea1bc4e0524cededf593d6b64d794fa1bf6a985",
+    "examples/whisper-example/video/assets/phone-raw.png": "6f85e9f551cebd1e959332afe4120b31fec9bc52d192724f6ccefe43b17980d8",
+    "examples/whisper-example/video/assets/screen-manifest.json": "b543611de5bf83b199bdfccbdd531d5d252fe39d891023992f1127f6a160e558",
+    "examples/whisper-example/video/assets/waveform.json": "5dbe1cd9842a6b575557597a08c1f03fdd6d4ef7812678c5d1877e5ac6f833cb",
+    "examples/whisper-example/video/index.html": "8ca70425cff0cc29da99c3b0b12e55785faf67135a51cf4aca26594b8f7d4e73",
+    "examples/whisper-example/video/README.md": "6cccbd36ee23412e273ece22709f81a8de95de0257b208ec7eac4112f90e4f08",
+    "examples/whisper-example/video/review/contact.png": "bb23dfe8b84df41aa5fff472cd325bfcd198dba56ab58fd43a8b0c14d728ce0f",
+    "examples/whisper-example/video/review/cut-01.png": "2e601a4d41eb2d48421d0ef82e4526787bc3a8ae2f06a76ee2c39ef3ab83ffe2",
+    "examples/whisper-example/video/review/cut-02.png": "d4f72626e0db08fbce117eb84a9e3fbb5b185adfd18fa53df18b6f26ed8ee3d0",
+    "examples/whisper-example/video/review/cut-03.png": "81ff32d4288546a8d3cf716fb83091e1461b248ab6f3814640429822ca53c9c4",
+    "examples/whisper-example/video/review/cut-04.png": "651f56638607da9159ff7aab37e3e0d6a8deeaebfb517bb4fa058cfb8358f030",
+    "examples/whisper-example/video/review/cut-05.png": "bd025e634cecf34fdcaac97fd8f85a7bf2e45b8f4b139c98b76c8ef111ee6866",
+    "examples/whisper-example/video/review/final.png": "fac6d8339b5cc0417cc4ecbcbca911fd96fbe19364a13814265f1d431cdad01f",
+    "examples/whisper-example/video/review/poster.png": "58196632b14f9bae1d4e65da5803653bc698413d18855ec0f1fcd976529eb7ae",
+    "examples/whisper-example/video/review/stills/frame-000000.png": "b7638b918c040ef9e04f6cfc4b2fc2eee4fe3b7a8c7294cf13ab07686d2853a5",
+    "examples/whisper-example/video/review/stills/frame-000001.png": "2a213b6afb9654058a1500e0bdff7549b416ba94b2d2ed64728ef2ac87ce6c8e",
+    "examples/whisper-example/video/review/stills/frame-000002.png": "0db1e8f1834eb2cba6ebf37d7b9997bbbd7a039f22595279970467803fa70071",
+    "examples/whisper-example/video/review/stills/frame-000003.png": "9b5d9b5c987ee25c72bcd834aab27353d366397a82802cc28a043a752283ea9e",
+    "examples/whisper-example/video/review/stills/frame-000004.png": "36d43874ba19bee3c8fcdfcc287a158b1c3bdd75f2af289a50b082562bb88721",
+    "examples/whisper-example/video/review/stills/frame-000005.png": "89891da8ae1020fecfeb8863547e2a4c705d239b77165b438bf76b81721cecf4",
+    "examples/whisper-example/video/review/stills/frame-000006.png": "58196632b14f9bae1d4e65da5803653bc698413d18855ec0f1fcd976529eb7ae",
+    "examples/whisper-example/video/review/stills/frame-000007.png": "58196632b14f9bae1d4e65da5803653bc698413d18855ec0f1fcd976529eb7ae",
+    "examples/whisper-example/video/review/stills/frame-000008.png": "be7440364c4bc41efcfd8618a457d473bca304b7bd89e3e33ec466c8c8ca91fd",
+    "examples/whisper-example/video/review/stills/frame-000009.png": "78326803be45dc5af6bac53fd7456d67caf4ede73747655ab2b168230aecc090",
+    "examples/whisper-example/video/review/stills/frame-000010.png": "b769c2d085b0f9e6652afb1497ced0ad25eec78f9ff01362c330400e75040a22",
+    "examples/whisper-example/video/review/stills/frame-000011.png": "342b6cc9f8dbae52c3eaa442d78279e77c0b2ab5bc4c8aa3b13c5130b3f2c4c3",
+    "examples/whisper-example/video/review/stills/frame-000012.png": "fdcd8e5e7417aa6158e74265dc1ef19910848144df747b715d2fb50f8390a334",
+    "examples/whisper-example/video/review/stills/frame-000013.png": "760e3e38d4c89fdb030b9ef03236726a40fd6260b67a4284a94fc43e3f4190af",
+    "examples/whisper-example/video/review/strip.png": "87406ed80d3ab1ea71f1b3d9ebdd5e8fd2eacb85e7734cead2375343ffb3e20e",
+    "examples/whisper-example/video/storyboard.json": "d71d4ff78f70bfb9ae5b3e51773ac871f13ceff1a68df892b8be9ddd32ed2e26",
+    "examples/whisper-example/video/video.css": "65e08fdf94342eeed8b75abe0203034e66a15ce3930825f8a619f69a0cc2e949",
+    "examples/whisper-example/video/video.js": "293fd9f19c7c4ae2e8b098c07818d516560a47d7438b6da210fa337a758736ac",
+    "media/whisper-example.mp4": "ff6aabfcfc4c3dbc97dfe2423d48a60395bae06e8e3eed5c98400b6583cdb980",
+    "media/whisper-example.webp": "5c5190439774d65f1d51214d5c00e0983ef70073113fa3bb724a9df25d660967"
+  },
+  "original_explanation": {
     "video": {
       "file": "video.mp4",
       "sha256": "ff6aabfcfc4c3dbc97dfe2423d48a60395bae06e8e3eed5c98400b6583cdb980",
@@ -353,7 +659,7 @@
     "errors": [],
     "blockedExternalRequests": []
   },
-  "video_review": {
+  "original_video_review": {
     "video_sha256": "ff6aabfcfc4c3dbc97dfe2423d48a60395bae06e8e3eed5c98400b6583cdb980",
     "poster_sha256": "5c5190439774d65f1d51214d5c00e0983ef70073113fa3bb724a9df25d660967",
     "poster_from_mp4_seconds": 13.5,
@@ -444,92 +750,408 @@
       "Physical iOS/Safari/VoiceOver, other video aspect ratios, human aesthetic approval untested."
     ]
   },
-  "publication": {
-    "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=whisper-example",
-    "authorization": "User requested sequential publication of40cases toexistingmain andPages."
+  "explanation": {
+    "revision": "visual-r1",
+    "films": {
+      "portrait": {
+        "file": "video.mp4",
+        "sha256": "c933fbb6efd6c1ee44269633175c138caab5643e38a67d1c412e3b2d8250faf6",
+        "width": 720,
+        "height": 1280,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      },
+      "wide": {
+        "file": "video.mp4",
+        "sha256": "52cf24243f87b84ab199ad7f3b0160640aeff5eb77dfc40db066117a01bd0459",
+        "width": 1280,
+        "height": 720,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      }
+    }
   },
-  "artifacts_sha256": {
-    "data/cases/whisper-example.json": "e68abd17418f4b84618708a47e0f733bdffc2cc9ea8a114f91543b0ab09fca3f",
-    "examples/whisper-example/app.js": "a2cb12f4e9b18dfa2886e1336db211148a2374b8f4a6fb85006e55d906fbfbf5",
-    "examples/whisper-example/brief.json": "6895d777100c7188f5bf0c83c004ce2e37e16dbddbc5a0ad71ec2e9337961283",
-    "examples/whisper-example/index.html": "bd6bc96625d649333e7eaf64709e4c836622cfbd0775f5e8d953921967dc3c50",
-    "examples/whisper-example/input/review-ja-source.wav": "46fb68642489a62ff2fbbce2b9a5263025e70655543054e6d3fde70bf1dd2c82",
-    "examples/whisper-example/input/review-ja.wav": "8b9fbf4aeba07b7f2887fd8b9f82e07ea9bc802a5e6907a355ec388e47df82c4",
-    "examples/whisper-example/input/script.json": "2ab9861f781ae0451d43e341cd7cb1104a65f8c891aa571622a659a0fb7e7fef",
-    "examples/whisper-example/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
-    "examples/whisper-example/make_input.ps1": "debdb9b2487f77358b71b473fa0e21166071fce4338d9e40fbcbca8cc8cbad4c",
-    "examples/whisper-example/outputs/browser-edited.srt": "976709c38a46dcc15f1d230729bdfb2a5390dd8a4fa3eeaf9cf4e93569e0716c",
-    "examples/whisper-example/outputs/browser-edited.txt": "39f50aa0649674efb8cbfe077449ef8f6f2289ff74ab43316be0a4c14e3a2d40",
-    "examples/whisper-example/outputs/browser-original.srt": "b82b9620667676c7008d0a0ece13422bfc792d0c0578df9458482e6f9b28d7ca",
-    "examples/whisper-example/outputs/browser-states.json": "0958fed3ad8e4bb73951ef64c7eef587e483adb6ca1667b6bac09f74b03553e7",
-    "examples/whisper-example/outputs/edit-record.json": "d236e2ed1d1f4ff62f647b9500018cff5e90d984bc7839a4e863a2e232a41c5c",
-    "examples/whisper-example/outputs/reference-review.json": "7338ec0dd65bc8c7c6d36a31a0d9bcea1f1f624657551db089acb0a46897178b",
-    "examples/whisper-example/outputs/result.md": "f11600d53d613c17f251986ee9e9a50a00f74d8301fed11001d4cd4906859ab9",
-    "examples/whisper-example/outputs/review-ja.json": "4b555120b7a369d46edebf3346d56d87aec211a6e0d39c859dac40097184d1c1",
-    "examples/whisper-example/outputs/review-ja.jsonl": "9cc82d6c3759d59626cd8910ad142641395993a68ab7f30ea888a20b05feddf8",
-    "examples/whisper-example/outputs/review-ja.srt": "a9d6ffb16a3d61d6e7b2700fc72f34d8bfbf49d40ddfc7befe3b06d4194ac2e1",
-    "examples/whisper-example/outputs/review-ja.tsv": "bf32c61396287cd884a37bda9d299afa7a097cca429a0c93c1bd7f049deb10f7",
-    "examples/whisper-example/outputs/review-ja.txt": "756613bdbfc0ebad2fa3d138fa60608afe125307816339fb5687eb92dbfa2567",
-    "examples/whisper-example/outputs/review-ja.vtt": "18941ed50f3bc09f988000ca4598cb91c1e3ed0c4b37e18d5d880b81159f8049",
-    "examples/whisper-example/outputs/session.json": "4cf1dc6fef3956147acad65b2c7937d9959a85af18ee245d4a9096cbea61cbc3",
-    "examples/whisper-example/README.md": "adcda4357911dd3b7204ad5b8248bfeb2a0fdf1ffecb3224321813627b509b88",
-    "examples/whisper-example/render.py": "3147ad237955e2bae90106ab588b23c17418848335258483fee388e08da01930",
-    "examples/whisper-example/request.txt": "4a24bc1227f122514638a1c158a46fc2de043d4f7d09807ae9ebd1881fac3405",
-    "examples/whisper-example/requirements.txt": "63d2ccd6bce563b3b9a22a53b036f703905e04cceed7efec72c15eb37e7ac499",
-    "examples/whisper-example/run_transcribe.py": "4af431814f1bd795ee32df8d30e174bb9a2e6ee49c705211666104781a322995",
-    "examples/whisper-example/samples.json": "82fc6aff87878100aef4e168febe5f734dacbcea00f121fe5a4835ed1fcb468a",
-    "examples/whisper-example/source.zip": "ea81b4d8e79d3f7acdacce649b21831faeb0eaba33c0baad7b30b85ede3e6902",
-    "examples/whisper-example/style.css": "5c6437a6f6c0912a64281f79710fb169a616461ef6c8b2460bc77e59cc4aeb4c",
-    "examples/whisper-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
-    "examples/whisper-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
-    "examples/whisper-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
-    "examples/whisper-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
-    "examples/whisper-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
-    "examples/whisper-example/vendor/whisper/cpu-device.patch": "ed5d065aeb0fdd248c0fe36741946af728189d8c0b3706d5057756f336f69e8d",
-    "examples/whisper-example/vendor/whisper/LICENSE": "b5d65a59060e68c4ff940e1eddfa6f94b2d68fdf58ed7f4dd57721c997e35e9d",
-    "examples/whisper-example/vendor/whisper/model-card.md": "3c2dc15e0c4bf2f1067db8530b1ecd6675abb431c4bc09fad3bc4453434f3333",
-    "examples/whisper-example/vendor/whisper/pyproject.toml": "9c8111da3701070095304ea5e12b6301eddcca3bb65e491a982b102d6042b1c4",
-    "examples/whisper-example/vendor/whisper/README.md": "38c180c2a8d8ba628a3e131ad42bf06c8a51bb681efb30fbe28d5a0f4b65f288",
-    "examples/whisper-example/vendor/whisper/whisper/__init__.py": "79ecbed714783b6230931a3dba6d5da6d386e2d44f9fc27256e4fc72751e1f62",
-    "examples/whisper-example/vendor/whisper/whisper/audio.py": "36ed287b2de3eaf40207cd2a44a8d45d57ea5c212a39df07401d4fcb4d5a5a1a",
-    "examples/whisper-example/vendor/whisper/whisper/transcribe.py": "176f5ab30e961bec2a7872f5701a1f5bf3cbfc77946e50512f0f0cf00a1ceacf",
-    "examples/whisper-example/vendor/whisper/whisper/utils.py": "f46aa555363ab42a455cd7c7f8c108dc2f69c5a94c6354c73ae96d671d9b1c37",
-    "examples/whisper-example/verification.json": "c28cab388799a281b3b2ff744d24ea01e8df0591e79ec5228a4140bce7663a4d",
-    "examples/whisper-example/video/assets/desktop-edited-first.png": "3c27e243fd4ec2e074ce57205bfb430db8269eaf771014d86b3e8aa122246a07",
-    "examples/whisper-example/video/assets/desktop-edited-last.png": "41080772ef774af426dbb59b56490b922c9b103c0c02a498c06b7851461f8f1c",
-    "examples/whisper-example/video/assets/desktop-raw.png": "90b4d76631004a75adc246515ea1bc4e0524cededf593d6b64d794fa1bf6a985",
-    "examples/whisper-example/video/assets/phone-raw.png": "6f85e9f551cebd1e959332afe4120b31fec9bc52d192724f6ccefe43b17980d8",
-    "examples/whisper-example/video/assets/screen-manifest.json": "b543611de5bf83b199bdfccbdd531d5d252fe39d891023992f1127f6a160e558",
-    "examples/whisper-example/video/assets/waveform.json": "5dbe1cd9842a6b575557597a08c1f03fdd6d4ef7812678c5d1877e5ac6f833cb",
-    "examples/whisper-example/video/index.html": "8ca70425cff0cc29da99c3b0b12e55785faf67135a51cf4aca26594b8f7d4e73",
-    "examples/whisper-example/video/README.md": "6cccbd36ee23412e273ece22709f81a8de95de0257b208ec7eac4112f90e4f08",
-    "examples/whisper-example/video/review/contact.png": "bb23dfe8b84df41aa5fff472cd325bfcd198dba56ab58fd43a8b0c14d728ce0f",
-    "examples/whisper-example/video/review/cut-01.png": "2e601a4d41eb2d48421d0ef82e4526787bc3a8ae2f06a76ee2c39ef3ab83ffe2",
-    "examples/whisper-example/video/review/cut-02.png": "d4f72626e0db08fbce117eb84a9e3fbb5b185adfd18fa53df18b6f26ed8ee3d0",
-    "examples/whisper-example/video/review/cut-03.png": "81ff32d4288546a8d3cf716fb83091e1461b248ab6f3814640429822ca53c9c4",
-    "examples/whisper-example/video/review/cut-04.png": "651f56638607da9159ff7aab37e3e0d6a8deeaebfb517bb4fa058cfb8358f030",
-    "examples/whisper-example/video/review/cut-05.png": "bd025e634cecf34fdcaac97fd8f85a7bf2e45b8f4b139c98b76c8ef111ee6866",
-    "examples/whisper-example/video/review/final.png": "fac6d8339b5cc0417cc4ecbcbca911fd96fbe19364a13814265f1d431cdad01f",
-    "examples/whisper-example/video/review/poster.png": "58196632b14f9bae1d4e65da5803653bc698413d18855ec0f1fcd976529eb7ae",
-    "examples/whisper-example/video/review/stills/frame-000000.png": "b7638b918c040ef9e04f6cfc4b2fc2eee4fe3b7a8c7294cf13ab07686d2853a5",
-    "examples/whisper-example/video/review/stills/frame-000001.png": "2a213b6afb9654058a1500e0bdff7549b416ba94b2d2ed64728ef2ac87ce6c8e",
-    "examples/whisper-example/video/review/stills/frame-000002.png": "0db1e8f1834eb2cba6ebf37d7b9997bbbd7a039f22595279970467803fa70071",
-    "examples/whisper-example/video/review/stills/frame-000003.png": "9b5d9b5c987ee25c72bcd834aab27353d366397a82802cc28a043a752283ea9e",
-    "examples/whisper-example/video/review/stills/frame-000004.png": "36d43874ba19bee3c8fcdfcc287a158b1c3bdd75f2af289a50b082562bb88721",
-    "examples/whisper-example/video/review/stills/frame-000005.png": "89891da8ae1020fecfeb8863547e2a4c705d239b77165b438bf76b81721cecf4",
-    "examples/whisper-example/video/review/stills/frame-000006.png": "58196632b14f9bae1d4e65da5803653bc698413d18855ec0f1fcd976529eb7ae",
-    "examples/whisper-example/video/review/stills/frame-000007.png": "58196632b14f9bae1d4e65da5803653bc698413d18855ec0f1fcd976529eb7ae",
-    "examples/whisper-example/video/review/stills/frame-000008.png": "be7440364c4bc41efcfd8618a457d473bca304b7bd89e3e33ec466c8c8ca91fd",
-    "examples/whisper-example/video/review/stills/frame-000009.png": "78326803be45dc5af6bac53fd7456d67caf4ede73747655ab2b168230aecc090",
-    "examples/whisper-example/video/review/stills/frame-000010.png": "b769c2d085b0f9e6652afb1497ced0ad25eec78f9ff01362c330400e75040a22",
-    "examples/whisper-example/video/review/stills/frame-000011.png": "342b6cc9f8dbae52c3eaa442d78279e77c0b2ab5bc4c8aa3b13c5130b3f2c4c3",
-    "examples/whisper-example/video/review/stills/frame-000012.png": "fdcd8e5e7417aa6158e74265dc1ef19910848144df747b715d2fb50f8390a334",
-    "examples/whisper-example/video/review/stills/frame-000013.png": "760e3e38d4c89fdb030b9ef03236726a40fd6260b67a4284a94fc43e3f4190af",
-    "examples/whisper-example/video/review/strip.png": "87406ed80d3ab1ea71f1b3d9ebdd5e8fd2eacb85e7734cead2375343ffb3e20e",
-    "examples/whisper-example/video/storyboard.json": "d71d4ff78f70bfb9ae5b3e51773ac871f13ceff1a68df892b8be9ddd32ed2e26",
-    "examples/whisper-example/video/video.css": "65e08fdf94342eeed8b75abe0203034e66a15ce3930825f8a619f69a0cc2e949",
-    "examples/whisper-example/video/video.js": "293fd9f19c7c4ae2e8b098c07818d516560a47d7438b6da210fa337a758736ac",
-    "media/whisper-example.mp4": "ff6aabfcfc4c3dbc97dfe2423d48a60395bae06e8e3eed5c98400b6583cdb980",
-    "media/whisper-example.webp": "5c5190439774d65f1d51214d5c00e0983ef70073113fa3bb724a9df25d660967"
+  "visual_revision": {
+    "id": "visual-r1",
+    "purpose": "Understand Whisper ASR model/Python/audiofeatures/encoder-decoder/fiveestimatedcues/writer and separate reference-based manual editing toactualSRT.",
+    "original_execution_reused": true,
+    "new_asr_inference": false,
+    "new_tts_synthesis": false,
+    "new_feature_preprocessing_only": true,
+    "original_runtime_source_files_preserved": 37,
+    "derived_legacy_viewer_files": 3,
+    "supplemental_official_sources": 2,
+    "original_vendor_files_verified": 8,
+    "installed_python_files_verified": 14,
+    "assets": 26,
+    "manifest_sha256": "faf7566d8b89263f22ebb65e7b80abd999f37ef20261e209377e4cf14b03788f",
+    "verification": {
+      "id": "whisper-example",
+      "revision": "visual-r1",
+      "verified_at": "2026-10-18T07:50:03.713222+00:00",
+      "stage": "technical_qa_complete",
+      "original_execution_record": "verification.json",
+      "scope": "New audio-feature/model/cues/writer/manual-edit concept UI and32s silentfilms only. Original synthetic function input, oneWhisper baseCPU inference and five raw/edited timedcues retained. Only newAPIexecution is logMelpreprocessing fordisplay, no model load/ASR/TTS.",
+      "original_runtime_source_files_preserved": 37,
+      "derived_legacy_viewer_files": 3,
+      "supplemental_fixed_architecture_files": 2,
+      "upstream": {
+        "repository": "openai/whisper",
+        "commit": "86098128c0b4f24f0e2aa2994de830614b474227",
+        "version": "20250625",
+        "license": "MIT",
+        "copyright": "Copyright (c) 2022 OpenAI",
+        "original_official_vendor_git_blobs_verified": 8,
+        "installed_python_git_blobs_verified": 14,
+        "supplemental_sources": [
+          "whisper/model.py",
+          "whisper/decoding.py"
+        ],
+        "existing_checkpoint_sha256_verified": "ed3a0b6b1c0edf879ad9b11b1af5a0e6ab5db9205f891f668f8b0e6c6326e34e"
+      },
+      "feature_preprocessing": {
+        "status": "passed",
+        "source_sha256": "9e268f7ce63986672a534d67bf7c413b08878b455926ce23aed889675e944df4",
+        "input_sha256": "8b9fbf4aeba07b7f2887fd8b9f82e07ea9bc802a5e6907a355ec388e47df82c4",
+        "output_sha256": "69977f0af34a7aa85f644771111f94f10c5285e0909c84b6a3e6a3fc21f016d0",
+        "display_shape": [
+          80,
+          96
+        ],
+        "actual_log_mel_shape": [
+          80,
+          5101
+        ],
+        "actual_content_shape": [
+          80,
+          2101
+        ],
+        "rms_windows_rechecked": 211,
+        "scope": "Existing fixed Whisper audio.log_mel_spectrogram only, padding480000 as in transcribe; crop content and mean into96timebins/globalminmax display. No model load, ASR inference, decode, TTS synthesis, download or original output mutation. Not captured model activations."
+      },
+      "browser": {
+        "states_checked": 30,
+        "stages": 3,
+        "cue_states": 5,
+        "modes": [
+          "raw",
+          "review"
+        ],
+        "parts": 6,
+        "theme_width_views": 16,
+        "phone375x812_primary_action_fits_all30": true,
+        "touch_targets_min44x44": true,
+        "keyboard_focus": {
+          "focus": "入力",
+          "focusOutline": "3px",
+          "scroll": 0
+        },
+        "semantic_distinctions": [
+          "ASR model andPython tools, notSKILL.md/TTS/hostedAPI",
+          "Original script not fed toASR",
+          "5estimatedcue times kept",
+          "Only0/1/4text manuallycorrected;2/3unchanged",
+          "Actualfeaturepreprocessing separate fromoriginalASR andsymbolicmodelstructure",
+          "Functional inputaudio distinct fromsilentconceptfilm"
+        ],
+        "failures": [
+          {
+            "kind": "http",
+            "message": "読み込めませんでした：concept/structure.json が HTTP 503 でした。古い表示は消しました。",
+            "diagram_cleared": true,
+            "audio_source_cleared": true,
+            "dependent_controls_disabled": true,
+            "retry_restored": true
+          },
+          {
+            "kind": "json",
+            "message": "読み込めませんでした：concept/structure.json の大きさが記録と違います。古い表示は消しました。",
+            "diagram_cleared": true,
+            "audio_source_cleared": true,
+            "dependent_controls_disabled": true,
+            "retry_restored": true
+          },
+          {
+            "kind": "hash",
+            "message": "読み込めませんでした：concept/structure.json のSHA-256が記録と違います。古い表示は消しました。",
+            "diagram_cleared": true,
+            "audio_source_cleared": true,
+            "dependent_controls_disabled": true,
+            "retry_restored": true
+          }
+        ],
+        "native_srt_save": {
+          "raw": {
+            "disabled": null,
+            "download": "review-ja.srt",
+            "href": "outputs/review-ja.srt",
+            "label": "原出力SRTを保存",
+            "native_click_requested": true
+          },
+          "review": {
+            "disabled": null,
+            "download": "browser-edited.srt",
+            "href": "outputs/browser-edited.srt",
+            "label": "修正例SRTを保存",
+            "native_click_requested": true
+          },
+          "legacy": "review-ja-edited.srt（5区間・編集 3区間）をブラウザーの保存に渡しました。保存できたかはブラウザーの表示で確かめてください。",
+          "file_receipt": "Browser download tool returned no file. Native download links and edited-save request are distinct from returned-file proof; all actual fixed public file bytes independently verified."
+        },
+        "legacy_saved_cues_checked": 5,
+        "legacy_edit_reset_and_three_changes": true,
+        "functional_audio": {
+          "seek": {
+            "duration": 21.014063,
+            "error": null,
+            "paused": true,
+            "src": "input/review-ja.wav",
+            "time": 17.52
+          },
+          "play": {
+            "error": null,
+            "paused": false,
+            "time": 17.543378
+          },
+          "end": {
+            "duration": 21.014063,
+            "ended": true,
+            "error": null,
+            "paused": true,
+            "time": 21.014063
+          },
+          "listening_confirmed": false,
+          "timing_accuracy_confirmed": false
+        },
+        "editor": {
+          "jumps": [
+            {
+              "caption": "1/7・0〜4秒：声を、文と時刻へ（Whisper・音声認識）",
+              "clock": "0.0秒 / 32.0秒"
+            },
+            {
+              "caption": "2/7・4〜9秒：音を、特徴にする（実入力を同じ前処理APIで表示）",
+              "clock": "4.0秒 / 32.0秒"
+            },
+            {
+              "caption": "3/7・9〜14秒：特徴から、文と推定時刻へ（モデル構造の図）",
+              "clock": "9.0秒 / 32.0秒"
+            },
+            {
+              "caption": "4/7・14〜20秒：原出力には、誤りも残る（保存済みの5区間・時刻は推定値）",
+              "clock": "14.0秒 / 32.0秒"
+            },
+            {
+              "caption": "5/7・20〜25秒：原稿と見比べ、文だけ手で直す（原稿は認識に渡していない）",
+              "clock": "20.0秒 / 32.0秒"
+            },
+            {
+              "caption": "6/7・25〜29秒：時刻はそのまま、字幕に保存（原出力 441 B／修正例 420 B）",
+              "clock": "25.0秒 / 32.0秒"
+            },
+            {
+              "caption": "7/7・29〜32秒：仕組みを見て、字幕デスクへ（保存済み実行の図解／無音）",
+              "clock": "29.0秒 / 32.0秒"
+            }
+          ],
+          "asset_status": "素材 26/26 照合済み",
+          "audio_elements": 0,
+          "arbitrary_seek": "7.2秒 / 32.0秒",
+          "wide": {
+            "caption": "2/7・4〜9秒：音を、特徴にする（実入力を同じ前処理APIで表示）",
+            "height": 720,
+            "scroll": 360,
+            "selected": "true",
+            "viewport": 375,
+            "width": 1280
+          },
+          "end_clock": "32.0秒 / 32.0秒",
+          "play": {
+            "pressed": "true",
+            "text": "一時停止"
+          },
+          "asset_failure": {
+            "all_controls_disabled": true,
+            "caption_empty": true,
+            "state": "error",
+            "status": "読み込みに失敗しました：concept/structure.json のSHA-256が記録と違います。代わりの映像は出しません。",
+            "recovered": true
+          }
+        },
+        "movies_ended": 2,
+        "theme_persistence": {
+          "choice": "system",
+          "selected": "system"
+        },
+        "request_copy_status": "依頼文をコピーしました。",
+        "request_text_exact": true,
+        "clipboard_readback_confirmed": false,
+        "unconfirmed": [
+          "physical iOS/Safari/VoiceOver",
+          "200 percent zoom",
+          "human aesthetic approval",
+          "audio listening and pronunciation",
+          "semantic timing accuracy",
+          "clipboard readback"
+        ],
+        "human_approval": false
+      },
+      "frame_review": {
+        "reviewed_by": "production agent",
+        "human_approval": false,
+        "scope": "Portrait/wide contact sheets, fullsize representative/poster,12consecutive strips and decodedMP4 moving frames. Actual audio features connect to symbolic model structure; reference-based manual text edits are separate. Raised inactive-path contrast after phone review. No physicaliOS, listening or human aesthetic approval.",
+        "layouts": 2,
+        "representative_frames_per_layout": 16,
+        "consecutive_frames_per_layout": 12,
+        "actual_MP4_motion_frames_per_layout": 12,
+        "determinism": {
+          "portrait": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "52f6bcbd2bac50805b9a83c083f820a5341720649e6a3a6e065e6856d9649dd7",
+            "afterOtherTimes": "52f6bcbd2bac50805b9a83c083f820a5341720649e6a3a6e065e6856d9649dd7",
+            "freshPage": "52f6bcbd2bac50805b9a83c083f820a5341720649e6a3a6e065e6856d9649dd7",
+            "match": true
+          },
+          "wide": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "401192cff23a545b8bb002d6f3e9fc5bc7cb8b51ad85ff25f367367a53df0a74",
+            "afterOtherTimes": "401192cff23a545b8bb002d6f3e9fc5bc7cb8b51ad85ff25f367367a53df0a74",
+            "freshPage": "401192cff23a545b8bb002d6f3e9fc5bc7cb8b51ad85ff25f367367a53df0a74",
+            "match": true
+          }
+        },
+        "final30_and31_stable": true,
+        "audio_streams": 0
+      },
+      "video": {
+        "portrait": {
+          "video": {
+            "file": "video.mp4",
+            "sha256": "c933fbb6efd6c1ee44269633175c138caab5643e38a67d1c412e3b2d8250faf6",
+            "width": 720,
+            "height": 1280,
+            "fps": 30,
+            "frameCount": 960,
+            "duration": 32,
+            "hasAudio": false
+          },
+          "determinism": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "52f6bcbd2bac50805b9a83c083f820a5341720649e6a3a6e065e6856d9649dd7",
+            "afterOtherTimes": "52f6bcbd2bac50805b9a83c083f820a5341720649e6a3a6e065e6856d9649dd7",
+            "freshPage": "52f6bcbd2bac50805b9a83c083f820a5341720649e6a3a6e065e6856d9649dd7",
+            "match": true
+          },
+          "full_decode_passed": true,
+          "faststart": true
+        },
+        "wide": {
+          "video": {
+            "file": "video.mp4",
+            "sha256": "52cf24243f87b84ab199ad7f3b0160640aeff5eb77dfc40db066117a01bd0459",
+            "width": 1280,
+            "height": 720,
+            "fps": 30,
+            "frameCount": 960,
+            "duration": 32,
+            "hasAudio": false
+          },
+          "determinism": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "401192cff23a545b8bb002d6f3e9fc5bc7cb8b51ad85ff25f367367a53df0a74",
+            "afterOtherTimes": "401192cff23a545b8bb002d6f3e9fc5bc7cb8b51ad85ff25f367367a53df0a74",
+            "freshPage": "401192cff23a545b8bb002d6f3e9fc5bc7cb8b51ad85ff25f367367a53df0a74",
+            "match": true
+          },
+          "full_decode_passed": true,
+          "faststart": true
+        }
+      },
+      "shipped_source_reproduction": {
+        "status": "passed",
+        "checked_at": "2026-10-18T07:44:32.341917+00:00",
+        "png_files_byte_identical": 62,
+        "layouts": [
+          {
+            "layout": "portrait",
+            "png_files_byte_identical": 31,
+            "final30_and31_stable": true
+          },
+          {
+            "layout": "wide",
+            "png_files_byte_identical": 31,
+            "final30_and31_stable": true
+          }
+        ],
+        "scope": "Actual shipped root wrapper and final sources rendered16representative+12consecutive+contact/poster/strip perlayout. Same-environment pixel identity and final-frame stability; not cross-OS font equality or human approval."
+      },
+      "human_approval": false,
+      "physical_ios_safari_voiceover": false,
+      "audio_listening_confirmed": false,
+      "timing_accuracy_confirmed": false
+    },
+    "production_adjustments": [
+      {
+        "files": [
+          "app.js"
+        ],
+        "reason": "Actual phone dark-theme review showed inactive model/path text too faint. Raise non-emphasized floor to .72. Preserve final error text when concurrent asset fetches finish after one fails."
+      },
+      {
+        "files": [
+          "video/video.js"
+        ],
+        "reason": "Keep prior-stage diagram readable with .68 emphasis floor. Scope orientation selectors to buttons only; late fetch progress must not overwrite an error or re-enable controls."
+      },
+      {
+        "files": [
+          "desk.html"
+        ],
+        "reason": "Derived legacy viewer film block only: replace obsolete28s claim with current32s concept-film links. Original deskJS/CSS and functional audio/outputs remain unchanged."
+      },
+      {
+        "files": [
+          "video/README.md",
+          "render-visual.py",
+          "visual-guide.md",
+          "article-candidate.json"
+        ],
+        "reason": "Clarify validation reads originalWAV bytes without playback in silent editor, separate authoring-time QA state and producerQA, add source reproduction wrapper and factual article."
+      }
+    ],
+    "source_originals_sha256": {
+      "index.html": "bec2eb111127a4d81941d32049912425df9bde71e0ecf3af2e4a6c42c9973196",
+      "style.css": "3d2b9f95dc76558c9962105e70d3bd6fe38a77b0333e0268b2562c6950a6d746",
+      "app.js": "fecaaf72bf3521ce47be9a9e59d043b5c3695c6f7ee1b22cd16ddf9477860f20",
+      "video/index.html": "2af15f1bc69c465c43b0bd6711f3d10e8c8951b835aca75cff38bd0710cc4f98",
+      "video/video.css": "154eac850b57498a8601b6e220806c2bdb59f9d975d6fb244ede32dab0b9d74a",
+      "video/video.js": "cdd0735d55681db1699b3344ff95aa7109d58db008e8987848051f404c711348",
+      "video/storyboard.json": "1af5e70f815858bfd16944d8bab1b4def194a64de1ef8e32e2791d461310f954",
+      "video/README.md": "d33609e70e967461df36d726e9bc678d8fae63015d9518cf23b99a5203e2f3a1"
+    },
+    "final_source_sha256": {
+      "index.html": "bec2eb111127a4d81941d32049912425df9bde71e0ecf3af2e4a6c42c9973196",
+      "style.css": "3d2b9f95dc76558c9962105e70d3bd6fe38a77b0333e0268b2562c6950a6d746",
+      "app.js": "c1f41c93299db7f7ebe428d3e0a0fd170ea9d44ddf3da900200aa0de3bbaf962",
+      "video/index.html": "2af15f1bc69c465c43b0bd6711f3d10e8c8951b835aca75cff38bd0710cc4f98",
+      "video/video.css": "154eac850b57498a8601b6e220806c2bdb59f9d975d6fb244ede32dab0b9d74a",
+      "video/video.js": "0978d92c879c46013d2a77b51f40de78168f385126817c074c097906e39e309e",
+      "video/storyboard.json": "1af5e70f815858bfd16944d8bab1b4def194a64de1ef8e32e2791d461310f954",
+      "video/README.md": "a7857057d99fdb3b69ecdb33175e1fc2dce501f2f05b38b1bd82a670f39833b6"
+    },
+    "silent_film": true,
+    "functional_audio_preserved": true
+  },
+  "previous_publication": {
+    "git_commit": "71112c069042b442e9f893bc767d2d78e539bd71",
+    "pages_run_id": 38886197769
   }
 }

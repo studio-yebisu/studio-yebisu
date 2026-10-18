@@ -1,0 +1,258 @@
+{
+  "format": "whisper-structure/v1",
+  "case_id": "whisper-example",
+  "source_commit": "86098128c0b4f24f0e2aa2994de830614b474227",
+  "version": "20250625",
+  "definition": "音声を、文と推定時刻に変える音声認識モデルとPythonツール",
+  "resource_kind": "WhisperはSKILL.mdやTTSではなく、音声認識のモデルとPythonライブラリ。今回はbase/CPU。",
+  "parts": [
+    {
+      "id": "python",
+      "label": "Pythonと重み",
+      "source_path": "run_transcribe.py",
+      "quote": "model = whisper.load_model(MODEL_NAME, device=DEVICE, download_root=str(model_dir))",
+      "meaning": "制作時に既存base重みをCPUへ読み込む。今回の閲覧や図の改修ではモデルを再実行しない。",
+      "line_start": 320
+    },
+    {
+      "id": "features",
+      "label": "音の特徴",
+      "source_path": "vendor/whisper/whisper/transcribe.py",
+      "quote": "mel = log_mel_spectrogram(audio, model.dims.n_mels, padding=N_SAMPLES)",
+      "meaning": "音声をlog-Melの特徴へ変える。今回の図の小さな色面は、同じ前処理APIを元WAVへ新しく適用した実値の表示用平均。推論内部の記録ではない。",
+      "line_start": 139
+    },
+    {
+      "id": "model",
+      "label": "音から文へ",
+      "source_path": "vendor/whisper/whisper/model.py",
+      "quote": "return self.decoder(tokens, self.encoder(mel))",
+      "meaning": "WhisperはTransformerのencoder-decoderモデル。encoderが音の特徴を受け取り、decoderが文や推定時刻を表すtokenを出す。内部の形は構造の説明で、実際の注意や活性の可視化ではない。",
+      "line_start": 303
+    },
+    {
+      "id": "segments",
+      "label": "文と推定時刻",
+      "source_path": "vendor/whisper/whisper/transcribe.py",
+      "quote": "result: DecodingResult = decode_with_fallback(mel_segment)",
+      "meaning": "元の実ASRは5区間のstart/end/textを返した。単語ごとの時刻や正確な字幕の同期を保証しない。",
+      "line_start": 295
+    },
+    {
+      "id": "writer",
+      "label": "字幕へ書き出す",
+      "source_path": "vendor/whisper/whisper/utils.py",
+      "quote": "class WriteSRT(SubtitlesWriter):",
+      "meaning": "元のget_writer(all)で6形式を保存。SRTは1からの番号と推定時刻と文。原出力と手動編集SRTを分ける。",
+      "line_start": 251
+    },
+    {
+      "id": "review",
+      "label": "原稿と見比べる",
+      "source_path": "outputs/reference-review.json",
+      "quote": "\"audio_listening_confirmed\": false",
+      "meaning": "合成原稿を参照しid0/1/4だけを手動修正した例。Whisperの原出力は変えず、5区間の全start/endも保つ。聴取校正や自動修正ではない。",
+      "line_start": 25
+    }
+  ],
+  "audio": {
+    "path": "input/review-ja.wav",
+    "sha256": "8b9fbf4aeba07b7f2887fd8b9f82e07ea9bc802a5e6907a355ec388e47df82c4",
+    "duration_seconds": 21.014063,
+    "sample_rate": 16000,
+    "channels": 1,
+    "sample_width_bits": 16,
+    "frames": 336225,
+    "kind": "synthetic",
+    "voice_name": "Microsoft Haruka Desktop",
+    "fictional": true,
+    "script_path": "input/script.json",
+    "script_sha256": "2ab9861f781ae0451d43e341cd7cb1104a65f8c891aa571622a659a0fb7e7fef"
+  },
+  "engine": {
+    "library": "openai-whisper",
+    "version": "20250625",
+    "source_commit": "86098128c0b4f24f0e2aa2994de830614b474227",
+    "installed_source": {
+      "kind": "local",
+      "commit_matches": null
+    },
+    "model": "base",
+    "device": "cpu",
+    "task": "transcribe",
+    "language": "ja",
+    "fp16": false,
+    "temperature": 0,
+    "condition_on_previous_text": false,
+    "reference_text_supplied": false,
+    "initial_prompt": null,
+    "word_timestamps": false,
+    "threads": 4,
+    "torch_threads_observed": 4,
+    "cuda_hidden_for_process": false,
+    "device_verification": "load_model(device=cpu) and actual parameter device observed cpu",
+    "checkpoint_file": "base.pt",
+    "checkpoint_sha256": "ed3a0b6b1c0edf879ad9b11b1af5a0e6ab5db9205f891f668f8b0e6c6326e34e",
+    "checkpoint_sha256_expected": "ed3a0b6b1c0edf879ad9b11b1af5a0e6ab5db9205f891f668f8b0e6c6326e34e",
+    "writer": "whisper.utils.get_writer('all'), options={}"
+  },
+  "segments": [
+    {
+      "id": 0,
+      "start": 0.0,
+      "end": 4.12,
+      "text": "塩リコーボーの動画レビューを始めます"
+    },
+    {
+      "id": 1,
+      "start": 4.12,
+      "end": 8.700000000000001,
+      "text": "みだしは短く 字幕は逃げをまでにします"
+    },
+    {
+      "id": 2,
+      "start": 8.700000000000001,
+      "end": 13.56,
+      "text": "一つの字幕には 一つの考えだけを入れます"
+    },
+    {
+      "id": 3,
+      "start": 13.56,
+      "end": 17.52,
+      "text": "最後に 音声と字幕のずれを確認して"
+    },
+    {
+      "id": 4,
+      "start": 17.52,
+      "end": 20.92,
+      "text": "SRティー景色で保存します"
+    }
+  ],
+  "edited_segments": [
+    {
+      "id": 0,
+      "start": 0.0,
+      "end": 4.12,
+      "text": "しおり工房の\n動画レビューを始めます。"
+    },
+    {
+      "id": 1,
+      "start": 4.12,
+      "end": 8.700000000000001,
+      "text": "見出しは短く、\n字幕は二行までにします。"
+    },
+    {
+      "id": 2,
+      "start": 8.700000000000001,
+      "end": 13.56,
+      "text": "一つの字幕には 一つの考えだけを入れます"
+    },
+    {
+      "id": 3,
+      "start": 13.56,
+      "end": 17.52,
+      "text": "最後に 音声と字幕のずれを確認して"
+    },
+    {
+      "id": 4,
+      "start": 17.52,
+      "end": 20.92,
+      "text": "SRT形式で保存します。"
+    }
+  ],
+  "corrections": [
+    {
+      "id": 0,
+      "raw": "塩リコーボーの動画レビューを始めます",
+      "edited": "しおり工房の\n動画レビューを始めます。",
+      "basis": "input/script.json の工房名と文を参照。2行へ手動改行。聴取による校正ではない。"
+    },
+    {
+      "id": 1,
+      "raw": "みだしは短く 字幕は逃げをまでにします",
+      "edited": "見出しは短く、\n字幕は二行までにします。",
+      "basis": "原稿の「見出し」「二行」を参照した手動修正。時刻は変更しない。"
+    },
+    {
+      "id": 4,
+      "raw": "SRティー景色で保存します",
+      "edited": "SRT形式で保存します。",
+      "basis": "原稿の「エスアールティー形式」をSRT表記へ手動修正。聴取による校正ではない。"
+    }
+  ],
+  "reference_script": "しおり工房の、動画レビューを始めます。見出しは短く、字幕は二行までにします。一つの字幕には、一つの考えだけを入れます。最後に、音声と字幕のずれを確認して、エスアールティー形式で保存します。",
+  "reference_flow": "原稿4文は手元音声合成の入力と、後の見比べ専用。Whisperのinitial_promptに渡していない。モデルは音声だけから5区間を出した。",
+  "feature_display": {
+    "path": "concept/features.json",
+    "shape": [
+      80,
+      96
+    ],
+    "actual_content_shape": [
+      80,
+      2101
+    ],
+    "note": "実入力を固定Whisper.audio APIで追加前処理。元ASR内部tensorの記録ではない。80bandの時間方向を96列に平均し、全体min-maxを表示の色へ使う。confidenceや単語時刻ではない。"
+  },
+  "waveform": {
+    "path": "video/assets/waveform.json",
+    "metric": "RMS/32768 for each actual 0.1s window; not an ASR confidence or word-alignment graph.",
+    "windows": 211,
+    "window_samples": 1600,
+    "note": "実WAVの0.1秒RMSを全211窓で再照合。波形は発言の正しさや単語境界ではない。"
+  },
+  "model_structure": {
+    "kind": "Transformer sequence-to-sequence encoder-decoder",
+    "encoder": "音の特徴を符号化",
+    "decoder": "文や推定時刻を表すtokenを生成",
+    "scope": "構造説明の図。attentionやactivationを計測した図ではない。大きなモデル全体の層数や重みを公開しない。"
+  },
+  "outputs": {
+    "raw": "outputs/review-ja.srt",
+    "review": "outputs/browser-edited.srt",
+    "raw_sha256": "a9d6ffb16a3d61d6e7b2700fc72f34d8bfbf49d40ddfc7befe3b06d4194ac2e1",
+    "review_sha256": "976709c38a46dcc15f1d230729bdfb2a5390dd8a4fa3eeaf9cf4e93569e0716c",
+    "raw_bytes": 441,
+    "review_bytes": 420,
+    "formats": [
+      "json",
+      "jsonl",
+      "txt",
+      "srt",
+      "vtt",
+      "tsv"
+    ],
+    "original_session": "outputs/session.json",
+    "writer": "whisper.utils.get_writer(all), options={}。元の原出力6形式を改変していない。"
+  },
+  "flow": {
+    "input": "21.014063秒の作例用合成音声WAV、16kHz mono PCM16",
+    "runtime": "元の制作担当がPythonでbase/CPU4threadsを1回転記。新しい図では推論しない。",
+    "process": "Pythonとbase重み→音声の特徴→Whisper encoder/decoder→5区間の文と推定時刻→writer→原出力SRT",
+    "review": "原稿の別経路を後の編集へ渡し、id0/1/4の文だけ手動修正して別SRTへ。時刻と区間数は不変。",
+    "reuse": "元の音声/原出力/編集出力/根拠は保全。新しい音声合成・ASRの再実行なし。"
+  },
+  "actual_execution": {
+    "original_inference_runs": 1,
+    "failed_before_inference_guard": 1,
+    "model": "base",
+    "device": "cpu",
+    "threads": 4,
+    "reference_text_supplied": false,
+    "initial_prompt": null,
+    "word_timestamps": false,
+    "segments": 5,
+    "new_asr_inference": false,
+    "new_tts_synthesis": false,
+    "new_feature_preprocessing_only": true,
+    "audio_listening_confirmed": false,
+    "timing_accuracy_confirmed": false,
+    "live_in_this_browser": false
+  },
+  "license": {
+    "upstream": "MIT, Copyright (c) 2022 OpenAI. Code and model weights per fixed README.",
+    "own": "Original example/code/script/UI/motion MIT, Copyright (c) 2026 Studio Yebisu.",
+    "audio": "Existing original synthetic function-test input. Windows engine itself is not redistributed. Do not treat this input as new narration or regenerate it."
+  },
+  "editorial_note": "6部品は今回の利用経路の説明用整理。原出力の誤りを残し、原稿参照の修正と分ける。音声の聴取や意味的な時刻精度、人の承認は未確認。32秒の図解動画は無音、元の実入力音声は独立した機能プレイヤーで保持する。"
+}

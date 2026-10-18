@@ -1,117 +1,117 @@
 {
-  "schema_version": 1,
-  "title": "転記の誤りを、そのまま直せる。— しおり工房 字幕デスク（Whisper作例）の解説動画",
+  "schema_version": 2,
+  "title": "声を、文と時刻へ — Whisper 作例の図解動画（32秒・無音）",
+  "author_model": "claude-opus-5-5",
   "brief": {
-    "goal": "Whisper の実際の原出力に残った誤りを、原稿を参照して手で直し、時刻はそのまま SRT で保存できることを、スマホで見る制作者に28秒で伝える",
-    "audience": "動画や講座の字幕を、音声認識の下書きから手で整えたい制作者（主にスマホで見る）",
-    "message": "転記の誤りを、そのまま直せる。",
-    "next_action": "作例のページで「音声を開く → 文を直す → SRTで保存」を試す",
-    "look": "作例ページと同じ紙色・墨・すもも色。見出しは明朝40px、本文26px前後、注記16〜18px。実画面の切り抜きは等倍率で置き、映像に重ねる大きな文は実ファイルから読み込む",
-    "motion": "場面の入りは0.45秒・出は0.4秒で隣と重ね、画面全体を白くしない。上の4段階と足元の注記は最後まで出したまま。入力WAVのRMSは場面1から場面2へ形を引き継ぎ、区間の時刻を同じ軸に重ねる",
-    "output": {"duration_seconds": 28, "fps": 30, "frames": 840, "width": 1280, "height": 720, "audio": "none", "poster_time": 13.5, "loop": false}
-  },
-  "facts": {
-    "input": "作例用に書いた架空の原稿を Microsoft Haruka Desktop（手元の Windows 音声合成）で読み上げた合成音声1本。人の録音ではない",
-    "transcription": "openai/whisper 固定コミット 86098128c0b4f24f0e2aa2994de830614b474227、base、CPU 4スレッド、language=ja、initial_prompt なし。制作時に1回だけ転記し、保存した出力を使う",
-    "edits": "id 0・1・4 の文を、読み上げ原稿を参照して手で直した。5区間の開始・終了時刻は変えていない",
-    "not_claimed": [
-      "音声を聞いて確かめた校正",
-      "発音・音質・時刻の正しさ",
-      "自動の修正・正確な位置合わせ",
-      "人による承認",
-      "精度や速さの比較（実行時間は映像に出さない）",
-      "ページ上で動く音声認識やAI"
-    ],
-    "synthetic_voice": true,
-    "audio_listening_confirmed": false,
-    "timing_accuracy_confirmed": false,
-    "saved_inference_only": true,
-    "live_ai_in_page": false,
-    "human_approval": false,
-    "film_author_model": "claude-opus-5-5",
-    "continuous_recording": false
+    "goal": "Whisperが音声認識モデルとPythonツールであること、実WAVが特徴→encoder→decoder→文と推定時刻の5区間→SRTになる経路、認識の後で原稿を参照して文だけを手で直す別経路を、一つのつながった図で伝える",
+    "audience": "字幕の下書きに音声認識を使いたい制作者（主にスマホで見る）",
+    "message": "声を、文と時刻へ",
+    "next_action": "作例ページで5区間と実入力を確かめ、字幕デスク（desk.html）で直す",
+    "look": "紙・墨・ペトロール・琥珀。見出しは明朝、図の中は短いラベルだけ。端末のフォントのみ",
+    "motion": "同じ図形が最後まで残り、開く・入る・替わる・書き出される。全文や設定の一覧、字幕の画面写真は出さない",
+    "output": {
+      "duration_seconds": 32,
+      "fps": 30,
+      "frames": 960,
+      "sizes": [{"width": 720, "height": 1280, "orientation": "portrait"}, {"width": 1280, "height": 720, "orientation": "wide"}],
+      "audio": "none",
+      "audio_events": [],
+      "poster_time": 31,
+      "stable_from": 29,
+      "loop": false
+    }
   },
   "sources": {
-    "request": "../request.txt",
-    "script": "../input/script.json",
-    "audio": "../input/review-ja.wav",
-    "session": "../outputs/session.json",
-    "raw_srt": "../outputs/review-ja.srt",
-    "edited_srt": "../outputs/browser-edited.srt",
-    "edit_record": "../outputs/edit-record.json",
-    "reference_review": "../outputs/reference-review.json",
-    "waveform": "assets/waveform.json",
-    "screen_manifest": "assets/screen-manifest.json",
-    "screens": ["assets/phone-raw.png", "assets/desktop-raw.png", "assets/desktop-edited-first.png", "assets/desktop-edited-last.png"],
-    "expected_sha256_from": "../../runtime/frozen-reviewed-source.json（制作記録・公開しない）"
+    "manifest": "../concept/manifest.json",
+    "manifest_sha256": "faf7566d8b89263f22ebb65e7b80abd999f37ef20261e209377e4cf14b03788f",
+    "asset_count": 26,
+    "validation": "../app.js の loadValidatedAssets（作例ページと同じ照合）。26件の大きさとSHA-256、5区間・修正3件・SRT 2本・RMS 211窓・80×96行列・引用の行を確かめてから描く",
+    "waveform": "../video/assets/waveform.json（実WAVから求め直して照合）",
+    "features": "../concept/features.json（同じ前処理APIの追加実行。推論内部の記録ではない）",
+    "segments": "../concept/structure.json・../outputs/session.json・../outputs/review-ja.json",
+    "corrections": "../outputs/reference-review.json・../outputs/edit-record.json",
+    "srt": ["../outputs/review-ja.srt", "../outputs/browser-edited.srt"]
   },
-  "persistent": {
-    "rail": ["入力", "実際の原出力", "原稿を参照して直す", "SRTで保存"],
-    "footer": "無音 ・ 入力は作例用原稿の合成音声 ・ 実画面の静止キャプチャを編集でつないだ解説（連続録画ではありません）"
-  },
+  "persistent_shapes": [
+    {"id": "wav", "shape": "実WAVのRMS包絡（211窓）", "from": 0.15, "source": "video/assets/waveform.json"},
+    {"id": "python", "shape": "Pythonの枠・base重み・ja/CPUの札", "from": 1.2, "source": "run_transcribe.py・outputs/session.json"},
+    {"id": "plane", "shape": "log-Melの色面（80帯×96列の実値）", "from": 4.2, "source": "concept/features.json"},
+    {"id": "encoder_decoder", "shape": "Pythonの枠に入れ子のencoder→decoder", "from": 1.2, "source": "vendor/whisper/whisper/model.py"},
+    {"id": "tokens", "shape": "開始・文・終了のtoken札（1番の時刻）", "from": 11.3, "source": "concept/structure.json"},
+    {"id": "cards", "shape": "推定時刻の幅に並ぶ5枚の区間", "from": 12.2, "source": "concept/structure.json"},
+    {"id": "axis", "shape": "推定時刻の軸", "from": 14.2, "source": "input/review-ja.wav の長さ"},
+    {"id": "script", "shape": "原稿の本と鉛筆（認識の後の別経路）", "from": 20.2, "source": "input/script.json"},
+    {"id": "files", "shape": "原出力SRT（writer）と修正例SRT（字幕デスク）の紙", "from": 25.2, "source": "outputs/review-ja.srt・outputs/browser-edited.srt"}
+  ],
   "scenes": [
     {
-      "start": 0,
-      "end": 4,
-      "step": "入力",
-      "message": "転記の誤りを、そのまま直せる。入力は作例用の原稿を読み上げた合成音声1本",
-      "enter": "最初から表示。RMSの棒の高さが0.1〜0.9秒で伸びる（演出。再生位置ではない）",
-      "exit": "3.65〜4.05秒で文が消え、RMSは3.6〜4.4秒で右上へ縮んで次の場面へ残る",
-      "sources": ["../input/review-ja.wav", "assets/waveform.json", "../outputs/session.json", "../request.txt"]
+      "id": 1, "start": 0, "end": 4,
+      "title": "声を、文と時刻へ", "sub": "Whisper・音声認識",
+      "message": "実際の入力WAVが、Pythonと重み・設定の構造へつながる",
+      "enter": "波形が0.15〜1.3秒で左から入り、0.3〜1.8秒で描かれる。全体の経路の下書きが0.6〜1.4秒で薄く出る。Pythonの枠が1.2〜2.2秒、重みと設定の札が1.9〜2.8秒で上から差し込まれる",
+      "exit": "波形と枠は残る",
+      "sources": ["video/assets/waveform.json", "concept/structure.json"]
     },
     {
-      "start": 4,
-      "end": 8,
-      "step": "実際の原出力",
-      "message": "実際の原出力では、工房名が原稿と違う文字になった（id 0）",
-      "enter": "区間の一覧の実画面（desktop-raw.png）が0.45秒で入り、RMSの下に5区間の時刻、右に id 0 の原出力と転記の条件",
-      "exit": "7.65〜8.05秒で全体が消える",
-      "sources": ["../outputs/session.json", "../outputs/review-ja.srt", "assets/desktop-raw.png"]
+      "id": 2, "start": 4, "end": 9,
+      "title": "音を、特徴にする", "sub": "実入力を同じ前処理APIで表示",
+      "message": "同じ波形の下から、実際のlog-Mel色面が開く（時間の位置は波形とそろう）",
+      "enter": "色面が4.3〜6.0秒で開き、4.5〜7.2秒で左から右へ現れる。Pythonの枠は薄くなる",
+      "exit": "色面は残る",
+      "sources": ["concept/features.json"]
     },
     {
-      "start": 8,
-      "end": 15.5,
-      "step": "原稿を参照して直す",
-      "message": "原出力・読み上げた原稿・手で直した字幕を並べ、時刻はそのまま",
-      "enter": "編集前の文を直す欄の実画面と①原出力（8.25秒）、②原稿（9.3秒）。10.6〜11.05秒で直した後の実画面へ入れ替え、③直した字幕（10.8秒）、比較欄の枠（11.2秒）、注記（11.4秒）",
-      "exit": "15.15〜15.55秒で消える。11.8〜15.15秒は止めて読む",
-      "sources": ["../outputs/session.json", "../input/script.json", "../outputs/edit-record.json", "../outputs/reference-review.json", "assets/desktop-raw.png", "assets/desktop-edited-first.png"]
+      "id": 3, "start": 9, "end": 14,
+      "title": "特徴から、文と推定時刻へ", "sub": "モデル構造の図",
+      "message": "同じ色面がencoderへ入り、decoderが文と時刻のtokenを出し、同じtokenが5枚の区間に開く",
+      "enter": "色面の写しが9.3〜10.8秒でencoderへ縮みながら入る。encoder 10.0〜12.4秒、decoder 10.8〜13.2秒が点く。token札が11.3〜12.1秒、5枚が12.2〜13.54秒で順に開く",
+      "exit": "枠・札・5枚は残る。下段の下書きは13.6〜14.2秒で消える",
+      "note": "箱の光は構造の説明。注意や活性・層の計測ではない",
+      "sources": ["vendor/whisper/whisper/model.py", "vendor/whisper/whisper/transcribe.py", "concept/structure.json"]
     },
     {
-      "start": 15.5,
-      "end": 20,
-      "step": "原稿を参照して直す",
-      "message": "直したのは3区間。5区間の時刻は推定値のまま。聞いての確認は未実施",
-      "enter": "直した後の一覧の実画面（desktop-edited-last.png）、区間数、5行の表、時刻と未確認の注記",
-      "exit": "19.65〜20.05秒で消える",
-      "sources": ["../outputs/edit-record.json", "../outputs/session.json", "assets/desktop-edited-last.png"]
+      "id": 4, "start": 14, "end": 20,
+      "title": "原出力には、誤りも残る", "sub": "保存済みの5区間・時刻は推定値",
+      "message": "推定時刻の軸に5枚が並び、1番の原出力「塩リコーボー」と0.00–4.12秒を示す",
+      "enter": "軸が14.2〜14.9秒、1番の選択が15.0〜15.6秒、下段の吹き出しが15.3〜16.0秒",
+      "exit": "吹き出しは19.7〜20.2秒で消える。選択は25.0〜25.6秒まで残る",
+      "sources": ["concept/structure.json", "outputs/session.json"]
     },
     {
-      "start": 20,
-      "end": 24,
-      "step": "SRTで保存",
-      "message": "ブラウザーが保存した SRT は5区間・番号は1から連番・時刻行は原出力と同じ",
-      "enter": "保存パネルの見出しとボタンまでの実画面（状態の行は切り抜きの外）、保存した SRT の最初と最後の区間をそのまま",
-      "exit": "23.65〜24.05秒で消える",
-      "sources": ["../outputs/browser-edited.srt", "../outputs/review-ja.srt", "assets/desktop-edited-first.png"]
+      "id": 5, "start": 20, "end": 25,
+      "title": "原稿と見比べ、文だけ手で直す", "sub": "原稿は認識に渡していない",
+      "message": "原稿の本が認識の後から入り、鉛筆が1・2・5番を回って文だけを替える。時刻の表示は動かない",
+      "enter": "本が20.2〜21.0秒、破線が20.9〜21.5秒。鉛筆の移動 21.4〜22.0／22.55〜23.0／23.55〜24.0／24.55〜25.0秒。文の入れ替え 1番22.0〜22.5、2番23.0〜23.5、5番24.0〜24.5秒。吹き出し「塩リコーボー」→「しおり工房」21.6〜25.3秒",
+      "exit": "鉛筆は本へ戻る",
+      "note": "原稿参照の手動編集例。自動修正や聴取による校正を示す光は使わない",
+      "sources": ["outputs/reference-review.json", "outputs/edit-record.json", "input/script.json"]
     },
     {
-      "start": 24,
-      "end": 28,
-      "step": "SRTで保存",
-      "message": "転記の誤りを、そのまま直せる。音声を開く → 文を直す → SRTで保存",
-      "enter": "スマホ幅の初期画面（phone-raw.png・375×812で撮影・未編集）と試す順番。24.45秒までにすべて入る",
-      "exit": "なし（24.45〜28秒の3.55秒を止めて終える）",
-      "sources": ["assets/phone-raw.png"]
+      "id": 6, "start": 25, "end": 29,
+      "title": "時刻はそのまま、字幕に保存", "sub": "原出力 441 B／修正例 420 B（実ファイルから読む）",
+      "message": "同じ5枚が、writerの原出力SRTと字幕デスクの修正例SRTへ書き出される",
+      "enter": "紙が25.2〜25.9秒、原出力の行が25.8〜27.0秒、修正例の行が26.6〜27.8秒、大きさが27.5〜28.1秒",
+      "exit": "28.3〜28.9秒で全体を同じ濃さへ。見出しは28.05〜28.4秒で入れ替わる",
+      "sources": ["outputs/review-ja.srt", "outputs/browser-edited.srt"]
+    },
+    {
+      "id": 7, "start": 29, "end": 32,
+      "title": "仕組みを見て、字幕デスクへ", "sub": "保存済み実行の図解／無音",
+      "message": "WAV→特徴→モデル→5枚の区間→SRTと、別経路の原稿をまとめて見せる",
+      "enter": "見出しの入りは28.4〜28.85秒。29秒以降は何も動かない",
+      "exit": "なし（暗転しない）",
+      "sources": ["concept/structure.json"]
     }
   ],
-  "crops": {
-    "rawList": {"file": "assets/desktop-raw.png", "x": 78, "y": 477, "w": 526, "h": 532, "scale": 0.88},
-    "rawEditor": {"file": "assets/desktop-raw.png", "x": 600, "y": 477, "w": 602, "h": 667, "scale": 0.7},
-    "editEditor": {"file": "assets/desktop-edited-first.png", "x": 600, "y": 503, "w": 602, "h": 665, "scale": 0.7},
-    "editList": {"file": "assets/desktop-edited-last.png", "x": 78, "y": 503, "w": 526, "h": 590, "scale": 0.79},
-    "savePanel": {"file": "assets/desktop-edited-first.png", "x": 600, "y": 1167, "w": 602, "h": 165, "scale": 1.1},
-    "phoneTop": {"file": "assets/phone-raw.png", "x": 0, "y": 0, "w": 375, "h": 524, "scale": 0.9}
-  },
-  "audio_events": []
+  "not_claimed": [
+    "ブラウザーや映像の中で動く音声認識",
+    "モデル内部の注意・活性・層の計測",
+    "単語ごとの時刻や字幕同期の正確さ",
+    "音声を聞いての校正・発音の正しさ・人の承認",
+    "精度や速度の評価"
+  ],
+  "render_qa": {
+    "status": "pending",
+    "note": "この編集ソースの執筆時点で、ブラウザーでの実行・縦横の描画・フレーム確認・MP4の書き出しと再生は行っていない。制作側が後で行う"
+  }
 }

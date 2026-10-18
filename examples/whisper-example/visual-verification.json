@@ -1,0 +1,309 @@
+{
+  "id": "whisper-example",
+  "revision": "visual-r1",
+  "verified_at": "2026-10-18T07:50:03.713222+00:00",
+  "stage": "technical_qa_complete",
+  "original_execution_record": "verification.json",
+  "scope": "New audio-feature/model/cues/writer/manual-edit concept UI and32s silentfilms only. Original synthetic function input, oneWhisper baseCPU inference and five raw/edited timedcues retained. Only newAPIexecution is logMelpreprocessing fordisplay, no model load/ASR/TTS.",
+  "original_runtime_source_files_preserved": 37,
+  "derived_legacy_viewer_files": 3,
+  "supplemental_fixed_architecture_files": 2,
+  "upstream": {
+    "repository": "openai/whisper",
+    "commit": "86098128c0b4f24f0e2aa2994de830614b474227",
+    "version": "20250625",
+    "license": "MIT",
+    "copyright": "Copyright (c) 2022 OpenAI",
+    "original_official_vendor_git_blobs_verified": 8,
+    "installed_python_git_blobs_verified": 14,
+    "supplemental_sources": [
+      "whisper/model.py",
+      "whisper/decoding.py"
+    ],
+    "existing_checkpoint_sha256_verified": "ed3a0b6b1c0edf879ad9b11b1af5a0e6ab5db9205f891f668f8b0e6c6326e34e"
+  },
+  "feature_preprocessing": {
+    "status": "passed",
+    "source_sha256": "9e268f7ce63986672a534d67bf7c413b08878b455926ce23aed889675e944df4",
+    "input_sha256": "8b9fbf4aeba07b7f2887fd8b9f82e07ea9bc802a5e6907a355ec388e47df82c4",
+    "output_sha256": "69977f0af34a7aa85f644771111f94f10c5285e0909c84b6a3e6a3fc21f016d0",
+    "display_shape": [
+      80,
+      96
+    ],
+    "actual_log_mel_shape": [
+      80,
+      5101
+    ],
+    "actual_content_shape": [
+      80,
+      2101
+    ],
+    "rms_windows_rechecked": 211,
+    "scope": "Existing fixed Whisper audio.log_mel_spectrogram only, padding480000 as in transcribe; crop content and mean into96timebins/globalminmax display. No model load, ASR inference, decode, TTS synthesis, download or original output mutation. Not captured model activations."
+  },
+  "browser": {
+    "states_checked": 30,
+    "stages": 3,
+    "cue_states": 5,
+    "modes": [
+      "raw",
+      "review"
+    ],
+    "parts": 6,
+    "theme_width_views": 16,
+    "phone375x812_primary_action_fits_all30": true,
+    "touch_targets_min44x44": true,
+    "keyboard_focus": {
+      "focus": "入力",
+      "focusOutline": "3px",
+      "scroll": 0
+    },
+    "semantic_distinctions": [
+      "ASR model andPython tools, notSKILL.md/TTS/hostedAPI",
+      "Original script not fed toASR",
+      "5estimatedcue times kept",
+      "Only0/1/4text manuallycorrected;2/3unchanged",
+      "Actualfeaturepreprocessing separate fromoriginalASR andsymbolicmodelstructure",
+      "Functional inputaudio distinct fromsilentconceptfilm"
+    ],
+    "failures": [
+      {
+        "kind": "http",
+        "message": "読み込めませんでした：concept/structure.json が HTTP 503 でした。古い表示は消しました。",
+        "diagram_cleared": true,
+        "audio_source_cleared": true,
+        "dependent_controls_disabled": true,
+        "retry_restored": true
+      },
+      {
+        "kind": "json",
+        "message": "読み込めませんでした：concept/structure.json の大きさが記録と違います。古い表示は消しました。",
+        "diagram_cleared": true,
+        "audio_source_cleared": true,
+        "dependent_controls_disabled": true,
+        "retry_restored": true
+      },
+      {
+        "kind": "hash",
+        "message": "読み込めませんでした：concept/structure.json のSHA-256が記録と違います。古い表示は消しました。",
+        "diagram_cleared": true,
+        "audio_source_cleared": true,
+        "dependent_controls_disabled": true,
+        "retry_restored": true
+      }
+    ],
+    "native_srt_save": {
+      "raw": {
+        "disabled": null,
+        "download": "review-ja.srt",
+        "href": "outputs/review-ja.srt",
+        "label": "原出力SRTを保存",
+        "native_click_requested": true
+      },
+      "review": {
+        "disabled": null,
+        "download": "browser-edited.srt",
+        "href": "outputs/browser-edited.srt",
+        "label": "修正例SRTを保存",
+        "native_click_requested": true
+      },
+      "legacy": "review-ja-edited.srt（5区間・編集 3区間）をブラウザーの保存に渡しました。保存できたかはブラウザーの表示で確かめてください。",
+      "file_receipt": "Browser download tool returned no file. Native download links and edited-save request are distinct from returned-file proof; all actual fixed public file bytes independently verified."
+    },
+    "legacy_saved_cues_checked": 5,
+    "legacy_edit_reset_and_three_changes": true,
+    "functional_audio": {
+      "seek": {
+        "duration": 21.014063,
+        "error": null,
+        "paused": true,
+        "src": "input/review-ja.wav",
+        "time": 17.52
+      },
+      "play": {
+        "error": null,
+        "paused": false,
+        "time": 17.543378
+      },
+      "end": {
+        "duration": 21.014063,
+        "ended": true,
+        "error": null,
+        "paused": true,
+        "time": 21.014063
+      },
+      "listening_confirmed": false,
+      "timing_accuracy_confirmed": false
+    },
+    "editor": {
+      "jumps": [
+        {
+          "caption": "1/7・0〜4秒：声を、文と時刻へ（Whisper・音声認識）",
+          "clock": "0.0秒 / 32.0秒"
+        },
+        {
+          "caption": "2/7・4〜9秒：音を、特徴にする（実入力を同じ前処理APIで表示）",
+          "clock": "4.0秒 / 32.0秒"
+        },
+        {
+          "caption": "3/7・9〜14秒：特徴から、文と推定時刻へ（モデル構造の図）",
+          "clock": "9.0秒 / 32.0秒"
+        },
+        {
+          "caption": "4/7・14〜20秒：原出力には、誤りも残る（保存済みの5区間・時刻は推定値）",
+          "clock": "14.0秒 / 32.0秒"
+        },
+        {
+          "caption": "5/7・20〜25秒：原稿と見比べ、文だけ手で直す（原稿は認識に渡していない）",
+          "clock": "20.0秒 / 32.0秒"
+        },
+        {
+          "caption": "6/7・25〜29秒：時刻はそのまま、字幕に保存（原出力 441 B／修正例 420 B）",
+          "clock": "25.0秒 / 32.0秒"
+        },
+        {
+          "caption": "7/7・29〜32秒：仕組みを見て、字幕デスクへ（保存済み実行の図解／無音）",
+          "clock": "29.0秒 / 32.0秒"
+        }
+      ],
+      "asset_status": "素材 26/26 照合済み",
+      "audio_elements": 0,
+      "arbitrary_seek": "7.2秒 / 32.0秒",
+      "wide": {
+        "caption": "2/7・4〜9秒：音を、特徴にする（実入力を同じ前処理APIで表示）",
+        "height": 720,
+        "scroll": 360,
+        "selected": "true",
+        "viewport": 375,
+        "width": 1280
+      },
+      "end_clock": "32.0秒 / 32.0秒",
+      "play": {
+        "pressed": "true",
+        "text": "一時停止"
+      },
+      "asset_failure": {
+        "all_controls_disabled": true,
+        "caption_empty": true,
+        "state": "error",
+        "status": "読み込みに失敗しました：concept/structure.json のSHA-256が記録と違います。代わりの映像は出しません。",
+        "recovered": true
+      }
+    },
+    "movies_ended": 2,
+    "theme_persistence": {
+      "choice": "system",
+      "selected": "system"
+    },
+    "request_copy_status": "依頼文をコピーしました。",
+    "request_text_exact": true,
+    "clipboard_readback_confirmed": false,
+    "unconfirmed": [
+      "physical iOS/Safari/VoiceOver",
+      "200 percent zoom",
+      "human aesthetic approval",
+      "audio listening and pronunciation",
+      "semantic timing accuracy",
+      "clipboard readback"
+    ],
+    "human_approval": false
+  },
+  "frame_review": {
+    "reviewed_by": "production agent",
+    "human_approval": false,
+    "scope": "Portrait/wide contact sheets, fullsize representative/poster,12consecutive strips and decodedMP4 moving frames. Actual audio features connect to symbolic model structure; reference-based manual text edits are separate. Raised inactive-path contrast after phone review. No physicaliOS, listening or human aesthetic approval.",
+    "layouts": 2,
+    "representative_frames_per_layout": 16,
+    "consecutive_frames_per_layout": 12,
+    "actual_MP4_motion_frames_per_layout": 12,
+    "determinism": {
+      "portrait": {
+        "frame": 576,
+        "seconds": 19.2,
+        "first": "52f6bcbd2bac50805b9a83c083f820a5341720649e6a3a6e065e6856d9649dd7",
+        "afterOtherTimes": "52f6bcbd2bac50805b9a83c083f820a5341720649e6a3a6e065e6856d9649dd7",
+        "freshPage": "52f6bcbd2bac50805b9a83c083f820a5341720649e6a3a6e065e6856d9649dd7",
+        "match": true
+      },
+      "wide": {
+        "frame": 576,
+        "seconds": 19.2,
+        "first": "401192cff23a545b8bb002d6f3e9fc5bc7cb8b51ad85ff25f367367a53df0a74",
+        "afterOtherTimes": "401192cff23a545b8bb002d6f3e9fc5bc7cb8b51ad85ff25f367367a53df0a74",
+        "freshPage": "401192cff23a545b8bb002d6f3e9fc5bc7cb8b51ad85ff25f367367a53df0a74",
+        "match": true
+      }
+    },
+    "final30_and31_stable": true,
+    "audio_streams": 0
+  },
+  "video": {
+    "portrait": {
+      "video": {
+        "file": "video.mp4",
+        "sha256": "c933fbb6efd6c1ee44269633175c138caab5643e38a67d1c412e3b2d8250faf6",
+        "width": 720,
+        "height": 1280,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      },
+      "determinism": {
+        "frame": 576,
+        "seconds": 19.2,
+        "first": "52f6bcbd2bac50805b9a83c083f820a5341720649e6a3a6e065e6856d9649dd7",
+        "afterOtherTimes": "52f6bcbd2bac50805b9a83c083f820a5341720649e6a3a6e065e6856d9649dd7",
+        "freshPage": "52f6bcbd2bac50805b9a83c083f820a5341720649e6a3a6e065e6856d9649dd7",
+        "match": true
+      },
+      "full_decode_passed": true,
+      "faststart": true
+    },
+    "wide": {
+      "video": {
+        "file": "video.mp4",
+        "sha256": "52cf24243f87b84ab199ad7f3b0160640aeff5eb77dfc40db066117a01bd0459",
+        "width": 1280,
+        "height": 720,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      },
+      "determinism": {
+        "frame": 576,
+        "seconds": 19.2,
+        "first": "401192cff23a545b8bb002d6f3e9fc5bc7cb8b51ad85ff25f367367a53df0a74",
+        "afterOtherTimes": "401192cff23a545b8bb002d6f3e9fc5bc7cb8b51ad85ff25f367367a53df0a74",
+        "freshPage": "401192cff23a545b8bb002d6f3e9fc5bc7cb8b51ad85ff25f367367a53df0a74",
+        "match": true
+      },
+      "full_decode_passed": true,
+      "faststart": true
+    }
+  },
+  "shipped_source_reproduction": {
+    "status": "passed",
+    "checked_at": "2026-10-18T07:44:32.341917+00:00",
+    "png_files_byte_identical": 62,
+    "layouts": [
+      {
+        "layout": "portrait",
+        "png_files_byte_identical": 31,
+        "final30_and31_stable": true
+      },
+      {
+        "layout": "wide",
+        "png_files_byte_identical": 31,
+        "final30_and31_stable": true
+      }
+    ],
+    "scope": "Actual shipped root wrapper and final sources rendered16representative+12consecutive+contact/poster/strip perlayout. Same-environment pixel identity and final-frame stability; not cross-OS font equality or human approval."
+  },
+  "human_approval": false,
+  "physical_ios_safari_voiceover": false,
+  "audio_listening_confirmed": false,
+  "timing_accuracy_confirmed": false
+}
