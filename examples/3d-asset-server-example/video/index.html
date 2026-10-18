@@ -1,118 +1,88 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" data-page="asset-film">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>3D Asset Server 作例・解説動画の編集ソース（28秒・無音）｜Studio Yebisu</title>
-<meta name="description" content="Web用の木箱を、固定版 3D Asset Server の原典コードで Poly Haven から探し、容量を見てから1kの glTF 一式（5ファイル）を実際に取得した保存記録と、取得した実物を表示した閲覧ページの実画面から描く28秒・無音の映像の編集ソースです。">
-<meta name="color-scheme" content="light">
-<meta name="theme-color" content="#f6f1e8">
+<!-- 読み込むのは同じ場所のファイルだけ。音声・映像は読み込まない。blob: は照合した静止画のバイトを画像として読む場合のためだけ。 -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob:; media-src 'none'; connect-src 'self'; font-src 'self'; frame-src 'none'; worker-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>図解32秒・無音の元ページ — 既存の3D素材を探し、一式で受け取る（3D Asset Server 作例）</title>
 <link rel="stylesheet" href="video.css">
 </head>
 <body>
-<main id="editor" data-state="loading">
-  <header class="chrome intro">
-    <p class="kicker">Studio Yebisu ・ 3D Asset Server 作例</p>
-    <h1>解説動画の編集ソース</h1>
-    <p class="lede">Web用の木箱がほしい → 探す（候補3件・Poly Haven は ok、Fab はリンクだけ）→ 取得の前に容量を見る（1k は約2.17MiB、8k は約113.14MiBで4MiBの予算を超え、取得0件で停止）→ 1kの5ファイルを取得して MD5 を照合 → 取得した実物を3Dで見る。28秒・無音・1280×720 の映像を、照合した実行記録から描きます。候補名・容量・原典の例外の文・ファイル名・件数は、すべて素材の JSON から読みます。</p>
-    <p class="note">連続した画面録画ではありません。保存した実行記録と、閲覧ページを撮影した無加工の JPEG 2枚から組み立てた映像です。この画面では検索・取得・3D Asset Server・AI は動きません。木箱の3Dモデルは James Ray Cock の作品（Poly Haven・CC0）で、AI が作ったものではありません。</p>
-  </header>
+<header class="intro">
+  <p class="kicker">3D Asset Server 作例・図解動画の元ページ</p>
+  <h1>既存の3D素材を探し、一式で受け取る<span class="sub">図解32秒・無音（<span id="film-dims">縦 720×1280</span>・30fps）</span></h1>
+  <p>作例ページと同じ25件の素材を照合してから、同じ概念図を時刻ごとに描きます。手順書の本と依頼、AI（Opus）が書いた run.mjs、制作担当によるNodeでの実行、原典の AssetService、Poly Haven と Fab、候補の木箱、予算のゲート、保存フォルダー、実物の表示までが、同じ形のままつながります。値はすべて元の実行で保存した記録と実ファイルから読み、検索・取得・AIの実行はしていません。音もありません。</p>
+</header>
 
-  <p id="status" class="chrome status" role="status" aria-live="polite" data-state="loading">素材8件を読み込み、SHA-256 と実行記録を照合しています…</p>
-  <p id="loading" class="chrome hint loading">照合が終わるまで映像は表示しません。素材が1つでも合わなければ、理由を出して止まります。</p>
+<figure id="stage" class="stage" data-orient="portrait">
+  <canvas id="film" width="720" height="1280" role="img"
+    aria-label="図解動画の画面。0秒から4秒：手順書の本（SKILL.md と AGENTS.md）が開き、上端に検索・確認・取得の見出し札、右のページに規則の5つの印。隣に、原典の AssetService と Poly Haven・Fab の配信元の形。4秒から8秒：依頼の札「木箱 / Web / CC0 / 4MiB」と本の写しが AI（Opus）へ合流し、AIが書いた run.mjs の写しが、別の工程の制作担当（Nodeで1回実行）へ渡されます。8秒から14秒：実行が AssetService から Poly Haven と Fab へ分かれ、Poly Haven から候補3件（Crate 01・Crate 02・Military Crate）のカード、Fab からは検索URLのリンクだけが届きます（Fab へは通信していない）。選んだ Crate 01 のカードに CC0 と glTF 1k の札。14秒から20秒：同じカードが5つのファイル（gltf・bin・画像3）に開き、A08 の 1k は 2.17MiB で予算4MiBの棒の半分ほど、A04 の 8k は脇道で 113.14MiB となって棒の端で止まります（取得の通信0件。1kへの自動の切り替えはない）。20秒から26秒：1k の5ファイルがゲートを抜け、相対パスのまま保存フォルダーへ（直下に gltf と bin、textures/ に画像3つ）。実物の木箱の静止画が現れ、James Ray Cock / Poly Haven / CC0。Fab の欄に A07 skipped（通信なし・エラーではない）。26秒から29秒：フォルダーに ZIP、実物の表示に実3Dの札。29秒から32秒：全体の経路が同じ濃さで止まります。"></canvas>
+  <figcaption id="film-caption" class="caption" aria-live="polite"></figcaption>
+</figure>
 
-  <div id="error" class="chrome failure" role="alert" hidden>
-    <p class="failure-title">素材の照合に失敗したため、映像を描きません。</p>
-    <p id="error-text"></p>
-    <button id="retry" type="button" hidden>素材をもう一度読み込む</button>
+<section class="controls" aria-label="プレビューの操作">
+  <div class="row">
+    <button id="play" type="button" aria-pressed="false" disabled>再生</button>
+    <button id="reset" type="button" disabled>先頭へ</button>
+    <button id="replay" type="button" disabled>最初から再生</button>
+    <button id="end" type="button" disabled>末尾へ</button>
   </div>
+  <div class="scrub">
+    <label for="time">再生位置（0〜32秒）</label>
+    <input id="time" type="range" min="0" max="32" step="0.1" value="0" disabled>
+    <output id="clock" for="time">0.0秒 / 32.0秒</output>
+  </div>
+  <div class="row jumps" role="group" aria-label="場面へ移る">
+    <button type="button" data-jump="0" disabled>0秒</button>
+    <button type="button" data-jump="4" disabled>4秒</button>
+    <button type="button" data-jump="8" disabled>8秒</button>
+    <button type="button" data-jump="14" disabled>14秒</button>
+    <button type="button" data-jump="20" disabled>20秒</button>
+    <button type="button" data-jump="26" disabled>26秒</button>
+    <button type="button" data-jump="29" disabled>29秒</button>
+  </div>
+  <div class="row" role="group" aria-label="画面の向き">
+    <button type="button" data-orient="portrait" aria-pressed="true" disabled>縦 720×1280</button>
+    <button type="button" data-orient="wide" aria-pressed="false" disabled>横 1280×720</button>
+  </div>
+</section>
+<p id="asset-status" class="status" role="status" data-state="loading">素材 0/25 を照合しています…</p>
+<p class="retry-row"><button id="retry" class="retry" type="button" hidden>もう一度読み込む</button></p>
+<p class="hint">自動では再生しません。スライダーは ← → で0.1秒、Home・End で先頭・末尾へ移ります。</p>
 
-  <figure id="stage" class="stage" hidden>
-    <canvas id="film" width="1280" height="720" role="img" aria-label="3D Asset Server 作例の解説動画。Web用の木箱がほしいという依頼から始まり、取得した木箱の実画面を見せる。固定版の原典の検索で wooden crate の候補が3件見つかり、Poly Haven は ok、Fab はリンクだけで通信しなかったこと、取得の前に1kの合計が約2.17MiBで4MiBの予算内、8kは約113.14MiBで予算を超え、原典が取得の通信0件で止めたこと、1kの glTF・bin・画像3枚の5ファイルを取得し、大きさと MD5 が Poly Haven の値と5件とも一致したこと、閲覧ページで three.js の GLTFLoader が描いた木箱をスマホとパソコンの2つの向きで見せ、探す・容量・取得・3Dの流れと、1モデル・5ファイル・CC0・作者 James Ray Cock と Poly Haven を示す28秒の無音映像。">この映像の表示には canvas に対応したブラウザーが必要です。</canvas>
-  </figure>
+<section class="scenes" aria-labelledby="scenes-title">
+  <h2 id="scenes-title">場面</h2>
+  <ol>
+    <li><span class="time">0〜4秒</span>既存の3D素材を探し、一式で受け取る：手順書の本が開き、検索・確認・取得の見出し札と規則の5つの印。隣に、検索・取得の道具（原典の AssetService と2つの配信元）の形。3Dを作る絵ではありません。</li>
+    <li><span class="time">4〜8秒</span>渡す：依頼の札と本の写しが AI（Opus）へ合流し、AIが書いた run.mjs が制作担当へ渡ります。Nodeで実行したのは制作担当で、AIではありません。</li>
+    <li><span class="time">8〜14秒</span>配信元へ振り分ける：Poly Haven から候補3件、Fab からは検索URLだけ（通信なし）。選んだ木箱に CC0 と glTF 1k の札。候補と状態は A01 の記録から。</li>
+    <li><span class="time">14〜20秒</span>取得の前に容量を比べる：同じカードが5つのファイルに開き、A08 の 1k（2,277,087 B）は予算の内側、A04 の 8k（118,636,175 B）は脇道で止まります。別々の記録で、自動の再試行や切り替えではありません。</li>
+    <li><span class="time">20〜26秒</span>受け取る：1k の5ファイルが相対パスのままフォルダーへ合流し、実物の木箱の静止画（制作担当が実3D表示を撮ったもの）と出典。Fab の欄に A07 の skipped が短く出ます。</li>
+    <li><span class="time">26〜29秒</span>保存した実物を使う：フォルダーに ZIP、実物の表示に実3Dの札。映像の中で端末の保存はしていません。</li>
+    <li><span class="time">29〜32秒</span>全体の経路を同じ濃さで静止（入りは28.3〜28.9秒、ポスターは31秒）。</li>
+  </ol>
+</section>
 
-  <section class="chrome controls" aria-label="再生と時刻">
-    <div class="buttons">
-      <button id="play" type="button" aria-pressed="false" disabled>再生</button>
-      <button id="reset" type="button" disabled>選んだ時刻に戻す</button>
-      <span class="mute">無音</span>
-    </div>
-    <div class="scrub">
-      <label for="time">時刻を動かす（0〜28秒・0.1秒刻み）</label>
-      <input id="time" type="range" min="0" max="28" step="0.1" value="0" disabled>
-    </div>
-    <output id="clock" for="time" aria-live="off">照合中 ・ 時刻はまだありません</output>
-  </section>
+<nav class="links" aria-label="関連するファイル">
+  <h2>関連するファイル</h2>
+  <ul>
+    <li><a href="../index.html">作例のページ（図・3つの実記録・保存）</a></li>
+    <li><a href="../desk.html#A08">以前の画面（8件の記録・実3D）</a></li>
+    <li><a href="../concept/manifest.json">照合する25件（concept/manifest.json）</a></li>
+    <li><a href="storyboard.json">場面の設計（storyboard.json）</a></li>
+    <li><a href="README.md">この映像の説明（README.md）</a></li>
+    <li><a href="legacy.html">以前の28秒の映像ソース（legacy.html）</a></li>
+    <li><a href="../source.zip">入力・出力・ソース一式（source.zip）</a></li>
+  </ul>
+</nav>
 
-  <section class="chrome info" aria-labelledby="scenes-heading">
-    <h2 id="scenes-heading">場面</h2>
-    <p class="hint">押すと、その場面の読みやすい時刻（<code>data-time</code>）で止まります。「◯秒に戻す」は最後に選んだ時刻（スライダー・場面のボタン・<code>window.seek</code>）へ戻ります。</p>
-    <ol id="scene-list" class="scene-list"></ol>
-  </section>
+<footer class="foot">
+  <p>この映像は、照合済みの記録と実ファイルから描いた図解です。元の制作のNodeでの実行、Poly Haven への通信、AIの作業は、ここでは行っていません。</p>
+  <p>原典：<a href="https://github.com/arielshad/3d-asset-server/tree/f605df3425011bae55ade114c9e7b276f5b1297b" rel="noopener">arielshad/3d-asset-server</a>（コミット f605df3・v0.1.0）、Apache License 2.0。木箱：James Ray Cock / Poly Haven / CC0（Powered by Poly Haven）。映像のコードと文章：MIT License、Copyright (c) 2026 Studio Yebisu。</p>
+</footer>
 
-  <section class="chrome info" aria-labelledby="assets-heading">
-    <h2 id="assets-heading">素材8件の SHA-256 照合</h2>
-    <p id="asset-summary">照合はまだ終わっていません。</p>
-    <ol id="asset-checks" class="asset-list"></ol>
-  </section>
-
-  <section class="chrome info" aria-labelledby="cue-heading">
-    <h2 id="cue-heading">キューシート（無音）</h2>
-    <p class="hint">音はありません（<code>audioEvents</code> は空）。数値はすべて照合した素材から読みます。詳しい根拠は <a href="storyboard.json">storyboard.json</a>。</p>
-    <div class="table-wrap">
-      <table class="cues">
-        <caption>場面ごとの時刻・伝えること・使う実データ</caption>
-        <thead>
-          <tr><th scope="col">時刻</th><th scope="col">伝えること</th><th scope="col">使う実データ・素材</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>0–4秒</td><td>Web用の木箱がほしい／CC0・容量を見てから。0秒から見出しと実物が見える</td><td>desktop.jpg の3D表示部（切り抜き）、asset の作者・配布元・CC0</td></tr>
-          <tr><td>4–8秒</td><td>探す：候補3件。Poly Haven は ok、Fab は link（リンクだけ・通信なし）</td><td>A01 の検索語・候補3件・配信元の状態、A07 の skipped（小さな注記）</td></tr>
-          <tr><td>8–12秒</td><td>取得の前に容量を見る。1k は予算内、8k は予算超過で取得の通信0件</td><td>A03・A04 の合計バイト数、予算 4,194,304 バイト、原典の例外の文そのまま</td></tr>
-          <tr><td>12–17秒</td><td>1k の5ファイルを取得。大きさと MD5 が5件とも一致</td><td>A08 の5ファイルのパス・バイト数・MD5、独立した確認212件、通信なしの再生29件</td></tr>
-          <tr><td>17–23秒</td><td>取得した実物を3Dで見る（スマホは最初の向き、パソコンは右へ回す2回）</td><td>phone.jpg・desktop.jpg の3D表示部（切り抜き・拡大のみ）、glTF の数</td></tr>
-          <tr><td>23–28秒</td><td>探す → 容量 → 取得 → 3D。1モデル・5ファイル・CC0 と出典。約4秒止まる</td><td>集計、実際の通信8件（API 3・ファイル 5）、確認39件、作者・配布元</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="note">ポスターは19.5秒（場面5の描き終わり）。場面の間は0.35秒ずつ紙の色へ下がってから次へ入ります。</p>
-  </section>
-
-  <section class="chrome info" aria-labelledby="links-heading">
-    <h2 id="links-heading">記録と原典</h2>
-    <ul class="links">
-      <li><a href="../index.html#A08">作例ページへ戻る（A08 の取得した実物を3Dで見る）</a></li>
-      <li><a href="../outputs/asset-runs.json">8件の操作の実行記録の全文 outputs/asset-runs.json</a></li>
-      <li><a href="../outputs/assets/polyhaven-wooden_crate_01/wooden_crate_01_1k.gltf">取得した実ファイルの例 outputs/assets/polyhaven-wooden_crate_01/wooden_crate_01_1k.gltf</a></li>
-      <li><a href="../outputs/method.md">手順と読み方 outputs/method.md</a></li>
-      <li><a href="../source.zip">作例のソース一式 source.zip</a></li>
-      <li><a href="README.md">この映像ソースの README（書き出し手順と確認の状態）</a></li>
-      <li><a href="storyboard.json">場面の設計と素材のハッシュ storyboard.json</a></li>
-      <li><a href="https://github.com/arielshad/3d-asset-server/blob/f605df3425011bae55ade114c9e7b276f5b1297b/web/src/content/SKILL.md">原典のスキル web/src/content/SKILL.md（固定コミット f605df3）</a></li>
-      <li><a href="https://polyhaven.com/a/wooden_crate_01">素材 Wooden Crate 01 のページ（Poly Haven）</a></li>
-    </ul>
-    <p class="note">28秒・無音のMP4を書き出し、フレーム・全デコード・ネイティブ再生を確認しました。<a href="../../../media/3d-asset-server-example.mp4">MP4を大きく見る</a>。実機iOS/Safari・人による承認は未確認です。</p>
-  </section>
-
-  <section class="chrome info" aria-labelledby="scope-heading">
-    <h2 id="scope-heading">この映像が示す範囲</h2>
-    <p>固定版 arielshad/3d-asset-server（コミット f605df3425011bae55ade114c9e7b276f5b1297b・0.1.0・Apache-2.0）の、原典の build:server が出力した改変なしの AssetService.search・getAsset・selectFiles・totalBytes・expandFiles・downloadFiles を、実際の Poly Haven API に使った8件の操作の記録です。通信は Poly Haven の API 3件とファイル配信 5件の計8件だけで、Fab はリンクだけを返す配信元のため通信していません。</p>
-    <p>原典のスキルの手順どおり、短い語で探し、利用条件と形式を見て、取得する全ファイルの合計を取得の前に確かめてから取得しました。8k の一式（118,636,175 バイト・約113.14MiB）は予算 4,194,304 バイト（4MiB）を超え、原典の downloadFiles が取得の通信を出す前に止めました。原典の例外の文は 1024 進の値を MB と表記しています（113.1 MB）。1k の一式（2,277,087 バイト・約2.17MiB）の5ファイルは、大きさと MD5 が Poly Haven の files API の値と一致しました。</p>
-    <p>独立した Python の確認212件は、原典のファイル・Poly Haven の値・取得した glTF のバイナリ（メッシュ3・三角形6,576・頂点4,686）を確かめたものです。通信なしの再生29件は、別の Node のプロセスで、保存した実際の応答を使って原典の関数を動かし直し、5ファイルがバイト一致したことを確かめたもので、Poly Haven へもう一度問い合わせた結果でも、検索の時間が同じになる約束でもありません。</p>
-    <p>映像の木箱は、閲覧ページで three 0.180.0 の GLTFLoader が照合済みの5ファイルを描いた実画面の切り抜きです。2枚の向きは、スマホが最初の向き、パソコンが「右へ回す」ボタンを2回押した向きで、自動回転や生成した映像ではありません。閲覧ページはこの作例の独自の表示部で、原典のアプリ全体の画面ではありません。</p>
-    <p>試していないもの：原典が持つほかの配信元、新しい3Dモデルの生成、公開サーバー 3d.shep.bot・HTTP API・MCP の通信路・原典の Web 画面、アカウント・API キー・有料素材、Blender やゲームエンジンへの組み込み、見た目の品質や本番での性能、実機の iPhone Safari・VoiceOver、人による承認。</p>
-    <details>
-      <summary>原典・版・ライセンス</summary>
-      <ul class="links">
-        <li>3D Asset Server：arielshad/3d-asset-server 0.1.0（コミット f605df3425011bae55ade114c9e7b276f5b1297b）と、その build:server が出力した dist/。Apache-2.0。<a href="../vendor/3d-asset-server/LICENSE">全文</a></li>
-        <li>three 0.180.0：MIT License。<a href="../vendor/three/LICENSE">全文</a></li>
-        <li>取得した3Dモデル：Wooden Crate 01・James Ray Cock・Poly Haven・CC0（帰属表示は不要ですが、作者と配布元を表示しています）。<a href="https://polyhaven.com/license">Poly Haven のライセンス</a></li>
-        <li>作例のコード・文章・入力、閲覧ページ、この映像ソース：MIT License（Copyright (c) 2026 Studio Yebisu）。<a href="../LICENSE">全文</a></li>
-        <li>書き出しに使う Motion Reel のレンダラー：MIT License。<a href="../tools/motion-reel/LICENSE">全文</a></li>
-      </ul>
-    </details>
-  </section>
-</main>
-<script src="video.js"></script>
+<script type="module" src="video.js"></script>
 </body>
 </html>

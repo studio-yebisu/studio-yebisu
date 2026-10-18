@@ -1,0 +1,50 @@
+{
+  "id": "A07",
+  "label": "直接取得だけに絞る",
+  "operation": "search",
+  "input": {
+    "id": "A07",
+    "label": "直接取得だけに絞る",
+    "operation": "search",
+    "request": {
+      "query": "wooden crate",
+      "types": [
+        "model"
+      ],
+      "providers": [
+        "fab"
+      ],
+      "downloadableOnly": true,
+      "freeOnly": true,
+      "limit": 3
+    }
+  },
+  "output": {
+    "query": "wooden crate",
+    "types": [
+      "model"
+    ],
+    "results": [],
+    "providers": [
+      {
+        "provider": "fab",
+        "name": "Fab",
+        "count": 0,
+        "status": "skipped",
+        "error": "no direct downloads",
+        "tookMs": 0
+      }
+    ]
+  },
+  "observations": {
+    "result_ids": [],
+    "provider_status": {
+      "fab": "skipped"
+    },
+    "timing_note": "tookMs is the live time measured during this run; it changes on every run.",
+    "network": {
+      "requests": 0,
+      "calls": []
+    }
+  }
+}

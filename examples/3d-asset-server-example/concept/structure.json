@@ -1,0 +1,168 @@
+{
+  "format": "3d-assets-structure/v1",
+  "case_id": "3d-asset-server-example",
+  "source_commit": "f605df3425011bae55ade114c9e7b276f5b1297b",
+  "definition": "3D素材の検索・条件確認・取得を扱うツールと、AIが読むMarkdown手順書。既存素材を探すもので3Dを生成しない。",
+  "parts": [
+    {
+      "id": "skill",
+      "label": "AIが読む手順書",
+      "source_path": "vendor/3d-asset-server/web/src/content/SKILL.md",
+      "upstream_path": "web/src/content/SKILL.md",
+      "line_start": 10,
+      "quote": "# Workflow",
+      "meaning": "検索→ファイルと容量を確認→取得の3手順。IDの表し方、用途別形式、ライセンス、直接取得できない場合の案内、大容量の事前確認という規則。AIが読む指示書で、モデル生成器ではない。"
+    },
+    {
+      "id": "execute",
+      "label": "実装して、別に実行",
+      "source_path": "vendor/3d-asset-server/web/src/content/AGENTS.md",
+      "upstream_path": "web/src/content/AGENTS.md",
+      "line_start": 35,
+      "quote": "## Option 2: REST API",
+      "meaning": "手引きにはMCP/RESTの使い方がある。今回の元Opusはrun.mjsを執筆し、制作担当がNodeで原典ライブラリを実行した。ホスト型サーバー、REST、MCP通信路は未使用。"
+    },
+    {
+      "id": "providers",
+      "label": "配信元へ振り分ける",
+      "source_path": "vendor/3d-asset-server/src/core/service.ts",
+      "upstream_path": "src/core/service.ts",
+      "line_start": 61,
+      "quote": "export class AssetService",
+      "meaning": "今回有効なのはPoly HavenとFabだけ。A01でPoly Havenは3候補とok、Fabは検索URLとlink。A07の直接取得だけの条件ではFabはskippedで、通信しない。23配信元すべての実行ではない。"
+    },
+    {
+      "id": "selection",
+      "label": "一式の中身を選ぶ",
+      "source_path": "vendor/3d-asset-server/src/core/download.ts",
+      "upstream_path": "src/core/download.ts",
+      "line_start": 54,
+      "quote": "export function selectFiles",
+      "meaning": "用途はWeb、形式gltfと解像度1k。主ファイルに付属するbinと画像も含めた5ファイルを選ぶ。totalBytes/expandFilesで合計2277087Bを取得前に確認。"
+    },
+    {
+      "id": "budget",
+      "label": "容量で止める",
+      "source_path": "vendor/3d-asset-server/src/core/download.ts",
+      "upstream_path": "src/core/download.ts",
+      "line_start": 179,
+      "quote": "const maxBytes = opts.maxBytes",
+      "meaning": "downloadFilesは既知の全容量を予算4194304Bと比べてからフォルダーを作り通信する。8kは118636175BなのでErrorが先に発生し、取得通信0件・保存フォルダーなし。1kへ自動切替や8kのダウンロードは行っていない。"
+    },
+    {
+      "id": "use",
+      "label": "保存した実物を使う",
+      "source_path": "model-view.js",
+      "upstream_path": null,
+      "line_start": 49,
+      "quote": "export function mountModelView",
+      "meaning": "取得したglTF・bin・3枚の画像をSHA-256で照合してから、three.js GLTFLoaderで実3D表示。これは作例側の表示部。モデルはJames Ray Cock制作、Poly HavenのCC0で、Opusの3D生成ではない。"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "A08",
+      "label": "1kを取得",
+      "record_file": {
+        "path": "concept/records/A08.json",
+        "bytes": 11049,
+        "sha256": "a41f8a647eeaeb366e553e574169b5476d31e6c45efb22eacb06bd52b38190bd"
+      },
+      "desk_url": "desk.html#A08"
+    },
+    {
+      "id": "A04",
+      "label": "8kは止まる",
+      "record_file": {
+        "path": "concept/records/A04.json",
+        "bytes": 1892,
+        "sha256": "c3f6266d468bca20d05885ec9771079e286c9720754ccda30705e04713542e36"
+      },
+      "desk_url": "desk.html#A04"
+    },
+    {
+      "id": "A07",
+      "label": "リンクだけ",
+      "record_file": {
+        "path": "concept/records/A07.json",
+        "bytes": 968,
+        "sha256": "e34a9f1fe02073f7116307949a16a723d697e5ea300ad21fb9869fe511299beb"
+      },
+      "desk_url": "desk.html#A07"
+    }
+  ],
+  "workflow": [
+    "検索",
+    "形式・ライセンス",
+    "全容量",
+    "取得",
+    "実物を使う"
+  ],
+  "roles": {
+    "original_opus": "SKILL/AGENTSを読んでrun.mjsと表示実装を執筆",
+    "production_operator": "Nodeで原典のライブラリ関数を実行し実応答と取得ファイルを保存",
+    "new_UI": "元の記録と実ファイルを読む。検索・取得を再実行しない"
+  },
+  "asset": {
+    "id": "polyhaven:wooden_crate_01",
+    "title": "Wooden Crate 01",
+    "author": "James Ray Cock",
+    "provider": "Poly Haven",
+    "license": {
+      "name": "CC0",
+      "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "commercialUse": true,
+      "attributionRequired": false
+    },
+    "source_url": "https://polyhaven.com/a/wooden_crate_01",
+    "poly_count_metadata": 6576,
+    "credit": "Wooden Crate 01 by James Ray Cock / Poly Haven / CC0"
+  },
+  "budget": {
+    "max_bytes": 4194304,
+    "one_k_bytes": 2277087,
+    "eight_k_bytes": 118636175,
+    "blocked_download_requests": 0
+  },
+  "counts": {
+    "original_operations": 8,
+    "original_checks": 39,
+    "independent_checks": 212,
+    "offline_replay_checks": 29,
+    "enabled_providers": 2,
+    "actual_network_requests": 8,
+    "api_requests": 3,
+    "download_requests": 5,
+    "models": 1,
+    "files": 5,
+    "meshes": 3,
+    "triangles": 6576
+  },
+  "bundle_contents": {
+    "gltf": 1,
+    "bin": 1,
+    "images": 3
+  },
+  "actual_view_image": {
+    "path": "concept/actual-crate.png",
+    "meaning": "制作担当が公開の取得済みモデルをGLTFLoaderで表示した375px画面から、3D表示領域だけを撮影。モデルを生成した図やPoly Havenのサムネイルではない。"
+  },
+  "limits": {
+    "live_request_on_page_open": false,
+    "original_inference_or_download_rerun": false,
+    "hosted_REST_MCP_used": false,
+    "all_providers_tested": false,
+    "paid_asset_or_account": false,
+    "three_D_generation": false,
+    "human_approval": false,
+    "game_integration": false,
+    "visual_quality_or_performance_guarantee": false
+  },
+  "notes": [
+    "6部品は今回の説明用整理で原典の共通スキーマではない。",
+    "原典SKILL/AGENTSのホストAPI説明と今回の原典ライブラリ実行を区別。",
+    "保存結果は初回の実記録で、最新の検索やAI実行ではない。",
+    "1k glTFに付属するbinの配信URLは8k階層だが同じ189408B。1kは選択されたテクスチャ解像度。",
+    "CC0は素材の条件。本体Apache2/three MIT/依存とフォント別通知を保持。"
+  ]
+}
