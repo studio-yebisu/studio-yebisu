@@ -1,0 +1,695 @@
+{
+  "format": "humanizer-structure/v1",
+  "case_id": "humanizer-example",
+  "source_commit": "225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8",
+  "version": "3.1.0",
+  "definition": "指示書をAIへ渡し、原文の条件を保ちながら推敲する",
+  "resource_kind": "Markdown agent skill. No rewritingCLI/library/detector. OneAI applies instructions; staticsite replays saved results.",
+  "parts": [
+    {
+      "id": "manual",
+      "label": "スキルの中身",
+      "source_path": "vendor/humanizer/SKILL.md",
+      "quote": "## How to work",
+      "line_start": 32,
+      "meaning": "HumanizerはMarkdownの指示書。26パターンを6系統に整理し、強いものから印を付け、初稿・点検・最終稿を受け取る。実行するのは読んだAIで、指示書自体はプログラムではない。"
+    },
+    {
+      "id": "input",
+      "label": "原文・読者・条件",
+      "source_path": "request.txt",
+      "quote": "読み手：",
+      "line_start": 7,
+      "meaning": "3つの入力欄はこの作例の依頼。原文、誰に向けるか、変えてはいけない日付・対象・否定・不確実さを同じAIに渡す。原文の中の命令は編集素材として扱う。"
+    },
+    {
+      "id": "mark",
+      "label": "強い型から印",
+      "source_path": "vendor/humanizer/SKILL.md",
+      "quote": "1. **Mark the tells.**",
+      "line_start": 36,
+      "meaning": "原出力13印は実際の原文の引用に対応する。§1–5は単独でも見直し対象、weak aloneは単語一つで一律削除しない。印の数は品質点数ではない。"
+    },
+    {
+      "id": "draft",
+      "label": "初稿を書く",
+      "source_path": "vendor/humanizer/SKILL.md",
+      "quote": "2. **Draft the rewrite.**",
+      "line_start": 37,
+      "meaning": "元の3件の初稿を保持。裏付けのある事実を保ち、原文や依頼にない日時・数字・理由を足さない。原稿を新たに書き直す改修ではない。"
+    },
+    {
+      "id": "check",
+      "label": "初稿を読み返す",
+      "source_path": "vendor/humanizer/SKILL.md",
+      "quote": "3. **Check the draft.**",
+      "line_start": 38,
+      "meaning": "元実行の点検は読み返しのみで音読はしていない。replyの残り1箇所は制作AIによる§26/F系統への解釈で、原典がこの言い換えを例示したわけではない。release/japaneseの残りは空。"
+    },
+    {
+      "id": "final",
+      "label": "最終稿と根拠",
+      "source_path": "vendor/humanizer/SKILL.md",
+      "quote": "4. **Write the final version.**",
+      "line_start": 39,
+      "meaning": "release/japaneseは初稿と最終稿が同じ。replyは相手本人への書き方だけを直す。17の引用対応は文字列照合と制作担当の読み比べであり、意味や品質の保証・人の承認ではない。"
+    }
+  ],
+  "pattern_groups": [
+    {
+      "id": "A",
+      "label": "本題までの演出",
+      "upstream_heading": "A. Staging instead of stating",
+      "line_start": 55,
+      "sections": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "patterns": [
+        {
+          "section": 1,
+          "title": "Not X but Y",
+          "line_start": 59
+        },
+        {
+          "section": 2,
+          "title": "One-line closers and dramatic fragments",
+          "line_start": 76
+        },
+        {
+          "section": 3,
+          "title": "Sayings that sound deep",
+          "line_start": 97
+        },
+        {
+          "section": 4,
+          "title": "Staged run-up before the point",
+          "line_start": 110
+        },
+        {
+          "section": 5,
+          "title": "Arguing with no one",
+          "line_start": 123
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "label": "文のリズム",
+      "upstream_heading": "B. Rhythm by rule",
+      "line_start": 136,
+      "sections": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "patterns": [
+        {
+          "section": 6,
+          "title": "Forced triads",
+          "line_start": 140
+        },
+        {
+          "section": 7,
+          "title": "Repeated sentence openings",
+          "line_start": 152
+        },
+        {
+          "section": 8,
+          "title": "Dashes as the universal connector",
+          "line_start": 160
+        },
+        {
+          "section": 9,
+          "title": "Stacked qualifiers",
+          "line_start": 169
+        },
+        {
+          "section": 10,
+          "title": "Hyphenated pairs everywhere",
+          "line_start": 178
+        },
+        {
+          "section": 11,
+          "title": "Passive voice and missing subjects",
+          "line_start": 187
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "label": "誇張と権威づけ",
+      "upstream_heading": "C. Inflation and borrowed authority",
+      "line_start": 195,
+      "sections": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ],
+      "patterns": [
+        {
+          "section": 12,
+          "title": "Overused AI words",
+          "line_start": 199
+        },
+        {
+          "section": 13,
+          "title": "Inflated significance",
+          "line_start": 208
+        },
+        {
+          "section": 14,
+          "title": "Vague connection or association",
+          "line_start": 225
+        },
+        {
+          "section": 15,
+          "title": "Shallow -ing riders",
+          "line_start": 234
+        },
+        {
+          "section": 16,
+          "title": "Sales language",
+          "line_start": 243
+        },
+        {
+          "section": 17,
+          "title": "Borrowed authority",
+          "line_start": 252
+        },
+        {
+          "section": 18,
+          "title": "Avoiding is, are, and has",
+          "line_start": 265
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "label": "形式の飾り",
+      "upstream_heading": "D. Formatting by rule",
+      "line_start": 274,
+      "sections": [
+        19,
+        20,
+        21
+      ],
+      "patterns": [
+        {
+          "section": 19,
+          "title": "Bold as decoration",
+          "line_start": 278
+        },
+        {
+          "section": 20,
+          "title": "Decorative headings",
+          "line_start": 292
+        },
+        {
+          "section": 21,
+          "title": "Curly quotation marks",
+          "line_start": 305
+        }
+      ]
+    },
+    {
+      "id": "E",
+      "label": "チャットの名残",
+      "upstream_heading": "E. Leftovers from the chat and the draft",
+      "line_start": 313,
+      "sections": [
+        22,
+        23,
+        24,
+        25
+      ],
+      "patterns": [
+        {
+          "section": 22,
+          "title": "Chatbot residue",
+          "line_start": 317
+        },
+        {
+          "section": 23,
+          "title": "Knowledge-limit disclaimers and guesses",
+          "line_start": 326
+        },
+        {
+          "section": 24,
+          "title": "A heading repeated in the first sentence",
+          "line_start": 339
+        },
+        {
+          "section": 25,
+          "title": "Writing about the document instead of its subject",
+          "line_start": 353
+        }
+      ]
+    },
+    {
+      "id": "F",
+      "label": "読み手の背景",
+      "upstream_heading": "F. Writing for the wrong reader",
+      "line_start": 366,
+      "sections": [
+        26
+      ],
+      "patterns": [
+        {
+          "section": 26,
+          "title": "Re-explaining what the reader knows",
+          "line_start": 370
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "jobs": 3,
+    "facts": 17,
+    "marks": 13,
+    "changes": 11,
+    "remaining_patterns": 1
+  },
+  "jobs": [
+    {
+      "id": "release",
+      "label": "英語のお知らせ",
+      "language": "en",
+      "purpose": "架空のMado NotesのTeamプラン利用者に、エクスポートの開始日と条件を知らせる。中立で簡潔な敬意ある語調。",
+      "reader_context": "新機能を初めて読む利用者。条件や制限を省かない。",
+      "known_context_can_omit": [],
+      "input": "Here's the thing: exporting your notes is not just a button, it's a new chapter for your workflow.\n\nStarting October 20, 2026, workspace owners can export a Markdown ZIP from Settings > Export on the Team plan. The download link expires after 24 hours. Exports include notes and attachments, but not comments. Existing sharing permissions do not change.\n\nThis is the real win.",
+      "first_draft": "Starting October 20, 2026, workspace owners can export a Markdown ZIP from Settings > Export on the Team plan. The download link expires after 24 hours. Exports include notes and attachments, but not comments. Existing sharing permissions do not change.",
+      "remaining_patterns": [],
+      "final": "Starting October 20, 2026, workspace owners can export a Markdown ZIP from Settings > Export on the Team plan. The download link expires after 24 hours. Exports include notes and attachments, but not comments. Existing sharing permissions do not change.",
+      "marks": [
+        {
+          "section": 1,
+          "pattern": "Not X but Y",
+          "quote": "exporting your notes is not just a button, it's a new chapter for your workflow",
+          "reason": "「ただのボタン」だと言った人は原文のどこにもいません。否定側は読み手の思い込みを正しておらず、肯定側の「new chapter」を大きく見せるためだけにあります。"
+        },
+        {
+          "section": 2,
+          "pattern": "One-line closers and dramatic fragments",
+          "quote": "This is the real win.",
+          "reason": "直前の段落を受けて価値を宣言するだけの一行の締めです。何が「win」なのかも、新しい事実も足していません。"
+        },
+        {
+          "section": 4,
+          "pattern": "Staged run-up before the point",
+          "quote": "Here's the thing:",
+          "reason": "本題の前に注意を引くだけの前置きです。中立のお知らせでは、開始日と条件から始めれば足ります。"
+        },
+        {
+          "section": 13,
+          "pattern": "Inflated significance",
+          "quote": "a new chapter for your workflow",
+          "reason": "エクスポートという通常の機能を、作業の転機のように見せています。入力にはそれを支える事実がありません。"
+        }
+      ],
+      "changes": [
+        {
+          "before": "Here's the thing: exporting your notes is not just a button, it's a new chapter for your workflow.",
+          "after": "",
+          "sections": [
+            1,
+            4,
+            13
+          ],
+          "reason": "前置き・誰も主張していない対比・誇張でできた文です。「ノートを書き出せる」という中身は次の文（開始日・対象・場所・形式）と「Exports include notes」が伝えているため、文ごと削り、事実の文から始めました。"
+        },
+        {
+          "before": "This is the real win.",
+          "after": "",
+          "sections": [
+            2
+          ],
+          "reason": "前の段落を言い直すだけの締めなので削除しました。最後の具体的な事実（共有権限は変わらない）で終わります。"
+        }
+      ],
+      "facts": [
+        {
+          "id": "release-1",
+          "label": "開始日",
+          "source_quote": "Starting October 20, 2026",
+          "final_quote": "Starting October 20, 2026",
+          "note": "開始日をそのまま文頭に残しています。"
+        },
+        {
+          "id": "release-2",
+          "label": "対象ロール",
+          "source_quote": "workspace owners",
+          "final_quote": "workspace owners",
+          "note": "操作できるのはworkspace ownerであることを残しています。"
+        },
+        {
+          "id": "release-3",
+          "label": "対象プラン",
+          "source_quote": "on the Team plan",
+          "final_quote": "on the Team plan",
+          "note": "Teamプランに限る条件を残しています。"
+        },
+        {
+          "id": "release-4",
+          "label": "操作場所と形式",
+          "source_quote": "export a Markdown ZIP from Settings > Export",
+          "final_quote": "export a Markdown ZIP from Settings > Export",
+          "note": "形式（Markdown ZIP）と場所（Settings > Export）を同じ語のまま残しています。"
+        },
+        {
+          "id": "release-5",
+          "label": "リンクの期限",
+          "source_quote": "expires after 24 hours",
+          "final_quote": "The download link expires after 24 hours.",
+          "note": "期限の対象がダウンロードリンクであることも含めて1文で残しています。"
+        },
+        {
+          "id": "release-6",
+          "label": "含むものと除外",
+          "source_quote": "include notes and attachments, but not comments",
+          "final_quote": "Exports include notes and attachments, but not comments.",
+          "note": "含むもの（ノートと添付）と除外（コメント）の両方が情報なので、§1の対比として扱わず残しています。"
+        },
+        {
+          "id": "release-7",
+          "label": "既存の共有権限",
+          "source_quote": "Existing sharing permissions do not change.",
+          "final_quote": "Existing sharing permissions do not change.",
+          "note": "否定文のまま残しています。"
+        }
+      ],
+      "context_omissions": [],
+      "explanation_ja": "冒頭の前置き（Here's the thing）、誰も主張していない「not just a button」の対比、末尾の「This is the real win.」を削り、開始日から共有権限までの4文はそのまま残しました。「notes and attachments, but not comments」は含むものと除外の両方を伝える対比なので削っていません。初稿を点検し、§1の対比・§2の締め・§6の三つ組・§8のダッシュ・§19の太字は残っていなかったため、初稿をそのまま最終稿にしました。初めて読む利用者向けの文なので、背景の省略はしていません。"
+    },
+    {
+      "id": "reply",
+      "label": "英語のサポート返信",
+      "language": "en",
+      "purpose": "同じ架空製品のサポート担当が、期限切れリンクを再開できるか尋ねた利用者へ返す。穏やかで具体的な返答。",
+      "reader_context": "相手はTeamプランのworkspace owner。Settings > ExportでのZIP出力と期限切れをすでに理解し、こう尋ねている: \"The link expired while I was in a meeting. Can support reopen the same download?\" 既知の背景の言い直しは省ける。回答と次の操作を先に伝える。",
+      "known_context_can_omit": [
+        "Team workspace owners can export a Markdown ZIP from Settings > Export.",
+        "your download link has expired"
+      ],
+      "input": "Great question! To give you some context, Team workspace owners can export a Markdown ZIP from Settings > Export. As you mentioned, your download link has expired. I'm not saying that exporting is complicated, but the real question is what happens next.\n\nSupport cannot reopen an expired download link. A workspace owner can create a new export from Settings > Export. Creating another export has no additional charge. Large workspaces may take a few minutes to prepare.\n\nI hope this helps!",
+      "first_draft": "Support cannot reopen an expired download link. A workspace owner can create a new export from Settings > Export. Creating another export has no additional charge. Large workspaces may take a few minutes to prepare.",
+      "remaining_patterns": [
+        {
+          "section": 26,
+          "quote": "A workspace owner can create a new export from Settings > Export.",
+          "reason": "返信の相手がworkspace owner本人だとreader_contextで分かっているのに、一般の読み手に向けた三人称で次の操作を書いています。背景を削った後も残った、読み手を取り違えた書き方（§26を含むF節の系統）です。"
+        }
+      ],
+      "final": "Support cannot reopen an expired download link. As a workspace owner, you can create a new export from Settings > Export. Creating another export has no additional charge. Large workspaces may take a few minutes to prepare.",
+      "marks": [
+        {
+          "section": 3,
+          "pattern": "Sayings that sound deep",
+          "quote": "the real question is what happens next",
+          "reason": "「本当の問題は」と構えるだけで、次に何が起きるかの中身は書いていません。答えは次の段落にあります。"
+        },
+        {
+          "section": 5,
+          "pattern": "Arguing with no one",
+          "quote": "I'm not saying that exporting is complicated",
+          "reason": "相手は「エクスポートが複雑だ」とは言っていません。誰も出していない反論に先回りして答えています。"
+        },
+        {
+          "section": 22,
+          "pattern": "Chatbot residue",
+          "quote": "Great question!",
+          "reason": "質問を褒めるチャットの決まり文句で、返信の中身を何も足していません。"
+        },
+        {
+          "section": 22,
+          "pattern": "Chatbot residue",
+          "quote": "I hope this helps!",
+          "reason": "チャットの締めの決まり文句です。答えと次の操作のあとに足すものがありません。"
+        },
+        {
+          "section": 26,
+          "pattern": "Re-explaining what the reader knows",
+          "quote": "To give you some context, Team workspace owners can export a Markdown ZIP from Settings > Export. As you mentioned, your download link has expired.",
+          "reason": "相手がすでに知っている出力方法と期限切れを組み立て直していて、尋ねられた答え（再開できない）が2段落目まで出てきません。"
+        }
+      ],
+      "changes": [
+        {
+          "before": "Great question!",
+          "after": "",
+          "sections": [
+            22
+          ],
+          "reason": "チャットの挨拶なので削除しました。"
+        },
+        {
+          "before": "To give you some context, Team workspace owners can export a Markdown ZIP from Settings > Export.",
+          "after": "",
+          "sections": [
+            26
+          ],
+          "reason": "相手はTeamプランのworkspace ownerで、Settings > ExportでのZIP出力をすでに理解しているとreader_contextに明記されているため削除しました。次の操作の文にSettings > Exportは残っています。"
+        },
+        {
+          "before": "As you mentioned, your download link has expired.",
+          "after": "",
+          "sections": [
+            26
+          ],
+          "reason": "期限切れは相手自身が質問で書いていることなので、言い直しを削りました。"
+        },
+        {
+          "before": "I'm not saying that exporting is complicated, but the real question is what happens next.",
+          "after": "",
+          "sections": [
+            5,
+            3
+          ],
+          "reason": "誰も出していない反論と、中身のない「本当の問題」の前置きです。主張として残すべき内容がないので文ごと削除しました。"
+        },
+        {
+          "before": "A workspace owner can create a new export from Settings > Export.",
+          "after": "As a workspace owner, you can create a new export from Settings > Export.",
+          "sections": [
+            26
+          ],
+          "reason": "相手本人に向けて次の操作を伝える形にしました。「workspace ownerなら作れる」という条件はreader_contextの範囲で残し、場所も変えていません。"
+        },
+        {
+          "before": "I hope this helps!",
+          "after": "",
+          "sections": [
+            22
+          ],
+          "reason": "チャットの締めなので削除しました。返信は時間の見込みという最後の具体的な事実で終わります。"
+        }
+      ],
+      "facts": [
+        {
+          "id": "reply-1",
+          "label": "再開できない",
+          "source_quote": "Support cannot reopen an expired download link.",
+          "final_quote": "Support cannot reopen an expired download link.",
+          "note": "質問への答えなので最初の文にしました。「cannot reopen」は変えていません。"
+        },
+        {
+          "id": "reply-2",
+          "label": "新規出力と担当者・場所",
+          "source_quote": "A workspace owner can create a new export from Settings > Export.",
+          "final_quote": "As a workspace owner, you can create a new export from Settings > Export.",
+          "note": "作れるのはworkspace ownerであること、場所がSettings > Exportであることを残し、相手に向けた書き方に変えました。"
+        },
+        {
+          "id": "reply-3",
+          "label": "追加料金",
+          "source_quote": "Creating another export has no additional charge.",
+          "final_quote": "Creating another export has no additional charge.",
+          "note": "原文の文のまま残しています。"
+        },
+        {
+          "id": "reply-4",
+          "label": "時間の限定と不確実性",
+          "source_quote": "Large workspaces may take a few minutes to prepare.",
+          "final_quote": "Large workspaces may take a few minutes to prepare.",
+          "note": "大きいworkspaceに限ること、「may」の不確実さ、「a few minutes」をそのまま残しています。"
+        }
+      ],
+      "context_omissions": [
+        {
+          "quote": "Team workspace owners can export a Markdown ZIP from Settings > Export.",
+          "reason": "reader_contextに「相手はTeamプランのworkspace owner。Settings > ExportでのZIP出力と期限切れをすでに理解し」とあり、既知の背景として明記されているため省きました。"
+        },
+        {
+          "quote": "your download link has expired",
+          "reason": "相手自身が質問で \"The link expired while I was in a meeting.\" と書いており、reader_contextが既知の背景として明記しているため省きました。"
+        }
+      ],
+      "explanation_ja": "「Can support reopen the same download?」への答え（再開できない）を最初の文にし、続けて次の操作、追加料金がないこと、時間の見込みを置きました。相手がすでに知っているZIP出力の方法と期限切れの説明は、reader_contextに明記されている範囲だけ省いています。初稿の点検では、相手本人に三人称で手順を書いている点が残っていたので、最終稿で「As a workspace owner, you can」に直しました。「cannot reopen」、追加料金がないこと、「may take a few minutes」と大きいworkspaceに限る範囲は変えていません。"
+    },
+    {
+      "id": "japanese",
+      "label": "日本語への適用例",
+      "language": "ja",
+      "purpose": "架空のMado Notesの利用者に、検索のベータ版の条件を伝える。敬体、普通の製品のお知らせ。",
+      "reader_context": "新機能を初めて読む。誇張は削り、日時・対象・例外・否定を保つ。日本語全般の効果を保証する実験ではない。",
+      "known_context_can_omit": [],
+      "input": "本質的に、探す体験の未来が変わります。これは単なる検索の追加ではなく、知識との新しい対話です。\n\n2026年10月22日から、Mado Notesの全プランで、Ctrl+K（MacはCommand+K）でノートを検索できます。検索の対象はノート本文だけです。添付ファイルとアーカイブ済みのノートは対象に含まれません。ベータ版は11月5日までで、検索履歴は保存しません。\n\nそれが、本当の価値です。",
+      "first_draft": "2026年10月22日から、Mado Notesの全プランで、Ctrl+K（MacはCommand+K）でノートを検索できます。検索の対象はノート本文だけです。添付ファイルとアーカイブ済みのノートは対象に含まれません。ベータ版は11月5日までで、検索履歴は保存しません。",
+      "remaining_patterns": [],
+      "final": "2026年10月22日から、Mado Notesの全プランで、Ctrl+K（MacはCommand+K）でノートを検索できます。検索の対象はノート本文だけです。添付ファイルとアーカイブ済みのノートは対象に含まれません。ベータ版は11月5日までで、検索履歴は保存しません。",
+      "marks": [
+        {
+          "section": 1,
+          "pattern": "Not X but Y",
+          "quote": "これは単なる検索の追加ではなく、知識との新しい対話です。",
+          "reason": "「単なる検索の追加」と言った人はおらず、否定側は後半を大きく見せるためだけにあります。後半の「知識との新しい対話」も、具体的な機能を何も述べていない格言調の言い方です。"
+        },
+        {
+          "section": 2,
+          "pattern": "One-line closers and dramatic fragments",
+          "quote": "それが、本当の価値です。",
+          "reason": "前の段落を受けて価値を宣言するだけの一行の締めです。何が価値なのか、新しい事実を足していません。"
+        },
+        {
+          "section": 3,
+          "pattern": "Sayings that sound deep",
+          "quote": "本質的に",
+          "reason": "英語の「fundamentally」に当たる語で、普通の告知を隠れた真実のように見せる前置きになっています。"
+        },
+        {
+          "section": 13,
+          "pattern": "Inflated significance",
+          "quote": "探す体験の未来が変わります",
+          "reason": "期限付きのベータ版という具体的な事実を、未来の変化として誇張しています。入力にそれを支える事実はありません。"
+        }
+      ],
+      "changes": [
+        {
+          "before": "本質的に、探す体験の未来が変わります。",
+          "after": "",
+          "sections": [
+            3,
+            13
+          ],
+          "reason": "格言調の前置きと誇張だけの文です。検索できるようになるという中身は次の段落の最初の文が伝えているため、文ごと削除しました。"
+        },
+        {
+          "before": "これは単なる検索の追加ではなく、知識との新しい対話です。",
+          "after": "",
+          "sections": [
+            1
+          ],
+          "reason": "誰も主張していない否定と、裏付けのない「新しい対話」でできた文なので削除しました。"
+        },
+        {
+          "before": "それが、本当の価値です。",
+          "after": "",
+          "sections": [
+            2
+          ],
+          "reason": "締めの一行を削り、最後の具体的な事実（検索履歴を保存しない）で終わるようにしました。"
+        }
+      ],
+      "facts": [
+        {
+          "id": "japanese-1",
+          "label": "開始日",
+          "source_quote": "2026年10月22日から",
+          "final_quote": "2026年10月22日から",
+          "note": "開始日を文頭のまま残しています。"
+        },
+        {
+          "id": "japanese-2",
+          "label": "対象プラン",
+          "source_quote": "Mado Notesの全プラン",
+          "final_quote": "Mado Notesの全プラン",
+          "note": "全プランが対象であることを残しています。"
+        },
+        {
+          "id": "japanese-3",
+          "label": "ショートカット",
+          "source_quote": "Ctrl+K（MacはCommand+K）",
+          "final_quote": "Ctrl+K（MacはCommand+K）",
+          "note": "2つのキー操作を全角括弧の形も含めてそのまま残しています。"
+        },
+        {
+          "id": "japanese-4",
+          "label": "対象と除外",
+          "source_quote": "検索の対象はノート本文だけです。添付ファイルとアーカイブ済みのノートは対象に含まれません。",
+          "final_quote": "検索の対象はノート本文だけです。添付ファイルとアーカイブ済みのノートは対象に含まれません。",
+          "note": "本文だけが対象であることと、2つの除外を、続く2文のまま残しています。"
+        },
+        {
+          "id": "japanese-5",
+          "label": "ベータ期間",
+          "source_quote": "ベータ版は11月5日まで",
+          "final_quote": "ベータ版は11月5日まで",
+          "note": "ベータの期限を残しています。期限後の扱いは入力にないため足していません。"
+        },
+        {
+          "id": "japanese-6",
+          "label": "履歴の扱い",
+          "source_quote": "検索履歴は保存しません。",
+          "final_quote": "検索履歴は保存しません。",
+          "note": "否定文のまま残しています。ベータ期間の文とつないだ形も変えていません。"
+        }
+      ],
+      "context_omissions": [],
+      "explanation_ja": "冒頭の2文（格言調の前置き・誇張・「単なる〜ではなく」の対比）と末尾の「それが、本当の価値です。」を削り、日付から履歴までの4文は敬体のまま残しました。「本文だけです。〜含まれません。」は対象と除外の両方を伝えるので削っていません。「ベータ版は11月5日までで、検索履歴は保存しません。」は2文に分けると、履歴を保存しないのがベータ期間中だけかどうかの読み方が変わりうるため、原文の形のままにしました。点検で残る定型は見つからず、初稿をそのまま最終稿にしています。日本語の1件で試した結果で、日本語全般での効果を示すものではありません。"
+    }
+  ],
+  "flow": {
+    "manual": "SKILL.md with26patterns/6groups and4stepworkflow enters the sameAI. These are instructions, not an executable detector.",
+    "input": "Originaltext+readercontext+explicitfacts enter sameAI alongwithskill. Threeinputfields are example request, not universalupstreamschema.",
+    "process": "Mark actualquotes→draft→read/checkagainstoriginal→final. Conceptualcheckloop; savedemptyissues remainempty, not inventnewrevision rounds.",
+    "output": "Firstdraft+remainingpatterns+final, real3jobmemo and quotedconditionpairs. Reader compares source/final beforeadoption.",
+    "original_inference": "Original exactOpus5.5 appliedskill to3jobs. No rerun oforiginalrewrites.",
+    "not_claimed": [
+      "AI detection",
+      "semantic equivalence score",
+      "universal Japanese benefit",
+      "human approval",
+      "audible readthrough",
+      "automatic correctness"
+    ]
+  },
+  "guardrails": {
+    "fact_pairs_are_quote_correspondences_not_meaning_proof": true,
+    "keep_informative_contrasts": true,
+    "reader_omission_only_explicit": true,
+    "reply_two_known_context_omissions": true,
+    "weak_patterns_not_global_bans": true,
+    "read_aloud_done": false,
+    "human_approval": false,
+    "new_original_rewrite": false,
+    "live_ai_in_browser": false
+  },
+  "outputs": {
+    "memo": {
+      "path": "outputs/revisions.md",
+      "sha256": "148c6a92e08538eb2413c1b02d05156283f0e459328d31d89747b3e57b8a5d51",
+      "bytes": 13919
+    },
+    "json": {
+      "path": "outputs/revisions.json",
+      "sha256": "a4ac78dd0169100f2ecfbcdec3858cc0787f482be99105c9ad97dd5a67346c30",
+      "bytes": 21807
+    }
+  },
+  "scope_note": "架空の製品Mado Notesの文章3件（英語2件・日本語1件）に、固定版Humanizer 3.1.0のSKILL.mdをClaude Opus 5.5が制作時に適用し、その出力を保存したものです。ページを開いてもAIは実行されません。人による校閲・承認は受けていません。AI検出の結果、意味が同じであることの保証、日本語全般での効果を示すものではありません。",
+  "license": {
+    "upstream": "MIT, Copyright (c) 2025 Siqi Chen",
+    "own": "Original fictionalinputs/code/UI/motion MIT, Copyright (c) 2026 Studio Yebisu. Wikipedia text not redistributed."
+  }
+}

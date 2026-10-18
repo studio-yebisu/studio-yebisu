@@ -1,39 +1,85 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" data-page="humanizer-film">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Humanizer作例：原文と、残す条件を渡す（28秒・無音の編集動画）｜Studio Yebisu</title>
-  <meta name="description" content="Humanizerに渡すもの（原文・読み手・残す条件）、削った中身のない一文、そのまま残した対象と除外、答えを先にしたサポート返信、保存結果の読み比べ方を、制作時に保存した結果と実際の画面で説明する28秒・無音の編集動画です。">
-  <link rel="stylesheet" href="video.css">
-  <script type="module" src="video.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>図解32秒・無音の元ページ — 指示書と原文を、同じAIへ（Humanizer 作例）</title>
+<link rel="stylesheet" href="video.css">
 </head>
 <body>
-  <main class="page">
-    <header class="head">
-      <p class="eyebrow">Humanizer 作例 ／ 編集動画（28秒・無音）</p>
-      <h1>原文と、残す条件を渡す</h1>
-      <p class="lede">制作時に保存した推敲結果（<code>outputs/revisions.json</code>）と、保存結果ビューアの実際のスクリーンショットを素材に編集した説明動画です。連続した画面録画ではありません。この画面は保存済みの素材を描くだけで、AIの実行や文章の書き直しはしません。文章はすべて架空の製品「Mado Notes」のものです。</p>
-    </header>
+<header class="intro">
+  <p class="eyebrow">Humanizer 作例・図解動画の元ページ</p>
+  <h1>指示書と原文を、同じAIへ<span class="sub">図解32秒・無音（縦720×1280／横1280×720）</span></h1>
+  <p>作例ページと同じ11件の素材を照合してから、同じ概念図を描きます。SKILL.mdの本が開き、原文・読み手・残す条件と一緒に同じAIへ入り、印→初稿→点検→最終稿を通って、読み比べと推敲メモへつながります。例は点検で1件残ったサポート返信です。文・印・条件はすべて保存済みの実記録で、ここではAIは動かず、音もありません。</p>
+</header>
 
-    <div id="stage" class="stage">
-      <canvas id="film" width="1280" height="720" role="img" aria-label="Humanizerの作例を説明する28秒・無音の編集動画。日本語の例で、原文・読み手・残す条件の3つを渡すこと、具体的な事実がない一文「これは単なる検索の追加ではなく、知識との新しい対話です。」を削ったこと、対象と除外の2文「検索の対象はノート本文だけです。」「添付ファイルとアーカイブ済みのノートは対象に含まれません。」をそのまま残したことを示します。続いて英語のサポート返信で、答え「Support cannot reopen an expired download link.」を最初の文にし、「Large workspaces may take a few minutes to prepare.」の範囲と不確実さを残したことを示し、最後に保存結果ビューアの実際の画面と、持ち帰るファイルrevisions.mdとrevisions.jsonを示します。">Humanizerに渡すもの、削った一文、残した条件、保存結果の読み比べ方を説明する編集動画です。表示にはCanvasに対応したブラウザーが必要です。</canvas>
-    </div>
+<figure id="stage" class="stage" data-orient="portrait">
+  <canvas id="film" width="720" height="1280" role="img"
+    aria-label="図解動画の画面。SKILL.mdの本が開き、6系統・26型と4手順を見せ、4手順が同じAIの枠へ移ります。原文の紙・読み手・残す条件の札が同じAIへ入り、紙は印の枠で決まり文句をはがし、初稿・点検へ進みます。点検では初稿の1文を原文と読み手に照らし、戻り矢印で初稿へ戻って書き直し、最終稿になります。条件の札は最後まで紙に留まり、読み比べと推敲メモのファイルへつながります。"></canvas>
+  <figcaption id="film-caption" class="caption" aria-live="polite"></figcaption>
+</figure>
 
-    <div class="controls">
-      <button id="play" type="button" aria-pressed="false" disabled>再生</button>
-      <input id="scrub" type="range" min="0" max="28" step="0.1" value="13.5" aria-label="再生位置（秒）" disabled>
-      <output id="time" for="scrub">13.5 / 28.0 秒</output>
-    </div>
-    <p id="status" class="status" role="status" aria-live="polite">素材を読み込んでいます…</p>
-    <noscript><p class="status">JavaScriptが無効のため、動画を描画できません。内容は <a href="../outputs/revisions.md">推敲メモ（outputs/revisions.md）</a> で読めます。</p></noscript>
+<section class="controls" aria-label="プレビューの操作">
+  <div class="row">
+    <button id="play" type="button" aria-pressed="false" disabled>再生</button>
+    <button id="reset" type="button" disabled>先頭へ</button>
+    <button id="replay" type="button" disabled>最初から再生</button>
+    <button id="end" type="button" disabled>末尾へ</button>
+  </div>
+  <div class="scrub">
+    <label for="time">再生位置（0〜32秒）</label>
+    <input id="time" type="range" min="0" max="32" step="0.1" value="0" disabled>
+    <output id="clock" for="time">0.0秒 / 32.0秒</output>
+  </div>
+  <div class="row jumps" role="group" aria-label="場面へ移る">
+    <button type="button" data-jump="0" disabled>0秒</button>
+    <button type="button" data-jump="4" disabled>4秒</button>
+    <button type="button" data-jump="9" disabled>9秒</button>
+    <button type="button" data-jump="14" disabled>14秒</button>
+    <button type="button" data-jump="20" disabled>20秒</button>
+    <button type="button" data-jump="25" disabled>25秒</button>
+    <button type="button" data-jump="29" disabled>29秒</button>
+  </div>
+  <div class="row" role="group" aria-label="画面の向き">
+    <button type="button" data-orient="portrait" aria-pressed="true" disabled>縦 720×1280</button>
+    <button type="button" data-orient="wide" aria-pressed="false" disabled>横 1280×720</button>
+  </div>
+</section>
+<p id="asset-status" class="status" role="status" data-state="loading">素材 0/11 を照合しています…</p>
+<p><button id="retry" class="retry" type="button" hidden>もう一度読み込む</button></p>
+<p class="hint">自動では再生しません。スライダーは ← → で0.1秒、Home・End で先頭・末尾へ移ります。</p>
 
-    <ul class="links">
-      <li><a href="../index.html#japanese">作例ページの「日本語への適用例」へ戻る</a></li>
-      <li><a href="../outputs/revisions.md">推敲メモ（revisions.md）を開く</a></li>
-      <li><a href="../outputs/revisions.json">結果データ（revisions.json）を開く</a></li>
-    </ul>
-    <p class="credit">制作時の保存結果をもとにした編集動画・無音。Humanizer 3.1.0（MIT License, © 2025 Siqi Chen）。映像の構成・文字・コード：© 2026 Studio Yebisu（MIT License）。人による校閲・承認、AI検出の結果、日本語全般での効果を示すものではありません。</p>
-  </main>
+<section class="scenes" aria-labelledby="scenes-title">
+  <h2 id="scenes-title">場面</h2>
+  <ol>
+    <li><span class="time">0〜4秒</span>推敲の手順を、AIへ渡す：SKILL.mdの本が開き、6系統・26型と「How to work」の4手順。4手順が同じAIの枠へ移り、本から「指示」の矢印。</li>
+    <li><span class="time">4〜9秒</span>原文・読み手・残す条件：原文の紙、読み手（workspace owner・既知の背景2件）、条件の札4つが入り、同じAIへ合流。原文は素材。</li>
+    <li><span class="time">9〜14秒</span>型を見つけ、初稿を書く：紙が「印」へ。保存された印「Great question!」「I hope this helps!」など、削る文がはがれ、紙が「初稿」へ。</li>
+    <li><span class="time">14〜20秒</span>初稿を、読み手に照らす：「点検」で原文と読み手へ破線。残った1文「A workspace owner …」に拡大鏡、戻り矢印で初稿へ。§26はこの作例での解釈。</li>
+    <li><span class="time">20〜25秒</span>条件を残し、相手へ書く：同じ帯が「As a workspace owner, you …」に。条件の札は動かず、紙は最終稿へ。</li>
+    <li><span class="time">25〜29秒</span>原文と読み比べ、持ち帰る：最終稿の紙と札が出力側へ。読み比べの線と、推敲メモ revisions.md の見出し（初稿・点検・最終稿）。</li>
+    <li><span class="time">29〜32秒</span>スキルの構造から、実際の推敲へ：全体の経路で静止（入りは28.4〜28.85秒）。</li>
+  </ol>
+</section>
+
+<nav class="links" aria-label="関連するファイル">
+  <h2>関連するファイル</h2>
+  <ul>
+    <li><a href="../index.html">作例のページ（図・3件・条件の読み比べ・推敲メモの保存）</a></li>
+    <li><a href="../desk.html#reply">以前のビューア（サポート返信の原文・初稿・点検・最終稿）</a></li>
+    <li><a href="../outputs/revisions.md">推敲メモ（outputs/revisions.md）</a></li>
+    <li><a href="../concept/manifest.json">照合する11件（concept/manifest.json）</a></li>
+    <li><a href="storyboard.json">場面の設計（storyboard.json）</a></li>
+    <li><a href="README.md">この映像の説明（README.md）</a></li>
+    <li><a href="../source.zip">入力・出力・ソース一式（source.zip）</a></li>
+  </ul>
+</nav>
+
+<footer class="foot">
+  <p>この映像は保存済みの記録だけから描いた図解です。ページや映像の中でAIを動かしたり、文章を書き直したりはしていません。</p>
+  <p>映像のコードと文章：MIT License, Copyright (c) 2026 Studio Yebisu。Humanizer：MIT License, Copyright (c) 2025 Siqi Chen。</p>
+</footer>
+
+<script type="module" src="video.js"></script>
 </body>
 </html>

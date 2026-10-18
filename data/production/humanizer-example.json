@@ -1,6 +1,6 @@
 {
   "id": "humanizer-example",
-  "verified_at": "2026-10-15T23:39:28.607828+00:00",
+  "verified_at": "2026-10-18T09:49:23.802270+00:00",
   "model": {
     "requested": "claude-opus-5-5",
     "reported": [
@@ -18,9 +18,16 @@
         "receipt_sha256": "25b74ac53bc08d94d5d5dc1c44ba30e156ef93f2c19ac3d7a9cbc704b28092bd",
         "execution_sha256": "40ddf49e62a9d1a821bb03cbedd2b4476492ff6b172cbf0e6d36bc47a9cc336a",
         "prompt_sha256": "8060c89212d080313833dcd8821175b4dac81e11b6546d3986c7c129b3c7d58b"
+      },
+      {
+        "phase": "visual-r1",
+        "receipt_sha256": "bbdbbd9563e0e03e0937daf80ae92dd9a99f509e25392a83a9caff34cfb4619a",
+        "execution_sha256": "bf6d7aca7b65662e49ccccc141fc86f99f8ccc213063bf2e1f17fd3e22ee1c8f",
+        "prompt_sha256": "9469af51cfa889fb3d6fff433dc7fe9018a00e7198f67f3961872176d82a1f9a"
       }
     ],
-    "receipt_published": false
+    "receipt_published": false,
+    "scope": "Original3writing-output and oldfilm receipts retained. Exact newOpus5.5 authored8concept UI/silentfilm originals; parent factual inputs, multi-sentence quote validation fix, article, legacyfilm links, rendering/QA/packaging separate. Full model history private."
   },
   "upstream": {
     "repository": "blader/humanizer",
@@ -319,102 +326,203 @@
     },
     "human_approval": false
   },
-  "explanation": {
-    "video": {
-      "file": "video.mp4",
-      "sha256": "e2b5b9d20cf96ea11a1b80047a42fd81be49d630fb7ffdca1eedb0c67e5d6ce3",
-      "width": 1280,
-      "height": 720,
-      "fps": 30,
-      "frameCount": 840,
-      "duration": 28,
-      "hasAudio": false
-    },
-    "determinism": {
-      "frame": 504,
-      "seconds": 16.8,
-      "first": "8fae84a9458aa294b69e24cedd3543b0407bbcb19b10eb7cd977d6ce82c4eb22",
-      "afterOtherTimes": "8fae84a9458aa294b69e24cedd3543b0407bbcb19b10eb7cd977d6ce82c4eb22",
-      "freshPage": "8fae84a9458aa294b69e24cedd3543b0407bbcb19b10eb7cd977d6ce82c4eb22",
-      "match": true
-    },
-    "errors": [],
-    "blockedExternalRequests": []
-  },
   "video_review": {
-    "video_sha256": "e2b5b9d20cf96ea11a1b80047a42fd81be49d630fb7ffdca1eedb0c67e5d6ce3",
-    "poster_sha256": "3ed44562f86da9ed6025845c4d98e3587a81b043035e2e42436fc496341b082a",
-    "poster_from_mp4_seconds": 13.5,
-    "full_decode_passed": true,
-    "review_files": [
-      "contact.png",
-      "poster.png",
-      "strip.png",
-      "stills/frame-000000.png",
-      "stills/frame-000001.png",
-      "stills/frame-000002.png",
-      "stills/frame-000003.png",
-      "stills/frame-000004.png",
-      "stills/frame-000005.png",
-      "stills/frame-000006.png",
-      "stills/frame-000007.png",
-      "stills/frame-000008.png",
-      "stills/frame-000009.png",
-      "stills/frame-000010.png",
-      "stills/frame-000011.png",
-      "stills/frame-000012.png",
-      "stills/frame-000013.png",
-      "cut-01.png",
-      "cut-02.png",
-      "cut-03.png",
-      "cut-04.png",
-      "final.png",
-      "zoom.png"
-    ],
-    "render_label": "final-v1",
-    "bundled_renderer_executed": true,
-    "reviewed_at": "2026-10-15T23:39:28.313862+00:00",
-    "agent_visual_review": true,
-    "human_approval": false,
-    "review_scope": [
-      "Contact sheet of14 representative frames, full13.5second poster and finalframe: original data/reader/constraints -> discarded empty sentence -> retained target/exclusions -> support answer and uncertainty -> actual viewer/download files. Text readable in reviewed720p frames, main quotes fit inside borders.",
-      "Full English20second frame: cannot reopen and Large workspaces may take a few minutes remain intact and legible; actual user question is attributed as fictional input.",
-      "Actual encoded MP4 strips at3.85/9.75/15.75/21.75seconds, fast card expansion4.45seconds, renderer strip8.1seconds. Short pale inter-scene fades and collapsing empty card are intentional; facts shown with readable holds. No observed clipping or ghost accumulated state.",
-      "Actual screenshot crop/three rings point to deleted phrases, green fact and draft button. Endframe names real revisions.md/revisions.json, indicates saved output and no browser AI; screenshot text is supporting material rather than the only explanation.25.5–28s finalhold stable.",
-      "Native source editor ready and keyboard-scrubbed to14 seconds. Actual local native MP4 auto-played from0.105164seconds to28second ended/errornull with no manual seek. No audio track; no listening claim.",
-      "Same environment frame504/16.8s matched after other times and on freshpage. This is render determinism, not semantic/artistic/human approval. Source editor tested at defaultdesktop only; other editor widths/OS/fonts/ratios unconfirmed."
-    ],
-    "native_playback": {
-      "time": 28,
-      "ended": true,
-      "error": null,
-      "first_observed_seconds": 0.105164,
-      "no_manual_seek": true
+    "revision": "visual-r1",
+    "films": {
+      "portrait": {
+        "sha256": "b8540adf54ce915eddae25ecf3d535ca8f80f20bddb7bb43ec53cb9c4fb64571",
+        "bytes": 1373028,
+        "full_decode_passed": true
+      },
+      "wide": {
+        "sha256": "c7762e3863fc64db96d48bbf4b18db96d298d893a35b6ac61afc647764b9a028",
+        "bytes": 1299198,
+        "full_decode_passed": true
+      }
     },
-    "source_editor": {
-      "play_enabled": true,
-      "position": 14,
-      "time_label": "14.0 / 28.0 秒"
+    "frame_review": {
+      "reviewed_by": "production agent",
+      "human_approval": false,
+      "scope": "Portrait and wide contact sheets, full-size book/working/rewrite/final representative frames, 12 consecutive renderer frames and decodedMP4 moving strips. Persistentbook/paper/reader/constraints and oneAI four-step loop explain the skill. Actual original writing outputs reused.",
+      "layouts": 2,
+      "representative_frames_per_layout": 16,
+      "consecutive_frames_per_layout": 12,
+      "actual_MP4_motion_frames_per_layout": 12,
+      "determinism": {
+        "portrait": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "d45e716ebf209c9348ab924fc6f536212b0b9322b3f5ad32ba3fc368a95ecb88",
+          "afterOtherTimes": "d45e716ebf209c9348ab924fc6f536212b0b9322b3f5ad32ba3fc368a95ecb88",
+          "freshPage": "d45e716ebf209c9348ab924fc6f536212b0b9322b3f5ad32ba3fc368a95ecb88",
+          "match": true
+        },
+        "wide": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "4db409a6c924d846e0111cc1ce7bc03b9ca5a27ad8798bb5d18eab4528501772",
+          "afterOtherTimes": "4db409a6c924d846e0111cc1ce7bc03b9ca5a27ad8798bb5d18eab4528501772",
+          "freshPage": "4db409a6c924d846e0111cc1ce7bc03b9ca5a27ad8798bb5d18eab4528501772",
+          "match": true
+        }
+      },
+      "final30_and31_stable": true,
+      "audio_streams": 0
     },
-    "determinism": {
-      "frame": 504,
-      "seconds": 16.8,
-      "first": "8fae84a9458aa294b69e24cedd3543b0407bbcb19b10eb7cd977d6ce82c4eb22",
-      "afterOtherTimes": "8fae84a9458aa294b69e24cedd3543b0407bbcb19b10eb7cd977d6ce82c4eb22",
-      "freshPage": "8fae84a9458aa294b69e24cedd3543b0407bbcb19b10eb7cd977d6ce82c4eb22",
-      "match": true
-    },
-    "audio": "silent; no audio track",
-    "remaining": [
-      "No human artistic approval or all-environment guarantee.",
-      "Other ratios and audio not exercised."
-    ]
+    "native_movies_ended": 2,
+    "audio_streams": 0,
+    "human_approval": false
   },
   "publication": {
     "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=humanizer-example",
     "authorization": "User requested sequential publication of40 examples to existing main and Pages."
   },
   "artifacts_sha256": {
+    "data/cases/humanizer-example.json": "b10ca519beb70d9978eccb9184ebf18568341317593e7279870d8ad3e5769652",
+    "examples/humanizer-example/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
+    "examples/humanizer-example/README.md": "86dbbab9bb32a98ea4dae95b4f4bba785893f6ed8ffbb7625fba13edba6248c9",
+    "examples/humanizer-example/app.js": "a63022bf84dcd7ac80f45207fb7ee9e274fe1c265031ed234950125218556f13",
+    "examples/humanizer-example/app.mjs": "9394e2f4f2a7c5dd9e432407a8c318981766e69d7d0e258a8d74e82ab35b0fd1",
+    "examples/humanizer-example/assets/desk-japanese.png": "edb53d3653383cea36b996668fad2525580055645f5674b9542882557cfc93c3",
+    "examples/humanizer-example/assets/desk-mobile.png": "3957a1d1a128cd199aa7e1e08e730c3793c9e45e5d0bdc978a030ff716394312",
+    "examples/humanizer-example/assets/desk-reply.png": "7dbb3e60a114a894ff936c8c528abcad0f6bddcfe77ea70f16ac77496e5102c3",
+    "examples/humanizer-example/assets/desk-top.png": "eb24f2518a2cffb410426c6daea146b9b6d7175504c2333a4afa9aab81df95b3",
+    "examples/humanizer-example/concept/manifest.json": "eb2f56d0bb68eeaa28d4089cd79f1ea0f32be88ce323b1e9cd81d1adc25ee417",
+    "examples/humanizer-example/concept/structure.json": "a4397d04ab6247a43bc089e6e64f9c28959d36c6a657847d858e767513dc5ab8",
+    "examples/humanizer-example/desk.css": "563224392017f3835ac9ad16afe257354cb4af1cc3a4c910b09b023e0dcdb0f7",
+    "examples/humanizer-example/desk.html": "561924f27d446621587439f1f264f1ebbcecdbaa7f95fe6189a171d30a3fda6f",
+    "examples/humanizer-example/index.html": "ca08d756d7eaf55e846ab04de30945a10b14357cfc8a1c16362aa940b52ece10",
+    "examples/humanizer-example/inputs/jobs.json": "ed4eb6896cac0c62381f7f472b84280e554d4b2af77d05dfcbcc6e802873250c",
+    "examples/humanizer-example/outputs/movie-materials.json": "777ab7d3b1f50989cd035fdea983055f3398428fa7195e4406b36264a1b52d23",
+    "examples/humanizer-example/outputs/revisions.json": "a4ac78dd0169100f2ecfbcdec3858cc0787f482be99105c9ad97dd5a67346c30",
+    "examples/humanizer-example/outputs/revisions.md": "148c6a92e08538eb2413c1b02d05156283f0e459328d31d89747b3e57b8a5d51",
+    "examples/humanizer-example/render-visual.py": "f11618096dfc0b85bc0fe298c8a5ad4b07fd3168fc3255cffe94c60373a96bfa",
+    "examples/humanizer-example/render.py": "f867f7aa2b27fac3dd5ad52f0cbc89a7106e114b1b1b0aaf6fc540a108d6adab",
+    "examples/humanizer-example/request.txt": "e67d75bd40d30de71e20de6aed6c386f06e843b88b7ede8371a680d759e2d8e8",
+    "examples/humanizer-example/samples.json": "4bb1d13b049a1c555bff2db7aa09d17869c8378508efaafc59f8469dfbdbdb8f",
+    "examples/humanizer-example/source.zip": "ec262054ad0e739eba27478260309ad01ed33525ecb66b3f25246697be2e22ce",
+    "examples/humanizer-example/style.css": "9bc096fc0d99dbad8128328b8c69e209f45c63fe215e28b770d6fa3c87841562",
+    "examples/humanizer-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/humanizer-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/humanizer-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/humanizer-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/humanizer-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "examples/humanizer-example/vendor/humanizer/.claude-plugin/marketplace.json": "e539740285b660d2288a38b6d9b237396c6769828c671c46b9f91e760db6cc29",
+    "examples/humanizer-example/vendor/humanizer/.claude-plugin/plugin.json": "054c0afeeb03c12f01a7f156da949edfdec3a2b756588f5ff4ee7357b0c07f6a",
+    "examples/humanizer-example/vendor/humanizer/.cursor-plugin/plugin.json": "d1e0b50594cf4bbe57fd164b771b401713a91b76b5a213ebe8f4558bb2036546",
+    "examples/humanizer-example/vendor/humanizer/.github/ISSUE_TEMPLATE/config.yml": "cb7e95de7606d07654024c8d47916796b307033e23ddb2b0a821a9bf89e999ef",
+    "examples/humanizer-example/vendor/humanizer/.github/ISSUE_TEMPLATE/new-pattern.yml": "7436d578fa0056a09da5da6da950a03cb49f3ce27cf268ae295eb3d7ca19f604",
+    "examples/humanizer-example/vendor/humanizer/.github/ISSUE_TEMPLATE/rewrite-problem.yml": "ecfe5e82c5b6d44683e0cb63cfad117dfdd16e30cc6f03510ef335414eea4947",
+    "examples/humanizer-example/vendor/humanizer/.github/workflows/validate.yml": "f2d6a8780fb0b3cf6fa7d2ffccd72d0fc8bee29b4e63ea0fd65924712c9055fd",
+    "examples/humanizer-example/vendor/humanizer/AGENTS.md": "de84a449da400454df1225ddb1ced728c35bf0be7811b239e3370c7dbe1f4e69",
+    "examples/humanizer-example/vendor/humanizer/CHANGELOG.md": "b3591fe203429f1a6bd2f713c79272e9a8e58a487843d0908d2bbe0700722afa",
+    "examples/humanizer-example/vendor/humanizer/LICENSE": "4ac4810254ab36d45419141aeb8e69bf50652cfafe5b2dab947d06d44e5cbf96",
+    "examples/humanizer-example/vendor/humanizer/README.md": "a07a054f230dca1e3d25e32ba6c808905b743cc6fa56bf8b6868cee0b12a0432",
+    "examples/humanizer-example/vendor/humanizer/SKILL.md": "0612f1dfb1672b0ea9b97e139bf1f06cabe98d8b27424fe8ff01e1fb4cc99cad",
+    "examples/humanizer-example/vendor/humanizer/agents/openai.yaml": "9d87ff83149a04f86a372948b8ee35fa249de20923867bbc2a49304290aad736",
+    "examples/humanizer-example/vendor/humanizer/scripts/validate-package.py": "941bd99e52b2ba21449719bb7969607ac8117e3dc173d0c9dfe64fd274c65938",
+    "examples/humanizer-example/verification.json": "6724715b93b859789abaf893fed543c056be702c71617bba69d761a5a952f7fe",
+    "examples/humanizer-example/video/README.md": "efbe35b1ab4265b1c32e5ddb845df7f13f83f8e76385f073fae58eb725f4e90d",
+    "examples/humanizer-example/video/index.html": "5a818f67b35814fa5de0186ac2d8b22c036c374a212dc3ba2212d90cb9bc2d98",
+    "examples/humanizer-example/video/review/contact.png": "8d74f6328a639a5ac43b485fea76d55cb5e6caebcb39cbf00048ea43d55f1f51",
+    "examples/humanizer-example/video/review/cut-01.png": "f71b686a60f86c6fa1d50f981694315eb62d344daba00a8db0971cf985a1f039",
+    "examples/humanizer-example/video/review/cut-02.png": "3778a1f49eb1b3d837e555780414913be433fcc38c8220ebfd217cf9376d07f0",
+    "examples/humanizer-example/video/review/cut-03.png": "8200c3445b55957429ea83c09eb6841023a5d69924bb7d2044362f1ce8e67840",
+    "examples/humanizer-example/video/review/cut-04.png": "b3c4ad5625cd5864bbcd40982c382fd53519a2555d179eb13dd1defbdd14b442",
+    "examples/humanizer-example/video/review/final.png": "ef07f0dcc13c3451c4f73f10811ed9b63d590dd69c2c45c50a7602f2cead4a23",
+    "examples/humanizer-example/video/review/poster.png": "9140476a668525693f792dd8fbeb458311687e6bd8592c48cf47dd110af51f3d",
+    "examples/humanizer-example/video/review/stills/frame-000000.png": "23da789e1b340aa5c6290fb2344c1602d8cf99d3e84f6d1aa49f821527cc86fb",
+    "examples/humanizer-example/video/review/stills/frame-000001.png": "f153ec149c35844eea96efe7b177198d014fe811f728b84466ec1b0d3f7ee3eb",
+    "examples/humanizer-example/video/review/stills/frame-000002.png": "ac69f18b996374e94ab7d97b69bc4e67bc85199e6ec04bcc5cbf884f7a88a924",
+    "examples/humanizer-example/video/review/stills/frame-000003.png": "9aaa1414a838054e4fe54682f803e33a78d88c3dba32f70a82c97b9cbeb99f97",
+    "examples/humanizer-example/video/review/stills/frame-000004.png": "1380ac93a7ec46b9f3755e342ad5734e9923c807996f0bfa382372a5dad29966",
+    "examples/humanizer-example/video/review/stills/frame-000005.png": "2679e160782b97b69587a92800ce551413e151281279f4fd06ea3a2c11245cc8",
+    "examples/humanizer-example/video/review/stills/frame-000006.png": "b192da3fc6606b7eba9bed488e983659d43082ddc62fc64d5dcb311b5709ea5c",
+    "examples/humanizer-example/video/review/stills/frame-000007.png": "9140476a668525693f792dd8fbeb458311687e6bd8592c48cf47dd110af51f3d",
+    "examples/humanizer-example/video/review/stills/frame-000008.png": "409d94e32b574e7b3f7fc41a473a15aed9da6e3861cbf9c499b4ea36897a8c2f",
+    "examples/humanizer-example/video/review/stills/frame-000009.png": "6a7dd0730ba9d156f83f01722ec72f783445501add6c9baf3461508e6dd7a075",
+    "examples/humanizer-example/video/review/stills/frame-000010.png": "ec1880f0c281f05f1101c7206e4ae1e7c2e187035bb41b914d914244f1241388",
+    "examples/humanizer-example/video/review/stills/frame-000011.png": "fa4132a69fd38bccd5635f2cf190072281e0d3ce6a02e75c5e256fabb6706046",
+    "examples/humanizer-example/video/review/stills/frame-000012.png": "24de4075757bf7b9d553109acc1e31f023d72377c3ad6ac76fd7dd27346739b1",
+    "examples/humanizer-example/video/review/stills/frame-000013.png": "d3fcd2a2b6b38223374667e117cbd3a2c3529f72f5d3f80a00e3ca4d505427e9",
+    "examples/humanizer-example/video/review/strip.png": "6970103d3df76bcd385e91632eaa0096c21598f63b2e2038c09b783760148e2e",
+    "examples/humanizer-example/video/review/visual-r1/portrait/capture.json": "53e7b4c38e79d3ee67ca233b6925e687d4175cfc3412ed61902ee91ef41f5d6e",
+    "examples/humanizer-example/video/review/visual-r1/portrait/contact.png": "12bb8f41d195131cbe8a93b4703dd69ce14caed66cf5eaec0781ddab18ab310e",
+    "examples/humanizer-example/video/review/visual-r1/portrait/mp4-moving-strip.png": "7d0460dd89dd3667225b5e7ef6652aac0a2ec918d4352d69613dad7ab423df34",
+    "examples/humanizer-example/video/review/visual-r1/portrait/poster.png": "a545aa18e3ae1d309be46dc0469a64133fcababeac6d9deeb80573ef59e96853",
+    "examples/humanizer-example/video/review/visual-r1/portrait/stills/frame-000000.png": "2b9f4bab5e4e607dfcffe8dfb7a9326d5e47835736c341dab99385cd56d830a5",
+    "examples/humanizer-example/video/review/visual-r1/portrait/stills/frame-000001.png": "9b57bca796df8d7cdf42500a6d648e70fe827455ce565807d659654d05e81e1a",
+    "examples/humanizer-example/video/review/visual-r1/portrait/stills/frame-000002.png": "ae0f7d4536f4e003b299d9d02dff5a14d2d49d5b2d1e0ec94a17ebf1e36a83a2",
+    "examples/humanizer-example/video/review/visual-r1/portrait/stills/frame-000003.png": "d38502bfc682d55c5efb587218addb1db6440b92b9110fb70e46e60f7ecf0971",
+    "examples/humanizer-example/video/review/visual-r1/portrait/stills/frame-000004.png": "73080952b3907da514977043c14532e381fdfde559ad6f206286634deb3d7d11",
+    "examples/humanizer-example/video/review/visual-r1/portrait/stills/frame-000005.png": "eed94f56e06e594e4474cde6be5c8102b96dfb83dd868aa9d97e45c9f98a8eb4",
+    "examples/humanizer-example/video/review/visual-r1/portrait/stills/frame-000006.png": "dc07a438b46619dc1716beafff597393306bf7b03a2b7b256ce52cbaf19f7a9c",
+    "examples/humanizer-example/video/review/visual-r1/portrait/stills/frame-000007.png": "ca8db9680e8de201646ed673e47e72721122248772badf4564a9cc5426eaefa1",
+    "examples/humanizer-example/video/review/visual-r1/portrait/stills/frame-000008.png": "91152dee32a0fc9b1461aa6085663bc192354657c29e2ab7117487736fe7c5ec",
+    "examples/humanizer-example/video/review/visual-r1/portrait/stills/frame-000009.png": "5770c2af3a7690da94e51047954fefc8202eb8bd98a540423e0f65a135822efa",
+    "examples/humanizer-example/video/review/visual-r1/portrait/stills/frame-000010.png": "8fd482f1644d92f59b51ebdbdd252bcc6558060b31f9ec7d7d9e86c76685fa12",
+    "examples/humanizer-example/video/review/visual-r1/portrait/stills/frame-000011.png": "b62094317950675d98e4426b85de92176b7e1eee13cf4785d02226ccc42f2cbb",
+    "examples/humanizer-example/video/review/visual-r1/portrait/stills/frame-000012.png": "f727852513e586f128c8bd0d51d8a7b86e1733d70119e01b45b249c61713d764",
+    "examples/humanizer-example/video/review/visual-r1/portrait/stills/frame-000013.png": "5d707e32f9a6fe71e16bcdaee6fa2e88502e4d69344c5de7fceba858cc0a6e5e",
+    "examples/humanizer-example/video/review/visual-r1/portrait/stills/frame-000014.png": "0b225039acb8773b1e2566c24d213a392f99334fe139d3013e04bc7b76c1fd30",
+    "examples/humanizer-example/video/review/visual-r1/portrait/stills/frame-000015.png": "a545aa18e3ae1d309be46dc0469a64133fcababeac6d9deeb80573ef59e96853",
+    "examples/humanizer-example/video/review/visual-r1/portrait/strip.png": "d10d5bddf9c2a3ccb77f477d5f52e0f588f5b78476a333b3cb81b370e994d053",
+    "examples/humanizer-example/video/review/visual-r1/portrait/strip/frame-000000.png": "1b48347637d0a605a99f87462132f96121912177186c1eac8a34248c5846fab1",
+    "examples/humanizer-example/video/review/visual-r1/portrait/strip/frame-000001.png": "959510e1446f1d5348a4d8d1b9ffa0ceeabf343eee2d9d620b46fc19ec194574",
+    "examples/humanizer-example/video/review/visual-r1/portrait/strip/frame-000002.png": "b94da27e3aa1121de87bd00506d9e770c68409f968e9fd0c13b34d3402dd2955",
+    "examples/humanizer-example/video/review/visual-r1/portrait/strip/frame-000003.png": "ec96185c0851aa23cc65b6a516230582be3bd68cbce46a4abe8252510868089f",
+    "examples/humanizer-example/video/review/visual-r1/portrait/strip/frame-000004.png": "701d969a206f3a494ea920d7c14068639f58234ddad41cc8d1ff50c218b35ee6",
+    "examples/humanizer-example/video/review/visual-r1/portrait/strip/frame-000005.png": "e897f97a78a520cd4acdb4302792e521c7a4435f9d0c49462fdc26ac25c645b4",
+    "examples/humanizer-example/video/review/visual-r1/portrait/strip/frame-000006.png": "a7d10055c2ae2dfd5580297cba5af00863a2852b739092b2766d3e0d372b9375",
+    "examples/humanizer-example/video/review/visual-r1/portrait/strip/frame-000007.png": "cdb0294fb0bb2d25c50c320ad061a9aae0fec2271671c01e7f31aa8cea024b3a",
+    "examples/humanizer-example/video/review/visual-r1/portrait/strip/frame-000008.png": "4070a183049f509cda181e4d8eff51f84bd6ea2a1f1ec10d36bb8b1b4a6c4e0f",
+    "examples/humanizer-example/video/review/visual-r1/portrait/strip/frame-000009.png": "866167ddf7fe18e0adf396a2d66de40874ebfb173d704924f65c5dbfe0fb006b",
+    "examples/humanizer-example/video/review/visual-r1/portrait/strip/frame-000010.png": "87903b9d1eda7bcb8efc6d87e9fd6650e851b598925cecd358a114c3824cabbb",
+    "examples/humanizer-example/video/review/visual-r1/portrait/strip/frame-000011.png": "14c86d105a2144576a4b550354993d1d44201dc378e31b22012a82016f172852",
+    "examples/humanizer-example/video/review/visual-r1/wide/capture.json": "db279006e8f05cfd8ef94fc7d20cf1c40b59bfea3925f480aab3c327130174d2",
+    "examples/humanizer-example/video/review/visual-r1/wide/contact.png": "e8fb5504232fc993aa37f9126d8044f4ec5b6b779e35e5ee7262ba3236bf717c",
+    "examples/humanizer-example/video/review/visual-r1/wide/mp4-moving-strip.png": "6c63357e8cf80081d5c86ba595e0bdbcaeab2ee5072a22406d6730660e7b702f",
+    "examples/humanizer-example/video/review/visual-r1/wide/poster.png": "f502cd7e3860c08c2b6efae3f26fa950adfc087d69c5a853b489cece21184734",
+    "examples/humanizer-example/video/review/visual-r1/wide/stills/frame-000000.png": "54b4632190a6d09c6b2539195ca8b89312c76bbff8bd282394ecaacd9607ccba",
+    "examples/humanizer-example/video/review/visual-r1/wide/stills/frame-000001.png": "22a78342115924aa5749c710182ec7d0c212950dc0f8f2f5f883a14ec4edb2af",
+    "examples/humanizer-example/video/review/visual-r1/wide/stills/frame-000002.png": "8998883e5e0bf5c46821de5e094efa855b337fca69cf8960e7b97a5c3d68175c",
+    "examples/humanizer-example/video/review/visual-r1/wide/stills/frame-000003.png": "046bfe07cdbf33a59ee7e590a5c03228f11eae7795aac1d2d8269119a7d6063a",
+    "examples/humanizer-example/video/review/visual-r1/wide/stills/frame-000004.png": "1cdb02ce60d8240add39bd163102f3d7898f257b692f47fcda179df758323c5b",
+    "examples/humanizer-example/video/review/visual-r1/wide/stills/frame-000005.png": "8f606666b0a43d76fd2e1e94866e05f078c5633a5e5b0415af10d10050a624d6",
+    "examples/humanizer-example/video/review/visual-r1/wide/stills/frame-000006.png": "c74d52cfe07fdcc8d549b724f40a3cb7dc2208457a0eefa448b298c612682d82",
+    "examples/humanizer-example/video/review/visual-r1/wide/stills/frame-000007.png": "fd5ad09fe2c06f6e866e11bfd84fe5c8918ce405c5eac27c36f8f2470370027b",
+    "examples/humanizer-example/video/review/visual-r1/wide/stills/frame-000008.png": "8e9c385cd8c65c86f1417d6ff10d0a3ed4e2e0c0807f0985ff2b9b07cb23c625",
+    "examples/humanizer-example/video/review/visual-r1/wide/stills/frame-000009.png": "d2b5223fb437767710490b5a2ebcf3032cc0e67aee9f6e109867edb589a55e62",
+    "examples/humanizer-example/video/review/visual-r1/wide/stills/frame-000010.png": "69a24f308e79ba6d71136172857d910bc009da8a014753cd62fefa3547a1926c",
+    "examples/humanizer-example/video/review/visual-r1/wide/stills/frame-000011.png": "bf842be36f49a6f5871c84029e7b4c7d06d0e228907a91bed777ab2e07c6b36a",
+    "examples/humanizer-example/video/review/visual-r1/wide/stills/frame-000012.png": "567995fa41acbbc556c4bd5ec917d5c305271c9305d11a6df6a9d6baeacc401f",
+    "examples/humanizer-example/video/review/visual-r1/wide/stills/frame-000013.png": "8ce7866c334aea5b772b7e969dca61a08cd8968e4cd1294a9600fab622d0abc9",
+    "examples/humanizer-example/video/review/visual-r1/wide/stills/frame-000014.png": "c85a0fc0bab95b89f526b2094fa15b888fb6e219ed7a5ac29f2b37ab646fce81",
+    "examples/humanizer-example/video/review/visual-r1/wide/stills/frame-000015.png": "f502cd7e3860c08c2b6efae3f26fa950adfc087d69c5a853b489cece21184734",
+    "examples/humanizer-example/video/review/visual-r1/wide/strip.png": "b9740429b303431ca9b71cc514ff9f46fdf9eb9d326797d732e1538bf5dc8293",
+    "examples/humanizer-example/video/review/visual-r1/wide/strip/frame-000000.png": "b4081c7a82a4be66debae63556fd95b5087b4d1c0d4be56f9459159993e3b44e",
+    "examples/humanizer-example/video/review/visual-r1/wide/strip/frame-000001.png": "c4e560098d151d261f277a4bc99c557ac84adbff6a36844442cc8c06f3d05425",
+    "examples/humanizer-example/video/review/visual-r1/wide/strip/frame-000002.png": "dd754a3168ad778e458542f9ea6c61931292e8d75d65853d28bd1591fe401688",
+    "examples/humanizer-example/video/review/visual-r1/wide/strip/frame-000003.png": "49b4ec51a828e237a62c67056ec44de9df2a170c806af2c202a8d53b446ad0ad",
+    "examples/humanizer-example/video/review/visual-r1/wide/strip/frame-000004.png": "3d3725c7e28c880b8dbe2efabab4aa0b6e7881e652d5ee0e9fd03f136549a40b",
+    "examples/humanizer-example/video/review/visual-r1/wide/strip/frame-000005.png": "9822682f0880188a36d414d493f62d5692aa41712b0911d25a022183402035db",
+    "examples/humanizer-example/video/review/visual-r1/wide/strip/frame-000006.png": "caff2c1202251d33686c7ccffa40bf0c9be39e1b6628f3e5103c9d50da3b748d",
+    "examples/humanizer-example/video/review/visual-r1/wide/strip/frame-000007.png": "8399327186fd66207a4c7f2c6a8e11f4f444dbd6a46735d7c4e0d5700e65376d",
+    "examples/humanizer-example/video/review/visual-r1/wide/strip/frame-000008.png": "2324835b896373176626dd5ad26020804e5b5ad32d3417d3ee6947dd624446dc",
+    "examples/humanizer-example/video/review/visual-r1/wide/strip/frame-000009.png": "898ed1326894fca55223b8b34a07b93ef07bf838fd2f6be358c3bee98a116ff5",
+    "examples/humanizer-example/video/review/visual-r1/wide/strip/frame-000010.png": "a3291cd8a66baeecd2048b115a69194bcd0b964859ddd66c636e01c977df7a1e",
+    "examples/humanizer-example/video/review/visual-r1/wide/strip/frame-000011.png": "b80fa113eef832bc1ad2e804315f2deeea3f76e745548682a171808a1b191193",
+    "examples/humanizer-example/video/review/zoom.png": "2467844d36fa062c88d394172c343960195bbb294e94d5b50baaaa2fd5bc213e",
+    "examples/humanizer-example/video/storyboard.json": "7ea8139605411c7eeea853edcc388f42e5f0bbb16912781c5302f72d4bcc7d39",
+    "examples/humanizer-example/video/video.css": "2dadfa232cc09a6629fafe9989b487ff964c757fa7b442b1e9ca5bb7f3bc799d",
+    "examples/humanizer-example/video/video.js": "19dafdd893e9d34a6ae8294f76f26d7586badfb0bd914b8c28f94f49cda59eb0",
+    "examples/humanizer-example/visual-guide.md": "5a0a67c6758fbc47b6e953b9ac368441c9900b8a2dfb57d8bc27a3de1ddb65ab",
+    "examples/humanizer-example/visual-verification.json": "14882eff4e6aae1cad91f9a06fb6bb77b8cfa1809fb491e21cc66912837b4cba",
+    "media/humanizer-example-wide.mp4": "c7762e3863fc64db96d48bbf4b18db96d298d893a35b6ac61afc647764b9a028",
+    "media/humanizer-example.mp4": "b8540adf54ce915eddae25ecf3d535ca8f80f20bddb7bb43ec53cb9c4fb64571",
+    "media/humanizer-example.webp": "c610fb5884dbb6974fb9c0a37dcfa464072579a1f0c203aa6a30b09b29295558"
+  },
+  "original_publication_artifacts_sha256": {
     "data/cases/humanizer-example.json": "36cfab43503403aa52e5f876ee822d75e08ce852f1407b7926706b90c60fdedf",
     "examples/humanizer-example/app.mjs": "9394e2f4f2a7c5dd9e432407a8c318981766e69d7d0e258a8d74e82ab35b0fd1",
     "examples/humanizer-example/assets/desk-japanese.png": "edb53d3653383cea36b996668fad2525580055645f5674b9542882557cfc93c3",
@@ -483,5 +591,424 @@
     "examples/humanizer-example/video/video.js": "81249fa57522c56415506ff1852496d86209a2deab58070b95e63a0c3b9b5778",
     "media/humanizer-example.mp4": "e2b5b9d20cf96ea11a1b80047a42fd81be49d630fb7ffdca1eedb0c67e5d6ce3",
     "media/humanizer-example.webp": "3ed44562f86da9ed6025845c4d98e3587a81b043035e2e42436fc496341b082a"
+  },
+  "original_explanation": {
+    "video": {
+      "file": "video.mp4",
+      "sha256": "e2b5b9d20cf96ea11a1b80047a42fd81be49d630fb7ffdca1eedb0c67e5d6ce3",
+      "width": 1280,
+      "height": 720,
+      "fps": 30,
+      "frameCount": 840,
+      "duration": 28,
+      "hasAudio": false
+    },
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "8fae84a9458aa294b69e24cedd3543b0407bbcb19b10eb7cd977d6ce82c4eb22",
+      "afterOtherTimes": "8fae84a9458aa294b69e24cedd3543b0407bbcb19b10eb7cd977d6ce82c4eb22",
+      "freshPage": "8fae84a9458aa294b69e24cedd3543b0407bbcb19b10eb7cd977d6ce82c4eb22",
+      "match": true
+    },
+    "errors": [],
+    "blockedExternalRequests": []
+  },
+  "original_video_review": {
+    "video_sha256": "e2b5b9d20cf96ea11a1b80047a42fd81be49d630fb7ffdca1eedb0c67e5d6ce3",
+    "poster_sha256": "3ed44562f86da9ed6025845c4d98e3587a81b043035e2e42436fc496341b082a",
+    "poster_from_mp4_seconds": 13.5,
+    "full_decode_passed": true,
+    "review_files": [
+      "contact.png",
+      "poster.png",
+      "strip.png",
+      "stills/frame-000000.png",
+      "stills/frame-000001.png",
+      "stills/frame-000002.png",
+      "stills/frame-000003.png",
+      "stills/frame-000004.png",
+      "stills/frame-000005.png",
+      "stills/frame-000006.png",
+      "stills/frame-000007.png",
+      "stills/frame-000008.png",
+      "stills/frame-000009.png",
+      "stills/frame-000010.png",
+      "stills/frame-000011.png",
+      "stills/frame-000012.png",
+      "stills/frame-000013.png",
+      "cut-01.png",
+      "cut-02.png",
+      "cut-03.png",
+      "cut-04.png",
+      "final.png",
+      "zoom.png"
+    ],
+    "render_label": "final-v1",
+    "bundled_renderer_executed": true,
+    "reviewed_at": "2026-10-15T23:39:28.313862+00:00",
+    "agent_visual_review": true,
+    "human_approval": false,
+    "review_scope": [
+      "Contact sheet of14 representative frames, full13.5second poster and finalframe: original data/reader/constraints -> discarded empty sentence -> retained target/exclusions -> support answer and uncertainty -> actual viewer/download files. Text readable in reviewed720p frames, main quotes fit inside borders.",
+      "Full English20second frame: cannot reopen and Large workspaces may take a few minutes remain intact and legible; actual user question is attributed as fictional input.",
+      "Actual encoded MP4 strips at3.85/9.75/15.75/21.75seconds, fast card expansion4.45seconds, renderer strip8.1seconds. Short pale inter-scene fades and collapsing empty card are intentional; facts shown with readable holds. No observed clipping or ghost accumulated state.",
+      "Actual screenshot crop/three rings point to deleted phrases, green fact and draft button. Endframe names real revisions.md/revisions.json, indicates saved output and no browser AI; screenshot text is supporting material rather than the only explanation.25.5–28s finalhold stable.",
+      "Native source editor ready and keyboard-scrubbed to14 seconds. Actual local native MP4 auto-played from0.105164seconds to28second ended/errornull with no manual seek. No audio track; no listening claim.",
+      "Same environment frame504/16.8s matched after other times and on freshpage. This is render determinism, not semantic/artistic/human approval. Source editor tested at defaultdesktop only; other editor widths/OS/fonts/ratios unconfirmed."
+    ],
+    "native_playback": {
+      "time": 28,
+      "ended": true,
+      "error": null,
+      "first_observed_seconds": 0.105164,
+      "no_manual_seek": true
+    },
+    "source_editor": {
+      "play_enabled": true,
+      "position": 14,
+      "time_label": "14.0 / 28.0 秒"
+    },
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "8fae84a9458aa294b69e24cedd3543b0407bbcb19b10eb7cd977d6ce82c4eb22",
+      "afterOtherTimes": "8fae84a9458aa294b69e24cedd3543b0407bbcb19b10eb7cd977d6ce82c4eb22",
+      "freshPage": "8fae84a9458aa294b69e24cedd3543b0407bbcb19b10eb7cd977d6ce82c4eb22",
+      "match": true
+    },
+    "audio": "silent; no audio track",
+    "remaining": [
+      "No human artistic approval or all-environment guarantee.",
+      "Other ratios and audio not exercised."
+    ]
+  },
+  "explanation": {
+    "revision": "visual-r1",
+    "films": {
+      "portrait": {
+        "file": "video.mp4",
+        "sha256": "b8540adf54ce915eddae25ecf3d535ca8f80f20bddb7bb43ec53cb9c4fb64571",
+        "width": 720,
+        "height": 1280,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      },
+      "wide": {
+        "file": "video.mp4",
+        "sha256": "c7762e3863fc64db96d48bbf4b18db96d298d893a35b6ac61afc647764b9a028",
+        "width": 1280,
+        "height": 720,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      }
+    }
+  },
+  "visual_revision": {
+    "id": "visual-r1",
+    "purpose": "Understand Markdown instruction book/6families26patterns, inputoriginal/reader/constraints entering oneAI with mark/draft/check/final and a return loop, saved final and actualmemo.",
+    "original_execution_reused": true,
+    "new_original_rewriting_inference": false,
+    "original_public_source_files_preserved": 25,
+    "derived_legacy_viewer_files": 2,
+    "original_vendor_files_verified": 14,
+    "assets": 11,
+    "manifest_sha256": "eb2f56d0bb68eeaa28d4089cd79f1ea0f32be88ce323b1e9cd81d1adc25ee417",
+    "verification": {
+      "id": "humanizer-example",
+      "revision": "visual-r1",
+      "verified_at": "2026-10-18T09:49:23.802270+00:00",
+      "stage": "technical_qa_complete",
+      "scope": "New conceptual skill structure UI and32s silent films only. Original Humanizer application to3fictional writing jobs/17quote pairs/13marks/11changes/onefirstdraftissue retained; no new original rewriting inference.",
+      "original_execution_record": "verification.json",
+      "original_public_source_files_preserved": 25,
+      "derived_legacy_viewer_files": 2,
+      "upstream": {
+        "repository": "blader/humanizer",
+        "commit": "225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8",
+        "version": "3.1.0",
+        "license": "MIT",
+        "copyright": "Copyright (c) 2025 Siqi Chen"
+      },
+      "official_vendor_git_blobs_verified": 14,
+      "frozen_assets": 11,
+      "manifest_sha256": "eb2f56d0bb68eeaa28d4089cd79f1ea0f32be88ce323b1e9cd81d1adc25ee417",
+      "browser": {
+        "jobs_checked": 3,
+        "stages": 3,
+        "phone375x812_primary_action_fits_all9": true,
+        "parts": 6,
+        "families": 6,
+        "pattern_sections": 26,
+        "quote_pairs_checked": 17,
+        "theme_width_views": 16,
+        "touch_targets_min44x44": true,
+        "keyboard_focus": {
+          "focus": "渡す",
+          "focusOutline": "3px",
+          "scroll": 0
+        },
+        "failures": [
+          {
+            "mode": "http",
+            "diagramCleared": true,
+            "disabled": true,
+            "finalEmpty": true,
+            "message": "読み込めませんでした：concept/structure.json が HTTP 503 でした。古い表示は消しました。",
+            "requestEmpty": true,
+            "saveEmpty": true,
+            "state": "error",
+            "retry_restored": true
+          },
+          {
+            "mode": "json",
+            "diagramCleared": true,
+            "disabled": true,
+            "finalEmpty": true,
+            "message": "読み込めませんでした：concept/structure.json の大きさが記録と違います。古い表示は消しました。",
+            "requestEmpty": true,
+            "saveEmpty": true,
+            "state": "error",
+            "retry_restored": true
+          },
+          {
+            "mode": "hash",
+            "diagramCleared": true,
+            "disabled": true,
+            "finalEmpty": true,
+            "message": "読み込めませんでした：concept/structure.json のSHA-256が記録と違います。古い表示は消しました。",
+            "requestEmpty": true,
+            "saveEmpty": true,
+            "state": "error",
+            "retry_restored": true
+          }
+        ],
+        "memo_save_request": {
+          "download": "revisions.md",
+          "href": "outputs/revisions.md",
+          "meta": "outputs/revisions.md・13,919 B・3件入り・SHA-256照合済み",
+          "status": "素材11/11件をSHA-256で照合済み。図は制作時に保存した結果を描いたもので、このページはAIを実行しません。"
+        },
+        "memo_file_receipt": {
+          "returned_file": true,
+          "bytes": 13919,
+          "sha256": "148c6a92e08538eb2413c1b02d05156283f0e459328d31d89747b3e57b8a5d51",
+          "fixed_original_match": true
+        },
+        "legacy_saved_outputs_checked": 3,
+        "editor": {
+          "asset_status": "素材 11/11 照合済み",
+          "jumps": [
+            {
+              "caption": "1/7・0〜4秒：推敲の手順を、AIへ渡す（Humanizer：Markdownの指示書（SKILL.md））",
+              "clock": "0.0秒 / 32.0秒"
+            },
+            {
+              "caption": "2/7・4〜9秒：原文・読み手・残す条件（原文は指示ではなく、編集する素材）",
+              "clock": "4.0秒 / 32.0秒"
+            },
+            {
+              "caption": "3/7・9〜14秒：型を見つけ、初稿を書く（強い型から5か所に印（サポート返信））",
+              "clock": "9.0秒 / 32.0秒"
+            },
+            {
+              "caption": "4/7・14〜20秒：初稿を、読み手に照らす（残り1件：§26（この作例での解釈））",
+              "clock": "14.0秒 / 32.0秒"
+            },
+            {
+              "caption": "5/7・20〜25秒：条件を残し、相手へ書く（担当の条件・「cannot reopen」・「may」は動かさない）",
+              "clock": "20.0秒 / 32.0秒"
+            },
+            {
+              "caption": "6/7・25〜29秒：原文と読み比べ、持ち帰る（outputs/revisions.md・13,919 B）",
+              "clock": "25.0秒 / 32.0秒"
+            },
+            {
+              "caption": "7/7・29〜32秒：スキルの構造から、実際の推敲へ（保存済み3件の図解／無音）",
+              "clock": "29.0秒 / 32.0秒"
+            }
+          ],
+          "audio_elements": 0,
+          "arbitrary_seek": "7.2秒 / 32.0秒",
+          "wide": {
+            "height": 720,
+            "pressed": "true",
+            "width": 1280
+          },
+          "end_clock": "32.0秒 / 32.0秒",
+          "asset_failure": {
+            "all_controls_disabled": true,
+            "caption_cleared": true,
+            "message": "読み込みに失敗しました：concept/structure.json のSHA-256が記録と違います。代わりの映像は出しません。",
+            "state": "error",
+            "recovered": true
+          }
+        },
+        "movies_ended": 2,
+        "theme_persistence": {
+          "choice": "system",
+          "selected": "system"
+        },
+        "request_text_exact": true,
+        "request_copy_status": "依頼文をコピーしました。",
+        "clipboard_readback_confirmed": false,
+        "unconfirmed": [
+          "physical iOS/Safari/VoiceOver",
+          "200percentzoom",
+          "human aesthetic approval",
+          "semantic equivalence",
+          "clipboard readback"
+        ],
+        "human_approval": false
+      },
+      "frame_review": {
+        "reviewed_by": "production agent",
+        "human_approval": false,
+        "scope": "Portrait and wide contact sheets, full-size book/working/rewrite/final representative frames, 12 consecutive renderer frames and decodedMP4 moving strips. Persistentbook/paper/reader/constraints and oneAI four-step loop explain the skill. Actual original writing outputs reused.",
+        "layouts": 2,
+        "representative_frames_per_layout": 16,
+        "consecutive_frames_per_layout": 12,
+        "actual_MP4_motion_frames_per_layout": 12,
+        "determinism": {
+          "portrait": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "d45e716ebf209c9348ab924fc6f536212b0b9322b3f5ad32ba3fc368a95ecb88",
+            "afterOtherTimes": "d45e716ebf209c9348ab924fc6f536212b0b9322b3f5ad32ba3fc368a95ecb88",
+            "freshPage": "d45e716ebf209c9348ab924fc6f536212b0b9322b3f5ad32ba3fc368a95ecb88",
+            "match": true
+          },
+          "wide": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "4db409a6c924d846e0111cc1ce7bc03b9ca5a27ad8798bb5d18eab4528501772",
+            "afterOtherTimes": "4db409a6c924d846e0111cc1ce7bc03b9ca5a27ad8798bb5d18eab4528501772",
+            "freshPage": "4db409a6c924d846e0111cc1ce7bc03b9ca5a27ad8798bb5d18eab4528501772",
+            "match": true
+          }
+        },
+        "final30_and31_stable": true,
+        "audio_streams": 0
+      },
+      "video": {
+        "portrait": {
+          "video": {
+            "file": "video.mp4",
+            "sha256": "b8540adf54ce915eddae25ecf3d535ca8f80f20bddb7bb43ec53cb9c4fb64571",
+            "width": 720,
+            "height": 1280,
+            "fps": 30,
+            "frameCount": 960,
+            "duration": 32,
+            "hasAudio": false
+          },
+          "determinism": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "d45e716ebf209c9348ab924fc6f536212b0b9322b3f5ad32ba3fc368a95ecb88",
+            "afterOtherTimes": "d45e716ebf209c9348ab924fc6f536212b0b9322b3f5ad32ba3fc368a95ecb88",
+            "freshPage": "d45e716ebf209c9348ab924fc6f536212b0b9322b3f5ad32ba3fc368a95ecb88",
+            "match": true
+          },
+          "full_decode_passed": true,
+          "faststart": true
+        },
+        "wide": {
+          "video": {
+            "file": "video.mp4",
+            "sha256": "c7762e3863fc64db96d48bbf4b18db96d298d893a35b6ac61afc647764b9a028",
+            "width": 1280,
+            "height": 720,
+            "fps": 30,
+            "frameCount": 960,
+            "duration": 32,
+            "hasAudio": false
+          },
+          "determinism": {
+            "frame": 576,
+            "seconds": 19.2,
+            "first": "4db409a6c924d846e0111cc1ce7bc03b9ca5a27ad8798bb5d18eab4528501772",
+            "afterOtherTimes": "4db409a6c924d846e0111cc1ce7bc03b9ca5a27ad8798bb5d18eab4528501772",
+            "freshPage": "4db409a6c924d846e0111cc1ce7bc03b9ca5a27ad8798bb5d18eab4528501772",
+            "match": true
+          },
+          "full_decode_passed": true,
+          "faststart": true
+        }
+      },
+      "shipped_source_reproduction": {
+        "status": "passed",
+        "checked_at": "2026-10-18T09:46:39.076072+00:00",
+        "png_files_byte_identical": 62,
+        "layouts": [
+          {
+            "layout": "portrait",
+            "png_files_byte_identical": 31,
+            "final30_and31_stable": true
+          },
+          {
+            "layout": "wide",
+            "png_files_byte_identical": 31,
+            "final30_and31_stable": true
+          }
+        ],
+        "scope": "Actual shipped root wrapper and final sources rendered16representative+12consecutive+contact/poster/strip perlayout. Same-environment pixel identity and final-frame stability; not cross-OS font equality or human approval."
+      },
+      "human_approval": false,
+      "semantic_equivalence_confirmed": false,
+      "physical_ios_safari_voiceover": false
+    },
+    "production_adjustments": [
+      {
+        "files": [
+          "app.js"
+        ],
+        "reason": "Actual browser initially rejected validJapanese fact4 spanning two sentences. Bind fact to every touched source sentence and check final span end; retain all17facts and their exact bytes."
+      },
+      {
+        "files": [
+          "desk.html"
+        ],
+        "reason": "Derived legacy viewer film section only: replace obsolete28s description with current32s links. Original app.mjs/desk.css unchanged."
+      },
+      {
+        "files": [
+          "video/README.md",
+          "render-visual.py",
+          "visual-guide.md",
+          "article-candidate.json"
+        ],
+        "reason": "Record actual validation correction and authoring-time versus productionQA, add source wrapper and factual article."
+      }
+    ],
+    "source_originals_sha256": {
+      "index.html": "ca08d756d7eaf55e846ab04de30945a10b14357cfc8a1c16362aa940b52ece10",
+      "style.css": "9bc096fc0d99dbad8128328b8c69e209f45c63fe215e28b770d6fa3c87841562",
+      "app.js": "df84fe84d8a4523a133cc769897a5b8119614b65e3f12051389c6fdb6b5bb7fb",
+      "video/index.html": "5a818f67b35814fa5de0186ac2d8b22c036c374a212dc3ba2212d90cb9bc2d98",
+      "video/video.css": "2dadfa232cc09a6629fafe9989b487ff964c757fa7b442b1e9ca5bb7f3bc799d",
+      "video/video.js": "19dafdd893e9d34a6ae8294f76f26d7586badfb0bd914b8c28f94f49cda59eb0",
+      "video/storyboard.json": "7ea8139605411c7eeea853edcc388f42e5f0bbb16912781c5302f72d4bcc7d39",
+      "video/README.md": "a6e9bdd7a56210cda0cd28daa1deba0690a3ee4df3142757dc729aa259a7de89"
+    },
+    "final_source_sha256": {
+      "index.html": "ca08d756d7eaf55e846ab04de30945a10b14357cfc8a1c16362aa940b52ece10",
+      "style.css": "9bc096fc0d99dbad8128328b8c69e209f45c63fe215e28b770d6fa3c87841562",
+      "app.js": "a63022bf84dcd7ac80f45207fb7ee9e274fe1c265031ed234950125218556f13",
+      "video/index.html": "5a818f67b35814fa5de0186ac2d8b22c036c374a212dc3ba2212d90cb9bc2d98",
+      "video/video.css": "2dadfa232cc09a6629fafe9989b487ff964c757fa7b442b1e9ca5bb7f3bc799d",
+      "video/video.js": "19dafdd893e9d34a6ae8294f76f26d7586badfb0bd914b8c28f94f49cda59eb0",
+      "video/storyboard.json": "7ea8139605411c7eeea853edcc388f42e5f0bbb16912781c5302f72d4bcc7d39",
+      "video/README.md": "efbe35b1ab4265b1c32e5ddb845df7f13f83f8e76385f073fae58eb725f4e90d"
+    },
+    "silent_film": true
+  },
+  "previous_publication": {
+    "git_commit": "dabf7b47a9debb9a066f5566c787fa50b53aeebc",
+    "pages_run_id": 38825022018
   }
 }
