@@ -1,0 +1,98 @@
+{
+  "format": "studio-yebisu-storyboard/v1",
+  "case_id": "yomiyasu-before-after",
+  "title": "推敲の指示書と、点検の道具",
+  "source_commit": "60bf877acebc86651e0b67d70112a66245f87758",
+  "authored_by_model": "claude-opus-5-5",
+  "duration": 32,
+  "fps": 30,
+  "frames": 960,
+  "sizes": [
+    {"orient": "portrait", "width": 720, "height": 1280, "layout": "tall", "role": "main"},
+    {"orient": "wide", "width": 1280, "height": 720, "layout": "wide", "role": "secondary, recomposed natively"}
+  ],
+  "poster_time": 31,
+  "audio": {"tracks": 0, "audio_events": [], "narration": false, "tts": false},
+  "example_job": "operation",
+  "assets": {"manifest": "concept/manifest.json", "manifest_sha256": "36fe6daa11f75730ee31fdfe6ebd4ddb8a16c333ae66c311f3fa6c6c071afe6a", "count": 19},
+  "persistent_shapes": [
+    "book: SKILL.md with 4 semantic priorities (主張・比重・言い切りの強さ・文の働き) and 勝手に足さない",
+    "pocket: two bundled Python tools that leave the book for a separate lane",
+    "refs: 業務文書 used; 技術記事・個人発信 unused; 構文・語彙 references",
+    "paper: the original text (原文)",
+    "packet: 用途・読み手 (context)",
+    "pins: 残す条件 (4 for operation) that attach to the paper and stay attached",
+    "ai: ONE AI desk (Opus 5.5, saved production output; no live run)",
+    "sheet: the same paper moving paper slot -> AI desk -> 推敲後",
+    "lane: separate producer-executed Python lane with lint (after only) and diff (original + after, --stance=説明)",
+    "cards: saved candidate cards from concept/checks.json",
+    "compare: 原文 and 推敲後 papers joined by condition lines",
+    "json: outputs/operation.json, 2,402 B"
+  ],
+  "scenes": [
+    {
+      "start": 0, "end": 4, "rail": "渡す",
+      "title": "推敲の指示書と、点検の道具",
+      "sub": "SKILL.md・参照資料と、同梱のPythonスクリプト2つ",
+      "conveys": "The skill is an instruction book plus references plus two bundled scripts, not a model.",
+      "enter": "Book and its four priority slips are visible at 0 s; the book opens (0-1.4 s).",
+      "exit": "Business reference marked (1.7-4.4 s); lint and diff leave the book pocket for the dashed Python lane (2.5-3.7 s)."
+    },
+    {
+      "start": 4, "end": 8, "rail": "渡す",
+      "title": "原文・用途・条件を、同じAIへ",
+      "sub": "例：保存操作の説明（架空のマニュアル）",
+      "conveys": "Book, references, original paper, context and condition pins all go into one AI.",
+      "enter": "AI desk, paper, packet and pins appear (4.0-5.5 s); lines draw into the AI (5.0-6.4 s).",
+      "exit": "The paper moves onto the AI desk (6.6-7.6 s) and the pins attach to it (6.8-7.8 s)."
+    },
+    {
+      "start": 8, "end": 13, "rail": "推敲",
+      "title": "言い回しを直し、条件は付けたまま",
+      "sub": "保存済みの変更「反映が実現されます」→「反映されます」ほか",
+      "conveys": "Only wording changes; the condition pins stay on the same paper.",
+      "enter": "「反映が実現されます」 is struck and 「反映されます」 written (8.4-10.4 s).",
+      "exit": "「再起動を実施する」 -> 「再起動する」 (10.8-12.6 s). Both are substrings of saved changes[0] and changes[1]."
+    },
+    {
+      "start": 13, "end": 18, "rail": "点検",
+      "title": "推敲後を、Pythonで別に点検",
+      "sub": "lintは推敲後、diffは原文と推敲後（--stance=説明）",
+      "conveys": "A separate producer-run lane: lint receives the after text; diff receives both texts. Tools do not write text.",
+      "enter": "The paper becomes 推敲後 (13.2-14.2 s); fork lines draw (14.1-15.6 s).",
+      "exit": "Copies travel: after -> lint, after -> diff, original -> diff (15.0-17.4 s)."
+    },
+    {
+      "start": 18, "end": 23, "rail": "点検",
+      "title": "返ってくるのは見直し候補",
+      "sub": "つなぎの出現数は、意味や品質の点数ではありません",
+      "conveys": "Saved outputs: lint findings empty (指摘なし・候補0件); diff connector marker 2 -> 1.",
+      "enter": "lint card (18.2-18.9 s), diff card 「つなぎ 2→1」 (19.0-19.7 s).",
+      "exit": "Detail 「によって」→「と」 and 「ただし」は残る (20.2-21.0 s)."
+    },
+    {
+      "start": 23, "end": 29, "rail": "点検",
+      "title": "原文と読み直し、保存済みの出力へ",
+      "sub": "outputs/operation.json・2,402 B",
+      "conveys": "The producer rereads source and output; unchanged wording reconnects; the existing saved file is what you take away.",
+      "enter": "Cards connect to the compare papers (22.9-23.7 s); condition lines draw (23.8-25.2 s) with 「従来の設定が維持されます」 and 「画面上に残ります」 marked (24.4-25.2 s).",
+      "exit": "outputs/operation.json appears and is outlined (25.7-27.0 s). No extra rewrite, loop or human approval is drawn."
+    },
+    {
+      "start": 29, "end": 32, "rail": "全体",
+      "title": "指示書から、使える推敲結果まで",
+      "sub": "本と入力 → AI → 別のPython → 読み比べ → JSON",
+      "conveys": "Stable full path with every connection readable.",
+      "enter": "All emphasis returns to full and every edge is traced in brick (28.3-28.9 s).",
+      "exit": "Still from 29 s to 32 s; poster at 31 s."
+    }
+  ],
+  "quoted_strings_source": "Every quoted phrase is read at runtime from the validated assets (concept/structure.json, concept/checks.json, samples.json, outputs/operation.json) and checked as an exact substring.",
+  "status": {
+    "authored": "source files written by claude-opus-5-5 without running a browser, renderer or MP4 encoder",
+    "browser_preview": "not run at authoring",
+    "frame_render": "not run at authoring",
+    "mp4": "not created at authoring",
+    "review": "pending; the producer adds actual verification records later"
+  }
+}

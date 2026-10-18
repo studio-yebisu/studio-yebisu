@@ -1,115 +1,87 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" data-page="yomiyasu-film">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>yomiyasu の推敲｜解説動画のソース｜Studio Yebisu</title>
-  <script>
-    // Recording mode: show only the canvas, at the composition size.
-    if (window.__MOTION_RENDER__ || /[?&]render(=|&|$)/.test(location.search)) document.documentElement.classList.add('render');
-  </script>
-  <style>
-    * { box-sizing: border-box; }
-    html, body { margin: 0; }
-    body {
-      background: #f3eee2; color: #1f1b16;
-      font: 16px/1.8 "Yu Gothic UI", "Yu Gothic", "Hiragino Sans", Meiryo, "Noto Sans JP", sans-serif;
-    }
-    canvas { display: block; }
-
-    html.render, html.render body { width: 100%; height: 100%; overflow: hidden; }
-    html.render .page { max-width: none; margin: 0; padding: 0; }
-    html.render .frame { border: 0; }
-    html.render canvas, html.render .frame canvas { width: 100vw; height: 100vh; }
-    html.render .preview-only { display: none !important; }
-
-    .page { max-width: 1320px; margin: 0 auto; padding: 1.25rem clamp(1rem, 3vw, 2rem) 2.5rem; }
-    .top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid #1f1b16; margin-bottom: 1.25rem; font-size: 0.9375rem; }
-    .top a { color: inherit; text-decoration-color: #9a3a22; text-underline-offset: 0.2em; }
-    h1 { margin: 0; font: 700 1.375rem/1.4 "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif JP", serif; }
-    .frame { border: 1px solid #1f1b16; }
-    .frame canvas { width: 100%; height: auto; }
-    .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; padding: 0.75rem 0; border-bottom: 1px solid #d6ccb8; }
-    .controls button { font: inherit; font-weight: 700; min-height: 2.75rem; padding: 0.35rem 1.1rem; border: 1px solid #1f1b16; background: #1f1b16; color: #fbf8f1; border-radius: 0; cursor: pointer; }
-    .controls input[type="range"] { flex: 1 1 14rem; accent-color: #9a3a22; min-height: 2.75rem; }
-    .controls output { font-variant-numeric: tabular-nums; min-width: 6.5em; }
-    .chapters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0 0; padding: 0; list-style: none; }
-    .chapters button { font: inherit; font-size: 0.9375rem; min-height: 2.5rem; padding: 0.25rem 0.85rem; border: 1px solid #1f1b16; background: transparent; color: inherit; border-radius: 0; cursor: pointer; }
-    .chapters button:hover { background: #1f1b16; color: #fbf8f1; }
-    .note { margin: 1rem 0 0; font-size: 0.875rem; color: #5d5548; max-width: 46em; }
-    :focus-visible { outline: 3px solid #9a3a22; outline-offset: 3px; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>図解32秒・無音の元ページ — 推敲の指示書と、点検の道具（yomiyasu 作例）</title>
+<link rel="stylesheet" href="video.css">
 </head>
 <body>
-  <div class="page">
-    <header class="top preview-only">
-      <h1>yomiyasu の推敲（解説動画のソース）</h1>
-      <nav aria-label="関連"><a href="../index.html">作例を開く</a>　<a href="../../../case.html?id=yomiyasu-before-after">作例の記事</a></nav>
-    </header>
-    <div class="frame">
-      <canvas id="scene" role="img" aria-label="日本語の推敲スキル yomiyasu の28秒の解説動画。原文・用途・スキルを渡し、架空の操作説明の「押すことによって、変更内容の反映が実現されます」が「押すと、変更内容が反映されます」に、「アプリの再起動を実施するまで」が「アプリを再起動するまで」に変わる様子を校正線で示します。続いて推敲後の全文で4つの条件が残っている箇所を囲み、架空の調査メモで可能性と未確認の言い方、数値が原文のままであることを示して、作例へ案内します。"></canvas>
-    </div>
-    <div class="controls preview-only" id="controls">
-      <button type="button" id="play" aria-pressed="false">再生</button>
-      <input id="scrub" type="range" min="0" max="28" step="0.0333" value="0" aria-label="再生位置（秒）">
-      <output id="time" for="scrub">0.00 / 28.00秒</output>
-    </div>
-    <ol class="chapters preview-only" aria-label="場面へ移動">
-      <li><button type="button" data-at="2.5">1 yomiyasu</button></li>
-      <li><button type="button" data-at="6.4">2 渡す</button></li>
-      <li><button type="button" data-at="10.9">3 変わる</button></li>
-      <li><button type="button" data-at="20.8">4 守る</button></li>
-      <li><button type="button" data-at="24.4">5 強さ</button></li>
-      <li><button type="button" data-at="27">6 作例</button></li>
-    </ol>
-    <p class="note preview-only">1280×720、30fps、28秒、音声なし。画面の撮影は使わず、samples.json にある実際の原文と推敲後を引用して、図形と文字だけで描いています。このページの再生と移動は確認用の操作で、書き出す映像には含まれません。どの時刻を指定しても、その時刻の画面だけを描き直します。</p>
+<header class="intro">
+  <p class="eyebrow">yomiyasu 作例・図解動画の元ページ</p>
+  <h1>推敲の指示書と、点検の道具<span class="sub">図解32秒・無音（縦720×1280／横1280×720・30fps）</span></h1>
+  <p>作例ページと同じ19件の素材を照合してから、同じ概念図を描きます。SKILL.mdの本が開き、原文・用途と読み手・残す条件と一緒に同じ1つのAIへ入り、言い回しが直った推敲後の紙が、別の工程のPython（lintとdiff）を通って、原文との読み比べと保存済みのJSONへつながります。例は架空の保存操作の説明（operation）です。ここではAIもPythonも動かず、音もありません。</p>
+</header>
+
+<figure id="stage" class="stage" data-orient="portrait">
+  <canvas id="film" width="720" height="1280" role="img"
+    aria-label="図解動画の画面。SKILL.mdの本が開き、主張・比重・言い切りの強さ・文の働きの札と「勝手に足さない」を見せます。参照資料は業務文書だけを使い、同梱のPython 2つが本の袋から別の枠へ出ます。原文の紙・用途と読み手・残す条件4つが同じ1つのAIへ入り、紙の上で「反映が実現されます」が「反映されます」に、「再起動を実施する」が「再起動する」に変わります。条件の札は紙に付いたままです。推敲後の紙はlintへ、原文と推敲後はdiffへ入り、lintは指摘なし、diffはつなぎ2→1（「によって」→「と」、「ただし」は残る）の候補を返します。原文と推敲後の読み比べで「従来の設定が維持されます」と「画面上に残ります」をつなぎ、保存済みの outputs/operation.json（2,402 B）へ至ります。"></canvas>
+  <figcaption id="film-caption" class="caption" aria-live="polite"></figcaption>
+</figure>
+
+<section class="controls" aria-label="プレビューの操作">
+  <div class="row">
+    <button id="play" type="button" aria-pressed="false" disabled>再生</button>
+    <button id="reset" type="button" disabled>先頭へ</button>
+    <button id="replay" type="button" disabled>最初から再生</button>
+    <button id="end" type="button" disabled>末尾へ</button>
   </div>
-  <script src="scene.js"></script>
-  <script>
-    (() => {
-      if (document.documentElement.classList.contains('render')) {
-        for (const el of document.querySelectorAll('.preview-only')) el.remove();
-        return;
-      }
-      const duration = window.motionConfig.duration;
-      const play = document.getElementById('play'), scrub = document.getElementById('scrub'), output = document.getElementById('time');
-      let playing = false, seconds = 0, start = 0, raf = 0;
-      function draw(t) {
-        seconds = Math.max(0, Math.min(duration, t));
-        window.seek(seconds);
-        scrub.value = String(seconds);
-        output.value = seconds.toFixed(2) + ' / ' + duration.toFixed(2) + '秒';
-      }
-      function stop() {
-        playing = false;
-        cancelAnimationFrame(raf);
-        play.textContent = seconds >= duration ? 'もう一度再生' : '再生';
-        play.setAttribute('aria-pressed', 'false');
-      }
-      function tick(now) {
-        if (!playing) return;
-        const t = (now - start) / 1000;
-        if (t >= duration) { draw(duration); stop(); return; }
-        draw(t);
-        raf = requestAnimationFrame(tick);
-      }
-      play.addEventListener('click', () => {
-        if (playing) return stop();
-        if (seconds >= duration) seconds = 0;
-        playing = true;
-        start = performance.now() - seconds * 1000;
-        play.textContent = '一時停止';
-        play.setAttribute('aria-pressed', 'true');
-        raf = requestAnimationFrame(tick);
-      });
-      scrub.addEventListener('input', () => { stop(); draw(Number(scrub.value)); });
-      for (const button of document.querySelectorAll('[data-at]')) {
-        button.addEventListener('click', () => { stop(); draw(Number(button.dataset.at)); });
-      }
-      document.addEventListener('visibilitychange', () => { if (document.hidden && playing) stop(); });
-      if (window.motionReady) window.motionReady.then(() => draw(seconds));
-      draw(0);
-    })();
-  </script>
+  <div class="scrub">
+    <label for="time">再生位置（0〜32秒）</label>
+    <input id="time" type="range" min="0" max="32" step="0.1" value="0" disabled>
+    <output id="clock" for="time">0.0秒 / 32.0秒</output>
+  </div>
+  <div class="row jumps" role="group" aria-label="場面へ移る">
+    <button type="button" data-jump="0" disabled>0秒</button>
+    <button type="button" data-jump="4" disabled>4秒</button>
+    <button type="button" data-jump="8" disabled>8秒</button>
+    <button type="button" data-jump="13" disabled>13秒</button>
+    <button type="button" data-jump="18" disabled>18秒</button>
+    <button type="button" data-jump="23" disabled>23秒</button>
+    <button type="button" data-jump="29" disabled>29秒</button>
+  </div>
+  <div class="row" role="group" aria-label="画面の向き">
+    <button type="button" data-orient="portrait" aria-pressed="true" disabled>縦 720×1280</button>
+    <button type="button" data-orient="wide" aria-pressed="false" disabled>横 1280×720</button>
+  </div>
+</section>
+<p id="asset-status" class="status" role="status" data-state="loading">素材 0/19 を照合しています…</p>
+<p class="retry-row"><button id="retry" class="retry" type="button" hidden>もう一度読み込む</button></p>
+<p class="hint">自動では再生しません。スライダーは ← → で0.1秒、Home・End で先頭・末尾へ移ります。</p>
+
+<section class="scenes" aria-labelledby="scenes-title">
+  <h2 id="scenes-title">場面</h2>
+  <ol>
+    <li><span class="time">0〜4秒</span>推敲の指示書と、点検の道具：0秒から本（SKILL.md）と4つの優先事項の札が見え、本が開きます。参照資料は業務文書に印。同梱のPython 2つが本の袋から、点線の別の枠へ出ます。</li>
+    <li><span class="time">4〜8秒</span>原文・用途・条件を、同じAIへ：原文の紙、用途と読み手の封筒、残す条件4つの札が入り、本の線と一緒に同じ1つのAIへ合流します。紙はAIの作業台へ移り、札が紙に付きます。</li>
+    <li><span class="time">8〜13秒</span>言い回しを直し、条件は付けたまま：同じ紙の上で「反映が実現されます」→「反映されます」、「再起動を実施する」→「再起動する」。保存済みの変更の部分文字列だけを使います。</li>
+    <li><span class="time">13〜18秒</span>推敲後を、Pythonで別に点検：推敲後の紙が出て、写しがlintへ、推敲後と原文の写しがdiffへ入ります。道具は文章を書きません。</li>
+    <li><span class="time">18〜23秒</span>返ってくるのは見直し候補：保存済みの出力から、lintは指摘なし（候補0件）、diffはつなぎ2→1。「によって」→「と」、「ただし」は残ります。2→1はつなぎの出現数で、意味や品質の点数ではありません。</li>
+    <li><span class="time">23〜29秒</span>原文と読み直し、保存済みの出力へ：原文と推敲後の読み比べで、変わっていない「従来の設定が維持されます」「画面上に残ります」をつなぎ、outputs/operation.json（2,402 B）へ。追加の書き直しや人の承認は描きません。</li>
+    <li><span class="time">29〜32秒</span>指示書から、使える推敲結果まで：全体の経路を同じ濃さで静止（入りは28.3〜28.9秒、ポスターは31秒）。</li>
+  </ol>
+</section>
+
+<nav class="links" aria-label="関連するファイル">
+  <h2>関連するファイル</h2>
+  <ul>
+    <li><a href="../index.html">作例のページ（図・3件・候補・JSONの保存）</a></li>
+    <li><a href="../desk.html#operation">以前のビューア（保存操作の説明の原文と推敲後）</a></li>
+    <li><a href="../outputs/operation.json">保存済みの出力（outputs/operation.json）</a></li>
+    <li><a href="../concept/checks.json">lintとdiffの保存済み出力（concept/checks.json）</a></li>
+    <li><a href="../concept/manifest.json">照合する19件（concept/manifest.json）</a></li>
+    <li><a href="storyboard.json">場面の設計（storyboard.json）</a></li>
+    <li><a href="README.md">この映像の説明（README.md）</a></li>
+    <li><a href="legacy.html">以前の28秒の映像ソース（legacy.html）</a></li>
+    <li><a href="../source.zip">入力・出力・ソース一式（source.zip）</a></li>
+  </ul>
+</nav>
+
+<footer class="foot">
+  <p>この映像は保存済みの記録だけから描いた図解です。ページや映像の中でAIやPythonを動かしたり、文章を書き直したりはしていません。文章はすべて架空です。</p>
+  <p>原典：<a href="https://github.com/nanaism/yomiyasu/tree/60bf877acebc86651e0b67d70112a66245f87758" rel="noopener">nanaism/yomiyasu</a>（コミット 60bf877）。yomiyasu：MIT License, Copyright (c) 2026 nanaism。映像のコードと文章：MIT License, Copyright (c) 2026 Studio Yebisu。</p>
+</footer>
+
+<script type="module" src="video.js"></script>
 </body>
 </html>

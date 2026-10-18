@@ -1,0 +1,374 @@
+{
+  "format": "yomiyasu-structure/v1",
+  "case_id": "yomiyasu-before-after",
+  "source_commit": "60bf877acebc86651e0b67d70112a66245f87758",
+  "definition": "日本語の推敲をAIに指示し、Pythonの道具で見直し候補を点検するスキル",
+  "resource_kind": "Markdown agent instruction skill with references and two Python review scripts. Not a model, hostedAPI or automatic writing quality detector.",
+  "parts": [
+    {
+      "id": "manual",
+      "label": "指示書と4つの原則",
+      "source_path": "vendor/yomiyasu/SKILL.md",
+      "quote": "### 最優先ルール: 意味の保持",
+      "line_start": 20,
+      "meaning": "主張・比重・言い切りの強さ・文の働きと、情報を足さないことが最優先。図の札は目標を示し、自動保証ではない。"
+    },
+    {
+      "id": "context",
+      "label": "用途に合う参照資料",
+      "source_path": "vendor/yomiyasu/SKILL.md",
+      "quote": "**ドメインの判定**",
+      "line_start": 175,
+      "meaning": "tech/business/essayから文脈に合う参照を選ぶ。今回の3件はbusinessだけ。構文と表現の参照資料も同じAIへ渡す。"
+    },
+    {
+      "id": "rewrite",
+      "label": "同じAIが推敲",
+      "source_path": "vendor/yomiyasu/SKILL.md",
+      "quote": "### Step 2: 文章の書き直し",
+      "line_start": 188,
+      "meaning": "元のOpus5.5が保存した3出力・8変更を使う。改修では再推敲なし。変えなくてよい文は元のまま。"
+    },
+    {
+      "id": "lint",
+      "label": "推敲後を静的検査",
+      "source_path": "vendor/yomiyasu/SKILL.md",
+      "quote": "### Step 3: 静的検査（リンター）",
+      "line_start": 208,
+      "meaning": "別工程で制作担当が元の推敲後をPythonのlintへ渡した。3件ともfindingsは空。点数や意味・読みやすさの承認にはしない。"
+    },
+    {
+      "id": "diff",
+      "label": "原文と推敲後を差分検査",
+      "source_path": "vendor/yomiyasu/SKILL.md",
+      "quote": "### Step 4: 足したもの・削ったものの点検（Diff検査）",
+      "line_start": 220,
+      "meaning": "制作担当が元の原文と推敲後をdiff --stance=説明で1回ずつ比較。releaseでは可能/文末の分類、operationではつなぎの増減を候補として返す。自動修正はしない。"
+    },
+    {
+      "id": "use",
+      "label": "原文と読み比べて使う",
+      "source_path": "vendor/yomiyasu/SKILL.md",
+      "quote": "スクリプトが出力した候補を1つずつ確認",
+      "line_start": 231,
+      "meaning": "制作担当が候補を原文と照合した元記録を保全。14条件は入力と出力の引用対応で意味の保証ではない。人の承認はなく、実際のJSONや本文を持ち帰れる。"
+    }
+  ],
+  "principles": [
+    {
+      "id": "claim",
+      "label": "主張",
+      "source_path": "vendor/yomiyasu/SKILL.md",
+      "quote": "1. **主張",
+      "line_start": 22,
+      "meaning": "何を言っているかと論理関係を変えない。"
+    },
+    {
+      "id": "weight",
+      "label": "比重",
+      "source_path": "vendor/yomiyasu/SKILL.md",
+      "quote": "2. **比重",
+      "line_start": 23,
+      "meaning": "重要度・比較対象・並列関係の比重を変えない。"
+    },
+    {
+      "id": "strength",
+      "label": "言い切りの強さ",
+      "source_path": "vendor/yomiyasu/SKILL.md",
+      "quote": "3. **言い切りの強さ",
+      "line_start": 24,
+      "meaning": "断定・推量・可能性の強さを変えない。"
+    },
+    {
+      "id": "function",
+      "label": "文の働き",
+      "source_path": "vendor/yomiyasu/SKILL.md",
+      "quote": "4. **文の働き",
+      "line_start": 25,
+      "meaning": "評価・説明・依頼・予定や時制を変えない。"
+    }
+  ],
+  "domains": [
+    {
+      "id": "tech",
+      "label": "技術記事",
+      "tested": false
+    },
+    {
+      "id": "business",
+      "label": "業務文書",
+      "tested": true
+    },
+    {
+      "id": "essay",
+      "label": "個人発信",
+      "tested": false
+    }
+  ],
+  "jobs": [
+    {
+      "id": "release",
+      "label": "機能のお知らせ",
+      "input": "今回の更新では、予約一覧の日付による絞り込みの実装を実施しました。本機能の利用対象は管理者のみとなっており、一般利用者の画面における表示は行われません。なお、9月30日以前の予約は検索の対象外となります。該当する予約の確認が必要な場合は、旧画面をご利用ください。",
+      "output": "今回の更新では、予約一覧を日付で絞り込む機能を実装しました。本機能の利用対象は管理者のみで、一般利用者の画面には表示されません。なお、9月30日以前の予約は検索の対象外となります。該当する予約の確認が必要な場合は、旧画面をご利用ください。",
+      "context": "予約サービスの開発者が、管理者と一般利用者に更新内容を知らせる架空の告知。敬体。",
+      "changes": [
+        {
+          "before": "予約一覧の日付による絞り込みの実装を実施しました",
+          "after": "予約一覧を日付で絞り込む機能を実装しました",
+          "reason": "「の」の連続と「実装を実施」の重なりを、対象と動詞を直接つなぐ形にしました。「機能」は次の文の「本機能」から補った語です。完了の報告「しました」は残しています。"
+        },
+        {
+          "before": "管理者のみとなっており",
+          "after": "管理者のみで",
+          "reason": "「となっており」の回りくどさだけを外しました。対象を限る「のみ」は残しています。"
+        },
+        {
+          "before": "一般利用者の画面における表示は行われません",
+          "after": "一般利用者の画面には表示されません",
+          "reason": "「表示は行われません」という名詞と「行う」の組み合わせを動詞に戻しました。システムの動作の説明と否定はそのままです。"
+        }
+      ],
+      "preserved": [
+        {
+          "condition": "追加は実施済み",
+          "excerpt": "機能を実装しました"
+        },
+        {
+          "condition": "利用対象は管理者だけ",
+          "excerpt": "利用対象は管理者のみ"
+        },
+        {
+          "condition": "一般利用者の画面には表示しない",
+          "excerpt": "一般利用者の画面には表示されません"
+        },
+        {
+          "condition": "9月30日以前は検索対象外",
+          "excerpt": "9月30日以前の予約は検索の対象外となります"
+        },
+        {
+          "condition": "必要なら旧画面を利用する",
+          "excerpt": "確認が必要な場合は、旧画面をご利用ください"
+        }
+      ],
+      "facts": [
+        {
+          "id": "release-1",
+          "label": "追加は実施済み",
+          "source": "予約一覧の日付による絞り込みの実装を実施しました",
+          "final": "機能を実装しました"
+        },
+        {
+          "id": "release-2",
+          "label": "利用対象は管理者だけ",
+          "source": "利用対象は管理者のみ",
+          "final": "利用対象は管理者のみ"
+        },
+        {
+          "id": "release-3",
+          "label": "一般利用者の画面には表示しない",
+          "source": "一般利用者の画面における表示は行われません",
+          "final": "一般利用者の画面には表示されません"
+        },
+        {
+          "id": "release-4",
+          "label": "9月30日以前は検索対象外",
+          "source": "9月30日以前の予約は検索の対象外となります",
+          "final": "9月30日以前の予約は検索の対象外となります"
+        },
+        {
+          "id": "release-5",
+          "label": "必要なら旧画面を利用する",
+          "source": "確認が必要な場合は、旧画面をご利用ください",
+          "final": "確認が必要な場合は、旧画面をご利用ください"
+        }
+      ],
+      "output_file": {
+        "path": "outputs/release.json",
+        "bytes": 2773,
+        "sha256": "e006e66f87b4ae53af5fbcd5ebbb9041964e7dc1a782f8f5f8748f5e0bea29b0"
+      }
+    },
+    {
+      "id": "operation",
+      "label": "保存操作の説明",
+      "input": "設定ファイルの保存ボタンを押すことによって、変更内容の反映が実現されます。ただし、音声ファイルの出力を伴う処理については、アプリの再起動を実施するまで従来の設定が維持されます。保存に失敗した場合、編集した内容は画面上に残りますが、ディスクには書き込まれません。",
+      "output": "設定ファイルの保存ボタンを押すと、変更内容が反映されます。ただし、音声ファイルの出力を伴う処理については、アプリを再起動するまで従来の設定が維持されます。保存に失敗した場合、編集した内容は画面上に残りますが、ディスクには書き込まれません。",
+      "context": "アプリの操作マニュアル。操作と結果、例外を説明する架空の文章。敬体。",
+      "changes": [
+        {
+          "before": "押すことによって、変更内容の反映が実現されます",
+          "after": "押すと、変更内容が反映されます",
+          "reason": "「反映が実現されます」という名詞の重なりを動詞に戻しました。ボタンを押す操作と、変更が反映される結果の対応は同じです。"
+        },
+        {
+          "before": "アプリの再起動を実施するまで",
+          "after": "アプリを再起動するまで",
+          "reason": "「〜を実施する」を外して動詞に戻しました。「まで」が示す期間と、例外の対象は変えていません。"
+        }
+      ],
+      "preserved": [
+        {
+          "condition": "保存ボタンで変更を反映",
+          "excerpt": "保存ボタンを押すと、変更内容が反映されます"
+        },
+        {
+          "condition": "音声ファイルの出力は再起動まで従来の設定",
+          "excerpt": "音声ファイルの出力を伴う処理については、アプリを再起動するまで従来の設定が維持されます"
+        },
+        {
+          "condition": "保存失敗時も画面の編集内容は残る",
+          "excerpt": "保存に失敗した場合、編集した内容は画面上に残ります"
+        },
+        {
+          "condition": "失敗時はディスクに書き込まれない",
+          "excerpt": "ディスクには書き込まれません"
+        }
+      ],
+      "facts": [
+        {
+          "id": "operation-1",
+          "label": "保存ボタンで変更を反映",
+          "source": "保存ボタンを押すことによって、変更内容の反映が実現されます",
+          "final": "保存ボタンを押すと、変更内容が反映されます"
+        },
+        {
+          "id": "operation-2",
+          "label": "音声ファイルの出力は再起動まで従来の設定",
+          "source": "音声ファイルの出力を伴う処理については、アプリの再起動を実施するまで従来の設定が維持されます",
+          "final": "音声ファイルの出力を伴う処理については、アプリを再起動するまで従来の設定が維持されます"
+        },
+        {
+          "id": "operation-3",
+          "label": "保存失敗時も画面の編集内容は残る",
+          "source": "保存に失敗した場合、編集した内容は画面上に残ります",
+          "final": "保存に失敗した場合、編集した内容は画面上に残ります"
+        },
+        {
+          "id": "operation-4",
+          "label": "失敗時はディスクに書き込まれない",
+          "source": "ディスクには書き込まれません",
+          "final": "ディスクには書き込まれません"
+        }
+      ],
+      "output_file": {
+        "path": "outputs/operation.json",
+        "bytes": 2402,
+        "sha256": "32b6a055faab420bf6cfab1ea65228022683fb5287904e9fec836c371d0288e4"
+      }
+    },
+    {
+      "id": "research",
+      "label": "架空の調査メモ",
+      "input": "試作した検索画面は、8人の協力者のうち6人から、従来の画面より使いやすいという評価を得られました。ただし、試用時間は1人あたり5分であり、日常の業務における効果については、現段階では検証が行われていません。入力ミスを減らせる可能性はあると考えていますが、その効果を確認できたわけではありません。",
+      "output": "試作した検索画面は、8人の協力者のうち6人から、従来の画面より使いやすいという評価を得ました。ただし、試用時間は1人あたり5分で、日常の業務での効果は、現段階では検証されていません。入力ミスを減らせる可能性はあると考えていますが、その効果を確認できたわけではありません。",
+      "context": "すべて架空のデータ。小さな試用の結果と未検証の可能性を報告する練習用のメモ。敬体。実在の研究・実績として扱わない。",
+      "changes": [
+        {
+          "before": "評価を得られました",
+          "after": "評価を得ました",
+          "reason": "「得られました」は可能の意味にも読めるため、結果の報告として「得ました」にしました。人数と比べた対象は同じです。"
+        },
+        {
+          "before": "1人あたり5分であり、日常の業務における効果については",
+          "after": "1人あたり5分で、日常の業務での効果は",
+          "reason": "「であり」「における」「については」の硬い言い回しを外しました。二つの事実の間に、原文にない因果は足していません。"
+        },
+        {
+          "before": "検証が行われていません",
+          "after": "検証されていません",
+          "reason": "名詞と「行う」の組み合わせを動詞に戻しました。誰が検証するかは原文にないため、主語は補っていません。「現段階では」の未検証の状態も残しています。"
+        }
+      ],
+      "preserved": [
+        {
+          "condition": "8人中6人",
+          "excerpt": "8人の協力者のうち6人"
+        },
+        {
+          "condition": "従来の画面より使いやすいという評価",
+          "excerpt": "従来の画面より使いやすいという評価"
+        },
+        {
+          "condition": "1人あたり5分",
+          "excerpt": "1人あたり5分"
+        },
+        {
+          "condition": "日常業務での効果は未検証",
+          "excerpt": "日常の業務での効果は、現段階では検証されていません"
+        },
+        {
+          "condition": "入力ミス削減は可能性であり効果は未確認",
+          "excerpt": "入力ミスを減らせる可能性はあると考えていますが、その効果を確認できたわけではありません"
+        }
+      ],
+      "facts": [
+        {
+          "id": "research-1",
+          "label": "8人中6人",
+          "source": "8人の協力者のうち6人",
+          "final": "8人の協力者のうち6人"
+        },
+        {
+          "id": "research-2",
+          "label": "従来の画面より使いやすいという評価",
+          "source": "従来の画面より使いやすいという評価",
+          "final": "従来の画面より使いやすいという評価"
+        },
+        {
+          "id": "research-3",
+          "label": "1人あたり5分",
+          "source": "1人あたり5分",
+          "final": "1人あたり5分"
+        },
+        {
+          "id": "research-4",
+          "label": "日常業務での効果は未検証",
+          "source": "日常の業務における効果については、現段階では検証が行われていません",
+          "final": "日常の業務での効果は、現段階では検証されていません"
+        },
+        {
+          "id": "research-5",
+          "label": "入力ミス削減は可能性であり効果は未確認",
+          "source": "入力ミスを減らせる可能性はあると考えていますが、その効果を確認できたわけではありません",
+          "final": "入力ミスを減らせる可能性はあると考えていますが、その効果を確認できたわけではありません"
+        }
+      ],
+      "output_file": {
+        "path": "outputs/research.json",
+        "bytes": 2953,
+        "sha256": "fa4ba5652f2aa896e23438e44adb7211a70e17141588364323b457c7ad6ec0d5"
+      }
+    }
+  ],
+  "counts": {
+    "jobs": 3,
+    "changes": 8,
+    "quoted_conditions": 14,
+    "original_lint_runs": 3,
+    "original_diff_runs": 3
+  },
+  "flow": {
+    "instructions": "SKILL.md and business/gemini-syntax/slop refs join originaltext,context and explicitconditions into oneAI. Sixparts are explanatory organization, not common input schema.",
+    "writing": "OriginalOpus5.5 authored the saved3rewrites. No new writing inference.",
+    "tools": "Producer separately executed Python lint(after) and diff(before,after,--stance=説明) once each. Opus did not execute CLI. lint findngs0 and diffcandidates are saved original output, not fabricatedlogs.",
+    "review": "Original production compared candidates with source and kept the saved results. No additional rewrite after tools is established; do not invent an extra revision or approval cycle.",
+    "output": "Original samples.json and exact3sample objects packaged into downloadJSON by production, not newAI outputs."
+  },
+  "guardrails": {
+    "synthetic": true,
+    "new_original_rewrite": false,
+    "new_lint_diff_execution": false,
+    "live_ai_in_browser": false,
+    "human_approval": false,
+    "semantic_equivalence_guarantee": false,
+    "tested_domain": "business only",
+    "no_audio_guide": true,
+    "lint_score_not_used": true
+  },
+  "license": {
+    "upstream": "MIT, Copyright(c)2026 nanaism",
+    "unicode": "Unicode License V3 notice retained for script-derived Unicode data",
+    "own": "MIT, Copyright(c)2026 Studio Yebisu"
+  }
+}
