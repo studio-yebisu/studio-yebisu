@@ -1,0 +1,210 @@
+{
+  "format": "design-taste-structure/v1",
+  "case_id": "design-taste-example",
+  "source_commit": "c4a6bff0871eb4b15371b0e7d2751628b0ed4608",
+  "definition": "AIが画面づくりの前に読むMarkdownのデザイン指針。コア＋表現1つ＋補助の指針を依頼とともに渡す。画面生成API/モデル/自動ルーターではない。",
+  "parts": [
+    {
+      "id": "core",
+      "label": "先に用途を読む",
+      "source_path": "vendor/design-taste/skills/design-taste/SKILL.md",
+      "upstream_path": "skills/design-taste/SKILL.md",
+      "line_start": 31,
+      "quote": "Declare a one-line **design read** before generating",
+      "meaning": "利用者・用途・ブランドを読み、実装より先に方針を一行へ。指針の全部を機械的に適用しない。元の計画で大きなヒーローは採らず一覧の道具性を優先した。"
+    },
+    {
+      "id": "style",
+      "label": "表現を一つ選ぶ",
+      "source_path": "vendor/design-taste/skills/japanese-minimal/SKILL.md",
+      "upstream_path": "skills/japanese-minimal/SKILL.md",
+      "line_start": 41,
+      "quote": "Index as a list:",
+      "meaning": "japanese-minimalを1つ選び、紙・墨・印の赤、明朝とゴシック、罫線の行、縦書き1か所を採用。薄い灰の文字と小さいラベルなどは依頼の読める条件に合わせ調整した。"
+    },
+    {
+      "id": "type",
+      "label": "文字の階層",
+      "source_path": "vendor/design-taste/skills/taste-typography/SKILL.md",
+      "upstream_path": "skills/taste-typography/SKILL.md",
+      "line_start": 19,
+      "quote": "Pick two families with structural contrast",
+      "meaning": "端末の明朝とゴシック。本文16px、ラベル14px、行送り1.8。原典のWebフォント・10–11px・本文1.55–1.7をそのまま適用したわけではない。"
+    },
+    {
+      "id": "access",
+      "label": "操作と読み順",
+      "source_path": "vendor/design-taste/skills/taste-accessibility/SKILL.md",
+      "upstream_path": "skills/taste-accessibility/SKILL.md",
+      "line_start": 34,
+      "quote": "a native `<select>` beats a broken custom one",
+      "meaning": "検索欄・select・detailsをネイティブ要素に。ラベルとキーボード/フォーカス/44pxを計画した。原の限定検査はアクセシビリティ全適合や人の承認ではない。"
+    },
+    {
+      "id": "copy",
+      "label": "理由と次の操作",
+      "source_path": "vendor/design-taste/skills/taste-ux-copy/SKILL.md",
+      "upstream_path": "skills/taste-ux-copy/SKILL.md",
+      "line_start": 54,
+      "quote": "What happened",
+      "meaning": "0件や読込失敗に、何が・なぜ・次の操作を添える。催しは架空と明示し、申込ボタンや実送信は作らない。"
+    },
+    {
+      "id": "handoff",
+      "label": "計画から実装へ",
+      "source_path": "design-plan.md",
+      "upstream_path": null,
+      "line_start": 53,
+      "quote": "## 5. 機能UI",
+      "meaning": "同じAIがまず計画を執筆し、別の執筆実行で計画を使ってHTML/CSS/JSを作った。制作担当が別工程でNode21条件と実画面を検証。今回の図は元の実装関数をブラウザーで呼び、元3保存例と照合する。"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "all",
+      "label": "すべての催し",
+      "input": {
+        "audience": "all",
+        "query": ""
+      },
+      "count": 6,
+      "event_ids": [
+        "e01",
+        "e02",
+        "e03",
+        "e04",
+        "e05",
+        "e06"
+      ],
+      "output_file": {
+        "path": "concept/records/all.json",
+        "bytes": 176,
+        "sha256": "73733a984c949dcdc7d62c53d961d147fc1c00e347f6541af120b96c73a02024"
+      }
+    },
+    {
+      "id": "children",
+      "label": "子ども向けの催し",
+      "input": {
+        "audience": "children",
+        "query": ""
+      },
+      "count": 2,
+      "event_ids": [
+        "e01",
+        "e04"
+      ],
+      "output_file": {
+        "path": "concept/records/children.json",
+        "bytes": 142,
+        "sha256": "c2f989c3eac6525942de0516f95a4c10268c47993cd50b1909aacb2882bb6e49"
+      }
+    },
+    {
+      "id": "reading",
+      "label": "「短編」を含む催し",
+      "input": {
+        "audience": "all",
+        "query": "短編"
+      },
+      "count": 1,
+      "event_ids": [
+        "e02"
+      ],
+      "output_file": {
+        "path": "concept/records/reading.json",
+        "bytes": 131,
+        "sha256": "3cd9bfe7491b52a816b5caaae2679deddea6055d911c35c0cd5354e64faafda5"
+      }
+    }
+  ],
+  "skill_groups": [
+    {
+      "id": "core",
+      "label": "共通の指針",
+      "skills": [
+        "design-taste"
+      ]
+    },
+    {
+      "id": "style",
+      "label": "表現を1つ",
+      "skills": [
+        "japanese-minimal"
+      ]
+    },
+    {
+      "id": "helpers",
+      "label": "補助の指針",
+      "skills": [
+        "taste-accessibility",
+        "taste-typography",
+        "taste-ux-copy"
+      ]
+    }
+  ],
+  "counts": {
+    "upstream_skills": 24,
+    "selected_skills": 5,
+    "groups": 3,
+    "parts": 6,
+    "events": 6,
+    "original_Node_checks": 21
+  },
+  "actors": {
+    "AI": "元Opus5.5が5冊と依頼を読み計画→別の実装執筆へ。5つの自動AIではなく、同じモデルの別執筆実行。",
+    "operator": "制作担当がNodeとブラウザーを別工程で実行。元Opus自身がテストやブラウザーを操作した図にはしない。",
+    "visitor": "完成した一覧で絞り込みと参加方法を開く。AIの呼出しも予約・送信・保存も行わない。"
+  },
+  "adjustments": [
+    {
+      "source": "japanese-minimal",
+      "original": "灰#8A8378の文字",
+      "applied": "文字#625C53、薄い灰は罫線",
+      "reason": "原の計画にある文字のコントラスト条件"
+    },
+    {
+      "source": "japanese-minimal",
+      "original": "ラベル10–11px",
+      "applied": "ラベル14px",
+      "reason": "日本語の読みやすさと依頼の条件"
+    },
+    {
+      "source": "japanese-minimal",
+      "original": "Webフォント/20vh余白/フェード",
+      "applied": "端末書体/最初の画面に操作/動きなし",
+      "reason": "一覧を使う目的"
+    },
+    {
+      "source": "taste-typography",
+      "original": "本文行送り1.55–1.7",
+      "applied": "1.8",
+      "reason": "日本語の本文"
+    }
+  ],
+  "filter": {
+    "module": "events.mjs",
+    "function": "filterEvents",
+    "search_fields": [
+      "title",
+      "description",
+      "place"
+    ],
+    "normalization": "NFKC・前後空白除去・小文字化",
+    "literal_substring": true,
+    "word_AND": false,
+    "audience_query_AND": true,
+    "preserve_input_order": true,
+    "reading_query_is_short_story": "短編",
+    "読書_matches": 4,
+    "reservation_or_network_or_storage": false
+  },
+  "notes": [
+    "3群と6部品は説明用整理で、原典に固定された共通スキーマではない。",
+    "元計画・実装・旧26秒映像の3受領を新図/32秒映像の受領へ付け替えない。",
+    "固定24スキルのうち5つだけ。同じ依頼を他スタイルに渡す比較やスキルなし比較、使いやすさの改善測定はない。",
+    "元検査21条件と原3保存例は再実行しない。新図で同じ実関数を呼ぶ現在の検証は別記する。",
+    "元のルート文字200%検査と、ブラウザー全体のズームや実機iOS/VoiceOver検査を区別する。",
+    "催し6件は架空。詩の朗読会という本文は機能音声ではなく、実音声・音声ガイドは作らない。"
+  ]
+}

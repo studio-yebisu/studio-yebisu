@@ -1,141 +1,88 @@
 <!doctype html>
-<html lang="ja">
+<html lang="ja" data-page="design-taste-film">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light">
-  <title>26秒の解説（無音）｜余白図書室（架空）— Design Taste の作例</title>
-  <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- 読み込むのは同じ場所のファイルだけ。音声・映像は読み込まない。blob: は照合した events.mjs のバイトをモジュールとして読むためだけ。 -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' blob:; style-src 'self'; img-src 'self'; media-src 'none'; connect-src 'self'; font-src 'self'; frame-src 'none'; worker-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>図解32秒・無音の元ページ — AIが画面を作る前に読む、デザインの指針（Design Taste 作例）</title>
+<link rel="stylesheet" href="video.css">
 </head>
 <body>
-  <div class="viewport" id="viewport">
-    <div class="stage" id="stage" role="img" aria-label="26秒・無音の解説動画。保存した実際のブラウザー画面を切り出して、Design Taste の作例（架空の余白図書室の催し一覧）を、入力、デザインの方向、対象で絞る、参加方法を開く、依頼文で試す、の順に説明します。">
+<header class="intro">
+  <p class="kicker">Design Taste 作例・図解動画の元ページ</p>
+  <h1>画面を作る前に、方針をそろえる<span class="sub">図解32秒・無音（<span id="film-dims">縦 720×1280</span>・30fps）</span></h1>
+  <p>作例ページと同じ23件の素材を照合し、照合した events.mjs の filterEvents で3つの条件を計算してから、同じ概念図を時刻ごとに描きます。5冊の本と依頼の札、1つのAI、方針一行の紙、コードの紙、制作担当の確認、6件の行、結果の欄までが、同じ形のままつながります。AIの実行も、新しいNodeの実行もしていません。音もありません。</p>
+</header>
 
-      <!-- 常に出す編集の表示。画面の文字ではない -->
-      <p class="chrome chrome-top-left"><span class="rule-seal"></span>Design Taste の作例</p>
-      <p class="chrome chrome-top-right" id="scene-label">1／5　入力</p>
-      <p class="chrome chrome-bottom-left">保存した実画面で解説・無音</p>
-      <p class="chrome chrome-bottom-right">架空の図書室</p>
+<figure id="stage" class="stage" data-orient="portrait">
+  <canvas id="film" width="720" height="1280" role="img"
+    aria-label="図解動画の画面。0秒から4秒：5冊の本が開き、共通の本、開いた表現の本、細い補助の本3冊の3つの群に分かれます。見出しは「画面を作る前に、方針をそろえる」。本はAIが読む文章で、画面を生成するAPIではありません。4秒から8秒：依頼の札「誰に／何を／催し6件」が順に下線で示され、5冊の写しと依頼の写しが同じ1つのAIへ合流します。8秒から14秒：AIから「方針一行」の紙が出て、紙・墨・印の赤の色見本、明朝とゴシック、罫線と縦の線1本が書かれます。薄い灰の文字は濃い灰へ、10–11pxのラベルは14pxへ、計画の上で調整されます。同じ紙が同じAIへ戻ります。14秒から20秒：同じAIの次の執筆でコードの紙（HTML/CSS/JS）ができ、その紙が「制作担当が確認」（Node 21条件・実画面）を通って「記録」の札が付きます。20秒から26秒：紙が6件の罫線の行に開き、実際の関数で対象「子ども」の e01・e04 の2件、続いて検索「短編」の e02 の1件が、同じ色の札のまま結果の欄へ移り、参加方法が開きます。26秒から29秒：結果の欄に JSON と実UI の札。29秒から32秒：全体が同じ濃さで静止します。"></canvas>
+  <figcaption id="film-caption" class="caption" aria-live="polite"></figcaption>
+</figure>
 
-      <!-- 保存した実画面の窓。位置・倍率・不透明度は film.js が t から決める -->
-      <div class="shot shot-main" id="shot-main">
-        <img id="main-all" data-capture="all" src="../assets/all.png" width="1280" height="900" alt="">
-        <img id="main-children" data-capture="children" src="../assets/children.png" width="1280" height="900" alt="">
-        <img id="main-participation" data-capture="participation" src="../assets/participation.png" width="1280" height="900" alt="">
-        <div class="dim" id="dim-top"></div>
-        <div class="dim" id="dim-bottom"></div>
-        <div class="dim" id="dim-left"></div>
-        <div class="dim" id="dim-right"></div>
-      </div>
-      <p class="tag tag-main" id="tag-main"></p>
-
-      <div class="shot shot-filter" id="shot-filter">
-        <img id="filter-children" data-capture="children" src="../assets/children.png" width="1280" height="900" alt="">
-      </div>
-      <p class="tag tag-filter" id="tag-filter">children.png の対象欄と件数</p>
-
-      <div class="shot shot-mobile" id="shot-mobile">
-        <img id="mobile" data-capture="mobile" src="../assets/mobile.png" width="320" height="1100" alt="">
-      </div>
-      <p class="tag tag-mobile" id="tag-mobile">mobile.png・320px幅（2件目は下）</p>
-
-      <!-- 1　入力 -->
-      <div class="scene" data-scene="0">
-        <div class="caption">
-          <p class="head">AIが画面を作る前に<br>読む、デザインの指示書</p>
-          <p class="sub">生成APIではなく、AIが読む文章。<br>24のうち5つを読み、計画してから実装。</p>
-        </div>
-        <div class="input">
-          <p class="label">入力データ：events.json（架空の図書室・合成の6件）</p>
-          <ol class="input-rows">
-            <li><span class="id">e01</span><span class="when">2026-11-07　10:30–11:00</span><span class="title">えほんを囲む、土曜の朝</span><span class="aud">子ども</span></li>
-            <li><span class="id">e02</span><span class="when">2026-11-13　18:00–19:30</span><span class="title">夜の読書室｜短編を持ち寄る</span><span class="aud">おとな</span></li>
-            <li><span class="id">e03</span><span class="when">2026-11-14　14:00–15:30</span><span class="title">本の修理を、ひと針から</span><span class="aud">おとな</span></li>
-            <li><span class="id">e04</span><span class="when">2026-11-21　10:00–11:00</span><span class="title">親子でつくる、紙のしおり</span><span class="aud">子ども</span></li>
-            <li><span class="id">e05</span><span class="when">2026-11-22　14:00–15:00</span><span class="title">まちの記憶を話す会</span><span class="aud">どなたでも</span></li>
-            <li><span class="id">e06</span><span class="when">2026-11-28　15:00–16:00</span><span class="title">小さな詩の朗読会</span><span class="aud">どなたでも</span></li>
-          </ol>
-          <p class="input-note" id="input-note">名前・日時・対象・会場・本文・参加方法は、変えずに使います。</p>
-        </div>
-      </div>
-
-      <!-- 2　デザインの方向 -->
-      <div class="scene" data-scene="1">
-        <div class="caption">
-          <p class="head">デザインの方向を<br>1つに決める</p>
-          <p class="sub">5つを読んで、スタイルは<br>japanese-minimal の1つだけ。</p>
-        </div>
-        <ul class="points">
-          <li><span class="mark"></span><span class="sw sw-paper"></span><span class="sw sw-ink"></span><span class="sw sw-seal"></span>紙・墨・印の赤の3色</li>
-          <li><span class="mark"></span>明朝の見出し、縦書きは1か所</li>
-          <li><span class="mark"></span>日付と時刻の列、罫線で区切る行</li>
-        </ul>
-      </div>
-
-      <!-- 3　対象で絞る -->
-      <div class="scene" data-scene="2">
-        <div class="caption">
-          <p class="head">対象「子ども」で<br>6件から<span class="em" id="em-two">2件</span>へ</p>
-          <p class="sub">対象の欄だけを変えた保存画面。<br>残るのは e01 と e04 の2件。</p>
-        </div>
-      </div>
-
-      <!-- 4　参加方法を開く -->
-      <div class="scene" data-scene="3">
-        <div class="caption">
-          <p class="head">参加方法を開く</p>
-          <p class="sub">閉じた行にも要約を表示。開くと、<br>入力の本文がそのまま出ます。</p>
-        </div>
-      </div>
-
-      <!-- 5　依頼文で試す -->
-      <div class="scene" data-scene="4">
-        <div class="caption">
-          <p class="head">依頼文で、<br>自分の催しに試す</p>
-          <p class="sub">【】を書き換えてAIに渡します。<br>作例ページでAIは動きません。</p>
-        </div>
-        <div class="request">
-          <div class="request-part" id="request-quote">
-            <p class="label">request.txt より抜粋（…は省略）</p>
-            <div class="req-quote">
-              <p>…の5つの SKILL.md（…）を読んでから、次の催し一覧のページを作ってください。</p>
-              <p>主催と利用者：【図書室や集会所などの名前、実在か架空か、主な利用者】</p>
-              <p>進め方：最初に design read を一行で書き、スタイルは japanese-minimal の1つだけにする。</p>
-            </div>
-          </div>
-          <div class="request-part" id="request-where">
-            <p class="label req-where-label">コピーする場所</p>
-            <p class="req-where">作例ページの下「依頼文で試す」の［依頼文をコピー］<br>またはテキスト（request.txt）</p>
-          </div>
-          <div class="request-part" id="request-cta">
-            <p class="cta"><span>依頼文をコピーして、自分の催しで試す</span></p>
-            <p class="cta-note">原典：madebymustafa/design-taste（MIT）固定コミット c4a6bff</p>
-          </div>
-        </div>
-      </div>
-    </div>
+<section class="controls" aria-label="プレビューの操作">
+  <div class="row">
+    <button id="play" type="button" aria-pressed="false" disabled>再生</button>
+    <button id="reset" type="button" disabled>先頭へ</button>
+    <button id="replay" type="button" disabled>最初から再生</button>
+    <button id="end" type="button" disabled>末尾へ</button>
   </div>
-
-  <!-- プレビュー用の操作。720pの画面の外に置き、書き出しでは取り除く -->
-  <div class="controls" id="controls">
-    <button type="button" id="play">再生</button>
-    <div class="scrub">
-      <label for="scrub">再生位置</label>
-      <input type="range" id="scrub" min="0" max="26" step="any" value="0">
-      <output id="clock" for="scrub">0.0 / 26.0 秒</output>
-    </div>
-    <div class="scenes" role="group" aria-label="場面へ移動">
-      <button type="button" data-jump="0">1 入力</button>
-      <button type="button" data-jump="1">2 方向</button>
-      <button type="button" data-jump="2">3 絞る</button>
-      <button type="button" data-jump="3">4 開く</button>
-      <button type="button" data-jump="4">5 依頼文</button>
-    </div>
-    <p class="film-status" id="film-status" role="status"></p>
+  <div class="scrub">
+    <label for="time">再生位置（0〜32秒）</label>
+    <input id="time" type="range" min="0" max="32" step="0.1" value="0" disabled>
+    <output id="clock" for="time">0.0秒 / 32.0秒</output>
   </div>
+  <div class="row jumps" role="group" aria-label="場面へ移る">
+    <button type="button" data-jump="0" disabled>0秒</button>
+    <button type="button" data-jump="4" disabled>4秒</button>
+    <button type="button" data-jump="8" disabled>8秒</button>
+    <button type="button" data-jump="14" disabled>14秒</button>
+    <button type="button" data-jump="20" disabled>20秒</button>
+    <button type="button" data-jump="26" disabled>26秒</button>
+    <button type="button" data-jump="29" disabled>29秒</button>
+  </div>
+  <div class="row" role="group" aria-label="画面の向き">
+    <button type="button" data-orient="portrait" aria-pressed="true" disabled>縦 720×1280</button>
+    <button type="button" data-orient="wide" aria-pressed="false" disabled>横 1280×720</button>
+  </div>
+</section>
+<p id="asset-status" class="status" role="status" data-state="loading">素材 0/23 を照合しています…</p>
+<p class="retry-row"><button id="retry" class="retry" type="button" hidden>もう一度読み込む</button></p>
+<p class="hint">自動では再生しません。スライダーは ← → で0.1秒、Home・End で先頭・末尾へ移ります。</p>
 
-  <noscript><p class="noscript">この解説動画のプレビューは JavaScript で描きます。有効にしてから再読み込みしてください。</p></noscript>
-  <script src="film.js"></script>
+<section class="scenes" aria-labelledby="scenes-title">
+  <h2 id="scenes-title">場面</h2>
+  <ol>
+    <li><span class="time">0〜4秒</span>画面を作る前に、方針をそろえる：並んだ5冊が開き、共通・表現を1つ・補助3冊の3つの群に分かれます。AIが読む文章で、画面を生成するAPIではありません。</li>
+    <li><span class="time">4〜8秒</span>渡す：依頼の札の「誰に」「何を」「催し6件」に順に下線。5冊と依頼の写しが同じ1つのAIへ合流します（5つのAIではありません）。</li>
+    <li><span class="time">8〜14秒</span>組み立てる：AIがまず「方針一行」の紙を書きます。開いた表現の本の色・明朝・縦の線が紙に移り、薄い灰→濃い灰、10–11px→14px は計画の上の調整として示します。同じ紙が同じAIへ戻ります。</li>
+    <li><span class="time">14〜20秒</span>組み立てる：次の執筆で、計画からコードの紙へ（AIが執筆）。制作担当が Node と実画面で確認する別の工程を通り、「記録」の札が付きます（品質の印や点数ではありません）。</li>
+    <li><span class="time">20〜26秒</span>使う：同じ紙が6件の罫線の行に開き、照合した events.mjs の filterEvents の結果で、対象「子ども」は e01・e04、検索「短編」は e02 を選びます。IDは保存した結果と同じです。</li>
+    <li><span class="time">26〜29秒</span>使う：結果の欄に、保存した実結果（JSON）と実際の一覧（実UI）の札。映像の中で端末への保存はしていません。</li>
+    <li><span class="time">29〜32秒</span>本 → 方針 → コード → 使う の全体が同じ濃さで静止（動きは28.9秒で終わり、ポスターは31秒）。</li>
+  </ol>
+</section>
+
+<nav class="links" aria-label="関連するファイル">
+  <h2>関連するファイル</h2>
+  <ul>
+    <li><a href="../index.html">作例のページ（図・3つの条件・実結果）</a></li>
+    <li><a href="../desk.html#reading">実際の一覧（検索「短編」で開く）</a></li>
+    <li><a href="../concept/manifest.json">照合する23件（concept/manifest.json）</a></li>
+    <li><a href="storyboard.json">場面の設計（storyboard.json）</a></li>
+    <li><a href="README.md">この映像の説明（README.md）</a></li>
+    <li><a href="legacy.html">以前の26秒の映像ソース（legacy.html）</a></li>
+    <li><a href="../source.zip">入力・作例・ソース一式（source.zip）</a></li>
+  </ul>
+</nav>
+
+<footer class="foot">
+  <p>この映像は、照合した記録と、照合した events.mjs の関数の結果から描いた図解です。元の計画・実装・Nodeでの検査・ブラウザーでの確認・以前の映像は、ここではやり直していません。AIも動きません。</p>
+  <p>原典：<a href="https://github.com/madebymustafa/design-taste/tree/c4a6bff0871eb4b15371b0e7d2751628b0ed4608" rel="noopener">madebymustafa/design-taste</a>（コミット c4a6bff）、MIT License、Copyright (c) 2026 Mustafa。映像のコードと文章：MIT License、Copyright (c) 2026 Studio Yebisu。</p>
+</footer>
+
+<script type="module" src="video.js"></script>
 </body>
 </html>

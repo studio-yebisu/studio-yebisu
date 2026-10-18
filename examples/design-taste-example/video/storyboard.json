@@ -1,314 +1,145 @@
 {
-  "title": "Design Taste の作例：余白図書室（架空）十一月の催し — 26秒の解説",
-  "kind": "silent edited explainer built from saved actual browser screenshots; not a continuous interaction recording",
-  "author": "Studio Yebisu (edit source written by Opus 5.5, claude-opus-5-5)",
-  "format": {
-    "duration": 26,
-    "fps": 30,
-    "frames": 780,
-    "width": 1280,
-    "height": 720,
-    "audio": "none",
-    "poster_time": 13,
-    "final_frame_time": 25.9667
+  "format": "studio-yebisu-storyboard/v1",
+  "case_id": "design-taste-example",
+  "revision": "visual-r1",
+  "title": "画面を作る前に、方針をそろえる",
+  "source": {
+    "repository": "madebymustafa/design-taste",
+    "commit": "c4a6bff0871eb4b15371b0e7d2751628b0ed4608",
+    "license": "MIT, Copyright (c) 2026 Mustafa",
+    "what_it_is": "AI-readable Markdown design guidance (SKILL.md files). Not a model, web service, screen-generation API, stylesheet engine, or five autonomous agents. The pin contains 24 skills; this example selected 5.",
+    "selected_skills": {
+      "core": ["design-taste"],
+      "style": ["japanese-minimal"],
+      "helpers": ["taste-accessibility", "taste-typography", "taste-ux-copy"],
+      "grouping_note": "The 3 groups and 6 parts are explanatory grouping for this diagram, not an upstream schema."
+    },
+    "this_example": "The same original Claude Opus 5.5 model read the 5 skills plus the request and data, first authored design-plan.md (one-line design read), then in a separate authoring call used that plan to write the HTML/CSS/JS event list. The production operator separately ran 21 Node conditions and the actual browser. The original Opus did not run a CLI or browser. No human prior plan approval, no no-skill comparison, no measured usability improvement."
   },
-  "message": "AIが読むデザインの指示書で、方向を1つに決めてから、実際の入力で使える一覧を作る。",
-  "audience": "AIに読ませるデザインのスキルを探している日本語の視聴者",
-  "sources": {
-    "capture_manifest": "../captures.json",
-    "images": [
-      {
-        "file": "../assets/all.png",
-        "size": [
-          1280,
-          900
-        ],
-        "state": "対象「すべて」・検索なし。6件すべて存在するが、この画面内に見えるのは先頭2件まで（e03 の日付が下端にかかる）。e02 の参加方法が開いている。"
-      },
-      {
-        "file": "../assets/children.png",
-        "size": [
-          1280,
-          900
-        ],
-        "state": "対象「子ども」。6件中2件（e01・e04）、参加方法は閉じている。"
-      },
-      {
-        "file": "../assets/participation.png",
-        "size": [
-          1280,
-          900
-        ],
-        "state": "対象「子ども」。e01 の参加方法が開いている。e04 は2件目のまま。"
-      },
-      {
-        "file": "../assets/mobile.png",
-        "size": [
-          320,
-          1100
-        ],
-        "state": "320px幅、対象「子ども」。e01 の参加方法が開いている。e04 は画面の下で写っていない。"
-      }
+  "authored_by_model": "claude-opus-5-5",
+  "duration": 32,
+  "fps": 30,
+  "frames": 960,
+  "sizes": [
+    {"orient": "portrait", "width": 720, "height": 1280, "layout": "tall", "role": "main", "composition": "three stage pills (渡す / 組み立てる / 使う) at top-left y=28, mincho title y=126 and sub y=170, diagram world 688x1028 at (16,200) using the tall concept layout (book shelf and request card on the first band; code sheet | one AI circle | 方針一行 sheet on the second band with the operator box below the code sheet; six ruled rows | result tray on the third band), foot line at y=1254"},
+    {"orient": "wide", "width": 1280, "height": 720, "layout": "wide", "role": "secondary, recomposed natively", "composition": "title/sub left, stage pills right, diagram world 1244x588 at (18,106) using the separate wide layout (shelf above request | AI circle with 方針一行 sheet above-right and code sheet below-right, operator under the code sheet | six ruled rows above the result tray), foot line at y=708"}
+  ],
+  "poster_time": 31,
+  "motion_ends": 28.9,
+  "audio": {"tracks": 0, "audio_events": [], "narration": false, "tts": false, "web_speech": false, "web_audio": false, "guide_script": false, "silent": true},
+  "example_conditions": {
+    "first": {"preset": "children", "input": {"audience": "children", "query": ""}, "event_ids": ["e01", "e04"]},
+    "second": {"preset": "reading", "input": {"audience": "all", "query": "短編"}, "event_ids": ["e02"]},
+    "how": "The IDs drawn are the return values of the unchanged events.mjs filterEvents, imported from its verified bytes at load time and compared with results.json, samples.json and concept/records/*.json before any control is enabled. Not animated fake outputs."
+  },
+  "assets": {
+    "manifest": "concept/manifest.json",
+    "manifest_sha256": "006de7587719bdae045852e52788df46ace4458df4d040dde3941a275d6d345c",
+    "count": 23,
+    "refs_used_in_frames": [
+      "concept/structure.json",
+      "events.json",
+      "events.mjs",
+      "results.json",
+      "concept/records/children.json",
+      "concept/records/reading.json"
     ],
-    "data": [
-      "../events.json",
-      "../results.json",
-      "../request.txt"
-    ]
+    "gate": "All 23 files are fetched once and size and SHA-256 are checked against the pinned manifest; structure counts, groups, filter facts and adjustments are checked; the 6 quotes are checked on their source lines; skill names, README (24 skills) and LICENSE (MIT, 2026 Mustafa) are checked; the 6 events, the 3 saved ID sets in results/samples/records (deep values, LF UTF-8 wrappers), the 21-check validation summary and source hashes are checked; events.mjs is imported from the verified bytes (blob: module) and filterEvents is called on a frozen copy of the 6 events for the 3 presets and 6 rule probes; the 4 capture PNG headers and sizes are checked. The captures are not drawn in the film.",
+    "live_calls": "None. No AI, no Node, no network beyond the same-origin asset fetch, no storage. Frames draw verified values and the in-browser function results only."
   },
-  "persistent_labels": {
-    "editorial": [
-      "Design Taste の作例",
-      "保存した実画面で解説・無音",
-      "架空の図書室",
-      "場面番号（例：3／5　対象で絞る）"
-    ]
-  },
+  "persistent_shapes": [
+    "books: one shelf. Core book (dark cover, vertical 用途を読む), style book (closed spine with a seal mark that opens into a spread: paper/ink/seal-red swatches, mincho 明, one vertical line, seal), three slim helper spines 文字 / 操作 / 文言. Group captions 共通 / 表現を1つ / 補助3冊 (skill names as a second line in the wide layout).",
+    "request: card 依頼 with 誰に / 何を / 催し6件 and six coloured ticks — the six event identities (colour + day number) that persist to the end.",
+    "ai: one indigo circle AI with 同じAIが2回執筆. Copies of the five books and of the request travel into it and merge (inner fill). Never five AIs.",
+    "plan: folded paper 方針一行 written by the AI: one thick ink line (the one-line design read), swatches paper/ink/seal, pale ash #8A8378 struck to #625C53, 明 + ゴ, 10–11px to 11→14px, two rules and one vertical mark. A copy of the same sheet travels back into the same AI.",
+    "page: folded paper コード (HTML/CSS/JS) with indigo code lines and a six-row draft in the same six colours.",
+    "operator: umber box 制作担当が確認 with Node 21条件・実画面. The page sheet passes through it and leaves with a 記録 tag (a record of what was checked; no tick, score or quality mark).",
+    "rows: six ruled rows (colour tab, day number in mincho, title) unfolding from the delivered sheet; picked rows tint in their own colour, others fade but stay readable.",
+    "tray: native control glyph (対象 select or 検索 field), count in mincho, chips of the picked rows in the same colours, details triangle 参加方法 with the actual participation text, and two outputs JSON (saved record) and 実UI (desk.html)."
+  ],
   "scenes": [
     {
-      "id": "input",
-      "start": 0,
-      "end": 4,
-      "message": "Design Taste は、AIが画面を作る前に読む文章の指示書。入力は架空の図書室の合成6件。",
-      "editorial_text": [
-        "AIが画面を作る前に／読む、デザインの指示書",
-        "生成APIではなく、AIが読む文章。／24のうち5つを読み、計画してから実装。",
-        "入力データ：events.json（架空の図書室・合成の6件）",
-        "名前・日時・対象・会場・本文・参加方法は、変えずに使います。"
-      ],
-      "data_text": "events.json の id・date・start–end・title・audience_label を6行の文字で表示（画面の再現ではなく入力データの一覧）",
-      "screenshots": [],
-      "motion": "6行を0.35秒から0.18秒ずつずらして出す。"
+      "start": 0, "end": 4, "rail": null,
+      "title": "画面を作る前に、方針をそろえる",
+      "sub": "Design Taste：AIが読むMarkdownの指針（UI生成APIではない）",
+      "conveys": "What it is: books an AI reads, grouped into one core, one chosen style and three helpers. No UI or API image.",
+      "incoming": "Empty paper; camera centred on the shelf (zoom up to 1.8).",
+      "events": "Shelf appears (0.2-0.8 s); five closed books separate into three groups and captions fade in (1.0-2.2 s); the style book opens (2.0-3.0 s).",
+      "outgoing": "Camera pulls to shelf + request + AI (3.3-4.0 s)."
     },
     {
-      "id": "direction",
-      "start": 4,
-      "end": 9,
-      "message": "5つのスキルを読み、スタイルは japanese-minimal の1つだけに決めた。",
-      "editorial_text": [
-        "デザインの方向を／1つに決める",
-        "5つを読んで、スタイルは／japanese-minimal の1つだけ。",
-        "紙・墨・印の赤の3色（色見本）",
-        "明朝の見出し、縦書きは1か所",
-        "日付と時刻の列、罫線で区切る行"
-      ],
-      "screenshots": [
-        {
-          "file": "../assets/all.png",
-          "time": [
-            4.0,
-            5.2
-          ],
-          "camera": [
-            640,
-            450,
-            0.575
-          ],
-          "visible_source": [
-            0,
-            -2,
-            1280,
-            902
-          ],
-          "purpose": "広い画面の配置（左に絞り込み、右に一覧）を見せる全体。文字を読ませる場面ではない。"
-        },
-        {
-          "file": "../assets/all.png",
-          "time": [
-            6.0,
-            6.9
-          ],
-          "camera": [
-            340,
-            215,
-            1.2
-          ],
-          "visible_source": [
-            33,
-            -2,
-            647,
-            432
-          ],
-          "purpose": "印「余」、縦書きの「二〇二六年 十一月」、明朝の見出し「十一月の催し」と架空の注記。"
-        },
-        {
-          "file": "../assets/all.png",
-          "time": [
-            7.8,
-            9.0
-          ],
-          "camera": [
-            726,
-            470,
-            1.3
-          ],
-          "visible_source": [
-            443,
-            270,
-            1009,
-            670
-          ],
-          "purpose": "日付と時刻の列、罫線で区切った e01 の行と e02 の頭。"
-        }
-      ],
-      "motion": "全体（4.0–5.2）→ 見出しへ寄る（5.2–6.0）→ 行へ移る（6.9–7.8）。左の三点は窓に映っている点だけが墨になり、赤の短い線がつく。"
+      "start": 4, "end": 8, "rail": "渡す",
+      "title": "5冊と依頼を、同じ1つのAIへ",
+      "sub": "誰に・何を・催し6件。5つのAIではない (count read from events.json)",
+      "conveys": "Instructions plus the real request (audience, use, six events, readability constraints) join one AI.",
+      "incoming": "Books grouped and the style book open.",
+      "events": "Request card (4.0-4.4 s) and AI circle (4.3-4.7 s); 誰に / 何を / 催し6件 underlined in turn (4.5-6.0 s); lines draw (4.6-5.0 s) and flow (5.6-6.2 s); five book copies and the request copy travel and merge into the AI (6.0-7.6 s).",
+      "outgoing": "Camera to shelf + AI + plan (7.6-8.3 s)."
     },
     {
-      "id": "filter",
-      "start": 9,
-      "end": 15,
-      "message": "対象「子ども」で6件から2件。残るのは e01 と e04。",
-      "editorial_text": [
-        "対象「子ども」で／6件から2件へ",
-        "対象の欄だけを変えた保存画面。／残るのは e01 と e04 の2件。"
-      ],
-      "screenshots": [
-        {
-          "file": "../assets/all.png → ../assets/children.png",
-          "time": [
-            9.0,
-            9.6
-          ],
-          "camera": [
-            726,
-            470,
-            1.3
-          ],
-          "purpose": "同じ位置のまま保存画面を切り替える編集。2行目が e02 から e04 に変わる。操作の録画ではない。"
-        },
-        {
-          "file": "../assets/children.png",
-          "time": [
-            10.5,
-            15.0
-          ],
-          "camera": [
-            726,
-            585,
-            1.3
-          ],
-          "visible_source": [
-            443,
-            385,
-            1009,
-            785
-          ],
-          "purpose": "2件の題名「えほんを囲む、土曜の朝」「親子でつくる、紙のしおり」と日時・対象を読める大きさで。"
-        },
-        {
-          "file": "../assets/children.png",
-          "time": [
-            9.4,
-            15.0
-          ],
-          "camera": [
-            180,
-            581,
-            1.3
-          ],
-          "visible_source": [
-            34,
-            456,
-            326,
-            706
-          ],
-          "purpose": "左の窓：対象の欄「子ども」と件数「6件中2件を表示しています」。"
-        }
-      ],
-      "motion": "切り替え後、9.7–10.5 に2件目まで下へ移る。10.3–10.7 に「2件」へ赤の下線。"
+      "start": 8, "end": 14, "rail": "組み立てる",
+      "title": "AIがまず「方針一行」と計画を書く",
+      "sub": "灰の文字→濃い灰、10–11px→14px（計画の上の調整）",
+      "conveys": "The AI first writes the plan with a one-line design read. The open style book's ink/paper/seal/rule/mincho appear on the plan; the ash-text and label-size adjustments are shown as planned values, not as an executed before-UI. The same plan returns to the same AI for the next authoring call.",
+      "incoming": "AI filled.",
+      "events": "Plan sheet appears (8.0-8.4 s); write line (8.2-9.0 s); sheet flies out of the AI and its rows are written (8.7-10.6 s); ash swatch struck to dark gray and 10–11px to 11→14px (10.9-12.1 s); back line (12.0-12.6 s); a copy of the plan travels back into the AI (12.4-13.5 s).",
+      "outgoing": "Camera to AI + plan + page + operator (13.6-14.3 s)."
     },
     {
-      "id": "details",
-      "start": 15,
-      "end": 21,
-      "message": "参加方法を開くと、入力の本文がそのまま出る。320px幅でも欠けない。",
-      "editorial_text": [
-        "参加方法を開く",
-        "閉じた行にも要約を表示。開くと、／入力の本文がそのまま出ます。"
-      ],
-      "actual_text_in_screenshot": "参加方法：申込不要／当日、会場へお越しください。これは架空の案内で、実際の参加はできません。（e01）",
-      "screenshots": [
-        {
-          "file": "../assets/children.png → ../assets/participation.png",
-          "time": [
-            15.0,
-            15.5
-          ],
-          "camera": [
-            726,
-            585,
-            1.3
-          ],
-          "purpose": "同じ位置のまま保存画面を切り替える編集。e01 の参加方法が開いた状態の画面になる。"
-        },
-        {
-          "file": "../assets/participation.png",
-          "time": [
-            16.5,
-            21.0
-          ],
-          "camera": [
-            903,
-            515,
-            1.28
-          ],
-          "visible_source": [
-            616,
-            312,
-            1190,
-            718
-          ],
-          "purpose": "e01 の要約「参加方法：申込不要」と本文。16.6–17.1 にほかの部分を紙の色で薄くする。"
-        },
-        {
-          "file": "../assets/mobile.png",
-          "time": [
-            17.8,
-            21.0
-          ],
-          "camera": "[160, 900, 1.2] → [160, 945, 1.2]",
-          "visible_source": [
-            2,
-            790,
-            318,
-            1100
-          ],
-          "purpose": "左の窓：320px幅で日時・題名・対象・会場・参加方法の本文が欠けずに並ぶ。2件目はこの下で写っていない。"
-        }
-      ],
-      "motion": "15.6–16.5 に本文へ横に移る。17.9–18.9 に320px幅の窓を本文まで下げる。"
+      "start": 14, "end": 20, "rail": "組み立てる",
+      "title": "計画を使う次の執筆で、HTML/CSS/JSへ",
+      "sub": "AIが執筆 / 制作担当が実行（Node 21条件・実画面）",
+      "conveys": "Second authoring call turns the plan into code. A separate operator step ran Node and the browser; it returns the page with a record tag, no quality score, and is not rerun here.",
+      "incoming": "Plan written; AI holds the plan copy.",
+      "events": "Code sheet appears and flies out of the AI (14.0-16.4 s); operator box (16.2-16.6 s); check line (16.4-17.3 s); the page sheet enters the operator (17.0-18.0 s), waits while the box is lit, and leaves along the delivery line with 記録 (18.6-19.4 s); the six-row frame appears (18.4-18.9 s).",
+      "outgoing": "Camera to operator + rows + tray (19.6-20.3 s)."
     },
     {
-      "id": "request",
-      "start": 21,
-      "end": 26,
-      "message": "依頼文の【】を書き換えれば、自分の催しで試せる。作例ページでAIは動かない。",
-      "editorial_text": [
-        "依頼文で、／自分の催しに試す",
-        "【】を書き換えてAIに渡します。／作例ページでAIは動きません。",
-        "コピーする場所",
-        "作例ページの下「依頼文で試す」の［依頼文をコピー］／またはテキスト（request.txt）",
-        "依頼文をコピーして、自分の催しで試す",
-        "原典：madebymustafa/design-taste（MIT）固定コミット c4a6bff"
-      ],
-      "quoted_text": {
-        "source": "../request.txt",
-        "note": "短い抜粋。「…」は省略した部分。文言は変えていない。",
-        "lines": [
-          "…の5つの SKILL.md（…）を読んでから、次の催し一覧のページを作ってください。",
-          "主催と利用者：【図書室や集会所などの名前、実在か架空か、主な利用者】",
-          "進め方：最初に design read を一行で書き、スタイルは japanese-minimal の1つだけにする。"
-        ]
-      },
-      "screenshots": [],
-      "motion": "抜粋 21.4–22.0、コピーする場所 22.4–22.9、最後の案内 23.4–23.9。25.9667（最後の枠）まで全部を表示。コピーの操作は見せない。"
+      "start": 20, "end": 26, "rail": "使う",
+      "title": "同じ6件の行から、実際の関数が選ぶ",
+      "sub": "子ども→2件（e01・e04）・「短編」→1件（e02） (values read from the function results)",
+      "conveys": "The same sheet unfolds into six ruled rows. The actual filterEvents results pick e01 and e04 for children, then e02 for 短編; chips keep the same colour identities into the result tray; participation opens with the real text (申込不要, then 窓口で申込（架空）). The finished UI is the endpoint, not the hero of the film.",
+      "incoming": "Delivered sheet at the top of the rows.",
+      "events": "Rows unfold (20.4-21.9 s); tray (21.6-22.0 s) and use line (21.7-22.4 s); children pick (22.2-22.8 s), chips (22.3-23.0 s), participation opens (22.9-23.4 s); tray fades and swaps at 23.85 s while rows re-pick to e02 (23.6-24.1 s); reading chip (24.1-24.8 s) and participation (24.8-25.4 s).",
+      "outgoing": "Camera to rows + tray (25.6-26.3 s)."
+    },
+    {
+      "start": 26, "end": 29, "rail": "使う",
+      "title": "使える一覧と、保存した実結果",
+      "sub": "desk.html#reading で開く・concept/records/reading.json",
+      "conveys": "Usable outputs: the saved JSON record and the native real UI. Pictorial only; no operating-system download happens in the film.",
+      "incoming": "Reading result in the tray.",
+      "events": "JSON and 実UI chips appear (26.2-27.4 s).",
+      "outgoing": "All shapes in place."
+    },
+    {
+      "start": 29, "end": 32, "rail": "全体",
+      "title": "本 → 方針 → コード → 使う",
+      "sub": "Design Taste：画面を作る前に、方針をそろえる",
+      "conveys": "Stable whole structure, understandable without sound.",
+      "incoming": "All lines flow-coloured and emphasis back to full (28.3-28.9 s); camera pulls back to the whole diagram (28.2-28.9 s); title and stage pills cross-fade 28.5-28.9 s.",
+      "events": "None. Still from 28.9 s to 32 s; poster at 31 s.",
+      "outgoing": "End at 32 s."
     }
   ],
-  "not_claimed": [
-    "スキルを使わない場合との比較や、品質・速さの数値",
-    "人による承認、アクセシビリティ全体の適合",
-    "実在の図書館・催し・申込",
-    "Design Taste がAPIやアプリとして画面を生成すること"
+  "limits": [
+    "Motion explains the recorded flow; it is not the original production's timing or an internal trace.",
+    "Only 5 of the 24 pinned skills were used. No same-request comparison with other style books, no no-skill comparison, no usability measurement.",
+    "The 21 Node conditions and the browser checks were run by the production operator in the original production and are not rerun here; the original Opus did not run them.",
+    "The original root-text 200% check is not a whole-browser zoom, real iOS, VoiceOver or NVDA check. No accessibility conformance or human approval is claimed.",
+    "The six events are fictitious. The poetry-reading title is event text, not audio; no audio is produced.",
+    "The 4 saved capture PNGs are verified but not drawn; the diagram carries the concept."
   ],
-  "verification": "実レンダー・代表フレーム・連続フレーム・任意時刻一致・全デコード・ブラウザー終端再生を確認。範囲と人の承認の有無は ../verification.json。"
+  "scope": {
+    "original_production": "Three saved Opus 5.5 authoring receipts: plan (design-plan.md), implementation (the list now preserved as desk.html with app.mjs, events.mjs, style.css), and the old 26 s film (video/legacy.html). Operator runs: 21 Node conditions (validation.json) and browser checks (verification.json, captures.json). None rerun or reassigned to this revision.",
+    "parent_packaging": "concept/structure.json, concept/manifest.json, concept/records/*.json (UTF-8/LF wrappers of the same results.presets objects), desk.html and video/legacy.html archives with legacy storyboard/README, and later visual-guide.md / visual-verification.json / source.zip / media.",
+    "new_authoring": "This revision's diagram, motion, controls and Japanese copy (index.html, concept.css, concept.js, video/index.html, video/video.css, video/video.js, video/storyboard.json, video/README.md), written by claude-opus-5-5."
+  },
+  "status": {
+    "authored": "source files written by claude-opus-5-5 without running a browser, renderer or MP4 encoder",
+    "browser_preview": "not run at authoring",
+    "frame_render": "not run at authoring",
+    "mp4": "not created at authoring",
+    "review": "pending; the producer adds actual technical verification records later (not human approval)"
+  }
 }
