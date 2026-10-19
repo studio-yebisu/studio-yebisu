@@ -13,7 +13,10 @@
     "fps": 30,
     "width": 720,
     "height": 1280,
-    "alternate": { "width": 1280, "height": 720 },
+    "alternate": {
+      "width": 1280,
+      "height": 720
+    },
     "posterTime": 31,
     "audio": "none",
     "audioEvents": []
@@ -24,15 +27,22 @@
     "silent": "ナレーション・読み上げ・効果音・音声トラックなし。",
     "paper_identity": "原稿の29ブロックを、見出し（濃い帯）・注意（朱の帯）・番号付きの流れ1〜6・任意の持ち物（点線）として同じ模様で描く。同じ模様が原稿・HTML・A4・細いページに現れる。",
     "page_images": "保存済みPDFの実ページ画像3枚は、ページ画像の部品の中で小さく使う補助。資料の寄せ集めを主役にしない。",
-    "not_shown": ["画面上でPDFを生成する操作", "新しく生成したPDFとしての見せ方", "6つのAI", "AIがクラウドのPDFサービスへ直接書く流れ", "ログ・JSON・コードの画面", "全項目合格の証明"]
+    "not_shown": [
+      "画面上でPDFを生成する操作",
+      "新しく生成したPDFとしての見せ方",
+      "6つのAI",
+      "AIがクラウドのPDFサービスへ直接書く流れ",
+      "ログ・JSON・コードの画面",
+      "全項目合格の証明"
+    ]
   },
   "scenes": [
     {
       "id": "contents",
       "start": 0,
       "end": 4,
-      "title": "AIが読む手順書と、日本語の原稿",
-      "teaches": "手順書の中身（①版の選び方 ②5テーマ ③変換とプレビュー ④全ページを読む）と、実際の原稿 event.md。",
+      "title": "AIが読む手順書と、案内の材料",
+      "teaches": "手順書の4節と、作者に渡した依頼input.md・正本event.jsonの事実。紙の模様は同じ内容を表す模式図で、原JSONそのものの表示ではない。",
       "enter": "空の画面に手順書が現れ、4つの節が順に開く。原稿の紙が上から1行ずつ埋まる。",
       "exit": "手順書と原稿が左上（縦）／左列（横）に残る。"
     },
@@ -41,7 +51,7 @@
       "start": 4,
       "end": 8,
       "title": "同じ作者AIが読み、制作担当が別工程で実行",
-      "teaches": "依頼（用途・日本語・フォント・2版）と手順書と原稿が、同じ1つの作者AI（元のOpus 5.5）に合流する。作者AIは原稿・版の選択・和文CSSを用意し、シェルは実行しない。制作担当の点線の枠（別工程）が現れる。",
+      "teaches": "手順書と依頼・正本JSONが1つの作者AIへ入り、作者がMarkdown原稿/版の選択/和文CSSを執筆。元の作者は原稿を入力されたのではなく執筆した。制作担当は別工程で実行。",
       "enter": "手順書と原稿の印が矢印に沿って作者AIへ移動する。",
       "exit": "作者AIの出力と、制作担当の補助（Chrome指定・lang=ja・静的TTF・UTF-8）が残る。"
     },
@@ -94,13 +104,48 @@
   "sources": {
     "shared_drawing": "../concept.js（SCENES・drawFrame・loadVerified）",
     "integrity": "concept/manifest.json（SHA-256 ce604633be16bcee326e7ff6713d85e428d4bf97dd06cc2ceeb23ce48d597f99、23ファイル）",
-    "markdown": { "path": "inputs/event.md", "sha256": "d06c4d2d3b7eb0f8dd9b65d2bfafdb142cecdc5647de4a63a575a89b7ad3ff57", "blocks": 29 },
+    "markdown": {
+      "path": "inputs/event.md",
+      "sha256": "d06c4d2d3b7eb0f8dd9b65d2bfafdb142cecdc5647de4a63a575a89b7ad3ff57",
+      "blocks": 29
+    },
     "pdfs": [
-      { "variant": "paper", "path": "outputs/atelier-a4.pdf", "bytes": 63663, "sha256": "1bd80a231764d32644aad6eb0dd52f4b2222c506a07d28491bbb018c36d4bf7e", "page_count": 1, "size_mm": [210, 297], "theme": "warm-terra + japanese-a4.css" },
-      { "variant": "phone", "path": "outputs/atelier-phone.pdf", "bytes": 64484, "sha256": "efa76ef682c8833669d4f97f23fe35a4ffd955229acba3048c49f977505d4b82", "page_count": 2, "size_mm": [148, 210], "theme": "mobile + japanese-phone.css" }
+      {
+        "variant": "paper",
+        "path": "outputs/atelier-a4.pdf",
+        "bytes": 63663,
+        "sha256": "1bd80a231764d32644aad6eb0dd52f4b2222c506a07d28491bbb018c36d4bf7e",
+        "page_count": 1,
+        "size_mm": [
+          210,
+          297
+        ],
+        "theme": "warm-terra + japanese-a4.css"
+      },
+      {
+        "variant": "phone",
+        "path": "outputs/atelier-phone.pdf",
+        "bytes": 64484,
+        "sha256": "efa76ef682c8833669d4f97f23fe35a4ffd955229acba3048c49f977505d4b82",
+        "page_count": 2,
+        "size_mm": [
+          148,
+          210
+        ],
+        "theme": "mobile + japanese-phone.css"
+      }
     ],
-    "page_images": ["assets/paper-page-1.png", "assets/phone-page-1.png", "assets/phone-page-2.png"],
-    "upstream": { "repository": "daymade/claude-code-skills", "commit": "e37b50c323cf99471f18ac17a11c923bb96ce2ba", "license": "MIT", "copyright": "Copyright (c) 2025 daymade" }
+    "page_images": [
+      "assets/paper-page-1.png",
+      "assets/phone-page-1.png",
+      "assets/phone-page-2.png"
+    ],
+    "upstream": {
+      "repository": "daymade/claude-code-skills",
+      "commit": "e37b50c323cf99471f18ac17a11c923bb96ce2ba",
+      "license": "MIT",
+      "copyright": "Copyright (c) 2025 daymade"
+    }
   },
   "editing": {
     "timing": "場面の開始秒と見出しは concept.js の SCENES が正本。ここを変えるときは SCENES とこのファイルと video/index.html の data-jump を同時に直す（読み込み時に一致を確かめ、違えば準備を失敗にする）。",

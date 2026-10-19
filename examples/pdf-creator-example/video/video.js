@@ -4,7 +4,7 @@
  * その時刻の完成した1枚を毎回はじめから描く。プレビューの再生（requestAnimationFrame）は seek の外だけで動く。
  * Copyright (c) 2026 Studio Yebisu. MIT License.
  */
-import { loadVerified, drawFrame, SCENES, DURATION, FILM_PALETTE, sceneIndex } from '../concept.js';
+import { loadVerified, drawFrame, SCENES, DURATION, FILM_PALETTE, sceneIndex } from '../concept.js?v=visual-r1-final';
 
 const RENDER = window.__MOTION_RENDER__ === true;
 const SIZES = { portrait: [720, 1280], wide: [1280, 720] };

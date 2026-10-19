@@ -12,7 +12,7 @@ export const ROOT = new URL('./', import.meta.url);
 export const DURATION = 32;
 
 export const SCENES = Object.freeze([
-  { id: 'contents', start: 0, title: 'AIが読む手順書と、日本語の原稿', sub: '手順書＝版の選び方・5テーマ・変換スクリプト・全ページ確認' },
+  { id: 'contents', start: 0, title: 'AIが読む手順書と、案内の材料', sub: '手順書＝版の選び方・5テーマ・変換スクリプト・全ページ確認' },
   { id: 'author', start: 4, title: '同じ作者AIが読み、制作担当が別工程で実行', sub: '作者AIは原稿・版の選択・和文CSSを用意（シェルは実行していない）' },
   { id: 'convert', start: 8, title: '原典の変換：HTML → CSS → Chrome', sub: "markdown_to_pdf(theme=…, backend='chrome')" },
   { id: 'wrap', start: 14, title: '同じ原稿が、版の枠で折り返す', sub: 'A4は1ページ、148×210mmは2ページ（生成後の実測）' },
@@ -865,11 +865,11 @@ function drawSource(g) {
   page(g, c.sheet);
   drawFlow(g, c.sheet, g.flows.source, CPL.source, { reveal: T.srcRows * model.blocks.length, tag: L.full, optionalTag: L.full, tagSize: 11 });
   if (L.full) {
-    text(g, '原稿 event.md', c.title[0], c.title[1], 14, { weight: 700, max: r.w - 28 });
+    text(g, '材料 JSON → 原稿 MD', c.title[0], c.title[1], 14, { weight: 700, max: r.w - 28 });
     const event = model.event;
     const avail = r.x + r.w - 8 - c.call.x;
     const lines = [
-      [`${model.blocks.length}ブロック`, pal.ink], ['流れ 6項目', pal.accent], ['持ち物 3', pal.ink],
+      [`原稿は${model.blocks.length}ブロック`, pal.ink], ['流れ 6項目', pal.accent], ['持ち物 3', pal.ink],
       ['うち任意 1', pal.muted], ['架空の注意', pal.accent], [`定員 ${event.capacity}名`, pal.ink],
     ];
     if (avail >= 130) lines.push([event.date, pal.ink]);
@@ -883,7 +883,7 @@ function drawSource(g) {
       text(g, label, c.call.x + 10, y, 13, { weight: 600, max: avail - 10 });
     });
   } else {
-    text(g, '原稿', c.title[0], c.title[1], 13, { weight: 700, align: 'center' });
+    text(g, '材料', c.title[0], c.title[1], 13, { weight: 700, align: 'center' });
   }
   ctx.restore();
 }
@@ -1255,7 +1255,7 @@ function drawTokens(g) {
     drawToken(g, p.x, p.y, { ...o, alpha: fade(u) });
   };
   travel(e.e1, T.tokIn, { kind: 'book' });
-  travel(e.e2, T.tokIn, { badge: 'MD' });
+  travel(e.e2, T.tokIn, { badge: '事実' });
   const a1 = anchor(g, 's1'), a2 = anchor(g, 's2'), a3 = anchor(g, 's3');
   const inside = { badge: T.pdf > 0.5 ? 'PDF' : T.html > 0.5 ? 'HTML' : 'MD', html: T.html, layers: T.layers };
   if (T.tok3 > 0 && T.tok3 < 1) {
@@ -1326,11 +1326,11 @@ export function drawFrame(ctx, model, o) {
 /* ---------------------------------------------------------------- 作例ページ */
 
 const STAGE_NOTES = [
-  '手順書は、版の選び方・5テーマ・Pythonの変換とプレビュー・全ページ確認を書いた、AIが読む指示書です。元のOpus 5.5（作者AIは1つ）が手順書と原稿・依頼（用途・日本語・フォント・2版）を読み、日本語のMarkdown・追加の和文CSS・閲覧ページ・旧28秒の解説を書きました。作者AIはシェルを実行していません。',
+  '手順書は、版の選び方・5テーマ・Pythonの変換とプレビュー・全ページ確認を書いた、AIが読む指示書です。元のOpus 5.5（作者AIは1つ）が手順書と依頼 input.md・正本 event.json を読み、日本語のMarkdown・追加の和文CSS・閲覧ページ・旧28秒の解説を書きました。作者AIはシェルを実行していません。',
   '制作担当が別工程で build_pdfs.py を実行し、原典の markdown_to_pdf(theme=…, backend=\'chrome\', previews=True) を呼びました。中ではPandocでHTMLにし、原典テーマ＋CJKパッチ＋後置の和文CSSを重ね、指定したChromeでPDFにします。Chrome検出・使い捨てプロファイル・UTF-8・lang=ja・静的TrueType（400/700/800）は今回の補助で、原典の18ファイルは変えていません。補助なしの原典コマンドだけで同じ日本語の結果になるとは示していません。',
   'PDFは原典の処理でPopplerのページ画像になり、中国語向けの一部の字組みlintも走ります。警告はエラーでも自動修正でもありません。原稿に表がないため、罫線検査は合格0件ではなく対象外です。元の制作担当が全3ページを原稿と見比べ、各PDF 29ブロックの文字と埋込TrueTypeを確認しました。人による承認はしていません。いま使えるのは保存済みの原PDFで、このページでは再実行しません。',
 ];
-const OVERVIEW_NOTE = '手順書と原稿を同じ作者AIが読み、制作担当が別工程で原典の markdown_to_pdf() を実行。PDFはページ画像にして原稿と読み比べ、保存済みの原PDFを使います。段階のボタンで図の一部を前に出せます。';
+const OVERVIEW_NOTE = '手順書と依頼・正本JSONを同じ作者AIが読み、Markdown原稿を執筆。制作担当が別工程で原典の markdown_to_pdf() を実行。PDFはページ画像にして原稿と読み比べ、保存済みの原PDFを使います。段階のボタンで図の一部を前に出せます。';
 
 /** index.html の操作を始める。video/ からは呼ばない。 */
 export function initMain() {

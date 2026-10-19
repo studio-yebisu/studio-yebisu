@@ -8,7 +8,7 @@
   <meta name="description" content="PDF Creator は、AIが読むMarkdownの手順書にPythonの変換スクリプトとCSSテーマが付いたスキル。同じ日本語の原稿から、A4 1ページと148×210mm 2ページの保存済みPDFができるまでを1枚の図で示します。">
   <link rel="stylesheet" href="concept.css">
   <script type="module">
-    import { initMain } from './concept.js';
+    import { initMain } from './concept.js?v=visual-r1-final';
     initMain();
   </script>
 </head>
@@ -29,7 +29,7 @@
 
       <figure class="map">
         <canvas id="concept-map" role="img" aria-describedby="map-text"
-          aria-label="PDF Creator の全体図。手順書と原稿を同じ作者AIが読み、制作担当が別工程で原典の変換を実行し、A4 1ページと細いページ2ページのPDFをページ画像にして原稿と読み比べ、保存済みの原PDFを使う流れ。"></canvas>
+          aria-label="PDF Creator の全体図。手順書と依頼・案内の材料を同じ作者AIが読み、Markdown原稿へ整え、制作担当が別工程で原典の変換を実行し、A4 1ページと細いページ2ページのPDFをページ画像にして原稿と読み比べ、保存済みの原PDFを使う流れ。"></canvas>
       </figure>
 
       <div class="stages" role="group" aria-label="図の段階を前に出す">
@@ -58,8 +58,8 @@
       <h2 id="read-title">図の読み方</h2>
       <ol id="map-text" class="flow">
         <li><b>手順書</b>：①版の選び方 ②5テーマ（今回はwarm-terraとmobileだけ） ③Pythonの変換とプレビュー ④生成後に全ページを読む指示。</li>
-        <li><b>原稿</b>：架空の案内 event.md（29ブロック・流れ6項目・持ち物3つのうち1つは任意・架空の注意）と、依頼（用途・日本語・フォント・2版）。</li>
-        <li><b>作者AI</b>：同じ1つのAI（元のOpus 5.5）が手順書と原稿を読み、原稿・版の選択・和文CSSを用意。シェルは実行していません。</li>
+        <li><b>材料と原稿</b>：作者への入力は依頼 input.md と正本 inputs/event.json。作者が同じ事実から29ブロックの event.md を執筆しました。図の紙の模様は材料と原稿で共通の内容を示し、元JSONの表示やAIが原稿を受け取った証拠ではありません。</li>
+        <li><b>作者AI</b>：同じ1つのAI（元のOpus 5.5）が手順書と依頼・正本JSONを読み、Markdown原稿・版の選択・和文CSSを用意。シェルは実行していません。</li>
         <li><b>制作担当（別工程）</b>：build_pdfs.py で原典の markdown_to_pdf を実行。Chrome指定・lang=ja・静的TrueType・UTF-8の補助つき。</li>
         <li><b>変換の中</b>：同じMarkdown → PandocでHTML → 原典テーマ＋CJKパッチ＋後置の和文CSS → 指定したChromeでPDF。</li>
         <li><b>折り返し</b>：同じ原稿が版の枠で折り返し、A4は1ページ、148×210mmは流れの4〜6番から2ページ目へ（生成後の実測）。</li>
