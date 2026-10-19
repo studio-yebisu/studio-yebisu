@@ -1,0 +1,49 @@
+{
+  "schema": "studio-yebisu.voicestudio-example.jobs.v1",
+  "case": "voicestudio-example",
+  "synthetic_inputs": true,
+  "input_origin": "Three previously generated functional English synthetic Chatterbox WAVs, copied unchanged. No new TTS, no trimming, no normalisation. Not a microphone recording and not a human voice-consent example.",
+  "reference_text_role": "Comparison reference only. Never sent to VoiceStudio: no prompt, initial_prompt or any other request field carries it.",
+  "request": {
+    "cli_module": "backend.speech_client",
+    "command": "transcribe",
+    "model": "faster-whisper",
+    "language": "en",
+    "format": "verbose_json"
+  },
+  "jobs": [
+    {
+      "id": "default",
+      "audio": "inputs/audio/default.wav",
+      "bytes": 222764,
+      "sha256": "b750fdbc8e1a609954a5d7f0d5bd072ec3fa9116c1f91cf7fa8b19053b2fba52",
+      "seconds": 4.64,
+      "sample_rate_hz": 24000,
+      "channels": 1,
+      "sample_width_bytes": 2,
+      "reference_text": "Please keep the back door closed while the heater is running. The spare keys are in the blue drawer by the sink."
+    },
+    {
+      "id": "expressive",
+      "audio": "inputs/audio/expressive.wav",
+      "bytes": 201644,
+      "sha256": "a60cfaf5e609bbbc823efa5bc2f646f1d1a8901a7a4661aeebb669bac53e25fe",
+      "seconds": 4.2,
+      "sample_rate_hz": 24000,
+      "channels": 1,
+      "sample_width_bytes": 2,
+      "reference_text": "Please keep the back door closed while the heater is running. The spare keys are in the blue drawer by the sink."
+    },
+    {
+      "id": "second",
+      "audio": "inputs/audio/second.wav",
+      "bytes": 247724,
+      "sha256": "80fd37b2eefd398d2e9c88ac812bc74b7028715fb26b5fd568eef3b24b363cdd",
+      "seconds": 5.16,
+      "sample_rate_hz": 24000,
+      "channels": 1,
+      "sample_width_bytes": 2,
+      "reference_text": "Your train leaves from platform four at nine fifteen. Bring a printed ticket and arrive ten minutes early."
+    }
+  ]
+}

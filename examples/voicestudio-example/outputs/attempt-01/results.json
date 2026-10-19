@@ -1,0 +1,707 @@
+{
+  "schema": "studio-yebisu.voicestudio-example.results.v1",
+  "status": "completed",
+  "started_at": "2026-10-19T15:58:58.429Z",
+  "finished_at": "2026-10-19T15:59:07.963Z",
+  "roles": {
+    "author": "Claude Opus 5.5 (claude-opus-5-5) wrote run_example.py, inputs/jobs.json and implementation.md. The author did not execute them and claims no execution or QA.",
+    "operator": "Prepared the isolated environment and pinned model files, started the unmodified VoiceStudio backend on loopback, and executes this program.",
+    "voicestudio_original": "backend.speech_client CLI (multipart POST), FastAPI route /v1/audio/transcriptions, licence/model checks, FasterWhisperBackend.",
+    "asr_model": "Systran/faster-whisper-base@ebe41f70d5b6dfa9166e2c581c45c9c0cfc57b66 run by faster-whisper/CTranslate2 inside the backend.",
+    "wrapper": "This program: verification, one-shot orchestration, archiving of exact CLI stdout, TXT projection of the returned text field, and this record.",
+    "later_site": "A separate phase builds a browser diagram that only reads these saved files and replays the existing WAVs. It runs no ASR, TTS or model."
+  },
+  "wrapper": {
+    "script": "run_example.py",
+    "script_sha256": "06710a364fe46f3b8c5a5c973dd195343345f80a22370f1da6aa2b71c5fb43b3",
+    "jobs_file": "inputs/jobs.json",
+    "jobs_sha256": "d96d456efc5b472c8c6b574b769299a85b5b184edc9b62b4cd555fef0c3e90a3",
+    "pins_file": "vendor/pins.json",
+    "pins_sha256": "f89949a06c17244d09e3e964c3976da60c740d725b8427bb1e45b2aee0d2ace7",
+    "wrapper_python": "3.13.7",
+    "child_environment_policy": {
+      "removed_if_present": [
+        "ALL_PROXY",
+        "FTP_PROXY",
+        "HTTPS_PROXY",
+        "HTTP_PROXY",
+        "PYTHONPATH",
+        "PYTHONSAFEPATH"
+      ],
+      "removed_present": [],
+      "set": {
+        "NO_PROXY": "127.0.0.1,localhost,::1",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONIOENCODING": "utf-8"
+      },
+      "omnivoice_api_key_present": false,
+      "note": "Values of other variables are neither changed nor recorded. A pre-existing OMNIVOICE_API_KEY is left for the original CLI and never logged."
+    },
+    "rerun_policy": "Not idempotent. Every file is created exclusively; a rerun needs a new empty --out chosen by the operator."
+  },
+  "source_pin": {
+    "repository": "debpalash/VoiceStudio",
+    "commit": "6f0ed2ebeaf620bcea8a293cd210bba920b73622",
+    "version": "0.5.7",
+    "license": "AGPL-3.0-only",
+    "archive_sha256": "95ade712a41e8b60d5a3936673fd434f88fd60cfbdf25acbd427bd7713860cf2",
+    "official_gitblobs_verified_by_operator_before_run": 3333,
+    "selected_files_checked_by_this_run": 20,
+    "selected_files_unchanged_after_run": true,
+    "selected_files": [
+      {
+        "path": "README.md",
+        "bytes": 8199,
+        "sha256": "0ba2f591092a12b836cefa8bfa5cd2f804d63ff66d4d1cb4ade0b7a5739b2605",
+        "git_blob": "6e281d91e881b6b07d60b57d7fb5f51b0076e8e1",
+        "match": true
+      },
+      {
+        "path": "LICENSE",
+        "bytes": 34523,
+        "sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+        "git_blob": "be3f7b28e564e7dd05eaf59d64adba1a4065ac0e",
+        "match": true
+      },
+      {
+        "path": "LICENSE-NOTICE.md",
+        "bytes": 5164,
+        "sha256": "e01c368c0651d042c22f021ddd554a13b03fa90ab516385130625e318fcefd61",
+        "git_blob": "d5d0478f628e090883ef617ce23376050e94ba45",
+        "match": true
+      },
+      {
+        "path": "pyproject.toml",
+        "bytes": 18643,
+        "sha256": "f069e8dafcf1af7861cdb6e41a9bc4cb03fc38e73641d3bcb0abfeb72c6e565b",
+        "git_blob": "c8ff4359021381afb020b32815e4b73224107c5c",
+        "match": true
+      },
+      {
+        "path": "package.json",
+        "bytes": 2106,
+        "sha256": "1c05f45b7b45f4e342a8943611470c4ec4901050f468c6a70d9d5aa3b1e5fce3",
+        "git_blob": "2d042bd7e33b12c1b5d858bb8005bd8e8925bb2a",
+        "match": true
+      },
+      {
+        "path": "skills/voicestudio/SKILL.md",
+        "bytes": 6435,
+        "sha256": "619b1c90992d453f23a402f4847d86bcd33eb6621d3182056ef2c9ec34cd0d1e",
+        "git_blob": "a612d3fd67d1f917e48425f47cde556c7c43dc7c",
+        "match": true
+      },
+      {
+        "path": "docs/speech-platform.md",
+        "bytes": 6511,
+        "sha256": "0f35ec3011bb92a8ba7e3504b80c0b162e78b7211b13d52b9637054aa9d14526",
+        "git_blob": "445dd1dad10c0dbfa4fed81e8cd8130606088144",
+        "match": true
+      },
+      {
+        "path": "docs/engines/faster-whisper.md",
+        "bytes": 3402,
+        "sha256": "18a0381e5d6342d472ffd5b3103e32554e652e535f2ca6bcbbbc016026777dbe",
+        "git_blob": "5f431bd83e1249905540068198a06c2089ed3cd2",
+        "match": true
+      },
+      {
+        "path": "docs/downloading-models.md",
+        "bytes": 9171,
+        "sha256": "fb06d051e0279fdbd3a5cc10348af231a5cdf68ea4c5b84132260e0aa3eb792a",
+        "git_blob": "0abe60fdd1ac2bf9de16fd6d70cb49a8b3faf79a",
+        "match": true
+      },
+      {
+        "path": "backend/speech_client/__main__.py",
+        "bytes": 9242,
+        "sha256": "11ef7c7d0cdde1922f1019b8c0b3f1b0b0ed1f6cb46ff067c6ceadce1af21872",
+        "git_blob": "70d0f53abfbd536368771724c2d3fb1a152bc66e",
+        "match": true
+      },
+      {
+        "path": "backend/speech_client/__init__.py",
+        "bytes": 70,
+        "sha256": "5f3899a617a863a1b4b5b6ac38e7ed38539f458fb31f2e0f9755cc808b627c4f",
+        "git_blob": "14d0eb4bef6ce470e823ff598bd14352e3271a9a",
+        "match": true
+      },
+      {
+        "path": "backend/api/routers/openai_compat.py",
+        "bytes": 58736,
+        "sha256": "447bcb02debddd6b53efeecda88f2784a764e04de2b24674b621598af620ecce",
+        "git_blob": "6b3df087a0ae68ef6807ec2116def04b26efd0d3",
+        "match": true
+      },
+      {
+        "path": "backend/api/routers/speech_platform.py",
+        "bytes": 4746,
+        "sha256": "b29ae9e5967c6307db81844f8c900c79610ed761aa672e2c2f58dfa86818ce6c",
+        "git_blob": "bb3b5e1b20e99c96a53c9138b079c7fe403dabd5",
+        "match": true
+      },
+      {
+        "path": "backend/services/asr_backend.py",
+        "bytes": 189453,
+        "sha256": "c7e763bafe77b54416fb2de05ad4f32badc7ef5633f9a2aed02215b77bbd9373",
+        "git_blob": "be476ea7d763e590176e2b5a21a34fe4b99752e1",
+        "match": true
+      },
+      {
+        "path": "backend/services/model_acceptance.py",
+        "bytes": 12645,
+        "sha256": "4bdcd3668654ebe1fa48a197defa4417be781335ab84a71cfdf0a90a8e9073ac",
+        "git_blob": "30f02bec8a47de1613855d6b372822a6724924e3",
+        "match": true
+      },
+      {
+        "path": "backend/services/model_licenses.py",
+        "bytes": 27757,
+        "sha256": "0031d1d8afd75a61c8926a12b06193776c4630238620ecba7d39c300a49b52cd",
+        "git_blob": "015e306424195b73f932f27fed9335b805e9d134",
+        "match": true
+      },
+      {
+        "path": "backend/services/performance_profiles.py",
+        "bytes": 19606,
+        "sha256": "abea5f055e928d7dfec38ee9331393b80580fbb8a831a173327421d4e3a42006",
+        "git_blob": "f7a2dfd7ba49261b854fb77e44018b90f36655fc",
+        "match": true
+      },
+      {
+        "path": "backend/core/device_caps.py",
+        "bytes": 36595,
+        "sha256": "7b6a180e6e18a88deb9b25745fb78f99d206d8c93f903b16f47173516194f4ee",
+        "git_blob": "6bf4d4180f34bb2beb6f2b21e9a648943c3b8e82",
+        "match": true
+      },
+      {
+        "path": "backend/config/model_licenses.json",
+        "bytes": 138379,
+        "sha256": "72974fbca407ab1a5333cde625f9f132ce6e64cbd9078166d98cff447c2b8e7c",
+        "git_blob": "bcba290e0b2cc387a00c1b39f4c92902095c7b0d",
+        "match": true
+      },
+      {
+        "path": "backend/config/models.yaml",
+        "bytes": 17082,
+        "sha256": "aec10764e10b7bb16763ada53541bd228e8375dca44482912e2346c91b2f1805",
+        "git_blob": "2bce293137e263087de95a9ddc57e7c0403c0e18",
+        "match": true
+      }
+    ],
+    "scope": "This run re-checks only the 20 selected files (bytes, SHA-256, Git blob) in --source. Whole-tree/archive verification is operator evidence, not repeated here."
+  },
+  "model_pin": {
+    "repository": "Systran/faster-whisper-base",
+    "revision": "ebe41f70d5b6dfa9166e2c581c45c9c0cfc57b66",
+    "license": "MIT",
+    "gated": false,
+    "files": [
+      {
+        "name": "config.json",
+        "bytes": 2309,
+        "git_blob": "867cf1a0fece1394e01d55e287ba2f09a577c046",
+        "lfs_sha256": null
+      },
+      {
+        "name": "model.bin",
+        "bytes": 145217532,
+        "git_blob": "433870823f3f64fd6baaec3f61319124ba5033fd",
+        "lfs_sha256": "d01c3014881c9c6f3133c182f3d2887eb6ca1c789a7538c5c007196857a0a6a9"
+      },
+      {
+        "name": "tokenizer.json",
+        "bytes": 2203239,
+        "git_blob": "7818adb6de9fa3064d3ff81226fdd675be1f6344",
+        "lfs_sha256": null
+      },
+      {
+        "name": "vocabulary.txt",
+        "bytes": 459861,
+        "git_blob": "c9074644d9d1205686f16d411564729461324b75",
+        "lfs_sha256": null
+      }
+    ],
+    "card_sha256": "b922acef3616e27b1d416260b63ba7114c732f0315012006781af2da69cd1ebf",
+    "scope": "Selected FasterWhisper ASR backend, not a TTS model or VoiceStudio default OmniVoice; no key/account. MIT gate should not require local assent; preserve original check."
+  },
+  "readiness": {
+    "meaning": "Setup/readiness observations from GET requests. Not proof of model execution.",
+    "health": {
+      "status": "ok",
+      "version": "0.5.7",
+      "device": "cpu"
+    },
+    "openapi": {
+      "info_version": "0.5.7",
+      "post_transcriptions_present": true,
+      "multipart_form_properties": [
+        "file",
+        "language",
+        "model",
+        "prompt",
+        "response_format",
+        "stream",
+        "temperature",
+        "timestamp_granularities",
+        "timestamp_granularities[]"
+      ],
+      "multipart_form_required": [
+        "file"
+      ],
+      "capabilities_path_present": true
+    },
+    "engines_before": {
+      "active": "faster-whisper",
+      "active_model": "Systran/faster-whisper-base",
+      "env_override": true,
+      "backend": {
+        "id": "faster-whisper",
+        "display_name": "Faster-Whisper (CTranslate2 — Linux/Windows/macOS)",
+        "available": true,
+        "isolation_mode": "in-process",
+        "gpu_compat": [
+          "cuda",
+          "cpu"
+        ],
+        "effective_device": "cpu",
+        "routing_status": "cpu_fallback",
+        "last_error_present": false,
+        "execution_evidence": {
+          "implementation_variant": "services.asr_backend.FasterWhisperBackend",
+          "declared_device_families": [
+            "cuda",
+            "cpu"
+          ],
+          "evidence_state": "not_loaded",
+          "actual_execution_provider": null,
+          "actual_execution_device": null,
+          "precision_or_quantization": null,
+          "cpu_fallback_reason": "GPU acceleration is unavailable; this engine will use CPU.",
+          "cpu_fallback_stage": "routing_preflight"
+        },
+        "server_reported_runtime_versions": {
+          "python": "3.13.7",
+          "ctranslate2": "4.8.2",
+          "faster-whisper": "1.2.1",
+          "torch": "2.11.0+cu128"
+        }
+      }
+    },
+    "model": {
+      "repo_id": "Systran/faster-whisper-base",
+      "role": "ASR",
+      "engines_include_faster_whisper": true,
+      "installed": true,
+      "incomplete": false,
+      "nb_files": 4,
+      "size_on_disk_bytes": 147882941,
+      "pinned_files_total_bytes": 147882941,
+      "license": "mit",
+      "license_category": "commercial",
+      "registry_version": "2026-10-09.draft1",
+      "evidence_revision": "ebe41f70d5b6dfa9166e2c581c45c9c0cfc57b66",
+      "runtime_revision": "ebe41f70d5b6dfa9166e2c581c45c9c0cfc57b66",
+      "review_status": "unreviewed",
+      "registry_readiness": "not_verified",
+      "acceptance_required": false,
+      "acceptance_state": "not_required"
+    }
+  },
+  "capabilities": {
+    "schema": "voicestudio.speech-capabilities",
+    "protocol": "voicestudio.speech.v1",
+    "protocol_version": "1.0",
+    "service_version": "0.5.7",
+    "batch_transcription": {
+      "path": "/v1/audio/transcriptions",
+      "method": "POST",
+      "protocol": "openai.audio.transcriptions"
+    },
+    "advertised_not_exercised": [
+      "mcp",
+      "mcp_stdio",
+      "streaming_transcription"
+    ],
+    "native_dictation_control": false,
+    "authentication_loopback": "none",
+    "file": "capabilities.json",
+    "sha256": "16cde617b490eda6e28db7cce7d6fbbcd22160e392971afbb23aab5161216c55",
+    "bytes": 2222,
+    "stdout_preserved_exactly": true,
+    "elapsed_s": 0.188
+  },
+  "request": {
+    "argv_capabilities": [
+      "<--python>",
+      "-m",
+      "backend.speech_client",
+      "--engine-url",
+      "http://127.0.0.1:3900",
+      "capabilities"
+    ],
+    "argv_transcribe": [
+      "<--python>",
+      "-m",
+      "backend.speech_client",
+      "--engine-url",
+      "http://127.0.0.1:3900",
+      "transcribe",
+      "<case>/inputs/audio/<id>.wav",
+      "--model",
+      "faster-whisper",
+      "--language",
+      "en",
+      "--format",
+      "verbose_json"
+    ],
+    "cwd": "<--source>",
+    "multipart_fields_per_pinned_cli_source": [
+      "model",
+      "response_format",
+      "language",
+      "file"
+    ],
+    "file_part": "filename=<id>.wav, Content-Type audio/wav, unchanged WAV bytes",
+    "not_sent": [
+      "prompt",
+      "initial_prompt",
+      "temperature",
+      "timestamp_granularities[]",
+      "stream"
+    ],
+    "reference_text_sent": false,
+    "word_timestamps_requested": false,
+    "explicit_engine_guard": "model=faster-whisper is a VoiceStudio ASR engine id, so the pinned route answers 400 model_not_active instead of substituting another engine.",
+    "retries": 0,
+    "fallbacks": "none",
+    "observed_by_wrapper": "argv and exit status/stdout only; multipart bytes are built inside the original CLI and are described from its pinned source."
+  },
+  "cli_invocations": {
+    "capabilities": {
+      "attempted": 1,
+      "succeeded": 1
+    },
+    "transcribe": {
+      "attempted": 3,
+      "succeeded": 3
+    }
+  },
+  "wrapper_http_requests": [
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200,
+      "bytes": 48
+    },
+    {
+      "method": "GET",
+      "path": "/openapi.json",
+      "status": 200,
+      "bytes": 272794
+    },
+    {
+      "method": "GET",
+      "path": "/engines",
+      "status": 200,
+      "bytes": 53779
+    },
+    {
+      "method": "GET",
+      "path": "/models",
+      "status": 200,
+      "bytes": 74608
+    },
+    {
+      "method": "GET",
+      "path": "/engines",
+      "status": 200,
+      "bytes": 53779
+    }
+  ],
+  "jobs": [
+    {
+      "id": "default",
+      "started_at": "2026-10-19T15:59:01.165Z",
+      "elapsed_s": 1.851,
+      "input": {
+        "audio": "inputs/audio/default.wav",
+        "bytes": 222764,
+        "sha256": "b750fdbc8e1a609954a5d7f0d5bd072ec3fa9116c1f91cf7fa8b19053b2fba52",
+        "sample_rate_hz": 24000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "frames": 111360,
+        "seconds": 4.64
+      },
+      "input_unchanged_after_request": true,
+      "raw_output": {
+        "file": "default.json",
+        "bytes": 589,
+        "sha256": "640f0fcb6f085489e0bbafb7ecd67e6a89c719ba9000b26cb4b2f5008a46ab68",
+        "ends_with_lf": true,
+        "provenance": "exact stdout bytes of the original CLI, which writes the HTTP response body and appends LF when the body lacks one"
+      },
+      "txt_projection": {
+        "file": "default.txt",
+        "bytes": 113,
+        "sha256": "14d820f1e503a8b618bb624ca85d7c980e9679c2f89b46e1d0ebcc5428d3b40d",
+        "derivation": "wrapper packaging: the returned 'text' field of the saved JSON plus one LF; not another API output, model pass or correction"
+      },
+      "response": {
+        "task": "transcribe",
+        "language": "en",
+        "duration": 4.64,
+        "text": "Please keep the back door closed while the heater is running. The spare keys are in the blue drawer by the sink.",
+        "segment_count": 2,
+        "segments": [
+          {
+            "id": 0,
+            "start": 0.0,
+            "end": 2.4,
+            "text": " Please keep the back door closed while the heater is running."
+          },
+          {
+            "id": 1,
+            "start": 2.4,
+            "end": 4.64,
+            "text": " The spare keys are in the blue drawer by the sink."
+          }
+        ],
+        "top_level_keys": [
+          "duration",
+          "language",
+          "segments",
+          "task",
+          "text"
+        ],
+        "words_field_present": false,
+        "text_equals_joined_segment_texts": true,
+        "segments_non_overlapping": true,
+        "max_segment_end_s": 4.64,
+        "max_segment_end_within_duration": true,
+        "neutral_fields_all_default": true
+      },
+      "reference": {
+        "text": "Please keep the back door closed while the heater is running. The spare keys are in the blue drawer by the sink.",
+        "sent_to_voicestudio": false,
+        "literal_equal_to_returned_text": true
+      }
+    },
+    {
+      "id": "expressive",
+      "started_at": "2026-10-19T15:59:03.019Z",
+      "elapsed_s": 1.383,
+      "input": {
+        "audio": "inputs/audio/expressive.wav",
+        "bytes": 201644,
+        "sha256": "a60cfaf5e609bbbc823efa5bc2f646f1d1a8901a7a4661aeebb669bac53e25fe",
+        "sample_rate_hz": 24000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "frames": 100800,
+        "seconds": 4.2
+      },
+      "input_unchanged_after_request": true,
+      "raw_output": {
+        "file": "expressive.json",
+        "bytes": 590,
+        "sha256": "58f746505874e0effa375ca0fe384dc748d21050b9531c7856ad77efb1105925",
+        "ends_with_lf": true,
+        "provenance": "exact stdout bytes of the original CLI, which writes the HTTP response body and appends LF when the body lacks one"
+      },
+      "txt_projection": {
+        "file": "expressive.txt",
+        "bytes": 113,
+        "sha256": "14d820f1e503a8b618bb624ca85d7c980e9679c2f89b46e1d0ebcc5428d3b40d",
+        "derivation": "wrapper packaging: the returned 'text' field of the saved JSON plus one LF; not another API output, model pass or correction"
+      },
+      "response": {
+        "task": "transcribe",
+        "language": "en",
+        "duration": 4.2,
+        "text": "Please keep the back door closed while the heater is running. The spare keys are in the blue drawer by the sink.",
+        "segment_count": 2,
+        "segments": [
+          {
+            "id": 0,
+            "start": 0.0,
+            "end": 2.36,
+            "text": " Please keep the back door closed while the heater is running."
+          },
+          {
+            "id": 1,
+            "start": 2.36,
+            "end": 4.16,
+            "text": " The spare keys are in the blue drawer by the sink."
+          }
+        ],
+        "top_level_keys": [
+          "duration",
+          "language",
+          "segments",
+          "task",
+          "text"
+        ],
+        "words_field_present": false,
+        "text_equals_joined_segment_texts": true,
+        "segments_non_overlapping": true,
+        "max_segment_end_s": 4.16,
+        "max_segment_end_within_duration": true,
+        "neutral_fields_all_default": true
+      },
+      "reference": {
+        "text": "Please keep the back door closed while the heater is running. The spare keys are in the blue drawer by the sink.",
+        "sent_to_voicestudio": false,
+        "literal_equal_to_returned_text": true
+      }
+    },
+    {
+      "id": "second",
+      "started_at": "2026-10-19T15:59:04.404Z",
+      "elapsed_s": 1.346,
+      "input": {
+        "audio": "inputs/audio/second.wav",
+        "bytes": 247724,
+        "sha256": "80fd37b2eefd398d2e9c88ac812bc74b7028715fb26b5fd568eef3b24b363cdd",
+        "sample_rate_hz": 24000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "frames": 123840,
+        "seconds": 5.16
+      },
+      "input_unchanged_after_request": true,
+      "raw_output": {
+        "file": "second.json",
+        "bytes": 553,
+        "sha256": "d3fd03304419a3d5455876d29e237f64102049cb206a44d895248caa47e33f5e",
+        "ends_with_lf": true,
+        "provenance": "exact stdout bytes of the original CLI, which writes the HTTP response body and appends LF when the body lacks one"
+      },
+      "txt_projection": {
+        "file": "second.txt",
+        "bytes": 94,
+        "sha256": "c20ae86166fcd8cf7401a1fc9f125cc6a55fa0951fca2b9cf7b16b6c48da5e1e",
+        "derivation": "wrapper packaging: the returned 'text' field of the saved JSON plus one LF; not another API output, model pass or correction"
+      },
+      "response": {
+        "task": "transcribe",
+        "language": "en",
+        "duration": 5.16,
+        "text": "Your train leaves from Platform 4 at 915. Bring a printed ticket and arrive 10 minutes early.",
+        "segment_count": 2,
+        "segments": [
+          {
+            "id": 0,
+            "start": 0.0,
+            "end": 2.72,
+            "text": " Your train leaves from Platform 4 at 915."
+          },
+          {
+            "id": 1,
+            "start": 2.72,
+            "end": 5.12,
+            "text": " Bring a printed ticket and arrive 10 minutes early."
+          }
+        ],
+        "top_level_keys": [
+          "duration",
+          "language",
+          "segments",
+          "task",
+          "text"
+        ],
+        "words_field_present": false,
+        "text_equals_joined_segment_texts": true,
+        "segments_non_overlapping": true,
+        "max_segment_end_s": 5.12,
+        "max_segment_end_within_duration": true,
+        "neutral_fields_all_default": true
+      },
+      "reference": {
+        "text": "Your train leaves from platform four at nine fifteen. Bring a printed ticket and arrive ten minutes early.",
+        "sent_to_voicestudio": false,
+        "literal_equal_to_returned_text": false
+      }
+    }
+  ],
+  "inputs_unchanged_after_run": {
+    "default": true,
+    "expressive": true,
+    "second": true
+  },
+  "executed": {
+    "meaning": "Execution evidence: successful original CLI -> HTTP calls with the explicit engine guard, plus the original /engines post-state below as observed.",
+    "transcriptions_succeeded": 3,
+    "engines_after": {
+      "active": "faster-whisper",
+      "active_model": "Systran/faster-whisper-base",
+      "env_override": true,
+      "backend": {
+        "id": "faster-whisper",
+        "display_name": "Faster-Whisper (CTranslate2 — Linux/Windows/macOS)",
+        "available": true,
+        "isolation_mode": "in-process",
+        "gpu_compat": [
+          "cuda",
+          "cpu"
+        ],
+        "effective_device": "cpu",
+        "routing_status": "cpu_fallback",
+        "last_error_present": false,
+        "execution_evidence": {
+          "implementation_variant": "services.asr_backend.FasterWhisperBackend",
+          "declared_device_families": [
+            "cuda",
+            "cpu"
+          ],
+          "evidence_state": "not_loaded",
+          "actual_execution_provider": null,
+          "actual_execution_device": null,
+          "precision_or_quantization": null,
+          "cpu_fallback_reason": "GPU acceleration is unavailable; this engine will use CPU.",
+          "cpu_fallback_stage": "routing_preflight"
+        },
+        "server_reported_runtime_versions": {
+          "python": "3.13.7",
+          "ctranslate2": "4.8.2",
+          "faster-whisper": "1.2.1",
+          "torch": "2.11.0+cu128"
+        }
+      }
+    },
+    "not_inferred": "Model load count, cache lifetime and numeric precision are not inferred from 'available'. The route may build a new adapter per request; one load is not promised. Only the fields shown are observed values."
+  },
+  "segment_field_note": "verbose_json segment fields seek, tokens, temperature, avg_logprob, compression_ratio and no_speech_prob are filled with neutral defaults by the route because FasterWhisperBackend's normalised segments do not carry them. They do not measure decoder temperature or confidence.",
+  "package_versions": {
+    "supplied_interpreter": {
+      "available": true,
+      "python": "3.13.7",
+      "distributions": {
+        "faster-whisper": "1.2.1",
+        "ctranslate2": "4.8.2",
+        "onnxruntime": "1.30.0",
+        "av": "18.0.0",
+        "huggingface-hub": "0.36.2",
+        "tokenizers": "0.21.1",
+        "fastapi": "0.136.3",
+        "numpy": "2.4.4"
+      }
+    },
+    "note": "Distribution metadata read from --python with -I (no package import). Server-reported runtime versions are in the /engines subsets."
+  },
+  "elapsed_note": "Single run wall-clock of each CLI process: interpreter start, multipart upload, server queueing, any model load and decoding. Not a benchmark.",
+  "not_verified": [
+    "transcription accuracy, word error rate, semantic or timing correctness",
+    "word-level alignment (no word granularity requested)",
+    "quality ranking against other engines or models",
+    "646-language coverage",
+    "microphone recording, desktop app, dictation shortcut, text insertion",
+    "MCP, WebSocket streaming (advertised only)",
+    "translation, TTS, voice cloning/design, dubbing, diarisation",
+    "general performance",
+    "human audition or human aesthetic approval",
+    "internal activations or attention"
+  ]
+}

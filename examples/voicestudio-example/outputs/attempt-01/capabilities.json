@@ -1,0 +1,85 @@
+{
+  "schema": "voicestudio.speech-capabilities",
+  "protocol": "voicestudio.speech.v1",
+  "protocol_version": "1.0",
+  "service": "VoiceStudio",
+  "service_version": "0.5.7",
+  "local_first": true,
+  "endpoints": {
+    "capabilities": {
+      "path": "/.well-known/voicestudio-speech",
+      "transport": "http",
+      "method": "GET",
+      "protocol": null
+    },
+    "batch_transcription": {
+      "path": "/v1/audio/transcriptions",
+      "transport": "http",
+      "method": "POST",
+      "protocol": "openai.audio.transcriptions"
+    },
+    "streaming_transcription": {
+      "path": "/v1/audio/transcriptions/stream",
+      "transport": "websocket",
+      "method": null,
+      "protocol": "voicestudio.speech.v1"
+    },
+    "mcp": {
+      "path": "/mcp",
+      "transport": "mcp-streamable-http",
+      "method": "POST",
+      "protocol": "mcp"
+    },
+    "mcp_stdio": {
+      "path": "python -m backend.mcp_shim",
+      "transport": "mcp-stdio",
+      "method": null,
+      "protocol": "mcp"
+    }
+  },
+  "stream_input": {
+    "framing": "binary",
+    "formats": [
+      "audio/pcm;encoding=s16le;channels=1",
+      "audio/webm;codecs=opus"
+    ],
+    "default_format": "audio/webm;codecs=opus",
+    "sample_rate_query": "sr",
+    "end_control": {
+      "type": "input_audio.end"
+    }
+  },
+  "stream_output": {
+    "framing": "json",
+    "events": [
+      "session.started",
+      "status",
+      "partial",
+      "final",
+      "error"
+    ],
+    "final_kinds": [
+      "utterance",
+      "summary"
+    ]
+  },
+  "features": {
+    "batch_transcription": true,
+    "streaming_transcription": true,
+    "partial_transcripts": true,
+    "utterance_finals": true,
+    "session_summary": true,
+    "word_timestamps": true,
+    "local_refinement": true,
+    "acoustic_echo_cancellation": true,
+    "native_dictation_control": false
+  },
+  "authentication": {
+    "loopback": "none",
+    "remote": "bearer",
+    "header": "Authorization: Bearer <OMNIVOICE_API_KEY>",
+    "browser_session_endpoint": "/api/auth/session",
+    "websocket_ticket_endpoint": "/api/auth/ws-ticket",
+    "websocket_ticket_query_parameter": "ws_ticket"
+  }
+}

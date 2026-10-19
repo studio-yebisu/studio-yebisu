@@ -1,0 +1,95 @@
+{
+  "format": "input-output",
+  "synthetic": true,
+  "title": "VoiceStudio に渡した WAV と、実際に返った文字と時刻",
+  "note": "入力の3本は、以前の Chatterbox 作例で合成した英語の音声（Perth の透かし入り）を変えずに渡したもので、人の録音ではありません。制作担当が固定版 VoiceStudio 0.5.7 の原典CLIを手元のバックエンド（127.0.0.1:3900）に対して1件1回ずつ実行し、返った標準出力をそのまま保存しました。参照文は VoiceStudio に送っておらず、認識のあとで文字どおり比べただけです。人による試聴はしていません。",
+  "runtime": {
+    "name": "VoiceStudio（原典CLI backend.speech_client → フル FastAPI バックエンド）",
+    "source": "https://github.com/debpalash/VoiceStudio/tree/6f0ed2ebeaf620bcea8a293cd210bba920b73622",
+    "source_commit": "6f0ed2ebeaf620bcea8a293cd210bba920b73622",
+    "version": "0.5.7",
+    "route": "POST /v1/audio/transcriptions（multipart：model・response_format・language・file）",
+    "asr_model": "Systran/faster-whisper-base@ebe41f70d5b6dfa9166e2c581c45c9c0cfc57b66（MIT）",
+    "engine": "faster-whisper 1.2.1 / CTranslate2 4.8.2。元のログでは CPU・int8",
+    "call": "capabilities を1回、transcribe を3回（各件1回、再送なし）",
+    "not_sent": ["prompt", "initial_prompt", "temperature", "timestamp_granularities[]", "stream", "参照文"],
+    "record": "outputs/attempt-01/results.json"
+  },
+  "samples": [
+    {
+      "id": "default",
+      "label": "default：4.64秒の英語の WAV",
+      "input": "inputs/audio/default.wav（4.64秒・222,764 B・24 kHz・モノラル・PCM16、合成英語）を変えずに、原典CLIで transcribe --model faster-whisper --language en --format verbose_json として手元の API に1回送りました。",
+      "output": "2つの推定区間が返りました。0.00–2.40秒「Please keep the back door closed while the heater is running.」、2.40–4.64秒「The spare keys are in the blue drawer by the sink.」。全文は「Please keep the back door closed while the heater is running. The spare keys are in the blue drawer by the sink.」。CLI の標準出力そのままの outputs/attempt-01/default.json（589 B）と、その text に改行を1つ足した outputs/attempt-01/default.txt（113 B）を保存しています。送っていない参照文とは文字どおり一致しましたが、これは文字列の比較だけで、人が聞いて確かめた結果や意味・時刻の正しさの保証ではありません。",
+      "input_audio": "inputs/audio/default.wav",
+      "input_bytes": 222764,
+      "input_seconds": 4.64,
+      "input_sha256": "b750fdbc8e1a609954a5d7f0d5bd072ec3fa9116c1f91cf7fa8b19053b2fba52",
+      "request": {"model": "faster-whisper", "language": "en", "response_format": "verbose_json"},
+      "segments": [
+        {"start": 0.0, "end": 2.4, "text": "Please keep the back door closed while the heater is running."},
+        {"start": 2.4, "end": 4.64, "text": "The spare keys are in the blue drawer by the sink."}
+      ],
+      "output_json": "outputs/attempt-01/default.json",
+      "output_json_bytes": 589,
+      "output_json_sha256": "640f0fcb6f085489e0bbafb7ecd67e6a89c719ba9000b26cb4b2f5008a46ab68",
+      "output_text": "outputs/attempt-01/default.txt",
+      "output_text_bytes": 113,
+      "reference": "Please keep the back door closed while the heater is running. The spare keys are in the blue drawer by the sink.",
+      "reference_sent": false,
+      "literal_equal": true,
+      "result": "outputs/attempt-01/results.json",
+      "demo": "index.html#default"
+    },
+    {
+      "id": "expressive",
+      "label": "expressive：同じ英文から別の設定で合成された4.20秒の WAV",
+      "input": "inputs/audio/expressive.wav（4.20秒・201,644 B・24 kHz・モノラル・PCM16、default と同じ英文から別の設定で合成された音声）を変えずに、同じ条件（faster-whisper・en・verbose_json）で手元の API に1回送りました。",
+      "output": "2つの推定区間が返りました。0.00–2.36秒「Please keep the back door closed while the heater is running.」、2.36–4.16秒「The spare keys are in the blue drawer by the sink.」。最後の区間は入力の終わりより0.04秒手前で終わっており、返ったままにしています。outputs/attempt-01/expressive.json（590 B）と outputs/attempt-01/expressive.txt（113 B、全文が default と同じため同じ中身）を保存しています。参照文とは文字どおり一致しました。default との区間の違いを、合成のどれか1つの設定のせいにしたり、声の良し悪しの比較に使ったりはしません。",
+      "input_audio": "inputs/audio/expressive.wav",
+      "input_bytes": 201644,
+      "input_seconds": 4.2,
+      "input_sha256": "a60cfaf5e609bbbc823efa5bc2f646f1d1a8901a7a4661aeebb669bac53e25fe",
+      "request": {"model": "faster-whisper", "language": "en", "response_format": "verbose_json"},
+      "segments": [
+        {"start": 0.0, "end": 2.36, "text": "Please keep the back door closed while the heater is running."},
+        {"start": 2.36, "end": 4.16, "text": "The spare keys are in the blue drawer by the sink."}
+      ],
+      "output_json": "outputs/attempt-01/expressive.json",
+      "output_json_bytes": 590,
+      "output_json_sha256": "58f746505874e0effa375ca0fe384dc748d21050b9531c7856ad77efb1105925",
+      "output_text": "outputs/attempt-01/expressive.txt",
+      "output_text_bytes": 113,
+      "reference": "Please keep the back door closed while the heater is running. The spare keys are in the blue drawer by the sink.",
+      "reference_sent": false,
+      "literal_equal": true,
+      "result": "outputs/attempt-01/results.json",
+      "demo": "index.html#expressive"
+    },
+    {
+      "id": "second",
+      "label": "second：別の英文の5.16秒の WAV",
+      "input": "inputs/audio/second.wav（5.16秒・247,724 B・24 kHz・モノラル・PCM16、別の英文の合成音声）を変えずに、同じ条件（faster-whisper・en・verbose_json）で手元の API に1回送りました。",
+      "output": "2つの推定区間が返りました。0.00–2.72秒「Your train leaves from Platform 4 at 915.」、2.72–5.12秒「Bring a printed ticket and arrive 10 minutes early.」。全文は「Your train leaves from Platform 4 at 915. Bring a printed ticket and arrive 10 minutes early.」で、返ったまま直していません（915 を 9:15 などに読み替えていません）。outputs/attempt-01/second.json（553 B）と outputs/attempt-01/second.txt（94 B）を保存しています。参照文は「Your train leaves from platform four at nine fifteen. Bring a printed ticket and arrive ten minutes early.」で、数字の書き方と Platform の大文字が違うため、文字どおりの一致は false です。時刻・意味・発音が正しく認識されたかは確かめていません。",
+      "input_audio": "inputs/audio/second.wav",
+      "input_bytes": 247724,
+      "input_seconds": 5.16,
+      "input_sha256": "80fd37b2eefd398d2e9c88ac812bc74b7028715fb26b5fd568eef3b24b363cdd",
+      "request": {"model": "faster-whisper", "language": "en", "response_format": "verbose_json"},
+      "segments": [
+        {"start": 0.0, "end": 2.72, "text": "Your train leaves from Platform 4 at 915."},
+        {"start": 2.72, "end": 5.12, "text": "Bring a printed ticket and arrive 10 minutes early."}
+      ],
+      "output_json": "outputs/attempt-01/second.json",
+      "output_json_bytes": 553,
+      "output_json_sha256": "d3fd03304419a3d5455876d29e237f64102049cb206a44d895248caa47e33f5e",
+      "output_text": "outputs/attempt-01/second.txt",
+      "output_text_bytes": 94,
+      "reference": "Your train leaves from platform four at nine fifteen. Bring a printed ticket and arrive ten minutes early.",
+      "reference_sent": false,
+      "literal_equal": false,
+      "result": "outputs/attempt-01/results.json",
+      "demo": "index.html#second"
+    }
+  ]
+}
