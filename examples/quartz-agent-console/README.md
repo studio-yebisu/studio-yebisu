@@ -38,3 +38,10 @@ npm run build    # index.html と assets/ を出力
 - `vendor/quartz/` は Quartz（MIT License、Copyright (c) 2026 Arlan Marat）です。`vendor/quartz/LICENSE` をそのまま残しています。
 - アイコンは Quartz が読み込む Font Awesome Free（Classic Solid）で、その利用条件に従います。
 - `src/`、`samples.json`、`video/` の画面構成・文言・サンプルは Studio Yebisu の独自制作で、MIT License です。
+
+
+## 概念構造版 visual-r1
+
+現在のindex.htmlは構造図、元のReact画面はdesk.html、旧28秒編集/MP4はvideo/legacy.htmlとlegacy.mp4へ保全しました。上のindex.html/video/index.htmlと28秒の説明は元制作時点の構成です。現在の32秒縦横無音紹介はrender-visual.pyとvisual-guide.mdを使います。元の1受領/推論/ビルド/lintを再実行せず、原データ/実部品を保持しています。元Reactのnpm run buildはindex.htmlを上書きするため、再現用の別コピーで行ってください。
+
+元33ソースとLICENSEの34CRLFは公式LFとrawbytesが異なり、CRLFだけ正規化した内容/Gitblobが一致します。新しい確認はvisual-verification.jsonです。

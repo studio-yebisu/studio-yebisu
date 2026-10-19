@@ -1,0 +1,136 @@
+{
+  "scope": "Original UI creation/checks, not real agent execution or new checks. Three fixtures are synthetic; parent integration is separately attributed.",
+  "production": {
+    "requested_model": "claude-opus-5-5",
+    "reported_models": [
+      "claude-opus-5-5"
+    ],
+    "result": "success",
+    "private_receipt_sha256": "5a498118d2a96142eb0df884119c02587ed31768021969cbe91af0e8dea7c366",
+    "receipt_published": false,
+    "creative_work": [
+      "React UI composition and Japanese copy",
+      "three sample trace fixtures",
+      "28-second editable motion composition",
+      "Japanese guide and catalog entry"
+    ]
+  },
+  "parent_integration": [
+    "Vendored the fixed upstream component dependency closure with license and provenance",
+    "Pinned npm build dependencies and retained runtime notices",
+    "Generalized case rendering and validation for input/output samples",
+    "Replaced the approval-wait fixture with a missing-source-URL input-wait fixture",
+    "Captured the actual example in the browser and aligned video highlights to the measured path and status rows",
+    "Rendered the MP4, reviewed the output, and verified browser playback",
+    "Kept the Japanese headline phrase together with explicit title lines"
+  ],
+  "checks": {
+    "quartz_lint": "passed",
+    "vite_build": "passed",
+    "site_check": {
+      "status": "passed",
+      "catalog_entries": 111,
+      "cases": 2
+    },
+    "browser": {
+      "widths": [
+        390,
+        1280
+      ],
+      "horizontal_page_overflow": false,
+      "scenarios": [
+        "completed",
+        "tool-failed",
+        "waiting-input"
+      ],
+      "selected_step_updates_json": true,
+      "keyboard_end_and_enter": true,
+      "light_and_dark": true,
+      "download_matches_fixture": true,
+      "console_errors": [],
+      "article_samples": 3,
+      "article_prompt_copy_feedback": "コピーしました",
+      "catalog_search_result": "Quartz",
+      "catalog_total": 111,
+      "catalog_to_article_navigation": true
+    },
+    "video": {
+      "file": "video.mp4",
+      "sha256": "dc0a1e0467b1f083b8bab0b275ed086780968893c2d97d8aa8c2f11421de0f2d",
+      "width": 1280,
+      "height": 720,
+      "fps": 30,
+      "frameCount": 840,
+      "duration": 28,
+      "hasAudio": false
+    },
+    "determinism": {
+      "frame": 504,
+      "seconds": 16.8,
+      "first": "48d27939728b548c49d8d7730a0b15a7e09468a828bd37c7d698ec0c0c6631de",
+      "afterOtherTimes": "48d27939728b548c49d8d7730a0b15a7e09468a828bd37c7d698ec0c0c6631de",
+      "freshPage": "48d27939728b548c49d8d7730a0b15a7e09468a828bd37c7d698ec0c0c6631de",
+      "match": true
+    },
+    "browser_playback": {
+      "duration": 28,
+      "currentTime": 28,
+      "ended": true,
+      "error": null
+    }
+  },
+  "scope_limits": {
+    "live_agent_connected": false,
+    "trace_times": "sample values",
+    "shadcn_cli_install_exercised": false,
+    "selected_components": [
+      "Timeline",
+      "Status",
+      "JsonView",
+      "Button",
+      "Badge",
+      "DataList",
+      "SegmentedControl",
+      "PageHeader"
+    ],
+    "other_components_exercised": false
+  },
+  "fixtures": [
+    {
+      "id": "completed",
+      "label": "完了した実行",
+      "path": "concept/fixtures/completed.json",
+      "bytes": 4076,
+      "sha256": "1f35294607c512616fbe12ce853fd340436c4f043fbe3096447f0616ab3fc706",
+      "steps": 5,
+      "planned_steps": 5,
+      "focus_step": "a1-write",
+      "outcome": "ok",
+      "now_ms": 5400
+    },
+    {
+      "id": "tool-failed",
+      "label": "ツールが失敗した実行",
+      "path": "concept/fixtures/tool-failed.json",
+      "bytes": 2645,
+      "sha256": "b3a77a8f325d9612d955f2221bdc9d283ce88a39952ef7af6ee4e6621ed2d4b3",
+      "steps": 3,
+      "planned_steps": 6,
+      "focus_step": "b2-fetch",
+      "outcome": "fail",
+      "now_ms": 2050
+    },
+    {
+      "id": "waiting-input",
+      "label": "入力を待っている実行",
+      "path": "concept/fixtures/waiting-input.json",
+      "bytes": 2723,
+      "sha256": "fb808e47ae9895a816494e565d383a142535119f37dcb0792d60b7c18e1cca70",
+      "steps": 4,
+      "planned_steps": 5,
+      "focus_step": "c3-input",
+      "outcome": "waiting",
+      "now_ms": 9600
+    }
+  ]
+}

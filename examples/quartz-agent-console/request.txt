@@ -1,0 +1,11 @@
+Quartzデザインシステムで、エージェントの実行ログを読む画面を作ってください。
+
+準備：npx shadcn@latest add https://design.how/r/quartz/theme.json でテーマとQuartzのスキルを入れ、timeline・status・json-view・button・data-list・segmented-control・badge・page-header を https://design.how/r/quartz/<name>.json で追加してください。作る前にQuartzのSKILL.mdと、使う部品のページを読んでください。
+
+守ること：bodyにquartzクラスを付け、QuartzPortalProviderで包む。色・文字・寸法はQuartzのトークンとユーティリティだけを使う。状態はStatusの言葉で書く。TimelineはPanelの中や横に置かない。Timelineの矢印キー・Home・End・Enterの操作を保つ。
+
+画面の用途：どの段で止まったかと、その段が受け取った入力と返した出力を見分ける。
+実行ログ：【自分の実行ログのJSON。段ごとに名前・開始と終了のミリ秒・状態・入力・出力】
+完成条件：段を選ぶとその段の入力と出力がJSON viewに出る。390px幅と1280px幅で読める。npx shadcn@latest add https://design.how/r/quartz/lint.json で入れたlintを npx eslint -c quartz.eslint.config.mjs . で実行し、エラーがない。
+
+必要な原典URLや接続先がまだ渡されていない場合は、補わずに不足する入力を教えてください。

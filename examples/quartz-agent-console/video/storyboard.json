@@ -1,0 +1,101 @@
+{
+  "id": "quartz-agent-console",
+  "revision": "visual-r1",
+  "title": "Quartz：AIが読むUIの指示書と部品（無音32秒）",
+  "motion": {
+    "duration": 32,
+    "fps": 30,
+    "sizes": [[720, 1280], [1280, 720]],
+    "posterTime": 31,
+    "audioEvents": [],
+    "audio": "none",
+    "narration": "none"
+  },
+  "message": "Quartzは、AIが読むMarkdownの指示書・役割トークンのCSS・React部品・lint規則のまとまり。同じ作者AIがそれを読んでコードとfixtureを書き、制作担当が別工程で確かめ、範囲の中で8部品が組まれる。Timelineで選んだidがAppへ戻り、同じ段の入力と出力が開く。",
+  "stable_entities": [
+    "指示書 SKILL.md（8手順と7つの規則）",
+    "依頼の紙",
+    "作者AI（Opus 5.5、1体）",
+    "コードの紙とfixtureの紙3枚",
+    "制作担当の関門（固定版を手で配置、lint、build、390/1280）",
+    "body.quartz ＋ QuartzPortalProvider の枠（Portal枠つき）",
+    "役割トークンの帯と8部品の棚",
+    "App（sampleId、openSteps、theme）",
+    "Timeline（白い作業面）",
+    "状態・入力・出力",
+    "desk.html と JSON → ブラウザー"
+  ],
+  "moving_entities": [
+    "依頼の紙：依頼 → 作者AI",
+    "コードの紙：作者AI → 関門 → 枠（組み上がったアプリ）",
+    "fixtureの紙：作者AI → 関門 → App → toSpans → Timelineの段",
+    "選択の印（段のid）：Timelineの段 → onSpanClick → App.openSteps → 状態・入力・出力",
+    "JSONの紙：保存Button → ブラウザー（保存完了は確かめない）"
+  ],
+  "scenes": [
+    {
+      "n": 1, "start": 0, "end": 4, "jump": 0,
+      "title": "指示書と依頼を読む",
+      "communicates": "Quartzの中心はAIが読む指示書。8手順と規則が並び、短い依頼文が横にある。",
+      "enters": "全体の図。指示書の手順1〜8と規則が順に点く。",
+      "exits": "依頼の紙が作者AIへ動き始める。",
+      "highlight": "instructions"
+    },
+    {
+      "n": 2, "start": 4, "end": 8, "jump": 4,
+      "title": "同じ作者AIが書き、別工程で確かめる",
+      "communicates": "同じ作者AIがReactの構成・日本語の文言・3件のfixtureを書く。制作担当は別の工程で、固定版のファイルを手で配置し、元の画面にlint・build・390/1280pxの確認をした。shadcn CLIは実行していない。",
+      "enters": "依頼が作者に合流し、コードとfixtureの紙が現れて関門へ進む。",
+      "exits": "関門のlint、build、390/1280に印が付く。",
+      "highlight": "check"
+    },
+    {
+      "n": 3, "start": 8, "end": 14, "jump": 8,
+      "title": "body.quartzの範囲と役割トークン",
+      "communicates": "組み上がったアプリは body.quartz ＋ QuartzPortalProvider の範囲にある。役割トークンが8部品の見た目を決め、App.theme の明示切替で中の色が変わる。OSの設定には自動で追随しない。Portal枠はあるが、この例でポップアップは使わない。",
+      "enters": "コードの紙が枠に溶け、fixtureの紙がAppへ入る。トークンの帯が満ち、部品の棚が実線になる。",
+      "exits": "11.2〜12.4秒だけ App.theme が dark になり、範囲の中が暗くなって戻る。",
+      "highlight": "scope → tokens → components"
+    },
+    {
+      "n": 4, "start": 14, "end": 20, "jump": 14,
+      "title": "押した段のidがAppへ戻る",
+      "communicates": "fixtureは App.sampleId から toSpans(run) を通ってTimelineの段になる。押した段のidが onSpanClick で App.openSteps へ戻り、同じ段が開く。",
+      "enters": "fixtureの紙がTimelineへ入り、5段のバーが順に伸びる。",
+      "exits": "a1-write の印がAppへ戻り、点が状態の欄へ流れる。",
+      "highlight": "selection"
+    },
+    {
+      "n": 5, "start": 20, "end": 26, "jump": 20,
+      "title": "選んだ段の入力と出力を読む",
+      "communicates": "状態の言葉と短いラベルで止まった理由を読む。失敗は path の systems/ が抜けた quartz/SKILL.md と架空の404、入力待ちは source_url を待ち answer が null。どれも静的サンプルで、AIやツールは動かない。",
+      "enters": "完了の段の状態・入力・出力が開く。21.8秒でツール失敗（3/6段、未実行3段）、23.9秒で入力待ち（4/5段、未実行1段）へ切り替わる。",
+      "exits": "未実行の段は点線のまま、完了として動かさない。",
+      "highlight": null
+    },
+    {
+      "n": 6, "start": 26, "end": 29, "jump": 26,
+      "title": "JSONを渡し、実物で操作する",
+      "communicates": "事例全体のfixtureを JSON.stringify(fixture, null, 2) と改行でブラウザーへ渡す。保存先への書き込みは確かめない。実物の8部品は desk.html で操作できる。",
+      "enters": "完了の事例へ戻り、JSONの紙が保存Buttonからブラウザーの欄へ移る。元の画面の撮影が小さく重なる。",
+      "exits": "desk.html の枠が強まる。",
+      "highlight": null
+    },
+    {
+      "n": 7, "start": 29, "end": 32, "jump": 29,
+      "title": "Quartz＝指示書＋トークン＋React部品＋lint",
+      "communicates": "図の全体が止まった状態で残る。AIモデルや実行基盤ではない。",
+      "enters": "強調を外した全体の図。",
+      "exits": "31秒をポスターにする。",
+      "highlight": null
+    }
+  ],
+  "data": {
+    "fixtures": "3件とも事前に書いた静的サンプル。秒は架空の時刻で、実行速度の計測ではない。",
+    "completed": "5/5段、5.4秒、注目 a1-write。saved: true は架空で drafts/quartz.md は作られていない。",
+    "tool-failed": "3/6段、2.05秒、注目 b2-fetch。入力 path: quartz/SKILL.md（systems/ なし）、出力 status: 404（架空）。",
+    "waiting-input": "4/5段、9.6秒、注目 c3-input。start 1990、end null、waiting_for: source_url、answer: null。回答と再開はない。"
+  },
+  "proof_inset": "video/screenshot-light.png を26〜29秒だけ小さく重ねる。画面の主役は図。",
+  "checks": "書き出し、フレームの確認、再生の確認は親工程で行う。この絵コンテの時点では未実施。"
+}

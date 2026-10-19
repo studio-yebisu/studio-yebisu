@@ -1,0 +1,142 @@
+{
+  "run_id": "run_sample_a1",
+  "agent": "source-reader",
+  "request": "固定版のQuartzからSKILL.mdとLICENSEを読み、日本語の紹介文を3文で作る",
+  "outcome": "ok",
+  "headline": "予定した5段がすべて完了しました。",
+  "focus_step": "a1-write",
+  "now_ms": 5400,
+  "plan": [
+    "依頼を読む",
+    "SKILL.mdを取得",
+    "ライセンスを確認",
+    "紹介文を書く",
+    "下書きを保存"
+  ],
+  "steps": [
+    {
+      "id": "a1-plan",
+      "label": "依頼を読む",
+      "type": "model",
+      "tool": null,
+      "start_ms": 0,
+      "end_ms": 640,
+      "status": "ok",
+      "note": "依頼から、読むファイルと書く分量を決めた段です。",
+      "input": {
+        "request": "固定版のQuartzからSKILL.mdとLICENSEを読み、日本語の紹介文を3文で作る",
+        "source": {
+          "repository": "arla6ka/skills",
+          "commit": "1aaaa1b47ba5a18b47b0ebcac684ade460c6823f"
+        }
+      },
+      "output": {
+        "plan": [
+          "SKILL.mdを取得",
+          "ライセンスを確認",
+          "紹介文を書く",
+          "下書きを保存"
+        ],
+        "length": "3文"
+      }
+    },
+    {
+      "id": "a1-fetch",
+      "label": "SKILL.mdを取得",
+      "type": "tool",
+      "tool": "fetch_file",
+      "start_ms": 640,
+      "end_ms": 1900,
+      "status": "ok",
+      "note": "固定版のコミットとパスを指定して、原典のSKILL.mdを読んだ段です。",
+      "input": {
+        "repository": "arla6ka/skills",
+        "commit": "1aaaa1b47ba5a18b47b0ebcac684ade460c6823f",
+        "path": "systems/quartz/SKILL.md"
+      },
+      "output": {
+        "status": 200,
+        "name": "quartz",
+        "sections": [
+          "Setup",
+          "Steps",
+          "Global rules",
+          "Anti-slop",
+          "Tokens",
+          "Components",
+          "Blocks"
+        ]
+      }
+    },
+    {
+      "id": "a1-license",
+      "label": "ライセンスを確認",
+      "type": "tool",
+      "tool": "read_license",
+      "start_ms": 1900,
+      "end_ms": 2480,
+      "status": "ok",
+      "note": "紹介してよい条件を、原典のLICENSEから確かめた段です。",
+      "input": {
+        "repository": "arla6ka/skills",
+        "commit": "1aaaa1b47ba5a18b47b0ebcac684ade460c6823f"
+      },
+      "output": {
+        "status": 200,
+        "license": "MIT",
+        "holder": "Arlan Marat",
+        "year": 2026
+      }
+    },
+    {
+      "id": "a1-write",
+      "label": "紹介文を書く",
+      "type": "model",
+      "tool": null,
+      "start_ms": 2480,
+      "end_ms": 5060,
+      "status": "ok",
+      "note": "前の2段の出力だけを材料にして、紹介文を書いた段です。",
+      "input": {
+        "facts": {
+          "name": "Quartz",
+          "for": "AIの実行画面と開発者向けツール",
+          "parts": [
+            "Timeline",
+            "Status",
+            "JSON view",
+            "Button"
+          ],
+          "license": "MIT"
+        },
+        "language": "ja",
+        "length": "3文"
+      },
+      "output": {
+        "draft": [
+          "Quartzは、AIの実行画面や開発者向けツールのためのデザインシステムです。",
+          "白と黒を基本に、警告と失敗だけを暖かい色で示し、状態を色ではなく言葉で書きます。",
+          "Timeline・Status・JSON viewなどの部品と、AIが画面を作るときに従うSKILL.mdが付いています。"
+        ]
+      }
+    },
+    {
+      "id": "a1-save",
+      "label": "下書きを保存",
+      "type": "tool",
+      "tool": "save_draft",
+      "start_ms": 5060,
+      "end_ms": 5400,
+      "status": "ok",
+      "note": "書いた紹介文を下書きとして残した段です。このサンプルでは実際のファイルは作られていません。",
+      "input": {
+        "path": "drafts/quartz.md",
+        "lines": 3
+      },
+      "output": {
+        "saved": true,
+        "path": "drafts/quartz.md"
+      }
+    }
+  ]
+}

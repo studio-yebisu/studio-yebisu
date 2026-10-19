@@ -1,0 +1,94 @@
+{
+  "run_id": "run_sample_c3",
+  "agent": "brief-reader",
+  "request": "紹介したいスキルの資料を整理し、原典の確認へ進む",
+  "outcome": "waiting",
+  "headline": "4段目「原典URLを待つ」で、不足している入力を待っています。",
+  "focus_step": "c3-input",
+  "now_ms": 9600,
+  "plan": [
+    "依頼を読む",
+    "渡された資料を確認",
+    "不足する入力を整理",
+    "原典URLを待つ",
+    "原典を確認する"
+  ],
+  "steps": [
+    {
+      "id": "c3-plan",
+      "label": "依頼を読む",
+      "type": "model",
+      "tool": null,
+      "start_ms": 0,
+      "end_ms": 580,
+      "status": "ok",
+      "note": "依頼から、紹介する対象と読む資料を整理した段です。",
+      "input": {
+        "request": "このスキルを紹介する作例を作りたい",
+        "skill_name": "紹介したいスキル"
+      },
+      "output": {
+        "goal": "原典から用途と使い方を確かめる",
+        "needs": [
+          "source_url"
+        ]
+      }
+    },
+    {
+      "id": "c3-check",
+      "label": "渡された資料を確認",
+      "type": "tool",
+      "tool": "list_inputs",
+      "start_ms": 580,
+      "end_ms": 1460,
+      "status": "ok",
+      "note": "渡された資料を確認しました。名前はありますが、原典URLは含まれていません。",
+      "input": {
+        "skill_name": "紹介したいスキル",
+        "attachments": []
+      },
+      "output": {
+        "name_present": true,
+        "source_url": null
+      }
+    },
+    {
+      "id": "c3-missing",
+      "label": "不足する入力を整理",
+      "type": "model",
+      "tool": null,
+      "start_ms": 1460,
+      "end_ms": 1990,
+      "status": "ok",
+      "note": "名前から別のスキルを選んでしまわないよう、原典URLが必要だと整理した段です。",
+      "input": {
+        "name_present": true,
+        "source_url": null
+      },
+      "output": {
+        "missing": [
+          "source_url"
+        ],
+        "next_step": "原典URLを待つ"
+      }
+    },
+    {
+      "id": "c3-input",
+      "label": "原典URLを待つ",
+      "type": "input",
+      "tool": "request_input",
+      "start_ms": 1990,
+      "end_ms": null,
+      "status": "waiting",
+      "note": "原典URLがまだ渡されていないため待っています。URLが届くと、原典の確認へ進めます。この画面は待機状態を示すサンプルです。",
+      "input": {
+        "field": "source_url",
+        "question": "紹介するスキルの原典URLを教えてください"
+      },
+      "output": {
+        "waiting_for": "source_url",
+        "answer": null
+      }
+    }
+  ]
+}
