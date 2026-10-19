@@ -1,300 +1,118 @@
 {
   "schema": "studio-yebisu.motion-storyboard/1",
-  "title": "PDF Creator 作例：同じ原稿から2つのPDFへ",
-  "status": "editable-source-written; movie-not-yet-rendered",
+  "title": "PDF Creator の中身：手順書から保存済みPDFの利用まで",
+  "status": "editable-source-written; render, frame review, MP4 and playback checks pending parent",
   "brief": {
-    "purpose": "PDF Creator の使い方を、実際に保存されたPDFのページ画像で短く説明する。",
-    "audience": "Markdownの配布資料をPDFにしたい人（日本語の案内・資料）",
-    "message": "1つの原稿に用途を指定し、原典の markdown_to_pdf() で保存したPDFを、全ページ画像で確かめる。",
-    "teaching_order": ["操作：原稿と2つの用途を指定", "原典API：markdown_to_pdf()・backend=chrome", "実際に保存された結果：A4 1ページ／細いページ 2ページ", "全ページの画像確認", "再利用できる依頼文と、保存されたファイル"],
-    "event": "Studio Yebisu が作った架空のワークショップ「紙からはじめる、小さな展示」。実在の開催・申込窓口はない。"
+    "purpose": "PDF Creator が何か（AIが読む手順書＋Python変換スクリプト＋CSSテーマ）、中身、AIと道具へ渡したもの、受け取ったもの、次の使い方を1枚の動く図で示す。",
+    "audience": "日本語のMarkdown資料をPDFにしたい人",
+    "message": "手順書と原稿を同じ作者AIが読み、制作担当が別工程で原典の変換を実行し、同じ原稿がA4 1ページと細いページ2ページに折り返し、ページ画像を原稿と読み比べてから保存済みの原PDFを使う。",
+    "event": "Studio Yebisu が作った架空のワークショップ「紙からはじめる、小さな展示」。開催・申込窓口・外部送信はない。"
   },
   "format": {
-    "width": 1280,
-    "height": 720,
+    "duration": 32,
     "fps": 30,
-    "duration": 28,
-    "frames": 840,
-    "posterTime": 13.5,
+    "width": 720,
+    "height": 1280,
+    "alternate": { "width": 1280, "height": 720 },
+    "posterTime": 31,
     "audio": "none",
     "audioEvents": []
   },
   "nature": {
-    "kind": "edited-raster-explainer",
-    "persistent_notice": "実PDFのページ画像から編集／連続操作の録画ではありません",
-    "audio_notice": "無音",
-    "bitmaps": "assets/ の実ページPNG（最終PDFから書き出したもの）を Canvas2D の drawImage で切り抜き・縮小・拡大するだけ。画素の描き足し・書き換え・フィルターはしない。",
-    "annotations": "テラコッタ色の細い枠（Canvas の線）は注釈で、PDFの内容ではない。",
-    "dom_text": "見出し・字幕・ラベル・原稿と依頼文の抜粋はネイティブのDOM文字。PDFの画面写しではない。抜粋は読み込み時に元ファイルの該当行と照合し、一致しなければ準備を失敗にする。",
-    "not_shown": ["画面上でPDFを生成する操作", "処理の進行表示やログ", "オンライン変換", "申込・送信・本番運用・人による承認", "WeasyPrint・表・一括変換の検証"]
-  },
-  "upstream": {
-    "name": "PDF Creator (daymade/claude-code-skills, daymade-docs/pdf-creator)",
-    "commit": "e37b50c323cf99471f18ac17a11c923bb96ce2ba",
-    "license": "MIT",
-    "copyright": "Copyright (c) 2025 daymade",
-    "api": "markdown_to_pdf()",
-    "backend": "chrome"
-  },
-  "composition": {
-    "copyright": "Copyright (c) 2026 Studio Yebisu",
-    "license": "MIT"
-  },
-  "sources": {
-    "markdown": {"path": "inputs/event.md", "sha256": "d06c4d2d3b7eb0f8dd9b65d2bfafdb142cecdc5647de4a63a575a89b7ad3ff57"},
-    "request": {"path": "request.txt"},
-    "manifest": {"path": "outputs/manifest.json"},
-    "validation": {"path": "validation.json", "status": "technical-and-agent-visual-reviewed", "all_pages_reviewed": 3, "human_approval": false},
-    "pdfs": [
-      {"variant": "paper", "path": "outputs/atelier-a4.pdf", "sha256": "1bd80a231764d32644aad6eb0dd52f4b2222c506a07d28491bbb018c36d4bf7e", "page_count": 1, "size_mm": [210, 297], "theme": "warm-terra + japanese-a4.css"},
-      {"variant": "phone", "path": "outputs/atelier-phone.pdf", "sha256": "efa76ef682c8833669d4f97f23fe35a4ffd955229acba3048c49f977505d4b82", "page_count": 2, "size_mm": [148, 210], "theme": "mobile + japanese-phone.css"}
-    ],
-    "page_images": [
-      {"path": "assets/paper-page-1.png", "variant": "paper", "page": 1, "width": 827, "height": 1170, "sha256": "34622a711d32bedadde8378a09ede60d229f7c263e415251f623ea1da14ee78b"},
-      {"path": "assets/phone-page-1.png", "variant": "phone", "page": 1, "width": 584, "height": 827, "sha256": "6fce887c5a9fd7e265c2264d72675203bd9e5774153bc1d0cea64bcc883a0f18"},
-      {"path": "assets/phone-page-2.png", "variant": "phone", "page": 2, "width": 584, "height": 827, "sha256": "f06cc351b7ecd5c7a65dcc356e3450ba31114e72dbfffde54bb393280680a5b2"}
-    ]
-  },
-  "facts": [
-    {"variant": "paper", "file": "outputs/atelier-a4.pdf", "page_count": 1, "size_mm": [210, 297]},
-    {"variant": "phone", "file": "outputs/atelier-phone.pdf", "page_count": 2, "size_mm": [148, 210]}
-  ],
-  "excerpts": {
-    "markdown": {
-      "file": "inputs/event.md",
-      "label": "原稿の該当行（行番号つき・文字で再掲）",
-      "lines": [
-        {"line": 1, "text": "# 紙からはじめる、小さな展示"},
-        {"line": 7, "text": "**ご注意：これは架空のイベントです。参加の申し込みはできません。**"},
-        {"line": 9, "text": "## 開催の概要"},
-        {"line": 11, "text": "- **日付**：2026年11月14日（土）"},
-        {"line": 12, "text": "- **受付**：13:30から"},
-        {"line": 13, "text": "- **時間**：14:00〜16:00"},
-        {"line": 18, "text": "## 当日の流れ"},
-        {"line": 22, "text": "1. **13:30** 受付・席を選ぶ"}
-      ]
-    },
-    "request": {
-      "file": "request.txt",
-      "label": "依頼文の要点（request.txt の抜粋）",
-      "lines": [
-        {"line": 1, "text": "次のMarkdownをPDFにしてください。", "cut": "start"},
-        {"line": 3, "text": "- 原稿：［Markdownファイルのパス］"},
-        {"line": 4, "text": "- 用途：［例：会場で配る案内／スマートフォンで読む資料］"},
-        {"line": 5, "text": "- 言語：［例：日本語］"},
-        {"line": 7, "text": "- フォント：［例：インストール済みの Noto Sans JP］"},
-        {"line": 13, "text": "4. 全ページを画像で確認し、PDFから取り出した文字を原稿と照合してください", "cut": "end"}
-      ]
-    }
+    "kind": "connected-concept-diagram",
+    "main": "1つの大きな図。部品は消えずに残り、同じ原稿の印が矢印に沿って移動・合流・折り返しをする。",
+    "silent": "ナレーション・読み上げ・効果音・音声トラックなし。",
+    "paper_identity": "原稿の29ブロックを、見出し（濃い帯）・注意（朱の帯）・番号付きの流れ1〜6・任意の持ち物（点線）として同じ模様で描く。同じ模様が原稿・HTML・A4・細いページに現れる。",
+    "page_images": "保存済みPDFの実ページ画像3枚は、ページ画像の部品の中で小さく使う補助。資料の寄せ集めを主役にしない。",
+    "not_shown": ["画面上でPDFを生成する操作", "新しく生成したPDFとしての見せ方", "6つのAI", "AIがクラウドのPDFサービスへ直接書く流れ", "ログ・JSON・コードの画面", "全項目合格の証明"]
   },
   "scenes": [
     {
-      "id": "s1",
+      "id": "contents",
       "start": 0,
-      "end": 5.3,
-      "enter": [0, 0.5],
-      "leave": [4.8, 5.3],
-      "title": "同じ原稿から、2つの用途のPDFへ",
-      "caption": "1つのMarkdownに、配る用と読む用の2つの版を指定します。",
-      "source": "表示：inputs/event.md の該当行（行番号つき・文字で再掲）",
-      "message": "操作の入口：実際の原稿と、2つの出力用途（A4で配る／細いページで読む）。",
-      "visible": ["event.md の8行（DOM文字・行番号つき）", "版の指定：A4 210×297mm warm-terra + japanese-a4.css／細いページ 148×210mm mobile + japanese-phone.css"],
-      "bitmaps": []
+      "end": 4,
+      "title": "AIが読む手順書と、日本語の原稿",
+      "teaches": "手順書の中身（①版の選び方 ②5テーマ ③変換とプレビュー ④全ページを読む）と、実際の原稿 event.md。",
+      "enter": "空の画面に手順書が現れ、4つの節が順に開く。原稿の紙が上から1行ずつ埋まる。",
+      "exit": "手順書と原稿が左上（縦）／左列（横）に残る。"
     },
     {
-      "id": "s2",
-      "start": 5.3,
-      "end": 10.5,
-      "enter": [5.3, 5.8],
-      "leave": [10.1, 10.5],
-      "title": "原典APIで保存した、実際の2つのPDF",
-      "caption": "同じ原稿が、A4は1ページ、細いページは2ページで保存されました。",
-      "source": "表示：outputs/manifest.json の記録と、実PDFのページ画像 assets/ 3枚",
-      "message": "原典の markdown_to_pdf()（backend=chrome）で保存した結果。全3ページを実寸比で並べる。",
-      "visible": ["paper-page-1.png 全体", "phone-page-1.png 全体", "phone-page-2.png 全体", "ファイル名・寸法・ページ数（manifest から表示）"],
-      "bitmaps": ["s2-paper", "s2-phone1", "s2-phone2"],
-      "note": "全ページの縮小は全体の見え方の説明用。本文を読ませる場面ではない。A4と細いページは同じ100dpi画像を同じ倍率で縮小し、紙の大きさの比を保つ。"
+      "id": "author",
+      "start": 4,
+      "end": 8,
+      "title": "同じ作者AIが読み、制作担当が別工程で実行",
+      "teaches": "依頼（用途・日本語・フォント・2版）と手順書と原稿が、同じ1つの作者AI（元のOpus 5.5）に合流する。作者AIは原稿・版の選択・和文CSSを用意し、シェルは実行しない。制作担当の点線の枠（別工程）が現れる。",
+      "enter": "手順書と原稿の印が矢印に沿って作者AIへ移動する。",
+      "exit": "作者AIの出力と、制作担当の補助（Chrome指定・lang=ja・静的TTF・UTF-8）が残る。"
     },
     {
-      "id": "s3",
-      "start": 10.5,
-      "end": 16.5,
-      "enter": [10.8, 11.4],
-      "leave": [16.0, 16.5],
-      "title": "同じ日付と時間が、両方の版に入っている",
-      "caption": "A4（左）と細いページ（右）に、同じ日付と時間が入っています。",
-      "source": "表示：assets/paper-page-1.png と assets/phone-page-1.png の一部を拡大",
-      "message": "全体表示から実ページ画素の切り抜きへ寄る。架空イベントの注意書きを実際に読める位置で示す。",
-      "visible": ["A4 1ページ目の切り抜き（注意書き・開催の概要）", "細いページ 1/2 の切り抜き（日付・受付・時間）", "注意書きを囲む注釈枠"],
-      "bitmaps": ["s2-paper", "s2-phone1"],
-      "camera": "10.4–11.8秒：全ページ表示から切り抜きへ一度だけ寄る（等倍率・歪みなし）。11.8–16.0秒は静止。"
+      "id": "convert",
+      "start": 8,
+      "end": 14,
+      "title": "原典の変換：HTML → CSS → Chrome",
+      "teaches": "制作担当の枠の中で、原典の markdown_to_pdf が同じMarkdownをPandocでHTMLにし、原典テーマ＋CJKパッチ＋後置の和文CSSを重ね、指定したChromeでPDFにする。",
+      "enter": "原稿の印が作者AIから変換の1段目へ入り、MD→HTMLの印に変わる。",
+      "exit": "3色のCSSの層を背負った同じ印が、Chromeの段でPDFの印になる。"
     },
     {
-      "id": "s4",
-      "start": 16.5,
-      "end": 22.5,
-      "enter": [16.5, 17.0],
-      "leave": [22.0, 22.5],
-      "title": "2ページ目まで、全ページを画像で確認",
-      "caption": "細いページの2ページ目に、流れの4〜6と持ち物が続いています。",
-      "source": "表示：assets/phone-page-2.png の一部を拡大／右は全3ページの縮小",
-      "message": "最後のページを隠さず、内容が欠けずに続いていることを実画素で示す。全ページ確認の考え方。",
-      "visible": ["細いページ 2/2 の切り抜き（流れ4〜6・持ち物）", "全3ページの縮小（A4 1/1・細いページ 1/2・2/2）", "2/2 の縮小上に切り抜き範囲の注釈枠", "確認範囲：この原稿・2形式・Chromeのみ"],
-      "bitmaps": ["s4-phone2-crop", "s4-thumb-paper", "s4-thumb-phone1", "s4-thumb-phone2"]
+      "id": "wrap",
+      "start": 14,
+      "end": 20,
+      "title": "同じ原稿が、版の枠で折り返す",
+      "teaches": "同じ印が2つに分かれ、A4の枠では1ページに収まり、148×210mmの枠では行が折り返して流れの4〜6番から2ページ目へ続く。ページ数は生成後の実測。",
+      "enter": "PDFの印がA4と細いページの枠へ移動する。",
+      "exit": "A4 1ページ（1–6）と細いページ 2ページ（1–3／4–6）が並ぶ。"
     },
     {
-      "id": "s5",
-      "start": 22.5,
-      "end": 28,
-      "enter": [22.5, 23.0],
-      "leave": null,
-      "title": "依頼文を再利用して、PDFと原稿を受け取る",
-      "caption": "原稿・用途・言語とフォント・全ページ確認を書いて依頼します。",
-      "source": "表示：request.txt の抜粋と、outputs/ に保存された実ファイル名",
-      "message": "次に使うときの依頼文（原稿・用途・言語とフォント・全ページ確認）と、保存されたPDF・編集できる原稿。",
-      "visible": ["request.txt の6行（DOM文字・行番号つき）", "outputs/atelier-a4.pdf と縮小1ページ", "outputs/atelier-phone.pdf と縮小2ページ", "inputs/event.md（編集できる原稿）"],
-      "bitmaps": ["s5-paper", "s5-phone1", "s5-phone2"]
+      "id": "inspect",
+      "start": 20,
+      "end": 26,
+      "title": "ページ画像にして、原稿と読み比べる",
+      "teaches": "PDFからPopplerのページ画像3枚（保存済みの実画像）ができる。lint警告はエラーではなく、表がないため罫線検査は対象外。原稿の印が別の経路で読み比べへ届き、全3ページ・各29ブロック・埋込TrueTypeを照合する。",
+      "enter": "ページ画像が1枚ずつ現れ、原稿の印が外周の点線を通って読み比べへ移動する。",
+      "exit": "読み比べの部品が残る（人の承認はなし）。"
+    },
+    {
+      "id": "use",
+      "start": 26,
+      "end": 29,
+      "title": "保存済みの原PDFと原稿を使う",
+      "teaches": "使えるのは保存済みの原PDF 2点（A4 63,663バイト・細いページ 64,484バイト）と、原稿・追加CSS・再現手順。図はPDFを再生成しない。",
+      "enter": "読み比べからPDFの印が使うの部品へ移動する。",
+      "exit": "配る／読むの行き先が示される。"
+    },
+    {
+      "id": "map",
+      "start": 29,
+      "end": 32,
+      "title": "手順書 → 作者AI → 制作担当 → 変換 → PDF → 読み比べ → 使う",
+      "teaches": "全体図。すべての部品と矢印が同じ強さで静止する。",
+      "enter": "前の場面の強調がほどけ、全体が同じ明るさになる。",
+      "exit": "32秒まで静止（ポスターは31秒）。"
     }
   ],
-  "plates": [
-    {
-      "id": "s2-paper",
-      "image": "assets/paper-page-1.png",
-      "keys": [
-        {"t": 5.4, "view": [0, 0, 827, 1170], "at": [272.13, 200], "scale": 0.290598},
-        {"t": 6.1, "view": [0, 0, 827, 1170], "at": [272.13, 188], "scale": 0.290598},
-        {"t": 10.4, "view": [0, 0, 827, 1170], "at": [272.13, 188], "scale": 0.290598},
-        {"t": 11.8, "view": [40, 192, 450, 256], "at": [60, 172], "scale": 1.5}
-      ],
-      "alpha": [[5.4, 0], [6.1, 1], [16.0, 1], [16.5, 0]],
-      "crop_contains": ["ご注意：これは架空のイベントです。参加の申し込みはできません。", "開催の概要", "日付：2026年11月14日（土）", "受付：13:30から", "時間：14:00〜16:00", "会場：サンプル工房・2階の制作室（架空の会場）", "定員：12名", "参加費：無料"]
-    },
-    {
-      "id": "s2-phone1",
-      "image": "assets/phone-page-1.png",
-      "keys": [
-        {"t": 5.7, "view": [0, 0, 584, 827], "at": [652.45, 299.68], "scale": 0.290598},
-        {"t": 6.4, "view": [0, 0, 584, 827], "at": [652.45, 287.68], "scale": 0.290598},
-        {"t": 10.4, "view": [0, 0, 584, 827], "at": [652.45, 287.68], "scale": 0.290598},
-        {"t": 11.8, "view": [30, 326, 310, 114], "at": [760, 378], "scale": 1.5}
-      ],
-      "alpha": [[5.7, 0], [6.4, 1], [16.0, 1], [16.5, 0]],
-      "crop_contains": ["日付：2026年11月14日（土）", "受付：13:30から", "時間：14:00〜16:00"]
-    },
-    {
-      "id": "s2-phone2",
-      "image": "assets/phone-page-2.png",
-      "keys": [
-        {"t": 5.9, "view": [0, 0, 584, 827], "at": [838.16, 299.68], "scale": 0.290598},
-        {"t": 6.6, "view": [0, 0, 584, 827], "at": [838.16, 287.68], "scale": 0.290598}
-      ],
-      "alpha": [[5.9, 0], [6.6, 1], [10.3, 1], [10.9, 0]]
-    },
-    {
-      "id": "s4-phone2-crop",
-      "image": "assets/phone-page-2.png",
-      "keys": [
-        {"t": 16.5, "view": [26, 30, 310, 290], "at": [64, 180], "scale": 1.36},
-        {"t": 17.1, "view": [26, 30, 310, 290], "at": [64, 168], "scale": 1.36}
-      ],
-      "alpha": [[16.5, 0], [17.1, 1], [22.0, 1], [22.5, 0]],
-      "crop_contains": ["4. 15:15 作品を並べて見せ合う", "5. 15:50 片づけ・ふり返り", "6. 16:00 終了", "持ち物", "A5サイズのノート", "鉛筆またはペン", "展示したい紙の作品を1点（任意）"]
-    },
-    {
-      "id": "s4-thumb-paper",
-      "image": "assets/paper-page-1.png",
-      "keys": [
-        {"t": 16.9, "view": [0, 0, 827, 1170], "at": [600, 252], "scale": 0.230769},
-        {"t": 17.5, "view": [0, 0, 827, 1170], "at": [600, 240], "scale": 0.230769}
-      ],
-      "alpha": [[16.9, 0], [17.5, 1], [22.0, 1], [22.5, 0]]
-    },
-    {
-      "id": "s4-thumb-phone1",
-      "image": "assets/phone-page-1.png",
-      "keys": [
-        {"t": 17.0, "view": [0, 0, 584, 827], "at": [818, 331.15], "scale": 0.230769},
-        {"t": 17.6, "view": [0, 0, 584, 827], "at": [818, 319.15], "scale": 0.230769}
-      ],
-      "alpha": [[17.0, 0], [17.6, 1], [22.0, 1], [22.5, 0]]
-    },
-    {
-      "id": "s4-thumb-phone2",
-      "image": "assets/phone-page-2.png",
-      "keys": [
-        {"t": 17.1, "view": [0, 0, 584, 827], "at": [966.77, 331.15], "scale": 0.230769},
-        {"t": 17.7, "view": [0, 0, 584, 827], "at": [966.77, 319.15], "scale": 0.230769}
-      ],
-      "alpha": [[17.1, 0], [17.7, 1], [22.0, 1], [22.5, 0]]
-    },
-    {
-      "id": "s5-paper",
-      "image": "assets/paper-page-1.png",
-      "keys": [
-        {"t": 22.8, "view": [0, 0, 827, 1170], "at": [760, 208], "scale": 0.102564},
-        {"t": 23.4, "view": [0, 0, 827, 1170], "at": [760, 196], "scale": 0.102564}
-      ],
-      "alpha": [[22.8, 0], [23.4, 1]]
-    },
-    {
-      "id": "s5-phone1",
-      "image": "assets/phone-page-1.png",
-      "keys": [
-        {"t": 22.95, "view": [0, 0, 584, 827], "at": [760, 352], "scale": 0.102564},
-        {"t": 23.55, "view": [0, 0, 584, 827], "at": [760, 340], "scale": 0.102564}
-      ],
-      "alpha": [[22.95, 0], [23.55, 1]]
-    },
-    {
-      "id": "s5-phone2",
-      "image": "assets/phone-page-2.png",
-      "keys": [
-        {"t": 23.1, "view": [0, 0, 584, 827], "at": [828, 352], "scale": 0.102564},
-        {"t": 23.7, "view": [0, 0, 584, 827], "at": [828, 340], "scale": 0.102564}
-      ],
-      "alpha": [[23.1, 0], [23.7, 1]]
-    }
-  ],
-  "marks": [
-    {
-      "id": "s3-notice",
-      "plate": "s2-paper",
-      "rect": [50, 202, 430, 26],
-      "meaning": "原稿どおりの注意書き（架空のイベント・申し込み不可）",
-      "alpha": [[11.9, 0], [12.4, 1], [16.0, 1], [16.5, 0]]
-    },
-    {
-      "id": "s4-crop-source",
-      "plate": "s4-thumb-phone2",
-      "rect": [26, 30, 310, 290],
-      "meaning": "左に拡大した範囲",
-      "alpha": [[17.7, 0], [18.2, 1], [22.0, 1], [22.5, 0]]
-    }
-  ],
-  "coordinates": {
-    "logical_stage": [1280, 720],
-    "view": "ページPNGの画素座標 [x, y, 幅, 高さ]（manifest の width/height 内）",
-    "at": "論理ステージ上の左上座標",
-    "scale": "ページ画素1つあたりの論理px。キー間は切り抜き範囲の画面上の矩形を線形補間し、倍率は等方（歪みなし）。",
-    "crop_basis": "切り抜き範囲は、エージェントが実PNGを原寸で閲覧して読み取った文字位置に余白を足した推定値。描画したフレームで全文字が枠内に入っているかは親の確認が必要。"
+  "sources": {
+    "shared_drawing": "../concept.js（SCENES・drawFrame・loadVerified）",
+    "integrity": "concept/manifest.json（SHA-256 ce604633be16bcee326e7ff6713d85e428d4bf97dd06cc2ceeb23ce48d597f99、23ファイル）",
+    "markdown": { "path": "inputs/event.md", "sha256": "d06c4d2d3b7eb0f8dd9b65d2bfafdb142cecdc5647de4a63a575a89b7ad3ff57", "blocks": 29 },
+    "pdfs": [
+      { "variant": "paper", "path": "outputs/atelier-a4.pdf", "bytes": 63663, "sha256": "1bd80a231764d32644aad6eb0dd52f4b2222c506a07d28491bbb018c36d4bf7e", "page_count": 1, "size_mm": [210, 297], "theme": "warm-terra + japanese-a4.css" },
+      { "variant": "phone", "path": "outputs/atelier-phone.pdf", "bytes": 64484, "sha256": "efa76ef682c8833669d4f97f23fe35a4ffd955229acba3048c49f977505d4b82", "page_count": 2, "size_mm": [148, 210], "theme": "mobile + japanese-phone.css" }
+    ],
+    "page_images": ["assets/paper-page-1.png", "assets/phone-page-1.png", "assets/phone-page-2.png"],
+    "upstream": { "repository": "daymade/claude-code-skills", "commit": "e37b50c323cf99471f18ac17a11c923bb96ce2ba", "license": "MIT", "copyright": "Copyright (c) 2025 daymade" }
   },
-  "validation": {
-    "before_film": [
-      "validation.json：status technical-and-agent-visual-reviewed、全3ページの画像確認（エージェント）、human_approval false",
-      "manifest.json：A4 1ページ・細いページ 2ページ、各PDF/PNGのsha256"
-    ],
-    "built_into_composition": [
-      "storyboard の facts と manifest のファイル名・寸法・ページ数が一致しなければ準備失敗",
-      "使う画像が manifest の幅・高さと一致しなければ準備失敗",
-      "原稿と依頼文の抜粋が元ファイルの該当行と一致しなければ準備失敗"
-    ],
-    "remaining": [
-      "親が render.py で代表フレーム・全体シート・ポスター（13.5秒）を書き出して目視確認する",
-      "10.4–11.8秒の寄り、各場面の切り替え付近を連続フレームで確認する",
-      "切り抜きの全文字（crop_contains）が枠内に収まり、字幕と重ならないことを確認する",
-      "MP4（1280×720・30fps・840フレーム・音声トラックなし）を書き出し、実際に再生して読む時間を確認する",
-      "capture.json の同時刻再描画の一致を確認する（同じ実行環境内の再現性のみ）",
-      "公開前の確認と公開は親が行う。人による承認は未実施"
-    ]
-  }
+  "editing": {
+    "timing": "場面の開始秒と見出しは concept.js の SCENES が正本。ここを変えるときは SCENES とこのファイルと video/index.html の data-jump を同時に直す（読み込み時に一致を確かめ、違えば準備を失敗にする）。",
+    "positions": "部品の位置と矢印の経路は concept.js の LAYOUTS（wide・tall・compact）にある。経路は交差しないように手で決めている。",
+    "schematic_wrap": "折り返しの行数は1行あたりの文字数の目安（原稿30・A4 44・細いページ27）から描く図で、実際の組版の再現ではない。2ページ目が流れの4番から始まることは保存済みのページ画像で確かめられた事実。"
+  },
+  "pending_parent": [
+    "縦 720×1280 と横 1280×720 の書き出し（現在の render.py は legacy.html を入口にしている）",
+    "コンタクトシート・代表フレーム・場面の切り替え付近の連続フレームの目視",
+    "同じ時刻の別順序・新しいページでの再描画の一致",
+    "MP4（32秒・30fps・音声トラックなし）の実再生",
+    "作例ページの375×812・320幅・明暗・動きを減らす設定での確認",
+    "人による承認と公開"
+  ]
 }

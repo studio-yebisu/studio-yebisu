@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PDF Creator 作例：同じ原稿から2つのPDFへ（28秒・無音）</title>
+<link rel="stylesheet" href="legacy.css">
+<script src="legacy.js" defer></script>
+</head>
+<body>
+<main class="preview">
+  <header class="preview-head">
+    <h1>PDF Creator 作例：同じ原稿から2つのPDFへ</h1>
+    <p>実際に保存されたPDFのページ画像を切り抜き・拡大して編集した28秒の解説です。画面操作を続けて録画したものではなく、音声はありません。題材は架空のイベントです。</p>
+  </header>
+
+  <div class="frame" id="frame">
+    <div class="stage" id="stage" role="img" aria-label="PDF Creator の作例解説。原稿から保存された2つのPDFのページ画像を順に示す、28秒・無音の映像">
+      <canvas id="plates" aria-hidden="true"></canvas>
+      <div class="layer" id="layer">
+        <div class="brief">
+          <span class="brief-name">PDF Creator 作例</span>
+          <span class="brief-notes">
+            <span class="chip">実PDFのページ画像から編集／連続操作の録画ではありません</span>
+            <span class="chip">無音</span>
+          </span>
+        </div>
+
+        <section class="scene" data-scene="s1">
+          <h2 class="title"></h2>
+          <div class="src-card s1-md" data-in="0.1,0.7">
+            <p class="card-label">原稿 <span data-manifest="source"></span>（行番号つき・文字で再掲）</p>
+            <pre class="excerpt" data-excerpt="markdown"></pre>
+          </div>
+          <p class="s1-pick" data-in="0.9,1.4">指定した2つの版</p>
+          <div class="arrow s1-arrow-a" data-in="1.0,1.6">→</div>
+          <div class="purpose s1-a" data-in="1.0,1.6">
+            <p class="purpose-label" data-variant="paper" data-field="label"></p>
+            <p class="purpose-meta"><span data-variant="paper" data-field="size"></span><br><span data-variant="paper" data-field="theme"></span></p>
+          </div>
+          <div class="arrow s1-arrow-b" data-in="1.5,2.1">→</div>
+          <div class="purpose s1-b" data-in="1.5,2.1">
+            <p class="purpose-label" data-variant="phone" data-field="label"></p>
+            <p class="purpose-meta"><span data-variant="phone" data-field="size"></span><br><span data-variant="phone" data-field="theme"></span></p>
+          </div>
+          <p class="caption"></p>
+          <p class="source"></p>
+        </section>
+
+        <section class="scene" data-scene="s2">
+          <h2 class="title"></h2>
+          <p class="s2-chip" data-in="5.6,6.1"><span>同じ <span data-manifest="source"></span> → 原典 markdown_to_pdf()（e37b50c）・backend=<span data-manifest="backend"></span></span></p>
+          <p class="page-label s2-label-paper" data-in="6.4,7.0"><span data-variant="paper" data-field="name"></span>｜<span data-variant="paper" data-field="size"></span>・<span data-variant="paper" data-field="pages"></span></p>
+          <p class="page-label s2-label-phone" data-in="6.7,7.3"><span data-variant="phone" data-field="name"></span>｜<span data-variant="phone" data-field="size"></span>・<span data-variant="phone" data-field="pages"></span></p>
+          <p class="caption"></p>
+          <p class="source"></p>
+        </section>
+
+        <section class="scene" data-scene="s3">
+          <h2 class="title"></h2>
+          <p class="crop-label s3-label-paper">A4版 <span data-variant="paper" data-field="name"></span>（1ページ目を拡大）</p>
+          <div class="s3-tag" data-in="11.9,12.4">
+            <p>← 枠内は原稿どおりの注意書き</p>
+            <p>架空のイベントで、申し込みはできません</p>
+          </div>
+          <p class="crop-label s3-label-phone">細いページ版 <span data-variant="phone" data-field="name"></span>（1/2を拡大）</p>
+          <p class="caption"></p>
+          <p class="source"></p>
+        </section>
+
+        <section class="scene" data-scene="s4">
+          <h2 class="title"></h2>
+          <p class="crop-label s4-label-crop"><span data-variant="phone" data-field="name"></span> の2/2ページ（拡大）</p>
+          <div class="s4-head" data-in="16.9,17.4">
+            <p class="s4-head-main">全3ページを画像で確認</p>
+            <p>枠＝左に拡大した範囲</p>
+            <p>確認範囲：この原稿・2形式・Chromeのみ</p>
+          </div>
+          <p class="num s4-num-paper" data-in="17.3,17.8">1/1</p>
+          <p class="num s4-num-phone1" data-in="17.4,17.9">1/2</p>
+          <p class="num s4-num-phone2" data-in="17.5,18.0">2/2</p>
+          <p class="group s4-group-paper" data-in="17.3,17.8">A4</p>
+          <p class="group s4-group-phone" data-in="17.4,17.9">細いページ</p>
+          <p class="caption"></p>
+          <p class="source"></p>
+        </section>
+
+        <section class="scene" data-scene="s5">
+          <h2 class="title"></h2>
+          <div class="src-card s5-req" data-in="22.6,23.2">
+            <p class="card-label">依頼文の要点（request.txt の抜粋・再利用用）</p>
+            <pre class="excerpt" data-excerpt="request"></pre>
+          </div>
+          <p class="s5-head" data-in="22.8,23.3">保存されたPDFと、編集できる原稿</p>
+          <div class="file s5-row1" data-in="22.8,23.4">
+            <p class="file-name" data-variant="paper" data-field="file"></p>
+            <p class="file-meta"><span data-variant="paper" data-field="size"></span>・<span data-variant="paper" data-field="pages"></span></p>
+          </div>
+          <div class="file s5-row2" data-in="22.95,23.55">
+            <p class="file-name" data-variant="phone" data-field="file"></p>
+            <p class="file-meta"><span data-variant="phone" data-field="size"></span>・<span data-variant="phone" data-field="pages"></span></p>
+          </div>
+          <div class="md-icon s5-icon" data-in="23.1,23.7" aria-hidden="true">MD</div>
+          <div class="file s5-row3" data-in="23.1,23.7">
+            <p class="file-name" data-manifest="source"></p>
+            <p class="file-meta">編集できる原稿（Markdown）</p>
+          </div>
+          <p class="caption"></p>
+          <p class="source"></p>
+        </section>
+
+        <p class="credit">原典 daymade/pdf-creator（MIT）</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button id="play" type="button" aria-pressed="false" disabled>再生</button>
+    <input id="scrub" type="range" min="0" max="28" step="0.01" value="0" aria-label="再生位置（秒）" disabled>
+    <output id="time" for="scrub">0.00 / 28.00 秒</output>
+    <p id="status" role="status">素材を読み込んでいます</p>
+  </div>
+  <noscript><p class="status-static">この映像はJavaScriptで各時刻の画面を描きます。HTTPで開いてください。</p></noscript>
+
+  <section class="files">
+    <h2>この映像で使ったファイル</h2>
+    <ul>
+      <li><a href="../outputs/atelier-a4.pdf">outputs/atelier-a4.pdf</a>（A4・1ページ）</li>
+      <li><a href="../outputs/atelier-phone.pdf">outputs/atelier-phone.pdf</a>（細いページ・2ページ）</li>
+      <li><a href="../inputs/event.md">inputs/event.md</a>（編集できる原稿）</li>
+      <li><a href="storyboard.json">storyboard.json</a>（場面の時刻・切り抜き範囲・出典）</li>
+    </ul>
+    <p>原典：PDF Creator（daymade/claude-code-skills、コミット e37b50c、MIT License・Copyright (c) 2025 daymade）。構成・コード・文章：Copyright (c) 2026 Studio Yebisu、MIT License。</p>
+  </section>
+</main>
+</body>
+</html>

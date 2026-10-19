@@ -1,0 +1,309 @@
+{
+  "id": "pdf-creator-example",
+  "revision": "visual-r1",
+  "verified_at": "2026-10-19T06:32:27.299855+00:00",
+  "stage": "technical_qa_complete",
+  "scope": "New conceptual introduction of the skill instructions, CSS themes, separate author/operator roles, original Python converter through Pandoc/Chrome, and separate page inspection. OriginaltwoPDFs/threePNGs/Markdown/tworeceipts/converter preserved; original inference/PDF generation/lint not rerun.",
+  "original_record": "validation.json",
+  "original_casefiles": 74,
+  "preserved_runtime_files": 73,
+  "frozen_assets": 23,
+  "manifest_sha256": "ce604633be16bcee326e7ff6713d85e428d4bf97dd06cc2ceeb23ce48d597f99",
+  "upstream": {
+    "repository": "daymade/claude-code-skills",
+    "commit": "e37b50c323cf99471f18ac17a11c923bb96ce2ba",
+    "files": [
+      {
+        "local": "vendor/pdf-creator/daymade-docs/pdf-creator/scripts/batch_convert.py",
+        "upstream_path": "daymade-docs/pdf-creator/scripts/batch_convert.py",
+        "official_git_blob": "704c97e9f3e9b29e56f46391af82e4e6b42ee10e",
+        "raw_bytes_match": true,
+        "crlf_only_normalized_match": true,
+        "sha256": "ffa2fddf360f723ad2fbbfbc0f5aff2595dbfb42dcc0644091ffa6feffc8639c"
+      },
+      {
+        "local": "vendor/pdf-creator/daymade-docs/pdf-creator/scripts/check_table_borders.py",
+        "upstream_path": "daymade-docs/pdf-creator/scripts/check_table_borders.py",
+        "official_git_blob": "8c06b1f9fc18751013101894231ffd8298a1f120",
+        "raw_bytes_match": true,
+        "crlf_only_normalized_match": true,
+        "sha256": "f6aeb1ad7146fd81bef6cdef7a69dc1eabe86b80d7b82ac9187efcb518c04910"
+      },
+      {
+        "local": "vendor/pdf-creator/daymade-docs/pdf-creator/scripts/md_to_pdf.py",
+        "upstream_path": "daymade-docs/pdf-creator/scripts/md_to_pdf.py",
+        "official_git_blob": "d9600376102cf3a3b6e0b637eae1db30c87bbbaa",
+        "raw_bytes_match": true,
+        "crlf_only_normalized_match": true,
+        "sha256": "943ffdd4f570f2b461708b297d06a5490bf64bbf6a979e2b5c41f8c1cf8fd0ed"
+      },
+      {
+        "local": "vendor/pdf-creator/daymade-docs/pdf-creator/scripts/tests/test_backend_routing.py",
+        "upstream_path": "daymade-docs/pdf-creator/scripts/tests/test_backend_routing.py",
+        "official_git_blob": "c864164d8eeb4e5223ff26affb04322ecc492f87",
+        "raw_bytes_match": true,
+        "crlf_only_normalized_match": true,
+        "sha256": "aedb0d9e3e0daab5e33de5b9cbf44f4d5e4e746925c29700963bc66f31e2dfff"
+      },
+      {
+        "local": "vendor/pdf-creator/daymade-docs/pdf-creator/scripts/tests/test_cjk_code_blocks.py",
+        "upstream_path": "daymade-docs/pdf-creator/scripts/tests/test_cjk_code_blocks.py",
+        "official_git_blob": "9edbb1c7c927ec8dea18651d65ffb5a7d9fa9f94",
+        "raw_bytes_match": true,
+        "crlf_only_normalized_match": true,
+        "sha256": "7c15cbf025b1c5ded5d63f36e0ef66fd55401b2aa1cebf9b0453676263753447"
+      },
+      {
+        "local": "vendor/pdf-creator/daymade-docs/pdf-creator/scripts/tests/test_cjk_tables.py",
+        "upstream_path": "daymade-docs/pdf-creator/scripts/tests/test_cjk_tables.py",
+        "official_git_blob": "d51b9e1cc7b3bf06379bbc4763457c1cd813a780",
+        "raw_bytes_match": true,
+        "crlf_only_normalized_match": true,
+        "sha256": "75b96fee34358f84e5d02b716049a4980b9e3f252f48bef402bae69db49aa723"
+      },
+      {
+        "local": "vendor/pdf-creator/daymade-docs/pdf-creator/scripts/tests/test_list_rendering.py",
+        "upstream_path": "daymade-docs/pdf-creator/scripts/tests/test_list_rendering.py",
+        "official_git_blob": "a7944c973bd25950cee95b2072f072b71aa3c6eb",
+        "raw_bytes_match": true,
+        "crlf_only_normalized_match": true,
+        "sha256": "808973c8763ea6e4256caf315724e2a1302859bfbc3438edf56c3aa88fc1dbe1"
+      },
+      {
+        "local": "vendor/pdf-creator/daymade-docs/pdf-creator/scripts/tests/test_self_check_preview.py",
+        "upstream_path": "daymade-docs/pdf-creator/scripts/tests/test_self_check_preview.py",
+        "official_git_blob": "3a6c34c2ff0b38f375ec81c0ae6b69be292f2e43",
+        "raw_bytes_match": true,
+        "crlf_only_normalized_match": true,
+        "sha256": "d2517ae9f66b63b01e5216159c1cdbbd3243812b63a97f0db1e65437ca36e25f"
+      },
+      {
+        "local": "vendor/pdf-creator/daymade-docs/pdf-creator/scripts/tests/test_table_border_check.py",
+        "upstream_path": "daymade-docs/pdf-creator/scripts/tests/test_table_border_check.py",
+        "official_git_blob": "340588c6ec21c95a8a67ba8c0f0d44df6bf6d1eb",
+        "raw_bytes_match": true,
+        "crlf_only_normalized_match": true,
+        "sha256": "164ec43aefcd079e44b0d87512436dcce3bdafc0425f3f7f00b1c1961f97580a"
+      },
+      {
+        "local": "vendor/pdf-creator/daymade-docs/pdf-creator/scripts/tests/test_typography_lint.py",
+        "upstream_path": "daymade-docs/pdf-creator/scripts/tests/test_typography_lint.py",
+        "official_git_blob": "4d799faa22462f1c77490b51a0d2844eadf2c393",
+        "raw_bytes_match": true,
+        "crlf_only_normalized_match": true,
+        "sha256": "2436f34d8bfb88ecd4064662f20b12a27322ecbd24eae0b6a53beb0838daf9db"
+      },
+      {
+        "local": "vendor/pdf-creator/daymade-docs/pdf-creator/SKILL.md",
+        "upstream_path": "daymade-docs/pdf-creator/SKILL.md",
+        "official_git_blob": "6294063cf91fb8bfb0174b9c3ba802f8a7e247ee",
+        "raw_bytes_match": true,
+        "crlf_only_normalized_match": true,
+        "sha256": "0364326f99c613f85102003aa298ccc3698124a3b92da97412ef597430de3ac9"
+      },
+      {
+        "local": "vendor/pdf-creator/daymade-docs/pdf-creator/themes/cjk-auto.css",
+        "upstream_path": "daymade-docs/pdf-creator/themes/cjk-auto.css",
+        "official_git_blob": "8e7d58e4591d8fd962009472a7194f2c1d4d8458",
+        "raw_bytes_match": true,
+        "crlf_only_normalized_match": true,
+        "sha256": "40ee771ca9cb7f4ac8bda669e8f542eea00eb52499fe7b9f3a918434704cb044"
+      },
+      {
+        "local": "vendor/pdf-creator/daymade-docs/pdf-creator/themes/default.css",
+        "upstream_path": "daymade-docs/pdf-creator/themes/default.css",
+        "official_git_blob": "f67588d824f2fdfeb9bfa616faaf9cf7d814dc9f",
+        "raw_bytes_match": true,
+        "crlf_only_normalized_match": true,
+        "sha256": "3e55ab6752461ff01c4ec03441d8957386454954f46ca1482a431d8a49c2cae9"
+      },
+      {
+        "local": "vendor/pdf-creator/daymade-docs/pdf-creator/themes/mobile.css",
+        "upstream_path": "daymade-docs/pdf-creator/themes/mobile.css",
+        "official_git_blob": "603bae05d079413974d725c467dc2e5f24c1181f",
+        "raw_bytes_match": true,
+        "crlf_only_normalized_match": true,
+        "sha256": "f2d0a25663de14805074289679a991baa7d8a7c56e15a7619019870aebbee496"
+      },
+      {
+        "local": "vendor/pdf-creator/daymade-docs/pdf-creator/themes/warm-terra-menu.css",
+        "upstream_path": "daymade-docs/pdf-creator/themes/warm-terra-menu.css",
+        "official_git_blob": "0953f6066a996d20f355cd8daf9df75b2d66666f",
+        "raw_bytes_match": true,
+        "crlf_only_normalized_match": true,
+        "sha256": "33c1a72ddcbb14fb5db11efa539d81c123ae9ef0b02712c811ff84b4f1228ba2"
+      },
+      {
+        "local": "vendor/pdf-creator/daymade-docs/pdf-creator/themes/warm-terra.css",
+        "upstream_path": "daymade-docs/pdf-creator/themes/warm-terra.css",
+        "official_git_blob": "6e50aa5bb931179ef7f9eac2647516180c61b6b3",
+        "raw_bytes_match": true,
+        "crlf_only_normalized_match": true,
+        "sha256": "b7c5878ad6841569e5d3c25106cbd8b19e4618d47b7bcaca6aa6899d2a137b20"
+      },
+      {
+        "local": "vendor/pdf-creator/LICENSE",
+        "upstream_path": "LICENSE",
+        "official_git_blob": "55cf24db88cbad4004ee10797ea69533b0c3629b",
+        "raw_bytes_match": true,
+        "crlf_only_normalized_match": true,
+        "sha256": "945fb5acb5c4bc9af45b54b9a02be060f5dfca5e0a77244e8aa567de63aed5d1"
+      },
+      {
+        "local": "vendor/pdf-creator/README.md",
+        "upstream_path": "README.md",
+        "official_git_blob": "b3e15f8fbdf066fcfef553b9d49ba7c1354c070a",
+        "raw_bytes_match": true,
+        "crlf_only_normalized_match": true,
+        "sha256": "f6f189d8c37b33473aa01e804911dfaf0f50b5bbe830917e37496e635c14f5dc"
+      }
+    ],
+    "scope": "Fixed official Git tree content comparison, preserved original shipped bytes. No original inference/PDF generation/typography lint rerun."
+  },
+  "browser": {
+    "status": "passed",
+    "checked_at": "2026-10-19T06:32:27.153644+00:00",
+    "case_states": 6,
+    "source_parts": 6,
+    "theme_width_motion_views": 16,
+    "asset_failures": 3,
+    "editor_asset_failures": 3,
+    "editor_assets": 23,
+    "editor_scenes": 7,
+    "editor_arbitrary_time": 7.2,
+    "legacy_checked": true,
+    "legacy_pages_checked": 3,
+    "legacy_pdf_links_checked": 2,
+    "phone_full_map_and_action": true,
+    "primary_min_height_px": 44,
+    "movies_ended": 2,
+    "portrait_end": {
+      "id": "film-portrait",
+      "ended": true,
+      "time": 32,
+      "duration": 32,
+      "paused": true,
+      "ready": 4,
+      "error": null,
+      "width": 720,
+      "height": 1280,
+      "playbackRate": 1
+    },
+    "wide_end": {
+      "id": "film-wide",
+      "ended": true,
+      "time": 32,
+      "duration": 32,
+      "paused": true,
+      "ready": 4,
+      "error": null,
+      "width": 1280,
+      "height": 720,
+      "playbackRate": 1
+    },
+    "pdf_download": {
+      "native_handoff_observed": true,
+      "variants": [
+        {
+          "id": "paper",
+          "bytes": 63663,
+          "sha256": "1bd80a231764d32644aad6eb0dd52f4b2222c506a07d28491bbb018c36d4bf7e"
+        },
+        {
+          "id": "phone",
+          "bytes": 64484,
+          "sha256": "efa76ef682c8833669d4f97f23fe35a4ffd955229acba3048c49f977505d4b82"
+        }
+      ],
+      "returned_file": null,
+      "disk_completion_claimed": false
+    },
+    "request_text_exact": true,
+    "clipboard_readback": false,
+    "physical_ios_safari_voiceover": false,
+    "zoom200percent": false,
+    "human_approval": false,
+    "scope": "Fresh native6states/6quotes/16views,3main+3editor failure/recovery,23assets/7scenes/7.2s,local32s movieends,originalviewer3pages/twoPDFlinks and sourceSHA. Original model/PDFgeneration/lint not rerun. Agent checks, not human approval."
+  },
+  "frame_review": {
+    "reviewed_by": "production agent",
+    "reviewed_at": "2026-10-19T06:32:27.153644+00:00",
+    "layouts": 2,
+    "audio_streams": 0,
+    "human_approval": false,
+    "checks": [
+      "Portrait/wide16representative sourcecontacts and31sfinalposters inspected; book/input/author/operator/Pandoc-CSS-Chrome/actualone-vs-twopages/separateinspection/output remain connected.",
+      "Source and decodedMP4each12consecutiveframes at14.2s perlayout inspected: samepaper exitsChrome towardtwoformatbranches. Additional actualMP4strip12frames at16.5s perlayout reviewed for paperwrapping.",
+      "375dark and320light phonefullmap/44pxactions inspected, nonfocusedpart opacity adjusted for readability.",
+      "Final30/31s source stable and62shippedsourcePNGmatch in sameenvironment."
+    ],
+    "scope": "Agent visual inspection of selected source/movie frames and native mediaends; no human aestheticapproval/allframe/meaning/performance guarantee."
+  },
+  "video": {
+    "portrait": {
+      "video": {
+        "file": "video.mp4",
+        "sha256": "bd40b8a1ffc0fdacee61edaaba104dda61b76ff79186658dfbb42917184300f6",
+        "width": 720,
+        "height": 1280,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      },
+      "determinism": {
+        "frame": 576,
+        "seconds": 19.2,
+        "first": "c0063876a84f081024f08160b09f59a220a1c17a754caa3429d9a25cad62b0c9",
+        "afterOtherTimes": "c0063876a84f081024f08160b09f59a220a1c17a754caa3429d9a25cad62b0c9",
+        "freshPage": "c0063876a84f081024f08160b09f59a220a1c17a754caa3429d9a25cad62b0c9",
+        "match": true
+      },
+      "full_decode_passed": true,
+      "faststart": true
+    },
+    "wide": {
+      "video": {
+        "file": "video.mp4",
+        "sha256": "d84d5dc90417dbe21134a27ec2a6dc4e7a25d7ef94454fdda29e80f230d26bfd",
+        "width": 1280,
+        "height": 720,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      },
+      "determinism": {
+        "frame": 576,
+        "seconds": 19.2,
+        "first": "48a57c01c96c1a3e27d6568445606c6544d545fc02f497d35cc7e06456101513",
+        "afterOtherTimes": "48a57c01c96c1a3e27d6568445606c6544d545fc02f497d35cc7e06456101513",
+        "freshPage": "48a57c01c96c1a3e27d6568445606c6544d545fc02f497d35cc7e06456101513",
+        "match": true
+      },
+      "full_decode_passed": true,
+      "faststart": true
+    }
+  },
+  "shipped_source_reproduction": {
+    "status": "passed",
+    "checked_at": "2026-10-19T06:30:56.845082+00:00",
+    "png_files_byte_identical": 62,
+    "layouts": [
+      {
+        "layout": "portrait",
+        "png_files_byte_identical": 31,
+        "final30_and31_stable": true
+      },
+      {
+        "layout": "wide",
+        "png_files_byte_identical": 31,
+        "final30_and31_stable": true
+      }
+    ],
+    "scope": "Actual shipped root wrapper and final sources rendered16representative+12consecutive+contact/poster/strip perlayout. Same-environment pixel identity and final-frame stability; not cross-OS font equality or human approval."
+  },
+  "human_approval": false,
+  "physical_ios_safari_voiceover": false,
+  "zoom200percent": false
+}

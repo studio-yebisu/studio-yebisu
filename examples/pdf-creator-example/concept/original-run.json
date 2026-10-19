@@ -1,0 +1,327 @@
+{
+  "scope": "Selected preserved original model/API generation/verification records; not a new generation run.",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "receipts": [
+      {
+        "phase": "implement",
+        "receipt_sha256": "09929cb8dadc910cb61bd13e38017267913e6135faebe2b2ef0325093b900fa8",
+        "execution_sha256": "579d785bd298bdd450b9bd1d049ddcb5a0a81a53e89c5ffd8237c026c6545e48",
+        "prompt_sha256": "82f0ff3c038d88f0ca1f2550f66a701b05072d3b5e11da2fc4bc92eb18fad077"
+      },
+      {
+        "phase": "video",
+        "receipt_sha256": "a74beea3a579f9ed34e4644c35f72fa3986a01eb14467cdfc65d35987bbb31ba",
+        "execution_sha256": "4289729532c731d60585e2514bd57df4718f1a60399b81456c0b0594bd91ae86",
+        "prompt_sha256": "87afd9a914daf59451680aa4331752cffbdaab5cb20a3827f25519d45585c9b4"
+      }
+    ],
+    "receipt_published": false
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 2,
+    "scope": "Original fixed PDF Creator markdown_to_pdf API executed twice, with declared Japanese/Windows/static-font adapter. Same Markdown to two real PDFs. Full3-page and scoped browser/download checks.",
+    "human_approval": false
+  },
+  "pdf_build": {
+    "source": "inputs/event.md",
+    "source_sha256": "d06c4d2d3b7eb0f8dd9b65d2bfafdb142cecdc5647de4a63a575a89b7ad3ff57",
+    "upstream_converter_sha256": "943ffdd4f570f2b461708b297d06a5490bf64bbf6a979e2b5c41f8c1cf8fd0ed",
+    "backend": "chrome",
+    "variants": [
+      {
+        "id": "paper",
+        "file": "atelier-a4.pdf",
+        "backend": "chrome",
+        "base_theme": "warm-terra",
+        "override": "themes/japanese-a4.css",
+        "override_sha256": "222abc320c970b16c9538aacce178beb018c141b92772ab24c2c6c2d556fcc0e",
+        "bytes": 63663,
+        "pdf_sha256": "1bd80a231764d32644aad6eb0dd52f4b2222c506a07d28491bbb018c36d4bf7e",
+        "upstream_api_executed": true,
+        "isolated_chrome_calls": 1
+      },
+      {
+        "id": "phone",
+        "file": "atelier-phone.pdf",
+        "backend": "chrome",
+        "base_theme": "mobile",
+        "override": "themes/japanese-phone.css",
+        "override_sha256": "f16a4cc8fb06e2e7dad0a0aa3a7c9268215db5712d6606be506a92927f4197b4",
+        "bytes": 64484,
+        "pdf_sha256": "efa76ef682c8833669d4f97f23fe35a4ffd955229acba3048c49f977505d4b82",
+        "upstream_api_executed": true,
+        "isolated_chrome_calls": 1
+      }
+    ],
+    "font": {
+      "source_sha256": "5113756f8a3b5d01b2211025e267c50121e3b36f465b7bbaf3cdaf4c3430bfd0",
+      "license": "SIL OFL1.1; FONT-OFL.txt",
+      "instances": [
+        {
+          "weight": 400,
+          "sha256": "3d707227de3fe2889c3eef64c4243162fb2dfbd154333b35fb0af3ed74f85455",
+          "static_true_type": true,
+          "full_font_distributed": false
+        },
+        {
+          "weight": 700,
+          "sha256": "964f706534de8cae7d4a54e7565d6ee92661220e7f4fea953ddef35d17169ca0",
+          "static_true_type": true,
+          "full_font_distributed": false
+        },
+        {
+          "weight": 800,
+          "sha256": "637b7d830cb4b7f69d38b711e94ebe548dec87d8d467767f25f6686fa276f75c",
+          "static_true_type": true,
+          "full_font_distributed": false
+        }
+      ]
+    },
+    "adapter": [
+      "Append case-specific Japanese CSS after original theme/CJK patch",
+      "Create temporary static400/700/800 TrueType font instances from installed OFL Noto Sans JP; embed via transient data CSS to avoid Chrome Type3 variable-font output",
+      "Change generated HTML root language zh-CN to ja",
+      "Discover installed Chrome explicitly",
+      "Add disposable Chrome profile and Japanese locale only to its own subprocess",
+      "Read text subprocess output/input as UTF-8; explicit UTF-8 Poppler metadata/text and raw PDF dates"
+    ],
+    "verification": "PDF creation is complete. Page images, extracted text, embedded fonts and visual layout require separate inspection. No tables in this source; table-border gate not applicable."
+  },
+  "pdf": {
+    "status": "technical-and-agent-visual-reviewed",
+    "checked_at": "2026-10-15T21:19:52.079608+00:00",
+    "source_sha256": "d06c4d2d3b7eb0f8dd9b65d2bfafdb142cecdc5647de4a63a575a89b7ad3ff57",
+    "upstream_converter_sha256": "943ffdd4f570f2b461708b297d06a5490bf64bbf6a979e2b5c41f8c1cf8fd0ed",
+    "backend": "chrome",
+    "text_extractor": "Poppler pdftotext -enc UTF-8 -layout, including PDF ActualText; comparisons remove whitespace only",
+    "input_facts_found": [
+      "紙からはじめる、小さな展示",
+      "2026年11月14日（土）",
+      "13:30",
+      "14:00",
+      "16:00",
+      "12",
+      "無料",
+      "A5",
+      "ノート",
+      "鉛筆",
+      "ペン",
+      "任意",
+      "階段",
+      "申込窓口",
+      "13:30",
+      "14:00",
+      "14:15",
+      "15:15",
+      "15:50",
+      "16:00"
+    ],
+    "variants": [
+      {
+        "id": "paper",
+        "page_count": 1,
+        "size_mm": [
+          210,
+          297
+        ],
+        "pdf_sha256": "1bd80a231764d32644aad6eb0dd52f4b2222c506a07d28491bbb018c36d4bf7e",
+        "text_facts_match": true,
+        "fonts": [
+          {
+            "page": 1,
+            "name": "/AAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          },
+          {
+            "page": 1,
+            "name": "/BAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          },
+          {
+            "page": 1,
+            "name": "/CAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          }
+        ],
+        "geometry": [
+          {
+            "page": 1,
+            "x0": 41.24999828125,
+            "x1": 545.7149728368752,
+            "top": 40.75199830199995,
+            "bottom": 826.0919655795,
+            "width": 594.95996,
+            "height": 841.91998
+          }
+        ]
+      },
+      {
+        "id": "phone",
+        "page_count": 2,
+        "size_mm": [
+          148,
+          210
+        ],
+        "pdf_sha256": "efa76ef682c8833669d4f97f23fe35a4ffd955229acba3048c49f977505d4b82",
+        "text_facts_match": true,
+        "fonts": [
+          {
+            "page": 1,
+            "name": "/AAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          },
+          {
+            "page": 1,
+            "name": "/BAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          },
+          {
+            "page": 1,
+            "name": "/CAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          },
+          {
+            "page": 2,
+            "name": "/BAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          },
+          {
+            "page": 2,
+            "name": "/CAAAAA+NotoSansJP-Thin",
+            "subtype": "/Type0",
+            "descendant_subtype": "/CIDFontType2",
+            "embedded": true,
+            "true_type": true,
+            "to_unicode": true
+          }
+        ],
+        "geometry": [
+          {
+            "page": 1,
+            "x0": 28.4999988125,
+            "x1": 387.59997177500054,
+            "top": 35.615998516000104,
+            "bottom": 562.7399765525,
+            "width": 420,
+            "height": 594.95996
+          },
+          {
+            "page": 2,
+            "x0": 28.4999988125,
+            "x1": 387.374983859375,
+            "top": 35.48999852125007,
+            "bottom": 492.23997949000005,
+            "width": 420,
+            "height": 594.95996
+          }
+        ]
+      }
+    ],
+    "punctuation_warnings": [],
+    "tables": "No tables in this specific source; border gate not applicable. No claims about table rendering.",
+    "agent_visual_review": true,
+    "human_approval": false,
+    "limitations": [
+      "Coordinate/text checks are not proof of painted content; inspect all page PNGs.",
+      "Only this original Japanese source, two fixed page formats and Chrome backend were exercised.",
+      "macOS Preview, Adobe Reader, physical printing, comprehensive Japanese line-breaking and human approval not verified."
+    ],
+    "markdown_blocks_checked": {
+      "paper": 29,
+      "phone": 29
+    },
+    "visual_review": {
+      "all_pages": 3,
+      "method": "Read each original130dpi Poppler self-check page PNG against original Markdown after final-v4; additionally generated deliberate100dpi public page assets.",
+      "findings": "Complete source blocks and factual text match Poppler extraction with whitespace normalization only. All paragraphs/lists intact; no boxes/clipping/orphan headings observed. Phone agenda naturally continues items4–6 on page2. Final repeated no-signup sentence removed to avoid A4 two-character widow; warning near top retained.",
+      "scope": "Agent review; not human approval or full Japanese typography/reader compatibility certification."
+    }
+  },
+  "parent_adjustments": {
+    "recorded_at": "2026-10-15T21:19:12.713370+00:00",
+    "original_opus_preserved": "history/opus-implement-delivery",
+    "source_edit": {
+      "before_sha256": "fe592a550174fb21fd74f34077bb090ee85be7953e1411a5d04502aa3d469a9f",
+      "after_sha256": "d06c4d2d3b7eb0f8dd9b65d2bfafdb142cecdc5647de4a63a575a89b7ad3ff57",
+      "reason": "Remove only the redundant final no-signup sentence, which created a two-character final line on A4. The same warning remains near the top; every authoritative JSON fact remains."
+    },
+    "adapter_changes": [
+      "Windows pdfinfo localized dates were not UTF8; explicit UTF8/rawdates fixed the original lint stage. Failed final-v1 retained.",
+      "Installed variable NotoSansJP made Chrome Type3 glyph fonts. Build adapter now creates transient static400/700/800 TrueType instances with fonttools4.67.0 before the original API. Successful final-v2/v3 outputs and failed validation retained.",
+      "Text comparison uses Poppler UTF8 ActualText, not raw glyph-only extraction; all output fonts are separately checked as embedded TrueType."
+    ],
+    "content_policy": "No change to upstream files, original event facts, Opus theme overrides or web interface.",
+    "guide_adjustments": {
+      "at": "2026-10-15T21:23:54.938029+00:00",
+      "changes": [
+        "Move technical metadata below actual page images so download -> preview is direct. No change to app calculations/selection or PDFs.",
+        "Replace pending reproduction/QA descriptions with actual observed scope, static-font/UTF8 adapters and source contribution.",
+        "Clarify relative-file network reads rather than claiming no communications."
+      ],
+      "before_sha256": {
+        "index.html": "dd359671229bab546c758e0934d8b65afcb4ca4f730e2fe425095bd0c1c41512",
+        "README.md": "ffc65f1a48c2424791569366fc6c485e65a3afaa5750f2befeff392a9e41b593",
+        "samples.json": "d155401091c79189cedc19e8d4a9507fa04728db412fbd3fef31cf7b23a38025"
+      },
+      "after_sha256": {
+        "index.html": "cdcfc752730d3d762d8d93209059d1befb16c2304737a8ec372af87e79ee5851",
+        "README.md": "f344b255f4cdd8b8ebab13af4dc83c6ec16900587feac25251a03f69863d815d",
+        "samples.json": "4f96780379ea1b0c70c8fd12424bbf72531dabf3a6ab9c72581c9de88ba1ca98"
+      }
+    }
+  },
+  "tools": {
+    "tools": {
+      "python": "3.13.7",
+      "pypandoc_binary": "1.17",
+      "pandoc": "pandoc 3.9",
+      "Chrome": "155.0.8059.41",
+      "Poppler": "pdftoppm version 26.07.0",
+      "fonttools": "4.67.0"
+    },
+    "font": {
+      "family": "Noto Sans JP",
+      "version": "Version 2.04;241114210129;non-release",
+      "copyright": "© 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'.",
+      "license": "This Font Software is licensed under the SIL Open Font License, Version 1.1. This Font Software is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the SIL Open Font License for the specific language, permissions and limitations governing your use of this Font Software.",
+      "license_url": "http://scripts.sil.org/OFL",
+      "fsType": 0,
+      "installed_font_sha256": "5113756f8a3b5d01b2211025e267c50121e3b36f465b7bbaf3cdaf4c3430bfd0",
+      "full_font_redistributed": false
+    },
+    "converter": "Fixed upstream markdown_to_pdf API with documented Japanese/Windows adapter; no replacement conversion API."
+  }
+}

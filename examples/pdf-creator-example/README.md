@@ -102,3 +102,8 @@ python examples/pdf-creator-example/render.py --out renders/video-first
 ```
 
 同梱レンダラーとrender.pyの既定経路を実行済みです。音の合成・音楽・他の映像比率は試していません。人による承認やあらゆる環境での映像品質保証は含みません。
+
+
+## 概念構造の紹介 visual-r1
+
+元の原稿/2PDF/3画像/変換器/実検証を保持し、指示書→作者→制作担当→原典変換→別工程の確認→実PDFの構造を新しい32秒無音紹介にしました。新しい入口はindex.htmlとrender-visual.py、手順はvisual-guide.md、確認範囲はvisual-verification.jsonです。元の全ページ画面はdesk.html、旧28秒紹介はvideo/legacy.htmlへ保全。原PDF生成は再実行していません。

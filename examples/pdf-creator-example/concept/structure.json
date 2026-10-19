@@ -1,0 +1,190 @@
+{
+  "id": "pdf-creator-example",
+  "kind": "AIが読むMarkdown手順書とPython変換スクリプト・テーマCSS",
+  "source_commit": "e37b50c323cf99471f18ac17a11c923bb96ce2ba",
+  "not": [
+    "AIモデル",
+    "ホスト型PDF変換API",
+    "ブラウザー内の変換サービス",
+    "自動品質保証"
+  ],
+  "parts": [
+    {
+      "id": "instructions",
+      "label": "用途と手順",
+      "source_path": "vendor/pdf-creator/daymade-docs/pdf-creator/SKILL.md",
+      "upstream_path": "daymade-docs/pdf-creator/SKILL.md",
+      "line_start": 55,
+      "quote": "## Print vs Mobile: Choose the Right Theme",
+      "meaning": "用途と原稿から版を選び、生成後に全ページを読む指示書。主に中国語の組版を扱う。",
+      "source_url": "https://github.com/daymade/claude-code-skills/blob/e37b50c323cf99471f18ac17a11c923bb96ce2ba/daymade-docs/pdf-creator/SKILL.md#L55"
+    },
+    {
+      "id": "theme",
+      "label": "版のCSS",
+      "source_path": "vendor/pdf-creator/daymade-docs/pdf-creator/SKILL.md",
+      "upstream_path": "daymade-docs/pdf-creator/SKILL.md",
+      "line_start": 43,
+      "quote": "Stored in `themes/*.css`. Each theme is a standalone CSS file.",
+      "meaning": "原典5テーマ中warm-terraとmobileの2種。別経路の和文CSSを後ろに追加する。",
+      "source_url": "https://github.com/daymade/claude-code-skills/blob/e37b50c323cf99471f18ac17a11c923bb96ce2ba/daymade-docs/pdf-creator/SKILL.md#L43"
+    },
+    {
+      "id": "convert",
+      "label": "変換スクリプト",
+      "source_path": "vendor/pdf-creator/daymade-docs/pdf-creator/scripts/md_to_pdf.py",
+      "upstream_path": "daymade-docs/pdf-creator/scripts/md_to_pdf.py",
+      "line_start": 763,
+      "quote": "def markdown_to_pdf(",
+      "meaning": "Python関数がPandoc→HTML+CSS→指定したChromeを呼ぶ。ホストAPIではない。",
+      "source_url": "https://github.com/daymade/claude-code-skills/blob/e37b50c323cf99471f18ac17a11c923bb96ce2ba/daymade-docs/pdf-creator/scripts/md_to_pdf.py#L763"
+    },
+    {
+      "id": "backend",
+      "label": "描画の選択",
+      "source_path": "vendor/pdf-creator/daymade-docs/pdf-creator/SKILL.md",
+      "upstream_path": "daymade-docs/pdf-creator/SKILL.md",
+      "line_start": 81,
+      "quote": "Override with `--backend chrome` or `--backend weasyprint`; an explicit flag always wins over auto-detection.",
+      "meaning": "この作例はChromeを明示。WeasyPrintと自動選択の動作は未検証。",
+      "source_url": "https://github.com/daymade/claude-code-skills/blob/e37b50c323cf99471f18ac17a11c923bb96ce2ba/daymade-docs/pdf-creator/SKILL.md#L81"
+    },
+    {
+      "id": "preview",
+      "label": "ページを画像へ",
+      "source_path": "vendor/pdf-creator/daymade-docs/pdf-creator/scripts/md_to_pdf.py",
+      "upstream_path": "daymade-docs/pdf-creator/scripts/md_to_pdf.py",
+      "line_start": 518,
+      "quote": "def _generate_pdf_previews(pdf_file: str, dpi: int = 130) -> list[Path]:",
+      "meaning": "Popplerで各ページをPNGへ。画像は自動で合否を決めない。",
+      "source_url": "https://github.com/daymade/claude-code-skills/blob/e37b50c323cf99471f18ac17a11c923bb96ce2ba/daymade-docs/pdf-creator/scripts/md_to_pdf.py#L518"
+    },
+    {
+      "id": "review",
+      "label": "原稿と読み比べる",
+      "source_path": "vendor/pdf-creator/daymade-docs/pdf-creator/SKILL.md",
+      "upstream_path": "daymade-docs/pdf-creator/SKILL.md",
+      "line_start": 180,
+      "quote": "## Visual Self-Check (MANDATORY — Do Not Skip)",
+      "meaning": "原稿と各ページを別工程で見比べる。lint警告は自動修正や品質保証ではない。",
+      "source_url": "https://github.com/daymade/claude-code-skills/blob/e37b50c323cf99471f18ac17a11c923bb96ce2ba/daymade-docs/pdf-creator/SKILL.md#L180"
+    }
+  ],
+  "parts_scope": "6部品は説明用整理で、原典の共通スキーマではない。",
+  "variants": [
+    {
+      "id": "paper",
+      "label": "A4で配る",
+      "file": "outputs/atelier-a4.pdf",
+      "theme": "warm-terra + japanese-a4.css",
+      "size_mm": [
+        210,
+        297
+      ],
+      "page_count": 1,
+      "pdf_sha256": "1bd80a231764d32644aad6eb0dd52f4b2222c506a07d28491bbb018c36d4bf7e",
+      "bytes": 63663,
+      "pages": [
+        {
+          "number": 1,
+          "image": "assets/paper-page-1.png",
+          "width": 827,
+          "height": 1170,
+          "sha256": "34622a711d32bedadde8378a09ede60d229f7c263e415251f623ea1da14ee78b"
+        }
+      ]
+    },
+    {
+      "id": "phone",
+      "label": "細いページで読む",
+      "file": "outputs/atelier-phone.pdf",
+      "theme": "mobile + japanese-phone.css",
+      "size_mm": [
+        148,
+        210
+      ],
+      "page_count": 2,
+      "pdf_sha256": "efa76ef682c8833669d4f97f23fe35a4ffd955229acba3048c49f977505d4b82",
+      "bytes": 64484,
+      "pages": [
+        {
+          "number": 1,
+          "image": "assets/phone-page-1.png",
+          "width": 584,
+          "height": 827,
+          "sha256": "6fce887c5a9fd7e265c2264d72675203bd9e5774153bc1d0cea64bcc883a0f18"
+        },
+        {
+          "number": 2,
+          "image": "assets/phone-page-2.png",
+          "width": 584,
+          "height": 827,
+          "sha256": "f06cc351b7ecd5c7a65dcc356e3450ba31114e72dbfffde54bb393280680a5b2"
+        }
+      ]
+    }
+  ],
+  "input": {
+    "file": "inputs/event.md",
+    "sha256": "d06c4d2d3b7eb0f8dd9b65d2bfafdb142cecdc5647de4a63a575a89b7ad3ff57",
+    "facts": "架空の日本語ワークショップ1件、6時刻の流れ、3つの持ち物、日付/受付/開始/終了/12名/無料/階段/架空の注意。",
+    "authoring_input": "input.mdとinputs/event.json",
+    "text_blocks_per_pdf": 29,
+    "tables": false
+  },
+  "author": "元のOpus5.5は原稿/追加CSS/実作例ページと旧28秒編集ソースを執筆。2受領は別の執筆回。制作担当が重複する末尾の1文のみ整理し、Windows/日本語の実行補助を加えた。",
+  "operator": "制作担当が別工程でbuild_pdfs.py→固定原典markdown_to_pdf()をChrome指定で実行し、同じ最終Markdownから2PDFを書き出した。作者AIがシェルを実行した図にはしない。",
+  "conversion": [
+    "同じMarkdown",
+    "原典PandocでHTMLへ",
+    "原典テーマCSS+CJKパッチ+後置の和文CSS",
+    "原典Chromeバックエンド",
+    "各PDFの実ページとPNG"
+  ],
+  "themes": {
+    "paper": {
+      "original": "warm-terra",
+      "override": "themes/japanese-a4.css",
+      "size_mm": [
+        210,
+        297
+      ],
+      "page_count": 1
+    },
+    "phone": {
+      "original": "mobile",
+      "override": "themes/japanese-phone.css",
+      "size_mm": [
+        148,
+        210
+      ],
+      "page_count": 2
+    }
+  },
+  "adapter": [
+    "原典と入力を実行中は書き換えず、ロード時に和文CSSを追加しlang=jaへ",
+    "Windows Chrome検出/使い捨てプロファイル/UTF-8とrawdates補助",
+    "インストール済みNoto Sans JP可変フォントを400/700/800の静的TrueTypeへ一時展開。全文フォントは配布しない。"
+  ],
+  "checks": {
+    "operator_review": "元制作担当が3ページを原稿と比較、29本文ブロック×2PDFのPoppler抽出照合と埋込みTrueTypeを確認。",
+    "automatic_lint": "原典の中国語向け部分的な字組み警告。警告はエラーでも自動修正でもない。",
+    "table_gate": "入力に表なしのため対象外。合格0件と数えない。",
+    "human_approval": false,
+    "rerun": false
+  },
+  "download_scope": "各ボタンは保存済みの元PDFをそのまま手渡す。図の選択や再生ではPDFを生成しない。",
+  "legacy": {
+    "viewer": "desk.html",
+    "old_explainer": "video/legacy.html"
+  },
+  "limits": [
+    "案内は架空で開催/申込/外部送信なし。",
+    "固定日本語1原稿/2版/Chromeだけ。WeasyPrint/一括変換/表は未適用。",
+    "原典は主に中国語向け。全禁則/全日本語/別の文書への品質を保証しない。",
+    "macOS Preview/Adobe Reader/実印刷/人の最終承認は未確認。",
+    "実機iOS/Safari/VoiceOver/200%zoom/clipboardreadbackは未確認。",
+    "新しい図は保存した原制作の構造説明。原モデル/PDF生成/lintは再実行しない。",
+    "新32秒の縦横映像は無音で音声ガイド/TTSはない。"
+  ]
+}

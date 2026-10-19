@@ -14,7 +14,7 @@ def main():
     a=p.parse_args();source=Path(__file__).resolve().parent;output=a.out.resolve();renderer=a.renderer.resolve(strict=True)
     if output.is_relative_to(source) or source.is_relative_to(output):p.error('Output must be separate from source.')
     if output.exists() and any(output.iterdir()):p.error('Output must be empty; existing renders are never overwritten.')
-    entry=(source/'video/index.html').read_text('utf-8')
+    entry=(source/'video/legacy.html').read_text('utf-8')
     if re.search(r'<base\b',entry,re.I):p.error('Composition already defines a base URL.')
     entry,n=re.subn(r'(<head\b[^>]*>)',r'\1\n<base href="video/">',entry,count=1,flags=re.I)
     if n!=1:p.error('Composition must have a head element.')

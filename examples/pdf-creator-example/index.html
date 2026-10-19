@@ -1,130 +1,168 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-state="loading">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ひとつのMarkdown原稿から、A4と細いページの2種類のPDFをつくる｜PDF Creator 作例｜Studio Yebisu</title>
-  <meta name="description" content="PDF Creator の変換スクリプトで、同じ日本語のMarkdown原稿からA4版と148×210mm版のPDFを書き出した作例。事前に生成したPDFと全ページの画像を表示します。">
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="app.mjs"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <title>PDF Creator の中身：手順書と変換スクリプトで、1つの原稿を2つのPDFへ｜Studio Yebisu</title>
+  <meta name="description" content="PDF Creator は、AIが読むMarkdownの手順書にPythonの変換スクリプトとCSSテーマが付いたスキル。同じ日本語の原稿から、A4 1ページと148×210mm 2ページの保存済みPDFができるまでを1枚の図で示します。">
+  <link rel="stylesheet" href="concept.css">
+  <script type="module">
+    import { initMain } from './concept.js';
+    initMain();
+  </script>
 </head>
 <body>
-  <header class="masthead">
-    <p class="kicker">Studio Yebisu 作例 ／ PDF Creator（daymade）</p>
-    <h1><span class="nb">ひとつのMarkdown原稿から、</span><span class="nb">A4と細いページの</span><span class="nb">2種類のPDFをつくる</span></h1>
-    <p class="lead">架空のワークショップ案内（<a href="inputs/event.md">inputs/event.md</a>）を PDF Creator の変換スクリプトに渡し、配布用のA4版と、スマートフォンで読む148×210mmの版を書き出す作例です。下に表示するのは、<a href="outputs/manifest.json">outputs/manifest.json</a> に記録された、事前に生成済みのPDFとその全ページの画像だけです。このページはブラウザ上で変換を行いません。</p>
+  <header class="top">
+    <p class="kicker">Studio Yebisu 作例 ・ 文書・PDF</p>
+    <h1 id="pdf-title">PDF Creator：手順書と変換スクリプトで、1つの原稿を2つのPDFへ</h1>
+    <p id="load-status" class="status" role="status" aria-live="polite">保存済みの23ファイルを照合しています…</p>
+    <button id="retry" class="retry" type="button" hidden>もう一度読み込む</button>
   </header>
 
   <main>
-    <nav class="switch" aria-label="表示する版">
-      <ul>
-        <li><a href="#paper" data-variant-link="paper"><span class="switch-label">A4で配る</span><span class="switch-sub">210×297mm・warm-terra</span></a></li>
-        <li><a href="#phone" data-variant-link="phone"><span class="switch-label">細いページで読む</span><span class="switch-sub">148×210mm・mobile</span></a></li>
-      </ul>
-    </nav>
-
-    <section id="output" class="output" aria-labelledby="output-title">
-      <h2 id="output-title">生成したPDF：<span id="variant-name">A4で配る</span></h2>
-      <p id="status" class="status" role="status">PDFとページ画像の一覧（outputs/manifest.json）を読み込みます。表示されない場合は、README の手順でローカルのHTTPサーバーから開いてください。</p>
-      <noscript>
-        <p class="status">ページ画像の表示には JavaScript が必要です。PDFの一覧は <a href="outputs/manifest.json">outputs/manifest.json</a> を直接開いて確認できます。</p>
-      </noscript>
-      <div id="actions" class="actions" hidden>
-        <a id="download" class="button primary" download>PDFをダウンロード</a>
-        <a id="open-pdf" class="button">PDFをブラウザで開く</a>
+    <section class="hero" aria-label="PDF Creator の全体図">
+      <div class="cases" role="group" aria-label="版を選ぶ">
+        <button type="button" data-case="paper" aria-pressed="true" disabled>A4で配る<small>1ページ</small></button>
+        <button type="button" data-case="phone" aria-pressed="false" disabled>細いページで読む<small>2ページ</small></button>
       </div>
-      <ol id="pages" class="pages" hidden></ol>
-      <dl id="facts" class="facts" hidden></dl>
+
+      <figure class="map">
+        <canvas id="concept-map" role="img" aria-describedby="map-text"
+          aria-label="PDF Creator の全体図。手順書と原稿を同じ作者AIが読み、制作担当が別工程で原典の変換を実行し、A4 1ページと細いページ2ページのPDFをページ画像にして原稿と読み比べ、保存済みの原PDFを使う流れ。"></canvas>
+      </figure>
+
+      <div class="stages" role="group" aria-label="図の段階を前に出す">
+        <button type="button" data-stage="0" aria-pressed="false" disabled>入れる<small>手順書・原稿・AI</small></button>
+        <button type="button" data-stage="1" aria-pressed="false" disabled>変換する<small>制作担当・原典</small></button>
+        <button type="button" data-stage="2" aria-pressed="false" disabled>確かめて使う<small>画像・読み比べ</small></button>
+      </div>
+
+      <div class="actions">
+        <a id="open-desk" class="action primary" aria-disabled="true">実PDFと全ページを見る</a>
+        <button id="save-record" class="action" type="button" disabled>原PDFを保存</button>
+      </div>
+      <p id="save-status" class="note" role="status" aria-live="polite"></p>
+      <p id="case-meta" class="meta"></p>
+      <p id="phase-note" class="phase" aria-live="polite"></p>
+      <button id="replay" class="quiet" type="button" disabled>図の動きをもう一度見る</button>
     </section>
 
-    <section id="source" class="block" aria-labelledby="source-title">
-      <h2 id="source-title">原稿：両方の版で同じMarkdown</h2>
-      <p>A4版と細いページ版は、同じ <a href="inputs/event.md">inputs/event.md</a> から書き出します。原稿の日付・時刻・定員・持ち物などは <a href="inputs/event.json">inputs/event.json</a> の内容だけを使い、表は使わず段落・箇条書き・番号付きリストで組んでいます。</p>
-      <p id="source-check" class="note">原稿の照合結果は、読み込み後にここへ表示します。</p>
-      <details open>
-        <summary>inputs/event.md の本文</summary>
-        <pre id="source-text" class="source">（原稿を読み込んでいます）</pre>
-      </details>
+    <section class="block" aria-labelledby="what-title">
+      <h2 id="what-title">これは何か</h2>
+      <p>PDF Creator は、AIが読むMarkdownの手順書（SKILL.md）に、Pythonの変換スクリプト（md_to_pdf.py）とCSSテーマが付いたスキルです。AIモデルでも、ホスト型のPDF変換APIでも、ブラウザーで動く変換サービスでも、品質の保証でもありません。</p>
+      <p>原典は daymade/claude-code-skills の固定コミット <code>e37b50c</code>（MIT License、Copyright (c) 2025 daymade）。同梱した18ファイルは公式のGitの内容と一致を確かめています。下の6部品は説明のための整理で、原典の共通スキーマではありません。</p>
     </section>
 
-    <section id="process" class="block" aria-labelledby="process-title">
-      <h2 id="process-title">実行の順序：操作 → API → 出力 → 全ページ確認</h2>
-      <ol class="steps">
-        <li>
-          <h3>操作</h3>
-          <p>原稿は1つだけ用意し、版ごとに原典テーマと和文の追加CSSを組み合わせます。A4版は <code>warm-terra</code> ＋ <a href="themes/japanese-a4.css">themes/japanese-a4.css</a>、細いページ版は <code>mobile</code> ＋ <a href="themes/japanese-phone.css">themes/japanese-phone.css</a>。バックエンドはどちらも <code>chrome</code> を明示します。</p>
-          <p>再現用のコマンド（例のルートで実行し、新しいフォルダへ書き出す。公開する build_pdfs.py の既定経路を実行して確認済みです）：</p>
-          <pre class="command"><code>python build_pdfs.py --out renders/pdf-first</code></pre>
-        </li>
-        <li>
-          <h3>API</h3>
-          <p>生成スクリプトは、原典の <a href="vendor/pdf-creator/daymade-docs/pdf-creator/scripts/md_to_pdf.py">scripts/md_to_pdf.py</a> にある <code>markdown_to_pdf()</code> を呼びます。原典の処理は、Pandoc で Markdown を HTML にし、テーマCSSと表用のCJKパッチを埋め込み、ヘッドレス Chrome でヘッダー・フッターなしのPDFにする流れです。この作例は、原典CSSの後ろに和文CSSを追加し、HTMLを <code>lang="ja"</code> にします。変換を呼ぶ <a href="build_pdfs.py">build_pdfs.py</a> には、WindowsでのChrome検出・一時プロファイル・UTF-8読み取りも補っています。可変フォントは太さ400/700/800の静的TrueTypeへ一時展開してからPDFへ埋め込み、原典と原稿は実行中に書き換えません。</p>
-        </li>
-        <li>
-          <h3>出力</h3>
-          <p>A4版は <code>outputs/atelier-a4.pdf</code>、細いページ版は <code>outputs/atelier-phone.pdf</code>。各ページを画像にしたPNGを <code>assets/</code> に置き、ページ数・サイズ・SHA-256 を <code>outputs/manifest.json</code> に記録します。ページ数は生成後に数えた値で、事前に決めてはいません。</p>
-        </li>
-        <li>
-          <h3>全ページ確認</h3>
-          <p>原典 SKILL.md の「Visual Self-Check」に従い、全ページの画像を原稿と見比べ、欠け・はみ出し・見出しの孤立・改ページ・括弧や句読点の位置を確かめます。あわせて、PDFから取り出した文字と原稿の文言、埋め込みフォントを照合します。原典の文字組みの自動チェックは中国語向けの一部のパターンだけを見るため、和文の確認はこれとは別に行います。原稿に表がないため、表の罫線チェック（check_table_borders.py）は対象外です。</p>
-          <p id="verification-link" class="note">確認の記録は、生成後に outputs/manifest.json から参照します。</p>
-        </li>
+    <section class="block" aria-labelledby="read-title">
+      <h2 id="read-title">図の読み方</h2>
+      <ol id="map-text" class="flow">
+        <li><b>手順書</b>：①版の選び方 ②5テーマ（今回はwarm-terraとmobileだけ） ③Pythonの変換とプレビュー ④生成後に全ページを読む指示。</li>
+        <li><b>原稿</b>：架空の案内 event.md（29ブロック・流れ6項目・持ち物3つのうち1つは任意・架空の注意）と、依頼（用途・日本語・フォント・2版）。</li>
+        <li><b>作者AI</b>：同じ1つのAI（元のOpus 5.5）が手順書と原稿を読み、原稿・版の選択・和文CSSを用意。シェルは実行していません。</li>
+        <li><b>制作担当（別工程）</b>：build_pdfs.py で原典の markdown_to_pdf を実行。Chrome指定・lang=ja・静的TrueType・UTF-8の補助つき。</li>
+        <li><b>変換の中</b>：同じMarkdown → PandocでHTML → 原典テーマ＋CJKパッチ＋後置の和文CSS → 指定したChromeでPDF。</li>
+        <li><b>折り返し</b>：同じ原稿が版の枠で折り返し、A4は1ページ、148×210mmは流れの4〜6番から2ページ目へ（生成後の実測）。</li>
+        <li><b>ページ画像</b>：PDF → Popplerのページ画像3枚と字組みlint（警告はエラーではない）。表がないため罫線検査は対象外。</li>
+        <li><b>読み比べ</b>：原稿とページを別工程で見比べ（全3ページ・各29ブロック・埋込TrueType）。人の承認はなし。</li>
+        <li><b>使う</b>：保存済みの原PDF 2点と、原稿・追加CSS・再現手順。</li>
       </ol>
     </section>
 
-    <section class="block" aria-labelledby="movie-title">
-      <h2 id="movie-title">28秒で、原稿から2つのPDFを見る</h2>
-      <p>実際に生成したPDFの3ページを使う無音の編集動画です。連続操作の録画ではありません。</p>
-      <video controls preload="metadata" playsinline poster="../../media/pdf-creator-example.webp" style="width:100%;height:auto" aria-label="同じ日本語原稿から2種類のPDFを作る。28秒・無音"><source src="../../media/pdf-creator-example.mp4" type="video/mp4"><a href="../../media/pdf-creator-example.mp4">MP4を開く</a></video>
-      <p><a href="video/index.html">動画の編集ソース</a> · <a href="source.zip">原稿・PDF・画像・変換器・動画のソース一式</a> · <a href="verification.json">実行と確認の範囲</a></p>
+    <section class="block" aria-labelledby="cases-title">
+      <h2 id="cases-title">選んだ版の原PDF</h2>
+      <article id="paper" class="case-card" aria-labelledby="paper-title">
+        <h3 id="paper-title">A4で配る</h3>
+        <dl class="facts" data-facts></dl>
+        <div class="thumbs" data-thumbs></div>
+        <p><a href="desk.html#paper">A4版の実PDFと全ページを開く</a></p>
+      </article>
+      <article id="phone" class="case-card" aria-labelledby="phone-title" hidden>
+        <h3 id="phone-title">細いページで読む</h3>
+        <dl class="facts" data-facts></dl>
+        <div class="thumbs" data-thumbs></div>
+        <p><a href="desk.html#phone">細いページ版の実PDFと全ページを開く</a></p>
+      </article>
+      <details class="fold">
+        <summary>保存する原PDFの記録</summary>
+        <p id="record-name" class="mono"></p>
+        <p id="record-content" class="mono small"></p>
+        <p class="small">「原PDFを保存」は、照合を通った保存済みの原本をそのままブラウザーに渡します。新しく生成したPDFではありません。</p>
+      </details>
     </section>
 
-    <section id="credits" class="block" aria-labelledby="credits-title">
-      <h2 id="credits-title">原典とライセンス</h2>
-      <ul class="plain">
-        <li>原典：<a href="https://github.com/daymade/claude-code-skills/tree/e37b50c323cf99471f18ac17a11c923bb96ce2ba/daymade-docs/pdf-creator">daymade/claude-code-skills の daymade-docs/pdf-creator</a>（コミット <code class="hash">e37b50c323cf99471f18ac17a11c923bb96ce2ba</code> に固定）</li>
-        <li>同梱した原典：<a href="vendor/pdf-creator/daymade-docs/pdf-creator/SKILL.md">SKILL.md（手順書）</a>、変換スクリプト、テーマ。MIT License、Copyright (c) 2025 daymade（<a href="vendor/pdf-creator/LICENSE">LICENSE</a>）。</li>
-        <li>フォント：PDFには生成環境にインストールされた Noto Sans JP（SIL Open Font License 1.1）を使います。フォント本体は同梱していません。条件は <a href="FONT-OFL.txt">FONT-OFL.txt</a> にあります。</li>
-        <li>この作例の原稿・追加CSS・ページのコードと文章：MIT License、© 2026 Studio Yebisu（<a href="LICENSE">LICENSE</a>）。</li>
-      </ul>
+    <section class="block" aria-labelledby="parts-title">
+      <h2 id="parts-title">6つの部品と原典の行</h2>
+      <div class="parts" role="group" aria-label="部品を選ぶ">
+        <button type="button" data-part="instructions" aria-pressed="false" disabled>用途と手順</button>
+        <button type="button" data-part="theme" aria-pressed="false" disabled>版のCSS</button>
+        <button type="button" data-part="convert" aria-pressed="false" disabled>変換スクリプト</button>
+        <button type="button" data-part="backend" aria-pressed="false" disabled>描画の選択</button>
+        <button type="button" data-part="preview" aria-pressed="false" disabled>ページを画像へ</button>
+        <button type="button" data-part="review" aria-pressed="false" disabled>原稿と読み比べる</button>
+      </div>
+      <div class="part-panel" aria-live="polite">
+        <h3 id="part-label"></h3>
+        <p id="part-meaning"></p>
+        <blockquote><code id="part-quote"></code></blockquote>
+        <p class="small"><a id="part-source" rel="noopener"></a></p>
+        <p class="small"><a id="part-local"></a></p>
+      </div>
     </section>
 
-    <section id="limits" class="block" aria-labelledby="limits-title">
-      <h2 id="limits-title">制限と未確認の点</h2>
-      <ul>
-        <li>案内の内容は架空です。実際の開催・申込窓口・外部送信はありません。</li>
-        <li>このページはPDFを生成しません。入力欄・アップロード・送信の機能はなく、事前に生成したファイルを表示するだけです。</li>
-        <li>表・一括変換（batch_convert.py）・WeasyPrint バックエンドは、この作例では使っていません。表の罫線チェックも行っていません。</li>
-        <li>原典は主に中国語の組版を想定しています。和文の禁則は CSS（<code>line-break: strict</code> など）で指定していますが、すべての禁則パターンを網羅的に確かめたわけではありません。</li>
-        <li>macOS のプレビュー、Adobe Acrobat Reader、実際の印刷での見え方は確認していません。人による最終承認も行っていません。</li>
-        <li>別の環境では Noto Sans JP が別のフォントに置き換わり、改行・改ページ・ページ数が変わることがあります。</li>
-        <li>作例1件の結果で、日本語への対応全体を示すものではありません。</li>
-      </ul>
+    <section class="block" aria-labelledby="films-title">
+      <h2 id="films-title">32秒の動く図（無音）</h2>
+      <p>同じ図の部品が移動・合流・折り返しをして、手順書から保存済みPDFの利用までを示します。ナレーションと音声トラックはありません。</p>
+      <div class="films">
+        <video id="film-portrait" controls muted playsinline preload="metadata" src="../../media/pdf-creator-example.mp4" aria-label="縦長・32秒・無音の動く図"></video>
+        <video id="film-wide" controls muted playsinline preload="metadata" src="../../media/pdf-creator-example-wide.mp4" aria-label="横長・32秒・無音の動く図"></video>
+      </div>
+      <p><a id="open-editor" href="video/index.html">動く図の編集ソースを開く</a> ・ <a href="video/legacy.html">旧28秒の解説（ページ画像の編集版）</a></p>
     </section>
 
-    <section id="request" class="block" aria-labelledby="request-title">
+    <section class="block" aria-labelledby="request-title">
       <h2 id="request-title">再利用できる依頼文</h2>
-      <p>自分の原稿で同じ手順を試すときの依頼文です。［ ］の中を書き換えて使えます。同じ文面を <a href="request.txt">request.txt</a> に置いています。</p>
-      <pre id="request-text" class="source">PDF Creator の原典（https://github.com/daymade/claude-code-skills/tree/e37b50c323cf99471f18ac17a11c923bb96ce2ba/daymade-docs/pdf-creator）の SKILL.md と scripts/md_to_pdf.py を読み、次のMarkdownをPDFにしてください。
+      <p>［ ］の中を書き換えて使えます。照合済みの request.txt と同じ文面です。</p>
+      <label class="small" for="request-text">依頼文（読み取り専用）</label>
+      <textarea id="request-text" rows="12" readonly spellcheck="false"></textarea>
+      <div class="row">
+        <button id="copy-request" class="action" type="button" disabled>依頼文をコピー</button>
+        <p id="copy-status" class="note" role="status" aria-live="polite"></p>
+      </div>
+    </section>
 
-- 原稿：［Markdownファイルのパス］
-- 用途：［例：会場で配る案内／スマートフォンで読む資料］
-- 言語：［例：日本語］
-- 版：［A4（warm-terra）／細いページ（mobile）／両方］
-- フォント：［例：インストール済みの Noto Sans JP］
+    <section class="block" aria-labelledby="files-title">
+      <h2 id="files-title">原稿・記録・コード</h2>
+      <ul class="files">
+        <li>原稿：<a href="inputs/event.md">inputs/event.md</a>・<a href="inputs/event.json">inputs/event.json</a>・依頼の要件 <a href="input.md">input.md</a></li>
+        <li>結果と記録：<a href="outputs/manifest.json">outputs/manifest.json</a>・<a href="validation.json">validation.json</a>・<a href="samples.json">samples.json</a>・<a href="concept/structure.json">concept/structure.json</a>・<a href="concept/original-run.json">concept/original-run.json</a>・<a href="concept/manifest.json">concept/manifest.json</a></li>
+        <li>再現：<a href="build_pdfs.py">build_pdfs.py</a>（新しい空のフォルダーへ書き出す）</li>
+        <li>追加CSS：<a href="themes/japanese-a4.css">themes/japanese-a4.css</a>・<a href="themes/japanese-phone.css">themes/japanese-phone.css</a></li>
+        <li>原典：<a href="vendor/pdf-creator/daymade-docs/pdf-creator/SKILL.md">SKILL.md</a>・<a href="vendor/pdf-creator/daymade-docs/pdf-creator/scripts/md_to_pdf.py">scripts/md_to_pdf.py</a>・<a href="vendor/pdf-creator/daymade-docs/pdf-creator/themes/warm-terra.css">themes/warm-terra.css</a>・<a href="vendor/pdf-creator/daymade-docs/pdf-creator/themes/mobile.css">themes/mobile.css</a>・<a href="vendor/pdf-creator/LICENSE">LICENSE</a></li>
+        <li>実PDF：<a href="outputs/atelier-a4.pdf">outputs/atelier-a4.pdf</a>・<a href="outputs/atelier-phone.pdf">outputs/atelier-phone.pdf</a>（<a href="desk.html">閲覧ページ</a>）</li>
+      </ul>
+    </section>
 
-進め方：
-1. 変換は原典のスクリプト（markdown_to_pdf）で行い、pandoc と Chrome を手作業でつなぐなどして変換処理を迂回しないでください。
-2. 原稿・原典スクリプト・原典テーマは書き換えないでください。和文向けの調整が必要なら、原典CSSの後ろに足す追加CSSとして読み込み、その方法を記録してください。
-3. 実際に使ったバックエンド（Generated: 行の backend=）、テーマ、フォント、各PDFのページ数を記録してください。
-4. 全ページを画像で確認し、PDFから取り出した文字を原稿と照合してください（欠け・はみ出し・見出しの孤立・改ページ・括弧や句読点の位置）。
-5. 表がある場合は、原典の指示どおり check_table_borders.py を実行してください。Chromeで出力したときは、同じテーマで WeasyPrint 出力した基準と --reference で比較してください。終了コード3は合格ではありません。
-6. 確認できなかった環境（macOS のプレビュー、Adobe Acrobat Reader、実際の印刷など）と未確認の点を、確認済みの点と分けて報告してください。</pre>
+    <section class="block" aria-labelledby="limits-title">
+      <h2 id="limits-title">範囲と未確認の点</h2>
+      <details class="fold">
+        <summary>試した範囲・試していないこと</summary>
+        <ul>
+          <li>案内は架空です。開催・申込窓口・外部送信はありません。</li>
+          <li>固定した日本語の原稿1つ・2つの版・Chromeだけ。WeasyPrint・自動選択・一括変換・表は実行していません。</li>
+          <li>原典は主に中国語の組版向けです。和文の禁則すべてや、別の文書での品質は保証しません。</li>
+          <li>ページ数（1ページ・2ページ）は生成後に数えた結果で、別の環境やフォントでは変わることがあります。</li>
+          <li>macOSのプレビュー・Adobe Reader・実際の印刷・人による最終承認は確認していません。</li>
+          <li>実機のiOS・Safari・VoiceOver・200%拡大・クリップボードの読み戻しは確認していません。</li>
+          <li>この図は保存済みの原制作の構造説明です。元のモデル・PDF生成・lintは再実行していません。</li>
+          <li>フォントはインストール済みの Noto Sans JP（SIL OFL 1.1、<a href="FONT-OFL.txt">FONT-OFL.txt</a>）を一時的に静的TrueTypeへ展開して使い、フォント本体は配布していません。</li>
+        </ul>
+      </details>
     </section>
   </main>
 
   <footer class="colophon">
-    <p>Studio Yebisu ／ PDF Creator 作例。原典は daymade の PDF Creator（MIT）。</p>
+    <p>Studio Yebisu ／ PDF Creator 作例。原典 daymade/claude-code-skills（MIT）。この作例の原稿・追加CSS・ページのコードと文章は MIT License、© 2026 Studio Yebisu（<a href="LICENSE">LICENSE</a>）。</p>
   </footer>
 </body>
 </html>
