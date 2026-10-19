@@ -1,0 +1,98 @@
+{
+  "schema": "studio-yebisu/liveportrait-example/storyboard@1",
+  "duration": 32,
+  "fps": 30,
+  "posterTime": 31,
+  "sizes": {
+    "portrait": [720, 1280],
+    "wide": [1280, 720]
+  },
+  "audio": "none (no narration, no speech text, no audio track, audioEvents is empty)",
+  "scope": "One connected structure diagram drawn by ../app.js drawMap in both orientations. Images are the verified original s9.jpg, the prepared crop and the generated public PNG frames. Points are the measured 21x3 arrays and yaw values from concept/facts.json. The cube and moving marks are explanatory shapes; scene timing is not the measured CPU timeline.",
+  "scenes": [
+    {
+      "id": "identity",
+      "start": 0,
+      "end": 4,
+      "kicker": "LivePortrait",
+      "caption": "手元で動く肖像アニメーション",
+      "conveys": "LivePortraitは手元で動くPythonのモデルと原典コアAPI。原典READMEで範囲を決め、作者AI 1体が書き、制作担当が1回実行した。",
+      "enters": "全体の図が最初から見えている。上段の3つとF・M・W・Gを強調。",
+      "exits": "書類の印が制作担当に届き、図の下の流れが「実行された部分」として残る。",
+      "motion": "書類の印が README→作者AI→制作担当 へ線の上を進む。",
+      "data": "なし（役割の説明）。"
+    },
+    {
+      "id": "source",
+      "start": 4,
+      "end": 8,
+      "kicker": "入力",
+      "caption": "原画から手で切り出し、256へ",
+      "conveys": "原典同梱の s9.jpg（モナ・リザの複製画）を、手動の枠で512に切り出した。元APIの prepare_source が256に縮める。",
+      "enters": "原画の上に実際の切り出し枠 [110,100,610,600] が見えている。",
+      "exits": "切り出した1枚が「元API 256」の四角に入る。",
+      "motion": "枠の中の画像が手動cropの位置へ広がり、次に小さくなって256の四角へ進む。",
+      "data": "照合した inputs/mona-lisa-original.jpg と inputs/portrait-crop.png、枠の座標。"
+    },
+    {
+      "id": "split",
+      "start": 8,
+      "end": 12,
+      "kicker": "分かれる",
+      "caption": "同じ1枚からFとMを1回ずつ",
+      "conveys": "1つの入力が、Fの見た目の3D特徴（1回）と、Mの姿勢・表情・21点（1回）に分かれる。",
+      "enters": "F と M の中身は空で、分かれ目の点に印が重なっている。",
+      "exits": "立方体がFに、21点がMに入り、それぞれの中身になる。",
+      "motion": "分かれ目から立方体と点の群れが左右の線を進む。",
+      "data": "Mの21点は facts の kp_canonical_21x3。立方体は説明の形で、特徴の値ではない。"
+    },
+    {
+      "id": "manual-yaw",
+      "start": 12,
+      "end": 16.5,
+      "kicker": "手動の値",
+      "caption": "決めた角度で21点を回し、補正",
+      "conveys": "作者が決めたyawの36値を推定yawに足し、transform_keypoint で21点を変換、stitching が学習した補正を足す。",
+      "enters": "点線の手動の値が作者AIから入り、yawの曲線が描かれ始める。",
+      "exits": "36コマ分の変換後と補正後の21点を順に見せ終える。",
+      "motion": "手動の値の印が点線を進み、曲線の上の点と変換後の21点がコマ番号に合わせて動く。",
+      "data": "yaw16 の offsets、target_keypoints_36x21x3、stitched_keypoints_36x21x3（すべて実測）。"
+    },
+    {
+      "id": "rejoin",
+      "start": 16.5,
+      "end": 21,
+      "kicker": "合流",
+      "caption": "同じFと動いた21点→Gが描く",
+      "conveys": "Wは同じF特徴（再利用）と動いた21点を受け取り、Gが512の画像を新しく描く。",
+      "enters": "Fから別の線（再利用）と、変換後の21点がWへ向かう。",
+      "exits": "Gから出た実際の生成コマ #9 が代表5枚の位置に収まる。",
+      "motion": "立方体がFの別線を、21点が変換の箱からWへ進み、Wで合流してGへ、Gから画像が出る。",
+      "data": "yaw16 の #9 の stitched の21点と、照合した生成PNG #9。"
+    },
+    {
+      "id": "frames",
+      "start": 21,
+      "end": 26.5,
+      "kicker": "実際のPNG",
+      "caption": "生成コマ（36のうち代表5枚）",
+      "conveys": "入力の1枚と、オフセット0で生成された #0 は別物。±8°と±16°の代表5枚は、どれもGが描いた実際のPNG。",
+      "enters": "代表5枚の位置にある小さなコマ。",
+      "exits": "大きく並べたコマが、元の代表5枚の位置へ戻る。",
+      "motion": "小さなコマが広がって2段に並び、入力と #0 を左右に置く。最後に元へ戻る。",
+      "data": "照合した inputs/portrait-crop.png と outputs/yaw08・yaw16 の frame-000000/09/18/26/35.png。補間した中間コマは作らない。"
+    },
+    {
+      "id": "use",
+      "start": 26.5,
+      "end": 32,
+      "kicker": "返る",
+      "caption": "3秒の無音MP4を再生・保存",
+      "conveys": "36枚のPNGを FFmpeg で包んだ3秒・無音のMP4が返り、ページで再生・保存できる。",
+      "enters": "代表5枚から、MP4と「再生・保存」へ印が進む。",
+      "exits": "29秒以降は静止。30秒と31秒は同じ画になる。",
+      "motion": "印が MP4 を通って「再生・保存」に届き、止まる。",
+      "data": "outputs/results.json の video 記録（512×512・36コマ・3秒・音声トラック0本）。"
+    }
+  ]
+}

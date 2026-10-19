@@ -1,0 +1,124 @@
+{
+  "schema": "studio-yebisu/liveportrait-example/jobs@1",
+  "note": "Author-written job specification. Paths are relative to the case root (the parent directory of inputs/), to <upstream>, or to <weights>. Yaw offsets are manual input control values added to the model's inferred source yaw; they are not measured output head pose and not a driving video.",
+  "upstream": {
+    "repository": "KlingTeam/LivePortrait",
+    "revision": "9b294b3d0536135442ea73cb01e6cb3ca7029dd3",
+    "license": "MIT",
+    "models_config": "src/config/models.yaml",
+    "verified_files": [
+      {"path": "LICENSE", "git_blob": "8450f81af95aef497dd4064cdc481c54278df66b"},
+      {"path": "src/live_portrait_wrapper.py", "git_blob": "af95812b5ea8c567b2780fe5723767d7f335c572"},
+      {"path": "src/config/base_config.py", "git_blob": "216b8be50aecc8af4b9d1d2a9401e034dd7769e4"},
+      {"path": "src/config/inference_config.py", "git_blob": "2d9f365b97ccf541b23e5c65d9b606f2420dcf77"},
+      {"path": "src/config/models.yaml", "git_blob": "131d1c65025c31e37af9239e211ea14454128a2e"},
+      {"path": "src/utils/helper.py", "git_blob": "dda9a690a56a1306c250a7080892e478e19e6805"},
+      {"path": "src/utils/camera.py", "git_blob": "a3dd942697e1f00a96dc3efc75b883d98b52e525"},
+      {"path": "src/utils/retargeting_utils.py", "git_blob": "ae2e5f52effe8107503586c9f5a24f39dfdbbbcf"},
+      {"path": "src/utils/timer.py", "git_blob": "3570fa45d3ff36376471b82a5b3c02efe46eed98"},
+      {"path": "src/utils/rprint.py", "git_blob": "c43a42f9855bbb019725e6c2b6c6c50e6fa4d0c5"},
+      {"path": "src/utils/resources/lip_array.pkl", "git_blob": "61fe803f2326624d775674a72e1318f57577d5b1"},
+      {"path": "src/utils/resources/mask_template.png", "git_blob": "bca6ca5977ba820d0d2c05b3793c6231cc82e715"},
+      {"path": "src/modules/__init__.py", "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"},
+      {"path": "src/modules/appearance_feature_extractor.py", "git_blob": "8d89e4f18a2fbe58447f52ab4c5e3f2011a4ec80"},
+      {"path": "src/modules/convnextv2.py", "git_blob": "83ea12662b607854915df8c7abb160b588d330b1"},
+      {"path": "src/modules/dense_motion.py", "git_blob": "c1a7f9a5a1b5463c4a1ddcee2bf36dcd34735706"},
+      {"path": "src/modules/motion_extractor.py", "git_blob": "b2982e53c52d9ec1e0bec0453cc05edb51a15d23"},
+      {"path": "src/modules/spade_generator.py", "git_blob": "147a9aed0c7707fe6ae3d59ce1a30154ef75afcc"},
+      {"path": "src/modules/stitching_retargeting_network.py", "git_blob": "5f50b7cf5a21cd71c70a7bbaaa4b6b68b4762ea3"},
+      {"path": "src/modules/util.py", "git_blob": "dc6b925ff4d93dbb89d0d1e593bee15c888c39ee"},
+      {"path": "src/modules/warping_network.py", "git_blob": "9191a197055a954272ee8ed86c5e34f3f33f9ad5"}
+    ]
+  },
+  "weights": {
+    "repository": "KlingTeam/LivePortrait",
+    "revision": "82a4fa6735ca58432b6ce39301b4b9ee066dea47",
+    "license": "MIT",
+    "gated": false,
+    "files": [
+      {"config_key": "checkpoint_F", "role": "appearance_feature_extractor (F)", "path": "liveportrait/base_models/appearance_feature_extractor.pth", "bytes": 3387959, "sha256": "5279bb8654293dbdf327030b397f107237dd9212fb11dd75b83dfb635211ceb5"},
+      {"config_key": "checkpoint_M", "role": "motion_extractor (M)", "path": "liveportrait/base_models/motion_extractor.pth", "bytes": 112545506, "sha256": "251e6a94ad667a1d0c69526d292677165110ef7f0cf0f6d199f0e414e8aa0ca5"},
+      {"config_key": "checkpoint_W", "role": "warping_module (W)", "path": "liveportrait/base_models/warping_module.pth", "bytes": 182180086, "sha256": "2f61a6f265fe344f14132364859a78bdbbc2068577170693da57fb96d636e282"},
+      {"config_key": "checkpoint_G", "role": "spade_generator (G)", "path": "liveportrait/base_models/spade_generator.pth", "bytes": 221813590, "sha256": "4780afc7909a9f84e24c01d73b31a555ef651521a1fe3b2429bd04534d992aee"},
+      {"config_key": "checkpoint_S", "role": "stitching_retargeting_module (stitching executed; eye/lip retargeting loaded, not executed)", "path": "liveportrait/retargeting_models/stitching_retargeting_module.pth", "bytes": 2393098, "sha256": "3652d5a3f95099141a56986aaddec92fadf0a73c87a20fac9a2c07c32b28b611"}
+    ]
+  },
+  "source": {
+    "original": "inputs/mona-lisa-original.jpg",
+    "original_upstream_path": "assets/examples/source/s9.jpg",
+    "original_sha256": "84a6bfcb3346951cef85c0b0bb07856794e0b04d5b65322c18d77198fbf43f2a",
+    "description": "Exact upstream example image: a reproduction of Leonardo da Vinci's Mona Lisa. Not a generated image, not a recording of a person.",
+    "prepared": "inputs/portrait-crop.png",
+    "preparation": {
+      "tool": "prepare_input.py",
+      "crop_box_pil_edges": [110, 100, 610, 600],
+      "output_size": [512, 512],
+      "mode": "RGB",
+      "resample": "LANCZOS",
+      "face_detection": false
+    }
+  },
+  "runtime": {
+    "device": "cpu",
+    "dtype": "float32",
+    "flag_force_cpu": true,
+    "flag_use_half_precision": false,
+    "flag_do_torch_compile": false,
+    "flag_stitching": true,
+    "torch_intra_op_threads": 4,
+    "torch_inter_op_threads": 4,
+    "seed": 20261020
+  },
+  "environment": {
+    "python": "3.11.15",
+    "torch": "2.6.0+cpu",
+    "numpy": "1.26.4",
+    "Pillow": "11.3.0",
+    "opencv": "4.10.0",
+    "opencv_distribution": "4.10.0.84",
+    "scipy": "1.13.1",
+    "PyYAML": "6.0.1",
+    "rich": "13.7.1"
+  },
+  "video": {
+    "encoder": "ffmpeg",
+    "codec": "libx264",
+    "pix_fmt": "yuv420p",
+    "movflags": "+faststart",
+    "audio": false,
+    "frame_pattern": "frame-%06d.png"
+  },
+  "public_frame_indices": [0, 9, 18, 26, 35],
+  "jobs": [
+    {
+      "id": "yaw08",
+      "source": "inputs/portrait-crop.png",
+      "frames": 36,
+      "fps": 12,
+      "stitching": true,
+      "control": {
+        "parameter": "yaw",
+        "reference": "inferred source yaw in degrees from original get_kp_info (flag_refine_info=True)",
+        "amplitude_degrees": 8,
+        "schedule": "round(amplitude_degrees*sin(2*pi*i/(frames-1)),6)",
+        "first_and_last_offset": 0.0
+      },
+      "kept_from_source_inference": ["kp", "pitch", "roll", "scale", "t", "exp"]
+    },
+    {
+      "id": "yaw16",
+      "source": "inputs/portrait-crop.png",
+      "frames": 36,
+      "fps": 12,
+      "stitching": true,
+      "control": {
+        "parameter": "yaw",
+        "reference": "inferred source yaw in degrees from original get_kp_info (flag_refine_info=True)",
+        "amplitude_degrees": 16,
+        "schedule": "round(amplitude_degrees*sin(2*pi*i/(frames-1)),6)",
+        "first_and_last_offset": 0.0
+      },
+      "kept_from_source_inference": ["kp", "pitch", "roll", "scale", "t", "exp"]
+    }
+  ]
+}

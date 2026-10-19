@@ -1,0 +1,621 @@
+{
+  "id": "liveportrait-example",
+  "verified_at": "2026-10-19T22:19:16.436994+00:00",
+  "stage": "runtime-and-agent-visual-reviewed",
+  "new_case": true,
+  "identity": {
+    "name": "LivePortrait",
+    "type": "Local Python portrait animation model/tool and core APIs; not SKILL.md/hostedAPI",
+    "source_repository": "KlingAIResearch/LivePortrait",
+    "source_commit": "9b294b3d0536135442ea73cb01e6cb3ca7029dd3",
+    "license": "MIT",
+    "model_repository": "KlingTeam/LivePortrait",
+    "model_revision": "82a4fa6735ca58432b6ce39301b4b9ee066dea47",
+    "model_license": "MIT",
+    "scope": "Original LivePortraitWrapper human core only, source portrait + manual numeric yaw; not full CLI or driving-video pipeline",
+    "not_executed": [
+      "LivePortraitPipeline / inference.py / Gradio app",
+      "cropper, InsightFace face detection, landmark.onnx",
+      "driving-video motion extraction",
+      "audio, lip-sync",
+      "eye/lip ratio retargeting (weights loaded with checkpoint_S, networks not called)",
+      "pasteback",
+      "animal mode",
+      "ComfyUI"
+    ]
+  },
+  "actual_execution": {
+    "calls": {
+      "LivePortraitWrapper": 1,
+      "prepare_source": 1,
+      "get_kp_info": 1,
+      "extract_feature_3d": 1,
+      "transform_keypoint": 73,
+      "stitching": 72,
+      "warp_decode": 72,
+      "parse_output": 72
+    },
+    "environment": {
+      "python": "3.11.15",
+      "torch": "2.6.0+cpu",
+      "numpy": "1.26.4",
+      "Pillow": "11.3.0",
+      "opencv": "4.10.0",
+      "scipy": "1.13.1",
+      "PyYAML": "6.0.1",
+      "rich": "13.7.1",
+      "opencv_distribution": {
+        "name": "opencv-python",
+        "version": "4.10.0.84"
+      },
+      "implementation": "CPython",
+      "os": "Windows",
+      "machine": "AMD64",
+      "torch_intra_op_threads": 4,
+      "torch_inter_op_threads": 4,
+      "ffmpeg": "ffmpeg version 8.1.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+      "ffprobe": "ffprobe version 8.1.2-full_build-www.gyan.dev Copyright (c) 2007-2026 the FFmpeg developers"
+    },
+    "config": {
+      "models_config": "<upstream>/src/config/models.yaml",
+      "checkpoints": {
+        "checkpoint_F": "<weights>/liveportrait/base_models/appearance_feature_extractor.pth",
+        "checkpoint_M": "<weights>/liveportrait/base_models/motion_extractor.pth",
+        "checkpoint_W": "<weights>/liveportrait/base_models/warping_module.pth",
+        "checkpoint_G": "<weights>/liveportrait/base_models/spade_generator.pth",
+        "checkpoint_S": "<weights>/liveportrait/retargeting_models/stitching_retargeting_module.pth"
+      },
+      "flag_use_half_precision": false,
+      "flag_force_cpu": true,
+      "flag_do_torch_compile": false,
+      "flag_stitching": true,
+      "input_shape": [
+        256,
+        256
+      ],
+      "device": "cpu",
+      "seed": 20261020
+    },
+    "source": {
+      "original": {
+        "path": "inputs/mona-lisa-original.jpg",
+        "upstream_path": "assets/examples/source/s9.jpg",
+        "sha256": "84a6bfcb3346951cef85c0b0bb07856794e0b04d5b65322c18d77198fbf43f2a",
+        "official_git_blob": "3ef7251ba10bf83356587016b126a52bdbca7b18",
+        "bytes": 442850,
+        "format": "JPEG",
+        "mode": "RGB",
+        "size": [
+          720,
+          1280
+        ],
+        "exif_orientation": 1,
+        "exif_orientation_applied": false,
+        "crop_box_pil_edges": [
+          110,
+          100,
+          610,
+          600
+        ],
+        "crop_size": [
+          500,
+          500
+        ],
+        "resample": "LANCZOS",
+        "output_size": [
+          512,
+          512
+        ],
+        "output_mode": "RGB"
+      },
+      "prepared": {
+        "path": "inputs/portrait-crop.png",
+        "bytes": 484658,
+        "sha256": "15f01c4ad2bf8ae01a696c5c3da39ecbd2ac68a8f563e0d46a44c122f30e359b",
+        "format": "PNG",
+        "mode": "RGB",
+        "size": [
+          512,
+          512
+        ],
+        "rederived_from_original_pixel_equal": true
+      }
+    },
+    "source_feature_shape": [
+      1,
+      32,
+      16,
+      64,
+      64
+    ],
+    "same_feature_f32_hash_before_after": true,
+    "output_count": 2,
+    "images_generated": 72,
+    "public_representative_PNG": 10,
+    "outputs": [
+      {
+        "id": "yaw08",
+        "amplitude_degrees": 8,
+        "video": {
+          "path": "outputs/yaw08.mp4",
+          "bytes": 350997,
+          "sha256": "f83052e168a6a8f18763dae1276b314f2a3e821fef7fc0714beb7cba94dae0d9"
+        },
+        "job_json": {
+          "path": "outputs/yaw08.json",
+          "bytes": 53428,
+          "sha256": "b0fae515123106827b0f40b88b81594d0b743d1f96c12c2245be3bbe3aac3351"
+        }
+      },
+      {
+        "id": "yaw16",
+        "amplitude_degrees": 16,
+        "video": {
+          "path": "outputs/yaw16.mp4",
+          "bytes": 403068,
+          "sha256": "8b80cebd7c85a89f28d1355f2367ab620c7dd9a50d3a0298f8422ec9d5bb06d8"
+        },
+        "job_json": {
+          "path": "outputs/yaw16.json",
+          "bytes": 53450,
+          "sha256": "007ecb3c5a6c72c65b8d5dcaf9e80e21950abc37ad048d6193dbc88ed1a154de"
+        }
+      }
+    ],
+    "timings_seconds": {
+      "preflight_hashing_seconds": 0.46942870000202674,
+      "load_seconds": 1.129256499989424,
+      "source_stage_seconds": 0.4141282000055071,
+      "total_wall_seconds": 399.4527984000015
+    },
+    "core_source_unmodified": true,
+    "repeated_for_diagram_or_film": false,
+    "scope": "Original HUMAN wrapper core only, manual numeric yaw. Full inference pipeline/face detection/driver-video/ratio-retarget/audio/pasteback/animals/ComfyUI not run. Five checkpoint files load4main networks+3helper networks; only stitching helper executed."
+  },
+  "structure": {
+    "editorial_parts": 6,
+    "exact_source_quotes": 8,
+    "flow": "README/request -> one author writes runner/values -> operator runs -> s9 painting/manualcrop512/originalresize256 -> one input splits F feature and M pose+21implicitpoints -> manualyaw/transform/stitch -> reusedF joins points at W -> G newimage -> originalPNG/separateFFmpeg silent3sMP4 -> viewing/saving",
+    "source_feature_bypass": true,
+    "points_are_implicit_not_named_anatomical_landmarks": true,
+    "frame0_generated_not_input": true,
+    "angles_are_input_controls_not_measured_output_pose": true,
+    "internal_volume_and_time_explanatory_not_activation_or_actual_inference_timing": true,
+    "browser": "Verifies frozen results and plays real clips; no inference or synthesis."
+  },
+  "browser": {
+    "engine": "Codex in-app browser Chromium",
+    "phone_sizes": [
+      [
+        320,
+        812
+      ],
+      [
+        375,
+        812
+      ]
+    ],
+    "phone_case_stage_states": 12,
+    "primary_target_min_css_px": 44,
+    "full_diagram_and_saves_in_first812px": true,
+    "theme_width_motion_conditions": 16,
+    "parts": 6,
+    "quotes": 8,
+    "hash_routes": [
+      {
+        "hash": "#yaw08",
+        "ready": true,
+        "selected": "yaw08",
+        "videoNote": "保存済みの結果 ±8°：512×512・36コマ・12fps・3秒・音声トラック0本・350,997 B・SHA-256 f83052e168a6…。H.264（yuv420p）への圧縮は、元APIの PNG の後に FFmpeg で別に行いました。",
+        "expected": "yaw08"
+      },
+      {
+        "hash": "#yaw16",
+        "ready": true,
+        "selected": "yaw16",
+        "videoNote": "保存済みの結果 ±16°：512×512・36コマ・12fps・3秒・音声トラック0本・403,068 B・SHA-256 8b80cebd7c85…。H.264（yuv420p）への圧縮は、元APIの PNG の後に FFmpeg で別に行いました。",
+        "expected": "yaw16"
+      },
+      {
+        "hash": "#unknown",
+        "ready": true,
+        "selected": "yaw08",
+        "videoNote": "保存済みの結果 ±8°：512×512・36コマ・12fps・3秒・音声トラック0本・350,997 B・SHA-256 f83052e168a6…。H.264（yuv420p）への圧縮は、元APIの PNG の後に FFmpeg で別に行いました。",
+        "expected": "yaw08"
+      },
+      {
+        "hash": "#%E0%A4%A",
+        "ready": true,
+        "selected": "yaw08",
+        "videoNote": "保存済みの結果 ±8°：512×512・36コマ・12fps・3秒・音声トラック0本・350,997 B・SHA-256 f83052e168a6…。H.264（yuv420p）への圧縮は、元APIの PNG の後に FFmpeg で別に行いました。",
+        "expected": "yaw08"
+      },
+      {
+        "hash": "",
+        "ready": true,
+        "selected": "yaw08",
+        "videoNote": "保存済みの結果 ±8°：512×512・36コマ・12fps・3秒・音声トラック0本・350,997 B・SHA-256 f83052e168a6…。H.264（yuv420p）への圧縮は、元APIの PNG の後に FFmpeg で別に行いました。",
+        "expected": "yaw08"
+      }
+    ],
+    "controlled_failure_checks": [
+      {
+        "canvasBlank": true,
+        "controlsDisabled": true,
+        "inventory": 0,
+        "note": "concept/facts.json: HTTP 503",
+        "saves": [
+          null,
+          null,
+          null
+        ],
+        "state": "failed",
+        "video": null,
+        "mode": "http",
+        "target": "main",
+        "failed": true
+      },
+      {
+        "canvasBlank": true,
+        "controlsDisabled": true,
+        "inventory": 0,
+        "note": "ファイルを読めません。描画を止めています：concept/facts.json: HTTP 503",
+        "saves": [],
+        "state": "failed",
+        "video": null,
+        "mode": "http",
+        "target": "editor",
+        "failed": true
+      },
+      {
+        "inventory": 48,
+        "save": "blob:http://127.0.0.1:8880/96047ba2-dda2-4cce-adae-4fd0d70a8d7e",
+        "state": "ready",
+        "mode": "http",
+        "target": "main",
+        "recovered": true
+      },
+      {
+        "inventory": 48,
+        "save": null,
+        "state": "ready",
+        "mode": "http",
+        "target": "editor",
+        "recovered": true
+      },
+      {
+        "canvasBlank": true,
+        "controlsDisabled": true,
+        "inventory": 0,
+        "note": "concept/facts.json: 1 B（記録は 428146 B）",
+        "saves": [
+          null,
+          null,
+          null
+        ],
+        "state": "failed",
+        "video": null,
+        "mode": "json",
+        "target": "main",
+        "failed": true
+      },
+      {
+        "canvasBlank": true,
+        "controlsDisabled": true,
+        "inventory": 0,
+        "note": "ファイルの大きさが記録と違います。描画を止めています：concept/facts.json: 1 B（記録は 428146 B）",
+        "saves": [],
+        "state": "failed",
+        "video": null,
+        "mode": "json",
+        "target": "editor",
+        "failed": true
+      },
+      {
+        "inventory": 48,
+        "save": "blob:http://127.0.0.1:8880/1ad243ad-5010-42a7-85de-feb8c4b3ce94",
+        "state": "ready",
+        "mode": "json",
+        "target": "main",
+        "recovered": true
+      },
+      {
+        "inventory": 48,
+        "save": null,
+        "state": "ready",
+        "mode": "json",
+        "target": "editor",
+        "recovered": true
+      },
+      {
+        "canvasBlank": true,
+        "controlsDisabled": true,
+        "inventory": 0,
+        "note": "concept/facts.json の SHA-256 が一致しません",
+        "saves": [
+          null,
+          null,
+          null
+        ],
+        "state": "failed",
+        "video": null,
+        "mode": "hash",
+        "target": "main",
+        "failed": true
+      },
+      {
+        "canvasBlank": true,
+        "controlsDisabled": true,
+        "inventory": 0,
+        "note": "ファイルの中身が記録と違います。描画を止めています：concept/facts.json の SHA-256 が一致しません",
+        "saves": [],
+        "state": "failed",
+        "video": null,
+        "mode": "hash",
+        "target": "editor",
+        "failed": true
+      },
+      {
+        "inventory": 48,
+        "save": "blob:http://127.0.0.1:8880/c86dc2b4-3f4d-4b9b-8426-ee03626e16ea",
+        "state": "ready",
+        "mode": "hash",
+        "target": "main",
+        "recovered": true
+      },
+      {
+        "inventory": 48,
+        "save": null,
+        "state": "ready",
+        "mode": "hash",
+        "target": "editor",
+        "recovered": true
+      }
+    ],
+    "failure_scope": "HTTP503, truncatedJSON at sizegate, same-length mutation atSHAgate; not every parser/schema failure.",
+    "actual_clips_natural_ends": [
+      {
+        "cid": "yaw08",
+        "current": 3,
+        "dropped": 0,
+        "duration": 3,
+        "ended": true,
+        "error": null,
+        "totalFrames": 36
+      },
+      {
+        "cid": "yaw16",
+        "current": 3,
+        "dropped": 0,
+        "duration": 3,
+        "ended": true,
+        "error": null,
+        "totalFrames": 36
+      }
+    ],
+    "save_requests": 5,
+    "returned_files": [
+      {
+        "type": "output",
+        "cid": "yaw08",
+        "bytes": 350997,
+        "sha256": "f83052e168a6a8f18763dae1276b314f2a3e821fef7fc0714beb7cba94dae0d9",
+        "all_bytes_equal": true
+      },
+      {
+        "type": "record",
+        "cid": "yaw08",
+        "bytes": 53428,
+        "sha256": "b0fae515123106827b0f40b88b81594d0b743d1f96c12c2245be3bbe3aac3351",
+        "all_bytes_equal": true
+      },
+      {
+        "type": "output",
+        "cid": "yaw16",
+        "bytes": 403068,
+        "sha256": "8b80cebd7c85a89f28d1355f2367ab620c7dd9a50d3a0298f8422ec9d5bb06d8",
+        "all_bytes_equal": true
+      },
+      {
+        "type": "record",
+        "cid": "yaw16",
+        "bytes": 53450,
+        "sha256": "007ecb3c5a6c72c65b8d5dcaf9e80e21950abc37ad048d6193dbc88ed1a154de",
+        "all_bytes_equal": true
+      },
+      {
+        "type": "source",
+        "cid": null,
+        "bytes": 484658,
+        "sha256": "15f01c4ad2bf8ae01a696c5c3da39ecbd2ac68a8f563e0d46a44c122f30e359b",
+        "all_bytes_equal": true
+      }
+    ],
+    "save_scope": "Native browser request, original bytes and separately returned file are distinct. Not universal disk-save completion.",
+    "editor_assets": 48,
+    "editor_scenes": 7,
+    "orientation_scene_states": 14,
+    "arbitrary_seek_seconds": 7.2,
+    "order_independent": true,
+    "freeze30_31": true,
+    "native_range_arrow_seconds": 0.1,
+    "normal_preview_end_seconds": 32,
+    "editor_audio_elements": 0,
+    "clipboard_readback": false
+  },
+  "films": {
+    "final_renders": "renders-r2",
+    "duration": 32,
+    "fps": 30,
+    "file_frames_each": 960,
+    "dimensions": [
+      [
+        720,
+        1280
+      ],
+      [
+        1280,
+        720
+      ]
+    ],
+    "audio_streams": 0,
+    "full_decodes": 2,
+    "faststart": true,
+    "representative_stills_each": 16,
+    "consecutive_stills_each": 12,
+    "renderer_strip_requested_center": 18.4,
+    "renderer_strip_first_frame": 546,
+    "renderer_strip_first_seconds": 18.2,
+    "encoded_MP4_strip_start": 18.4,
+    "native_local_ends": [
+      {
+        "current": 32,
+        "dropped": 0,
+        "duration": 32,
+        "ended": true,
+        "error": null,
+        "height": 1280,
+        "totalFrames": 960,
+        "width": 720,
+        "layout": "portrait"
+      },
+      {
+        "current": 32,
+        "dropped": 0,
+        "duration": 32,
+        "ended": true,
+        "error": null,
+        "height": 720,
+        "totalFrames": 960,
+        "width": 1280,
+        "layout": "wide"
+      }
+    ],
+    "native_counters_scope": "Display counters are measured for these browser plays, distinct from file frame counts and general performance.",
+    "shipped_source_PNG_all_bytes_equal": 62,
+    "30_31_static": true,
+    "portrait_MP4_same_as_r1": true,
+    "wide_r2_change": "Only painting legend wording image instead of photo; wide newly rendered. Both orientations source62freshly matched.",
+    "agent_visual_review": [
+      "375dark/light wholemap and controls",
+      "portrait/wide representative contact sheets",
+      "source and encoded rejoin motion strips",
+      "final portrait/wide poster31"
+    ],
+    "human_aesthetic_approval": false
+  },
+  "preservation": {
+    "protected_files": 49,
+    "asset_count": 48,
+    "manifest_sha256": "266ed258f405089952e35427eee33e7bf28754ff7817ddec428073b2c95472a2",
+    "phase1_model_originals": 4,
+    "phase2_model_originals": 11,
+    "source_official_gitblobs_raw": 213,
+    "selected_public_source_raw": 22,
+    "model_files_official_sha": 5,
+    "model_file_bytes": 522320239,
+    "model_card_gitblob_checked": true,
+    "operator_corrections_separate": [
+      {
+        "path": "app.js",
+        "before_sha256": "19180f0a38c97592fcdf145ade41d965c050687e172d47f0fbbb5eec498ba858",
+        "operator_sha256": "d51cb9a0b16564de14444f545ca89ab99790546522b5163af47f7bca175f682b",
+        "reason": "Keep non-emphasized structure labels/images/links readable at phone scale and in the film; retain emphasis, geometry, timing and all actual data.",
+        "operator_change_not_new_model_authorship": true
+      },
+      {
+        "path": "index.html",
+        "before_sha256": "7536ad8b6e22b9ca2d3067d75684ac29c83f7aebaac9e45338f02d3d6a896ce4",
+        "operator_sha256": "79814cb690933ec66cb10bd3240922c5440cb95517f45974cadcda91e6a06e51",
+        "reason": "The source is a painting reproduction; use image rather than photograph.",
+        "operator_change_not_new_model_authorship": true
+      },
+      {
+        "path": "index.html",
+        "before_sha256": "79814cb690933ec66cb10bd3240922c5440cb95517f45974cadcda91e6a06e51",
+        "operator_sha256": "e99a22d33f9c9a6e6d7a549055d3f732619b5907113cdc0a76b232b961b50317",
+        "reason": "Correct the minimum source scope after read-only inspection of the21 verified paths; actual full-checkout run unchanged.",
+        "operator_change_not_new_model_authorship": true
+      },
+      {
+        "path": "README.md",
+        "before_sha256": "ed96e71bcb04d2e76584e8d4c53d0d997664b36e4575e904a6a8fc78f60431a2",
+        "operator_sha256": "b27a837a7518095b9bdfb4c598c00beefc574e0068e7335ccfee13ac878b4f15",
+        "reason": "Separate whole-app/full-checkout preparation from restricted core source requirements; no new inference claim.",
+        "operator_change_not_new_model_authorship": true
+      },
+      {
+        "path": "prepared/liveportrait-example.json",
+        "before_sha256": "d275ceb3334ad21ee85f8ef13b2aecf14a79df1a518b76c4249d0b9ccdaf8980",
+        "operator_sha256": "1e8f753967f1bb17da3eb5e93033a6481a76eb9d92725cdbb057b0931be664a7",
+        "reason": "Correct the restricted source minimum and distinguish upstream InsightFace terms from this distribution without changing samples/actual data.",
+        "operator_change_not_new_model_authorship": true
+      },
+      {
+        "path": "video/main.js",
+        "before_sha256": "c928dc53f64d65822428343111f778e38afa4906dcf616845b4900942be67063",
+        "operator_sha256": "fee5b93b519fbb4309a5dec1840251a8c0e4e6015f77be7e2ad7d478f7a2383c",
+        "reason": "Limit orientation controls to actual buttons. body has a data-orient state marker and must not receive button ARIA/disabled attributes or a bubbling orientation click handler. Drawing functions and frozen files unchanged.",
+        "operator_change_not_new_model_authorship": true
+      },
+      {
+        "path": "video/main.js",
+        "before_sha256": "fee5b93b519fbb4309a5dec1840251a8c0e4e6015f77be7e2ad7d478f7a2383c",
+        "operator_sha256": "1751e48cc348a6dde990b1ede4d0f49d6cabb22f66b82823df448b085216527c",
+        "reason": "Native range input was reset by pause()->syncUI before reading its new value. Capture the native input value before pausing, then draw that requested time. Direct renderer seek/drawing functions and frozen data unchanged. Original failed attempts are not counted as passed native-range QA.",
+        "operator_change_not_new_model_authorship": true
+      },
+      {
+        "path": "app.js",
+        "before_sha256": "d51cb9a0b16564de14444f545ca89ab99790546522b5163af47f7bca175f682b",
+        "operator_sha256": "de9497e0212d52476a24ebd3748219b343e97d5bace30e821cd2a3f92560d88d",
+        "reason": "The wide canvas legend also called the painting a photograph. Change only that label to image; regenerate wide film, freshly prove unchanged portrait pixels.",
+        "operator_change_not_new_model_authorship": true
+      },
+      {
+        "path": "index.html",
+        "before_sha256": "e99a22d33f9c9a6e6d7a549055d3f732619b5907113cdc0a76b232b961b50317",
+        "operator_sha256": "98a6e2dbe4703ffdb40235a5f8955751bd2efa6c5b75fff5e69a83eba8025fab",
+        "reason": "Replace author-time future QA with the later completed operator scope, retaining unverified physical/human boundaries.",
+        "operator_change_not_new_model_authorship": true
+      },
+      {
+        "path": "README.md",
+        "before_sha256": "b27a837a7518095b9bdfb4c598c00beefc574e0068e7335ccfee13ac878b4f15",
+        "operator_sha256": "8fbbe22bbc36e2200471fab27cd9d8613a88ccf1bf5cb992c652ba55cae0df18",
+        "reason": "Make renderer packaging status current.",
+        "operator_change_not_new_model_authorship": true
+      },
+      {
+        "path": "video/README.md",
+        "before_sha256": "c546e4fff718e4d0cdca1b2a344f40e27ba8b656c76077d28dc946a9c9452f43",
+        "operator_sha256": "d3e744a00d0b4ae273ec9519be1553e474ca73c73ec276ca2e632cc31091beb2",
+        "reason": "Use the actually tested rooted wrapper so shared app/data remain within the renderer project. Direct --project video would omit the parent assets.",
+        "operator_change_not_new_model_authorship": true
+      },
+      {
+        "path": "README.md",
+        "before_sha256": "8fbbe22bbc36e2200471fab27cd9d8613a88ccf1bf5cb992c652ba55cae0df18",
+        "operator_sha256": "920bf7767aef7d7d70d7f07e085c37d3093c3a7cccc22c90a6aa7a52510389ed",
+        "reason": "Append completed fresh operator QA and tested root packaging/reproduction scope; author originals remain archived.",
+        "operator_change_not_new_model_authorship": true
+      },
+      {
+        "path": "video/README.md",
+        "before_sha256": "d3e744a00d0b4ae273ec9519be1553e474ca73c73ec276ca2e632cc31091beb2",
+        "operator_sha256": "100c65af144384284c3e159bb9f32ea22cd53a60999fe86a591cd610990e5ed9",
+        "reason": "Append completed fresh operator QA and tested root packaging/reproduction scope; author originals remain archived.",
+        "operator_change_not_new_model_authorship": true
+      }
+    ]
+  },
+  "not_verified": [
+    "human aesthetic approval",
+    "physical iOS/Safari/VoiceOver",
+    "200percent browser zoom",
+    "all inputs/general correctness",
+    "identity preservation/naturalness/loop/output pose accuracy/performance",
+    "clipboard readback"
+  ],
+  "distribution": "Selected22 contains all21 required source paths for this restricted core runner (static inspection only). Not the full app. Requires separate fixed5weights/Python dependencies/FFmpeg. Actual run used full pinned checkout. Models/fullcheckout/env/cache/private frames/logs/history/master skill excluded. OriginalMIT/modelMIT/dependency and painting notices retained; no InsightFace detection weights used."
+}
