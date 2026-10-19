@@ -1,0 +1,159 @@
+{
+  "schema": "chatterbox-actual-facts@1",
+  "status": "actual_three_jobs_verified_not_listened",
+  "source_pin": {
+    "source_repository": "resemble-ai/chatterbox",
+    "source_commit": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+    "source_version": "0.1.7",
+    "source_license": "MIT",
+    "model_repository": "ResembleAI/chatterbox",
+    "model_revision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+    "model_license": "mit",
+    "perth_repository": "resemble-ai/Perth",
+    "perth_commit": "ff1c8ac55a976971245cdd53c18d6131ca00d993",
+    "selected_implementation": "src/chatterbox/tts.py:ChatterboxTTS.from_local"
+  },
+  "implementation_receipt_sha256": "03f0295408273a59b5934fd3f660b03d72c9d20882cccb5b5c003a2744803e73",
+  "role_split": {
+    "author": "claude-opus-5-5 authored runner/jobs/implementation plan. Operator technical packaging corrections separately recorded.",
+    "operator": "Dedicated environment, pinned public model retrieval, one from_local call followed by three generate calls, measurement and source checks.",
+    "browser": "Only reads saved results and plays original WAV files. No live model or TTS."
+  },
+  "selected_variant": "Original English ChatterboxTTS,500M family label. Not Multilingual/Turbo/Nano/VC.",
+  "conditioning": "Built-in conds.pt; audio_prompt_path=None in all three calls. VoiceEncoder loaded, reference prepare_conditionals not called.",
+  "six_parts_are": "Explanatory organization, not an official common component schema.",
+  "results_file": "outputs/attempt-01/results.json",
+  "jobs_file": "inputs/jobs.json",
+  "real_waveforms": "concept/waveforms.json",
+  "actual_outputs": [
+    {
+      "id": "default",
+      "file": "outputs/attempt-01/audio/default.wav",
+      "bytes": 222764,
+      "sha256": "b750fdbc8e1a609954a5d7f0d5bd072ec3fa9116c1f91cf7fa8b19053b2fba52",
+      "sample_rate": 24000,
+      "frames": 111360,
+      "seconds": 4.64,
+      "peak_abs_int16": 31513,
+      "rms_full_scale": 0.13011761212433387,
+      "speech_token_count": 116,
+      "raw_t3_count": 117,
+      "raw_first_stop_index": 116,
+      "pcm16_saturation_samples": 0
+    },
+    {
+      "id": "expressive",
+      "file": "outputs/attempt-01/audio/expressive.wav",
+      "bytes": 201644,
+      "sha256": "a60cfaf5e609bbbc823efa5bc2f646f1d1a8901a7a4661aeebb669bac53e25fe",
+      "sample_rate": 24000,
+      "frames": 100800,
+      "seconds": 4.2,
+      "peak_abs_int16": 28897,
+      "rms_full_scale": 0.14289232069964983,
+      "speech_token_count": 105,
+      "raw_t3_count": 106,
+      "raw_first_stop_index": 105,
+      "pcm16_saturation_samples": 0
+    },
+    {
+      "id": "second",
+      "file": "outputs/attempt-01/audio/second.wav",
+      "bytes": 247724,
+      "sha256": "80fd37b2eefd398d2e9c88ac812bc74b7028715fb26b5fd568eef3b24b363cdd",
+      "sample_rate": 24000,
+      "frames": 123840,
+      "seconds": 5.16,
+      "peak_abs_int16": 32767,
+      "rms_full_scale": 0.1326001208152221,
+      "speech_token_count": 129,
+      "raw_t3_count": 130,
+      "raw_first_stop_index": 129,
+      "pcm16_saturation_samples": 1
+    }
+  ],
+  "excerpts": [
+    {
+      "id": "entry",
+      "label": "Python API",
+      "source": "vendor/chatterbox/src/chatterbox/tts.py",
+      "line": 208,
+      "quote": "    def generate(\n        self,\n        text,\n        repetition_penalty=1.2,\n        min_p=0.05,\n        top_p=1.0,\n        audio_prompt_path=None,"
+    },
+    {
+      "id": "text",
+      "label": "テキストとID",
+      "source": "vendor/chatterbox/src/chatterbox/tts.py",
+      "line": 233,
+      "quote": "        # Norm and tokenize text\n        text = punc_norm(text)\n        text_tokens = self.tokenizer.text_to_tokens(text).to(self.device)\n\n        if cfg_weight > 0.0:\n            text_tokens = torch.cat([text_tokens, text_tokens], dim=0)  # Need two seqs for CFG\n\n        sot = self.t3.hp.start_text_token\n        eot = self.t3.hp.stop_text_token\n        text_tokens = F.pad(text_tokens, (1, 0), value=sot)"
+    },
+    {
+      "id": "condition",
+      "label": "組み込み条件",
+      "source": "vendor/chatterbox/src/chatterbox/tts.py",
+      "line": 161,
+      "quote": "        conds = None\n        if (builtin_voice := ckpt_dir / \"conds.pt\").exists():\n            conds = Conditionals.load(builtin_voice, map_location=map_location).to(device)\n\n        return cls(t3, s3gen, ve, tokenizer, device, conds=conds)"
+    },
+    {
+      "id": "t3",
+      "label": "音声トークン",
+      "source": "vendor/chatterbox/src/chatterbox/tts.py",
+      "line": 246,
+      "quote": "            speech_tokens = self.t3.inference(\n                t3_cond=self.conds.t3,\n                text_tokens=text_tokens,\n                max_new_tokens=1000,  # TODO: use the value in config\n                temperature=temperature,\n                cfg_weight=cfg_weight,\n                repetition_penalty=repetition_penalty,\n                min_p=min_p,\n                top_p=top_p,\n            )\n            # Extract only the conditional batch."
+    },
+    {
+      "id": "s3gen",
+      "label": "メルから波形",
+      "source": "vendor/chatterbox/src/chatterbox/models/s3gen/s3gen.py",
+      "line": 47,
+      "quote": "class S3Token2Mel(torch.nn.Module):\n    \"\"\"\n    S3Gen's CFM decoder maps S3 speech tokens to mel-spectrograms.\n\n    TODO: make these modules configurable?\n    \"\"\""
+    },
+    {
+      "id": "perth",
+      "label": "透かしとWAV",
+      "source": "vendor/chatterbox/src/chatterbox/tts.py",
+      "line": 270,
+      "quote": "            wav = wav.squeeze(0).detach().cpu().numpy()\n            watermarked_wav = self.watermarker.apply_watermark(wav, sample_rate=self.sr)\n        return torch.from_numpy(watermarked_wav).unsqueeze(0)"
+    }
+  ],
+  "source_observed_boundary": {
+    "measured": "Text token IDs at T3 entry, raw T3 speech IDs and filtered IDs at S3Gen entry, pre/post watermark stats/hashes, returned tensor, decoded PCM16 WAV.",
+    "explanation_only": "Architecture arrows, text-to-speech transformations, CFM/vocoder internal stages, moving dots, film timing. No attention/activation/CFM-step measurement or waveform quality proof."
+  },
+  "not_verified": [
+    "human listening",
+    "intelligibility or semantic accuracy against the input text",
+    "naturalness or quality ranking",
+    "speaker likeness or identity",
+    "emotion or expressiveness",
+    "performance or speed in general",
+    "watermark detection (get_watermark is not run)"
+  ],
+  "movie_contract": {
+    "duration_seconds": 32,
+    "fps": 30,
+    "portrait": [
+      720,
+      1280
+    ],
+    "wide": [
+      1280,
+      720
+    ],
+    "audio_tracks": 0,
+    "actual_wavs": "Functional outputs playable in UI; not guide narration or a film soundtrack."
+  },
+  "perth_install": {
+    "fixed_commit": "ff1c8ac55a976971245cdd53c18d6131ca00d993",
+    "files": 22,
+    "official_rawbytes": 3,
+    "crlf_only_normalized_content": 19,
+    "bundled_checkpoint_included_in_private_verification": true,
+    "weights_not_distributed": true
+  },
+  "independent_asr": {
+    "file": "outputs/asr-check.json",
+    "scope": "ASR text is another model estimate. No listening, pronunciation/naturalness/emotion/speaker likeness assurance or human approval.",
+    "not_human_listening": true
+  }
+}

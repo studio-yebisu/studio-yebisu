@@ -1,0 +1,67 @@
+{
+  "format": "input-output",
+  "synthetic": true,
+  "title": "Chatterbox に渡した英語の文と、実際に返った WAV",
+  "note": "3件の英文は作例のために書いたものです。制作担当が固定版の Chatterbox（英語版・組み込み条件のみ）を手元の GPU で1回だけ実行し、各ジョブの generate を一度ずつ呼んで保存した実際の出力です。ページと動画はこの保存結果を確かめて表示するだけで、ブラウザーでは合成しません。人による試聴はしていません。",
+  "runtime": {
+    "name": "Chatterbox（ChatterboxTTS、英語版）",
+    "source": "https://github.com/resemble-ai/chatterbox/tree/5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+    "source_commit": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+    "version": "0.1.7",
+    "model_revision": "5bb1f6ee58e50c3b8d408bc82a6d3740c2db6e18",
+    "perth_commit": "ff1c8ac55a976971245cdd53c18d6131ca00d993",
+    "call": "ChatterboxTTS.from_local を1回、generate を3回",
+    "conditioning": "チェックポイントの組み込み条件 conds.pt のみ。audio_prompt_path は3件とも null（別の参照音声なし）",
+    "device": "CUDA（NVIDIA GeForce RTX 4090）・4スレッド",
+    "seed": 20261019,
+    "record": "outputs/attempt-01/results.json"
+  },
+  "samples": [
+    {
+      "id": "default",
+      "label": "default：既定の設定",
+      "input": "Please keep the back door closed while the heater is running. The spare keys are in the blue drawer by the sink.",
+      "input_language": "en",
+      "settings": {"exaggeration": 0.5, "cfg_weight": 0.5, "temperature": 0.8, "repetition_penalty": 1.2, "min_p": 0.05, "top_p": 1.0, "audio_prompt_path": null},
+      "seed": 20261019,
+      "output": "2文・22語の英文を上流の既定の設定で一度だけ合成し、4.64秒（111,360サンプル・222,764バイト）の PCM16・モノラル・24kHz の WAV が返りました。文字IDは開始・終了を含めて73個、T3 が返した音声IDは117個（最後が停止ID 6562）で、それを除いた116個が S3Gen へ渡りました。Perth の透かしを1回通っています。上限32767に達したサンプルは0です。人による試聴や品質の評価はしていません。",
+      "output_audio": "outputs/attempt-01/audio/default.wav",
+      "output_bytes": 222764,
+      "output_sha256": "b750fdbc8e1a609954a5d7f0d5bd072ec3fa9116c1f91cf7fa8b19053b2fba52",
+      "measured": {"seconds": 4.64, "frames": 111360, "sample_rate": 24000, "text_ids": 73, "raw_t3_ids": 117, "s3gen_input_ids": 116, "peak_abs_int16": 31513, "samples_at_int16_limit": 0},
+      "result": "outputs/attempt-01/results.json",
+      "demo": "index.html#default"
+    },
+    {
+      "id": "expressive",
+      "label": "expressive：exaggeration と cfg_weight を同時に変更",
+      "input": "Please keep the back door closed while the heater is running. The spare keys are in the blue drawer by the sink.",
+      "input_language": "en",
+      "settings": {"exaggeration": 0.8, "cfg_weight": 0.3, "temperature": 0.8, "repetition_penalty": 1.2, "min_p": 0.05, "top_p": 1.0, "audio_prompt_path": null},
+      "seed": 20261019,
+      "comparison": {"type": "paired_configuration", "base": "default", "changed": ["exaggeration", "cfg_weight"]},
+      "output": "default と同じ文・同じ seed で、exaggeration を0.5→0.8、cfg_weight を0.5→0.3 と2つ同時に変えて一度だけ合成し、4.20秒（100,800サンプル・201,644バイト）の PCM16・モノラル・24kHz の WAV が返りました。T3 が返した音声IDは106個で、停止IDを除いた105個が S3Gen へ渡りました。上限に達したサンプルは0です。1組だけの対の比較で、差をどちらか一方の設定の効果とは言えず、品質・感情表現・別の機械での再現を示すものでもありません。",
+      "output_audio": "outputs/attempt-01/audio/expressive.wav",
+      "output_bytes": 201644,
+      "output_sha256": "a60cfaf5e609bbbc823efa5bc2f646f1d1a8901a7a4661aeebb669bac53e25fe",
+      "measured": {"seconds": 4.2, "frames": 100800, "sample_rate": 24000, "text_ids": 73, "raw_t3_ids": 106, "s3gen_input_ids": 105, "peak_abs_int16": 28897, "samples_at_int16_limit": 0},
+      "result": "outputs/attempt-01/results.json",
+      "demo": "index.html#expressive"
+    },
+    {
+      "id": "second",
+      "label": "second：別の文・既定の設定",
+      "input": "Your train leaves from platform four at nine fifteen. Bring a printed ticket and arrive ten minutes early.",
+      "input_language": "en",
+      "settings": {"exaggeration": 0.5, "cfg_weight": 0.5, "temperature": 0.8, "repetition_penalty": 1.2, "min_p": 0.05, "top_p": 1.0, "audio_prompt_path": null},
+      "seed": 20261019,
+      "output": "別の2文・18語の英文を既定の設定で一度だけ合成し、5.16秒（123,840サンプル・247,724バイト）の PCM16・モノラル・24kHz の WAV が返りました。文字IDは68個、T3 が返した音声IDは130個で、停止IDを除いた129個が S3Gen へ渡りました。返った値の1サンプルが1.0を超え、PCM16 にする際に32767へ切り詰められています。WAV は正規化や修正をせず、そのまま置いています。この1サンプルが聞こえ方に影響するかは確かめていません。",
+      "output_audio": "outputs/attempt-01/audio/second.wav",
+      "output_bytes": 247724,
+      "output_sha256": "80fd37b2eefd398d2e9c88ac812bc74b7028715fb26b5fd568eef3b24b363cdd",
+      "measured": {"seconds": 5.16, "frames": 123840, "sample_rate": 24000, "text_ids": 68, "raw_t3_ids": 130, "s3gen_input_ids": 129, "peak_abs_int16": 32767, "samples_at_int16_limit": 1},
+      "result": "outputs/attempt-01/results.json",
+      "demo": "index.html#second"
+    }
+  ]
+}

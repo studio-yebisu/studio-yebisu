@@ -1,0 +1,60 @@
+{
+  "schema": "studio-yebisu/chatterbox-example/jobs@1",
+  "language": "en",
+  "model_variant": "original English ChatterboxTTS (src/chatterbox/tts.py)",
+  "conditioning": "built-in conds.pt from the checkpoint directory; audio_prompt_path is null for every job",
+  "seed_policy": "random, numpy and torch (CPU and CUDA) are reseeded with the job seed immediately before that job's single generate call",
+  "run_policy": "each job is generated exactly once, in the listed order, in one loaded model; no best-of selection or hidden regeneration",
+  "jobs": [
+    {
+      "id": "default",
+      "role": "baseline synthesis with the upstream default settings",
+      "text": "Please keep the back door closed while the heater is running. The spare keys are in the blue drawer by the sink.",
+      "seed": 20261019,
+      "settings": {
+        "exaggeration": 0.5,
+        "cfg_weight": 0.5,
+        "temperature": 0.8,
+        "repetition_penalty": 1.2,
+        "min_p": 0.05,
+        "top_p": 1.0,
+        "audio_prompt_path": null
+      }
+    },
+    {
+      "id": "expressive",
+      "role": "paired configuration comparison against default: same text and seed, exaggeration and cfg_weight changed together; not an isolated parameter experiment and not evidence of quality or emotion",
+      "comparison": {
+        "type": "paired_configuration",
+        "base": "default",
+        "changed": ["exaggeration", "cfg_weight"]
+      },
+      "text": "Please keep the back door closed while the heater is running. The spare keys are in the blue drawer by the sink.",
+      "seed": 20261019,
+      "settings": {
+        "exaggeration": 0.8,
+        "cfg_weight": 0.3,
+        "temperature": 0.8,
+        "repetition_penalty": 1.2,
+        "min_p": 0.05,
+        "top_p": 1.0,
+        "audio_prompt_path": null
+      }
+    },
+    {
+      "id": "second",
+      "role": "a different utterance with the upstream default settings",
+      "text": "Your train leaves from platform four at nine fifteen. Bring a printed ticket and arrive ten minutes early.",
+      "seed": 20261019,
+      "settings": {
+        "exaggeration": 0.5,
+        "cfg_weight": 0.5,
+        "temperature": 0.8,
+        "repetition_penalty": 1.2,
+        "min_p": 0.05,
+        "top_p": 1.0,
+        "audio_prompt_path": null
+      }
+    }
+  ]
+}

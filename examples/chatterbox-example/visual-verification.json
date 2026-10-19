@@ -1,0 +1,152 @@
+{
+  "id": "chatterbox-example",
+  "verified_at": "2026-10-19T14:57:33.306430+00:00",
+  "stage": "runtime-and-agent-visual-reviewed",
+  "new_case": true,
+  "upstream_commit": "5de7a54aa4e5e2baadb0182dde554908b48b85c2",
+  "actual_execution": {
+    "status": "passed",
+    "model_load_calls": 1,
+    "generate_calls": 3,
+    "variant": "original English ChatterboxTTS",
+    "device": "RTX4090/CUDA",
+    "threads": 4,
+    "seed": 20261019,
+    "builtin_conditions_only": true,
+    "separate_reference_audio_supplied": false,
+    "actual_WAV_unchanged": [
+      {
+        "id": "default",
+        "bytes": 222764,
+        "sha256": "b750fdbc8e1a609954a5d7f0d5bd072ec3fa9116c1f91cf7fa8b19053b2fba52",
+        "native_browser_returned_file_all_bytes_equal": true
+      },
+      {
+        "id": "expressive",
+        "bytes": 201644,
+        "sha256": "a60cfaf5e609bbbc823efa5bc2f646f1d1a8901a7a4661aeebb669bac53e25fe",
+        "native_browser_returned_file_all_bytes_equal": true
+      },
+      {
+        "id": "second",
+        "bytes": 247724,
+        "sha256": "80fd37b2eefd398d2e9c88ac812bc74b7028715fb26b5fd568eef3b24b363cdd",
+        "native_browser_returned_file_all_bytes_equal": true
+      }
+    ],
+    "TTS_or_ASR_rerun_for_UI_QA": false,
+    "human_listening": false,
+    "ASR": "Separate existing localWhisperbase CPU4 estimate on three new WAVs; not listening/semantic guarantee."
+  },
+  "structure": {
+    "parts": 6,
+    "role_split": "Exact author implementation -> separate operator Python execution -> browser saved-result diagram/audio",
+    "condition_two_paths": [
+      "T3 conditions",
+      "S3Gen reference"
+    ],
+    "boundaries": "Real text/raw-speech/filtered-speech IDs and waveform/watermark boundaries; no attention/activation/CFM-step measurement.",
+    "movie_timing": "Explanation only, not measured execution time."
+  },
+  "browser": {
+    "engine": "Chrome155 in Codex in-app browser",
+    "phone_dimensions": [
+      [
+        320,
+        812
+      ],
+      [
+        375,
+        812
+      ]
+    ],
+    "job_stage_phone_combinations": 18,
+    "whole_diagram_audio_save_within_viewport": true,
+    "primary_target_min_css_px": 44,
+    "theme_width_motion_views": 16,
+    "six_source_quote_controls": 6,
+    "failure_modes": [
+      "HTTP503",
+      "truncated length",
+      "same-length SHA mismatch"
+    ],
+    "main_and_editor_block_and_retry": true,
+    "real_WAV_natural_ends_seconds": [
+      4.64,
+      4.2,
+      5.16
+    ],
+    "switch_stops_and_resets_audio": true,
+    "native_WAV_saves": [
+      {
+        "id": "default",
+        "bytes": 222764,
+        "sha256": "b750fdbc8e1a609954a5d7f0d5bd072ec3fa9116c1f91cf7fa8b19053b2fba52",
+        "native_browser_returned_file_all_bytes_equal": true
+      },
+      {
+        "id": "expressive",
+        "bytes": 201644,
+        "sha256": "a60cfaf5e609bbbc823efa5bc2f646f1d1a8901a7a4661aeebb669bac53e25fe",
+        "native_browser_returned_file_all_bytes_equal": true
+      },
+      {
+        "id": "second",
+        "bytes": 247724,
+        "sha256": "80fd37b2eefd398d2e9c88ac812bc74b7028715fb26b5fd568eef3b24b363cdd",
+        "native_browser_returned_file_all_bytes_equal": true
+      }
+    ],
+    "editor_assets": 26,
+    "editor_scenes": 7,
+    "editor_scene_orientation_states": 14,
+    "arbitrary_seek_seconds": 7.2,
+    "editor_natural_end_seconds": 32,
+    "editor_audio_elements": 0,
+    "clipboard_readback": false
+  },
+  "films": {
+    "duration_seconds": 32,
+    "fps": 30,
+    "frames_each": 960,
+    "sizes": [
+      [
+        720,
+        1280
+      ],
+      [
+        1280,
+        720
+      ]
+    ],
+    "audio_streams": 0,
+    "representative_stills_each": 16,
+    "consecutive_stills_each": 12,
+    "strip_start_seconds": 14.4,
+    "MP4_transition_strip_seconds": 18.5,
+    "full_ffmpeg_decode": "passed",
+    "native_playback_local": "both naturally ended32seconds/960frames; no media error",
+    "shipped_source_PNG_all_bytes_match": 62,
+    "final_30_31_seconds_stable": true,
+    "final_renders": "renders-r1"
+  },
+  "preservation": {
+    "frozen_actual_files": 79,
+    "manifest_sha256": "f145d0fc9e56ba1b0a8bf525a7c8a06b88e1ca682bc232ddc98eb2a9cc3df664",
+    "assets": 26,
+    "phase1_originals": 3,
+    "phase2_originals": 11,
+    "operator_changes": "Phone layout/opener/fixed actual-count labels/status and reproducible packaging separately recorded; exact original deliveries retained privately."
+  },
+  "not_verified": [
+    "human audition, pronunciation, naturalness, emotional effect or speaker identity",
+    "human aesthetic approval",
+    "physical iOS/Safari/VoiceOver",
+    "200percent browser zoom",
+    "cross-OS pixel or audio reproducibility",
+    "watermark detection or robustness",
+    "all inputs, general performance or production adoption",
+    "clipboard readback"
+  ],
+  "distribution": "Saved functional audio is included. Silent concept editor/movie contains no narration/audio guide. Weights, environments, caches, credentials, private history and internal orchestrator are excluded."
+}

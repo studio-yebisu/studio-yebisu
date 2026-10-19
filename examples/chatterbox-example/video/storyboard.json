@@ -1,0 +1,130 @@
+{
+  "schema": "studio-yebisu/storyboard@1",
+  "id": "chatterbox-example",
+  "title": "Chatterbox：英語の文が、手元のPythonで音声WAVになるまで（構造の図解）",
+  "message": "Chatterbox はローカルで動く Python の音声合成ツール。英語の文は文字IDに、組み込み条件は T3 と S3Gen の2方向へ入り、T3 の音声ID → S3Gen の波形 → Perth の透かしを通って、実際の3つの WAV が返る。",
+  "duration_seconds": 32,
+  "fps": 30,
+  "poster_seconds": 31,
+  "sizes": {
+    "portrait": [
+      720,
+      1280
+    ],
+    "wide": [
+      1280,
+      720
+    ],
+    "priority": "portrait"
+  },
+  "audio": {
+    "tracks": 0,
+    "audioEvents": [],
+    "note": "無音。ナレーション・読み上げ・効果音・実WAVのサウンドトラックは使わない。実WAVは作例ページの独立したプレイヤーで再生する。"
+  },
+  "source_of_truth": "../concept.js の FILM_SCENES と sceneAt(t)。このファイルは説明用で、時刻を変えるときは両方を合わせる。",
+  "timing_note": "場面の秒数と動く印は説明のための演出で、実際の読み込み・推論の時間とは対応させていない。",
+  "data_drawn": [
+    "inputs/jobs.json の英文・語数・設定（exaggeration・cfg_weight）",
+    "outputs/attempt-01/results.json の文字ID数（73・73・68）、T3 の音声ID数（117・106・130）と S3Gen へ渡した数（116・105・129）",
+    "concept/waveforms.json の実WAVの振幅の包絡（240区間）。描く前に WAV の PCM から計算し直して照合する",
+    "WAV の長さ 4.64秒・4.20秒・5.16秒"
+  ],
+  "explanation_only": [
+    "矢印・動く印・メル→波形の段の中身（CFM・ボコーダー）。内部の注意・活性・各ステップは計測していない"
+  ],
+  "scenes": [
+    {
+      "id": "tool",
+      "seconds": [
+        0,
+        4
+      ],
+      "label": "① 手元で動くPythonの音声合成",
+      "message": "Chatterbox は一つの枠（ローカルの Python TTS）で、中に6つの部品がある。入力は英語の文。",
+      "incoming": "背景だけ。",
+      "outgoing": "枠と見出し、英語テキスト・文字ID・conds.pt・T3・S3Gen・Perth の箱、空の3つの WAV のカードが並んだ状態。部品は薄く色づく。",
+      "movement": "枠が現れ、部品の箱が上から順に現れる。見出し「Chatterbox・ローカルPython TTS」が強調される。",
+      "data": "default の英文の冒頭・22語・強調0.5・CFG0.5"
+    },
+    {
+      "id": "handoff",
+      "seconds": [
+        4,
+        8
+      ],
+      "label": "② 作者が書き、制作担当が実行",
+      "message": "作者AIが書いたスクリプトと3件の入力を、制作担当が別に用意した環境で実行した。AIが何体も動く仕組みではない。",
+      "incoming": "上の帯が空いた全体図。",
+      "outgoing": "作者AI → スクリプト → 制作担当 → 枠の見出しがつながった状態。",
+      "movement": "紙の形が作者AIからスクリプト、制作担当を通って枠の見出しへ入る。見出しが一時的に「from_local 1回 → generate 3回」に変わる。",
+      "data": "GPU 名（results.json の environment）"
+    },
+    {
+      "id": "split",
+      "seconds": [
+        8,
+        13
+      ],
+      "label": "③ 英文はIDに、条件は2方向へ",
+      "message": "英文は文字IDになって T3 へ。組み込み条件 conds.pt は T3 の条件と S3Gen の参照の2方向へ分かれる。設定も T3 へ入る。別の参照音声は渡さない。",
+      "incoming": "受け渡しが終わった全体図。",
+      "outgoing": "文字IDの箱に73本の目盛り、条件の2本の線と設定の点線が強調された状態。",
+      "movement": "墨の小さな四角が英語テキストから文字IDへ流れ、目盛りが0から73へ増える。藍の丸が conds.pt から T3 と S3Gen へ分かれて進む。黄土のひし形が設定の点線を通る。",
+      "data": "default の文字ID 73個（開始255・終了0を含む）"
+    },
+    {
+      "id": "t3",
+      "seconds": [
+        13,
+        18.5
+      ],
+      "label": "④ T3が音声IDを1つずつ",
+      "message": "T3 は音声IDを1つずつ出し、停止ID 6562 で止まる。停止IDを除いてから次へ渡す。音声IDは単語・確率・点数ではない。",
+      "incoming": "条件と文字IDが T3 に集まった状態。",
+      "outgoing": "T3 の箱に「音声ID 117→116」と116本の目盛り。",
+      "movement": "T3 の目盛りが0から117本へ増え、最後の1本（6562）が濃く示されてから消える。",
+      "data": "default の T3 が返した117個と、S3Gen へ渡した116個"
+    },
+    {
+      "id": "wave",
+      "seconds": [
+        18.5,
+        23.5
+      ],
+      "label": "⑤ 波形にして、透かしを1回",
+      "message": "S3Gen が音声IDをメル→波形にし、Perth が透かしを1回入れ、WAV になる。",
+      "incoming": "T3 の音声IDが確定した状態。",
+      "outgoing": "default のカードに実WAVの包絡と「4.64秒」。",
+      "movement": "朱の四角が T3 から S3Gen へ。実WAVの包絡を縮めた小片が S3Gen から Perth を通って default のカードへ入り、包絡が左から描かれる。",
+      "data": "default.wav の240区間の包絡と長さ"
+    },
+    {
+      "id": "files",
+      "seconds": [
+        23.5,
+        28.5
+      ],
+      "label": "⑥ 実際に返った3つのWAV",
+      "message": "同じ流れで3本の WAV が返った。左2つは同じ文で2つの設定を同時に変えた対の比較、右は別の文。",
+      "incoming": "default だけが描かれた出力の列。",
+      "outgoing": "3枚のカードすべてに実WAVの包絡と長さ。下の行に「左2つは同じ文・2設定を同時に変更」。",
+      "movement": "小片が Perth から expressive、続いて second のカードへ入り、それぞれの包絡が描かれる。カードの幅の中で包絡の長さは実際の長さの比。",
+      "data": "expressive.wav（4.20秒・105）と second.wav（5.16秒・129）の包絡"
+    },
+    {
+      "id": "whole",
+      "seconds": [
+        28.5,
+        32
+      ],
+      "label": "⑦ 渡す → 変わる → 返る",
+      "message": "全体図。保存済みの WAV はブラウザーで再生・保存して、音声編集へ使える。",
+      "incoming": "3本の WAV が揃った状態。",
+      "outgoing": "29.4秒以降は完全に静止した全体図（32秒まで同じ画）。",
+      "movement": "すべての箱が同じ薄さで色づき、下の行が「→ ブラウザーで再生・保存 → 音声編集へ」に戻って強調される。29.4秒で動きが終わる。",
+      "data": "全部の実測値を表示したまま"
+    }
+  ],
+  "operator_note": "作者の絵コンテを保持し、冒頭から主要な接続図を見せる補正と、個数の実ラベルを固定して目盛りだけ説明用に動かす補正を制作担当が加えた。実際の処理時間や内部計測ではない。"
+}

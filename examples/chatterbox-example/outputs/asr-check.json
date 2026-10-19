@@ -1,0 +1,44 @@
+{
+  "method": "Independent actual local Whisper CLI on these three newly generated WAVs, after TTS. Not a rerun of the old Whisper case. No Chatterbox regeneration.",
+  "model": "OpenAI Whisper base",
+  "source_commit": "86098128c0b4f24f0e2aa2994de830614b474227",
+  "model_file_bytes": 145262807,
+  "model_file_sha256": "ed3a0b6b1c0edf879ad9b11b1af5a0e6ab5db9205f891f668f8b0e6c6326e34e",
+  "parameters": {
+    "device": "cpu",
+    "threads": 4,
+    "language": "en",
+    "task": "transcribe",
+    "fp16": false,
+    "temperature": 0,
+    "initial_prompt": null,
+    "word_timestamps": false
+  },
+  "observations": [
+    {
+      "id": "default",
+      "input_wav_sha256": "b750fdbc8e1a609954a5d7f0d5bd072ec3fa9116c1f91cf7fa8b19053b2fba52",
+      "recognition": " Please keep the back door closed while the heater is running. The spare keys are in the blue drawer by the sink.",
+      "segments": 2,
+      "literal_text_equal_after_outer_whitespace": true,
+      "note": "ASR text equals the input after trimming outer whitespace."
+    },
+    {
+      "id": "expressive",
+      "input_wav_sha256": "a60cfaf5e609bbbc823efa5bc2f646f1d1a8901a7a4661aeebb669bac53e25fe",
+      "recognition": " Please keep the back door closed while the heater is running. The spare keys are in the blue drawer by the sink.",
+      "segments": 2,
+      "literal_text_equal_after_outer_whitespace": true,
+      "note": "ASR text equals the input after trimming outer whitespace."
+    },
+    {
+      "id": "second",
+      "input_wav_sha256": "80fd37b2eefd398d2e9c88ac812bc74b7028715fb26b5fd568eef3b24b363cdd",
+      "recognition": " Your train leaves from Platform 4 at 9.15. Bring a printed ticket and arrive 10 minutes early.",
+      "segments": 2,
+      "literal_text_equal_after_outer_whitespace": false,
+      "note": "The third recognition changes words/numerals/case (platform four/9.15/10); this is not a literal string match."
+    }
+  ],
+  "limitation": "ASR text is another model estimate. No listening, pronunciation/naturalness/emotion/speaker likeness assurance or human approval."
+}
