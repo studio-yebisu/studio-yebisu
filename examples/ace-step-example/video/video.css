@@ -1,0 +1,52 @@
+/* ACE-Step V1 silent film editor. Studio Yebisu, MIT. Local/system fonts only. */
+:root {
+  --bg: #e9e3d6; --paper: #fbf8f1; --ink: #1e1b16; --muted: #554e43; --line: #8a8172; --rule: #d6cdbb; --accent: #b13c17; --teal: #1b6660;
+  --sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Meiryo", "Noto Sans JP", system-ui, sans-serif;
+  --serif: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.6 var(--sans); }
+a { color: var(--teal); }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.frame { display: flex; justify-content: center; padding: 12px; }
+#film { display: block; width: auto; height: auto; max-width: 100%; max-height: 78vh; background: #f3eee3; box-shadow: 0 1px 0 var(--rule), 0 10px 30px rgba(30, 27, 22, 0.14); }
+
+.controls { max-width: 760px; margin: 0 auto; padding: 4px 14px 32px; }
+.ed-head h1 { margin: 0 0 4px; font: 700 20px/1.35 var(--serif); }
+.ed-kicker { margin: 0 0 4px; font-size: 14px; }
+.ed-kicker a { display: inline-flex; align-items: center; min-height: 44px; }
+.ed-note, .ed-detail { margin: 0 0 8px; font-size: 14px; color: var(--muted); overflow-wrap: anywhere; }
+.ed-state { margin: 8px 0; padding: 8px 12px; border-left: 3px solid var(--line); background: var(--paper); }
+.ed-state p { margin: 0; }
+.ed-state.is-failed { border-color: var(--accent); }
+.ed-state.is-failed #ed-state-text { color: var(--accent); font-weight: 700; }
+.ed-state.is-ready { border-color: var(--teal); }
+#ed-retry { min-height: 44px; margin-top: 6px; padding: 6px 18px; border: 0; border-radius: 999px; background: var(--accent); color: #fff; font-weight: 700; cursor: pointer; }
+
+.row { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0; }
+.row button, .scenes button {
+  min-height: 44px; padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); font-weight: 700; cursor: pointer;
+}
+.row button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+button:disabled { opacity: 0.45; cursor: default; }
+.scrub { display: flex; align-items: center; gap: 10px; margin: 8px 0; }
+.scrub input { flex: 1; min-height: 44px; }
+.scrub output { min-width: 8.5em; font-variant-numeric: tabular-nums; text-align: right; }
+.scenes { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 6px; margin: 8px 0; padding: 0; list-style: none; }
+.scenes button { width: 100%; border-radius: 8px; text-align: left; font-weight: 500; line-height: 1.35; }
+.scenes button[aria-current="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.scenes b { display: block; font-size: 14px; color: var(--muted); }
+.ed-block { margin: 10px 0; border-top: 1px solid var(--rule); }
+.ed-block summary { min-height: 44px; display: flex; align-items: center; font-weight: 700; cursor: pointer; }
+.ed-inventory, .ed-links { margin: 0; padding-left: 1.2em; font-size: 14px; overflow-wrap: anywhere; }
+.ed-inventory li, .ed-links li { margin: 3px 0; }
+
+/* Render capture: only the canvas at the exact viewport size, no margins or scrollbars. */
+html.is-render, html.is-render body { width: 100%; height: 100%; overflow: hidden; background: #f3eee3; }
+html.is-render .controls { display: none !important; }
+html.is-render .frame { padding: 0; display: block; }
+html.is-render #film { position: fixed; left: 0; top: 0; max-width: none; max-height: none; box-shadow: none; }

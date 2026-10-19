@@ -1,0 +1,184 @@
+{
+  "id": "ace-step-example",
+  "verified_at": "2026-10-19T18:26:34.420001+00:00",
+  "stage": "runtime-and-agent-visual-reviewed",
+  "new_case": true,
+  "actual_execution": {
+    "source_commit": "1bee4c9f5b43e30995f8d4d33b3919197ce1bd68",
+    "package": "0.2.0",
+    "model": "ACE-Step/ACE-Step-v1-3.5B",
+    "model_revision": "82cd0d7b6322bd28cd4e830fe675ddb6180ce36c",
+    "original_load_checkpoint_calls": 1,
+    "original_pipeline_calls": 1,
+    "execution": "DedicatedPython3.11.15/torch2.6.0+cpu/float32/intra4/inter4; no otherGPU orComfyUI changes",
+    "request": "Fictional cozy puzzle game BGM; English tags, empty lyrics, no reference audio;20.0s requested,seed20261020,27step Euler APG15",
+    "actual_output": {
+      "WAV_bytes": 7668248,
+      "WAV_sha256": "bd58e0f5cad4c777cbeae1e7e2f0baf52b6f1d9ae6f943e8878f381380c7ca1d",
+      "sample_rate": 48000,
+      "channels": 2,
+      "encoding": "IEEE FLOAT32",
+      "frames": 958520,
+      "seconds": 19.969167,
+      "minus_request_ms": -30.833,
+      "source_params_bytes": 1381
+    },
+    "operator_audio_postprocessing": false,
+    "source_internal_resample": "44.1kHz to48kHz; distinct from operator processing",
+    "method_boundary_observations": 4,
+    "timings": "load9.093218s,call220.980002s;one CPU run,not benchmark",
+    "synthesis_repeated_for_UI": false,
+    "human_listening": false,
+    "quality_claim": "None. Empty lyrics, peaks/RMS and native playback do not establish instruments, vocals, noise, ending, looping or originality."
+  },
+  "structure": {
+    "parts": 6,
+    "exact_source_quotes": 6,
+    "grouping": "Editorial explanation,not upstream component schema or automatic agents",
+    "flow": "README/API plus request -> one author writes runner/job -> operator originalPython call -> UMT5 condition and duration/seed noise and blank lyric defaults -> V1 Transformer flow -> compressed latent -> DCAE/mel/vocoder -> source WAV+params -> measured waveform and separate future listening/use",
+    "browser": "Reads fixed files and plays same functional WAV; no model or generation",
+    "movie_timing": "Explanatory,not inference clock or internal activation; noise/mel are illustrative, waveform is actual320-window min/max"
+  },
+  "browser": {
+    "engine": "Codex in-app browser Chrome",
+    "phone_sizes": [
+      [
+        320,
+        812
+      ],
+      [
+        375,
+        812
+      ]
+    ],
+    "phone_view_stage_states": 18,
+    "same_WAV_three_seek_views": true,
+    "entire_diagram_and_primary_controls_in_viewport": true,
+    "primary_target_min_css_px": 44,
+    "theme_width_motion_views": 16,
+    "source_detail_controls": 6,
+    "exact_quotes": 6,
+    "details_rows": 18,
+    "corruption_modes": [
+      "HTTP503",
+      "truncated length",
+      "same-length SHA mismatch"
+    ],
+    "main_editor_stop_clear_retry": true,
+    "actual_audio_native_natural_end": {
+      "claim": "native playback only; not listening",
+      "current": 19.969167,
+      "duration": 19.969167,
+      "ended": true,
+      "error": null,
+      "muted": true,
+      "paused": true
+    },
+    "save_requests": 3,
+    "returned_files": [
+      {
+        "type": "audio",
+        "bytes": 7668248,
+        "sha256": "bd58e0f5cad4c777cbeae1e7e2f0baf52b6f1d9ae6f943e8878f381380c7ca1d",
+        "all_bytes_equal": true
+      },
+      {
+        "type": "params",
+        "bytes": 1381,
+        "sha256": "49c1fbc3035d1ea04a6c6814f047f4672cd69f2f99f8b04bc3ecd54b3fd4c3ea",
+        "all_bytes_equal": true
+      },
+      {
+        "type": "execution",
+        "bytes": 26795,
+        "sha256": "8d8bdbc58c7455fa5a85ccef17a0c75f2caef732e746514a0f7b1ad2595f80ec",
+        "all_bytes_equal": true
+      }
+    ],
+    "editor_assets": 25,
+    "editor_scenes": 7,
+    "editor_orientation_scene_states": 14,
+    "arbitrary_seek": 7.2,
+    "order_independent": true,
+    "native_range_right_arrow": 0.1,
+    "editor_native_end": 32,
+    "editor_audio_elements": 0,
+    "clipboard_readback": false
+  },
+  "films": {
+    "final_renders": "renders-r1",
+    "duration": 32,
+    "fps": 30,
+    "file_frames_each": 960,
+    "dimensions": [
+      [
+        720,
+        1280
+      ],
+      [
+        1280,
+        720
+      ]
+    ],
+    "audio_streams": 0,
+    "representative_stills_each": 16,
+    "consecutive_stills_each": 12,
+    "source_strip_start": 14.2,
+    "MP4_strip_start": 14.4,
+    "full_decodes": 2,
+    "native_local_ends": [
+      {
+        "current": 32,
+        "duration": 32,
+        "ended": true,
+        "error": null,
+        "h": 1280,
+        "paused": true,
+        "quality": null,
+        "w": 720
+      },
+      {
+        "current": 32,
+        "duration": 32,
+        "ended": true,
+        "error": null,
+        "h": 720,
+        "paused": true,
+        "quality": null,
+        "w": 1280
+      }
+    ],
+    "source_PNG_all_bytes_equal": 62,
+    "30_31_seconds_stable": true,
+    "agent_visual_review": "Assistant inspected full portrait/wide poster, representative contact sheets, encoded motion strips and320/375px main view. Labels/relationships remain visible; same shapes move and morph to the real waveform. This is not human aesthetic approval."
+  },
+  "preservation": {
+    "protected_files": 31,
+    "asset_count": 25,
+    "manifest_sha256": "7858cef475daefb30ae1a4d0465fdbd7523705f842767c0dec7cecadfade8662",
+    "phase1_originals": 3,
+    "phase2_originals": 11,
+    "author_operator_distinction": [
+      "Expand nested DOM child arrays so the18 detail rows display real text instead of object strings.",
+      "Wrap an unbroken slash-separated limitation line so mobile layout width remains320/375px.",
+      "Fall back to whole for malformed percent-encoded URL fragments.",
+      "Use willReadFrequently CPU Canvas for stable first/revisited rasterization; initial portrait render differed by8pixels by1level at a rounded border. No source/model/audio change.",
+      "Capture scrubber input value before stop() synchronizes the old value; native right-arrow now advances0.1s and preserves wide orientation.",
+      "Root render wrapper,5 unchanged Motion Reel runtime files, review links, factual QA/reproduction status and repository-root source packaging."
+    ],
+    "source_private_gitblobs_rawbytes": 106,
+    "selected_public_source_files_rawbytes": 16,
+    "model_private_files": 14,
+    "model_bytes": 8275795939,
+    "weights_distributed": false
+  },
+  "not_verified": [
+    "human listening or aesthetic approval",
+    "instrument/tempo/mood/vocal/noise/ending/loop/originality/similarity quality",
+    "physical iOS/Safari/VoiceOver",
+    "200percent browser zoom",
+    "all inputs/cross-device performance/production game adoption",
+    "clipboard readback"
+  ],
+  "distribution": "Original functional music retained. Introduction/editor/MP4 silent. Selected16Apache2source readings, model card metadata and notices; full checkout/deps/weights required for inference. No weights/env/cache/auth/private history/master skill."
+}

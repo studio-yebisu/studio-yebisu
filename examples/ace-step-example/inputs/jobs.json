@@ -1,0 +1,123 @@
+{
+  "schema": "studio-yebisu.ace-step-example.jobs/1",
+  "case_id": "ace-step-example",
+  "catalog_id": "resource-ace-step",
+  "source": {
+    "repository": "https://github.com/ace-step/ACE-Step",
+    "commit": "1bee4c9f5b43e30995f8d4d33b3919197ce1bd68",
+    "tree_url": "https://github.com/ace-step/ACE-Step/tree/1bee4c9f5b43e30995f8d4d33b3919197ce1bd68",
+    "package": "ace_step",
+    "package_version": "0.2.0",
+    "model_generation": "ACE-Step v1 (3.5B)。2026-01-28 公開の ACE-Step v1.5 とは別物で、本例では v1.5 を使わない。",
+    "license": "Apache-2.0",
+    "api": "acestep.pipeline_ace_step.ACEStepPipeline: __init__ → load_checkpoint → __call__（1回）",
+    "verified_git_blobs": {
+      "setup.py": "b58461b56d6dbc80fe61609c9be2efcc6f256ed5",
+      "LICENSE": "beb1e19b94ac9a15ae10c36cb544478684016d5a",
+      "requirements.txt": "15d61cd8d7e386c98fc823351d602e28a84abad2",
+      "acestep/pipeline_ace_step.py": "a734d1a60048e2e88acd9d2f5c248247c7705899",
+      "acestep/cpu_offload.py": "17f3f309d4facdc80ee772cf4ec1f5d411180a0b",
+      "acestep/apg_guidance.py": "fbe9a4dc5e372913077667c42d4ce678058c9b49",
+      "acestep/music_dcae/music_dcae_pipeline.py": "8112638c0ab117613c8a76b1fc958c7f513baecd",
+      "acestep/music_dcae/music_vocoder.py": "4668527360002cba22f02f99e44c441d2105fb66",
+      "acestep/models/ace_step_transformer.py": "3798042009643fd44cd2c8247cb425d45c41b074",
+      "acestep/models/lyrics_utils/lyric_tokenizer.py": "a32bf6e3bd8ebe1e288635ff2f03b7dd3e67647e",
+      "acestep/language_segmentation/LangSegment.py": "ddf3a7f086ef6962f3c21c1aedba44fb004e2b86",
+      "acestep/schedulers/scheduling_flow_match_euler_discrete.py": "8b731310a73295b9ac7a0e5531c279aa1d1d48fa"
+    }
+  },
+  "model": {
+    "repo_id": "ACE-Step/ACE-Step-v1-3.5B",
+    "revision": "82cd0d7b6322bd28cd4e830fe675ddb6180ce36c",
+    "url": "https://huggingface.co/ACE-Step/ACE-Step-v1-3.5B/tree/82cd0d7b6322bd28cd4e830fe675ddb6180ce36c",
+    "license": "apache-2.0",
+    "gated": false,
+    "required_subdirectories": ["music_dcae_f8c8", "music_vocoder", "ace_step_transformer", "umt5-base"],
+    "expected_files_note": "公式リポジトリの該当リビジョンにある4サブディレクトリ内の全ファイル。LFS は sha256、通常ファイルは git blob sha1 で照合する。",
+    "expected_files": [
+      {"path": "ace_step_transformer/config.json", "bytes": 639, "git_blob_sha1": "2c2612ef8ae605a1468e25f0b93a44885ad1758f"},
+      {"path": "ace_step_transformer/diffusion_pytorch_model.safetensors", "bytes": 6611422728, "lfs_sha256": "e810f16728d8a2e0d1b9c3a907aac8c9a427ce38edbd890cb3dce5ff92da5aad"},
+      {"path": "music_dcae_f8c8/config.json", "bytes": 1034, "git_blob_sha1": "199e97f31cda65b4eb4d7c00200d94bd15455981"},
+      {"path": "music_dcae_f8c8/diffusion_pytorch_model.safetensors", "bytes": 313646516, "lfs_sha256": "2b0cb469307ac50659d1880db2a99bae47d0df335cbb36853964662d4b80e8ee"},
+      {"path": "music_vocoder/config.json", "bytes": 940, "git_blob_sha1": "149f85c6739e7d90b95330697247a870cbdb01dc"},
+      {"path": "music_vocoder/diffusion_pytorch_model.safetensors", "bytes": 206350988, "lfs_sha256": "c92c9b46e28ab7b37b777780cf4308ad7ddac869636bb77aa61599358c4bc1c0"},
+      {"path": "umt5-base/config.json", "bytes": 848, "git_blob_sha1": "a0d07f3ebc5d622e7c8c9d1b3285cefe7665304a"},
+      {"path": "umt5-base/model.safetensors", "bytes": 1127460248, "lfs_sha256": "779cec0d210b2123e21d0a9cd8128f02b4d412627355028965a8be0b241cc3b6"},
+      {"path": "umt5-base/special_tokens_map.json", "bytes": 7079, "git_blob_sha1": "2ed25bf989a28d20b5d4b5822fbc24666d12a6f7"},
+      {"path": "umt5-base/tokenizer.json", "bytes": 16837459, "lfs_sha256": "20a46ac256746594ed7e1e3ef733b83fbc5a6f0922aa7480eda961743de080ef"},
+      {"path": "umt5-base/tokenizer_config.json", "bytes": 61728, "git_blob_sha1": "4e1cc1cd85599ce0b47fd0a746af188fe4043ff2"}
+    ]
+  },
+  "pipeline_init": {
+    "device_id": 0,
+    "dtype_by_device": {"cpu": "float32", "cuda": "bfloat16"},
+    "torch_compile": false,
+    "cpu_offload": false,
+    "quantized": false,
+    "overlapped_decode": false
+  },
+  "jobs": [
+    {
+      "job_id": "cozy-puzzle-bgm-20s",
+      "labels": {
+        "_note": "ここは説明用の日本語ラベル。パイプラインには渡さない。モデルに渡すのは api_params だけ。",
+        "fictional_request": "架空のパズルゲーム「こもれび小箱」のタイトル画面で流す、20秒のオリジナル・インストゥルメンタルBGMがほしい。マリンバとやわらかい撥弦音、軽い打楽器、あたたかいベースで、落ち着いていて少しわくわくする雰囲気に。",
+        "fiction_disclaimer": "「こもれび小箱」は本例のための架空の作品で、実在のゲーム・会社とは関係ない。",
+        "purpose": "ACE-Step v1 の text2music を元の API のまま1回だけ呼び、要求・設定・実際の保存結果を分けて記録する。",
+        "intended_style": "やさしいパズルゲームBGM。ゆったりした中くらいのテンポ。これは要望であり、出力のジャンル・テンポ・楽器は測定していない。",
+        "constraints": [
+          "既存のアーティスト名・曲名・歌詞・参照音声を使わない",
+          "歌詞は空文字（インストゥルメンタルを要望。ボーカルが無いことは保証しない）",
+          "ジョブは1件、パイプライン呼び出しは1回、batch_size=1",
+          "LoRA・audio2audio・retake・repaint・edit・extend を使わない",
+          "正規化・フェード・トリミング・リサンプリング・ループ加工をしない",
+          "20.0秒は要求値。実際の長さは保存されたWAVから測る"
+        ],
+        "default_settings_note": "omega_scale・guidance_interval・guidance_interval_decay・min_guidance_scale・ERG（use_erg_tag/lyric/diffusion）・guidance_scale_text/lyric は ACEStepPipeline.__call__ の既定値をそのまま明示している。oss_steps は infer.py と同じく空文字で渡す（既定の None と同様、ソース内で [] になる）。",
+        "seed_note": "set_seeds は数字だけの文字列を int として扱う（infer.py も examples の actual_seeds を文字列に結合して渡す）。retake_seeds も同じ値に固定するが、task=text2music では add_retake_noise が False なので retake ノイズは加わらない。"
+      },
+      "output": {
+        "filename": "cozy-puzzle-bgm_seed20261020.wav"
+      },
+      "api_params": {
+        "format": "wav",
+        "audio_duration": 20.0,
+        "prompt": "instrumental, cozy puzzle game background music, marimba, soft plucked strings, light percussion, warm bass, calm, curious, gentle, relaxed tempo",
+        "lyrics": "",
+        "infer_step": 27,
+        "guidance_scale": 15.0,
+        "scheduler_type": "euler",
+        "cfg_type": "apg",
+        "omega_scale": 10.0,
+        "manual_seeds": "20261020",
+        "guidance_interval": 0.5,
+        "guidance_interval_decay": 0.0,
+        "min_guidance_scale": 3.0,
+        "use_erg_tag": true,
+        "use_erg_lyric": true,
+        "use_erg_diffusion": true,
+        "oss_steps": "",
+        "guidance_scale_text": 0.0,
+        "guidance_scale_lyric": 0.0,
+        "audio2audio_enable": false,
+        "ref_audio_strength": 0.5,
+        "ref_audio_input": null,
+        "lora_name_or_path": "none",
+        "lora_weight": 1.0,
+        "retake_seeds": "20261020",
+        "retake_variance": 0.5,
+        "task": "text2music",
+        "repaint_start": 0,
+        "repaint_end": 0,
+        "src_audio_path": null,
+        "edit_target_prompt": null,
+        "edit_target_lyrics": null,
+        "edit_n_min": 0.0,
+        "edit_n_max": 1.0,
+        "edit_n_avg": 1,
+        "batch_size": 1,
+        "debug": false
+      }
+    }
+  ]
+}

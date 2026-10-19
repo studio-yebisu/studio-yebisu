@@ -1,0 +1,15 @@
+{
+  "format": "input-output",
+  "samples": [
+    {
+      "id": "cozy-puzzle-bgm-20s",
+      "label": "架空のパズルゲーム「こもれび小箱」の20秒BGM（原典のAPIで1回）",
+      "input": "依頼（架空。日本語の説明ラベルで、モデルには渡していません）：架空のパズルゲーム「こもれび小箱」のタイトル画面で流す、20秒のオリジナル・インストゥルメンタルBGMがほしい。マリンバとやわらかい撥弦音、軽い打楽器、あたたかいベースで、落ち着いていて少しわくわくする雰囲気に。\n\nモデルに渡した説明文（原文）：instrumental, cozy puzzle game background music, marimba, soft plucked strings, light percussion, warm bass, calm, curious, gentle, relaxed tempo\n歌詞：\"\"（空文字）\naudio_duration：20.0（要求値）\nmanual_seeds：\"20261020\"\ninfer_step：27（設定値）／scheduler_type：euler／cfg_type：apg／guidance_scale：15.0\ntask：text2music／batch_size：1／参照音声・LoRA・audio2audio：なし\n\nACE-Step V1（ace-step/ACE-Step 1bee4c9f・ACE-Step/ACE-Step-v1-3.5B 82cd0d7b）の ACEStepPipeline を、制作担当がCPU（Python 3.11.15・torch 2.6.0+cpu・float32）で load_checkpoint 1回・__call__ 1回実行。",
+      "output": "原典が保存したWAV：cozy-puzzle-bgm_seed20261020.wav\n7,668,248バイト／48,000Hz・2チャンネル・32-bit浮動小数（IEEE float）／958,520フレーム＝19.969167秒（要求の20.0秒より0.030833秒短い）／SHA-256 bd58e0f5cad4c777cbeae1e7e2f0baf52b6f1d9ae6f943e8878f381380c7ca1d\n\n原典がWAVの隣に保存した入力記録：cozy-puzzle-bgm_seed20261020_input_params.json（1,381バイト）。actual_seeds [20261020]、timecosts 前処理0.651秒・拡散165.205秒・デコード55.123秒。audio_path は原典が書いた相対パス audio\\cozy-puzzle-bgm_seed20261020.wav のまま。\n\n境界で観測した形：説明文の特徴 1×33×768・マスク 1×33／圧縮潜在 1×8×16×215／保存した波形 2×958520。\n\n別工程の数値（soundfile/numpy）：すべて有限、|x|≥1 のサンプル0、ピーク0.99541199、RMS 0.28364029（−10.945 dBFS）、冒頭0.5秒 RMS 0.36780433、末尾0.5秒 RMS 0.0000409146（−87.762 dBFS）。\n\n制作担当によるトリミング・正規化・フェード・再エンコード・追加のリサンプリングはなし（44.1kHz→48kHzの変換は原典のデコードの中）。人による試聴はしておらず、楽器・テンポ・雰囲気・歌声の有無・ノイズ・終わり方・ループ・既存曲との類似は未確認です。",
+      "audio": "outputs/audio/cozy-puzzle-bgm_seed20261020.wav",
+      "params": "outputs/audio/cozy-puzzle-bgm_seed20261020_input_params.json",
+      "execution": "outputs/execution.json",
+      "listening_status": "not_performed"
+    }
+  ]
+}

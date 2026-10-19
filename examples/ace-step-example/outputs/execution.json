@@ -1,0 +1,835 @@
+{
+  "schema": "studio-yebisu.ace-step-example.execution-summary/1",
+  "status": "succeeded",
+  "status_meaning": "ACEStepPipeline.__call__ ran once and returned; the files it saved were hashed and measured. No listening or quality review is implied.",
+  "case_id": "ace-step-example",
+  "catalog_id": "resource-ace-step",
+  "job_id": "cozy-puzzle-bgm-20s",
+  "started_at_utc": "2026-10-19T17:37:30+00:00",
+  "finished_at_utc": "2026-10-19T17:41:34+00:00",
+  "runner": {
+    "file": "run_example.py",
+    "sha256": "ee9440b031301fc567f4684d03a4363ba88d9f52ba4b6036260d632623d22cd5",
+    "jobs_sha256": "931be90e661d84f3f020dc0422e5968f372ff0b113be8bce326bfcfded389da5"
+  },
+  "source": {
+    "repository": "https://github.com/ace-step/ACE-Step",
+    "commit": "1bee4c9f5b43e30995f8d4d33b3919197ce1bd68",
+    "package": "ace_step",
+    "setup_py_version": "0.2.0",
+    "verified_files": [
+      {
+        "path": "setup.py",
+        "bytes": 1089,
+        "git_blob_sha1": "b58461b56d6dbc80fe61609c9be2efcc6f256ed5",
+        "sha256": "e8ac2bb250a743540734ba5764808fa43db49cc9a824886e07e0b640b65057f6"
+      },
+      {
+        "path": "LICENSE",
+        "bytes": 11359,
+        "git_blob_sha1": "beb1e19b94ac9a15ae10c36cb544478684016d5a",
+        "sha256": "1402dd74e3b2fecdfc7cd4427a924b93cbd134eb96f09d0df80dcd01fc29102a"
+      },
+      {
+        "path": "requirements.txt",
+        "bytes": 363,
+        "git_blob_sha1": "15d61cd8d7e386c98fc823351d602e28a84abad2",
+        "sha256": "d3ef6b4c6d6ce3a0213310f685054132882015cccf07b2cea265f036b9db55cf"
+      },
+      {
+        "path": "acestep/pipeline_ace_step.py",
+        "bytes": 70207,
+        "git_blob_sha1": "a734d1a60048e2e88acd9d2f5c248247c7705899",
+        "sha256": "2f6982dcf331bbe92bdb51d2bb9e657dc76cfca4437335d4388a992ec0652ba2"
+      },
+      {
+        "path": "acestep/cpu_offload.py",
+        "bytes": 1344,
+        "git_blob_sha1": "17f3f309d4facdc80ee772cf4ec1f5d411180a0b",
+        "sha256": "46faea0454bb41e769e4ab9315ec216e102b136758bef24adff5eda5300d628f"
+      },
+      {
+        "path": "acestep/apg_guidance.py",
+        "bytes": 3231,
+        "git_blob_sha1": "fbe9a4dc5e372913077667c42d4ce678058c9b49",
+        "sha256": "562c942240c408aa333dbfac99c48a37784835d131b03cd9738a8a52d0953202"
+      },
+      {
+        "path": "acestep/music_dcae/music_dcae_pipeline.py",
+        "bytes": 18804,
+        "git_blob_sha1": "8112638c0ab117613c8a76b1fc958c7f513baecd",
+        "sha256": "1d57cfed52e94264e407d8715d966661806f34fbbdc2ef90f12b95ee85278f9a"
+      },
+      {
+        "path": "acestep/music_dcae/music_vocoder.py",
+        "bytes": 18859,
+        "git_blob_sha1": "4668527360002cba22f02f99e44c441d2105fb66",
+        "sha256": "dac829cf8c9968f70b35c77189bdbdc01689db05fd29945a113a8865e3965723"
+      },
+      {
+        "path": "acestep/models/ace_step_transformer.py",
+        "bytes": 20685,
+        "git_blob_sha1": "3798042009643fd44cd2c8247cb425d45c41b074",
+        "sha256": "4dcc6846cb21bcc5c73fe7b2cf46897665c323a48b2b60fd7cf30af187874845"
+      },
+      {
+        "path": "acestep/models/lyrics_utils/lyric_tokenizer.py",
+        "bytes": 33510,
+        "git_blob_sha1": "a32bf6e3bd8ebe1e288635ff2f03b7dd3e67647e",
+        "sha256": "1256c18e18dc4f45defc8d6c468e63f24a9f31a5c412861187ef8d67a30a3b4e"
+      },
+      {
+        "path": "acestep/language_segmentation/LangSegment.py",
+        "bytes": 50956,
+        "git_blob_sha1": "ddf3a7f086ef6962f3c21c1aedba44fb004e2b86",
+        "sha256": "b89aa89648401fc814f64aa473f4a64b7393139bacd9d3a7b92f54a4ff21de01"
+      },
+      {
+        "path": "acestep/schedulers/scheduling_flow_match_euler_discrete.py",
+        "bytes": 15242,
+        "git_blob_sha1": "8b731310a73295b9ac7a0e5531c279aa1d1d48fa",
+        "sha256": "d3d724dec32d4f2d3df62d4dc9de30c1b74c0d2602e19063ec00031e2f7ebe8d"
+      }
+    ],
+    "pipeline_call_parameters": [
+      "format",
+      "audio_duration",
+      "prompt",
+      "lyrics",
+      "infer_step",
+      "guidance_scale",
+      "scheduler_type",
+      "cfg_type",
+      "omega_scale",
+      "manual_seeds",
+      "guidance_interval",
+      "guidance_interval_decay",
+      "min_guidance_scale",
+      "use_erg_tag",
+      "use_erg_lyric",
+      "use_erg_diffusion",
+      "oss_steps",
+      "guidance_scale_text",
+      "guidance_scale_lyric",
+      "audio2audio_enable",
+      "ref_audio_strength",
+      "ref_audio_input",
+      "lora_name_or_path",
+      "lora_weight",
+      "retake_seeds",
+      "retake_variance",
+      "task",
+      "repaint_start",
+      "repaint_end",
+      "src_audio_path",
+      "edit_target_prompt",
+      "edit_target_lyrics",
+      "edit_n_min",
+      "edit_n_max",
+      "edit_n_avg",
+      "save_path",
+      "batch_size",
+      "debug"
+    ],
+    "acestep_installed_distribution": null
+  },
+  "model": {
+    "repo_id": "ACE-Step/ACE-Step-v1-3.5B",
+    "revision": "82cd0d7b6322bd28cd4e830fe675ddb6180ce36c",
+    "pin_record_sha256": "590c5aee18b818971bc998c81a86d63b270fa63c8fb3ab3b39eee9302e76a181",
+    "pin_record_repo_id": "ACE-Step/ACE-Step-v1-3.5B",
+    "pin_record_revision": "82cd0d7b6322bd28cd4e830fe675ddb6180ce36c",
+    "required_subdirectories_present": [
+      "music_dcae_f8c8",
+      "music_vocoder",
+      "ace_step_transformer",
+      "umt5-base"
+    ],
+    "files": [
+      {
+        "path": ".gitattributes",
+        "bytes": 1580,
+        "sha256": "d770b16a6c2bd919c2266aba306f2dcbe4d4393ab9e56d2b4b70ab432eb35df3",
+        "official_check": "pin_record_only"
+      },
+      {
+        "path": "README.md",
+        "bytes": 3513,
+        "sha256": "b5674b0c01f5b8e6e38291f1d36baa749a60f5cd5c450b70d23e247a772d930f",
+        "official_check": "pin_record_only"
+      },
+      {
+        "path": "ace_step_transformer/config.json",
+        "bytes": 639,
+        "sha256": "4d78beb6afb4c7f3705256b44faaf60f3e1e2d78f4015ca87740f3695d7f5447",
+        "official_check": "git_blob_sha1"
+      },
+      {
+        "path": "ace_step_transformer/diffusion_pytorch_model.safetensors",
+        "bytes": 6611422728,
+        "sha256": "e810f16728d8a2e0d1b9c3a907aac8c9a427ce38edbd890cb3dce5ff92da5aad",
+        "official_check": "lfs_sha256"
+      },
+      {
+        "path": "config.json",
+        "bytes": 639,
+        "sha256": "4d78beb6afb4c7f3705256b44faaf60f3e1e2d78f4015ca87740f3695d7f5447",
+        "official_check": "pin_record_only"
+      },
+      {
+        "path": "music_dcae_f8c8/config.json",
+        "bytes": 1034,
+        "sha256": "b14a49a8c52a52c2c8050098af1a946810a8a1a0b6e50abc75ba81371383cf04",
+        "official_check": "git_blob_sha1"
+      },
+      {
+        "path": "music_dcae_f8c8/diffusion_pytorch_model.safetensors",
+        "bytes": 313646516,
+        "sha256": "2b0cb469307ac50659d1880db2a99bae47d0df335cbb36853964662d4b80e8ee",
+        "official_check": "lfs_sha256"
+      },
+      {
+        "path": "music_vocoder/config.json",
+        "bytes": 940,
+        "sha256": "39ddc4c417e01dc3be1862fcf315887358dd61b7f91c3cc8227f65072984bb55",
+        "official_check": "git_blob_sha1"
+      },
+      {
+        "path": "music_vocoder/diffusion_pytorch_model.safetensors",
+        "bytes": 206350988,
+        "sha256": "c92c9b46e28ab7b37b777780cf4308ad7ddac869636bb77aa61599358c4bc1c0",
+        "official_check": "lfs_sha256"
+      },
+      {
+        "path": "umt5-base/config.json",
+        "bytes": 848,
+        "sha256": "afae5da9a35e2b293cee66536f03fc2581cfc3f3d5707d3a262b552748de1572",
+        "official_check": "git_blob_sha1"
+      },
+      {
+        "path": "umt5-base/model.safetensors",
+        "bytes": 1127460248,
+        "sha256": "779cec0d210b2123e21d0a9cd8128f02b4d412627355028965a8be0b241cc3b6",
+        "official_check": "lfs_sha256"
+      },
+      {
+        "path": "umt5-base/special_tokens_map.json",
+        "bytes": 7079,
+        "sha256": "456b58fd240a06c743a7c2cf8008bec501240d68ebd1fc4018ea569505fea270",
+        "official_check": "git_blob_sha1"
+      },
+      {
+        "path": "umt5-base/tokenizer.json",
+        "bytes": 16837459,
+        "sha256": "20a46ac256746594ed7e1e3ef733b83fbc5a6f0922aa7480eda961743de080ef",
+        "official_check": "lfs_sha256"
+      },
+      {
+        "path": "umt5-base/tokenizer_config.json",
+        "bytes": 61728,
+        "sha256": "ed9a3a8b0faa71a70a32847e0435fe036e6e112d4df4edb7bb48a921e344dc05",
+        "official_check": "git_blob_sha1"
+      }
+    ],
+    "hash_elapsed_s": 6.355
+  },
+  "settings": {
+    "device_requested": "cpu",
+    "pipeline_device": "cpu",
+    "pipeline_dtype": "torch.float32",
+    "threads_requested": 4,
+    "pipeline_init": {
+      "device_id": 0,
+      "torch_compile": false,
+      "cpu_offload": false,
+      "quantized": false,
+      "overlapped_decode": false,
+      "dtype": "float32"
+    }
+  },
+  "request": {
+    "api_params": {
+      "format": "wav",
+      "audio_duration": 20.0,
+      "prompt": "instrumental, cozy puzzle game background music, marimba, soft plucked strings, light percussion, warm bass, calm, curious, gentle, relaxed tempo",
+      "lyrics": "",
+      "infer_step": 27,
+      "guidance_scale": 15.0,
+      "scheduler_type": "euler",
+      "cfg_type": "apg",
+      "omega_scale": 10.0,
+      "manual_seeds": "20261020",
+      "guidance_interval": 0.5,
+      "guidance_interval_decay": 0.0,
+      "min_guidance_scale": 3.0,
+      "use_erg_tag": true,
+      "use_erg_lyric": true,
+      "use_erg_diffusion": true,
+      "oss_steps": "",
+      "guidance_scale_text": 0.0,
+      "guidance_scale_lyric": 0.0,
+      "audio2audio_enable": false,
+      "ref_audio_strength": 0.5,
+      "ref_audio_input": null,
+      "lora_name_or_path": "none",
+      "lora_weight": 1.0,
+      "retake_seeds": "20261020",
+      "retake_variance": 0.5,
+      "task": "text2music",
+      "repaint_start": 0,
+      "repaint_end": 0,
+      "src_audio_path": null,
+      "edit_target_prompt": null,
+      "edit_target_lyrics": null,
+      "edit_n_min": 0.0,
+      "edit_n_max": 1.0,
+      "edit_n_avg": 1,
+      "batch_size": 1,
+      "debug": false
+    },
+    "save_path": "audio/cozy-puzzle-bgm_seed20261020.wav",
+    "comparison_with_source_defaults": {
+      "format": {
+        "passed": "wav",
+        "source_default": "wav",
+        "equals_source_default": true
+      },
+      "audio_duration": {
+        "passed": 20.0,
+        "source_default": 60.0,
+        "equals_source_default": false
+      },
+      "prompt": {
+        "passed": "instrumental, cozy puzzle game background music, marimba, soft plucked strings, light percussion, warm bass, calm, curious, gentle, relaxed tempo",
+        "source_default": null,
+        "equals_source_default": false
+      },
+      "lyrics": {
+        "passed": "",
+        "source_default": null,
+        "equals_source_default": false
+      },
+      "infer_step": {
+        "passed": 27,
+        "source_default": 60,
+        "equals_source_default": false
+      },
+      "guidance_scale": {
+        "passed": 15.0,
+        "source_default": 15.0,
+        "equals_source_default": true
+      },
+      "scheduler_type": {
+        "passed": "euler",
+        "source_default": "euler",
+        "equals_source_default": true
+      },
+      "cfg_type": {
+        "passed": "apg",
+        "source_default": "apg",
+        "equals_source_default": true
+      },
+      "omega_scale": {
+        "passed": 10.0,
+        "source_default": 10.0,
+        "equals_source_default": true
+      },
+      "manual_seeds": {
+        "passed": "20261020",
+        "source_default": null,
+        "equals_source_default": false
+      },
+      "guidance_interval": {
+        "passed": 0.5,
+        "source_default": 0.5,
+        "equals_source_default": true
+      },
+      "guidance_interval_decay": {
+        "passed": 0.0,
+        "source_default": 0.0,
+        "equals_source_default": true
+      },
+      "min_guidance_scale": {
+        "passed": 3.0,
+        "source_default": 3.0,
+        "equals_source_default": true
+      },
+      "use_erg_tag": {
+        "passed": true,
+        "source_default": true,
+        "equals_source_default": true
+      },
+      "use_erg_lyric": {
+        "passed": true,
+        "source_default": true,
+        "equals_source_default": true
+      },
+      "use_erg_diffusion": {
+        "passed": true,
+        "source_default": true,
+        "equals_source_default": true
+      },
+      "oss_steps": {
+        "passed": "",
+        "source_default": null,
+        "equals_source_default": false
+      },
+      "guidance_scale_text": {
+        "passed": 0.0,
+        "source_default": 0.0,
+        "equals_source_default": true
+      },
+      "guidance_scale_lyric": {
+        "passed": 0.0,
+        "source_default": 0.0,
+        "equals_source_default": true
+      },
+      "audio2audio_enable": {
+        "passed": false,
+        "source_default": false,
+        "equals_source_default": true
+      },
+      "ref_audio_strength": {
+        "passed": 0.5,
+        "source_default": 0.5,
+        "equals_source_default": true
+      },
+      "ref_audio_input": {
+        "passed": null,
+        "source_default": null,
+        "equals_source_default": true
+      },
+      "lora_name_or_path": {
+        "passed": "none",
+        "source_default": "none",
+        "equals_source_default": true
+      },
+      "lora_weight": {
+        "passed": 1.0,
+        "source_default": 1.0,
+        "equals_source_default": true
+      },
+      "retake_seeds": {
+        "passed": "20261020",
+        "source_default": null,
+        "equals_source_default": false
+      },
+      "retake_variance": {
+        "passed": 0.5,
+        "source_default": 0.5,
+        "equals_source_default": true
+      },
+      "task": {
+        "passed": "text2music",
+        "source_default": "text2music",
+        "equals_source_default": true
+      },
+      "repaint_start": {
+        "passed": 0,
+        "source_default": 0,
+        "equals_source_default": true
+      },
+      "repaint_end": {
+        "passed": 0,
+        "source_default": 0,
+        "equals_source_default": true
+      },
+      "src_audio_path": {
+        "passed": null,
+        "source_default": null,
+        "equals_source_default": true
+      },
+      "edit_target_prompt": {
+        "passed": null,
+        "source_default": null,
+        "equals_source_default": true
+      },
+      "edit_target_lyrics": {
+        "passed": null,
+        "source_default": null,
+        "equals_source_default": true
+      },
+      "edit_n_min": {
+        "passed": 0.0,
+        "source_default": 0.0,
+        "equals_source_default": true
+      },
+      "edit_n_max": {
+        "passed": 1.0,
+        "source_default": 1.0,
+        "equals_source_default": true
+      },
+      "edit_n_avg": {
+        "passed": 1,
+        "source_default": 1,
+        "equals_source_default": true
+      },
+      "batch_size": {
+        "passed": 1,
+        "source_default": 1,
+        "equals_source_default": true
+      },
+      "debug": {
+        "passed": false,
+        "source_default": false,
+        "equals_source_default": true
+      }
+    }
+  },
+  "audio_measurements": {
+    "container": {
+      "format": "WAV",
+      "subtype": "FLOAT",
+      "samplerate": 48000,
+      "channels": 2,
+      "frames": 958520
+    },
+    "duration": {
+      "requested_audio_duration_s": 20.0,
+      "actual_duration_s": 19.969167,
+      "actual_minus_requested_s": -0.030833
+    },
+    "signal": {
+      "all_finite": true,
+      "nonfinite_samples": 0,
+      "samples_abs_ge_1": 0,
+      "whole": {
+        "frames": 958520,
+        "peak_abs": 0.9954119920730591,
+        "rms": 0.2836402900880742,
+        "rms_dbfs": -10.945,
+        "per_channel_peak_abs": [
+          0.9908574223518372,
+          0.9954119920730591
+        ],
+        "per_channel_rms": [
+          0.2866160704347433,
+          0.2806329568868266
+        ],
+        "per_channel_mean": [
+          0.0009104253837947587,
+          0.0007302984488794895
+        ]
+      },
+      "first_0_5_s": {
+        "frames": 24000,
+        "peak_abs": 0.9908574223518372,
+        "rms": 0.36780432688841,
+        "rms_dbfs": -8.688,
+        "per_channel_peak_abs": [
+          0.9908574223518372,
+          0.9789956212043762
+        ],
+        "per_channel_rms": [
+          0.3805649109001831,
+          0.3545848196796028
+        ],
+        "per_channel_mean": [
+          -0.0038648118149772017,
+          0.0020069151455550886
+        ]
+      },
+      "last_0_5_s": {
+        "frames": 24000,
+        "peak_abs": 0.0007894122391007841,
+        "rms": 4.091460832420393e-05,
+        "rms_dbfs": -87.762,
+        "per_channel_peak_abs": [
+          0.0007894122391007841,
+          0.0006445558392442763
+        ],
+        "per_channel_rms": [
+          4.457184623528737e-05,
+          3.6896624125033e-05
+        ],
+        "per_channel_mean": [
+          -2.037402972579368e-05,
+          -2.0407665977261145e-05
+        ]
+      },
+      "note": "Non-finite samples are counted, then treated as 0 for peak/RMS. Read as float64 via soundfile; the file is never rewritten."
+    }
+  },
+  "listening_review": {
+    "status": "not_performed",
+    "note": "Numbers above come from soundfile/numpy only. Listening judgements, if added later, must be recorded separately with who listened and when."
+  },
+  "not_claimed": [
+    "originality or absence of similarity to existing works",
+    "absence of vocals or vocal-like sounds",
+    "absence of noise or artefacts",
+    "a smooth ending or a seamless loop",
+    "that the requested genre, instrumentation, mood or tempo was achieved"
+  ],
+  "runtime": {
+    "python": "3.11.15",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "packages": {
+      "torch": "2.6.0+cpu",
+      "torchaudio": "2.6.0+cpu",
+      "torchvision": "0.21.0+cpu",
+      "diffusers": "0.33.1",
+      "transformers": "4.50.0",
+      "tokenizers": "0.21.4",
+      "accelerate": "1.6.0",
+      "huggingface_hub": "0.36.2",
+      "safetensors": "0.8.0",
+      "numpy": "2.2.6",
+      "soundfile": "0.13.1",
+      "librosa": "0.11.0",
+      "loguru": "0.7.3",
+      "tqdm": "4.70.1",
+      "py3langid": "0.3.0",
+      "spacy": "3.8.4",
+      "num2words": "0.5.14",
+      "pypinyin": "0.53.0",
+      "hangul-romanize": "0.1.0",
+      "cutlet": null,
+      "fugashi": "1.5.2",
+      "datasets": null,
+      "pytorch_lightning": null,
+      "peft": "0.15.2",
+      "ace_step": null
+    },
+    "torch_version": "2.6.0+cpu",
+    "torch_cuda_build": null,
+    "cuda_available": false,
+    "torch_num_threads": 4,
+    "torch_num_interop_threads": 4,
+    "float32_matmul_precision": "high",
+    "numpy_version": "2.2.6",
+    "soundfile_version": "0.13.1"
+  },
+  "execution": {
+    "pipeline_call_count": 1,
+    "load_checkpoint_call_count": 1,
+    "load_note": "load_checkpoint was called once before __call__ so loading time is separate; __call__ then skips its lazy load because loaded=True.",
+    "runner_timings_s": {
+      "model_file_verification": 6.355712,
+      "import": 7.548559,
+      "construct": 7.6e-05,
+      "load_checkpoint": 9.093218,
+      "pipeline_call": 220.980002
+    },
+    "source_reported_timecosts_s": {
+      "preprocess": 0.65053391456604,
+      "diffusion": 165.205322265625,
+      "latent2audio": 55.1231484413147
+    },
+    "cuda_max_memory_allocated_bytes": null,
+    "boundary_observations": {
+      "what_this_is": "Wall-clock time and argument/return tensor shapes at Python entry/exit of four original methods, recorded by a subclass that delegates to super() and returns the original result.",
+      "what_this_is_not": "Not a measurement of attention, per-step diffusion behaviour, guidance effect or musical quality. On CUDA, times are not synchronised and may shift between boundaries.",
+      "not_observed": [
+        "get_text_embeddings_null (called by the source because use_erg_tag=True)",
+        "set_seeds, tokenize_lyrics, load_lora"
+      ],
+      "call_counts": {
+        "get_text_embeddings": 1,
+        "text2music_diffusion_process": 1,
+        "latents2audio": 1,
+        "save_wav_file": 1
+      },
+      "records": [
+        {
+          "method": "get_text_embeddings",
+          "entered_at_s": 23.057526,
+          "args": [
+            [
+              "instrumental, cozy puzzle game background music, marimba, soft plucked strings, light percussion, warm bass, calm, curious, gentle, relaxed tempo"
+            ]
+          ],
+          "kwargs": {},
+          "elapsed_s": 0.595233,
+          "result": [
+            {
+              "tensor_shape": [
+                1,
+                33,
+                768
+              ],
+              "dtype": "torch.float32",
+              "device": "cpu"
+            },
+            {
+              "tensor_shape": [
+                1,
+                33
+              ],
+              "dtype": "torch.int64",
+              "device": "cpu"
+            }
+          ]
+        },
+        {
+          "method": "text2music_diffusion_process",
+          "entered_at_s": 23.707752,
+          "args": [],
+          "kwargs": {
+            "duration": 20.0,
+            "encoder_text_hidden_states": {
+              "tensor_shape": [
+                1,
+                33,
+                768
+              ],
+              "dtype": "torch.float32",
+              "device": "cpu"
+            },
+            "text_attention_mask": {
+              "tensor_shape": [
+                1,
+                33
+              ],
+              "dtype": "torch.int64",
+              "device": "cpu"
+            },
+            "speaker_embds": {
+              "tensor_shape": [
+                1,
+                512
+              ],
+              "dtype": "torch.float32",
+              "device": "cpu"
+            },
+            "lyric_token_ids": {
+              "tensor_shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.int64",
+              "device": "cpu"
+            },
+            "lyric_mask": {
+              "tensor_shape": [
+                1,
+                1
+              ],
+              "dtype": "torch.int64",
+              "device": "cpu"
+            },
+            "guidance_scale": 15.0,
+            "omega_scale": 10.0,
+            "infer_steps": 27,
+            "random_generators": [
+              {
+                "generator_device": "cpu",
+                "initial_seed": 20261020
+              }
+            ],
+            "scheduler_type": "euler",
+            "cfg_type": "apg",
+            "guidance_interval": 0.5,
+            "guidance_interval_decay": 0.0,
+            "min_guidance_scale": 3.0,
+            "oss_steps": [],
+            "encoder_text_hidden_states_null": {
+              "tensor_shape": [
+                1,
+                33,
+                768
+              ],
+              "dtype": "torch.float32",
+              "device": "cpu"
+            },
+            "use_erg_lyric": true,
+            "use_erg_diffusion": true,
+            "retake_random_generators": [
+              {
+                "generator_device": "cpu",
+                "initial_seed": 20261020
+              }
+            ],
+            "retake_variance": 0.5,
+            "add_retake_noise": false,
+            "guidance_scale_text": 0.0,
+            "guidance_scale_lyric": 0.0,
+            "repaint_start": 0,
+            "repaint_end": 0,
+            "src_latents": null,
+            "audio2audio_enable": false,
+            "ref_audio_strength": 0.5,
+            "ref_latents": null
+          },
+          "elapsed_s": 165.204712,
+          "result": {
+            "tensor_shape": [
+              1,
+              8,
+              16,
+              215
+            ],
+            "dtype": "torch.float32",
+            "device": "cpu"
+          }
+        },
+        {
+          "method": "latents2audio",
+          "entered_at_s": 188.912553,
+          "args": [],
+          "kwargs": {
+            "latents": {
+              "tensor_shape": [
+                1,
+                8,
+                16,
+                215
+              ],
+              "dtype": "torch.float32",
+              "device": "cpu"
+            },
+            "target_wav_duration_second": 20.0,
+            "save_path": "audio\\cozy-puzzle-bgm_seed20261020.wav",
+            "format": "wav"
+          },
+          "elapsed_s": 54.965036,
+          "result": [
+            "audio\\cozy-puzzle-bgm_seed20261020.wav"
+          ]
+        },
+        {
+          "method": "save_wav_file",
+          "entered_at_s": 243.856814,
+          "args": [
+            {
+              "tensor_shape": [
+                2,
+                958520
+              ],
+              "dtype": "torch.float32",
+              "device": "cpu"
+            },
+            0
+          ],
+          "kwargs": {
+            "save_path": "audio\\cozy-puzzle-bgm_seed20261020.wav",
+            "sample_rate": 48000,
+            "format": "wav"
+          },
+          "elapsed_s": 0.020538,
+          "result": "audio\\cozy-puzzle-bgm_seed20261020.wav"
+        }
+      ]
+    }
+  },
+  "outputs": {
+    "source_wav": {
+      "path": "outputs/audio/cozy-puzzle-bgm_seed20261020.wav",
+      "bytes": 7668248,
+      "sha256": "bd58e0f5cad4c777cbeae1e7e2f0baf52b6f1d9ae6f943e8878f381380c7ca1d"
+    },
+    "source_input_params": {
+      "path": "outputs/audio/cozy-puzzle-bgm_seed20261020_input_params.json",
+      "bytes": 1381,
+      "sha256": "49c1fbc3035d1ea04a6c6814f047f4672cd69f2f99f8b04bc3ecd54b3fd4c3ea"
+    },
+    "return_public_projection": {
+      "path": "outputs/return.public.json",
+      "bytes": 1429,
+      "sha256": "2a367ce04ad97646d88d318a176f1499ae51a2d7f4caeae40bb54add3c58bb0d"
+    },
+    "source_input_params_equals_returned_dict": true,
+    "audio_postprocessing_by_operator": false
+  },
+  "operator_projection_note": "This is an operator-selected execution summary from the successful real run, not another model/API output. Original full summary and private raw return/logs are retained privately. WAV and source *_input_params.json are copied byte-for-byte. Source save_path was relative before the one actual call; no private absolute audio_path is published."
+}

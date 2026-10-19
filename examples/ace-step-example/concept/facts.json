@@ -1,0 +1,465 @@
+{
+  "schema": "ace-step-actual-facts@1",
+  "case_id": "ace-step-example",
+  "catalog_id": "resource-ace-step",
+  "identity": {
+    "name": "ACE-Step",
+    "kind": "Pythonのローカル音楽生成モデル/パイプライン",
+    "source_repository": "ace-step/ACE-Step",
+    "source_commit": "1bee4c9f5b43e30995f8d4d33b3919197ce1bd68",
+    "package_version": "0.2.0",
+    "model_repository": "ACE-Step/ACE-Step-v1-3.5B",
+    "model_revision": "82cd0d7b6322bd28cd4e830fe675ddb6180ce36c",
+    "model_family": "V1 3.5B (not V1.5)",
+    "license": "Apache-2.0",
+    "six_parts_are_editorial": true,
+    "source_all_private_gitblobs_raw": 106,
+    "source_public_selected_files_raw": 16
+  },
+  "parts": [
+    {
+      "id": "pipeline",
+      "label": "Pythonの入口",
+      "source": {
+        "path": "vendor/ace-step/acestep/pipeline_ace_step.py",
+        "start_line": 94,
+        "end_line": 109,
+        "url": "https://github.com/ace-step/ACE-Step/blob/1bee4c9f5b43e30995f8d4d33b3919197ce1bd68/acestep/pipeline_ace_step.py#L94"
+      },
+      "excerpt": "class ACEStepPipeline:\n    def __init__(\n        self,\n        checkpoint_dir=None,\n        device_id=0,\n        dtype=\"bfloat16\",\n        text_encoder_checkpoint_path=None,\n        persistent_storage_path=None,\n        torch_compile=False,\n        cpu_offload=False,\n        quantized=False,\n        overlapped_decode=False,\n        **kwargs,\n    ):\n        if not checkpoint_dir:\n            if persistent_storage_path is None:",
+      "meaning": "本例は原典のPython APIを制作担当が呼ぶ。Markdownスキルやホスト生成APIではない。作者AIは依頼から呼出し実装を執筆した。"
+    },
+    {
+      "id": "text",
+      "label": "説明を条件へ",
+      "source": {
+        "path": "vendor/ace-step/acestep/pipeline_ace_step.py",
+        "start_line": 331,
+        "end_line": 346,
+        "url": "https://github.com/ace-step/ACE-Step/blob/1bee4c9f5b43e30995f8d4d33b3919197ce1bd68/acestep/pipeline_ace_step.py#L331"
+      },
+      "excerpt": "    def get_text_embeddings(self, texts, text_max_length=256):\n        inputs = self.text_tokenizer(\n            texts,\n            return_tensors=\"pt\",\n            padding=True,\n            truncation=True,\n            max_length=text_max_length,\n        )\n        inputs = {key: value.to(self.device) for key, value in inputs.items()}\n        if self.text_encoder_model.device != self.device:\n            self.text_encoder_model.to(self.device)\n        with torch.no_grad():\n            outputs = self.text_encoder_model(**inputs)\n            last_hidden_states = outputs.last_hidden_state\n        attention_mask = inputs[\"attention_mask\"]\n        return last_hidden_states, attention_mask",
+      "meaning": "説明文をトークン化し、UMT5の特徴とマスクへ。歌詞は本例では空で、歌詞ID/マスクは原典のゼロ既定。楽器や気分の実現を保証する欄ではない。"
+    },
+    {
+      "id": "noise",
+      "label": "長さとseed",
+      "source": {
+        "path": "vendor/ace-step/acestep/pipeline_ace_step.py",
+        "start_line": 928,
+        "end_line": 933,
+        "url": "https://github.com/ace-step/ACE-Step/blob/1bee4c9f5b43e30995f8d4d33b3919197ce1bd68/acestep/pipeline_ace_step.py#L928"
+      },
+      "excerpt": "        target_latents = randn_tensor(\n            shape=(bsz, 8, 16, frame_length),\n            generator=random_generators,\n            device=self.device,\n            dtype=self.dtype,\n        )",
+      "meaning": "20秒の要求から潜在時間長を取り、seedを持つ乱数で初期潜在を作る。初期ノイズ値やattentionの実測可視化ではない。"
+    },
+    {
+      "id": "flow",
+      "label": "反復して形へ",
+      "source": {
+        "path": "vendor/ace-step/acestep/pipeline_ace_step.py",
+        "start_line": 1235,
+        "end_line": 1242,
+        "url": "https://github.com/ace-step/ACE-Step/blob/1bee4c9f5b43e30995f8d4d33b3919197ce1bd68/acestep/pipeline_ace_step.py#L1235"
+      },
+      "excerpt": "                noise_pred_with_cond = self.ace_step_transformer.decode(\n                    hidden_states=latent_model_input,\n                    attention_mask=attention_mask,\n                    encoder_hidden_states=encoder_hidden_states,\n                    encoder_hidden_mask=encoder_hidden_mask,\n                    output_length=output_length,\n                    timestep=timestep,\n                ).sample",
+      "meaning": "V1の3.5B TransformerとEuler/APG。27stepは設定値。原典の反復から圧縮潜在を受け取った。Pythonの境界呼出しは測定したが、各内部step/attentionの可視化ではない。"
+    },
+    {
+      "id": "decode",
+      "label": "潜在から音へ",
+      "source": {
+        "path": "vendor/ace-step/acestep/music_dcae/music_dcae_pipeline.py",
+        "start_line": 115,
+        "end_line": 139,
+        "url": "https://github.com/ace-step/ACE-Step/blob/1bee4c9f5b43e30995f8d4d33b3919197ce1bd68/acestep/music_dcae/music_dcae_pipeline.py#L115"
+      },
+      "excerpt": "    def decode(self, latents, audio_lengths=None, sr=None):\n        latents = latents / self.scale_factor + self.shift_factor\n\n        pred_wavs = []\n\n        for latent in latents:\n            mels = self.dcae.decoder(latent.unsqueeze(0))\n            mels = mels * 0.5 + 0.5\n            mels = mels * (self.max_mel_value - self.min_mel_value) + self.min_mel_value\n\n            # wav = self.vocoder.decode(mels[0]).squeeze(1)\n            # decode waveform for each channels to reduce vram footprint\n            wav_ch1 = self.vocoder.decode(mels[:,0,:,:]).squeeze(1).cpu()\n            wav_ch2 = self.vocoder.decode(mels[:,1,:,:]).squeeze(1).cpu()\n            wav = torch.cat([wav_ch1, wav_ch2],dim=0)\n\n            if sr is not None:\n                resampler = (\n                    torchaudio.transforms.Resample(44100, sr)\n                )\n                wav = resampler(wav.cpu().float())\n            else:\n                sr = 44100\n            pred_wavs.append(wav)\n",
+      "meaning": "DCAEがメル表現を復元し、vocoderが左右の波形へ。原典内部で44.1kHzから指定48kHzへ変換する。制作担当による追加リサンプリングはない。"
+    },
+    {
+      "id": "wav",
+      "label": "同じWAVを使う",
+      "source": {
+        "path": "vendor/ace-step/acestep/pipeline_ace_step.py",
+        "start_line": 1413,
+        "end_line": 1416,
+        "url": "https://github.com/ace-step/ACE-Step/blob/1bee4c9f5b43e30995f8d4d33b3919197ce1bd68/acestep/pipeline_ace_step.py#L1413"
+      },
+      "excerpt": "        torchaudio.save(\n            output_path_wav, target_wav, sample_rate=sample_rate, format=format, backend=backend\n        )\n        return output_path_wav",
+      "meaning": "原典save_wav_fileがWAVを書き出した。横に原典の入力設定JSON、別工程に数値測定。数値だけでノイズ/自然さ/ループ/独創性を確認した扱いにはしない。"
+    }
+  ],
+  "roles": {
+    "author": "exactOpus5.5がこの依頼/実装/説明を執筆。CLI/モデル/聴取は実行していない。",
+    "operator": "制作担当が別工程で固定ソース/モデル/専用CPU環境を用意し、原APIを1回実行。境界/音声ファイルを測定。",
+    "browser": "保存済み結果と説明を読み、同じ実WAVを再生/手渡しする。生成やモデル呼出しはしない。"
+  },
+  "input": {
+    "request": "架空のパズルゲーム「こもれび小箱」のタイトル画面で流す、20秒のオリジナル・インストゥルメンタルBGMがほしい。マリンバとやわらかい撥弦音、軽い打楽器、あたたかいベースで、落ち着いていて少しわくわくする雰囲気に。",
+    "fictional_project": "こもれび小箱",
+    "api_params": {
+      "format": "wav",
+      "audio_duration": 20.0,
+      "prompt": "instrumental, cozy puzzle game background music, marimba, soft plucked strings, light percussion, warm bass, calm, curious, gentle, relaxed tempo",
+      "lyrics": "",
+      "infer_step": 27,
+      "guidance_scale": 15.0,
+      "scheduler_type": "euler",
+      "cfg_type": "apg",
+      "omega_scale": 10.0,
+      "manual_seeds": "20261020",
+      "guidance_interval": 0.5,
+      "guidance_interval_decay": 0.0,
+      "min_guidance_scale": 3.0,
+      "use_erg_tag": true,
+      "use_erg_lyric": true,
+      "use_erg_diffusion": true,
+      "oss_steps": "",
+      "guidance_scale_text": 0.0,
+      "guidance_scale_lyric": 0.0,
+      "audio2audio_enable": false,
+      "ref_audio_strength": 0.5,
+      "ref_audio_input": null,
+      "lora_name_or_path": "none",
+      "lora_weight": 1.0,
+      "retake_seeds": "20261020",
+      "retake_variance": 0.5,
+      "task": "text2music",
+      "repaint_start": 0,
+      "repaint_end": 0,
+      "src_audio_path": null,
+      "edit_target_prompt": null,
+      "edit_target_lyrics": null,
+      "edit_n_min": 0.0,
+      "edit_n_max": 1.0,
+      "edit_n_avg": 1,
+      "batch_size": 1,
+      "debug": false
+    },
+    "requested_duration_s": 20.0,
+    "lyrics": "",
+    "reference_audio": false
+  },
+  "actual_output": {
+    "id": "cozy-puzzle-bgm-20s",
+    "audio": "outputs/audio/cozy-puzzle-bgm_seed20261020.wav",
+    "params": "outputs/audio/cozy-puzzle-bgm_seed20261020_input_params.json",
+    "return": "outputs/return.public.json",
+    "execution": "outputs/execution.json",
+    "wav_bytes": 7668248,
+    "wav_sha256": "bd58e0f5cad4c777cbeae1e7e2f0baf52b6f1d9ae6f943e8878f381380c7ca1d",
+    "params_bytes": 1381,
+    "params_sha256": "49c1fbc3035d1ea04a6c6814f047f4672cd69f2f99f8b04bc3ecd54b3fd4c3ea",
+    "measurements": {
+      "container": {
+        "format": "WAV",
+        "subtype": "FLOAT",
+        "samplerate": 48000,
+        "channels": 2,
+        "frames": 958520
+      },
+      "duration": {
+        "requested_audio_duration_s": 20.0,
+        "actual_duration_s": 19.969167,
+        "actual_minus_requested_s": -0.030833
+      },
+      "signal": {
+        "all_finite": true,
+        "nonfinite_samples": 0,
+        "samples_abs_ge_1": 0,
+        "whole": {
+          "frames": 958520,
+          "peak_abs": 0.9954119920730591,
+          "rms": 0.2836402900880742,
+          "rms_dbfs": -10.945,
+          "per_channel_peak_abs": [
+            0.9908574223518372,
+            0.9954119920730591
+          ],
+          "per_channel_rms": [
+            0.2866160704347433,
+            0.2806329568868266
+          ],
+          "per_channel_mean": [
+            0.0009104253837947587,
+            0.0007302984488794895
+          ]
+        },
+        "first_0_5_s": {
+          "frames": 24000,
+          "peak_abs": 0.9908574223518372,
+          "rms": 0.36780432688841,
+          "rms_dbfs": -8.688,
+          "per_channel_peak_abs": [
+            0.9908574223518372,
+            0.9789956212043762
+          ],
+          "per_channel_rms": [
+            0.3805649109001831,
+            0.3545848196796028
+          ],
+          "per_channel_mean": [
+            -0.0038648118149772017,
+            0.0020069151455550886
+          ]
+        },
+        "last_0_5_s": {
+          "frames": 24000,
+          "peak_abs": 0.0007894122391007841,
+          "rms": 4.091460832420393e-05,
+          "rms_dbfs": -87.762,
+          "per_channel_peak_abs": [
+            0.0007894122391007841,
+            0.0006445558392442763
+          ],
+          "per_channel_rms": [
+            4.457184623528737e-05,
+            3.6896624125033e-05
+          ],
+          "per_channel_mean": [
+            -2.037402972579368e-05,
+            -2.0407665977261145e-05
+          ]
+        },
+        "note": "Non-finite samples are counted, then treated as 0 for peak/RMS. Read as float64 via soundfile; the file is never rewritten."
+      }
+    },
+    "actual_seeds": [
+      20261020
+    ],
+    "native_save_path": "audio\\cozy-puzzle-bgm_seed20261020.wav",
+    "listening_status": "not_performed"
+  },
+  "execution": {
+    "pipeline_call_count": 1,
+    "load_checkpoint_call_count": 1,
+    "method_boundary_counts": {
+      "get_text_embeddings": 1,
+      "text2music_diffusion_process": 1,
+      "latents2audio": 1,
+      "save_wav_file": 1
+    },
+    "method_boundary_records": [
+      {
+        "method": "get_text_embeddings",
+        "entered_at_s": 23.057526,
+        "args": [
+          [
+            "instrumental, cozy puzzle game background music, marimba, soft plucked strings, light percussion, warm bass, calm, curious, gentle, relaxed tempo"
+          ]
+        ],
+        "kwargs": {},
+        "elapsed_s": 0.595233,
+        "result": [
+          {
+            "tensor_shape": [
+              1,
+              33,
+              768
+            ],
+            "dtype": "torch.float32",
+            "device": "cpu"
+          },
+          {
+            "tensor_shape": [
+              1,
+              33
+            ],
+            "dtype": "torch.int64",
+            "device": "cpu"
+          }
+        ]
+      },
+      {
+        "method": "text2music_diffusion_process",
+        "entered_at_s": 23.707752,
+        "args": [],
+        "kwargs": {
+          "duration": 20.0,
+          "encoder_text_hidden_states": {
+            "tensor_shape": [
+              1,
+              33,
+              768
+            ],
+            "dtype": "torch.float32",
+            "device": "cpu"
+          },
+          "text_attention_mask": {
+            "tensor_shape": [
+              1,
+              33
+            ],
+            "dtype": "torch.int64",
+            "device": "cpu"
+          },
+          "speaker_embds": {
+            "tensor_shape": [
+              1,
+              512
+            ],
+            "dtype": "torch.float32",
+            "device": "cpu"
+          },
+          "lyric_token_ids": {
+            "tensor_shape": [
+              1,
+              1
+            ],
+            "dtype": "torch.int64",
+            "device": "cpu"
+          },
+          "lyric_mask": {
+            "tensor_shape": [
+              1,
+              1
+            ],
+            "dtype": "torch.int64",
+            "device": "cpu"
+          },
+          "guidance_scale": 15.0,
+          "omega_scale": 10.0,
+          "infer_steps": 27,
+          "random_generators": [
+            {
+              "generator_device": "cpu",
+              "initial_seed": 20261020
+            }
+          ],
+          "scheduler_type": "euler",
+          "cfg_type": "apg",
+          "guidance_interval": 0.5,
+          "guidance_interval_decay": 0.0,
+          "min_guidance_scale": 3.0,
+          "oss_steps": [],
+          "encoder_text_hidden_states_null": {
+            "tensor_shape": [
+              1,
+              33,
+              768
+            ],
+            "dtype": "torch.float32",
+            "device": "cpu"
+          },
+          "use_erg_lyric": true,
+          "use_erg_diffusion": true,
+          "retake_random_generators": [
+            {
+              "generator_device": "cpu",
+              "initial_seed": 20261020
+            }
+          ],
+          "retake_variance": 0.5,
+          "add_retake_noise": false,
+          "guidance_scale_text": 0.0,
+          "guidance_scale_lyric": 0.0,
+          "repaint_start": 0,
+          "repaint_end": 0,
+          "src_latents": null,
+          "audio2audio_enable": false,
+          "ref_audio_strength": 0.5,
+          "ref_latents": null
+        },
+        "elapsed_s": 165.204712,
+        "result": {
+          "tensor_shape": [
+            1,
+            8,
+            16,
+            215
+          ],
+          "dtype": "torch.float32",
+          "device": "cpu"
+        }
+      },
+      {
+        "method": "latents2audio",
+        "entered_at_s": 188.912553,
+        "args": [],
+        "kwargs": {
+          "latents": {
+            "tensor_shape": [
+              1,
+              8,
+              16,
+              215
+            ],
+            "dtype": "torch.float32",
+            "device": "cpu"
+          },
+          "target_wav_duration_second": 20.0,
+          "save_path": "audio\\cozy-puzzle-bgm_seed20261020.wav",
+          "format": "wav"
+        },
+        "elapsed_s": 54.965036,
+        "result": [
+          "audio\\cozy-puzzle-bgm_seed20261020.wav"
+        ]
+      },
+      {
+        "method": "save_wav_file",
+        "entered_at_s": 243.856814,
+        "args": [
+          {
+            "tensor_shape": [
+              2,
+              958520
+            ],
+            "dtype": "torch.float32",
+            "device": "cpu"
+          },
+          0
+        ],
+        "kwargs": {
+          "save_path": "audio\\cozy-puzzle-bgm_seed20261020.wav",
+          "sample_rate": 48000,
+          "format": "wav"
+        },
+        "elapsed_s": 0.020538,
+        "result": "audio\\cozy-puzzle-bgm_seed20261020.wav"
+      }
+    ],
+    "source_timecosts_s": {
+      "preprocess": 0.65053391456604,
+      "diffusion": 165.205322265625,
+      "latent2audio": 55.1231484413147
+    },
+    "device": "cpu",
+    "dtype": "torch.float32",
+    "torch_threads": 4,
+    "torch_interop_threads": 4,
+    "python": "3.11.15",
+    "torch": "2.6.0+cpu"
+  },
+  "audition_views": [
+    {
+      "id": "whole",
+      "label": "全体",
+      "start_s": 0,
+      "end_s": 19.969166666666666
+    },
+    {
+      "id": "begin",
+      "label": "冒頭",
+      "start_s": 0,
+      "end_s": 3
+    },
+    {
+      "id": "end",
+      "label": "終わり",
+      "start_s": 16.969166666666666,
+      "end_s": 19.969166666666666
+    }
+  ],
+  "limits": [
+    "架空ゲーム向けのinstrumental1件を要望し、原APIで1回生成した。ゲームへの組込み/本番採用ではない。",
+    "歌詞が空でも歌声が無いことは未確認。楽器/テンポ/気分/独創性/既存曲との類似/ノイズ/終わり/ループは人の聴取をしていない。",
+    "20秒は要求値。潜在長/原典decode後の実長を別に表示する。音声をtrim/正規化/fade/ループ加工していない。",
+    "原典decode内部の44.1→48kHzは元の処理。制作担当の追加リサンプリングと混同しない。",
+    "Python境界の時刻/形状は実測。各反復/attention/初期ノイズ/メルの実測図ではない。説明動画の時刻は芸術的な説明用。",
+    "V1.5/Gradio/ComfyUI/LoRA/Audio2Audio/retake/repaint/edit/extend/訓練/MERT/m-hubertは本例では実行していない。",
+    "実機iOS/Safari/VoiceOver、200percentzoom、人の審美的承認、全入力/意味/性能、clipboardreadbackは未確認。",
+    "機能音声はBGM出力。紹介映像と編集ソースは無音で音声ガイドを付けない。"
+  ]
+}
