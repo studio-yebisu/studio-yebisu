@@ -1,0 +1,204 @@
+/* 編集用ページの見た目。CSSのアニメーションと transition は使わない（書き出しの画は canvas だけで決まる） */
+:root {
+  --paper: #f7f3ec;
+  --card: #fffdf8;
+  --ink: #221f2a;
+  --muted: #5f5869;
+  --line: #e2d9cb;
+  --plum: #574684;
+  --plum-soft: #ece6f6;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--paper);
+}
+
+body {
+  margin: 0;
+  padding:
+    max(20px, env(safe-area-inset-top))
+    max(16px, env(safe-area-inset-right))
+    max(28px, env(safe-area-inset-bottom))
+    max(16px, env(safe-area-inset-left));
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", "Hiragino Sans", "Meiryo", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+
+body > * {
+  max-width: 1040px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+h1 {
+  margin: 0.2em 0 0.5em;
+  font-size: clamp(1.375rem, 1.05rem + 1.4vw, 2rem);
+  line-height: 1.4;
+  word-break: auto-phrase;
+  line-break: strict;
+}
+
+h2 {
+  margin: 0 0 0.4em;
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+.intro p:last-child { margin: 0; color: var(--ink); }
+
+.stage { margin-top: 20px; margin-bottom: 12px; }
+
+#film {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.stage figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px 16px;
+}
+
+#play {
+  min-width: 96px;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 2px solid var(--plum);
+  border-radius: 10px;
+  background: var(--card);
+  color: var(--plum);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#play[aria-pressed="true"] {
+  background: var(--plum);
+  color: #ffffff;
+}
+
+#play:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.scrub {
+  display: flex;
+  flex: 1 1 240px;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.scrub label { font-size: 0.875rem; font-weight: 600; color: var(--muted); }
+
+#time {
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  font-size: 16px;
+  accent-color: var(--plum);
+}
+
+#clock {
+  min-width: 9.5em;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 16px;
+  font-variant-numeric: tabular-nums;
+}
+
+.hint, .status {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.status { color: var(--ink); font-weight: 600; }
+.status[data-state="error"] { color: #8a1f2d; }
+
+.scenes, .links { margin-top: 28px; }
+
+.scenes ol, .links ul { margin: 0; padding-left: 1.4em; }
+
+.scenes li + li, .links li + li { margin-top: 4px; }
+
+.time {
+  display: inline-block;
+  min-width: 6.5em;
+  color: var(--plum);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+a { color: var(--plum); font-weight: 600; }
+
+.links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.foot {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.foot p { margin: 0 0 6px; }
+
+:focus-visible {
+  outline: 3px solid var(--plum);
+  outline-offset: 3px;
+}
+
+/* 書き出し時：canvas だけを、指定の大きさで左上に置く */
+html.is-render,
+html.is-render body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+html.is-render body > :not(.stage),
+html.is-render .stage > :not(canvas) {
+  display: none !important;
+}
+
+html.is-render .stage { margin: 0; max-width: none; }
+
+html.is-render #film {
+  position: fixed;
+  left: 0;
+  top: 0;
+  border: 0;
+  border-radius: 0;
+}

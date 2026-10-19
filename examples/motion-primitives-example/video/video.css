@@ -1,204 +1,75 @@
-/* 編集用ページの見た目。CSSのアニメーションと transition は使わない（書き出しの画は canvas だけで決まる） */
+/* Studio Yebisu: Motion Primitives film source (visual-r1). Editor around the canvas; render mode shows only the
+   canvas. Orientation is carried by .vx-frame[data-orient], set from the two orientation buttons. */
+
 :root {
-  --paper: #f7f3ec;
-  --card: #fffdf8;
-  --ink: #221f2a;
-  --muted: #5f5869;
-  --line: #e2d9cb;
-  --plum: #574684;
-  --plum-soft: #ece6f6;
-  color-scheme: light;
+  --vx-bg: #f4f1ea;
+  --vx-paper: #fffdf8;
+  --vx-ink: #1d211e;
+  --vx-sub: #4a5048;
+  --vx-blue: #2a5a8e;
+  --vx-accent: #b2401b;
+  --vx-font: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Noto Sans JP", Meiryo, sans-serif;
 }
 
-* { box-sizing: border-box; }
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+html { background: var(--vx-bg); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
-html {
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
-  background: var(--paper);
+body.vx {
+  overflow-x: hidden;
+  color: var(--vx-ink);
+  background: var(--vx-bg);
+  font: 16px/1.75 var(--vx-font);
 }
+canvas { display: block; }
+:focus-visible { outline: 3px solid var(--vx-blue); outline-offset: 2px; }
+a { color: inherit; text-underline-offset: 0.2em; }
 
-body {
-  margin: 0;
+.vx-page {
+  max-width: 1320px;
+  margin: 0 auto;
   padding:
-    max(20px, env(safe-area-inset-top))
-    max(16px, env(safe-area-inset-right))
+    max(12px, env(safe-area-inset-top))
+    max(12px, env(safe-area-inset-right))
     max(28px, env(safe-area-inset-bottom))
-    max(16px, env(safe-area-inset-left));
-  background: var(--paper);
-  color: var(--ink);
-  font-family: "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", "Hiragino Sans", "Meiryo", system-ui, sans-serif;
-  font-size: 16px;
-  line-height: 1.75;
-  overflow-wrap: anywhere;
+    max(12px, env(safe-area-inset-left));
 }
-
-body > * {
-  max-width: 1040px;
-  margin-left: auto;
-  margin-right: auto;
+.vx-top {
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 20px;
+  padding-bottom: 8px; margin-bottom: 12px; border-bottom: 2px solid var(--vx-ink); font-size: 15px;
 }
+.vx-top h1 { margin: 0; font: 700 19px/1.4 "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif; }
+.vx-top a { display: inline-flex; align-items: center; min-height: 44px; }
 
-.eyebrow {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.875rem;
-  font-weight: 600;
+.vx-frame { border: 1.5px solid var(--vx-ink); background: var(--vx-bg); margin: 0 auto; }
+.vx-frame[data-orient="portrait"] { width: min(100%, calc(72vh * 9 / 16), 420px); }
+.vx-frame[data-orient="wide"] { width: 100%; max-width: 1280px; }
+.vx-frame canvas { width: 100%; height: auto; }
+
+.vx-controls { max-width: 860px; margin: 12px auto 0; }
+.vx-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: 8px 0; }
+.vx-btn {
+  min-height: 44px; min-width: 44px; padding: 0 14px;
+  border: 1.5px solid var(--vx-ink); border-radius: 0; background: var(--vx-paper); color: var(--vx-ink);
+  font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; touch-action: manipulation;
 }
+.vx-btn-primary { background: var(--vx-ink); color: var(--vx-bg); }
+.vx-btn[aria-pressed="true"] { background: var(--vx-ink); color: var(--vx-bg); }
+.vx-btn:disabled, .vx-scrub input:disabled { opacity: 0.45; cursor: not-allowed; }
+.vx-scrub label { font-size: 14px; font-weight: 700; }
+.vx-scrub input { flex: 1 1 12rem; min-width: 0; min-height: 44px; accent-color: var(--vx-blue); }
+.vx-scrub output { min-width: 7.5em; font-variant-numeric: tabular-nums; }
+.vx-jumps .vx-btn { font-size: 14px; padding: 0 10px; }
+.vx-status { margin: 0; font-size: 14px; font-weight: 700; color: var(--vx-sub); }
+.vx-status[data-state="error"] { color: var(--vx-accent); }
+.vx-dims { margin: 2px 0 0; font-size: 13px; line-height: 1.6; color: var(--vx-sub); overflow-wrap: anywhere; }
+.vx-dims:empty { display: none; }
+.vx-note { margin: 12px 0 0; font-size: 14px; line-height: 1.7; color: var(--vx-sub); }
 
-h1 {
-  margin: 0.2em 0 0.5em;
-  font-size: clamp(1.375rem, 1.05rem + 1.4vw, 2rem);
-  line-height: 1.4;
-  word-break: auto-phrase;
-  line-break: strict;
-}
-
-h2 {
-  margin: 0 0 0.4em;
-  font-size: 1.125rem;
-  line-height: 1.5;
-}
-
-.intro p:last-child { margin: 0; color: var(--ink); }
-
-.stage { margin-top: 20px; margin-bottom: 12px; }
-
-#film {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 9;
-  background: var(--paper);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-}
-
-.stage figcaption {
-  margin-top: 8px;
-  color: var(--muted);
-  font-size: 0.875rem;
-}
-
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  gap: 12px 16px;
-}
-
-#play {
-  min-width: 96px;
-  min-height: 44px;
-  padding: 0 20px;
-  border: 2px solid var(--plum);
-  border-radius: 10px;
-  background: var(--card);
-  color: var(--plum);
-  font: inherit;
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-#play[aria-pressed="true"] {
-  background: var(--plum);
-  color: #ffffff;
-}
-
-#play:disabled { opacity: 0.5; cursor: not-allowed; }
-
-.scrub {
-  display: flex;
-  flex: 1 1 240px;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.scrub label { font-size: 0.875rem; font-weight: 600; color: var(--muted); }
-
-#time {
-  width: 100%;
-  min-height: 44px;
-  margin: 0;
-  font-size: 16px;
-  accent-color: var(--plum);
-}
-
-#clock {
-  min-width: 9.5em;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  font-size: 16px;
-  font-variant-numeric: tabular-nums;
-}
-
-.hint, .status {
-  margin: 8px 0 0;
-  color: var(--muted);
-  font-size: 0.875rem;
-}
-
-.status { color: var(--ink); font-weight: 600; }
-.status[data-state="error"] { color: #8a1f2d; }
-
-.scenes, .links { margin-top: 28px; }
-
-.scenes ol, .links ul { margin: 0; padding-left: 1.4em; }
-
-.scenes li + li, .links li + li { margin-top: 4px; }
-
-.time {
-  display: inline-block;
-  min-width: 6.5em;
-  color: var(--plum);
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
-}
-
-a { color: var(--plum); font-weight: 600; }
-
-.links a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-}
-
-.foot {
-  margin-top: 32px;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 0.875rem;
-}
-
-.foot p { margin: 0 0 6px; }
-
-:focus-visible {
-  outline: 3px solid var(--plum);
-  outline-offset: 3px;
-}
-
-/* 書き出し時：canvas だけを、指定の大きさで左上に置く */
-html.is-render,
-html.is-render body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-html.is-render body > :not(.stage),
-html.is-render .stage > :not(canvas) {
-  display: none !important;
-}
-
-html.is-render .stage { margin: 0; max-width: none; }
-
-html.is-render #film {
-  position: fixed;
-  left: 0;
-  top: 0;
-  border: 0;
-  border-radius: 0;
-}
+/* Render mode: the canvas alone at the composition size. */
+html.render, html.render body { width: 100%; height: 100%; overflow: hidden; }
+html.render .vx-page { max-width: none; margin: 0; padding: 0; }
+html.render .vx-editor { display: none !important; }
+html.render .vx-frame { width: 100vw !important; max-width: none; border: 0; }
+html.render .vx-frame canvas { width: 100vw; height: 100vh; }

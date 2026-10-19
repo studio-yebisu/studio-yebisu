@@ -1,0 +1,156 @@
+{
+  "id": "motion-primitives-example",
+  "kind": "Reactのアニメーション付きUI部品集",
+  "source_commit": "120f64f6ca60348e251f929e9c81f11ccbe45eda",
+  "not": [
+    "Agent SkillのMarkdown指示書",
+    "npmのmotion-primitivesパッケージ",
+    "AI推論API",
+    "検索エンジン"
+  ],
+  "parts": [
+    {
+      "id": "copy",
+      "label": "ソースを写す",
+      "source_path": "vendor/motion-primitives/accordion-docs.mdx",
+      "line_start": 51,
+      "quote": "<TabsTrigger value='manual'>Manual</TabsTrigger>",
+      "meaning": "原典のManualに沿ってReact部品のファイルを写す。SKILL.mdや推論APIではない。CLI導入は元作例で使っていない。",
+      "upstream_path": "app/docs/accordion/page.mdx",
+      "source_url": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/app/docs/accordion/page.mdx#L51"
+    },
+    {
+      "id": "state",
+      "label": "開く1件を持つ",
+      "source_path": "vendor/motion-primitives/accordion.original.tsx",
+      "line_start": 38,
+      "quote": "function AccordionProvider({",
+      "meaning": "Providerは外から渡すexpandedValueまたは内部状態を使う。元作例はアプリのReact状態で制御し、onValueChangeへ戻す。",
+      "upstream_path": "components/core/accordion.tsx",
+      "source_url": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/accordion.tsx#L38"
+    },
+    {
+      "id": "container",
+      "label": "部品を包む",
+      "source_path": "vendor/motion-primitives/accordion.original.tsx",
+      "line_start": 77,
+      "quote": "function Accordion({",
+      "meaning": "AccordionはMotionConfigでtransitionを渡し、Providerで子部品に状態とtoggleItemを共有する。",
+      "upstream_path": "components/core/accordion.tsx",
+      "source_url": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/accordion.tsx#L77"
+    },
+    {
+      "id": "item",
+      "label": "1件を識別する",
+      "source_path": "vendor/motion-primitives/accordion.original.tsx",
+      "line_start": 106,
+      "quote": "function AccordionItem({ value, children, className }: AccordionItemProps) {",
+      "meaning": "各Itemのvalueと、開いたidの一致からexpandedを決める。子へvalue/expandedを渡す。",
+      "upstream_path": "components/core/accordion.tsx",
+      "source_url": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/accordion.tsx#L106"
+    },
+    {
+      "id": "trigger",
+      "label": "押す入口",
+      "source_path": "vendor/motion-primitives/accordion.original.tsx",
+      "line_start": 134,
+      "quote": "function AccordionTrigger({",
+      "meaning": "実際のbuttonからtoggleItemを呼び、同じidなら閉じ、別idなら切り替える。作例側でid/aria属性を渡す追加をしている。",
+      "upstream_path": "components/core/accordion.tsx",
+      "source_url": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/accordion.tsx#L134"
+    },
+    {
+      "id": "content",
+      "label": "本文の箱を開く",
+      "source_path": "vendor/motion-primitives/accordion.original.tsx",
+      "line_start": 161,
+      "quote": "function AccordionContent({",
+      "meaning": "AnimatePresenceとmotion.divで高さと透明度を切り替える。0.18秒/0秒は元アプリ側の設定で、部品の計測値ではない。",
+      "upstream_path": "components/core/accordion.tsx",
+      "source_url": "https://github.com/ibelick/motion-primitives/blob/120f64f6ca60348e251f929e9c81f11ccbe45eda/components/core/accordion.tsx#L161"
+    }
+  ],
+  "parts_scope": "6部品は今回の説明用整理で、原典の共通スキーマではない。",
+  "flow": [
+    "原典の部品ソースと依頼/架空6手順書を同じ作者AIへ",
+    "元AIがReact画面と最小adapterを執筆",
+    "制作担当が別に型検査/ビルド/ブラウザー操作",
+    "利用者の検索と押下から同じ状態と本文、実JSONへ"
+  ],
+  "actors": {
+    "original_ai": "原典と依頼を読んで実装と旧映像を執筆。シェル実行はしない。",
+    "production_operator": "型検査/ビルドと元15ブラウザー状態を実行し、12入力出力例と実JSONを確認。",
+    "current_introduction": "保存した元15状態を読む構造説明。新しい原推論/ビルド/元検査スイートの実行ではない。原典の実部品はdesk.htmlで今も操作できる。"
+  },
+  "hierarchy": [
+    "AppのexpandedValue/onValueChange",
+    "Accordion: MotionConfig + Provider",
+    "AccordionItem: value",
+    "AccordionTrigger: button / toggleItem",
+    "AccordionContent: AnimatePresence + motion.div"
+  ],
+  "search": {
+    "scope": [
+      "title",
+      "category",
+      "summary",
+      "body",
+      "tags"
+    ],
+    "normalization": "NFKCと小文字化",
+    "combination": "空白区切り語のAND部分一致",
+    "activation": "検索ボタンを押した時だけ。入力中は結果を変えない。",
+    "reset": "全6件へ戻し開いたidを消す。"
+  },
+  "motion": {
+    "normal_duration_setting": 0.18,
+    "reduced_duration_setting": 0,
+    "reduce_rule": "OS設定またはページ設定がtrueなら抑える。元OS検証はCDP模擬。",
+    "same_content": "見出し/本文/タグと操作を維持。抑えるのは開閉時間。",
+    "not_measurement": "0.18秒は設定値、操作の応答時間や実描画速度の計測ではない。"
+  },
+  "cases": [
+    {
+      "id": "search-two",
+      "label": "2件に絞る",
+      "state_index": 2
+    },
+    {
+      "id": "open-pdf",
+      "label": "PDFを開く",
+      "state_index": 3
+    },
+    {
+      "id": "switch-images",
+      "label": "画像へ切替",
+      "state_index": 4
+    },
+    {
+      "id": "manual-reduced",
+      "label": "動きを抑える",
+      "state_index": 11
+    },
+    {
+      "id": "empty",
+      "label": "0件",
+      "state_index": 9
+    }
+  ],
+  "download": {
+    "path": "outputs/downloaded-state.json",
+    "bytes": 2529,
+    "sha256": "d4e218264c3e346ba769d42082f13b9c104bb86ca008442759ee529f92fdd95b",
+    "scope": "元の保存原本そのもの。手動reduce=true、OS=false、PDFを開き、2件一致。"
+  },
+  "legacy": {
+    "interactive_demo": "desk.html",
+    "old_editor": "video/legacy.html"
+  },
+  "limits": [
+    "手順書は架空で、本文中のPDF/画像出力操作は実行していない。",
+    "新図は元操作記録の説明。実Accordionは元の操作画面で試す。",
+    "原典ベータのAccordionだけを限定適用。全ライブラリ/性能/アクセシビリティ保証ではない。",
+    "JSONのブラウザーへの手渡しとディスク保存完了を分ける。",
+    "実機iOS/Safari/VoiceOver、200%ブラウザーズーム、人の審美的承認は未確認。"
+  ]
+}

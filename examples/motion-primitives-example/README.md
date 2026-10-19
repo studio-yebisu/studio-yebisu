@@ -132,3 +132,8 @@ ZIPはexamples/motion-primitives-example/、media/、公開brief-to-demoの本�
 npm ci --ignore-scripts --no-audit --no-fund --prefix examples/motion-primitives-example/tools/motion-reel
 python examples/motion-primitives-example/render.py --out renders/motion-primitives-first
 ```
+
+
+## 2026-10-19 構造図の追加
+
+元のReact画面はdesk.htmlへ、元28秒編集はvideo/legacy.htmlへ保全しました。現在のindex.htmlとvideo/index.htmlは新しい概念構造版です。原典/元入力/元出力は保持し、図と32秒縦横無音動画の確認をvisual-verification.jsonへ別記します。再現はvisual-guide.mdとrender-visual.pyを参照してください。
