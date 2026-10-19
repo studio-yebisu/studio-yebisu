@@ -161,3 +161,8 @@ STL は三角形に分けた形なので、体積が解析値より少し大き�
 - この作例の文章・画面・依頼文・CAD のコマンドと設計・書き出したファイルと画像・動画のソースは Studio Yebisu の独自制作で、MIT License です（`LICENSE`）。
 - `vendor/solidcraft/` は上流の SolidCraft のファイルを変更せずに置いたものです。上流は MIT OR Apache-2.0 のどちらかを選べ、この作例では **Apache-2.0** を選んで再配布しています（`vendor/solidcraft/LICENSE-APACHE`、`vendor/solidcraft/NOTICE`）。上流の `LICENSE-MIT` もそのまま残しています。
 - SolidCraft の本体（実行ファイル）は同梱していません。公式リリースから取得してください。
+
+
+## 概念構造版 visual-r1
+
+現在のindex.htmlは構造図、元の保存結果ビューアはdesk.html、元28秒編集/MP4はvideo/legacy.htmlとlegacy.mp4へ保持。上の28秒や入口の説明は元制作時点です。現在の32秒縦横無音紹介はrender-visual.pyとvisual-guide.mdを使います。元CAD/CLI/MCP/推論は再実行なし。18同梱CRLFは公式LFと生bytesが違い、CRLFだけ正規化した内容/Gitblob一致を区別します。新しい確認はvisual-verification.jsonです。

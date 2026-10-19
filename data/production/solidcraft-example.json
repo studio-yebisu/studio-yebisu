@@ -1,6 +1,6 @@
 {
   "id": "solidcraft-example",
-  "verified_at": "2026-10-15T05:33:51.881422+00:00",
+  "verified_at": "2026-10-19T12:49:50.380777+00:00",
   "model": {
     "requested": "claude-opus-5-5",
     "reported": [
@@ -18,7 +18,16 @@
         "execution_sha256": "e6911a31b359ec18ae6fc7f8aec44e92d764dd906b7b543fbe57c71d29ba0ed8"
       }
     ],
-    "receipt_published": false
+    "receipt_published": false,
+    "visual_revision_receipts": [
+      {
+        "phase": "visual-r1 new8structureUI/editor originals",
+        "receipt_sha256": "c98ad1afd3714762aa2b2fb6d824a7ff4d8f755ae1cafe55fae05fca6650ca58",
+        "execution_sha256": "289fe65194be2be7307184889d61ad8e7542f4bbcff44d055fe0c87cf87800a5",
+        "prompt_sha256": "6cc0c71686d96983e3bdd537e68db2dc95a0cd2ca8936f0e60f853ddfb1f79da"
+      }
+    ],
+    "scope": "OriginalCAD authoring and originalsite/28s authoring remain twooriginal receipts. NewexactOpus authored8newdiagram/editor originals only. Parent factualprojection/technicalcorrections/render/QA/package/publication are separate, not reassigned to newOpus."
   },
   "upstream": {
     "repository": "bherbruck/solidcraft",
@@ -26,7 +35,12 @@
     "license_selected": "Apache-2.0",
     "available_licenses": "MIT OR Apache-2.0",
     "vendor_files_match_fixed_checkout": 18,
-    "checkout_line_endings": "Windows Git checkout bytes retained unchanged"
+    "checkout_line_endings": "Windows Git checkout bytes retained unchanged",
+    "official_git_blob_files": 18,
+    "official_raw_bytes_matches": 0,
+    "crlf_only_normalized_gitblob_matches": 18,
+    "original_windows_bytes_preserved": true,
+    "line_ending_scope": "Originalvendor_files_match_fixed_checkout18 means Windowscheckout match. OfficialLF rawbytes differ; only CRLF-normalized content/Gitblobs match. Separateofficialruntime0.11.1/b01b9689 was notbuiltfromreference16c49c3."
   },
   "runtime": {
     "status": "passed",
@@ -103,9 +117,391 @@
       }
     },
     "human_approval": false,
-    "manufacturing_tested": false
+    "manufacturing_tested": false,
+    "original_execution_rerun_for_revision": false,
+    "revision_scope": "OriginalCAD/MCP/CLI/checker execution retained unchanged. Newdiagram reads savedresults only; currentbrowser verification is separate fromCAD execution."
   },
   "browser": {
+    "status": "passed",
+    "checked_at": "2026-10-19T12:47:59.843781+00:00",
+    "phone_case_stage_views": 12,
+    "phone_widths": [
+      320,
+      375
+    ],
+    "whole_map_and_main_actions": true,
+    "primary_min_height_css_px": 44,
+    "source_quotes": 6,
+    "theme_width_motion_views": 16,
+    "cases": 2,
+    "stages": 3,
+    "native_save_handoffs": 6,
+    "exact_output_files": [
+      {
+        "path": "outputs/tray-default.json",
+        "bytes": 3145,
+        "sha256": "5154fad132ad9070dd4b085aa478bb34436f89b79b1aee349073abdf050f9dd9"
+      },
+      {
+        "path": "outputs/tray-default.step",
+        "bytes": 12850,
+        "sha256": "e223a4ed39ab6cd5ab52778a404358d2ea5478fca5108e524286c5199bb2b64b"
+      },
+      {
+        "path": "outputs/tray-default.stl",
+        "bytes": 13484,
+        "sha256": "a99a932edb4856afed76bff0f19800771a988a921c6bf922e036795df30b2d81"
+      },
+      {
+        "path": "outputs/tray-resized.json",
+        "bytes": 3146,
+        "sha256": "4da7a381f200c59ae93ba59180dd0ce1eef59403136e24f51ff967acf6f269ed"
+      },
+      {
+        "path": "outputs/tray-resized.step",
+        "bytes": 12745,
+        "sha256": "3abdcea79540d99532e13330e82020ee461fc4623144c031774197b8e45dc730"
+      },
+      {
+        "path": "outputs/tray-resized.stl",
+        "bytes": 15884,
+        "sha256": "0da764762b61f97b59ca8fb31e1ddfd7b80788b75976cf9e1793964f20de8598"
+      }
+    ],
+    "new_save_scope": "Nativebutton hands verified originalArrayBuffer to browser; browser did not return those6files. Disk-savecompletion not claimed.",
+    "returned_original_viewer_file": {
+      "format": "STEP",
+      "state": "tray-default",
+      "returned_file_bytes": 12850,
+      "sha256": "e223a4ed39ab6cd5ab52778a404358d2ea5478fca5108e524286c5199bb2b64b",
+      "returned_bytes_identical": true
+    },
+    "original_png_views": 4,
+    "original_viewer_keyboard": "ArrowLeft changesresized todefault; originalkeyboard suite not rerun.",
+    "original_viewer_initial_hash": {
+      "hash": "#tray-resized",
+      "scrollY": 0,
+      "selected": "tray-resized"
+    },
+    "controlled_failures": [
+      {
+        "mode": "http",
+        "main_message": "表示できません：concept/structure.json を読み込めませんでした（HTTP 503）",
+        "editor_message": "描画できません：concept/structure.json を読み込めませんでした（HTTP 503）",
+        "stale_data_cleared": true,
+        "retry_recovered": true,
+        "failed_seek_rejected": true
+      },
+      {
+        "mode": "json",
+        "main_message": "表示できません：concept/structure.json の大きさが記録と違います（1バイト／記録 30398バイト）",
+        "editor_message": "描画できません：concept/structure.json の大きさが記録と違います（1バイト／記録 30398バイト）",
+        "stale_data_cleared": true,
+        "retry_recovered": true,
+        "failed_seek_rejected": true
+      },
+      {
+        "mode": "hash",
+        "main_message": "表示できません：concept/structure.json の内容が記録と一致しません（SHA-256 が違います）",
+        "editor_message": "描画できません：concept/structure.json の内容が記録と一致しません（SHA-256 が違います）",
+        "stale_data_cleared": true,
+        "retry_recovered": true,
+        "failed_seek_rejected": true
+      }
+    ],
+    "editor_assets": 31,
+    "editor_orient_scene_states": 14,
+    "arbitrary_seconds": 7.2,
+    "editor_normal_playback_end": {
+      "time": 32,
+      "playing": "false",
+      "clock": "32.0 / 32.0 秒",
+      "config": {
+        "duration": 32,
+        "fps": 30,
+        "width": 1280,
+        "height": 720,
+        "posterTime": 31,
+        "audioEvents": []
+      }
+    },
+    "movie_starts": [
+      {
+        "id": "film-portrait",
+        "time": 0,
+        "duration": 32,
+        "paused": true,
+        "rate": 1,
+        "error": null
+      },
+      {
+        "id": "film-wide",
+        "time": 0,
+        "duration": 32,
+        "paused": true,
+        "rate": 1,
+        "error": null
+      }
+    ],
+    "movie_ends": [
+      {
+        "id": "film-portrait",
+        "time": 32,
+        "duration": 32,
+        "ended": true,
+        "paused": true,
+        "rate": 1,
+        "error": null,
+        "decodedFrames": 960
+      },
+      {
+        "id": "film-wide",
+        "time": 32,
+        "duration": 32,
+        "ended": true,
+        "paused": true,
+        "rate": 1,
+        "error": null,
+        "decodedFrames": 960
+      }
+    ],
+    "movie_seek_used": false,
+    "request_copy": "Originalrequest text matches aftertextarea linebreak normalization/trailingnewline; nativecopy reported success.",
+    "audio_elements": 0,
+    "audio_events": 0,
+    "clipboard_readback": false,
+    "physical_ios_safari_voiceover": false,
+    "zoom200percent": false,
+    "human_approval": false
+  },
+  "video": {
+    "revision": "visual-r1",
+    "films": {
+      "portrait": {
+        "file": "video.mp4",
+        "sha256": "17a949088b9730359ef0a2c0d3440bc8884ca2027564a14d56e7d87d67cc82d6",
+        "width": 720,
+        "height": 1280,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      },
+      "wide": {
+        "file": "video.mp4",
+        "sha256": "c93096fd6456d9e08dd38e6a687cd9b3df902dd18e4a9db59950c04685ba8d28",
+        "width": 1280,
+        "height": 720,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      }
+    },
+    "audio_streams": 0,
+    "native_movies_ended": 2,
+    "human_approval": false
+  },
+  "limitations": [
+    "Endpoint sequences tested; intermediate dimensions and other combinations are not exhaustively verified.",
+    "The web page views saved CAD results. It does not execute AI or arbitrary CAD edits in the browser.",
+    "STL is a tessellated mesh without parametric history; STEP reopens as a base solid; JSON retains editable parameters.",
+    "No physical manufacturing, strength, print, drain-flow or human approval claim. Video is silent.",
+    "Catalog reference source and official runtime release are separately pinned, not claimed to be the same build.",
+    "No originalCAD/inference/MCP/CLI/checkers rerun forvisualrevision. Newdiagram is explanation ofsavedoutputs, notengineinstrumentation.",
+    "PhysicaliOS/Safari/VoiceOver/200percentzoom/humanaestheticapproval/clipboardreadback/generalinputs/semantics/performance notverified.",
+    "Six newBlobhandoffs differ from separatelyreturned originalviewer STEP12850B allbytesmatch. Disk-save completion ofnewhandoffs notclaimed."
+  ],
+  "publication": {
+    "stage": "technical_qa_complete_pending_live",
+    "scope": "Targetonly committedcommon pipeline, owncommitpush, Pages/allbytes/nativearticle checks beforequeuepublished. Publicationevidence retained privately afterdeployment."
+  },
+  "artifacts_sha256": {
+    "data/cases/solidcraft-example.json": "42a36239747bab6805be55cacb8f7daf81cc61daa2c06c1e61a0b62d26eff793",
+    "examples/solidcraft-example/LICENSE": "767a52e95f072158a5a4f310d642105ed4d1a17b706dff9e373801d3ad976e93",
+    "examples/solidcraft-example/README.md": "2a6e3e9cb10bc317036886d628b91cba971a2ea66ca30022294c8cd60d38b992",
+    "examples/solidcraft-example/app.js": "e1cf2bdd3586c47016d8adcbd06a6e6ea622494dd58b31faf21daac4b798e0bd",
+    "examples/solidcraft-example/cad/build.json": "5897b86802e66af5479f746a34814d7bf916533e267c364d6899b4e6956762ec",
+    "examples/solidcraft-example/cad/check_design.py": "10b3dd3c686172eba3fd2405ae304972aad89908d8fa5a4c8f3c6d71582adca9",
+    "examples/solidcraft-example/cad/expected.json": "1bf2ade5b097a738225409c35ac91264cb0847426e1594f437886e310c08c2dd",
+    "examples/solidcraft-example/cad/plan.md": "a6d15eb9d6c2a9cd3e0f2f34ae71d355cd6eb2d81ef2d4c933fad27766eda3ce",
+    "examples/solidcraft-example/cad/resize.json": "4ab2d883c386d8303bdb1fa0095b86e68613b56e8622bd271c2a4b26414d7856",
+    "examples/solidcraft-example/cad/walk.json": "c350e68f05d4ea8be01db2179b3a05c90879e525630b117920266f5923e0e41e",
+    "examples/solidcraft-example/concept.css": "365aa723b46dab0d04d243e42bd274263a6353b654e2cdcd12bfa9b3d2577bc3",
+    "examples/solidcraft-example/concept.js": "b8a80dc6734b4c7f922f87450c998f20c8875963e6b09805472d262e1f0be53b",
+    "examples/solidcraft-example/concept/manifest.json": "362648f5dc12c733470a87b9b1248111da5f3191d794252af9086085e3055940",
+    "examples/solidcraft-example/concept/original-run.json": "871af521d215094b115177f2158ba31522528eefd430d1a544c273738def663d",
+    "examples/solidcraft-example/concept/structure.json": "f21e7f026cfbb90455504fee7025ffc17c581eda69369a988b0963c7ad2b31f9",
+    "examples/solidcraft-example/desk.html": "8c1e7d7ded68ec1242861ea35ad8e389f6dda217c626c7568588ad6554d6e596",
+    "examples/solidcraft-example/index.html": "be8418c0011b54961edacb74edcc389046c52d2cf5ee0173833f215942d74ab9",
+    "examples/solidcraft-example/measurements.json": "ad07e9160686974dc0092fcace64f851ec0d41a38bb85bd566bd476404d6ca1c",
+    "examples/solidcraft-example/outputs/tray-default.json": "5154fad132ad9070dd4b085aa478bb34436f89b79b1aee349073abdf050f9dd9",
+    "examples/solidcraft-example/outputs/tray-default.step": "e223a4ed39ab6cd5ab52778a404358d2ea5478fca5108e524286c5199bb2b64b",
+    "examples/solidcraft-example/outputs/tray-default.stl": "a99a932edb4856afed76bff0f19800771a988a921c6bf922e036795df30b2d81",
+    "examples/solidcraft-example/outputs/tray-resized.json": "4da7a381f200c59ae93ba59180dd0ce1eef59403136e24f51ff967acf6f269ed",
+    "examples/solidcraft-example/outputs/tray-resized.step": "3abdcea79540d99532e13330e82020ee461fc4623144c031774197b8e45dc730",
+    "examples/solidcraft-example/outputs/tray-resized.stl": "0da764762b61f97b59ca8fb31e1ddfd7b80788b75976cf9e1793964f20de8598",
+    "examples/solidcraft-example/render-visual.py": "cb692121f26a72d327bfeb9c3f9db2fb2fb0d5fef08f78888a4d7611ac8fa42d",
+    "examples/solidcraft-example/renders/tray-default-iso.png": "dc04af9a3e2bf313c148cb04eafbadb6e5553809af5973230b09da74ba43f0eb",
+    "examples/solidcraft-example/renders/tray-default-top.png": "ddc69b5ae81d9589dce6250c117f19e63450839a1359eb54fecc349510e14b68",
+    "examples/solidcraft-example/renders/tray-resized-iso.png": "b6f253dca2c2c2c83487d0e9a5f85603b11e9e3562c7ae3eb2e1e1b82041acb3",
+    "examples/solidcraft-example/renders/tray-resized-top.png": "b250c3adab3a57a55a76a86e46b9bfd7b480531d48b08c3080dbb272220242ac",
+    "examples/solidcraft-example/request.txt": "b1e1cf00743d40d0ba455abd1c2821ea8b7f11e44a325728026b1a8c3d7b702f",
+    "examples/solidcraft-example/samples.json": "419116511e1b1e68bdcd44997a84f64e94d415416c784be72077098aa79f59c9",
+    "examples/solidcraft-example/source.zip": "f6951a85dbbceaff5a604386095df2b9d3d44f8021e34a7a286418fe31bcc61f",
+    "examples/solidcraft-example/styles.css": "6c2b6001aac7dd40fed1dabc5145a470bca79f887806526ccbefee6f7f2c77f9",
+    "examples/solidcraft-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/solidcraft-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/solidcraft-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/solidcraft-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/solidcraft-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "examples/solidcraft-example/vendor/solidcraft/LICENSE-APACHE": "eb3d7b5485466acbd81f2b496f595ab637d2792e268206b27d99e793bdb67549",
+    "examples/solidcraft-example/vendor/solidcraft/LICENSE-MIT": "44cca886556f909c92e8856945be1c55371698d06d052c6fe7cee7c6fb8e316f",
+    "examples/solidcraft-example/vendor/solidcraft/NOTICE": "c0358377f5b56965278d56864cc57fb28f454b23c0717244eb5669bf72e95ac9",
+    "examples/solidcraft-example/vendor/solidcraft/README.md": "23426c30795a82be29afeae75c6121f48dc77a8a85088ab61e74d05f5625e406",
+    "examples/solidcraft-example/vendor/solidcraft/docs/mcp.md": "d9d82677907192c85705a137b7a082fcd27db947abd801969003f128544f61c3",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/SKILL.md": "564919b5905d6a55c31894b38c09e6ea1ce4304708fbe86ed15989608a691e62",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/reference/porting.md": "d246fde9c4771a9d5af7909345b4e8bf9d1691312d6c34d50831b06387e36a4f",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/compare_step.py": "7a508c792216269ea9308449a3866bbb452497dea6644f159cf3812c12c70126",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/run.py": "63d8884361aa07b21817ddcec4b2c4a7c0f34b70ab075d07facac48fce41eba7",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/scb.py": "a6a4c699278f154c433f1f9649b2ad3c2f5742d543f4b75a06b6a23d619ade64",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/tests/test_compare_step.py": "910a57514b4c92df0108b67ba2851115e59975befcd956740f5a5b18a699e97f",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/tests/test_facts.py": "542d1afb6285cb271652a11f679ed4e9bf0eb70b16a4f42eeaf80f15f05b782a",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/tests/test_run.py": "6b193ddb27fb9b870f0bf46ccb383d8bca801d338ced8f15d2a0a1a8d65d4f2c",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/tests/test_scb.py": "30fb033a1f6b301f27741d029f83fd961ef93278fa20d87661927b954cb3f81b",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/templates/test_design.py": "73e09cd7fb2cf1e52dcbb9349d7e6ca6bed02a58b6c9cf1e19dd14739865bf94",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-editing/SKILL.md": "c0e76e9bcb1b5b3feb821127878e38d1aa78068241930be23b62d880648dd34c",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-modeling/SKILL.md": "4a1aceadebf7ece14dec2850c5037c8430cb2c32f5d0a42f13074f81e5b2c6df",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-modeling/reference.md": "2aeab14e61de9f0bcf4841dcc068edb61565054aa852fa2191fff45f542eb451",
+    "examples/solidcraft-example/video/README.md": "e464d07c163a4d018493aa86bd4c94ae155e3f320e7efa399cd0b14e069deaf4",
+    "examples/solidcraft-example/video/brief.md": "445779aa7702a0d47362d7f638404c7b8259d58cd7edb3d8d25cdde3d431de05",
+    "examples/solidcraft-example/video/index.html": "02adcb32ec1e9e3212b6dfaeb30cd2cea408e5601a7d3d08e577a85cef8ce057",
+    "examples/solidcraft-example/video/legacy.html": "013683437bdef71b2ba48e87ec58f4bf6db87bf85e5bf1f2ebbb30ed0cd7fc4b",
+    "examples/solidcraft-example/video/legacy.mp4": "51620ec6dbbc9d106fd19d93230e7c0451988debdfba143f1160d682a0ed3bf4",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/capture.json": "638161bb44bc126fb97fc81315238eee1a40136e917ce586206ddb0cf9d7dbfa",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/contact.png": "9201f04b82b8c03685d4a2ade1a5d9c64a11d275d074c22d61e359b9dc2a19c4",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/mp4-moving-strip.png": "92c9ccd8057574074e969b42596188ac2722321327c69eea02021b0c180c4202",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/poster.png": "413c9e0bd174c3971c51bd4f91fcf2e38217825ab98544ec414352534bdd45ab",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/stills/frame-000000.png": "426c683b29bacb3083cf83e80348ed949b238faa62e4a427b2892ef9fa745c42",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/stills/frame-000001.png": "eea440433830b93360c88495279aec6f2e38fbcb8250138820471232d98ea4b0",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/stills/frame-000002.png": "225b7731930f8b09f4bf455b27a12a2a2063312df8fac186296cef506f28544f",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/stills/frame-000003.png": "a48d8368a6aead305dcdc4c2fcd2e1332593fa7eb787420686ef72e99ed029b6",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/stills/frame-000004.png": "dc635c8333dcc7e88cedac7aa06f530fe9ce4f15b9cba6b00a4b16eec189533e",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/stills/frame-000005.png": "e7c37857dfa9ef7f3d418009003af552f6f8f7f631aeb84dcc57439dd251791d",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/stills/frame-000006.png": "6de35d40087b9046942f66ca6dba0ff04ec6b1d1df1b3d1ed1be2039af927722",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/stills/frame-000007.png": "c8c0503e3fe2ebe09f1bc71bdc9650780cc1cb3eee974e3da1c81561ebb50c77",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/stills/frame-000008.png": "51bbc358633e22bec48d0cf0f340eb20c71bc76cb570c00a4e5beb38bc80caf9",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/stills/frame-000009.png": "1e211835f575156b9ddc8562dfc29c1e0f5e042a75a17d7ef6051e80efc2ceec",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/stills/frame-000010.png": "47433518ee540efc1de143f47fd4d7e321b93cb1e866f2a7a19af48f8b137544",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/stills/frame-000011.png": "d1add56ca0a363b8b8a22c4fba03242f72af979bbed2563087e0d9ccdcb9797c",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/stills/frame-000012.png": "2984b7ccf40deabbc10a3091ccfb4da37dab79445eb981d4fb59b47e2578aac2",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/stills/frame-000013.png": "9f341dfdb928954c879fb9f03be5d1095ae75c428f0ff525965e6b76fd368e16",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/stills/frame-000014.png": "7e71dce124be018baae7735fe3f2bff5cfde4cdeec605188d575753b62f78485",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/stills/frame-000015.png": "413c9e0bd174c3971c51bd4f91fcf2e38217825ab98544ec414352534bdd45ab",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/strip.png": "1d20ee0fe8092b0cb38032d312cdb92f80e8796096f6a0aea4643720ba3892b7",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/strip/frame-000000.png": "c8c0503e3fe2ebe09f1bc71bdc9650780cc1cb3eee974e3da1c81561ebb50c77",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/strip/frame-000001.png": "1a7376f1623894c07b9749e0efcf3c1d8bf162bceb58af85a46fba6e31ddde82",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/strip/frame-000002.png": "7e35d1bfb94b050c9cc2a9dd3369001b90e127eb3690b77bb6ac7355e6fa46e2",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/strip/frame-000003.png": "1e5f8a23f39fbd49fdfbdfe36623812e599cf6bc260d3d8846c6317197601f79",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/strip/frame-000004.png": "015e32309e96b32f86da622ff700e2e43a4602e2faff12e77f848e6eab50e316",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/strip/frame-000005.png": "8f576f9b8403ad3b87f43d7ca923c6595d6758777f3ef740e1b23e323e26bed6",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/strip/frame-000006.png": "888b8887d14a72edf8b60ed7fe3c1dc2742676239ccec2d8688b4e343c024a94",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/strip/frame-000007.png": "2d7a04e3b3f0b93546e4657023351e5b7de4d3c81486f199de5995075a17794b",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/strip/frame-000008.png": "c437d2a770fa9e03b4b18407e2d887fa61b54448882da5e79a329b2ed0645826",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/strip/frame-000009.png": "4ebe43460a8476e86327b285c02664d8f0a4687f5b2e0b9cb2b68abab35e0243",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/strip/frame-000010.png": "d98e18c389f88e0ca1df1db571121bab80d9b34d8b470bc336952267fb773ed2",
+    "examples/solidcraft-example/video/review/visual-r1/portrait/strip/frame-000011.png": "468a19eaba3feaf36c787569bcf2db685cf23e314b7ced65ce28e74c92034d62",
+    "examples/solidcraft-example/video/review/visual-r1/wide/capture.json": "03bb2442b46a326ae138d146dd7b2e583e18eca38b6d54279ec7276bfbe80f1f",
+    "examples/solidcraft-example/video/review/visual-r1/wide/contact.png": "119464ee9f70b921682089b42038d4cf98742a9cfdfdcb9ea7285fc2c0590279",
+    "examples/solidcraft-example/video/review/visual-r1/wide/mp4-moving-strip.png": "846fdb08f0f4b081904ad984e0340206c6f2256e5b732011ba4bd7ed4e7cba36",
+    "examples/solidcraft-example/video/review/visual-r1/wide/poster.png": "70dd2cace62d18b6fc0e245b1e544d3cc954259fdebea83fa334a68f22dbdc29",
+    "examples/solidcraft-example/video/review/visual-r1/wide/stills/frame-000000.png": "af43c8c924b3e4fc3c388a1307bd86b6587b842828729dbba3e35d4c4e9183fa",
+    "examples/solidcraft-example/video/review/visual-r1/wide/stills/frame-000001.png": "998b7508bda399dc191d26384d51b3cb90a0ee8783f18233a09d335727792d83",
+    "examples/solidcraft-example/video/review/visual-r1/wide/stills/frame-000002.png": "6e505fa96a0abc342a616ff53b4faaaa3d543ae4aeb4cc6b425dacaa75b73c76",
+    "examples/solidcraft-example/video/review/visual-r1/wide/stills/frame-000003.png": "60f8bc59894b65e2f944532e9f7dd9bdeb35316d4f5a63a9719a588a81b47beb",
+    "examples/solidcraft-example/video/review/visual-r1/wide/stills/frame-000004.png": "0a0bc6823d0f635f86a54c5513a4662bd8931753ba0cb962f0b5f85bb9f1f393",
+    "examples/solidcraft-example/video/review/visual-r1/wide/stills/frame-000005.png": "6ef31912ba56ecb141cd0328b2bcd3edeb42c41e8fdda7a38b25d917d74076b1",
+    "examples/solidcraft-example/video/review/visual-r1/wide/stills/frame-000006.png": "69c84633d9bd6877176651aa513b03383d9bf615e679107e2ea97d515ccaa326",
+    "examples/solidcraft-example/video/review/visual-r1/wide/stills/frame-000007.png": "ba3dc30fb8ff5ac82ba6182c8f3332c552327cba43ced0a54bd164a5e7477e70",
+    "examples/solidcraft-example/video/review/visual-r1/wide/stills/frame-000008.png": "6009ede559d6a7d729b620aaa497316cd3d573635db916a9b4b19001bd7cca63",
+    "examples/solidcraft-example/video/review/visual-r1/wide/stills/frame-000009.png": "4b7c41815b3b77de92588c5f094cf0ac09010799c79fbfcfca29e8f8e442274e",
+    "examples/solidcraft-example/video/review/visual-r1/wide/stills/frame-000010.png": "e01337230145bb939f7e9b725a4a5af7dc01c58c72e61463748edd5bb1eb0a31",
+    "examples/solidcraft-example/video/review/visual-r1/wide/stills/frame-000011.png": "b449f09a913f3cdfda8bf85717d16e94d9ffcd94ed2ab0cd726964556a858989",
+    "examples/solidcraft-example/video/review/visual-r1/wide/stills/frame-000012.png": "a43bc1ac5a30eecf0944cc04cb24f45d890ad2d45aab7949e810e63a222e7da8",
+    "examples/solidcraft-example/video/review/visual-r1/wide/stills/frame-000013.png": "a327d186a3bb8bd1a576020aceb3c251bdd1db7639eade2aa246fe20f584bb28",
+    "examples/solidcraft-example/video/review/visual-r1/wide/stills/frame-000014.png": "f442f974c1414bc12289de110c7d12e5c20b964d3a44e2c4a8cd6831ce1eb2d7",
+    "examples/solidcraft-example/video/review/visual-r1/wide/stills/frame-000015.png": "70dd2cace62d18b6fc0e245b1e544d3cc954259fdebea83fa334a68f22dbdc29",
+    "examples/solidcraft-example/video/review/visual-r1/wide/strip.png": "7f6b6f2c2c4dc3fdffe252859f7b4c2ef87a10b3c78653b4d78df68765b80641",
+    "examples/solidcraft-example/video/review/visual-r1/wide/strip/frame-000000.png": "ba3dc30fb8ff5ac82ba6182c8f3332c552327cba43ced0a54bd164a5e7477e70",
+    "examples/solidcraft-example/video/review/visual-r1/wide/strip/frame-000001.png": "0a8676fdc5da7929fb1bbbbb77e62dd796b7142c9ac5e9ad5a01f4500257e178",
+    "examples/solidcraft-example/video/review/visual-r1/wide/strip/frame-000002.png": "4d3cd816066fc5b274519b83b5083246e87136b5b4d329a544593f59cb45d5f5",
+    "examples/solidcraft-example/video/review/visual-r1/wide/strip/frame-000003.png": "f87e48a36d1493d3860321bf5f9541c73df3f41f70210d98e3f3667a879af997",
+    "examples/solidcraft-example/video/review/visual-r1/wide/strip/frame-000004.png": "670d3dde5723149665f5508b002edf97170bf3b53019c698f44ed08647c9ef4a",
+    "examples/solidcraft-example/video/review/visual-r1/wide/strip/frame-000005.png": "06ce7e5777ff5dfc0290cb6b0907a66b12fcf539691c6b6a36e73cca2854a33d",
+    "examples/solidcraft-example/video/review/visual-r1/wide/strip/frame-000006.png": "1768bf7d41e9c94e9e724b74e33daf6c77c766616eb2b9a0ef23c62381c03f1b",
+    "examples/solidcraft-example/video/review/visual-r1/wide/strip/frame-000007.png": "9ece5e507488d76f3861e0a5dece476f6a48218f2e4ed078e09553fec83e1445",
+    "examples/solidcraft-example/video/review/visual-r1/wide/strip/frame-000008.png": "abd4104216db8a831beb61c3b694dc4064b9ffff063cd3ff78d365233a12a2fb",
+    "examples/solidcraft-example/video/review/visual-r1/wide/strip/frame-000009.png": "5e7b3bcb859c14181059f4c8dba94a493a1c0fb3501f5cc09631f841777d6ed5",
+    "examples/solidcraft-example/video/review/visual-r1/wide/strip/frame-000010.png": "0b0dbade170d63e0cfaa42729b45c6d9e60065afede4bb9b1d0003e67e5b58df",
+    "examples/solidcraft-example/video/review/visual-r1/wide/strip/frame-000011.png": "23775615b75a7b922f2180d8c0316fdcb4e27e728d20f94e282bbb8cd48954c1",
+    "examples/solidcraft-example/video/storyboard.json": "14139ee1da10378932e2b458fad36b1f65d7a7d8f37a6637b08aaf8f4acba715",
+    "examples/solidcraft-example/video/video.css": "1b9240ee7aaf47a96f787a80dd095add68d157d2d88f588a796124a50208e098",
+    "examples/solidcraft-example/video/video.js": "9ceba29e8cf4bfd447d74b70873476ad280ceac84f766cbb46deb4e7b8434bd2",
+    "examples/solidcraft-example/visual-guide.md": "95a4ab667e91f7cc89f2f14cca392ff426abd4333f3ccc459de5d7a9a6b4728b",
+    "examples/solidcraft-example/visual-verification.json": "4a367de84a3b8fa79906e1e98dba5299e7360cb5eb874adbbe60a1b49e2d7d96",
+    "media/solidcraft-example-wide.mp4": "c93096fd6456d9e08dd38e6a687cd9b3df902dd18e4a9db59950c04685ba8d28",
+    "media/solidcraft-example.mp4": "17a949088b9730359ef0a2c0d3440bc8884ca2027564a14d56e7d87d67cc82d6",
+    "media/solidcraft-example.webp": "7e008d41c43028527a94b8977e20c8df95fffe51e14374c61ed8b60e4df6da75"
+  },
+  "original_artifacts_sha256": {
+    "examples/solidcraft-example/app.js": "e1cf2bdd3586c47016d8adcbd06a6e6ea622494dd58b31faf21daac4b798e0bd",
+    "examples/solidcraft-example/cad/build.json": "5897b86802e66af5479f746a34814d7bf916533e267c364d6899b4e6956762ec",
+    "examples/solidcraft-example/cad/check_design.py": "10b3dd3c686172eba3fd2405ae304972aad89908d8fa5a4c8f3c6d71582adca9",
+    "examples/solidcraft-example/cad/expected.json": "1bf2ade5b097a738225409c35ac91264cb0847426e1594f437886e310c08c2dd",
+    "examples/solidcraft-example/cad/plan.md": "a6d15eb9d6c2a9cd3e0f2f34ae71d355cd6eb2d81ef2d4c933fad27766eda3ce",
+    "examples/solidcraft-example/cad/resize.json": "4ab2d883c386d8303bdb1fa0095b86e68613b56e8622bd271c2a4b26414d7856",
+    "examples/solidcraft-example/cad/walk.json": "c350e68f05d4ea8be01db2179b3a05c90879e525630b117920266f5923e0e41e",
+    "examples/solidcraft-example/index.html": "8c1e7d7ded68ec1242861ea35ad8e389f6dda217c626c7568588ad6554d6e596",
+    "examples/solidcraft-example/LICENSE": "767a52e95f072158a5a4f310d642105ed4d1a17b706dff9e373801d3ad976e93",
+    "examples/solidcraft-example/measurements.json": "ad07e9160686974dc0092fcace64f851ec0d41a38bb85bd566bd476404d6ca1c",
+    "examples/solidcraft-example/outputs/tray-default.json": "5154fad132ad9070dd4b085aa478bb34436f89b79b1aee349073abdf050f9dd9",
+    "examples/solidcraft-example/outputs/tray-default.step": "e223a4ed39ab6cd5ab52778a404358d2ea5478fca5108e524286c5199bb2b64b",
+    "examples/solidcraft-example/outputs/tray-default.stl": "a99a932edb4856afed76bff0f19800771a988a921c6bf922e036795df30b2d81",
+    "examples/solidcraft-example/outputs/tray-resized.json": "4da7a381f200c59ae93ba59180dd0ce1eef59403136e24f51ff967acf6f269ed",
+    "examples/solidcraft-example/outputs/tray-resized.step": "3abdcea79540d99532e13330e82020ee461fc4623144c031774197b8e45dc730",
+    "examples/solidcraft-example/outputs/tray-resized.stl": "0da764762b61f97b59ca8fb31e1ddfd7b80788b75976cf9e1793964f20de8598",
+    "examples/solidcraft-example/README.md": "4e6395e02f0f5901563080c3840599966b28a8c60ab1926c74d839fb2374ff53",
+    "examples/solidcraft-example/renders/tray-default-iso.png": "dc04af9a3e2bf313c148cb04eafbadb6e5553809af5973230b09da74ba43f0eb",
+    "examples/solidcraft-example/renders/tray-default-top.png": "ddc69b5ae81d9589dce6250c117f19e63450839a1359eb54fecc349510e14b68",
+    "examples/solidcraft-example/renders/tray-resized-iso.png": "b6f253dca2c2c2c83487d0e9a5f85603b11e9e3562c7ae3eb2e1e1b82041acb3",
+    "examples/solidcraft-example/renders/tray-resized-top.png": "b250c3adab3a57a55a76a86e46b9bfd7b480531d48b08c3080dbb272220242ac",
+    "examples/solidcraft-example/request.txt": "b1e1cf00743d40d0ba455abd1c2821ea8b7f11e44a325728026b1a8c3d7b702f",
+    "examples/solidcraft-example/samples.json": "419116511e1b1e68bdcd44997a84f64e94d415416c784be72077098aa79f59c9",
+    "examples/solidcraft-example/styles.css": "6c2b6001aac7dd40fed1dabc5145a470bca79f887806526ccbefee6f7f2c77f9",
+    "examples/solidcraft-example/vendor/solidcraft/docs/mcp.md": "d9d82677907192c85705a137b7a082fcd27db947abd801969003f128544f61c3",
+    "examples/solidcraft-example/vendor/solidcraft/LICENSE-APACHE": "eb3d7b5485466acbd81f2b496f595ab637d2792e268206b27d99e793bdb67549",
+    "examples/solidcraft-example/vendor/solidcraft/LICENSE-MIT": "44cca886556f909c92e8856945be1c55371698d06d052c6fe7cee7c6fb8e316f",
+    "examples/solidcraft-example/vendor/solidcraft/NOTICE": "c0358377f5b56965278d56864cc57fb28f454b23c0717244eb5669bf72e95ac9",
+    "examples/solidcraft-example/vendor/solidcraft/README.md": "23426c30795a82be29afeae75c6121f48dc77a8a85088ab61e74d05f5625e406",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/reference/porting.md": "d246fde9c4771a9d5af7909345b4e8bf9d1691312d6c34d50831b06387e36a4f",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/compare_step.py": "7a508c792216269ea9308449a3866bbb452497dea6644f159cf3812c12c70126",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/run.py": "63d8884361aa07b21817ddcec4b2c4a7c0f34b70ab075d07facac48fce41eba7",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/scb.py": "a6a4c699278f154c433f1f9649b2ad3c2f5742d543f4b75a06b6a23d619ade64",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/tests/test_compare_step.py": "910a57514b4c92df0108b67ba2851115e59975befcd956740f5a5b18a699e97f",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/tests/test_facts.py": "542d1afb6285cb271652a11f679ed4e9bf0eb70b16a4f42eeaf80f15f05b782a",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/tests/test_run.py": "6b193ddb27fb9b870f0bf46ccb383d8bca801d338ced8f15d2a0a1a8d65d4f2c",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/tests/test_scb.py": "30fb033a1f6b301f27741d029f83fd961ef93278fa20d87661927b954cb3f81b",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/SKILL.md": "564919b5905d6a55c31894b38c09e6ea1ce4304708fbe86ed15989608a691e62",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/templates/test_design.py": "73e09cd7fb2cf1e52dcbb9349d7e6ca6bed02a58b6c9cf1e19dd14739865bf94",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-editing/SKILL.md": "c0e76e9bcb1b5b3feb821127878e38d1aa78068241930be23b62d880648dd34c",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-modeling/reference.md": "2aeab14e61de9f0bcf4841dcc068edb61565054aa852fa2191fff45f542eb451",
+    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-modeling/SKILL.md": "4a1aceadebf7ece14dec2850c5037c8430cb2c32f5d0a42f13074f81e5b2c6df",
+    "examples/solidcraft-example/video/brief.md": "445779aa7702a0d47362d7f638404c7b8259d58cd7edb3d8d25cdde3d431de05",
+    "examples/solidcraft-example/video/index.html": "013683437bdef71b2ba48e87ec58f4bf6db87bf85e5bf1f2ebbb30ed0cd7fc4b",
+    "media/solidcraft-example.mp4": "51620ec6dbbc9d106fd19d93230e7c0451988debdfba143f1160d682a0ed3bf4",
+    "media/solidcraft-example.webp": "3a5067a2f68f017dabb2e06ca2ceb2e2bd2542a98e4b70b8e37a7020f35690bc"
+  },
+  "original_browser": {
     "modelStates": 2,
     "imageViews": 4,
     "states": [
@@ -225,7 +621,7 @@
     "downloadMatches": true,
     "downloadedSha256": "3abdcea79540d99532e13330e82020ee461fc4623144c031774197b8e45dc730"
   },
-  "video": {
+  "original_video": {
     "duration": 28,
     "fps": 30,
     "resolution": [
@@ -288,63 +684,80 @@
       "readyState": 4
     }
   },
-  "limitations": [
-    "Endpoint sequences tested; intermediate dimensions and other combinations are not exhaustively verified.",
-    "The web page views saved CAD results. It does not execute AI or arbitrary CAD edits in the browser.",
-    "STL is a tessellated mesh without parametric history; STEP reopens as a base solid; JSON retains editable parameters.",
-    "No physical manufacturing, strength, print, drain-flow or human approval claim. Video is silent.",
-    "Catalog reference source and official runtime release are separately pinned, not claimed to be the same build."
-  ],
-  "publication": {
+  "original_publication": {
     "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=solidcraft-example",
     "authorization": "User requested sequential publication of40 Opus5.5 examples to existing main and GitHub Pages."
   },
-  "artifacts_sha256": {
-    "examples/solidcraft-example/app.js": "e1cf2bdd3586c47016d8adcbd06a6e6ea622494dd58b31faf21daac4b798e0bd",
-    "examples/solidcraft-example/cad/build.json": "5897b86802e66af5479f746a34814d7bf916533e267c364d6899b4e6956762ec",
-    "examples/solidcraft-example/cad/check_design.py": "10b3dd3c686172eba3fd2405ae304972aad89908d8fa5a4c8f3c6d71582adca9",
-    "examples/solidcraft-example/cad/expected.json": "1bf2ade5b097a738225409c35ac91264cb0847426e1594f437886e310c08c2dd",
-    "examples/solidcraft-example/cad/plan.md": "a6d15eb9d6c2a9cd3e0f2f34ae71d355cd6eb2d81ef2d4c933fad27766eda3ce",
-    "examples/solidcraft-example/cad/resize.json": "4ab2d883c386d8303bdb1fa0095b86e68613b56e8622bd271c2a4b26414d7856",
-    "examples/solidcraft-example/cad/walk.json": "c350e68f05d4ea8be01db2179b3a05c90879e525630b117920266f5923e0e41e",
-    "examples/solidcraft-example/index.html": "8c1e7d7ded68ec1242861ea35ad8e389f6dda217c626c7568588ad6554d6e596",
-    "examples/solidcraft-example/LICENSE": "767a52e95f072158a5a4f310d642105ed4d1a17b706dff9e373801d3ad976e93",
-    "examples/solidcraft-example/measurements.json": "ad07e9160686974dc0092fcace64f851ec0d41a38bb85bd566bd476404d6ca1c",
-    "examples/solidcraft-example/outputs/tray-default.json": "5154fad132ad9070dd4b085aa478bb34436f89b79b1aee349073abdf050f9dd9",
-    "examples/solidcraft-example/outputs/tray-default.step": "e223a4ed39ab6cd5ab52778a404358d2ea5478fca5108e524286c5199bb2b64b",
-    "examples/solidcraft-example/outputs/tray-default.stl": "a99a932edb4856afed76bff0f19800771a988a921c6bf922e036795df30b2d81",
-    "examples/solidcraft-example/outputs/tray-resized.json": "4da7a381f200c59ae93ba59180dd0ce1eef59403136e24f51ff967acf6f269ed",
-    "examples/solidcraft-example/outputs/tray-resized.step": "3abdcea79540d99532e13330e82020ee461fc4623144c031774197b8e45dc730",
-    "examples/solidcraft-example/outputs/tray-resized.stl": "0da764762b61f97b59ca8fb31e1ddfd7b80788b75976cf9e1793964f20de8598",
-    "examples/solidcraft-example/README.md": "4e6395e02f0f5901563080c3840599966b28a8c60ab1926c74d839fb2374ff53",
-    "examples/solidcraft-example/renders/tray-default-iso.png": "dc04af9a3e2bf313c148cb04eafbadb6e5553809af5973230b09da74ba43f0eb",
-    "examples/solidcraft-example/renders/tray-default-top.png": "ddc69b5ae81d9589dce6250c117f19e63450839a1359eb54fecc349510e14b68",
-    "examples/solidcraft-example/renders/tray-resized-iso.png": "b6f253dca2c2c2c83487d0e9a5f85603b11e9e3562c7ae3eb2e1e1b82041acb3",
-    "examples/solidcraft-example/renders/tray-resized-top.png": "b250c3adab3a57a55a76a86e46b9bfd7b480531d48b08c3080dbb272220242ac",
-    "examples/solidcraft-example/request.txt": "b1e1cf00743d40d0ba455abd1c2821ea8b7f11e44a325728026b1a8c3d7b702f",
-    "examples/solidcraft-example/samples.json": "419116511e1b1e68bdcd44997a84f64e94d415416c784be72077098aa79f59c9",
-    "examples/solidcraft-example/styles.css": "6c2b6001aac7dd40fed1dabc5145a470bca79f887806526ccbefee6f7f2c77f9",
-    "examples/solidcraft-example/vendor/solidcraft/docs/mcp.md": "d9d82677907192c85705a137b7a082fcd27db947abd801969003f128544f61c3",
-    "examples/solidcraft-example/vendor/solidcraft/LICENSE-APACHE": "eb3d7b5485466acbd81f2b496f595ab637d2792e268206b27d99e793bdb67549",
-    "examples/solidcraft-example/vendor/solidcraft/LICENSE-MIT": "44cca886556f909c92e8856945be1c55371698d06d052c6fe7cee7c6fb8e316f",
-    "examples/solidcraft-example/vendor/solidcraft/NOTICE": "c0358377f5b56965278d56864cc57fb28f454b23c0717244eb5669bf72e95ac9",
-    "examples/solidcraft-example/vendor/solidcraft/README.md": "23426c30795a82be29afeae75c6121f48dc77a8a85088ab61e74d05f5625e406",
-    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/reference/porting.md": "d246fde9c4771a9d5af7909345b4e8bf9d1691312d6c34d50831b06387e36a4f",
-    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/compare_step.py": "7a508c792216269ea9308449a3866bbb452497dea6644f159cf3812c12c70126",
-    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/run.py": "63d8884361aa07b21817ddcec4b2c4a7c0f34b70ab075d07facac48fce41eba7",
-    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/scb.py": "a6a4c699278f154c433f1f9649b2ad3c2f5742d543f4b75a06b6a23d619ade64",
-    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/tests/test_compare_step.py": "910a57514b4c92df0108b67ba2851115e59975befcd956740f5a5b18a699e97f",
-    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/tests/test_facts.py": "542d1afb6285cb271652a11f679ed4e9bf0eb70b16a4f42eeaf80f15f05b782a",
-    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/tests/test_run.py": "6b193ddb27fb9b870f0bf46ccb383d8bca801d338ced8f15d2a0a1a8d65d4f2c",
-    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/scripts/tests/test_scb.py": "30fb033a1f6b301f27741d029f83fd961ef93278fa20d87661927b954cb3f81b",
-    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/SKILL.md": "564919b5905d6a55c31894b38c09e6ea1ce4304708fbe86ed15989608a691e62",
-    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-checking/templates/test_design.py": "73e09cd7fb2cf1e52dcbb9349d7e6ca6bed02a58b6c9cf1e19dd14739865bf94",
-    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-editing/SKILL.md": "c0e76e9bcb1b5b3feb821127878e38d1aa78068241930be23b62d880648dd34c",
-    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-modeling/reference.md": "2aeab14e61de9f0bcf4841dcc068edb61565054aa852fa2191fff45f542eb451",
-    "examples/solidcraft-example/vendor/solidcraft/skills/solidcraft-modeling/SKILL.md": "4a1aceadebf7ece14dec2850c5037c8430cb2c32f5d0a42f13074f81e5b2c6df",
-    "examples/solidcraft-example/video/brief.md": "445779aa7702a0d47362d7f638404c7b8259d58cd7edb3d8d25cdde3d431de05",
-    "examples/solidcraft-example/video/index.html": "013683437bdef71b2ba48e87ec58f4bf6db87bf85e5bf1f2ebbb30ed0cd7fc4b",
-    "media/solidcraft-example.mp4": "51620ec6dbbc9d106fd19d93230e7c0451988debdfba143f1160d682a0ed3bf4",
-    "media/solidcraft-example.webp": "3a5067a2f68f017dabb2e06ca2ceb2e2bd2542a98e4b70b8e37a7020f35690bc"
+  "visual_revision": {
+    "id": "visual-r1",
+    "purpose": "UnderstandCAD and3skills, author/operator boundary, sixnamedvalues/expressions/threehistory/onebody, independentprediction vsactualmeasure, editableJSON vsgeometrySTEP/STL andnextuse.",
+    "original_execution_rerun": false,
+    "assets": 31,
+    "manifest_sha256": "362648f5dc12c733470a87b9b1248111da5f3191d794252af9086085e3055940",
+    "verification": "examples/solidcraft-example/visual-verification.json",
+    "source_originals_sha256": {
+      "index.html": "a709b788c75973946b6ee973a4bccb4332f6289eec143ecca5e80dad6dfe42df",
+      "concept.css": "f85cd63a114bbbb7a8a88ec2e5c6e4ad251855bee4fad7e2c64970ec1fa0ebff",
+      "concept.js": "ea661d7de783b8c99a9fbb71f3e112859c789e715772b3095282eb7df8b8423f",
+      "video/index.html": "8d3b8998806bac532651f3f99fffd840f3a612c7440b7cb43956b4394537d87f",
+      "video/video.css": "1b9240ee7aaf47a96f787a80dd095add68d157d2d88f588a796124a50208e098",
+      "video/video.js": "7fca7c12310a3a174c86ff980f0025d3b3e0a4fc6bd7ce1e06a7a4cfd52872aa",
+      "video/storyboard.json": "14139ee1da10378932e2b458fad36b1f65d7a7d8f37a6637b08aaf8f4acba715",
+      "video/README.md": "8e64a1d85c7ce6d98e5cd33cc7f3637e8432912025f4a77c486a1bb3b9799f17"
+    },
+    "final_source_sha256": {
+      "index.html": "be8418c0011b54961edacb74edcc389046c52d2cf5ee0173833f215942d74ab9",
+      "concept.css": "365aa723b46dab0d04d243e42bd274263a6353b654e2cdcd12bfa9b3d2577bc3",
+      "concept.js": "b8a80dc6734b4c7f922f87450c998f20c8875963e6b09805472d262e1f0be53b",
+      "video/index.html": "02adcb32ec1e9e3212b6dfaeb30cd2cea408e5601a7d3d08e577a85cef8ce057",
+      "video/video.css": "1b9240ee7aaf47a96f787a80dd095add68d157d2d88f588a796124a50208e098",
+      "video/video.js": "9ceba29e8cf4bfd447d74b70873476ad280ceac84f766cbb46deb4e7b8434bd2",
+      "video/storyboard.json": "14139ee1da10378932e2b458fad36b1f65d7a7d8f37a6637b08aaf8f4acba715",
+      "video/README.md": "e464d07c163a4d018493aa86bd4c94ae155e3f320e7efa399cd0b14e069deaf4"
+    },
+    "production_adjustments": [
+      {
+        "files": [
+          "concept/structure.json",
+          "concept/original-run.json",
+          "concept/manifest.json"
+        ],
+        "reason": "Parent fact/source projection only. Preserve44originalcasefiles/twoOpusreceipts/25MCPcalls/3buildstages/one4parameterresize/11walkstates/6roundtrips. No original modeling/inference/build/review rerun."
+      },
+      {
+        "files": [
+          "desk.html",
+          "video/legacy.html",
+          "video/legacy.mp4"
+        ],
+        "reason": "Originalsaved-result viewer and28s silent source/movie retained asaliases, originalapp.js/styles.css/cad/outputs/renders/vendor unchanged."
+      },
+      {
+        "files": [
+          "concept.js",
+          "concept.css"
+        ],
+        "reason": "Nonfocuseddiagram alpha0.5→0.78 forlegibility; <=440px two-lineequalcasebuttons; compactoperator text25操作 avoidsMCPcountellipsis. Opus8originals archivedunchanged. Compactonlyfix does notchangeportrait/widefilm pixels."
+      },
+      {
+        "files": [
+          "index.html",
+          "video/index.html",
+          "video/video.js",
+          "video/README.md",
+          "README.md",
+          "visual-guide.md"
+        ],
+        "reason": "Parent factualarticle/reproduction/packaging andmodule/movie versionURLs. OpusQA-at-authoring and operatoractualQA distinguished. No filmgeometry/timing change; final shippedsource mustbe rechecked."
+      }
+    ],
+    "silent_film": true,
+    "final_renders": "renders-r1"
+  },
+  "distribution": {
+    "source_archive": "examples/solidcraft-example/source.zip",
+    "archive_members": 134,
+    "archive_all_members_byte_identical": true,
+    "excludes": "OriginalCADexecutable/runtimecache/privateproduction/masterSkill/modeltranscripts/auth/large models."
   }
 }

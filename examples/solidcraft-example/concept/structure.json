@@ -1,0 +1,889 @@
+{
+  "id": "solidcraft-example",
+  "kind": "パラメトリック3D CADアプリ/CLI/MCPと、AIが読むモデリング・編集・点検の3手順書",
+  "source_commit": "16c49c3e860a954e9f27309927d6848bcba9c607",
+  "runtime_commit": "b01b9689c8999a4415b4a6daaa2f8aae8a1a2f25",
+  "runtime_version": "0.11.1",
+  "parts": [
+    {
+      "id": "modeling",
+      "label": "数値を先に決める",
+      "source_path": "vendor/solidcraft/skills/solidcraft-modeling/SKILL.md",
+      "line_start": 9,
+      "quote": "Work the part out as numbers first. Then build it in a few large `batch` calls, and check each stage with `measure` against values you computed yourself. A clean build takes 3-4 build batches, about 10-13 calls with the checks. Command shapes, plane axes, ids, reply sizes and known traps are in `reference.md` next to this file, so you do not need to explore the command catalog.",
+      "meaning": "原点/寸法/体積と外接箱を先に予測し、少ないbatchと各段のmeasureで新しい部品を作る手順。",
+      "source_url": "https://github.com/bherbruck/solidcraft/blob/16c49c3e860a954e9f27309927d6848bcba9c607/skills/solidcraft-modeling/SKILL.md#L9"
+    },
+    {
+      "id": "editing",
+      "label": "同じ設計を変える",
+      "source_path": "vendor/solidcraft/skills/solidcraft-editing/SKILL.md",
+      "line_start": 9,
+      "quote": "Edit an existing design through its parameters instead of rebuilding it. Every sketch dimension and feature input is already a parameter (`d1`, `d2`, ...), so most edits are a `parameters.change` each, sent together in one batch. Map the design with a few compact calls rather than walking the timeline one feature at a time. For command shapes and traps, use `reference.md` from the `solidcraft-modeling` skill.",
+      "meaning": "保存した設計の4パラメーターを一度のbatchで変え、同じ式と履歴を保つ。",
+      "source_url": "https://github.com/bherbruck/solidcraft/blob/16c49c3e860a954e9f27309927d6848bcba9c607/skills/solidcraft-editing/SKILL.md#L9"
+    },
+    {
+      "id": "checking",
+      "label": "別の根拠で点検",
+      "source_path": "vendor/solidcraft/skills/solidcraft-checking/SKILL.md",
+      "line_start": 27,
+      "quote": "3. **Every allowed value.** One script of `parameters.change` commands walks each driving parameter to both ends of its range, one change after another, and back to the default, as edits in the app do: trap 1 fails only on the change after the one that reaches 0. Put a `document.inspect {measure: true}` after each end of a range and run the walk with `run.py walk.json --in <design>`. Every state must be clean: no `FAIL`, no `SKETCH`, and `BODY` volumes and centres of mass that match the values you compute for that state. A boolean retry can leave the geometry wrong with only a `WARN` line, and the volume shows it (trap 4); a mirrored sketch (trap 1) keeps the volume and moves the centre of mass.",
+      "meaning": "原典は範囲の確認を求める。今回は端点と初期値を往復する11状態/6種類の形だけで途中や全組合せは未検証。",
+      "source_url": "https://github.com/bherbruck/solidcraft/blob/16c49c3e860a954e9f27309927d6848bcba9c607/skills/solidcraft-checking/SKILL.md#L27"
+    },
+    {
+      "id": "commands",
+      "label": "MCPからCADへ",
+      "source_path": "vendor/solidcraft/docs/mcp.md",
+      "line_start": 5,
+      "quote": "An agent models exactly like a person does: every tool runs engine commands, the same ones the",
+      "meaning": "元作者はコマンドと期待値を執筆。制作担当が別工程でheadlessMCP stdioの25操作を実行し、共有GUIへ接続していない。",
+      "source_url": "https://github.com/bherbruck/solidcraft/blob/16c49c3e860a954e9f27309927d6848bcba9c607/docs/mcp.md#L5"
+    },
+    {
+      "id": "history",
+      "label": "値・式・履歴",
+      "source_path": "vendor/solidcraft/README.md",
+      "line_start": 232,
+      "quote": "| L2 | `doc` | parameters, expressions, the feature timeline and its incremental evaluation |",
+      "meaning": "原典の構造説明はパラメーターと式・順序付きフィーチャー履歴の増分評価。実測の内部トレースではない。",
+      "source_url": "https://github.com/bherbruck/solidcraft/blob/16c49c3e860a954e9f27309927d6848bcba9c607/README.md#L232"
+    },
+    {
+      "id": "formats",
+      "label": "編集できる正本",
+      "source_path": "vendor/solidcraft/skills/solidcraft-checking/SKILL.md",
+      "line_start": 29,
+      "quote": "5. **Kept in a repo.** Save as `<name>.json` with `run.py build.json --save <name>.json`: a `.json` design stays plain JSON when it is saved again, so git diffs stay readable. Saving over a file leaves `<name>.json.bak`, so ignore `*.bak`. From then on the design file is the source, and changes go into it with `--in <design> --save <design>`. Copy `$SKILL/templates/test_design.py` next to the design, fill in its cases, set its tolerance as its comment says, and run it until it passes. Expected values come from an exact reference when porting, from hand calculation for simple shapes, or from a build the user has reviewed. After a change, update frozen values only where the change is meant to change them.",
+      "meaning": "今回は.json保存を使い式と履歴を残す。STEPは基礎ソリッド、STLは三角形で式を保持しない。各形式を0.11.1で開き直した元記録を保持。",
+      "source_url": "https://github.com/bherbruck/solidcraft/blob/16c49c3e860a954e9f27309927d6848bcba9c607/skills/solidcraft-checking/SKILL.md#L29"
+    }
+  ],
+  "parts_scope": "6部品は説明用整理で原典の共通スキーマではない。",
+  "author": "元のOpus5.5はCADコマンド/計画/解析式/チェッカーを執筆し、別受領で元UIと28秒紹介を執筆。作者AIは元CAD/MCP/CLIを実行していない。",
+  "operator": "制作担当が別工程でisolatedheadlessMCPの25操作とCLI/原典run.py/独立チェッカーを実行。共有GUIや他設計を開かず、元の推論/モデリング/変更/検査/書き出しを今回再実行しない。",
+  "skills": [
+    "solidcraft-modeling",
+    "solidcraft-editing",
+    "solidcraft-checking"
+  ],
+  "input": {
+    "request_file": "request.txt",
+    "plan": "cad/plan.md",
+    "build": "cad/build.json",
+    "resize": "cad/resize.json",
+    "walk": "cad/walk.json",
+    "expected": "cad/expected.json",
+    "checker": "cad/check_design.py"
+  },
+  "flow": {
+    "book": "3手順書と架空依頼/数値条件→同じCAD作者",
+    "authored": "計画/コマンドと独立した解析予測→制作担当の別工程へ",
+    "tool": "headlessMCP stdio→batch/measure/screenshot/save/export。CLIと原典run.pyの点検は別経路。",
+    "model": "名前付き6値→式→TrayBlock(new)→Pocket(cut)→DrainHole(cut)→1ボディ。4つの値だけを変えて同じ履歴を再評価。",
+    "verify": "予測とmeasure/inspectを別に照合し、位置は上面PNGでも確認→11端点順序と6書出し開直し→実ファイル",
+    "use": "JSON正本は寸法/式/履歴を編集、STEPはCAD受渡し、STLはメッシュ受渡し。製造保証ではない。"
+  },
+  "parameters": [
+    {
+      "name": "width",
+      "default": "120 mm",
+      "resized": "150 mm",
+      "comment": "トレー外形の幅(X)。使える範囲 120〜150 mm、初期値 120 mm。確認は範囲端と初期値の逐次切り替えのみ",
+      "driving": true
+    },
+    {
+      "name": "depth",
+      "default": "80 mm",
+      "resized": "90 mm",
+      "comment": "トレー外形の奥行(Y)。使える範囲 80〜90 mm、初期値 80 mm。確認は範囲端と初期値の逐次切り替えのみ",
+      "driving": true
+    },
+    {
+      "name": "height",
+      "default": "18 mm",
+      "resized": "24 mm",
+      "comment": "トレー外形の高さ(Z、底面 z=0)。使える範囲 18〜24 mm、初期値 18 mm。確認は範囲端と初期値の逐次切り替えのみ",
+      "driving": true
+    },
+    {
+      "name": "hole_diameter",
+      "default": "8 mm",
+      "resized": "12 mm",
+      "comment": "底中央の水抜き貫通穴の直径。使える範囲 8〜12 mm、初期値 8 mm。確認は範囲端と初期値の逐次切り替えのみ",
+      "driving": true
+    },
+    {
+      "name": "wall",
+      "default": "3 mm",
+      "resized": "3 mm",
+      "comment": "側壁の厚さ。3 mm 固定。変更は確認範囲外",
+      "driving": false
+    },
+    {
+      "name": "floor_thickness",
+      "default": "3 mm",
+      "resized": "3 mm",
+      "comment": "底の厚さ。3 mm 固定。変更は確認範囲外(floor は式の関数名なので別名にした)",
+      "driving": false
+    }
+  ],
+  "features": [
+    {
+      "id": 1,
+      "name": "TrayBlock",
+      "suppressed": false,
+      "body_names": [
+        "Tray"
+      ],
+      "param_names": [
+        "d1",
+        "d2",
+        "d3"
+      ],
+      "type": "box",
+      "corner": [
+        "(0 mm) - (width) / 2",
+        "(0 mm) - (depth) / 2",
+        "(height / 2) - (height) / 2"
+      ],
+      "length": "width",
+      "width": "depth",
+      "height": "height",
+      "operation": "new_body"
+    },
+    {
+      "id": 2,
+      "name": "Pocket",
+      "suppressed": false,
+      "param_names": [
+        "d4",
+        "d5",
+        "d6"
+      ],
+      "participants": [
+        "Tray"
+      ],
+      "type": "box",
+      "corner": [
+        "(0 mm) - (width - 2 * wall) / 2",
+        "(0 mm) - (depth - 2 * wall) / 2",
+        "((height + floor_thickness + 1 mm) / 2) - (height - floor_thickness + 1 mm) / 2"
+      ],
+      "length": "width - 2 * wall",
+      "width": "depth - 2 * wall",
+      "height": "height - floor_thickness + 1 mm",
+      "operation": "cut"
+    },
+    {
+      "id": 3,
+      "name": "DrainHole",
+      "suppressed": false,
+      "param_names": [
+        "d7",
+        "d8"
+      ],
+      "participants": [
+        "Tray"
+      ],
+      "type": "cylinder",
+      "base": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "radius": "(hole_diameter) / 2",
+      "height": "floor_thickness + 2 mm",
+      "operation": "cut"
+    }
+  ],
+  "states": {
+    "block_default": {
+      "label": "block_default",
+      "parameters": {
+        "width": 120.0,
+        "depth": 80.0,
+        "height": 18.0,
+        "hole_diameter": 8.0
+      },
+      "fixed_parameters": {
+        "wall": 3.0,
+        "floor_thickness": 3.0
+      },
+      "measured": {
+        "volume_mm3": 172800.0,
+        "area_mm2": 26400.0,
+        "center_of_mass": [
+          0.0,
+          0.0,
+          9.0
+        ],
+        "bbox": {
+          "max": [
+            60.0,
+            40.0,
+            18.0
+          ],
+          "min": [
+            -60.0,
+            -40.0,
+            0.0
+          ]
+        },
+        "faces": 6,
+        "edges": 12,
+        "vertices": 8
+      },
+      "expected": {
+        "volume_mm3": 172800.0,
+        "area_mm2": 26400.0,
+        "center_of_mass": [
+          0.0,
+          0.0,
+          9.0
+        ],
+        "bbox_min": [
+          -60.0,
+          -40.0,
+          0.0
+        ],
+        "bbox_max": [
+          60.0,
+          40.0,
+          18.0
+        ],
+        "faces": 6
+      },
+      "tolerance": {
+        "volume_rel": 0.0002,
+        "area_rel": 0.0002,
+        "geometric_abs_mm": 0.021801146758828993
+      },
+      "timeline_features": [
+        {
+          "name": "TrayBlock",
+          "type": "BoxFeature",
+          "error": null,
+          "warning": null
+        }
+      ],
+      "sketch_count": 0,
+      "status": "passed"
+    },
+    "pocket_default": {
+      "label": "pocket_default",
+      "parameters": {
+        "width": 120.0,
+        "depth": 80.0,
+        "height": 18.0,
+        "hole_diameter": 8.0
+      },
+      "fixed_parameters": {
+        "wall": 3.0,
+        "floor_thickness": 3.0
+      },
+      "measured": {
+        "volume_mm3": 46260.0,
+        "area_mm2": 32040.0,
+        "center_of_mass": [
+          0.0,
+          0.0,
+          4.896887159533074
+        ],
+        "bbox": {
+          "max": [
+            60.0,
+            40.0,
+            18.0
+          ],
+          "min": [
+            -60.0,
+            -40.0,
+            0.0
+          ]
+        },
+        "faces": 11,
+        "edges": 24,
+        "vertices": 16
+      },
+      "expected": {
+        "volume_mm3": 46260.0,
+        "area_mm2": 32040.0,
+        "center_of_mass": [
+          0.0,
+          0.0,
+          4.8968871595
+        ],
+        "bbox_min": [
+          -60.0,
+          -40.0,
+          0.0
+        ],
+        "bbox_max": [
+          60.0,
+          40.0,
+          18.0
+        ],
+        "faces": 11
+      },
+      "tolerance": {
+        "volume_rel": 0.0002,
+        "area_rel": 0.0002,
+        "geometric_abs_mm": 0.021801146758828993
+      },
+      "timeline_features": [
+        {
+          "name": "TrayBlock",
+          "type": "BoxFeature",
+          "error": null,
+          "warning": null
+        },
+        {
+          "name": "Pocket",
+          "type": "BoxFeature",
+          "error": null,
+          "warning": null
+        }
+      ],
+      "sketch_count": 0,
+      "status": "passed"
+    },
+    "default": {
+      "label": "default",
+      "parameters": {
+        "width": 120.0,
+        "depth": 80.0,
+        "height": 18.0,
+        "hole_diameter": 8.0
+      },
+      "fixed_parameters": {
+        "wall": 3.0,
+        "floor_thickness": 3.0
+      },
+      "measured": {
+        "volume_mm3": 46109.22860047324,
+        "area_mm2": 32014.88082622162,
+        "center_of_mass": [
+          4.0148159716006354e-16,
+          3.1662392078999893e-16,
+          4.907994554877178
+        ],
+        "bbox": {
+          "max": [
+            60.0,
+            40.0,
+            18.0
+          ],
+          "min": [
+            -60.0,
+            -40.0,
+            0.0
+          ]
+        },
+        "faces": 12,
+        "edges": 26,
+        "vertices": 18
+      },
+      "expected": {
+        "volume_mm3": 46109.203552628,
+        "area_mm2": 32014.867258771,
+        "center_of_mass": [
+          0.0,
+          0.0,
+          4.9079964062
+        ],
+        "bbox_min": [
+          -60.0,
+          -40.0,
+          0.0
+        ],
+        "bbox_max": [
+          60.0,
+          40.0,
+          18.0
+        ],
+        "faces": 12
+      },
+      "tolerance": {
+        "volume_rel": 0.0002,
+        "area_rel": 0.0002,
+        "geometric_abs_mm": 0.021801146758828993
+      },
+      "timeline_features": [
+        {
+          "name": "TrayBlock",
+          "type": "BoxFeature",
+          "error": null,
+          "warning": null
+        },
+        {
+          "name": "Pocket",
+          "type": "BoxFeature",
+          "error": null,
+          "warning": null
+        },
+        {
+          "name": "DrainHole",
+          "type": "CylinderFeature",
+          "error": null,
+          "warning": null
+        }
+      ],
+      "sketch_count": 0,
+      "status": "passed"
+    },
+    "resized": {
+      "label": "resized",
+      "parameters": {
+        "width": 150.0,
+        "depth": 90.0,
+        "height": 24.0,
+        "hole_diameter": 12.0
+      },
+      "fixed_parameters": {
+        "wall": 3.0,
+        "floor_thickness": 3.0
+      },
+      "measured": {
+        "volume_mm3": 69644.7643510645,
+        "area_mm2": 47982.93553956928,
+        "center_of_mass": [
+          7.511676383097805e-16,
+          -1.8364293946363703e-16,
+          6.580180876433567
+        ],
+        "bbox": {
+          "max": [
+            75.0,
+            45.0,
+            24.0
+          ],
+          "min": [
+            -75.0,
+            -45.0,
+            0.0
+          ]
+        },
+        "faces": 12,
+        "edges": 26,
+        "vertices": 18
+      },
+      "expected": {
+        "volume_mm3": 69644.707993412,
+        "area_mm2": 47982.902664471,
+        "center_of_mass": [
+          0.0,
+          0.0,
+          6.5801849874
+        ],
+        "bbox_min": [
+          -75.0,
+          -45.0,
+          0.0
+        ],
+        "bbox_max": [
+          75.0,
+          45.0,
+          24.0
+        ],
+        "faces": 12
+      },
+      "tolerance": {
+        "volume_rel": 0.0002,
+        "area_rel": 0.0002,
+        "geometric_abs_mm": 0.02648509014521189
+      },
+      "timeline_features": [
+        {
+          "name": "TrayBlock",
+          "type": "BoxFeature",
+          "error": null,
+          "warning": null
+        },
+        {
+          "name": "Pocket",
+          "type": "BoxFeature",
+          "error": null,
+          "warning": null
+        },
+        {
+          "name": "DrainHole",
+          "type": "CylinderFeature",
+          "error": null,
+          "warning": null
+        }
+      ],
+      "sketch_count": 0,
+      "status": "passed"
+    }
+  },
+  "samples": [
+    {
+      "id": "tray-default",
+      "label": "初期 120×80×18・穴8",
+      "input": {
+        "request": "架空の小さな工房「よりみちラボ」で、ねじやワッシャーを分けて置く小物トレーを作りたい。水をためないための丸い貫通穴を底の中央に1つ付ける。\n初期寸法は幅120 mm、奥行80 mm、高さ18 mm、底の穴径8 mm。壁と底は3 mmに固定し、上は開ける。幅・奥行・高さ・穴径を名前付きパラメーターにし、幅150 mm、奥行90 mm、高さ24 mm、穴径12 mmへ一度変更しても、中央の穴と3 mmの壁・底が追従するようにする。\n確認範囲は幅120〜150 mm、奥行80〜90 mm、高さ18〜24 mm、穴径8〜12 mm。使える範囲をコメントへ書き、範囲端と初期値へ戻したときの形状を確かめる。外観の飾りやフィレットは必須ではない。\n編集できる設計、再現用コマンドJSON、STEP、STL、実際の等角・上面画像、入力と実測値の記録を残す。製造強度や3Dプリントの品質まで保証したとは書かない。",
+        "request_file": "request.txt",
+        "script": "cad/build.json",
+        "parameters": {
+          "width": "120 mm",
+          "depth": "80 mm",
+          "height": "18 mm",
+          "hole_diameter": "8 mm",
+          "wall": "3 mm",
+          "floor_thickness": "3 mm"
+        }
+      },
+      "output": {
+        "kind": "保存した実行結果（表示のみ。ページでは再計算しない）",
+        "body_count": 1,
+        "timeline": [
+          {
+            "name": "TrayBlock",
+            "type": "BoxFeature",
+            "error": null,
+            "warning": null
+          },
+          {
+            "name": "Pocket",
+            "type": "BoxFeature",
+            "error": null,
+            "warning": null
+          },
+          {
+            "name": "DrainHole",
+            "type": "CylinderFeature",
+            "error": null,
+            "warning": null
+          }
+        ],
+        "bbox_mm": {
+          "min": [
+            -60.0,
+            -40.0,
+            0.0
+          ],
+          "max": [
+            60.0,
+            40.0,
+            18.0
+          ]
+        },
+        "volume_mm3": 46109.22860047324,
+        "expected_volume_mm3": 46109.203552628,
+        "area_mm2": 32014.88082622162,
+        "expected_area_mm2": 32014.867258771,
+        "center_of_mass_mm": [
+          4.0148159716006354e-16,
+          3.1662392078999893e-16,
+          4.907994554877178
+        ],
+        "expected_center_of_mass_mm": [
+          0.0,
+          0.0,
+          4.9079964062
+        ],
+        "tolerance": {
+          "volume_rel": 0.0002,
+          "area_rel": 0.0002,
+          "geometric_abs_mm": 0.021801146758828993
+        },
+        "status": "passed",
+        "files": {
+          "design": "outputs/tray-default.json",
+          "step": "outputs/tray-default.step",
+          "stl": "outputs/tray-default.stl",
+          "iso": "renders/tray-default-iso.png",
+          "top": "renders/tray-default-top.png"
+        },
+        "record": "measurements.json"
+      }
+    },
+    {
+      "id": "tray-resized",
+      "label": "変更後 150×90×24・穴12",
+      "input": {
+        "request_excerpt": "幅150 mm、奥行90 mm、高さ24 mm、穴径12 mmへ一度変更しても、中央の穴と3 mmの壁・底が追従するようにする。",
+        "design": "outputs/tray-default.json",
+        "script": "cad/resize.json",
+        "commands": [
+          {
+            "command": "parameters.change",
+            "params": {
+              "name": "width",
+              "expression": "150 mm"
+            }
+          },
+          {
+            "command": "parameters.change",
+            "params": {
+              "name": "depth",
+              "expression": "90 mm"
+            }
+          },
+          {
+            "command": "parameters.change",
+            "params": {
+              "name": "height",
+              "expression": "24 mm"
+            }
+          },
+          {
+            "command": "parameters.change",
+            "params": {
+              "name": "hole_diameter",
+              "expression": "12 mm"
+            }
+          },
+          {
+            "command": "document.inspect",
+            "params": {
+              "measure": true
+            }
+          }
+        ]
+      },
+      "output": {
+        "kind": "保存した実行結果（表示のみ。ページでは再計算しない）",
+        "body_count": 1,
+        "timeline": [
+          {
+            "name": "TrayBlock",
+            "type": "BoxFeature",
+            "error": null,
+            "warning": null
+          },
+          {
+            "name": "Pocket",
+            "type": "BoxFeature",
+            "error": null,
+            "warning": null
+          },
+          {
+            "name": "DrainHole",
+            "type": "CylinderFeature",
+            "error": null,
+            "warning": null
+          }
+        ],
+        "bbox_mm": {
+          "min": [
+            -75.0,
+            -45.0,
+            0.0
+          ],
+          "max": [
+            75.0,
+            45.0,
+            24.0
+          ]
+        },
+        "volume_mm3": 69644.7643510645,
+        "expected_volume_mm3": 69644.707993412,
+        "area_mm2": 47982.93553956928,
+        "expected_area_mm2": 47982.902664471,
+        "center_of_mass_mm": [
+          7.511676383097805e-16,
+          -1.8364293946363703e-16,
+          6.580180876433567
+        ],
+        "expected_center_of_mass_mm": [
+          0.0,
+          0.0,
+          6.5801849874
+        ],
+        "tolerance": {
+          "volume_rel": 0.0002,
+          "area_rel": 0.0002,
+          "geometric_abs_mm": 0.02648509014521189
+        },
+        "status": "passed",
+        "files": {
+          "design": "outputs/tray-resized.json",
+          "step": "outputs/tray-resized.step",
+          "stl": "outputs/tray-resized.stl",
+          "iso": "renders/tray-resized-iso.png",
+          "top": "renders/tray-resized-top.png"
+        },
+        "record": "measurements.json"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "id": "tray-default",
+      "format": "json",
+      "path": "outputs/tray-default.json",
+      "bytes": 3145,
+      "sha256": "5154fad132ad9070dd4b085aa478bb34436f89b79b1aee349073abdf050f9dd9",
+      "parametric_history": true
+    },
+    {
+      "id": "tray-default",
+      "format": "step",
+      "path": "outputs/tray-default.step",
+      "bytes": 12850,
+      "sha256": "e223a4ed39ab6cd5ab52778a404358d2ea5478fca5108e524286c5199bb2b64b",
+      "parametric_history": false
+    },
+    {
+      "id": "tray-default",
+      "format": "stl",
+      "path": "outputs/tray-default.stl",
+      "bytes": 13484,
+      "sha256": "a99a932edb4856afed76bff0f19800771a988a921c6bf922e036795df30b2d81",
+      "parametric_history": false
+    },
+    {
+      "id": "tray-resized",
+      "format": "json",
+      "path": "outputs/tray-resized.json",
+      "bytes": 3146,
+      "sha256": "4da7a381f200c59ae93ba59180dd0ce1eef59403136e24f51ff967acf6f269ed",
+      "parametric_history": true
+    },
+    {
+      "id": "tray-resized",
+      "format": "step",
+      "path": "outputs/tray-resized.step",
+      "bytes": 12745,
+      "sha256": "3abdcea79540d99532e13330e82020ee461fc4623144c031774197b8e45dc730",
+      "parametric_history": false
+    },
+    {
+      "id": "tray-resized",
+      "format": "stl",
+      "path": "outputs/tray-resized.stl",
+      "bytes": 15884,
+      "sha256": "0da764762b61f97b59ca8fb31e1ddfd7b80788b75976cf9e1793964f20de8598",
+      "parametric_history": false
+    }
+  ],
+  "checks": {
+    "build_stages": 3,
+    "resize_batch": 1,
+    "mcp_calls": 25,
+    "walk_states": 11,
+    "walk_distinct_shapes": 6,
+    "roundtrip_files": 6,
+    "timeline_features": 3,
+    "body_count": 1,
+    "original_runtime": {
+      "status": "passed",
+      "sample_count": 2,
+      "synthetic": true,
+      "sample_scope": "One original tray example with default and resized saved states",
+      "official_release": {
+        "version": "0.11.1",
+        "commit": "b01b9689c8999a4415b4a6daaa2f8aae8a1a2f25",
+        "release": "https://github.com/bherbruck/solidcraft/releases/tag/v0.11.1",
+        "archive": "solidcraft-0.11.1-windows-x64-portable.zip",
+        "archive_sha256": "6c5e285d3d6ee3bbdaa39de9019b5a36fd894c4a335f92de7193e1340996727d",
+        "official_checksum_matched": true,
+        "cli_sha256": "f239fddce0cc795a504b5c8c6723530c1ab829f90ea6c2bf0be6a1913b4684b7",
+        "server_info": {
+          "name": "solidcraft",
+          "title": "SolidCraft",
+          "version": "0.11.1"
+        },
+        "catalog_reference_and_release_are_separately_pinned": true,
+        "mode": "isolated headless MCP stdio",
+        "initial_timeline_count": 0,
+        "initial_body_count": 0,
+        "shared_gui_accessed": false
+      },
+      "tools": [
+        "SolidCraft0.11.1 headless MCP: inspect_design, batch, measure, screenshot, save, export, body_topology",
+        "SolidCraft0.11.1 CLI: eval, run --results",
+        "unmodified source solidcraft-checking/scripts/run.py build and sequential walk",
+        "Opus-authored independent analytic regression checker"
+      ],
+      "skill_application": "solidcraft-modeling numerical plan/staged batches/overshoot cutters/measure/image; solidcraft-editing parameter changes on the saved design; solidcraft-checking analytic volume/area/COM/bbox regression and sequential endpoint walk.",
+      "build_stages": 3,
+      "resize_cases": 1,
+      "sequential_walk_cases": 11,
+      "walk_distinct_final_shapes": 6,
+      "measurements": "examples/solidcraft-example/measurements.json",
+      "saved_design_step_stl_reopens": 6,
+      "timeline_errors_or_warnings": 0,
+      "body_count": 1,
+      "sketches": "none; primitive-only parametric model",
+      "analytic_tolerances": {
+        "volume_relative": 0.0002,
+        "area_relative": 0.0002,
+        "bbox_com_absolute_mm": "max(0.001,min(0.03,0.00015*bboxDiagonal))"
+      },
+      "top_images_and_agent_visual_review": {
+        "by": "production agent",
+        "human_approval": false,
+        "images_reviewed": [
+          "tray-default-iso.png",
+          "tray-default-top.png",
+          "tray-resized-iso.png",
+          "tray-resized-top.png"
+        ],
+        "observed": "Single open-top hard-edged tray; centered circular through-hole and continuous rim/floor visible in both states. Original model-tool PNGs unchanged."
+      },
+      "stl_checks": {
+        "default": {
+          "triangles": 268,
+          "undirected_edges": 402,
+          "every_edge_has_two_triangles": true,
+          "weld_rounding_mm": 1e-05,
+          "signed_volume_mm3": 46109.93665658421,
+          "analytic_tolerance_rel": 0.0002
+        },
+        "resized": {
+          "triangles": 316,
+          "undirected_edges": 474,
+          "every_edge_has_two_triangles": true,
+          "weld_rounding_mm": 1e-05,
+          "signed_volume_mm3": 69645.79189627692,
+          "analytic_tolerance_rel": 0.0002
+        }
+      },
+      "human_approval": false,
+      "manufacturing_tested": false
+    }
+  },
+  "images": {
+    "default": {
+      "design": "outputs/tray-default.json",
+      "step": "outputs/tray-default.step",
+      "stl": "outputs/tray-default.stl",
+      "iso": "renders/tray-default-iso.png",
+      "top": "renders/tray-default-top.png"
+    },
+    "resized": {
+      "design": "outputs/tray-resized.json",
+      "step": "outputs/tray-resized.step",
+      "stl": "outputs/tray-resized.stl",
+      "iso": "renders/tray-resized-iso.png",
+      "top": "renders/tray-resized-top.png"
+    }
+  },
+  "legacy": {
+    "viewer": "desk.html",
+    "editor": "video/legacy.html",
+    "movie": "video/legacy.mp4"
+  },
+  "limits": [
+    "依頼/工房/用途は架空だが、元2状態/4PNG/6ファイル/実測は本物のSolidCraft実出力。syntheticは元題材のフラグで架空実行を意味しない。",
+    "新図とブラウザーは保存結果を読むだけでCAD/AI/寸法再計算をしない。模式図をCAD実出力にしない。",
+    "参照16c49c3と実行0.11.1/b01b9689は別固定。参照からビルドした実行ファイルではない。",
+    "6値中4値を変更、壁/底3mmは固定。箱/くぼみ/中央穴のプリミティブのみ、スケッチ/フィレット/複雑形状は未適用。",
+    "穴の軸x=y=0、内寸width-2*wall/depth-2*wall、床floor_thickness。切削工具の1mmはみ出しで面一致を避ける。",
+    "11端点順序/6種類の形のみ。途中/他組合せ/壁や底の変更は未検証。範囲はコメントでCADが強制しない。",
+    "別々に自動フィットした元PNGを共通縮尺に見せない。画像のピクセル拡大で寸法の増大を証明しない。",
+    "原典run.pyはFAIL/WARN等の状態点検、独立check_design.pyは事前解析値との照合。compare_step.py/build123d/外部CADは未使用。",
+    "上面画像のピクセル確認は穴径と壁厚、底厚の証明はCAD形状/解析。製造/強度/実印刷/水はけ/人の承認は未検証。",
+    "JSONのみパラメータ履歴を保持。STEP/STLへ式が残ると説明しない。ブラウザー手渡しはディスク保存完了でない。",
+    "実機iOS/Safari/VoiceOver/200%zoom/全入力/性能/clipboardreadbackは未確認。新32秒縦横は無音で音声ガイドなし。"
+  ]
+}

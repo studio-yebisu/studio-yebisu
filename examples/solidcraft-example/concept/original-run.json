@@ -1,0 +1,1397 @@
+{
+  "scope": "OriginalCAD execution andtwooriginalauthoring receipts, not newexecution. Parent factprojection only.",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "receipts": [
+      {
+        "phase": "Original parametric CAD commands, analytic expectations and regression checker guided by three upstream skills",
+        "receipt_sha256": "de2908aaa9407fd526f4ab620b4e64ca8280c9b451b2cc49b9bd54f3ca14dd30",
+        "execution_sha256": "a3c47517ebc1ea6ec6ebb65be2b46d838e851350ee4e38531b7b980ff7951741"
+      },
+      {
+        "phase": "Japanese case, real-output demo and Motion Reel explainer source",
+        "receipt_sha256": "ac0ff2806e1c53f12124cab4dbd5927dc5639226033afc9959c0464401ee5f69",
+        "execution_sha256": "e6911a31b359ec18ae6fc7f8aec44e92d764dd906b7b543fbe57c71d29ba0ed8"
+      }
+    ],
+    "receipt_published": false
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 2,
+    "synthetic": true,
+    "sample_scope": "One original tray example with default and resized saved states",
+    "official_release": {
+      "version": "0.11.1",
+      "commit": "b01b9689c8999a4415b4a6daaa2f8aae8a1a2f25",
+      "release": "https://github.com/bherbruck/solidcraft/releases/tag/v0.11.1",
+      "archive": "solidcraft-0.11.1-windows-x64-portable.zip",
+      "archive_sha256": "6c5e285d3d6ee3bbdaa39de9019b5a36fd894c4a335f92de7193e1340996727d",
+      "official_checksum_matched": true,
+      "cli_sha256": "f239fddce0cc795a504b5c8c6723530c1ab829f90ea6c2bf0be6a1913b4684b7",
+      "server_info": {
+        "name": "solidcraft",
+        "title": "SolidCraft",
+        "version": "0.11.1"
+      },
+      "catalog_reference_and_release_are_separately_pinned": true,
+      "mode": "isolated headless MCP stdio",
+      "initial_timeline_count": 0,
+      "initial_body_count": 0,
+      "shared_gui_accessed": false
+    },
+    "tools": [
+      "SolidCraft0.11.1 headless MCP: inspect_design, batch, measure, screenshot, save, export, body_topology",
+      "SolidCraft0.11.1 CLI: eval, run --results",
+      "unmodified source solidcraft-checking/scripts/run.py build and sequential walk",
+      "Opus-authored independent analytic regression checker"
+    ],
+    "skill_application": "solidcraft-modeling numerical plan/staged batches/overshoot cutters/measure/image; solidcraft-editing parameter changes on the saved design; solidcraft-checking analytic volume/area/COM/bbox regression and sequential endpoint walk.",
+    "build_stages": 3,
+    "resize_cases": 1,
+    "sequential_walk_cases": 11,
+    "walk_distinct_final_shapes": 6,
+    "measurements": "examples/solidcraft-example/measurements.json",
+    "saved_design_step_stl_reopens": 6,
+    "timeline_errors_or_warnings": 0,
+    "body_count": 1,
+    "sketches": "none; primitive-only parametric model",
+    "analytic_tolerances": {
+      "volume_relative": 0.0002,
+      "area_relative": 0.0002,
+      "bbox_com_absolute_mm": "max(0.001,min(0.03,0.00015*bboxDiagonal))"
+    },
+    "top_images_and_agent_visual_review": {
+      "by": "production agent",
+      "human_approval": false,
+      "images_reviewed": [
+        "tray-default-iso.png",
+        "tray-default-top.png",
+        "tray-resized-iso.png",
+        "tray-resized-top.png"
+      ],
+      "observed": "Single open-top hard-edged tray; centered circular through-hole and continuous rim/floor visible in both states. Original model-tool PNGs unchanged."
+    },
+    "stl_checks": {
+      "default": {
+        "triangles": 268,
+        "undirected_edges": 402,
+        "every_edge_has_two_triangles": true,
+        "weld_rounding_mm": 1e-05,
+        "signed_volume_mm3": 46109.93665658421,
+        "analytic_tolerance_rel": 0.0002
+      },
+      "resized": {
+        "triangles": 316,
+        "undirected_edges": 474,
+        "every_edge_has_two_triangles": true,
+        "weld_rounding_mm": 1e-05,
+        "signed_volume_mm3": 69645.79189627692,
+        "analytic_tolerance_rel": 0.0002
+      }
+    },
+    "human_approval": false,
+    "manufacturing_tested": false
+  },
+  "calls": [
+    {
+      "index": 1,
+      "tool": "inspect_design",
+      "is_error": false
+    },
+    {
+      "index": 2,
+      "tool": "batch",
+      "is_error": false
+    },
+    {
+      "index": 3,
+      "tool": "inspect_design",
+      "is_error": false
+    },
+    {
+      "index": 4,
+      "tool": "measure",
+      "is_error": false
+    },
+    {
+      "index": 5,
+      "tool": "batch",
+      "is_error": false
+    },
+    {
+      "index": 6,
+      "tool": "inspect_design",
+      "is_error": false
+    },
+    {
+      "index": 7,
+      "tool": "measure",
+      "is_error": false
+    },
+    {
+      "index": 8,
+      "tool": "batch",
+      "is_error": false
+    },
+    {
+      "index": 9,
+      "tool": "inspect_design",
+      "is_error": false
+    },
+    {
+      "index": 10,
+      "tool": "measure",
+      "is_error": false
+    },
+    {
+      "index": 11,
+      "tool": "screenshot",
+      "is_error": false
+    },
+    {
+      "index": 12,
+      "tool": "screenshot",
+      "is_error": false
+    },
+    {
+      "index": 13,
+      "tool": "save",
+      "is_error": false
+    },
+    {
+      "index": 14,
+      "tool": "export",
+      "is_error": false
+    },
+    {
+      "index": 15,
+      "tool": "export",
+      "is_error": false
+    },
+    {
+      "index": 16,
+      "tool": "body_topology",
+      "is_error": false
+    },
+    {
+      "index": 17,
+      "tool": "batch",
+      "is_error": false
+    },
+    {
+      "index": 18,
+      "tool": "inspect_design",
+      "is_error": false
+    },
+    {
+      "index": 19,
+      "tool": "measure",
+      "is_error": false
+    },
+    {
+      "index": 20,
+      "tool": "screenshot",
+      "is_error": false
+    },
+    {
+      "index": 21,
+      "tool": "screenshot",
+      "is_error": false
+    },
+    {
+      "index": 22,
+      "tool": "save",
+      "is_error": false
+    },
+    {
+      "index": 23,
+      "tool": "export",
+      "is_error": false
+    },
+    {
+      "index": 24,
+      "tool": "export",
+      "is_error": false
+    },
+    {
+      "index": 25,
+      "tool": "body_topology",
+      "is_error": false
+    }
+  ],
+  "runtime_binary_check": {
+    "version": "0.11.1",
+    "commit": "b01b9689c8999a4415b4a6daaa2f8aae8a1a2f25",
+    "archive_sha256": "6c5e285d3d6ee3bbdaa39de9019b5a36fd894c4a335f92de7193e1340996727d",
+    "cli_sha256": "f239fddce0cc795a504b5c8c6723530c1ab829f90ea6c2bf0be6a1913b4684b7",
+    "redownloaded": false,
+    "executed": false,
+    "scope": "Rehash existing original officialarchive/CLI only. No newCADprocess/sharedGUI/session."
+  },
+  "build_stage_measures": {
+    "block_default": {
+      "label": "block_default",
+      "parameters": {
+        "width": 120.0,
+        "depth": 80.0,
+        "height": 18.0,
+        "hole_diameter": 8.0
+      },
+      "fixed_parameters": {
+        "wall": 3.0,
+        "floor_thickness": 3.0
+      },
+      "measured": {
+        "volume_mm3": 172800.0,
+        "area_mm2": 26400.0,
+        "center_of_mass": [
+          0.0,
+          0.0,
+          9.0
+        ],
+        "bbox": {
+          "max": [
+            60.0,
+            40.0,
+            18.0
+          ],
+          "min": [
+            -60.0,
+            -40.0,
+            0.0
+          ]
+        },
+        "faces": 6,
+        "edges": 12,
+        "vertices": 8
+      },
+      "expected": {
+        "volume_mm3": 172800.0,
+        "area_mm2": 26400.0,
+        "center_of_mass": [
+          0.0,
+          0.0,
+          9.0
+        ],
+        "bbox_min": [
+          -60.0,
+          -40.0,
+          0.0
+        ],
+        "bbox_max": [
+          60.0,
+          40.0,
+          18.0
+        ],
+        "faces": 6
+      },
+      "tolerance": {
+        "volume_rel": 0.0002,
+        "area_rel": 0.0002,
+        "geometric_abs_mm": 0.021801146758828993
+      },
+      "timeline_features": [
+        {
+          "name": "TrayBlock",
+          "type": "BoxFeature",
+          "error": null,
+          "warning": null
+        }
+      ],
+      "sketch_count": 0,
+      "status": "passed"
+    },
+    "pocket_default": {
+      "label": "pocket_default",
+      "parameters": {
+        "width": 120.0,
+        "depth": 80.0,
+        "height": 18.0,
+        "hole_diameter": 8.0
+      },
+      "fixed_parameters": {
+        "wall": 3.0,
+        "floor_thickness": 3.0
+      },
+      "measured": {
+        "volume_mm3": 46260.0,
+        "area_mm2": 32040.0,
+        "center_of_mass": [
+          0.0,
+          0.0,
+          4.896887159533074
+        ],
+        "bbox": {
+          "max": [
+            60.0,
+            40.0,
+            18.0
+          ],
+          "min": [
+            -60.0,
+            -40.0,
+            0.0
+          ]
+        },
+        "faces": 11,
+        "edges": 24,
+        "vertices": 16
+      },
+      "expected": {
+        "volume_mm3": 46260.0,
+        "area_mm2": 32040.0,
+        "center_of_mass": [
+          0.0,
+          0.0,
+          4.8968871595
+        ],
+        "bbox_min": [
+          -60.0,
+          -40.0,
+          0.0
+        ],
+        "bbox_max": [
+          60.0,
+          40.0,
+          18.0
+        ],
+        "faces": 11
+      },
+      "tolerance": {
+        "volume_rel": 0.0002,
+        "area_rel": 0.0002,
+        "geometric_abs_mm": 0.021801146758828993
+      },
+      "timeline_features": [
+        {
+          "name": "TrayBlock",
+          "type": "BoxFeature",
+          "error": null,
+          "warning": null
+        },
+        {
+          "name": "Pocket",
+          "type": "BoxFeature",
+          "error": null,
+          "warning": null
+        }
+      ],
+      "sketch_count": 0,
+      "status": "passed"
+    },
+    "default": {
+      "label": "default",
+      "parameters": {
+        "width": 120.0,
+        "depth": 80.0,
+        "height": 18.0,
+        "hole_diameter": 8.0
+      },
+      "fixed_parameters": {
+        "wall": 3.0,
+        "floor_thickness": 3.0
+      },
+      "measured": {
+        "volume_mm3": 46109.22860047324,
+        "area_mm2": 32014.88082622162,
+        "center_of_mass": [
+          4.0148159716006354e-16,
+          3.1662392078999893e-16,
+          4.907994554877178
+        ],
+        "bbox": {
+          "max": [
+            60.0,
+            40.0,
+            18.0
+          ],
+          "min": [
+            -60.0,
+            -40.0,
+            0.0
+          ]
+        },
+        "faces": 12,
+        "edges": 26,
+        "vertices": 18
+      },
+      "expected": {
+        "volume_mm3": 46109.203552628,
+        "area_mm2": 32014.867258771,
+        "center_of_mass": [
+          0.0,
+          0.0,
+          4.9079964062
+        ],
+        "bbox_min": [
+          -60.0,
+          -40.0,
+          0.0
+        ],
+        "bbox_max": [
+          60.0,
+          40.0,
+          18.0
+        ],
+        "faces": 12
+      },
+      "tolerance": {
+        "volume_rel": 0.0002,
+        "area_rel": 0.0002,
+        "geometric_abs_mm": 0.021801146758828993
+      },
+      "timeline_features": [
+        {
+          "name": "TrayBlock",
+          "type": "BoxFeature",
+          "error": null,
+          "warning": null
+        },
+        {
+          "name": "Pocket",
+          "type": "BoxFeature",
+          "error": null,
+          "warning": null
+        },
+        {
+          "name": "DrainHole",
+          "type": "CylinderFeature",
+          "error": null,
+          "warning": null
+        }
+      ],
+      "sketch_count": 0,
+      "status": "passed"
+    },
+    "resized": {
+      "label": "resized",
+      "parameters": {
+        "width": 150.0,
+        "depth": 90.0,
+        "height": 24.0,
+        "hole_diameter": 12.0
+      },
+      "fixed_parameters": {
+        "wall": 3.0,
+        "floor_thickness": 3.0
+      },
+      "measured": {
+        "volume_mm3": 69644.7643510645,
+        "area_mm2": 47982.93553956928,
+        "center_of_mass": [
+          7.511676383097805e-16,
+          -1.8364293946363703e-16,
+          6.580180876433567
+        ],
+        "bbox": {
+          "max": [
+            75.0,
+            45.0,
+            24.0
+          ],
+          "min": [
+            -75.0,
+            -45.0,
+            0.0
+          ]
+        },
+        "faces": 12,
+        "edges": 26,
+        "vertices": 18
+      },
+      "expected": {
+        "volume_mm3": 69644.707993412,
+        "area_mm2": 47982.902664471,
+        "center_of_mass": [
+          0.0,
+          0.0,
+          6.5801849874
+        ],
+        "bbox_min": [
+          -75.0,
+          -45.0,
+          0.0
+        ],
+        "bbox_max": [
+          75.0,
+          45.0,
+          24.0
+        ],
+        "faces": 12
+      },
+      "tolerance": {
+        "volume_rel": 0.0002,
+        "area_rel": 0.0002,
+        "geometric_abs_mm": 0.02648509014521189
+      },
+      "timeline_features": [
+        {
+          "name": "TrayBlock",
+          "type": "BoxFeature",
+          "error": null,
+          "warning": null
+        },
+        {
+          "name": "Pocket",
+          "type": "BoxFeature",
+          "error": null,
+          "warning": null
+        },
+        {
+          "name": "DrainHole",
+          "type": "CylinderFeature",
+          "error": null,
+          "warning": null
+        }
+      ],
+      "sketch_count": 0,
+      "status": "passed"
+    }
+  },
+  "regression": {
+    "checker": "check_design.py",
+    "sequence": "walk",
+    "ok": true,
+    "cli_version": "solidcraft-cli 0.11.1",
+    "script": "walk.json",
+    "design": "tray-default.json",
+    "scope": "Sequential walk on the saved default design. Each lower range endpoint equals the default, so each parameter goes to its upper endpoint and back to the default (lower endpoint) one at a time, then all four go to their upper endpoints together and are restored. Only these 11 states are tested. Values between the endpoints, and other combinations, are not tested or claimed.",
+    "tolerances": {
+      "volume_rel": 0.0002,
+      "area_rel": 0.0002,
+      "geometric_abs_mm": "max(0.001, min(0.03, 0.00015 * bbox diagonal))"
+    },
+    "cases": [
+      {
+        "label": "walk-00-default-initial",
+        "step": 0,
+        "state": "default",
+        "ok": true,
+        "failures": [],
+        "advisory": [],
+        "sketches": "no sketches (primitive-only design)",
+        "measured": {
+          "volume_mm3": 46109.2286,
+          "area_mm2": 32014.880826,
+          "center_of_mass": [
+            0.0,
+            0.0,
+            4.907995
+          ],
+          "bbox_min": [
+            -60.0,
+            -40.0,
+            0.0
+          ],
+          "bbox_max": [
+            60.0,
+            40.0,
+            18.0
+          ],
+          "faces": 12
+        },
+        "deviation": {
+          "volume_mm3_rel": 5.432e-07,
+          "area_mm2_rel": 4.238e-07,
+          "center_of_mass_abs_mm": 1.851e-06,
+          "bbox_min_abs_mm": 0.0,
+          "bbox_max_abs_mm": 0.0
+        }
+      },
+      {
+        "label": "walk-01-width-150",
+        "step": 2,
+        "state": "width_max",
+        "ok": true,
+        "failures": [],
+        "advisory": [],
+        "sketches": "no sketches (primitive-only design)",
+        "measured": {
+          "volume_mm3": 56009.2286,
+          "area_mm2": 38794.880826,
+          "center_of_mass": [
+            0.0,
+            0.0,
+            4.739466
+          ],
+          "bbox_min": [
+            -75.0,
+            -40.0,
+            0.0
+          ],
+          "bbox_max": [
+            75.0,
+            40.0,
+            18.0
+          ],
+          "faces": 12
+        },
+        "deviation": {
+          "volume_mm3_rel": 4.472e-07,
+          "area_mm2_rel": 3.497e-07,
+          "center_of_mass_abs_mm": 1.449e-06,
+          "bbox_min_abs_mm": 7.105e-15,
+          "bbox_max_abs_mm": 0.0
+        }
+      },
+      {
+        "label": "walk-02-width-120-default",
+        "step": 4,
+        "state": "default",
+        "ok": true,
+        "failures": [],
+        "advisory": [],
+        "sketches": "no sketches (primitive-only design)",
+        "measured": {
+          "volume_mm3": 46109.2286,
+          "area_mm2": 32014.880826,
+          "center_of_mass": [
+            0.0,
+            0.0,
+            4.907995
+          ],
+          "bbox_min": [
+            -60.0,
+            -40.0,
+            0.0
+          ],
+          "bbox_max": [
+            60.0,
+            40.0,
+            18.0
+          ],
+          "faces": 12
+        },
+        "deviation": {
+          "volume_mm3_rel": 5.432e-07,
+          "area_mm2_rel": 4.238e-07,
+          "center_of_mass_abs_mm": 1.851e-06,
+          "bbox_min_abs_mm": 0.0,
+          "bbox_max_abs_mm": 0.0
+        }
+      },
+      {
+        "label": "walk-03-depth-90",
+        "step": 6,
+        "state": "depth_max",
+        "ok": true,
+        "failures": [],
+        "advisory": [],
+        "sketches": "no sketches (primitive-only design)",
+        "measured": {
+          "volume_mm3": 50609.2286,
+          "area_mm2": 35074.880826,
+          "center_of_mass": [
+            0.0,
+            0.0,
+            4.765017
+          ],
+          "bbox_min": [
+            -60.0,
+            -45.0,
+            0.0
+          ],
+          "bbox_max": [
+            60.0,
+            45.0,
+            18.0
+          ],
+          "faces": 12
+        },
+        "deviation": {
+          "volume_mm3_rel": 4.949e-07,
+          "area_mm2_rel": 3.868e-07,
+          "center_of_mass_abs_mm": 1.616e-06,
+          "bbox_min_abs_mm": 0.0,
+          "bbox_max_abs_mm": 0.0
+        }
+      },
+      {
+        "label": "walk-04-depth-80-default",
+        "step": 8,
+        "state": "default",
+        "ok": true,
+        "failures": [],
+        "advisory": [],
+        "sketches": "no sketches (primitive-only design)",
+        "measured": {
+          "volume_mm3": 46109.2286,
+          "area_mm2": 32014.880826,
+          "center_of_mass": [
+            0.0,
+            0.0,
+            4.907995
+          ],
+          "bbox_min": [
+            -60.0,
+            -40.0,
+            0.0
+          ],
+          "bbox_max": [
+            60.0,
+            40.0,
+            18.0
+          ],
+          "faces": 12
+        },
+        "deviation": {
+          "volume_mm3_rel": 5.432e-07,
+          "area_mm2_rel": 4.238e-07,
+          "center_of_mass_abs_mm": 1.851e-06,
+          "bbox_min_abs_mm": 0.0,
+          "bbox_max_abs_mm": 0.0
+        }
+      },
+      {
+        "label": "walk-05-height-24",
+        "step": 10,
+        "state": "height_max",
+        "ok": true,
+        "failures": [],
+        "advisory": [],
+        "sketches": "no sketches (primitive-only design)",
+        "measured": {
+          "volume_mm3": 53093.2286,
+          "area_mm2": 36670.880826,
+          "center_of_mass": [
+            0.0,
+            0.0,
+            7.024772
+          ],
+          "bbox_min": [
+            -60.0,
+            -40.0,
+            0.0
+          ],
+          "bbox_max": [
+            60.0,
+            40.0,
+            24.0
+          ],
+          "faces": 12
+        },
+        "deviation": {
+          "volume_mm3_rel": 4.718e-07,
+          "area_mm2_rel": 3.7e-07,
+          "center_of_mass_abs_mm": 2.606e-06,
+          "bbox_min_abs_mm": 0.0,
+          "bbox_max_abs_mm": 0.0
+        }
+      },
+      {
+        "label": "walk-06-height-18-default",
+        "step": 12,
+        "state": "default",
+        "ok": true,
+        "failures": [],
+        "advisory": [],
+        "sketches": "no sketches (primitive-only design)",
+        "measured": {
+          "volume_mm3": 46109.2286,
+          "area_mm2": 32014.880826,
+          "center_of_mass": [
+            0.0,
+            0.0,
+            4.907995
+          ],
+          "bbox_min": [
+            -60.0,
+            -40.0,
+            0.0
+          ],
+          "bbox_max": [
+            60.0,
+            40.0,
+            18.0
+          ],
+          "faces": 12
+        },
+        "deviation": {
+          "volume_mm3_rel": 5.432e-07,
+          "area_mm2_rel": 4.238e-07,
+          "center_of_mass_abs_mm": 1.851e-06,
+          "bbox_min_abs_mm": 0.0,
+          "bbox_max_abs_mm": 0.0
+        }
+      },
+      {
+        "label": "walk-07-hole-12",
+        "step": 14,
+        "state": "hole_max",
+        "ok": true,
+        "failures": [],
+        "advisory": [],
+        "sketches": "no sketches (primitive-only design)",
+        "measured": {
+          "volume_mm3": 45920.764351,
+          "area_mm2": 31926.93554,
+          "center_of_mass": [
+            0.0,
+            -0.0,
+            4.921981
+          ],
+          "bbox_min": [
+            -60.0,
+            -40.0,
+            0.0
+          ],
+          "bbox_max": [
+            60.0,
+            40.0,
+            18.0
+          ],
+          "faces": 12
+        },
+        "deviation": {
+          "volume_mm3_rel": 1.227e-06,
+          "area_mm2_rel": 1.03e-06,
+          "center_of_mass_abs_mm": 4.2e-06,
+          "bbox_min_abs_mm": 0.0,
+          "bbox_max_abs_mm": 0.0
+        }
+      },
+      {
+        "label": "walk-08-hole-8-default",
+        "step": 16,
+        "state": "default",
+        "ok": true,
+        "failures": [],
+        "advisory": [],
+        "sketches": "no sketches (primitive-only design)",
+        "measured": {
+          "volume_mm3": 46109.2286,
+          "area_mm2": 32014.880826,
+          "center_of_mass": [
+            0.0,
+            0.0,
+            4.907995
+          ],
+          "bbox_min": [
+            -60.0,
+            -40.0,
+            0.0
+          ],
+          "bbox_max": [
+            60.0,
+            40.0,
+            18.0
+          ],
+          "faces": 12
+        },
+        "deviation": {
+          "volume_mm3_rel": 5.432e-07,
+          "area_mm2_rel": 4.238e-07,
+          "center_of_mass_abs_mm": 1.851e-06,
+          "bbox_min_abs_mm": 0.0,
+          "bbox_max_abs_mm": 0.0
+        }
+      },
+      {
+        "label": "walk-09-all-max",
+        "step": 21,
+        "state": "all_max",
+        "ok": true,
+        "failures": [],
+        "advisory": [],
+        "sketches": "no sketches (primitive-only design)",
+        "measured": {
+          "volume_mm3": 69644.764351,
+          "area_mm2": 47982.93554,
+          "center_of_mass": [
+            0.0,
+            -0.0,
+            6.580181
+          ],
+          "bbox_min": [
+            -75.0,
+            -45.0,
+            0.0
+          ],
+          "bbox_max": [
+            75.0,
+            45.0,
+            24.0
+          ],
+          "faces": 12
+        },
+        "deviation": {
+          "volume_mm3_rel": 8.092e-07,
+          "area_mm2_rel": 6.851e-07,
+          "center_of_mass_abs_mm": 4.111e-06,
+          "bbox_min_abs_mm": 0.0,
+          "bbox_max_abs_mm": 0.0
+        }
+      },
+      {
+        "label": "walk-10-all-restored-default",
+        "step": 26,
+        "state": "default",
+        "ok": true,
+        "failures": [],
+        "advisory": [],
+        "sketches": "no sketches (primitive-only design)",
+        "measured": {
+          "volume_mm3": 46109.2286,
+          "area_mm2": 32014.880826,
+          "center_of_mass": [
+            0.0,
+            0.0,
+            4.907995
+          ],
+          "bbox_min": [
+            -60.0,
+            -40.0,
+            0.0
+          ],
+          "bbox_max": [
+            60.0,
+            40.0,
+            18.0
+          ],
+          "faces": 12
+        },
+        "deviation": {
+          "volume_mm3_rel": 5.432e-07,
+          "area_mm2_rel": 4.238e-07,
+          "center_of_mass_abs_mm": 1.851e-06,
+          "bbox_min_abs_mm": 0.0,
+          "bbox_max_abs_mm": 0.0
+        }
+      }
+    ],
+    "summary": {
+      "cases": 11,
+      "passed": 11
+    },
+    "probe": {
+      "available": true,
+      "base": [
+        0.0,
+        0.0,
+        -1.0
+      ],
+      "on_z_axis": true,
+      "starts_below_floor": true
+    }
+  },
+  "additional_regressions": {
+    "build": {
+      "checker": "check_design.py",
+      "sequence": "build",
+      "ok": true,
+      "cli_version": "solidcraft-cli 0.11.1",
+      "script": "build.json",
+      "design": null,
+      "scope": "Fresh empty headless session: block, pocket and hole stages at the default parameters only.",
+      "tolerances": {
+        "volume_rel": 0.0002,
+        "area_rel": 0.0002,
+        "geometric_abs_mm": "max(0.001, min(0.03, 0.00015 * bbox diagonal))"
+      },
+      "cases": [
+        {
+          "label": "build-1-block",
+          "step": 7,
+          "state": "block_default",
+          "ok": true,
+          "failures": [],
+          "advisory": [],
+          "sketches": "no sketches (primitive-only design)",
+          "measured": {
+            "volume_mm3": 172800.0,
+            "area_mm2": 26400.0,
+            "center_of_mass": [
+              0.0,
+              0.0,
+              9.0
+            ],
+            "bbox_min": [
+              -60.0,
+              -40.0,
+              0.0
+            ],
+            "bbox_max": [
+              60.0,
+              40.0,
+              18.0
+            ],
+            "faces": 6
+          },
+          "deviation": {
+            "volume_mm3_rel": 0.0,
+            "area_mm2_rel": 0.0,
+            "center_of_mass_abs_mm": 0.0,
+            "bbox_min_abs_mm": 0.0,
+            "bbox_max_abs_mm": 0.0
+          }
+        },
+        {
+          "label": "build-2-pocket",
+          "step": 9,
+          "state": "pocket_default",
+          "ok": true,
+          "failures": [],
+          "advisory": [],
+          "sketches": "no sketches (primitive-only design)",
+          "measured": {
+            "volume_mm3": 46260.0,
+            "area_mm2": 32040.0,
+            "center_of_mass": [
+              0.0,
+              0.0,
+              4.896887
+            ],
+            "bbox_min": [
+              -60.0,
+              -40.0,
+              0.0
+            ],
+            "bbox_max": [
+              60.0,
+              40.0,
+              18.0
+            ],
+            "faces": 11
+          },
+          "deviation": {
+            "volume_mm3_rel": 0.0,
+            "area_mm2_rel": 0.0,
+            "center_of_mass_abs_mm": 3.307e-11,
+            "bbox_min_abs_mm": 0.0,
+            "bbox_max_abs_mm": 0.0
+          }
+        },
+        {
+          "label": "build-3-final",
+          "step": 11,
+          "state": "default",
+          "ok": true,
+          "failures": [],
+          "advisory": [],
+          "sketches": "no sketches (primitive-only design)",
+          "measured": {
+            "volume_mm3": 46109.2286,
+            "area_mm2": 32014.880826,
+            "center_of_mass": [
+              0.0,
+              0.0,
+              4.907995
+            ],
+            "bbox_min": [
+              -60.0,
+              -40.0,
+              0.0
+            ],
+            "bbox_max": [
+              60.0,
+              40.0,
+              18.0
+            ],
+            "faces": 12
+          },
+          "deviation": {
+            "volume_mm3_rel": 5.432e-07,
+            "area_mm2_rel": 4.238e-07,
+            "center_of_mass_abs_mm": 1.851e-06,
+            "bbox_min_abs_mm": 0.0,
+            "bbox_max_abs_mm": 0.0
+          }
+        }
+      ],
+      "summary": {
+        "cases": 3,
+        "passed": 3
+      },
+      "probe": {
+        "available": true,
+        "base": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "on_z_axis": true,
+        "starts_below_floor": true
+      }
+    },
+    "resize": {
+      "checker": "check_design.py",
+      "sequence": "resize",
+      "ok": true,
+      "cli_version": "solidcraft-cli 0.11.1",
+      "script": "resize.json",
+      "design": "tray-default.json",
+      "scope": "One edit of the saved default design: all four driving parameters changed together to 150/90/24/12 mm.",
+      "tolerances": {
+        "volume_rel": 0.0002,
+        "area_rel": 0.0002,
+        "geometric_abs_mm": "max(0.001, min(0.03, 0.00015 * bbox diagonal))"
+      },
+      "cases": [
+        {
+          "label": "resize-all-max",
+          "step": 4,
+          "state": "all_max",
+          "ok": true,
+          "failures": [],
+          "advisory": [],
+          "sketches": "no sketches (primitive-only design)",
+          "measured": {
+            "volume_mm3": 69644.764351,
+            "area_mm2": 47982.93554,
+            "center_of_mass": [
+              0.0,
+              -0.0,
+              6.580181
+            ],
+            "bbox_min": [
+              -75.0,
+              -45.0,
+              0.0
+            ],
+            "bbox_max": [
+              75.0,
+              45.0,
+              24.0
+            ],
+            "faces": 12
+          },
+          "deviation": {
+            "volume_mm3_rel": 8.092e-07,
+            "area_mm2_rel": 6.851e-07,
+            "center_of_mass_abs_mm": 4.111e-06,
+            "bbox_min_abs_mm": 0.0,
+            "bbox_max_abs_mm": 0.0
+          }
+        }
+      ],
+      "summary": {
+        "cases": 1,
+        "passed": 1
+      },
+      "probe": {
+        "available": true,
+        "base": [
+          0.0,
+          0.0,
+          -1.0
+        ],
+        "on_z_axis": true,
+        "starts_below_floor": true
+      }
+    }
+  },
+  "roundtrips": {
+    "default": {
+      "json": {
+        "status": "passed",
+        "body_count": 1,
+        "volume_mm3": 46109.22860047324,
+        "area_mm2": 32014.88082622162,
+        "bbox": {
+          "max": [
+            60.0,
+            40.0,
+            18.0
+          ],
+          "min": [
+            -60.0,
+            -40.0,
+            0.0
+          ]
+        },
+        "center_of_mass": [
+          4.0148159716006354e-16,
+          3.1662392078999893e-16,
+          4.907994554877178
+        ],
+        "format_note": "Parametric timeline retained",
+        "file_sha256": "5154fad132ad9070dd4b085aa478bb34436f89b79b1aee349073abdf050f9dd9"
+      },
+      "step": {
+        "status": "passed",
+        "body_count": 1,
+        "volume_mm3": 46109.21905930265,
+        "area_mm2": 32014.881918512536,
+        "bbox": {
+          "max": [
+            60.0,
+            40.0,
+            18.0
+          ],
+          "min": [
+            -60.0,
+            -40.0,
+            0.0
+          ]
+        },
+        "center_of_mass": [
+          -1.4403206645138765e-16,
+          2.7799627091116616e-16,
+          4.907995260077965
+        ],
+        "format_note": "Imported single base solid",
+        "file_sha256": "e223a4ed39ab6cd5ab52778a404358d2ea5478fca5108e524286c5199bb2b64b"
+      },
+      "stl": {
+        "status": "passed",
+        "body_count": 1,
+        "volume_mm3": 46109.93661262313,
+        "area_mm2": 32015.26421024136,
+        "bbox": {
+          "max": [
+            60.0,
+            40.0,
+            18.0
+          ],
+          "min": [
+            -60.0,
+            -40.0,
+            0.0
+          ]
+        },
+        "center_of_mass": [
+          0.0,
+          0.0,
+          4.90794222555635
+        ],
+        "format_note": "Imported tessellated mesh; parametric timeline is not retained",
+        "file_sha256": "a99a932edb4856afed76bff0f19800771a988a921c6bf922e036795df30b2d81"
+      }
+    },
+    "resized": {
+      "json": {
+        "status": "passed",
+        "body_count": 1,
+        "volume_mm3": 69644.7643510645,
+        "area_mm2": 47982.93553956928,
+        "bbox": {
+          "max": [
+            75.0,
+            45.0,
+            24.0
+          ],
+          "min": [
+            -75.0,
+            -45.0,
+            0.0
+          ]
+        },
+        "center_of_mass": [
+          7.511676383097805e-16,
+          -1.8364293946363703e-16,
+          6.580180876433567
+        ],
+        "format_note": "Parametric timeline retained",
+        "file_sha256": "4da7a381f200c59ae93ba59180dd0ce1eef59403136e24f51ff967acf6f269ed"
+      },
+      "step": {
+        "status": "passed",
+        "body_count": 1,
+        "volume_mm3": 69644.74315894155,
+        "area_mm2": 47982.93710932216,
+        "bbox": {
+          "max": [
+            75.0,
+            45.0,
+            24.0
+          ],
+          "min": [
+            -75.0,
+            -45.0,
+            0.0
+          ]
+        },
+        "center_of_mass": [
+          4.518978003950043e-16,
+          -2.6771067765724516e-16,
+          6.5801824222762635
+        ],
+        "format_note": "Imported single base solid",
+        "file_sha256": "3abdcea79540d99532e13330e82020ee461fc4623144c031774197b8e45dc730"
+      },
+      "stl": {
+        "status": "passed",
+        "body_count": 1,
+        "volume_mm3": 69645.79188351711,
+        "area_mm2": 47983.534857189785,
+        "bbox": {
+          "max": [
+            75.0,
+            45.0,
+            24.0
+          ],
+          "min": [
+            -75.0,
+            -45.0,
+            0.0
+          ]
+        },
+        "center_of_mass": [
+          3.2779899682367604e-11,
+          2.2960193536017886e-11,
+          6.580105925014639
+        ],
+        "format_note": "Imported tessellated mesh; parametric timeline is not retained",
+        "file_sha256": "0da764762b61f97b59ca8fb31e1ddfd7b80788b75976cf9e1793964f20de8598"
+      }
+    }
+  },
+  "top_image_checks": {
+    "default": {
+      "top_png_sha256": "ddc69b5ae81d9589dce6250c117f19e63450839a1359eb54fecc349510e14b68",
+      "size": [
+        1280,
+        960
+      ],
+      "dark_outline_x_px": [
+        295.0,
+        312.0,
+        617.0,
+        662.0,
+        967.0,
+        984.0
+      ],
+      "dark_outline_y_px": [
+        250.0,
+        267.0,
+        457.0,
+        502.0,
+        692.0,
+        709.0
+      ],
+      "hole_center_vs_outer_center_within_px": 1,
+      "hole_diameter_and_wall_thickness_error_below_mm": 0.3,
+      "pixel_check_scope": "Raster edge check against independently known actual CAD bbox, with 1px sampling and 0.3mm tolerance; complements model measurements and agent visual inspection."
+    },
+    "resized": {
+      "top_png_sha256": "b250c3adab3a57a55a76a86e46b9bfd7b480531d48b08c3080dbb272220242ac",
+      "size": [
+        1280,
+        960
+      ],
+      "dark_outline_x_px": [
+        285.0,
+        299.0,
+        611.0,
+        668.0,
+        980.0,
+        994.0
+      ],
+      "dark_outline_y_px": [
+        267.0,
+        281.0,
+        451.0,
+        508.0,
+        678.0,
+        692.0
+      ],
+      "hole_center_vs_outer_center_within_px": 1,
+      "hole_diameter_and_wall_thickness_error_below_mm": 0.3,
+      "pixel_check_scope": "Raster edge check against independently known actual CAD bbox, with 1px sampling and 0.3mm tolerance; complements model measurements and agent visual inspection."
+    }
+  }
+}

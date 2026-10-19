@@ -1,0 +1,74 @@
+/* 編集用ソースのプレビュー。書き出しでは canvas だけを原寸で左上に置く。 */
+
+:root {
+  --bg: #d9d4c6;
+  --paper: #f4f1ea;
+  --ink: #1c1b18;
+  --soft: #57534a;
+  --accent: #b8381a;
+  --error: #9a2a10;
+  --verify: #1f6a4e;
+  --sans: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "Meiryo", "Noto Sans JP", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.6; }
+
+.preview { max-width: 1320px; margin: 0 auto; padding: 16px; }
+
+.stage { display: flex; justify-content: center; }
+
+#film {
+  display: block;
+  background: var(--paper);
+  box-shadow: 0 0 0 1px var(--ink);
+}
+
+.caption { max-width: 760px; margin: 10px auto 0; font-size: 14px; color: var(--soft); text-align: center; }
+
+.controls {
+  max-width: 1280px;
+  margin: 14px auto 0;
+  padding: 12px 14px;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  display: grid;
+  gap: 10px;
+}
+
+.status-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; }
+.status-row p { margin: 0; }
+#asset-status { font-weight: 700; }
+#asset-status[data-state="ready"] { color: var(--verify); }
+#asset-status[data-state="error"] { color: var(--error); }
+#asset-dims { color: var(--soft); font-variant-numeric: tabular-nums; }
+
+.transport, .jumps, .orient { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; }
+
+.controls button {
+  min-height: 44px;
+  padding: 6px 12px;
+  border: 1px solid var(--ink);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.controls button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.controls button:disabled { opacity: 0.45; cursor: not-allowed; }
+.controls button:focus-visible, .controls input:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+#retry[hidden] { display: none; }
+
+#time { flex: 1 1 260px; min-width: 160px; min-height: 44px; accent-color: var(--accent); }
+#clock { min-width: 8.5em; font-variant-numeric: tabular-nums; }
+
+.hint { margin: 0; font-size: 13px; color: var(--soft); }
+
+/* 書き出し：操作と説明を出さず、canvas を原寸で */
+body.render, body.render .preview { margin: 0; padding: 0; max-width: none; background: var(--paper); overflow: hidden; }
+body.render .stage { display: block; }
+body.render #film { box-shadow: none; }
+body.render .caption, body.render .controls { display: none; }
