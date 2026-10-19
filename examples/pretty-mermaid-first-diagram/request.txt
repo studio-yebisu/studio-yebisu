@@ -1,0 +1,9 @@
+Pretty Mermaid のSKILL.mdと references/DIAGRAM_TYPES.md を読んでから、次の手順をMermaidの図にしてください。
+
+準備：https://github.com/imxv/Pretty-mermaid-skills を e234ab73c2992f03c36db04fd55ebb90abca9c45 でcheckoutし、そのフォルダで npm ci --ignore-scripts を実行済みです。描画はそのフォルダの node scripts/render.mjs で行い、代わりのレンダラーや手描きのSVGは使わないでください。
+
+図にする手順：【文章の手順。例：申込を入力→内容を確認→不備があれば入力へ戻る、問題がなければ保存して完了を通知】
+図の種類：【flowchart LR／sequenceDiagram／stateDiagram-v2 から選ぶ】
+守ること：手順の言葉をラベルに残し、分岐の条件や返答には矢印のラベルを付ける。1枚に詰め込まず、読める大きさに分ける。色だけで意味を伝えない。
+
+出力：.mmd を保存し、--theme github-light と --theme github-dark のSVG（--font 'Yu Gothic'）、--format png --width 1200 のPNG、--format ascii --color-mode none の文字図を書き出してください。終わったら、コマンドの終了、SVGが <svg で始まること、PNGが開けること、文字図に図が出ていること、日本語のラベル・矢印の向き・条件が記述どおりであることを確かめ、確かめたことと未確認のことを分けて報告してください。

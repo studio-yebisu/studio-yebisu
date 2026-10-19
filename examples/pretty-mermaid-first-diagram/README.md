@@ -80,3 +80,10 @@ python -m http.server 8000   # http://127.0.0.1:8000/index.html
 原典が出力したSVGは変更していません。SVGにはGoogle Fontsの参照が残り、単独で開く環境では外部フォントへアクセスする場合があります。動画で位置を測る一時的なSVGからだけ、その参照を除いています。
 
 統合サイト内で映像を書き出す場合は `python scripts/render_case.py pretty-mermaid-first-diagram` を使います。ケース全体のファイル配置を一時領域に保って `video/` を基準URLにし、Motion Reelのインストール済みレンダラーへ渡すため、親フォルダーの画像・JSONを変更せず読み込めます。
+
+
+## 概念構造版 visual-r1
+
+新しい入口はindex.html、元の全文/実図/文字図はdesk.html、旧28秒はvideo/legacy.htmlへ保全しました。旧節のindex.html/video/index.htmlと28秒という記述は元制作時点の構成です。現在の32秒無音紹介にはrender-visual.pyとvisual-guide.mdを使います。原モデル/12CLI描画は再実行せず、元の3入力と12実出力は同じbytesで保持しています。新しい確認はvisual-verification.jsonです。
+
+元の7原典資料は変更していないCRLFの写しです。公式LFとrawbytesが異なり、CRLFだけ正規化した内容/Gitblobが一致します。追加の原典4ソースは公式rawbytes一致。--format asciiの出力はUnicode罫線を含み、純ASCIIオプションは未使用です。

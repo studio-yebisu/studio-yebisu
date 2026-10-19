@@ -1,0 +1,95 @@
+{
+  "id": "pretty-mermaid-first-diagram",
+  "revision": "visual-r1",
+  "title": "Pretty Mermaid の仕組み：AIが読む指示書と、手元で描くNode CLI",
+  "message": "Pretty Mermaid は Markdown の指示書・参照資料と、ローカルの Node CLI と依存（beautiful-mermaid・Resvg）の組み合わせ。作者AIが .mmd を書き、制作担当が別にCLIで SVG・PNG・文字図へ書き出し、別工程で原文と照合してから使う。",
+  "authority": "時刻・強調・現れる順の正本は video.js の SCENES と REVEAL、移動する印の時刻は ../concept.js の TRIPS・ARRIVALS・GLOWS。このファイルは説明用の写しで、描画には読み込まない。",
+  "motion_config": {
+    "duration": 32,
+    "fps": 30,
+    "width": 720,
+    "height": 1280,
+    "posterTime": 31,
+    "audioEvents": []
+  },
+  "layouts": [
+    { "orientation": "portrait", "width": 720, "height": 1280, "layout": "tall", "note": "上から作者AIの帯・制作担当の帯・読む/使うの帯。縦長に作り直した配置で、横長の縮小ではない。" },
+    { "orientation": "wide", "width": 1280, "height": 720, "layout": "wide", "note": "左上に作者AI、左下に制作担当、右の列に読む/使う。CLIの3経路は右へ出て出力の列へつながる。" }
+  ],
+  "audio": "完全な無音。音声トラック・ナレーション・TTS・効果音・原稿はない。",
+  "subject_case": "flow（申込の確認フロー）。題材は架空で、申込の処理・API・ジョブは作っていない。",
+  "scenes": [
+    {
+      "index": 1,
+      "start": 0,
+      "end": 4,
+      "label": "指示書と依頼",
+      "conveys": "SKILL.md（7手順と図種・出力・テーマ・書き方・確認）と参照資料3件、架空の依頼の6つの印（種類・目的・用語・関係・出力・テーマ）がある。",
+      "enters": "冒頭から指示書と依頼があり、7つの手順が順に点く。",
+      "exits": "指示書と依頼が並び、印が依頼の紙に載っている。",
+      "motion": "手順の番号が上から順に点灯する。"
+    },
+    {
+      "index": 2,
+      "start": 4,
+      "end": 8,
+      "label": "作者AIが.mmdを書く",
+      "conveys": "指示書の指針（短いラベル・条件ラベル・戻り道）と依頼の印が同じ作者AIへ入り、作者AIが .mmd を保存する。出力とテーマの印は設定へ移る。作者AIはCLIを実行しない。制作担当が別の役として現れ、保存された記述を受け取る。",
+      "enters": "指示書と依頼。",
+      "exits": "印が .mmd の行に変わって記述ができ、題材の形が現れる。.mmd と設定が制作担当へ向かう。",
+      "motion": "印の丸が線に沿って作者AIへ移動し、続いて .mmd の行の棒へ変形する。"
+    },
+    {
+      "index": 3,
+      "start": 8,
+      "end": 14,
+      "label": "制作担当がCLIへ渡す",
+      "conveys": "制作担当が同じ .mmd と設定をローカルの Node CLI（scripts/render.mjs、元の制作で12回）へ渡す。CLIは .mmd を読み、beautiful-mermaid が節点と矢印の形にする。固定checkoutとnpm依存が別に必要で、ブラウザー・DOMは使わない。",
+      "enters": ".mmd の紙と設定の札が制作担当にある。",
+      "exits": "紙が beautiful-mermaid の中で節点と矢印の小さな図に変わる。",
+      "motion": "紙と設定の札がCLIの読込へ入り、紙が図形へ変形する。"
+    },
+    {
+      "index": 4,
+      "start": 14,
+      "end": 20,
+      "label": "SVG・PNG・文字図の3経路",
+      "conveys": "renderMermaidSVG がテーマとフォント付きのSVGを作る（github-light・github-dark、同じ関係と名前）。PNGは同じSVGを png.mjs でCSS整理し Resvg で幅1200に画像化する。文字図は renderMermaidASCII の別経路で、SVGの写しではない。",
+      "enters": "beautiful-mermaid の中の図形。",
+      "exits": "4つの出力枠に、保存済みの実出力（SVG明・SVG暗・PNG・文字図）が入る。",
+      "motion": "SVGの札が2つの枠へ、別の札が png.mjs → Resvg → PNG枠へ、文字の札が別の線で文字図の枠へ移る。"
+    },
+    {
+      "index": 5,
+      "start": 20,
+      "end": 26,
+      "label": "別工程で読んで照合",
+      "conveys": "制作担当が別工程で、12回の正常終了・<svg で始まること・PNGが開けること・文字図に図があることを確かめ、日本語のラベル・向き・条件を原文と見比べる（流れ図は関係5本）。自動の意味保証や人の承認ではない。",
+      "enters": "出力の4枠と、原文の .mmd。",
+      "exits": "照合の欄で確認4項目と関係5本に印が付く。",
+      "motion": "出力の札と原文の紙が照合の欄へ集まり、題材の関係が1本ずつ強調される。"
+    },
+    {
+      "index": 6,
+      "start": 26,
+      "end": 29,
+      "label": "用途で使い分ける",
+      "conveys": "直すときは .mmd、資料や拡大にはSVG、共有にはPNG、端末には文字図。元の読み比べ画面で記述と出力を並べて読める。",
+      "enters": "照合済みの出力。",
+      "exits": "使い分けの4項目と元の読み比べ画面が点く。",
+      "motion": "4つの札が照合から使い分けへ移る。"
+    },
+    {
+      "index": 7,
+      "start": 29,
+      "end": 32,
+      "label": "全体の地図",
+      "conveys": "指示書＋依頼 → 作者AI → .mmd → 制作担当 → CLIの3経路 → 照合 → 使い分け、の全体が一度に見える。",
+      "enters": "すべての部品。",
+      "exits": "強調を外した静止した全体図（31秒をポスターに使う）。",
+      "motion": "動きはなく、全体が同じ濃さで残る。"
+    }
+  ],
+  "proof_assets": "出力枠と照合の欄に描く画像は、元の制作で原典CLIが書き出して保存した assets/review-flow-light.svg・review-flow-dark.svg・review-flow-light.png・review-flow.txt。../concept.js の共有ローダーで28ファイルのSHA-256を確かめてから使う。",
+  "qa": "書き出し・フレーム確認・決定性の確認・MP4の再生確認は未実施（親の工程で行う）。人による承認はない。"
+}

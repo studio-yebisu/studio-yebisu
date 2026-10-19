@@ -1,0 +1,415 @@
+{
+  "id": "pretty-mermaid-first-diagram",
+  "kind": "AIが読むMarkdown指示書/参照資料とローカルNode描画CLI",
+  "source_commit": "e234ab73c2992f03c36db04fd55ebb90abca9c45",
+  "parts": [
+    {
+      "id": "instructions",
+      "label": "手順を選ぶ",
+      "source_path": "vendor/pretty-mermaid/SKILL.md",
+      "line_start": 21,
+      "quote": "## Workflow",
+      "meaning": "元の文章か既存Mermaidかを分け、形式を選び、記述と結果を渡す7手順。",
+      "source_url": "https://github.com/imxv/Pretty-mermaid-skills/blob/e234ab73c2992f03c36db04fd55ebb90abca9c45/SKILL.md#L21"
+    },
+    {
+      "id": "types",
+      "label": "図の文法",
+      "source_path": "vendor/pretty-mermaid/SKILL.md",
+      "line_start": 33,
+      "quote": "## Choose a diagram type",
+      "meaning": "原典6図種中、流れ/やり取り/状態の3つを適用。原典図種表と必要な構文資料。",
+      "source_url": "https://github.com/imxv/Pretty-mermaid-skills/blob/e234ab73c2992f03c36db04fd55ebb90abca9c45/SKILL.md#L33"
+    },
+    {
+      "id": "theme",
+      "label": "見た目と用途",
+      "source_path": "vendor/pretty-mermaid/SKILL.md",
+      "line_start": 46,
+      "quote": "## Choose an output",
+      "meaning": "SVGは拡大する資料、PNGは共有、端末には文字図。15テーマ中GitHub明暗の2つ。",
+      "source_url": "https://github.com/imxv/Pretty-mermaid-skills/blob/e234ab73c2992f03c36db04fd55ebb90abca9c45/SKILL.md#L46"
+    },
+    {
+      "id": "source",
+      "label": "記述を残す",
+      "source_path": "vendor/pretty-mermaid/SKILL.md",
+      "line_start": 26,
+      "quote": "4. Save new source as a `.mmd` file, preserving user terminology and relationships.",
+      "meaning": "用語と関係を保った.mmdを作者AIが執筆。コードの矢印は架空業務の関係で実処理ではない。",
+      "source_url": "https://github.com/imxv/Pretty-mermaid-skills/blob/e234ab73c2992f03c36db04fd55ebb90abca9c45/SKILL.md#L26"
+    },
+    {
+      "id": "render",
+      "label": "ローカル描画",
+      "source_path": "vendor/pretty-mermaid/scripts/render.mjs",
+      "line_start": 170,
+      "quote": "async function main() {",
+      "meaning": "制作担当がNode CLIを呼ぶ。beautiful-mermaidでSVGまたは文字図、PNGはSVGをResvgで画像化。ブラウザー不要。",
+      "source_url": "https://github.com/imxv/Pretty-mermaid-skills/blob/e234ab73c2992f03c36db04fd55ebb90abca9c45/scripts/render.mjs#L170"
+    },
+    {
+      "id": "check",
+      "label": "原文と照合",
+      "source_path": "vendor/pretty-mermaid/SKILL.md",
+      "line_start": 172,
+      "quote": "## Validation",
+      "meaning": "終了と実ファイルを確認し、日本語/向き/条件/戻り道を別工程で読む。自動意味保証ではない。",
+      "source_url": "https://github.com/imxv/Pretty-mermaid-skills/blob/e234ab73c2992f03c36db04fd55ebb90abca9c45/SKILL.md#L172"
+    }
+  ],
+  "parts_scope": "6部品は説明用整理で原典の共通スキーマではない。",
+  "author": "元のOpus5.5は架空依頼から3種類のMermaid記述と読み比べ画面/旧28秒紹介を執筆した。元モデル受領は1件。作者AIはCLIを実行していない。",
+  "operator": "制作担当が固定原典scripts/render.mjsを別工程で12回実行。元の3.mmdと12実出力を保全し、再推論/再描画/再インストールしない。",
+  "routing": {
+    "input": "原文と目的/図種/テーマ/出力形式が指示書と同じ作者へ",
+    "output": "作者が.mmdを保存→制作担当がNode CLIへ.mmdと設定を渡す",
+    "svg": "beautiful-mermaid.renderMermaidSVG(input, options)",
+    "png": "同じSVG経路→png.mjsでCSS整理→@resvg/resvg-js、幅1200",
+    "text": "beautiful-mermaid.renderMermaidASCII(input, options)の別経路。UTF8の罫線を含む文字図、純ASCIIではない。",
+    "review": "制作担当が出力/終了と原文のラベル/関係を照合→SVG/PNG/文字図/元.mmdを使う"
+  },
+  "samples": [
+    {
+      "id": "flow",
+      "label": "申込の確認フロー",
+      "input": "flowchart LR\n    input([申込を入力]) --> check[内容を確認]\n    check --> judge{不備はあるか}\n    judge -->|不備あり| input\n    judge -->|問題なし| save[(申込を保存)]\n    save --> notify([完了を通知])\n",
+      "output": "申込の入力から完了の通知までを、左から右へ描いた流れ図。判定で不備があれば入力へ戻り、問題がなければ保存して完了を通知する。",
+      "stem": "review-flow",
+      "svg_light": "assets/review-flow-light.svg",
+      "svg_dark": "assets/review-flow-dark.svg",
+      "png": "assets/review-flow-light.png",
+      "ascii_file": "assets/review-flow.txt",
+      "relationships": [
+        "申込を入力 → 内容を確認",
+        "内容を確認 → 不備はあるか",
+        "不備はあるか →（不備あり）申込を入力へ戻る",
+        "不備はあるか →（問題なし）申込を保存",
+        "申込を保存 → 完了を通知"
+      ]
+    },
+    {
+      "id": "sequence",
+      "label": "申込を受け付けるやり取り",
+      "input": "sequenceDiagram\n    participant user as 利用者\n    participant api as 受付API\n    participant store as 保存先\n    user->>api: 申込を送る\n    api->>api: 内容を検証\n    api->>store: 申込を保存\n    store-->>api: 保存結果\n    api-->>user: 受付結果\n",
+      "output": "利用者・受付API・保存先の3者が、申込を受け付けるまでのやり取りを上から順に描いたシーケンス図。受付APIは図の題材で、APIそのものは作っていない。",
+      "stem": "request-sequence",
+      "svg_light": "assets/request-sequence-light.svg",
+      "svg_dark": "assets/request-sequence-dark.svg",
+      "png": "assets/request-sequence-light.png",
+      "ascii_file": "assets/request-sequence.txt",
+      "relationships": [
+        "利用者 → 受付API：申込を送る",
+        "受付API → 受付API：内容を検証（自分への矢印）",
+        "受付API → 保存先：申込を保存",
+        "保存先 ⇢ 受付API：保存結果（点線の返答）",
+        "受付API ⇢ 利用者：受付結果（点線の返答）"
+      ]
+    },
+    {
+      "id": "state",
+      "label": "ジョブの状態",
+      "input": "stateDiagram-v2\n    [*] --> 待機\n    待機 --> 実行中: 開始\n    実行中 --> 完了: 成功\n    実行中 --> 失敗: 失敗\n    失敗 --> 待機: 再試行\n    完了 --> [*]\n",
+      "output": "ジョブが待機・実行中・完了・失敗の間を移る状態遷移図。失敗したジョブは、再試行で待機へ戻る。",
+      "stem": "job-state",
+      "svg_light": "assets/job-state-light.svg",
+      "svg_dark": "assets/job-state-dark.svg",
+      "png": "assets/job-state-light.png",
+      "ascii_file": "assets/job-state.txt",
+      "relationships": [
+        "開始点 → 待機",
+        "待機 →（開始）実行中",
+        "実行中 →（成功）完了",
+        "実行中 →（失敗）失敗",
+        "失敗 →（再試行）待機へ戻る",
+        "完了 → 終了点"
+      ]
+    }
+  ],
+  "relationships_count": [
+    5,
+    5,
+    6
+  ],
+  "formats": [
+    "SVG github-light",
+    "SVG github-dark",
+    "PNG github-light width1200",
+    "文字図 color-mode none"
+  ],
+  "themes": [
+    "github-light",
+    "github-dark"
+  ],
+  "font": "Yu Gothic",
+  "limits": [
+    "3図は全て架空。申込/受付API/保存先/ジョブの実処理はない。",
+    "新図/元ビューアは保存結果を読むだけ。任意入力の描画/モデル呼出し/原典CLI実行はしない。",
+    "6図種中3、15テーマ中2だけ。batch.mjs/純ASCII/他図種は未適用。",
+    "日本語文字図の罫線ずれを保持。SVG/PNGの利用を案内。",
+    "元SVGにはGoogle Fonts参照が残る。原SVGを改変せず保存、ページの画像表示では外部フォントを読み込まない。",
+    "原典のSKILLだけでは描画できない。固定checkoutのscriptsとnpm依存が別に必要。",
+    "実機iOS/Safari/VoiceOver/200%zoom/人の審美的承認/全図や意味の保証は未確認。",
+    "新32秒縦横映像は完全無音でTTS/音声ガイドなし。"
+  ],
+  "legacy": {
+    "viewer": "desk.html",
+    "old_explainer": "video/legacy.html"
+  },
+  "original_run": {
+    "status": "passed",
+    "sample_count": 3,
+    "original_cli_calls": 12,
+    "formats": [
+      "SVG github-light",
+      "SVG github-dark",
+      "PNG width 1200",
+      "ASCII color none"
+    ],
+    "source_inputs_match_saved_samples": true,
+    "original_outputs_unchanged": true,
+    "diagrams": [
+      {
+        "input": "inputs/review-flow.mmd",
+        "input_sha256": "ee51291f54acef83cf28819b9b45ce806f2b570877082c0d695b1afcbf4852d3",
+        "outputs": [
+          {
+            "path": "assets/review-flow-light.svg",
+            "sha256": "154bc3f929fa79dbe24bf456d9c280b63a3dd2d9eba44490657b9c468c918af8",
+            "bytes": 6684,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/review-flow.mmd",
+              "--output",
+              "assets/review-flow-light.svg",
+              "--font",
+              "Yu Gothic",
+              "--theme",
+              "github-light"
+            ]
+          },
+          {
+            "path": "assets/review-flow-dark.svg",
+            "sha256": "ab0f2ef7cb6b9e75a2e889c250d548b5b37481193d439dae254cf43fb5969c9e",
+            "bytes": 6684,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/review-flow.mmd",
+              "--output",
+              "assets/review-flow-dark.svg",
+              "--font",
+              "Yu Gothic",
+              "--theme",
+              "github-dark"
+            ]
+          },
+          {
+            "path": "assets/review-flow-light.png",
+            "sha256": "8e439384f1e4d622f074fdf6627f8f741255afb39e18cce5671909756bb220ae",
+            "bytes": 22587,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/review-flow.mmd",
+              "--output",
+              "assets/review-flow-light.png",
+              "--font",
+              "Yu Gothic",
+              "--theme",
+              "github-light",
+              "--format",
+              "png",
+              "--width",
+              "1200"
+            ]
+          },
+          {
+            "path": "assets/review-flow.txt",
+            "sha256": "16a5907479aefaba6ade888a0be53bfd62fb47204beb2979ed2394967ad3a09b",
+            "bytes": 1071,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/review-flow.mmd",
+              "--output",
+              "assets/review-flow.txt",
+              "--font",
+              "Yu Gothic",
+              "--format",
+              "ascii",
+              "--color-mode",
+              "none"
+            ]
+          }
+        ]
+      },
+      {
+        "input": "inputs/request-sequence.mmd",
+        "input_sha256": "3e18b411974f89d6d0e6a6dfc1986f9c49bac736d7c528ea410bf8853ceaec02",
+        "outputs": [
+          {
+            "path": "assets/request-sequence-light.svg",
+            "sha256": "823238abfec4681b4998e1f6b695e5c5adcd65b98a30b59d926f77652f71322a",
+            "bytes": 5335,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/request-sequence.mmd",
+              "--output",
+              "assets/request-sequence-light.svg",
+              "--font",
+              "Yu Gothic",
+              "--theme",
+              "github-light"
+            ]
+          },
+          {
+            "path": "assets/request-sequence-dark.svg",
+            "sha256": "c1b49e5710a7050015c3fe1d3523517664980df890fa36666270847c45528b79",
+            "bytes": 5335,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/request-sequence.mmd",
+              "--output",
+              "assets/request-sequence-dark.svg",
+              "--font",
+              "Yu Gothic",
+              "--theme",
+              "github-dark"
+            ]
+          },
+          {
+            "path": "assets/request-sequence-light.png",
+            "sha256": "3d06eb1393bc4c8f4d9c0d75aeb10aa5c04fd1fba65ddf91a5e310eb09ea4c77",
+            "bytes": 40534,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/request-sequence.mmd",
+              "--output",
+              "assets/request-sequence-light.png",
+              "--font",
+              "Yu Gothic",
+              "--theme",
+              "github-light",
+              "--format",
+              "png",
+              "--width",
+              "1200"
+            ]
+          },
+          {
+            "path": "assets/request-sequence.txt",
+            "sha256": "cd79468bceba87863d7c0e39cfb49d8d43e3f10f73930bf9122f42462b37f8a2",
+            "bytes": 1267,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/request-sequence.mmd",
+              "--output",
+              "assets/request-sequence.txt",
+              "--font",
+              "Yu Gothic",
+              "--format",
+              "ascii",
+              "--color-mode",
+              "none"
+            ]
+          }
+        ]
+      },
+      {
+        "input": "inputs/job-state.mmd",
+        "input_sha256": "bdab2daa6988447da25f1a0be9b2e50cbdba5e89d0fedca5d5be5a9aeea24c09",
+        "outputs": [
+          {
+            "path": "assets/job-state-light.svg",
+            "sha256": "4102e681a7f35b0f035a25ce627e890b0f9146eabf3c35f404bfeaa4b3a0e16c",
+            "bytes": 7311,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/job-state.mmd",
+              "--output",
+              "assets/job-state-light.svg",
+              "--font",
+              "Yu Gothic",
+              "--theme",
+              "github-light"
+            ]
+          },
+          {
+            "path": "assets/job-state-dark.svg",
+            "sha256": "4921bbfaacee30cb5a30bc3ae69b8ab2418b366c11b6365971e7fe52c551cab6",
+            "bytes": 7311,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/job-state.mmd",
+              "--output",
+              "assets/job-state-dark.svg",
+              "--font",
+              "Yu Gothic",
+              "--theme",
+              "github-dark"
+            ]
+          },
+          {
+            "path": "assets/job-state-light.png",
+            "sha256": "f8aa969d4c85550de9369abe13acac807e58c03b56315f83ccea984be14e7f8e",
+            "bytes": 64394,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/job-state.mmd",
+              "--output",
+              "assets/job-state-light.png",
+              "--font",
+              "Yu Gothic",
+              "--theme",
+              "github-light",
+              "--format",
+              "png",
+              "--width",
+              "1200"
+            ]
+          },
+          {
+            "path": "assets/job-state.txt",
+            "sha256": "93b30f9b1ce767d91d46edbfeabee7b730366cebdcdf2a23bcbc88f19ce4b931",
+            "bytes": 1130,
+            "command": [
+              "node",
+              "scripts/render.mjs",
+              "--input",
+              "inputs/job-state.mmd",
+              "--output",
+              "assets/job-state.txt",
+              "--font",
+              "Yu Gothic",
+              "--format",
+              "ascii",
+              "--color-mode",
+              "none"
+            ]
+          }
+        ]
+      }
+    ],
+    "labels_and_relationships_compared": true
+  }
+}
