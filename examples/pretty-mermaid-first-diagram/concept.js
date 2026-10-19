@@ -1443,7 +1443,7 @@ function drawEdges(ctx, L, S, filter) {
     const p3 = edge.curve[3];
     const tail = curvePoint(edge.curve, 0.95);
     arrowHead(ctx, p3, Math.atan2(p3[1] - tail[1], p3[0] - tail[0]), lw * 3 + 4, color);
-    if (edge.label && !inner && !cross && L.kind !== 'square') {
+    if (edge.label && !inner && !cross && L.kind !== 'square' && !(L.kind === 'tall' && edge.id === 'source-check')) {
       const [rawX, y] = curvePoint(edge.curve, edge.id === 'book-settings' ? 0.22 : 0.5);
       const px = Math.max(11, L.f * 0.66);
       ctx.font = fontOf(px, 600);

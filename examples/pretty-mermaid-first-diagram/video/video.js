@@ -1,7 +1,7 @@
 // Pretty Mermaid の32秒・無音の解説映像（編集ソース）。Studio Yebisu（MIT License）。
 // window.seek(seconds) は時刻だけから完成した1枚を描き直す。前のフレーム・呼び出し順・壁時計・fpsに依存しない。
 // 図は ../concept.js の共有ローダーで検証した保存済みの原出力だけを使う。音声・ナレーション・モデル呼び出しはない。
-import { loadVerifiedBundle, computeLayout, drawConcept, PALETTES, span, LoadError, MANIFEST_FILE_COUNT } from '../concept.js?v=visual-r1-final';
+import { loadVerifiedBundle, computeLayout, drawConcept, PALETTES, span, LoadError, MANIFEST_FILE_COUNT } from '../concept.js?v=visual-r1-r2';
 
 // 場面の正本。storyboard.json は同じ時刻を説明する写しで、描画には読み込まない。
 export const SCENES = [
