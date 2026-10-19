@@ -1,0 +1,36 @@
+/* 32秒の解説映像の編集ページ。画面は映像のための紙色だけ。書き出し時は canvas を原寸で一枚だけ置く。 */
+:root { --paper: #F6F3EB; --face: #FBF9F3; --ink: #17282B; --ink2: rgba(23, 40, 43, 0.74); --rule: rgba(23, 40, 43, 0.16); --teal: #0B615E; --ochre: #F1BE47;
+  --sans: 'Yu Gothic', 'YuGothic', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Meiryo', sans-serif;
+  --serif: 'Yu Mincho', 'YuMincho', 'Hiragino Mincho ProN', 'Noto Serif JP', serif; }
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; background: #ECE7DC; color: var(--ink); }
+body { font: 500 15px/1.6 var(--sans); }
+a { color: var(--teal); }
+.editor { display: grid; gap: 16px; padding: 12px; max-width: 1500px; margin: 0 auto; }
+.frame { display: flex; justify-content: center; align-items: flex-start; min-width: 0; }
+#film { display: block; max-width: 100%; max-height: calc(100vh - 24px); width: auto; height: auto; background: var(--paper); box-shadow: 0 0 0 1px var(--rule), 0 8px 28px rgba(23, 40, 43, 0.12); }
+.controls { min-width: 0; }
+.controls h1 { margin: 0 0 8px; font: 700 22px/1.25 var(--serif); }
+.controls h1 span { display: block; font: 600 13px/1.4 var(--sans); color: var(--ink2); }
+#asset-status { margin: 0; font-weight: 700; font-size: 13.5px; overflow-wrap: anywhere; }
+#asset-status[data-state="error"] { padding: 6px 10px; border-left: 4px solid var(--ochre); background: var(--face); }
+.dims { margin: 2px 0 8px; font-size: 12.5px; color: var(--ink2); }
+button { font: inherit; font-weight: 700; color: var(--ink); background: var(--face); border: 1px solid var(--rule); border-radius: 10px; min-height: 44px; min-width: 44px; padding: 6px 12px; cursor: pointer; }
+button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+button:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid var(--ochre); outline-offset: 2px; }
+.row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 8px 0; }
+.scrub input { flex: 1 1 160px; min-height: 44px; accent-color: var(--teal); }
+.scrub output { font-variant-numeric: tabular-nums; min-width: 8.5em; font-size: 14px; }
+.jumps { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; margin: 8px 0; }
+.jumps button { text-align: left; font-size: 13.5px; }
+.note { font-size: 12.5px; color: var(--ink2); }
+@media (min-width: 960px) {
+  .editor { grid-template-columns: minmax(0, 1fr) 360px; align-items: start; }
+  .controls { position: sticky; top: 12px; }
+}
+/* 書き出し：操作を隠し、原寸の canvas だけ */
+html.render, html.render body { background: var(--paper); overflow: hidden; }
+html.render .editor { display: block; padding: 0; max-width: none; }
+html.render .frame { display: block; }
+html.render #film { max-width: none; max-height: none; box-shadow: none; }
+html.render .controls { display: none !important; }

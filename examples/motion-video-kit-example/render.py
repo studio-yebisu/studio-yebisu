@@ -27,7 +27,7 @@ def main():
         parser.error('Output and source must be separate directories.')
     if output.exists() and any(output.iterdir()):
         parser.error('Output must be empty; existing results are never overwritten.')
-    entries = {'film': 'film/index.html', 'explanation': 'video/index.html',
+    entries = {'film': 'film/index.html', 'explanation': 'video/legacy.html',
                'selection': 'lab/index.html', 'materialize': 'lab/materialize.html'}
     entry_path = Path(entries[args.composition])
     entry = (source / entry_path).read_text('utf-8')

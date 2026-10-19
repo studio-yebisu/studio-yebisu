@@ -1,0 +1,173 @@
+{
+  "id": "motion-video-kit-example",
+  "kind": "AIが読む制作手順のMarkdownスキルと参照資料・測定補助スクリプト",
+  "source_commit": "e4b1c0004080fe6a0deb883631bad5eba1e5f339",
+  "not": [
+    "動画を自動生成するAPI",
+    "モデル",
+    "レンダラー本体",
+    "品質保証/自動採点のサービス"
+  ],
+  "parts": [
+    {
+      "id": "brief",
+      "label": "依頼を決める",
+      "source_path": "vendor/motion-video-kit/business-motion-film/SKILL.md",
+      "upstream_path": "business-motion-film/SKILL.md",
+      "line_start": 33,
+      "quote": "Write `BRIEF.md`: business, buyer, the viewer's problem, the single action (CTA), what is provably true, available real assets, length, aspect ratios, brand (palette, type), and what must never be claimed. If the user has no real assets, agree it is a labelled concept.",
+      "meaning": "事業/見る人/唯一のCTA/確かな事実/言わないこと/素材/尺/ブランドを同じ作者へ。",
+      "source_url": "https://github.com/echris6/motion-video-kit/blob/e4b1c0004080fe6a0deb883631bad5eba1e5f339/business-motion-film/SKILL.md#L33"
+    },
+    {
+      "id": "grammar",
+      "label": "動きを選ぶ",
+      "source_path": "vendor/motion-video-kit/business-motion-film/SKILL.md",
+      "upstream_path": "business-motion-film/SKILL.md",
+      "line_start": 36,
+      "quote": "Pick 3–6 moments from `references/launch-film-notes.md` whose *mechanism* fits the story, e.g. a foreground fly-through, a persistent selected object, or a layered exploded view. If the user supplies reference videos, extract frames (`scripts/contact-sheet.sh`) and cite exact timestamps. Borrow mechanisms, never layouts, logos or footage.",
+      "meaning": "同梱の文章分析から機構を選ぶ。元作例は3機構。原典の参考28映像は未視聴。",
+      "source_url": "https://github.com/echris6/motion-video-kit/blob/e4b1c0004080fe6a0deb883631bad5eba1e5f339/business-motion-film/SKILL.md#L36"
+    },
+    {
+      "id": "storyboard",
+      "label": "形と時刻をつなぐ",
+      "source_path": "vendor/motion-video-kit/business-motion-film/SKILL.md",
+      "upstream_path": "business-motion-film/SKILL.md",
+      "line_start": 39,
+      "quote": "One table: time → what the viewer sees → business job of the beat → the transition out, including which object survives it. Rules:",
+      "meaning": "元の8構図と場面を越えて残る輪郭。",
+      "source_url": "https://github.com/echris6/motion-video-kit/blob/e4b1c0004080fe6a0deb883631bad5eba1e5f339/business-motion-film/SKILL.md#L39"
+    },
+    {
+      "id": "lab",
+      "label": "部品を先に試す",
+      "source_path": "vendor/motion-video-kit/business-motion-film/SKILL.md",
+      "upstream_path": "business-motion-film/SKILL.md",
+      "line_start": 53,
+      "quote": "Each custom component (3D scene, report UI, booking flow, logo mark) gets its own lab page (`templates/component-lab.html`), is rendered to stills plus a short motion proof, and goes through a component Gauntlet round **before** it joins the film.",
+      "meaning": "作者がコードを執筆し、制作担当が別工程で4秒の部品2本を描画する。",
+      "source_url": "https://github.com/echris6/motion-video-kit/blob/e4b1c0004080fe6a0deb883631bad5eba1e5f339/business-motion-film/SKILL.md#L53"
+    },
+    {
+      "id": "critic",
+      "label": "別のAIへ渡す",
+      "source_path": "vendor/motion-video-kit/business-motion-film/references/gauntlet.md",
+      "upstream_path": "business-motion-film/references/gauntlet.md",
+      "line_start": 9,
+      "quote": "3. **Builder ≠ judge.** Spawn a *fresh* critic (a new agent or model session) for every review. Give it only:",
+      "meaning": "別の新しいレビュー担当が実MP4/ブリーフ/参照/再確認時は前の指摘を読む。作者の自己採点/人の承認ではない。",
+      "source_url": "https://github.com/echris6/motion-video-kit/blob/e4b1c0004080fe6a0deb883631bad5eba1e5f339/business-motion-film/references/gauntlet.md#L9"
+    },
+    {
+      "id": "measure",
+      "label": "測定を分ける",
+      "source_path": "vendor/motion-video-kit/business-motion-film/SKILL.md",
+      "upstream_path": "business-motion-film/SKILL.md",
+      "line_start": 28,
+      "quote": "5. **\"No bugs\" is not \"good\".** Clean, smooth and error-free versions still get rejected for being basic, empty or slow. Measure (`scripts/`) and judge creatively.",
+      "meaning": "frozen-timeの実測とAIの判断を区別。5.5秒は目安未達で、SHIPでも数値適合や人の承認にはならない。",
+      "source_url": "https://github.com/echris6/motion-video-kit/blob/e4b1c0004080fe6a0deb883631bad5eba1e5f339/business-motion-film/SKILL.md#L28"
+    }
+  ],
+  "parts_scope": "6部品は説明用の整理で原典の共通スキーマではない。",
+  "cases": [
+    {
+      "id": "selection",
+      "label": "選択枠を試す",
+      "video": "lab/selection-proof.mp4",
+      "duration": 4,
+      "fps": 60,
+      "frame_count": 240,
+      "sha256": "d85f98245029dea1b86a277fa5481d9a2be1d07c1212c967137e9def82edeb30",
+      "verdict": "KEEP",
+      "evidence_frame": "concept/selection-2p4.png",
+      "scope": "原制作の独立部品レビュー。新図の採点ではない。"
+    },
+    {
+      "id": "materialize",
+      "label": "組み上げ枠を試す",
+      "video": "lab/materialize-proof.mp4",
+      "duration": 4,
+      "fps": 60,
+      "frame_count": 240,
+      "sha256": "d06c58f77e3c3a242610fe055c71e632885b4fde79aaeb0a68a5f5be1b7a2655",
+      "verdict": "KEEP",
+      "evidence_frame": "concept/materialize-2p4.png",
+      "scope": "原制作の独立部品レビュー。新図の採点ではない。"
+    },
+    {
+      "id": "studio-intro",
+      "label": "本編へ組む",
+      "video": "film.mp4",
+      "duration": 20,
+      "fps": 60,
+      "frame_count": 1200,
+      "sha256": "6796354597db8d733400008756d7bb3eda67824e268bd90db2af497838d521d1",
+      "verdict": "SHIP",
+      "evidence_frame": "assets/film-12.png",
+      "scope": "原制作の本編レビュー。数値目安未達、人の承認なし。"
+    }
+  ],
+  "input": {
+    "file": "input.md",
+    "bytes": 3183,
+    "facts": [
+      "Studio Yebisuのサイト紹介1本",
+      "全紹介先に作例があるとは言わない",
+      "唯一のCTA:作例を見る",
+      "20秒1920x1080/60fps/無音/2D"
+    ],
+    "not_run": [
+      "保存やアカウントや制作代行",
+      "価格/実績/速度や品質の保証",
+      "AI画像/動画生成/3D/音の仕上げ"
+    ]
+  },
+  "author": "元のOpus5.5はブリーフ/絵コンテ/部品/本編と旧紹介を執筆。7受領は作者の別の執筆回であり7つの自動AIではない。",
+  "operator": "制作担当が別工程でMotionReelレンダーとfrozen-timeを実行した。作者AIはシェル実行していない。",
+  "critics": "元の部品/全編を別の新しいCodex AIが評価、元の修正後は別の新しい担当が検証。新しい紹介図/映像は元レビューの対象外。",
+  "flow": [
+    "依頼と事実/指示と参照を作者AIへ",
+    "BRIEFと8構図",
+    "部品2本のコード",
+    "制作担当の描画→別AIが実MP4を確認→作者へ戻す",
+    "同じ部品へ時刻とデータを渡し本編を組む",
+    "制作担当が全編描画/別AIレビューと静止測定",
+    "20秒の実MP4と編集ソースへ"
+  ],
+  "mechanisms": [
+    "選ぶと広がる",
+    "結果が組み上がる",
+    "残る道筋"
+  ],
+  "measure": {
+    "file": "review-summary.json",
+    "near_frozen_seconds": 5.5,
+    "longest_non_cta": 1.7,
+    "original_target": "合計およそ1秒/30秒・非CTAの連続0.6秒",
+    "original_target_met": false,
+    "ai_verdict": "SHIP",
+    "human_approval": false,
+    "not_current_measurement": "原制作の実測と独立評価を表示。新32秒紹介の採点/再実行ではない。"
+  },
+  "download": {
+    "path": "storyboard.json",
+    "bytes": 6267,
+    "sha256": "d8e1f87a16852a90f823e64d025a936f0a82f08f40b499e3d367739f0b5377ae",
+    "scope": "元の8場面の実JSONそのもの。選択した部品別の新出力ではない。"
+  },
+  "legacy": {
+    "viewer": "desk.html#studio-intro",
+    "film_editor": "film/index.html",
+    "old_explainer": "video/legacy.html"
+  },
+  "limits": [
+    "原典の28本の参考動画は未視聴で同梱文章分析のみ。",
+    "原作品20秒と新しい紹介32秒を区別。",
+    "新図は保存した制作の構造説明で、原モデル/レンダー/評価/測定は再実行しない。",
+    "音声や音声ガイドはない。音工程/生成素材/3Dは未適用。",
+    "実機iOS/Safari/VoiceOver、200%zoom、人の審美的承認、全入力/性能/品質保証、clipboardreadback未確認。",
+    "ブラウザーへの保存要求とディスク保存完了は別。"
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "title": "Motion Video Kit の仕組み（32秒・無音・図だけ）",
+  "revision": "visual-r1",
+  "source": "video/index.html（video/video.js が ../concept.js の drawMap() を呼ぶ）",
+  "duration": 32,
+  "fps": 30,
+  "frames": 960,
+  "posterTime": 31,
+  "audio": false,
+  "audioEvents": [],
+  "layouts": {
+    "portrait": { "width": 720, "height": 1280, "layout": "tall" },
+    "wide": { "width": 1280, "height": 720, "layout": "wide" }
+  },
+  "scope": "保存した原制作の記録25件から、スキルの構造と原制作の流れを説明する図。原制作の20秒の作品、別の宣伝映像、Gauntletの新しい判断ではない。原制作のモデル実行・描画・評価・測定は再実行しない。",
+  "persistent": [
+    "本（スキル）：6つの区分のつまみを持つ1冊。区分は説明用の整理で原典の共通スキーマではない",
+    "作者AI：1つの円。7つの点は7回の別々の執筆（受領記録）で、7つの自動AIではない",
+    "BRIEFの紙：同じ紙の7行が8場面の区切り7本になり、絵コンテの帯になる",
+    "部品2本（選択枠・組み上げ枠）：検証の枠から同じ形のまま絵コンテの場面へ移る",
+    "実MP4：制作担当から別のAIへ渡り、SHIP後に同じMP4が実出力へ着く",
+    "指摘：別のAIから作者AIへ戻るだけで、映像を自動では直さない",
+    "1本の輪郭：絵コンテの8場面を左から右へ渡り、本編でもう一度渡る"
+  ],
+  "scenes": [
+    {
+      "id": "V1", "start": 0, "end": 4, "label": "本と実入力",
+      "sees": "frame0から完成した本と実入力。6つの区分と実入力の行に黄土の下線が順に引かれる",
+      "carries": "本・実入力（最後まで同じ位置）",
+      "data": ["concept/structure.json parts", "concept/structure.json input"]
+    },
+    {
+      "id": "V2", "start": 4, "end": 8, "label": "BRIEFと絵コンテ",
+      "sees": "本と実入力から紙が作者AIへ流れ、作者AIからBRIEFの紙が出て、その7行が8場面の帯へ変わる。3つの動きの凡例",
+      "carries": "BRIEFの紙 → 絵コンテの帯、輪郭",
+      "data": ["storyboard.json scenes[].mechanism", "concept/structure.json mechanisms"]
+    },
+    {
+      "id": "V3", "start": 8, "end": 14, "label": "部品2本を描画",
+      "sees": "作者AIから部品2本の形が検証の枠へ。コードが制作担当へ渡り、4秒の検証MP4の実フレーム（2.4秒目）が現れる",
+      "carries": "部品2本、コード",
+      "data": ["concept/selection-2p4.png", "concept/materialize-2p4.png", "lab/measurements.json"]
+    },
+    {
+      "id": "V4", "start": 14, "end": 20, "label": "別のAIが見る",
+      "sees": "実MP4が毎回新しい別のAIへ渡る。指摘が作者AIへ戻り、直したコードが再び描画され、部品2本がKEEP",
+      "carries": "実MP4、指摘",
+      "data": ["review-summary.json components / ledger"]
+    },
+    {
+      "id": "V5", "start": 20, "end": 26, "label": "8場面へ組む",
+      "sees": "同じ部品2本が絵コンテの場面へ移り、20秒の本編になる。本編の実MP4がもう一度→もう一度→SHIPと3回確認される",
+      "carries": "部品2本 → 場面、本編の実MP4（0秒目の実フレーム）",
+      "data": ["assets/film-00.png", "review-summary.json ledger full-film-v1 / full-film-v2 / film-v3"]
+    },
+    {
+      "id": "V6", "start": 26, "end": 29, "label": "測定と判断を分ける",
+      "sees": "別々の3枠：補助スクリプトの実測（静止5.5秒・最長1.7秒・目安未達、静止区間の位置）／別のAIの判断SHIP（数値の合格ではない）／人の承認なし。28秒から同じMP4とコードが実出力へ",
+      "carries": "本編の実MP4 → 実出力",
+      "data": ["review-summary.json frozen_time", "concept/structure.json measure"]
+    },
+    {
+      "id": "V7", "start": 29, "end": 32, "label": "実出力と全体",
+      "sees": "全体図が止まって読める。実出力に本編の12秒目と18秒目の実フレーム、film.mp4・film/index.html・storyboard.json",
+      "carries": "全体図（29–32秒は静止）",
+      "data": ["assets/film-12.png", "assets/film-18.png", "concept/original-run.json film.video"]
+    }
+  ],
+  "camera": "全体図の中を寄って移動し、28.1–29.0秒で全体に戻る。時刻だけから決まる。",
+  "verification": "未実施。描画・MP4書き出し・実機再生・人の承認は親の工程で行う（video/README.md）。"
+}

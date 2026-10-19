@@ -87,3 +87,8 @@ bash vendor/motion-video-kit/business-motion-film/scripts/contact-sheet.sh <本�
 実測と別担当AIのレビューは `review-summary.json`。人による承認とは別です。vendor は選択した資料と補助スクリプトで、原典の完全なインストール配布物ではありません。
 
 ZIPは `examples/motion-video-kit-example/` と `media/` の相対配置を保持します。展開後、examples配下の作例フォルダで上の書き出しコマンドを使えます。共通カタログの画面はZIPに含みません。
+
+
+## 概念構造の紹介 visual-r1
+
+元の20秒作品/2つの4秒部品/入力/レビューを保持し、指示書→作者→描画→別AIと測定→実作品の構造を新しい32秒無音紹介にしました。原の工程は再実行していません。新しい入口はindex.htmlとrender-visual.py、手順はvisual-guide.md、確認範囲はvisual-verification.jsonです。元の実作品の画面はdesk.html、旧22秒紹介はvideo/legacy.htmlへ保全しました。

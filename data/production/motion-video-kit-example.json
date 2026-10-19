@@ -1,6 +1,6 @@
 {
   "id": "motion-video-kit-example",
-  "verified_at": "2026-10-15T11:44:01.982220+00:00",
+  "verified_at": "2026-10-19T05:10:39.039421+00:00",
   "model": {
     "requested": "claude-opus-5-5",
     "reported": [
@@ -43,7 +43,16 @@
         "execution_sha256": "20cf7df2fe5395c7c61bc189096f513758e8b52386e381cfbd08b6564cad809c"
       }
     ],
-    "receipt_published": false
+    "receipt_published": false,
+    "visual_revision_receipts": [
+      {
+        "phase": "visual-r1",
+        "receipt_sha256": "2aacb2a35f488e19118101df1b3a47502151794aae79c85924beecf2fd8c612b",
+        "execution_sha256": "79e6af953ea7ec53247c7a48f22d3eca6b6753a56c92ca158ea88fecd0e3e4a6",
+        "prompt_sha256": "dd0ae925a564d2c1d40e0cee9285f7352fef860728931d05b4f9669bddcbc6eb"
+      }
+    ],
+    "scope": "Original7 authoring receipts and independentreview records stay original. ExactnewOpus5.5 authored8conceptUI/film originals; parent facts/corrections/render/QA/packaging separate."
   },
   "upstream": {
     "repository": "echris6/motion-video-kit",
@@ -142,13 +151,13 @@
         "matches_fixed_git_blob": true
       }
     ],
-    "scope": "Selected text references and three measurement scripts; not a full installation bundle"
-  },
-  "runtime": {
-    "status": "passed",
-    "sample_count": 1,
-    "scope": "Selected written skill applied to one real site-intro input; actual original SVG/JS film, review iterations, original frozen-time helper, Motion Reel rendering. 2D silent scope only.",
-    "human_approval": false
+    "scope": "Selected text references and three measurement scripts; not a full installation bundle",
+    "visual_revision_source_check": {
+      "official_git_blob_files": 18,
+      "raw_bytes_match": 18,
+      "commit": "e4b1c0004080fe6a0deb883631bad5eba1e5f339",
+      "preserved_original_shipped_bytes": true
+    }
   },
   "motion_reel": {
     "commit": "56198544e69201b1c202e0c00fb90b568a729824",
@@ -186,28 +195,6 @@
     },
     "errors": [],
     "artifact": "examples/motion-video-kit-example/film.mp4"
-  },
-  "explanation": {
-    "video": {
-      "file": "video.mp4",
-      "sha256": "3257e3f0605d8a18d3119b0d701bf856779478552c4a4806603a907aea1bd09a",
-      "width": 1280,
-      "height": 720,
-      "fps": 30,
-      "frameCount": 660,
-      "duration": 22,
-      "hasAudio": false
-    },
-    "determinism": {
-      "frame": 396,
-      "seconds": 13.2,
-      "first": "1d07982675926824781c4357e162f377f54f52be2fe95fa26c3c30ec3edf575a",
-      "afterOtherTimes": "1d07982675926824781c4357e162f377f54f52be2fe95fa26c3c30ec3edf575a",
-      "freshPage": "1d07982675926824781c4357e162f377f54f52be2fe95fa26c3c30ec3edf575a",
-      "match": true
-    },
-    "errors": [],
-    "artifact": "media/motion-video-kit-example.mp4"
   },
   "actual_movie_frames": {
     "selected_at": "2026-10-15T11:35:10.889969+00:00",
@@ -263,7 +250,41 @@
     "method": "Frames extracted with FFmpeg from this reviewed real 20s MP4; no recreated illustration substituted.",
     "human_approval": false
   },
-  "reviews": {
+  "limitations": [
+    "Independent AI review and automatic measurements do not establish human approval.",
+    "Silent: no music, SFX, loudness or audio listening; no 3D or generated footage.",
+    "Upstream reference films were not watched; written analyses only.",
+    "Original numeric frozen-time target and measured values are distinct; see reviews.frozen_time."
+  ],
+  "original_runtime": {
+    "status": "passed",
+    "sample_count": 1,
+    "scope": "Selected written skill applied to one real site-intro input; actual original SVG/JS film, review iterations, original frozen-time helper, Motion Reel rendering. 2D silent scope only.",
+    "human_approval": false
+  },
+  "original_explanation": {
+    "video": {
+      "file": "video.mp4",
+      "sha256": "3257e3f0605d8a18d3119b0d701bf856779478552c4a4806603a907aea1bd09a",
+      "width": 1280,
+      "height": 720,
+      "fps": 30,
+      "frameCount": 660,
+      "duration": 22,
+      "hasAudio": false
+    },
+    "determinism": {
+      "frame": 396,
+      "seconds": 13.2,
+      "first": "1d07982675926824781c4357e162f377f54f52be2fe95fa26c3c30ec3edf575a",
+      "afterOtherTimes": "1d07982675926824781c4357e162f377f54f52be2fe95fa26c3c30ec3edf575a",
+      "freshPage": "1d07982675926824781c4357e162f377f54f52be2fe95fa26c3c30ec3edf575a",
+      "match": true
+    },
+    "errors": [],
+    "artifact": "media/motion-video-kit-example.mp4"
+  },
+  "original_reviews": {
     "scope": "Independent AI review, not human approval or complete upstream certification",
     "human_approval": false,
     "film_video_sha256": "6796354597db8d733400008756d7bb3eda67824e268bd90db2af497838d521d1",
@@ -520,7 +541,7 @@
     "original_numeric_frozen_target_met": false,
     "numeric_note": "静止差分は約5.5秒。原典の合計約1秒/30秒という数値目安は未達です。読む時間のある今回の無音作例として別担当AIが確認し、数値基準への完全適合とは扱っていません。"
   },
-  "browser": {
+  "original_browser": {
     "widths": [
       {
         "client": 305,
@@ -623,17 +644,11 @@
     "guide_console_errors": [],
     "source_console_errors": []
   },
-  "limitations": [
-    "Independent AI review and automatic measurements do not establish human approval.",
-    "Silent: no music, SFX, loudness or audio listening; no 3D or generated footage.",
-    "Upstream reference films were not watched; written analyses only.",
-    "Original numeric frozen-time target and measured values are distinct; see reviews.frozen_time."
-  ],
-  "publication": {
+  "original_publication": {
     "url": "https://studio-yebisu.github.io/studio-yebisu/case.html?id=motion-video-kit-example",
     "authorization": "User requested sequential publication of40 examples to this existing main and GitHub Pages."
   },
-  "artifacts_sha256": {
+  "original_publication_artifacts_sha256": {
     "data/cases/motion-video-kit-example.json": "2e5517ce36f4b9d9896ad2a01d62c5e6fc5ce8a11f7192c507528ae0f179497e",
     "examples/motion-video-kit-example/BRIEF.md": "be16f497c4d0244c09c75595241ce1bf95655d880a3c2741b798e603760a1180",
     "examples/motion-video-kit-example/LICENSE": "fb74b9b6e529197ce24b127b687e4e349cf46864059da001a3d9d63db39cdb19",
@@ -690,5 +705,327 @@
     "examples/motion-video-kit-example/video/index.html": "c15ad450d61192f02268a1ce69ae4a280d26eb4dd59a1c8ce984a44239cdad0c",
     "media/motion-video-kit-example.mp4": "3257e3f0605d8a18d3119b0d701bf856779478552c4a4806603a907aea1bd09a",
     "media/motion-video-kit-example.webp": "002eb2ad4aad9f6770c05279a6727093266b1d40f9595d562dd000ca97b08bbc"
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 1,
+    "scope": "Originalstudio-intro/20sfilm/2proofs/8scenes retained. New concept reads original artifact and review data. Native movie/viewer/source checks are fresh; original inference/render/review/measurement not rerun.",
+    "original_record": "review-summary.json",
+    "new_visual_check": {
+      "status": "passed",
+      "checked_at": "2026-10-19T05:10:38.523877+00:00",
+      "case_states": 9,
+      "source_parts": 6,
+      "theme_width_motion_views": 16,
+      "asset_failures": 3,
+      "editor_asset_failures": 3,
+      "editor_assets": 25,
+      "editor_scenes": 7,
+      "editor_arbitrary_time": 7.2,
+      "legacy_checked": true,
+      "legacy_movie_end": {
+        "duration": 20,
+        "ended": true,
+        "error": null,
+        "height": 1080,
+        "playbackRate": 1,
+        "time": 20,
+        "width": 1920
+      },
+      "legacy_scenes": 8,
+      "phone_full_map_and_action": true,
+      "primary_min_height_px": 44,
+      "movies_ended": 2,
+      "portrait_end": {
+        "id": "film-portrait",
+        "ended": true,
+        "time": 32,
+        "duration": 32,
+        "paused": true,
+        "ready": 4,
+        "error": null,
+        "width": 720,
+        "height": 1280,
+        "playbackRate": 1
+      },
+      "wide_end": {
+        "id": "film-wide",
+        "ended": true,
+        "time": 32,
+        "duration": 32,
+        "paused": true,
+        "ready": 4,
+        "error": null,
+        "width": 1280,
+        "height": 720,
+        "playbackRate": 1
+      },
+      "storyboard_download": {
+        "bytes": 6267,
+        "native_handoff_observed": true,
+        "returned_file": null,
+        "disk_completion_claimed": false
+      },
+      "request_text_exact": true,
+      "clipboard_readback": false,
+      "physical_ios_safari_voiceover": false,
+      "zoom200percent": false,
+      "human_approval": false,
+      "scope": "Fresh native9states/6quotes/16views,3main+3editor failure/recovery,25assets/7scenes/7.2s,local32s movie ends,original20s playback+8seek preservation. Not original model/render/review/frozen-time rerun or human approval."
+    }
+  },
+  "video": {
+    "revision": "visual-r1",
+    "films": {
+      "portrait": {
+        "file": "video.mp4",
+        "sha256": "2cf3de92e8c4dbf799e9330138f0838b0a5f8b4a4c04a083f52ee055f6899335",
+        "width": 720,
+        "height": 1280,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      },
+      "wide": {
+        "file": "video.mp4",
+        "sha256": "ab92d0987717aae17c49e3c574864b02c242431832968bba9e4b76232dd5e301",
+        "width": 1280,
+        "height": 720,
+        "fps": 30,
+        "frameCount": 960,
+        "duration": 32,
+        "hasAudio": false
+      }
+    },
+    "audio_streams": 0,
+    "native_movies_ended": 2,
+    "human_approval": false
+  },
+  "visual_revision": {
+    "id": "visual-r1",
+    "purpose": "Skillbook+input→author→components/timeline→operatorrender→freshcritic/measurement→nextauthoring→real20sfilm/source. Originalnumericmiss separate fromSHIP/humanapproval.",
+    "original_execution_rerun": false,
+    "assets": 25,
+    "manifest_sha256": "c06042bab1b63648880f2676cbfff082374c7855a17c15236519a5a4fbe5a150",
+    "verification": "examples/motion-video-kit-example/visual-verification.json",
+    "source_originals_sha256": {
+      "index.html": "704cf0a65888bf127913b32781546609a556d3ab743d6544999ee1a9b4a02c3f",
+      "concept.css": "8cfb51253fc144ab958ae981c4dde86ca0c801616bf44971f78d6160fe9188cf",
+      "concept.js": "49e3eff90997b28d0001f052b02e48456cdb9d347c63534feceafc08864ef694",
+      "video/index.html": "891be83ff254d36688c91c956ca0096afdea26a98d85a9b6c395191be38e6998",
+      "video/video.css": "2f906e53dfd863e900033f3b4d76565c95630e42ff5b7982e02caa6b893e55a1",
+      "video/video.js": "fc735ab1b94339775dd0ff8ae5af1eb88700d02f74e2bdbb2d53dd6a77f17616",
+      "video/storyboard.json": "2af57c82b4eae8415e7a2666e0d02851e8b110224382167dcb7a108e0c5cc7b5",
+      "video/README.md": "27e8d7ee05ba62efe166113cdce689025c3a7029e83101d0a35608f6b84622ac"
+    },
+    "final_source_sha256": {
+      "index.html": "704cf0a65888bf127913b32781546609a556d3ab743d6544999ee1a9b4a02c3f",
+      "concept.css": "8cfb51253fc144ab958ae981c4dde86ca0c801616bf44971f78d6160fe9188cf",
+      "concept.js": "a5592939db522b836f0ffca5ed8d29ab4bb8f892ca7a5b848884c73125201696",
+      "video/index.html": "891be83ff254d36688c91c956ca0096afdea26a98d85a9b6c395191be38e6998",
+      "video/video.css": "2f906e53dfd863e900033f3b4d76565c95630e42ff5b7982e02caa6b893e55a1",
+      "video/video.js": "41321bc15046c73a93e140cb6f5b60a631021b9a324e70d2f68ad36f75fb4627",
+      "video/storyboard.json": "2af57c82b4eae8415e7a2666e0d02851e8b110224382167dcb7a108e0c5cc7b5",
+      "video/README.md": "5b1a84abbecf99637995c8e24704434ef1a98d071096fb55e900c65308a80153"
+    },
+    "production_adjustments": [
+      {
+        "files": [
+          "concept/structure.json",
+          "concept/original-run.json",
+          "concept/manifest.json",
+          "concept/selection-2p4.png",
+          "concept/materialize-2p4.png"
+        ],
+        "reason": "Parent source/evidence projection and actualframe144 decode from original4s proofs. No original model/render/review/measurement rerun."
+      },
+      {
+        "files": [
+          "desk.html",
+          "video/legacy.html",
+          "video/legacy.mp4",
+          "assets/legacy-explain.webp",
+          "render.py"
+        ],
+        "reason": "Original20s film/UI/source retained. Old22s explainer remains underlegacy alias with same bytes. Alias viewer URLs and old renderer entry only adjusted."
+      },
+      {
+        "files": [
+          "README.md",
+          "visual-guide.md",
+          "render-visual.py"
+        ],
+        "reason": "Parent reproduction/packaging documentation and renderer wrapper for new32s introduction. Original20s film and originalrenderchoices preserved."
+      },
+      {
+        "files": [
+          "video/video.js",
+          "concept.js"
+        ],
+        "reason": "Actual wide renderer rejected motionConfig.width while canvas honored renderConfig; mirror width/height/fps in config. Portrait review showed last book row colliding with reference-viewing note: adjust tall row spacing only. Distinguish authored-before-QA text from later separate rendering/QA record."
+      },
+      {
+        "files": [
+          "concept.js"
+        ],
+        "reason": "375x812 stage3 status took two lines and pushed primarybuttons bottom to819px. Shorten the ready-only status label; full integrity checks unchanged, failure messages retained. No film drawing/timing changes."
+      },
+      {
+        "files": [
+          "video/README.md"
+        ],
+        "reason": "Actual post-authorship QA appended separately; no old-review approval transferred to new introduction."
+      }
+    ],
+    "silent_film": true
+  },
+  "artifacts_sha256": {
+    "data/cases/motion-video-kit-example.json": "3f4b8d8aac7e4c60f24f537bf5cbe0500e8c1996719a23f2665ff1e03959ab69",
+    "examples/motion-video-kit-example/BRIEF.md": "be16f497c4d0244c09c75595241ce1bf95655d880a3c2741b798e603760a1180",
+    "examples/motion-video-kit-example/LICENSE": "fb74b9b6e529197ce24b127b687e4e349cf46864059da001a3d9d63db39cdb19",
+    "examples/motion-video-kit-example/README.md": "271558b0644d1215e9aec8a5ae8eb384574eab62a3ac878be0b3bcf9ce3f45d4",
+    "examples/motion-video-kit-example/assets/film-00.png": "92c1d3486ef62dfd2ed26988c0b74e79a436ba1cb928596ab1c85361a041f5ea",
+    "examples/motion-video-kit-example/assets/film-03.png": "c7c25d931590e013e5066b3945b475e8bf4043c3d3572fc0ca671e8903a91ffe",
+    "examples/motion-video-kit-example/assets/film-05.png": "21aa9c6921e12e7be5081c939570cbe1d4da6abc590ce8718110be891ff62d1f",
+    "examples/motion-video-kit-example/assets/film-09.png": "09c058a0e995db8e783b46707bc62d80ee1b12986df3e59977ca4cef720d0c64",
+    "examples/motion-video-kit-example/assets/film-12.png": "36a523d2ab69e95aea2cd8caafc0234cb945c7976c7d383a9dc025d03bde888b",
+    "examples/motion-video-kit-example/assets/film-15.png": "54fa42393e8108a3185c90a6de28011993d42d143b5a562e3a04ac6da9fff325",
+    "examples/motion-video-kit-example/assets/film-18.png": "2b21484eab108067a85c9abb88ae7d973981031c51dcc993461007f022e4b853",
+    "examples/motion-video-kit-example/assets/film-contact.png": "3150ef8f67d30202ce16ecefa297bcd5f4deade554c4653148c7e2cb6c864e9a",
+    "examples/motion-video-kit-example/assets/legacy-explain.webp": "002eb2ad4aad9f6770c05279a6727093266b1d40f9595d562dd000ca97b08bbc",
+    "examples/motion-video-kit-example/components.mjs": "bafb6cdb9b8e95e7b6f40f4f5b58a7bec232768f82d772a2765ecd1f306d649a",
+    "examples/motion-video-kit-example/concept.css": "8cfb51253fc144ab958ae981c4dde86ca0c801616bf44971f78d6160fe9188cf",
+    "examples/motion-video-kit-example/concept.js": "a5592939db522b836f0ffca5ed8d29ab4bb8f892ca7a5b848884c73125201696",
+    "examples/motion-video-kit-example/concept/manifest.json": "c06042bab1b63648880f2676cbfff082374c7855a17c15236519a5a4fbe5a150",
+    "examples/motion-video-kit-example/concept/materialize-2p4.png": "d85e63d9fb6efff464132f29c0df3eb55873695f40142cc56c1cf9b11c2b61dd",
+    "examples/motion-video-kit-example/concept/original-run.json": "fee5a652160d4cfb2cdbcd58638c930eda7578ad716f756332ddbc7039fa4d10",
+    "examples/motion-video-kit-example/concept/selection-2p4.png": "3e0be14479ebd9cb981c40d81f35e6ee76220da0b021e296321a12dd1e5122f6",
+    "examples/motion-video-kit-example/concept/structure.json": "fafc376d5699bd8755a665907e9220181059b6da61cfceca21ad905befc04627",
+    "examples/motion-video-kit-example/desk.html": "e1c44e087fc69bedaa8d3aeefaecacbea7d08e2ab873ab9622f3a31c815dc6c3",
+    "examples/motion-video-kit-example/film.mp4": "6796354597db8d733400008756d7bb3eda67824e268bd90db2af497838d521d1",
+    "examples/motion-video-kit-example/film/film.mjs": "a76727e0be1ba6eb1bf0f2d0e92e5464b5b9226010a2dfdf04496701ed1c6389",
+    "examples/motion-video-kit-example/film/index.html": "55d3d066a68ab4aabbf248f1cdebaa293186bae3597142aa593ce4494b942412",
+    "examples/motion-video-kit-example/index.html": "704cf0a65888bf127913b32781546609a556d3ab743d6544999ee1a9b4a02c3f",
+    "examples/motion-video-kit-example/input.md": "cd45b2e4846c975c5cb06603684ce359aa08507f9cb8cc1d4a507dbb8dd7f771",
+    "examples/motion-video-kit-example/lab/index.html": "aebf26a0962826c8232b8d1e65519f872f75075e094c7d3b22518a18121b149b",
+    "examples/motion-video-kit-example/lab/lab.mjs": "f7686fc185be4bce87124ed204cb706d151fd817c6f3030853de62385bc35e3c",
+    "examples/motion-video-kit-example/lab/materialize-contact.png": "1bc549daa9dee766526f7a762cec66735fb47c2423150d7c547d82423caab4bb",
+    "examples/motion-video-kit-example/lab/materialize-proof.mp4": "d06c58f77e3c3a242610fe055c71e632885b4fde79aaeb0a68a5f5be1b7a2655",
+    "examples/motion-video-kit-example/lab/materialize.html": "2915ab802782e8c17a85836fbb702356f9a2b100c1c5ca1d66cbbf9869e9b3cc",
+    "examples/motion-video-kit-example/lab/measurements.json": "cfc86eb49bea03bc47b1e7eaaf18b2b173a9e6964e3d5186c2710319a50230bd",
+    "examples/motion-video-kit-example/lab/selection-contact.png": "63c0c81862f57579d1ea2bc24281afb50a968047efeedd6d478bc1518b838ad0",
+    "examples/motion-video-kit-example/lab/selection-proof.mp4": "d85f98245029dea1b86a277fa5481d9a2be1d07c1212c967137e9def82edeb30",
+    "examples/motion-video-kit-example/render-visual.py": "6e61e811308e574ad41a1cc917760eea5220d587af942b88c9c5eb4cc1769a4a",
+    "examples/motion-video-kit-example/render.py": "8884b445b011fc0fe76bdd0cbc57d00576f457cab4898b20a99f4313e1b19023",
+    "examples/motion-video-kit-example/request.html": "99ec1241c0e7982a04cb012cc18082a1e90d36a0a08029397b2a13a3423152b9",
+    "examples/motion-video-kit-example/request.txt": "9310fb03b6787b6a23f08a10d6a647af897abd5d334c3d39c380476dfa227b91",
+    "examples/motion-video-kit-example/review-summary.json": "bc9034282d2deae7aee7e9c2931f5648b033b3403a6407cf0f2e299617ca39bf",
+    "examples/motion-video-kit-example/samples.json": "777dc818dcabd5a0a3ce9c05a50bf18489a6f0a56aa364db64207fa3d1fd80c9",
+    "examples/motion-video-kit-example/source.zip": "0b2918458d2e318c9381a8992b984deeaee357ba0243d434f7377b64ee008f9a",
+    "examples/motion-video-kit-example/storyboard.json": "d8e1f87a16852a90f823e64d025a936f0a82f08f40b499e3d367739f0b5377ae",
+    "examples/motion-video-kit-example/storyboard.md": "9d5fb11e09abcb08d1a1709d8e99b9fe54053d4e6479ead5b3f0d85efb03197c",
+    "examples/motion-video-kit-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/motion-video-kit-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/motion-video-kit-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/motion-video-kit-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/motion-video-kit-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "examples/motion-video-kit-example/vendor/motion-video-kit/LICENSE": "dc7edf6246570a1939ea01c7578bbd4421958e05800835deaabe4b74f1f0251d",
+    "examples/motion-video-kit-example/vendor/motion-video-kit/README.md": "41cf2ff706fd3778e0234ae15602eda7a347b65f327be714d041c67aed12c40b",
+    "examples/motion-video-kit-example/vendor/motion-video-kit/business-motion-film/SKILL.md": "a79550fa151b794ed2fce3c3677a849aa8fbf29c0602fbc432e3c966f2aabb53",
+    "examples/motion-video-kit-example/vendor/motion-video-kit/business-motion-film/references/audio.md": "f61d30f578801ad992a14a1c0d50c7aeba00fa7c4ff07e1dee630e7b73b04a9e",
+    "examples/motion-video-kit-example/vendor/motion-video-kit/business-motion-film/references/business-offers.md": "46913eaf82b0339d861a14009a5d4d8498ccbb213f6e174e9b4c266528e43bf0",
+    "examples/motion-video-kit-example/vendor/motion-video-kit/business-motion-film/references/case-study-alder.md": "27d5fd89808cce06f9fa1b6562bd482e0c25d793a7ba1079fbd770c964e5177d",
+    "examples/motion-video-kit-example/vendor/motion-video-kit/business-motion-film/references/case-study-duo.md": "cb2343597c4fcbead5f7410e4641b02bbcbb850036480d0273b77f22d2855a78",
+    "examples/motion-video-kit-example/vendor/motion-video-kit/business-motion-film/references/case-study-home-display.md": "335e96b6bf2ca2311989d6742e8cb8dcf9ab68e0c67fd8af27fc91476e221184",
+    "examples/motion-video-kit-example/vendor/motion-video-kit/business-motion-film/references/critic-prompts.md": "910c9b8180414b9df95e5678ca04fa3832245f7a2a7c742179793a15522efa22",
+    "examples/motion-video-kit-example/vendor/motion-video-kit/business-motion-film/references/gauntlet.md": "f88bfd928346edd4f876962dc85d86213c7c39285a06007cc15ea44ae1c9d089",
+    "examples/motion-video-kit-example/vendor/motion-video-kit/business-motion-film/references/launch-film-notes.md": "5d14774bacf563edc6e34a2b8d3f5e508e73bac550c8deb552efa33b5f7d6078",
+    "examples/motion-video-kit-example/vendor/motion-video-kit/business-motion-film/references/motion-grammar.md": "d0cbdcbaa2653cd9cdf9fed4e62ae660e93e933f7283c88f7445855aa1a802e8",
+    "examples/motion-video-kit-example/vendor/motion-video-kit/business-motion-film/references/product-hero-realism.md": "2a51e9f97056b4c731c41e5f1cc101ddda38806215e7aa260d183fcdcdb65e85",
+    "examples/motion-video-kit-example/vendor/motion-video-kit/business-motion-film/references/quality-bar.md": "79bbb38fb46c63d4bf57595131feb5adcc38672574ca8e810ce7802d53d5bbd8",
+    "examples/motion-video-kit-example/vendor/motion-video-kit/business-motion-film/references/three-js-patterns.md": "6955790ec405b8ff2f7a5bfc3f603b06c04ff5279ff49344cda865d64825bac8",
+    "examples/motion-video-kit-example/vendor/motion-video-kit/business-motion-film/scripts/contact-sheet.sh": "3a1457f3a753e3191e539d5160a3015895665445c332a5db7c94757d71c36ba3",
+    "examples/motion-video-kit-example/vendor/motion-video-kit/business-motion-film/scripts/frozen-time.sh": "6e8505166f4e9f7a8096903d22d1787cc37bcedb463d5834ef7ba7f2e9ae550c",
+    "examples/motion-video-kit-example/vendor/motion-video-kit/business-motion-film/scripts/loudness.sh": "ba657b481c21590f77ed5dfc8836a77f546ccbb4343fde56a10f9e07dedc223b",
+    "examples/motion-video-kit-example/video/README.md": "5b1a84abbecf99637995c8e24704434ef1a98d071096fb55e900c65308a80153",
+    "examples/motion-video-kit-example/video/explain.mjs": "e9f3f8947b7dd541824947249551c2a59b57dba399e5698faeabf8ea8502c426",
+    "examples/motion-video-kit-example/video/index.html": "891be83ff254d36688c91c956ca0096afdea26a98d85a9b6c395191be38e6998",
+    "examples/motion-video-kit-example/video/legacy.html": "c15ad450d61192f02268a1ce69ae4a280d26eb4dd59a1c8ce984a44239cdad0c",
+    "examples/motion-video-kit-example/video/legacy.mp4": "3257e3f0605d8a18d3119b0d701bf856779478552c4a4806603a907aea1bd09a",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/capture.json": "d5ab4b8e70e76020b05a5ae9db308d87bceb59588619e1051b5011b82c5b7acf",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/contact.png": "a5fbc702729a2f2b6f4c6db3e7d0d22f371be1751387de4985bb98b46d8b55c3",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/mp4-moving-strip.png": "55cd7a0323f41b77b6e465a4944e8c30ab043c4a94007f63d7a4175a5db60742",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/poster.png": "7d535fff721c0cbddecf950c332a0296b3606dae4e1ed68e34013ffefbd0f87a",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/stills/frame-000000.png": "c8569634ed912d58afa478236bd25ac3ee7cee8b82f0d773f616f6c18e5b2ef9",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/stills/frame-000001.png": "57d9d9c02e8c3fef9e7675fa576f343438165b79454f8359e23805c10e8eb386",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/stills/frame-000002.png": "db59b577200bbd433f47c2abf4c55ca61774c77263817f4bc447507a0622fc88",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/stills/frame-000003.png": "6d5537a24cb7bda5c45f0f65558a0f763f37c87ccc3d4957d1f02d98cb801048",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/stills/frame-000004.png": "16cbd2163d06c498e5d075e6c90c4a9ea3df436cf2df5f8174c211aec13984dc",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/stills/frame-000005.png": "e2a9dca6a9d261861f048b2367938b692f8739c12c8007f644f708d7e3c44f53",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/stills/frame-000006.png": "d5e910e62909248a64fd2b446bbf2dc9320f393d18b2c923e59ee253a25b4b36",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/stills/frame-000007.png": "33a45bba9d54d32b457405df63c066fbc14c66fb4aa5a6c5f5c045648552d771",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/stills/frame-000008.png": "df8bb6387dddb2201eb1071a377838b7e1fa2386a91982e31658c8e8bf6e8d45",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/stills/frame-000009.png": "b0a6337286394b09bb109bdbf508eb192c8d42d2c3a53d82c28e634d3b25a950",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/stills/frame-000010.png": "64088425de2ecbddc6b76b0b40aff646f30a3617387de77a91b38c333f8b3a6e",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/stills/frame-000011.png": "dd959e67aeaee6ddc0328c6bf2557b09f3bd5610387c50fa3fedd1303b56447f",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/stills/frame-000012.png": "2ea5bdbf9256fe6123a73d76806f2284e8013419c8562d8c4cee41f8de4ae3e3",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/stills/frame-000013.png": "6cb0fec624a509f24db9e5149187c74875cefc58367cda1462aef1f705990b5b",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/stills/frame-000014.png": "832f21f8bd7019fbc9962795db45990ab9220178d4a46dc773385d1b8317619e",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/stills/frame-000015.png": "7d535fff721c0cbddecf950c332a0296b3606dae4e1ed68e34013ffefbd0f87a",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/strip.png": "e894a7044bcc5efba5ae5a49d06aa58fb1b4d5b75f8b4b0af0edfa1825ff2cb5",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/strip/frame-000000.png": "d5080d7370ec4c895f52e864184c1cfbac34dda74a960234478fb705533fdfb2",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/strip/frame-000001.png": "ca595b6e2cb126c64244fd23ed0e56660ec39107591c0dfd68c8b923b02304e2",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/strip/frame-000002.png": "f1d05df351619060083e649ffbbc4f7123044a4f5a5f8bcf4ae9d6114e21a133",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/strip/frame-000003.png": "ee4de1db47d4270506d1844a3a6cadb1ce0a04a8795ac41ceba31aec64306771",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/strip/frame-000004.png": "bf74cca3abf4ebf82281de83252ad94231c0da3253bef0aae36c282c77f022d4",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/strip/frame-000005.png": "553b1a4dbf2fa966bdcbdd4e59fe82644ba97338498db0fd3fb219fbbe549fc4",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/strip/frame-000006.png": "a1dcee0bb573fa7185ac6832affeaa9a32cca9ca9541107a9700ed83cd361953",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/strip/frame-000007.png": "81c2fc6abe2f9a0a5593692fb1c8b46547a6ab8753af1cf75708b3e2843d6152",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/strip/frame-000008.png": "bb0a35b640608d4161588f15087ca9ecd3760ca32fbbc2695b30d8cfd0f8549b",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/strip/frame-000009.png": "654186f22c1dc0ef330c582facda028f0260f29cc0a9993ea42f364011d4b8d6",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/strip/frame-000010.png": "ee3243ba30884cddc3b184232ed3d5e4b42b425fb500a99e3275bd97ef7125c1",
+    "examples/motion-video-kit-example/video/review/visual-r1/portrait/strip/frame-000011.png": "a8d89dd9b758471cea9d86cde739e25714ea4ada4caff8461e899ba810a73b33",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/capture.json": "d608f59a55976e618f0bf916484c724ec8e22417c34fc5f78983708e17227921",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/contact.png": "addda671c165d3f5f9bd0d351c25e7958ec9988925e91e784549ead7a3fd7cb6",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/mp4-moving-strip.png": "f9e08a64a915f6b7e4617b8b24c886a8e97f5ef017a26008cf63cb1b72a31c0d",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/poster.png": "ec0343d782e0216ab0996f6cbdbfb1ea272b103ffaa4f9cc0d6f09871c9e8050",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/stills/frame-000000.png": "6768b543bf572df6a5bfa66dcc391425f73d97468e12b41392299bffd79c3e50",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/stills/frame-000001.png": "ae72668c66d1ee6fe9b1252a77d356a5b2d484a76b99dbd9bdeca71911684ce1",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/stills/frame-000002.png": "5eb666246baba9586fdd250fdb939dbed8b711dba853b40b807212a7826b148c",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/stills/frame-000003.png": "f5886d6219c2190e702fe699c28abacc4c4ffbb692dcb941c3f66899cfb29b07",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/stills/frame-000004.png": "d4c23faa4266182d8b24ee96f90af369c338a5ee503b105d9431e0414ea2b965",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/stills/frame-000005.png": "912d9db253bbdd9b79e4123cd3732999bf96d24d269e0fc6ea6a3dd408b44c9b",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/stills/frame-000006.png": "5348a0c5a15f85e2c5fef46b449d661cc4da7a1cc90447e2d2be7e8707075381",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/stills/frame-000007.png": "d09d3bbdd09c787c5745d5fa72a3ab7446584ad620ff514ad6a2fa79257c0c57",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/stills/frame-000008.png": "fb51408e9713dbf7913c02bb2fe1d95df15a0ffbe0674cb50c2780b250c2534f",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/stills/frame-000009.png": "828c317a3a1f575eefe0a8f1cade80150055c0f65fd93c89e94b924a6940e22d",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/stills/frame-000010.png": "5c5e1d9b52b6d51722f8d0a40e526738a349e0b83539eb33551231d4f46a2800",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/stills/frame-000011.png": "c77eeaab7768a317e457360fd4cb3684a77f3fdfa89b802caff7115b3a080816",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/stills/frame-000012.png": "7b0d743a3d241bfead9e6900a1cce0a6a4ed78d090d2a0334a50c260a3e32948",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/stills/frame-000013.png": "de2850fdbb8afe4489e74992ab22bf77e366e5c1773f8db20125bc542c40054f",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/stills/frame-000014.png": "0996a1ce85f23cc5afa36fa47b5b7d1451b702fc28aaba8840f3fc32ca0e3cae",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/stills/frame-000015.png": "ec0343d782e0216ab0996f6cbdbfb1ea272b103ffaa4f9cc0d6f09871c9e8050",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/strip.png": "4028daeadf54ad1b1a0a8d1224a60a24a02bfe534825324d6e7c047da7dd1709",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/strip/frame-000000.png": "5107f93229991cfeb49e35356c1382107491cb747263e6ed7935e3f2cfcfacac",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/strip/frame-000001.png": "65725f05886be4cb75a4f5815d8650aa6a6cd745063e7e7403877cdfa2dc0ab2",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/strip/frame-000002.png": "bead54f68b1a4c9bb8c19af30ade17396267a81ed74db43f4c43f21797bed5a7",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/strip/frame-000003.png": "95a2224777eb0ef4a70267eee3bc7486362e969c87972543bf33a66ce2484918",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/strip/frame-000004.png": "3a8a9f67677aa42613101437954ead8246e5b2d47b4803e167deb4f3466f6536",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/strip/frame-000005.png": "b6a45a35bbddd99139546349ab5cd1bb4ae2a60112c79e7c375cf28324b8fc83",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/strip/frame-000006.png": "6e5654837413afb7553666f3e6ab7d79a1c4e2ea7176de4d7e07a48253c81e70",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/strip/frame-000007.png": "2e981e7c2326b63b94be7d9ea751bb396a430b1ebeb6c7b9fb7869e73e7948b7",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/strip/frame-000008.png": "eb94afe5cc035ca3ee6b7299a55c5f47d7a08ae64ad9ba9970cd8ca056fda61b",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/strip/frame-000009.png": "45e2c030134dd2976e2300aca4a154cd5a11c48c19a0b5097fd600c901025b19",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/strip/frame-000010.png": "acd296f14e99ad8db6b6fd35cce5ac337f089f63cca825ba27a9648162d36e52",
+    "examples/motion-video-kit-example/video/review/visual-r1/wide/strip/frame-000011.png": "20e9320a34d29abdabdd3736e43be3b801d87a8d207e3ad585fb9ddf19741919",
+    "examples/motion-video-kit-example/video/storyboard.json": "2af57c82b4eae8415e7a2666e0d02851e8b110224382167dcb7a108e0c5cc7b5",
+    "examples/motion-video-kit-example/video/video.css": "2f906e53dfd863e900033f3b4d76565c95630e42ff5b7982e02caa6b893e55a1",
+    "examples/motion-video-kit-example/video/video.js": "41321bc15046c73a93e140cb6f5b60a631021b9a324e70d2f68ad36f75fb4627",
+    "examples/motion-video-kit-example/visual-guide.md": "c07eadff5cdb75efa4b4bd20de4eab61f0e4234d8030a77ad74395117cf3b454",
+    "examples/motion-video-kit-example/visual-verification.json": "e22a810d2b5cc0b40d6fc32d228b6721f30a85eb4e1acfe8e3dadda07e4581a6",
+    "media/motion-video-kit-example-wide.mp4": "ab92d0987717aae17c49e3c574864b02c242431832968bba9e4b76232dd5e301",
+    "media/motion-video-kit-example.mp4": "2cf3de92e8c4dbf799e9330138f0838b0a5f8b4a4c04a083f52ee055f6899335",
+    "media/motion-video-kit-example.webp": "8e5b9dd9414c5de0319ed3170f7fa216502176662415d6395fa4d22a39e84788"
   }
 }

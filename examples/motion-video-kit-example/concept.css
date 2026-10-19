@@ -1,0 +1,132 @@
+/* Motion Video Kit の仕組み：紙面の編集デザイン。スマートフォンを先に組み、広い画面では図を右に大きく置く。 */
+:root {
+  --paper: #F6F3EB; --face: #FBF9F3; --ink: #17282B; --ink2: rgba(23, 40, 43, 0.74); --rule: rgba(23, 40, 43, 0.16);
+  --teal: #0B615E; --ochre: #F1BE47; --on-ink: #F6F3EB;
+  --serif: 'Yu Mincho', 'YuMincho', 'Hiragino Mincho ProN', 'Noto Serif JP', serif;
+  --sans: 'Yu Gothic', 'YuGothic', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Meiryo', sans-serif;
+  --gutter: 12px;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --paper: #11191B; --face: #1A2528; --ink: #ECE6D9; --ink2: rgba(236, 230, 217, 0.76); --rule: rgba(236, 230, 217, 0.18); --teal: #6CC3BA; --ochre: #E9B949; --on-ink: #11191B; }
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 500 15px/1.65 var(--sans); }
+a { color: var(--teal); text-underline-offset: 0.18em; }
+a:focus-visible, button:focus-visible, textarea:focus-visible, summary:focus-visible, video:focus-visible { outline: 3px solid var(--ochre); outline-offset: 2px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.small { font-size: 13px; color: var(--ink2); }
+h2 { font: 700 21px/1.35 var(--serif); margin: 0 0 10px; padding-top: 14px; border-top: 1px solid var(--rule); }
+h3 { font: 700 17px/1.4 var(--serif); margin: 0 0 6px; }
+
+/* 見出し：小さく、図と操作を先に見せる */
+.mast { padding: 10px var(--gutter) 4px; }
+.crumbs { font-size: 12px; color: var(--ink2); }
+.crumbs a { display: inline-block; padding: 2px 0; }
+h1 { margin: 2px 0 0; font: 700 26px/1.15 var(--serif); letter-spacing: 0.01em; }
+h1 .sub { display: block; margin-top: 3px; font: 600 14px/1.35 var(--sans); color: var(--ink2); }
+.not { margin: 4px 0 0; font-size: 12.5px; color: var(--ink2); }
+
+main { padding: 0 var(--gutter); }
+main > section, main > article { margin: 0 0 22px; min-width: 0; }
+
+/* 操作の共通形：当たり44px以上 */
+button, .act { font: inherit; color: var(--ink); background: var(--face); border: 1px solid var(--rule); border-radius: 10px; min-height: 44px; min-width: 44px; padding: 6px 10px; cursor: pointer; }
+button[aria-pressed="true"] { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+button:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.stage { display: grid; gap: 6px; margin-top: 4px; }
+.case-switch, .stage-switch { display: grid; gap: 6px; }
+.case-switch { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.case-switch button { display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1.2; font-weight: 700; font-size: 14px; padding: 4px 4px; }
+.case-switch small { font-weight: 500; font-size: 11.5px; opacity: 0.8; }
+.case-meta { margin: 0; font-size: 12.5px; line-height: 1.45; min-height: 2.9em; overflow-wrap: anywhere; }
+.case-meta small { display: block; color: var(--ink2); font-size: 11.5px; }
+
+.map { margin: 0; min-width: 0; }
+.map canvas { display: block; margin: 0 auto; max-width: 100%; border-radius: 12px; background: var(--paper); box-shadow: inset 0 0 0 1px var(--rule); aspect-ratio: 300 / 304; width: min(100%, 520px); }
+.map-status { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; margin-top: 4px; font-size: 11.5px; color: var(--ink2); min-height: 18px; }
+html[data-state="error"] .map-status { color: var(--ink); font-size: 13px; font-weight: 700; }
+html[data-state="error"] .map canvas { box-shadow: inset 0 0 0 2px var(--ochre); }
+
+.stage-switch { grid-template-columns: repeat(3, minmax(0, 1fr)) auto; }
+.stage-switch button { font-size: 13.5px; font-weight: 700; padding: 4px 6px; line-height: 1.2; }
+.stage-switch b { display: inline-block; margin-right: 3px; font-family: var(--serif); color: var(--teal); }
+.stage-switch button[aria-pressed="true"] b { color: var(--ochre); }
+.phase-note { margin: 0; font-size: 13px; line-height: 1.5; min-height: 3em; }
+
+.actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.act { display: inline-flex; align-items: center; justify-content: center; text-align: center; font-weight: 700; font-size: 14px; text-decoration: none; line-height: 1.3; }
+.act.primary { background: var(--teal); border-color: var(--teal); color: var(--on-ink); }
+.save-status { margin: 0; font-size: 12px; color: var(--ink2); overflow-wrap: anywhere; }
+.save-status:empty, .phase-note:empty { min-height: 0; }
+
+/* 補足 */
+.real-frame { margin: 8px 0; }
+.real-frame img { display: block; width: 100%; max-width: 640px; height: auto; border-radius: 8px; box-shadow: 0 0 0 1px var(--rule); }
+.real-frame figcaption { font-size: 12px; color: var(--ink2); margin-top: 4px; }
+.big-link a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; font-size: 16px; }
+.files { padding-left: 1.2em; margin: 6px 0; }
+.files li { margin: 4px 0; overflow-wrap: anywhere; }
+
+.film-pair { display: grid; gap: 12px; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.6fr); align-items: start; }
+.film-pair figure { margin: 0; min-width: 0; }
+.film-pair video { display: block; width: 100%; height: auto; background: var(--face); border-radius: 8px; box-shadow: 0 0 0 1px var(--rule); }
+#film-portrait { aspect-ratio: 720 / 1280; }
+#film-wide { aspect-ratio: 1280 / 720; }
+.film-pair figcaption { font-size: 12px; color: var(--ink2); margin-top: 4px; }
+
+.part-switch { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; margin: 8px 0; }
+.part-switch button { font-weight: 700; font-size: 14px; }
+.part-card { background: var(--face); border: 1px solid var(--rule); border-radius: 12px; padding: 12px 14px; min-width: 0; }
+.part-card p { margin: 0 0 8px; overflow-wrap: anywhere; }
+.part-card blockquote { margin: 0 0 8px; padding: 8px 12px; border-left: 3px solid var(--ochre); font: 500 14px/1.55 var(--serif); overflow-wrap: anywhere; }
+.part-card a { display: inline-block; padding: 4px 0; overflow-wrap: anywhere; }
+
+textarea { display: block; width: 100%; font: 500 16px/1.6 var(--sans); color: var(--ink); background: var(--face); border: 1px solid var(--rule); border-radius: 10px; padding: 10px 12px; resize: vertical; }
+.copy-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin-top: 8px; }
+.copy-row span { font-size: 12.5px; color: var(--ink2); }
+
+details { border-top: 1px solid var(--rule); padding: 2px 0; }
+details:last-child { border-bottom: 1px solid var(--rule); }
+summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; font-weight: 700; }
+.measure-detail { margin: 4px 0 12px; }
+.measure-detail dt { font-weight: 700; margin-top: 8px; }
+.measure-detail dd { margin: 2px 0 0; font-size: 14px; }
+.table-wrap { overflow-x: auto; margin-bottom: 12px; }
+table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+th, td { text-align: left; vertical-align: top; border-bottom: 1px solid var(--rule); padding: 6px 6px 6px 0; overflow-wrap: anywhere; }
+#receipts { font-size: 13.5px; padding-left: 1.4em; overflow-wrap: anywhere; }
+pre { max-height: 360px; overflow: auto; background: var(--face); border: 1px solid var(--rule); border-radius: 8px; padding: 10px; font-size: 12px; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; }
+.limits ul, .foot ul { padding-left: 1.2em; }
+.limits li, .foot li { margin: 4px 0; overflow-wrap: anywhere; }
+.foot { padding: 4px var(--gutter) 28px; font-size: 13px; color: var(--ink2); border-top: 1px solid var(--rule); }
+.noscript { padding: 12px; }
+
+@media (min-width: 560px) {
+  :root { --gutter: 20px; }
+  .part-switch { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}
+@media (min-width: 800px) {
+  .map canvas { aspect-ratio: 1280 / 720; width: 100%; }
+}
+/* 広い画面：左に操作の列、右に横長の図。縮めた縦画面ではなく、横の配置で描き直す。 */
+@media (min-width: 1080px) {
+  body { font-size: 16px; }
+  .mast, main, .foot { max-width: 1320px; margin-left: auto; margin-right: auto; }
+  .mast { display: grid; grid-template-columns: 320px 1fr; column-gap: 32px; align-items: end; padding-top: 22px; }
+  .mast .crumbs { grid-column: 1 / -1; }
+  h1 { font-size: 34px; }
+  .stage { grid-template-columns: 320px minmax(0, 1fr); column-gap: 32px; row-gap: 10px; align-items: start; }
+  .stage > .map { grid-column: 2; grid-row: 1 / span 7; }
+  .stage > :not(.map) { grid-column: 1; }
+  .stage-switch { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .stage-switch #replay { grid-column: 1 / -1; }
+  .actions { grid-template-columns: 1fr; }
+  main > section:not(.stage), main > article { max-width: 920px; }
+  .film-pair { grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.6fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; }
+}
