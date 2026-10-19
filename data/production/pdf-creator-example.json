@@ -1,6 +1,6 @@
 {
   "id": "pdf-creator-example",
-  "verified_at": "2026-10-19T06:32:27.299855+00:00",
+  "verified_at": "2026-10-19T06:38:38.122566+00:00",
   "model": {
     "requested": "claude-opus-5-5",
     "reported": [
@@ -784,7 +784,7 @@
     "final_source_sha256": {
       "index.html": "ea45195b063b1adc9cc4c90bfddfdc502c66b89702bd22943ddd607d55371bac",
       "concept.css": "d68a57012d4cbff5d9d395493a64b17f905472b1d211e653489c421193775167",
-      "concept.js": "6aa7d8157efad8731d27dae363788540f2b5be082328177d1fea3e17ec8556ce",
+      "concept.js": "a735107bf955d86e1670fd0170f3342e351631196fce8b0144ba2557255aba24",
       "video/index.html": "384a4e83f046d2f993d5d89570c37704e18f16b2ab3e18b2a16cdf19ae493a26",
       "video/video.css": "22b4d0c7bd7b99b3534534f3b556ae1added18c4ec008cac793a1c92dbdd6baf",
       "video/video.js": "4ec91c31ffd9e61511d293a3db782da44facd4f214ab0dac633e0d29be6eeaf7",
@@ -833,9 +833,34 @@
           "video/README.md"
         ],
         "reason": "Actual postauthorship QA appended separately. OriginalPDFverification is not transferred to new introduction."
+      },
+      {
+        "files": [
+          "concept.js"
+        ],
+        "reason": "Published native articlepaper link initially scrolled to the lower output anchor. Incoming paper/phone selection now resets to fullmap after verifiedload. SameIDs/data/map/film retained; parent navigation correction separate from Opus originals."
       }
     ],
-    "silent_film": true
+    "silent_film": true,
+    "article_route_repair": {
+      "initial_public_issue": "paper anchor opened below the large map",
+      "after_local_repair": [
+        {
+          "case": "paper",
+          "graphBottom": 511.625,
+          "graphY": 181.625,
+          "scrollY": 0,
+          "selected": "true"
+        },
+        {
+          "case": "phone",
+          "graphBottom": 511.625,
+          "graphY": 181.625,
+          "scrollY": 0,
+          "selected": "true"
+        }
+      ]
+    }
   },
   "artifacts_sha256": {
     "data/cases/pdf-creator-example.json": "da7c8a301141a1b73ee25de51ba50e70c48b4919e8eb04f177cc7fa1a3942774",
@@ -849,7 +874,7 @@
     "examples/pdf-creator-example/assets/phone-page-2.png": "f06cc351b7ecd5c7a65dcc356e3450ba31114e72dbfffde54bb393280680a5b2",
     "examples/pdf-creator-example/build_pdfs.py": "7acf1564f06032e01fdd06e78f572f18cd88dcfd378bb0e401ed3646b966a9be",
     "examples/pdf-creator-example/concept.css": "d68a57012d4cbff5d9d395493a64b17f905472b1d211e653489c421193775167",
-    "examples/pdf-creator-example/concept.js": "6aa7d8157efad8731d27dae363788540f2b5be082328177d1fea3e17ec8556ce",
+    "examples/pdf-creator-example/concept.js": "a735107bf955d86e1670fd0170f3342e351631196fce8b0144ba2557255aba24",
     "examples/pdf-creator-example/concept/manifest.json": "ce604633be16bcee326e7ff6713d85e428d4bf97dd06cc2ceeb23ce48d597f99",
     "examples/pdf-creator-example/concept/original-run.json": "a449793a6ae5f6791bace3a4f9f3257f091c9f5ab16268a88268f5ecf0f9cc50",
     "examples/pdf-creator-example/concept/structure.json": "8534c892b4b865492ae2690d28131ee808484ea0f0d165627216d1566c414b2f",
@@ -865,7 +890,7 @@
     "examples/pdf-creator-example/render.py": "05fb5b1fca66181da4cc3eab5ee8319cb5a55d833f34dab0dd01087716923215",
     "examples/pdf-creator-example/request.txt": "10337529e3ae914faaf2522c6012e0d330d2fa2fa486e10aecc28566b043f38c",
     "examples/pdf-creator-example/samples.json": "4f96780379ea1b0c70c8fd12424bbf72531dabf3a6ab9c72581c9de88ba1ca98",
-    "examples/pdf-creator-example/source.zip": "4369940fe2659c18108eaf43832044907415018aa6b8ee3692b1ce5342d0854b",
+    "examples/pdf-creator-example/source.zip": "453711963dc507ec8a876ba8b603e52ed9187762b2994a80a0878c3038eef8f6",
     "examples/pdf-creator-example/style.css": "8930d47ecfb30b88d4447f79f8a7244b38cc21c492da01bfcaff9627df149087",
     "examples/pdf-creator-example/themes/japanese-a4.css": "222abc320c970b16c9538aacce178beb018c141b92772ab24c2c6c2d556fcc0e",
     "examples/pdf-creator-example/themes/japanese-phone.css": "f16a4cc8fb06e2e7dad0a0aa3a7c9268215db5712d6606be506a92927f4197b4",
@@ -996,7 +1021,7 @@
     "examples/pdf-creator-example/video/video.css": "22b4d0c7bd7b99b3534534f3b556ae1added18c4ec008cac793a1c92dbdd6baf",
     "examples/pdf-creator-example/video/video.js": "4ec91c31ffd9e61511d293a3db782da44facd4f214ab0dac633e0d29be6eeaf7",
     "examples/pdf-creator-example/visual-guide.md": "c0c8de3a47be6a9589364d280d2662054e360ffe09ee940c14a2d0d4b7c92e43",
-    "examples/pdf-creator-example/visual-verification.json": "71e8b790cd313fe764d4560f61c0c829636c79237545a5658c3342485ba9d47c",
+    "examples/pdf-creator-example/visual-verification.json": "8f3694303d13cf3edac721f608fe64851086bce00f7074cc0926b403c18978af",
     "media/pdf-creator-example-wide.mp4": "d84d5dc90417dbe21134a27ec2a6dc4e7a25d7ef94454fdda29e80f230d26bfd",
     "media/pdf-creator-example.mp4": "bd40b8a1ffc0fdacee61edaaba104dda61b76ff79186658dfbb42917184300f6",
     "media/pdf-creator-example.webp": "59cc3ccd1a142149217afdfafdbeec370dc80a285e440f995d703d6b389c8ab9"

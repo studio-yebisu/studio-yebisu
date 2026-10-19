@@ -1505,6 +1505,8 @@ export function initMain() {
       el.status.textContent = '照合済み：23ファイルが固定した記録と一致。PDFは保存済みの原本で、このページでは生成しません。';
       setControls(true);
       update();
+      // paper/phone are selection IDs for incoming article links; begin with the whole map.
+      if (hashCase()) requestAnimationFrame(() => window.scrollTo(0, 0));
     } catch (error) {
       if (run !== generation) return;
       model = null;
