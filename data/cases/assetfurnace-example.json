@@ -19,11 +19,11 @@
   "samples": "examples/assetfurnace-example/samples.json",
   "sample_format": "input-output",
   "samples_title": "同じ入力GLBと3つの上限、返ったGLB",
-  "samples_intro": "input は3回とも同じ入力GLBと、原典CLIに渡した設定です。output は原典CLIが書いた出力GLB、出力から読み直した画像ごとの結果（置換か保持か・形式・寸法・バイト数）、原典CLIの標準出力の全文です。3つは生成された別々のメッシュではなく、同じ木箱の同じ形に対する、テクスチャの設定違いの3回です。見た目の確認はしていません。",
+  "samples_intro": "input は3回とも同じ入力GLBと、原典CLIに渡した設定です。output は原典CLIが書いた出力GLB、出力から読み直した画像ごとの結果（置換か保持か・形式・寸法・バイト数）、原典CLIの標準出力の全文です。3つは生成された別々のメッシュではなく、同じ木箱の同じ形に対する、テクスチャの設定違いの3回です。制作担当による実GLBの描画確認は行いました。人による見た目の承認や、縮小前後の見た目の同等性は未確認です。",
   "demo_description": "大きな構造図が主役です。「①何か・②渡す・③返る」で同じ図の上の形の位置が変わり、原典のREADME・CLIと架空の依頼→作者AI 1体の準備とジョブ→制作担当のBlender包装1回と原典CLI 3回→元の5ファイルから入力GLB 1つ→形（画像以外の12view、そのまま）と画像3枚に分かれる→上限→小さければ置換→同じ形と画像が出力GLBに戻る→容量を比べる→回す・保存、の関係をひと続きで見られます。点線の「生成・Finish」はアプリの広い機能で、今回は実行していません。図の画像の小片は、GLBに埋め込まれた実際の画像です。「1024上限・512上限・256上限」で保存済みの3つの結果を読み替え、番号の付いた6つの部品で固定版の原典の該当行を読めます。図のすぐ下で、選んだ出力GLB・入力GLB・実測の記録をそのまま保存でき、その下で入力と出力の実GLBを同じカメラで回して見比べられます。",
   "demo_note": "ページは保存済みの39ファイルを大きさとSHA-256で確かめ、原典の引用の行、4つのGLBの画像のバイト列・寸法と画像以外の12view、three.js で読んだ形も照合してから表示します。合わなければ図・3D・保存を止め、理由と「もう一度確かめる」を出します。ブラウザーでは圧縮もモデルの実行もしません。上限の切り替えは保存済みの結果を読むだけで、CLIを再実行しません。図の動きは構造の説明で、実際の処理時間ではありません。作者AI（Claude Opus 5.5）が準備・ランナー・ページ・映像を書き、制作担当がBlenderの包装を1回、原典CLIを3回実行しました。",
   "request_intro": "同じ手順を自分の3Dモデルで試すときの依頼文です。手元でPythonとBlenderを動かせるAIエージェントや開発者に渡してください。入力のGLBと上限は自分のものに置き換えます。",
-  "request": "AssetFurnace（Bingeljell/image-to-3dlab 固定コミット 91879333e88a0571945b15b0e21e4bc95ec59e31、Apache-2.0）の README と scripts/compress_glb_textures.py を読み、手元の3Dモデル1つのテクスチャを、形を変えずに上限だけを変えて圧縮し、実ファイルで比べてください。画像→3D生成・リトポロジー・ベイク・リギング・モデルの重み・ComfyUIは使いません。\n\n準備：固定コミットのフルチェックアウトと、Python 3.11 と Pillow だけの専用環境を用意し、原典CLIのハッシュを確かめる。入力が glTF・.bin・画像に分かれているなら、Blender などで1回だけ1つのGLBにまとめ、その工程と版を別に記録する（AssetFurnaceの処理として書かない）。元のファイルは書き換えない。\n\n実行：同じ入力GLBから、無改変のCLIを設定ごとに1回ずつ呼ぶ。例：--format png --quality 90 --map-quality 90 --max-size <N> --map-size <N> --normal-size <N>（N = 1024・512・256）。出力は設定ごとに新しいファイルにし、既存の結果を上書きしない。結果を見て再試行や選別をしない。\n\n記録：要求した形式と上限と、出力GLBから読み直した実際の画像（MIME・寸法・バイト数）、置換か保持か、GLB全体のバイト数を分けて書く。原典は再エンコードが元より小さいときだけ画像を置き換えるので、要求どおりの形式・寸法になったと推測しない。画像以外のbufferViewと形・材料のJSONが入力と同じかをバイトで確かめ、CLIの標準出力はそのまま残す。見た目・ゲームでの適性・表示性能は、実際に開いて確かめるまで未確認と書く。\n",
+  "request": "AssetFurnace（Bingeljell/image-to-3dlab 固定コミット 91879333e88a0571945b15b0e21e4bc95ec59e31、Apache-2.0）の README と scripts/compress_glb_textures.py を読み、手元の3Dモデル1つのテクスチャを、形を変えずに上限だけを変えて圧縮し、実ファイルで比べてください。画像→3D生成・リトポロジー・ベイク・リギング・モデルの重み・ComfyUIは使いません。\n\n準備：固定コミットのフルチェックアウトと、Python 3.11 と Pillow だけの専用環境を用意し、原典CLIのハッシュを確かめる。入力が glTF・.bin・画像に分かれているなら、Blender などで1回だけ1つのGLBにまとめ、その工程と版を別に記録する（AssetFurnaceの処理として書かない）。元のファイルは書き換えない。\n\n実行：同じ入力GLBから、無改変のCLIを設定ごとに1回ずつ呼ぶ。例：--format png --quality 90 --map-quality 90 --max-size <N> --map-size <N> --normal-size <N>（N = 1024・512・256）。出力は設定ごとに新しいファイルにし、既存の結果を上書きしない。結果を見て再試行や選別をしない。\n\n記録：要求した形式と上限と、出力GLBから読み直した実際の画像（MIME・寸法・バイト数）、置換か保持か、GLB全体のバイト数を分けて書く。原典は再エンコードが元より小さいときだけ画像を置き換えるので、要求どおりの形式・寸法になったと推測しない。画像以外のbufferViewの全バイトと、形・材料のJSONの構造が入力と同じかを確かめ、CLIの標準出力はそのまま残す。見た目・ゲームでの適性・表示性能は、実際に開いて確かめるまで未確認と書く。\n",
   "applied_skills": [
     {
       "name": "AssetFurnace（Bingeljell/image-to-3dlab）の原典README と圧縮CLI",
@@ -67,8 +67,8 @@
     "outputs/results.json は制作担当のランナーが測った値の射影で、原典のネイティブJSONでもモデルの出力でもありません。原典CLIの出力はテキストとGLBだけです。",
     "時間（1.183・0.52・0.262秒）はインタプリタの起動を含む1回きりの壁時計の値で、性能の指標ではありません。",
     "Blender 5.2.1 の読み取りだけの事前確認では quadriflow_remesh が無く、リトポロジーは試していません。回避策も加えていません。ほかの生成バックエンドは、別の環境・重み・利用条件が要るため選んでいません。",
-    "vendor/assetfurnace/ の10ファイルだけではアプリもCLIの再現も動きません。再現には固定コミットのフルチェックアウト、Python 3.11 と Pillow 11.3.0、Blender 5.2.1 が要ります。",
-    "図の6部品は説明用の整理です。新しい図・ページ・動画の表示と書き出し、320/375pxの表示、破損時の停止、実機iPhone Safari・VoiceOver・200%拡大は、作者の執筆時点では未確認で、制作担当が後の工程で確かめて visual-verification.json に記録します。"
+    "vendor/assetfurnace/ の選択10ファイルはアプリ全体ではありません。選択中の scripts/compress_glb_textures.py は Python 3.11 と Pillow 11.3.0 で単独実行できます。この作例の元の包装手順には、別途 Blender 5.2.1 と元の5ファイルが必要です。全アプリの機能には固定版のフルチェックアウトと追加の依存が要ります。",
+    "図の6部品は説明用の整理です。制作担当は新しい図・ページ・編集ソース・動画を実際に表示・描画し、320/375pxの表示と破損時の停止・復旧を別工程で確認しました。範囲は visual-verification.json に記録しています。実機iPhone Safari・VoiceOver・200%拡大・人の審美的承認は未確認です。"
   ],
   "sources": [
     {
@@ -164,16 +164,16 @@
       "url": "examples/assetfurnace-example/video/storyboard.json"
     },
     {
-      "label": "図と動画の確認範囲（制作担当が後の工程で記録・執筆時点では未作成）",
+      "label": "図と動画の確認範囲（制作担当による後工程の実検証）",
       "url": "examples/assetfurnace-example/visual-verification.json"
     },
     {
-      "label": "編集ソースと実出力一式 ZIP（制作担当が後の工程で梱包・執筆時点では未作成）",
+      "label": "編集ソースと実出力一式 ZIP（制作担当による包装）",
       "url": "examples/assetfurnace-example/source.zip"
     }
   ],
   "license": "Apache-2.0（AssetFurnace のソース）／CC0（木箱）／MIT（three.js・この作例）",
-  "license_note": "AssetFurnace（Bingeljell/image-to-3dlab）のソースは Apache License 2.0 で、固定版から選んだ10ファイルを LICENSE と NOTICE とともに vendor/assetfurnace/ に原文のまま置いています。再配布では NOTICE を残し、リポジトリへのリンクを付けます。この10ファイルだけでは動きません。木箱 Wooden Crate 01 は James Ray Cock・Poly Haven の CC0 で、元の5ファイルは以前の作例からの再利用、包装した入力GLBとテクスチャを縮めた出力GLBはそこからの派生ファイルです。three.js 0.180.0 は MIT で、以前の作例から無改変で再利用しています。Blender と Pillow はそれぞれのライセンスで別にインストールした依存で、同梱していません。モデルの重みは使っていません。ページ・図・文章・動画のソースとランナーは Studio Yebisu の制作（Claude Opus 5.5）で MIT です。",
+  "license_note": "AssetFurnace（Bingeljell/image-to-3dlab）のソースは Apache License 2.0 で、固定版から選んだ10ファイルを LICENSE と NOTICE とともに vendor/assetfurnace/ に原文のまま置いています。再配布では NOTICE を残し、リポジトリへのリンクを付けます。選択10ファイルはアプリ全体ではありませんが、圧縮CLIはPythonとPillowで単独実行できます。木箱 Wooden Crate 01 は James Ray Cock・Poly Haven の CC0 で、元の5ファイルは以前の作例からの再利用、包装した入力GLBとテクスチャを縮めた出力GLBはそこからの派生ファイルです。three.js 0.180.0 は MIT で、以前の作例から無改変で再利用しています。Blender と Pillow はそれぞれのライセンスで別にインストールした依存で、同梱していません。モデルの重みは使っていません。ページ・図・文章・動画のソースとランナーは Studio Yebisu の制作（Claude Opus 5.5）で MIT です。",
   "skill_license": "examples/assetfurnace-example/vendor/assetfurnace/LICENSE",
   "video_note": "32秒・30fps・無音の構造図の動画です。縦720×1280と横1280×720を別配置で描きます。原典と依頼が作者AIのジョブになり、制作担当の包装で元の5ファイルが1つのGLBになり、そのGLBが形の12本と実際の画像3枚に分かれ、1024・512・256の上限で候補が縮み、元より小さい時だけ置き換わって、同じ形と一緒に出力GLBへ戻ります。1024上限は縮めず元のJPEGが残ります。3Dは確かめた実GLBの描画で、最後は3つの出力を同じ向きで並べます。ナレーション・音声トラックはありません。制作担当が18スマホ状態・6引用・16表示条件・3破損停止と復旧、実GLB4本の描画と同じカメラの比較、5保存要求と返却5ファイルの全バイト一致、39素材編集・7場面・任意7.2秒・通常32秒再生、代表/連続/contactと縦横32秒960f無音MP4の全デコード/自然終端、出荷ソース62PNG一致を新しく確認。人の審美的承認・実機iOS/VoiceOver・200%拡大・全入力/性能・ゲーム適性は未確認。",
   "video_source": "examples/assetfurnace-example/video/index.html",
