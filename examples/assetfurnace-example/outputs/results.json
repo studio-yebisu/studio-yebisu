@@ -1,0 +1,2159 @@
+{
+  "schema": "studio-yebisu/assetfurnace-example/results@1",
+  "case": "assetfurnace-example",
+  "catalog_id": "resource-assetfurnace",
+  "status": "completed",
+  "record_kind": "measured wrapper projection",
+  "record_note": "Measured by run_example.py from the actual files. Not a model output and not a native JSON API of AssetFurnace: its CLI emits text and a GLB, and that text is kept separately (private logs).",
+  "authorship": {
+    "prepare_input.py, run_example.py, inputs/jobs.json": "claude-opus-5-5",
+    "execution": "operator",
+    "human_review": "not recorded here"
+  },
+  "started_at": "2026-10-19T19:35:59+00:00",
+  "finished_at": "2026-10-19T19:36:06+00:00",
+  "failure": null,
+  "boundaries": [
+    "AssetFurnaceの画像→3D生成・pipeline.py・Finish（リトポロジー、Pixel Match、ベイク）・リギング・ComfyUIは実行していない。モデルの重みは取得も読み込みもしていない。",
+    "入力はPoly HavenのCC0既存3Dモデル（James Ray Cock作）で、AI生成メッシュではない。BlenderでのGLB化は入力準備であり、AssetFurnaceの処理ではない。",
+    "圧縮はAssetFurnace原本のscripts/compress_glb_textures.pyを無改変のまま、同じGLBから設定違いで3回実行したもの。",
+    "画像以外の全bufferViewとメッシュ・アクセサ・ノード・シーン・マテリアル構造のバイト一致は、見た目の同等性・ゲームでの適性・表示性能を示さない。見た目は別途目視で確認する。",
+    "PNG指定でも縮小すれば画素は変わる。視覚的に無劣化とは言わない。原本は再エンコード結果が小さいときだけ画像を置き換えるので、要求形式と実際の形式は違いうる。",
+    "このresults.jsonは実行ラッパーが測った値の射影で、モデル出力でも原本のネイティブJSON APIでもない。原本CLIの出力はテキストとGLBのみで、その標準出力は非公開ログに別保存している。",
+    "経過時間はインタプリタ起動を含むこのマシンでの壁時計時間で、性能指標ではない。"
+  ],
+  "source": {
+    "product": "AssetFurnace (formerly Image to 3D Lab)",
+    "repository": "Bingeljell/image-to-3dlab",
+    "repository_url": "https://github.com/Bingeljell/image-to-3dlab",
+    "commit": "91879333e88a0571945b15b0e21e4bc95ec59e31",
+    "version_note": "Identified by fixed commit only. CHANGELOG latest entry 0.4.4 (2026-10-14); README header still carries a draft 0.4.0 note. No release tag is claimed.",
+    "license": "Apache-2.0",
+    "notice_file": "NOTICE",
+    "tool": "scripts/compress_glb_textures.py",
+    "tool_modified": false,
+    "verified_files": [
+      {
+        "path": "scripts/compress_glb_textures.py",
+        "bytes": 12929,
+        "sha256": "2e5d8d513560df3bb848ead2229e688733691a76b15535aba2b92a1c7eb2ce2b",
+        "git_blob": "f58420d6d7cc91d0f457982e82306b217ca96271",
+        "verified": true
+      },
+      {
+        "path": "LICENSE",
+        "bytes": 11358,
+        "sha256": "c95bae1d1ce0235ecccd3560b772ec1efb97f348a79f0fbe0a634f0c2ccefe2c",
+        "git_blob": "57bc88a15a0ee8266c259b2667e64608d3f7e292",
+        "verified": true
+      },
+      {
+        "path": "NOTICE",
+        "bytes": 1162,
+        "sha256": "49ea3c89cf4d42e17241c92de845c9edd280653a575d44df4c8c785df67df64a",
+        "git_blob": "038639ee63c161a7c89f368aceac2c30881d158f",
+        "verified": true
+      }
+    ]
+  },
+  "input": {
+    "id": "polyhaven-wooden_crate_01",
+    "title": "Wooden Crate 01",
+    "origin": "Poly Haven",
+    "url": "https://polyhaven.com/a/wooden_crate_01",
+    "artist": "James Ray Cock",
+    "license": "CC0-1.0",
+    "kind": "previously acquired authored 3D asset, not AI-generated",
+    "acquired_from": "published 3d-asset-server-example, copied unchanged; no new download",
+    "gltf": "inputs/polyhaven-wooden_crate_01/wooden_crate_01_1k.gltf",
+    "expected": {
+      "mesh_objects": 3,
+      "materials": 1,
+      "triangles": 6576
+    },
+    "files": [
+      {
+        "path": "inputs/polyhaven-wooden_crate_01/textures/wooden_crate_01_arm_1k.jpg",
+        "bytes": 776699,
+        "sha256": "cd0b031c3924905e16ffd78ead062c2cc274148c4104d09635310097738b4679",
+        "verified": true
+      },
+      {
+        "path": "inputs/polyhaven-wooden_crate_01/textures/wooden_crate_01_diff_1k.jpg",
+        "bytes": 711292,
+        "sha256": "16653f4abaf4c1d9bca94bde3bd8c54d0ea9a5298d1648abcf57de1f7ecc34cc",
+        "verified": true
+      },
+      {
+        "path": "inputs/polyhaven-wooden_crate_01/textures/wooden_crate_01_nor_gl_1k.jpg",
+        "bytes": 594076,
+        "sha256": "f4ea44c7dc1686123d337039cb713d74e8a2dbc6d1bd2beeac276d06f5df3fab",
+        "verified": true
+      },
+      {
+        "path": "inputs/polyhaven-wooden_crate_01/wooden_crate_01.bin",
+        "bytes": 189408,
+        "sha256": "85f381f8035f7a6f2f3b848640894c6d3333b261946dd8a338c0fe19e0bea21e",
+        "verified": true
+      },
+      {
+        "path": "inputs/polyhaven-wooden_crate_01/wooden_crate_01_1k.gltf",
+        "bytes": 5612,
+        "sha256": "fd9c6073acfc671e12b64666053f2805ae33aff5d3dbbcfe5c97c08c06644927",
+        "verified": true
+      }
+    ]
+  },
+  "environment": {
+    "jobs_file": {
+      "path": "inputs/jobs.json",
+      "sha256": "26fd6c141254d1ef7ee9ed5d3f08d93bc22e353df3804e153b60076750b61271"
+    },
+    "runner_python": "3.11.15",
+    "runner_pillow": "11.3.0",
+    "cli_python": "3.11.15",
+    "cli_pillow": "11.3.0",
+    "cli_isolated_mode": true,
+    "os": "Windows 10",
+    "machine": "AMD64",
+    "threads": 4,
+    "thread_env": [
+      "OMP_NUM_THREADS",
+      "OPENBLAS_NUM_THREADS",
+      "MKL_NUM_THREADS",
+      "NUMEXPR_NUM_THREADS",
+      "VECLIB_MAXIMUM_THREADS",
+      "BLIS_NUM_THREADS"
+    ],
+    "cpu_affinity": {
+      "requested_cores": 4,
+      "applied": true,
+      "method": "SetProcessAffinityMask (own process)",
+      "available_cores": 32
+    },
+    "environment_probe": {
+      "argv": [
+        "<python>",
+        "-I",
+        "-c",
+        "import sys, PIL; print(sys.version.split()[0]); print(PIL.__version__)"
+      ],
+      "cwd": "<example>",
+      "exit_code": 0,
+      "timed_out": false,
+      "launch_error": null,
+      "elapsed_seconds": 0.051,
+      "stdout": {
+        "bytes": 17,
+        "sha256": "49012d80beb4951382dd43be89de0502303d3db350d5f62c6d50ff39951b15e9",
+        "kept": "private"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "kept": "private"
+      }
+    }
+  },
+  "preparation": {
+    "role": "input preparation, not AssetFurnace",
+    "call": {
+      "argv": [
+        "<blender>",
+        "--background",
+        "--factory-startup",
+        "--threads",
+        "4",
+        "--python-exit-code",
+        "1",
+        "--python",
+        "prepare_input.py",
+        "--",
+        "inputs/polyhaven-wooden_crate_01/wooden_crate_01_1k.gltf",
+        "outputs/input/packed_input.glb",
+        "outputs/preparation.json"
+      ],
+      "cwd": "<example>",
+      "exit_code": 0,
+      "timed_out": false,
+      "launch_error": null,
+      "elapsed_seconds": 4.506,
+      "stdout": {
+        "bytes": 1268,
+        "sha256": "2a1fb104995ac226785f5fe5d7e47bcf76e97e9cd608188b2de57fe65027fe98",
+        "kept": "private"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "kept": "private"
+      }
+    },
+    "record": {
+      "path": "preparation.json",
+      "bytes": 7354,
+      "sha256": "d768e1c455102cf4d7c3363d4a062804bfa707708b2025e356d298abe7c20d6f"
+    },
+    "blender": {
+      "version_string": "5.2.1 LTS",
+      "version": [
+        5,
+        2,
+        1
+      ],
+      "version_cycle": "release",
+      "build_hash": "9e2066aef7ef",
+      "build_date": "2026-08-25",
+      "gltf_addon_version": [
+        5,
+        2,
+        40
+      ],
+      "background": true,
+      "factory_startup": true,
+      "scene_render_threads": 4
+    },
+    "imported": {
+      "mesh_objects": 3,
+      "triangles": 6576,
+      "objects_by_type": {
+        "MESH": 3
+      },
+      "materials": [
+        "wooden_crate_01"
+      ]
+    },
+    "packed": {
+      "path": "input/packed_input.glb",
+      "bytes": 2276520,
+      "sha256": "cffd8d4fc47cb704fdb8b67f7aab1cb769fa1decb1d7910f787232598c3bdacc"
+    },
+    "packed_images_vs_source_files": [
+      {
+        "index": 0,
+        "role": "data",
+        "same_bytes_as": "inputs/polyhaven-wooden_crate_01/textures/wooden_crate_01_nor_gl_1k.jpg"
+      },
+      {
+        "index": 1,
+        "role": "colour",
+        "same_bytes_as": "inputs/polyhaven-wooden_crate_01/textures/wooden_crate_01_diff_1k.jpg"
+      },
+      {
+        "index": 2,
+        "role": "data",
+        "same_bytes_as": "inputs/polyhaven-wooden_crate_01/textures/wooden_crate_01_arm_1k.jpg"
+      }
+    ],
+    "inspection": {
+      "bytes": 2276520,
+      "sha256": "cffd8d4fc47cb704fdb8b67f7aab1cb769fa1decb1d7910f787232598c3bdacc",
+      "chunks": [
+        {
+          "type": "JSON",
+          "bytes": 3384
+        },
+        {
+          "type": "BIN",
+          "bytes": 2273108
+        }
+      ],
+      "generator": "Khronos glTF Blender I/O v5.2.40",
+      "extensions_used": [],
+      "extensions_required": [],
+      "counts": {
+        "scenes": 1,
+        "nodes": 3,
+        "mesh_nodes": 3,
+        "meshes": 3,
+        "primitives": 3,
+        "materials": 1,
+        "textures": 3,
+        "images": 3,
+        "accessors": 12,
+        "buffer_views": 15,
+        "buffers": 1
+      },
+      "image_roles": {
+        "colour": 1,
+        "data": 2,
+        "normal_within_data": 1,
+        "mixed": 0,
+        "unbound": 0
+      },
+      "geometry": {
+        "triangles": 6576,
+        "position_vertices": 4737,
+        "index_count": 19728,
+        "non_triangle_primitives": 0,
+        "meshes": [
+          {
+            "index": 0,
+            "name": "Cube.020",
+            "primitives": 1,
+            "triangles": 5508,
+            "position_vertices": 3731,
+            "local_bounds": {
+              "min": [
+                -0.4126364588737488,
+                -0.00793334562331438,
+                -0.19549614191055298
+              ],
+              "max": [
+                0.4126364588737488,
+                0.3139750361442566,
+                0.2128141224384308
+              ]
+            }
+          },
+          {
+            "index": 1,
+            "name": "Cube.001",
+            "primitives": 1,
+            "triangles": 376,
+            "position_vertices": 384,
+            "local_bounds": {
+              "min": [
+                -0.016070956364274025,
+                0.2390938252210617,
+                0.1312473714351654
+              ],
+              "max": [
+                0.009643923491239548,
+                0.3357900381088257,
+                0.2071036398410797
+              ]
+            }
+          },
+          {
+            "index": 2,
+            "name": "Cube.005",
+            "primitives": 1,
+            "triangles": 692,
+            "position_vertices": 622,
+            "local_bounds": {
+              "min": [
+                -0.3539096713066101,
+                0.29946234822273254,
+                -0.1961396187543869
+              ],
+              "max": [
+                0.3539096713066101,
+                0.3416849374771118,
+                0.1961396187543869
+              ]
+            }
+          }
+        ],
+        "nodes": [
+          {
+            "index": 0,
+            "name": "wooden_crate_01",
+            "mesh": 0,
+            "children": [],
+            "translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          {
+            "index": 1,
+            "name": "wooden_crate_01_latch",
+            "mesh": 1,
+            "children": [],
+            "translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          },
+          {
+            "index": 2,
+            "name": "wooden_crate_01_lid",
+            "mesh": 2,
+            "children": [],
+            "translation": [
+              0.0,
+              0.0,
+              0.0
+            ],
+            "rotation": [
+              0.0,
+              0.0,
+              0.0,
+              1.0
+            ],
+            "scale": [
+              1.0,
+              1.0,
+              1.0
+            ]
+          }
+        ]
+      },
+      "geometry_json_sha256": "a3fe1c65567770ee2a1eac506cc4a7ed11da52f8c99b987c95a3feba962f4dc2",
+      "material_json_sha256": "5857e0240d3bdf504a6e1880d8866a59cef5de19187705dab4062ca56dd391ae",
+      "non_image_buffer_views": [
+        {
+          "index": 0,
+          "bytes": 44772,
+          "sha256": "483d874cf4231c9596ae3bee3783b6e4c23931460f1915b5234f7912d11bc241"
+        },
+        {
+          "index": 1,
+          "bytes": 44772,
+          "sha256": "536d65251c244cdcb19a348114efc57f64a3937e1c3c4a84833e996f8779c9a7"
+        },
+        {
+          "index": 2,
+          "bytes": 29848,
+          "sha256": "99229d659e6ecf6a7e67041c5d37a9aab2876b180d5322dd2efbe0d784c95cd9"
+        },
+        {
+          "index": 3,
+          "bytes": 33048,
+          "sha256": "521568faf4fbb11a6d78ab0703773fc794cb7d5b5e2279e8ef691bb8bb673c35"
+        },
+        {
+          "index": 7,
+          "bytes": 4608,
+          "sha256": "997c128b0076d0f7a37b9398fa458dd72329a7148f8fedd3f2005e17119252cc"
+        },
+        {
+          "index": 8,
+          "bytes": 4608,
+          "sha256": "a4c5b201f10b0c1bb5c2e74ac18ebbd2d0c96a4d1d9c9f99099565035a8b34cb"
+        },
+        {
+          "index": 9,
+          "bytes": 3072,
+          "sha256": "a8990cc821c180026370b2865e339e02294f14f58206b444b6f1c85c736a808b"
+        },
+        {
+          "index": 10,
+          "bytes": 2256,
+          "sha256": "fa258c63758fafc6b163116c75474cd7f272a0d4e5966947d2ecc3f7c4772ba0"
+        },
+        {
+          "index": 11,
+          "bytes": 7464,
+          "sha256": "01ce0d22c028fd75f0822765a4a2b31f11eb19cf7b5ea7443923099ec1dc0e3d"
+        },
+        {
+          "index": 12,
+          "bytes": 7464,
+          "sha256": "3a727861fb4cbe24ecf26b26664a8984112648f11c18d9b060e86105b0b5c6ff"
+        },
+        {
+          "index": 13,
+          "bytes": 4976,
+          "sha256": "e09df43d1e30896fad9a6802d95ed8e2becd39316d40b7ebd72b8d8360d79c6d"
+        },
+        {
+          "index": 14,
+          "bytes": 4152,
+          "sha256": "d28602ffae98b6f315ae6af4f99cd45334b9bb1b4f98c66abcfffc92576e54ec"
+        }
+      ],
+      "non_image_payload_bytes": 191040,
+      "image_payload_bytes": 2082067,
+      "images": [
+        {
+          "index": 0,
+          "name": "wooden_crate_01_nor_gl_1k",
+          "declared_mime": "image/jpeg",
+          "slots": [
+            "normalTexture"
+          ],
+          "role": "data",
+          "normal": true,
+          "embedded": true,
+          "buffer_view": 4,
+          "bytes": 594076,
+          "sha256": "f4ea44c7dc1686123d337039cb713d74e8a2dbc6d1bd2beeac276d06f5df3fab",
+          "magic": "JPEG",
+          "decoded": {
+            "format": "JPEG",
+            "mode": "RGB",
+            "width": 1024,
+            "height": 1024
+          },
+          "mime_matches_decoded": true
+        },
+        {
+          "index": 1,
+          "name": "wooden_crate_01_diff_1k",
+          "declared_mime": "image/jpeg",
+          "slots": [
+            "baseColorTexture"
+          ],
+          "role": "colour",
+          "normal": false,
+          "embedded": true,
+          "buffer_view": 5,
+          "bytes": 711292,
+          "sha256": "16653f4abaf4c1d9bca94bde3bd8c54d0ea9a5298d1648abcf57de1f7ecc34cc",
+          "magic": "JPEG",
+          "decoded": {
+            "format": "JPEG",
+            "mode": "RGB",
+            "width": 1024,
+            "height": 1024
+          },
+          "mime_matches_decoded": true
+        },
+        {
+          "index": 2,
+          "name": "wooden_crate_01_arm_1k",
+          "declared_mime": "image/jpeg",
+          "slots": [
+            "metallicRoughnessTexture"
+          ],
+          "role": "data",
+          "normal": false,
+          "embedded": true,
+          "buffer_view": 6,
+          "bytes": 776699,
+          "sha256": "cd0b031c3924905e16ffd78ead062c2cc274148c4104d09635310097738b4679",
+          "magic": "JPEG",
+          "decoded": {
+            "format": "JPEG",
+            "mode": "RGB",
+            "width": 1024,
+            "height": 1024
+          },
+          "mime_matches_decoded": true
+        }
+      ]
+    },
+    "checks": [
+      {
+        "name": "blender_version_matches",
+        "passed": true,
+        "detail": "5.2.1"
+      },
+      {
+        "name": "imported_counts_expected",
+        "passed": true
+      },
+      {
+        "name": "record_hash_matches_packed_glb",
+        "passed": true
+      },
+      {
+        "name": "packed_counts_expected",
+        "passed": true,
+        "detail": {
+          "mesh_nodes": 3,
+          "meshes": 3,
+          "materials": 1,
+          "triangles": 6576
+        }
+      },
+      {
+        "name": "images_embedded_decoded_mime_matches",
+        "passed": true
+      },
+      {
+        "name": "material_texture_slots_match_source",
+        "passed": true,
+        "detail": {
+          "source": [
+            "baseColorTexture",
+            "metallicRoughnessTexture",
+            "normalTexture"
+          ],
+          "packed": [
+            "baseColorTexture",
+            "metallicRoughnessTexture",
+            "normalTexture"
+          ]
+        }
+      },
+      {
+        "name": "mesh_bounds_match_source",
+        "passed": true,
+        "detail": {
+          "max_abs_diff": 0.0,
+          "unmatched_nodes": null,
+          "tolerance": 1e-05
+        }
+      },
+      {
+        "name": "node_transforms_match_source",
+        "passed": true,
+        "detail": {
+          "max_abs_diff": 0.0,
+          "tolerance": 1e-05
+        }
+      },
+      {
+        "name": "accessors_do_not_use_image_views",
+        "passed": true
+      }
+    ]
+  },
+  "jobs": [
+    {
+      "id": "cap1024",
+      "tool": "original scripts/compress_glb_textures.py (unchanged)",
+      "input": "input/packed_input.glb",
+      "requested": {
+        "format": "png",
+        "quality": 90,
+        "map_quality": 90,
+        "max_size": 1024,
+        "map_size": 1024,
+        "normal_size": 1024
+      },
+      "call": {
+        "argv": [
+          "<python>",
+          "-I",
+          "<upstream>/scripts/compress_glb_textures.py",
+          "outputs/input/packed_input.glb",
+          "outputs/outputs/cap1024.glb",
+          "--format",
+          "png",
+          "--quality",
+          "90",
+          "--map-quality",
+          "90",
+          "--max-size",
+          "1024",
+          "--map-size",
+          "1024",
+          "--normal-size",
+          "1024"
+        ],
+        "cwd": "<example>",
+        "exit_code": 0,
+        "timed_out": false,
+        "launch_error": null,
+        "elapsed_seconds": 1.183,
+        "stdout": {
+          "bytes": 240,
+          "sha256": "c88d27977e3b047eafa200b0e5360358ca530204b89930109882af862dfe1d05",
+          "kept": "private"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "kept": "private"
+        }
+      },
+      "artifact": {
+        "path": "outputs/cap1024.glb",
+        "bytes": 2276520,
+        "sha256": "cffd8d4fc47cb704fdb8b67f7aab1cb769fa1decb1d7910f787232598c3bdacc"
+      },
+      "byte_identical_to_packed_input": true,
+      "inspection": {
+        "bytes": 2276520,
+        "sha256": "cffd8d4fc47cb704fdb8b67f7aab1cb769fa1decb1d7910f787232598c3bdacc",
+        "chunks": [
+          {
+            "type": "JSON",
+            "bytes": 3384
+          },
+          {
+            "type": "BIN",
+            "bytes": 2273108
+          }
+        ],
+        "generator": "Khronos glTF Blender I/O v5.2.40",
+        "extensions_used": [],
+        "extensions_required": [],
+        "counts": {
+          "scenes": 1,
+          "nodes": 3,
+          "mesh_nodes": 3,
+          "meshes": 3,
+          "primitives": 3,
+          "materials": 1,
+          "textures": 3,
+          "images": 3,
+          "accessors": 12,
+          "buffer_views": 15,
+          "buffers": 1
+        },
+        "image_roles": {
+          "colour": 1,
+          "data": 2,
+          "normal_within_data": 1,
+          "mixed": 0,
+          "unbound": 0
+        },
+        "geometry": {
+          "triangles": 6576,
+          "position_vertices": 4737,
+          "index_count": 19728,
+          "non_triangle_primitives": 0,
+          "meshes": [
+            {
+              "index": 0,
+              "name": "Cube.020",
+              "primitives": 1,
+              "triangles": 5508,
+              "position_vertices": 3731,
+              "local_bounds": {
+                "min": [
+                  -0.4126364588737488,
+                  -0.00793334562331438,
+                  -0.19549614191055298
+                ],
+                "max": [
+                  0.4126364588737488,
+                  0.3139750361442566,
+                  0.2128141224384308
+                ]
+              }
+            },
+            {
+              "index": 1,
+              "name": "Cube.001",
+              "primitives": 1,
+              "triangles": 376,
+              "position_vertices": 384,
+              "local_bounds": {
+                "min": [
+                  -0.016070956364274025,
+                  0.2390938252210617,
+                  0.1312473714351654
+                ],
+                "max": [
+                  0.009643923491239548,
+                  0.3357900381088257,
+                  0.2071036398410797
+                ]
+              }
+            },
+            {
+              "index": 2,
+              "name": "Cube.005",
+              "primitives": 1,
+              "triangles": 692,
+              "position_vertices": 622,
+              "local_bounds": {
+                "min": [
+                  -0.3539096713066101,
+                  0.29946234822273254,
+                  -0.1961396187543869
+                ],
+                "max": [
+                  0.3539096713066101,
+                  0.3416849374771118,
+                  0.1961396187543869
+                ]
+              }
+            }
+          ],
+          "nodes": [
+            {
+              "index": 0,
+              "name": "wooden_crate_01",
+              "mesh": 0,
+              "children": [],
+              "translation": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "scale": [
+                1.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "index": 1,
+              "name": "wooden_crate_01_latch",
+              "mesh": 1,
+              "children": [],
+              "translation": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "scale": [
+                1.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "index": 2,
+              "name": "wooden_crate_01_lid",
+              "mesh": 2,
+              "children": [],
+              "translation": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "scale": [
+                1.0,
+                1.0,
+                1.0
+              ]
+            }
+          ]
+        },
+        "geometry_json_sha256": "a3fe1c65567770ee2a1eac506cc4a7ed11da52f8c99b987c95a3feba962f4dc2",
+        "material_json_sha256": "5857e0240d3bdf504a6e1880d8866a59cef5de19187705dab4062ca56dd391ae",
+        "non_image_buffer_views": [
+          {
+            "index": 0,
+            "bytes": 44772,
+            "sha256": "483d874cf4231c9596ae3bee3783b6e4c23931460f1915b5234f7912d11bc241"
+          },
+          {
+            "index": 1,
+            "bytes": 44772,
+            "sha256": "536d65251c244cdcb19a348114efc57f64a3937e1c3c4a84833e996f8779c9a7"
+          },
+          {
+            "index": 2,
+            "bytes": 29848,
+            "sha256": "99229d659e6ecf6a7e67041c5d37a9aab2876b180d5322dd2efbe0d784c95cd9"
+          },
+          {
+            "index": 3,
+            "bytes": 33048,
+            "sha256": "521568faf4fbb11a6d78ab0703773fc794cb7d5b5e2279e8ef691bb8bb673c35"
+          },
+          {
+            "index": 7,
+            "bytes": 4608,
+            "sha256": "997c128b0076d0f7a37b9398fa458dd72329a7148f8fedd3f2005e17119252cc"
+          },
+          {
+            "index": 8,
+            "bytes": 4608,
+            "sha256": "a4c5b201f10b0c1bb5c2e74ac18ebbd2d0c96a4d1d9c9f99099565035a8b34cb"
+          },
+          {
+            "index": 9,
+            "bytes": 3072,
+            "sha256": "a8990cc821c180026370b2865e339e02294f14f58206b444b6f1c85c736a808b"
+          },
+          {
+            "index": 10,
+            "bytes": 2256,
+            "sha256": "fa258c63758fafc6b163116c75474cd7f272a0d4e5966947d2ecc3f7c4772ba0"
+          },
+          {
+            "index": 11,
+            "bytes": 7464,
+            "sha256": "01ce0d22c028fd75f0822765a4a2b31f11eb19cf7b5ea7443923099ec1dc0e3d"
+          },
+          {
+            "index": 12,
+            "bytes": 7464,
+            "sha256": "3a727861fb4cbe24ecf26b26664a8984112648f11c18d9b060e86105b0b5c6ff"
+          },
+          {
+            "index": 13,
+            "bytes": 4976,
+            "sha256": "e09df43d1e30896fad9a6802d95ed8e2becd39316d40b7ebd72b8d8360d79c6d"
+          },
+          {
+            "index": 14,
+            "bytes": 4152,
+            "sha256": "d28602ffae98b6f315ae6af4f99cd45334b9bb1b4f98c66abcfffc92576e54ec"
+          }
+        ],
+        "non_image_payload_bytes": 191040,
+        "image_payload_bytes": 2082067,
+        "images": [
+          {
+            "index": 0,
+            "name": "wooden_crate_01_nor_gl_1k",
+            "declared_mime": "image/jpeg",
+            "slots": [
+              "normalTexture"
+            ],
+            "role": "data",
+            "normal": true,
+            "embedded": true,
+            "buffer_view": 4,
+            "bytes": 594076,
+            "sha256": "f4ea44c7dc1686123d337039cb713d74e8a2dbc6d1bd2beeac276d06f5df3fab",
+            "magic": "JPEG",
+            "decoded": {
+              "format": "JPEG",
+              "mode": "RGB",
+              "width": 1024,
+              "height": 1024
+            },
+            "mime_matches_decoded": true
+          },
+          {
+            "index": 1,
+            "name": "wooden_crate_01_diff_1k",
+            "declared_mime": "image/jpeg",
+            "slots": [
+              "baseColorTexture"
+            ],
+            "role": "colour",
+            "normal": false,
+            "embedded": true,
+            "buffer_view": 5,
+            "bytes": 711292,
+            "sha256": "16653f4abaf4c1d9bca94bde3bd8c54d0ea9a5298d1648abcf57de1f7ecc34cc",
+            "magic": "JPEG",
+            "decoded": {
+              "format": "JPEG",
+              "mode": "RGB",
+              "width": 1024,
+              "height": 1024
+            },
+            "mime_matches_decoded": true
+          },
+          {
+            "index": 2,
+            "name": "wooden_crate_01_arm_1k",
+            "declared_mime": "image/jpeg",
+            "slots": [
+              "metallicRoughnessTexture"
+            ],
+            "role": "data",
+            "normal": false,
+            "embedded": true,
+            "buffer_view": 6,
+            "bytes": 776699,
+            "sha256": "cd0b031c3924905e16ffd78ead062c2cc274148c4104d09635310097738b4679",
+            "magic": "JPEG",
+            "decoded": {
+              "format": "JPEG",
+              "mode": "RGB",
+              "width": 1024,
+              "height": 1024
+            },
+            "mime_matches_decoded": true
+          }
+        ]
+      },
+      "image_changes": [
+        {
+          "index": 0,
+          "name": "wooden_crate_01_nor_gl_1k",
+          "role": "data",
+          "normal": true,
+          "requested_cap": 1024,
+          "outcome": "kept",
+          "before": {
+            "mime": "image/jpeg",
+            "format": "JPEG",
+            "width": 1024,
+            "height": 1024,
+            "bytes": 594076,
+            "sha256": "f4ea44c7dc1686123d337039cb713d74e8a2dbc6d1bd2beeac276d06f5df3fab"
+          },
+          "after": {
+            "mime": "image/jpeg",
+            "format": "JPEG",
+            "width": 1024,
+            "height": 1024,
+            "bytes": 594076,
+            "sha256": "f4ea44c7dc1686123d337039cb713d74e8a2dbc6d1bd2beeac276d06f5df3fab"
+          },
+          "after_longest_side_within_cap": true
+        },
+        {
+          "index": 1,
+          "name": "wooden_crate_01_diff_1k",
+          "role": "colour",
+          "normal": false,
+          "requested_cap": 1024,
+          "outcome": "kept",
+          "before": {
+            "mime": "image/jpeg",
+            "format": "JPEG",
+            "width": 1024,
+            "height": 1024,
+            "bytes": 711292,
+            "sha256": "16653f4abaf4c1d9bca94bde3bd8c54d0ea9a5298d1648abcf57de1f7ecc34cc"
+          },
+          "after": {
+            "mime": "image/jpeg",
+            "format": "JPEG",
+            "width": 1024,
+            "height": 1024,
+            "bytes": 711292,
+            "sha256": "16653f4abaf4c1d9bca94bde3bd8c54d0ea9a5298d1648abcf57de1f7ecc34cc"
+          },
+          "after_longest_side_within_cap": true
+        },
+        {
+          "index": 2,
+          "name": "wooden_crate_01_arm_1k",
+          "role": "data",
+          "normal": false,
+          "requested_cap": 1024,
+          "outcome": "kept",
+          "before": {
+            "mime": "image/jpeg",
+            "format": "JPEG",
+            "width": 1024,
+            "height": 1024,
+            "bytes": 776699,
+            "sha256": "cd0b031c3924905e16ffd78ead062c2cc274148c4104d09635310097738b4679"
+          },
+          "after": {
+            "mime": "image/jpeg",
+            "format": "JPEG",
+            "width": 1024,
+            "height": 1024,
+            "bytes": 776699,
+            "sha256": "cd0b031c3924905e16ffd78ead062c2cc274148c4104d09635310097738b4679"
+          },
+          "after_longest_side_within_cap": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "json_outside_images_and_buffers_equal",
+          "passed": true
+        },
+        {
+          "name": "image_entries_equal_except_mime",
+          "passed": true
+        },
+        {
+          "name": "buffer_view_layout_equal",
+          "passed": true
+        },
+        {
+          "name": "every_non_image_payload_byte_equal",
+          "passed": true,
+          "detail": {
+            "non_image_views": 12
+          }
+        },
+        {
+          "name": "single_embedded_buffer_consistent",
+          "passed": true
+        },
+        {
+          "name": "geometry_json_sha256_equal",
+          "passed": true
+        },
+        {
+          "name": "material_json_sha256_equal",
+          "passed": true
+        },
+        {
+          "name": "triangle_and_vertex_counts_equal",
+          "passed": true
+        },
+        {
+          "name": "images_embedded_decoded_mime_matches",
+          "passed": true
+        }
+      ],
+      "summary": {
+        "glb_bytes": 2276520,
+        "packed_input_bytes": 2276520,
+        "ratio_to_packed_input": 1.0,
+        "byte_identical_to_packed_input": true,
+        "images_replaced": 0,
+        "images_kept": 3,
+        "image_roles": {
+          "colour": 1,
+          "data": 2,
+          "normal_within_data": 1,
+          "mixed": 0,
+          "unbound": 0
+        },
+        "image_payload_bytes": 2082067,
+        "non_image_payload_bytes": 191040,
+        "elapsed_seconds": 1.183
+      }
+    },
+    {
+      "id": "cap512",
+      "tool": "original scripts/compress_glb_textures.py (unchanged)",
+      "input": "input/packed_input.glb",
+      "requested": {
+        "format": "png",
+        "quality": 90,
+        "map_quality": 90,
+        "max_size": 512,
+        "map_size": 512,
+        "normal_size": 512
+      },
+      "call": {
+        "argv": [
+          "<python>",
+          "-I",
+          "<upstream>/scripts/compress_glb_textures.py",
+          "outputs/input/packed_input.glb",
+          "outputs/outputs/cap512.glb",
+          "--format",
+          "png",
+          "--quality",
+          "90",
+          "--map-quality",
+          "90",
+          "--max-size",
+          "512",
+          "--map-size",
+          "512",
+          "--normal-size",
+          "512"
+        ],
+        "cwd": "<example>",
+        "exit_code": 0,
+        "timed_out": false,
+        "launch_error": null,
+        "elapsed_seconds": 0.52,
+        "stdout": {
+          "bytes": 176,
+          "sha256": "80411dec09ab89cf96c5e7f1530dba6edb1287c16dc58dc65f83ca1293b72713",
+          "kept": "private"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "kept": "private"
+        }
+      },
+      "artifact": {
+        "path": "outputs/cap512.glb",
+        "bytes": 1315140,
+        "sha256": "3830aacd2cf1576b5a4be9a30475391d6f56105e9329d6c435f18e6235c96eec"
+      },
+      "byte_identical_to_packed_input": false,
+      "inspection": {
+        "bytes": 1315140,
+        "sha256": "3830aacd2cf1576b5a4be9a30475391d6f56105e9329d6c435f18e6235c96eec",
+        "chunks": [
+          {
+            "type": "JSON",
+            "bytes": 3380
+          },
+          {
+            "type": "BIN",
+            "bytes": 1311732
+          }
+        ],
+        "generator": "Khronos glTF Blender I/O v5.2.40",
+        "extensions_used": [],
+        "extensions_required": [],
+        "counts": {
+          "scenes": 1,
+          "nodes": 3,
+          "mesh_nodes": 3,
+          "meshes": 3,
+          "primitives": 3,
+          "materials": 1,
+          "textures": 3,
+          "images": 3,
+          "accessors": 12,
+          "buffer_views": 15,
+          "buffers": 1
+        },
+        "image_roles": {
+          "colour": 1,
+          "data": 2,
+          "normal_within_data": 1,
+          "mixed": 0,
+          "unbound": 0
+        },
+        "geometry": {
+          "triangles": 6576,
+          "position_vertices": 4737,
+          "index_count": 19728,
+          "non_triangle_primitives": 0,
+          "meshes": [
+            {
+              "index": 0,
+              "name": "Cube.020",
+              "primitives": 1,
+              "triangles": 5508,
+              "position_vertices": 3731,
+              "local_bounds": {
+                "min": [
+                  -0.4126364588737488,
+                  -0.00793334562331438,
+                  -0.19549614191055298
+                ],
+                "max": [
+                  0.4126364588737488,
+                  0.3139750361442566,
+                  0.2128141224384308
+                ]
+              }
+            },
+            {
+              "index": 1,
+              "name": "Cube.001",
+              "primitives": 1,
+              "triangles": 376,
+              "position_vertices": 384,
+              "local_bounds": {
+                "min": [
+                  -0.016070956364274025,
+                  0.2390938252210617,
+                  0.1312473714351654
+                ],
+                "max": [
+                  0.009643923491239548,
+                  0.3357900381088257,
+                  0.2071036398410797
+                ]
+              }
+            },
+            {
+              "index": 2,
+              "name": "Cube.005",
+              "primitives": 1,
+              "triangles": 692,
+              "position_vertices": 622,
+              "local_bounds": {
+                "min": [
+                  -0.3539096713066101,
+                  0.29946234822273254,
+                  -0.1961396187543869
+                ],
+                "max": [
+                  0.3539096713066101,
+                  0.3416849374771118,
+                  0.1961396187543869
+                ]
+              }
+            }
+          ],
+          "nodes": [
+            {
+              "index": 0,
+              "name": "wooden_crate_01",
+              "mesh": 0,
+              "children": [],
+              "translation": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "scale": [
+                1.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "index": 1,
+              "name": "wooden_crate_01_latch",
+              "mesh": 1,
+              "children": [],
+              "translation": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "scale": [
+                1.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "index": 2,
+              "name": "wooden_crate_01_lid",
+              "mesh": 2,
+              "children": [],
+              "translation": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "scale": [
+                1.0,
+                1.0,
+                1.0
+              ]
+            }
+          ]
+        },
+        "geometry_json_sha256": "a3fe1c65567770ee2a1eac506cc4a7ed11da52f8c99b987c95a3feba962f4dc2",
+        "material_json_sha256": "5857e0240d3bdf504a6e1880d8866a59cef5de19187705dab4062ca56dd391ae",
+        "non_image_buffer_views": [
+          {
+            "index": 0,
+            "bytes": 44772,
+            "sha256": "483d874cf4231c9596ae3bee3783b6e4c23931460f1915b5234f7912d11bc241"
+          },
+          {
+            "index": 1,
+            "bytes": 44772,
+            "sha256": "536d65251c244cdcb19a348114efc57f64a3937e1c3c4a84833e996f8779c9a7"
+          },
+          {
+            "index": 2,
+            "bytes": 29848,
+            "sha256": "99229d659e6ecf6a7e67041c5d37a9aab2876b180d5322dd2efbe0d784c95cd9"
+          },
+          {
+            "index": 3,
+            "bytes": 33048,
+            "sha256": "521568faf4fbb11a6d78ab0703773fc794cb7d5b5e2279e8ef691bb8bb673c35"
+          },
+          {
+            "index": 7,
+            "bytes": 4608,
+            "sha256": "997c128b0076d0f7a37b9398fa458dd72329a7148f8fedd3f2005e17119252cc"
+          },
+          {
+            "index": 8,
+            "bytes": 4608,
+            "sha256": "a4c5b201f10b0c1bb5c2e74ac18ebbd2d0c96a4d1d9c9f99099565035a8b34cb"
+          },
+          {
+            "index": 9,
+            "bytes": 3072,
+            "sha256": "a8990cc821c180026370b2865e339e02294f14f58206b444b6f1c85c736a808b"
+          },
+          {
+            "index": 10,
+            "bytes": 2256,
+            "sha256": "fa258c63758fafc6b163116c75474cd7f272a0d4e5966947d2ecc3f7c4772ba0"
+          },
+          {
+            "index": 11,
+            "bytes": 7464,
+            "sha256": "01ce0d22c028fd75f0822765a4a2b31f11eb19cf7b5ea7443923099ec1dc0e3d"
+          },
+          {
+            "index": 12,
+            "bytes": 7464,
+            "sha256": "3a727861fb4cbe24ecf26b26664a8984112648f11c18d9b060e86105b0b5c6ff"
+          },
+          {
+            "index": 13,
+            "bytes": 4976,
+            "sha256": "e09df43d1e30896fad9a6802d95ed8e2becd39316d40b7ebd72b8d8360d79c6d"
+          },
+          {
+            "index": 14,
+            "bytes": 4152,
+            "sha256": "d28602ffae98b6f315ae6af4f99cd45334b9bb1b4f98c66abcfffc92576e54ec"
+          }
+        ],
+        "non_image_payload_bytes": 191040,
+        "image_payload_bytes": 1120687,
+        "images": [
+          {
+            "index": 0,
+            "name": "wooden_crate_01_nor_gl_1k",
+            "declared_mime": "image/png",
+            "slots": [
+              "normalTexture"
+            ],
+            "role": "data",
+            "normal": true,
+            "embedded": true,
+            "buffer_view": 4,
+            "bytes": 324842,
+            "sha256": "409f375ed963d91640cd0036aad7bb17932b75cf6a4671646a902db964dcd5d6",
+            "magic": "PNG",
+            "decoded": {
+              "format": "PNG",
+              "mode": "RGB",
+              "width": 512,
+              "height": 512
+            },
+            "mime_matches_decoded": true
+          },
+          {
+            "index": 1,
+            "name": "wooden_crate_01_diff_1k",
+            "declared_mime": "image/png",
+            "slots": [
+              "baseColorTexture"
+            ],
+            "role": "colour",
+            "normal": false,
+            "embedded": true,
+            "buffer_view": 5,
+            "bytes": 412060,
+            "sha256": "b72f5b397c666914b7c0e62391e1530756ff785be5801128db9c253b04beb5f3",
+            "magic": "PNG",
+            "decoded": {
+              "format": "PNG",
+              "mode": "RGB",
+              "width": 512,
+              "height": 512
+            },
+            "mime_matches_decoded": true
+          },
+          {
+            "index": 2,
+            "name": "wooden_crate_01_arm_1k",
+            "declared_mime": "image/png",
+            "slots": [
+              "metallicRoughnessTexture"
+            ],
+            "role": "data",
+            "normal": false,
+            "embedded": true,
+            "buffer_view": 6,
+            "bytes": 383785,
+            "sha256": "343fba0c8d99a757b17793c701b874eac4484b79482f79b772e57ed76aedf5d7",
+            "magic": "PNG",
+            "decoded": {
+              "format": "PNG",
+              "mode": "RGB",
+              "width": 512,
+              "height": 512
+            },
+            "mime_matches_decoded": true
+          }
+        ]
+      },
+      "image_changes": [
+        {
+          "index": 0,
+          "name": "wooden_crate_01_nor_gl_1k",
+          "role": "data",
+          "normal": true,
+          "requested_cap": 512,
+          "outcome": "replaced",
+          "before": {
+            "mime": "image/jpeg",
+            "format": "JPEG",
+            "width": 1024,
+            "height": 1024,
+            "bytes": 594076,
+            "sha256": "f4ea44c7dc1686123d337039cb713d74e8a2dbc6d1bd2beeac276d06f5df3fab"
+          },
+          "after": {
+            "mime": "image/png",
+            "format": "PNG",
+            "width": 512,
+            "height": 512,
+            "bytes": 324842,
+            "sha256": "409f375ed963d91640cd0036aad7bb17932b75cf6a4671646a902db964dcd5d6"
+          },
+          "after_longest_side_within_cap": true
+        },
+        {
+          "index": 1,
+          "name": "wooden_crate_01_diff_1k",
+          "role": "colour",
+          "normal": false,
+          "requested_cap": 512,
+          "outcome": "replaced",
+          "before": {
+            "mime": "image/jpeg",
+            "format": "JPEG",
+            "width": 1024,
+            "height": 1024,
+            "bytes": 711292,
+            "sha256": "16653f4abaf4c1d9bca94bde3bd8c54d0ea9a5298d1648abcf57de1f7ecc34cc"
+          },
+          "after": {
+            "mime": "image/png",
+            "format": "PNG",
+            "width": 512,
+            "height": 512,
+            "bytes": 412060,
+            "sha256": "b72f5b397c666914b7c0e62391e1530756ff785be5801128db9c253b04beb5f3"
+          },
+          "after_longest_side_within_cap": true
+        },
+        {
+          "index": 2,
+          "name": "wooden_crate_01_arm_1k",
+          "role": "data",
+          "normal": false,
+          "requested_cap": 512,
+          "outcome": "replaced",
+          "before": {
+            "mime": "image/jpeg",
+            "format": "JPEG",
+            "width": 1024,
+            "height": 1024,
+            "bytes": 776699,
+            "sha256": "cd0b031c3924905e16ffd78ead062c2cc274148c4104d09635310097738b4679"
+          },
+          "after": {
+            "mime": "image/png",
+            "format": "PNG",
+            "width": 512,
+            "height": 512,
+            "bytes": 383785,
+            "sha256": "343fba0c8d99a757b17793c701b874eac4484b79482f79b772e57ed76aedf5d7"
+          },
+          "after_longest_side_within_cap": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "json_outside_images_and_buffers_equal",
+          "passed": true
+        },
+        {
+          "name": "image_entries_equal_except_mime",
+          "passed": true
+        },
+        {
+          "name": "buffer_view_layout_equal",
+          "passed": true
+        },
+        {
+          "name": "every_non_image_payload_byte_equal",
+          "passed": true,
+          "detail": {
+            "non_image_views": 12
+          }
+        },
+        {
+          "name": "single_embedded_buffer_consistent",
+          "passed": true
+        },
+        {
+          "name": "geometry_json_sha256_equal",
+          "passed": true
+        },
+        {
+          "name": "material_json_sha256_equal",
+          "passed": true
+        },
+        {
+          "name": "triangle_and_vertex_counts_equal",
+          "passed": true
+        },
+        {
+          "name": "images_embedded_decoded_mime_matches",
+          "passed": true
+        }
+      ],
+      "summary": {
+        "glb_bytes": 1315140,
+        "packed_input_bytes": 2276520,
+        "ratio_to_packed_input": 0.5777,
+        "byte_identical_to_packed_input": false,
+        "images_replaced": 3,
+        "images_kept": 0,
+        "image_roles": {
+          "colour": 1,
+          "data": 2,
+          "normal_within_data": 1,
+          "mixed": 0,
+          "unbound": 0
+        },
+        "image_payload_bytes": 1120687,
+        "non_image_payload_bytes": 191040,
+        "elapsed_seconds": 0.52
+      }
+    },
+    {
+      "id": "cap256",
+      "tool": "original scripts/compress_glb_textures.py (unchanged)",
+      "input": "input/packed_input.glb",
+      "requested": {
+        "format": "png",
+        "quality": 90,
+        "map_quality": 90,
+        "max_size": 256,
+        "map_size": 256,
+        "normal_size": 256
+      },
+      "call": {
+        "argv": [
+          "<python>",
+          "-I",
+          "<upstream>/scripts/compress_glb_textures.py",
+          "outputs/input/packed_input.glb",
+          "outputs/outputs/cap256.glb",
+          "--format",
+          "png",
+          "--quality",
+          "90",
+          "--map-quality",
+          "90",
+          "--max-size",
+          "256",
+          "--map-size",
+          "256",
+          "--normal-size",
+          "256"
+        ],
+        "cwd": "<example>",
+        "exit_code": 0,
+        "timed_out": false,
+        "launch_error": null,
+        "elapsed_seconds": 0.262,
+        "stdout": {
+          "bytes": 176,
+          "sha256": "d06ef15bdb43e78e046a5a10cf63709fa7c834b6cab911500bd104843df125ab",
+          "kept": "private"
+        },
+        "stderr": {
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "kept": "private"
+        }
+      },
+      "artifact": {
+        "path": "outputs/cap256.glb",
+        "bytes": 473124,
+        "sha256": "80f1bb39570f8b15d478fc116bf29fd60cb24b39a55e5b00b57ef9b0b051e50f"
+      },
+      "byte_identical_to_packed_input": false,
+      "inspection": {
+        "bytes": 473124,
+        "sha256": "80f1bb39570f8b15d478fc116bf29fd60cb24b39a55e5b00b57ef9b0b051e50f",
+        "chunks": [
+          {
+            "type": "JSON",
+            "bytes": 3368
+          },
+          {
+            "type": "BIN",
+            "bytes": 469728
+          }
+        ],
+        "generator": "Khronos glTF Blender I/O v5.2.40",
+        "extensions_used": [],
+        "extensions_required": [],
+        "counts": {
+          "scenes": 1,
+          "nodes": 3,
+          "mesh_nodes": 3,
+          "meshes": 3,
+          "primitives": 3,
+          "materials": 1,
+          "textures": 3,
+          "images": 3,
+          "accessors": 12,
+          "buffer_views": 15,
+          "buffers": 1
+        },
+        "image_roles": {
+          "colour": 1,
+          "data": 2,
+          "normal_within_data": 1,
+          "mixed": 0,
+          "unbound": 0
+        },
+        "geometry": {
+          "triangles": 6576,
+          "position_vertices": 4737,
+          "index_count": 19728,
+          "non_triangle_primitives": 0,
+          "meshes": [
+            {
+              "index": 0,
+              "name": "Cube.020",
+              "primitives": 1,
+              "triangles": 5508,
+              "position_vertices": 3731,
+              "local_bounds": {
+                "min": [
+                  -0.4126364588737488,
+                  -0.00793334562331438,
+                  -0.19549614191055298
+                ],
+                "max": [
+                  0.4126364588737488,
+                  0.3139750361442566,
+                  0.2128141224384308
+                ]
+              }
+            },
+            {
+              "index": 1,
+              "name": "Cube.001",
+              "primitives": 1,
+              "triangles": 376,
+              "position_vertices": 384,
+              "local_bounds": {
+                "min": [
+                  -0.016070956364274025,
+                  0.2390938252210617,
+                  0.1312473714351654
+                ],
+                "max": [
+                  0.009643923491239548,
+                  0.3357900381088257,
+                  0.2071036398410797
+                ]
+              }
+            },
+            {
+              "index": 2,
+              "name": "Cube.005",
+              "primitives": 1,
+              "triangles": 692,
+              "position_vertices": 622,
+              "local_bounds": {
+                "min": [
+                  -0.3539096713066101,
+                  0.29946234822273254,
+                  -0.1961396187543869
+                ],
+                "max": [
+                  0.3539096713066101,
+                  0.3416849374771118,
+                  0.1961396187543869
+                ]
+              }
+            }
+          ],
+          "nodes": [
+            {
+              "index": 0,
+              "name": "wooden_crate_01",
+              "mesh": 0,
+              "children": [],
+              "translation": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "scale": [
+                1.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "index": 1,
+              "name": "wooden_crate_01_latch",
+              "mesh": 1,
+              "children": [],
+              "translation": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "scale": [
+                1.0,
+                1.0,
+                1.0
+              ]
+            },
+            {
+              "index": 2,
+              "name": "wooden_crate_01_lid",
+              "mesh": 2,
+              "children": [],
+              "translation": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "rotation": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "scale": [
+                1.0,
+                1.0,
+                1.0
+              ]
+            }
+          ]
+        },
+        "geometry_json_sha256": "a3fe1c65567770ee2a1eac506cc4a7ed11da52f8c99b987c95a3feba962f4dc2",
+        "material_json_sha256": "5857e0240d3bdf504a6e1880d8866a59cef5de19187705dab4062ca56dd391ae",
+        "non_image_buffer_views": [
+          {
+            "index": 0,
+            "bytes": 44772,
+            "sha256": "483d874cf4231c9596ae3bee3783b6e4c23931460f1915b5234f7912d11bc241"
+          },
+          {
+            "index": 1,
+            "bytes": 44772,
+            "sha256": "536d65251c244cdcb19a348114efc57f64a3937e1c3c4a84833e996f8779c9a7"
+          },
+          {
+            "index": 2,
+            "bytes": 29848,
+            "sha256": "99229d659e6ecf6a7e67041c5d37a9aab2876b180d5322dd2efbe0d784c95cd9"
+          },
+          {
+            "index": 3,
+            "bytes": 33048,
+            "sha256": "521568faf4fbb11a6d78ab0703773fc794cb7d5b5e2279e8ef691bb8bb673c35"
+          },
+          {
+            "index": 7,
+            "bytes": 4608,
+            "sha256": "997c128b0076d0f7a37b9398fa458dd72329a7148f8fedd3f2005e17119252cc"
+          },
+          {
+            "index": 8,
+            "bytes": 4608,
+            "sha256": "a4c5b201f10b0c1bb5c2e74ac18ebbd2d0c96a4d1d9c9f99099565035a8b34cb"
+          },
+          {
+            "index": 9,
+            "bytes": 3072,
+            "sha256": "a8990cc821c180026370b2865e339e02294f14f58206b444b6f1c85c736a808b"
+          },
+          {
+            "index": 10,
+            "bytes": 2256,
+            "sha256": "fa258c63758fafc6b163116c75474cd7f272a0d4e5966947d2ecc3f7c4772ba0"
+          },
+          {
+            "index": 11,
+            "bytes": 7464,
+            "sha256": "01ce0d22c028fd75f0822765a4a2b31f11eb19cf7b5ea7443923099ec1dc0e3d"
+          },
+          {
+            "index": 12,
+            "bytes": 7464,
+            "sha256": "3a727861fb4cbe24ecf26b26664a8984112648f11c18d9b060e86105b0b5c6ff"
+          },
+          {
+            "index": 13,
+            "bytes": 4976,
+            "sha256": "e09df43d1e30896fad9a6802d95ed8e2becd39316d40b7ebd72b8d8360d79c6d"
+          },
+          {
+            "index": 14,
+            "bytes": 4152,
+            "sha256": "d28602ffae98b6f315ae6af4f99cd45334b9bb1b4f98c66abcfffc92576e54ec"
+          }
+        ],
+        "non_image_payload_bytes": 191040,
+        "image_payload_bytes": 278680,
+        "images": [
+          {
+            "index": 0,
+            "name": "wooden_crate_01_nor_gl_1k",
+            "declared_mime": "image/png",
+            "slots": [
+              "normalTexture"
+            ],
+            "role": "data",
+            "normal": true,
+            "embedded": true,
+            "buffer_view": 4,
+            "bytes": 77022,
+            "sha256": "7cd4c6d90a3b1c5392c7d36cf034541122359238a5185922c3778035b5b09588",
+            "magic": "PNG",
+            "decoded": {
+              "format": "PNG",
+              "mode": "RGB",
+              "width": 256,
+              "height": 256
+            },
+            "mime_matches_decoded": true
+          },
+          {
+            "index": 1,
+            "name": "wooden_crate_01_diff_1k",
+            "declared_mime": "image/png",
+            "slots": [
+              "baseColorTexture"
+            ],
+            "role": "colour",
+            "normal": false,
+            "embedded": true,
+            "buffer_view": 5,
+            "bytes": 104281,
+            "sha256": "9745bc1959dc02ad58f369623ea76cf506b78bdfe4b85a9049a4afb125d83fee",
+            "magic": "PNG",
+            "decoded": {
+              "format": "PNG",
+              "mode": "RGB",
+              "width": 256,
+              "height": 256
+            },
+            "mime_matches_decoded": true
+          },
+          {
+            "index": 2,
+            "name": "wooden_crate_01_arm_1k",
+            "declared_mime": "image/png",
+            "slots": [
+              "metallicRoughnessTexture"
+            ],
+            "role": "data",
+            "normal": false,
+            "embedded": true,
+            "buffer_view": 6,
+            "bytes": 97377,
+            "sha256": "e49aa5dde33fbef7ea7562d27ae20d8cd2b783187aa648cedf28851276449923",
+            "magic": "PNG",
+            "decoded": {
+              "format": "PNG",
+              "mode": "RGB",
+              "width": 256,
+              "height": 256
+            },
+            "mime_matches_decoded": true
+          }
+        ]
+      },
+      "image_changes": [
+        {
+          "index": 0,
+          "name": "wooden_crate_01_nor_gl_1k",
+          "role": "data",
+          "normal": true,
+          "requested_cap": 256,
+          "outcome": "replaced",
+          "before": {
+            "mime": "image/jpeg",
+            "format": "JPEG",
+            "width": 1024,
+            "height": 1024,
+            "bytes": 594076,
+            "sha256": "f4ea44c7dc1686123d337039cb713d74e8a2dbc6d1bd2beeac276d06f5df3fab"
+          },
+          "after": {
+            "mime": "image/png",
+            "format": "PNG",
+            "width": 256,
+            "height": 256,
+            "bytes": 77022,
+            "sha256": "7cd4c6d90a3b1c5392c7d36cf034541122359238a5185922c3778035b5b09588"
+          },
+          "after_longest_side_within_cap": true
+        },
+        {
+          "index": 1,
+          "name": "wooden_crate_01_diff_1k",
+          "role": "colour",
+          "normal": false,
+          "requested_cap": 256,
+          "outcome": "replaced",
+          "before": {
+            "mime": "image/jpeg",
+            "format": "JPEG",
+            "width": 1024,
+            "height": 1024,
+            "bytes": 711292,
+            "sha256": "16653f4abaf4c1d9bca94bde3bd8c54d0ea9a5298d1648abcf57de1f7ecc34cc"
+          },
+          "after": {
+            "mime": "image/png",
+            "format": "PNG",
+            "width": 256,
+            "height": 256,
+            "bytes": 104281,
+            "sha256": "9745bc1959dc02ad58f369623ea76cf506b78bdfe4b85a9049a4afb125d83fee"
+          },
+          "after_longest_side_within_cap": true
+        },
+        {
+          "index": 2,
+          "name": "wooden_crate_01_arm_1k",
+          "role": "data",
+          "normal": false,
+          "requested_cap": 256,
+          "outcome": "replaced",
+          "before": {
+            "mime": "image/jpeg",
+            "format": "JPEG",
+            "width": 1024,
+            "height": 1024,
+            "bytes": 776699,
+            "sha256": "cd0b031c3924905e16ffd78ead062c2cc274148c4104d09635310097738b4679"
+          },
+          "after": {
+            "mime": "image/png",
+            "format": "PNG",
+            "width": 256,
+            "height": 256,
+            "bytes": 97377,
+            "sha256": "e49aa5dde33fbef7ea7562d27ae20d8cd2b783187aa648cedf28851276449923"
+          },
+          "after_longest_side_within_cap": true
+        }
+      ],
+      "checks": [
+        {
+          "name": "json_outside_images_and_buffers_equal",
+          "passed": true
+        },
+        {
+          "name": "image_entries_equal_except_mime",
+          "passed": true
+        },
+        {
+          "name": "buffer_view_layout_equal",
+          "passed": true
+        },
+        {
+          "name": "every_non_image_payload_byte_equal",
+          "passed": true,
+          "detail": {
+            "non_image_views": 12
+          }
+        },
+        {
+          "name": "single_embedded_buffer_consistent",
+          "passed": true
+        },
+        {
+          "name": "geometry_json_sha256_equal",
+          "passed": true
+        },
+        {
+          "name": "material_json_sha256_equal",
+          "passed": true
+        },
+        {
+          "name": "triangle_and_vertex_counts_equal",
+          "passed": true
+        },
+        {
+          "name": "images_embedded_decoded_mime_matches",
+          "passed": true
+        }
+      ],
+      "summary": {
+        "glb_bytes": 473124,
+        "packed_input_bytes": 2276520,
+        "ratio_to_packed_input": 0.2078,
+        "byte_identical_to_packed_input": false,
+        "images_replaced": 3,
+        "images_kept": 0,
+        "image_roles": {
+          "colour": 1,
+          "data": 2,
+          "normal_within_data": 1,
+          "mixed": 0,
+          "unbound": 0
+        },
+        "image_payload_bytes": 278680,
+        "non_image_payload_bytes": 191040,
+        "elapsed_seconds": 0.262
+      }
+    }
+  ],
+  "final_checks": [
+    {
+      "name": "environment_probe_calls",
+      "passed": true,
+      "detail": {
+        "expected": 1,
+        "actual": 1
+      }
+    },
+    {
+      "name": "blender_prepare_calls",
+      "passed": true,
+      "detail": {
+        "expected": 1,
+        "actual": 1
+      }
+    },
+    {
+      "name": "original_compress_cli_calls",
+      "passed": true,
+      "detail": {
+        "expected": 3,
+        "actual": 3
+      }
+    },
+    {
+      "name": "input_files_unchanged_after_run",
+      "passed": true
+    },
+    {
+      "name": "packed_input_unchanged_after_run",
+      "passed": true
+    },
+    {
+      "name": "original_cli_unchanged_after_run",
+      "passed": true
+    }
+  ],
+  "calls": {
+    "environment_probe": {
+      "expected": 1,
+      "actual": 1
+    },
+    "blender_prepare": {
+      "expected": 1,
+      "actual": 1
+    },
+    "original_compress_cli": {
+      "expected": 3,
+      "actual": 3
+    }
+  },
+  "failed_checks": []
+}

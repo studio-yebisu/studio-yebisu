@@ -1,0 +1,29 @@
+{
+  "format": "input-output",
+  "samples": [
+    {
+      "id": "cap1024",
+      "label": "1024上限：同じ入力GLBから原典CLIを1回（3枚とも保持・入力と同一）",
+      "input": "同じ入力GLB：outputs/input/packed_input.glb（2,276,520B・SHA-256 cffd8d4fc47cb704…）。Poly Haven「Wooden Crate 01」（James Ray Cock・CC0）の既存の5ファイルを、制作担当がBlender 5.2.1で1回だけ1つのGLBに包装したもの（AssetFurnaceの処理ではない）。メッシュ3・三角形6,576、画像3枚はすべてJPEG 1024×1024（色＝baseColor、数値＝metallicRoughness、法線＝normal。法線も数値の画像の一つ）。\n\n原典CLI（Bingeljell/image-to-3dlab 91879333・scripts/compress_glb_textures.py・無改変、Python 3.11.15・Pillow 11.3.0）に渡した設定：\n--format png --quality 90 --map-quality 90 --max-size 1024 --map-size 1024 --normal-size 1024\n\n要求はPNG・最長辺1024pxまで。quality 90 はPNGでは使われない引数です。3つの設定は同じ入力からの別々の1回で、3つの生成メッシュでもAIの推論でもありません。",
+      "output": "出力GLB：outputs/outputs/cap1024.glb 2,276,520B（SHA-256 cffd8d4fc47cb704…）＝入力GLBと全バイト同一。\n\n画像3枚とも保持：1024×1024の画像は上限を超えないので縮めず、PNGにした候補が元のJPEGより小さくならなかったため、元のJPEGのバイト列・MIME・寸法のまま（色 711,292B／数値 776,699B／法線 594,076B）。置換が0枚なので、原典は入力をそのまま返しました。捨てた候補PNGは原典が保存しないので、そのバイト数や画素は記録にありません。\n\n原典CLIの出力（全文）：\n  image 0 [data] 0.57 -> 0.57 MB (kept, re-encoding was larger)\n  image 1 [colour] 0.68 -> 0.68 MB (kept, re-encoding was larger)\n  image 2 [data] 0.74 -> 0.74 MB (kept, re-encoding was larger)\npacked_input.glb: 2.2 MB -> 2.2 MB (100%)\n\n壁時計1.183秒（1回・インタプリタ起動を含む。性能の指標ではない）。",
+      "glb": "outputs/outputs/cap1024.glb",
+      "results": "outputs/results.json"
+    },
+    {
+      "id": "cap512",
+      "label": "512上限：同じ入力GLBから原典CLIを1回（3枚とも置換）",
+      "input": "同じ入力GLB：outputs/input/packed_input.glb（2,276,520B・SHA-256 cffd8d4fc47cb704…）。Poly Haven「Wooden Crate 01」（James Ray Cock・CC0）の既存の5ファイルを、制作担当がBlender 5.2.1で1回だけ1つのGLBに包装したもの（AssetFurnaceの処理ではない）。メッシュ3・三角形6,576、画像3枚はすべてJPEG 1024×1024（色＝baseColor、数値＝metallicRoughness、法線＝normal。法線も数値の画像の一つ）。\n\n原典CLI（Bingeljell/image-to-3dlab 91879333・scripts/compress_glb_textures.py・無改変、Python 3.11.15・Pillow 11.3.0）に渡した設定：\n--format png --quality 90 --map-quality 90 --max-size 512 --map-size 512 --normal-size 512\n\n要求はPNG・最長辺512pxまで。quality 90 はPNGでは使われない引数です。3つの設定は同じ入力からの別々の1回で、3つの生成メッシュでもAIの推論でもありません。",
+      "output": "出力GLB：outputs/outputs/cap512.glb 1,315,140B（入力の57.8%・SHA-256 3830aacd2cf1576b…）。\n\n画像3枚とも置換（PNG 512×512、元より小さかったもの）：色 711,292→412,060B／数値 776,699→383,785B／法線 594,076→324,842B。画像の合計 2,082,067→1,120,687B。LANCZOSでの縮小で画素は変わるので、見た目が劣化しないとは言えません。\n\n原典CLIの出力（全文）：\n  image 0 [data] 1024x1024 0.57 -> 0.31 MB\n  image 1 [colour] 1024x1024 0.68 -> 0.39 MB\n  image 2 [data] 1024x1024 0.74 -> 0.37 MB\npacked_input.glb: 2.2 MB -> 1.3 MB (58%)\n\n形：画像以外の12view（191,040B）の全バイト、画像とbuffer以外のJSON、三角形と頂点の数が入力GLBと一致（制作担当が別工程で照合）。見た目・ゲームでの適性・表示性能は未確認。壁時計0.52秒（1回・性能の指標ではない）。",
+      "glb": "outputs/outputs/cap512.glb",
+      "results": "outputs/results.json"
+    },
+    {
+      "id": "cap256",
+      "label": "256上限：同じ入力GLBから原典CLIを1回（3枚とも置換）",
+      "input": "同じ入力GLB：outputs/input/packed_input.glb（2,276,520B・SHA-256 cffd8d4fc47cb704…）。Poly Haven「Wooden Crate 01」（James Ray Cock・CC0）の既存の5ファイルを、制作担当がBlender 5.2.1で1回だけ1つのGLBに包装したもの（AssetFurnaceの処理ではない）。メッシュ3・三角形6,576、画像3枚はすべてJPEG 1024×1024（色＝baseColor、数値＝metallicRoughness、法線＝normal。法線も数値の画像の一つ）。\n\n原典CLI（Bingeljell/image-to-3dlab 91879333・scripts/compress_glb_textures.py・無改変、Python 3.11.15・Pillow 11.3.0）に渡した設定：\n--format png --quality 90 --map-quality 90 --max-size 256 --map-size 256 --normal-size 256\n\n要求はPNG・最長辺256pxまで。quality 90 はPNGでは使われない引数です。3つの設定は同じ入力からの別々の1回で、3つの生成メッシュでもAIの推論でもありません。",
+      "output": "出力GLB：outputs/outputs/cap256.glb 473,124B（入力の20.8%・SHA-256 80f1bb39570f8b15…）。\n\n画像3枚とも置換（PNG 256×256、元より小さかったもの）：色 711,292→104,281B／数値 776,699→97,377B／法線 594,076→77,022B。画像の合計 2,082,067→278,680B。LANCZOSでの縮小で画素は変わるので、見た目が劣化しないとは言えません。\n\n原典CLIの出力（全文）：\n  image 0 [data] 1024x1024 0.57 -> 0.07 MB\n  image 1 [colour] 1024x1024 0.68 -> 0.10 MB\n  image 2 [data] 1024x1024 0.74 -> 0.09 MB\npacked_input.glb: 2.2 MB -> 0.5 MB (21%)\n\n形：画像以外の12view（191,040B）の全バイト、画像とbuffer以外のJSON、三角形と頂点の数が入力GLBと一致（制作担当が別工程で照合）。見た目・ゲームでの適性・表示性能は未確認。壁時計0.262秒（1回・性能の指標ではない）。",
+      "glb": "outputs/outputs/cap256.glb",
+      "results": "outputs/results.json"
+    }
+  ]
+}

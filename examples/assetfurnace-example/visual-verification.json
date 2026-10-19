@@ -1,0 +1,707 @@
+{
+  "id": "assetfurnace-example",
+  "verified_at": "2026-10-19T20:25:49.322053+00:00",
+  "stage": "runtime-and-agent-visual-reviewed",
+  "new_case": true,
+  "identity": {
+    "name": "AssetFurnace / Image to3D Lab",
+    "kind": "ローカル3Dアプリ/パイプラインとPython補助CLI",
+    "source_repository": "Bingeljell/image-to-3dlab",
+    "source_commit": "91879333e88a0571945b15b0e21e4bc95ec59e31",
+    "license": "Apache-2.0",
+    "source_version_note": "Identified by fixed commit only. CHANGELOG latest entry 0.4.4 (2026-10-14); README header still carries a draft 0.4.0 note. No release tag is claimed.",
+    "six_parts_are_editorial": true,
+    "official_gitblobs_raw_verified_privately": 532,
+    "selected_source_files": 10,
+    "executed_scope": "持ち込みGLBのテクスチャ圧縮のみ。Blenderによる入力GLB包装は別工程。",
+    "not_executed": [
+      "画像→3D生成",
+      "retopology",
+      "bake",
+      "rigging",
+      "PixelMatch",
+      "ゲーム組込み",
+      "モデル推論",
+      "ComfyUI"
+    ]
+  },
+  "actual_execution": {
+    "original_Blend_packing_calls": 1,
+    "original_compression_CLI_calls": 3,
+    "environment_probe_calls": 1,
+    "source_modified": false,
+    "existing_source_asset": "Poly Haven Wooden Crate01 / James Ray Cock / CC0;5 previous files reused unchanged",
+    "same_packed_input_bytes": 2276520,
+    "same_packed_input_sha256": "cffd8d4fc47cb704fdb8b67f7aab1cb769fa1decb1d7910f787232598c3bdacc",
+    "geometry_basis": "Shared Blender-exported GLB, not raw external glTF BIN",
+    "outputs": [
+      {
+        "id": "cap1024",
+        "file": {
+          "path": "outputs/outputs/cap1024.glb",
+          "bytes": 2276520,
+          "sha256": "cffd8d4fc47cb704fdb8b67f7aab1cb769fa1decb1d7910f787232598c3bdacc"
+        },
+        "summary": {
+          "glb_bytes": 2276520,
+          "packed_input_bytes": 2276520,
+          "ratio_to_packed_input": 1.0,
+          "byte_identical_to_packed_input": true,
+          "images_replaced": 0,
+          "images_kept": 3,
+          "image_roles": {
+            "colour": 1,
+            "data": 2,
+            "normal_within_data": 1,
+            "mixed": 0,
+            "unbound": 0
+          },
+          "image_payload_bytes": 2082067,
+          "non_image_payload_bytes": 191040,
+          "elapsed_seconds": 1.183
+        },
+        "images": [
+          {
+            "index": 0,
+            "name": "wooden_crate_01_nor_gl_1k",
+            "role": "data",
+            "normal": true,
+            "requested_cap": 1024,
+            "outcome": "kept",
+            "before": {
+              "mime": "image/jpeg",
+              "format": "JPEG",
+              "width": 1024,
+              "height": 1024,
+              "bytes": 594076,
+              "sha256": "f4ea44c7dc1686123d337039cb713d74e8a2dbc6d1bd2beeac276d06f5df3fab"
+            },
+            "after": {
+              "mime": "image/jpeg",
+              "format": "JPEG",
+              "width": 1024,
+              "height": 1024,
+              "bytes": 594076,
+              "sha256": "f4ea44c7dc1686123d337039cb713d74e8a2dbc6d1bd2beeac276d06f5df3fab"
+            },
+            "after_longest_side_within_cap": true
+          },
+          {
+            "index": 1,
+            "name": "wooden_crate_01_diff_1k",
+            "role": "colour",
+            "normal": false,
+            "requested_cap": 1024,
+            "outcome": "kept",
+            "before": {
+              "mime": "image/jpeg",
+              "format": "JPEG",
+              "width": 1024,
+              "height": 1024,
+              "bytes": 711292,
+              "sha256": "16653f4abaf4c1d9bca94bde3bd8c54d0ea9a5298d1648abcf57de1f7ecc34cc"
+            },
+            "after": {
+              "mime": "image/jpeg",
+              "format": "JPEG",
+              "width": 1024,
+              "height": 1024,
+              "bytes": 711292,
+              "sha256": "16653f4abaf4c1d9bca94bde3bd8c54d0ea9a5298d1648abcf57de1f7ecc34cc"
+            },
+            "after_longest_side_within_cap": true
+          },
+          {
+            "index": 2,
+            "name": "wooden_crate_01_arm_1k",
+            "role": "data",
+            "normal": false,
+            "requested_cap": 1024,
+            "outcome": "kept",
+            "before": {
+              "mime": "image/jpeg",
+              "format": "JPEG",
+              "width": 1024,
+              "height": 1024,
+              "bytes": 776699,
+              "sha256": "cd0b031c3924905e16ffd78ead062c2cc274148c4104d09635310097738b4679"
+            },
+            "after": {
+              "mime": "image/jpeg",
+              "format": "JPEG",
+              "width": 1024,
+              "height": 1024,
+              "bytes": 776699,
+              "sha256": "cd0b031c3924905e16ffd78ead062c2cc274148c4104d09635310097738b4679"
+            },
+            "after_longest_side_within_cap": true
+          }
+        ]
+      },
+      {
+        "id": "cap512",
+        "file": {
+          "path": "outputs/outputs/cap512.glb",
+          "bytes": 1315140,
+          "sha256": "3830aacd2cf1576b5a4be9a30475391d6f56105e9329d6c435f18e6235c96eec"
+        },
+        "summary": {
+          "glb_bytes": 1315140,
+          "packed_input_bytes": 2276520,
+          "ratio_to_packed_input": 0.5777,
+          "byte_identical_to_packed_input": false,
+          "images_replaced": 3,
+          "images_kept": 0,
+          "image_roles": {
+            "colour": 1,
+            "data": 2,
+            "normal_within_data": 1,
+            "mixed": 0,
+            "unbound": 0
+          },
+          "image_payload_bytes": 1120687,
+          "non_image_payload_bytes": 191040,
+          "elapsed_seconds": 0.52
+        },
+        "images": [
+          {
+            "index": 0,
+            "name": "wooden_crate_01_nor_gl_1k",
+            "role": "data",
+            "normal": true,
+            "requested_cap": 512,
+            "outcome": "replaced",
+            "before": {
+              "mime": "image/jpeg",
+              "format": "JPEG",
+              "width": 1024,
+              "height": 1024,
+              "bytes": 594076,
+              "sha256": "f4ea44c7dc1686123d337039cb713d74e8a2dbc6d1bd2beeac276d06f5df3fab"
+            },
+            "after": {
+              "mime": "image/png",
+              "format": "PNG",
+              "width": 512,
+              "height": 512,
+              "bytes": 324842,
+              "sha256": "409f375ed963d91640cd0036aad7bb17932b75cf6a4671646a902db964dcd5d6"
+            },
+            "after_longest_side_within_cap": true
+          },
+          {
+            "index": 1,
+            "name": "wooden_crate_01_diff_1k",
+            "role": "colour",
+            "normal": false,
+            "requested_cap": 512,
+            "outcome": "replaced",
+            "before": {
+              "mime": "image/jpeg",
+              "format": "JPEG",
+              "width": 1024,
+              "height": 1024,
+              "bytes": 711292,
+              "sha256": "16653f4abaf4c1d9bca94bde3bd8c54d0ea9a5298d1648abcf57de1f7ecc34cc"
+            },
+            "after": {
+              "mime": "image/png",
+              "format": "PNG",
+              "width": 512,
+              "height": 512,
+              "bytes": 412060,
+              "sha256": "b72f5b397c666914b7c0e62391e1530756ff785be5801128db9c253b04beb5f3"
+            },
+            "after_longest_side_within_cap": true
+          },
+          {
+            "index": 2,
+            "name": "wooden_crate_01_arm_1k",
+            "role": "data",
+            "normal": false,
+            "requested_cap": 512,
+            "outcome": "replaced",
+            "before": {
+              "mime": "image/jpeg",
+              "format": "JPEG",
+              "width": 1024,
+              "height": 1024,
+              "bytes": 776699,
+              "sha256": "cd0b031c3924905e16ffd78ead062c2cc274148c4104d09635310097738b4679"
+            },
+            "after": {
+              "mime": "image/png",
+              "format": "PNG",
+              "width": 512,
+              "height": 512,
+              "bytes": 383785,
+              "sha256": "343fba0c8d99a757b17793c701b874eac4484b79482f79b772e57ed76aedf5d7"
+            },
+            "after_longest_side_within_cap": true
+          }
+        ]
+      },
+      {
+        "id": "cap256",
+        "file": {
+          "path": "outputs/outputs/cap256.glb",
+          "bytes": 473124,
+          "sha256": "80f1bb39570f8b15d478fc116bf29fd60cb24b39a55e5b00b57ef9b0b051e50f"
+        },
+        "summary": {
+          "glb_bytes": 473124,
+          "packed_input_bytes": 2276520,
+          "ratio_to_packed_input": 0.2078,
+          "byte_identical_to_packed_input": false,
+          "images_replaced": 3,
+          "images_kept": 0,
+          "image_roles": {
+            "colour": 1,
+            "data": 2,
+            "normal_within_data": 1,
+            "mixed": 0,
+            "unbound": 0
+          },
+          "image_payload_bytes": 278680,
+          "non_image_payload_bytes": 191040,
+          "elapsed_seconds": 0.262
+        },
+        "images": [
+          {
+            "index": 0,
+            "name": "wooden_crate_01_nor_gl_1k",
+            "role": "data",
+            "normal": true,
+            "requested_cap": 256,
+            "outcome": "replaced",
+            "before": {
+              "mime": "image/jpeg",
+              "format": "JPEG",
+              "width": 1024,
+              "height": 1024,
+              "bytes": 594076,
+              "sha256": "f4ea44c7dc1686123d337039cb713d74e8a2dbc6d1bd2beeac276d06f5df3fab"
+            },
+            "after": {
+              "mime": "image/png",
+              "format": "PNG",
+              "width": 256,
+              "height": 256,
+              "bytes": 77022,
+              "sha256": "7cd4c6d90a3b1c5392c7d36cf034541122359238a5185922c3778035b5b09588"
+            },
+            "after_longest_side_within_cap": true
+          },
+          {
+            "index": 1,
+            "name": "wooden_crate_01_diff_1k",
+            "role": "colour",
+            "normal": false,
+            "requested_cap": 256,
+            "outcome": "replaced",
+            "before": {
+              "mime": "image/jpeg",
+              "format": "JPEG",
+              "width": 1024,
+              "height": 1024,
+              "bytes": 711292,
+              "sha256": "16653f4abaf4c1d9bca94bde3bd8c54d0ea9a5298d1648abcf57de1f7ecc34cc"
+            },
+            "after": {
+              "mime": "image/png",
+              "format": "PNG",
+              "width": 256,
+              "height": 256,
+              "bytes": 104281,
+              "sha256": "9745bc1959dc02ad58f369623ea76cf506b78bdfe4b85a9049a4afb125d83fee"
+            },
+            "after_longest_side_within_cap": true
+          },
+          {
+            "index": 2,
+            "name": "wooden_crate_01_arm_1k",
+            "role": "data",
+            "normal": false,
+            "requested_cap": 256,
+            "outcome": "replaced",
+            "before": {
+              "mime": "image/jpeg",
+              "format": "JPEG",
+              "width": 1024,
+              "height": 1024,
+              "bytes": 776699,
+              "sha256": "cd0b031c3924905e16ffd78ead062c2cc274148c4104d09635310097738b4679"
+            },
+            "after": {
+              "mime": "image/png",
+              "format": "PNG",
+              "width": 256,
+              "height": 256,
+              "bytes": 97377,
+              "sha256": "e49aa5dde33fbef7ea7562d27ae20d8cd2b783187aa648cedf28851276449923"
+            },
+            "after_longest_side_within_cap": true
+          }
+        ]
+      }
+    ],
+    "preservation": "Parsed JSON structure and every12 non-image bufferView /191040B equal for3outputs. Not literal whole JSONchunk byte equality.",
+    "repeated_for_UI_or_movie": false,
+    "not_executed": [
+      "画像→3D生成",
+      "retopology",
+      "bake",
+      "rigging",
+      "PixelMatch",
+      "ゲーム組込み",
+      "モデル推論",
+      "ComfyUI"
+    ],
+    "scope": "Existing-mesh texture compression helper only. No 3D generation, model, whole Finish chain or game integration."
+  },
+  "structure": {
+    "editorial_parts": 6,
+    "exact_source_quotes": 6,
+    "flow": "README/request -> author writes preparation/runner/jobs -> operator packs1/runs originalCLI3 -> shared GLB splits geometry bypass and3images -> classify/cap/encode -> smaller-only replace else keep -> rejoin realGLB -> same-camera viewing and save",
+    "normal_is_data_subset": true,
+    "occlusion_slot_absent": true,
+    "not_upstream_component_schema": true,
+    "browser": "Reads frozen results and actually draws4GLBs; no compression or inference",
+    "animation_timing": "Explanatory, not actual processing time; image pixel excerpts and3D are actual data"
+  },
+  "browser": {
+    "engine": "Codex in-app browser Chromium",
+    "phone_sizes": [
+      [
+        320,
+        812
+      ],
+      [
+        375,
+        812
+      ]
+    ],
+    "phone_case_stage_states": 18,
+    "primary_target_min_css_px": 44,
+    "full_diagram_and_saves_in_first812px": true,
+    "theme_width_motion_conditions": 16,
+    "exact_source_details": 6,
+    "real_GLb_views": 6,
+    "same_camera_input_vs1024_pixel_identity": true,
+    "512_256_pixels_differ_from_input": true,
+    "actual_render_after_RAF": true,
+    "hash_routes": [
+      {
+        "hash": "cap1024",
+        "selected": "cap1024",
+        "expected": "cap1024",
+        "name": "cap1024.glb",
+        "ready": true
+      },
+      {
+        "hash": "cap512",
+        "selected": "cap512",
+        "expected": "cap512",
+        "name": "cap512.glb",
+        "ready": true
+      },
+      {
+        "hash": "cap256",
+        "selected": "cap256",
+        "expected": "cap256",
+        "name": "cap256.glb",
+        "ready": true
+      },
+      {
+        "hash": "unknown",
+        "selected": "cap1024",
+        "expected": "cap1024",
+        "name": "cap1024.glb",
+        "ready": true
+      },
+      {
+        "hash": "%ZZ",
+        "selected": "cap1024",
+        "expected": "cap1024",
+        "name": "cap1024.glb",
+        "ready": true
+      }
+    ],
+    "native_3D_keys": [
+      "ArrowRight",
+      "ArrowUp",
+      "Home"
+    ],
+    "controlled_failure_checks": [
+      {
+        "type": "main",
+        "mode": "http",
+        "failed": true,
+        "detail": "HTTP 503で取得できませんでした：concept/facts.json",
+        "enabledSaves": 0,
+        "disabledMain": true,
+        "inventory": 0
+      },
+      {
+        "type": "editor",
+        "mode": "http",
+        "failed": true,
+        "detail": "HTTP 503で取得できませんでした：concept/facts.json",
+        "enabledSaves": 0,
+        "disabledEditor": true,
+        "inventory": 0
+      },
+      {
+        "type": "main",
+        "mode": "http",
+        "recovered": true,
+        "enabledSaves": 3,
+        "inventory": 0
+      },
+      {
+        "type": "editor",
+        "mode": "http",
+        "recovered": true,
+        "enabledSaves": 0,
+        "inventory": 39
+      },
+      {
+        "type": "main",
+        "mode": "truncated-json-bytes",
+        "failed": true,
+        "detail": "大きさが一覧と合いません：concept/facts.json（1／77056バイト）",
+        "disabled": true,
+        "enabledSaves": 0,
+        "inventory": 0
+      },
+      {
+        "type": "editor",
+        "mode": "truncated-json-bytes",
+        "failed": true,
+        "detail": "大きさが一覧と合いません：concept/facts.json（1／77056バイト）",
+        "disabled": true,
+        "enabledSaves": 0,
+        "inventory": 0
+      },
+      {
+        "type": "main",
+        "mode": "truncated-json-bytes",
+        "recovered": true,
+        "enabledSaves": 3,
+        "inventory": 0
+      },
+      {
+        "type": "editor",
+        "mode": "truncated-json-bytes",
+        "recovered": true,
+        "enabledSaves": 0,
+        "inventory": 39
+      },
+      {
+        "type": "main",
+        "mode": "same-length-wrong-hash",
+        "failed": true,
+        "detail": "SHA-256が一覧と合いません：concept/facts.json",
+        "disabled": true,
+        "enabledSaves": 0,
+        "inventory": 0
+      },
+      {
+        "type": "editor",
+        "mode": "same-length-wrong-hash",
+        "failed": true,
+        "detail": "SHA-256が一覧と合いません：concept/facts.json",
+        "disabled": true,
+        "enabledSaves": 0,
+        "inventory": 0
+      },
+      {
+        "type": "main",
+        "mode": "same-length-wrong-hash",
+        "recovered": true,
+        "enabledSaves": 3,
+        "inventory": 0
+      },
+      {
+        "type": "editor",
+        "mode": "same-length-wrong-hash",
+        "recovered": true,
+        "enabledSaves": 0,
+        "inventory": 39
+      }
+    ],
+    "failure_scope": "HTTP503; truncatedJSON rejected at size gate; same-length data mutation rejected atSHA. Each main/editor stopped/cleared and restored. Does not exercise every parser/schema failure.",
+    "save_requests": 5,
+    "returned_files": [
+      {
+        "type": "output",
+        "cid": "cap1024",
+        "bytes": 2276520,
+        "sha256": "cffd8d4fc47cb704fdb8b67f7aab1cb769fa1decb1d7910f787232598c3bdacc",
+        "all_bytes_equal": true
+      },
+      {
+        "type": "output",
+        "cid": "cap512",
+        "bytes": 1315140,
+        "sha256": "3830aacd2cf1576b5a4be9a30475391d6f56105e9329d6c435f18e6235c96eec",
+        "all_bytes_equal": true
+      },
+      {
+        "type": "output",
+        "cid": "cap256",
+        "bytes": 473124,
+        "sha256": "80f1bb39570f8b15d478fc116bf29fd60cb24b39a55e5b00b57ef9b0b051e50f",
+        "all_bytes_equal": true
+      },
+      {
+        "type": "input",
+        "cid": null,
+        "bytes": 2276520,
+        "sha256": "cffd8d4fc47cb704fdb8b67f7aab1cb769fa1decb1d7910f787232598c3bdacc",
+        "all_bytes_equal": true
+      },
+      {
+        "type": "results",
+        "cid": null,
+        "bytes": 61952,
+        "sha256": "ea81b15e33e2beed0ee6fc600882da580c365184eabf47a0b9e50ff43df292fc",
+        "all_bytes_equal": true
+      }
+    ],
+    "save_scope": "Native browser requests and separate tool-returned files are distinct; no guarantee of every disk-save request completing.",
+    "editor_assets": 39,
+    "editor_scenes": 7,
+    "orientation_scene_states": 14,
+    "arbitrary_seek": 7.2,
+    "order_independent": true,
+    "freeze30_31": true,
+    "native_range_right_arrow": 0.1,
+    "wide_preserved": true,
+    "editor_normal_end": 32,
+    "editor_audio_elements": 0,
+    "clipboard_readback": false
+  },
+  "films": {
+    "final_renders": "renders-r1",
+    "duration": 32,
+    "fps": 30,
+    "file_frames_each": 960,
+    "dimensions": [
+      [
+        720,
+        1280
+      ],
+      [
+        1280,
+        720
+      ]
+    ],
+    "audio_streams": 0,
+    "full_decodes": 2,
+    "faststart": true,
+    "representative_stills_each": 16,
+    "consecutive_stills_each": 12,
+    "source_strip_requested_center": 16.4,
+    "source_strip_first_frame": 485,
+    "source_strip_first_seconds": 16.166666666666668,
+    "source_strip_sampled_center": 16.366666666666667,
+    "encoded_MP4_strip_start": 16.4,
+    "native_local_ends": [
+      {
+        "ended": true,
+        "current": 32,
+        "duration": 32,
+        "error": null,
+        "muted": true,
+        "width": 720,
+        "height": 1280,
+        "frames": 1165,
+        "dropped": 158
+      },
+      {
+        "ended": true,
+        "current": 32,
+        "duration": 32,
+        "error": null,
+        "muted": true,
+        "width": 1280,
+        "height": 720,
+        "frames": 1155,
+        "dropped": 159
+      }
+    ],
+    "native_portrait_replay": {
+      "ended": true,
+      "current": 32,
+      "duration": 32,
+      "error": null,
+      "deltaFrames": 960,
+      "deltaDropped": 44,
+      "counterScope": "native counter delta during one replay; file framecount960 is separate"
+    },
+    "native_performance_scope": "Background native counters include initial autoplay; one focused portrait replay counted960 more frames with44 dropped display frames. File is960frames, fully decoded. Native completion is not smooth-playback or performance assurance.",
+    "shipped_source_PNG_all_bytes_equal": 62,
+    "30_31_static": true,
+    "agent_visual_review": [
+      "375px dark wholemap and controls",
+      "375px light cap256 wholemap",
+      "real512 WebGL canvas and visible viewer",
+      "portrait/wide16frame contact sheets",
+      "portrait12frame source strip",
+      "portrait/wide encoded moving strips",
+      "full portrait poster31"
+    ],
+    "human_aesthetic_approval": false
+  },
+  "preservation": {
+    "protected_files": 40,
+    "asset_count": 39,
+    "manifest_sha256": "6caba83d259fc7f8aa61c37ec918bd3d6b7fc3c2378650b0bd61aa76fa39d6dc",
+    "phase1_model_originals": 4,
+    "phase2_model_originals": 11,
+    "source_official_gitblobs_raw": 532,
+    "selected_public_source_raw": 10,
+    "source_input_files_unchanged": 5,
+    "three_unchanged_library_files": 7,
+    "operator_changes_separate": [
+      {
+        "path": "index.html",
+        "authored_original_sha256": "c623d111841000b2fd1c1388b3d4268eb5edfc922a7462595f049140858a96f8",
+        "operator_sha256": "284d069e724cb3cebc5fcacd22d8949308da1c23232c50256136e713c5488c09",
+        "reason": "375pxの見出しで最後の「る」だけが折り返されたため、意味を保った短い見出しへ変更。図/GLB/実データ/編集は不変。",
+        "operator_change_not_new_model_authorship": true
+      },
+      {
+        "path": "README.md",
+        "authored_original_sha256": "f977084434cba9b87b83bdeb94a39498c5f61492fd757f57476a0eef6f840b5c",
+        "operator_sha256": "fdf2d54e60306ce37adf95f2984f23478da1c73ae53859ff129bacd7d928c559",
+        "reason": "CLI subset sufficiency vs full application, extracted repository-root preview, separate operator QA timeline and capture reproduction clarified. No original runtime rerun.",
+        "operator_change_not_new_model_authorship": true
+      },
+      {
+        "path": "video/README.md",
+        "authored_original_sha256": "222b3334b8e132142a6cf4858e56caee7c1707ac31dfd496f6249537bf52e0f6",
+        "operator_sha256": "bf21eee3abe7fd80a93f2f68770606150e1ec40c227620125ff1514362144642",
+        "reason": "Append separate completed operator render/QA and usable packaged review links.",
+        "operator_change_not_new_model_authorship": true
+      },
+      {
+        "path": "index.html",
+        "before_sha256": "284d069e724cb3cebc5fcacd22d8949308da1c23232c50256136e713c5488c09",
+        "operator_sha256": "6c2f0ee22dcd760768eed35c7cfb5317edcd260bc42e5175a660c5cb702da035",
+        "reason": "Make the packaging-status link reflect completed operator work; graph, editor and immutable data unchanged.",
+        "operator_change_not_new_model_authorship": true
+      }
+    ]
+  },
+  "not_verified": [
+    "human aesthetic approval",
+    "physical iOS/Safari/VoiceOver",
+    "200percent browser zoom",
+    "all GLB inputs or general correctness",
+    "visual equivalence/game suitability/manufacturing/performance",
+    "clipboard readback"
+  ],
+  "distribution": "Introduction/editor/MP4 have no audio or audio guide. OwnMIT, selected Apache2 source+NOTICE, CC0 input, reused threeMIT; no models/env/cache/private history/master skill. Selected compression CLI works with Python+Pillow; selected10files do not replace whole application."
+}

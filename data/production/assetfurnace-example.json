@@ -1,0 +1,887 @@
+{
+  "id": "assetfurnace-example",
+  "verified_at": "2026-10-19T20:25:50.303112+00:00",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "receipts": [
+      {
+        "phase": "implementation4",
+        "receipt_sha256": "663acd3b97dde3ee4f86415326fd322873dacb6d919849e9d60e45928a5db0c1",
+        "execution_sha256": "50671208bfa915504b6768cdebad2acf282ef54269b0cf2e0857b2799d2bd8d8",
+        "prompt_sha256": "01ee501a16b2fde68e92bde0c0646ed8d7ea1f5a8c658dcd57309b7655bcb4f3"
+      },
+      {
+        "phase": "diagram-film-article11",
+        "receipt_sha256": "57bc5253bef098812f0d03a23f9d65706266e50690fd36b6d5462da1576ff80c",
+        "execution_sha256": "f322c8a2fceb7e29a5b2147ed2a49cc104e2c8afc581f7920e360a871b09ad4a",
+        "prompt_sha256": "f76702f96b239c96754c26259a0ebbc96cecd8f96ab9e85e0a6afce10d592bc9"
+      }
+    ],
+    "full_receipts_published": false,
+    "scope": "Exact originals private; parent source/input/environment setup, real execution, fact projection, technical/document corrections, rendering/QA/packaging/publication separate."
+  },
+  "upstream": {
+    "repository": "Bingeljell/image-to-3dlab",
+    "commit": "91879333e88a0571945b15b0e21e4bc95ec59e31",
+    "license": "Apache-2.0",
+    "official_gitblobs_rawbytes": 532,
+    "selected_public_source_files_rawbytes": 10,
+    "version_note": "Identified by fixed commit only. CHANGELOG latest entry 0.4.4 (2026-10-14); README header still carries a draft 0.4.0 note. No release tag is claimed."
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 3,
+    "original_CLI_calls": 3,
+    "Blender_input_preparation_calls": 1,
+    "data_source": "examples/assetfurnace-example/outputs/results.json",
+    "human_approval": false,
+    "scope": "Original texture-compression helper only, same already-acquired authored CC0 model, no AI3D generation."
+  },
+  "verification": {
+    "id": "assetfurnace-example",
+    "verified_at": "2026-10-19T20:25:49.322053+00:00",
+    "stage": "runtime-and-agent-visual-reviewed",
+    "new_case": true,
+    "identity": {
+      "name": "AssetFurnace / Image to3D Lab",
+      "kind": "ローカル3Dアプリ/パイプラインとPython補助CLI",
+      "source_repository": "Bingeljell/image-to-3dlab",
+      "source_commit": "91879333e88a0571945b15b0e21e4bc95ec59e31",
+      "license": "Apache-2.0",
+      "source_version_note": "Identified by fixed commit only. CHANGELOG latest entry 0.4.4 (2026-10-14); README header still carries a draft 0.4.0 note. No release tag is claimed.",
+      "six_parts_are_editorial": true,
+      "official_gitblobs_raw_verified_privately": 532,
+      "selected_source_files": 10,
+      "executed_scope": "持ち込みGLBのテクスチャ圧縮のみ。Blenderによる入力GLB包装は別工程。",
+      "not_executed": [
+        "画像→3D生成",
+        "retopology",
+        "bake",
+        "rigging",
+        "PixelMatch",
+        "ゲーム組込み",
+        "モデル推論",
+        "ComfyUI"
+      ]
+    },
+    "actual_execution": {
+      "original_Blend_packing_calls": 1,
+      "original_compression_CLI_calls": 3,
+      "environment_probe_calls": 1,
+      "source_modified": false,
+      "existing_source_asset": "Poly Haven Wooden Crate01 / James Ray Cock / CC0;5 previous files reused unchanged",
+      "same_packed_input_bytes": 2276520,
+      "same_packed_input_sha256": "cffd8d4fc47cb704fdb8b67f7aab1cb769fa1decb1d7910f787232598c3bdacc",
+      "geometry_basis": "Shared Blender-exported GLB, not raw external glTF BIN",
+      "outputs": [
+        {
+          "id": "cap1024",
+          "file": {
+            "path": "outputs/outputs/cap1024.glb",
+            "bytes": 2276520,
+            "sha256": "cffd8d4fc47cb704fdb8b67f7aab1cb769fa1decb1d7910f787232598c3bdacc"
+          },
+          "summary": {
+            "glb_bytes": 2276520,
+            "packed_input_bytes": 2276520,
+            "ratio_to_packed_input": 1.0,
+            "byte_identical_to_packed_input": true,
+            "images_replaced": 0,
+            "images_kept": 3,
+            "image_roles": {
+              "colour": 1,
+              "data": 2,
+              "normal_within_data": 1,
+              "mixed": 0,
+              "unbound": 0
+            },
+            "image_payload_bytes": 2082067,
+            "non_image_payload_bytes": 191040,
+            "elapsed_seconds": 1.183
+          },
+          "images": [
+            {
+              "index": 0,
+              "name": "wooden_crate_01_nor_gl_1k",
+              "role": "data",
+              "normal": true,
+              "requested_cap": 1024,
+              "outcome": "kept",
+              "before": {
+                "mime": "image/jpeg",
+                "format": "JPEG",
+                "width": 1024,
+                "height": 1024,
+                "bytes": 594076,
+                "sha256": "f4ea44c7dc1686123d337039cb713d74e8a2dbc6d1bd2beeac276d06f5df3fab"
+              },
+              "after": {
+                "mime": "image/jpeg",
+                "format": "JPEG",
+                "width": 1024,
+                "height": 1024,
+                "bytes": 594076,
+                "sha256": "f4ea44c7dc1686123d337039cb713d74e8a2dbc6d1bd2beeac276d06f5df3fab"
+              },
+              "after_longest_side_within_cap": true
+            },
+            {
+              "index": 1,
+              "name": "wooden_crate_01_diff_1k",
+              "role": "colour",
+              "normal": false,
+              "requested_cap": 1024,
+              "outcome": "kept",
+              "before": {
+                "mime": "image/jpeg",
+                "format": "JPEG",
+                "width": 1024,
+                "height": 1024,
+                "bytes": 711292,
+                "sha256": "16653f4abaf4c1d9bca94bde3bd8c54d0ea9a5298d1648abcf57de1f7ecc34cc"
+              },
+              "after": {
+                "mime": "image/jpeg",
+                "format": "JPEG",
+                "width": 1024,
+                "height": 1024,
+                "bytes": 711292,
+                "sha256": "16653f4abaf4c1d9bca94bde3bd8c54d0ea9a5298d1648abcf57de1f7ecc34cc"
+              },
+              "after_longest_side_within_cap": true
+            },
+            {
+              "index": 2,
+              "name": "wooden_crate_01_arm_1k",
+              "role": "data",
+              "normal": false,
+              "requested_cap": 1024,
+              "outcome": "kept",
+              "before": {
+                "mime": "image/jpeg",
+                "format": "JPEG",
+                "width": 1024,
+                "height": 1024,
+                "bytes": 776699,
+                "sha256": "cd0b031c3924905e16ffd78ead062c2cc274148c4104d09635310097738b4679"
+              },
+              "after": {
+                "mime": "image/jpeg",
+                "format": "JPEG",
+                "width": 1024,
+                "height": 1024,
+                "bytes": 776699,
+                "sha256": "cd0b031c3924905e16ffd78ead062c2cc274148c4104d09635310097738b4679"
+              },
+              "after_longest_side_within_cap": true
+            }
+          ]
+        },
+        {
+          "id": "cap512",
+          "file": {
+            "path": "outputs/outputs/cap512.glb",
+            "bytes": 1315140,
+            "sha256": "3830aacd2cf1576b5a4be9a30475391d6f56105e9329d6c435f18e6235c96eec"
+          },
+          "summary": {
+            "glb_bytes": 1315140,
+            "packed_input_bytes": 2276520,
+            "ratio_to_packed_input": 0.5777,
+            "byte_identical_to_packed_input": false,
+            "images_replaced": 3,
+            "images_kept": 0,
+            "image_roles": {
+              "colour": 1,
+              "data": 2,
+              "normal_within_data": 1,
+              "mixed": 0,
+              "unbound": 0
+            },
+            "image_payload_bytes": 1120687,
+            "non_image_payload_bytes": 191040,
+            "elapsed_seconds": 0.52
+          },
+          "images": [
+            {
+              "index": 0,
+              "name": "wooden_crate_01_nor_gl_1k",
+              "role": "data",
+              "normal": true,
+              "requested_cap": 512,
+              "outcome": "replaced",
+              "before": {
+                "mime": "image/jpeg",
+                "format": "JPEG",
+                "width": 1024,
+                "height": 1024,
+                "bytes": 594076,
+                "sha256": "f4ea44c7dc1686123d337039cb713d74e8a2dbc6d1bd2beeac276d06f5df3fab"
+              },
+              "after": {
+                "mime": "image/png",
+                "format": "PNG",
+                "width": 512,
+                "height": 512,
+                "bytes": 324842,
+                "sha256": "409f375ed963d91640cd0036aad7bb17932b75cf6a4671646a902db964dcd5d6"
+              },
+              "after_longest_side_within_cap": true
+            },
+            {
+              "index": 1,
+              "name": "wooden_crate_01_diff_1k",
+              "role": "colour",
+              "normal": false,
+              "requested_cap": 512,
+              "outcome": "replaced",
+              "before": {
+                "mime": "image/jpeg",
+                "format": "JPEG",
+                "width": 1024,
+                "height": 1024,
+                "bytes": 711292,
+                "sha256": "16653f4abaf4c1d9bca94bde3bd8c54d0ea9a5298d1648abcf57de1f7ecc34cc"
+              },
+              "after": {
+                "mime": "image/png",
+                "format": "PNG",
+                "width": 512,
+                "height": 512,
+                "bytes": 412060,
+                "sha256": "b72f5b397c666914b7c0e62391e1530756ff785be5801128db9c253b04beb5f3"
+              },
+              "after_longest_side_within_cap": true
+            },
+            {
+              "index": 2,
+              "name": "wooden_crate_01_arm_1k",
+              "role": "data",
+              "normal": false,
+              "requested_cap": 512,
+              "outcome": "replaced",
+              "before": {
+                "mime": "image/jpeg",
+                "format": "JPEG",
+                "width": 1024,
+                "height": 1024,
+                "bytes": 776699,
+                "sha256": "cd0b031c3924905e16ffd78ead062c2cc274148c4104d09635310097738b4679"
+              },
+              "after": {
+                "mime": "image/png",
+                "format": "PNG",
+                "width": 512,
+                "height": 512,
+                "bytes": 383785,
+                "sha256": "343fba0c8d99a757b17793c701b874eac4484b79482f79b772e57ed76aedf5d7"
+              },
+              "after_longest_side_within_cap": true
+            }
+          ]
+        },
+        {
+          "id": "cap256",
+          "file": {
+            "path": "outputs/outputs/cap256.glb",
+            "bytes": 473124,
+            "sha256": "80f1bb39570f8b15d478fc116bf29fd60cb24b39a55e5b00b57ef9b0b051e50f"
+          },
+          "summary": {
+            "glb_bytes": 473124,
+            "packed_input_bytes": 2276520,
+            "ratio_to_packed_input": 0.2078,
+            "byte_identical_to_packed_input": false,
+            "images_replaced": 3,
+            "images_kept": 0,
+            "image_roles": {
+              "colour": 1,
+              "data": 2,
+              "normal_within_data": 1,
+              "mixed": 0,
+              "unbound": 0
+            },
+            "image_payload_bytes": 278680,
+            "non_image_payload_bytes": 191040,
+            "elapsed_seconds": 0.262
+          },
+          "images": [
+            {
+              "index": 0,
+              "name": "wooden_crate_01_nor_gl_1k",
+              "role": "data",
+              "normal": true,
+              "requested_cap": 256,
+              "outcome": "replaced",
+              "before": {
+                "mime": "image/jpeg",
+                "format": "JPEG",
+                "width": 1024,
+                "height": 1024,
+                "bytes": 594076,
+                "sha256": "f4ea44c7dc1686123d337039cb713d74e8a2dbc6d1bd2beeac276d06f5df3fab"
+              },
+              "after": {
+                "mime": "image/png",
+                "format": "PNG",
+                "width": 256,
+                "height": 256,
+                "bytes": 77022,
+                "sha256": "7cd4c6d90a3b1c5392c7d36cf034541122359238a5185922c3778035b5b09588"
+              },
+              "after_longest_side_within_cap": true
+            },
+            {
+              "index": 1,
+              "name": "wooden_crate_01_diff_1k",
+              "role": "colour",
+              "normal": false,
+              "requested_cap": 256,
+              "outcome": "replaced",
+              "before": {
+                "mime": "image/jpeg",
+                "format": "JPEG",
+                "width": 1024,
+                "height": 1024,
+                "bytes": 711292,
+                "sha256": "16653f4abaf4c1d9bca94bde3bd8c54d0ea9a5298d1648abcf57de1f7ecc34cc"
+              },
+              "after": {
+                "mime": "image/png",
+                "format": "PNG",
+                "width": 256,
+                "height": 256,
+                "bytes": 104281,
+                "sha256": "9745bc1959dc02ad58f369623ea76cf506b78bdfe4b85a9049a4afb125d83fee"
+              },
+              "after_longest_side_within_cap": true
+            },
+            {
+              "index": 2,
+              "name": "wooden_crate_01_arm_1k",
+              "role": "data",
+              "normal": false,
+              "requested_cap": 256,
+              "outcome": "replaced",
+              "before": {
+                "mime": "image/jpeg",
+                "format": "JPEG",
+                "width": 1024,
+                "height": 1024,
+                "bytes": 776699,
+                "sha256": "cd0b031c3924905e16ffd78ead062c2cc274148c4104d09635310097738b4679"
+              },
+              "after": {
+                "mime": "image/png",
+                "format": "PNG",
+                "width": 256,
+                "height": 256,
+                "bytes": 97377,
+                "sha256": "e49aa5dde33fbef7ea7562d27ae20d8cd2b783187aa648cedf28851276449923"
+              },
+              "after_longest_side_within_cap": true
+            }
+          ]
+        }
+      ],
+      "preservation": "Parsed JSON structure and every12 non-image bufferView /191040B equal for3outputs. Not literal whole JSONchunk byte equality.",
+      "repeated_for_UI_or_movie": false,
+      "not_executed": [
+        "画像→3D生成",
+        "retopology",
+        "bake",
+        "rigging",
+        "PixelMatch",
+        "ゲーム組込み",
+        "モデル推論",
+        "ComfyUI"
+      ],
+      "scope": "Existing-mesh texture compression helper only. No 3D generation, model, whole Finish chain or game integration."
+    },
+    "structure": {
+      "editorial_parts": 6,
+      "exact_source_quotes": 6,
+      "flow": "README/request -> author writes preparation/runner/jobs -> operator packs1/runs originalCLI3 -> shared GLB splits geometry bypass and3images -> classify/cap/encode -> smaller-only replace else keep -> rejoin realGLB -> same-camera viewing and save",
+      "normal_is_data_subset": true,
+      "occlusion_slot_absent": true,
+      "not_upstream_component_schema": true,
+      "browser": "Reads frozen results and actually draws4GLBs; no compression or inference",
+      "animation_timing": "Explanatory, not actual processing time; image pixel excerpts and3D are actual data"
+    },
+    "browser": {
+      "engine": "Codex in-app browser Chromium",
+      "phone_sizes": [
+        [
+          320,
+          812
+        ],
+        [
+          375,
+          812
+        ]
+      ],
+      "phone_case_stage_states": 18,
+      "primary_target_min_css_px": 44,
+      "full_diagram_and_saves_in_first812px": true,
+      "theme_width_motion_conditions": 16,
+      "exact_source_details": 6,
+      "real_GLb_views": 6,
+      "same_camera_input_vs1024_pixel_identity": true,
+      "512_256_pixels_differ_from_input": true,
+      "actual_render_after_RAF": true,
+      "hash_routes": [
+        {
+          "hash": "cap1024",
+          "selected": "cap1024",
+          "expected": "cap1024",
+          "name": "cap1024.glb",
+          "ready": true
+        },
+        {
+          "hash": "cap512",
+          "selected": "cap512",
+          "expected": "cap512",
+          "name": "cap512.glb",
+          "ready": true
+        },
+        {
+          "hash": "cap256",
+          "selected": "cap256",
+          "expected": "cap256",
+          "name": "cap256.glb",
+          "ready": true
+        },
+        {
+          "hash": "unknown",
+          "selected": "cap1024",
+          "expected": "cap1024",
+          "name": "cap1024.glb",
+          "ready": true
+        },
+        {
+          "hash": "%ZZ",
+          "selected": "cap1024",
+          "expected": "cap1024",
+          "name": "cap1024.glb",
+          "ready": true
+        }
+      ],
+      "native_3D_keys": [
+        "ArrowRight",
+        "ArrowUp",
+        "Home"
+      ],
+      "controlled_failure_checks": [
+        {
+          "type": "main",
+          "mode": "http",
+          "failed": true,
+          "detail": "HTTP 503で取得できませんでした：concept/facts.json",
+          "enabledSaves": 0,
+          "disabledMain": true,
+          "inventory": 0
+        },
+        {
+          "type": "editor",
+          "mode": "http",
+          "failed": true,
+          "detail": "HTTP 503で取得できませんでした：concept/facts.json",
+          "enabledSaves": 0,
+          "disabledEditor": true,
+          "inventory": 0
+        },
+        {
+          "type": "main",
+          "mode": "http",
+          "recovered": true,
+          "enabledSaves": 3,
+          "inventory": 0
+        },
+        {
+          "type": "editor",
+          "mode": "http",
+          "recovered": true,
+          "enabledSaves": 0,
+          "inventory": 39
+        },
+        {
+          "type": "main",
+          "mode": "truncated-json-bytes",
+          "failed": true,
+          "detail": "大きさが一覧と合いません：concept/facts.json（1／77056バイト）",
+          "disabled": true,
+          "enabledSaves": 0,
+          "inventory": 0
+        },
+        {
+          "type": "editor",
+          "mode": "truncated-json-bytes",
+          "failed": true,
+          "detail": "大きさが一覧と合いません：concept/facts.json（1／77056バイト）",
+          "disabled": true,
+          "enabledSaves": 0,
+          "inventory": 0
+        },
+        {
+          "type": "main",
+          "mode": "truncated-json-bytes",
+          "recovered": true,
+          "enabledSaves": 3,
+          "inventory": 0
+        },
+        {
+          "type": "editor",
+          "mode": "truncated-json-bytes",
+          "recovered": true,
+          "enabledSaves": 0,
+          "inventory": 39
+        },
+        {
+          "type": "main",
+          "mode": "same-length-wrong-hash",
+          "failed": true,
+          "detail": "SHA-256が一覧と合いません：concept/facts.json",
+          "disabled": true,
+          "enabledSaves": 0,
+          "inventory": 0
+        },
+        {
+          "type": "editor",
+          "mode": "same-length-wrong-hash",
+          "failed": true,
+          "detail": "SHA-256が一覧と合いません：concept/facts.json",
+          "disabled": true,
+          "enabledSaves": 0,
+          "inventory": 0
+        },
+        {
+          "type": "main",
+          "mode": "same-length-wrong-hash",
+          "recovered": true,
+          "enabledSaves": 3,
+          "inventory": 0
+        },
+        {
+          "type": "editor",
+          "mode": "same-length-wrong-hash",
+          "recovered": true,
+          "enabledSaves": 0,
+          "inventory": 39
+        }
+      ],
+      "failure_scope": "HTTP503; truncatedJSON rejected at size gate; same-length data mutation rejected atSHA. Each main/editor stopped/cleared and restored. Does not exercise every parser/schema failure.",
+      "save_requests": 5,
+      "returned_files": [
+        {
+          "type": "output",
+          "cid": "cap1024",
+          "bytes": 2276520,
+          "sha256": "cffd8d4fc47cb704fdb8b67f7aab1cb769fa1decb1d7910f787232598c3bdacc",
+          "all_bytes_equal": true
+        },
+        {
+          "type": "output",
+          "cid": "cap512",
+          "bytes": 1315140,
+          "sha256": "3830aacd2cf1576b5a4be9a30475391d6f56105e9329d6c435f18e6235c96eec",
+          "all_bytes_equal": true
+        },
+        {
+          "type": "output",
+          "cid": "cap256",
+          "bytes": 473124,
+          "sha256": "80f1bb39570f8b15d478fc116bf29fd60cb24b39a55e5b00b57ef9b0b051e50f",
+          "all_bytes_equal": true
+        },
+        {
+          "type": "input",
+          "cid": null,
+          "bytes": 2276520,
+          "sha256": "cffd8d4fc47cb704fdb8b67f7aab1cb769fa1decb1d7910f787232598c3bdacc",
+          "all_bytes_equal": true
+        },
+        {
+          "type": "results",
+          "cid": null,
+          "bytes": 61952,
+          "sha256": "ea81b15e33e2beed0ee6fc600882da580c365184eabf47a0b9e50ff43df292fc",
+          "all_bytes_equal": true
+        }
+      ],
+      "save_scope": "Native browser requests and separate tool-returned files are distinct; no guarantee of every disk-save request completing.",
+      "editor_assets": 39,
+      "editor_scenes": 7,
+      "orientation_scene_states": 14,
+      "arbitrary_seek": 7.2,
+      "order_independent": true,
+      "freeze30_31": true,
+      "native_range_right_arrow": 0.1,
+      "wide_preserved": true,
+      "editor_normal_end": 32,
+      "editor_audio_elements": 0,
+      "clipboard_readback": false
+    },
+    "films": {
+      "final_renders": "renders-r1",
+      "duration": 32,
+      "fps": 30,
+      "file_frames_each": 960,
+      "dimensions": [
+        [
+          720,
+          1280
+        ],
+        [
+          1280,
+          720
+        ]
+      ],
+      "audio_streams": 0,
+      "full_decodes": 2,
+      "faststart": true,
+      "representative_stills_each": 16,
+      "consecutive_stills_each": 12,
+      "source_strip_requested_center": 16.4,
+      "source_strip_first_frame": 485,
+      "source_strip_first_seconds": 16.166666666666668,
+      "source_strip_sampled_center": 16.366666666666667,
+      "encoded_MP4_strip_start": 16.4,
+      "native_local_ends": [
+        {
+          "ended": true,
+          "current": 32,
+          "duration": 32,
+          "error": null,
+          "muted": true,
+          "width": 720,
+          "height": 1280,
+          "frames": 1165,
+          "dropped": 158
+        },
+        {
+          "ended": true,
+          "current": 32,
+          "duration": 32,
+          "error": null,
+          "muted": true,
+          "width": 1280,
+          "height": 720,
+          "frames": 1155,
+          "dropped": 159
+        }
+      ],
+      "native_portrait_replay": {
+        "ended": true,
+        "current": 32,
+        "duration": 32,
+        "error": null,
+        "deltaFrames": 960,
+        "deltaDropped": 44,
+        "counterScope": "native counter delta during one replay; file framecount960 is separate"
+      },
+      "native_performance_scope": "Background native counters include initial autoplay; one focused portrait replay counted960 more frames with44 dropped display frames. File is960frames, fully decoded. Native completion is not smooth-playback or performance assurance.",
+      "shipped_source_PNG_all_bytes_equal": 62,
+      "30_31_static": true,
+      "agent_visual_review": [
+        "375px dark wholemap and controls",
+        "375px light cap256 wholemap",
+        "real512 WebGL canvas and visible viewer",
+        "portrait/wide16frame contact sheets",
+        "portrait12frame source strip",
+        "portrait/wide encoded moving strips",
+        "full portrait poster31"
+      ],
+      "human_aesthetic_approval": false
+    },
+    "preservation": {
+      "protected_files": 40,
+      "asset_count": 39,
+      "manifest_sha256": "6caba83d259fc7f8aa61c37ec918bd3d6b7fc3c2378650b0bd61aa76fa39d6dc",
+      "phase1_model_originals": 4,
+      "phase2_model_originals": 11,
+      "source_official_gitblobs_raw": 532,
+      "selected_public_source_raw": 10,
+      "source_input_files_unchanged": 5,
+      "three_unchanged_library_files": 7,
+      "operator_changes_separate": [
+        {
+          "path": "index.html",
+          "authored_original_sha256": "c623d111841000b2fd1c1388b3d4268eb5edfc922a7462595f049140858a96f8",
+          "operator_sha256": "284d069e724cb3cebc5fcacd22d8949308da1c23232c50256136e713c5488c09",
+          "reason": "375pxの見出しで最後の「る」だけが折り返されたため、意味を保った短い見出しへ変更。図/GLB/実データ/編集は不変。",
+          "operator_change_not_new_model_authorship": true
+        },
+        {
+          "path": "README.md",
+          "authored_original_sha256": "f977084434cba9b87b83bdeb94a39498c5f61492fd757f57476a0eef6f840b5c",
+          "operator_sha256": "fdf2d54e60306ce37adf95f2984f23478da1c73ae53859ff129bacd7d928c559",
+          "reason": "CLI subset sufficiency vs full application, extracted repository-root preview, separate operator QA timeline and capture reproduction clarified. No original runtime rerun.",
+          "operator_change_not_new_model_authorship": true
+        },
+        {
+          "path": "video/README.md",
+          "authored_original_sha256": "222b3334b8e132142a6cf4858e56caee7c1707ac31dfd496f6249537bf52e0f6",
+          "operator_sha256": "bf21eee3abe7fd80a93f2f68770606150e1ec40c227620125ff1514362144642",
+          "reason": "Append separate completed operator render/QA and usable packaged review links.",
+          "operator_change_not_new_model_authorship": true
+        },
+        {
+          "path": "index.html",
+          "before_sha256": "284d069e724cb3cebc5fcacd22d8949308da1c23232c50256136e713c5488c09",
+          "operator_sha256": "6c2f0ee22dcd760768eed35c7cfb5317edcd260bc42e5175a660c5cb702da035",
+          "reason": "Make the packaging-status link reflect completed operator work; graph, editor and immutable data unchanged.",
+          "operator_change_not_new_model_authorship": true
+        }
+      ]
+    },
+    "not_verified": [
+      "human aesthetic approval",
+      "physical iOS/Safari/VoiceOver",
+      "200percent browser zoom",
+      "all GLB inputs or general correctness",
+      "visual equivalence/game suitability/manufacturing/performance",
+      "clipboard readback"
+    ],
+    "distribution": "Introduction/editor/MP4 have no audio or audio guide. OwnMIT, selected Apache2 source+NOTICE, CC0 input, reused threeMIT; no models/env/cache/private history/master skill. Selected compression CLI works with Python+Pillow; selected10files do not replace whole application."
+  },
+  "distribution": {
+    "source_archive": "examples/assetfurnace-example/source.zip",
+    "source_archive_sha256": "68018405323a4ff3b31a85acae75820198b42aef088243427b06486358ff4342",
+    "zip_members": 127,
+    "notes": "Repository-root examples/case+media3+MIT license; no fullapp models/env/cache/private history/master skill."
+  },
+  "artifacts_sha256": {
+    "data/cases/assetfurnace-example.json": "bbcc8771789de02c7f664a8b57d53d7b96876c3d2510f317575eb95a76602d16",
+    "data/intakes/assetfurnace-example.json": "87f21b61fd84ed306df161d3dce630360cf9476f269564519a3528932a57f754",
+    "examples/assetfurnace-example/LICENSE": "fb74b9b6e529197ce24b127b687e4e349cf46864059da001a3d9d63db39cdb19",
+    "examples/assetfurnace-example/README.md": "fdf2d54e60306ce37adf95f2984f23478da1c73ae53859ff129bacd7d928c559",
+    "examples/assetfurnace-example/THIRD_PARTY_NOTICES.md": "0f53daec27d3b6a383998ef1ee2981144c8527e9e09e34f355a55415e10de876",
+    "examples/assetfurnace-example/UPSTREAM.json": "7845f2e48ca9590099e621506aa1d0e57a689bfe9eeba3ecbb6ae48310255ded",
+    "examples/assetfurnace-example/concept.css": "1f785c4f313ac71abfb875f8a9eb7af976147a535978cb48d7a0a54d7dcdf6de",
+    "examples/assetfurnace-example/concept.js": "975dac39f4628e8ae7d0da41343c56196f1243eee5aef2f1ef98a297866b2d0b",
+    "examples/assetfurnace-example/concept/facts.json": "c876cb6400cb54e6f28ba97babd24086ec4dc8a594509e4ef26f88d041757d4b",
+    "examples/assetfurnace-example/concept/manifest.json": "6caba83d259fc7f8aa61c37ec918bd3d6b7fc3c2378650b0bd61aa76fa39d6dc",
+    "examples/assetfurnace-example/implementation.md": "572708f28714d341fd56370a54f83d4a97a0b5a360fc11c95c60eb52a56a83e6",
+    "examples/assetfurnace-example/index.html": "6c2f0ee22dcd760768eed35c7cfb5317edcd260bc42e5175a660c5cb702da035",
+    "examples/assetfurnace-example/inputs/jobs.json": "26fd6c141254d1ef7ee9ed5d3f08d93bc22e353df3804e153b60076750b61271",
+    "examples/assetfurnace-example/inputs/polyhaven-wooden_crate_01/textures/wooden_crate_01_arm_1k.jpg": "cd0b031c3924905e16ffd78ead062c2cc274148c4104d09635310097738b4679",
+    "examples/assetfurnace-example/inputs/polyhaven-wooden_crate_01/textures/wooden_crate_01_diff_1k.jpg": "16653f4abaf4c1d9bca94bde3bd8c54d0ea9a5298d1648abcf57de1f7ecc34cc",
+    "examples/assetfurnace-example/inputs/polyhaven-wooden_crate_01/textures/wooden_crate_01_nor_gl_1k.jpg": "f4ea44c7dc1686123d337039cb713d74e8a2dbc6d1bd2beeac276d06f5df3fab",
+    "examples/assetfurnace-example/inputs/polyhaven-wooden_crate_01/wooden_crate_01.bin": "85f381f8035f7a6f2f3b848640894c6d3333b261946dd8a338c0fe19e0bea21e",
+    "examples/assetfurnace-example/inputs/polyhaven-wooden_crate_01/wooden_crate_01_1k.gltf": "fd9c6073acfc671e12b64666053f2805ae33aff5d3dbbcfe5c97c08c06644927",
+    "examples/assetfurnace-example/outputs/input/packed_input.glb": "cffd8d4fc47cb704fdb8b67f7aab1cb769fa1decb1d7910f787232598c3bdacc",
+    "examples/assetfurnace-example/outputs/outputs/cap1024.glb": "cffd8d4fc47cb704fdb8b67f7aab1cb769fa1decb1d7910f787232598c3bdacc",
+    "examples/assetfurnace-example/outputs/outputs/cap256.glb": "80f1bb39570f8b15d478fc116bf29fd60cb24b39a55e5b00b57ef9b0b051e50f",
+    "examples/assetfurnace-example/outputs/outputs/cap512.glb": "3830aacd2cf1576b5a4be9a30475391d6f56105e9329d6c435f18e6235c96eec",
+    "examples/assetfurnace-example/outputs/preparation.json": "d768e1c455102cf4d7c3363d4a062804bfa707708b2025e356d298abe7c20d6f",
+    "examples/assetfurnace-example/outputs/results.json": "ea81b15e33e2beed0ee6fc600882da580c365184eabf47a0b9e50ff43df292fc",
+    "examples/assetfurnace-example/outputs/stdout/cap1024.txt": "c88d27977e3b047eafa200b0e5360358ca530204b89930109882af862dfe1d05",
+    "examples/assetfurnace-example/outputs/stdout/cap256.txt": "d06ef15bdb43e78e046a5a10cf63709fa7c834b6cab911500bd104843df125ab",
+    "examples/assetfurnace-example/outputs/stdout/cap512.txt": "80411dec09ab89cf96c5e7f1530dba6edb1287c16dc58dc65f83ca1293b72713",
+    "examples/assetfurnace-example/prepare_input.py": "c0773ac393d3649f29eeb19d30e290e22affda8998b6952bd0065c30fa2fd781",
+    "examples/assetfurnace-example/render_visual.py": "c0e530cea17a422835314d9aecbfa838005a137c386f040231007d7f82acc606",
+    "examples/assetfurnace-example/run_example.py": "0605282623f0df81f7b1813fa56bdbd95dc9d2ec523cfbdb615693da2dd4108f",
+    "examples/assetfurnace-example/samples.json": "3c78cd7a92fdea5540e6a363c2af75aa27285ef14286fa7d860e1860cef27e10",
+    "examples/assetfurnace-example/source.zip": "68018405323a4ff3b31a85acae75820198b42aef088243427b06486358ff4342",
+    "examples/assetfurnace-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/assetfurnace-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/assetfurnace-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/assetfurnace-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/assetfurnace-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "examples/assetfurnace-example/vendor/assetfurnace/CHANGELOG.md": "025cc7f5821c869668c20618899b32c682e39ef3a5797d8d4c75d2ee915a257a",
+    "examples/assetfurnace-example/vendor/assetfurnace/LICENSE": "c95bae1d1ce0235ecccd3560b772ec1efb97f348a79f0fbe0a634f0c2ccefe2c",
+    "examples/assetfurnace-example/vendor/assetfurnace/NOTICE": "49ea3c89cf4d42e17241c92de845c9edd280653a575d44df4c8c785df67df64a",
+    "examples/assetfurnace-example/vendor/assetfurnace/README.md": "d06f0fcacd055b28047d24a44cbe223e6dc81ea375c6bba0f4a6e7d564ef842a",
+    "examples/assetfurnace-example/vendor/assetfurnace/image_to_3dlab/blender.py": "17b71bcf7b8c8e45fdbda72eabee46eedf61cb491fe360ec2281519504ea15e4",
+    "examples/assetfurnace-example/vendor/assetfurnace/scripts/README.md": "1bdcea403402069cd8cb960ba6e71173e3598c6a3c87f89b6e625be18bafb7b8",
+    "examples/assetfurnace-example/vendor/assetfurnace/scripts/blender_retopo_bake.py": "7f9fc6c3d850aaff6c3b8b3f74c62dadf93edb8046e5de04bef1a7bff56cc3fa",
+    "examples/assetfurnace-example/vendor/assetfurnace/scripts/compress_glb_textures.py": "2e5d8d513560df3bb848ead2229e688733691a76b15535aba2b92a1c7eb2ce2b",
+    "examples/assetfurnace-example/vendor/assetfurnace/scripts/retopo_repaint.py": "ece5d89dffcff5620c2140fea9b8b945ec7ae6bf405b6f6beb4b93c3bc72f9c8",
+    "examples/assetfurnace-example/vendor/assetfurnace/viewer/finish_api.py": "9c513f59ccb282966de3c66cf837ce81b38dab4455da5333ff606d46dbbbb63c",
+    "examples/assetfurnace-example/vendor/three/LICENSE": "bfe119ea4fd413f5f7ca3fcd63adb0c4a073ed39daa2fe7d3e6b769e21272601",
+    "examples/assetfurnace-example/vendor/three/build/three.core.js": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20",
+    "examples/assetfurnace-example/vendor/three/build/three.module.js": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a",
+    "examples/assetfurnace-example/vendor/three/examples/jsm/controls/OrbitControls.js": "b97879c748170baadeb3fb84cea1ffdf4674e283dc06042f34e2acb95a76042c",
+    "examples/assetfurnace-example/vendor/three/examples/jsm/loaders/GLTFLoader.js": "67ac5551fdafa6e349bd80c8f8e5e39c136d6b2fb1ad647db9abb21dc86f9e4a",
+    "examples/assetfurnace-example/vendor/three/examples/jsm/utils/BufferGeometryUtils.js": "fda7e946b8e0b5ab39b779206589e7a1079a22eb24efb89d7223e03fdfb1f751",
+    "examples/assetfurnace-example/vendor/three/package.json": "aa42494664dba4cf76d89c6975ee38321a402f09a048672e190bad6f13beec93",
+    "examples/assetfurnace-example/video/README.md": "bf21eee3abe7fd80a93f2f68770606150e1ec40c227620125ff1514362144642",
+    "examples/assetfurnace-example/video/index.html": "5da4e2598f914b95ad4ee7adb6a69b52717c9bd6fb66694d3feb8eaf6e2d0bdf",
+    "examples/assetfurnace-example/video/review/portrait/capture.json": "35d93a12f9e5f0af43a3b1cefa915a41c2198c6a790052474c2f21023d4245c4",
+    "examples/assetfurnace-example/video/review/portrait/contact.png": "c3ecbef33cdc41082e284858f4f559137c55490c7bd8c8ecbafb5298c1a17150",
+    "examples/assetfurnace-example/video/review/portrait/poster.png": "71eff01f738a69f818913bae219bbfdff421be585fd6663de7df94b2e81d76df",
+    "examples/assetfurnace-example/video/review/portrait/review.html": "3d4ddb3f7a5910ab74bd228181bea29e86fdf853fec5e320f9f78f4c128af3d8",
+    "examples/assetfurnace-example/video/review/portrait/stills/frame-000000.png": "c32b24f9ab64f43ea713074f94f03ad1ce835b6c8998119e54de763670d18493",
+    "examples/assetfurnace-example/video/review/portrait/stills/frame-000001.png": "afdd4db05973fe541938c2a965288e5c8df0f57e0cfe708980d29134d9ec383a",
+    "examples/assetfurnace-example/video/review/portrait/stills/frame-000002.png": "a5ddcfe49cab479c95e9c3de47d0c7818c9a0e2cca32d5b87e211a7ebf68ee65",
+    "examples/assetfurnace-example/video/review/portrait/stills/frame-000003.png": "0ece5750512a19ea791292814bc4a794317585877c3b7d62f1d72bff0c986f15",
+    "examples/assetfurnace-example/video/review/portrait/stills/frame-000004.png": "0f522af9fdf32aedca2d4f1287265f002da22a37a705d815245497e2b61e5189",
+    "examples/assetfurnace-example/video/review/portrait/stills/frame-000005.png": "ffcb05894f0fec68ed559e72fdb05d014925c1f57860167403826ce72f959a25",
+    "examples/assetfurnace-example/video/review/portrait/stills/frame-000006.png": "3f9082b207762c9668a37a6be1fc6f86e7afd82ebd421814e2713631ddbbe6c1",
+    "examples/assetfurnace-example/video/review/portrait/stills/frame-000007.png": "3aa8588dcced3781e1ed8df1beab2c858147b989aeff75aded22efab078933b4",
+    "examples/assetfurnace-example/video/review/portrait/stills/frame-000008.png": "eebe66bb89a24963433e499c6911ef291ea93f818e59e4abdca26bf45a9bfed7",
+    "examples/assetfurnace-example/video/review/portrait/stills/frame-000009.png": "0531592fbe7c72a7027cdd1553a8538e0e3bbed422cd980beaeba707e5d87fda",
+    "examples/assetfurnace-example/video/review/portrait/stills/frame-000010.png": "8a2e56780b5e791f7592160953d67b4c8f41be82244f0e2249c085954db81abc",
+    "examples/assetfurnace-example/video/review/portrait/stills/frame-000011.png": "2a466ef9c4277ce50aff74486cb85a0ec82728d9e52518af8a2da97504381b95",
+    "examples/assetfurnace-example/video/review/portrait/stills/frame-000012.png": "6a8936d42add4d985f77eee2c3ab04e14df46ae16f150e31feab1738017afd58",
+    "examples/assetfurnace-example/video/review/portrait/stills/frame-000013.png": "2880442db65ca9f6186d1e302a678a6b82a948b9b7691becdad0dc2f120f487d",
+    "examples/assetfurnace-example/video/review/portrait/stills/frame-000014.png": "879e6f7694f79ba82bd5690d2dafba11dfae46b8b849331ddf4d7ea16912494e",
+    "examples/assetfurnace-example/video/review/portrait/stills/frame-000015.png": "71eff01f738a69f818913bae219bbfdff421be585fd6663de7df94b2e81d76df",
+    "examples/assetfurnace-example/video/review/portrait/strip.png": "4c77ba073504de8b4f6f15949223f24f16b47a7b0ac1b39f0c7868834f83357d",
+    "examples/assetfurnace-example/video/review/portrait/strip/frame-000000.png": "7684d050da5f80fbcde6c2f95f88134fb66f6d48c1c0e31e9ddc90e67a877b88",
+    "examples/assetfurnace-example/video/review/portrait/strip/frame-000001.png": "fc045bceef11da13acb9d168f847b0c0c57f4821041152967352a0a0377f8e93",
+    "examples/assetfurnace-example/video/review/portrait/strip/frame-000002.png": "de7220c678d58f1250f2c67b79de67bd0f4d21ab5cf633fd9f2fd41442bde829",
+    "examples/assetfurnace-example/video/review/portrait/strip/frame-000003.png": "3bd554128a5d7bc7b2a351489a17dcddd49eddac466d2b323947d59ef4c49fea",
+    "examples/assetfurnace-example/video/review/portrait/strip/frame-000004.png": "14abb49bad342f106277d4c3b91fc03558141f29c04d7d607894f4c1004e8a5d",
+    "examples/assetfurnace-example/video/review/portrait/strip/frame-000005.png": "08e8abd58eb2d948e507d21968292353be410b2ee482a74be35a8f26d35b25f9",
+    "examples/assetfurnace-example/video/review/portrait/strip/frame-000006.png": "631eb2977f4395fd2155a6da95c75fa9c7ba58ae7659b3eeb653d4db8f53278c",
+    "examples/assetfurnace-example/video/review/portrait/strip/frame-000007.png": "be0d8f2419d42b2010c7df0a01a6c8d68c1e63b5488bec552dcfc871aebe8845",
+    "examples/assetfurnace-example/video/review/portrait/strip/frame-000008.png": "21ba969184c678fa9587acecdb6381b5266b33b529a473b0a7c7ead5ed70c843",
+    "examples/assetfurnace-example/video/review/portrait/strip/frame-000009.png": "6358239a4f387eb4a9c8123cf33063beb97cd88b339caf56032a1092d16ad4d3",
+    "examples/assetfurnace-example/video/review/portrait/strip/frame-000010.png": "14bbb1ef46a57f827eb3bc62d2a30c1c08210e44e5feb22bab99397d18fa5eff",
+    "examples/assetfurnace-example/video/review/portrait/strip/frame-000011.png": "e4294e2c77663064d15cd4fe22c615acd066c7cda3793bd01bc1c6ceb0311295",
+    "examples/assetfurnace-example/video/review/wide/capture.json": "954cff6787d55ab71af182b7341261473de945eebe53a3c37aafc0520d1ac550",
+    "examples/assetfurnace-example/video/review/wide/contact.png": "8830b86c0f6341136c5323ea6796242fbf00198b1dc921a884d68d84883d8916",
+    "examples/assetfurnace-example/video/review/wide/poster.png": "a2b2186401247e453422b03c374ea3c7ffb15cb0f9285b7f1260963a7be707d9",
+    "examples/assetfurnace-example/video/review/wide/review.html": "24a0cfc47fe406ad3a336f4dc77b9e2501a7ec685efcdb8413104c58dcf6c328",
+    "examples/assetfurnace-example/video/review/wide/stills/frame-000000.png": "704ddb24b527733510eb37fee3251704ec30a465fb3d2ea37e6f1232ab80165c",
+    "examples/assetfurnace-example/video/review/wide/stills/frame-000001.png": "98034de3d223c51625cf0e7e585d7f7a5fe2e5e9a781442bf6728183e2e6eec8",
+    "examples/assetfurnace-example/video/review/wide/stills/frame-000002.png": "ffe9a63823c2dee49ea008afd9e8077bffd1556c9bee51139a828a154fa9591a",
+    "examples/assetfurnace-example/video/review/wide/stills/frame-000003.png": "499d14975009ff2a2e8473c6947f7cce220f201aa1bb4a345ab305633d6b6bf7",
+    "examples/assetfurnace-example/video/review/wide/stills/frame-000004.png": "0a075b5e0389f731769da19011e4815c8d1631d010b7526c83fe5c8c6539f127",
+    "examples/assetfurnace-example/video/review/wide/stills/frame-000005.png": "05bb4456867cb7dee26a60ec77b5587820da02b1412d077a964fae5289b87994",
+    "examples/assetfurnace-example/video/review/wide/stills/frame-000006.png": "34c3de334d543c1ac4d88220593b3abb3bf551d3673629a7a43447ee31001bb5",
+    "examples/assetfurnace-example/video/review/wide/stills/frame-000007.png": "806c839f6eab92f92628b930f60eacbdd177f86cc9ddc4d7abdcdfdde9dd7a49",
+    "examples/assetfurnace-example/video/review/wide/stills/frame-000008.png": "6330da5fbaf3addbd8fff70b4cb74e15b0175794210dbbdc09e505b6fccad73a",
+    "examples/assetfurnace-example/video/review/wide/stills/frame-000009.png": "49d63a579aa3df561715bb1743e265c678d0e717004ad17710f47dbca02b3522",
+    "examples/assetfurnace-example/video/review/wide/stills/frame-000010.png": "bb97e2871eea5a27fd7bde5bbf4c6f37ec6f478e0e8c8eeb610aae949c1ca829",
+    "examples/assetfurnace-example/video/review/wide/stills/frame-000011.png": "280205d7e946ee08ca08a2bbf64edeb57e6a3405f82708273f419387378b80ce",
+    "examples/assetfurnace-example/video/review/wide/stills/frame-000012.png": "73f12461a9d3e846c4893e57c2ce35373b59130ee2d95367d79b16f098cdb6fd",
+    "examples/assetfurnace-example/video/review/wide/stills/frame-000013.png": "d09ec1df8b9e50d5b41a4e14c8cc38703131bc59726e53fd12453f3794fbacf0",
+    "examples/assetfurnace-example/video/review/wide/stills/frame-000014.png": "eb0499b34c8e9b99e9af9b06456fb629421336340e3ef46da7a9d4b3e8f25734",
+    "examples/assetfurnace-example/video/review/wide/stills/frame-000015.png": "a2b2186401247e453422b03c374ea3c7ffb15cb0f9285b7f1260963a7be707d9",
+    "examples/assetfurnace-example/video/review/wide/strip.png": "bb73a817a46181d4946734bbf7095341c85c9fa96591bc96bfa302f29ef8db1c",
+    "examples/assetfurnace-example/video/review/wide/strip/frame-000000.png": "3fc5689392a6c482e0eca4bf5cc495f0f0afea463cf1875921725bb62784b8d1",
+    "examples/assetfurnace-example/video/review/wide/strip/frame-000001.png": "388f2ac6d85db45bdb3238d6dcb783974952b5c40e4e880ee9f8a3fab83dcca4",
+    "examples/assetfurnace-example/video/review/wide/strip/frame-000002.png": "3c1011ee55f86ccb41d55d408b5b938d011d2266e9bb5c3712870b8cd34bf869",
+    "examples/assetfurnace-example/video/review/wide/strip/frame-000003.png": "a77d1730aef7b1bbce3528fef4321e671c9410ee3ff328ed386b393e0fffc8b7",
+    "examples/assetfurnace-example/video/review/wide/strip/frame-000004.png": "894e22d938647b165376f8962c938f41c629775253aadbe515a82b352a1ed83f",
+    "examples/assetfurnace-example/video/review/wide/strip/frame-000005.png": "28a37d10af5b119e13b6c2b0f1fbff343b5fd07e111a94bbaa72762a49685544",
+    "examples/assetfurnace-example/video/review/wide/strip/frame-000006.png": "8dca7c91b244ac655a96120ca94feccb9c2f8a017abf0bd07b7617705dfb6544",
+    "examples/assetfurnace-example/video/review/wide/strip/frame-000007.png": "398771f648b764eb7557e3b8220a1fde41dec1634fb0ee9346e060b67915f591",
+    "examples/assetfurnace-example/video/review/wide/strip/frame-000008.png": "e276f7d42041b9a0a59e0c2a37456c8797f0534d6ad9e7eeecf62d44c5398cf3",
+    "examples/assetfurnace-example/video/review/wide/strip/frame-000009.png": "25d707623608e0526fe4770dba15e5a93cd5bb3f0f51cd67d47ec69c40087005",
+    "examples/assetfurnace-example/video/review/wide/strip/frame-000010.png": "d4f0c8b3fce159b332be9bd2bf68d43217c3dc277779cf46d84dffd3fca43765",
+    "examples/assetfurnace-example/video/review/wide/strip/frame-000011.png": "f8a77d1550bb2eac51f8c5ee927f714b6c5348f3faa49071c716b6840b47f406",
+    "examples/assetfurnace-example/video/storyboard.json": "eb2a7b3489ddeb0b707a090b597c47632c8178c97aeae12dd63b2789be3f6285",
+    "examples/assetfurnace-example/video/video.css": "5ce0f1447ddc7920a16e0facf87d58cd71b1496065e47c98dddce08881bf5b00",
+    "examples/assetfurnace-example/video/video.js": "e6c8b8f5b9f7b609d38a01a6789cd4879c4af418e30be42360b9c8d890265223",
+    "examples/assetfurnace-example/visual-verification.json": "d939848256314a985fade1125ed2a29b7a91884cfe717a0231e7e32f3152807d",
+    "media/assetfurnace-example-wide.mp4": "c35da03e352b9b6903d01385eb8cae71ae95118f38500d19beb36e0eb2459efc",
+    "media/assetfurnace-example.mp4": "d668753ba7a6713fc77047403bd9fc6f73e69250c7b75b65f13f385aaebbdb7a",
+    "media/assetfurnace-example.webp": "b80a2e626eb082bbaee673ce8e2eabc5f4a73af82a13423bfc559bccdc36a20c"
+  }
+}

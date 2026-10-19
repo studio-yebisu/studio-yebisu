@@ -1,0 +1,125 @@
+{
+  "schema": "studio-yebisu/assetfurnace-example/jobs@1",
+  "case": "assetfurnace-example",
+  "catalog_id": "resource-assetfurnace",
+  "use_case": {
+    "fictional": true,
+    "request_ja": "手元にあるCC0の木箱をWeb3Dで試すため、形を変えずテクスチャ上限1024/512/256の実ファイルと容量を比較したい。",
+    "task_kind": "existing_3d_input_texture_compression",
+    "is_not": [
+      "image_to_3d_generation_request",
+      "image_to_3d_generation_result",
+      "retopology",
+      "baking",
+      "rigging",
+      "pixel_match",
+      "game_integration",
+      "model_inference"
+    ]
+  },
+  "source": {
+    "product": "AssetFurnace (formerly Image to 3D Lab)",
+    "repository": "Bingeljell/image-to-3dlab",
+    "repository_url": "https://github.com/Bingeljell/image-to-3dlab",
+    "commit": "91879333e88a0571945b15b0e21e4bc95ec59e31",
+    "version_note": "Identified by fixed commit only. CHANGELOG latest entry 0.4.4 (2026-10-14); README header still carries a draft 0.4.0 note. No release tag is claimed.",
+    "license": "Apache-2.0",
+    "notice_file": "NOTICE",
+    "verified_files": [
+      {
+        "path": "scripts/compress_glb_textures.py",
+        "bytes": 12929,
+        "sha256": "2e5d8d513560df3bb848ead2229e688733691a76b15535aba2b92a1c7eb2ce2b",
+        "git_blob": "f58420d6d7cc91d0f457982e82306b217ca96271",
+        "role": "original CLI executed unchanged"
+      },
+      {
+        "path": "LICENSE",
+        "bytes": 11358,
+        "sha256": "c95bae1d1ce0235ecccd3560b772ec1efb97f348a79f0fbe0a634f0c2ccefe2c",
+        "git_blob": "57bc88a15a0ee8266c259b2667e64608d3f7e292",
+        "role": "Apache-2.0 licence text"
+      },
+      {
+        "path": "NOTICE",
+        "bytes": 1162,
+        "sha256": "49ea3c89cf4d42e17241c92de845c9edd280653a575d44df4c8c785df67df64a",
+        "git_blob": "038639ee63c161a7c89f368aceac2c30881d158f",
+        "role": "attribution notice to keep with redistribution"
+      }
+    ]
+  },
+  "tool": {
+    "script": "scripts/compress_glb_textures.py",
+    "summary": "Re-encode a GLB's textures, without touching its geometry.",
+    "entry": "command line (main)",
+    "modified": false,
+    "runtime_dependencies": ["Python", "Pillow"]
+  },
+  "environment": {
+    "python": "3.11",
+    "pillow": "11.3.0",
+    "blender": "5.2.1"
+  },
+  "input": {
+    "id": "polyhaven-wooden_crate_01",
+    "title": "Wooden Crate 01",
+    "origin": "Poly Haven",
+    "url": "https://polyhaven.com/a/wooden_crate_01",
+    "artist": "James Ray Cock",
+    "license": "CC0-1.0",
+    "kind": "previously acquired authored 3D asset, not AI-generated",
+    "acquired_from": "published 3d-asset-server-example, copied unchanged; no new download",
+    "gltf": "inputs/polyhaven-wooden_crate_01/wooden_crate_01_1k.gltf",
+    "expected": {
+      "mesh_objects": 3,
+      "materials": 1,
+      "triangles": 6576
+    },
+    "files": [
+      {
+        "path": "inputs/polyhaven-wooden_crate_01/textures/wooden_crate_01_arm_1k.jpg",
+        "bytes": 776699,
+        "sha256": "cd0b031c3924905e16ffd78ead062c2cc274148c4104d09635310097738b4679"
+      },
+      {
+        "path": "inputs/polyhaven-wooden_crate_01/textures/wooden_crate_01_diff_1k.jpg",
+        "bytes": 711292,
+        "sha256": "16653f4abaf4c1d9bca94bde3bd8c54d0ea9a5298d1648abcf57de1f7ecc34cc"
+      },
+      {
+        "path": "inputs/polyhaven-wooden_crate_01/textures/wooden_crate_01_nor_gl_1k.jpg",
+        "bytes": 594076,
+        "sha256": "f4ea44c7dc1686123d337039cb713d74e8a2dbc6d1bd2beeac276d06f5df3fab"
+      },
+      {
+        "path": "inputs/polyhaven-wooden_crate_01/wooden_crate_01.bin",
+        "bytes": 189408,
+        "sha256": "85f381f8035f7a6f2f3b848640894c6d3333b261946dd8a338c0fe19e0bea21e"
+      },
+      {
+        "path": "inputs/polyhaven-wooden_crate_01/wooden_crate_01_1k.gltf",
+        "bytes": 5612,
+        "sha256": "fd9c6073acfc671e12b64666053f2805ae33aff5d3dbbcfe5c97c08c06644927"
+      }
+    ]
+  },
+  "preparation": {
+    "tool": "Blender",
+    "script": "prepare_input.py",
+    "runs": 1,
+    "packed_glb": "input/packed_input.glb",
+    "record": "preparation.json",
+    "note": "Input preparation with Blender's own glTF importer/exporter; not part of AssetFurnace."
+  },
+  "compression_common": {
+    "format": "png",
+    "quality": 90,
+    "map_quality": 90
+  },
+  "jobs": [
+    {"id": "cap1024", "max_size": 1024, "map_size": 1024, "normal_size": 1024},
+    {"id": "cap512", "max_size": 512, "map_size": 512, "normal_size": 512},
+    {"id": "cap256", "max_size": 256, "map_size": 256, "normal_size": 256}
+  ]
+}
