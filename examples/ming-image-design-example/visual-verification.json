@@ -1,0 +1,242 @@
+{
+  "id": "ming-image-design-example",
+  "verified_at": "2026-10-20T04:15:52.748758+00:00",
+  "stage": "runtime-and-agent-visual-reviewed",
+  "new_case": true,
+  "scope": "制作担当が320/375pxの1例×3段階6状態（全図と44px主操作）、6部品と原典6引用、16表示条件、字形の注意・背景/拡大/リセット、3破損条件での両画面の停止と復旧、3保存要求と返却3ファイルの全バイト一致、編集20素材/7場面/縦横14状態/任意7.2秒/向き保持/ネイティブrange0.1秒/通常32秒、代表/連続/contactと実MP4の移動、縦横32秒960f無音MP4の全デコードと自然終端、最終ソース62PNG一致と30/31秒静止を新しく確認しました。実機iOS/Safari/VoiceOver・200%拡大、人の審美的承認、字形完全一致・印刷適性・全入力・性能は未確認です。",
+  "identity": "Ming Image0.1 Designはローカルの画像生成モデル/パイプライン。SKILL.mdや編集レイヤー形式ではない。今回の実行は原典が案内する別実装の無料公開Design Space。",
+  "structure": {
+    "editorial_parts": 6,
+    "original_reference_excerpts": 6,
+    "actual_runtime_external_references": 3,
+    "flow": {
+      "author": "原典と架空の依頼→同じ作者AI1体がprompt/clientを執筆→制作担当が別に匿名Spaceへ1回送る",
+      "model": "prompt+256query→thinker→queryはconnectorへ/原文はdirect投影へ→両条件がseednoiseのflowtransformerへ→12反復/CFG1→4chVAE→実PNG",
+      "use": "原稿と字形/日付/会場・αを別工程で確認→元PNGを保存/用途へ。ブラウザー内生成なし。"
+    },
+    "source_based_explanation_not_activation_measurements": true
+  },
+  "actual_execution": {
+    "route": "Original-README-linked separate public Design Space; anonymous POST1/complete1. Original infer.py/local model/Layer not run.",
+    "reference_commit": "3515cd7b1e3049fc517eed7d35020251cd06519a",
+    "space_commit": "367085c6a006004b1658ad3b7edbd498581a33b3",
+    "model_metadata_before_after": "c57c49689d12ef7d4e24a170014f1dc43d3ce258",
+    "server_loaded_weight_revision_verified": false,
+    "png": {
+      "bytes": 665402,
+      "sha256": "5042b961879f9f4c15a33cb8096edca258ec211822a317eeecda215c7866b607",
+      "width": 1024,
+      "height": 1024,
+      "mode": "RGBA"
+    },
+    "settings": {
+      "resolution": "1024 x 1024 (recommended)",
+      "steps": 12,
+      "guidance_scale": 1.0,
+      "seed": 20261020
+    },
+    "alpha": {
+      "width": 1024,
+      "height": 1024,
+      "mode": "RGBA",
+      "alpha_min": 216,
+      "alpha_max": 255,
+      "fully_transparent_pixels": 0,
+      "partially_transparent_pixels": 90578,
+      "fully_opaque_pixels": 957998,
+      "total_pixels": 1048576,
+      "method": "Independent operator Pillow decode/count of original bytes; no resave, alpha correction or image editing. Requested opaque cream background is not fully opaque in actual PNG."
+    },
+    "literal_review_scope": "Agent visually read original and enlarged QA crops, no OCR/human approval. Venue glyph requires review; no text/alpha corrections or regeneration.",
+    "new_image_generation_for_diagram": false
+  },
+  "browser": {
+    "phone_sizes": [
+      [
+        320,
+        812
+      ],
+      [
+        375,
+        812
+      ]
+    ],
+    "case_stage_states": 6,
+    "min_primary_target_CSS_px": 44,
+    "whole_graph_first812px": true,
+    "preferences_checked": 16,
+    "palette": "Fixed light palette under both browser preferences; no separate dark theme claim.",
+    "part_controls": 6,
+    "excerpts_checked": 6,
+    "faults": [
+      {
+        "mode": "http",
+        "main_graph_and_result_hidden": true,
+        "original_image_and_blob_links_cleared": true,
+        "saves_disabled": true,
+        "editor_canvas_cleared": true,
+        "editor_controls_disabled": true,
+        "both_recovered": true
+      },
+      {
+        "mode": "json",
+        "main_graph_and_result_hidden": true,
+        "original_image_and_blob_links_cleared": true,
+        "saves_disabled": true,
+        "editor_canvas_cleared": true,
+        "editor_controls_disabled": true,
+        "both_recovered": true
+      },
+      {
+        "mode": "hash",
+        "main_graph_and_result_hidden": true,
+        "original_image_and_blob_links_cleared": true,
+        "saves_disabled": true,
+        "editor_canvas_cleared": true,
+        "editor_controls_disabled": true,
+        "both_recovered": true
+      }
+    ],
+    "hash_fallbacks": 3,
+    "native_saves": [
+      {
+        "kind": "png",
+        "source": "outputs/reading-club.png",
+        "bytes": 665402,
+        "sha256": "5042b961879f9f4c15a33cb8096edca258ec211822a317eeecda215c7866b607",
+        "returned_file_byte_identical": true
+      },
+      {
+        "kind": "request",
+        "source": "inputs/request.json",
+        "bytes": 1234,
+        "sha256": "a43a93afdcad28dd0cf6805042cceadfd8cd61da32dcee82c84435c5cd4897ad",
+        "returned_file_byte_identical": true
+      },
+      {
+        "kind": "summary",
+        "source": "outputs/run-summary.json",
+        "bytes": 5363,
+        "sha256": "e3e5c88f38eb81658080229ae7a1bc5b2d7ea2411fdb20edccb1c7e36430da0d",
+        "returned_file_byte_identical": true
+      }
+    ],
+    "save_scope": "Native requests, checked original bytes and returned files are separate; not a universal user disk-save guarantee.",
+    "editor_assets": 20,
+    "editor_scenes": 7,
+    "orientation_scene_states": 14,
+    "arbitrary_seek": 7.2,
+    "orientation_preserves_time": true,
+    "native_range_arrow": 0.1,
+    "normal_preview_end": 32,
+    "audio_elements": 0
+  },
+  "films": {
+    "final_renders": "renders-r2",
+    "duration": 32,
+    "fps": 30,
+    "file_frames_each": 960,
+    "dimensions": [
+      [
+        720,
+        1280
+      ],
+      [
+        1280,
+        720
+      ]
+    ],
+    "audio_streams": 0,
+    "full_decodes": 2,
+    "faststart": true,
+    "representatives_each": 16,
+    "consecutive_frames_each": 12,
+    "strip_seconds": 14.4,
+    "source_PNG_files_byte_identical": 62,
+    "PNG_count_scope": "Per layout16representatives+12continuousframes+poster+contactsheet+stripsheet=31PNG. Two layouts62. Not62unique individual frames.",
+    "static_seconds": [
+      30,
+      31
+    ],
+    "native_local": [
+      {
+        "layout": "portrait",
+        "ended": true,
+        "current_time": 32,
+        "duration": 32,
+        "total_video_frames": 960,
+        "dropped_video_frames": 2
+      },
+      {
+        "layout": "wide",
+        "ended": true,
+        "current_time": 32,
+        "duration": 32,
+        "total_video_frames": 960,
+        "dropped_video_frames": 0
+      }
+    ],
+    "native_note": "One parallel background run; portrait drop2/wide0 is observed playback context, not a speed or quality benchmark.",
+    "agent_visual_review": [
+      "6 phone states and label bounds",
+      "r2 portrait/wide representatives/contact/consecutive images",
+      "r2 encoded MP4 split-path moving strip",
+      "native32s ends"
+    ],
+    "human_aesthetic_approval": false
+  },
+  "preservation": {
+    "manifest_assets": 20,
+    "manifest_sha256": "cdae838a556246ae8b319302ce4c42a2a26a52b25eda1436aa552389320bac06",
+    "protected_core_files": 21,
+    "source_reference_official_gitblobs": 6,
+    "space_code_gitblobs_privately_verified": 9,
+    "phase1_author_originals": 4,
+    "phase2_author_originals": 11,
+    "operator_corrections": [
+      {
+        "path": "app.js",
+        "scope": "Main narrow SVG node label only, not shared NODES/film draw/source data. Original exact11files remain in runtime/model-authored/phase2."
+      },
+      {
+        "path": "video/draw.js",
+        "scope": "Cap stationary and moving noise grid size at36px to keep the unchanged label visible. Same source-based flow and real output; no model/image changes."
+      },
+      {
+        "path": "styles.css",
+        "scope": "Hide graph/result/parts/file sections whenever body state is not ready; retry/error remains visible and verified reload restores them."
+      },
+      {
+        "path": "README.md",
+        "scope": "Later completed operator QA wording and tested archive layout; exact author original remains archived."
+      },
+      {
+        "path": "video/README.md",
+        "scope": "Later completed operator QA wording and tested archive layout; exact author original remains archived."
+      },
+      {
+        "path": "README.md",
+        "scope": "Append later packaging/reproduction boundaries, not new model authorship."
+      },
+      {
+        "path": "video/README.md",
+        "scope": "Append later packaging/reproduction boundaries, not new model authorship."
+      }
+    ]
+  },
+  "not_verified": [
+    "actual loaded server weight revision",
+    "human aesthetic approval",
+    "physical iOS/Safari/VoiceOver",
+    "200percent zoom",
+    "raster glyph/codepoint identity",
+    "printing/all inputs/general quality/performance",
+    "universal user disk save completion"
+  ],
+  "excluded_QA_observations": [
+    "Initial CUA outer screenshot downsamples replaced with exact CDP viewport captures.",
+    "An editor QA selector #ed-detail was wrong; corrected to #ed-state-detail. A count using body[data-orient] was replaced with button selectors.",
+    "Initial individual-frame count58 excluded4contact/stripaggregatePNG; final comparison correctly includes62PNG files."
+  ],
+  "distribution": "Own source/runtime + original6MITreferences + rawPNG/input/measurement; no Space source relicensing, weights/env/cache/fullmodelhistory/privateheaders/events/coordinator skill."
+}

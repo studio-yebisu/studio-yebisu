@@ -1,0 +1,98 @@
+{
+  "schema": "ming-film-storyboard@1",
+  "duration": 32,
+  "fps": 30,
+  "sizes": {
+    "portrait": [720, 1280],
+    "landscape": [1280, 720]
+  },
+  "audio": "none",
+  "message": "Ming Image 0.1 Design は文字入りの絵を描く画像生成モデル。作者AIが書き、制作担当が公開デモへ1回送り、中で2本の条件に分かれてノイズから12回で描かれ、実際のPNG 1枚が返る。",
+  "note": "全場面で同じ1枚の図が残り、強調と動く印だけが変わる。トークンの粒・256の枠・3本の層の線・ノイズの粒・12の目盛り・潜在の四角は説明の形で、測った内部の値・途中の画像・処理時間ではない。画像は照合した実際のPNG 1枚だけで、新しい生成物を作らない。",
+  "scenes": [
+    {
+      "id": "identity",
+      "start": 0,
+      "end": 4.5,
+      "title": "何か：文字入りの絵を描くモデル",
+      "message": "画像生成モデルとPythonの手順。SKILL.mdでも、編集レイヤーでもない",
+      "in": "図の全体が読める状態で始まる",
+      "out": "モデルの枠と原典の説明が強調された状態",
+      "motion": "モデルの枠の縁がゆっくり明るくなる。ほかの部品はそのまま読める",
+      "data": "原典README（固定版3515cd7）の名前と役割、実際のPNGの縮小表示",
+      "focus": ["docs", "tokens", "thinker", "connector", "direct", "noise", "dit", "vae", "png"]
+    },
+    {
+      "id": "handoff",
+      "start": 4.5,
+      "end": 9,
+      "title": "渡す：書く人と送る人は別",
+      "message": "作者AI 1体がpromptとclientを書き、制作担当が公開デモへ匿名で1回送る",
+      "in": "原典の説明と架空の依頼",
+      "out": "公開デモに1回の依頼が届いた状態",
+      "motion": "依頼の紙片が原典→作者AI→制作担当→公開デモへ線の上を進む",
+      "data": "依頼の4つの文字列、送り先Space @367085c、送信1回",
+      "focus": ["docs", "brief", "author", "operator", "space"]
+    },
+    {
+      "id": "read",
+      "start": 9,
+      "end": 13.5,
+      "title": "読む：文と256の問いを1回",
+      "message": "promptのトークンの後ろに256個のqueryの枠を足し、thinkerが1回だけ読む",
+      "in": "公開デモに届いたprompt",
+      "out": "thinkerが文と枠を読み終えた状態",
+      "motion": "トークンの粒と16×16の枠が並んでthinkerへ入る",
+      "data": "256（queryの枠の数）、thinker 1回。粒の数と並びは説明の形",
+      "focus": ["space", "tokens", "thinker"]
+    },
+    {
+      "id": "split",
+      "start": 13.5,
+      "end": 18,
+      "title": "分ける：性質の違う2本の条件",
+      "message": "queryはconnectorへ。promptの3層の状態は直接の投影へ。文言はこちらが運ぶ",
+      "in": "thinkerの出力",
+      "out": "2本の条件がflow transformerで合流した状態",
+      "motion": "黄土の粒がqueryの道を、緑の3本線が直接の道を通り、同じ箱で合流する",
+      "data": "3層、proj_in→Qwen2 connector→proj_out、直接の投影（公開デモのソースに基づく）",
+      "focus": ["thinker", "connector", "direct", "dit"]
+    },
+    {
+      "id": "draw",
+      "start": 18,
+      "end": 23,
+      "title": "描く：ノイズから12回、VAEで画像へ",
+      "message": "seed固定のノイズを2本の条件で12回更新。CFG 1でも正と負の差を使う",
+      "in": "合流した2本の条件と、seedから作るノイズ",
+      "out": "4チャンネルのVAEを通り、PNGの箱へ届いた状態",
+      "motion": "説明の粒がflowの箱へ入り、12の目盛りが順に埋まり、4色の四角がVAEからPNGへ進む",
+      "data": "seed 20261020、12回、CFG 1.0、4チャンネル。目盛りの速さは説明で、実際の時間ではない",
+      "focus": ["noise", "dit", "vae", "png"]
+    },
+    {
+      "id": "png",
+      "start": 23,
+      "end": 27.5,
+      "title": "返る：実際のPNG 1枚",
+      "message": "1024×1024・RGBA。生成は1回で、選び直しも修正もしていない",
+      "in": "PNGの箱",
+      "out": "実際のPNGと、その大きさ・ハッシュが読める状態",
+      "motion": "PNGの箱の縁が強調され、大きさとバイト数が順に現れる",
+      "data": "実際のPNG（665,402 B・SHA-256 5042b961…）、サーバーの1行の報告",
+      "focus": ["vae", "png"]
+    },
+    {
+      "id": "use",
+      "start": 27.5,
+      "end": 32,
+      "title": "確かめて使う",
+      "message": "文字は目で読めるが、会場の字形は要確認。透明画素は0、半透明が残る",
+      "in": "実際のPNG",
+      "out": "字形とαの確認が並び、元のまま保存する図で止まる（30秒以降は静止）",
+      "motion": "4つの文字の確認が順に並び、会場に要確認の印、αの行、保存の箱が点く。29.6秒で動きを終える",
+      "data": "読合せ4行（会場は要確認）、α 216〜255・透明0・半透明90,578",
+      "focus": ["png", "check", "use"]
+    }
+  ]
+}

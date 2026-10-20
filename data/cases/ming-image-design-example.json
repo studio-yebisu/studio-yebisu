@@ -1,0 +1,257 @@
+{
+  "id": "ming-image-design-example",
+  "title": "Ming Image 0.1 Design作例：文字入りの絵を描くモデルの中を、実際のPNG 1枚で見る",
+  "title_lines": [
+    "Ming Image 0.1 Designで、",
+    "文字入りの絵が",
+    "返るまで"
+  ],
+  "category": "graphics",
+  "summary": "Ming Image 0.1 Designは、UI・ポスター・図解のような文字の多い絵を作る画像生成モデルと、手元で動かすPythonの手順です。SKILL.mdでも、編集できるデザイン形式でもありません。この作例では、作者AI 1体が書いたpromptと匿名クライアントで、制作担当が原典の案内する無料の公開デモへ1回だけ送りました。promptと256個のqueryの枠を1回読み、性質の違う2本の条件に分かれ、ノイズから12回で描かれて実際のPNG 1枚が返るまでを、大きな構造図と32秒の無音動画にしています。会場の字形と、半透明が残った背景もそのまま見せます。",
+  "model": "claude-opus-5-5",
+  "status": "published",
+  "demo": "examples/ming-image-design-example/index.html",
+  "video": "media/ming-image-design-example.mp4",
+  "poster": "media/ming-image-design-example.webp",
+  "skill": "examples/ming-image-design-example/vendor/ming/README.md",
+  "skill_label": "Ming Image 0.1 Design 原典のREADME（モデルの一次資料・SKILL.mdではない）",
+  "skill_description": "inclusionAI/Ming-Image の固定版 3515cd7 にある README.md の原文です。画像生成モデル Ming-Image-0.1-Design と、別モデル Ming-Image-0.1-Design-Layer（平らな画像を透明なレイヤーに分ける）の両方を説明し、ローカルの infer.py の使い方・既定の設定（12 steps・CFG 1.0）・検証済みの構成（80 GiB のGPU1枚）を載せています。AIエージェント向けの手順書（SKILL.md）でも、ホスト型の製品でもありません。READMEが紹介する Design Skill・PPT Skill は別のエージェントの手順で、この作例では使っていません。作者AIはこのREADMEと inference_profile.py などを読んでprompt・依頼・クライアントを書き、実際に送ったのは制作担当です。動いたのは原典のinfer.pyではなく、READMEのDemoリンクの先にある公開Spaceの別実装です。",
+  "samples": "examples/ming-image-design-example/samples.json",
+  "sample_format": "input-output",
+  "samples_title": "架空の読書会の依頼と、返った実際のPNG 1枚",
+  "samples_intro": "input は、英語のprompt（981 Bのファイル、末尾の改行を除いた980 Bを送信）・入れる4つの文字列・設定（1024 x 1024・12 steps・CFG 1.0・seed 20261020）・送り先です。output は、公開デモから返ったPNG 1枚（665,402 B・1024×1024・RGBA）と、後から制作担当が別の工程で確かめた文字の見え方とαの数え方です。1回の生成の1枚で、選び直しや比較のための2枚目はありません。作例ページで拡大や背景色を変えても、新しい生成ではありません。",
+  "demo_description": "大きな構造図が主役です。「①何か・②渡す・③返る」で、同じ図の強調が変わります。原典の説明と架空の依頼→作者AI 1体がpromptとクライアントを書く→制作担当が無料の公開デモへ匿名で1回送る→モデルの中で、promptと256個のqueryの枠をthinker（BailingMoE-v2）が1回読み、queryの道（proj_in→双方向Qwen2 connector→proj_out）と直接の道（3つの層の状態・描く文言を運ぶ）の2本の条件に分かれる→2本の条件とseed固定のノイズがZ-Imageのflow transformerに入り12回更新（CFG 1でも正と負の差を使う）→4チャンネルのVAE→実際のPNG→字形とαを別に確かめて元のまま保存、の関係をひと続きで見られます。数字の付いた6つのまとまりから、原典（固定版）の6か所の該当行と、実際に動いた公開デモのソースの参照を読めます。図の下では、実際のPNGを拡大し、白・緑・市松の背景で見比べ、原稿の4つの文字と見え方の記録（会場の字形は要確認）、αの数え方（透明画素は0、半透明が残る）、設定とサーバーの報告を並べて読めます。PNG（元のバイト）・依頼のJSON・実行の記録JSONと、ほかの記録を保存できます。",
+  "demo_note": "ページは concept/manifest.json を固定のSHA-256で確かめ、そこに載った20ファイルの大きさとSHA-256、原典6引用と同梱ファイルの該当行、依頼・送った文・実行の記録・PNGのヘッダー（1024×1024・RGBA）・αの数え方・文字の読合せの関係を照合してから表示します。合わなければ画像・保存・リンクを止め、理由と「もう一度確かめる」を出します。ブラウザーではモデルの実行も公開デモの呼び出しもしません。図の線・枠・動きは公開デモのソースに基づく説明で、内部の値や時間の測定ではありません。作者AI（Claude Opus 5.5）がprompt・依頼・クライアントと、ページ・図・動画のソースを書き、制作担当が公開デモへ1回だけ送りました。制作担当が320/375pxの1例×3段階6状態（全図と44px主操作）、6部品と原典6引用、16表示条件、字形の注意・背景/拡大/リセット、3破損条件での両画面の停止と復旧、3保存要求と返却3ファイルの全バイト一致、編集20素材/7場面/縦横14状態/任意7.2秒/向き保持/ネイティブrange0.1秒/通常32秒、代表/連続/contactと実MP4の移動、縦横32秒960f無音MP4の全デコードと自然終端、最終ソース62PNG一致と30/31秒静止を新しく確認しました。実機iOS/Safari/VoiceOver・200%拡大、人の審美的承認、字形完全一致・印刷適性・全入力・性能は未確認です。実機iOS/Safari/VoiceOver・200%拡大、人の審美的な承認は未確認です。",
+  "request_intro": "同じ経路を、自分の架空の依頼で試すときの依頼文です。Pythonを動かせるAIエージェントや開発者に渡してください。この作例のクライアントは、今回のポスターの依頼と今の公開デモのbuildを照合して止まるので、そのままでは別の依頼に使えません。",
+  "request": "Ming Image 0.1 Design の原典（inclusionAI/Ming-Image 固定コミット 3515cd7b1e3049fc517eed7d35020251cd06519a、MIT）の README.md と inference_profile.py を読み、架空のイベントのポスター1枚を、原典READMEのDemoリンクが案内する無料の公開Space（現在の移転先 inclusionAI/ming-image-0-1-design-demo）で1回だけ生成し、実ファイルで確かめてください。Authorization・HFトークン・Cookie・アカウント・クレジット・課金は使いません。原典のinfer.py・Layer・編集・PPT・prompt拡張・手元のGPUは使いません。\n\n準備：送る前に、Spaceのrepoと実行のbuildのコミット、状態、/generate の引数と戻り値の形、モデルのHubメタデータのコミットを取得して記録する。Spaceのソースを読み、原典のinfer.pyとは別の実装であること、ローダーがモデルのrevisionを指定しているかを確かめる。依頼には架空の名前・日時・会場だけを入れ、実在の住所・申込・QR・価格・スポンサー・ロゴ・個人情報は入れない。入れる文字列は別の配列に記録する。Studio Yebisu の作例の run_example.py を下敷きにするなら、そこにある依頼・buildの照合を自分の依頼に合わせて見直して書き直す。\n\n実行：POSTは1回だけ。失敗・待ち行列・無料枠・ログインの要求では送り直さず、別のエンドポイントや別のモデルに切り替えない。結果の流れを読み直すときは、すでに送ったevent idのGETだけを使う。結果を見て選び直し・再生成・修正をしない。\n\n記録：返ったPNGのバイト数・SHA-256・幅・高さ・カラータイプ、サーバーの報告の原文、手元の経過時間（キューと通信を含むと明記）、送信前後のbuildとHubメタデータを残す。後から別の工程で、入れた文字列ごとの見え方（字形の違いは見えたまま書く）と、αの最小・最大・透明・半透明・不透明の画素数を数え、PNGは再保存しない。サーバーが読み込んだ重みの版・内部の時間・品質・印刷適性は、確かめられない限り未確認と書く。\n",
+  "applied_skills": [
+    {
+      "name": "Ming Image 0.1 Design（inclusionAI/Ming-Image）の原典README とコード",
+      "source": "https://github.com/inclusionAI/Ming-Image/blob/3515cd7b1e3049fc517eed7d35020251cd06519a/README.md",
+      "applied": "Ming Image 0.1 Design は画像生成モデルとPythonの手順で、README はAIが読む手順書（SKILL.md）ではなく、モデルの一次資料です。固定版の README・inference_profile.py・infer.py などを読み、DesignとLayerが別モデルであること、既定の設定（text-to-image は12 steps・CFG 1.0）、ローカル実行の前提（CUDAのPyTorch・80 GiBのGPU1枚が検証済みの構成）、原典CLIの --revision による版の固定を確かめました。手元はディスクの空きが重みに足りずGPUも別の作業中だったため、READMEのDemoリンクから移った無料の公開Space @367085c を経路に選び、英語の自然文のprompt（4つの文字列を各1回）・依頼のJSON（1024 x 1024・12 steps・CFG 1.0・seed 20261020・1件）・標準ライブラリだけの匿名クライアント run_example.py・実装メモを書きました（第1段階の4ファイル）。制作担当がそのクライアントでPOSTを1回だけ送りました。図の6つのまとまりは原典と公開デモのソースに基づく説明の整理で、公式の区分ではありません。"
+    },
+    {
+      "name": "Motion Reel",
+      "source": "examples/ming-image-design-example/tools/motion-reel/render.mjs",
+      "applied": "時刻の契約（window.motionConfig・motionReady・seek(秒)・__MOTION_RENDER__・renderConfig の反映、audioEvents は空）に合わせて、作例ページと同じ app.js の照合・図の部品・線の形で、無音32秒の編集用ソースを書きました。7つの場面それぞれに伝えること・入る状態・出る状態・時刻・動き・使うデータを storyboard.json に持たせ、縦と横は配置を作り直して描き、乱数・タイマー・前のコマの積算を使わずに任意の時刻を描けるようにしています。画像は照合した実際のPNG 1枚だけで、途中の画像は作りません。29.6秒で動きを終え、30秒・31秒は同じ静止画です。作者の執筆後、制作担当が描画・再生・書き出しを確認しました。 作者の原本保全後の実検証：制作担当が320/375pxの1例×3段階6状態（全図と44px主操作）、6部品と原典6引用、16表示条件、字形の注意・背景/拡大/リセット、3破損条件での両画面の停止と復旧、3保存要求と返却3ファイルの全バイト一致、編集20素材/7場面/縦横14状態/任意7.2秒/向き保持/ネイティブrange0.1秒/通常32秒、代表/連続/contactと実MP4の移動、縦横32秒960f無音MP4の全デコードと自然終端、最終ソース62PNG一致と30/31秒静止を新しく確認しました。実機iOS/Safari/VoiceOver・200%拡大、人の審美的承認、字形完全一致・印刷適性・全入力・性能は未確認です。"
+    }
+  ],
+  "steps": [
+    {
+      "title": "文字入りの絵を描く、画像生成モデル",
+      "body": "Ming Image 0.1 Design（inclusionAI/Ming-Image 固定コミット 3515cd7）は、UI・インフォグラフィック・ポスターなど文字の多い絵を作る画像生成モデルと、手元で動かすPythonの手順です。SKILL.md・チャットAIのチーム・ホスト型の製品・編集できるデザイン形式ではありません。同じシリーズの Layer（レイヤー分解）は別モデルで、今回は使っていません。「6B」は公開された識別のラベルで、容量を測った値ではありません。"
+    },
+    {
+      "title": "作者AIが書き、制作担当が公開デモへ1回だけ送る",
+      "body": "作者AI（1体）が原典を読み、架空の読書会のprompt・依頼のJSON・匿名クライアント・実装メモを書きました（作者は何も実行していません）。制作担当がそのクライアントで、原典READMEのDemoリンクから移った無料の公開Space inclusionAI/ming-image-0-1-design-demo @367085c へ、トークンやアカウントなしの匿名POSTを1回だけ送りました。送信の前後で実行のbuildが同じことを確かめています。このSpaceは独自の MingImagePipeline（vLLM-Omni PR #8021 に準拠）で、原典の infer.py とは別の実装です。"
+    },
+    {
+      "title": "1回読んで、性質の違う2本の条件に分ける",
+      "body": "公開デモのソースによると、promptのトークンの後ろに256個の学習済みの問い（query）の枠を足し、BailingMoE-v2 の thinker が1回だけ読みます。queryの最後の状態は proj_in→双方向の Qwen2 connector→proj_out へ、promptのトークン自身の状態は3つの層から集めて直接の投影へ進みます。描く文言を運ぶのは後者です。thinker はモデルの部品で、作者AIとは別のものです。"
+    },
+    {
+      "title": "ノイズから12回で描き、4チャンネルのVAEで画像にする",
+      "body": "seed 20261020 から最初のノイズを作り、Z-Image の flow transformer が2本の条件を受けて12回更新します。CFG 1.0 でも無効ではなく、正の条件と0にした負の条件の差を使います（正＋1×（正−負））。最後に4チャンネルのVAEが 1024×1024 の RGBA 画像にします。図と動画の動き・粒・目盛りは説明の形で、内部の値や各段の時間を測ったものではありません。"
+    },
+    {
+      "title": "実際のPNGが1枚返り、字形とαを確かめて元のまま使う",
+      "body": "返ったのはPNG 1枚（665,402 B・1024×1024・RGBA）と、サーバーの1行の報告だけです。制作担当が別の工程で、見出し・日時・注記は目で読めること、会場の「図」が「圖」のような字形に見え原稿との一致を確かめられないこと、αが216〜255で透明画素0・半透明90,578画素であることを記録しました。依頼した完全に不透明な背景にはなっていません。PNGは修正・再生成していません。実際に使う前には、人が文字・日付・会場と透過を確かめてください。"
+    }
+  ],
+  "limitations": [
+    "実行したのは、原典READMEが案内する公開Space inclusionAI/ming-image-0-1-design-demo @367085c への匿名POST 1回だけです。このSpaceは独自の MingImagePipeline（vLLM-Omni PR #8021 を参考にした別実装）で、原典の infer.py・CLI・ローカルのモデルは実行していません。Layer・編集・PPT・Design Skill・prompt拡張・ComfyUI・手元のGPUも使っていません。",
+    "公開デモのローダーはモデルのrevisionを指定していないため、サーバーが実際に読み込んだ重みの版は確認できません。モデルのHubメタデータ inclusionAI/Ming-Image-0.1-Design @c57c496（公開・ゲートなし・MIT）は送信の前後で同じでしたが、実行した重みの証明ではありません。",
+    "公開Spaceの公開ソースを読み、照合記録は私的に保存しました。一般的な再配布の条件が見つからないため、同梱もMITへの付け替えもしていません。Spaceの説明文にある「原典は非公開」「透過の合図の語は未公開」は、固定した原典と合わない古い記述として採用していません。",
+    "会場「小箱図書室」の「図」は「圖」のような囲みの多い字形に見え、原稿との字形の一致は確かめられていません。ほかの3つも制作担当が目で読めるという記録で、OCR・人の承認・文字コードの一致・組版の品質の保証ではありません。",
+    "αは216〜255で、透明な画素0・半透明90,578・不透明957,998です。依頼した完全に不透明な紙の背景にはなっていません。RGBAの形式は、透明な背景や編集できるレイヤーの証明ではありません。透過の補正・トリミング・色の修正・再生成はしていません。",
+    "サーバーの報告「1024 x 1024 RGBA in 9.9s - 12 steps, CFG 1.0」はサーバーの申告で、独立したGPUの計測ではありません。要求から返却まで14.941秒・全体20.532秒は、キュー・GPUの割り当て・通信を含む手元の時計です。ハードのラベル zero-a10g とアプリの xlarge 指定は観察で、実際に割り当てられたGPUは測っていません。",
+    "無料のZeroGPUの枠は、公式の現行の記載で匿名の目安が1日2分、xlargeは2倍の消費です。空きや残りの枠は保証されず、もう一度送ると枠を消費し、同じseedでも同じ画像になる保証はありません。手元で動かさなかったのは、ディスクの空き（約1.75GB）が重み（約52.88GB）に足りずGPUも別の作業中だったためで、原典の80 GiBは上流が検証した構成であり、ほかの方法で動かないという証明ではありません。",
+    "outputs/run-summary.json は制作担当のクライアントの測定をまとめたもので、モデルの出力そのものではありません。公開デモから返ったのは reading-club.png と server-info.txt の内容だけです。非公開のログ・ヘッダー・セッションID・重み・環境は公開しません。",
+    "図の6つのまとまり・道の形・粒・目盛り・時間の表示は、原典と公開デモのソースに基づく説明で、公式の区分や内部の活性ではありません。新しいページ・編集ソース・無音紹介動画は制作担当が別工程で表示・描画・再生を確認しました。範囲は visual-verification.json に記録しています。品質・自然さ・印刷適性・権利・独自性・性能・人の審美的な承認・ほかの入力での振る舞い、実機iOS/Safari/VoiceOver・200%拡大は未確認です。"
+  ],
+  "sources": [
+    {
+      "label": "inclusionAI/Ming-Image（固定コミット 3515cd7）",
+      "url": "https://github.com/inclusionAI/Ming-Image/tree/3515cd7b1e3049fc517eed7d35020251cd06519a"
+    },
+    {
+      "label": "Ming Image 0.1 Design 原典の README（固定版）",
+      "url": "https://github.com/inclusionAI/Ming-Image/blob/3515cd7b1e3049fc517eed7d35020251cd06519a/README.md"
+    },
+    {
+      "label": "既定の設定 inference_profile.py（固定版）",
+      "url": "https://github.com/inclusionAI/Ming-Image/blob/3515cd7b1e3049fc517eed7d35020251cd06519a/inference_profile.py"
+    },
+    {
+      "label": "原典の LICENSE（MIT・固定版）",
+      "url": "https://github.com/inclusionAI/Ming-Image/blob/3515cd7b1e3049fc517eed7d35020251cd06519a/LICENSE"
+    },
+    {
+      "label": "モデル inclusionAI/Ming-Image-0.1-Design（Hubメタデータ c57c496・実行した重みの証明ではない）",
+      "url": "https://huggingface.co/inclusionAI/Ming-Image-0.1-Design/tree/c57c49689d12ef7d4e24a170014f1dc43d3ce258"
+    },
+    {
+      "label": "原典READMEのDemoリンク（移転元）",
+      "url": "https://huggingface.co/spaces/hugging-apps/ming-image-0-1-design-demo"
+    },
+    {
+      "label": "実際に動いた公開Space（固定 367085c・別実装）",
+      "url": "https://huggingface.co/spaces/inclusionAI/ming-image-0-1-design-demo/tree/367085c6a006004b1658ad3b7edbd498581a33b3"
+    },
+    {
+      "label": "公開Spaceのアプリと generate（固定版）",
+      "url": "https://huggingface.co/spaces/inclusionAI/ming-image-0-1-design-demo/blob/367085c6a006004b1658ad3b7edbd498581a33b3/app.py"
+    },
+    {
+      "label": "公開Spaceの2本の条件・12回の更新・VAE ming/pipeline.py（固定版）",
+      "url": "https://huggingface.co/spaces/inclusionAI/ming-image-0-1-design-demo/blob/367085c6a006004b1658ad3b7edbd498581a33b3/ming/pipeline.py"
+    },
+    {
+      "label": "公開Spaceが準拠する vLLM-Omni PR #8021",
+      "url": "https://github.com/vllm-project/vllm-omni/pull/8021"
+    },
+    {
+      "label": "無料のZeroGPUの枠と上限（Hugging Face 公式）",
+      "url": "https://huggingface.co/docs/hub/spaces-zerogpu"
+    },
+    {
+      "label": "匿名クライアント run_example.py（作者AI・第1段階）",
+      "url": "examples/ming-image-design-example/run_example.py"
+    },
+    {
+      "label": "実装メモ（作者AI・第1段階）",
+      "url": "examples/ming-image-design-example/implementation.md"
+    },
+    {
+      "label": "依頼のJSON",
+      "url": "examples/ming-image-design-example/inputs/request.json"
+    },
+    {
+      "label": "送った文 prompt.txt",
+      "url": "examples/ming-image-design-example/inputs/prompt.txt"
+    },
+    {
+      "label": "返った実際のPNG（元のバイト）",
+      "url": "examples/ming-image-design-example/outputs/reading-club.png"
+    },
+    {
+      "label": "サーバーの1行の報告",
+      "url": "examples/ming-image-design-example/outputs/server-info.txt"
+    },
+    {
+      "label": "実行の記録（クライアントの測定の包装）",
+      "url": "examples/ming-image-design-example/outputs/run-summary.json"
+    },
+    {
+      "label": "文字の読合せの記録",
+      "url": "examples/ming-image-design-example/outputs/literal-review.json"
+    },
+    {
+      "label": "αの数え方の記録",
+      "url": "examples/ming-image-design-example/outputs/alpha-check.json"
+    },
+    {
+      "label": "同梱した原典6ファイルの一覧",
+      "url": "examples/ming-image-design-example/UPSTREAM.json"
+    },
+    {
+      "label": "今回の実行と原本の境界（制作担当の整理）",
+      "url": "examples/ming-image-design-example/SOURCE-NOTES.md"
+    },
+    {
+      "label": "図の事実と原典の引用",
+      "url": "examples/ming-image-design-example/concept/facts.json"
+    },
+    {
+      "label": "確かめる20ファイルの一覧",
+      "url": "examples/ming-image-design-example/concept/manifest.json"
+    },
+    {
+      "label": "出典と利用条件",
+      "url": "examples/ming-image-design-example/THIRD_PARTY_NOTICES.md"
+    },
+    {
+      "label": "作例の README（読み方・保存・再現の手順）",
+      "url": "examples/ming-image-design-example/README.md"
+    },
+    {
+      "label": "解説動画の絵コンテ",
+      "url": "examples/ming-image-design-example/video/storyboard.json"
+    },
+    {
+      "label": "編集ソースと実出力一式 ZIP（リポジトリのルート配置）",
+      "url": "examples/ming-image-design-example/source.zip"
+    },
+    {
+      "label": "新しい図・編集・無音紹介動画の確認範囲",
+      "url": "examples/ming-image-design-example/visual-verification.json"
+    }
+  ],
+  "license": "MIT（Ming-Image の原典コードとモデルカードの表記）／公開Spaceのコードは同梱せず／MIT（この作例）",
+  "license_note": "原典 inclusionAI/Ming-Image @3515cd7 は MIT で、選んだ6ファイルを元の LICENSE とともに vendor/ming/ に原文のまま置いています。モデル inclusionAI/Ming-Image-0.1-Design のモデルカードも MIT と表記しています。重みは配布していません。実際に動いた公開Space inclusionAI/ming-image-0-1-design-demo のコードは、一般的な再配布の条件が見つからないため同梱せず、原典のMITと同じ扱いにしていません。ポスターは架空のイベント・会場のための1回の生成結果で、既存の写真・商標・人物・住所は入力していません。生成物の第三者の権利・独自性・字形・印刷適性は保証しません。ページ・図・文章・動画のソースと匿名クライアントは Studio Yebisu の制作（Claude Opus 5.5）で MIT です。書き出しの補助 tools/motion-reel/ は Studio Yebisu・MIT です。",
+  "skill_license": "examples/ming-image-design-example/vendor/ming/LICENSE",
+  "video_note": "32秒・30fps・無音の構造図の動画です。音声トラック・ナレーションはありません。縦720×1280と横1280×720を別の配置で描きます。原典と架空の依頼が作者AIのpromptとクライアントになり、制作担当が公開デモへ1回送り、モデルの中でpromptと256個のqueryの枠が1回読まれ、queryの道と直接の道の2本の条件に分かれて合流し、seed固定のノイズが12回更新されて4チャンネルのVAEを通り、実際のPNGに戻って、字形とαの確認から保存へ進みます。画像は照合した実際のPNG 1枚だけで、図の中に最初から映っています。粒・枠・目盛り・四角と時間の表示は説明の形で、測った内部の値や途中の画像ではありません。制作担当が320/375pxの1例×3段階6状態（全図と44px主操作）、6部品と原典6引用、16表示条件、字形の注意・背景/拡大/リセット、3破損条件での両画面の停止と復旧、3保存要求と返却3ファイルの全バイト一致、編集20素材/7場面/縦横14状態/任意7.2秒/向き保持/ネイティブrange0.1秒/通常32秒、代表/連続/contactと実MP4の移動、縦横32秒960f無音MP4の全デコードと自然終端、最終ソース62PNG一致と30/31秒静止を新しく確認しました。実機iOS/Safari/VoiceOver・200%拡大、人の審美的承認、字形完全一致・印刷適性・全入力・性能は未確認です。",
+  "video_source": "examples/ming-image-design-example/video/index.html",
+  "updated_on": "2026-10-20",
+  "featured": false,
+  "verification_stage": "runtime-reviewed",
+  "runtime_review": {
+    "status": "public_demo_runtime_and_fresh_visual_QA_complete_publication_pending",
+    "execution": "One operator run of run_example.py (authored by Opus 5.5 in phase 1, receipt a7df1baa, 4 files) sending a single anonymous POST /gradio_api/call/v2/generate to the free public Space inclusionAI/ming-image-0-1-design-demo, reached from the original README Demo link and pinned at repo/runtime 367085c6a006004b1658ad3b7edbd498581a33b3 (stable before/after). The Space runs its own MingImagePipeline following vLLM-Omni PR #8021, not the pinned GitHub infer.py; no original CLI, local model, Layer, prompt enhancer or local GPU. No Authorization, HF token, cookie, account, credits or payment. One SSE complete event; outputs frozen 2026-10-20T03:33:14Z and never rerun for the page or film.",
+    "results": "reading-club.png 665,402 B, SHA-256 5042b961879f9f4c15a33cb8096edca258ec211822a317eeecda215c7866b607, 1024x1024 8-bit RGBA (color type 6); server-info.txt 44 B: 1024 x 1024 RGBA in 9.9s - 12 steps, CFG 1.0 (server report, not an independent benchmark). Client job wall 14.941 s, total 20.532 s including queue/network. Request: 1024 x 1024 (recommended), 12 steps, guidance 1.0, seed 20261020, prompt 980 B submitted (981 B file).",
+    "independent_checks": "Operator Pillow decode of the original bytes without resave: alpha 216..255, fully transparent 0, partially transparent 90,578, opaque 957,998 of 1,048,576; requested fully opaque background not met. Operator visual reading of the original and enlarged QA-only crops: headline, date and qualifier readable; venue glyph 図 looks like 圖 or a complex enclosed glyph, review required. No OCR model, no human approval. Hub model metadata c57c49689d12ef7d4e24a170014f1dc43d3ce258 stable before/after, but the Space loaders pin no revision, so the server-loaded weight revision is unverified. Manifest of 20 assets SHA-256 cdae838a556246ae8b319302ce4c42a2a26a52b25eda1436aa552389320bac06.",
+    "screen_review": "制作担当が320/375pxの1例×3段階6状態（全図と44px主操作）、6部品と原典6引用、16表示条件、字形の注意・背景/拡大/リセット、3破損条件での両画面の停止と復旧、3保存要求と返却3ファイルの全バイト一致、編集20素材/7場面/縦横14状態/任意7.2秒/向き保持/ネイティブrange0.1秒/通常32秒、代表/連続/contactと実MP4の移動、縦横32秒960f無音MP4の全デコードと自然終端、最終ソース62PNG一致と30/31秒静止を新しく確認しました。実機iOS/Safari/VoiceOver・200%拡大、人の審美的承認、字形完全一致・印刷適性・全入力・性能は未確認です。",
+    "video": "Final r2 portrait/wide32s30fps960f silent MP4; full decode, faststart, native ends and62final source PNG files exact. Native portrait drop2/wide0 observed, not a benchmark.",
+    "human_approval": false,
+    "model_scope": "Opus 5.5 authored the phase-1 prompt, request, anonymous client and implementation note, and the phase-2 page, diagram, film source, READMEs, samples and this article draft; no model, network call or Space request was made in phase 2. The operator selected the public route, ran the client once, and packaged the frozen facts, manifest, alpha check, literal review and SOURCE-NOTES."
+  },
+  "guide_url": "case.html?id=ming-image-design-example",
+  "catalog_entry": {
+    "id": "resource-ming-image-design",
+    "name": "Ming Image Design",
+    "category": "graphics",
+    "kind": "モデル・ツール",
+    "summary": "文字を含むデザイン画像を生成するモデルと、完成画像を透明レイヤーに分ける別モデルのシリーズ。作例は原典が案内する無料の公開デモで生成モデルを1回だけ動かし、1回読んで2本の条件に分かれ、ノイズから12回で描かれて実際のPNGが返る関係を図解しています。",
+    "use_case": "ポスターや図解のような文字の多い画像を作り、文字と透過を実際の出力で確かめながら使いたいとき。",
+    "tags": [
+      "画像",
+      "図解",
+      "モデル・ツール"
+    ],
+    "workflow": [
+      "画像生成（Design）とレイヤー分解（Layer）のどちらを使うか選び、ローカル実行か公開デモかを決めて版を記録する",
+      "入れる文字列を別に記録し、設定とseedを決めて1回生成する",
+      "返った画像の字形・日付・会場と、αの値を実際の出力で確かめてから使う"
+    ],
+    "requirements": [
+      "ローカル実行はCUDAのGPUとPython依存。原典の検証済みの構成は80 GiB以上のGPU1枚（BF16）",
+      "公開デモを使う場合はネットワークと無料枠の空き（匿名の目安は1日2分・保証なし）",
+      "重みの版を固定したいときは原典CLIの --revision。公開デモのローダーはrevisionを指定していない"
+    ],
+    "license": "MIT",
+    "license_url": "https://github.com/inclusionAI/Ming-Image/blob/3515cd7b1e3049fc517eed7d35020251cd06519a/LICENSE",
+    "license_note": "コードはMIT。公式モデルカードもMIT表記を確認。公開デモのSpaceのコードは別で、一般的な再配布の条件は見つかっていません。使用する配布版と外部の画像・文字素材の条件を確認してください。",
+    "source_url": "https://github.com/inclusionAI/Ming-Image/tree/3515cd7b1e3049fc517eed7d35020251cd06519a",
+    "guide_url": "case.html?id=ming-image-design-example",
+    "readme_url": "https://github.com/inclusionAI/Ming-Image/blob/3515cd7b1e3049fc517eed7d35020251cd06519a/README.md",
+    "source_repository": "inclusionAI/Ming-Image",
+    "source_commit": "3515cd7b1e3049fc517eed7d35020251cd06519a",
+    "source_path": "",
+    "source_project": "curated",
+    "source_note": "公開リポジトリのREADMEと利用条件を確認し、用途と最初の試し方を日本語で整理しました。原典は確認時のコミットへ固定しています。作例では、原典READMEのDemoリンクから移った無料の公開Space @367085c（原典のinfer.pyとは別の実装）へ匿名で1回だけ送り、返った実際のPNG 1枚を保全しています。原典のCLI・Layer・ローカルの重みは実行しておらず、サーバーが読み込んだ重みの版は未確認です。",
+    "prompt": "Ming Image 0.1 Design の原典（inclusionAI/Ming-Image 固定コミット 3515cd7b1e3049fc517eed7d35020251cd06519a、MIT）の README.md と inference_profile.py を読み、架空のイベントのポスター1枚を、原典READMEのDemoリンクが案内する無料の公開Space（現在の移転先 inclusionAI/ming-image-0-1-design-demo）で1回だけ生成し、実ファイルで確かめてください。Authorization・HFトークン・Cookie・アカウント・クレジット・課金は使いません。原典のinfer.py・Layer・編集・PPT・prompt拡張・手元のGPUは使いません。\n\n準備：送る前に、Spaceのrepoと実行のbuildのコミット、状態、/generate の引数と戻り値の形、モデルのHubメタデータのコミットを取得して記録する。Spaceのソースを読み、原典のinfer.pyとは別の実装であること、ローダーがモデルのrevisionを指定しているかを確かめる。依頼には架空の名前・日時・会場だけを入れ、実在の住所・申込・QR・価格・スポンサー・ロゴ・個人情報は入れない。入れる文字列は別の配列に記録する。Studio Yebisu の作例の run_example.py を下敷きにするなら、そこにある依頼・buildの照合を自分の依頼に合わせて見直して書き直す。\n\n実行：POSTは1回だけ。失敗・待ち行列・無料枠・ログインの要求では送り直さず、別のエンドポイントや別のモデルに切り替えない。結果の流れを読み直すときは、すでに送ったevent idのGETだけを使う。結果を見て選び直し・再生成・修正をしない。\n\n記録：返ったPNGのバイト数・SHA-256・幅・高さ・カラータイプ、サーバーの報告の原文、手元の経過時間（キューと通信を含むと明記）、送信前後のbuildとHubメタデータを残す。後から別の工程で、入れた文字列ごとの見え方（字形の違いは見えたまま書く）と、αの最小・最大・透明・半透明・不透明の画素数を数え、PNGは再保存しない。サーバーが読み込んだ重みの版・内部の時間・品質・印刷適性は、確かめられない限り未確認と書く。\n",
+    "verification_stage": "runtime-reviewed",
+    "verification": "原典READMEが案内する別実装の公開Design Space367085c6へ匿名1回送信し実PNG665402Bを保存。原CLI/Layer/ローカルモデルは未実行、実ロード重みrevision未確認。字形とalphaは別工程で確認し会場字形/半透明を保全。新しい図/編集/無音映像の確認範囲は visual-verification.json。公開導線は別工程。",
+    "reviewed_on": "2026-10-20",
+    "example_url": "examples/ming-image-design-example/index.html",
+    "image": "media/ming-image-design-example.webp",
+    "updated_on": "2026-10-20"
+  },
+  "video_width": 720,
+  "video_height": 1280,
+  "video_landscape": "media/ming-image-design-example-wide.mp4",
+  "requirements": [
+    "閲覧・拡大・背景の切り替え・保存はブラウザーだけで利用できます。モデルの実行・公開デモの呼び出し・アップロード・APIキーはありません。照合にSHA-256を使うため、https か localhost で開きます。",
+    "同じ経路をもう一度試すと、無料のZeroGPUの枠を消費します（匿名の目安は1日2分、xlargeは2倍・空きは保証なし）。作例のクライアントは今回の依頼と今の公開デモのbuildを照合して止まるので、ほかの依頼では照合と依頼を見直して書き直します。同じseedでも同じ画像になる保証はありません。手元で原典を動かす場合は、CUDAのGPU（原典の検証済みの構成は80 GiB以上・BF16）と約52.88GBの重みが別に必要です。手順は作例の README にあります。"
+  ]
+}

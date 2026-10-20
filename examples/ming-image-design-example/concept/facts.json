@@ -1,0 +1,339 @@
+{
+  "schema": "ming-design-facts@1",
+  "case_id": "ming-image-design-example",
+  "editorial_parts": 6,
+  "identity": "Ming Image0.1 Designはローカルの画像生成モデル/パイプライン。SKILL.mdや編集レイヤー形式ではない。今回の実行は原典が案内する別実装の無料公開Design Space。",
+  "reference": {
+    "reference": {
+      "at": "2026-10-20T01:20:18.719187+00:00",
+      "repository": "inclusionAI/Ming-Image",
+      "pin": "3515cd7b1e3049fc517eed7d35020251cd06519a",
+      "scope": "Read-only queued priority40 prerequisites while LiveTalking author runs. No queue change/weights/download/install/model/API/paid service/new account.",
+      "files": [
+        {
+          "path": "README.md",
+          "official_gitblob": "84cd954179bfabcb41d4e8396dc6e2dd8a6932c3",
+          "sha256": "31ed76ade937e0ceb69a9891edc6c9280b079cecdc04e5f6cbcc7641c46afde3",
+          "bytes": 16520,
+          "url": "https://github.com/inclusionAI/Ming-Image/blob/3515cd7b1e3049fc517eed7d35020251cd06519a/README.md"
+        },
+        {
+          "path": "LICENSE",
+          "official_gitblob": "e304dd551e088c61be4419a4c0f212228ba0139b",
+          "sha256": "b772c54f1f150a680e7c083a92431c518cf62821a407f6cccdf53f6a07bcf702",
+          "bytes": 1068,
+          "url": "https://github.com/inclusionAI/Ming-Image/blob/3515cd7b1e3049fc517eed7d35020251cd06519a/LICENSE"
+        },
+        {
+          "path": "infer.py",
+          "official_gitblob": "710991cb3fcaf1bfd5a9a3f3d7c45940cdb99783",
+          "sha256": "dc44415cba636b35c2d225f236adf1a7b22029362ab3518a3f9572c01102ebf9",
+          "bytes": 16904,
+          "url": "https://github.com/inclusionAI/Ming-Image/blob/3515cd7b1e3049fc517eed7d35020251cd06519a/infer.py"
+        },
+        {
+          "path": "inference_profile.py",
+          "official_gitblob": "278e2f01e9c8e5064f029f07ce7eabf3d81bf1c0",
+          "sha256": "84f407d5e323c7261792492ed400bb23e3a189cb3edfa017e6c854263a8ee490",
+          "bytes": 16068,
+          "url": "https://github.com/inclusionAI/Ming-Image/blob/3515cd7b1e3049fc517eed7d35020251cd06519a/inference_profile.py"
+        },
+        {
+          "path": "mllm_device_map.py",
+          "official_gitblob": "55f7b97e4df94cbbe4d02b5315ecd21e24cf05fd",
+          "sha256": "02bae9078a230d2414861368894eee027403f324a94b95b07272d79a75a0bf88",
+          "bytes": 5057,
+          "url": "https://github.com/inclusionAI/Ming-Image/blob/3515cd7b1e3049fc517eed7d35020251cd06519a/mllm_device_map.py"
+        },
+        {
+          "path": "requirements.txt",
+          "official_gitblob": "a143ed948c7f436c3bf09052c6fc3c59b95a9ede",
+          "sha256": "f82a235b7e7da97b59d4121473e2b002bfef9960344050913e8c75f21e6d1c6e",
+          "bytes": 670,
+          "url": "https://github.com/inclusionAI/Ming-Image/blob/3515cd7b1e3049fc517eed7d35020251cd06519a/requirements.txt"
+        }
+      ]
+    },
+    "public_demo": {
+      "space": "inclusionAI/ming-image-0-1-design-demo",
+      "commit": "367085c6a006004b1658ad3b7edbd498581a33b3",
+      "source_url": "https://huggingface.co/spaces/inclusionAI/ming-image-0-1-design-demo/tree/367085c6a006004b1658ad3b7edbd498581a33b3",
+      "source_files_privately_inspected": 9,
+      "redistributed": false,
+      "reason": "No general Space code redistribution license found; not relicensed under original model MIT."
+    },
+    "model_metadata_observation": {
+      "id": "inclusionAI/Ming-Image-0.1-Design",
+      "sha": "c57c49689d12ef7d4e24a170014f1dc43d3ce258",
+      "private": false,
+      "gated": false,
+      "license": "mit",
+      "lfs_files_bytes": 52881699721,
+      "note": "Hub metadata only; the Space loader pins no revision, so this is not the server's loaded weight SHA.",
+      "matches_planning_observation": true
+    },
+    "model_weight_limit": "Actual loaded server weight revision unverified; no --revision in separate Space loaders. Current Hub metadata before/after stable, not weight digest verification."
+  },
+  "actual": {
+    "label": "Operator-runner measurement packaging. Not native model output; only server-info.txt and reading-club.png are returned by the Space.",
+    "status": "completed",
+    "reference_original": {
+      "repository": "inclusionAI/Ming-Image",
+      "commit": "3515cd7b1e3049fc517eed7d35020251cd06519a",
+      "license": "MIT"
+    },
+    "route": {
+      "space": "inclusionAI/ming-image-0-1-design-demo",
+      "space_commit_expected": "367085c6a006004b1658ad3b7edbd498581a33b3",
+      "host": "https://inclusionai-ming-image-0-1-design-demo.hf.space",
+      "api_name": "/generate",
+      "access": "anonymous; no Authorization, cookies, HF token or account",
+      "implementation": "Space's own MingImagePipeline following vLLM-Omni PR #8021, not the pinned GitHub infer.py"
+    },
+    "unverified": [
+      "server-loaded weight revision (Space loaders pin no revision)",
+      "literal Japanese text correctness",
+      "pixel alpha / background transparency",
+      "human visual approval",
+      "behaviour on other inputs",
+      "model speed (wall time includes queue and network)",
+      "internal tensors, attention or per-stage timing"
+    ],
+    "request": {
+      "id": "reading-club",
+      "synthetic": true,
+      "literal_strings": [
+        "こもれび読書会",
+        "2026.11.08 SUN 14:00–16:00",
+        "小箱図書室",
+        "架空のイベント"
+      ],
+      "settings": {
+        "resolution": "1024 x 1024 (recommended)",
+        "steps": 12,
+        "guidance_scale": 1.0,
+        "seed": 20261020
+      },
+      "prompt": "A flat, square editorial poster for a fictional Japanese reading club. Fully opaque cream paper background with a faint paper grain, deep forest green as the main ink colour, and one small ochre accent: a thin bookmark ribbon. A single large central motif: an open book whose pages curve upward into one broad leaf, drawn as clean flat shapes in forest green. Generous whitespace around the motif and calm margins on every side. At the top, a large, clear, highly readable Japanese headline in a refined Mincho-style serif reading \"こもれび読書会\". Below the motif, in smaller clean type, the date and time \"2026.11.08 SUN 14:00–16:00\" and the venue \"小箱図書室\". Near the bottom edge, a small quiet qualifier reading \"架空のイベント\". Render each of these four strings exactly once and add no other text: no address, no link, no QR code, no price, no sponsor, no logo, no extra captions or claims. Balanced grid, crisp edges, print-ready flat graphic design.",
+      "prompt_bytes": 980,
+      "prompt_sha256": "eb20d0157cc7d127d8535abe7d61c6868424e0fcb9f313a2d0401982ee10109f"
+    },
+    "observed_before": {
+      "fetched_at": "2026-10-20T03:29:40.867148+00:00",
+      "space": {
+        "id": "inclusionAI/ming-image-0-1-design-demo",
+        "sha": "367085c6a006004b1658ad3b7edbd498581a33b3",
+        "runtime_sha": "367085c6a006004b1658ad3b7edbd498581a33b3",
+        "runtime_stage": "RUNNING",
+        "hardware_label": "zero-a10g",
+        "sdk_version": "6.28.0",
+        "host": "https://inclusionai-ming-image-0-1-design-demo.hf.space"
+      },
+      "model_hub_metadata": {
+        "id": "inclusionAI/Ming-Image-0.1-Design",
+        "sha": "c57c49689d12ef7d4e24a170014f1dc43d3ce258",
+        "private": false,
+        "gated": false,
+        "license": "mit",
+        "lfs_files_bytes": 52881699721,
+        "note": "Hub metadata only; the Space loader pins no revision, so this is not the server's loaded weight SHA.",
+        "matches_planning_observation": true
+      },
+      "api_info_fetched": true
+    },
+    "job_wall_seconds": 14.941,
+    "image": {
+      "file": "reading-club.png",
+      "bytes": 665402,
+      "sha256": "5042b961879f9f4c15a33cb8096edca258ec211822a317eeecda215c7866b607",
+      "filedata_size": null,
+      "filedata_mime_type": null,
+      "png_header": {
+        "width": 1024,
+        "height": 1024,
+        "bit_depth": 8,
+        "color_type": 6,
+        "color_type_name": "RGBA",
+        "interlace": 0
+      },
+      "matches_requested_size": true,
+      "header_note": "IHDR fields only. A color type with alpha shows the container has an alpha channel; pixel alpha, background transparency and typography were not decoded or judged.",
+      "download_seconds": 2.264,
+      "server_info_file": "server-info.txt",
+      "server_info": "1024 x 1024 RGBA in 9.9s - 12 steps, CFG 1.0"
+    },
+    "observed_after": {
+      "fetched_at": "2026-10-20T03:30:00.287926+00:00",
+      "space": {
+        "id": "inclusionAI/ming-image-0-1-design-demo",
+        "sha": "367085c6a006004b1658ad3b7edbd498581a33b3",
+        "runtime_sha": "367085c6a006004b1658ad3b7edbd498581a33b3",
+        "runtime_stage": "RUNNING",
+        "hardware_label": "zero-a10g",
+        "sdk_version": "6.28.0",
+        "host": "https://inclusionai-ming-image-0-1-design-demo.hf.space"
+      },
+      "model_hub_metadata": {
+        "id": "inclusionAI/Ming-Image-0.1-Design",
+        "sha": "c57c49689d12ef7d4e24a170014f1dc43d3ce258",
+        "private": false,
+        "gated": false,
+        "license": "mit",
+        "lfs_files_bytes": 52881699721,
+        "note": "Hub metadata only; the Space loader pins no revision, so this is not the server's loaded weight SHA."
+      },
+      "api_info_fetched": true
+    },
+    "space_runtime_sha_stable": true,
+    "total_wall_seconds": 20.532,
+    "timing_note": "Local wall-clock only; includes queue, ZeroGPU allocation and network. Not a model speed measurement.",
+    "finished_at": "2026-10-20T03:30:01.342153+00:00"
+  },
+  "alpha": {
+    "width": 1024,
+    "height": 1024,
+    "mode": "RGBA",
+    "alpha_min": 216,
+    "alpha_max": 255,
+    "fully_transparent_pixels": 0,
+    "partially_transparent_pixels": 90578,
+    "fully_opaque_pixels": 957998,
+    "total_pixels": 1048576,
+    "method": "Independent operator Pillow decode/count of original bytes; no resave, alpha correction or image editing. Requested opaque cream background is not fully opaque in actual PNG."
+  },
+  "literal_review": {
+    "method": "Operator visual reading of original1024PNG and enlarged QA-only crops. No OCR model or human approval. Raster glyph appearance cannot establish Unicode codepoints. No re-generation, retouch or masking.",
+    "rows": [
+      {
+        "id": "headline",
+        "expected": "こもれび読書会",
+        "observed": "こもれび読書会と読める。漢字字形の完全一致や組版品質の保証ではない。",
+        "status": "readable_visual_only"
+      },
+      {
+        "id": "date",
+        "expected": "2026.11.08 SUN 14:00–16:00",
+        "observed": "2026.11.08 SUN 14:00–16:00と読める。空白と時刻の区切り線の字形は原稿と同じ文字コードと断定できない。",
+        "status": "readable_visual_only"
+      },
+      {
+        "id": "venue",
+        "expected": "小箱図書室",
+        "observed": "会場の「図」が「圖」のような囲みの多い字形に見える。原稿との字形一致を確認できない。",
+        "status": "review_required"
+      },
+      {
+        "id": "qualifier",
+        "expected": "架空のイベント",
+        "observed": "架空のイベントと読める。原稿との読合せはエージェントによる観察。",
+        "status": "readable_visual_only"
+      }
+    ],
+    "use_decision": "架空素材の実生成例として原本を保全。実イベントへの転用や印刷前には文字・日付・会場と透過を人が確認する。原稿一致済み/印刷品質保証とはしない。"
+  },
+  "cases": [
+    {
+      "id": "reading-club",
+      "label": "架空の読書会",
+      "image": "outputs/reading-club.png",
+      "request": "inputs/request.json",
+      "summary": "outputs/run-summary.json",
+      "literal_review": "outputs/literal-review.json",
+      "alpha_check": "outputs/alpha-check.json",
+      "server_info": "outputs/server-info.txt",
+      "source_prompt": "inputs/prompt.txt"
+    }
+  ],
+  "excerpts": [
+    {
+      "id": "identity",
+      "path": "vendor/ming/README.md",
+      "line_start": 13,
+      "line_end": 20,
+      "text": "The series includes two 6B-parameter models:\n\n- [Ming-Image-0.1-Design](https://huggingface.co/inclusionAI/Ming-Image-0.1-Design)\n  generates complete visual designs for UI, infographics, posters, and\n  text-rich compositions.\n- [Ming-Image-0.1-Design-Layer](https://huggingface.co/inclusionAI/Ming-Image-0.1-Design-Layer)\n  decomposes flattened design images into independently editable transparent\n  layers.",
+      "label": "DesignとLayerは別モデル",
+      "url": "https://github.com/inclusionAI/Ming-Image/blob/3515cd7b1e3049fc517eed7d35020251cd06519a/README.md#L13",
+      "scope": "Original reference only. This excerpt does not prove execution of original infer.py."
+    },
+    {
+      "id": "separate-skills",
+      "path": "vendor/ming/README.md",
+      "line_start": 47,
+      "line_end": 48,
+      "text": "These are separate agent workflows; follow each skill's setup instructions for\nits dependencies and compatible model service.",
+      "label": "別のエージェント手順",
+      "url": "https://github.com/inclusionAI/Ming-Image/blob/3515cd7b1e3049fc517eed7d35020251cd06519a/README.md#L47",
+      "scope": "Original reference only. This excerpt does not prove execution of original infer.py."
+    },
+    {
+      "id": "requirements",
+      "path": "vendor/ming/README.md",
+      "line_start": 52,
+      "line_end": 54,
+      "text": "- Python 3.10 or newer;\n- CUDA-capable PyTorch for full model inference;\n- a local checkpoint directory or a Hugging Face Hub repository ID.",
+      "label": "ローカル実行の準備",
+      "url": "https://github.com/inclusionAI/Ming-Image/blob/3515cd7b1e3049fc517eed7d35020251cd06519a/README.md#L52",
+      "scope": "Original reference only. This excerpt does not prove execution of original infer.py."
+    },
+    {
+      "id": "fixed-revision",
+      "path": "vendor/ming/README.md",
+      "line_start": 70,
+      "line_end": 72,
+      "text": "Hub models are resolved to one immutable local snapshot before any component is\nloaded. Use `--revision` to pin a branch, tag or commit. The examples use the\npublished Hub IDs; replace them with local checkpoint directories for offline",
+      "label": "原CLIの固定版指定",
+      "url": "https://github.com/inclusionAI/Ming-Image/blob/3515cd7b1e3049fc517eed7d35020251cd06519a/README.md#L70",
+      "scope": "Original reference only. This excerpt does not prove execution of original infer.py."
+    },
+    {
+      "id": "settings",
+      "path": "vendor/ming/inference_profile.py",
+      "line_start": 55,
+      "line_end": 58,
+      "text": "DEFAULT_SAMPLING_PARAMETERS = {\n    GENERATION_PROFILE: SamplingParameters(steps=12, cfg=1.0),\n    LAYER_PROFILE: SamplingParameters(steps=12, cfg=2.0),\n}",
+      "label": "原典の設定既定",
+      "url": "https://github.com/inclusionAI/Ming-Image/blob/3515cd7b1e3049fc517eed7d35020251cd06519a/inference_profile.py#L55",
+      "scope": "Original reference only. This excerpt does not prove execution of original infer.py."
+    },
+    {
+      "id": "attention",
+      "path": "vendor/ming/README.md",
+      "line_start": 62,
+      "line_end": 65,
+      "text": "`flash_attention_2` is optional. The CLI defaults to `eager` attention because\nthe LLM only implements eager and FlashAttention 2 attention classes; the\ndiffusion transformer always uses PyTorch SDPA internally. Selecting\n`--attn-implementation sdpa` fails closed at load time.",
+      "label": "既定の注意機構の範囲",
+      "url": "https://github.com/inclusionAI/Ming-Image/blob/3515cd7b1e3049fc517eed7d35020251cd06519a/README.md#L62",
+      "scope": "Original reference only. This excerpt does not prove execution of original infer.py."
+    }
+  ],
+  "runtime_refs": [
+    {
+      "id": "space-app",
+      "label": "実際の公開アプリとgenerate",
+      "url": "https://huggingface.co/spaces/inclusionAI/ming-image-0-1-design-demo/blob/367085c6a006004b1658ad3b7edbd498581a33b3/app.py"
+    },
+    {
+      "id": "space-pipeline",
+      "label": "公開デモの2条件経路/12反復とVAE",
+      "url": "https://huggingface.co/spaces/inclusionAI/ming-image-0-1-design-demo/blob/367085c6a006004b1658ad3b7edbd498581a33b3/ming/pipeline.py"
+    },
+    {
+      "id": "free-quota",
+      "label": "無料ZeroGPU枠と上限",
+      "url": "https://huggingface.co/docs/hub/spaces-zerogpu"
+    }
+  ],
+  "flow": {
+    "author": "原典と架空の依頼→同じ作者AI1体がprompt/clientを執筆→制作担当が別に匿名Spaceへ1回送る",
+    "model": "prompt+256query→thinker→queryはconnectorへ/原文はdirect投影へ→両条件がseednoiseのflowtransformerへ→12反復/CFG1→4chVAE→実PNG",
+    "use": "原稿と字形/日付/会場・αを別工程で確認→元PNGを保存/用途へ。ブラウザー内生成なし。"
+  },
+  "scope_limits": [
+    "No original CLI/local weights/GPU operation",
+    "No Layer/editing/PPT/another model/prompt enhancer",
+    "No verified actual loaded weight revision",
+    "No measured internal activations or true stage times",
+    "Agent visual reading only; human aesthetics/all input quality/printing/performance unverified"
+  ],
+  "audio_policy": "No audio element/track/narration/guide in main/editor/32s films."
+}
