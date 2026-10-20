@@ -1,0 +1,657 @@
+{
+  "id": "livetalking-example",
+  "verified_at": "2026-10-20T02:27:39.961989+00:00",
+  "stage": "runtime-and-agent-visual-reviewed",
+  "new_case": true,
+  "identity": "音声と映像をつなぐPythonエンジン。今回は原典MuseTalkオフライン描画と実際の出力だけ。",
+  "structure": {
+    "editorial_parts": 6,
+    "exact_source_excerpts": 8,
+    "flow": "Original docs/request -> one author writes preparation/runner/jobs -> operator runs original Python -> manual portrait crop/masked+full VAE latent shared once; acoustic encoder and raw audio bypass -> U-Net timestep0 single forward per batch/VAE face -> queue pairs face+two raw audio chunks BEFORE pasteback -> idle source or original pasteback/watermark -> original WebRTCOutput/operator disk adapter -> PNG/PCM WAV/separate FFmpeg functional MP4 -> native playback/save",
+    "browser": "Frozen-file validation/viewing/playback only; no neural/model/CLI/TTS execution.",
+    "diagrams_internal_tiles_and_clock": "Explanatory, not actual activations or inference timing.",
+    "waveform": "160 real-PCM min/max bins; not quality or sync measurements."
+  },
+  "actual_execution": {
+    "source_unmodified": true,
+    "load_once": true,
+    "one_shared_latent_shape": [
+      1,
+      8,
+      32,
+      32
+    ],
+    "VAE_encoder_calls": 2,
+    "environment": {
+      "python": "3.11.15",
+      "torch": "2.6.0+cpu",
+      "precision": "float32",
+      "intra_threads": 4,
+      "inter_threads": 4,
+      "own_logical_cores": 4,
+      "seed": 20261020
+    },
+    "jobs": [
+      {
+        "id": "default",
+        "captured_frames": 124,
+        "duration_s": 4.96,
+        "mp4_bytes": 313151,
+        "wav_bytes": 158764,
+        "neural_calls_observed": {
+          "by_module": {
+            "whisper.encoder": {
+              "calls": 35,
+              "windows": {
+                "started_before_capture_target_reached": 34,
+                "started_after_quit_signal": 1
+              }
+            },
+            "unet.model": {
+              "calls": 30,
+              "windows": {
+                "started_before_capture_target_reached": 30
+              }
+            },
+            "vae.decoder": {
+              "calls": 30,
+              "windows": {
+                "started_before_capture_target_reached": 30
+              }
+            }
+          },
+          "batches_inside_target": 31,
+          "batches_inside_target_with_input_chunks": 30,
+          "note": "hook counts are every actual call in this job, including in-flight work after the target; captured frames and inferred frames are reported separately and not equated"
+        },
+        "capture_outside_target": {
+          "frames": 16,
+          "zero_audio_chunks": 32
+        },
+        "one_run_seconds": 394.489
+      },
+      {
+        "id": "second",
+        "captured_frames": 136,
+        "duration_s": 5.44,
+        "mp4_bytes": 326325,
+        "wav_bytes": 174124,
+        "neural_calls_observed": {
+          "by_module": {
+            "whisper.encoder": {
+              "calls": 38,
+              "windows": {
+                "started_before_capture_target_reached": 37,
+                "started_after_quit_signal": 1
+              }
+            },
+            "unet.model": {
+              "calls": 33,
+              "windows": {
+                "started_before_capture_target_reached": 33
+              }
+            },
+            "vae.decoder": {
+              "calls": 33,
+              "windows": {
+                "started_before_capture_target_reached": 33
+              }
+            }
+          },
+          "batches_inside_target": 34,
+          "batches_inside_target_with_input_chunks": 33,
+          "note": "hook counts are every actual call in this job, including in-flight work after the target; captured frames and inferred frames are reported separately and not equated"
+        },
+        "capture_outside_target": {
+          "frames": 16,
+          "zero_audio_chunks": 32
+        },
+        "one_run_seconds": 432.355
+      }
+    ],
+    "input": "Same prior512MonaLisa crop and prior Chatterbox English24kPCM16 WAV2; no new photo/portrait/TTS/recording. Manualbox and lower blending mask, no detector/parser.",
+    "capture_total260": "245pasted+15idle; neural predictions252 distinct. Frame0 idle source+original watermark. Queue-empty type1 is not VAD.",
+    "independent_frozen_file_reads": {
+      "at": "2026-10-20T01:06:49.364210+00:00",
+      "scope": "Independent frozen-file re-read; no source import/model inference/resampler/encoder rerun. Acoustic bitexact-to-resampler proof remains original runner observation; independent check reads existing captured PCM/chunk flags.",
+      "all_source177raw_unchanged": true,
+      "protected_files_unchanged": 64,
+      "VAE_lower_half_blacked_upper_kept": true,
+      "jobs": [
+        {
+          "id": "default",
+          "PNG_read_and_raw_hash": 124,
+          "idle": 8,
+          "pasted": 116,
+          "outside_bbox_equal_to_idle": true,
+          "PNG_representatives_exact": 5,
+          "wav_private_public_exact": true,
+          "native_video_frames": 124,
+          "duration": 4.96,
+          "functional_audio_streams": 1,
+          "full_decode": true,
+          "faststart": true,
+          "zero_prefix_ms": 200,
+          "zero_tail_ms": 120,
+          "same_original_result_job_object": true
+        },
+        {
+          "id": "second",
+          "PNG_read_and_raw_hash": 136,
+          "idle": 7,
+          "pasted": 129,
+          "outside_bbox_equal_to_idle": true,
+          "PNG_representatives_exact": 5,
+          "wav_private_public_exact": true,
+          "native_video_frames": 136,
+          "duration": 5.44,
+          "functional_audio_streams": 1,
+          "full_decode": true,
+          "faststart": true,
+          "zero_prefix_ms": 200,
+          "zero_tail_ms": 80,
+          "same_original_result_job_object": true
+        }
+      ],
+      "total_captured_PNG": 260,
+      "human_listening": false,
+      "quality_or_sync_guarantee": false
+    },
+    "original_results_path": "outputs/results.json",
+    "job_JSON": "Parent UTF8/LF wrapping of original result objects; no new inference/native API JSON.",
+    "not_run": [
+      "app.py/server/network WebRTC/RTMP/virtual camera",
+      "LLM/new TTS/clone/transcription",
+      "face detection/segmentation/genavatar",
+      "other avatar models",
+      "ComfyUI"
+    ],
+    "observed_visual_limit": "この手動枠/マスク/絵画の出力では下顔のぼけと枠境界が見える。原出力を保全し新たな美化/選別/再推論なし。",
+    "human_listening": false,
+    "real_time_benchmark": false,
+    "inference_crop_audio_encode_rerun_for_diagram": false
+  },
+  "browser": {
+    "engine": "Codex in-app browser Chromium",
+    "phone_sizes": [
+      [
+        320,
+        812
+      ],
+      [
+        375,
+        812
+      ]
+    ],
+    "case_stage_states": 12,
+    "min_primary_target_CSS_px": 44,
+    "whole_diagram_and_saves_first812px": true,
+    "display_preferences_checked": 16,
+    "theme_scope": "Fixed light editorial palette under light/dark browser preference; no separate dark theme claimed.",
+    "source_parts": 6,
+    "source_excerpts_exact": 8,
+    "hash_routes": [
+      {
+        "frames": 5,
+        "hash": "#second",
+        "ready": true,
+        "selected": "second",
+        "expected": "second",
+        "inputHash": "#second"
+      },
+      {
+        "frames": 5,
+        "hash": "#unknown",
+        "ready": true,
+        "selected": "default",
+        "expected": "default",
+        "inputHash": "#unknown"
+      },
+      {
+        "frames": 5,
+        "hash": "#%E0%A4%A",
+        "ready": true,
+        "selected": "default",
+        "expected": "default",
+        "inputHash": "#%E0%A4%A"
+      },
+      {
+        "frames": 5,
+        "hash": "#default",
+        "ready": true,
+        "selected": "default",
+        "expected": "default",
+        "inputHash": "#default"
+      },
+      {
+        "frames": 5,
+        "hash": "",
+        "ready": true,
+        "selected": "default",
+        "expected": "default",
+        "inputHash": ""
+      }
+    ],
+    "media_switch_stops_and_resets": true,
+    "controlled_failure_rows": [
+      {
+        "surface": "main",
+        "mode": "http",
+        "phase": "failure",
+        "actionsDisabled": true,
+        "canvasBlank": true,
+        "mediaCleared": true,
+        "reason": "concept/facts.json: HTTP 503",
+        "savesCleared": true,
+        "state": "failed",
+        "failed": true
+      },
+      {
+        "surface": "editor",
+        "mode": "http",
+        "phase": "failure",
+        "actionsDisabled": true,
+        "canvasBlank": true,
+        "mediaCleared": true,
+        "reason": "ファイルを読めません：concept/facts.json: HTTP 503。描かずに止めています。",
+        "savesCleared": true,
+        "state": "failed",
+        "failed": true
+      },
+      {
+        "surface": "main",
+        "mode": "http",
+        "phase": "recovery",
+        "actionsEnabled": true,
+        "errorHidden": true,
+        "state": "ready",
+        "recovered": true
+      },
+      {
+        "surface": "editor",
+        "mode": "http",
+        "phase": "recovery",
+        "actionsEnabled": true,
+        "errorHidden": true,
+        "state": "ready",
+        "recovered": true
+      },
+      {
+        "surface": "main",
+        "mode": "json",
+        "phase": "failure",
+        "actionsDisabled": true,
+        "canvasBlank": true,
+        "mediaCleared": true,
+        "reason": "concept/facts.json: 1 B（記録は 209839 B）",
+        "savesCleared": true,
+        "state": "failed",
+        "failed": true
+      },
+      {
+        "surface": "editor",
+        "mode": "json",
+        "phase": "failure",
+        "actionsDisabled": true,
+        "canvasBlank": true,
+        "mediaCleared": true,
+        "reason": "ファイルの大きさが記録と違います：concept/facts.json: 1 B（記録は 209839 B）。描かずに止めています。",
+        "savesCleared": true,
+        "state": "failed",
+        "failed": true
+      },
+      {
+        "surface": "main",
+        "mode": "json",
+        "phase": "recovery",
+        "actionsEnabled": true,
+        "errorHidden": true,
+        "state": "ready",
+        "recovered": true
+      },
+      {
+        "surface": "editor",
+        "mode": "json",
+        "phase": "recovery",
+        "actionsEnabled": true,
+        "errorHidden": true,
+        "state": "ready",
+        "recovered": true
+      },
+      {
+        "surface": "main",
+        "mode": "hash",
+        "phase": "failure",
+        "actionsDisabled": true,
+        "canvasBlank": true,
+        "mediaCleared": true,
+        "reason": "concept/facts.json の SHA-256 が一致しません",
+        "savesCleared": true,
+        "state": "failed",
+        "failed": true
+      },
+      {
+        "surface": "editor",
+        "mode": "hash",
+        "phase": "failure",
+        "actionsDisabled": true,
+        "canvasBlank": true,
+        "mediaCleared": true,
+        "reason": "ファイルの中身が記録と違います：concept/facts.json の SHA-256 が一致しません。描かずに止めています。",
+        "savesCleared": true,
+        "state": "failed",
+        "failed": true
+      },
+      {
+        "surface": "main",
+        "mode": "hash",
+        "phase": "recovery",
+        "actionsEnabled": true,
+        "errorHidden": true,
+        "state": "ready",
+        "recovered": true
+      },
+      {
+        "surface": "editor",
+        "mode": "hash",
+        "phase": "recovery",
+        "actionsEnabled": true,
+        "errorHidden": true,
+        "state": "ready",
+        "recovered": true
+      }
+    ],
+    "failure_scope": "HTTP503; truncated at size gate; same-length mutation at SHA gate. Parallel-error-reason race corrected; one IAB reload stalled before verification, fresh tabs used for SHA gate. Not universal error coverage.",
+    "actual_native_media": [
+      {
+        "cid": "default",
+        "media": [
+          {
+            "current": 4.96,
+            "duration": 4.96,
+            "ended": true,
+            "error": null,
+            "id": "result-video",
+            "muted": true,
+            "playError": null,
+            "quality": {
+              "dropped": 0,
+              "frames": 124
+            }
+          },
+          {
+            "current": 4.64,
+            "duration": 4.64,
+            "ended": true,
+            "error": null,
+            "id": "input-audio",
+            "muted": true,
+            "playError": null,
+            "quality": null
+          },
+          {
+            "current": 4.96,
+            "duration": 4.96,
+            "ended": true,
+            "error": null,
+            "id": "output-audio",
+            "muted": true,
+            "playError": null,
+            "quality": null
+          }
+        ]
+      },
+      {
+        "cid": "second",
+        "media": [
+          {
+            "current": 5.44,
+            "duration": 5.44,
+            "ended": true,
+            "error": null,
+            "id": "result-video",
+            "muted": true,
+            "quality": {
+              "dropped": 0,
+              "frames": 136
+            }
+          },
+          {
+            "current": 5.16,
+            "duration": 5.16,
+            "ended": true,
+            "error": null,
+            "id": "input-audio",
+            "muted": true,
+            "quality": null
+          },
+          {
+            "current": 5.44,
+            "duration": 5.44,
+            "ended": true,
+            "error": null,
+            "id": "output-audio",
+            "muted": true,
+            "quality": null
+          }
+        ]
+      }
+    ],
+    "all_native_checks_muted_human_listening_unperformed": true,
+    "save_requests": 10,
+    "returned_files": [
+      {
+        "id": "default",
+        "type": "mp4",
+        "bytes": 313151,
+        "sha256": "53146bcbbea20aa33c0ea25b92dc48d1746af03f5d88cefd73ef7b7324a66fcc",
+        "all_bytes_equal": true
+      },
+      {
+        "id": "default",
+        "type": "wav",
+        "bytes": 158764,
+        "sha256": "439524a8055463e8a96cbfeccf69879c8f42771acbb560791f739b9d6ce73c08",
+        "all_bytes_equal": true
+      },
+      {
+        "id": "default",
+        "type": "record",
+        "bytes": 78232,
+        "sha256": "8cdb8a7b10746898708d9dfbc91449164ebcbcff91f9d6ad1fd95fdced27b509",
+        "all_bytes_equal": true
+      },
+      {
+        "id": "default",
+        "type": "portrait",
+        "bytes": 484658,
+        "sha256": "15f01c4ad2bf8ae01a696c5c3da39ecbd2ac68a8f563e0d46a44c122f30e359b",
+        "all_bytes_equal": true
+      },
+      {
+        "id": "default",
+        "type": "input",
+        "bytes": 222764,
+        "sha256": "b750fdbc8e1a609954a5d7f0d5bd072ec3fa9116c1f91cf7fa8b19053b2fba52",
+        "all_bytes_equal": true
+      },
+      {
+        "id": "second",
+        "type": "mp4",
+        "bytes": 326325,
+        "sha256": "e8943d2a3aa0d3bbcecb83456e80c58e4f81eea6bfa8a885967024908f7afed4",
+        "all_bytes_equal": true
+      },
+      {
+        "id": "second",
+        "type": "wav",
+        "bytes": 174124,
+        "sha256": "3b347ff2f5cb2cccc95f9f5ea834b01c8cf565591c5a4fcf7a7a7350350924e3",
+        "all_bytes_equal": true
+      },
+      {
+        "id": "second",
+        "type": "record",
+        "bytes": 83731,
+        "sha256": "172d45400dd0f7e5fbc0f7b57e678d4bf9d2c21474a0b1ba4fcd999ef02bab58",
+        "all_bytes_equal": true
+      },
+      {
+        "id": "second",
+        "type": "portrait",
+        "bytes": 484658,
+        "sha256": "15f01c4ad2bf8ae01a696c5c3da39ecbd2ac68a8f563e0d46a44c122f30e359b",
+        "all_bytes_equal": true
+      },
+      {
+        "id": "second",
+        "type": "input",
+        "bytes": 247724,
+        "sha256": "80fd37b2eefd398d2e9c88ac812bc74b7028715fb26b5fd568eef3b24b363cdd",
+        "all_bytes_equal": true
+      }
+    ],
+    "unique_saved_originals": 9,
+    "save_scope": "Native request, original bytes and returned file are distinct; not universal disk-save completion. One earlier second-MP4 smoke click separate from ten-row matrix.",
+    "editor_assets": 63,
+    "editor_scenes": 7,
+    "orientation_scene_states": 14,
+    "arbitrary_seek": 7.2,
+    "orientation_preserves_time": true,
+    "native_range_arrow": 0.1,
+    "normal_preview_end": 32,
+    "editor_audio_elements": 0,
+    "clipboard_readback": false
+  },
+  "films": {
+    "final_renders": "renders-r1",
+    "duration": 32,
+    "fps": 30,
+    "file_frames_each": 960,
+    "dimensions": [
+      [
+        720,
+        1280
+      ],
+      [
+        1280,
+        720
+      ]
+    ],
+    "audio_streams": 0,
+    "faststart": true,
+    "full_decodes": 2,
+    "representative_stills_each": 16,
+    "consecutive_stills_each": 12,
+    "renderer_strip_center": 16.0,
+    "renderer_strip_first_frame": 474,
+    "renderer_strip_first_seconds": 15.8,
+    "encoded_MP4_strip_start_seconds": 16.0,
+    "native_local_ends": [
+      {
+        "current": 32,
+        "duration": 32,
+        "ended": true,
+        "error": null,
+        "id": "intro-portrait",
+        "muted": true,
+        "playError": null,
+        "quality": {
+          "dropped": 0,
+          "frames": 960
+        }
+      },
+      {
+        "current": 32,
+        "duration": 32,
+        "ended": true,
+        "error": null,
+        "id": "intro-wide",
+        "muted": true,
+        "playError": null,
+        "quality": {
+          "dropped": 0,
+          "frames": 960
+        }
+      }
+    ],
+    "source_PNG_byte_identity": 62,
+    "30_31_static": true,
+    "agent_visual_review": [
+      "375px full concept/map",
+      "320px second/stage2",
+      "portrait/wide16representative contacts",
+      "source12consecutive at15.8 and MP4strip16.0 acoustic bypass motion",
+      "wide poster31"
+    ],
+    "human_aesthetic_approval": false
+  },
+  "preservation": {
+    "frozen_core_files": 64,
+    "manifest_assets": 63,
+    "manifest_sha256": "6ccfdc017254734829b38531c681633771499ae5981518e819c434df163e09c8",
+    "phase1_original_files": 4,
+    "phase2_original_files": 11,
+    "source_official_Gitblobs_rawbytes": 177,
+    "selected_official_source_rawbytes": 27,
+    "fixed_official_model_files": 11,
+    "model_total_bytes": 3886019325,
+    "operator_changes_separate": [
+      {
+        "path": "video/main.js",
+        "before_sha256": "0427133bfd568392fb1882dc68662bb5fcb0f52cd6d493566ef5c9f85e56a840",
+        "operator_sha256": "e7cb490320f513acce734a3c29e48fddeb29016fea2e5601b1c6083688cfc8d5",
+        "reason": "After Promise.all rejects, parallel progress callbacks could overwrite the editor error reason with a loading count. Update progress only while body remains loading. Rendering primitives and frozen64 files unchanged.",
+        "operator_change_not_new_model_authorship": true
+      },
+      {
+        "path": "index.html",
+        "before_sha256": "81b9f4a328ab7a14f6584df93b58b29a0557c235c46ddf5beeffc4161e40de09",
+        "operator_sha256": "567fed2167c169820f2f3d4150e6d1bf55f536c6ae175ead3e3b6f1b72cc68d1",
+        "reason": "Replace author-time future QA with the completed later operator scope; retain unverified boundaries.",
+        "operator_change_not_new_model_authorship": true
+      },
+      {
+        "path": "video/index.html",
+        "before_sha256": "433812445d5dbc72f5af0f398cef5b1a0dfc25b6d9b7f31dec1349266f88afd9",
+        "operator_sha256": "4eacc21019f37d5e00ed2eb131ade042cfc027c5b3c0d3395b68e6b8256e2fb4",
+        "reason": "Update later verification status without changing film drawing.",
+        "operator_change_not_new_model_authorship": true
+      },
+      {
+        "path": "README.md",
+        "before_sha256": "c50d797cedc56d0654b9dd29161a407d564945bc891d76db877a10776fbecd8e",
+        "operator_sha256": "cce1b1acc02464eef42959d52e386fcd90e98835635354979b1c027f3d77229f",
+        "reason": "Separate returned-file bytes checked later from universal disk completion and clipboard readback.",
+        "operator_change_not_new_model_authorship": true
+      },
+      {
+        "path": "README.md",
+        "before_sha256": "cce1b1acc02464eef42959d52e386fcd90e98835635354979b1c027f3d77229f",
+        "operator_sha256": "27b5f688b2c34220458c6dcf4e29fb49332c1396b59bccf78518ff40457b287b",
+        "reason": "Append later fresh operator QA, root archive and tested renderer dependency scope. Original author-time documentation remains archived.",
+        "operator_change_not_new_model_authorship": true
+      },
+      {
+        "path": "video/README.md",
+        "before_sha256": "4aed9185aee1c3dc39bcd8fba9413c7ed5f8984a91dc35c3f413815853dff473",
+        "operator_sha256": "54282e2ce15f1c6b2d7f7577467974546a88da0c871ca2f730c3fa2e109423bc",
+        "reason": "Append later fresh operator QA, root archive and tested renderer dependency scope. Original author-time documentation remains archived.",
+        "operator_change_not_new_model_authorship": true
+      }
+    ]
+  },
+  "not_verified": [
+    "human listening",
+    "lip-sync accuracy/naturalness/identity/general quality",
+    "human aesthetic approval",
+    "physical iOS/Safari/VoiceOver",
+    "200percent zoom",
+    "all inputs",
+    "real-time performance/network streaming",
+    "Perth robustness after resampling and AAC",
+    "clipboard readback",
+    "universal user disk save completion"
+  ],
+  "distribution": "Selected27 official sources include23 required runner paths; actual full177 checkout used, subset not rerun. Weights/env/dependencies/fullcheckout/private frames/logs/model histories/coordinator skill excluded. Apache2 source/MIT model notices and third-party painting/audio attribution retained."
+}

@@ -1,0 +1,70 @@
+{
+  "schema": "studio-yebisu/livetalking-example/jobs@1",
+  "case_id": "livetalking-example",
+  "paths_relative_to": "the directory containing this jobs.json",
+  "source": {
+    "repository": "lipku/LiveTalking",
+    "commit": "eaa2b91559a5c2ed6127e17728efd52b7c407a0d",
+    "scope": "original MuseReal + WhisperASR + BaseAvatar offline render subset; not app.py, server, WebRTC network or livechat"
+  },
+  "runtime": {
+    "device": "cpu",
+    "dtype": "float32",
+    "intra_op_threads": 4,
+    "inter_op_threads": 4,
+    "seed": 20261020,
+    "fps": 25,
+    "batch_size": 4,
+    "l": 10,
+    "r": 10
+  },
+  "policy": {
+    "retries": 0,
+    "input_changes": "none",
+    "output_reselection": "none",
+    "trim_pad_or_shift": "none; emitted prefix/tail silence and batch boundaries are kept as captured"
+  },
+  "avatar": {
+    "avatar_id": "mona",
+    "full_image": "portrait.png",
+    "full_image_sha256": "15f01c4ad2bf8ae01a696c5c3da39ecbd2ac68a8f563e0d46a44c122f30e359b",
+    "full_image_note": "protected 512 RGB Mona Lisa crop reused byte-exact from the prior LivePortrait example; public-domain painting; full canvas for paste-back",
+    "prepared_dir": "prepared",
+    "bbox_xyxy": [100, 40, 420, 360],
+    "shared_by_jobs": ["default", "second"]
+  },
+  "capture_target_rule": {
+    "formula": "target_frames = ceil((r + floor(resampled_samples / 320)) / (2 * batch_size)) * batch_size",
+    "basis": "original put_audio_file emits floor(samples/320) 20 ms chunks at 16 kHz and drops an incomplete tail; BaseASR.warm_up leaves r silent chunks ahead of them in output_queue; each video frame carries 2 chunks; inference consumes whole batches",
+    "resampled_samples": "measured at run time from the original BaseAvatar resampling of each WAV, not declared here"
+  },
+  "jobs": [
+    {
+      "id": "default",
+      "audio": "default.wav",
+      "audio_sha256": "b750fdbc8e1a609954a5d7f0d5bd072ec3fa9116c1f91cf7fa8b19053b2fba52",
+      "declared": {
+        "sample_rate": 24000,
+        "channels": 1,
+        "subtype": "PCM_16",
+        "duration_s": 4.64
+      },
+      "prior_tts_input_text": "Please keep the back door closed while the heater is running. The spare keys are in the blue drawer by the sink."
+    },
+    {
+      "id": "second",
+      "audio": "second.wav",
+      "audio_sha256": "80fd37b2eefd398d2e9c88ac812bc74b7028715fb26b5fd568eef3b24b363cdd",
+      "declared": {
+        "sample_rate": 24000,
+        "channels": 1,
+        "subtype": "PCM_16",
+        "duration_s": 5.16
+      },
+      "prior_tts_input_text": "Your train leaves from platform four at nine fifteen. Bring a printed ticket and arrive ten minutes early."
+    }
+  ],
+  "audio_provenance": "both WAVs are earlier Chatterbox (MIT) original-English outputs with its built-in conditioning, reused byte-exact; no new TTS, recording or ASR here; this does not assert anything about Chatterbox training data",
+  "audio_role": "functional input sound driving the original pipeline; not narration",
+  "comparison_note": "two different utterances and lengths; not a controlled effect or quality comparison"
+}

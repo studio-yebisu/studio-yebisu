@@ -1,0 +1,111 @@
+{
+  "schema": "studio-yebisu/livetalking-example/preparation@1",
+  "tool": "prepare_input.py",
+  "tool_sha256": "70baa5fc1786941e85eb2c0c8c28e8d1b20d38b4e3ea2e5cb35c1fb89e3b845a",
+  "tool_role": "deterministic preparation helper; no face detection, landmarks, segmentation or neural face parsing",
+  "source": {
+    "file": "portrait.png",
+    "sha256": "15f01c4ad2bf8ae01a696c5c3da39ecbd2ac68a8f563e0d46a44c122f30e359b",
+    "bytes": 484658,
+    "height": 512,
+    "width": 512,
+    "channels": 3,
+    "provenance": "same 512 RGB Mona Lisa crop reused byte-exact from the prior LivePortrait example; the original painting is public domain; not a newly generated portrait",
+    "role": "output canvas for the original paste-back; not modified or copied by this helper"
+  },
+  "bbox_xyxy": [
+    100,
+    40,
+    420,
+    360
+  ],
+  "bbox_size": [
+    320,
+    320
+  ],
+  "bbox_origin": "manual operator-designated box, not a detector result",
+  "crop": {
+    "operation": "canvas[40:360, 100:420] (rows y1:y2, columns x1:x2)",
+    "resize": {
+      "library": "OpenCV",
+      "function": "cv2.resize",
+      "interpolation": "INTER_LANCZOS4",
+      "from": [
+        320,
+        320
+      ],
+      "to": [
+        256,
+        256
+      ]
+    },
+    "storage": "8-bit RGB PNG; OpenCV loads it as BGR, which original VAE.get_latents_for_unet expects for ndarray input",
+    "output": {
+      "file": "face256.png",
+      "sha256": "cf4beb5fdf0422767a43e469a69052b882a84ecf3767ea5eec0c762adb7c780f",
+      "bytes": 138946,
+      "height": 256,
+      "width": 256,
+      "channels": 3,
+      "dtype": "uint8"
+    }
+  },
+  "mask": {
+    "purpose": "declared manual lower-half blending mask for original get_image_blending; not neural face parsing",
+    "rule": {
+      "rows_0_159": 0,
+      "rows_160_171": "np.rint(np.linspace(0, 255, 12)) per row, constant across columns",
+      "rows_172_319": 255
+    },
+    "ramp_values_rows_160_171": [
+      0,
+      23,
+      46,
+      70,
+      93,
+      116,
+      139,
+      162,
+      185,
+      209,
+      232,
+      255
+    ],
+    "channels": "three identical channels (original myutil.get_image_blending converts BGR to gray)",
+    "mask_coords_xyxy": [
+      100,
+      40,
+      420,
+      360
+    ],
+    "output": {
+      "file": "mask320.png",
+      "sha256": "8a09a6f37deb8794857bd9704a105521ffae79c38bca7e41a983a4c8aab3d1fd",
+      "bytes": 1170,
+      "height": 320,
+      "width": 320,
+      "channels": 3,
+      "dtype": "uint8"
+    }
+  },
+  "diagnostics": {
+    "upper_half_masked_face": {
+      "operation": "face256 copy with rows 128..255 set to 0, mirroring the half mask in original VAE.preprocess_img(half_mask=True)",
+      "role": "visual check of the deterministic input to the masked-latent path; not a model output",
+      "output": {
+        "file": "face256-upper-half-masked.png",
+        "sha256": "6ee62691e7b257963b52240846e03682ed02c75e48da507eff509b61caa488d9",
+        "bytes": 66113,
+        "height": 256,
+        "width": 256,
+        "channels": 3,
+        "dtype": "uint8"
+      }
+    }
+  },
+  "versions": {
+    "python": "3.11.15",
+    "numpy": "1.26.4",
+    "opencv": "4.10.0"
+  }
+}

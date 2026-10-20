@@ -1,0 +1,874 @@
+{
+  "id": "livetalking-example",
+  "verified_at": "2026-10-20T02:27:40.935257+00:00",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "receipts": [
+      {
+        "phase": "implementation4",
+        "receipt_sha256": "fd11c54f4c446087a713153b57cc570bbf2f6f67ab3750c0e8b18639c325caf5",
+        "execution_sha256": "7f57aac0cbb7be58d4f430e6c83739174edaeb4c6e43b0bf463b12eb38057308",
+        "prompt_sha256": "30daf5996663f30144c67d793d0e724e35c9d38e80a9090b126b021a582c8b20"
+      },
+      {
+        "phase": "diagram-film-article11",
+        "receipt_sha256": "79895145b1a623bb5c918dc5e587afe49258b29004371b89430dacf9e0abbe34",
+        "execution_sha256": "29a56d97391e7a7919e7e214308f0bca38c952cd675e202d3630f9a83e111576",
+        "prompt_sha256": "392e51caf7c1b7948cc7ac4e74654a69663751deef891d5ee2912e8ad1993222"
+      }
+    ],
+    "full_receipts_published": false,
+    "scope": "Exact author originals archived privately. Operator source/model/input preparation, actual execution, fact projection, technical correction, rendering/QA, packaging/publication distinct."
+  },
+  "upstream": {
+    "repository": "lipku/LiveTalking",
+    "commit": "eaa2b91559a5c2ed6127e17728efd52b7c407a0d",
+    "license": "Apache-2.0",
+    "official_Gitblobs_rawbytes": 177,
+    "selected_source_rawbytes": 27,
+    "required_runner_paths": 23,
+    "models": [
+      {
+        "repository": "TMElyralab/MuseTalk",
+        "revision": "2bcb936e2fddb4d86db4c62fd45b387d0c061571"
+      },
+      {
+        "repository": "stabilityai/sd-vae-ft-mse",
+        "revision": "31f26fdeee1355a5c34592e401dd41e45d25a493"
+      },
+      {
+        "repository": "openai/whisper-tiny",
+        "revision": "169d4a4341b33bc18d8881c4b69c2e104e1cc0af"
+      }
+    ]
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 2,
+    "data_source": "examples/livetalking-example/outputs/results.json",
+    "human_approval": false,
+    "scope": "Original MuseTalk offline core once, original WebRTCOutput with operator disk capture; no network session. Functional audio retained; no general sync or quality guarantee."
+  },
+  "verification": {
+    "id": "livetalking-example",
+    "verified_at": "2026-10-20T02:27:39.961989+00:00",
+    "stage": "runtime-and-agent-visual-reviewed",
+    "new_case": true,
+    "identity": "音声と映像をつなぐPythonエンジン。今回は原典MuseTalkオフライン描画と実際の出力だけ。",
+    "structure": {
+      "editorial_parts": 6,
+      "exact_source_excerpts": 8,
+      "flow": "Original docs/request -> one author writes preparation/runner/jobs -> operator runs original Python -> manual portrait crop/masked+full VAE latent shared once; acoustic encoder and raw audio bypass -> U-Net timestep0 single forward per batch/VAE face -> queue pairs face+two raw audio chunks BEFORE pasteback -> idle source or original pasteback/watermark -> original WebRTCOutput/operator disk adapter -> PNG/PCM WAV/separate FFmpeg functional MP4 -> native playback/save",
+      "browser": "Frozen-file validation/viewing/playback only; no neural/model/CLI/TTS execution.",
+      "diagrams_internal_tiles_and_clock": "Explanatory, not actual activations or inference timing.",
+      "waveform": "160 real-PCM min/max bins; not quality or sync measurements."
+    },
+    "actual_execution": {
+      "source_unmodified": true,
+      "load_once": true,
+      "one_shared_latent_shape": [
+        1,
+        8,
+        32,
+        32
+      ],
+      "VAE_encoder_calls": 2,
+      "environment": {
+        "python": "3.11.15",
+        "torch": "2.6.0+cpu",
+        "precision": "float32",
+        "intra_threads": 4,
+        "inter_threads": 4,
+        "own_logical_cores": 4,
+        "seed": 20261020
+      },
+      "jobs": [
+        {
+          "id": "default",
+          "captured_frames": 124,
+          "duration_s": 4.96,
+          "mp4_bytes": 313151,
+          "wav_bytes": 158764,
+          "neural_calls_observed": {
+            "by_module": {
+              "whisper.encoder": {
+                "calls": 35,
+                "windows": {
+                  "started_before_capture_target_reached": 34,
+                  "started_after_quit_signal": 1
+                }
+              },
+              "unet.model": {
+                "calls": 30,
+                "windows": {
+                  "started_before_capture_target_reached": 30
+                }
+              },
+              "vae.decoder": {
+                "calls": 30,
+                "windows": {
+                  "started_before_capture_target_reached": 30
+                }
+              }
+            },
+            "batches_inside_target": 31,
+            "batches_inside_target_with_input_chunks": 30,
+            "note": "hook counts are every actual call in this job, including in-flight work after the target; captured frames and inferred frames are reported separately and not equated"
+          },
+          "capture_outside_target": {
+            "frames": 16,
+            "zero_audio_chunks": 32
+          },
+          "one_run_seconds": 394.489
+        },
+        {
+          "id": "second",
+          "captured_frames": 136,
+          "duration_s": 5.44,
+          "mp4_bytes": 326325,
+          "wav_bytes": 174124,
+          "neural_calls_observed": {
+            "by_module": {
+              "whisper.encoder": {
+                "calls": 38,
+                "windows": {
+                  "started_before_capture_target_reached": 37,
+                  "started_after_quit_signal": 1
+                }
+              },
+              "unet.model": {
+                "calls": 33,
+                "windows": {
+                  "started_before_capture_target_reached": 33
+                }
+              },
+              "vae.decoder": {
+                "calls": 33,
+                "windows": {
+                  "started_before_capture_target_reached": 33
+                }
+              }
+            },
+            "batches_inside_target": 34,
+            "batches_inside_target_with_input_chunks": 33,
+            "note": "hook counts are every actual call in this job, including in-flight work after the target; captured frames and inferred frames are reported separately and not equated"
+          },
+          "capture_outside_target": {
+            "frames": 16,
+            "zero_audio_chunks": 32
+          },
+          "one_run_seconds": 432.355
+        }
+      ],
+      "input": "Same prior512MonaLisa crop and prior Chatterbox English24kPCM16 WAV2; no new photo/portrait/TTS/recording. Manualbox and lower blending mask, no detector/parser.",
+      "capture_total260": "245pasted+15idle; neural predictions252 distinct. Frame0 idle source+original watermark. Queue-empty type1 is not VAD.",
+      "independent_frozen_file_reads": {
+        "at": "2026-10-20T01:06:49.364210+00:00",
+        "scope": "Independent frozen-file re-read; no source import/model inference/resampler/encoder rerun. Acoustic bitexact-to-resampler proof remains original runner observation; independent check reads existing captured PCM/chunk flags.",
+        "all_source177raw_unchanged": true,
+        "protected_files_unchanged": 64,
+        "VAE_lower_half_blacked_upper_kept": true,
+        "jobs": [
+          {
+            "id": "default",
+            "PNG_read_and_raw_hash": 124,
+            "idle": 8,
+            "pasted": 116,
+            "outside_bbox_equal_to_idle": true,
+            "PNG_representatives_exact": 5,
+            "wav_private_public_exact": true,
+            "native_video_frames": 124,
+            "duration": 4.96,
+            "functional_audio_streams": 1,
+            "full_decode": true,
+            "faststart": true,
+            "zero_prefix_ms": 200,
+            "zero_tail_ms": 120,
+            "same_original_result_job_object": true
+          },
+          {
+            "id": "second",
+            "PNG_read_and_raw_hash": 136,
+            "idle": 7,
+            "pasted": 129,
+            "outside_bbox_equal_to_idle": true,
+            "PNG_representatives_exact": 5,
+            "wav_private_public_exact": true,
+            "native_video_frames": 136,
+            "duration": 5.44,
+            "functional_audio_streams": 1,
+            "full_decode": true,
+            "faststart": true,
+            "zero_prefix_ms": 200,
+            "zero_tail_ms": 80,
+            "same_original_result_job_object": true
+          }
+        ],
+        "total_captured_PNG": 260,
+        "human_listening": false,
+        "quality_or_sync_guarantee": false
+      },
+      "original_results_path": "outputs/results.json",
+      "job_JSON": "Parent UTF8/LF wrapping of original result objects; no new inference/native API JSON.",
+      "not_run": [
+        "app.py/server/network WebRTC/RTMP/virtual camera",
+        "LLM/new TTS/clone/transcription",
+        "face detection/segmentation/genavatar",
+        "other avatar models",
+        "ComfyUI"
+      ],
+      "observed_visual_limit": "この手動枠/マスク/絵画の出力では下顔のぼけと枠境界が見える。原出力を保全し新たな美化/選別/再推論なし。",
+      "human_listening": false,
+      "real_time_benchmark": false,
+      "inference_crop_audio_encode_rerun_for_diagram": false
+    },
+    "browser": {
+      "engine": "Codex in-app browser Chromium",
+      "phone_sizes": [
+        [
+          320,
+          812
+        ],
+        [
+          375,
+          812
+        ]
+      ],
+      "case_stage_states": 12,
+      "min_primary_target_CSS_px": 44,
+      "whole_diagram_and_saves_first812px": true,
+      "display_preferences_checked": 16,
+      "theme_scope": "Fixed light editorial palette under light/dark browser preference; no separate dark theme claimed.",
+      "source_parts": 6,
+      "source_excerpts_exact": 8,
+      "hash_routes": [
+        {
+          "frames": 5,
+          "hash": "#second",
+          "ready": true,
+          "selected": "second",
+          "expected": "second",
+          "inputHash": "#second"
+        },
+        {
+          "frames": 5,
+          "hash": "#unknown",
+          "ready": true,
+          "selected": "default",
+          "expected": "default",
+          "inputHash": "#unknown"
+        },
+        {
+          "frames": 5,
+          "hash": "#%E0%A4%A",
+          "ready": true,
+          "selected": "default",
+          "expected": "default",
+          "inputHash": "#%E0%A4%A"
+        },
+        {
+          "frames": 5,
+          "hash": "#default",
+          "ready": true,
+          "selected": "default",
+          "expected": "default",
+          "inputHash": "#default"
+        },
+        {
+          "frames": 5,
+          "hash": "",
+          "ready": true,
+          "selected": "default",
+          "expected": "default",
+          "inputHash": ""
+        }
+      ],
+      "media_switch_stops_and_resets": true,
+      "controlled_failure_rows": [
+        {
+          "surface": "main",
+          "mode": "http",
+          "phase": "failure",
+          "actionsDisabled": true,
+          "canvasBlank": true,
+          "mediaCleared": true,
+          "reason": "concept/facts.json: HTTP 503",
+          "savesCleared": true,
+          "state": "failed",
+          "failed": true
+        },
+        {
+          "surface": "editor",
+          "mode": "http",
+          "phase": "failure",
+          "actionsDisabled": true,
+          "canvasBlank": true,
+          "mediaCleared": true,
+          "reason": "ファイルを読めません：concept/facts.json: HTTP 503。描かずに止めています。",
+          "savesCleared": true,
+          "state": "failed",
+          "failed": true
+        },
+        {
+          "surface": "main",
+          "mode": "http",
+          "phase": "recovery",
+          "actionsEnabled": true,
+          "errorHidden": true,
+          "state": "ready",
+          "recovered": true
+        },
+        {
+          "surface": "editor",
+          "mode": "http",
+          "phase": "recovery",
+          "actionsEnabled": true,
+          "errorHidden": true,
+          "state": "ready",
+          "recovered": true
+        },
+        {
+          "surface": "main",
+          "mode": "json",
+          "phase": "failure",
+          "actionsDisabled": true,
+          "canvasBlank": true,
+          "mediaCleared": true,
+          "reason": "concept/facts.json: 1 B（記録は 209839 B）",
+          "savesCleared": true,
+          "state": "failed",
+          "failed": true
+        },
+        {
+          "surface": "editor",
+          "mode": "json",
+          "phase": "failure",
+          "actionsDisabled": true,
+          "canvasBlank": true,
+          "mediaCleared": true,
+          "reason": "ファイルの大きさが記録と違います：concept/facts.json: 1 B（記録は 209839 B）。描かずに止めています。",
+          "savesCleared": true,
+          "state": "failed",
+          "failed": true
+        },
+        {
+          "surface": "main",
+          "mode": "json",
+          "phase": "recovery",
+          "actionsEnabled": true,
+          "errorHidden": true,
+          "state": "ready",
+          "recovered": true
+        },
+        {
+          "surface": "editor",
+          "mode": "json",
+          "phase": "recovery",
+          "actionsEnabled": true,
+          "errorHidden": true,
+          "state": "ready",
+          "recovered": true
+        },
+        {
+          "surface": "main",
+          "mode": "hash",
+          "phase": "failure",
+          "actionsDisabled": true,
+          "canvasBlank": true,
+          "mediaCleared": true,
+          "reason": "concept/facts.json の SHA-256 が一致しません",
+          "savesCleared": true,
+          "state": "failed",
+          "failed": true
+        },
+        {
+          "surface": "editor",
+          "mode": "hash",
+          "phase": "failure",
+          "actionsDisabled": true,
+          "canvasBlank": true,
+          "mediaCleared": true,
+          "reason": "ファイルの中身が記録と違います：concept/facts.json の SHA-256 が一致しません。描かずに止めています。",
+          "savesCleared": true,
+          "state": "failed",
+          "failed": true
+        },
+        {
+          "surface": "main",
+          "mode": "hash",
+          "phase": "recovery",
+          "actionsEnabled": true,
+          "errorHidden": true,
+          "state": "ready",
+          "recovered": true
+        },
+        {
+          "surface": "editor",
+          "mode": "hash",
+          "phase": "recovery",
+          "actionsEnabled": true,
+          "errorHidden": true,
+          "state": "ready",
+          "recovered": true
+        }
+      ],
+      "failure_scope": "HTTP503; truncated at size gate; same-length mutation at SHA gate. Parallel-error-reason race corrected; one IAB reload stalled before verification, fresh tabs used for SHA gate. Not universal error coverage.",
+      "actual_native_media": [
+        {
+          "cid": "default",
+          "media": [
+            {
+              "current": 4.96,
+              "duration": 4.96,
+              "ended": true,
+              "error": null,
+              "id": "result-video",
+              "muted": true,
+              "playError": null,
+              "quality": {
+                "dropped": 0,
+                "frames": 124
+              }
+            },
+            {
+              "current": 4.64,
+              "duration": 4.64,
+              "ended": true,
+              "error": null,
+              "id": "input-audio",
+              "muted": true,
+              "playError": null,
+              "quality": null
+            },
+            {
+              "current": 4.96,
+              "duration": 4.96,
+              "ended": true,
+              "error": null,
+              "id": "output-audio",
+              "muted": true,
+              "playError": null,
+              "quality": null
+            }
+          ]
+        },
+        {
+          "cid": "second",
+          "media": [
+            {
+              "current": 5.44,
+              "duration": 5.44,
+              "ended": true,
+              "error": null,
+              "id": "result-video",
+              "muted": true,
+              "quality": {
+                "dropped": 0,
+                "frames": 136
+              }
+            },
+            {
+              "current": 5.16,
+              "duration": 5.16,
+              "ended": true,
+              "error": null,
+              "id": "input-audio",
+              "muted": true,
+              "quality": null
+            },
+            {
+              "current": 5.44,
+              "duration": 5.44,
+              "ended": true,
+              "error": null,
+              "id": "output-audio",
+              "muted": true,
+              "quality": null
+            }
+          ]
+        }
+      ],
+      "all_native_checks_muted_human_listening_unperformed": true,
+      "save_requests": 10,
+      "returned_files": [
+        {
+          "id": "default",
+          "type": "mp4",
+          "bytes": 313151,
+          "sha256": "53146bcbbea20aa33c0ea25b92dc48d1746af03f5d88cefd73ef7b7324a66fcc",
+          "all_bytes_equal": true
+        },
+        {
+          "id": "default",
+          "type": "wav",
+          "bytes": 158764,
+          "sha256": "439524a8055463e8a96cbfeccf69879c8f42771acbb560791f739b9d6ce73c08",
+          "all_bytes_equal": true
+        },
+        {
+          "id": "default",
+          "type": "record",
+          "bytes": 78232,
+          "sha256": "8cdb8a7b10746898708d9dfbc91449164ebcbcff91f9d6ad1fd95fdced27b509",
+          "all_bytes_equal": true
+        },
+        {
+          "id": "default",
+          "type": "portrait",
+          "bytes": 484658,
+          "sha256": "15f01c4ad2bf8ae01a696c5c3da39ecbd2ac68a8f563e0d46a44c122f30e359b",
+          "all_bytes_equal": true
+        },
+        {
+          "id": "default",
+          "type": "input",
+          "bytes": 222764,
+          "sha256": "b750fdbc8e1a609954a5d7f0d5bd072ec3fa9116c1f91cf7fa8b19053b2fba52",
+          "all_bytes_equal": true
+        },
+        {
+          "id": "second",
+          "type": "mp4",
+          "bytes": 326325,
+          "sha256": "e8943d2a3aa0d3bbcecb83456e80c58e4f81eea6bfa8a885967024908f7afed4",
+          "all_bytes_equal": true
+        },
+        {
+          "id": "second",
+          "type": "wav",
+          "bytes": 174124,
+          "sha256": "3b347ff2f5cb2cccc95f9f5ea834b01c8cf565591c5a4fcf7a7a7350350924e3",
+          "all_bytes_equal": true
+        },
+        {
+          "id": "second",
+          "type": "record",
+          "bytes": 83731,
+          "sha256": "172d45400dd0f7e5fbc0f7b57e678d4bf9d2c21474a0b1ba4fcd999ef02bab58",
+          "all_bytes_equal": true
+        },
+        {
+          "id": "second",
+          "type": "portrait",
+          "bytes": 484658,
+          "sha256": "15f01c4ad2bf8ae01a696c5c3da39ecbd2ac68a8f563e0d46a44c122f30e359b",
+          "all_bytes_equal": true
+        },
+        {
+          "id": "second",
+          "type": "input",
+          "bytes": 247724,
+          "sha256": "80fd37b2eefd398d2e9c88ac812bc74b7028715fb26b5fd568eef3b24b363cdd",
+          "all_bytes_equal": true
+        }
+      ],
+      "unique_saved_originals": 9,
+      "save_scope": "Native request, original bytes and returned file are distinct; not universal disk-save completion. One earlier second-MP4 smoke click separate from ten-row matrix.",
+      "editor_assets": 63,
+      "editor_scenes": 7,
+      "orientation_scene_states": 14,
+      "arbitrary_seek": 7.2,
+      "orientation_preserves_time": true,
+      "native_range_arrow": 0.1,
+      "normal_preview_end": 32,
+      "editor_audio_elements": 0,
+      "clipboard_readback": false
+    },
+    "films": {
+      "final_renders": "renders-r1",
+      "duration": 32,
+      "fps": 30,
+      "file_frames_each": 960,
+      "dimensions": [
+        [
+          720,
+          1280
+        ],
+        [
+          1280,
+          720
+        ]
+      ],
+      "audio_streams": 0,
+      "faststart": true,
+      "full_decodes": 2,
+      "representative_stills_each": 16,
+      "consecutive_stills_each": 12,
+      "renderer_strip_center": 16.0,
+      "renderer_strip_first_frame": 474,
+      "renderer_strip_first_seconds": 15.8,
+      "encoded_MP4_strip_start_seconds": 16.0,
+      "native_local_ends": [
+        {
+          "current": 32,
+          "duration": 32,
+          "ended": true,
+          "error": null,
+          "id": "intro-portrait",
+          "muted": true,
+          "playError": null,
+          "quality": {
+            "dropped": 0,
+            "frames": 960
+          }
+        },
+        {
+          "current": 32,
+          "duration": 32,
+          "ended": true,
+          "error": null,
+          "id": "intro-wide",
+          "muted": true,
+          "playError": null,
+          "quality": {
+            "dropped": 0,
+            "frames": 960
+          }
+        }
+      ],
+      "source_PNG_byte_identity": 62,
+      "30_31_static": true,
+      "agent_visual_review": [
+        "375px full concept/map",
+        "320px second/stage2",
+        "portrait/wide16representative contacts",
+        "source12consecutive at15.8 and MP4strip16.0 acoustic bypass motion",
+        "wide poster31"
+      ],
+      "human_aesthetic_approval": false
+    },
+    "preservation": {
+      "frozen_core_files": 64,
+      "manifest_assets": 63,
+      "manifest_sha256": "6ccfdc017254734829b38531c681633771499ae5981518e819c434df163e09c8",
+      "phase1_original_files": 4,
+      "phase2_original_files": 11,
+      "source_official_Gitblobs_rawbytes": 177,
+      "selected_official_source_rawbytes": 27,
+      "fixed_official_model_files": 11,
+      "model_total_bytes": 3886019325,
+      "operator_changes_separate": [
+        {
+          "path": "video/main.js",
+          "before_sha256": "0427133bfd568392fb1882dc68662bb5fcb0f52cd6d493566ef5c9f85e56a840",
+          "operator_sha256": "e7cb490320f513acce734a3c29e48fddeb29016fea2e5601b1c6083688cfc8d5",
+          "reason": "After Promise.all rejects, parallel progress callbacks could overwrite the editor error reason with a loading count. Update progress only while body remains loading. Rendering primitives and frozen64 files unchanged.",
+          "operator_change_not_new_model_authorship": true
+        },
+        {
+          "path": "index.html",
+          "before_sha256": "81b9f4a328ab7a14f6584df93b58b29a0557c235c46ddf5beeffc4161e40de09",
+          "operator_sha256": "567fed2167c169820f2f3d4150e6d1bf55f536c6ae175ead3e3b6f1b72cc68d1",
+          "reason": "Replace author-time future QA with the completed later operator scope; retain unverified boundaries.",
+          "operator_change_not_new_model_authorship": true
+        },
+        {
+          "path": "video/index.html",
+          "before_sha256": "433812445d5dbc72f5af0f398cef5b1a0dfc25b6d9b7f31dec1349266f88afd9",
+          "operator_sha256": "4eacc21019f37d5e00ed2eb131ade042cfc027c5b3c0d3395b68e6b8256e2fb4",
+          "reason": "Update later verification status without changing film drawing.",
+          "operator_change_not_new_model_authorship": true
+        },
+        {
+          "path": "README.md",
+          "before_sha256": "c50d797cedc56d0654b9dd29161a407d564945bc891d76db877a10776fbecd8e",
+          "operator_sha256": "cce1b1acc02464eef42959d52e386fcd90e98835635354979b1c027f3d77229f",
+          "reason": "Separate returned-file bytes checked later from universal disk completion and clipboard readback.",
+          "operator_change_not_new_model_authorship": true
+        },
+        {
+          "path": "README.md",
+          "before_sha256": "cce1b1acc02464eef42959d52e386fcd90e98835635354979b1c027f3d77229f",
+          "operator_sha256": "27b5f688b2c34220458c6dcf4e29fb49332c1396b59bccf78518ff40457b287b",
+          "reason": "Append later fresh operator QA, root archive and tested renderer dependency scope. Original author-time documentation remains archived.",
+          "operator_change_not_new_model_authorship": true
+        },
+        {
+          "path": "video/README.md",
+          "before_sha256": "4aed9185aee1c3dc39bcd8fba9413c7ed5f8984a91dc35c3f413815853dff473",
+          "operator_sha256": "54282e2ce15f1c6b2d7f7577467974546a88da0c871ca2f730c3fa2e109423bc",
+          "reason": "Append later fresh operator QA, root archive and tested renderer dependency scope. Original author-time documentation remains archived.",
+          "operator_change_not_new_model_authorship": true
+        }
+      ]
+    },
+    "not_verified": [
+      "human listening",
+      "lip-sync accuracy/naturalness/identity/general quality",
+      "human aesthetic approval",
+      "physical iOS/Safari/VoiceOver",
+      "200percent zoom",
+      "all inputs",
+      "real-time performance/network streaming",
+      "Perth robustness after resampling and AAC",
+      "clipboard readback",
+      "universal user disk save completion"
+    ],
+    "distribution": "Selected27 official sources include23 required runner paths; actual full177 checkout used, subset not rerun. Weights/env/dependencies/fullcheckout/private frames/logs/model histories/coordinator skill excluded. Apache2 source/MIT model notices and third-party painting/audio attribution retained."
+  },
+  "distribution": {
+    "source_archive": "examples/livetalking-example/source.zip",
+    "source_archive_sha256": "4008d358fc36927d1775a4deaf9f7f3f35c811d55f7fda37e2c217019a676fc8",
+    "zip_members": 152,
+    "notes": "Root examples/case+media3+MIT. Explicitly excludes outputs/run-log.txt, weights/env/fullcheckout/dependencies/private histories/master skill."
+  },
+  "artifacts_sha256": {
+    "data/cases/livetalking-example.json": "0cc77d6d07039801ee41ce1e39ec1e92c0aa0565b44a4f61a7962f56c5cb87b1",
+    "data/intakes/livetalking-example.json": "410935683ad05f59901a6c4142c94f64cf22c3de5120276f1dfc4b00fccef9d9",
+    "examples/livetalking-example/LICENSE": "fb74b9b6e529197ce24b127b687e4e349cf46864059da001a3d9d63db39cdb19",
+    "examples/livetalking-example/README.md": "27b5f688b2c34220458c6dcf4e29fb49332c1396b59bccf78518ff40457b287b",
+    "examples/livetalking-example/SOURCE-NOTES.md": "95be31f7fad95b37832dbbbe471e8bf0b4bb579dfb26e6aca978346a0ef6be50",
+    "examples/livetalking-example/THIRD_PARTY_NOTICES.md": "5ce9c968a47412dee71b958ed93522423b62517487bb126f6345b169e1aa3326",
+    "examples/livetalking-example/UPSTREAM.json": "a4a0a2b47ca9b9c5fd0c0cd710e9549d0a49a67adc1352b2fa33ba49d62f2f48",
+    "examples/livetalking-example/app.js": "e9203bea1933a37919a6db38c43d1340ed8317e814063d61202f9b5a2e123c08",
+    "examples/livetalking-example/concept/facts.json": "810e4c90dad3bce391b3c77e99c2cb32b975d6afef21f53c20dc985c1ce57864",
+    "examples/livetalking-example/concept/manifest.json": "6ccfdc017254734829b38531c681633771499ae5981518e819c434df163e09c8",
+    "examples/livetalking-example/implementation.md": "de768384ca70dd0e8b9e89ca0694199f95f734abd7d538468a2d1ac35fed5b48",
+    "examples/livetalking-example/index.html": "567fed2167c169820f2f3d4150e6d1bf55f536c6ae175ead3e3b6f1b72cc68d1",
+    "examples/livetalking-example/inputs/default.wav": "b750fdbc8e1a609954a5d7f0d5bd072ec3fa9116c1f91cf7fa8b19053b2fba52",
+    "examples/livetalking-example/inputs/jobs.json": "5cc58a001ac2f2abf5d8a40b474207ab14761793bb0cb40898253d4cccb8218e",
+    "examples/livetalking-example/inputs/portrait.png": "15f01c4ad2bf8ae01a696c5c3da39ecbd2ac68a8f563e0d46a44c122f30e359b",
+    "examples/livetalking-example/inputs/prepared/face256-upper-half-masked.png": "6ee62691e7b257963b52240846e03682ed02c75e48da507eff509b61caa488d9",
+    "examples/livetalking-example/inputs/prepared/face256.png": "cf4beb5fdf0422767a43e469a69052b882a84ecf3767ea5eec0c762adb7c780f",
+    "examples/livetalking-example/inputs/prepared/mask320.png": "8a09a6f37deb8794857bd9704a105521ffae79c38bca7e41a983a4c8aab3d1fd",
+    "examples/livetalking-example/inputs/prepared/preparation.json": "d1a771b62e8c57faf79072f4fec2a96e905cd55f0ec40e4a7f7fc5e322b989b5",
+    "examples/livetalking-example/inputs/second.wav": "80fd37b2eefd398d2e9c88ac812bc74b7028715fb26b5fd568eef3b24b363cdd",
+    "examples/livetalking-example/outputs/default.json": "8cdb8a7b10746898708d9dfbc91449164ebcbcff91f9d6ad1fd95fdced27b509",
+    "examples/livetalking-example/outputs/default/default-captured-16k.wav": "439524a8055463e8a96cbfeccf69879c8f42771acbb560791f739b9d6ce73c08",
+    "examples/livetalking-example/outputs/default/default.mp4": "53146bcbbea20aa33c0ea25b92dc48d1746af03f5d88cefd73ef7b7324a66fcc",
+    "examples/livetalking-example/outputs/default/frames/frame_000000.png": "67005f0ad41cc1220abec847abb9fb860ba45040d119670445de9ce196fe941f",
+    "examples/livetalking-example/outputs/default/frames/frame_000031.png": "830a4a254b7bda96ab79fb5790fe402410d68019085ec7a4634ab2a342cc0a55",
+    "examples/livetalking-example/outputs/default/frames/frame_000062.png": "688a932ea15f604f0e8b7d7eda4224032f49b83766bbba75e0b08b631525e268",
+    "examples/livetalking-example/outputs/default/frames/frame_000093.png": "0f585371d5d34f33838428e9b96a4857ca6b540161e94f4ff61369b18f4335ad",
+    "examples/livetalking-example/outputs/default/frames/frame_000123.png": "67005f0ad41cc1220abec847abb9fb860ba45040d119670445de9ce196fe941f",
+    "examples/livetalking-example/outputs/results.json": "afc5ff362391ae08f6582ec77e81cc8a01e04103be0e8432cefbbc461cd8f2e3",
+    "examples/livetalking-example/outputs/second.json": "172d45400dd0f7e5fbc0f7b57e678d4bf9d2c21474a0b1ba4fcd999ef02bab58",
+    "examples/livetalking-example/outputs/second/frames/frame_000000.png": "67005f0ad41cc1220abec847abb9fb860ba45040d119670445de9ce196fe941f",
+    "examples/livetalking-example/outputs/second/frames/frame_000034.png": "a9f96a27293416fb48494e1c83b5d01e0a33a3fdecdcba92a04a5f75a0c58546",
+    "examples/livetalking-example/outputs/second/frames/frame_000068.png": "3941a583f369ba5e80fcce690a39b508b3dcd392ff27feb875c149f51236c258",
+    "examples/livetalking-example/outputs/second/frames/frame_000102.png": "b5508ed013f2a6a73f694213c4b003fb2e297e31acf878bbf7c02e8b1f27e824",
+    "examples/livetalking-example/outputs/second/frames/frame_000135.png": "67005f0ad41cc1220abec847abb9fb860ba45040d119670445de9ce196fe941f",
+    "examples/livetalking-example/outputs/second/second-captured-16k.wav": "3b347ff2f5cb2cccc95f9f5ea834b01c8cf565591c5a4fcf7a7a7350350924e3",
+    "examples/livetalking-example/outputs/second/second.mp4": "e8943d2a3aa0d3bbcecb83456e80c58e4f81eea6bfa8a885967024908f7afed4",
+    "examples/livetalking-example/prepare_input.py": "70baa5fc1786941e85eb2c0c8c28e8d1b20d38b4e3ea2e5cb35c1fb89e3b845a",
+    "examples/livetalking-example/render_visual.py": "ad0b4a10c7a4bb353a07dbf8a9f66f8bc0fb2f3ebe1208d4e7ee11f61cbb32c5",
+    "examples/livetalking-example/run_example.py": "1281ab7b697d194c1566f52606d290ec7123357c32e868321d3f5ab9d8df31fc",
+    "examples/livetalking-example/samples.json": "d682947ef518d19808298cb271e27c740b9c2173dd868dca86d72e9e5a639877",
+    "examples/livetalking-example/source.zip": "4008d358fc36927d1775a4deaf9f7f3f35c811d55f7fda37e2c217019a676fc8",
+    "examples/livetalking-example/styles.css": "e11976d94962cfdaadca9e53300b48f8444d41e9d19b762ac353d89676b47049",
+    "examples/livetalking-example/tools/motion-reel/LICENSE": "d90f55562b9f84fed7da43692eca81aa1b012fda98623acc6f3b5a89b9b778dd",
+    "examples/livetalking-example/tools/motion-reel/audio.mjs": "b3d8e4d0e59a8539b195ebe20c2bd4d74180211a394103f4b2d10f5019c16cc5",
+    "examples/livetalking-example/tools/motion-reel/package-lock.json": "68d3c2fae567ac1077b7ac8227fa3eff03c9eba7817ca8949f92aa1d5f544f03",
+    "examples/livetalking-example/tools/motion-reel/package.json": "4a0016e3892bc268fd1900ccd4c8baa37afe5bddc7de7af7ced20f9d5014f718",
+    "examples/livetalking-example/tools/motion-reel/render.mjs": "b1d0a4334cf7f0c3af7014be26130ee8f8418a5ae93af376a0a2bc9421a9f6b1",
+    "examples/livetalking-example/vendor/livetalking/LICENSE": "6b934ce628eac39c44f6401b52efc0884db51c937777f1122f0b56648813f0b6",
+    "examples/livetalking-example/vendor/livetalking/README-EN.md": "6d864d0af26ef01cf94baccde42ef2eb1f090fd4b5d1c5c1c40df8363787f31f",
+    "examples/livetalking-example/vendor/livetalking/README.md": "e3ab1f2b277caa648864fa310da9ff70a57285b457b51fc83f928c43cecd561d",
+    "examples/livetalking-example/vendor/livetalking/avatars/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "examples/livetalking-example/vendor/livetalking/avatars/audio_features/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "examples/livetalking-example/vendor/livetalking/avatars/audio_features/base_asr.py": "0885ec975d63d1cacbf7e6e712918095adfc7b7d0d438b847ad69f0e4a62307c",
+    "examples/livetalking-example/vendor/livetalking/avatars/audio_features/whisper.py": "ec3901b8ac5d9d57cdd6a263cd755ebff92c2bafef5cf2a64eb2a432148506d4",
+    "examples/livetalking-example/vendor/livetalking/avatars/base_avatar.py": "f1e6538fe3c9f16f402cd69f83e3774ea3dfa74d95050d08fb2884acbea435dc",
+    "examples/livetalking-example/vendor/livetalking/avatars/musetalk/models/unet.py": "05d5dadfde2e726b61d8387a4876336d4dcacc696636e8dcfec69863ce819256",
+    "examples/livetalking-example/vendor/livetalking/avatars/musetalk/models/vae.py": "36117cb453b3dfaf8e356e0cef576cd5ef2663bf06246e5f95ddf17374e1a978",
+    "examples/livetalking-example/vendor/livetalking/avatars/musetalk/myutil.py": "57dc3f4e744244a096c875b043f2808aa2045e2a3771c26de90b124d61cd09fe",
+    "examples/livetalking-example/vendor/livetalking/avatars/musetalk/utils/utils.py": "13b916d6d23d49144fd6b62b335225394831ea91608277a08391caffbbed1806",
+    "examples/livetalking-example/vendor/livetalking/avatars/musetalk/whisper/audio2feature.py": "dd3cb43c9ac7a8400ef6b3c9c0d450f5bbd4e548d175ea78038466d0336d2419",
+    "examples/livetalking-example/vendor/livetalking/avatars/musetalk_avatar.py": "f0ffbb3975e1fa92cd1aab6ee035bfbb3381cc6aa52d0bdd89166309493a8bd5",
+    "examples/livetalking-example/vendor/livetalking/config.py": "ebca465de6c15bbe4f926278352f024e29d4b8e63d690aa57f073a789d38f445",
+    "examples/livetalking-example/vendor/livetalking/docs/api.md": "17f240a5ca9439128e11e7ce97d789e0fa711920185ff1db7203be95ffd03720",
+    "examples/livetalking-example/vendor/livetalking/registry.py": "2f5450833e245b9a90478a2aea2a51af7301210bfaeacc74f41a41af061517c2",
+    "examples/livetalking-example/vendor/livetalking/requirements.txt": "669283d9e52bf721fdda8171cadaa15b80af80bee7c8dbd510d718f27fc14133",
+    "examples/livetalking-example/vendor/livetalking/streamout/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "examples/livetalking-example/vendor/livetalking/streamout/base_output.py": "29b040a23d97ca9f94d78e0e74d288e3b2a4209fda4ba0c4c56793b03eb8cc9f",
+    "examples/livetalking-example/vendor/livetalking/streamout/webrtc.py": "ed725cdd798437e3adac7e727bb01e3bec2f8c9f505319b10e2cc5f1f13a419d",
+    "examples/livetalking-example/vendor/livetalking/tts/__init__.py": "be18d323c9645e39609e258544bf1f4f53ac01bafe8be507d1dba5766e3f77af",
+    "examples/livetalking-example/vendor/livetalking/tts/base_tts.py": "ceedfed5f503fff315a38fa27222a6cf7c5e3368f25788975bb3efa7da001b11",
+    "examples/livetalking-example/vendor/livetalking/tts/edge.py": "9292124e794aaffb151582f1917bc31e04676e907ed8b342b18ec2439f27fd5e",
+    "examples/livetalking-example/vendor/livetalking/utils/device.py": "05c5178b4a816f95a0cac80e4d96ea44edc633a85aae15c7b35969500f585494",
+    "examples/livetalking-example/vendor/livetalking/utils/image.py": "c4c6a21154cce743728e5af116f2c30b35107bc430731a62fc5dec163b83d239",
+    "examples/livetalking-example/vendor/livetalking/utils/logger.py": "d9b574b63a323539e514d526f678cb59379ad4b389e1365f9abff72089d7b5b1",
+    "examples/livetalking-example/vendor/model-cards/musetalk-LICENSE.txt": "992ec5fd1dd4964cfa003665196cd0c0c10a7a5aa10109991e964eebd2c7f116",
+    "examples/livetalking-example/vendor/model-cards/musetalk-model-card.md": "1e005ec9c3bfc7313714e714abea62205098299139db5cccb884a19a46e2a579",
+    "examples/livetalking-example/vendor/model-cards/sd-vae-model-card.md": "8ac69483c18a45d0fee531e08b6ede97ee9b4c79e875659c1b0e6a5903ca3400",
+    "examples/livetalking-example/vendor/model-cards/whisper-model-card.md": "57a3bbbbf1e79369e4d1ced790812a1723b43a256c1b43fc70cc2f3339ae9881",
+    "examples/livetalking-example/video/README.md": "54282e2ce15f1c6b2d7f7577467974546a88da0c871ca2f730c3fa2e109423bc",
+    "examples/livetalking-example/video/draw.js": "9f1df5d29c66173635b46534e94cd1e9fdb168680e3be8fccecbb53dea77e56b",
+    "examples/livetalking-example/video/index.html": "4eacc21019f37d5e00ed2eb131ade042cfc027c5b3c0d3395b68e6b8256e2fb4",
+    "examples/livetalking-example/video/main.js": "e7cb490320f513acce734a3c29e48fddeb29016fea2e5601b1c6083688cfc8d5",
+    "examples/livetalking-example/video/review/portrait/capture.json": "37b1e6ed2acfd11727b53bba0049cd372d762afa2c99cf8f6f3d0b296fdf85b1",
+    "examples/livetalking-example/video/review/portrait/contact.png": "a6e8d4ff314e683215fb5512e07ad8cc532333a4063663e09a03b51f734a8e05",
+    "examples/livetalking-example/video/review/portrait/poster.png": "2efa540cf1d94ec44ab744fd6e06395e7e3111daa753e5045c86fbf9d63f8990",
+    "examples/livetalking-example/video/review/portrait/review.html": "2d96b2f9e305d8d0ec90f263fc16674cec1172a27b7fc3591b8e9a6c05eec7be",
+    "examples/livetalking-example/video/review/portrait/stills/frame-000000.png": "e318a512b854231b1e389bda80be21f6dcb0a5ea6972d173dba60b09b6a70b1a",
+    "examples/livetalking-example/video/review/portrait/stills/frame-000001.png": "53d7a129b8b00a1a3600bed80beadb329c8cbab70419a22b6585e16e0c534625",
+    "examples/livetalking-example/video/review/portrait/stills/frame-000002.png": "1683131b6501cb0dd90fcec2a7d910ff9d91ba8aa0db517c38e3087701f05810",
+    "examples/livetalking-example/video/review/portrait/stills/frame-000003.png": "dd1bd9656b1bcb081236c32f688625df118640b3807036d3aa1cff0a4236efdb",
+    "examples/livetalking-example/video/review/portrait/stills/frame-000004.png": "3941d4e34f20fcd8367451e9320b38546eb9bf79f526c9c247d33d21a8f7852b",
+    "examples/livetalking-example/video/review/portrait/stills/frame-000005.png": "915c5f4f4b6953aefb1b5aa5e81c7001f7b949cb0d83368eac0c7a2c6512d83b",
+    "examples/livetalking-example/video/review/portrait/stills/frame-000006.png": "bdeb7ff84be8da5c44bb7f7c3f2566b54ece2000f00a6cec1357be68f4f56630",
+    "examples/livetalking-example/video/review/portrait/stills/frame-000007.png": "f0700260774dbfce14ea55617753c390b14eba03bf9d3786ab9b714539975f26",
+    "examples/livetalking-example/video/review/portrait/stills/frame-000008.png": "8576f18a2a7e517326902a68899cb05608a787649e03bfc770c1c4224a9f9826",
+    "examples/livetalking-example/video/review/portrait/stills/frame-000009.png": "80509c9c0cf36066a5a3f1df46b5e56fcf9970643d6156dfe331c6e3dd99e3c6",
+    "examples/livetalking-example/video/review/portrait/stills/frame-000010.png": "24daddeab4f0fb6b9705c0250c3fe6b63603ec3a769c0ee4a691d039ff96ca58",
+    "examples/livetalking-example/video/review/portrait/stills/frame-000011.png": "5649c584b5e8cca977da2ae6b52a5fe81508d4d6cb2c00d6e89416bc6e1d31ff",
+    "examples/livetalking-example/video/review/portrait/stills/frame-000012.png": "a59420372154d82144826deab41a84213f8012ab56716e4c13384ec01298b614",
+    "examples/livetalking-example/video/review/portrait/stills/frame-000013.png": "c389cf718bf9fb34a73ed7e9d4d7288e86c561c033fde52fd67a3357158eb3c3",
+    "examples/livetalking-example/video/review/portrait/stills/frame-000014.png": "d03e3bec8f559e056098f492a675dbf2e64f129afc888b2286ed01bcbea3fd93",
+    "examples/livetalking-example/video/review/portrait/stills/frame-000015.png": "2efa540cf1d94ec44ab744fd6e06395e7e3111daa753e5045c86fbf9d63f8990",
+    "examples/livetalking-example/video/review/portrait/strip.png": "968d32d919c6d2e865a6cc77724d4f2614976ea43724bd026fb5e915879fdb53",
+    "examples/livetalking-example/video/review/portrait/strip/frame-000000.png": "60eef135527e015d402d06374776b9fab6c0b95101d5505691272b3d792fb729",
+    "examples/livetalking-example/video/review/portrait/strip/frame-000001.png": "dea09a16096d5bdbf799f26bca9bb5f237c4a3db59c41063fccb0de8c01ee40c",
+    "examples/livetalking-example/video/review/portrait/strip/frame-000002.png": "d3a0096edbad883abfba6f8764842732e6e38ed8062a44a2822e91c203e94b55",
+    "examples/livetalking-example/video/review/portrait/strip/frame-000003.png": "4c964599a45d0edad10b5d5b641873000e463d459465d07fcb4e1bd2e49b593c",
+    "examples/livetalking-example/video/review/portrait/strip/frame-000004.png": "bd085a6f42d44802eaa5789ca0076f2491da33e6a53e4c7c4080fa372eeafee6",
+    "examples/livetalking-example/video/review/portrait/strip/frame-000005.png": "38c275842bb5fb3027d89fe1f823b42535073ab4f7d74abe2335569a3b282458",
+    "examples/livetalking-example/video/review/portrait/strip/frame-000006.png": "8576f18a2a7e517326902a68899cb05608a787649e03bfc770c1c4224a9f9826",
+    "examples/livetalking-example/video/review/portrait/strip/frame-000007.png": "63d10a1a6a4e6592bdae9fb806f56bd2e503493a6b9ff64f840b0fc71475010d",
+    "examples/livetalking-example/video/review/portrait/strip/frame-000008.png": "42534a52efbbf1a9497929a6ca2193528dd48f792b805afb924dc1ca1374c013",
+    "examples/livetalking-example/video/review/portrait/strip/frame-000009.png": "e7dde80db5bcb62502ac23c7db7906596f9bc38356f2cf4c867a7197ca5e5d2e",
+    "examples/livetalking-example/video/review/portrait/strip/frame-000010.png": "d4087ceb37acaca52336305943e96b9662a9936c8a6bba7dd0cc75022a288a57",
+    "examples/livetalking-example/video/review/portrait/strip/frame-000011.png": "c5642e984c30ca73efa051bb10c4b6e38c4668f844e2493e1387bf8afe69a466",
+    "examples/livetalking-example/video/review/wide/capture.json": "d2b87e6526144fdef0e9ec0b1e6e5e996749ff08e74b4c0d1fd7e66332d7dc6a",
+    "examples/livetalking-example/video/review/wide/contact.png": "3c242c3a341881a6db787863c12d201a93b90099c9a0d40ff8d9920c6c6891bd",
+    "examples/livetalking-example/video/review/wide/poster.png": "bc7b6f5517a9784b03e4a618a10bc372b90261b2051a719ae3eaa729bd1b154d",
+    "examples/livetalking-example/video/review/wide/review.html": "638c18c0f47bf14611128a38d9099b17bc001dd932d866540e1055c342264f87",
+    "examples/livetalking-example/video/review/wide/stills/frame-000000.png": "4e59362aab3d2faf2540d2d6e39053418761579bf4a407876a3463779acde924",
+    "examples/livetalking-example/video/review/wide/stills/frame-000001.png": "e186b5d9f1f84d7f48da6992a9bafecce22319b7b5edeac788fef933ad6303e7",
+    "examples/livetalking-example/video/review/wide/stills/frame-000002.png": "85fd748361447682e9d946d9c4415c09573a15e30e67c3eb21e068ba177aa9a4",
+    "examples/livetalking-example/video/review/wide/stills/frame-000003.png": "9d67eaa3b06bb030c76339d6df9eb3610cdc52ef3db14f42d78c6dc3986078bd",
+    "examples/livetalking-example/video/review/wide/stills/frame-000004.png": "f9b6e3a73f0c85cc77d09273637cb93c5ad2b7fe7b952791a7c8ea210e73b024",
+    "examples/livetalking-example/video/review/wide/stills/frame-000005.png": "70b882dbac3861a69b1055e4333fb6831ea5397741ceca31198bb89f42c2f1d1",
+    "examples/livetalking-example/video/review/wide/stills/frame-000006.png": "140b50f23d10eb1c8839218da14fe7665837f2973a485fbf039e74a7a9a60648",
+    "examples/livetalking-example/video/review/wide/stills/frame-000007.png": "996dad37198a5faf6c881c2d2034d14f74723b5b5b4a0e2643062872711df1e4",
+    "examples/livetalking-example/video/review/wide/stills/frame-000008.png": "b46162f3f6b7b7a32bfa2b8f0c9696c15e145a8d8e9645a89b300b6d0c0d0dc8",
+    "examples/livetalking-example/video/review/wide/stills/frame-000009.png": "819288d37e25752effa9cf92730471510103263dd1248f1df1a2d2e8921069f3",
+    "examples/livetalking-example/video/review/wide/stills/frame-000010.png": "a79b5ba2a97b48d56239d68b1d8a540e3a586fb8dde406e73ef0b081c1375ca4",
+    "examples/livetalking-example/video/review/wide/stills/frame-000011.png": "e933eef606a4e9798c7c510703504d58b8ade9d666bd9b49c8f58a58305f0417",
+    "examples/livetalking-example/video/review/wide/stills/frame-000012.png": "2702b5e5c3d7a9f308feeca291e899573702798879a07ccb4fb5f675c10c0247",
+    "examples/livetalking-example/video/review/wide/stills/frame-000013.png": "23fab7f95e3ccc1c119d7b5f553e8c6b3c1cd59bef4caa457930f2617ab973ab",
+    "examples/livetalking-example/video/review/wide/stills/frame-000014.png": "c25a37b010a9925b790b0d48163aefdd8a76d4b8897858b9f221a387457d6cb9",
+    "examples/livetalking-example/video/review/wide/stills/frame-000015.png": "bc7b6f5517a9784b03e4a618a10bc372b90261b2051a719ae3eaa729bd1b154d",
+    "examples/livetalking-example/video/review/wide/strip.png": "433bd265b0da1c0c57f0536f8076778d80242c4ce75c85c2f8beb10f2d93193f",
+    "examples/livetalking-example/video/review/wide/strip/frame-000000.png": "0fcfbb8e6e79d1d2ce6426bc566291b030f7372cdf8a9b626f6a167b15d38630",
+    "examples/livetalking-example/video/review/wide/strip/frame-000001.png": "b5ca4474fa448c165a1aadf003b3a3f382bbb02ba7f2f532a34b963f9bfa6061",
+    "examples/livetalking-example/video/review/wide/strip/frame-000002.png": "814de7f934a943790f302052b76679b1e605874a32e2ddc7fe4a876b7d9ab0e6",
+    "examples/livetalking-example/video/review/wide/strip/frame-000003.png": "2c9b3d9d859c59d6a55efe4faff22b94e3e8b9de78ec593d595bf4bc7be82ab1",
+    "examples/livetalking-example/video/review/wide/strip/frame-000004.png": "bda607c16a1858347f136dbcc43c48e8c7f4d4609b059d7af60b22d217567039",
+    "examples/livetalking-example/video/review/wide/strip/frame-000005.png": "56195bb95a6d69df18069a94e37855b749cb2b732106e16c564a1efc6cb50c6c",
+    "examples/livetalking-example/video/review/wide/strip/frame-000006.png": "b46162f3f6b7b7a32bfa2b8f0c9696c15e145a8d8e9645a89b300b6d0c0d0dc8",
+    "examples/livetalking-example/video/review/wide/strip/frame-000007.png": "a565993f7fd73a1a0d2bc7a40b0c9e7b8ff21fcb852af7c914a4255a9331b9eb",
+    "examples/livetalking-example/video/review/wide/strip/frame-000008.png": "44bd095e7b8a99717552393ac437a4a4f5ed07d135c00b89d1dd731b1c5541a3",
+    "examples/livetalking-example/video/review/wide/strip/frame-000009.png": "bc7f7950939553ad6c566c5745fee09ab36bb78a98c66b40b2222a65b876f2db",
+    "examples/livetalking-example/video/review/wide/strip/frame-000010.png": "d0a469fb743c32130673981c948cf3e14279d876f3181e3d5bb3f9fc060d3f42",
+    "examples/livetalking-example/video/review/wide/strip/frame-000011.png": "a22af650b1cb2d680cb5eb51adab5639c416c070eea9b9033a20e4014127fb11",
+    "examples/livetalking-example/video/storyboard.json": "8128ea32e5180a9cd232cc085651f37ea91c6fc9f5367ff9700ac42dc533e98a",
+    "examples/livetalking-example/visual-verification.json": "0da1d5da3e694b8509a22e1103852b8490a6f2d1e790fc4200c652bc5279b3c7",
+    "media/livetalking-example-wide.mp4": "49a00f6187fdf062b117332167da29d823b277e326a31a41770855f70b1002f4",
+    "media/livetalking-example.mp4": "c268457847333fe7e29c5e3c6dbbddf358545c9a8fa2f50a21f04f551ad9c3d6",
+    "media/livetalking-example.webp": "bb0e2f246d31c07293334a7a56a721b99e131a2806c92027c8c4e4ee62b8e89e"
+  }
+}
