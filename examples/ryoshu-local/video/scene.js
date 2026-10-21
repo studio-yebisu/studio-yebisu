@@ -149,8 +149,8 @@ function draw(t){
   const M=L.met;tx('架空PDF100件の検証結果',M.x,M.y-(PT?22:26),PT?20:28,C.forest,800,'left',ss(24.3,24.8,t),PT?372:1300);[['金額・円額未確定','97/97'],['日付','99/100'],['店名','86/100'],['暫定科目','47/48']].forEach(([a1,b1],i)=>{const k=ez(24.4+i*.3,25.1+i*.3,t);if(k<=0)return;
     const x=M.x+(i%M.cols)*M.gx,y=M.y+Math.floor(i/M.cols)*M.gy+(1-k)*20;box(x,y,M.w,M.h,14,'#fff',C.forest,2,k,10);box(x,y+10,6,M.h-20,3,C.forest,null,0,k);
     tx(a1+b1,x+M.w/2,y+M.h/2,M.fs,C.ink,800,'center',k,M.w-32);});
-  
-  
+
+
   const na=ss(25.8,26.4,t);wrap('金額は返金3件を除外。同じ100件で改善した回帰検査。',M.nx,M.ny,M.nw,M.ns,M.ns*1.35,C.mute,600,na);
   tx('原本・期待値・残った誤りを公開',M.nx,M.ny+M.n2,M.ns*1.15,C.forest,800,'left',na,M.nw);tx('固定100件の観測値。未知の領収書での精度ではありません',M.nx,M.ny+M.n3,M.ns*.85,C.mute,500,'left',na,M.nw);
   // OCR fields (follow the packet, retract into the row at 18s)
