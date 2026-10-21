@@ -1,0 +1,344 @@
+{
+  "product": "Ryoshu",
+  "subtitle": "領収書OCRとAIによる勘定科目判断アプリ（各種CSV対応）",
+  "commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
+  "links": {
+    "github": "https://github.com/studio-yebisu/ryoshu",
+    "testing": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/README.md",
+    "gallery": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/gallery.md",
+    "requirements": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/REQUIREMENTS.md",
+    "install": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/INSTALL.md",
+    "license": "https://github.com/studio-yebisu/ryoshu/blob/main/THIRD_PARTY.md"
+  },
+  "scope": {
+    "runtime": "セットアップ後のOCR・AI判断・SQLite帳簿保存はPC内。領収書を外部OCR/LLMへ送らず、クラウド推論フォールバックなし。",
+    "setup": "初回の依存・OCR重み・約2.5GBのQwenモデル取得はネット接続が必要。",
+    "ocr": "Indra OCR 1.1.2 / CPU",
+    "semantic": "OllamaのローカルQwen3 4B、Q4_K_M / CPU・GPU不要",
+    "catalog": "SQLiteに38科目と14確認条件。",
+    "confirmation": "AIは暫定候補。本人が原本・日付・支払先・金額・科目・用途・事業割合・支払元・税区分を確認して登録。自動計上しない。",
+    "csv": [
+      "汎用CSV",
+      "freee振替伝票",
+      "MFクラウド仕訳帳",
+      "弥生デスクトップ25項目"
+    ],
+    "testing": "100種類の架空PDFを取込・OCR・AIへ通した回帰検査。同じ100件を修正にも使用。未知の実物領収書の精度保証ではない。",
+    "limitations": "支出の経費帳と税込仕訳。売上・口座照合・償却・決算/申告書・返金や外貨の仕訳は未対応。",
+    "requirements": "Windows11・64bit、Python3.12またはuv、Ollama、日本語フォント。最低RAM未測定。検証機64GBは最低要件ではない。",
+    "license": "アプリMIT。Indra重みはmodified OpenRAIL-Mで事業規模・資金調達・競合用途等に制限。",
+    "csv_test": "別の架空6件を手動確認した4形式・7行、借貸とも299095円。実会計サービス取込は未実施。"
+  },
+  "metrics": {
+    "ocr_completed": {
+      "matched": 100,
+      "evaluated": 100
+    },
+    "model_completed": {
+      "matched": 100,
+      "evaluated": 100
+    },
+    "total_exact": {
+      "matched": 97,
+      "evaluated": 97
+    },
+    "date_exact": {
+      "matched": 99,
+      "evaluated": 100
+    },
+    "merchant_exact": {
+      "matched": 86,
+      "evaluated": 100
+    },
+    "account_or_decision_exact": {
+      "matched": 89,
+      "evaluated": 100
+    },
+    "decision_exact": {
+      "matched": 93,
+      "evaluated": 100
+    },
+    "account_exact": {
+      "matched": 47,
+      "evaluated": 48
+    }
+  },
+  "samples": [
+    {
+      "id": "V001",
+      "title": "コンビニ58mmサーマル領収書",
+      "file": "individual/V001.pdf",
+      "sha256": "581f7e2f848f7ec324f019b44a305cffcff3f63789b5f851b185be1437ac6d9a",
+      "model_author": "kimi-k3",
+      "acquisition": "digital",
+      "expected": {
+        "merchant": "コンビニ みちのく",
+        "date": "2023-11-02",
+        "total": 1760,
+        "acceptable_accounts": [
+          "消耗品費"
+        ],
+        "expected_decision": "propose"
+      },
+      "actual": {
+        "date": "2023-11-02",
+        "merchant": "コンビニ みちのく",
+        "total": 1760,
+        "account": "消耗品費",
+        "decision": "propose",
+        "description": "乾電池 4本パック",
+        "reason": "消耗品費の暫定候補です。業務用途・事業割合・支払元は未確認です。",
+        "warnings": [],
+        "review_questions": [
+          "購入内容が事業用か",
+          "機器は資産計上の検討が必要か"
+        ],
+        "blocking_reasons": [],
+        "model": "qwen3:4b",
+        "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7"
+      },
+      "before": {
+        "date": "2023-11-02",
+        "merchant": "みちのくテスト市架空町1-2-3 テストビル前",
+        "total": 1760,
+        "account": "消耗品費",
+        "decision": null
+      },
+      "checks": {
+        "ocr_completed": true,
+        "model_completed": true,
+        "total_exact": true,
+        "date_exact": true,
+        "merchant_exact": true,
+        "account_or_decision_exact": true,
+        "blocked": false,
+        "decision_exact": true,
+        "account_exact": true,
+        "actual_decision": "propose",
+        "abstained": false,
+        "error": ""
+      },
+      "difference_fields": [],
+      "review_label": "一致",
+      "review_note": "原期待値と一致。候補は確認待ちであり、帳簿へ未登録。",
+      "observed_at": "2026-10-21T09:03:25.436907+00:00",
+      "source_run": "final-06",
+      "manual_corrections": [],
+      "image": "assets/V001.jpg",
+      "pdf": "https://github.com/studio-yebisu/ryoshu/blob/a163a295f5e87532ef592021cee207adc2a53f6d/samples/receipts-100-v2/individual/V001.pdf"
+    },
+    {
+      "id": "V004",
+      "title": "電器店大型モニタ領収(横A5)",
+      "file": "individual/V004.pdf",
+      "sha256": "3bec105affe3fdb906a6c89a923f2a372f91ca5fa751bfc6fe3a83515b2d4dc6",
+      "model_author": "kimi-k3",
+      "acquisition": "flatbed",
+      "expected": {
+        "merchant": "電器専門店 デンキノハコ",
+        "date": "2022-12-14",
+        "total": 91280,
+        "acceptable_accounts": [],
+        "expected_decision": "asset_review"
+      },
+      "actual": {
+        "date": "2022-12-14",
+        "merchant": "電器専門店 デンキノハコ",
+        "total": 91280,
+        "account": "工具器具備品",
+        "decision": "asset_review",
+        "description": "27型業務用モニター K27-T01 WQHD",
+        "reason": "工具器具備品の暫定候補です。業務用途・事業割合・支払元は未確認です。",
+        "warnings": [
+          "資産候補です。取得価額・耐用年数・減価償却は別途確認してください",
+          "一定額以上の機器・備品等です。金額は確認を促すためのアプリの条件であり、税務の資産基準ではありません。経理方式、取得価額、利用開始日、資産・少額資産等の扱いを確認してください。"
+        ],
+        "review_questions": [
+          "取得価額と経理方式",
+          "利用開始日",
+          "資産・少額資産等の適用条件",
+          "取得価額、利用開始日、経理方式",
+          "耐用年数や少額資産の取扱い"
+        ],
+        "blocking_reasons": [],
+        "model": "qwen3:4b",
+        "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7"
+      },
+      "before": {
+        "date": "2022-12-14",
+        "merchant": "電器専門店 デンキノハコ",
+        "total": null,
+        "account": "工具器具備品",
+        "decision": null
+      },
+      "checks": {
+        "ocr_completed": true,
+        "model_completed": true,
+        "total_exact": true,
+        "date_exact": true,
+        "merchant_exact": true,
+        "account_or_decision_exact": true,
+        "blocked": false,
+        "decision_exact": true,
+        "account_exact": null,
+        "actual_decision": "asset_review",
+        "abstained": false,
+        "error": ""
+      },
+      "difference_fields": [],
+      "review_label": "一致",
+      "review_note": "原期待値と一致。候補は確認待ちであり、帳簿へ未登録。",
+      "observed_at": "2026-10-21T09:04:07.532430+00:00",
+      "source_run": "final-06",
+      "manual_corrections": [],
+      "image": "assets/V004.jpg",
+      "pdf": "https://github.com/studio-yebisu/ryoshu/blob/a163a295f5e87532ef592021cee207adc2a53f6d/samples/receipts-100-v2/individual/V004.pdf"
+    },
+    {
+      "id": "V038",
+      "title": "海外USDデジタル請求書",
+      "file": "individual/V038.pdf",
+      "sha256": "c3d277a6fa0fc560bb7719053d99e0a2f5244511e921c14e8215f3e4d96b8bd1",
+      "model_author": "gpt-6.1-sol",
+      "acquisition": "digital",
+      "expected": {
+        "merchant": "FICTION CLOUD STUDIO",
+        "date": "2025-10-03",
+        "total": null,
+        "acceptable_accounts": [],
+        "expected_decision": "hold"
+      },
+      "actual": {
+        "date": "2025-10-03",
+        "merchant": "FICTION CLOUD STUDIO",
+        "total": null,
+        "account": "",
+        "decision": "hold",
+        "description": "Digital asset library / monthly service",
+        "reason": "外貨の記載があります。実際に確定した円額をカード明細等から確認してください。",
+        "warnings": [
+          "外貨の記載です。実際に確定した円換算額をカード明細等から確認してください",
+          "資産候補です。取得価額・耐用年数・減価償却は別途確認してください",
+          "外貨の記載があります。実際に確定した円額をカード明細等から確認してください。"
+        ],
+        "review_questions": [
+          "円建て確定額と換算根拠"
+        ],
+        "blocking_reasons": [],
+        "model": "qwen3:4b",
+        "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7"
+      },
+      "before": {
+        "date": "2025-10-03",
+        "merchant": "FICTION CLOUD STUDIO",
+        "total": null,
+        "account": "研究開発費",
+        "decision": null
+      },
+      "checks": {
+        "ocr_completed": true,
+        "model_completed": true,
+        "total_exact": true,
+        "date_exact": true,
+        "merchant_exact": true,
+        "account_or_decision_exact": true,
+        "blocked": false,
+        "decision_exact": true,
+        "account_exact": null,
+        "actual_decision": "hold",
+        "abstained": true,
+        "error": ""
+      },
+      "difference_fields": [],
+      "review_label": "修正確認",
+      "review_note": "USD30のような空白なし通貨表記も外貨として検出する。参考の4,500円を確定円額にせず、科目も円額の確認まで保留する。",
+      "observed_at": "2026-10-21T09:10:07.496024+00:00",
+      "source_run": "final-06",
+      "manual_corrections": [],
+      "image": "assets/V038.jpg",
+      "pdf": "https://github.com/studio-yebisu/ryoshu/blob/a163a295f5e87532ef592021cee207adc2a53f6d/samples/receipts-100-v2/individual/V038.pdf"
+    },
+    {
+      "id": "V070",
+      "title": "包材ショップの小型レシート",
+      "file": "individual/V070.pdf",
+      "sha256": "43e88e195d2aa1e30188042ea9da2d753bea42f1518695f410bb9fefa253d575",
+      "model_author": "deepseek-v4.1-flash:1017",
+      "acquisition": "camera",
+      "expected": {
+        "merchant": "かんぷパッケージ テスト店",
+        "date": "2025-06-03",
+        "total": 7370,
+        "acceptable_accounts": [
+          "消耗品費",
+          "荷造運賃"
+        ],
+        "expected_decision": "propose"
+      },
+      "actual": {
+        "date": "2025-06-03",
+        "merchant": "かんぶパッケージ テスト店",
+        "total": 7370,
+        "account": "消耗品費",
+        "decision": "propose",
+        "description": "段ポール箱 A4（20枚組）",
+        "reason": "消耗品費の暫定候補です。業務用途・事業割合・支払元は未確認です。",
+        "warnings": [
+          "円記号の誤読を、記載された内税額との整合性で照合しました",
+          "異なる合計金額が複数あります。領収書の単位を確認してください"
+        ],
+        "review_questions": [
+          "購入内容が事業用か",
+          "機器は資産計上の検討が必要か"
+        ],
+        "blocking_reasons": [],
+        "model": "qwen3:4b",
+        "model_digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7"
+      },
+      "before": {
+        "date": "2025-06-03",
+        "merchant": "",
+        "total": null,
+        "account": "新聞図書費",
+        "decision": null
+      },
+      "checks": {
+        "ocr_completed": true,
+        "model_completed": true,
+        "total_exact": true,
+        "date_exact": true,
+        "merchant_exact": false,
+        "account_or_decision_exact": true,
+        "blocked": false,
+        "decision_exact": true,
+        "account_exact": true,
+        "actual_decision": "propose",
+        "abstained": false,
+        "error": ""
+      },
+      "difference_fields": [
+        "merchant_exact"
+      ],
+      "review_label": "手動補正",
+      "review_note": "撮影画像の濁点・半濁点を取り違え、かんぷ／かんぶが不一致。原本画像を目視して確認欄の店名を補正した。自動判定の一致率には加算しない。",
+      "observed_at": "2026-10-21T09:35:05.920626+00:00",
+      "source_run": "regression-10",
+      "manual_corrections": [
+        {
+          "case_id": "V070",
+          "field": "merchant",
+          "before": "かんぶパッケージ テスト店",
+          "after": "かんぷパッケージ テスト店",
+          "basis": "原本画像の半濁点を目視確認",
+          "at": "2026-10-21T09:40:41.599440+00:00",
+          "confirmed": false,
+          "original_model_suggestion_unchanged": true
+        }
+      ],
+      "image": "assets/V070.jpg",
+      "pdf": "https://github.com/studio-yebisu/ryoshu/blob/a163a295f5e87532ef592021cee207adc2a53f6d/samples/receipts-100-v2/individual/V070.pdf"
+    }
+  ],
+  "images_are_fictional": true,
+  "recorded_not_live": true
+}

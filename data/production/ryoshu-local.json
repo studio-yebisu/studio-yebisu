@@ -1,0 +1,206 @@
+{
+  "schema_version": 1,
+  "checked_on": "2026-10-21",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "private_receipt_sha256": "241edb9bf3bd206907deb357c6283374fe24e46c0ab6fb74e8451f676dc3568e",
+    "execution_sha256": "507fd4c41c0124548573af890a88ed62dbe3c62f6ac5939bf7969af260888ebc",
+    "prompt_sha256": "9cace7954dd4daae18abef255172dc5227ec3f7d9d795a56e16d326eaa314e2c",
+    "producer_script_sha256": "e7eb0589aa6caff9181e3144fcdf7db9c8da7811d777799539c2e588f5e1e19c",
+    "scope": "Opus authored the complete film drawing/timeline JavaScript in one completion. Producer authored article/page, frozen facts, wrappers/controls/storyboard notes, packaging/rendering/QA/publication. Application and original100-case inference were not regenerated.",
+    "authored_source_sha256": {
+      "examples/ryoshu-local/video/scene.js": "0d1e11f830ca6a46be2e811cd4812216e8e568550e4ef8dab7b92661c363ff27"
+    },
+    "producer_changes": [
+      "Only the Canvas context option willReadFrequently:true, its comment and a terminal newline were added to scene.js to make receipt resampling deterministic. Original Opus source is hash-recorded and preserved privately."
+    ]
+  },
+  "upstream": {
+    "repository": "https://github.com/studio-yebisu/ryoshu",
+    "commit": "a163a295f5e87532ef592021cee207adc2a53f6d"
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 100,
+    "scope": "Original pinned Ryoshu regression evidence reused, not a new inference run. Four saved examples displayed on the new page.",
+    "source": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/README.md",
+    "new_inference_run": false,
+    "static_sample_count": 4,
+    "metrics": {
+      "ocr_completed": {
+        "matched": 100,
+        "evaluated": 100
+      },
+      "model_completed": {
+        "matched": 100,
+        "evaluated": 100
+      },
+      "total_exact": {
+        "matched": 97,
+        "evaluated": 97
+      },
+      "date_exact": {
+        "matched": 99,
+        "evaluated": 100
+      },
+      "merchant_exact": {
+        "matched": 86,
+        "evaluated": 100
+      },
+      "account_or_decision_exact": {
+        "matched": 89,
+        "evaluated": 100
+      },
+      "decision_exact": {
+        "matched": 93,
+        "evaluated": 100
+      },
+      "account_exact": {
+        "matched": 47,
+        "evaluated": 48
+      }
+    }
+  },
+  "introduction": {
+    "status": "passed",
+    "video": {
+      "landscape": {
+        "browser": "155.0.8059.80",
+        "video": {
+          "file": "video.mp4",
+          "sha256": "fc5305c22a36ca3d69751f3fbf9a3ab92cebb32b9d5f8c13b5df52a9c3cfa03e",
+          "width": 1920,
+          "height": 1080,
+          "fps": 30,
+          "frameCount": 960,
+          "duration": 32,
+          "hasAudio": false
+        },
+        "determinism": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "05cf2ef4c36959e1e995975a31705cf575586334cb6f15ea08126b0326869800",
+          "afterOtherTimes": "05cf2ef4c36959e1e995975a31705cf575586334cb6f15ea08126b0326869800",
+          "freshPage": "05cf2ef4c36959e1e995975a31705cf575586334cb6f15ea08126b0326869800",
+          "match": true
+        },
+        "representative_frames": 16,
+        "consecutive_transition_frames": 12,
+        "full_decode": "passed",
+        "errors": [],
+        "blocked_external_requests": []
+      },
+      "portrait": {
+        "browser": "155.0.8059.80",
+        "video": {
+          "file": "video.mp4",
+          "sha256": "7b40ea96d3cd54a30c6cd0f69f6bf453cbf5a6f71cfd97d7c192d8849c25c026",
+          "width": 720,
+          "height": 1280,
+          "fps": 30,
+          "frameCount": 960,
+          "duration": 32,
+          "hasAudio": false
+        },
+        "determinism": {
+          "frame": 576,
+          "seconds": 19.2,
+          "first": "e6001f8051c096e6fdd4ad882329374948c6075b3294633007733d5a984729a7",
+          "afterOtherTimes": "e6001f8051c096e6fdd4ad882329374948c6075b3294633007733d5a984729a7",
+          "freshPage": "e6001f8051c096e6fdd4ad882329374948c6075b3294633007733d5a984729a7",
+          "match": true
+        },
+        "representative_frames": 8,
+        "consecutive_transition_frames": 12,
+        "full_decode": "passed",
+        "errors": [],
+        "blocked_external_requests": []
+      }
+    },
+    "page_viewports": [
+      1280,
+      375
+    ],
+    "sample_switches_per_viewport": 4,
+    "encoded_mp4_playback_ended": true,
+    "visual_review": {
+      "reviewer": "Codex producer",
+      "method": "Viewed full composition contact sheets, native confirmation/final frames, consecutive transition frames, desktop/mobile page screenshots and snapshots from the actual encoded MP4 playback.",
+      "human_user_approval": "not_requested_or_claimed"
+    },
+    "verification": "examples/ryoshu-local/verification.json",
+    "integrated_case_preview": {
+      "status": "passed",
+      "scope": "Single new case preview; complete site checked by CI",
+      "results": [
+        {
+          "width": 1280,
+          "video": {
+            "width": 1920,
+            "height": 1080,
+            "duration": 32,
+            "src": "media/ryoshu-local-wide.mp4"
+          },
+          "overflow": false,
+          "links": "passed",
+          "errors": [],
+          "bad": []
+        },
+        {
+          "width": 375,
+          "video": {
+            "width": 720,
+            "height": 1280,
+            "duration": 32,
+            "src": "media/ryoshu-local.mp4"
+          },
+          "overflow": false,
+          "links": "passed",
+          "errors": [],
+          "bad": []
+        }
+      ]
+    }
+  },
+  "artifacts_sha256": {
+    "examples/ryoshu-local/.gitattributes": "8b9c3028d6467ff3be7c793141927841d70f47f52d0590677438f488ca154992",
+    "examples/ryoshu-local/app.js": "86d2eb49391d098208b6c66bf1612501f7b99e5f4f91363d0a525d398f461e1c",
+    "examples/ryoshu-local/assets/ryoshu-app.png": "b9b12acbf8eb40bdd9db285a4a38bd6fec08737b94b04edbc6ab1a8907acb741",
+    "examples/ryoshu-local/assets/test-gallery.png": "96f48d4e28c6f069c6d3abdc6867dbccb2398a0fe81cd269c74b73339b0e9e92",
+    "examples/ryoshu-local/assets/V001.jpg": "482245ae96639d91f29c45aa956aa4906a34462108501f75dcd24b46334e08df",
+    "examples/ryoshu-local/assets/V004.jpg": "65be6602e7d67ffbce00f6ba97af0aea0c58a6fb0ca966c2d4d9a43f0be93006",
+    "examples/ryoshu-local/assets/V038.jpg": "b806284c45f6e7af5f537a7e4fa6aedcfe0f100f912306e44071e57672cb368f",
+    "examples/ryoshu-local/assets/V070.jpg": "bbfb2fd3d9444424a314fb5de1036e3865ffecb038680f7a301b32b7063d56f2",
+    "examples/ryoshu-local/facts.json": "f29906d7cc8c62ed2238a1ccf03b61dc31fa326503c12b04178b4ddc4f445684",
+    "examples/ryoshu-local/index.html": "27a925388dac01c40421944fccc032dc80fc59e0c68402a3cfe5f29a52ad50c9",
+    "examples/ryoshu-local/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
+    "examples/ryoshu-local/samples.json": "4daa246604aa399a8a77327d0bc233148ffd7da7059504bb123d920b021a329c",
+    "examples/ryoshu-local/source.zip": "0029c720c503a751684dcc400c9d539be3d974a649f65884fce78a3b95850f1e",
+    "examples/ryoshu-local/START.md": "fc5891bdaede6ebe2c330f20ea03bac3df34bcc8acbe1944bcb81c7b52d2d48e",
+    "examples/ryoshu-local/styles.css": "ca84e143d180ff4a14e1c0b9df23251bb51c9defd57c36766f5b6d37e3b4b2b2",
+    "examples/ryoshu-local/verification.json": "cbfd8c8c43f93fc27eff9153d7854a0c681210b6cadbcbcd724bddf889cd49eb",
+    "examples/ryoshu-local/VERIFICATION.md": "ed6e4b351b4c6c97c0c309274c290597136c647f26983743920ce2541ab02a2d",
+    "examples/ryoshu-local/video/assets/ryoshu-app.png": "b9b12acbf8eb40bdd9db285a4a38bd6fec08737b94b04edbc6ab1a8907acb741",
+    "examples/ryoshu-local/video/assets/test-gallery.png": "96f48d4e28c6f069c6d3abdc6867dbccb2398a0fe81cd269c74b73339b0e9e92",
+    "examples/ryoshu-local/video/assets/V001.jpg": "482245ae96639d91f29c45aa956aa4906a34462108501f75dcd24b46334e08df",
+    "examples/ryoshu-local/video/assets/V004.jpg": "65be6602e7d67ffbce00f6ba97af0aea0c58a6fb0ca966c2d4d9a43f0be93006",
+    "examples/ryoshu-local/video/assets/V038.jpg": "b806284c45f6e7af5f537a7e4fa6aedcfe0f100f912306e44071e57672cb368f",
+    "examples/ryoshu-local/video/assets/V070.jpg": "bbfb2fd3d9444424a314fb5de1036e3865ffecb038680f7a301b32b7063d56f2",
+    "examples/ryoshu-local/video/capture-landscape.json": "846589ed444ebe685cb18e78c0e14f704ff1cd10bab22d0072c2616efd8c7fb8",
+    "examples/ryoshu-local/video/capture-portrait.json": "d4d1962376e4abb6ac5b24ba2de9e7d8d9534c7acc1ce69d2964be998be0d9f4",
+    "examples/ryoshu-local/video/controls.js": "b528d8b84ca71999c352af1cc44326e32c5d19d0b02e960f730767420c1459c1",
+    "examples/ryoshu-local/video/facts.json": "f29906d7cc8c62ed2238a1ccf03b61dc31fa326503c12b04178b4ddc4f445684",
+    "examples/ryoshu-local/video/index.html": "5a75286d34efb1d8b5095758274161299d4c982cfd12ddf2dc1be451ffab5c6c",
+    "examples/ryoshu-local/video/README.md": "04ff358abe41b0ade1745ea67bad509dce0249a67a059ebac00a437fbae37e8d",
+    "examples/ryoshu-local/video/scene.js": "b9da1d257a6a53ddaaa3abe229479309787f3fd5fa9578b028f64ac23ced0c88",
+    "media/downloads/ryoshu-local-landscape-credited.mp4": "1016dfa6ea082122edbed088b31d06fad57ef938060a62f009db66d74db6d647",
+    "media/downloads/ryoshu-local-portrait-credited.mp4": "223352dd5cc8a796c01a3c05f476312ed656726c1d5c4a5e8744c2760b7a13cf",
+    "media/ryoshu-local-wide.mp4": "fc5305c22a36ca3d69751f3fbf9a3ab92cebb32b9d5f8c13b5df52a9c3cfa03e",
+    "media/ryoshu-local-wide.webp": "3f5b2f35f996e3725ce602ab0bb4d66a49059c508f666293312aaa593548a41c",
+    "media/ryoshu-local.mp4": "7b40ea96d3cd54a30c6cd0f69f6bf453cbf5a6f71cfd97d7c192d8849c25c026",
+    "media/ryoshu-local.webp": "62a80c65483ed3c6b81b47d424c23dea26a42b3062077bbf6dcf646e35bc7664"
+  }
+}

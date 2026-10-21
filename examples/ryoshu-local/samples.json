@@ -1,0 +1,37 @@
+{
+  "format": "input-output",
+  "samples": [
+    {
+      "id": "V001",
+      "label": "備品購入の科目候補",
+      "input": "コンビニ58mmサーマル領収書。原本:https://github.com/studio-yebisu/ryoshu/blob/a163a295f5e87532ef592021cee207adc2a53f6d/samples/receipts-100-v2/individual/V001.pdf",
+      "output": "日付:2023-11-02 / 支払先:コンビニ みちのく / 円額:1760 / 科目:消耗品費 / 扱い:propose。原期待値と一致。候補は確認待ちであり、帳簿へ未登録。",
+      "original_sha256": "581f7e2f848f7ec324f019b44a305cffcff3f63789b5f851b185be1437ac6d9a",
+      "recorded_run": "final-06"
+    },
+    {
+      "id": "V004",
+      "label": "機器購入の資産検討",
+      "input": "電器店大型モニタ領収(横A5)。原本:https://github.com/studio-yebisu/ryoshu/blob/a163a295f5e87532ef592021cee207adc2a53f6d/samples/receipts-100-v2/individual/V004.pdf",
+      "output": "日付:2022-12-14 / 支払先:電器専門店 デンキノハコ / 円額:91280 / 科目:工具器具備品 / 扱い:asset_review。原期待値と一致。候補は確認待ちであり、帳簿へ未登録。",
+      "original_sha256": "3bec105affe3fdb906a6c89a923f2a372f91ca5fa751bfc6fe3a83515b2d4dc6",
+      "recorded_run": "final-06"
+    },
+    {
+      "id": "V038",
+      "label": "外貨の円額は未確定",
+      "input": "海外USDデジタル請求書。原本:https://github.com/studio-yebisu/ryoshu/blob/a163a295f5e87532ef592021cee207adc2a53f6d/samples/receipts-100-v2/individual/V038.pdf",
+      "output": "日付:2025-10-03 / 支払先:FICTION CLOUD STUDIO / 円額:未確定 / 科目:未確定 / 扱い:hold。USD30のような空白なし通貨表記も外貨として検出する。参考の4,500円を確定円額にせず、科目も円額の確認まで保留する。",
+      "original_sha256": "c3d277a6fa0fc560bb7719053d99e0a2f5244511e921c14e8215f3e4d96b8bd1",
+      "recorded_run": "final-06"
+    },
+    {
+      "id": "V070",
+      "label": "店名を手動補正",
+      "input": "包材ショップの小型レシート。原本:https://github.com/studio-yebisu/ryoshu/blob/a163a295f5e87532ef592021cee207adc2a53f6d/samples/receipts-100-v2/individual/V070.pdf",
+      "output": "日付:2025-06-03 / 支払先:かんぶパッケージ テスト店 / 円額:7370 / 科目:消耗品費 / 扱い:propose。撮影画像の濁点・半濁点を取り違え、かんぷ／かんぶが不一致。原本画像を目視して確認欄の店名を補正した。自動判定の一致率には加算しない。 確認欄のみ補正:かんぶパッケージ テスト店→かんぷパッケージ テスト店。元の自動採点は保持。",
+      "original_sha256": "43e88e195d2aa1e30188042ea9da2d753bea42f1518695f410bb9fefa253d575",
+      "recorded_run": "regression-10"
+    }
+  ]
+}
