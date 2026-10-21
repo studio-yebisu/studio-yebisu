@@ -57,25 +57,25 @@ function sheet(x,y,w,h,lb,fs,a){if(a<=0)return;box(x,y,w,h,8,'#fff',C.forest,1.8
 // layouts: landscape 16:9 and native portrait recomposition
 const LY=PT?{t:{x:40,y1:62,y2:122,s1:30,s2:44,mw:640,sx:40,sy:176,ss:26,sal:'left',sw:640},
   enc:[28,216,664,950],hdr:[52,248,24,15],st:[355,520,685,850,1015].map(y=>({x:160,y})),cw:220,ch:110,cs:[28,16,14],
-  pk:[[380,410],[380,520],[380,685],[334,875]],start:[780,410],rw:140,rh:196,tw:56,th:84,
+  pk:[[380,410],[380,520],[350,781]],start:[780,410],rw:140,rh:196,tw:56,th:84,ro:80,
   fld:{dx:16,w:204,h:60,g:6,s1:13,s2:19},tag:[164,36,18],cat:[300,292,370,96],catL:[300,384,256,463],
-  chk:[300,808,370,255],cs2:.82,led:[296,785,376,150],row:[372,832,290,86],rs:17,
+  chk:[300,300,370,255],cs2:.82,led:[296,660,376,290],row:[306,708,356,146],rs:17,
   sh:i=>[305+(i%2)*187,960+Math.floor(i/2)*74,172,64],shs:18,shN:[305,1132,14],
-  shot:[300,296,370,330],shotL:[300,646,16],thb:i=>[312+(i%2)*184,298+Math.floor(i/2)*162,160,148],thL:[300,640,26,22,14,370],
+  shot:[300,296,370,330],shotL:[300,646,16],met:{x:300,y:318,w:372,h:96,gx:0,gy:108,cols:1,fs:46,nx:300,ny:760,nw:372,ns:18,n2:64,n3:100},
   foot:[360,1226,22,'center',640,360,1256,14,'center']}
  :{t:{x:80,y1:100,y2:178,s1:40,s2:62,mw:920,sx:1840,sy:178,ss:34,sal:'right',sw:820},
   enc:[70,250,1780,680],hdr:[110,292,30,20],st:[300,630,960,1290,1620].map(x=>({x,y:385})),cw:250,ch:130,cs:[34,19,17],
-  pk:[[300,690],[630,690],[960,690],[1143,705]],start:[-20,690],rw:200,rh:280,tw:86,th:120,
+  pk:[[300,690],[630,690],[822,617]],start:[-20,690],rw:200,rh:280,tw:72,th:100,ro:100,
   fld:{dx:30,w:310,h:80,g:12,s1:17,s2:27},tag:[220,48,24],cat:[130,560,370,260],catL:[470,560,560,454],
-  chk:[430,548,400,286],cs2:1,led:[1084,590,410,210],row:[1198,645,280,120],rs:20,
+  chk:[110,500,400,300],cs2:1,led:[740,490,740,270],row:[770,555,680,124],rs:20,
   sh:i=>[1520,520+i*84,210,70],shs:22,shN:[1520,885,16],
-  shot:[120,545,580,330],shotL:[120,522,20],thb:i=>[130+i*170,520,150,200],thL:[130,785,34,28,16,660],
+  shot:[120,545,580,330],shotL:[120,522,20],met:{x:130,y:500,w:630,h:120,gx:660,gy:140,cols:2,fs:60,nx:130,ny:800,nw:1300,ns:24,n2:42,n3:78},
   foot:[80,1032,26,'left',900,1840,1032,18,'right']};
 
-const ST=[['文字を読む','Indra OCR 1.1.2'],['AIが候補','Ollama・Qwen3 4B','CPUで動作・GPU不要'],['本人が確認','原本と照らす'],['帳簿に保存','SQLite'],['CSV出力','4形式']];
-const ACT=[[3.4,8.2],[8.8,13.2],[13.8,18.2],[19.2,21.2],[21.2,24]],CW=[[8,9],[13,14],[18,19.5],[20.8,21.8]];
+const ST=[['文字を読む','Indra OCR 1.1.2'],['AIが候補','Ollama・Qwen3 4B','CPUで動作・GPU不要'],['すぐ帳簿へ','SQLite・未確認'],['あとで確認','本人が編集'],['CSV出力','4形式']];
+const ACT=[[3.4,8.2],[8.8,12.8],[12.8,18],[18,21],[21,24]],CW=[[8,9],[12.4,13.2],[17.6,18.4],[20.8,21.8]];
 const FD=[['日付','2023-11-02'],['支払先','コンビニ みちのく'],['金額','1,760円']];
-const RL=['V001・2023-11-02','コンビニ みちのく','1,760円・消耗品費'];
+const RL=['V001・2023-11-02','コンビニ みちのく','1,760円・消耗品費（候補）'];
 const SH=['汎用CSV','freee','MFクラウド','弥生'],TH=['V001','V004','V038','V070'];
 const anchor=i=>{const s=LY.st[i];return PT?[s.x+LY.cw/2,s.y]:[s.x,s.y+LY.ch/2];};
 const act=(i,t)=>ss(ACT[i][0]-.5,ACT[i][0],t)*(1-ss(ACT[i][1],ACT[i][1]+.5,t));
@@ -94,15 +94,15 @@ function catalog(t,a){if(a<=0)return;const [x,y,w,h]=LY.cat;box(x,y,w,h,16,'#fff
     tx(s,cx+tw/2,cy,fs,C.ink,700,'center',a);cx+=tw+8;});}
 
 function checklist(t,a){if(a<=0)return;const [x,y,w,h]=LY.chk,s=LY.cs2;box(x,y,w,h,18,'#fff',C.forest,2,a,16);
-  c.save();c.globalAlpha*=a;person(x+30*s,y+32*s,24*s,C.forest);tx('本人が確認',x+62*s,y+32*s,26*s,C.forest,800,'left',1,w-90*s);
-  ['原本','用途','割合','支払元'].forEach((lb,i)=>{const bx=x+24*s+(i%2)*(w/2),by=y+(88+54*Math.floor(i/2))*s,b=26*s;
-    box(bx,by-b/2,b,b,5,'#fff',C.ink,2);tick(bx+b/2,by,b,C.forest,ss(14.4+i*.55,14.7+i*.55,t));
+  c.save();c.globalAlpha*=a;person(x+30*s,y+32*s,24*s,C.forest);tx('あとで本人が確認',x+62*s,y+32*s,26*s,C.forest,800,'left',1,w-90*s);
+  ['日付','金額','科目','支払元'].forEach((lb,i)=>{const bx=x+24*s+(i%2)*(w/2),by=y+(88+54*Math.floor(i/2))*s,b=26*s;
+    box(bx,by-b/2,b,b,5,'#fff',C.ink,2);tick(bx+b/2,by,b,C.forest,ss(18.6+i*.4,18.9+i*.4,t));
     tx(lb,bx+b+12*s,by,28*s,C.ink,800,'left',1,w/2-b-30*s);});
-  wrap('日付・支払先・金額・科目・税区分も本人が確認',x+24*s,y+186*s,w-48*s,15*s,19*s,C.mute,500,1);
-  const p=ss(16.6,16.9,t)*(1-ss(17.1,17.4,t)),bh=46*s,bw=w-48*s,bx=x+24*s,by=y+h-bh-16*s;
-  c.save();c.translate(bx+bw/2,by+bh/2);c.scale(1-.04*p,1-.04*p);box(-bw/2,-bh/2,bw,bh,bh/2,ss(17.1,17.4,t)>.5?'#1b463c':C.forest,null);
-  tx('確認して登録',0,0,22*s,'#fff',800,'center',1,bw-20);c.restore();
-  const kc=ez(15.9,16.7,t);cursor(lerp(bx+bw*.85+60*s,bx+bw*.7,kc),lerp(by+bh+60*s,by+bh*.5,kc),s,ss(15.8,16.1,t)*(1-ss(17.6,18,t)));
+  wrap('帳簿の行を開き、空欄は本人が入力・修正',x+24*s,y+186*s,w-48*s,15*s,19*s,C.mute,500,1);
+  const p=ss(19.9,20.1,t)*(1-ss(20.2,20.4,t)),bh=46*s,bw=w-48*s,bx=x+24*s,by=y+h-bh-16*s;
+  c.save();c.translate(bx+bw/2,by+bh/2);c.scale(1-.04*p,1-.04*p);box(-bw/2,-bh/2,bw,bh,bh/2,ss(20.2,20.4,t)>.5?'#1b463c':C.forest,null);
+  tx('確認済みにする',0,0,22*s,'#fff',800,'center',1,bw-20);c.restore();
+  const kc=ez(19.2,19.9,t);cursor(lerp(bx+bw*.85+60*s,bx+bw*.7,kc),lerp(by+bh+60*s,by+bh*.5,kc),s,ss(19.1,19.4,t)*(1-ss(20.5,20.8,t)));
   c.restore();}
 
 function draw(t){
@@ -111,10 +111,10 @@ function draw(t){
   const L=LY,T=L.t,[ex,ey,ew,eh]=L.enc,fin=ss(28.4,29,t);
   // title
   tx('Ryoshu',T.x,T.y1,T.s1,C.forest,800);tx('領収書整理アプリ',T.x+mw('Ryoshu',T.s1,800)+16,T.y1+2,T.s1*.5,C.ochre,700);
-  tx('領収書を、このPCで整える。',T.x,T.y2,T.s2,C.ink,800,'left',1,T.mw);
+  tx('領収書を、完全ローカルで整える。',T.x,T.y2,T.s2,C.ink,800,'left',1,T.mw);
   if(!PT){c.fillStyle=C.ochre;c.fillRect(80,222,120,4);}
-  [['OCRもAIも、PCの中で。',ss(3,4,t)*(1-ss(12.4,13.1,t))],['候補を確認して、CSVへ。',ss(13.2,14,t)*(1-ss(27.9,28.4,t))],
-   ['候補 → 本人確認 → CSV ・ GitHubで公開',fin]].forEach(([s,a])=>tx(s,T.sx,T.sy+(1-a)*8,T.ss,C.forest,700,T.sal,a,T.sw));
+  [['OCRもAIも、PCの中で。',ss(3,4,t)*(1-ss(12.4,13.1,t))],['すぐ帳簿へ。確認はあとで。',ss(13.2,14,t)*(1-ss(23.6,24.2,t))],
+   ['CSV→Freee、MFクラウド、弥生などに取り込み。',ss(24.2,25,t)]].forEach(([s,a])=>tx(s,T.sx,T.sy+(1-a)*8,T.ss,C.forest,700,T.sal,a,T.sw));
   // persistent PC enclosure
   const q=PT?.5:1,sx=ex+ew/2,sy=ey+eh;c.save();c.fillStyle='#d5dacd';c.beginPath();c.moveTo(sx-60*q,sy);c.lineTo(sx+60*q,sy);
   c.lineTo(sx+80*q,sy+38*q);c.lineTo(sx-80*q,sy+38*q);c.closePath();c.fill();rr(sx-120*q,sy+36*q,240*q,10*q,5*q);c.fill();c.restore();
@@ -128,47 +128,52 @@ function draw(t){
     link(p1[0],p1[1],p2[0],p2[1],C.rule,1,null,true,3);if(k>0)link(p1[0],p1[1],lerp(p1[0],p2[0],k),lerp(p1[1],p2[1],k),C.forest,1,null,k>.98,3);}
   for(let i=0;i<5;i++)chip(i,t,fin);
   // packet state (one receipt moving through all stations)
-  const en=ez(.3,3.4,t),m3=ez(18,19.5,t),s=ez(8,9,t)+ez(13,14,t)+m3,si=Math.min(2,Math.floor(s)),f=s-si,P=L.pk;
+  const en=ez(.3,3.4,t),m3=ez(12.6,13.6,t),s=ez(8,9,t)+m3,si=Math.min(1,Math.floor(s)),f=s-si,P=L.pk;
   let px=lerp(P[si][0],P[si+1][0],f),py=lerp(P[si][1],P[si+1][1],f),rot=.03*Math.sin(Math.PI*f);
   if(t<3.4){px=lerp(L.start[0],P[0][0],en);py=lerp(L.start[1],P[0][1],en);rot=(1-en)*-.12;}
   const rw=lerp(L.rw,L.tw,m3),rh=lerp(L.rh,L.th,m3);
   // ledger + reviewed row
-  const la=ss(18.6,19.4,t);if(la>0){const [x,y,w,h]=L.led,hy2=y+(PT?22:28);box(x,y,w,h,16,'#f1f5ef',C.forest,2,la,12);
-    tx('SQLite 帳簿',x+16,hy2,PT?16:22,C.forest,800,'left',la);tx('確認済みの行',x+w-16,hy2,PT?13:16,C.mute,600,'right',la);}
-  const rk=ez(18.9,19.9,t);if(rk>0){const [x0,y,w,h]=L.row,x=x0-(1-rk)*30,z=L.rs;box(x,y,w,h,10,'#fff',C.forest,2,rk,10);box(x,y+8,5,h-16,3,C.forest,null,0,rk);
-    RL.forEach((r,i)=>tx(r,x+18,y+h*(.22+.28*i),z,C.ink,i?800:600,'left',rk,i?w-30:w-z*3.4-34));
-    const bw=z*3.4;box(x+w-bw-10,y+h*.22-z*.7,bw,z*1.4,z*.7,C.forest,null,0,rk);tx('確認済',x+w-bw/2-10,y+h*.22,z*.7,'#fff',800,'center',rk);}
+  const la=ss(12.8,13.4,t)*(1-ss(23.8,24.3,t));if(la>0){const [x,y,w,h]=L.led,hy2=y+(PT?22:28);box(x,y,w,h,16,'#f1f5ef',C.forest,2,la,12);
+    tx('SQLite 帳簿',x+16,hy2,PT?16:22,C.forest,800,'left',la);tx('保存済み・あとで確認',x+w-16,hy2,PT?13:16,C.mute,600,'right',la);}
+  const rk=ez(13.2,14,t)*(1-ss(23.8,24.3,t));if(rk>0){const [x0,y,w,h]=L.row,x=x0-(1-ez(13.2,14,t))*30,z=L.rs,rv=ss(20.2,20.5,t);box(x,y,w,h,10,'#fff',C.amber,2,rk,10);box(x,y,w,h,10,null,C.forest,2.5,rk*rv);box(x,y+8,5,h-16,3,C.amber,null,0,rk);box(x,y+8,5,h-16,3,C.forest,null,0,rk*rv);
+    RL.forEach((r,i)=>tx(r,x+L.ro,y+h*(.22+.28*i),z,C.ink,i?800:600,'left',rk,i?w-L.ro-12:w-L.ro-z*3.4-24));
+    const bw=z*3.4,bx=x+w-bw-10,by=y+h*.22-z*.7;box(bx,by,bw,z*1.4,z*.7,C.amberL,C.amber,1.5,rk*(1-rv));tx('未確認',bx+bw/2,y+h*.22,z*.7,'#6b4a06',800,'center',rk*(1-rv));
+    box(bx,by,bw,z*1.4,z*.7,C.forest,null,0,rk*rv);tx('確認済',bx+bw/2,y+h*.22,z*.7,'#fff',800,'center',rk*rv);
+    tx('保存時は事業割合・支払元を推測しない',x0,y+h+z*1.3,z*.8,C.mute,600,'left',rk,w);tx('汎用CSVは確認前でも出力可（未確認として）',x0,y+h+z*2.5,z*.8,C.forest,700,'left',rk,w);}
   // left-stage panels by phase
   catalog(t,ss(9,9.8,t)*(1-ss(13,13.8,t)));
   const cL=L.catL;link(cL[0],cL[1],cL[2],cL[3],C.ochre,ss(9.6,10.2,t)*(1-ss(13,13.6,t)),[5,7],true,2.5);
-  checklist(t,ss(13.6,14.3,t)*(1-ss(18,18.8,t)));
-  const sa=ss(19.6,20.4,t)*(1-ss(23.6,24.3,t));if(sa>0){const [x,y,w,h]=L.shot;box(x,y,w,h,12,'#fff',C.rule,2,sa,16);
+  checklist(t,ss(18,18.6,t)*(1-ss(20.9,21.4,t)));
+  const sa=ss(21.4,22,t)*(1-ss(23.6,24.3,t));if(sa>0){const [x,y,w,h]=L.shot;box(x,y,w,h,12,'#fff',C.rule,2,sa,16);
     c.save();c.globalAlpha*=sa;pic(IM['ryoshu-app'],x+8,y+8,w-16,h-16);c.restore();tx('架空データの実画面',L.shotL[0],L.shotL[1],L.shotL[2],C.forest,700,'left',sa);}
-  TH.forEach((id,i)=>{const k=ez(24.2+i*.35,25+i*.35,t);if(k<=0)return;const [x,y,w,h]=L.thb(i);receipt(IM[id],x+w/2,y+h/2+(1-k)*30,w,h,0,id,k);});
-  const [lx,ly,s1,s2,s3,lw]=L.thL,ta2=ss(25.6,26.3,t);tx('100種類の架空PDFで検証',lx,ly,s1,C.ink,800,'left',ta2,lw);
-  tx('原本と結果を公開',lx,ly+s1*1.35,s2,C.forest,800,'left',ta2,lw);
-  wrap('※同じ100件を改善にも使用。未知の実領収書での精度を示すものではありません',lx,ly+s1*1.35+s2*1.5,lw,s3,s3*1.35,C.mute,500,ss(26.4,27,t));
+  const M=L.met;tx('架空PDF100件の検証結果',M.x,M.y-(PT?22:26),PT?20:28,C.forest,800,'left',ss(24.3,24.8,t),PT?372:1300);[['金額・円額未確定','97/97'],['日付','99/100'],['店名','86/100'],['暫定科目','47/48']].forEach(([a1,b1],i)=>{const k=ez(24.4+i*.3,25.1+i*.3,t);if(k<=0)return;
+    const x=M.x+(i%M.cols)*M.gx,y=M.y+Math.floor(i/M.cols)*M.gy+(1-k)*20;box(x,y,M.w,M.h,14,'#fff',C.forest,2,k,10);box(x,y+10,6,M.h-20,3,C.forest,null,0,k);
+    tx(a1+b1,x+M.w/2,y+M.h/2,M.fs,C.ink,800,'center',k,M.w-32);});
+  
+  
+  const na=ss(25.8,26.4,t);wrap('金額は返金3件を除外。同じ100件で改善した回帰検査。',M.nx,M.ny,M.nw,M.ns,M.ns*1.35,C.mute,600,na);
+  tx('原本・期待値・残った誤りを公開',M.nx,M.ny+M.n2,M.ns*1.15,C.forest,800,'left',na,M.nw);tx('固定100件の観測値。未知の領収書での精度ではありません',M.nx,M.ny+M.n3,M.ns*.85,C.mute,500,'left',na,M.nw);
   // OCR fields (follow the packet, retract into the row at 18s)
-  const fo=1-ss(18,18.9,t);FD.forEach(([lb,v],i)=>{const k=ez(5+i*.45,5.9+i*.45,t)*fo;if(k<=0)return;const F=L.fld,
+  const fo=1-ss(12.6,13.4,t);FD.forEach(([lb,v],i)=>{const k=ez(5+i*.45,5.9+i*.45,t)*fo;if(k<=0)return;const F=L.fld,
     x=lerp(px-F.w/2,px+rw/2+F.dx,k),y=lerp(py-F.h/2,py-(3*F.h+2*F.g)/2+i*(F.h+F.g),k);
     box(x,y,F.w,F.h,10,'#fff','#cfd6c9',1.5,k,10);box(x,y+8,5,F.h-16,3,C.forest,null,0,k);
     tx(lb,x+18,y+F.h*.3,F.s1,C.ochre,700,'left',k);tx(v,x+18,y+F.h*.68,F.s2,C.ink,800,'left',k,F.w-30);});
   // station-to-packet links
   const [tgw,tgh,tgf]=L.tag,lk=(i,tg,a)=>{const A=anchor(i);link(A[0],A[1],tg[0],tg[1],C.forest,a,[6,8],true,2.5);};
-  lk(0,PT?[px-rw/2-6,py]:[px,py-rh/2-6],act(0,t));lk(2,PT?[px-rw/2-6,py]:[px,py-rh/2-tgh/2-6],act(2,t));
-  lk(3,PT?[L.led[0]-4,L.st[3].y]:[L.st[3].x,L.led[1]-4],ss(18.8,19.4,t));lk(4,PT?[L.sh(0)[0]-4,L.st[4].y]:[L.st[4].x,L.sh(0)[1]-4],ss(21,21.6,t));
+  lk(0,PT?[px-rw/2-6,py]:[px,py-rh/2-6],act(0,t));lk(2,PT?[L.led[0]-4,L.st[2].y]:[L.st[2].x,L.led[1]-4],ss(13,13.6,t)*(1-ss(17.6,18.2,t)));
+  lk(3,PT?[L.led[0]-4,L.st[3].y]:[L.st[3].x,L.led[1]-4],act(3,t));lk(4,PT?[L.sh(0)[0]-4,L.st[4].y]:[L.st[4].x,L.sh(0)[1]-4],ss(21,21.6,t));
   // the receipt packet
-  receipt(IM.V001,px,py,rw,rh,rot,'V001');
+  receipt(IM.V001,px,py,rw,rh,rot,'V001',1-ss(23.8,24.3,t));
   const sca=ss(4.2,4.5,t)*(1-ss(5.9,6.3,t));if(sca>0){const yy=py-rh/2+ez(4.3,6,t)*rh;c.save();c.globalAlpha*=sca;
     const g=c.createLinearGradient(0,yy-40,0,yy);g.addColorStop(0,'rgba(36,89,77,0)');g.addColorStop(1,'rgba(36,89,77,.22)');
     c.fillStyle=g;c.fillRect(px-rw/2,Math.max(py-rh/2,yy-40),rw,Math.min(40,yy-py+rh/2));c.fillStyle=C.forest;c.fillRect(px-rw/2-8,yy-1.5,rw+16,3);c.restore();}
   // amber AI candidate tag (not a confirmation)
-  const kT=ez(10.5,11.5,t),ta=ss(10.5,10.8,t)*(1-ss(18.5,19.3,t));if(ta>0){const A=anchor(1),x=lerp(A[0],px,kT),y=lerp(A[1],py-rh/2,kT),sc=lerp(.6,1,kT);
+  const kT=ez(10.5,11.5,t),ta=ss(10.5,10.8,t)*(1-ss(12.6,13.2,t));if(ta>0){const A=anchor(1),x=lerp(A[0],px,kT),y=lerp(A[1],py-rh/2,kT),sc=lerp(.6,1,kT);
     link(A[0],A[1],x,y,C.amber,ss(10.4,10.7,t)*(1-ss(12,12.8,t)),[5,7],false,2.5);
     c.save();c.translate(x,y);c.scale(sc,sc);box(-tgw/2,-tgh/2,tgw,tgh,tgh/2,C.amberL,C.amber,2.5,ta,8);
     tx('消耗品費・候補',0,0,tgf,'#6b4a06',800,'center',ta,tgw-20);c.restore();}
   // person's confirmation badge (appears only after the button press)
-  const ba=ss(17.1,17.5,t)*(1-ss(18.4,19,t));if(ba>0){const by=py+rh/2;box(px-tgw/2,by-tgh/2,tgw,tgh,tgh/2,C.forest,null,0,ba,8);
+  const ba=0;if(ba>0){const by=py+rh/2;box(px-tgw/2,by-tgh/2,tgw,tgh,tgh/2,C.forest,null,0,ba,8);
     tick(px-tgw/2+tgh*.6,by,tgh*.5,'#fff',ba);tx('本人が確認',px+tgh*.25,by,tgf,'#fff',800,'center',ba,tgw-tgh*1.3);}
   // four CSV sheets fan out from the reviewed row
   const R=L.row,rcx=R[0]+R[2]/2,rcy=R[1]+R[3]/2;SH.forEach((lb,i)=>{const k=ez(21+i*.3,21.9+i*.3,t),a=ss(21+i*.3,21.3+i*.3,t);if(a<=0)return;

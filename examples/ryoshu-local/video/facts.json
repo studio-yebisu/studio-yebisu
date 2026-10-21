@@ -1,7 +1,7 @@
 {
   "product": "Ryoshu",
   "subtitle": "領収書OCRとAIによる勘定科目判断アプリ（各種CSV対応）",
-  "commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
+  "commit": "5b601be1a3fe3ebdb600d0a53c557917652a876d",
   "links": {
     "github": "https://github.com/studio-yebisu/ryoshu",
     "testing": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/README.md",
@@ -16,7 +16,7 @@
     "ocr": "Indra OCR 1.1.2 / CPU",
     "semantic": "OllamaのローカルQwen3 4B、Q4_K_M / CPU・GPU不要",
     "catalog": "SQLiteに38科目と14確認条件。",
-    "confirmation": "AIは暫定候補。本人が原本・日付・支払先・金額・科目・用途・事業割合・支払元・税区分を確認して登録。自動計上しない。",
+    "confirmation": "取り込み後にSQLiteへ未確認の帳簿を自動保存するのが既定。本人はあとから原本・金額・科目・用途・割合・支払元・税区分を確認・修正する。汎用CSVは未確認も出力可、会計ソフト向け仕訳CSVは確認済みを出力。",
     "csv": [
       "汎用CSV",
       "freee振替伝票",
@@ -340,5 +340,7 @@
     }
   ],
   "images_are_fictional": true,
-  "recorded_not_live": true
+  "recorded_not_live": true,
+  "original_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
+  "app_version": "0.4.0"
 }

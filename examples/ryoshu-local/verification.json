@@ -1,6 +1,6 @@
 {
   "checked_on": "2026-10-21",
-  "scope": "New introduction only. Original Ryoshu 100-case OCR/AI regression results are reused from the pinned public release; inference was not rerun.",
+  "scope": "v0.4 creates the unreviewed ledger before later review. Original100-case inference observations are reused from a163a295, not rerun.",
   "model": {
     "requested": "claude-opus-5-5",
     "reported": [
@@ -18,7 +18,7 @@
       "browser": "155.0.8059.80",
       "video": {
         "file": "video.mp4",
-        "sha256": "fc5305c22a36ca3d69751f3fbf9a3ab92cebb32b9d5f8c13b5df52a9c3cfa03e",
+        "sha256": "c5100e7225a21124dd22b0f247b3ea1655f2963a95c1d9ca4e9ca904a9059540",
         "width": 1920,
         "height": 1080,
         "fps": 30,
@@ -29,9 +29,9 @@
       "determinism": {
         "frame": 576,
         "seconds": 19.2,
-        "first": "05cf2ef4c36959e1e995975a31705cf575586334cb6f15ea08126b0326869800",
-        "afterOtherTimes": "05cf2ef4c36959e1e995975a31705cf575586334cb6f15ea08126b0326869800",
-        "freshPage": "05cf2ef4c36959e1e995975a31705cf575586334cb6f15ea08126b0326869800",
+        "first": "b9b3e20b7a916a24e35948f6d8c7e1accf018ddd19ceb26846110b1f92631a00",
+        "afterOtherTimes": "b9b3e20b7a916a24e35948f6d8c7e1accf018ddd19ceb26846110b1f92631a00",
+        "freshPage": "b9b3e20b7a916a24e35948f6d8c7e1accf018ddd19ceb26846110b1f92631a00",
         "match": true
       },
       "representative_frames": 16,
@@ -44,7 +44,7 @@
       "browser": "155.0.8059.80",
       "video": {
         "file": "video.mp4",
-        "sha256": "7b40ea96d3cd54a30c6cd0f69f6bf453cbf5a6f71cfd97d7c192d8849c25c026",
+        "sha256": "112fe7044dbb602ecfbf13d3e651bab4bc2322b6070b307501f0b4e0e9dfd09e",
         "width": 720,
         "height": 1280,
         "fps": 30,
@@ -55,9 +55,9 @@
       "determinism": {
         "frame": 576,
         "seconds": 19.2,
-        "first": "e6001f8051c096e6fdd4ad882329374948c6075b3294633007733d5a984729a7",
-        "afterOtherTimes": "e6001f8051c096e6fdd4ad882329374948c6075b3294633007733d5a984729a7",
-        "freshPage": "e6001f8051c096e6fdd4ad882329374948c6075b3294633007733d5a984729a7",
+        "first": "703c59d76ae2ca5df21e66ddaa9a94a20b95ab8bdbaf3e0e7407894cceaa470d",
+        "afterOtherTimes": "703c59d76ae2ca5df21e66ddaa9a94a20b95ab8bdbaf3e0e7407894cceaa470d",
+        "freshPage": "703c59d76ae2ca5df21e66ddaa9a94a20b95ab8bdbaf3e0e7407894cceaa470d",
         "match": true
       },
       "representative_frames": 8,
@@ -101,7 +101,7 @@
           "duration": 32
         },
         "played": {
-          "advanced": 0.991519,
+          "advanced": 0.994401,
           "error": null
         },
         "errors": [],
@@ -138,7 +138,7 @@
           "duration": 32
         },
         "played": {
-          "advanced": 0.995766,
+          "advanced": 0.992661,
           "error": null
         },
         "errors": [],
@@ -153,7 +153,7 @@
   "encoded_mp4_playback": {
     "status": "passed",
     "environment": "Headless Chrome, actual encoded MP4 playback",
-    "elapsed_ms": 32042,
+    "elapsed_ms": 32043,
     "ended": true,
     "duration": 32,
     "currentTime": 32,
@@ -165,49 +165,49 @@
     "snapshots": [
       {
         "requested": 2,
-        "actual": 2.010708,
+        "actual": 2.011378,
         "file": "frame-2.png"
       },
       {
         "requested": 6,
-        "actual": 6.010323,
+        "actual": 6.00889,
         "file": "frame-6.png"
       },
       {
         "requested": 11.5,
-        "actual": 11.510129,
+        "actual": 11.51022,
         "file": "frame-11_5.png"
       },
       {
         "requested": 16.8,
-        "actual": 16.811058,
+        "actual": 16.811785,
         "file": "frame-16_8.png"
       },
       {
         "requested": 20.5,
-        "actual": 20.510133,
+        "actual": 20.511765,
         "file": "frame-20_5.png"
       },
       {
         "requested": 23.5,
-        "actual": 23.509903,
+        "actual": 23.510554,
         "file": "frame-23_5.png"
       },
       {
         "requested": 27,
-        "actual": 27.010237,
+        "actual": 27.009987,
         "file": "frame-27.png"
       },
       {
         "requested": 30.5,
-        "actual": 30.509928,
+        "actual": 30.510929,
         "file": "frame-30_5.png"
       }
     ]
   },
   "visual_review": {
     "reviewer": "Codex producer",
-    "method": "Viewed full composition contact sheets, native confirmation/final frames, consecutive transition frames, desktop/mobile page screenshots and snapshots from the actual encoded MP4 playback.",
+    "method": "Viewed revised native ledger-before-review frames, metric/final frames in both layouts, contact/transition sheets and snapshots from the actual encoded MP4 playback.",
     "human_user_approval": "not_requested_or_claimed"
   },
   "original_app_regression": {
@@ -256,5 +256,47 @@
     "The film is a workflow diagram with a saved real app screenshot, not a new screen recording.",
     "Runtime is local after initial dependency/model download.",
     "No accuracy claim for unseen real receipts; no actual accounting-service CSV imports performed."
-  ]
+  ],
+  "model_revision": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "private_receipt_sha256": "7f90e66361b6a6dd7e2d7008bf4213314365e408874d3fcc21841a6015d981e9",
+    "prompt_sha256": "3e5ba018992bc893523b77d36b8cf1b5fddab492741fad351de6890d3fb88b99",
+    "producer_script_sha256": "c719fcbe0f985905bd083e09d4c0e4a57b6783822c13f2b9921ac5a4a98f2866",
+    "patch_count": 39,
+    "model_revised_source_sha256": "db3ecff4f7c35780cbd2819e4eb25771261b7c290205f2c4e950f93ef73b9ad0",
+    "final_source_sha256": "fe7760c4a402dcbc9c7fdff70f0d2851628662f1a301e000a8163b8c2517910d",
+    "producer_changes": [
+      "Added a factual metric section heading and 18px vertical spacing in portrait.",
+      "Reworded the missing-business-fields note to refer to the initial save; not to imply confirmed rows lack required fields.",
+      "Clarified total metric includes correct handling of unknown yen amounts, matching original audit definition."
+    ],
+    "scope": "Opus5.5 revised its existing drawing/timeline to ledger creation before later review, accounting CSV, and actual original100-case metrics. No OCR/AI inference was repeated."
+  },
+  "app_workflow": {
+    "status": "passed",
+    "samples": 4,
+    "scope": "Saved fictional observations replayed; not new OCR/AI inference",
+    "checks": [
+      "default ledger visible before review",
+      "pending CSV default",
+      "later batch review with explicit shared fields",
+      "partial review leaves unknown amount pending",
+      "persistent optional review-first order",
+      "desktop and mobile UI"
+    ],
+    "errors": [],
+    "app_version": "0.4.0",
+    "unit_and_integration_tests": {
+      "passed": 71,
+      "new_workflow_tests": 4
+    },
+    "baseline_ocr_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
+    "ocr_and_model_inference_rerun": false,
+    "baseline_processing_sources_unchanged": true,
+    "public_fixture_hashes_and_original_scores": "passed",
+    "workflow": "Import -> persisted unreviewed ledger -> later review -> accounting CSV. Initial per-receipt review is disabled by default."
+  }
 }
