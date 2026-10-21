@@ -1,0 +1,77 @@
+{
+  "id": "motion2code-example",
+  "verified_at": "2026-10-21T07:10:20.336172+00:00",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "scope": "This receipt covers Japanese site UI, explanatory copy, request and sample description only. Existing SVG/GSAP animation, Japanese MP4, comparison composition and parent verification are Codex work and are not reassigned to Opus.",
+    "receipts": [
+      {
+        "phase": "Japanese case UI and explanation for saved real outputs",
+        "receipt_sha256": "2bee727d467860d79085e9cac2c1283dc8272b2b25e212714a242bedcd52d233",
+        "execution_sha256": "5e74e3991397d954e1437f73ce5e66991d44f7d39cb282143d7380109a5b355d",
+        "prompt_sha256": "77c43af8d20ef0472d558550e9c71f0f5915a8b7593ca6dbbd91b29db245c8e5"
+      }
+    ],
+    "receipt_published": false
+  },
+  "upstream": {
+    "repository": "lovisdotio/motion2code",
+    "commit": "0f003288997604487df04c1b7a0586900d3e36bb",
+    "license": "MIT",
+    "source_video_sha256": "ece4122c466b4b8374e7ce4c2c9ee4821c379e026f4413ac568e4da04be8e147",
+    "skill_unchanged": true
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 1,
+    "scope": "One author-supplied source video independently reconstructed as English and then adapted to Japanese. Upstream check/render scripts exercised; no new H3/fal generation.",
+    "source_duration_seconds": 10.125,
+    "animation_duration_seconds": 10,
+    "uniform_comparison_points": 21,
+    "transition_comparison_points": 64,
+    "reverse_seek_checks_per_language": 10,
+    "fresh_page_text_maximum_channel_difference": 1,
+    "japanese_mp4": {
+      "width": 1920,
+      "height": 1080,
+      "fps": 24,
+      "frames": 240,
+      "bytes": 835061
+    },
+    "japanese_html_bytes": 86436,
+    "comparison_mp4": {
+      "width": 1940,
+      "height": 636,
+      "fps": 30,
+      "duration": 10,
+      "bytes": 5367967
+    },
+    "site_video": "Same 10-second comparison repeated twice, 20 seconds. No narration.",
+    "bounded_checks_pass": true
+  },
+  "limitations": [
+    "Fine glyph deformation, overlaps and local easing are approximated.",
+    "Fresh-page text rasterization can differ by one 0..255 channel step; exact identity is not claimed.",
+    "4K was checked as still frames; 32K video and arbitrary input conversion were not tested.",
+    "No claim of production adoption or commercial output quality."
+  ],
+  "artifacts_sha256": {
+    "examples/motion2code-example/index.html": "0aa395b31c482005bf3f22a4c89c1ebd5ecb47e83668ba4f1a0b83bfb51b3b62",
+    "examples/motion2code-example/samples.json": "37ad10e2cd1599ab537359212cda45b00a7e5c0e52c48933ed8a66635cbaea88",
+    "examples/motion2code-example/README.md": "d5e0a5340b884f11e5db5cd87e81593735bb88a0776b7e1958104a4b886736a3",
+    "examples/motion2code-example/motion2code-skill.zip": "6b6b61692e1edc2d83ae3f1d19ddb4dcc1b086e0243c8b9ae0d041c16434ca1c",
+    "examples/motion2code-example/vendor/motion2code/SKILL.md": "5fab3c7bbcbbe775511468a36427907f97e0f677bc9e23c44483ff28949b1813",
+    "examples/motion2code-example/assets/source.mp4": "ece4122c466b4b8374e7ce4c2c9ee4821c379e026f4413ac568e4da04be8e147",
+    "examples/motion2code-example/assets/japanese.html": "f2230e3c9f62d1bed5f572ae285eeb2cbd01e8fc6555cadb11c0f9d026826144",
+    "examples/motion2code-example/assets/japanese.mp4": "cf6774820c0cbac4d14906572ab4c3c596f08f897e9840d00d9fc5d38efe9257",
+    "examples/motion2code-example/assets/comparison-ja.mp4": "ff6dbf5b010fc4f3fa99c3761eb01d798cf1c8a0afb5f3b707f1760718516d79",
+    "media/motion2code-example.mp4": "1152a34c59717ac8702587d1bb0791b5fc1bb377822d1d56b658043231bf1f31",
+    "media/motion2code-example.webp": "f62639df3bfdbe4698fc46de00294f19264385a660ef90ae73d656a02403c6b3"
+  },
+  "integration_factual_corrections": [
+    "Parent clarified that 1920x1080/24fps describes the Japanese-only MP4, while the new side-by-side comparison is 1940x636/30fps. Original model-authored files remain in the private receipt scope."
+  ]
+}

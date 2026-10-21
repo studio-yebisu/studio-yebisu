@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Motion2Code 作例：Think Bigを日本語のSVG＋GSAPに</title>
+<style>
+  :root {
+    --blue: #007be1;
+    --yellow: #f3de00;
+    --cream: #fbfbf7;
+    --ink: #11151c;
+    --sub: #4a525e;
+    --rule: #d9d9cf;
+    --sans: system-ui, -apple-system, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Meiryo", sans-serif;
+    --serif: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font: 16px/1.75 var(--sans);
+    overflow-wrap: anywhere;
+  }
+  a { color: var(--blue); text-underline-offset: 3px; }
+  a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+  header { border-top: 10px solid var(--blue); padding: 28px 0 8px; }
+  .back { font-size: 14px; }
+  .kicker {
+    display: inline-block; margin: 20px 0 0; padding: 2px 10px;
+    background: var(--yellow); color: var(--ink);
+    font-size: 13px; font-weight: 700; letter-spacing: .06em;
+  }
+  h1 {
+    margin: 10px 0 6px; font-family: var(--serif); font-weight: 700;
+    font-size: clamp(28px, 6vw, 52px); line-height: 1.25; letter-spacing: .01em;
+  }
+  h1 span { display: block; font-size: .52em; color: var(--sub); font-weight: 600; margin-top: 6px; }
+  .lead { max-width: 46em; margin: 12px 0 0; color: var(--sub); }
+
+  /* 主役：比較動画 / 保存済みHTML */
+  .stage { margin: 28px 0 0; }
+  .switch { display: flex; gap: 0; border: 2px solid var(--ink); width: max-content; max-width: 100%; }
+  .switch button {
+    appearance: none; border: 0; margin: 0; cursor: pointer;
+    padding: 10px 16px; font: 700 15px/1.3 var(--sans);
+    background: var(--cream); color: var(--ink);
+  }
+  .switch button + button { border-left: 2px solid var(--ink); }
+  .switch button[aria-pressed="true"] { background: var(--ink); color: var(--cream); }
+
+  .sides { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 14px 0 6px; font-size: 14px; font-weight: 700; }
+  .sides span { display: flex; align-items: center; gap: 8px; }
+  .sides span:last-child { justify-content: flex-end; text-align: right; }
+  .sides i { flex: none; width: 14px; height: 14px; display: inline-block; }
+  .sides .src i { background: var(--blue); }
+  .sides .ja i { background: var(--yellow); outline: 1px solid var(--ink); }
+
+  .frame { background: var(--ink); border: 2px solid var(--ink); }
+  .frame video { display: block; width: 100%; height: auto; background: var(--ink); }
+  .frame .html-box { position: relative; width: 100%; aspect-ratio: 16 / 9; background: var(--cream); }
+  .frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  [hidden] { display: none !important; }
+
+  .under { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; margin: 10px 0 0; font-size: 14px; color: var(--sub); }
+  .under .files { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+  .note { margin: 8px 0 0; font-size: 13px; color: var(--sub); }
+
+  section { margin: 48px 0 0; padding-top: 18px; border-top: 1px solid var(--rule); }
+  h2 { margin: 0 0 14px; font-family: var(--serif); font-size: 22px; line-height: 1.4; }
+
+  /* 概念図 */
+  .flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+  .flow li { position: relative; padding: 14px 14px 16px; border: 2px solid var(--ink); background: var(--cream); min-width: 0; }
+  .flow li:not(:last-child)::after {
+    content: ""; position: absolute; top: 50%; right: -24px; width: 20px; height: 20px; margin-top: -10px;
+    background: var(--ink);
+    clip-path: polygon(0 30%, 55% 30%, 55% 0, 100% 50%, 55% 100%, 55% 70%, 0 70%);
+  }
+  .flow b { display: block; font-family: var(--serif); font-size: clamp(22px, 3vw, 30px); line-height: 1.2; }
+  .flow small { display: block; margin-top: 6px; font-size: 13px; line-height: 1.5; color: var(--sub); }
+  .flow .in { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .flow .in small { color: #e6f1fc; }
+  .flow .out { background: var(--yellow); }
+  .flow .out small { color: var(--ink); }
+
+  /* 容量 */
+  .sizes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 0; border-top: 2px solid var(--ink); }
+  .sizes div { padding: 12px 12px 12px 0; border-bottom: 1px solid var(--rule); min-width: 0; }
+  .sizes dt { font-size: 13px; color: var(--sub); }
+  .sizes dd { margin: 2px 0 0; font-size: 24px; font-weight: 700; line-height: 1.3; }
+  .sizes dd small { font-size: 12px; font-weight: 400; color: var(--sub); display: block; }
+
+  /* 用途 */
+  .uses { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .uses div { padding: 14px 16px; border-left: 6px solid var(--blue); background: #fff; }
+  .uses div + div { border-left-color: var(--yellow); }
+  .uses h3 { margin: 0 0 4px; font-size: 17px; }
+  .uses p { margin: 0; font-size: 15px; color: var(--sub); }
+
+  details { border-top: 2px solid var(--ink); border-bottom: 1px solid var(--rule); padding: 0; }
+  details + details { border-top: 0; }
+  summary { cursor: pointer; padding: 14px 0; font-weight: 700; }
+  details ul { margin: 0 0 16px; padding-left: 1.3em; font-size: 15px; }
+  details li + li { margin-top: 4px; }
+
+  .links { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 24px; }
+  .links li { padding: 10px 0; border-bottom: 1px solid var(--rule); min-width: 0; }
+  .links small { display: block; color: var(--sub); font-size: 13px; }
+
+  footer { margin: 48px 0 0; padding: 20px 0 40px; border-top: 1px solid var(--rule); font-size: 13px; color: var(--sub); }
+
+  @media (max-width: 720px) {
+    .wrap { padding: 0 16px; }
+    .flow { grid-template-columns: 1fr; gap: 14px; }
+    .flow li { display: flex; align-items: baseline; gap: 12px; padding: 10px 12px; }
+    .flow b { flex: none; font-size: 22px; }
+    .flow small { margin: 0; }
+    .flow li:not(:last-child)::after {
+      top: auto; bottom: -14px; right: auto; left: 22px; margin: 0; width: 14px; height: 14px;
+      clip-path: polygon(30% 0, 70% 0, 70% 50%, 100% 50%, 50% 100%, 0 50%, 30% 50%);
+    }
+    .sizes { grid-template-columns: 1fr 1fr; }
+    .uses, .links { grid-template-columns: 1fr; }
+    .switch { width: 100%; }
+    .switch button { flex: 1 1 0; padding: 10px 8px; font-size: 14px; }
+    .sides { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="../../case.html?id=motion2code-example">← 掲載ページへ戻る</a>
+    <p class="kicker">スキル：動画の動き → 編集できるコード</p>
+    <h1>Motion2Code<span>作例：Think Bigを日本語の「考える／大きく／小さく始める」へ</span></h1>
+    <p class="lead">参照動画をコマに分けて観察し、SVGの図形を1本のGSAPタイムラインで動かして、元動画と並べて確かめる手順書と補助スクリプトです。ここでは保存済みの実際の出力を見られます。</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="stage">
+    <div class="switch" role="group" aria-label="表示する内容">
+      <button type="button" id="show-video" aria-pressed="true" aria-controls="view-video">元動画と並べて見る</button>
+      <button type="button" id="show-html" aria-pressed="false" aria-controls="view-html">日本語版HTMLを再生</button>
+    </div>
+
+    <div id="view-video">
+      <p class="sides" aria-hidden="true">
+        <span class="src"><i></i>左：作者配布の元動画</span>
+        <span class="ja">右：今回の日本語版<i></i></span>
+      </p>
+      <div class="frame">
+        <video id="compare" src="assets/comparison-ja.mp4" poster="assets/poster.webp"
+          controls loop muted playsinline preload="metadata"
+          aria-label="比較動画。左が作者配布のThink Big元動画、右が日本語に再構成した版。10秒、無音。"></video>
+      </div>
+    </div>
+
+    <div id="view-html" hidden>
+      <p class="sides" aria-hidden="true">
+        <span class="ja"><i></i>保存済みの日本語HTML（SVG＋GSAP、10秒ループ）</span>
+        <span></span>
+      </p>
+      <div class="frame">
+        <div class="html-box">
+          <iframe id="ja-frame" title="日本語版のSVG＋GSAPアニメーション（保存済み）" sandbox="allow-scripts" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div class="under">
+      <span>日本語MP4：1920×1080・24fps／比較MP4：1940×636・30fps（どちらも10秒・無音）</span>
+      <span class="files">
+        <a href="assets/japanese.html" target="_blank" rel="noopener">日本語HTMLを別タブで開く</a>
+        <a href="assets/japanese.html" download>HTMLをダウンロード</a>
+        <a href="assets/japanese.mp4" download>日本語MP4</a>
+        <a href="assets/comparison-ja.mp4" download>比較MP4</a>
+      </span>
+    </div>
+    <p class="note">保存済みの出力を見るだけのページです。新しい動画の生成や文言の変更はできません。</p>
+  </div>
+
+  <section aria-labelledby="h-flow">
+    <h2 id="h-flow">動画から日本語のコードになるまで</h2>
+    <ol class="flow">
+      <li class="in"><b>動画</b><small>作者配布のThink Big　10.125秒</small></li>
+      <li><b>観察</b><small>コマ・切り替わり・配色・時刻を書き出す</small></li>
+      <li><b>SVG＋GSAP</b><small>1本のタイムラインで、任意の時刻を描ける</small></li>
+      <li class="out"><b>日本語</b><small>考える／大きく／小さく始める　10秒ループ</small></li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="h-size">
+    <h2 id="h-size">ファイルの大きさ</h2>
+    <dl class="sizes">
+      <div><dt>元動画（MP4）</dt><dd>0.267 MB<small>854×480</small></dd></div>
+      <div><dt>日本語版（MP4）</dt><dd>0.835 MB<small>1920×1080</small></dd></div>
+      <div><dt>日本語版（HTML）</dt><dd>86.4 KB<small>フォント・GSAP込み</small></dd></div>
+      <div><dt>比較動画（MP4）</dt><dd>5.37 MB<small>横並び10秒</small></dd></div>
+    </dl>
+    <p class="note">HTMLとMP4は形式が違うため、同じ画質での圧縮率の比較ではありません。1 KB＝1,000バイト、1 MB＝1,000,000バイト。</p>
+  </section>
+
+  <section aria-labelledby="h-use">
+    <h2 id="h-use">使いどころ</h2>
+    <div class="uses">
+      <div>
+        <h3>ロゴの短い登場アニメーション</h3>
+        <p>参考にした動きを一度コードにすれば、動画を作り直さずに色や配置、タイミングを直せます。</p>
+      </div>
+      <div>
+        <h3>Webや説明動画のタイトル演出</h3>
+        <p>単一HTMLのままページに置けて、同じタイムラインからMP4にも書き出せます。</p>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-check">
+    <h2 id="h-check">試した範囲と未確認</h2>
+    <details>
+      <summary>確認したこと</summary>
+      <ul>
+        <li>元動画と0.5秒ごとの21点、切り替わり前後の64フレームを横並びで比較。</li>
+        <li>公式チェックの実行時検査が成功。開始と終了、開始と最終フレームの画素差は0。</li>
+        <li>10時刻を逆順にシークしても同じ画像（バイト一致）。</li>
+        <li>新規ページで描き直すと、文字のアンチエイリアスに最大1/255の差。完全な画素一致ではありません。</li>
+        <li>日本語MP4（240フレーム）は全フレームをエラーなくデコード。再生中の外部通信とコンソールエラーは0。</li>
+        <li>4Kは静止画3点のみ出力して確認。</li>
+      </ul>
+    </details>
+    <details>
+      <summary>近似のままの部分・未確認</summary>
+      <ul>
+        <li>近似：元動画の字形の揺れや変形、文字が重なって形が変わる部分、入り際の細かな加速。</li>
+        <li>文言を変えるには、日本語フォントのサブセットと字形情報の再生成が必要。表示文字列を置き換えるだけでは任意の日本語は出ません。</li>
+        <li>未確認：任意の入力動画の変換、32K動画の出力、別OSでの画素一致、商用品質。</li>
+        <li>動画の新規生成や外部モデルAPIは使っていません。任意の動画をワンクリックで変換するアプリではありません。</li>
+      </ul>
+    </details>
+  </section>
+
+  <section aria-labelledby="h-links">
+    <h2 id="h-links">資料</h2>
+    <ul class="links">
+      <li><a href="../../case.html?id=motion2code-example">掲載ページ</a><small>解説と依頼文</small></li>
+      <li><a href="https://github.com/lovisdotio/motion2code/commit/0f003288997604487df04c1b7a0586900d3e36bb">原典リポジトリ（コミット 0f00328）</a><small>lovisdotio/motion2code・MIT</small></li>
+      <li><a href="README.md">README.md</a><small>この作例の説明</small></li>
+      <li><a href="vendor/motion2code/SKILL.md">SKILL.md</a><small>固定した版の手順書</small></li>
+      <li><a href="assets/japanese.html">japanese.html</a><small>日本語版 SVG＋GSAP・86.4 KB</small></li>
+      <li><a href="assets/japanese.mp4">japanese.mp4</a><small>日本語版 動画・0.835 MB</small></li>
+      <li><a href="assets/comparison-ja.mp4">comparison-ja.mp4</a><small>元動画との比較・5.37 MB</small></li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    原典：Lovis Odin「<a href="https://github.com/lovisdotio/motion2code">motion2code</a>」（MIT）。発見元：<a href="https://x.com/OdinLovis/status/2112536814393454735">作者の投稿</a>。元動画は作者の配布物で、日本語版は元動画を観察して独自に再構成したものです。公開ギャラリーのアニメーション実装は使っていません。
+  </div>
+</footer>
+
+<script>
+(function () {
+  var btnVideo = document.getElementById('show-video');
+  var btnHtml = document.getElementById('show-html');
+  var viewVideo = document.getElementById('view-video');
+  var viewHtml = document.getElementById('view-html');
+  var video = document.getElementById('compare');
+  var frame = document.getElementById('ja-frame');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function show(which) {
+    var isHtml = which === 'html';
+    btnVideo.setAttribute('aria-pressed', String(!isHtml));
+    btnHtml.setAttribute('aria-pressed', String(isHtml));
+    viewVideo.hidden = isHtml;
+    viewHtml.hidden = !isHtml;
+    if (isHtml) {
+      video.pause();
+      frame.src = 'assets/japanese.html';
+    } else {
+      frame.src = 'about:blank';
+      if (!reduce) video.play().catch(function () {});
+    }
+  }
+
+  btnVideo.addEventListener('click', function () { show('video'); });
+  btnHtml.addEventListener('click', function () { show('html'); });
+  if (!reduce) video.play().catch(function () {});
+})();
+</script>
+</body>
+</html>

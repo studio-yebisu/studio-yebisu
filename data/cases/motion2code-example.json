@@ -1,0 +1,144 @@
+{
+  "id": "motion2code-example",
+  "category": "motion",
+  "model": "claude-opus-5-5",
+  "status": "reviewed",
+  "demo": "examples/motion2code-example/index.html",
+  "video": "media/motion2code-example.mp4",
+  "poster": "media/motion2code-example.webp",
+  "skill": "examples/motion2code-example/vendor/motion2code/SKILL.md",
+  "skill_label": "Motion2Code の原典SKILL.md",
+  "skill_description": "参照動画の観察、SVG＋GSAPへの再構成、比較・出力を進める手順書",
+  "samples": "examples/motion2code-example/samples.json",
+  "sample_format": "input-output",
+  "samples_title": "配布動画から、日本語の実出力へ",
+  "samples_intro": "実際に使った元動画と、今回の日本語版・比較の記録です。",
+  "video_note": "20秒・30fps・無音。作者配布の英語動画と今回の日本語版を横並びにした10秒比較を2周します。",
+  "video_source": "examples/motion2code-example/assets/japanese.html",
+  "skill_license": "examples/motion2code-example/vendor/motion2code/LICENSE",
+  "license": "MIT",
+  "license_note": "原典スキルはMIT。日本語フォントはNoto Sans JPのOFL、GSAPは別の公式利用条件が適用されます。HTMLとMP4の容量は同等品質の圧縮率比較ではありません。",
+  "updated_on": "2026-10-21",
+  "title": "Motion2Code：動画の動きを、編集できるSVG＋GSAPに組み直す",
+  "summary": "参照動画をコマに分けて観察し、SVGの図形を1本のGSAPタイムラインで動かして、元動画と並べて確かめるエージェント用の手順書とPython補助スクリプト。作例では作者配布の「Think Big」を観察して独自に再構成し、「考える」「大きく」「小さく始める」の日本語版にした。任意の動画をワンクリックで正確に変換する完成アプリではない。",
+  "demo_description": "左が作者配布の元動画、右が今回の日本語版。10秒の比較動画を再生し、切り替えると保存済みの日本語HTMLをそのまま開ける。",
+  "demo_note": "保存済みの実出力を見るだけのページで、新規生成・文言変更・保存の機能はない。文言を変えるには、日本語フォントのサブセットと字形情報の再生成が必要。",
+  "request_intro": "参照動画と固定した版のSKILLを渡し、任意時刻・ループ・日本語の検査まで指定する依頼文。動画の新規生成は頼まない。",
+  "request": "https://github.com/lovisdotio/motion2code のコミット 0f003288997604487df04c1b7a0586900d3e36bb にある skills/motion2code/SKILL.md の手順に従ってください。添付した作者配布の「Think Big」参照動画だけを使い、SVG＋GSAPの単一HTMLに再構成します。動画の新規生成、別の版の取得、有料の生成APIは使わないでください。\n\n文言は意図的に日本語へ置き換えます：「考える」「大きく」「小さく始める」。日本語フォントは必要な文字だけをサブセットしてHTMLに埋め込み、GSAPも含めて外部通信なしで再生できるようにしてください。\n\n条件：\n- window.anim.seek(t) が時刻だけで画面を決め、?t=6.5 のような指定で任意時刻に止まる\n- 10秒ループで、終端が開始フレームと一致する（継ぎ目を数値で確認）\n- 逆順にシークしても同じ画になるか確認する\n- 元動画と0.5秒ごと、切り替わり前後はコマ単位で横並び比較する\n- 日本語の字形欠け、はみ出し、読める時間を確認する\n\n出力：日本語HTML、1920×1080・24fpsのMP4、元動画との横並び比較MP4。元動画と違う箇所は近似として列挙し、画素の完全一致とは書かないでください。",
+  "steps": [
+    {
+      "title": "コマに分けて観察",
+      "body": "参照動画から一定間隔のコマ、切り替わり前後、配色、正確な長さを取り出す。元動画は10.125秒。"
+    },
+    {
+      "title": "時刻つきの動きの表",
+      "body": "各ビートの時刻、形の動き、加速の付き方を1行ずつ書き出し、記憶ではなくコマを基準にする。"
+    },
+    {
+      "title": "1本のタイムラインで再構成",
+      "body": "SVGの図形をGSAPの1本のタイムラインで動かし、seek(t)で任意時刻を描く。10秒で開始画面に戻して閉じる。"
+    },
+    {
+      "title": "日本語に置き換え",
+      "body": "3つのフレーズに必要な字形だけをフォントからサブセットし、GSAPと一緒にHTMLへ埋め込む。"
+    },
+    {
+      "title": "横並びで比較して直す",
+      "body": "0.5秒ごとの21点と切り替わり前後の64フレームを元動画と並べ、ずれの大きい箇所から直す。"
+    }
+  ],
+  "observations": [
+    "確認済み：公式チェックの実行時検査が成功。開始と終了、開始と最終フレームの画素差は0。",
+    "確認済み：10時刻を逆順にシークしてもPNGがバイト一致。",
+    "確認済み：新規ページで再描画すると文字のアンチエイリアスに最大1/255の差がある。完全な画素一致は主張しない。",
+    "確認済み：日本語MP4は1920×1080・24fps・240フレームで、全フレームをエラーなくデコードできた。",
+    "確認済み：再生中のコンソールエラーと外部HTTP要求は0。",
+    "近似：元動画にある字形の揺れや変形、文字が重なって形が変わる部分、入り際の細かな加速。",
+    "未確認：任意の入力動画の変換、32K動画の出力、別OSでの画素一致、商用品質。4Kは静止画3点のみ出力した。"
+  ],
+  "sources": [
+    {
+      "label": "Motion2Code 原典（固定版）",
+      "url": "https://github.com/lovisdotio/motion2code/tree/0f003288997604487df04c1b7a0586900d3e36bb"
+    },
+    {
+      "label": "Motion2Code SKILL.md（固定版）",
+      "url": "https://github.com/lovisdotio/motion2code/blob/0f003288997604487df04c1b7a0586900d3e36bb/skills/motion2code/SKILL.md"
+    },
+    {
+      "label": "MIT LICENSE（固定版）",
+      "url": "https://github.com/lovisdotio/motion2code/blob/0f003288997604487df04c1b7a0586900d3e36bb/LICENSE"
+    },
+    {
+      "label": "発見元：作者の投稿",
+      "url": "https://x.com/OdinLovis/status/2112536814393454735"
+    },
+    {
+      "label": "作例の再現手順・容量・制作範囲",
+      "url": "examples/motion2code-example/README.md"
+    },
+    {
+      "label": "スキル一式のZIP",
+      "url": "examples/motion2code-example/motion2code-skill.zip"
+    },
+    {
+      "label": "今回の制作・確認記録",
+      "url": "data/production/motion2code-example.json"
+    }
+  ],
+  "applied_skills": [
+    {
+      "name": "Motion2Code",
+      "source": "https://github.com/lovisdotio/motion2code/blob/0f003288997604487df04c1b7a0586900d3e36bb/skills/motion2code/SKILL.md",
+      "applied": "配布動画の観察、時刻ごとの動きの表、SVG＋GSAPの単一時計、原典の実行検査・フレーム出力・元動画との比較を実施。コードを日本語へ変更し、近似と未確認を記録した。"
+    },
+    {
+      "name": "Motion Reel",
+      "source": "https://github.com/studio-yebisu/motion-reel",
+      "applied": "時刻指定での描画、逆順と新規ページの再描画、コマ画像と実MP4再生の確認、実出力と制作範囲の保存を適用。"
+    }
+  ],
+  "catalog_entry": {
+    "id": "resource-motion2code",
+    "name": "Motion2Code",
+    "category": "motion",
+    "kind": "スキル",
+    "summary": "動画の動きを観察し、SVG＋GSAPの編集可能なHTMLへ組み直す。日本語の実作例と比較あり。",
+    "use_case": "ロゴ、タイトル、図形中心の短い説明アニメを、文字や配色を後から直せる形にしたいとき。",
+    "tags": [
+      "モーション",
+      "SVG",
+      "GSAP",
+      "日本語",
+      "Agent Skills"
+    ],
+    "workflow": [
+      "参照動画をコマと時刻で観察する",
+      "SVG＋GSAPで再構成し、日本語へ変更する",
+      "元動画との比較・ループ・出力を確認する"
+    ],
+    "requirements": [
+      "AIコーディングエージェント",
+      "Python・FFmpeg・Playwright・Chrome/Chromium",
+      "権利を確認した参照動画"
+    ],
+    "license": "MIT",
+    "license_url": "https://github.com/lovisdotio/motion2code/blob/0f003288997604487df04c1b7a0586900d3e36bb/LICENSE",
+    "license_note": "原典スキルはMIT。日本語フォントはNoto Sans JPのOFL、GSAPは別の公式利用条件が適用されます。HTMLとMP4の容量は同等品質の圧縮率比較ではありません。",
+    "source_url": "https://github.com/lovisdotio/motion2code/tree/0f003288997604487df04c1b7a0586900d3e36bb",
+    "guide_url": "case.html?id=motion2code-example",
+    "example_url": "examples/motion2code-example/index.html",
+    "image": "media/motion2code-example.webp",
+    "readme_url": "https://github.com/lovisdotio/motion2code/blob/0f003288997604487df04c1b7a0586900d3e36bb/README.md",
+    "source_repository": "lovisdotio/motion2code",
+    "source_commit": "0f003288997604487df04c1b7a0586900d3e36bb",
+    "source_path": "skills/motion2code",
+    "source_project": "curated",
+    "source_note": "固定版の原典と配布動画を確認。Codexによる独自の日本語再構成を実行し、掲載UI・解説は別のOpus 5.5実行で制作した。",
+    "prompt": "https://github.com/lovisdotio/motion2code のコミット 0f003288997604487df04c1b7a0586900d3e36bb にある skills/motion2code/SKILL.md の手順に従ってください。添付した作者配布の「Think Big」参照動画だけを使い、SVG＋GSAPの単一HTMLに再構成します。動画の新規生成、別の版の取得、有料の生成APIは使わないでください。\n\n文言は意図的に日本語へ置き換えます：「考える」「大きく」「小さく始める」。日本語フォントは必要な文字だけをサブセットしてHTMLに埋め込み、GSAPも含めて外部通信なしで再生できるようにしてください。\n\n条件：\n- window.anim.seek(t) が時刻だけで画面を決め、?t=6.5 のような指定で任意時刻に止まる\n- 10秒ループで、終端が開始フレームと一致する（継ぎ目を数値で確認）\n- 逆順にシークしても同じ画になるか確認する\n- 元動画と0.5秒ごと、切り替わり前後はコマ単位で横並び比較する\n- 日本語の字形欠け、はみ出し、読める時間を確認する\n\n出力：日本語HTML、1920×1080・24fpsのMP4、元動画との横並び比較MP4。元動画と違う箇所は近似として列挙し、画素の完全一致とは書かないでください。",
+    "skill_download": "examples/motion2code-example/motion2code-skill.zip",
+    "verification_stage": "runtime-reviewed",
+    "verification": "作者配布の1動画から日本語版を制作。表示・シーク・ループ・1080p動画・4K静止画を確認。細かな変形は近似、任意動画と32Kは未検証。",
+    "reviewed_on": "2026-10-21"
+  }
+}
