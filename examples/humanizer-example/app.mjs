@@ -1,4 +1,4 @@
-// Yaoyorozu-AI Toolbox: Humanizer作例ビューア
+// 八百万図AIツールボックス: Humanizer作例ビューア
 // 保存済みの inputs/jobs.json と outputs/revisions.json を表示するだけで、文章の書き直しは行わない。
 
 const JOB_IDS = ['release', 'reply', 'japanese'];

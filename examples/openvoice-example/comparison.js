@@ -1,4 +1,4 @@
-// Yaoyorozu-AI Toolbox — OpenVoice V2 作例ページ。MIT License, Copyright (c) 2026 Studio Yebisu.
+// 八百万図AIツールボックス — OpenVoice V2 作例ページ。MIT License, Copyright (c) 2026 Studio Yebisu.
 // 保存した実行記録と WAV を読むだけのページ。ブラウザーで OpenVoice は動かさない。
 // データはすべて textContent とテキストノードで書き、HTML として解釈しない。
 // WAV は記録の SHA-256 と照合したバイト列だけを Blob にし、<audio> と保存に使う。自動では再生しない。

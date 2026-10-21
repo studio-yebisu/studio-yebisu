@@ -2,7 +2,7 @@
 (() => {
   'use strict';
   const {h, safeHref, loadJSON} = window.SY;
-  const CREDIT = '引用元:Yaoyorozu-AI Toolbox made by studio_yebisu';
+  const CREDIT = '引用元:八百万図AIツールボックス made by studio_yebisu';
   let projectPromise;
 
   function project() {

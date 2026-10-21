@@ -1,8 +1,8 @@
-# Yaoyorozu-AI Toolbox
+# 八百万図AIツールボックス
 
-やおよろずのAI道具箱。AIスキルとツールを、用途・使い方・実作例から選ぶ日本語サイトです。画面・資料・映像の制作に加え、調査、文章、知識整理、音声、3D、ゲーム、開発、自動化、学習などを一つの入口で扱います。
+やおよろずAIツールボックス。AIスキルとツールを、用途・使い方・実作例から選ぶ日本語サイトです。画面・資料・映像の制作に加え、調査、文章、知識整理、音声、3D、ゲーム、開発、自動化、学習などを一つの入口で扱います。
 
-[統合サイト](https://studio-yebisu.github.io/studio-yebisu/) · [最初の作例](https://studio-yebisu.github.io/studio-yebisu/case.html?id=brief-to-demo)
+[統合サイト](https://studio-yebisu.github.io/yaoyorozu-ai-toolbox/) · [最初の作例](https://studio-yebisu.github.io/yaoyorozu-ai-toolbox/case.html?id=brief-to-demo)
 
 モデル紹介は、画像生成・音声合成・文字起こし・予測・記憶管理など、ツール用途の **OpenWeight** に統一します。**OpenLLM（汎用LLM）は収集・サーベイ・引用・掲載の対象に含めず、LLMの比較表や比較サイトへの誘導も追加しません。** 分類の正本は [data/categories.json](data/categories.json)、モデル紹介の正本は [data/open-models.json](data/open-models.json)。詳しい紹介は `open-models.html` で読めます。固定したモデルカード・利用条件と、説明用の図・外部の作例へのリンクを記録し、推論を実行した作例とは区別します。[掲載方針](docs/CURATION.md)も参照してください。
 
@@ -18,9 +18,9 @@ python scripts/workspace.py
 
 専門制作の正本：
 
-- [UI・UX](https://github.com/studio-yebisu/awesome-claude-ui-ux-design-ja)
-- [AIスライド](https://github.com/studio-yebisu/awesome-codex-ppt-skills-ja)
-- [モーション](https://github.com/studio-yebisu/awesome-claude-motion-design-ja)
+- [UI・UX](https://github.com/studio-yebisu/yaoyorozu-ai-toolbox-ui-ux)
+- [AIスライド](https://github.com/studio-yebisu/yaoyorozu-ai-toolbox-slides)
+- [モーション](https://github.com/studio-yebisu/yaoyorozu-ai-toolbox-motion)
 
 ## 紹介内容を追加する
 
@@ -69,7 +69,7 @@ python scripts/serve.py
 
 統合サイトのコードと独自スキルはMIT。独自制作のデモ・説明動画はクレジット付きで商用利用・編集・再配布が可能で、Xの投稿本文には `@studio_yebisu` が必須です。[動画の利用条件](MEDIA-LICENSE.md)を参照してください。紹介先のスキル・ツール・作例には、それぞれの条件が適用されます。ライセンスの表示を、別の作品への適用や実装全体の再許諾とみなしません。[出典と取り込み範囲](docs/SOURCES.md)を参照してください。
 
-ダウンロード用MP4には「引用元:Yaoyorozu-AI Toolbox」「made by studio_yebisu」を焼き込みます。`python scripts/prepare_video_downloads.py` で両方向の動画を準備し、元の再生用MP4を保持します。入力と出力のハッシュ・寸法・長さは `data/video-downloads.json` に記録します。
+ダウンロード用MP4には「引用元:八百万図AIツールボックス」「made by studio_yebisu」を焼き込みます。`python scripts/prepare_video_downloads.py` で両方向の動画を準備し、元の再生用MP4を保持します。入力と出力のハッシュ・寸法・長さは `data/video-downloads.json` に記録します。
 
 
 ## X向けの画像カード

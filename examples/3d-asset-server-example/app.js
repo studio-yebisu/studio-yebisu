@@ -1,4 +1,4 @@
-// Yaoyorozu-AI Toolbox — 3D Asset Server 作例ページ。MIT License, Copyright (c) 2026 Studio Yebisu.
+// 八百万図AIツールボックス — 3D Asset Server 作例ページ。MIT License, Copyright (c) 2026 Studio Yebisu.
 // 保存した実行記録を読むだけのページ。ブラウザーから検索・取得はせず、記録の値をそのまま表示する。
 // データはすべて textContent とテキストノードで書き、HTML として解釈しない。
 // 3D は A08 を開いたときだけ model-view.js を読み込み、1回だけ組み立てる。
@@ -23,7 +23,7 @@ const EXPECTED = Object.freeze({
     "vendor-lock.json": "67f280672c4268d5a06b401e9e91b2c3010968c1e78211b29724b132b9266973",
   },
   lockFiles: 115,
-  userAgent: "Studio-Yebisu-3D-example/1.0 (+https://studio-yebisu.github.io/studio-yebisu/)",
+  userAgent: "Studio-Yebisu-3D-example/1.0 (+https://studio-yebisu.github.io/yaoyorozu-ai-toolbox/)",
   providers: ["polyhaven", "fab"],
   operations: {
     A01: "search",

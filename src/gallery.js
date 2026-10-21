@@ -1,4 +1,4 @@
-/* Yaoyorozu-AI Toolbox — home page case preview. A native <dialog> for one produced case: its responsive
+/* 八百万図AIツールボックス — home page case preview. A native <dialog> for one produced case: its responsive
    muted video, its local demo framed only on request, and its request text. Load after media.js, before
    app.js. Exposes SY.casePreview.open(item, meta) where meta = {invoker, title, skill, category, href}.
    Nothing here runs AI: the demo pages show samples produced in advance. */

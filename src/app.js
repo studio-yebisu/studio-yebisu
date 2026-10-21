@@ -1,4 +1,4 @@
-/* Yaoyorozu-AI Toolbox — home page. Loads data/catalog.json and data/cases.json (relative paths).
+/* 八百万図AIツールボックス — home page. Loads data/catalog.json and data/cases.json (relative paths).
    Categories come only from catalog.categories (fallback: data/categories.json), so adding or
    removing a category needs no change here.
    URL contract: ./?q=<words>&kind=skill|support&case=1#<category id | section id>.
@@ -573,7 +573,7 @@
     } catch (_) { /* ids are shown instead */ }
   }
 
-  // A catalog entry counts as produced only when a Yaoyorozu-AI Toolbox case points to it.
+  // A catalog entry counts as produced only when a 八百万図AIツールボックス case points to it.
   function mapCases() {
     state.caseByEntry = table();
     const cases = state.cases || [];

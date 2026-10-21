@@ -1,4 +1,4 @@
-/* Yaoyorozu-AI Toolbox — open-weight model guide (open-models.html). Load after ui.js.
+/* 八百万図AIツールボックス — open-weight model guide (open-models.html). Load after ui.js.
    Reads data/open-models.json and data/categories.json only; every value from JSON is set as text.
    URL: ?q=<words>&field=<category id>#<model id>. Typing replaces the history entry, field chips and
    reset add one. A model hash always wins over filters that would hide it. Nothing here changes window.SY. */

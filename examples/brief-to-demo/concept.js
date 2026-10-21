@@ -41,7 +41,7 @@ export const OUTPUTS = Object.freeze({
   }),
 });
 const SAMPLES_PIN = Object.freeze({path: 'samples.json', bytes: 10649, sha256: '859dd1124c27924f77588e52bbf4c638adc42cb62539246b1e26062619dfe73c'});
-export const UPSTREAM_SKILL_URL = `https://github.com/studio-yebisu/studio-yebisu/blob/${SOURCE_COMMIT}/skills/brief-to-demo/SKILL.md`;
+export const UPSTREAM_SKILL_URL = `https://github.com/studio-yebisu/yaoyorozu-ai-toolbox/blob/${SOURCE_COMMIT}/skills/brief-to-demo/SKILL.md`;
 // 図のポケットに載せる「未提供」の言い回し。保存済みの assumptions[index] の部分文字列（読み込み時に確かめる）。
 export const UNSET = Object.freeze({
   ui: Object.freeze({index: 1, text: '日時・会場・定員は未提供'}),
@@ -196,7 +196,7 @@ function buildBundle(manifest, bytes) {
   const skillLines = text(SKILL_PATH).split(/\r?\n/);
 
   check(structure && structure.format === 'brief-to-demo-structure/v1' && structure.case_id === CASE_ID && structure.source_commit === SOURCE_COMMIT, 'concept/structure.json の形式か固定版が違います');
-  check(license.startsWith('MIT License') && license.includes('Copyright (c) 2026 Studio Yebisu'), 'LICENSE が MIT License（Yaoyorozu-AI Toolbox）ではありません');
+  check(license.startsWith('MIT License') && license.includes('Copyright (c) 2026 Studio Yebisu'), 'LICENSE が MIT License（八百万図AIツールボックス）ではありません');
   check(samples && samples.model === 'claude-opus-5-5' && sameList(ids(samples.samples), JOB_IDS), 'samples.json の3件が違います');
   check(requests && requests.format === 'brief-inputs/v1' && requests.case_id === CASE_ID && sameList(ids(requests.samples), JOB_IDS), 'inputs/requests.json の3件が違います');
   check(sameList(ids(structure.jobs), JOB_IDS), 'concept/structure.json の3件のIDが違います');
@@ -1306,7 +1306,7 @@ function initPage() {
       if (key !== 'skill_refs') return h('li', {}, item);
       return /^https:\/\//.test(item)
         ? h('li', {}, h('a', {href: item, rel: 'noopener'}, item.replace(/^https:\/\//, '')))
-        : h('li', {}, h('code', {}, item), h('span', {class: 'v-aside'}, 'Yaoyorozu-AI Toolboxの作業場所を指す文字列です。公開リンクではありません。'));
+        : h('li', {}, h('code', {}, item), h('span', {class: 'v-aside'}, '八百万図AIツールボックスの作業場所を指す文字列です。公開リンクではありません。'));
     });
     return h(key === 'steps' ? 'ol' : 'ul', {class: `v-list v-${key}`}, items);
   }

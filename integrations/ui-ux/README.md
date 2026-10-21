@@ -6,7 +6,7 @@ Claude・CodexなどのエージェントでWeb UIを設計・実装・改善す
 
 ## 実際につくる
 
-[Yaoyorozu-AI Toolbox Deskを開く](examples/studio-desk/index.html) — 架空の制作プロジェクトを検索・追加・編集・整理する、ブラウザ内保存の試作です。
+[八百万図AIツールボックス Deskを開く](examples/studio-desk/index.html) — 架空の制作プロジェクトを検索・追加・編集・整理する、ブラウザ内保存の試作です。
 
 Frontend Design、Emil Design Engineering、Web Design Guidelines、UI Skillsの4件を読み、設計・実装・点検へ適用しました。導入コマンドの実行や外部サービスへの接続はしていません。
 
@@ -14,7 +14,7 @@ Frontend Design、Emil Design Engineering、Web Design Guidelines、UI Skillsの
 
 ## モーション版との分担
 
-[元投稿](https://x.com/RoundtableSpace/status/2109958757891346459)の#10 Motion.dev Animations SkillをUI側へ、#9 Motionは補助ライブラリとして掲載。残りの11件は追加調査です。映像制作、タイポグラフィ演出、GSAP・Lottieなどは[モーション版](https://studio-yebisu.github.io/awesome-claude-motion-design-ja/)にまとめています。
+[元投稿](https://x.com/RoundtableSpace/status/2109958757891346459)の#10 Motion.dev Animations SkillをUI側へ、#9 Motionは補助ライブラリとして掲載。残りの11件は追加調査です。映像制作、タイポグラフィ演出、GSAP・Lottieなどは[モーション版](https://studio-yebisu.github.io/yaoyorozu-ai-toolbox-motion/)にまとめています。
 
 このガイドの中心は視覚設計・操作設計・実装レビューです。ユーザー調査、情報設計、ユーザーテストなどUXの全工程を網羅するものではありません。
 

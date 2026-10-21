@@ -1,4 +1,4 @@
-// Yaoyorozu-AI Toolbox — 3D Asset Server 作例の実行CLI。MIT License, Copyright (c) 2026 Studio Yebisu.
+// 八百万図AIツールボックス — 3D Asset Server 作例の実行CLI。MIT License, Copyright (c) 2026 Studio Yebisu.
 //
 //   node run.mjs --artifact-dir <このフォルダーの外の、まだ無いフォルダー>
 //
@@ -51,7 +51,7 @@ const PINNED_SHA256 = Object.freeze({
   "vendor-lock.json": "67f280672c4268d5a06b401e9e91b2c3010968c1e78211b29724b132b9266973",
 });
 const LOCK_FILE_COUNT = 115;
-const USER_AGENT = "Studio-Yebisu-3D-example/1.0 (+https://studio-yebisu.github.io/studio-yebisu/)";
+const USER_AGENT = "Studio-Yebisu-3D-example/1.0 (+https://studio-yebisu.github.io/yaoyorozu-ai-toolbox/)";
 const PROVIDER_IDS = Object.freeze(["polyhaven", "fab"]);
 const POLYHAVEN_API = "https://api.polyhaven.com/";
 const CASE_PLAN = Object.freeze({

@@ -10,8 +10,8 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / 'data/video-downloads.json'
-LINES = ['引用元:Yaoyorozu-AI Toolbox', 'made by studio_yebisu']
-SPEC = 'credit-footer-two-lines-v2'
+LINES = ['引用元:八百万図AIツールボックス', 'made by studio_yebisu']
+SPEC = 'credit-footer-japanese-brand-v3'
 
 
 def sha(path):
@@ -26,7 +26,7 @@ def probe(path):
 
 def render(case, orientation, encoder, text_paths, prior, font, site_url):
     source = ROOT / case['video_' + orientation]
-    destination = ROOT / 'media/downloads' / (case['id'] + '-' + orientation + '-credited.mp4')
+    destination = ROOT / 'media/downloads' / (case['id'] + '-' + orientation + '-credited-ja-v3.mp4')
     source_hash = sha(source)
     font_hash = sha(font)
     if destination.exists():

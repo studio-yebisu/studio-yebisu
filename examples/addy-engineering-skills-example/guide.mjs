@@ -1,4 +1,4 @@
-// Yaoyorozu-AI Toolbox example guide. MIT.
+// 八百万図AIツールボックス example guide. MIT.
 // Drives the existing controls only; filtering stays in tasks.mjs through app.mjs.
 const el = id => document.getElementById(id);
 const presets = [...document.querySelectorAll('[data-preset]')];

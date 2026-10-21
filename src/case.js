@@ -1,4 +1,4 @@
-/* Yaoyorozu-AI Toolbox — article page. case.html?id=<case-id> (produced case) or case.html?entry=<catalog-id>
+/* 八百万図AIツールボックス — article page. case.html?id=<case-id> (produced case) or case.html?entry=<catalog-id>
    (catalog item: a source guide, or a pointer to its produced case). Data comes only from relative
    paths under data/. Every value is written as text; links pass through SY.safeHref. */
 (() => {
@@ -164,9 +164,9 @@
 
   function sourceLabel(entry) {
     const id = entry.source_project;
-    if (id === 'curated') return 'Yaoyorozu-AI Toolbox 原典確認済みの紹介';
-    if (!id) return 'Yaoyorozu-AI Toolbox 統合カタログ';
-    return categories[id] ? 'Yaoyorozu-AI Toolbox ' + categoryLabel(id) + 'のカタログ' : String(id);
+    if (id === 'curated') return '八百万図AIツールボックス 原典確認済みの紹介';
+    if (!id) return '八百万図AIツールボックス 統合カタログ';
+    return categories[id] ? '八百万図AIツールボックス ' + categoryLabel(id) + 'のカタログ' : String(id);
   }
 
   function renderFooterCategories(list) {
@@ -187,7 +187,7 @@
   }
 
   function showState(title, body, options = {}) {
-    document.title = title + '｜Yaoyorozu-AI Toolbox';
+    document.title = title + '｜八百万図AIツールボックス';
     show(h('div', {class: 'page-state'},
       h('h1', {class: 'empty-title'}, title),
       h('p', {}, body),
@@ -332,7 +332,7 @@
     const samplesUrl = safeHref(item.samples);
     const hasRequest = typeof item.request === 'string' && item.request.trim();
     const skillTitle = skillName(item);
-    document.title = (item.title || item.id) + '｜Yaoyorozu-AI Toolbox';
+    document.title = (item.title || item.id) + '｜八百万図AIツールボックス';
 
     let samples = [];
     if (samplesUrl) {
@@ -439,7 +439,7 @@
 
   /* ---------- Catalog entry (source guide) ---------- */
 
-  // A catalog entry counts as produced only when a Yaoyorozu-AI Toolbox case points to it. If cases.json is
+  // A catalog entry counts as produced only when a 八百万図AIツールボックス case points to it. If cases.json is
   // unreadable, an entry whose guide_url is a case article still links there.
   function caseForEntry(entry, cases) {
     const direct = cases && cases.find(item => item.catalog_entry && item.catalog_entry.id === entry.id);
@@ -451,7 +451,7 @@
   }
 
   function renderEntry(entry, produced) {
-    document.title = (entry.name || entry.id) + '｜Yaoyorozu-AI Toolbox';
+    document.title = (entry.name || entry.id) + '｜八百万図AIツールボックス';
     const skill = String(entry.kind || '').trim() === 'スキル';
     const category = categories[entry.category];
     const caseHref = produced ? 'case.html?id=' + encodeURIComponent(produced.id) : null;

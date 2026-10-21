@@ -67,7 +67,7 @@ python render-visual.py --out ../brief-to-demo-wide --width 1280 --height 720
 
 ## 出典と利用条件
 
-- 原典：[studio-yebisu/studio-yebisu の skills/brief-to-demo/SKILL.md](https://github.com/studio-yebisu/studio-yebisu/blob/bc2984ab4208e349aded79b3694cc2cb98b8a4a6/skills/brief-to-demo/SKILL.md)、コミット `bc2984ab4208e349aded79b3694cc2cb98b8a4a6`。バージョン番号はありません。MIT License、Copyright (c) 2026 Studio Yebisu（`../vendor/brief-to-demo/LICENSE`）。
+- 原典：[studio-yebisu/studio-yebisu の skills/brief-to-demo/SKILL.md](https://github.com/studio-yebisu/yaoyorozu-ai-toolbox/blob/bc2984ab4208e349aded79b3694cc2cb98b8a4a6/skills/brief-to-demo/SKILL.md)、コミット `bc2984ab4208e349aded79b3694cc2cb98b8a4a6`。バージョン番号はありません。MIT License、Copyright (c) 2026 Studio Yebisu（`../vendor/brief-to-demo/LICENSE`）。
 - この元ページ・図・文言：MIT License、Copyright (c) 2026 Studio Yebisu（`../LICENSE`）。
 
 制作側の再現入口：作例ルートのrender-visual.pyを使います。`python render-visual.py --out ../brief-review-portrait --width 720 --height 1280 --strip-at 10.2`。横長は1280×720を指定し、空の出力フォルダを使います。詳細は../visual-guide.md、実際の確認記録は../visual-verification.json。原本執筆時点の未実施と、その後の描画・QAは分けて扱います。

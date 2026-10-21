@@ -5,7 +5,7 @@ Studio Yebisuの公開サイトを紹介する20秒の短いコード動画を�
 
 ## 確認済みの事実
 - サイト名：Studio Yebisu。
-- 公開URL：https://studio-yebisu.github.io/studio-yebisu/
+- 公開URL：https://studio-yebisu.github.io/yaoyorozu-ai-toolbox/
 - UI/UX、AIスライド、モーション、開発・テストなど用途ごとに紹介を選べる。
 - 実制作済みの記事には入力と出力、依頼文、出典、確認した範囲、短い動画がある。
 - 全紹介先に実作例があるわけではない。未検証の紹介も含む。

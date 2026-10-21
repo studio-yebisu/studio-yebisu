@@ -3,7 +3,7 @@ $ErrorActionPreference='Stop'
 $repoRoot=Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $repoRoot
 $origin=git remote get-url origin
-if($LASTEXITCODE -ne 0 -or $origin -notmatch '^https://github.com/studio-yebisu/studio-yebisu(?:\.git)?$'){throw 'Unexpected publication repository.'}
+if($LASTEXITCODE -ne 0 -or $origin -notmatch '^https://github.com/studio-yebisu/yaoyorozu-ai-toolbox(?:\.git)?$'){throw 'Unexpected publication repository.'}
 $branch=git branch --show-current
 if($branch -ne 'main'){throw 'Publish this approved content from the main checkout; preserve other branches.'}
 $staged=git diff --cached --name-only
@@ -18,7 +18,7 @@ git add -- $paths
 if($LASTEXITCODE -ne 0){throw 'Could not stage the publication allowlist.'}
 git diff --cached --quiet
 if($LASTEXITCODE -eq 1){
-  git commit -m "Publish Studio Yebisu case: $CaseId"
+  git commit -m "Publish 八百万図AIツールボックス case: $CaseId"
   if($LASTEXITCODE -ne 0){throw 'Commit failed.'}
 }
 git push origin HEAD:main
