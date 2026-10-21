@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ja" class="ow-root">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>OpenWeight｜Yaoyorozu-AI Toolbox</title>
+  <meta name="description" content="画像・音声・文字起こし・予測など、ツール用途のOpenWeightを入出力の模式図と公式・作者の作例から選べるページ。必要な環境、注意点、公開されている重み、ライセンスの原文もまとめています。">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f2eee3">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="open-models.css">
+</head>
+<body class="ow-page" id="top">
+  <a class="skip" href="#ow-gallery">モデルの一覧へ移動</a>
+
+  <header class="masthead">
+    <a class="wordmark" href="./" aria-label="Yaoyorozu-AI Toolbox トップ">Yaoyorozu-AI Toolbox</a>
+    <nav class="masthead-nav" aria-label="サイト">
+      <a href="./#cases">ツール</a>
+      <a href="open-models.html" aria-current="page">OpenWeight</a>
+      <a href="./#fields">分野</a>
+      <a href="./#catalog">カタログ</a>
+      <a href="./#howto">頼み方</a>
+    </nav>
+    <a class="ow-mast-back" href="./#cases">道具箱へ</a>
+  </header>
+
+  <main id="main">
+    <section class="ow-hero" aria-labelledby="ow-title">
+      <div class="ow-hero-copy">
+        <p class="ow-eyebrow">TASK-SPECIFIC MODELS</p>
+        <h1 id="ow-title" class="ow-title">OpenWeight</h1>
+        <p class="ow-lead" data-ow-intro>Xで紹介したモデルを、使いどころと入出力の図から選ぶ。</p>
+        <div class="actions">
+          <a class="btn btn-line" href="./#cases">スキル・ツールのページへ戻る</a>
+        </div>
+      </div>
+      <aside class="ow-define" aria-labelledby="ow-define-title">
+        <h2 id="ow-define-title" class="ow-define-title">OpenWeightとは</h2>
+        <p class="ow-define-text" data-ow-definition>学習済みの重みが公開されているモデルのこと。利用条件や必要な機材はモデルごとに異なります。</p>
+        <p class="ow-scope">画像・音声・予測など、ツール用途のモデルを紹介します。汎用LLMの紹介・比較は掲載しません。</p>
+      </aside>
+    </section>
+
+    <section id="ow-gallery" class="ow-browse" aria-labelledby="ow-gallery-title" tabindex="-1">
+      <header class="ow-browse-head">
+        <h2 id="ow-gallery-title" class="section-title">使いどころと仕組み</h2>
+        <p class="ow-note" data-ow-evidence>図は仕組みを説明する模式図です。作例へのリンクには、公式・作者の公開作例と紹介投稿の利用例を区別して添えています。</p>
+      </header>
+
+      <form class="ow-tools" role="search" data-ow-form>
+        <div class="search-box ow-search">
+          <label for="ow-q" class="search-label">キーワードで探す</label>
+          <input id="ow-q" type="search" name="q" autocomplete="off" enterkeyhint="search" placeholder="例：音声、画像、MIT、予測" aria-describedby="ow-status" data-ow-q>
+        </div>
+        <div class="ow-fields" role="group" aria-label="分野で絞り込む" data-ow-fields hidden></div>
+      </form>
+
+      <div class="ow-status-row">
+        <p id="ow-status" class="ow-status" role="status" aria-live="polite" data-ow-status>モデルを読み込んでいます…</p>
+        <button type="button" class="text-btn" data-ow-reset hidden>絞り込みを外す</button>
+      </div>
+
+      <ol class="ow-list" aria-labelledby="ow-gallery-title" aria-busy="true" data-ow-list>
+        <li class="ow-skel" aria-hidden="true"><span></span><span></span><span></span></li>
+        <li class="ow-skel" aria-hidden="true"><span></span><span></span><span></span></li>
+      </ol>
+
+      <div class="ow-empty" data-ow-empty hidden>
+        <p class="empty-title">当てはまるモデルがありません。</p>
+        <p>別の言葉で探すか、分野の絞り込みを外してください。</p>
+        <button type="button" class="btn btn-ink" data-ow-empty-reset>すべてのモデルを見る</button>
+      </div>
+
+      <div class="ow-error" role="alert" data-ow-error hidden>
+        <p class="empty-title">モデルの一覧を読み込めませんでした。</p>
+        <p>通信状態を確かめてから、もう一度読み込んでください。</p>
+        <div class="actions">
+          <button type="button" class="btn btn-ink" data-ow-retry>もう一度読み込む</button>
+          <a class="btn btn-line" href="./#cases">ツールのページへ</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="colophon">
+    <p><a href="media-rights.html">独自制作動画の利用条件とクレジット</a></p>
+    <div class="colophon-main">
+      <p class="wordmark wordmark-small">Yaoyorozu-AI Toolbox</p>
+      <p>モデルの説明は、固定したモデルカード・ライセンスと紹介投稿をもとに日本語でまとめたものです。図は模式図で、今回の追加ではモデルを実行していません。使うときは原典の最新の条件を確かめてください。</p>
+      <p class="colophon-updated">モデル一覧の更新日　<span data-ow-updated>—</span></p>
+    </div>
+    <nav class="colophon-links" aria-label="サイト内">
+      <a href="./">トップ</a>
+      <a href="./#cases">ツールから選ぶ</a>
+      <a href="./#catalog">カタログ</a>
+      <a href="#top">このページの先頭へ</a>
+    </nav>
+  </footer>
+
+  <p class="sr-only" role="status" aria-live="polite" data-announce></p>
+  <script src="ui.js"></script>
+  <script src="open-models.js"></script>
+</body>
+</html>

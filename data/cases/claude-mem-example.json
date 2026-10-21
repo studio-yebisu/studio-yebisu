@@ -1,12 +1,11 @@
 {
   "id": "claude-mem-example",
-  "title": "Claude-Mem作例：必要な記憶だけ、図で開く",
+  "title": "Claude-Mem",
   "title_lines": [
-    "必要な記憶だけ、",
-    "図で開く。"
+    "エージェントの作業を引き継ぐ記憶ツール"
   ],
   "category": "knowledge",
-  "summary": "2案件の決定5件から、題名→前後→選んだ本文の順に必要な記憶を取り出す。同じメモが動いて開く概念図と32秒の無音縦動画で、使い方と実際の戻り値を説明します。",
+  "summary": "エージェントの作業記録を要約して保存し、後のセッションから検索・参照できます。前回の調査結果や変更理由を、続きの作業に引き継げます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/claude-mem-example/index.html",
@@ -152,19 +151,20 @@
     }
   ],
   "license": "MIT（独自作例）・Apache-2.0（Claude-Mem原典）",
-  "license_note": "作例のコード・文章は MIT License（Copyright (c) 2026 Studio Yebisu）。架空の入力は制作側が作成しました。vendor/claude-mem/ の194ファイルは、thedotmack/claude-mem の固定コミット fef3402 のファイルを改変せずに置いたもので、Apache License 2.0 です。原典の LICENSE と NOTICE（Copyright 2026 Alex Newman）をそのまま同梱しています。依存5件はそれぞれの利用条件に従い、npm ci で入る node_modules に各ライセンスが残ります（node_modules は配布しません）。ホスト型の記憶など上流の別サービスは別条件で、この作例では使いません。実行にアカウント・キーは不要です。ソース制作に用いた Opus 5.5 の利用環境は別に必要です。",
+  "license_note": "作例のコード・文章は MIT License（Copyright (c) 2026 Studio Yebisu）。架空の入力は制作側が作成しました。vendor/claude-mem/ の194ファイルは、thedotmack/claude-mem の固定コミット fef3402 のファイルを改変せずに置いたもので、Apache License 2.0 です。原典の LICENSE と NOTICE（Copyright 2026 Alex Newman）をそのまま同梱しています。依存5件はそれぞれの利用条件に従い、npm ci で入る node_modules に各ライセンスが残ります（node_modules は配布しません）。ホスト型の記憶など上流の別サービスは別条件で、この作例では使いません。実行にアカウント・キーは不要です。ソース制作に用いた Opus 5.5 の利用環境は別に必要です。 完成したデモ・説明動画は、クレジット表記を条件に商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。詳しい条件は media-rights.html を参照してください。",
   "video_note": "32秒・無音。同じメモが題名→前後→本文へ動いて開く大きな概念図で説明します。元の実入力・実出力を使い、縦版と横版を用意しました。",
   "video_source": "examples/claude-mem-example/video/index.html",
   "skill_license": "examples/claude-mem-example/vendor/claude-mem/LICENSE",
-  "updated_on": "2026-10-17",
+  "updated_on": "2026-10-21",
   "verification_stage": "runtime-reviewed",
   "guide_url": "case.html?id=claude-mem-example",
   "catalog_entry": {
     "id": "resource-claude-mem",
     "name": "Claude-Mem",
+    "tagline": "エージェントの作業を引き継ぐ記憶ツール",
     "category": "knowledge",
     "kind": "ツール",
-    "summary": "エージェントの作業記録を要約・検索し、後のセッションから参照する。",
+    "summary": "エージェントの作業記録を要約して保存し、後のセッションから検索・参照できます。前回の調査結果や変更理由を、続きの作業に引き継げます。",
     "use_case": "前回の調査や変更理由を、次の作業で再利用したいとき。",
     "tags": [
       "検索",
@@ -196,5 +196,21 @@
     "verification": "原Bunワーカー関数・SQLite FTS5の5メモ・8場面の実結果を保持し、題名→前後→選んだ本文の関係が動く大きな概念図と32秒の無音縦横動画へ改修。スマホ表示・実保存・素材照合・再生を確認。実機iOS・人の承認は未確認。",
     "reviewed_on": "2026-10-15",
     "updated_on": "2026-10-17"
-  }
+  },
+  "video_portrait": "media/claude-mem-example.mp4",
+  "video_landscape": "media/claude-mem-example-wide.mp4",
+  "poster_portrait": "media/claude-mem-example.webp",
+  "poster_landscape": "media/claude-mem-example-wide.webp",
+  "video_width": 720,
+  "video_height": 1280,
+  "video_license": {
+    "id": "LicenseRef-Yaoyorozu-Video-Credit",
+    "label": "クレジット表記必須（商用利用・編集・再配布OK）",
+    "url": "media-rights.html",
+    "credit": "引用元:Yaoyorozu-AI Toolbox made by studio_yebisu",
+    "x_mention": "@studio_yebisu",
+    "effective_on": "2026-10-21"
+  },
+  "video_download_portrait": "media/downloads/claude-mem-example-portrait-credited.mp4",
+  "video_download_landscape": "media/downloads/claude-mem-example-landscape-credited.mp4"
 }

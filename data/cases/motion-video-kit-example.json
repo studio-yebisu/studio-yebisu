@@ -1,13 +1,11 @@
 {
   "id": "motion-video-kit-example",
-  "title": "Motion Video Kit：指示書から、描画と別のAIの確認へ",
+  "title": "Motion Video Kit",
   "title_lines": [
-    "指示を読む。",
-    "形を作り、",
-    "別の目へ渡す。"
+    "短い紹介動画をコードで作る制作スキル"
   ],
   "category": "motion",
-  "summary": "AIが読む短尺映像の制作手順です。本の中身と依頼が作者へ入り、部品と本編を書き、制作担当が描画し、別のAIへ実MP4を渡して直す構造を、大きな動く図で追えます。元の20秒の無音作品と編集ソースも試せます。",
+  "summary": "制作ブリーフから映像の部品を作り、短い紹介動画へ組み立てられます。製品の変更点や使い方を、描画した画面の確認と修正を重ねながら映像にできます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/motion-video-kit-example/index.html",
@@ -68,7 +66,7 @@
   "limitations": [
     "無音です。原典の音楽・効果音・ラウドネスの工程は行っていません。",
     "2Dの図形と文字だけです。3D、AIで生成した映像や画像、実写、第三者の素材は使っていません。",
-    "試したのは Studio Yebisu 自身を紹介する1本だけです。原典が扱う顧客向けの案件、AI素材の生成、Three.js、音の仕上げは試していません。",
+    "試したのは Yaoyorozu-AI Toolbox 自身を紹介する1本だけです。原典が扱う顧客向けの案件、AI素材の生成、Three.js、音の仕上げは試していません。",
     "映像の画面は紹介用に再構成した模式図で、実際の操作の録画ではありません。一覧の行は名前を伏せた例です。",
     "原典に記載された28本の参考映像は見ていません。動きの仕組みは同梱の文章分析だけから選びました。",
     "レビューは作った担当とは別のAIによるもので、人による承認ではありません。",
@@ -132,13 +130,14 @@
     }
   ],
   "license": "MIT",
-  "license_note": "この作例の映像ソース・画面構成・文言・記録は Studio Yebisu の2026年の独自制作で、MIT License（Copyright (c) 2026 Studio Yebisu）です。vendor/motion-video-kit/ の SKILL.md・references・scripts・README は上流の MIT License（Copyright (c) 2026 echris6）で、LICENSE を同梱しています。原典が挙げる参考映像は含まず、使っていません。",
+  "license_note": "この作例の映像ソース・画面構成・文言・記録は Yaoyorozu-AI Toolbox の2026年の独自制作で、MIT License（Copyright (c) 2026 Studio Yebisu）です。vendor/motion-video-kit/ の SKILL.md・references・scripts・README は上流の MIT License（Copyright (c) 2026 echris6）で、LICENSE を同梱しています。原典が挙げる参考映像は含まず、使っていません。 完成したデモ・説明動画は、クレジット表記を条件に商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。詳しい条件は media-rights.html を参照してください。",
   "catalog_entry": {
     "id": "resource-motion-video-kit",
     "name": "Motion Video Kit",
+    "tagline": "短い紹介動画をコードで作る制作スキル",
     "category": "motion",
     "kind": "スキル",
-    "summary": "AIが読む映像制作の手順。ブリーフと部品を作り、描画と別AIの確認を分けて本編へ組む。",
+    "summary": "制作ブリーフから映像の部品を作り、短い紹介動画へ組み立てられます。製品の変更点や使い方を、描画した画面の確認と修正を重ねながら映像にできます。",
     "use_case": "製品の変更点やサービスの使い方を、短い紹介映像で説明したいとき。",
     "tags": [
       "アニメーション",
@@ -172,5 +171,21 @@
     "verification": "原制作の2部品/20秒作品/別AIレビュー/静止の数値未達を保全。今回は構造図と32秒の無音紹介を新しいOpus5.5で制作し、新しい描画/操作/公開のQAで検証しました。",
     "reviewed_on": "2026-10-15"
   },
-  "updated_on": "2026-10-19"
+  "updated_on": "2026-10-21",
+  "video_portrait": "media/motion-video-kit-example.mp4",
+  "video_landscape": "media/motion-video-kit-example-wide.mp4",
+  "poster_portrait": "media/motion-video-kit-example.webp",
+  "poster_landscape": "media/motion-video-kit-example-wide.webp",
+  "video_width": 720,
+  "video_height": 1280,
+  "video_license": {
+    "id": "LicenseRef-Yaoyorozu-Video-Credit",
+    "label": "クレジット表記必須（商用利用・編集・再配布OK）",
+    "url": "media-rights.html",
+    "credit": "引用元:Yaoyorozu-AI Toolbox made by studio_yebisu",
+    "x_mention": "@studio_yebisu",
+    "effective_on": "2026-10-21"
+  },
+  "video_download_portrait": "media/downloads/motion-video-kit-example-portrait-credited.mp4",
+  "video_download_landscape": "media/downloads/motion-video-kit-example-landscape-credited.mp4"
 }

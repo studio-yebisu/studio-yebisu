@@ -1,13 +1,11 @@
 {
   "id": "chatterbox-example",
-  "title": "Chatterbox作例：英語の文が、手元のPythonで音声WAVになる仕組み",
+  "title": "Chatterbox",
   "title_lines": [
-    "英語の文を、",
-    "手元のPythonで",
-    "音声WAVへ"
+    "英語の文章を声にする音声合成モデル"
   ],
   "category": "audio",
-  "summary": "Chatterboxは手元のGPUで動くPythonの音声合成（TTS）モデルとツールです。英語の文が文字IDになり、組み込み条件とともにT3の音声ID、S3Genの波形、Perthの透かしを通ってWAVになる流れを、大きな構造図と32秒の無音動画にしました。固定版で実際に合成した3本のWAVを聞いて、保存できます。",
+  "summary": "英語の文章から、手元のPCで音声を生成できます。短い案内や読み上げの音声をWAVで保存し、実際に聴きながら使う音を選べます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/chatterbox-example/index.html",
@@ -170,20 +168,21 @@
     }
   ],
   "license": "MIT（Chatterbox の原典と重み）",
-  "license_note": "Chatterbox のコードは MIT License（Copyright (c) 2025 Resemble AI）で、LICENSE・README・pyproject.toml と読んだソースを vendor/chatterbox/ に原文のまま置いています。重み（ResembleAI/chatterbox）はモデルカードのとおり MIT で、モデルカードだけを同梱し、重み・キャッシュ・環境は同梱しません。一部のソースは CosyVoice（Apache-2.0）・HiFi-GAN・HiFTNet・Real-Time-Voice-Cloning（いずれも MIT）に由来し、見出しを変えずに残し、ライセンス本文を vendor/notices/ に置いています。Perth（MIT）は vendor/perth/ にあります。これら第三者のソースは Studio Yebisu の新しい著作物ではありません。ページ・図・文章・動画のソースは Studio Yebisu の制作（Claude Opus 5.5）です。3本の WAV は固定版で合成した出力で、Perth の透かしが入っています。",
+  "license_note": "Chatterbox のコードは MIT License（Copyright (c) 2025 Resemble AI）で、LICENSE・README・pyproject.toml と読んだソースを vendor/chatterbox/ に原文のまま置いています。重み（ResembleAI/chatterbox）はモデルカードのとおり MIT で、モデルカードだけを同梱し、重み・キャッシュ・環境は同梱しません。一部のソースは CosyVoice（Apache-2.0）・HiFi-GAN・HiFTNet・Real-Time-Voice-Cloning（いずれも MIT）に由来し、見出しを変えずに残し、ライセンス本文を vendor/notices/ に置いています。Perth（MIT）は vendor/perth/ にあります。これら第三者のソースは Yaoyorozu-AI Toolbox の新しい著作物ではありません。ページ・図・文章・動画のソースは Yaoyorozu-AI Toolbox の制作（Claude Opus 5.5）です。3本の WAV は固定版で合成した出力で、Perth の透かしが入っています。 完成したデモ・説明動画は、クレジット表記を条件に商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。詳しい条件は media-rights.html を参照してください。",
   "skill_license": "examples/chatterbox-example/vendor/chatterbox/LICENSE",
   "video_note": "32秒・30fps・無音の構造図の動画です。縦720×1280と横1280×720を別配置で描きます。英語の文が文字IDに、組み込み条件がT3とS3Genの2方向へ入り、T3の音声ID→S3Genの波形→Perthの透かしを通って、実際の3つのWAVの包絡で終わります。ナレーション・音声トラックはなく、実WAVはデモの独立したプレイヤーで聞けます。制作担当がMP4とポスターを描画し、代表・連続コマと実MP4の終端、出荷ソース62PNGの一致を確認しました。人の審美的承認とは区別します。",
   "video_source": "examples/chatterbox-example/video/index.html",
-  "updated_on": "2026-10-19",
+  "updated_on": "2026-10-21",
   "featured": true,
   "verification_stage": "runtime-reviewed",
   "guide_url": "case.html?id=chatterbox-example",
   "catalog_entry": {
     "id": "resource-chatterbox",
     "name": "Chatterbox",
+    "tagline": "英語の文章を声にする音声合成モデル",
     "category": "audio",
     "kind": "モデル・ツール",
-    "summary": "英語の文から音声を作る、手元で動くPythonの音声合成モデルとツール。作例は文字ID、組み込み条件、T3の音声ID、S3Genの波形、Perthの透かし、実際の3本のWAVの関係を図解しています。",
+    "summary": "英語の文章から、手元のPCで音声を生成できます。短い案内や読み上げの音声をWAVで保存し、実際に聴きながら使う音を選べます。",
     "use_case": "短い英語の案内文を、手元のGPUで音声WAVにして聞き比べたいとき。",
     "tags": [
       "音声",
@@ -223,5 +222,18 @@
   "requirements": [
     "閲覧・聞き比べはブラウザーだけで利用できます。ライブの合成や音声のアップロードはありません。",
     "同梱の run_example.py で合成し直すには、Python 3.11・CUDA対応のGPU・固定版の依存（torch 2.6.0+cu124 など、Perth は ff1c8ac に固定）と、ResembleAI/chatterbox の重み5ファイルを別に用意します。重み・キャッシュ・環境は公開フォルダーの外に置きます。"
-  ]
+  ],
+  "video_portrait": "media/chatterbox-example.mp4",
+  "poster_portrait": "media/chatterbox-example.webp",
+  "poster_landscape": "media/chatterbox-example-wide.webp",
+  "video_license": {
+    "id": "LicenseRef-Yaoyorozu-Video-Credit",
+    "label": "クレジット表記必須（商用利用・編集・再配布OK）",
+    "url": "media-rights.html",
+    "credit": "引用元:Yaoyorozu-AI Toolbox made by studio_yebisu",
+    "x_mention": "@studio_yebisu",
+    "effective_on": "2026-10-21"
+  },
+  "video_download_portrait": "media/downloads/chatterbox-example-portrait-credited.mp4",
+  "video_download_landscape": "media/downloads/chatterbox-example-landscape-credited.mp4"
 }

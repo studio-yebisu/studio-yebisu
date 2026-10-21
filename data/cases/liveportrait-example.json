@@ -1,13 +1,11 @@
 {
   "id": "liveportrait-example",
-  "title": "LivePortrait作例：1枚の肖像を、手動の角度だけで動かす",
+  "title": "LivePortrait",
   "title_lines": [
-    "LivePortraitで、",
-    "1枚の肖像が",
-    "動くまで"
+    "1枚の肖像を動かす画像アニメーションモデル"
   ],
   "category": "video",
-  "summary": "LivePortraitは、1枚の顔の画像を動かすための、手元で動くPythonの肖像アニメーションのモデルと原典のコアAPIです。この作例は原典の LivePortraitWrapper だけを直接呼び、原典に同梱の《モナ・リザ》の複製画を手で切り出した1枚と、作者が決めたyawの値（±8度・±16度）から、Fの見た目の特徴とMの21点に分かれ、W・Gで新しい画像になるまでを、大きな構造図と32秒の無音動画にしました。保存済みの3秒のMP4を再生し、そのまま保存できます。",
+  "summary": "人物の静止画に、別の映像の表情や頭の動きを反映できます。元の画像の見た目をもとに、ポートレートの表情や動きを変えたアニメーションを作れます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/liveportrait-example/index.html",
@@ -173,11 +171,11 @@
     }
   ],
   "license": "MIT（LivePortrait のソースと重み）／パブリックドメインの絵画の複製（入力）／MIT（この作例）",
-  "license_note": "LivePortrait（KlingAIResearch/LivePortrait）のソースは MIT（Copyright (c) 2024 Kuaishou Visual Generation and Interaction Center）で、固定版から選んだ22ファイルを LICENSE とともに vendor/liveportrait/ に原文のまま置いています。原典の LICENSE は InsightFace の検出モデルを非商用研究用としていますが、この作例ではその検出モデルを取得・読み込み・実行していません。重みは KlingTeam/LivePortrait の固定版（モデルカードは MIT）の5ファイルで、配布していません。入力は原典に同梱の s9.jpg（レオナルド・ダ・ヴィンチ《モナ・リザ》の複製画、原作品はパブリックドメイン）で、手動の切り出しと生成画像はそこからの派生です。Python・PyTorch・NumPy・SciPy・Pillow・OpenCV・PyYAML・rich・FFmpeg はそれぞれのライセンスで別に入れた依存で、同梱していません。ページ・図・文章・動画のソースとランナーは Studio Yebisu の制作（Claude Opus 5.5）で MIT です。",
+  "license_note": "LivePortrait（KlingAIResearch/LivePortrait）のソースは MIT（Copyright (c) 2024 Kuaishou Visual Generation and Interaction Center）で、固定版から選んだ22ファイルを LICENSE とともに vendor/liveportrait/ に原文のまま置いています。原典の LICENSE は InsightFace の検出モデルを非商用研究用としていますが、この作例ではその検出モデルを取得・読み込み・実行していません。重みは KlingTeam/LivePortrait の固定版（モデルカードは MIT）の5ファイルで、配布していません。入力は原典に同梱の s9.jpg（レオナルド・ダ・ヴィンチ《モナ・リザ》の複製画、原作品はパブリックドメイン）で、手動の切り出しと生成画像はそこからの派生です。Python・PyTorch・NumPy・SciPy・Pillow・OpenCV・PyYAML・rich・FFmpeg はそれぞれのライセンスで別に入れた依存で、同梱していません。ページ・図・文章・動画のソースとランナーは Yaoyorozu-AI Toolbox の制作（Claude Opus 5.5）で MIT です。 完成したデモ・説明動画は、クレジット表記を条件に商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。詳しい条件は media-rights.html を参照してください。",
   "skill_license": "examples/liveportrait-example/vendor/liveportrait/LICENSE",
   "video_note": "32秒・30fps・無音の構造図の動画です。縦720×1280と横1280×720を別配置で描きます。原典のreadmeと範囲が作者AIのランナーと値になり、制作担当の1回の実行で、原画の手動の切り出しが256に縮み、同じ1枚からFの見た目の特徴とMの21点に分かれ、作者の手動のyawで21点が変換・補正され、Wで同じF特徴と合流してGが新しい画像を描き、代表5枚とMP4になって再生・保存へ戻ります。画像は照合した原画・切り出し・生成PNGだけで、21点は元推論の保存配列で、角度は推定姿勢と手動の入力制御値です。ナレーション・音声トラックはありません。制作担当が12スマホ状態・6部品8引用・16表示条件・3破損停止と復旧、実3秒動画2本の自然終端、5保存要求と返却5ファイルの全バイト一致、編集48素材・7場面・任意7.2秒・通常32秒・ネイティブrange0.1秒、代表/連続/contactと縦横32秒960f無音MP4の全デコード/自然終端、出荷ソース62PNG一致を新しく確認。人の審美的承認・実機iOS/Safari/VoiceOver・200%拡大・全入力/品質/性能は未確認。",
   "video_source": "examples/liveportrait-example/video/index.html",
-  "updated_on": "2026-10-20",
+  "updated_on": "2026-10-21",
   "featured": false,
   "verification_stage": "runtime-reviewed",
   "runtime_review": {
@@ -194,9 +192,10 @@
   "catalog_entry": {
     "id": "resource-liveportrait",
     "name": "LivePortrait",
+    "tagline": "1枚の肖像を動かす画像アニメーションモデル",
     "category": "video",
     "kind": "モデル・ツール",
-    "summary": "人物の画像へ、別の映像の表情や動きを反映する、手元で動くポートレートアニメーションのモデルとツール。作例はその原典のコアAPIだけを直接呼び、1枚の肖像が見た目の特徴と21点に分かれ、手動の角度で新しい画像になる関係を図解しています。",
+    "summary": "人物の静止画に、別の映像の表情や頭の動きを反映できます。元の画像の見た目をもとに、ポートレートの表情や動きを変えたアニメーションを作れます。",
     "use_case": "静止画の人物を動かし、表情や頭の動きの伝わり方を試したいとき。",
     "tags": [
       "動画",
@@ -238,5 +237,18 @@
   "requirements": [
     "閲覧・再生・保存はブラウザーだけで利用できます。推論・合成・エンコード・アップロードはありません。照合に SHA-256 を使うため、https か localhost で開きます。",
     "同じ経路を自分で実行するには、固定版 LivePortrait のフルチェックアウト、KlingTeam/LivePortrait の固定した5つの重み、Python 3.11 のCPU専用環境（torch 2.6.0+cpu など）、FFmpeg を別に用意します。顔検出モデル・駆動動画・GPUは、この範囲には要りません。手順は作例の README にあります。"
-  ]
+  ],
+  "video_portrait": "media/liveportrait-example.mp4",
+  "poster_portrait": "media/liveportrait-example.webp",
+  "poster_landscape": "media/liveportrait-example-wide.webp",
+  "video_license": {
+    "id": "LicenseRef-Yaoyorozu-Video-Credit",
+    "label": "クレジット表記必須（商用利用・編集・再配布OK）",
+    "url": "media-rights.html",
+    "credit": "引用元:Yaoyorozu-AI Toolbox made by studio_yebisu",
+    "x_mention": "@studio_yebisu",
+    "effective_on": "2026-10-21"
+  },
+  "video_download_portrait": "media/downloads/liveportrait-example-portrait-credited.mp4",
+  "video_download_landscape": "media/downloads/liveportrait-example-landscape-credited.mp4"
 }

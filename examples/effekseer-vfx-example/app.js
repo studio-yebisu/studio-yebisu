@@ -1,4 +1,4 @@
-/* 受け止めた瞬間の、青い防御ヒット — capture viewer. Studio Yebisu original (MIT).
+/* 受け止めた瞬間の、青い防御ヒット — capture viewer. Yaoyorozu-AI Toolbox original (MIT).
    Shows the PNGs Godot rendered during production (capture-manifest.json). It does not run Godot or Effekseer
    and draws nothing of the effect itself. */
 (() => {

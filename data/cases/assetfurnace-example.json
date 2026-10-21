@@ -1,13 +1,11 @@
 {
   "id": "assetfurnace-example",
-  "title": "AssetFurnace作例：手元の3Dアプリの圧縮CLIで、形はそのままテクスチャだけを縮める",
+  "title": "AssetFurnace / Image to 3D Lab",
   "title_lines": [
-    "AssetFurnaceで、",
-    "形はそのまま",
-    "テクスチャを縮める"
+    "画像や文章から3D素材を作る制作ツール"
   ],
   "category": "3d",
-  "summary": "AssetFurnace（旧 Image to 3D Lab）は、文章や画像から手元で3Dを作り、ゲーム向けに仕上げる3Dアプリ／パイプラインです。この作例はその補助CLIのうちGLBのテクスチャ圧縮だけを、CC0の木箱を包んだ同じGLBに上限1024・512・256で実行し、形はそのまま、画像は元より小さい時だけ置き換わる流れを、大きな構造図と32秒の無音動画にしました。実際の出力GLBを回して見比べ、そのまま保存できます。",
+  "summary": "画像や文章をもとに3D素材を生成し、テクスチャやリグなどの処理をつなげられます。素材の生成から、ゲームなどで使うための加工までを手元で試せます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/assetfurnace-example/index.html",
@@ -173,11 +171,11 @@
     }
   ],
   "license": "Apache-2.0（AssetFurnace のソース）／CC0（木箱）／MIT（three.js・この作例）",
-  "license_note": "AssetFurnace（Bingeljell/image-to-3dlab）のソースは Apache License 2.0 で、固定版から選んだ10ファイルを LICENSE と NOTICE とともに vendor/assetfurnace/ に原文のまま置いています。再配布では NOTICE を残し、リポジトリへのリンクを付けます。選択10ファイルはアプリ全体ではありませんが、圧縮CLIはPythonとPillowで単独実行できます。木箱 Wooden Crate 01 は James Ray Cock・Poly Haven の CC0 で、元の5ファイルは以前の作例からの再利用、包装した入力GLBとテクスチャを縮めた出力GLBはそこからの派生ファイルです。three.js 0.180.0 は MIT で、以前の作例から無改変で再利用しています。Blender と Pillow はそれぞれのライセンスで別にインストールした依存で、同梱していません。モデルの重みは使っていません。ページ・図・文章・動画のソースとランナーは Studio Yebisu の制作（Claude Opus 5.5）で MIT です。",
+  "license_note": "AssetFurnace（Bingeljell/image-to-3dlab）のソースは Apache License 2.0 で、固定版から選んだ10ファイルを LICENSE と NOTICE とともに vendor/assetfurnace/ に原文のまま置いています。再配布では NOTICE を残し、リポジトリへのリンクを付けます。選択10ファイルはアプリ全体ではありませんが、圧縮CLIはPythonとPillowで単独実行できます。木箱 Wooden Crate 01 は James Ray Cock・Poly Haven の CC0 で、元の5ファイルは以前の作例からの再利用、包装した入力GLBとテクスチャを縮めた出力GLBはそこからの派生ファイルです。three.js 0.180.0 は MIT で、以前の作例から無改変で再利用しています。Blender と Pillow はそれぞれのライセンスで別にインストールした依存で、同梱していません。モデルの重みは使っていません。ページ・図・文章・動画のソースとランナーは Yaoyorozu-AI Toolbox の制作（Claude Opus 5.5）で MIT です。 完成したデモ・説明動画は、クレジット表記を条件に商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。詳しい条件は media-rights.html を参照してください。",
   "skill_license": "examples/assetfurnace-example/vendor/assetfurnace/LICENSE",
   "video_note": "32秒・30fps・無音の構造図の動画です。縦720×1280と横1280×720を別配置で描きます。原典と依頼が作者AIのジョブになり、制作担当の包装で元の5ファイルが1つのGLBになり、そのGLBが形の12本と実際の画像3枚に分かれ、1024・512・256の上限で候補が縮み、元より小さい時だけ置き換わって、同じ形と一緒に出力GLBへ戻ります。1024上限は縮めず元のJPEGが残ります。3Dは確かめた実GLBの描画で、最後は3つの出力を同じ向きで並べます。ナレーション・音声トラックはありません。制作担当が18スマホ状態・6引用・16表示条件・3破損停止と復旧、実GLB4本の描画と同じカメラの比較、5保存要求と返却5ファイルの全バイト一致、39素材編集・7場面・任意7.2秒・通常32秒再生、代表/連続/contactと縦横32秒960f無音MP4の全デコード/自然終端、出荷ソース62PNG一致を新しく確認。人の審美的承認・実機iOS/VoiceOver・200%拡大・全入力/性能・ゲーム適性は未確認。",
   "video_source": "examples/assetfurnace-example/video/index.html",
-  "updated_on": "2026-10-20",
+  "updated_on": "2026-10-21",
   "featured": false,
   "verification_stage": "runtime-reviewed",
   "runtime_review": {
@@ -194,9 +192,10 @@
   "catalog_entry": {
     "id": "resource-assetfurnace",
     "name": "AssetFurnace / Image to 3D Lab",
+    "tagline": "画像や文章から3D素材を作る制作ツール",
     "category": "3d",
     "kind": "生成パイプライン",
-    "summary": "画像や文章から手元で3D素材を作り、テクスチャやリグなどの処理をつなぐ3Dアプリ／パイプライン。作例はその補助CLIのうち、GLBのテクスチャ圧縮だけを実際に使い、形はそのまま画像だけが縮む関係を図解しています。",
+    "summary": "画像や文章をもとに3D素材を生成し、テクスチャやリグなどの処理をつなげられます。素材の生成から、ゲームなどで使うための加工までを手元で試せます。",
     "use_case": "3D素材の生成から、ゲームで使うための加工までの流れを試したいとき。",
     "tags": [
       "3D",
@@ -238,5 +237,18 @@
   "requirements": [
     "閲覧・3D表示・保存はブラウザーだけで利用できます。圧縮・生成・アップロード・モデルの実行はありません。3D表示にはWebGLが要ります。",
     "同じ経路を自分で実行するには、固定版 image-to-3dlab のフルチェックアウト、Python 3.11 と Pillow 11.3.0、入力をGLBにまとめる Blender 5.2.1 を別に用意します。AssetFurnace の広い機能の依存・モデルの重み・GPUは、この範囲には要りません。手順は作例の README にあります。"
-  ]
+  ],
+  "video_portrait": "media/assetfurnace-example.mp4",
+  "poster_portrait": "media/assetfurnace-example.webp",
+  "poster_landscape": "media/assetfurnace-example-wide.webp",
+  "video_license": {
+    "id": "LicenseRef-Yaoyorozu-Video-Credit",
+    "label": "クレジット表記必須（商用利用・編集・再配布OK）",
+    "url": "media-rights.html",
+    "credit": "引用元:Yaoyorozu-AI Toolbox made by studio_yebisu",
+    "x_mention": "@studio_yebisu",
+    "effective_on": "2026-10-21"
+  },
+  "video_download_portrait": "media/downloads/assetfurnace-example-portrait-credited.mp4",
+  "video_download_landscape": "media/downloads/assetfurnace-example-landscape-credited.mp4"
 }

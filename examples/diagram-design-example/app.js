@@ -1,4 +1,4 @@
-/* Diagram Design の作例 — Studio Yebisu (MIT).
+/* Diagram Design の作例 — Yaoyorozu-AI Toolbox (MIT).
    Progressive enhancement only: the route tabs and the copy button.
    The diagram in the iframe is a static file; nothing here touches it. */
 (() => {

@@ -1,13 +1,11 @@
 {
   "id": "pdf-creator-example",
-  "title": "PDF Creator：指示書と原稿から、2つの版へ",
+  "title": "PDF Creator",
   "title_lines": [
-    "手順を読む。",
-    "同じ原稿を、",
-    "2つの版へ。"
+    "原稿から配布用PDFを仕上げる文書制作スキル"
   ],
   "category": "documents",
-  "summary": "AIが読む手順書とPython変換器、CSSテーマを持つスキルです。依頼と案内の材料を作者へ渡し、制作担当が原典を実行し、HTMLからPDF、別工程の全ページ確認へつなぐ構造を大きな動く図で追えます。元のA4版と148×210mm版も開けます。",
+  "summary": "原稿と用途に合わせて、Pythonの変換器とCSSテーマでPDFを作れます。文字、余白、改ページを各ページで確認し、配布用の資料へ仕上げられます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/pdf-creator-example/index.html",
@@ -54,7 +52,7 @@
     }
   ],
   "limitations": [
-    "案内の内容はStudio Yebisuが作った架空のワークショップです。実際の開催・申込窓口・外部送信はなく、参加の申し込みはできません。",
+    "案内の内容はYaoyorozu-AI Toolboxが作った架空のワークショップです。実際の開催・申込窓口・外部送信はなく、参加の申し込みはできません。",
     "原稿に表がないため、表の罫線チェック（check_table_borders.py）は対象外です。一括変換（batch_convert.py）と WeasyPrint バックエンドも試していません。",
     "原典は主に中国語の組版を想定しています。和文の禁則はCSSで指定していますが、すべての禁則パターンを網羅的に確かめたわけではありません。",
     "macOS のプレビュー、Adobe Acrobat Reader、実際の印刷での見え方は確認していません。人による最終承認も行っていません。",
@@ -122,17 +120,18 @@
     }
   ],
   "license": "MIT",
-  "license_note": "作例の原稿・追加CSS・ページのコードと文章はMIT License（© 2026 Studio Yebisu）。同梱した原典 PDF Creator はMIT License（Copyright (c) 2025 daymade）で、LICENSEをそのまま保持しています。PDFに使う Noto Sans JP は SIL Open Font License 1.1 で、フォント本体は同梱せず、条件を FONT-OFL.txt に収録しています。",
+  "license_note": "作例の原稿・追加CSS・ページのコードと文章はMIT License（© 2026 Studio Yebisu）。同梱した原典 PDF Creator はMIT License（Copyright (c) 2025 daymade）で、LICENSEをそのまま保持しています。PDFに使う Noto Sans JP は SIL Open Font License 1.1 で、フォント本体は同梱せず、条件を FONT-OFL.txt に収録しています。 完成したデモ・説明動画は、クレジット表記を条件に商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。詳しい条件は media-rights.html を参照してください。",
   "video_note": "32秒・30fps・完全無音。縦720×1280と横1280×720を別配置で描きます。指示書と依頼→作者と制作担当→Pandoc HTML/CSS/Chrome→同じ原稿の1ページと2ページ→原稿と別工程の確認→実PDF、の構造紹介です。元のPDF生成やlintは再実行していません。",
   "video_source": "examples/pdf-creator-example/video/index.html",
   "skill_license": "examples/pdf-creator-example/vendor/pdf-creator/LICENSE",
-  "updated_on": "2026-10-19",
+  "updated_on": "2026-10-21",
   "catalog_entry": {
     "id": "resource-pdf-creator",
     "name": "PDF Creator",
+    "tagline": "原稿から配布用PDFを仕上げる文書制作スキル",
     "category": "documents",
     "kind": "スキル",
-    "summary": "手順書とPython変換器・CSSテーマ。用途と原稿からPDFを作り、全ページの見た目を別に確認する。",
+    "summary": "原稿と用途に合わせて、Pythonの変換器とCSSテーマでPDFを作れます。文字、余白、改ページを各ページで確認し、配布用の資料へ仕上げられます。",
     "use_case": "文章をPDFの配布資料へ仕上げ、文字・余白・改ページを確認したいとき。",
     "tags": [
       "Markdown",
@@ -165,5 +164,21 @@
     "reviewed_on": "2026-10-15",
     "example_url": "examples/pdf-creator-example/index.html#paper",
     "image": "media/pdf-creator-example.webp"
-  }
+  },
+  "video_portrait": "media/pdf-creator-example.mp4",
+  "video_landscape": "media/pdf-creator-example-wide.mp4",
+  "poster_portrait": "media/pdf-creator-example.webp",
+  "poster_landscape": "media/pdf-creator-example-wide.webp",
+  "video_width": 720,
+  "video_height": 1280,
+  "video_license": {
+    "id": "LicenseRef-Yaoyorozu-Video-Credit",
+    "label": "クレジット表記必須（商用利用・編集・再配布OK）",
+    "url": "media-rights.html",
+    "credit": "引用元:Yaoyorozu-AI Toolbox made by studio_yebisu",
+    "x_mention": "@studio_yebisu",
+    "effective_on": "2026-10-21"
+  },
+  "video_download_portrait": "media/downloads/pdf-creator-example-portrait-credited.mp4",
+  "video_download_landscape": "media/downloads/pdf-creator-example-landscape-credited.mp4"
 }

@@ -1,13 +1,11 @@
 {
   "id": "crawl4ai-example",
-  "title": "Crawl4AI作例：ブラウザー・本文の選択・2つの出力を図で見る",
+  "title": "Crawl4AI",
   "title_lines": [
-    "Crawl4AIの中身と、",
-    "ページを文章・項目に",
-    "変える仕組み"
+    "WebページをAI向けのデータに変えるクローラー"
   ],
   "category": "research",
-  "summary": "Crawl4AIは、Pythonからブラウザーを動かし、ページをMarkdownの文章とCSSで決めた項目に変えるライブラリです。URLと設定、描画を待つ門、本文の範囲、並列する2つの出力を、大きな動く図と32秒の無音動画でつなぎました。元の架空3ページ・6節・404の診断の実結果を保っています。",
+  "summary": "PythonからWebページを開き、本文をMarkdownに変換したり、指定した項目を抽出したりできます。複数の公開ページを集め、検索や比較に使うデータへ整えられます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/crawl4ai-example/index.html",
@@ -152,19 +150,20 @@
     }
   ],
   "license": "MIT（作例）",
-  "license_note": "作例のコード・文章・架空の手順書はMIT License（Copyright (c) 2026 Studio Yebisu）。Crawl4AI は Apache License 2.0 で、原典の README と LICENSE が求める帰属表示（This project uses Crawl4AI (https://github.com/unclecode/crawl4ai) for web data extraction. と UncleCode の表示）をビューアのフッターと README に載せています。依存パッケージとブラウザーは同梱していません。Crawl4AI Cloud と取得先の利用条件は別です。",
+  "license_note": "作例のコード・文章・架空の手順書はMIT License（Copyright (c) 2026 Studio Yebisu）。Crawl4AI は Apache License 2.0 で、原典の README と LICENSE が求める帰属表示（This project uses Crawl4AI (https://github.com/unclecode/crawl4ai) for web data extraction. と UncleCode の表示）をビューアのフッターと README に載せています。依存パッケージとブラウザーは同梱していません。Crawl4AI Cloud と取得先の利用条件は別です。 完成したデモ・説明動画は、クレジット表記を条件に商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。詳しい条件は media-rights.html を参照してください。",
   "video_note": "32秒・30fps・無音。縦720×1280と横1280×720を別配置で描きます。同じURL・ページ・節が、Python呼び出し、ブラウザー、待機、本文の選択、並列するMarkdownとJSON、保存先へ動く概念図です。保存済みの実結果に基づく編集映像で、ライブ取得の録画ではありません。音声トラックはありません。",
   "video_source": "examples/crawl4ai-example/video/index.html",
   "skill_license": "examples/crawl4ai-example/vendor/crawl4ai/LICENSE",
-  "updated_on": "2026-10-18",
+  "updated_on": "2026-10-21",
   "verification_stage": "runtime-reviewed",
   "guide_url": "case.html?id=crawl4ai-example",
   "catalog_entry": {
     "id": "resource-crawl4ai",
     "name": "Crawl4AI",
+    "tagline": "WebページをAI向けのデータに変えるクローラー",
     "category": "research",
     "kind": "クローラー",
-    "summary": "Pythonからブラウザーでページを開き、本文をMarkdownとCSS指定の項目へ変換するライブラリ。",
+    "summary": "PythonからWebページを開き、本文をMarkdownに変換したり、指定した項目を抽出したりできます。複数の公開ページを集め、検索や比較に使うデータへ整えられます。",
     "use_case": "公開ドキュメントの複数ページを集め、検索や比較に使いたいとき。",
     "tags": [
       "Web",
@@ -198,5 +197,21 @@
     "reviewed_on": "2026-10-16",
     "example_url": "examples/crawl4ai-example/index.html",
     "image": "media/crawl4ai-example.webp"
-  }
+  },
+  "video_portrait": "media/crawl4ai-example.mp4",
+  "video_landscape": "media/crawl4ai-example-wide.mp4",
+  "poster_portrait": "media/crawl4ai-example.webp",
+  "poster_landscape": "media/crawl4ai-example-wide.webp",
+  "video_width": 720,
+  "video_height": 1280,
+  "video_license": {
+    "id": "LicenseRef-Yaoyorozu-Video-Credit",
+    "label": "クレジット表記必須（商用利用・編集・再配布OK）",
+    "url": "media-rights.html",
+    "credit": "引用元:Yaoyorozu-AI Toolbox made by studio_yebisu",
+    "x_mention": "@studio_yebisu",
+    "effective_on": "2026-10-21"
+  },
+  "video_download_portrait": "media/downloads/crawl4ai-example-portrait-credited.mp4",
+  "video_download_landscape": "media/downloads/crawl4ai-example-landscape-credited.mp4"
 }

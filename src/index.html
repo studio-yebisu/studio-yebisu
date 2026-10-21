@@ -3,19 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Studio Yebisu｜作例のあるAIスキルとツールの日本語カタログ</title>
-  <meta name="description" content="画面づくりから調査、学習まで、用途の分野ごとにAIスキルとライブラリ・ツールを探せる日本語カタログです。原典・ライセンス・確認状況・AIへの頼み方を項目ごとにまとめ、実際に制作した作例は記事と動画で紹介しています。">
+  <title>Yaoyorozu-AI Toolbox｜用途から選ぶAIの道具箱</title>
+  <meta name="description" content="Yaoyorozu-AI Toolbox（やおよろずのAI道具箱）は、AIスキルとツールを名前・用途・できることから探せる日本語カタログです。原典・ライセンス・確認状況・AIへの頼み方を項目ごとにまとめています。">
   <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#f2eee3">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="gallery.css">
+  <link rel="stylesheet" href="media.css">
+  <link rel="stylesheet" href="share.css">
 </head>
 <body class="home" id="top">
   <a class="skip" href="#catalog">カタログへ移動</a>
 
   <header class="masthead">
-    <a class="wordmark" href="./" aria-label="Studio Yebisu トップ">Studio Yebisu</a>
+    <a class="wordmark" href="./" aria-label="Yaoyorozu-AI Toolbox トップ">Yaoyorozu-AI Toolbox</a>
     <nav class="masthead-nav" aria-label="ページ内">
-      <a href="#cases">作例</a>
+      <a href="#cases">ツール</a>
       <a href="#fields">分野</a>
       <a href="#catalog">カタログ</a>
       <a href="#howto">頼み方</a>
@@ -25,11 +28,12 @@
   <main id="main">
     <section class="intro" aria-labelledby="hero-title">
       <div class="intro-copy">
-        <h1 id="hero-title" class="intro-title"><span class="phrase">作例から、</span><span class="phrase">AIの道具を選ぶ。</span></h1>
-        <p class="intro-lead">スキルやツールの使いどころとAIへの依頼文を、原典をもとに日本語でまとめています。</p>
+        <p class="intro-label">やおよろずのAI道具箱</p>
+        <h1 id="hero-title" class="intro-title"><span class="phrase">用途から、</span><span class="phrase">AIの道具を選ぶ。</span></h1>
+        <p class="intro-lead">スキル・ツール・OpenWeightの使いどころとAIへの依頼文を、原典をもとに日本語でまとめています。</p>
       </div>
       <div class="intro-tools">
-        <form class="search-box" role="search" action="./#catalog" data-hero-form>
+        <form class="search-box" role="search" action="./#cases" data-hero-form>
           <label for="hero-q" class="search-label">やりたいことや名前で探す</label>
           <div class="search-row">
             <input id="hero-q" type="search" name="q" autocomplete="off" enterkeyhint="search" placeholder="例：スライド、図解、テスト" data-hero-q>
@@ -37,51 +41,54 @@
           </div>
         </form>
         <dl class="tally" aria-label="掲載の内訳" data-tally>
-          <div><dt>掲載</dt><dd><span class="num" data-total>—</span>件</dd></div>
+          <div><dt>カタログ</dt><dd><span class="num" data-total>—</span>件</dd></div>
           <div><dt>分野</dt><dd><span class="num" data-cat-total>—</span></dd></div>
-          <div><dt>作例の記事</dt><dd><span class="num" data-case-total>—</span>本</dd></div>
+          <div><dt>解説付き</dt><dd><span class="num" data-case-total>—</span>件</dd></div>
         </dl>
         <p class="tally-note" data-tally-note hidden>件数を読み込めませんでした。</p>
       </div>
     </section>
 
-    <section id="cases" class="cases" aria-labelledby="cases-title" tabindex="-1">
-      <header class="section-head">
-        <h2 id="cases-title" class="section-title">作例から選ぶ</h2>
-        <p class="section-note">Studio Yebisuで実際に作り、手順・依頼文・条件を記録したものです。記事では解説動画とデモも見られます。</p>
+
+    <section id="cases" class="cases gallery" aria-labelledby="cases-title" tabindex="-1">
+      <span id="feature" class="sr-only" aria-hidden="true"></span>
+      <header class="gallery-head">
+        <div class="gallery-heading">
+          <h2 id="cases-title" class="section-title">動画で知るスキル・ツール</h2>
+          <p class="gallery-note">PCでは横向き、スマホでは縦向きの動画が無音で自動再生されます。カードを開くと、動画の音やデモも試せます。</p>
+          <p class="gallery-note">動画の利用にはクレジット表記が必須です。Xでは <a href="https://x.com/studio_yebisu">@studio_yebisu</a> を記載してください。<a href="media-rights.html">動画の利用条件</a></p>
+        </div>
+        <p class="gallery-count" data-gallery-count>ツールを読み込んでいます…</p>
       </header>
 
-      <article id="feature" class="feature" aria-labelledby="feature-title" data-feature>
-        <a class="feature-media" href="case.html?id=brief-to-demo" tabindex="-1" aria-hidden="true" data-feature-media>
-          <img src="media/brief-to-demo.webp" alt="" width="1280" height="720" decoding="async" fetchpriority="high" data-feature-poster>
-        </a>
-        <div class="feature-body">
-          <p class="card-meta"><span class="card-cat" data-feature-cat>エージェント</span><span data-feature-skill>brief-to-demo</span></p>
-          <h3 id="feature-title" class="feature-title"><a href="case.html?id=brief-to-demo" data-feature-link><span class="phrase">ひと言を、</span><span class="phrase">作れる依頼に。</span></a></h3>
-          <p class="feature-summary" data-feature-summary>「イベント受付を使いやすくしたい」のような短い依頼を、目的・渡す素材・読むスキル・完成条件がそろった制作ブリーフに整えるスキルです。</p>
-          <div class="actions">
-            <a class="btn btn-ink" href="case.html?id=brief-to-demo" data-feature-read>記事を読む</a>
-            <a class="btn btn-line" href="examples/brief-to-demo/index.html" data-feature-demo>デモを開く</a>
-          </div>
-        </div>
-      </article>
+      <div class="gallery-filter" role="group" aria-label="スキル・ツールを分野で絞り込む" data-gallery-chips hidden></div>
+      <div class="gallery-query" data-gallery-query hidden></div>
 
-      <div class="rail-head" data-rail-head hidden>
-        <p class="rail-title"><span data-rail-label>ほかの作例</span><span class="rail-order" data-rail-order></span></p>
-        <div class="rail-controls">
-          <button type="button" class="rail-btn" data-rail-prev aria-controls="case-rail" disabled>
-            <svg class="icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M14.5 5.5 8 12l6.5 6.5"/></svg>
-            <span class="sr-only">前の作例</span>
-          </button>
-          <button type="button" class="rail-btn" data-rail-next aria-controls="case-rail">
-            <svg class="icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M9.5 5.5 16 12l-6.5 6.5"/></svg>
-            <span class="sr-only">次の作例</span>
-          </button>
+      <!-- Without scripts this card still leads to a real article; the full list replaces it. -->
+      <ul class="gallery-grid" aria-labelledby="cases-title" aria-busy="true" data-gallery>
+        <li class="gallery-card" style="--g-hue: 28">
+          <div class="gallery-frame" aria-hidden="true">
+            <img src="media/brief-to-demo.webp" alt="" width="1280" height="720" decoding="async">
+          </div>
+          <div class="gallery-body">
+            <p class="gallery-cat">エージェント</p>
+            <h3 class="gallery-name"><a class="gallery-link" href="case.html?id=brief-to-demo" data-case-id="brief-to-demo"><span class="gallery-skill">brief-to-demo</span><span class="gallery-title">曖昧な依頼を具体化するブリーフ作成スキル</span></a></h3>
+            <p class="gallery-summary">短い依頼を、目的、使う素材、制作手順、完成条件が揃ったブリーフに整理できます。決まっていない条件を分けて記録し、次に作業するAIへ渡せます。</p>
+          </div>
+        </li>
+      </ul>
+
+      <div class="gallery-empty" data-gallery-empty hidden>
+        <p class="empty-title">当てはまる項目がありません。</p>
+        <p data-gallery-empty-detail>別の言葉で探すか、分野の絞り込みを外してください。</p>
+        <div class="actions">
+          <button type="button" class="btn btn-ink" data-gallery-reset>すべてのツールを見る</button>
+          <a class="btn btn-line" href="#catalog" data-to-catalog>カタログで探す</a>
         </div>
       </div>
-      <ul id="case-rail" class="case-rail" aria-label="ほかの作例（横にスクロールできます）" data-case-rail hidden></ul>
+
       <div class="inline-error" data-cases-error hidden>
-        <p>作例の一覧を読み込めませんでした。</p>
+        <p>ツールの一覧を読み込めませんでした。</p>
         <button type="button" class="btn btn-line" data-cases-retry>もう一度読み込む</button>
       </div>
     </section>
@@ -128,12 +135,12 @@
             <div class="chip-row">
               <button type="button" class="chip" data-kind="all" aria-pressed="true">すべて</button>
               <button type="button" class="chip" data-kind="skill" aria-pressed="false"><span class="mark mark-skill" aria-hidden="true"></span>スキル<span class="chip-count" data-kind-count="skill"></span></button>
-              <button type="button" class="chip" data-kind="support" aria-pressed="false"><span class="mark mark-support" aria-hidden="true"></span>ツール・教材など<span class="chip-count" data-kind-count="support"></span></button>
+              <button type="button" class="chip" data-kind="support" aria-pressed="false"><span class="mark mark-support" aria-hidden="true"></span>ツール・モデルなど<span class="chip-count" data-kind-count="support"></span></button>
             </div>
           </fieldset>
           <label class="chip chip-check">
             <input type="checkbox" data-with-case>
-            <span>作例の記事がある項目だけ</span><span class="chip-count" data-case-count></span>
+            <span>動画・デモのある項目だけ</span><span class="chip-count" data-case-count></span>
           </label>
           <button type="button" class="text-btn" data-reset hidden>絞り込みをすべて外す</button>
         </form>
@@ -184,15 +191,16 @@
 
   <footer class="colophon">
     <div class="colophon-main">
-      <p class="wordmark wordmark-small">Studio Yebisu</p>
-      <p>掲載しているスキルやライブラリの説明は、それぞれの原典をもとに日本語でまとめたものです。使うときは原典のライセンスと最新の説明を確かめてください。</p>
+      <p class="wordmark wordmark-small">Yaoyorozu-AI Toolbox</p>
+      <p>掲載しているスキル・ツール・モデルの説明は、それぞれの原典をもとに日本語でまとめたものです。使うときは原典のライセンスと最新の説明を確かめてください。</p>
+      <p>独自制作の動画はクレジット表記必須。Xでは @studio_yebisu を記載してください。<a href="media-rights.html">動画の利用条件</a></p>
       <p class="colophon-updated">カタログ更新日　<span data-updated>—</span></p>
     </div>
     <nav class="colophon-links" aria-label="専門の案内サイト">
       <a href="https://studio-yebisu.github.io/awesome-claude-ui-ux-design-ja/">UI・UX</a>
       <a href="https://studio-yebisu.github.io/awesome-codex-ppt-skills-ja/">AIスライド</a>
       <a href="https://studio-yebisu.github.io/awesome-claude-motion-design-ja/">モーション</a>
-      <a href="https://github.com/studio-yebisu/studio-yebisu">Studio Yebisu</a>
+      <a href="https://github.com/studio-yebisu/studio-yebisu">Yaoyorozu-AI Toolbox</a>
     </nav>
   </footer>
 
@@ -207,7 +215,7 @@
     </a>
     <a class="tab" href="#cases">
       <svg class="icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M3.5 5.5h17v13h-17z"/><path d="M10 9.2v5.6l4.8-2.8z"/></svg>
-      <span>作例</span>
+      <span>ツール</span>
     </a>
     <a class="tab" href="#catalog">
       <svg class="icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="M10.5 4a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13z"/><path d="M15.3 15.3 20 20"/></svg>
@@ -217,6 +225,9 @@
 
   <p class="sr-only" role="status" aria-live="polite" data-announce></p>
   <script src="ui.js"></script>
+  <script src="media.js"></script>
+  <script src="share.js"></script>
+  <script src="gallery.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

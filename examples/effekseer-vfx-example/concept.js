@@ -1,4 +1,4 @@
-// Studio Yebisu: Effekseer VFX concept map (visual-r1).
+// Yaoyorozu-AI Toolbox: Effekseer VFX concept map (visual-r1).
 // One connected diagram of what the skill is, what is inside it, how a request reaches the author AI and real tools,
 // and what comes back. The browser only reads frozen files next to this module: it never runs Python, Effekseer
 // Core, Godot, a model or a review. Every effect pixel drawn here is a pixel of a saved Godot PNG.

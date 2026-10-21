@@ -1,4 +1,4 @@
-// Studio Yebisu original demo, 2026. MIT License.
+// Yaoyorozu-AI Toolbox original demo, 2026. MIT License.
 // Same export.mjs contract as before/before.mjs; UI changes follow review.md.
 import {summarize,serializeExport} from './export.mjs';
 

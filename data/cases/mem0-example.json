@@ -1,12 +1,11 @@
 {
   "id": "mem0-example",
-  "title": "Mem0作例：好みを覚えて、図で引き出す",
+  "title": "Mem0",
   "title_lines": [
-    "好みを覚えて、",
-    "図で引き出す。"
+    "会話をまたいで情報を覚えるAI向け記憶層"
   ],
   "category": "knowledge",
-  "summary": "2人の好みを別々に保存し、同じ問いから必要な記録を引き出す。20秒から30秒への更新、一覧からの削除、開き直した後の実結果を、大きな動く概念図と32秒の無音縦動画で説明します。",
+  "summary": "会話や作業から必要な情報を保存し、次の依頼で取り出せます。利用者の好みや継続する仕事の情報を、複数の会話で参照できるアプリに組み込めます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/mem0-example/index.html",
@@ -165,19 +164,20 @@
     }
   ],
   "license": "MIT（独自作例）・Apache-2.0（Mem0原典）",
-  "license_note": "作例のコード・文章・架空の入力は MIT License（Copyright (c) 2026 Studio Yebisu）。vendor/mem0/ の156ファイルは、mem0ai/mem0 の固定コミット 0724291 のファイルを改変せずに置いたもので、Apache License 2.0（Copyright [2023] [Taranjeet Singh]）です。原典の LICENSE はそのまま同梱しています。埋め込みモデル sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 は Apache-2.0 で、重みはこの作例に含めず、各自が固定版を取得します。実行は CPU だけで、外部 API・キー・アカウント・Mem0 Platform は使いません。依存の導入とモデルの取得には通信が要ります。ソース制作に用いた Opus 5.5 の利用環境は別に必要です。",
+  "license_note": "作例のコード・文章・架空の入力は MIT License（Copyright (c) 2026 Studio Yebisu）。vendor/mem0/ の156ファイルは、mem0ai/mem0 の固定コミット 0724291 のファイルを改変せずに置いたもので、Apache License 2.0（Copyright [2023] [Taranjeet Singh]）です。原典の LICENSE はそのまま同梱しています。埋め込みモデル sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2 は Apache-2.0 で、重みはこの作例に含めず、各自が固定版を取得します。実行は CPU だけで、外部 API・キー・アカウント・Mem0 Platform は使いません。依存の導入とモデルの取得には通信が要ります。ソース制作に用いた Opus 5.5 の利用環境は別に必要です。 完成したデモ・説明動画は、クレジット表記を条件に商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。詳しい条件は media-rights.html を参照してください。",
   "video_note": "32秒・無音。好み→記憶→検索をつなぐ大きな図が動き、同じ記憶の更新や、開き直した後も値が残る実結果を説明します。縦版を主に、横版も用意しました。",
   "video_source": "examples/mem0-example/video/index.html",
   "skill_license": "examples/mem0-example/vendor/mem0/LICENSE",
-  "updated_on": "2026-10-17",
+  "updated_on": "2026-10-21",
   "verification_stage": "runtime-reviewed",
   "guide_url": "case.html?id=mem0-example",
   "catalog_entry": {
     "id": "resource-mem0",
     "name": "Mem0",
+    "tagline": "会話をまたいで情報を覚えるAI向け記憶層",
     "category": "knowledge",
     "kind": "ライブラリ",
-    "summary": "会話や作業から情報を保存し、次の依頼で取り出すための記憶層。",
+    "summary": "会話や作業から必要な情報を保存し、次の依頼で取り出せます。利用者の好みや継続する仕事の情報を、複数の会話で参照できるアプリに組み込めます。",
     "use_case": "複数回の会話をまたいで、必要な情報をアプリが参照できるようにしたいとき。",
     "tags": [
       "検索",
@@ -218,5 +218,21 @@
     "screen_review": "Diagram-first saved-result viewer and original8-case comparison; original API/input/output retained. New native diagram/save/asset checks recorded separately.",
     "video": "32s/30fps/960frames;720x1280 portrait,1280x720 wide;silent/audio streams0; deterministic source, full decode and native playback verified.",
     "model_scope": "Original Opus runtime/source receipts preserved; new Opus5.5 receipt authors diagram UI and silent film source. Production checked/rendered/packaged/published; no new inference claimed."
-  }
+  },
+  "video_portrait": "media/mem0-example.mp4",
+  "video_landscape": "media/mem0-example-wide.mp4",
+  "poster_portrait": "media/mem0-example.webp",
+  "poster_landscape": "media/mem0-example-wide.webp",
+  "video_width": 720,
+  "video_height": 1280,
+  "video_license": {
+    "id": "LicenseRef-Yaoyorozu-Video-Credit",
+    "label": "クレジット表記必須（商用利用・編集・再配布OK）",
+    "url": "media-rights.html",
+    "credit": "引用元:Yaoyorozu-AI Toolbox made by studio_yebisu",
+    "x_mention": "@studio_yebisu",
+    "effective_on": "2026-10-21"
+  },
+  "video_download_portrait": "media/downloads/mem0-example-portrait-credited.mp4",
+  "video_download_landscape": "media/downloads/mem0-example-landscape-credited.mp4"
 }

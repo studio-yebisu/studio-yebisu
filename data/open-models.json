@@ -1,0 +1,581 @@
+{
+  "schema_version": 3,
+  "updated_on": "2026-10-21",
+  "title": "OpenWeight",
+  "intro": "画像を作る、台詞に声を付ける、録音を整理する。目的が決まったモデルを、具体的な使い方から選ぶ。",
+  "definition": "OpenWeight（オープンウェイト）は、学習済みの重みが公開されているモデルのこと。利用条件や必要な機材はモデルごとに異なります。",
+  "evidence_note": "図はモデルの働きを説明するための図解です。実際の画質・音質や出力は、各項目の公式・作者の作例で確認できます。",
+  "models": [
+    {
+      "id": "flux-3-klein",
+      "name": "FLUX 3 Image Klein",
+      "provider": "Black Forest Labs",
+      "category": "owm-tools",
+      "task": "画像生成・編集",
+      "visual_type": "image-edit",
+      "featured": true,
+      "headline": "参照画像の枚数で、生成・編集・合成を切り替える。",
+      "summary": "Black Forest Labsの画像モデル（生成・編集用の蒸留版）。文章だけなら新しく描き、参照画像を添えれば編集や合成になる。どの場合も、短い依頼を場面全体の説明文へ広げてから渡す。",
+      "explanation": [
+        {
+          "title": "参照画像の枚数で、作業が変わる",
+          "text": "文章だけを渡せば新しい画像を描き、参照画像を1枚添えれば「同じ場面を夜にする」といった編集、最大10枚まで添えれば複数の素材を一枚にまとめる合成になる。作業ごとにモデルを替える必要はない。要素の位置は0〜1000の格子上のボックスで指示できるが、ボックスは位置と大きさの目安で、はみ出しや範囲外の変化は起こり得る。"
+        },
+        {
+          "title": "短い依頼は、そのまま渡さない",
+          "text": "公式は、短い依頼をそのまま入れると平凡な絵になるとして、画風・場面・光とカメラ・被写体の位置まで書いた説明文へ広げる「プロンプト拡張」を必須にしている。拡張には公式の9Bモデルか、公式のシステムプロンプトを与えた別のLLMを使う。また、この重みは生成用の蒸留版で、追加学習やLoRAには別公開のKlein Baseを使う。"
+        }
+      ],
+      "input": {
+        "label": "依頼文＋参照画像0〜10枚",
+        "text": "作りたい場面の依頼と、必要なら参照画像を渡す"
+      },
+      "process": {
+        "label": "説明文へ広げて描く",
+        "text": "別モデルで依頼を場面全体の説明文に広げ、参照画像の枚数に応じて生成・編集・合成する"
+      },
+      "output": {
+        "label": "画像1枚",
+        "text": "生成・編集・合成のどれでも、結果は1枚の画像"
+      },
+      "example": {
+        "kind": "linked-demo",
+        "title": "ボックス配置と編集の公式作例",
+        "description": "公式ページで、文字・月・猫などを要素ごとのボックスで配置した切手風の作例と、「夏の通りを雪景色に」「滝を凍らせる」といった指示による編集の前後を確認できる。",
+        "url": "https://bfl.ai/models/flux-3-image-klein",
+        "label": "公式の作例を見る",
+        "credit": "Black Forest Labs",
+        "note": "公式の公開作例。サイト内の図は入出力を説明する模式図です。"
+      },
+      "requirements": "モデル利用条件への同意、対応する推論コードとGPU。公式はプロンプトを詳しい場面説明へ展開して使うよう案内。",
+      "limitations": [
+        "重みの取得にはHugging Face上で条件への同意が必要。",
+        "5.6Bは画像Transformerの規模。テキストエンコーダー等は別に必要。"
+      ],
+      "concept": "media/open-models/flux-3-klein.svg",
+      "concept_alt": "模式図：短い依頼「夜の雪景色に」が別モデルで拡張され、画風・被写体・光とカメラ・位置を書いた説明文になり、毎回モデルへ渡される。下では参照画像なし・1枚・複数枚（最大10枚）の3本の線が同じモデルに集まり、それぞれ生成・編集・合成として画像1枚になる。",
+      "diagram_note": "説明文は毎回必ず通り、参照画像の枚数だけで生成・編集・合成が分かれる点に注目。",
+      "post": {
+        "url": "https://x.com/studio_yebisu/status/2110763835175153885",
+        "posted_at": "2026-10-15T16:04:49+00:00",
+        "context": "画像生成モデルの重み公開を、BFLの発表を引用して紹介。"
+      },
+      "weights": {
+        "model_id": "black-forest-labs/flux-3-image-klein",
+        "url": "https://huggingface.co/black-forest-labs/flux-3-image-klein",
+        "revision": "337337621b8526e120f2275d250242f4a6bedd75",
+        "gated": true,
+        "availability": "published",
+        "weight_files_count": 9
+      },
+      "license": {
+        "name": "FLUX Kommunity License v1.0",
+        "note": "独自ライセンス。非商用利用と、関連会社を含む年間売上500万米ドル未満のQualifying Userによる商用出力利用等を条件付きで認める。詳細は原文を確認。",
+        "url": "https://huggingface.co/black-forest-labs/flux-3-image-klein/blob/337337621b8526e120f2275d250242f4a6bedd75/LICENSE.md"
+      },
+      "sources": [
+        {
+          "label": "確認したモデルカード",
+          "url": "https://huggingface.co/black-forest-labs/flux-3-image-klein/blob/337337621b8526e120f2275d250242f4a6bedd75/README.md"
+        }
+      ],
+      "verification": {
+        "stage": "source-reviewed",
+        "checked_on": "2026-10-21",
+        "inference": "not-run"
+      },
+      "model_axis": "task-specialist",
+      "task_category": "graphics"
+    },
+    {
+      "id": "moss-image",
+      "name": "MOSS-Image-Base",
+      "provider": "OpenMOSS",
+      "category": "owm-tools",
+      "task": "画像・レイアウト",
+      "visual_type": "layout",
+      "featured": false,
+      "headline": "描く文字と置き場所を、JSONで項目ごとに指定する。",
+      "summary": "OpenMOSSの画像生成モデルの基盤版。普通の文章やタグに加えて、場面の説明・描く文字・物の位置をまとめたJSONの「レイアウト」を、そのまま指示として受け取れる。",
+      "explanation": [
+        {
+          "title": "看板の文字と猫の位置を、別々の行に書く",
+          "text": "レイアウトでは、場面全体の説明に続けて、描く文字や物を1項目ずつ並べ、それぞれに位置の枠を付ける。看板の「OPEN」は右上、猫は左下、と分けて書ける。枠の座標は生成する画像のサイズに合わせて書くので、出力サイズも同じ値にそろえる。文字や枠の数値を書き換えて生成し直せば、構図を部分ごとに調整できる。公式ガイドでは実験的な機能とされている。"
+        },
+        {
+          "title": "BaseとSFTは別の重み",
+          "text": "ここで扱うのは基盤のBase版。同じ系列で追加調整したSFT版が別に公開されており、モデルカードの比較例ではSFTの方が文字のまとまりやホワイトボードの配置が整理されている。作例を見るときはどちらの重みかを確かめたい。FLUX 3 Kleinも枠で配置できるが、MOSSはJSONそのものを指示にし、画像サイズに合わせた座標で場面を組み立てる。"
+        }
+      ],
+      "input": {
+        "label": "文章・タグ・JSONレイアウト",
+        "text": "場面の説明に加え、描く文字や物と、それぞれの位置の枠を渡す"
+      },
+      "process": {
+        "label": "項目ごとの位置を反映",
+        "text": "全体の説明と、文字・物ごとの枠を生成の条件にする"
+      },
+      "output": {
+        "label": "画像1枚",
+        "text": "指定した文字や物を、指定した位置付近に置いた画像"
+      },
+      "example": {
+        "kind": "linked-demo",
+        "title": "文字とレイアウトを指定する公式作例",
+        "description": "モデルカードで、同じ指示によるBaseとSFTの比較画像と、レイアウトの枠を重ねた配置指定の作例を見られる。ここで選んだ重みはBase。",
+        "url": "https://huggingface.co/OpenMOSS-Team/MOSS-Image-Base#showcase",
+        "label": "公式の作例を見る",
+        "credit": "OpenMOSS",
+        "note": "モデルの公式作例。紹介投稿に出てくるKohakuMossTrainerは、別の学習ツールです。"
+      },
+      "requirements": "対応する推論環境とGPU。JSONで配置を渡す場合は生成画像のサイズと座標形式を合わせる。",
+      "limitations": [
+        "BaseとSFTの作例・条件を混同しない。",
+        "追加学習ツールや学習画像には、モデル本体とは別の利用条件がある。"
+      ],
+      "concept": "media/open-models/moss-image.svg",
+      "concept_alt": "模式図：左のJSONレイアウトに、全体の説明「夕方の路地」、文字「OPEN」と位置の枠、猫と位置の枠が並ぶ。各項目は線で右の画像の同じ色の枠へつながる。猫の枠は点線の元の位置から新しい位置へ移り、枠の数値を変えると配置が変わることを示す。下にBase（この重み）とSFT（別の重み）の札がある。",
+      "diagram_note": "左のJSONの1項目が右の画像の1つの枠に対応し、数値を変えると枠が動く点に注目。",
+      "post": {
+        "url": "https://x.com/studio_yebisu/status/2111950915116875831",
+        "posted_at": "2026-10-18T22:41:50+00:00",
+        "context": "MOSS-Imageの画風・被写体の追加学習につながる資料を紹介。"
+      },
+      "weights": {
+        "model_id": "OpenMOSS-Team/MOSS-Image-Base",
+        "url": "https://huggingface.co/OpenMOSS-Team/MOSS-Image-Base",
+        "revision": "85975793d8b3d432f1b6e27f352abaa4c2a4c0d3",
+        "gated": false,
+        "availability": "published",
+        "weight_files_count": 8
+      },
+      "license": {
+        "name": "Apache-2.0",
+        "note": "モデルの重みと同梱推論コードはApache-2.0。学習ツール・追加素材・生成物の権利は別途確認する。",
+        "url": "https://huggingface.co/OpenMOSS-Team/MOSS-Image-Base/blob/85975793d8b3d432f1b6e27f352abaa4c2a4c0d3/LICENSE"
+      },
+      "sources": [
+        {
+          "label": "確認したモデルカード",
+          "url": "https://huggingface.co/OpenMOSS-Team/MOSS-Image-Base/blob/85975793d8b3d432f1b6e27f352abaa4c2a4c0d3/README.md"
+        }
+      ],
+      "verification": {
+        "stage": "source-reviewed",
+        "checked_on": "2026-10-21",
+        "inference": "not-run"
+      },
+      "model_axis": "task-specialist",
+      "task_category": "graphics"
+    },
+    {
+      "id": "ming-3-tts",
+      "name": "Ming-3.0-tts-0.5B",
+      "provider": "Ant Ling / inclusionAI",
+      "category": "owm-tools",
+      "task": "音声合成",
+      "visual_type": "voice-design",
+      "featured": false,
+      "headline": "台詞の読ませ方を、声の複製・声の設計・演出指示から選ぶ。",
+      "summary": "Ant Ling / inclusionAIの0.5B音声合成モデル。日本語を含む7言語に対応し、参照音声からの声の複製、文章による声の設計、言葉での演出指示などを、呼び出しごとに一つのタスクとして選んで使う。",
+      "explanation": [
+        {
+          "title": "同じ台詞でも、モードで声の決め方が変わる",
+          "text": "短い参照音声があれば、その声をまねて読む。参照がなければ「落ち着いた低めの声」のような説明から声を作る（Voice Design）。演じ方は、感情や速さ・高さ・音量を指定するモードのほか、「途中から声を落として」のように言葉で指示する自由演出モードがある。日本語を読ませるときは、言語を指定する多言語モードを使う。"
+        },
+        {
+          "title": "全部を一度に重ねる仕組みではない",
+          "text": "公式は機能ごとに別のタスクとして呼び出す設計で、任意の組み合わせはできないと明記している。たとえば自由演出は、声の設計・内蔵ボイス・感情・方言・属性の指定とは併用できない（参照音声があればその声に従う）。笑いやため息を入れる14種のインラインタグも中国語・英語向けの機能なので、日本語の台詞での効き方は公式音声で確かめたい。"
+        }
+      ],
+      "input": {
+        "label": "台詞＋タスクごとの指定",
+        "text": "読む文章と、選んだタスクに合う参照音声・声の説明・演出指示などを渡す"
+      },
+      "process": {
+        "label": "選んだタスクで合成",
+        "text": "1回の呼び出しで一つのタスクを選び、その指定に従って声と話し方を決める"
+      },
+      "output": {
+        "label": "音声（44.1kHz）",
+        "text": "ナレーションや台詞の音声ファイル"
+      },
+      "example": {
+        "kind": "linked-demo",
+        "title": "多言語・声の指定の公式音声",
+        "description": "公式デモページで、同じ物語を7言語・2つの複製した声で読んだ例や、声の設計・演出指示・インラインタグなどのサンプルを聴ける。各サンプルは1回の呼び出しで一つのタスクを使っている。",
+        "url": "https://nomorecoding.github.io/Ming-3.0-tts/",
+        "label": "公式の音声を聴く",
+        "credit": "Ant Ling / inclusionAI",
+        "note": "公式サンプル。今回のサイト制作では新たな音声合成を行っていません。"
+      },
+      "requirements": "公式Ming-3.0-ttsの推論コードとチェックポイント。指定できる条件の組み合わせはタスクごとに異なる。",
+      "limitations": [
+        "5モデル全体の規模・機能を、この0.5B版の機能として扱わない。",
+        "日本語対応と、すべての感情・音声タグが日本語で同じように効くことは別。参照する声は利用権限のあるものを使う。"
+      ],
+      "concept": "media/open-models/ming-3-tts.svg",
+      "concept_alt": "模式図：左の台詞カードから、4つのモード（参照音声で複製、声を文章で設計、言葉で演出を指示、感情を指定）へ線が分かれ、実線は選んだ一つだけ。選んだモードから右の音声波形へつながる。言葉で演出を指示するモードと、声の設計・感情の指定の間には×印があり、併用しないことを示す。",
+      "diagram_note": "台詞から伸びる線のうち実線は一本だけで、1回の合成では一つのモードを選ぶ点に注目。",
+      "post": {
+        "url": "https://x.com/studio_yebisu/status/2112376008016007363",
+        "posted_at": "2026-10-20T02:51:01+00:00",
+        "context": "Ming-3.0の音声5モデルを紹介。その中から小型のTTSモデルを選定。"
+      },
+      "weights": {
+        "model_id": "inclusionAI/Ming-3.0-tts-0.5B",
+        "url": "https://huggingface.co/inclusionAI/Ming-3.0-tts-0.5B",
+        "revision": "8d66b70a00f05ad183fa8a863b4ce609fc83cbc0",
+        "gated": false,
+        "availability": "published",
+        "weight_files_count": 1
+      },
+      "license": {
+        "name": "MIT",
+        "note": "固定したモデルカードはMITと明記。推論コードと付属コンポーネントの条件も確認する。",
+        "url": "https://huggingface.co/inclusionAI/Ming-3.0-tts-0.5B/blob/8d66b70a00f05ad183fa8a863b4ce609fc83cbc0/README.md"
+      },
+      "sources": [
+        {
+          "label": "確認したモデルカード",
+          "url": "https://huggingface.co/inclusionAI/Ming-3.0-tts-0.5B/blob/8d66b70a00f05ad183fa8a863b4ce609fc83cbc0/README.md"
+        }
+      ],
+      "verification": {
+        "stage": "source-reviewed",
+        "checked_on": "2026-10-21",
+        "inference": "not-run"
+      },
+      "model_axis": "task-specialist",
+      "task_category": "audio"
+    },
+    {
+      "id": "drama3-small",
+      "name": "drama3-small",
+      "provider": "PentaCoxian / Fish Audio派生",
+      "category": "owm-tools",
+      "task": "表現付きの音声",
+      "visual_type": "voice-clone",
+      "featured": true,
+      "headline": "参照した声で、台本のタグから笑いやささやきを指定する。",
+      "summary": "Fish Audio Drama 3を個人開発者が圧縮した派生モデル。10〜30秒の参照音声から声をまね、台本に書いたタグや英語の演出指示で、日本語・英語の台詞に表情を付ける。",
+      "explanation": [
+        {
+          "title": "タグを置いた場所が、表情の出る場所になる",
+          "text": "台本の途中の[sighs]で、その位置のため息を指示する。行頭に[softly, whispering …]のような英語の演出指示を置けば、行全体の話し方を指定できる。<whisper>…</whisper>で一部だけを囲むこともできる。声そのものは参照音声から取るため、声を引き継ぎながら台詞ごとに演技を変えられる。作者の作例では、日本語の参照声で英語の物語も読んでいる。"
+        },
+        {
+          "title": "小さくした分の条件",
+          "text": "元の35B規模のDrama 3から内部の部品を間引き、約3ビットに圧縮したうえで、元モデルの出力に近づける追加学習（蒸留）をした版。作者の計測ではRTX 4090でピーク約10.26GiBで、12GBのGPUでは未検証。動かすには専用パッチを当てたaudio.cppが要る。無音で止まる症状を防ぐ修正が推奨されるが、途中で迷った行は残りが読まれずに終わる場合がある。"
+        }
+      ],
+      "input": {
+        "label": "台本＋参照音声",
+        "text": "タグや演出指示を書き込んだ台本と、利用権限のある10〜30秒の声を渡す"
+      },
+      "process": {
+        "label": "声をまね、タグを演技に",
+        "text": "参照から声の特徴を取り、タグの位置や演出指示に合わせて話し方を変える"
+      },
+      "output": {
+        "label": "表情付きの台詞音声",
+        "text": "参照に近い声で、笑い・ため息・ささやきなどを含む音声"
+      },
+      "example": {
+        "kind": "linked-demo",
+        "title": "日本語の物語・技術用語・表現タグ",
+        "description": "作者のモデルカードで、本人の29秒の日本語参照音声から作った7本のサンプルを、実際に入力した台本（[laughs]・[sighs]・英語の演出指示・<whisper>を含む）と対で聴ける。",
+        "url": "https://huggingface.co/pentacoxian-dev/drama3-small-GGUF#samples",
+        "label": "作者の音声を聴く",
+        "credit": "PentaCoxian。作者自身の声を、同意の上で参照。",
+        "note": "元の35Bモデルと、この圧縮派生版の作例・条件を区別して読む。"
+      },
+      "requirements": "指定されたaudio.cppと付属パッチ、CUDA対応GPU、参照音声。",
+      "limitations": [
+        "作者はRTX 4090でピーク約10.26GiBと計測。12GBの実機では未検証と明記しており、12GBでの動作保証ではない。",
+        "一般公開するTTS・音声クローンサービスは、通常の作品用音声の生成と条件が異なる。"
+      ],
+      "concept": "media/open-models/drama3-small.svg",
+      "concept_alt": "模式図：左の黄緑の参照音声カードから、二つの台詞の波形へ同じ声として線がつながる。上の台詞は行頭の[sighs]タグが、波形の先頭のため息部分と点線でそろう。下の台詞は行頭の英語の演出指示[softly, whispering …]が括弧で行全体を覆い、波形全体が小さな振幅になる。左下には元のDrama 3から圧縮版への小さな矢印がある。",
+      "diagram_note": "タグを置いた位置・範囲と、波形で表情が出る位置・範囲が縦にそろっている点に注目。",
+      "post": {
+        "url": "https://x.com/studio_yebisu/status/2110768730330550326",
+        "posted_at": "2026-10-15T16:24:16+00:00",
+        "context": "日本語開発者が公開したDrama 3の圧縮派生モデルを紹介。"
+      },
+      "weights": {
+        "model_id": "pentacoxian-dev/drama3-small-GGUF",
+        "url": "https://huggingface.co/pentacoxian-dev/drama3-small-GGUF",
+        "revision": "4a3078e885344bb9b24d511cec389d2726854d15",
+        "gated": false,
+        "availability": "published",
+        "weight_files_count": 1
+      },
+      "license": {
+        "name": "Fish Audio Community License v1.0",
+        "note": "独自ライセンス。研究・非商用と、年間売上50万米ドル未満等の条件を満たす限定的な商用利用。Hosted Serviceには別契約が必要で、無償研究デモ等の例外は原文を確認。",
+        "url": "https://huggingface.co/pentacoxian-dev/drama3-small-GGUF/blob/4a3078e885344bb9b24d511cec389d2726854d15/LICENSE"
+      },
+      "sources": [
+        {
+          "label": "確認したモデルカード",
+          "url": "https://huggingface.co/pentacoxian-dev/drama3-small-GGUF/blob/4a3078e885344bb9b24d511cec389d2726854d15/README.md"
+        }
+      ],
+      "verification": {
+        "stage": "source-reviewed",
+        "checked_on": "2026-10-21",
+        "inference": "not-run"
+      },
+      "model_axis": "task-specialist",
+      "task_category": "audio"
+    },
+    {
+      "id": "moss-transcribe",
+      "name": "MOSS-Transcribe-Diarize 0.9B",
+      "provider": "OpenMOSS / MOSI.AI",
+      "category": "owm-tools",
+      "task": "文字起こし・話者分離",
+      "visual_type": "transcribe",
+      "featured": true,
+      "headline": "会議の録音を、話者番号と時刻付きの発言リストにする。",
+      "summary": "OpenMOSS / MOSI.AIの0.9B音声理解モデル。録音や動画を一度読み込むだけで、本文・開始と終了の時刻・匿名の話者番号がそろった文字起こしを出す。字幕や議事録の下ごしらえに向く。",
+      "explanation": [
+        {
+          "title": "誰が・いつ・何を、を1行にまとめて返す",
+          "text": "出力は「[開始秒][S01]発言[終了秒]」の形で並ぶ。付属ツールで区間ごとに分ければ、話者別の議事録や、SRTなどの字幕ファイルに整えられる。公式は最大90分の録音を一度に処理でき、50以上の言語に対応するとしている。社名や専門用語は「ホットワード」として指示文に書き足し、聞き取らせたい語を先に伝えられる。"
+        },
+        {
+          "title": "文字起こしと話者分けを、別々につながない",
+          "text": "従来は、文字起こしのモデルと、声の違いで発言を区切って話者ごとにまとめる「話者分離」を別々に動かし、後から時刻で突き合わせることが多かった。このモデルは両方を一度に行い、時刻のそろった本文と一貫した話者番号をまとめて出す。S01やS02は録音の中で振られる仮の番号で、誰の声かを特定するものではない。"
+        }
+      ],
+      "input": {
+        "label": "複数人の録音・動画",
+        "text": "会議や対談の音声・動画ファイルと、必要なら専門用語のヒントを渡す"
+      },
+      "process": {
+        "label": "文字・話者・時刻を同時に",
+        "text": "発言の文字起こし、話者の区別、時刻の付与を1回の処理で行う"
+      },
+      "output": {
+        "label": "話者番号＋時刻＋本文",
+        "text": "[開始][S01]発言[終了]の並び。字幕や議事録へ整形して使う"
+      },
+      "example": {
+        "kind": "linked-demo",
+        "title": "話者と時刻が付く文字起こし例",
+        "description": "モデルカードのOutput Formatで、「[開始秒][話者]本文[終了秒]」の形式と、3つの発言を2人の匿名話者に分けた出力例を確認できる。",
+        "url": "https://huggingface.co/OpenMOSS-Team/MOSS-Transcribe-Diarize#output-format",
+        "label": "公式の出力例を見る",
+        "credit": "OpenMOSS / MOSI.AI",
+        "note": "S01などは録音内での匿名ラベル。人物の実名や本人確認を行う機能ではありません。"
+      },
+      "requirements": "対応する推論コードと音声・動画ファイル。用途に応じて字幕・議事録へ整形する処理を追加する。",
+      "limitations": [
+        "公式の長時間対応や精度の説明は、このサイトでの実測結果ではない。",
+        "誤認識・話者の取り違えがあり得るため、公開する字幕や議事録は元音声と照合する。"
+      ],
+      "concept": "media/open-models/moss-transcribe.svg",
+      "concept_alt": "模式図：上に録音の波形があり、区間ごとに朱色はS01、黄緑はS02と色分けされている。その下の黒い帯で文字・話者・時刻を1回で処理し、各区間の真下に話者番号と本文の行が並ぶ。下段ではモデルカードの出力例「[0.48][S01]Welcome everyone[1.66]」を、開始・話者（匿名の番号）・本文・終了に分解し、字幕・議事録へつなげている。",
+      "diagram_note": "波形の色分けと、下の行の話者番号・区切り位置が同じ時刻でそろっている点に注目。",
+      "post": {
+        "url": "https://x.com/studio_yebisu/status/2112031970775736685",
+        "posted_at": "2026-10-19T04:03:56+00:00",
+        "context": "小型の文字起こし・話者分離モデルを、作者の公開投稿を引用して紹介。"
+      },
+      "weights": {
+        "model_id": "OpenMOSS-Team/MOSS-Transcribe-Diarize",
+        "url": "https://huggingface.co/OpenMOSS-Team/MOSS-Transcribe-Diarize",
+        "revision": "704aa4a9c304e8520be88901e0d1960158ef5b15",
+        "gated": false,
+        "availability": "published",
+        "weight_files_count": 1
+      },
+      "license": {
+        "name": "Apache-2.0",
+        "note": "固定したモデルカードはApache-2.0と明記。入力録音を利用する権利は別に必要。",
+        "url": "https://huggingface.co/OpenMOSS-Team/MOSS-Transcribe-Diarize/blob/704aa4a9c304e8520be88901e0d1960158ef5b15/README.md"
+      },
+      "sources": [
+        {
+          "label": "確認したモデルカード",
+          "url": "https://huggingface.co/OpenMOSS-Team/MOSS-Transcribe-Diarize/blob/704aa4a9c304e8520be88901e0d1960158ef5b15/README.md"
+        }
+      ],
+      "verification": {
+        "stage": "source-reviewed",
+        "checked_on": "2026-10-21",
+        "inference": "not-run"
+      },
+      "model_axis": "task-specialist",
+      "task_category": "audio"
+    },
+    {
+      "id": "hy-memory",
+      "name": "Hy-Memory-30B-A3B",
+      "provider": "Tencent Hunyuan",
+      "category": "owm-tools",
+      "task": "AIの長期記憶",
+      "visual_type": "memory",
+      "featured": false,
+      "headline": "会話のあとで、記憶に足すこと・書き換えることを決める。",
+      "summary": "Tencent Hunyuanの記憶書き込み専用モデル。Mem0やMemOSなどのメモリー基盤の中で、汎用LLMの代わりに「何を残し、どう書き、古い記憶をどう直すか」を担当する。",
+      "explanation": [
+        {
+          "title": "書き込みの判断だけを引き受ける",
+          "text": "会話が終わるたびに、新しい発言と既存の記憶を見比べる。「大阪へ引っ越した」なら住まいの記憶を書き換え、「回答は簡潔がいい」という好みは追加し、雑談は残さない、といった判断を短い文にして返す。紹介投稿の使い方でいえば、作業後に必要な情報を抜き出し、プロジェクト別に保存して次の会話で取り出す流れの、抜き出す部分にあたる。"
+        },
+        {
+          "title": "保存と検索は、基盤の側",
+          "text": "記憶をためるデータベース、質問に関係する記憶を探す検索、それを読んで答えるモデルは、Mem0・MemOS・Hy-Memoryなどの基盤側が持つ。公式の評価もこれらを固定し、書き込み役だけを入れ替えて比べている。汎用LLMに書き込みを任せていた構成で、その部分だけを置き換える部品と考えると分かりやすい。"
+        }
+      ],
+      "input": {
+        "label": "新しい会話＋既存の記憶",
+        "text": "基盤から、直近の会話や作業履歴と、すでに保存されている記憶を受け取る"
+      },
+      "process": {
+        "label": "追加・更新・残さない",
+        "text": "残す事実を選んで簡潔な文に書き、変わった内容は既存の記憶を更新する"
+      },
+      "output": {
+        "label": "記憶への書き込み内容",
+        "text": "基盤が保存し、次の会話で検索して使う"
+      },
+      "example": {
+        "kind": "introduced-workflow",
+        "title": "作業後に整理し、次の会話へ渡す",
+        "description": "紹介投稿にある「作業終了→必要な情報を抽出→プロジェクト別に保存→次の会話で取り出す」という利用例。",
+        "url": "https://x.com/studio_yebisu/status/2111213116159918158",
+        "label": "紹介投稿の利用例を読む",
+        "credit": "StudioYebisu",
+        "note": "投稿に記載された利用例。今回、既存の記憶DBやフックを変更・再検証していません。"
+      },
+      "requirements": "モデルを動かす推論環境と、Hy-Memory・Mem0等の外部メモリー基盤。保存・検索・会話への挿入は利用側で接続する。",
+      "limitations": [
+        "モデル単体が自動でファイルを保存したり、Codexの記憶へ接続したりするわけではない。",
+        "どの情報を残すかは用途ごとの評価が必要。"
+      ],
+      "concept": "media/open-models/hy-memory.svg",
+      "concept_alt": "模式図：左の新しい会話の三つの発言が、点線で囲まれた外部のメモリー基盤の中の朱色の書き込み役（Hy-Memory）へ入る。「大阪へ引っ越した」は記憶の「東京に住む」を「大阪に住む」へ更新し、「回答は簡潔がいい」は追加、「今日は暑いね」は残さない。下段の検索・回答・次の会話への経路は灰色で、基盤側の担当として描かれている。",
+      "diagram_note": "朱色の書き込み役は基盤の中の一部品で、下段の検索・回答の経路には関わらない点に注目。",
+      "post": {
+        "url": "https://x.com/studio_yebisu/status/2111213116159918158",
+        "posted_at": "2026-10-16T21:50:05+00:00",
+        "context": "作業後に記憶を整理し、次の会話へ渡す本人の利用方法を紹介。"
+      },
+      "weights": {
+        "model_id": "tencent/Hy-Memory-30B-A3B",
+        "url": "https://huggingface.co/tencent/Hy-Memory-30B-A3B",
+        "revision": "64a460a94d5498b7316fb02395c72d01c47a7347",
+        "gated": false,
+        "availability": "published",
+        "weight_files_count": 51
+      },
+      "license": {
+        "name": "Apache-2.0",
+        "note": "モデル配布物はApache-2.0。外部のメモリー基盤や追加モデルの利用条件は別。",
+        "url": "https://huggingface.co/tencent/Hy-Memory-30B-A3B/blob/64a460a94d5498b7316fb02395c72d01c47a7347/LICENSE"
+      },
+      "sources": [
+        {
+          "label": "確認したモデルカード",
+          "url": "https://huggingface.co/tencent/Hy-Memory-30B-A3B/blob/64a460a94d5498b7316fb02395c72d01c47a7347/README.md"
+        }
+      ],
+      "verification": {
+        "stage": "source-reviewed",
+        "checked_on": "2026-10-21",
+        "inference": "not-run"
+      },
+      "model_axis": "task-specialist",
+      "task_category": "knowledge"
+    },
+    {
+      "id": "timestral",
+      "name": "Timestral-209M",
+      "provider": "Mistral AI",
+      "category": "owm-tools",
+      "task": "時系列予測",
+      "visual_type": "forecast",
+      "featured": true,
+      "headline": "過去の数値から、先の値を中央値と幅で見積もる。",
+      "summary": "Mistral AIの時系列予測モデル（209M版）。販売数やセンサー値など時間順の数値を渡すと、手元のデータで学習し直さずに先の値を予測し、中央値だけでなく21段階の分位点を返す。",
+      "explanation": [
+        {
+          "title": "一本の線ではなく、分位点の束が返る",
+          "text": "分位点とは「実際の値がこれ以下になる見込みが何割か」を表す目安で、0.5が中央値、0.9なら9割がその下に収まる見込みの値。Timestralは0.01から0.99まで21段階を一度に返すので、欠品を避けたい在庫計画なら上側、控えめな見積もりなら下側、と目的に合う段を選べる。幅が広い日ほど、見通しが不確かということ。"
+        },
+        {
+          "title": "先まで分かっている予定も、入力にできる",
+          "text": "履歴は最大32,768時点、予測は一度に最大1,024時点まで扱え、それより先は中央値を履歴に足しながら区切って予測する。休日や販促のように先まで分かっている補助データや、欠けた値も印を付けて渡せる。ただし返る幅は保証ではないので、手元の過去データで誤差を確かめてから計画に使う。"
+        }
+      ],
+      "input": {
+        "label": "時間順の数値＋補助データ",
+        "text": "過去の販売数などと、休日など先まで分かる予定、予測したい期間を渡す"
+      },
+      "process": {
+        "label": "分位点ごとに予測",
+        "text": "履歴と補助データから、先の各時点について21段階の分位点を計算する"
+      },
+      "output": {
+        "label": "中央値と予測の幅",
+        "text": "アプリ側でグラフ化し、在庫や計画にどの段を使うか決める"
+      },
+      "example": {
+        "kind": "illustrative-use",
+        "title": "過去90日の販売数から、翌7日を予測",
+        "description": "紹介投稿にある「過去90日の販売数から翌7日を予測する」という用途を図解。投稿内の表とこのサイトのグラフは、予測の仕組みを伝えるための説明用の値。",
+        "url": "https://x.com/studio_yebisu/status/2110866283889848794",
+        "label": "紹介投稿の入出力を読む",
+        "credit": "StudioYebisuによる用途の説明",
+        "note": "実際にモデルを実行した予測結果ではありません。需要や売上を保証するものでもありません。"
+      },
+      "requirements": "時刻の順序と間隔が整理された数値データ、対応するPyTorch環境。公式はCPU・GPU両方の推論を案内。",
+      "limitations": [
+        "209M版を選定。5M・28M・123M版の性能や必要資源とは分けて考える。",
+        "モデルの予測値を業務へ使う前に、手元のデータで誤差を評価する。"
+      ],
+      "concept": "media/open-models/timestral.svg",
+      "concept_alt": "模式図・値なし：左に過去の数値の黒い線。「いま」から右に、外側が薄い黄緑、内側が濃い黄緑の帯が先へ行くほど広がり、中央に朱色の中央値の線がある。右寄りの「この日」の縦線が帯を切り、上端に0.9（9割がこの下）、中央に0.5（中央値）、下端に0.1（1割がこの下）の印が付く。下の段には過去から先まで続く既知の予定の印が並ぶ。モデルの計算結果ではない。",
+      "diagram_note": "「この日」の縦線一本の上に、0.1・0.5・0.9の三つの値が同時にある点に注目。",
+      "post": {
+        "url": "https://x.com/studio_yebisu/status/2110866283889848794",
+        "posted_at": "2026-10-15T22:51:54+00:00",
+        "context": "過去90日分の販売数から翌7日分を予測する、という用途を入出力で紹介。"
+      },
+      "weights": {
+        "model_id": "mistralai/Timestral-209M",
+        "url": "https://huggingface.co/mistralai/Timestral-209M",
+        "revision": "9874d252ab0aae16f7f7c999f98f98d6ad7d8365",
+        "gated": false,
+        "availability": "published",
+        "weight_files_count": 1
+      },
+      "license": {
+        "name": "Modified MIT",
+        "note": "通常のMITとは異なる。企業または雇用主の前月の世界連結月間売上が2,000万米ドルを超える場合は、このライセンスの権利を行使できない。別契約等は原文を確認。",
+        "url": "https://huggingface.co/mistralai/Timestral-209M/blob/9874d252ab0aae16f7f7c999f98f98d6ad7d8365/LICENSE"
+      },
+      "sources": [
+        {
+          "label": "確認したモデルカード",
+          "url": "https://huggingface.co/mistralai/Timestral-209M/blob/9874d252ab0aae16f7f7c999f98f98d6ad7d8365/README.md"
+        }
+      ],
+      "verification": {
+        "stage": "source-reviewed",
+        "checked_on": "2026-10-21",
+        "inference": "not-run"
+      },
+      "model_axis": "task-specialist",
+      "task_category": "learning"
+    }
+  ],
+  "scope": {
+    "model_axis": "task-specialist",
+    "general_llm": "excluded"
+  }
+}

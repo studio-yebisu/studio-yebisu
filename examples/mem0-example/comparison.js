@@ -1,5 +1,5 @@
 /*
- * Studio Yebisu — Mem0 OSS example viewer.
+ * Yaoyorozu-AI Toolbox — Mem0 OSS example viewer.
  * Copyright (c) 2026 Studio Yebisu. MIT License.
  *
  * Reads the saved run record (outputs/memory-run.json) and the three frozen inputs, checks

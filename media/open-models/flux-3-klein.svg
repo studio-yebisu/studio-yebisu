@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" role="img" aria-labelledby="t d">
+  <title id="t">模式図：FLUX 3 Image Klein — 短い依頼を説明文に広げ、参照画像の枚数で生成・編集・合成が分かれる</title>
+  <desc id="d">上段：短い依頼「夜の雪景色に」が、別モデルによる拡張を通って、画風・被写体・光とカメラ・位置を書いた場面全体の説明文になる。説明文は下向きの矢印で黒いモデルの箱「Klein 同じ重み」へ毎回入る。下段左：参照画像なしは生成、1枚は編集、複数枚（最大10枚）は合成として、3本の線が同じモデルの箱へ集まる。モデルから右の画像1枚（夜の雪景色）へ矢印が出る。仕組みを示す模式図で、モデルの出力ではない。</desc>
+  <style>
+    text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic",Meiryo,"Noto Sans JP",sans-serif;font-weight:700;fill:#17150f}
+    .tg{font-size:24px;fill:#f2eee3}
+    .sm{font-size:26px}
+    .xs{font-size:22px;fill-opacity:0.7}
+    .rw{font-size:34px}
+    .ln{fill:none;stroke:#17150f;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+    .bar{fill:none;stroke-width:8;stroke-linecap:round}
+  </style>
+  <rect width="880" height="540" fill="#fbf9f3"/>
+  <rect x="28" y="28" width="96" height="38" fill="#17150f"/>
+  <text class="tg" x="76" y="55" text-anchor="middle">模式図</text>
+
+  <!-- Short request expanded into a full scene caption -->
+  <text class="sm" x="40" y="106">短い依頼</text>
+  <rect x="40" y="118" width="214" height="64" fill="#f2eee3" stroke="#17150f" stroke-width="4"/>
+  <text x="147" y="161" text-anchor="middle" style="font-size:30px">夜の雪景色に</text>
+
+  <path class="ln" d="M264 150 H340"/>
+  <path class="ln" d="M328 138 L342 150 L328 162"/>
+  <text x="302" y="134" text-anchor="middle" style="font-size:30px;fill:#ff4f00">拡張</text>
+  <text class="xs" x="302" y="186" text-anchor="middle">別モデル</text>
+
+  <text class="sm" x="356" y="86">場面全体の説明文</text>
+  <rect x="356" y="96" width="484" height="112" fill="#fbf9f3" stroke="#17150f" stroke-width="4"/>
+  <text class="sm" x="376" y="140">画風</text>
+  <path class="bar" d="M440 131 H588" stroke="#17150f" stroke-opacity="0.4"/>
+  <text class="sm" x="608" y="140">被写体</text>
+  <path class="bar" d="M696 131 H820" stroke="#17150f" stroke-opacity="0.4"/>
+  <text class="sm" x="376" y="184">光・カメラ</text>
+  <path class="bar" d="M516 175 H588" stroke="#17150f" stroke-opacity="0.4"/>
+  <text class="sm" x="608" y="184">位置</text>
+  <path class="bar" d="M670 175 H820" stroke="#ff4f00"/>
+
+  <!-- Caption always flows into the model -->
+  <path d="M560 212 V280" fill="none" stroke="#ff4f00" stroke-width="5" stroke-linecap="round"/>
+  <path d="M548 268 L560 282 L572 268" fill="none" stroke="#ff4f00" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text class="sm" x="546" y="254" text-anchor="end" style="fill:#ff4f00">毎回これを渡す</text>
+
+  <!-- Reference count decides the task -->
+  <text class="sm" x="40" y="232">参照画像</text>
+
+  <rect x="40" y="246" width="90" height="60" fill="none" stroke="#17150f" stroke-width="3" stroke-dasharray="8 6"/>
+  <text class="sm" x="85" y="285" text-anchor="middle" style="fill-opacity:0.6">なし</text>
+  <text class="rw" x="166" y="287">生成</text>
+
+  <rect x="40" y="332" width="90" height="60" fill="#cbef3a" stroke="#17150f" stroke-width="3"/>
+  <circle cx="106" cy="352" r="10" fill="#ff4f00"/>
+  <path d="M40 392 L72 362 L94 380 L130 356 V392 Z" fill="#17150f"/>
+  <text class="rw" x="166" y="373">編集</text>
+
+  <rect x="60" y="404" width="90" height="60" fill="#e7e1d0" stroke="#17150f" stroke-width="3"/>
+  <rect x="50" y="414" width="90" height="60" fill="#cbef3a" stroke="#17150f" stroke-width="3"/>
+  <rect x="40" y="424" width="90" height="60" fill="#f2eee3" stroke="#17150f" stroke-width="3"/>
+  <circle cx="85" cy="452" r="14" fill="#17150f"/>
+  <text class="rw" x="166" y="456">合成</text>
+  <text class="xs" x="166" y="488">最大10枚</text>
+
+  <path class="ln" d="M250 276 C 370 276 380 320 478 320"/>
+  <path class="ln" d="M250 362 C 370 362 380 350 478 350"/>
+  <path class="ln" d="M250 446 C 370 446 380 380 478 380"/>
+
+  <!-- One model -->
+  <rect x="480" y="288" width="160" height="124" fill="#17150f"/>
+  <text x="560" y="342" text-anchor="middle" style="font-size:36px;fill:#f2eee3">Klein</text>
+  <text x="560" y="386" text-anchor="middle" style="font-size:26px;fill:#cbef3a">同じ重み</text>
+
+  <path class="ln" d="M646 350 H666"/>
+  <path class="ln" d="M656 340 L668 350 L656 360"/>
+
+  <!-- One image -->
+  <rect x="676" y="250" width="164" height="200" fill="#17150f"/>
+  <circle cx="802" cy="292" r="16" fill="#f2eee3"/>
+  <path d="M676 450 V394 L720 352 L754 382 L792 338 L840 386 V450 Z" fill="#f2eee3"/>
+  <g fill="#f2eee3">
+    <circle cx="700" cy="300" r="3"/><circle cx="730" cy="280" r="3"/><circle cx="760" cy="314" r="3"/>
+    <circle cx="712" cy="332" r="3"/><circle cx="772" cy="266" r="3"/><circle cx="824" cy="330" r="3"/>
+  </g>
+  <rect x="676" y="250" width="164" height="200" fill="none" stroke="#17150f" stroke-width="4"/>
+  <text x="758" y="492" text-anchor="middle" style="font-size:32px">画像1枚</text>
+</svg>

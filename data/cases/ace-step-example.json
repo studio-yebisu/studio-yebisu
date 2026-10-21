@@ -1,13 +1,11 @@
 {
   "id": "ace-step-example",
-  "title": "ACE-Step V1作例：手元のPythonで、説明文から音楽WAVが返るまでの仕組み",
+  "title": "ACE-Step",
   "title_lines": [
-    "手元のACE-Step V1で、",
-    "説明文から",
-    "音楽WAVへ"
+    "テキストや歌詞から作曲する音楽生成モデル"
   ],
   "category": "audio",
-  "summary": "ACE-Step V1は、手元のPythonで動く音楽生成モデル（3.5B）です。原典のREADMEとPython APIから、作者AIが書いた実装と入力、制作担当が1回だけ実行した ACEStepPipeline、説明文の条件と長さ・seedの初期潜在、Transformer、DCAEとvocoderを通って、WAVと設定JSONが保存されるまでを、大きな構造図と32秒の無音動画にしました。実際に返った19.97秒のWAVを聞き、そのまま保存できます。",
+  "summary": "曲の雰囲気や歌詞を指定して、手元のPCで楽曲を生成できます。生成した音を聴きながら条件を調整し、音楽制作のアイデアを試せます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/ace-step-example/index.html",
@@ -162,20 +160,21 @@
     }
   ],
   "license": "Apache-2.0（ACE-Step のソースとモデル）／MIT（この作例）",
-  "license_note": "ACE-Step のソースは Apache License 2.0（Copyright 2025 Timedomain Inc. and stepfun）で、固定版から選んだ16ファイルを vendor/ace-step/ に原文のまま置いています（LICENSE と各ファイルの著作権表示を含む）。この16ファイルだけでは動きません。原典には Hugging Face・StabilityAI・Katherine Crowson などに由来する部分があり、その表示は各ファイルに残しています。モデル ACE-Step/ACE-Step-v1-3.5B は公開・ゲートなしの Apache-2.0 で、モデルカードと公式のハッシュを model-card/ に置き、重み・トークナイザーは同梱していません。PyTorch・Diffusers・Transformers などの依存と実行環境は再配布しておらず、それぞれのライセンスに従います。ページ・図・文章・動画のソースとランナーは Studio Yebisu の制作（Claude Opus 5.5）で MIT です。生成されたWAVは固定版V1モデルによるAI生成物で、独創性や既存曲との類似は確認していません。",
+  "license_note": "ACE-Step のソースは Apache License 2.0（Copyright 2025 Timedomain Inc. and stepfun）で、固定版から選んだ16ファイルを vendor/ace-step/ に原文のまま置いています（LICENSE と各ファイルの著作権表示を含む）。この16ファイルだけでは動きません。原典には Hugging Face・StabilityAI・Katherine Crowson などに由来する部分があり、その表示は各ファイルに残しています。モデル ACE-Step/ACE-Step-v1-3.5B は公開・ゲートなしの Apache-2.0 で、モデルカードと公式のハッシュを model-card/ に置き、重み・トークナイザーは同梱していません。PyTorch・Diffusers・Transformers などの依存と実行環境は再配布しておらず、それぞれのライセンスに従います。ページ・図・文章・動画のソースとランナーは Yaoyorozu-AI Toolbox の制作（Claude Opus 5.5）で MIT です。生成されたWAVは固定版V1モデルによるAI生成物で、独創性や既存曲との類似は確認していません。 完成したデモ・説明動画は、クレジット表記を条件に商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。詳しい条件は media-rights.html を参照してください。",
   "skill_license": "examples/ace-step-example/vendor/ace-step/LICENSE",
   "video_note": "32秒・30fps・無音の構造図の動画です。縦720×1280と横1280×720を別配置で描きます。READMEと依頼の書類が作者AIで実装と入力になり、制作担当の1回の実行で説明文のトークンと、長さ・seedの格子に分かれ、Transformerで整った格子がメルへ、そして保存WAVの実際の包絡の波形へ形を変えて、WAVと設定JSON・再生へ届きます。ナレーション・音声トラックはなく、音楽WAVはデモのプレイヤーで聞けます。制作担当が新図の18スマホ状態・6原典引用・16表示条件・3破損復旧、実WAVのネイティブ終端と3保存返却ファイルの全バイト一致、25素材編集・7場面・任意7.2秒・通常再生、代表/連続コマ、縦横32秒960フレーム無音MP4終端と出荷ソース62PNG一致を別工程で確認しました。人の聴取・音の品質・審美的承認・実機iOSは未確認です。",
   "video_source": "examples/ace-step-example/video/index.html",
-  "updated_on": "2026-10-20",
+  "updated_on": "2026-10-21",
   "featured": false,
   "verification_stage": "runtime-reviewed",
   "guide_url": "case.html?id=ace-step-example",
   "catalog_entry": {
     "id": "resource-ace-step",
     "name": "ACE-Step",
+    "tagline": "テキストや歌詞から作曲する音楽生成モデル",
     "category": "audio",
     "kind": "モデル・ツール",
-    "summary": "音楽のスタイルや歌詞を指定し、楽曲の生成や編集を試す、手元のPythonの音楽生成モデル。作例はV1（3.5B）の原典のPython API、説明文の条件、長さとseed、デコード、実際に保存されたWAVの関係を図解しています。",
+    "summary": "曲の雰囲気や歌詞を指定して、手元のPCで楽曲を生成できます。生成した音を聴きながら条件を調整し、音楽制作のアイデアを試せます。",
     "use_case": "短い曲の構想を手元のPCで音にして、雰囲気や長さを自分の耳で確かめたいとき。",
     "tags": [
       "音声",
@@ -215,5 +214,18 @@
   "requirements": [
     "閲覧・試聴・保存はブラウザーだけで利用できます。音楽の生成・アップロード・モデルの実行はありません。",
     "同じ経路を自分で実行するには、固定版 ACE-Step のフルチェックアウト、Python 3.11 と推論の依存（今回は torch 2.6.0+cpu・diffusers 0.33.1・transformers 4.50.0・accelerate 1.6.0・peft 0.15.2・spacy 3.8.4・numpy 2.2.6 など）、ACE-Step-v1-3.5B の重み（リビジョン 82cd0d7、約8.3GB）を別に用意します。手順は作例の README にあります。"
-  ]
+  ],
+  "video_portrait": "media/ace-step-example.mp4",
+  "poster_portrait": "media/ace-step-example.webp",
+  "poster_landscape": "media/ace-step-example-wide.webp",
+  "video_license": {
+    "id": "LicenseRef-Yaoyorozu-Video-Credit",
+    "label": "クレジット表記必須（商用利用・編集・再配布OK）",
+    "url": "media-rights.html",
+    "credit": "引用元:Yaoyorozu-AI Toolbox made by studio_yebisu",
+    "x_mention": "@studio_yebisu",
+    "effective_on": "2026-10-21"
+  },
+  "video_download_portrait": "media/downloads/ace-step-example-portrait-credited.mp4",
+  "video_download_landscape": "media/downloads/ace-step-example-landscape-credited.mp4"
 }

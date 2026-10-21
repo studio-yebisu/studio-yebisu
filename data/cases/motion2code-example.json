@@ -13,14 +13,17 @@
   "sample_format": "input-output",
   "samples_title": "配布動画から、日本語の実出力へ",
   "samples_intro": "実際に使った元動画と、今回の日本語版・比較の記録です。",
-  "video_note": "20秒・30fps・無音。作者配布の英語動画と今回の日本語版を横並びにした10秒比較を2周します。",
+  "video_note": "20秒・30fps・無音。作者配布の英語動画と今回の日本語版を、PCでは横並び、スマホでは上下に配置した10秒比較を2周します。",
   "video_source": "examples/motion2code-example/assets/japanese.html",
   "skill_license": "examples/motion2code-example/vendor/motion2code/LICENSE",
   "license": "MIT",
-  "license_note": "原典スキルはMIT。日本語フォントはNoto Sans JPのOFL、GSAPは別の公式利用条件が適用されます。HTMLとMP4の容量は同等品質の圧縮率比較ではありません。",
+  "license_note": "原典スキルはMIT。日本語フォントはNoto Sans JPのOFL、GSAPは別の公式利用条件が適用されます。HTMLとMP4の容量は同等品質の圧縮率比較ではありません。 完成したデモ・説明動画は、クレジット表記を条件に商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。詳しい条件は media-rights.html を参照してください。",
   "updated_on": "2026-10-21",
-  "title": "Motion2Code：動画の動きを、編集できるSVG＋GSAPに組み直す",
-  "summary": "参照動画をコマに分けて観察し、SVGの図形を1本のGSAPタイムラインで動かして、元動画と並べて確かめるエージェント用の手順書とPython補助スクリプト。作例では作者配布の「Think Big」を観察して独自に再構成し、「考える」「大きく」「小さく始める」の日本語版にした。任意の動画をワンクリックで正確に変換する完成アプリではない。",
+  "title": "Motion2Code",
+  "title_lines": [
+    "動画の動きを編集可能なWebコードに変えるスキル"
+  ],
+  "summary": "動画の動きを観察し、SVGとGSAPを使ったHTMLとして組み直せます。ロゴやタイトル、図形のアニメーションを、文字や配色を後から直せる形で再現できます。",
   "demo_description": "左が作者配布の元動画、右が今回の日本語版。10秒の比較動画を再生し、切り替えると保存済みの日本語HTMLをそのまま開ける。",
   "demo_note": "保存済みの実出力を見るだけのページで、新規生成・文言変更・保存の機能はない。文言を変えるには、日本語フォントのサブセットと字形情報の再生成が必要。",
   "request_intro": "参照動画と固定した版のSKILLを渡し、任意時刻・ループ・日本語の検査まで指定する依頼文。動画の新規生成は頼まない。",
@@ -101,9 +104,10 @@
   "catalog_entry": {
     "id": "resource-motion2code",
     "name": "Motion2Code",
+    "tagline": "動画の動きを編集可能なWebコードに変えるスキル",
     "category": "motion",
     "kind": "スキル",
-    "summary": "動画の動きを観察し、SVG＋GSAPの編集可能なHTMLへ組み直す。日本語の実作例と比較あり。",
+    "summary": "動画の動きを観察し、SVGとGSAPを使ったHTMLとして組み直せます。ロゴやタイトル、図形のアニメーションを、文字や配色を後から直せる形で再現できます。",
     "use_case": "ロゴ、タイトル、図形中心の短い説明アニメを、文字や配色を後から直せる形にしたいとき。",
     "tags": [
       "モーション",
@@ -140,5 +144,21 @@
     "verification_stage": "runtime-reviewed",
     "verification": "作者配布の1動画から日本語版を制作。表示・シーク・ループ・1080p動画・4K静止画を確認。細かな変形は近似、任意動画と32Kは未検証。",
     "reviewed_on": "2026-10-21"
-  }
+  },
+  "video_portrait": "media/motion2code-example-portrait.mp4",
+  "video_landscape": "media/motion2code-example-wide.mp4",
+  "poster_portrait": "media/motion2code-example-portrait.webp",
+  "poster_landscape": "media/motion2code-example-wide.webp",
+  "video_width": 1940,
+  "video_height": 636,
+  "video_license": {
+    "id": "LicenseRef-Yaoyorozu-Video-Credit",
+    "label": "クレジット表記必須（商用利用・編集・再配布OK）",
+    "url": "media-rights.html",
+    "credit": "引用元:Yaoyorozu-AI Toolbox made by studio_yebisu",
+    "x_mention": "@studio_yebisu",
+    "effective_on": "2026-10-21"
+  },
+  "video_download_portrait": "media/downloads/motion2code-example-portrait-credited.mp4",
+  "video_download_landscape": "media/downloads/motion2code-example-landscape-credited.mp4"
 }

@@ -1,17 +1,22 @@
-/* Studio Yebisu — home page. Loads data/catalog.json and data/cases.json (relative paths).
+/* Yaoyorozu-AI Toolbox — home page. Loads data/catalog.json and data/cases.json (relative paths).
    Categories come only from catalog.categories (fallback: data/categories.json), so adding or
    removing a category needs no change here.
    URL contract: ./?q=<words>&kind=skill|support&case=1#<category id | section id>.
    Old links such as #agents still select that field. Picking a field or submitting the top search
-   adds a history entry; typing, the select, and the toggles replace the current one. */
+   adds a history entry; typing, the select, the gallery chips and the toggles replace the current one.
+   The words and the field apply to both the case gallery and the catalog; kind and case only to the
+   catalog. Opening a case card shows a preview dialog (gallery.js) without touching the URL. */
 (() => {
   'use strict';
 
-  const {$, $$, h, safeHref, joinLines, lineNodes, loadJSON, norm, scrollBehavior, announce} = window.SY;
+  const {$, $$, h, safeHref, joinLines, loadJSON, norm, scrollBehavior, announce} = window.SY;
 
   const PAGE_SIZE = 12;
+  const FIRST_ROW = 3;
   const VIDEO_EXT = /\.(mp4|webm|mov|m4v)(\?|#|$)/i;
   const KINDS = new Set(['all', 'skill', 'support']);
+  // Soft frame tints for the case posters, one per field in data order.
+  const HUES = [28, 46, 150, 196, 258, 330, 88, 172];
   const coarsePointer = matchMedia('(pointer: coarse)');
 
   // Lookup tables keyed by data ids use null prototypes so ids such as "constructor" stay plain keys.
@@ -20,7 +25,7 @@
 
   const state = {
     entries: [], categoryList: [], categories: table(), totals: table(), caseByEntry: table(),
-    cases: undefined, loaded: false,
+    cases: undefined, galleryCases: [], loaded: false,
     q: '', cat: 'all', kind: 'all', withCase: false, limit: PAGE_SIZE
   };
 
@@ -35,10 +40,11 @@
   const fieldMap = $('[data-field-map]');
   const more = $('[data-more]');
   const withCaseBox = $('[data-with-case]');
-  const rail = $('[data-case-rail]');
-  const railHead = $('[data-rail-head]');
-  const railPrev = $('[data-rail-prev]');
-  const railNext = $('[data-rail-next]');
+  const gallery = $('[data-gallery]');
+  const galleryChips = $('[data-gallery-chips]');
+  const galleryCount = $('[data-gallery-count]');
+  const galleryQuery = $('[data-gallery-query]');
+  const galleryEmpty = $('[data-gallery-empty]');
 
   function categoryLabel(id) {
     return (state.categories[id] && state.categories[id].label) || id || '分類なし';
@@ -107,7 +113,8 @@
   const caseHref = item => 'case.html?id=' + encodeURIComponent(item.id);
   const entryHref = entry => {
     const item = state.caseByEntry[entry.id];
-    return item ? caseHref(item) : 'case.html?entry=' + encodeURIComponent(entry.id || '');
+    return item ? caseHref(item) : entry.resource_type === 'open-weight-model' && safeHref(entry.guide_url)
+      ? safeHref(entry.guide_url) : 'case.html?entry=' + encodeURIComponent(entry.id || '');
   };
 
   // Rows are built on first display and cached, so hidden pages cost nothing and images load only when shown.
@@ -129,8 +136,9 @@
       h('p', {class: 'entry-meta'},
         h('span', {class: 'entry-kind'}, h('span', {class: 'mark ' + (skill ? 'mark-skill' : 'mark-support'), 'aria-hidden': 'true'}), entry.kind || 'その他'),
         h('span', {}, categoryLabel(entry.category)),
-        produced ? h('span', {class: 'entry-case'}, '作例の記事あり') : null),
+        produced ? h('span', {class: 'entry-case'}, '動画・デモあり') : null),
       h('h3', {class: 'entry-name'}, h('a', {href: entryHref(entry)}, entry.name || entry.id)),
+      entry.tagline ? h('p', {class: 'entry-overview'}, entry.tagline) : null,
       entry.summary ? h('p', {class: 'entry-summary'}, entry.summary) : null,
       entry.use_case ? h('p', {class: 'entry-use'}, h('span', {class: 'entry-use-label'}, '使いどころ'), entry.use_case) : null,
       tags,
@@ -164,7 +172,13 @@
         : group.items.map(option)));
   }
 
+  // The words and the field are shared, so every change redraws both lists.
   function render() {
+    renderCatalog();
+    renderGallery();
+  }
+
+  function renderCatalog() {
     if (!state.loaded) return;
     const terms = termsOf(state.q);
     const casesAvailable = Array.isArray(state.cases);
@@ -178,7 +192,7 @@
       catDesc.hidden = true;
       $('[data-case-count]').textContent = '—';
       for (const button of $$('.toolbar [data-reset]')) button.hidden = false;
-      status.textContent = '作例の一覧を読み込めないため、この絞り込みは表示できません。上の「もう一度読み込む」か、作例の絞り込みを外してください。';
+      status.textContent = '動画・デモの一覧を読み込めないため、この絞り込みは表示できません。上の「もう一度読み込む」か、動画・デモの絞り込みを外してください。';
       return;
     }
     const matched = state.entries.filter(entry => matches(entry, state, terms));
@@ -205,14 +219,14 @@
       el.textContent = String(narrowed ? countWith({cat: id}, terms) : (state.totals[id] || 0));
     }
     $('[data-fields-note]').textContent = narrowed
-      ? '数字は、いまのキーワード・種類・作例の絞り込みで当てはまる件数です。'
+      ? '数字は、いまのキーワード・種類・動画・デモの絞り込みで当てはまる件数です。'
       : '数字は掲載している件数です。選ぶと、下のカタログがその分野に絞られます。';
 
     const parts = [];
     if (state.cat !== 'all') parts.push(categoryLabel(state.cat));
     if (state.kind === 'skill') parts.push('スキル');
-    if (state.kind === 'support') parts.push('ツール・教材など');
-    if (state.withCase) parts.push('作例の記事あり');
+    if (state.kind === 'support') parts.push('ツール・モデルなど');
+    if (state.withCase) parts.push('動画・デモあり');
     if (state.q.trim()) parts.push('「' + state.q.trim() + '」');
     status.replaceChildren(...[
       h('span', {class: 'status-main'}, h('strong', {}, String(matched.length)), '件が該当'),
@@ -225,7 +239,7 @@
         ? 'まだ掲載しているものがありません。'
         : state.cat !== 'all' && !state.totals[state.cat]
           ? 'この分野には、まだ掲載している項目がありません。ほかの分野を選ぶか、絞り込みを外してください。'
-          : '別の言葉で探すか、分野・種類・作例の絞り込みを外してください。';
+          : '別の言葉で探すか、分野・種類・動画・デモの絞り込みを外してください。';
     }
 
     const info = state.cat !== 'all' && state.categories[state.cat];
@@ -250,12 +264,6 @@
 
   /* ---------- Cases ---------- */
 
-  function firstSentence(text) {
-    const value = String(text || '').trim();
-    const end = value.indexOf('。');
-    return end >= 0 && end < value.length - 1 ? value.slice(0, end + 1) : value;
-  }
-
   // The skill or tool the case is about: its catalog entry, else the first skill it applied.
   function skillName(item) {
     if (item.catalog_entry && item.catalog_entry.name) return item.catalog_entry.name;
@@ -264,109 +272,172 @@
   }
 
   function titleLines(item) {
+    if (item.catalog_entry && item.catalog_entry.tagline) return [String(item.catalog_entry.tagline)];
     if (Array.isArray(item.title_lines) && item.title_lines.length) return item.title_lines.map(String);
     if (item.id === 'brief-to-demo') return ['ひと言を、', '作れる依頼に。'];
     return [item.title || item.id];
   }
 
-  function renderFeature(item) {
-    const href = caseHref(item);
-    $('[data-feature-cat]').textContent = categoryLabel(item.category);
-    const skill = skillName(item);
-    $('[data-feature-skill]').textContent = skill;
-    $('[data-feature-skill]').hidden = !skill;
-    const link = $('[data-feature-link]');
-    link.href = href;
-    link.replaceChildren(...lineNodes(titleLines(item), 'phrase').filter(Boolean));
-    $('[data-feature-read]').href = href;
-    $('[data-feature-media]').href = href;
-    if (item.summary) $('[data-feature-summary]').textContent = firstSentence(item.summary);
-    const demo = safeHref(item.demo);
-    const demoLink = $('[data-feature-demo]');
-    demoLink.hidden = !demo;
-    if (demo) demoLink.href = demo;
-    const poster = safeHref(item.poster);
-    const img = $('[data-feature-poster]');
-    if (poster && img.getAttribute('src') !== poster) img.src = poster;
+  // Field order for chips and frame tints: the catalog's categories, else data/categories.json.
+  const categoryOrder = () => (state.categoryList.length ? state.categoryList.map(category => category.id) : Object.keys(state.categories));
+
+  function hueOf(id) {
+    const index = categoryOrder().indexOf(id);
+    return HUES[Math.max(0, index) % HUES.length];
   }
 
-  function caseCard(item) {
-    const href = caseHref(item);
-    const poster = safeHref(item.poster);
-    const demo = safeHref(item.demo);
+  // Gallery chips: only fields that have a case, in data order, then any field only a case uses.
+  function caseCategoryIds() {
+    const used = new Set(state.galleryCases.map(item => item.category).filter(Boolean));
+    const ids = categoryOrder().filter(id => used.has(id));
+    for (const id of used) if (!ids.includes(id)) ids.push(id);
+    return ids;
+  }
+
+  // Cases are searched by their own text and by the catalog entry they demonstrate, if any.
+  function caseText(item) {
+    if (item._text === undefined) {
+      const category = state.categories[item.category];
+      const entry = item.catalog_entry || {};
+      const applied = Array.isArray(item.applied_skills) ? item.applied_skills.map(skill => skill && skill.name) : [];
+      item._text = norm([item.title, titleLines(item).join(''), item.summary, skillName(item), item.category,
+        category && category.label, category && category.group, entry.name, entry.tagline, entry.summary, entry.use_case,
+        Array.isArray(entry.tags) ? entry.tags.join(' ') : '', applied.join(' ')].join(' '));
+    }
+    return item._text;
+  }
+
+  // Cards are built once per case. Only the first row loads eagerly; the rest wait until scrolled near.
+  function galleryCard(item, index) {
+    if (item._card) return item._card;
     const skill = skillName(item);
     const title = joinLines(titleLines(item));
-    let media = null;
-    if (poster) {
-      const img = h('img', {src: poster, alt: '', width: '1280', height: '720', loading: 'lazy', decoding: 'async'});
-      media = h('a', {class: 'case-card-media', href, tabindex: '-1', 'aria-hidden': 'true'}, img);
-      img.addEventListener('error', () => media.classList.add('is-missing'));
+    const summary = (item.catalog_entry && item.catalog_entry.summary) || item.summary;
+    const poster = safeHref(item.poster);
+    const frame = h('div', {class: 'gallery-frame', 'data-fallback': skill || title});
+    if (safeHref(item.video) && window.SY.media) {
+      frame.append(window.SY.media.create(item, {controls: false, title: skill || title}));
+    } else if (poster) {
+      // loading is set before src, so a lazy image never starts its request early.
+      const img = h('img', {loading: index < FIRST_ROW ? 'eager' : 'lazy', fetchpriority: index === 0 ? 'high' : null,
+        src: poster, alt: '', width: '1280', height: '720', decoding: 'async'});
+      img.addEventListener('error', () => { img.remove(); frame.classList.add('is-missing'); });
+      frame.append(img);
+    } else {
+      frame.classList.add('is-missing');
     }
-    return h('li', {class: 'case-card'},
-      media,
-      h('div', {class: 'case-card-body'},
-        h('p', {class: 'card-meta'}, h('span', {class: 'card-cat'}, categoryLabel(item.category)), skill ? h('span', {}, skill) : null),
-        h('h3', {class: 'case-card-title'}, h('a', {href}, title)),
-        item.summary ? h('p', {class: 'case-card-summary'}, firstSentence(item.summary)) : null,
-        demo || item.updated_on ? h('p', {class: 'case-card-foot'},
-          demo ? h('a', {class: 'case-card-demo', href: demo}, 'デモを開く', h('span', {class: 'sr-only'}, '：' + title)) : null,
-          item.updated_on ? h('span', {class: 'case-card-date'}, String(item.updated_on) + ' 更新') : null) : null));
+    item._card = h('li', {class: 'gallery-card', style: '--g-hue: ' + hueOf(item.category)},
+      frame,
+      h('div', {class: 'gallery-body'},
+        h('p', {class: 'gallery-cat'}, categoryLabel(item.category)),
+        h('h3', {class: 'gallery-name'},
+          h('a', {class: 'gallery-link', href: caseHref(item), 'data-case-id': item.id,
+            'aria-haspopup': window.SY.casePreview && window.SY.casePreview.supported ? 'dialog' : null},
+            skill ? h('span', {class: 'gallery-skill'}, skill) : null,
+            h('span', {class: 'gallery-title'}, title))),
+        summary ? h('p', {class: 'gallery-summary'}, summary) : null));
+    return item._card;
   }
+
+  function showGalleryPlaceholders() {
+    if (Array.isArray(state.cases)) return;
+    for (const old of $$('.is-placeholder', gallery)) old.remove();
+    const missing = Math.max(0, FIRST_ROW - gallery.children.length);
+    gallery.append(...Array.from({length: missing}, () => h('li', {class: 'gallery-card is-placeholder', 'aria-hidden': 'true'},
+      h('div', {class: 'gallery-frame'}), h('div', {class: 'gallery-body'}, h('span'), h('span'), h('span')))));
+    gallery.setAttribute('aria-busy', 'true');
+  }
+
+  // Chips are rebuilt only when the set of fields changes, so a focused chip keeps its focus.
+  let chipKey = '';
+  function renderChips(matched) {
+    const ids = ['all', ...caseCategoryIds()];
+    if (state.cat !== 'all' && !ids.includes(state.cat)) ids.push(state.cat);
+    if (ids.join(' ') !== chipKey) {
+      chipKey = ids.join(' ');
+      const focused = galleryChips.contains(document.activeElement) ? document.activeElement.dataset.galleryCat : null;
+      galleryChips.replaceChildren(...ids.map(id => h('button', {type: 'button', class: 'gallery-chip', 'data-gallery-cat': id, 'aria-pressed': 'false'},
+        h('span', {}, id === 'all' ? 'すべて' : categoryLabel(id)),
+        h('span', {class: 'gallery-chip-count'}), h('span', {class: 'sr-only'}, '件'))));
+      const again = focused && Array.from(galleryChips.children).find(chip => chip.dataset.galleryCat === focused);
+      if (again) again.focus();
+    }
+    for (const chip of galleryChips.children) {
+      const id = chip.dataset.galleryCat;
+      $('.gallery-chip-count', chip).textContent = String(id === 'all' ? matched.length : matched.filter(item => item.category === id).length);
+      chip.setAttribute('aria-pressed', String(id === state.cat));
+    }
+  }
+
+  // "Search the catalog" with the catalog's own count for the current conditions, when it is loaded.
+  function catalogLinkContent() {
+    return state.loaded ? ['カタログで探す', h('span', {class: 'gallery-link-count'}, '（' + countWith({}, termsOf(state.q)) + '件）')] : ['カタログで探す'];
+  }
+
+  let galleryShown = 0;
+  function renderGallery() {
+    if (!Array.isArray(state.cases)) return;
+    const terms = termsOf(state.q);
+    const total = state.galleryCases.length;
+    const matched = terms.length ? state.galleryCases.filter(item => terms.every(term => caseText(item).includes(term))) : state.galleryCases;
+    const shown = state.cat === 'all' ? matched : matched.filter(item => item.category === state.cat);
+    galleryShown = shown.length;
+    gallery.replaceChildren(...shown.map(galleryCard));
+    gallery.removeAttribute('aria-busy');
+
+    galleryChips.hidden = !total;
+    if (total) renderChips(matched);
+
+    const filtered = terms.length > 0 || state.cat !== 'all';
+    galleryCount.replaceChildren(...(filtered
+      ? [h('strong', {}, String(shown.length)), '件が該当', h('span', {class: 'gallery-count-total'}, '全' + total + '件中')]
+      : [h('strong', {}, String(total)), '件']));
+
+    const q = state.q.trim();
+    galleryQuery.hidden = !q;
+    if (q) {
+      galleryQuery.replaceChildren(
+        h('p', {class: 'gallery-query-text'}, '「' + q + '」で探しています'),
+        h('button', {type: 'button', class: 'text-btn', 'data-gallery-clear': ''}, '検索を外す'),
+        h('a', {class: 'gallery-to-catalog', href: '#catalog', 'data-to-catalog': ''}, ...catalogLinkContent()));
+    }
+
+    galleryEmpty.hidden = shown.length > 0;
+    if (!shown.length) {
+      const noneInField = state.cat !== 'all' && !state.galleryCases.some(item => item.category === state.cat);
+      $('[data-gallery-empty-detail]').textContent = !total
+        ? 'まだ掲載している項目がありません。カタログから探せます。'
+        : noneInField
+          ? '「' + categoryLabel(state.cat) + '」の動画・デモはまだありません。カタログでは、この分野の項目を探せます。'
+          : '別の言葉で探すか、分野の絞り込みを外してください。';
+      $('[data-gallery-reset]').hidden = !filtered;
+      $('[data-to-catalog]', galleryEmpty).replaceChildren(...catalogLinkContent());
+    }
+  }
+
+  const galleryStatus = () => (galleryShown ? 'スキル・ツールを' + galleryShown + '件表示しています。' : '当てはまる項目がありません。');
 
   function renderCases() {
     const cases = state.cases;
     for (const el of $$('[data-case-total]')) el.textContent = Array.isArray(cases) ? String(cases.length) : '—';
     $('[data-cases-error]').hidden = cases !== null;
-    // When cases.json cannot be read, the static feature in the HTML stays readable.
-    // When it loads and lists no case, nothing is featured.
-    $('[data-feature]').hidden = Array.isArray(cases) && !cases.length;
-    if (!Array.isArray(cases) || !cases.length) {
-      rail.hidden = true;
-      railHead.hidden = true;
+    if (!Array.isArray(cases)) {
+      // The static card in the HTML stays as a working link to one article.
+      for (const el of $$('.is-placeholder', gallery)) el.remove();
+      gallery.removeAttribute('aria-busy');
+      galleryCount.textContent = '';
+      galleryChips.hidden = true;
+      galleryQuery.hidden = true;
+      galleryEmpty.hidden = true;
       return;
     }
-    const feature = cases.find(item => item.id === 'brief-to-demo') || cases[0];
-    renderFeature(feature);
-    const others = cases.filter(item => item !== feature)
-      .map((item, index) => ({item, index}))
+    // Newest first; undated cases keep their data order after the dated ones.
+    state.galleryCases = cases.map((item, index) => ({item, index}))
       .sort((a, b) => String(b.item.updated_on || '').localeCompare(String(a.item.updated_on || '')) || a.index - b.index)
       .map(({item}) => item);
-    rail.hidden = !others.length;
-    railHead.hidden = !others.length;
-    if (!others.length) return;
-    rail.replaceChildren(...others.map(caseCard));
-    $('[data-rail-label]').textContent = 'ほかの作例 ' + others.length + '本';
-    $('[data-rail-order]').textContent = others.some(item => item.updated_on) ? '更新日の新しい順' : '';
-    updateRail();
+    chipKey = '';
+    renderGallery();
   }
-
-  function updateRail() {
-    if (rail.hidden) return;
-    const max = rail.scrollWidth - rail.clientWidth - 2;
-    const wasFocused = document.activeElement;
-    railPrev.disabled = rail.scrollLeft <= 2;
-    railNext.disabled = rail.scrollLeft >= max;
-    // A button that becomes disabled loses focus; hand it to the other one.
-    if (wasFocused === railPrev && railPrev.disabled && !railNext.disabled) railNext.focus();
-    if (wasFocused === railNext && railNext.disabled && !railPrev.disabled) railPrev.focus();
-  }
-
-  function stepRail(direction) {
-    const card = rail.firstElementChild;
-    const gap = parseFloat(getComputedStyle(rail).columnGap) || 0;
-    const width = card ? card.getBoundingClientRect().width + gap : rail.clientWidth;
-    const perView = Math.max(1, Math.floor((rail.clientWidth + gap) / width));
-    rail.scrollBy({left: direction * width * perView, behavior: scrollBehavior()});
-  }
-
-  let railFrame = 0;
-  const queueRailUpdate = () => {
-    if (!railFrame) railFrame = requestAnimationFrame(() => { railFrame = 0; updateRail(); });
-  };
-  rail.addEventListener('scroll', queueRailUpdate, {passive: true});
-  window.addEventListener('resize', queueRailUpdate, {passive: true});
-  railPrev.addEventListener('click', () => stepRail(-1));
-  railNext.addEventListener('click', () => stepRail(1));
 
   /* ---------- URL and history ---------- */
 
@@ -419,11 +490,13 @@
     if (document.activeElement !== heroSearch) heroSearch.value = state.q;
   }
 
-  function scrollToCatalog(smooth = true) {
-    const section = $('#catalog');
+  function scrollToSection(selector, smooth = true) {
+    const section = $(selector);
     section.scrollIntoView({behavior: smooth ? scrollBehavior() : 'auto', block: 'start'});
     section.focus({preventScroll: true});
   }
+
+  const scrollToCatalog = (smooth = true) => scrollToSection('#catalog', smooth);
 
   // On a fresh visit to a deep link, the content above has only just been built, so scroll again.
   // Reload and back/forward keep the position the browser restores.
@@ -439,7 +512,7 @@
   let restoredFromHistory = false;
   window.addEventListener('popstate', event => {
     restoredFromHistory = Boolean(event.state && event.state.sy === 1);
-    if (!state.loaded) return;
+    if (!state.loaded && !Array.isArray(state.cases)) return;
     const next = readURL();
     if (restoredFromHistory) next.cat = state.categories[event.state.cat] ? event.state.cat : 'all';
     else if (!categoryFromHash()) next.cat = state.cat; // plain section anchors keep the chosen field
@@ -483,7 +556,7 @@
     state.totals = table();
     for (const entry of entries) {
       const category = state.categories[entry.category];
-      entry._text = norm([entry.name, entry.summary, entry.use_case, (entry.tags || []).join(' '), entry.kind,
+      entry._text = norm([entry.name, entry.tagline, entry.summary, entry.use_case, (entry.tags || []).join(' '), entry.kind,
         category && category.label, category && category.group].join(' '));
       state.totals[entry.category] = (state.totals[entry.category] || 0) + 1;
     }
@@ -500,7 +573,7 @@
     } catch (_) { /* ids are shown instead */ }
   }
 
-  // A catalog entry counts as produced only when a Studio Yebisu case points to it.
+  // A catalog entry counts as produced only when a Yaoyorozu-AI Toolbox case points to it.
   function mapCases() {
     state.caseByEntry = table();
     const cases = state.cases || [];
@@ -535,6 +608,7 @@
     more.hidden = true;
     status.textContent = 'カタログを読み込んでいます…';
     showPlaceholders();
+    showGalleryPlaceholders();
     fieldMap.setAttribute('aria-busy', 'true');
 
     const casesTask = Array.isArray(state.cases) ? Promise.resolve(state.cases) : fetchCases();
@@ -543,6 +617,10 @@
     state.cases = await casesTask;
     if (!catalogOk) await loadCategoryLabels();
     mapCases();
+    // The words and field in the URL apply to the gallery even when the catalog failed.
+    const fromURL = readURL();
+    Object.assign(state, fromURL);
+    syncInputs();
     renderCases();
     if (!catalogOk) return showCatalogError();
 
@@ -553,9 +631,6 @@
     renderFieldMap();
     renderCategorySelect();
 
-    const fromURL = readURL();
-    Object.assign(state, fromURL);
-    syncInputs();
     render();
     writeURL(false);
     if (firstRun) settleInitialScroll(fromURL.cat !== 'all');
@@ -564,16 +639,75 @@
 
   /* ---------- Events ---------- */
 
-  $('[data-feature-poster]').addEventListener('error', () => $('[data-feature-media]').classList.add('is-missing'));
+  const plainClick = event => event.button === 0 && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey;
 
-  // Top search: one explicit submit runs a fresh search over everything and moves to the results.
+  // Top search: one explicit submit searches the cases in the chosen field and moves to the gallery,
+  // where the catalog's matches are one link away. Catalog-only filters are cleared for a fresh search.
+  // If the case list could not be read, it goes to the catalog as before.
   $('[data-hero-form]').addEventListener('submit', event => {
     event.preventDefault();
-    Object.assign(state, {q: heroSearch.value, cat: 'all', kind: 'all', withCase: false, limit: PAGE_SIZE});
+    Object.assign(state, {q: heroSearch.value, kind: 'all', withCase: false, limit: PAGE_SIZE});
     search.value = heroSearch.value;
     render();
-    writeURL(true, '#catalog');
-    scrollToCatalog(); // focus moves to the section, which also closes the software keyboard
+    const target = Array.isArray(state.cases) ? '#cases' : '#catalog';
+    writeURL(true, target);
+    scrollToSection(target); // focus moves to the section, which also closes the software keyboard
+    if (target === '#cases') announce(galleryStatus());
+  });
+
+  function clearGallery(fields) {
+    Object.assign(state, fields, {limit: PAGE_SIZE});
+    search.value = state.q;
+    heroSearch.value = state.q;
+    render();
+    writeURL(false, '#cases');
+  }
+
+  // Gallery: field chips, clearing the words, the way down to the catalog, and opening a card.
+  $('#cases').addEventListener('click', event => {
+    const chip = event.target.closest('[data-gallery-cat]');
+    if (chip) {
+      // The page stays at the gallery; the catalog below follows the same field.
+      state.cat = chip.dataset.galleryCat || 'all';
+      state.limit = PAGE_SIZE;
+      render();
+      writeURL(false, '#cases');
+      announce(galleryStatus());
+      return;
+    }
+    if (event.target.closest('[data-gallery-reset]')) {
+      clearGallery({q: '', cat: 'all'});
+      const all = $('[data-gallery-cat="all"]', galleryChips);
+      if (all) all.focus();
+      announce('動画・デモの絞り込みを外しました。' + galleryStatus());
+      return;
+    }
+    if (event.target.closest('[data-gallery-clear]')) {
+      clearGallery({q: ''});
+      heroSearch.focus();
+      announce('検索を外しました。' + galleryStatus());
+      return;
+    }
+    if (event.target.closest('[data-to-catalog]')) {
+      if (!plainClick(event)) return;
+      event.preventDefault();
+      scrollToCatalog();
+      return;
+    }
+    // A card is a real link to its article; a plain click opens the preview instead.
+    const link = event.target.closest('a[data-case-id]');
+    const preview = window.SY.casePreview;
+    if (!link || !plainClick(event) || !preview || !preview.supported) return;
+    const item = state.galleryCases.find(c => c.id === link.dataset.caseId);
+    if (!item) return;
+    event.preventDefault();
+    preview.open(item, {
+      invoker: link,
+      title: joinLines(titleLines(item)),
+      skill: skillName(item),
+      category: categoryLabel(item.category),
+      href: caseHref(item)
+    });
   });
 
   // Catalog search filters while typing, without moving the page.
@@ -641,7 +775,7 @@
   more.addEventListener('click', () => {
     const before = state.limit;
     state.limit += PAGE_SIZE;
-    render();
+    renderCatalog();
     // Continue from the first newly shown item.
     const next = list.children[before];
     const link = next && $('.entry-name a', next);
@@ -663,6 +797,7 @@
   $('[data-retry]').addEventListener('click', start);
 
   $('[data-cases-retry]').addEventListener('click', async () => {
+    showGalleryPlaceholders();
     state.cases = await fetchCases();
     mapCases();
     renderCases();
@@ -670,10 +805,13 @@
       $('[data-tally-note]').hidden = Array.isArray(state.cases);
       render();
     }
+    // The retry button hides itself on success; keep focus in the section.
+    if (Array.isArray(state.cases)) $('#cases').focus({preventScroll: true});
   });
 
   document.addEventListener('keydown', event => {
     if (event.key !== '/' || event.ctrlKey || event.metaKey || event.altKey) return;
+    if (document.documentElement.classList.contains('has-preview')) return;
     const active = document.activeElement;
     if (active && (active.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(active.tagName))) return;
     event.preventDefault();

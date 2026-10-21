@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" role="img" aria-labelledby="t d">
+  <title id="t">模式図：MOSS-Image-Base — JSONレイアウトの各項目が、画像の中の位置の枠に対応する</title>
+  <desc id="d">左の黒いパネルはJSONレイアウト。全体の説明「夕方の路地」、文字「OPEN」と朱色の位置の枠、猫と黄緑の位置の枠が並び、座標は生成サイズに合わせると添えてある。それぞれの枠は線で右の画像へつながり、「OPEN」の看板は右上、猫は左下に置かれる。猫は右下の点線の元の位置から左下へ矢印で移っており、枠の数値を変えると配置が変わることを示す。左下にBase（この重み）とSFT（別の重み）の札がある。仕組みを示す模式図で、モデルの出力ではない。</desc>
+  <style>
+    text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic",Meiryo,"Noto Sans JP",sans-serif;font-weight:700;fill:#17150f}
+    .tg{font-size:24px;fill:#f2eee3}
+    .key{font-family:Consolas,Menlo,"DejaVu Sans Mono",monospace;font-size:22px;fill:#f2eee3;fill-opacity:0.6}
+    .val{font-size:30px;fill:#f2eee3}
+    .chip{font-size:24px}
+  </style>
+  <rect width="880" height="540" fill="#fbf9f3"/>
+  <rect x="28" y="28" width="96" height="38" fill="#17150f"/>
+  <text class="tg" x="76" y="55" text-anchor="middle">模式図</text>
+
+  <!-- JSON layout -->
+  <rect x="40" y="92" width="392" height="352" fill="#17150f"/>
+  <text x="60" y="130" style="font-size:26px;fill:#cbef3a">JSONレイアウト</text>
+  <path d="M60 146 H412" stroke="#f2eee3" stroke-opacity="0.3" stroke-width="2"/>
+
+  <text class="key" x="60" y="182">summary.caption</text>
+  <text class="val" x="60" y="218">夕方の路地</text>
+
+  <text class="key" x="60" y="266">items · text</text>
+  <text class="val" x="60" y="302">文字「<tspan style="fill:#ff4f00">OPEN</tspan>」</text>
+  <rect x="320" y="276" width="90" height="38" fill="none" stroke="#ff4f00" stroke-width="3"/>
+  <text class="chip" x="365" y="303" text-anchor="middle" style="fill:#ff4f00">位置</text>
+
+  <text class="key" x="60" y="350">items · object</text>
+  <text class="val" x="60" y="386" style="fill:#cbef3a">猫</text>
+  <rect x="320" y="360" width="90" height="38" fill="#cbef3a"/>
+  <text class="chip" x="365" y="387" text-anchor="middle">位置</text>
+
+  <text x="60" y="430" style="font-size:22px;fill:#f2eee3;fill-opacity:0.75">座標は生成サイズに合わせる</text>
+
+  <!-- Canvas -->
+  <rect x="486" y="92" width="354" height="300" fill="#f2eee3" stroke="#17150f" stroke-width="4"/>
+  <rect x="656" y="196" width="184" height="176" fill="#e7e1d0"/>
+  <path d="M486 372 H840" stroke="#17150f" stroke-width="3"/>
+
+  <rect x="680" y="112" width="136" height="66" fill="none" stroke="#ff4f00" stroke-width="3" stroke-dasharray="9 6"/>
+  <rect x="690" y="122" width="116" height="46" fill="#ff4f00"/>
+  <text x="748" y="156" text-anchor="middle" style="font-size:30px;fill:#f2eee3">OPEN</text>
+
+  <!-- Previous cat position -->
+  <g opacity="0.35">
+    <rect x="708" y="262" width="112" height="108" fill="none" stroke="#17150f" stroke-width="3" stroke-dasharray="6 6"/>
+    <ellipse cx="770" cy="344" rx="34" ry="20" fill="none" stroke="#17150f" stroke-width="3"/>
+    <circle cx="746" cy="310" r="15" fill="none" stroke="#17150f" stroke-width="3"/>
+  </g>
+  <path d="M702 316 H632" fill="none" stroke="#ff4f00" stroke-width="5" stroke-linecap="round"/>
+  <path d="M644 304 L630 316 L644 328" fill="none" stroke="#ff4f00" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- New cat position -->
+  <rect x="506" y="262" width="112" height="108" fill="#cbef3a" stroke="#17150f" stroke-width="3" stroke-dasharray="9 6"/>
+  <ellipse cx="568" cy="344" rx="34" ry="20" fill="#17150f"/>
+  <circle cx="544" cy="310" r="15" fill="#17150f"/>
+  <path d="M532 302 L534 284 L546 296 Z M548 296 L558 284 L558 302 Z" fill="#17150f"/>
+  <path d="M600 342 C 614 330 612 314 604 306" fill="none" stroke="#17150f" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- JSON items connect to boxes -->
+  <path d="M410 295 C 530 295 560 145 678 145" fill="none" stroke="#ff4f00" stroke-width="3"/>
+  <path d="M410 379 C 462 379 470 316 504 316" fill="none" stroke="#17150f" stroke-width="3"/>
+
+  <text x="663" y="428" text-anchor="middle" style="font-size:26px;fill:#ff4f00">数値を変えると猫が動く</text>
+
+  <!-- Base vs SFT -->
+  <rect x="40" y="466" width="232" height="46" fill="#17150f"/>
+  <text x="156" y="497" text-anchor="middle" style="font-size:26px;fill:#f2eee3">Base＝この重み</text>
+  <rect x="288" y="466" width="232" height="46" fill="none" stroke="#17150f" stroke-width="3" stroke-dasharray="8 6"/>
+  <text x="404" y="497" text-anchor="middle" style="font-size:26px">SFT＝別の重み</text>
+  <text x="544" y="497" style="font-size:22px;fill-opacity:0.7">作例はどちらの重みか確認</text>
+</svg>

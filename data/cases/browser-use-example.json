@@ -1,13 +1,11 @@
 {
   "id": "browser-use-example",
-  "title": "Browser Use作例：参照スキルと、ブラウザーを動かす仕組み",
+  "title": "Browser Use",
   "title_lines": [
-    "Browser Useの手引きと、",
-    "Pythonから画面を",
-    "操作する仕組み"
+    "ブラウザー操作を自動化するAIツール"
   ],
   "category": "research",
-  "summary": "Browser UseはPythonでブラウザーを動かすライブラリです。同梱の参照スキルから必要な文書を選び、Pythonを書く流れと、Browser・Page・Elementを通して画面を操作する流れを、一枚の大きな概念図と32秒の無音動画でつなぎました。元の事前手順による11操作・6状態の実記録を使っています。",
+  "summary": "Webページの移動、クリック、フォーム入力をAIエージェントやPythonから操作できます。ページ上の調査や繰り返し作業を、ひと続きの処理として組み立てられます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/browser-use-example/index.html",
@@ -157,19 +155,20 @@
     }
   ],
   "license": "MIT",
-  "license_note": "作例のコード・文章・架空データは MIT License（Copyright (c) 2026 Studio Yebisu）。vendor/browser-use/ のファイルは browser-use/browser-use の固定コミット c75e847 のものを改変せずに置いたもので、MIT License（Copyright (c) 2024 Gregor Zunic）です。原典の LICENSE はそのまま同梱しています。この作例は LLM・API キー・Cloud を使わず、推論 API やホスト型ブラウザーの料金はかかりません。依存パッケージと Chrome は同梱していません。",
+  "license_note": "作例のコード・文章・架空データは MIT License（Copyright (c) 2026 Studio Yebisu）。vendor/browser-use/ のファイルは browser-use/browser-use の固定コミット c75e847 のものを改変せずに置いたもので、MIT License（Copyright (c) 2024 Gregor Zunic）です。原典の LICENSE はそのまま同梱しています。この作例は LLM・API キー・Cloud を使わず、推論 API やホスト型ブラウザーの料金はかかりません。依存パッケージと Chrome は同梱していません。 完成したデモ・説明動画は、クレジット表記を条件に商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。詳しい条件は media-rights.html を参照してください。",
   "video_note": "32秒・30fps・無音。縦720×1280と横1280×720を別配置で描きます。手引きからPythonへ、事前の手順からブラウザー内の要素へ、実DOMと画面PNGから保存先へ、同じ図形が動く概念図です。元の実記録に基づく編集映像で、操作の録画や新しいAPI実行ではありません。音声トラックはありません。",
   "video_source": "examples/browser-use-example/video/index.html",
   "skill_license": "examples/browser-use-example/vendor/browser-use/LICENSE",
-  "updated_on": "2026-10-18",
+  "updated_on": "2026-10-21",
   "verification_stage": "runtime-reviewed",
   "guide_url": "case.html?id=browser-use-example",
   "catalog_entry": {
     "id": "resource-browser-use",
     "name": "Browser Use",
+    "tagline": "ブラウザー操作を自動化するAIツール",
     "category": "research",
     "kind": "ブラウザー操作ツール",
-    "summary": "Pythonからブラウザーのページや要素を操作するライブラリ。公式のPython実装用参照スキルを含みます。作例は事前手順のActor APIを実行し、自律Agentは未使用です。",
+    "summary": "Webページの移動、クリック、フォーム入力をAIエージェントやPythonから操作できます。ページ上の調査や繰り返し作業を、ひと続きの処理として組み立てられます。",
     "use_case": "ページ内の操作を含むWeb調査や、ブラウザーを使う作業を組み立てたいとき。",
     "tags": [
       "Web",
@@ -202,5 +201,21 @@
     "reviewed_on": "2026-10-16",
     "example_url": "examples/browser-use-example/index.html",
     "image": "media/browser-use-example.webp"
-  }
+  },
+  "video_portrait": "media/browser-use-example.mp4",
+  "video_landscape": "media/browser-use-example-wide.mp4",
+  "poster_portrait": "media/browser-use-example.webp",
+  "poster_landscape": "media/browser-use-example-wide.webp",
+  "video_width": 720,
+  "video_height": 1280,
+  "video_license": {
+    "id": "LicenseRef-Yaoyorozu-Video-Credit",
+    "label": "クレジット表記必須（商用利用・編集・再配布OK）",
+    "url": "media-rights.html",
+    "credit": "引用元:Yaoyorozu-AI Toolbox made by studio_yebisu",
+    "x_mention": "@studio_yebisu",
+    "effective_on": "2026-10-21"
+  },
+  "video_download_portrait": "media/downloads/browser-use-example-portrait-credited.mp4",
+  "video_download_landscape": "media/downloads/browser-use-example-landscape-credited.mp4"
 }

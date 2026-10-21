@@ -1,13 +1,11 @@
 {
   "id": "yomiyasu-before-after",
-  "title": "yomiyasu作例：推敲の指示書と、点検の道具",
+  "title": "yomiyasu",
   "title_lines": [
-    "推敲の指示書と、",
-    "点検の道具。",
-    "yomiyasuの構造"
+    "意味と文体を保ちながら整える日本語推敲スキル"
   ],
   "category": "writing",
-  "summary": "yomiyasuは、AIに読ませる日本語推敲の指示書・参照資料と、2つのPython点検スクリプトを持つスキルです。4つの意味の原則、原文・用途・残す条件を同じAIへ渡し、推敲の後に別のPythonで候補を調べ、原文と読み比べて使う構造を、大きな図と32秒の無音動画にしました。",
+  "summary": "原文、用途、残したい表現をAIに渡し、日本語の言い回しや文のつながりを整える指示書です。修正候補と点検結果を原文と比べながら、採用する表現を選べます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/yomiyasu-before-after/index.html",
@@ -127,13 +125,14 @@
     }
   ],
   "license": "MIT",
-  "license_note": "この作例の画面構成・文言・サンプル・映像ソースは Studio Yebisu の独自制作で、MIT License です。vendor/yomiyasu/ の yomiyasu は上流の MIT License（Copyright (c) 2026 nanaism）で、LICENSE を同梱しています。検査スクリプトに含まれる Unicode 由来のデータには、同梱の UNICODE-LICENSE.txt（Unicode License V3）の通知が適用されます。",
+  "license_note": "この作例の画面構成・文言・サンプル・映像ソースは Yaoyorozu-AI Toolbox の独自制作で、MIT License です。vendor/yomiyasu/ の yomiyasu は上流の MIT License（Copyright (c) 2026 nanaism）で、LICENSE を同梱しています。検査スクリプトに含まれる Unicode 由来のデータには、同梱の UNICODE-LICENSE.txt（Unicode License V3）の通知が適用されます。 完成したデモ・説明動画は、クレジット表記を条件に商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。詳しい条件は media-rights.html を参照してください。",
   "catalog_entry": {
     "id": "resource-yomiyasu",
     "name": "yomiyasu",
+    "tagline": "意味と文体を保ちながら整える日本語推敲スキル",
     "category": "writing",
     "kind": "スキル",
-    "summary": "日本語推敲の指示書・参照資料と、Pythonのlint/diff。意味の4原則と入力を同じAIへ渡し、別の点検結果を原文と読み比べる構造が図で分かります。",
+    "summary": "原文、用途、残したい表現をAIに渡し、日本語の言い回しや文のつながりを整える指示書です。修正候補と点検結果を原文と比べながら、採用する表現を選べます。",
     "use_case": "技術記事、仕様書、PR説明などの日本語を読みやすく推敲したいとき。",
     "tags": [
       "文章",
@@ -168,6 +167,22 @@
     "verification": "固定60bf877の原典15件の内容を確認（画像1件は同じバイト、14テキストは元のCRLFと公式LFを区別）。元の架空業務文3件・8変更・14条件・6回のPython実行を保持。大きな図、実JSON保存、32秒縦横無音映像を新しく確認。品質や意味の保証、人の承認とは区別。",
     "reviewed_on": "2026-10-18"
   },
-  "updated_on": "2026-10-18",
-  "verification_stage": "runtime-reviewed"
+  "updated_on": "2026-10-21",
+  "verification_stage": "runtime-reviewed",
+  "video_portrait": "media/yomiyasu-before-after.mp4",
+  "video_landscape": "media/yomiyasu-before-after-wide.mp4",
+  "poster_portrait": "media/yomiyasu-before-after.webp",
+  "poster_landscape": "media/yomiyasu-before-after-wide.webp",
+  "video_width": 720,
+  "video_height": 1280,
+  "video_license": {
+    "id": "LicenseRef-Yaoyorozu-Video-Credit",
+    "label": "クレジット表記必須（商用利用・編集・再配布OK）",
+    "url": "media-rights.html",
+    "credit": "引用元:Yaoyorozu-AI Toolbox made by studio_yebisu",
+    "x_mention": "@studio_yebisu",
+    "effective_on": "2026-10-21"
+  },
+  "video_download_portrait": "media/downloads/yomiyasu-before-after-portrait-credited.mp4",
+  "video_download_landscape": "media/downloads/yomiyasu-before-after-landscape-credited.mp4"
 }

@@ -1,12 +1,11 @@
 {
   "id": "3d-asset-server-example",
-  "title": "3D Asset Server：手順書から、素材の検索と取得へ",
+  "title": "3D Asset Server",
   "title_lines": [
-    "手順書から、",
-    "素材の検索と取得へ"
+    "3D素材を探して取得するMCPツール"
   ],
   "category": "3d",
-  "summary": "指示書と依頼から、AIの実装・別工程の原典API実行・配信元・ライセンスと容量ゲート・実3D一式までを一枚の動く図で。32秒の無音縦動画と、取得済み木箱を回せる元の実作例をつなぎます。",
+  "summary": "3Dモデル、テクスチャ、HDRIを複数の素材サイトから検索し、選んだファイルを取得できます。AIエージェントから素材探しとダウンロードをまとめて進められます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/3d-asset-server-example/index.html",
@@ -223,11 +222,11 @@
     }
   ],
   "license": "MIT（独自作例）・Apache-2.0（3D Asset Server 原典）・MIT（three）・CC0（3Dモデル）",
-  "license_note": "作例のコード（run.mjs・model-view.js・ページ）・文章・入力・動画の編集ソースは MIT License（Copyright (c) 2026 Studio Yebisu）。vendor/3d-asset-server/ は arielshad/3d-asset-server の固定コミット f605df3 の原典と、その原典の build:server が出力した dist/ を改変せずに置いたもので Apache License 2.0、原典に含まれる Geist フォントは SIL Open Font License 1.1 です。vendor/three/ は npm の three 0.180.0 のファイルで MIT。取得した3Dモデル Wooden Crate 01 は James Ray Cock・Poly Haven の CC0 で、再配布でき帰属表示は不要ですが、作者と配布元を表示しています。Poly Haven のライブAPIは商用も含めて無料で、識別できる User-Agent と出どころの表示が条件です。Studio Yebisu は Poly Haven の公式の製品・提携先ではありません。動画の制作に使う Motion Reel は MIT。再実行には npm ci（依存の取得）と Poly Haven への通信が要り、アカウント・API キー・課金は要りません。ソース制作に用いた Opus 5.5 の利用環境は別に必要です。",
+  "license_note": "作例のコード（run.mjs・model-view.js・ページ）・文章・入力・動画の編集ソースは MIT License（Copyright (c) 2026 Studio Yebisu）。vendor/3d-asset-server/ は arielshad/3d-asset-server の固定コミット f605df3 の原典と、その原典の build:server が出力した dist/ を改変せずに置いたもので Apache License 2.0、原典に含まれる Geist フォントは SIL Open Font License 1.1 です。vendor/three/ は npm の three 0.180.0 のファイルで MIT。取得した3Dモデル Wooden Crate 01 は James Ray Cock・Poly Haven の CC0 で、再配布でき帰属表示は不要ですが、作者と配布元を表示しています。Poly Haven のライブAPIは商用も含めて無料で、識別できる User-Agent と出どころの表示が条件です。Yaoyorozu-AI Toolbox は Poly Haven の公式の製品・提携先ではありません。動画の制作に使う Motion Reel は MIT。再実行には npm ci（依存の取得）と Poly Haven への通信が要り、アカウント・API キー・課金は要りません。ソース制作に用いた Opus 5.5 の利用環境は別に必要です。 完成したデモ・説明動画は、クレジット表記を条件に商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。詳しい条件は media-rights.html を参照してください。",
   "video_note": "32秒・縦720×1280／横1280×720・30fps。無音で音声トラックなし。指示書と入力が実装に合流し、別工程のツール実行から配信元・容量ゲート・実ファイルへ進む大きな図です。機能を実行した映像記録ではなく、保存した実記録と取得済み3Dの実表示領域を使う構造説明です。",
   "video_source": "examples/3d-asset-server-example/video/index.html",
   "skill_license": "examples/3d-asset-server-example/vendor/3d-asset-server/LICENSE",
-  "updated_on": "2026-10-19",
+  "updated_on": "2026-10-21",
   "verification_stage": "runtime-reviewed",
   "runtime_review": {
     "status": "technical_qa_complete",
@@ -245,9 +244,10 @@
   "catalog_entry": {
     "id": "resource-3d-asset-server",
     "name": "3D Asset Server",
+    "tagline": "3D素材を探して取得するMCPツール",
     "category": "3d",
     "kind": "MCPツール",
-    "summary": "複数の素材サイトから3Dモデル、テクスチャ、HDRIを検索し、選んだ素材を取得する。",
+    "summary": "3Dモデル、テクスチャ、HDRIを複数の素材サイトから検索し、選んだファイルを取得できます。AIエージェントから素材探しとダウンロードをまとめて進められます。",
     "use_case": "3Dシーンの素材探しと、ファイル取得までをエージェントから進めたいとき。",
     "tags": [
       "3D",
@@ -279,5 +279,21 @@
     "verification": "元8操作と実取得・実3Dの記録を保全。今回、指示書/実装と実行/配信元/容量/実ファイルの概念構造を主役へ改修。新しい図と32秒無音縦横動画の検査はvisual-verification.json。実機iOS/Safari/VoiceOverと人の承認は未確認。",
     "reviewed_on": "2026-10-17",
     "updated_on": "2026-10-19"
-  }
+  },
+  "video_portrait": "media/3d-asset-server-example.mp4",
+  "video_landscape": "media/3d-asset-server-example-wide.mp4",
+  "poster_portrait": "media/3d-asset-server-example.webp",
+  "poster_landscape": "media/3d-asset-server-example-wide.webp",
+  "video_width": 720,
+  "video_height": 1280,
+  "video_license": {
+    "id": "LicenseRef-Yaoyorozu-Video-Credit",
+    "label": "クレジット表記必須（商用利用・編集・再配布OK）",
+    "url": "media-rights.html",
+    "credit": "引用元:Yaoyorozu-AI Toolbox made by studio_yebisu",
+    "x_mention": "@studio_yebisu",
+    "effective_on": "2026-10-21"
+  },
+  "video_download_portrait": "media/downloads/3d-asset-server-example-portrait-credited.mp4",
+  "video_download_landscape": "media/downloads/3d-asset-server-example-landscape-credited.mp4"
 }

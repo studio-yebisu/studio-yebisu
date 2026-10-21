@@ -1,13 +1,11 @@
 {
   "id": "motion-primitives-example",
-  "title": "Motion Primitives：部品を写して、状態から開閉を作る",
+  "title": "Motion Primitives",
   "title_lines": [
-    "部品を写す。",
-    "状態を渡す。",
-    "ひとつ開く。"
+    "Reactの画面に動きを加えるUI部品集"
   ],
   "category": "motion",
-  "summary": "コピーして使うReactのアニメーションUI部品集です。原典と依頼から実装へ進む制作経路と、Appの状態からAccordion・見出し・本文へ伝わる実行時の構造を、大きな動く図と32秒の無音動画で追えます。",
+  "summary": "タブの切り替え、文字の表示、状態の変化などに使うアニメーション部品を提供します。Reactのコードへコピーし、画面の状態とつないで小さな動きを加えられます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/motion-primitives-example/index.html",
@@ -171,19 +169,20 @@
     }
   ],
   "license": "MIT（作例）",
-  "license_note": "作例のコード・文章・架空の手順書は MIT License（Copyright (c) 2026 Studio Yebisu）。Motion Primitives は MIT License（Copyright (c) 2024 ibelick）で、写した accordion.tsx・utils.ts と LICENCE.md を vendor/motion-primitives/ に原文のまま置いています。画面のスクリプトに含まれる React・Motion・clsx・tailwind-merge などの依存パッケージは、それぞれのライセンスに従い、ライセンス文を vendor/dependency-licenses/ に同梱します。",
+  "license_note": "作例のコード・文章・架空の手順書は MIT License（Copyright (c) 2026 Studio Yebisu）。Motion Primitives は MIT License（Copyright (c) 2024 ibelick）で、写した accordion.tsx・utils.ts と LICENCE.md を vendor/motion-primitives/ に原文のまま置いています。画面のスクリプトに含まれる React・Motion・clsx・tailwind-merge などの依存パッケージは、それぞれのライセンスに従い、ライセンス文を vendor/dependency-licenses/ に同梱します。 完成したデモ・説明動画は、クレジット表記を条件に商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。詳しい条件は media-rights.html を参照してください。",
   "skill_license": "examples/motion-primitives-example/vendor/motion-primitives/LICENCE.md",
   "video_note": "32秒・30fps・完全無音。縦720×1280と横1280×720を別配置で描きます。原典のソースと依頼→元AIのReact執筆→制作担当のビルド/確認→App状態とAccordionの入れ子→押下で開閉する関係の概念構造です。連続操作の録画や新しい推論実行、応答時間の計測ではありません。",
   "video_source": "examples/motion-primitives-example/video/index.html",
-  "updated_on": "2026-10-19",
+  "updated_on": "2026-10-21",
   "verification_stage": "runtime-reviewed",
   "guide_url": "case.html?id=motion-primitives-example",
   "catalog_entry": {
     "id": "resource-motion-primitives",
     "name": "Motion Primitives",
+    "tagline": "Reactの画面に動きを加えるUI部品集",
     "category": "motion",
     "kind": "ライブラリ",
-    "summary": "コピーして使うReactのアニメーション部品集。原典から実装へ、App状態から見出し/本文へ、押下から状態へ戻る構造を図で追う。",
+    "summary": "タブの切り替え、文字の表示、状態の変化などに使うアニメーション部品を提供します。Reactのコードへコピーし、画面の状態とつないで小さな動きを加えられます。",
     "use_case": "タブ切替、文字表示、状態変化などの小さな動きをWeb画面へ加えたいとき。",
     "tags": [
       "アニメーション",
@@ -220,5 +219,18 @@
   },
   "video_landscape": "media/motion-primitives-example-wide.mp4",
   "video_width": 720,
-  "video_height": 1280
+  "video_height": 1280,
+  "video_portrait": "media/motion-primitives-example.mp4",
+  "poster_portrait": "media/motion-primitives-example.webp",
+  "poster_landscape": "media/motion-primitives-example-wide.webp",
+  "video_license": {
+    "id": "LicenseRef-Yaoyorozu-Video-Credit",
+    "label": "クレジット表記必須（商用利用・編集・再配布OK）",
+    "url": "media-rights.html",
+    "credit": "引用元:Yaoyorozu-AI Toolbox made by studio_yebisu",
+    "x_mention": "@studio_yebisu",
+    "effective_on": "2026-10-21"
+  },
+  "video_download_portrait": "media/downloads/motion-primitives-example-portrait-credited.mp4",
+  "video_download_landscape": "media/downloads/motion-primitives-example-landscape-credited.mp4"
 }

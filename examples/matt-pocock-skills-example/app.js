@@ -1,4 +1,4 @@
-// Studio Yebisu original. MIT. 入力はこのページの中だけで計算し、外へ送らない。
+// Yaoyorozu-AI Toolbox original. MIT. 入力はこのページの中だけで計算し、外へ送らない。
 import { searchEntries } from './search.mjs';
 import { searchEntries as searchBefore } from './baseline/search.mjs';
 

@@ -1,8 +1,8 @@
 {
   "id": "brief-to-demo",
-  "title": "brief-to-demo作例：依頼から、制作の設計図へ",
+  "title": "brief-to-demo",
   "category": "agents",
-  "summary": "brief-to-demoは、短い依頼を11項目の制作ブリーフへ整える、AIが読むMarkdownスキルです。指示書と元の依頼が同じAIへ入り、目的・素材・読むスキル・完成条件を持つ書類になり、未指定や仮の条件を分けて次の制作へ渡す構造を、大きな図と32秒の無音動画にしました。",
+  "summary": "短い依頼を、目的、使う素材、制作手順、完成条件が揃ったブリーフに整理できます。決まっていない条件を分けて記録し、次に作業するAIへ渡せます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/brief-to-demo/index.html",
@@ -63,7 +63,7 @@
   ],
   "sources": [
     {
-      "label": "brief-to-demo SKILL.md（Studio Yebisu）",
+      "label": "brief-to-demo SKILL.md（Yaoyorozu-AI Toolbox）",
       "url": "https://github.com/studio-yebisu/studio-yebisu/blob/bc2984ab4208e349aded79b3694cc2cb98b8a4a6/skills/brief-to-demo/SKILL.md"
     },
     {
@@ -71,11 +71,11 @@
       "url": "https://github.com/anthropics/skills/blob/dbd4588f9e1033efb41dad4bef2f7947c8993d44/skills/frontend-design/SKILL.md"
     },
     {
-      "label": "Studio Yebisu UI・UX",
+      "label": "Yaoyorozu-AI Toolbox UI・UX",
       "url": "https://studio-yebisu.github.io/studio-yebisu/guides/ui-ux/"
     },
     {
-      "label": "Studio Yebisu AIスライド",
+      "label": "Yaoyorozu-AI Toolbox AIスライド",
       "url": "https://studio-yebisu.github.io/awesome-codex-ppt-skills-ja/"
     },
     {
@@ -83,7 +83,7 @@
       "url": "https://github.com/studio-yebisu/motion-reel/tree/56198544e69201b1c202e0c00fb90b568a729824"
     },
     {
-      "label": "Studio Yebisu モーション",
+      "label": "Yaoyorozu-AI Toolbox モーション",
       "url": "https://studio-yebisu.github.io/awesome-claude-motion-design-ja/"
     },
     {
@@ -125,9 +125,7 @@
   ],
   "license": "MIT",
   "title_lines": [
-    "依頼から、",
-    "制作の設計図へ。",
-    "brief-to-demoの構造"
+    "曖昧な依頼を具体化するブリーフ作成スキル"
   ],
   "demo_description": "「読む・組む・渡す」の3段階で、指示書の本と依頼の紙がつながります。保存済み3件の11項目を選んで読み、ブリーフJSONの保存や制作へ渡す依頼文のコピーができます。未指定・仮の条件と、実行していない次の制作を分けて見られます。",
   "demo_note": "元のOpus5.5のブリーフ原案に、元の制作担当によるスライドルートの調整を含む、保存済み3件をそのまま使います。今回、ブリーフを作り直していません。inputsは次に受け取る素材、stepsとacceptanceは次の制作の計画です。受付画面・PPTX・20秒の製品動画を制作した作例ではありません。",
@@ -137,18 +135,19 @@
   "video_note": "32秒・30fps・無音。縦720×1280と横1280×720を別配置で描きます。指示書と依頼→同じAI→11項目のブリーフ→仮の条件のポケット→実JSONと渡す用の依頼文、の構造です。受付画面の制作ブリーフを例にし、次の制作は未実行として示します。ブリーフ内で計画した20秒の製品動画と、この32秒の図解動画は別です。",
   "video_source": "examples/brief-to-demo/video/index.html",
   "skill_license": "skills/brief-to-demo/LICENSE",
-  "license_note": "brief-to-demoの指示書、作例の入力・結果の表示・図・動画ソースはMIT License、Copyright(c)2026 Studio Yebisuです。原典はbc2984aへ固定し、SKILL.mdとLICENSEを作例にも同梱しています。次の制作先として挙げたスキル・ツールは、それぞれの固定原典と利用条件を参照します。",
-  "updated_on": "2026-10-18",
+  "license_note": "brief-to-demoの指示書、作例の入力・結果の表示・図・動画ソースはMIT License、Copyright(c)2026 Studio Yebisuです。原典はbc2984aへ固定し、SKILL.mdとLICENSEを作例にも同梱しています。次の制作先として挙げたスキル・ツールは、それぞれの固定原典と利用条件を参照します。 完成したデモ・説明動画は、クレジット表記を条件に商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。詳しい条件は media-rights.html を参照してください。",
+  "updated_on": "2026-10-21",
   "verification_stage": "runtime-reviewed",
   "catalog_entry": {
     "id": "agents-brief-to-demo",
-    "name": "ひと言から、作れる依頼へ",
+    "name": "brief-to-demo",
+    "tagline": "曖昧な依頼を具体化するブリーフ作成スキル",
     "category": "agents",
     "kind": "スキル",
-    "summary": "短い依頼を11項目の制作ブリーフへ整えるMarkdownスキル。指示書と同じAI、未指定・仮の条件、選んだ制作スキルへの引き継ぎの構造が図で分かります。",
-    "use_case": "作例づくりの前に、AIへ渡す依頼を具体化する。",
+    "summary": "短い依頼を、目的、使う素材、制作手順、完成条件が揃ったブリーフに整理できます。決まっていない条件を分けて記録し、次に作業するAIへ渡せます。",
+    "use_case": "制作の前に、AIへ渡す依頼を具体化したいとき。",
     "tags": [
-      "Studio Yebisu",
+      "Yaoyorozu-AI Toolbox",
       "日本語",
       "作例制作"
     ],
@@ -166,5 +165,21 @@
     "source_path": "skills/brief-to-demo",
     "verification_stage": "runtime-reviewed",
     "reviewed_on": "2026-10-18"
-  }
+  },
+  "video_portrait": "media/brief-to-demo.mp4",
+  "video_landscape": "media/brief-to-demo-wide.mp4",
+  "poster_portrait": "media/brief-to-demo.webp",
+  "poster_landscape": "media/brief-to-demo-wide.webp",
+  "video_width": 720,
+  "video_height": 1280,
+  "video_license": {
+    "id": "LicenseRef-Yaoyorozu-Video-Credit",
+    "label": "クレジット表記必須（商用利用・編集・再配布OK）",
+    "url": "media-rights.html",
+    "credit": "引用元:Yaoyorozu-AI Toolbox made by studio_yebisu",
+    "x_mention": "@studio_yebisu",
+    "effective_on": "2026-10-21"
+  },
+  "video_download_portrait": "media/downloads/brief-to-demo-portrait-credited.mp4",
+  "video_download_landscape": "media/downloads/brief-to-demo-landscape-credited.mp4"
 }

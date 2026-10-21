@@ -1,12 +1,11 @@
 {
   "id": "openvoice-example",
-  "title": "OpenVoice作例：声を、着替える。",
+  "title": "OpenVoice",
   "title_lines": [
-    "声を、",
-    "着替える。"
+    "参照音声の声質を再現する音声変換ツール"
   ],
   "category": "audio",
-  "summary": "元の音声と声色の見本をつなぎ、変換後を聞く。実際に声色変換した案内を、大きな概念図から聞き比べてWAVで保存できます。",
+  "summary": "参照音声の声質をもとに、別の発話へ声の特徴を反映できます。利用できる声を使って、言語や話し方の異なる音声を作り、聴き比べられます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/openvoice-example/index.html",
@@ -123,11 +122,11 @@
     }
   ],
   "license": "MIT（独自作例）・MIT（OpenVoice 原典と V2 の重み）",
-  "license_note": "OpenVoiceと公式V2重み、WavMark0.0.3と公式重み、Irodori-TTSの固定コードと重みはMIT。原典のソース・利用条件・固定版とハッシュを同梱し、モデル重みとcacheは除外しています。独自原稿・UI・映像編集ソースとMotion ReelはMITです。",
+  "license_note": "OpenVoiceと公式V2重み、WavMark0.0.3と公式重み、Irodori-TTSの固定コードと重みはMIT。原典のソース・利用条件・固定版とハッシュを同梱し、モデル重みとcacheは除外しています。独自原稿・UI・映像編集ソースとMotion ReelはMITです。 完成したデモ・説明動画は、クレジット表記を条件に商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。詳しい条件は media-rights.html を参照してください。",
   "skill_license": "examples/openvoice-example/vendor/openvoice/LICENSE",
   "video_note": "36秒・実音声あり。大きな概念図が動き、元音声・声色の見本・変換後を順に聞けます。縦版と横向き版を用意。説明用に編集した図と実音声で、ライブ変換の連続録画ではありません。",
   "video_source": "examples/openvoice-example/video/index.html",
-  "updated_on": "2026-10-17",
+  "updated_on": "2026-10-21",
   "verification_stage": "runtime-reviewed",
   "runtime_review": {
     "status": "technical_qa_complete",
@@ -146,9 +145,10 @@
   "catalog_entry": {
     "id": "resource-openvoice",
     "name": "OpenVoice",
+    "tagline": "参照音声の声質を再現する音声変換ツール",
     "category": "audio",
     "kind": "モデル・ツール",
-    "summary": "参照音声の声質を使い、言語や話し方を変えた音声を作る。",
+    "summary": "参照音声の声質をもとに、別の発話へ声の特徴を反映できます。利用できる声を使って、言語や話し方の異なる音声を作り、聴き比べられます。",
     "use_case": "利用できる声を使い、複数言語の短い音声表現を比較したいとき。",
     "tags": [
       "音声",
@@ -190,5 +190,18 @@
     "閲覧・聞き比べはブラウザーだけで利用できます。ライブ推論や音声のアップロードはありません。",
     "同梱WAVの再変換にはPython3.10、記録したCPU依存、原典の固定重みが必要です。モデル重みとcacheは公開フォルダーの外に置きます。",
     "原稿からの再合成は、固定版Irodori-TTSと別途準備した重み・依存を使います。重みとcacheは同梱しません。"
-  ]
+  ],
+  "video_portrait": "media/openvoice-example.mp4",
+  "poster_portrait": "media/openvoice-example.webp",
+  "poster_landscape": "media/openvoice-example-wide.webp",
+  "video_license": {
+    "id": "LicenseRef-Yaoyorozu-Video-Credit",
+    "label": "クレジット表記必須（商用利用・編集・再配布OK）",
+    "url": "media-rights.html",
+    "credit": "引用元:Yaoyorozu-AI Toolbox made by studio_yebisu",
+    "x_mention": "@studio_yebisu",
+    "effective_on": "2026-10-21"
+  },
+  "video_download_portrait": "media/downloads/openvoice-example-portrait-credited.mp4",
+  "video_download_landscape": "media/downloads/openvoice-example-landscape-credited.mp4"
 }

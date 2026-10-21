@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" role="img" aria-labelledby="t d">
+  <title id="t">模式図：Ming-3.0-tts-0.5B — 1回の合成では、声の決め方・演じ方のモードを一つ選ぶ</title>
+  <desc id="d">左の台詞カードから、4つのモードへ線が分かれる。モードは上から、参照音声で複製、声を文章で設計、言葉で演出を指示、感情を指定。実線でつながり朱色に塗られているのは一番上の一つだけで、ほかは点線。選んだモードから右の音声波形へ矢印が出る。言葉で演出を指示するモードからは、声を文章で設計するモードと、感情を指定するモードへ×印の付いた弧が伸び、併用しないことを示す。下に、日本語は多言語モードで言語を指定すると添えてある。仕組みを示す模式図で、モデルの出力ではない。</desc>
+  <style>
+    text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic",Meiryo,"Noto Sans JP",sans-serif;font-weight:700;fill:#17150f}
+    .tg{font-size:24px;fill:#f2eee3}
+    .md{font-size:30px}
+    .ln{fill:none;stroke:#17150f;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+    .off{fill:none;stroke:#17150f;stroke-opacity:0.35;stroke-width:3;stroke-dasharray:8 7}
+  </style>
+  <rect width="880" height="540" fill="#fbf9f3"/>
+  <rect x="28" y="28" width="96" height="38" fill="#17150f"/>
+  <text class="tg" x="76" y="55" text-anchor="middle">模式図</text>
+
+  <text x="270" y="78" style="font-size:28px">1回に選ぶモードは一つ</text>
+
+  <!-- Script -->
+  <rect x="40" y="196" width="180" height="148" fill="#f2eee3" stroke="#17150f" stroke-width="4"/>
+  <text class="md" x="60" y="238">台詞</text>
+  <path d="M60 270 H198 M60 296 H184 M60 322 H160" stroke="#17150f" stroke-opacity="0.45" stroke-width="7" stroke-linecap="round"/>
+
+  <!-- Fan to modes: only one is live -->
+  <path d="M220 270 C 248 270 244 133 268 133" fill="none" stroke="#ff4f00" stroke-width="5" stroke-linecap="round"/>
+  <path class="off" d="M220 270 C 248 270 244 229 268 229"/>
+  <path class="off" d="M220 270 C 248 270 244 325 268 325"/>
+  <path class="off" d="M220 270 C 248 270 244 421 268 421"/>
+
+  <!-- Mode 1: reference clip (selected) -->
+  <rect x="270" y="96" width="330" height="74" fill="#ff4f00" stroke="#17150f" stroke-width="4"/>
+  <text class="md" x="290" y="143" style="fill:#fbf9f3">参照音声で複製</text>
+  <path d="M532 133 V133 M542 121 V145 M552 113 V153 M562 125 V141 M572 117 V149 M582 128 V138" stroke="#fbf9f3" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Mode 2: voice design -->
+  <rect x="270" y="192" width="330" height="74" fill="#fbf9f3" stroke="#17150f" stroke-width="3"/>
+  <text class="md" x="290" y="239">声を文章で設計</text>
+  <path d="M530 212 H584 V244 H552 L540 254 V244 H530 Z" fill="none" stroke="#17150f" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M540 224 H574 M540 233 H564" stroke="#17150f" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Mode 3: free-form direction -->
+  <rect x="270" y="288" width="330" height="74" fill="#fbf9f3" stroke="#17150f" stroke-width="3"/>
+  <text class="md" x="290" y="335">言葉で演出を指示</text>
+  <path d="M540 316 L566 304 V346 L540 334 Z M530 316 H540 V334 H530 Z" fill="#17150f"/>
+  <path d="M574 314 Q 582 325 574 336" fill="none" stroke="#17150f" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Mode 4: explicit emotion -->
+  <rect x="270" y="384" width="330" height="74" fill="#fbf9f3" stroke="#17150f" stroke-width="3"/>
+  <text class="md" x="290" y="431">感情を指定</text>
+  <path d="M542 402 V440 M560 402 V440 M578 402 V440" stroke="#17150f" stroke-opacity="0.4" stroke-width="3"/>
+  <rect x="535" y="424" width="14" height="10" fill="#17150f"/>
+  <rect x="553" y="408" width="14" height="10" fill="#17150f"/>
+  <rect x="571" y="418" width="14" height="10" fill="#17150f"/>
+
+  <!-- Output from the selected mode -->
+  <path class="ln" d="M604 133 H652"/>
+  <path class="ln" d="M640 121 L654 133 L640 145"/>
+  <path d="M672 133 V133 M684 120 V146 M696 106 V160 M708 116 V150 M720 98 V168 M732 112 V154 M744 122 V144 M756 104 V162 M768 114 V152 M780 100 V166 M792 118 V148 M804 110 V156 M816 124 V142 M828 128 V138" stroke="#17150f" stroke-width="6" stroke-linecap="round"/>
+  <text class="md" x="750" y="206" text-anchor="middle">音声</text>
+
+  <!-- Free-form direction is not combined with the other controls -->
+  <path d="M604 316 C 646 316 646 240 604 240" fill="none" stroke="#ff4f00" stroke-width="3"/>
+  <path d="M604 334 C 646 334 646 410 604 410" fill="none" stroke="#ff4f00" stroke-width="3"/>
+  <circle cx="636" cy="278" r="13" fill="#fbf9f3" stroke="#ff4f00" stroke-width="3"/>
+  <path d="M630 272 L642 284 M642 272 L630 284" stroke="#ff4f00" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="636" cy="372" r="13" fill="#fbf9f3" stroke="#ff4f00" stroke-width="3"/>
+  <path d="M630 366 L642 378 M642 366 L630 378" stroke="#ff4f00" stroke-width="3" stroke-linecap="round"/>
+  <text x="664" y="320" style="font-size:28px;fill:#ff4f00">言葉の演出は</text>
+  <text x="664" y="356" style="font-size:28px;fill:#ff4f00">併用しない</text>
+
+  <text x="270" y="504" style="font-size:24px;fill-opacity:0.75">日本語は多言語モードで言語を指定</text>
+</svg>

@@ -1,13 +1,11 @@
 {
   "id": "humanizer-example",
-  "title": "Humanizer作例：指示書と原文を、同じAIへ",
+  "title": "Humanizer",
   "title_lines": [
-    "指示書と原文を、",
-    "同じAIへ。",
-    "Humanizerの構造"
+    "AIらしい文体を自然に整える推敲スキル"
   ],
   "category": "writing",
-  "summary": "HumanizerはAIへ文章の推敲手順を渡すMarkdownスキルです。6系統・26型と4手順の指示書、原文・読み手・残す条件が同じAIへ入り、印→初稿→点検→最終稿、原文との読み比べと実メモへつながる構造を、大きな図と32秒の無音動画にしました。",
+  "summary": "特に英語の下書きで、定型的な表現や不自然な言い回しを見つけ、読みやすく整えられます。原文の内容と読み手を踏まえ、推敲後も意味が保たれているか点検します。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/humanizer-example/index.html",
@@ -144,19 +142,20 @@
     }
   ],
   "license": "MIT",
-  "license_note": "作例の文章・データ・コードはMIT License（Copyright (c) 2026 Studio Yebisu）。同梱したHumanizer原典はMIT License（Copyright (c) 2025 Siqi Chen）で、14ファイルを改変せずに含め、表示を保っています。パターンの出典はSKILL.mdが示すWikipediaの「Signs of AI writing」で、Wikipediaの本文は転載していません。",
+  "license_note": "作例の文章・データ・コードはMIT License（Copyright (c) 2026 Studio Yebisu）。同梱したHumanizer原典はMIT License（Copyright (c) 2025 Siqi Chen）で、14ファイルを改変せずに含め、表示を保っています。パターンの出典はSKILL.mdが示すWikipediaの「Signs of AI writing」で、Wikipediaの本文は転載していません。 完成したデモ・説明動画は、クレジット表記を条件に商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。詳しい条件は media-rights.html を参照してください。",
   "video_note": "32秒・30fps・無音。縦720×1280と横1280×720を別配置で描きます。同じ本と紙がAIへ入り、不要な文がはがれ、点検から初稿へ戻り、条件を保った最終稿と推敲メモへつながる概念図です。保存済みのサポート返信を例にし、音声トラックはありません。",
   "video_source": "examples/humanizer-example/video/index.html",
   "skill_license": "examples/humanizer-example/vendor/humanizer/LICENSE",
-  "updated_on": "2026-10-18",
+  "updated_on": "2026-10-21",
   "verification_stage": "runtime-reviewed",
   "guide_url": "case.html?id=humanizer-example",
   "catalog_entry": {
     "id": "resource-humanizer",
     "name": "Humanizer",
+    "tagline": "AIらしい文体を自然に整える推敲スキル",
     "category": "writing",
     "kind": "スキル",
-    "summary": "原文と読み手をAIへ渡し、印・初稿・点検・最終稿で推敲するMarkdownスキル。指示書の6系統26型と入力、同じAI、実メモの構造を図で見られます。",
+    "summary": "特に英語の下書きで、定型的な表現や不自然な言い回しを見つけ、読みやすく整えられます。原文の内容と読み手を踏まえ、推敲後も意味が保たれているか点検します。",
     "use_case": "特に英語の下書きを、内容を変えず自然な文へ推敲したいとき。",
     "tags": [
       "文章",
@@ -189,5 +188,21 @@
     "reviewed_on": "2026-10-18",
     "example_url": "examples/humanizer-example/index.html#release",
     "image": "media/humanizer-example.webp"
-  }
+  },
+  "video_portrait": "media/humanizer-example.mp4",
+  "video_landscape": "media/humanizer-example-wide.mp4",
+  "poster_portrait": "media/humanizer-example.webp",
+  "poster_landscape": "media/humanizer-example-wide.webp",
+  "video_width": 720,
+  "video_height": 1280,
+  "video_license": {
+    "id": "LicenseRef-Yaoyorozu-Video-Credit",
+    "label": "クレジット表記必須（商用利用・編集・再配布OK）",
+    "url": "media-rights.html",
+    "credit": "引用元:Yaoyorozu-AI Toolbox made by studio_yebisu",
+    "x_mention": "@studio_yebisu",
+    "effective_on": "2026-10-21"
+  },
+  "video_download_portrait": "media/downloads/humanizer-example-portrait-credited.mp4",
+  "video_download_landscape": "media/downloads/humanizer-example-landscape-credited.mp4"
 }

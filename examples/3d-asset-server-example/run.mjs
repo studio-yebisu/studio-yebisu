@@ -1,4 +1,4 @@
-// Studio Yebisu — 3D Asset Server 作例の実行CLI。MIT License, Copyright (c) 2026 Studio Yebisu.
+// Yaoyorozu-AI Toolbox — 3D Asset Server 作例の実行CLI。MIT License, Copyright (c) 2026 Studio Yebisu.
 //
 //   node run.mjs --artifact-dir <このフォルダーの外の、まだ無いフォルダー>
 //

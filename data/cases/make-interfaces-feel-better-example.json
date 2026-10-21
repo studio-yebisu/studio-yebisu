@@ -1,13 +1,11 @@
 {
   "id": "make-interfaces-feel-better-example",
-  "title": "Make Interfaces Feel Better作例：指針を読み、直す場所を絞る",
+  "title": "Make Interfaces Feel Better",
   "title_lines": [
-    "指針を読む。",
-    "直す場所を絞る。",
-    "同じ画面で確かめる。"
+    "画面の細部と操作感を磨くUI改善スキル"
   ],
   "category": "ui-ux",
-  "summary": "AIに渡す、UIの細部を見るためのMarkdown指針です。1冊のSKILLと5つの参照、既存の画面と依頼、範囲を絞るレビュー、実装と別工程の確認がどうつながるかを、大きな動く図と32秒の無音動画で追えます。",
+  "summary": "既存の画面を、見た目と操作感の指針に沿って見直せます。気になる箇所を絞って実装を調整し、同じ画面で変更前後を確かめながら仕上げられます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/make-interfaces-feel-better-example/index.html",
@@ -53,7 +51,7 @@
     },
     {
       "title": "既存画面と困る操作・範囲を渡す",
-      "body": "依頼用にStudio Yebisuが作ったbefore画面、主操作、HTML/plain CSS/ES moduleの方式、配色・書体・文言・構成、clips.jsonとexport.mjsの契約を同じAIへ渡しました。"
+      "body": "依頼用にYaoyorozu-AI Toolboxが作ったbefore画面、主操作、HTML/plain CSS/ES moduleの方式、配色・書体・文言・構成、clips.jsonとexport.mjsの契約を同じAIへ渡しました。"
     },
     {
       "title": "quickレビューと改善実装を受け取る",
@@ -70,7 +68,7 @@
   ],
   "limitations": [
     "MarkdownのUIレビュー/実装指針です。画面を実行時に作るAPI、AIモデル、自動検出器、5つの自動エージェントではありません。",
-    "修正前は課題を含めてStudio Yebisuが作った依頼用の入力です。第三者製品との比較、使いやすさや品質の向上率、一般の効果は測っていません。",
+    "修正前は課題を含めてYaoyorozu-AI Toolboxが作った依頼用の入力です。第三者製品との比較、使いやすさや品質の向上率、一般の効果は測っていません。",
     "元のAIはレビューと改善UIを執筆。制作担当が10関連行を3群へ統合し、高頻度の選択時のアイコン復帰等を技術補正して、別にNodeとブラウザーを実行しました。独立AIの査読や人による承認ではありません。",
     "原典quickはHIGH/MEDIUM上限5で、この依頼だけ最大3群です。5分類の確認範囲と却下3候補を記録しています。全画面や全19原則を適用したという意味ではありません。",
     "新しい図の6部品は説明用整理です。新しい紹介図の動きや配色切替を、保全した元UIへ追加したものではありません。",
@@ -151,17 +149,18 @@
     }
   ],
   "license": "MIT",
-  "license_note": "作例のコードと文章は Copyright (c) 2026 Studio Yebisu の MIT License です。同梱した原典 vendor/make-interfaces-feel-better は Copyright (c) 2026 Jakub Krehel の MIT License のままです。",
+  "license_note": "作例のコードと文章は Copyright (c) 2026 Studio Yebisu の MIT License です。同梱した原典 vendor/make-interfaces-feel-better は Copyright (c) 2026 Jakub Krehel の MIT License のままです。 完成したデモ・説明動画は、クレジット表記を条件に商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。詳しい条件は media-rights.html を参照してください。",
   "video_note": "32秒・30fps・完全無音。縦720×1280/横1280×720を別配置で描きます。指針と5参照＋既存画面と依頼→同じAIのレビュー/実装→制作担当の整理/実確認→同じ関数とデータから実JSON、の概念構造です。連続操作の録画や新しいレビュー実行ではありません。旧28秒の編集ソースはlegacyへ残し、旧MP4は履歴へ保全します。",
   "video_source": "examples/make-interfaces-feel-better-example/video/index.html",
   "skill_license": "examples/make-interfaces-feel-better-example/vendor/make-interfaces-feel-better/LICENSE",
-  "updated_on": "2026-10-19",
+  "updated_on": "2026-10-21",
   "catalog_entry": {
     "id": "resource-make-interfaces-feel-better",
     "name": "Make Interfaces Feel Better",
+    "tagline": "画面の細部と操作感を磨くUI改善スキル",
     "category": "ui-ux",
     "kind": "スキル",
-    "summary": "AIが読むUIの細部の指針。5つの参照と既存画面を渡し、レビュー/実装/別工程の確認から同じデータの実画面へつなぐ図解。",
+    "summary": "既存の画面を、見た目と操作感の指針に沿って見直せます。気になる箇所を絞って実装を調整し、同じ画面で変更前後を確かめながら仕上げられます。",
     "use_case": "動く画面ができた後に、見た目と操作感の違和感を直したいとき。",
     "tags": [
       "UI",
@@ -195,5 +194,21 @@
     "example_url": "examples/make-interfaces-feel-better-example/index.html#all",
     "image": "media/make-interfaces-feel-better-example.webp"
   },
-  "verification_stage": "runtime-reviewed"
+  "verification_stage": "runtime-reviewed",
+  "video_portrait": "media/make-interfaces-feel-better-example.mp4",
+  "video_landscape": "media/make-interfaces-feel-better-example-wide.mp4",
+  "poster_portrait": "media/make-interfaces-feel-better-example.webp",
+  "poster_landscape": "media/make-interfaces-feel-better-example-wide.webp",
+  "video_width": 720,
+  "video_height": 1280,
+  "video_license": {
+    "id": "LicenseRef-Yaoyorozu-Video-Credit",
+    "label": "クレジット表記必須（商用利用・編集・再配布OK）",
+    "url": "media-rights.html",
+    "credit": "引用元:Yaoyorozu-AI Toolbox made by studio_yebisu",
+    "x_mention": "@studio_yebisu",
+    "effective_on": "2026-10-21"
+  },
+  "video_download_portrait": "media/downloads/make-interfaces-feel-better-example-portrait-credited.mp4",
+  "video_download_landscape": "media/downloads/make-interfaces-feel-better-example-landscape-credited.mp4"
 }

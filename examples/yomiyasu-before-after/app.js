@@ -1,4 +1,4 @@
-/* yomiyasu の作例 — Studio Yebisu (MIT).
+/* yomiyasu の作例 — Yaoyorozu-AI Toolbox (MIT).
    Reads the saved rewrites from samples.json and lays them out for reading. Nothing here calls an AI. */
 (() => {
   'use strict';

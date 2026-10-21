@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" role="img" aria-labelledby="t d">
+  <title id="t">模式図：MOSS-Transcribe-Diarize — 録音の区間ごとに、匿名の話者番号・時刻・本文を一度にそろえる</title>
+  <desc id="d">上段は録音の波形で、区間が朱色（S01）、黄緑（S02）、朱色（S01）に色分けされ、その下に時刻の軸がある。黒い帯「文字・話者・時刻を1回で」を挟んで、各区間の真下に話者番号の札と本文を表す線が並び、区間の境目と点線でそろう。下段では、モデルカードの公式出力例「[0.48][S01]Welcome everyone[1.66]」を、開始・話者（匿名の番号）・本文・終了に分解し、右の「字幕・議事録へ」の枠へ矢印がつながる。仕組みを示す模式図で、モデルの出力ではない。</desc>
+  <style>
+    text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic",Meiryo,"Noto Sans JP",sans-serif;font-weight:700;fill:#17150f}
+    .tg{font-size:24px;fill:#f2eee3}
+    .mono{font-family:Consolas,Menlo,"DejaVu Sans Mono",monospace;font-weight:700;font-size:28px}
+    .lb{font-size:26px}
+    .wv{stroke:#17150f;stroke-width:5;stroke-linecap:round}
+    .al{stroke:#17150f;stroke-opacity:0.45;stroke-width:2;stroke-dasharray:4 5}
+    .br{fill:none;stroke:#17150f;stroke-width:3}
+  </style>
+  <rect width="880" height="540" fill="#fbf9f3"/>
+  <rect x="28" y="28" width="96" height="38" fill="#17150f"/>
+  <text class="tg" x="76" y="55" text-anchor="middle">模式図</text>
+
+  <!-- Recording, coloured by speaker turn -->
+  <text x="40" y="150" style="font-size:30px">録音</text>
+  <rect x="150" y="100" width="180" height="80" fill="#ff4f00" fill-opacity="0.2"/>
+  <rect x="370" y="100" width="240" height="80" fill="#cbef3a" fill-opacity="0.7"/>
+  <rect x="650" y="100" width="190" height="80" fill="#ff4f00" fill-opacity="0.2"/>
+  <path class="wv" d="M160 140 V140 M172 126 V154 M184 118 V162 M196 130 V150 M208 114 V166 M220 124 V156 M232 132 V148 M244 116 V164 M256 128 V152 M268 120 V160 M280 134 V146 M292 122 V158 M304 128 V152 M316 136 V144"/>
+  <path class="wv" d="M380 140 V140 M392 130 V150 M404 120 V160 M416 112 V168 M428 126 V154 M440 116 V164 M452 132 V148 M464 118 V162 M476 124 V156 M488 112 V168 M500 130 V150 M512 120 V160 M524 126 V154 M536 116 V164 M548 128 V152 M560 122 V158 M572 132 V148 M584 124 V156 M596 136 V144"/>
+  <path class="wv" d="M660 140 V140 M672 124 V156 M684 116 V164 M696 128 V152 M708 120 V160 M720 132 V148 M732 114 V166 M744 126 V154 M756 118 V162 M768 130 V150 M780 122 V158 M792 128 V152 M804 120 V160 M816 132 V148 M828 138 V142"/>
+  <path d="M150 194 H840" stroke="#17150f" stroke-width="2"/>
+  <path d="M150 188 V200 M220 190 V198 M290 190 V198 M360 190 V198 M430 190 V198 M500 190 V198 M570 190 V198 M640 190 V198 M710 190 V198 M780 190 V198 M840 188 V200" stroke="#17150f" stroke-width="2"/>
+  <text x="40" y="202" style="font-size:22px;fill-opacity:0.7">時刻 →</text>
+
+  <!-- One pass -->
+  <rect x="150" y="216" width="690" height="42" fill="#17150f"/>
+  <text x="495" y="246" text-anchor="middle" style="font-size:26px;fill:#f2eee3">文字・話者・時刻を1回で</text>
+
+  <!-- Segment boundaries carry through -->
+  <path class="al" d="M150 182 V214 M330 182 V214 M370 182 V214 M610 182 V214 M650 182 V214 M840 182 V214"/>
+  <path class="al" d="M150 260 V282 M330 260 V282 M370 260 V282 M610 260 V282 M650 260 V282 M840 260 V282"/>
+
+  <!-- Speaker-aware lines under each turn -->
+  <rect x="150" y="284" width="74" height="40" fill="#ff4f00"/>
+  <text x="187" y="313" text-anchor="middle" style="font-size:24px;fill:#fbf9f3">S01</text>
+  <path d="M236 304 H322" stroke="#17150f" stroke-opacity="0.45" stroke-width="8" stroke-linecap="round"/>
+  <rect x="370" y="284" width="74" height="40" fill="#cbef3a" stroke="#17150f" stroke-width="2"/>
+  <text x="407" y="313" text-anchor="middle" style="font-size:24px">S02</text>
+  <path d="M456 304 H602" stroke="#17150f" stroke-opacity="0.45" stroke-width="8" stroke-linecap="round"/>
+  <rect x="650" y="284" width="74" height="40" fill="#ff4f00"/>
+  <text x="687" y="313" text-anchor="middle" style="font-size:24px;fill:#fbf9f3">S01</text>
+  <path d="M736 304 H832" stroke="#17150f" stroke-opacity="0.45" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- Canonical output format, from the model card -->
+  <path d="M40 352 H840" stroke="#17150f" stroke-opacity="0.2" stroke-width="2"/>
+  <text x="40" y="386" style="font-size:24px;fill-opacity:0.75">出力の形（モデルカードの例）</text>
+  <text class="mono" x="40" y="428">[0.48]</text>
+  <text class="mono" x="150" y="428" style="fill:#ff4f00">[S01]</text>
+  <text x="250" y="428" style="font-size:28px">Welcome everyone</text>
+  <text class="mono" x="512" y="428">[1.66]</text>
+  <path class="br" d="M40 440 V448 H138 V440 M150 440 V448 H236 V440 M250 440 V448 H496 V440 M512 440 V448 H610 V440"/>
+  <text class="lb" x="89" y="480" text-anchor="middle">開始</text>
+  <text class="lb" x="193" y="480" text-anchor="middle" style="fill:#ff4f00">話者</text>
+  <text x="193" y="508" text-anchor="middle" style="font-size:22px;fill:#ff4f00">匿名の番号</text>
+  <text class="lb" x="373" y="480" text-anchor="middle">本文</text>
+  <text class="lb" x="561" y="480" text-anchor="middle">終了</text>
+
+  <path d="M620 418 H644" fill="none" stroke="#17150f" stroke-width="4" stroke-linecap="round"/>
+  <path d="M634 408 L646 418 L634 428" fill="none" stroke="#17150f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="654" y="392" width="186" height="52" fill="#f2eee3" stroke="#17150f" stroke-width="3"/>
+  <text x="747" y="427" text-anchor="middle" style="font-size:24px">字幕・議事録へ</text>
+  <text x="747" y="480" text-anchor="middle" style="font-size:22px;fill-opacity:0.7">SRT・JSONなど</text>
+</svg>

@@ -1,4 +1,4 @@
-// Studio Yebisu — 3D Asset Server 作例ページ。MIT License, Copyright (c) 2026 Studio Yebisu.
+// Yaoyorozu-AI Toolbox — 3D Asset Server 作例ページ。MIT License, Copyright (c) 2026 Studio Yebisu.
 // 保存した実行記録を読むだけのページ。ブラウザーから検索・取得はせず、記録の値をそのまま表示する。
 // データはすべて textContent とテキストノードで書き、HTML として解釈しない。
 // 3D は A08 を開いたときだけ model-view.js を読み込み、1回だけ組み立てる。

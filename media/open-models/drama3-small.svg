@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" role="img" aria-labelledby="t d">
+  <title id="t">模式図：drama3-small — 台本に置いたタグの位置と範囲が、同じ声の音声の表情になる</title>
+  <desc id="d">左上の黄緑のカードは10〜30秒の参照の声。そこから黄緑の線が右の二つの音声波形へつながり、どちらも同じ声で読むことを示す。上の台詞は行頭に[sighs]のタグがあり、タグの両端から点線が下の波形の先頭のため息部分へそろう。下の台詞は英語の演出指示[softly, whispering …]が括弧で行全体を覆い、波形全体が小さな振幅になる。左下には元のDrama 3の大きな点線の箱から小さな箱への矢印があり、圧縮した派生版であることを示す。仕組みを示す模式図で、モデルの出力ではない。</desc>
+  <style>
+    text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic",Meiryo,"Noto Sans JP",sans-serif;font-weight:700;fill:#17150f}
+    .tg{font-size:24px;fill:#f2eee3}
+    .mono{font-family:Consolas,Menlo,"DejaVu Sans Mono",monospace;font-weight:700;fill:#fbf9f3}
+    .sc{font-size:30px}
+    .ln{fill:none;stroke:#17150f;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+  </style>
+  <rect width="880" height="540" fill="#fbf9f3"/>
+  <rect x="28" y="28" width="96" height="38" fill="#17150f"/>
+  <text class="tg" x="76" y="55" text-anchor="middle">模式図</text>
+
+  <!-- Reference voice -->
+  <rect x="40" y="96" width="176" height="138" fill="#cbef3a" stroke="#17150f" stroke-width="4"/>
+  <text x="128" y="136" text-anchor="middle" style="font-size:30px">参照の声</text>
+  <path d="M64 178 V178 M76 168 V188 M88 160 V196 M100 170 V186 M112 156 V200 M124 166 V190 M136 162 V194 M148 172 V184 M160 158 V198 M172 168 V188 M184 174 V182" stroke="#17150f" stroke-width="5" stroke-linecap="round"/>
+  <text x="128" y="222" text-anchor="middle" style="font-size:24px">10〜30秒</text>
+  <text x="128" y="272" text-anchor="middle" style="font-size:26px">同じ声で読む</text>
+
+  <!-- Same voice feeds both lines -->
+  <path d="M216 165 C 236 165 232 214 250 214" fill="none" stroke="#17150f" stroke-width="12" stroke-linecap="round"/>
+  <path d="M216 165 C 236 165 232 214 250 214" fill="none" stroke="#cbef3a" stroke-width="6" stroke-linecap="round"/>
+  <path d="M216 165 C 240 165 228 450 250 450" fill="none" stroke="#17150f" stroke-width="12" stroke-linecap="round"/>
+  <path d="M216 165 C 240 165 228 450 250 450" fill="none" stroke="#cbef3a" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- Line A: an inline tag marks one point -->
+  <rect x="250" y="104" width="128" height="46" fill="#ff4f00"/>
+  <text class="mono" x="314" y="135" text-anchor="middle" style="font-size:26px">[sighs]</text>
+  <text class="sc" x="392" y="138">でも、ちょっと安心したよ。</text>
+  <path d="M252 152 V190 M376 152 V190" stroke="#ff4f00" stroke-width="2.5" stroke-dasharray="5 5"/>
+  <path d="M258 214 V206 M266 214 V198 M274 214 V208 M282 214 V194 M290 214 V204 M298 214 V196 M306 214 V208 M314 214 V200 M322 214 V192 M330 214 V206 M338 214 V198 M346 214 V204 M354 214 V200 M362 214 V208 M370 214 V210
+           M258 214 V222 M266 214 V230 M274 214 V220 M282 214 V234 M290 214 V224 M298 214 V232 M306 214 V220 M314 214 V228 M322 214 V236 M330 214 V222 M338 214 V230 M346 214 V224 M354 214 V228 M362 214 V220 M370 214 V218" stroke="#ff4f00" stroke-width="3" stroke-linecap="round"/>
+  <path d="M398 214 V214 M410 196 V232 M422 186 V242 M434 200 V228 M446 180 V248 M458 194 V234 M470 204 V224 M482 184 V244 M494 192 V236 M506 202 V226 M518 182 V246 M530 196 V232 M542 188 V240 M554 206 V222 M566 184 V244 M578 194 V234 M590 200 V228 M602 186 V242 M614 196 V232 M626 190 V238 M638 202 V226 M650 184 V244 M662 192 V236 M674 204 V224 M686 188 V240 M698 198 V230 M710 186 V242 M722 200 V228 M734 194 V234 M746 204 V224 M758 198 V230 M770 206 V222 M782 210 V218" stroke="#17150f" stroke-width="6" stroke-linecap="round"/>
+  <text x="314" y="270" text-anchor="middle" style="font-size:26px;fill:#ff4f00">ため息</text>
+
+  <!-- Line B: a style direction covers the whole line -->
+  <rect x="250" y="300" width="330" height="46" fill="#ff4f00"/>
+  <text class="mono" x="415" y="330" text-anchor="middle" style="font-size:22px">[softly, whispering …]</text>
+  <path d="M250 368 V356 H610 V368" fill="none" stroke="#ff4f00" stroke-width="3"/>
+  <text class="sc" x="250" y="402">ここだけの話なんだけど、</text>
+  <path d="M256 450 V450 M268 444 V456 M280 440 V460 M292 446 V454 M304 442 V458 M316 438 V462 M328 444 V456 M340 446 V454 M352 440 V460 M364 444 V456 M376 442 V458 M388 446 V454 M400 440 V460 M412 444 V456 M424 438 V462 M436 446 V454 M448 442 V458 M460 444 V456 M472 440 V460 M484 446 V454 M496 442 V458 M508 444 V456 M520 440 V460 M532 446 V454 M544 442 V458 M556 444 V456 M568 446 V454 M580 442 V458 M592 446 V454 M604 448 V452" stroke="#17150f" stroke-opacity="0.75" stroke-width="6" stroke-linecap="round"/>
+  <text x="630" y="460" style="font-size:26px">行全体が小声に</text>
+
+  <!-- Derivative of Drama 3 -->
+  <rect x="48" y="316" width="96" height="96" fill="none" stroke="#17150f" stroke-width="3" stroke-dasharray="7 6"/>
+  <text x="96" y="371" text-anchor="middle" style="font-size:22px">Drama 3</text>
+  <path class="ln" d="M150 384 H164"/>
+  <path d="M158 376 L168 384 L158 392" fill="none" stroke="#17150f" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="172" y="362" width="40" height="40" fill="#17150f"/>
+  <text x="128" y="448" text-anchor="middle" style="font-size:24px">圧縮した派生版</text>
+</svg>

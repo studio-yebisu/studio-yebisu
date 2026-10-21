@@ -1,13 +1,11 @@
 {
   "id": "agent-reach-example",
-  "title": "Agent Reach作例：手順書・接続点検・既存CLIのつながりを図で見る",
+  "title": "Agent Reach",
   "title_lines": [
-    "Agent Reachの中身と、",
-    "既存の道具で",
-    "情報を読む仕組み"
+    "AIのためのWeb情報取得ツール"
   ],
   "category": "research",
-  "summary": "Agent Reachは、読み方をAIに伝える手順書と、接続を点検するCLIの組み合わせです。経路表と分野別手順からgh・twitter-cliを使い、戻った材料を別の作業で根拠メモへまとめる関係を、大きな動く図と32秒の無音動画にしました。制作時に実取得した原典6ファイル・公開投稿1件と元のメモを引き継いでいます。",
+  "summary": "公開投稿、動画、GitHubなどの情報を、対応する取得ツールを通して読めるようにします。接続状態を点検し、AIエージェントが情報源に合う道具を選んで調査を進められます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/agent-reach-example/index.html",
@@ -138,19 +136,20 @@
     }
   ],
   "license": "MIT",
-  "license_note": "作例の文章・データ・コードはMIT License（Copyright (c) 2026 Studio Yebisu）。同梱したAgent Reach原典はMIT License（Copyright (c) 2025 Agent Eyes）で、表示を保っています。MITはAgent Reachの条件で、X・GitHubなどのサービス規約、ほかのCLIのライセンス、第三者の投稿には及びません。紹介投稿の本文・動画・画像は同梱していません。",
+  "license_note": "作例の文章・データ・コードはMIT License（Copyright (c) 2026 Studio Yebisu）。同梱したAgent Reach原典はMIT License（Copyright (c) 2025 Agent Eyes）で、表示を保っています。MITはAgent Reachの条件で、X・GitHubなどのサービス規約、ほかのCLIのライセンス、第三者の投稿には及びません。紹介投稿の本文・動画・画像は同梱していません。 完成したデモ・説明動画は、クレジット表記を条件に商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。詳しい条件は media-rights.html を参照してください。",
   "video_note": "32秒・30fps・無音。縦720×1280と横1280×720の別配置。手順書が開き、同じURLや資料が既存CLI・接続先・整理・メモへ移動する概念図の編集動画です。実際の取得は制作時の記録を使い、録画やライブ取得としては扱いません。音声トラックはありません。",
   "video_source": "examples/agent-reach-example/video/index.html",
   "skill_license": "examples/agent-reach-example/vendor/agent-reach/LICENSE",
-  "updated_on": "2026-10-18",
+  "updated_on": "2026-10-21",
   "verification_stage": "runtime-reviewed",
   "guide_url": "case.html?id=agent-reach-example",
   "catalog_entry": {
     "id": "resource-agent-reach",
     "name": "Agent Reach",
+    "tagline": "AIのためのWeb情報取得ツール",
     "category": "research",
     "kind": "ツール",
-    "summary": "AIへ読み方を渡す手順書と接続点検CLI。既存の読み取りツールを選び、直接呼び出すための仕組み。",
+    "summary": "公開投稿、動画、GitHubなどの情報を、対応する取得ツールを通して読めるようにします。接続状態を点検し、AIエージェントが情報源に合う道具を選んで調査を進められます。",
     "use_case": "公開投稿、動画、GitHubなどの情報を原典までたどって整理したいとき。",
     "tags": [
       "Web",
@@ -183,5 +182,21 @@
     "reviewed_on": "2026-10-15",
     "example_url": "examples/agent-reach-example/index.html#all",
     "image": "media/agent-reach-example.webp"
-  }
+  },
+  "video_portrait": "media/agent-reach-example.mp4",
+  "video_landscape": "media/agent-reach-example-wide.mp4",
+  "poster_portrait": "media/agent-reach-example.webp",
+  "poster_landscape": "media/agent-reach-example-wide.webp",
+  "video_width": 720,
+  "video_height": 1280,
+  "video_license": {
+    "id": "LicenseRef-Yaoyorozu-Video-Credit",
+    "label": "クレジット表記必須（商用利用・編集・再配布OK）",
+    "url": "media-rights.html",
+    "credit": "引用元:Yaoyorozu-AI Toolbox made by studio_yebisu",
+    "x_mention": "@studio_yebisu",
+    "effective_on": "2026-10-21"
+  },
+  "video_download_portrait": "media/downloads/agent-reach-example-portrait-credited.mp4",
+  "video_download_landscape": "media/downloads/agent-reach-example-landscape-credited.mp4"
 }

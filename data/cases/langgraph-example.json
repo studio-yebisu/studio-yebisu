@@ -1,13 +1,11 @@
 {
   "id": "langgraph-example",
-  "title": "LangGraph作例：状態と工程をつなぎ、確認待ちから続きを動かす",
+  "title": "LangGraph",
   "title_lines": [
-    "状態をつなぎ、",
-    "確認待ちで止め、",
-    "同じ続きへ。"
+    "状態と分岐を管理するAIエージェント開発基盤"
   ],
   "category": "agents",
-  "summary": "LangGraphは、Pythonで共有する状態と処理の工程・分岐を組むフレームワークです。6つのAPI部品から、元のAIによる実装と制作担当のPython実行、メモリに状態を保つ停止、同じthreadへテスト回答を渡す再開までを、大きな動く図と32秒の無音動画で追えます。",
+  "summary": "AI処理を工程と分岐に分け、共有する状態を管理しながら実行できます。途中で人の確認を待ったり、保存した状態から再開したりする処理を組み立てられます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/langgraph-example/index.html",
@@ -143,19 +141,20 @@
     }
   ],
   "license": "MIT",
-  "license_note": "作例のコード・文章・データはMIT License（Copyright (c) 2026 Studio Yebisu）。同梱した LangGraph の4パッケージはMIT License（Copyright (c) 2024 LangChain, Inc.）で、ルートと各パッケージの LICENSE を残しています。MITは LangGraph の条件で、モデルAPIやホスト型サービス（LangSmith など）の料金・利用条件は別です。",
+  "license_note": "作例のコード・文章・データはMIT License（Copyright (c) 2026 Studio Yebisu）。同梱した LangGraph の4パッケージはMIT License（Copyright (c) 2024 LangChain, Inc.）で、ルートと各パッケージの LICENSE を残しています。MITは LangGraph の条件で、モデルAPIやホスト型サービス（LangSmith など）の料金・利用条件は別です。 完成したデモ・説明動画は、クレジット表記を条件に商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。詳しい条件は media-rights.html を参照してください。",
   "video_note": "32秒・30fps・完全無音。縦720×1280/横1280×720を別配置で描きます。API部品と依頼→元のAIが実装を執筆→制作担当がPythonで実行→同じ状態が分岐/メモリ/中断/テスト回答の道を通る→実記録を使う、という構造の図解です。連続操作の録画や新しいLangGraph実行ではありません。元の28秒映像と検査は履歴へ保全し、編集ソースはlegacyへ残します。",
   "video_source": "examples/langgraph-example/video/index.html",
   "skill_license": "examples/langgraph-example/vendor/langgraph/LICENSE",
-  "updated_on": "2026-10-19",
+  "updated_on": "2026-10-21",
   "verification_stage": "runtime-reviewed",
   "guide_url": "case.html?id=langgraph-example",
   "catalog_entry": {
     "id": "resource-langgraph",
     "name": "LangGraph",
+    "tagline": "状態と分岐を管理するAIエージェント開発基盤",
     "category": "agents",
     "kind": "フレームワーク",
-    "summary": "Pythonで共有状態と工程・分岐を組み、メモリのチェックポイントとテスト回答で停止・再開を追う図解。",
+    "summary": "AI処理を工程と分岐に分け、共有する状態を管理しながら実行できます。途中で人の確認を待ったり、保存した状態から再開したりする処理を組み立てられます。",
     "use_case": "調査、下書き、検証などの工程を分け、途中から再開できるAI処理を作りたいとき。",
     "tags": [
       "エージェント",
@@ -189,5 +188,21 @@
     "reviewed_on": "2026-10-19",
     "example_url": "examples/langgraph-example/index.html#approved",
     "image": "media/langgraph-example.webp"
-  }
+  },
+  "video_portrait": "media/langgraph-example.mp4",
+  "video_landscape": "media/langgraph-example-wide.mp4",
+  "poster_portrait": "media/langgraph-example.webp",
+  "poster_landscape": "media/langgraph-example-wide.webp",
+  "video_width": 720,
+  "video_height": 1280,
+  "video_license": {
+    "id": "LicenseRef-Yaoyorozu-Video-Credit",
+    "label": "クレジット表記必須（商用利用・編集・再配布OK）",
+    "url": "media-rights.html",
+    "credit": "引用元:Yaoyorozu-AI Toolbox made by studio_yebisu",
+    "x_mention": "@studio_yebisu",
+    "effective_on": "2026-10-21"
+  },
+  "video_download_portrait": "media/downloads/langgraph-example-portrait-credited.mp4",
+  "video_download_landscape": "media/downloads/langgraph-example-landscape-credited.mp4"
 }

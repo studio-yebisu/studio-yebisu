@@ -6,6 +6,8 @@ from pathlib import Path
 import re
 import subprocess
 from zoneinfo import ZoneInfo
+from branding import SITE_NAME, rebrand_site_text
+from workspace import repository_path
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -35,10 +37,9 @@ def main():
         category = project['id']
         if category == 'agents':
             continue
-        folder = ROOT.parent / project['folder']
-        # The motion checkout has unrelated unfinished work and an older local HEAD.
-        # Its fetched published branch is the stable import; the clean others use HEAD.
-        ref = 'origin/main' if category == 'motion' else 'HEAD'
+        folder = repository_path(project)
+        # Import the consolidated main of each independent specialist repository.
+        ref = 'main'
         commit = git(folder, 'rev-parse', ref).decode().strip()
         source_file = {'motion': 'data/projects.json', 'ui-ux': 'data/catalog.json', 'slides': 'data/product-collection.json'}[category]
         data = read(folder, ref, source_file)
@@ -54,9 +55,13 @@ def main():
                 if Path(relative).suffix.lower() not in {'.html', '.js', '.css', '.json', '.md', '.svg', '.png', '.webp'} and Path(relative).name != 'LICENSE':
                     continue
                 payload = git(folder, 'show', f'{ref}:{relative}')
+                # The specialist snapshot keeps its URLs and copyright notices;
+                # the guide published inside this site uses its current display name.
+                if Path(relative).suffix.lower() in {'.html', '.js', '.css'} or Path(relative).name == 'README.md':
+                    payload = rebrand_site_text(payload.decode('utf-8')).encode('utf-8')
                 if relative == 'index.html':
                     text = payload.decode('utf-8')
-                    text = text.replace('<body>', '<body><nav aria-label="総合サイト" style="padding:12px 24px;border-bottom:1px solid currentColor"><a href="../../index.html#ui-ux">Studio Yebisu 総合カタログへ</a></nav>', 1)
+                    text = text.replace('<body>', f'<body><nav aria-label="総合サイト" style="padding:12px 24px;border-bottom:1px solid currentColor"><a href="../../index.html#ui-ux">{SITE_NAME} 総合カタログへ</a></nav>', 1)
                     payload = text.encode('utf-8')
                 destination = ROOT / 'integrations/ui-ux' / relative
                 destination.parent.mkdir(parents=True, exist_ok=True)
@@ -100,7 +105,7 @@ def main():
         snapshots.append({'project': category, 'repository': project['repository'], 'commit': commit, 'source_file': source_file, 'records': len(records), 'data_sha256': hashlib.sha256(git(folder, 'show', f'{ref}:{source_file}')).hexdigest(), 'scope': 'Committed catalog snapshot; upstream licenses and original runtime checks retained as reported. Not a new runtime audit.'})
     for identifier, name, summary, use in [
         ('brief-to-demo', 'ひと言から、作れる依頼へ', '短い依頼を、目的・入力・制作スキル・完成条件が揃うブリーフにする。', '作例づくりの前に、AIへ渡す依頼を具体化する。')]:
-        output.append({'id': 'agents-' + identifier, 'name': name, 'category': 'agents', 'kind': 'スキル', 'summary': summary, 'use_case': use, 'tags': ['Studio Yebisu', '日本語', '作例制作'], 'license': 'MIT', 'license_url': 'LICENSE', 'source_url': f'skills/{identifier}/SKILL.md', 'guide_url': 'case.html?id=brief-to-demo', 'example_url': 'examples/brief-to-demo/index.html', 'skill_download': f'skills/{identifier}/SKILL.md', 'prompt': f'${identifier} を使って、このスキルの使い方が分かる作例を制作してください。', 'verification': '今回の一件に実際に適用', 'source_project': 'agents'})
+        output.append({'id': 'agents-' + identifier, 'name': name, 'category': 'agents', 'kind': 'スキル', 'summary': summary, 'use_case': use, 'tags': [SITE_NAME, '日本語', '作例制作'], 'license': 'MIT', 'license_url': 'LICENSE', 'source_url': f'skills/{identifier}/SKILL.md', 'guide_url': 'case.html?id=brief-to-demo', 'example_url': 'examples/brief-to-demo/index.html', 'skill_download': f'skills/{identifier}/SKILL.md', 'prompt': f'${identifier} を使って、このスキルの使い方が分かる作例を制作してください。', 'verification': '今回の一件に実際に適用', 'source_project': 'agents'})
     today = datetime.now(ZoneInfo('Asia/Tokyo')).date().isoformat()
     # Physical specialist projects and browsing categories are independent. New
     # curated entries remain in their own source file and survive a snapshot sync.

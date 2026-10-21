@@ -1,13 +1,11 @@
 {
   "id": "whisper-example",
-  "title": "Whisper作例：音声が、文と推定時刻になる仕組み",
+  "title": "Whisper",
   "title_lines": [
-    "声を、文と時刻へ。",
-    "Whisperの仕組みを",
-    "大きな図で見る"
+    "音声を文章と字幕に変える音声認識モデル"
   ],
   "category": "audio",
-  "summary": "Whisperは音声認識モデルとPythonツールです。実際のWAVが音の特徴になり、encoder・decoderを経て5区間の文と推定時刻になり、字幕へ保存される流れを、大きな概念図と32秒の無音動画にしました。原稿を見て3区間の文だけを手で直す別の経路も示します。",
+  "summary": "音声を文字に起こし、区間ごとの推定時刻とともに取り出せます。Pythonから音声ファイルを処理し、テキストやSRTなどの字幕ファイルとして保存できます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/whisper-example/index.html",
@@ -177,20 +175,21 @@
     }
   ],
   "license": "MIT（作例）",
-  "license_note": "作例のコード・文章・原稿は MIT License（Copyright (c) 2026 Studio Yebisu）。Whisper のコードとモデルの重みは、固定版の README と LICENSE のとおり MIT License（Copyright (c) 2022 OpenAI）で、LICENSE・README・model-card.md と読んだソースを vendor/whisper/ に原文のまま置いています。読み上げ音声は手元の Windows 音声（Microsoft Haruka Desktop）で作った作例用の素材で、その扱いは Whisper のライセンスとは別です。音声エンジン、モデルの重み、キャッシュ、仮想環境は同梱しません。PyTorch・tiktoken などの依存パッケージは、それぞれのライセンスに従います。",
+  "license_note": "作例のコード・文章・原稿は MIT License（Copyright (c) 2026 Studio Yebisu）。Whisper のコードとモデルの重みは、固定版の README と LICENSE のとおり MIT License（Copyright (c) 2022 OpenAI）で、LICENSE・README・model-card.md と読んだソースを vendor/whisper/ に原文のまま置いています。読み上げ音声は手元の Windows 音声（Microsoft Haruka Desktop）で作った作例用の素材で、その扱いは Whisper のライセンスとは別です。音声エンジン、モデルの重み、キャッシュ、仮想環境は同梱しません。PyTorch・tiktoken などの依存パッケージは、それぞれのライセンスに従います。 完成したデモ・説明動画は、クレジット表記を条件に商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。詳しい条件は media-rights.html を参照してください。",
   "skill_license": "examples/whisper-example/vendor/whisper/LICENSE",
   "video_note": "32秒・30fps・無音。縦720×1280と横1280×720を別配置で描きます。同じ音の波形が特徴になり、モデル構造と5区間のカード、原稿の別経路、実SRTへつながる概念図です。モデルの内部計測や操作の録画ではありません。音声トラックはなく、機能を試す実入力WAVはデモの独立したプレイヤーに残しています。",
   "video_source": "examples/whisper-example/video/index.html",
-  "updated_on": "2026-10-18",
+  "updated_on": "2026-10-21",
   "featured": true,
   "verification_stage": "runtime-reviewed",
   "guide_url": "case.html?id=whisper-example",
   "catalog_entry": {
     "id": "resource-whisper",
     "name": "Whisper",
+    "tagline": "音声を文章と字幕に変える音声認識モデル",
     "category": "audio",
     "kind": "モデル・ツール",
-    "summary": "音声から文と推定時刻を返すモデルとPythonツール。作例は実音声の特徴、encoder・decoder、5区間、原稿参照の手動編集、実SRTの関係を図解しています。",
+    "summary": "音声を文字に起こし、区間ごとの推定時刻とともに取り出せます。Pythonから音声ファイルを処理し、テキストやSRTなどの字幕ファイルとして保存できます。",
     "use_case": "会議録、字幕、動画の検索用テキストなどの下書きを作りたいとき。",
     "tags": [
       "音声",
@@ -223,5 +222,21 @@
     "reviewed_on": "2026-10-18",
     "example_url": "examples/whisper-example/index.html",
     "image": "media/whisper-example.webp"
-  }
+  },
+  "video_portrait": "media/whisper-example.mp4",
+  "video_landscape": "media/whisper-example-wide.mp4",
+  "poster_portrait": "media/whisper-example.webp",
+  "poster_landscape": "media/whisper-example-wide.webp",
+  "video_width": 720,
+  "video_height": 1280,
+  "video_license": {
+    "id": "LicenseRef-Yaoyorozu-Video-Credit",
+    "label": "クレジット表記必須（商用利用・編集・再配布OK）",
+    "url": "media-rights.html",
+    "credit": "引用元:Yaoyorozu-AI Toolbox made by studio_yebisu",
+    "x_mention": "@studio_yebisu",
+    "effective_on": "2026-10-21"
+  },
+  "video_download_portrait": "media/downloads/whisper-example-portrait-credited.mp4",
+  "video_download_landscape": "media/downloads/whisper-example-landscape-credited.mp4"
 }

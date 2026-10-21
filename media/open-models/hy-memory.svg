@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 540" width="880" height="540" role="img" aria-labelledby="t d">
+  <title id="t">模式図：Hy-Memory-30B-A3B — 外部のメモリー基盤の中で、記憶の書き込みだけを判断する</title>
+  <desc id="d">左に新しい会話の三つの発言「大阪へ引っ越した」「回答は簡潔がいい」「今日は暑いね」。点線で囲まれた外部のメモリー基盤の中に、朱色の書き込み役（Hy-Memory）があり、三つの発言はそこへ入る。書き込み役から右の記憶の箱へ、「更新」の線は打ち消し線の付いた「東京に住む」を「大阪に住む」へ書き換え、「追加」の線は「回答は簡潔に」を加える。既存の記憶「仕事はPython中心」はそのまま残る。雑談は書き込み役の下で×印とともに「残さない」になる。下段は灰色で、記憶から検索、回答するモデルを経て次の会話へ戻る読み出しの経路が描かれ、基盤側の担当と添えてある。仕組みを示す模式図で、モデルの出力ではない。</desc>
+  <style>
+    text{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic UI","Yu Gothic",Meiryo,"Noto Sans JP",sans-serif;font-weight:700;fill:#17150f}
+    .tg{font-size:24px;fill:#f2eee3}
+    .bb{font-size:26px}
+    .ln{fill:none;stroke:#17150f;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+    .gr{fill:none;stroke:#17150f;stroke-opacity:0.4;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+  </style>
+  <rect width="880" height="540" fill="#fbf9f3"/>
+  <rect x="28" y="28" width="96" height="38" fill="#17150f"/>
+  <text class="tg" x="76" y="55" text-anchor="middle">模式図</text>
+
+  <!-- New conversation -->
+  <text x="40" y="118" style="font-size:28px">新しい会話</text>
+  <rect x="40" y="132" width="230" height="58" rx="10" fill="#f2eee3" stroke="#17150f" stroke-width="3"/>
+  <text class="bb" x="54" y="170">大阪へ引っ越した</text>
+  <rect x="40" y="214" width="230" height="58" rx="10" fill="#f2eee3" stroke="#17150f" stroke-width="3"/>
+  <text class="bb" x="54" y="252">回答は簡潔がいい</text>
+  <rect x="40" y="296" width="230" height="58" rx="10" fill="#f2eee3" stroke="#17150f" stroke-width="3" stroke-opacity="0.5"/>
+  <text class="bb" x="54" y="334" style="fill-opacity:0.6">今日は暑いね</text>
+
+  <!-- External memory framework -->
+  <rect x="300" y="84" width="556" height="436" fill="none" stroke="#17150f" stroke-width="2.5" stroke-dasharray="10 8"/>
+  <text x="840" y="116" text-anchor="end" style="font-size:24px;fill-opacity:0.75">外部の基盤（Mem0など）</text>
+
+  <path class="ln" d="M270 161 C 296 161 296 196 318 196"/>
+  <path class="ln" d="M270 243 C 296 243 296 226 318 226"/>
+  <path class="ln" d="M270 325 C 296 325 296 256 318 256" stroke-opacity="0.5"/>
+
+  <!-- The writer slot -->
+  <rect x="320" y="150" width="150" height="150" fill="#ff4f00"/>
+  <text x="395" y="216" text-anchor="middle" style="font-size:28px;fill:#fbf9f3">書き込み役</text>
+  <text x="395" y="252" text-anchor="middle" style="font-size:22px;fill:#fbf9f3">Hy-Memory</text>
+
+  <!-- Drop -->
+  <path class="ln" d="M395 302 V318" stroke-opacity="0.5"/>
+  <path d="M352 330 L364 342 M364 330 L352 342" stroke="#17150f" stroke-width="3" stroke-linecap="round"/>
+  <text x="372" y="346" style="font-size:24px;fill-opacity:0.7">残さない</text>
+
+  <!-- Memory bank -->
+  <rect x="520" y="136" width="316" height="214" fill="#f2eee3" stroke="#17150f" stroke-width="3"/>
+  <text x="536" y="174" style="font-size:28px">記憶</text>
+
+  <rect x="536" y="192" width="290" height="44" fill="#fbf9f3" stroke="#ff4f00" stroke-width="3"/>
+  <text x="548" y="222" style="font-size:22px;fill-opacity:0.45">東京に住む</text>
+  <path d="M548 214 H654" stroke="#17150f" stroke-opacity="0.45" stroke-width="2.5"/>
+  <text x="662" y="222" style="font-size:22px;fill:#ff4f00">→</text>
+  <text x="688" y="224" style="font-size:26px">大阪に住む</text>
+
+  <rect x="536" y="250" width="290" height="44" fill="#fbf9f3" stroke="#17150f" stroke-width="3"/>
+  <rect x="536" y="250" width="12" height="44" fill="#cbef3a"/>
+  <text x="560" y="282" style="font-size:26px">回答は簡潔に</text>
+
+  <rect x="536" y="306" width="290" height="34" fill="none" stroke="#17150f" stroke-opacity="0.3" stroke-width="2"/>
+  <text x="548" y="331" style="font-size:22px;fill-opacity:0.5">仕事はPython中心</text>
+
+  <path d="M472 196 C 500 196 504 214 532 214" fill="none" stroke="#ff4f00" stroke-width="4" stroke-linecap="round"/>
+  <text x="497" y="186" text-anchor="middle" style="font-size:22px;fill:#ff4f00">更新</text>
+  <path class="ln" d="M472 254 C 500 254 504 272 532 272" style="stroke-width:4"/>
+  <text x="497" y="300" text-anchor="middle" style="font-size:22px">追加</text>
+
+  <!-- Read path belongs to the framework -->
+  <text x="316" y="402" style="font-size:24px;fill-opacity:0.55">保存・検索・回答は基盤側</text>
+  <path class="gr" d="M676 352 V410"/>
+  <path class="gr" d="M666 400 L676 412 L686 400"/>
+  <rect x="616" y="416" width="120" height="46" rx="23" fill="none" stroke="#17150f" stroke-opacity="0.4" stroke-width="3"/>
+  <text x="676" y="447" text-anchor="middle" style="font-size:24px;fill-opacity:0.55">検索</text>
+  <path class="gr" d="M612 439 H582"/>
+  <path class="gr" d="M592 429 L580 439 L592 449"/>
+  <rect x="336" y="416" width="240" height="46" rx="23" fill="none" stroke="#17150f" stroke-opacity="0.4" stroke-width="3"/>
+  <text x="456" y="447" text-anchor="middle" style="font-size:24px;fill-opacity:0.55">回答するモデル</text>
+  <path class="gr" d="M332 439 H300"/>
+  <path class="gr" d="M310 429 L298 439 L310 449"/>
+  <text x="288" y="447" text-anchor="end" style="font-size:24px;fill-opacity:0.55">次の会話へ</text>
+</svg>

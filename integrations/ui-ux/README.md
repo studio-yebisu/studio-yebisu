@@ -6,7 +6,7 @@ Claude・CodexなどのエージェントでWeb UIを設計・実装・改善す
 
 ## 実際につくる
 
-[Studio Yebisu Deskを開く](examples/studio-desk/index.html) — 架空の制作プロジェクトを検索・追加・編集・整理する、ブラウザ内保存の試作です。
+[Yaoyorozu-AI Toolbox Deskを開く](examples/studio-desk/index.html) — 架空の制作プロジェクトを検索・追加・編集・整理する、ブラウザ内保存の試作です。
 
 Frontend Design、Emil Design Engineering、Web Design Guidelines、UI Skillsの4件を読み、設計・実装・点検へ適用しました。導入コマンドの実行や外部サービスへの接続はしていません。
 

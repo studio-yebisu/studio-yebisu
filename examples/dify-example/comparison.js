@@ -1,4 +1,4 @@
-// Studio Yebisu — Dify 作例ページ。MIT License, Copyright (c) 2026 Studio Yebisu.
+// Yaoyorozu-AI Toolbox — Dify 作例ページ。MIT License, Copyright (c) 2026 Studio Yebisu.
 // 保存した実行記録を読むだけのページ。分岐をブラウザーで計算し直さず、記録の値をそのまま表示する。
 // データはすべて textContent で書き、HTML として解釈しない。
 "use strict";

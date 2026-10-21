@@ -1,10 +1,10 @@
-/* Studio Yebisu — article page. case.html?id=<case-id> (produced case) or case.html?entry=<catalog-id>
+/* Yaoyorozu-AI Toolbox — article page. case.html?id=<case-id> (produced case) or case.html?entry=<catalog-id>
    (catalog item: a source guide, or a pointer to its produced case). Data comes only from relative
    paths under data/. Every value is written as text; links pass through SY.safeHref. */
 (() => {
   'use strict';
 
-  const {$, h, safeHref, isExternal, displayUrl, lineNodes, loadJSON, announce, setTabbar} = window.SY;
+  const {$, h, safeHref, isExternal, displayUrl, loadJSON, announce, setTabbar} = window.SY;
 
   const STATUS_LABELS = {draft: '制作中', produced: '制作済み', rendered: '動画を書き出し済み', reviewed: '確認済み', published: '掲載済み'};
   const MODEL_LABELS = {'claude-opus-5-5': 'Claude Opus 5.5'};
@@ -164,9 +164,9 @@
 
   function sourceLabel(entry) {
     const id = entry.source_project;
-    if (id === 'curated') return 'Studio Yebisu 原典確認済みの紹介';
-    if (!id) return 'Studio Yebisu 統合カタログ';
-    return categories[id] ? 'Studio Yebisu ' + categoryLabel(id) + 'のカタログ' : String(id);
+    if (id === 'curated') return 'Yaoyorozu-AI Toolbox 原典確認済みの紹介';
+    if (!id) return 'Yaoyorozu-AI Toolbox 統合カタログ';
+    return categories[id] ? 'Yaoyorozu-AI Toolbox ' + categoryLabel(id) + 'のカタログ' : String(id);
   }
 
   function renderFooterCategories(list) {
@@ -187,14 +187,14 @@
   }
 
   function showState(title, body, options = {}) {
-    document.title = title + '｜Studio Yebisu';
+    document.title = title + '｜Yaoyorozu-AI Toolbox';
     show(h('div', {class: 'page-state'},
       h('h1', {class: 'empty-title'}, title),
       h('p', {}, body),
       h('div', {class: 'actions'},
         options.retry ? h('button', {type: 'button', class: 'btn btn-ink', onclick: () => location.reload()}, 'もう一度読み込む') : null,
         h('a', {class: 'btn ' + (options.retry ? 'btn-line' : 'btn-ink'), href: './#catalog'}, 'カタログを開く'),
-        h('a', {class: 'btn btn-line', href: './#cases'}, '作例の一覧を見る'))));
+        h('a', {class: 'btn btn-line', href: './#cases'}, 'スキル・ツールの一覧を見る'))));
   }
 
   function crumbs(category) {
@@ -253,46 +253,27 @@
     return (first && first.name) || '';
   }
 
-  function titleLines(item) {
-    if (Array.isArray(item.title_lines) && item.title_lines.length) return item.title_lines.map(String);
-    if (item.id === 'brief-to-demo') return ['ひと言を、', '作れる依頼に。'];
-    return [item.title || item.id];
-  }
-
   function videoBlock(item, extras) {
     const video = safeHref(item.video);
     if (!video) return null;
-    const poster = safeHref(item.poster);
-    const type = videoType(video);
-    const hasDimensions = Number.isInteger(item.video_width) && Number.isInteger(item.video_height)
-      && item.video_width > 0 && item.video_height > 0 && item.video_width <= 8192 && item.video_height <= 8192;
-    const width = hasDimensions ? item.video_width : 1280;
-    const height = hasDimensions ? item.video_height : 720;
     const wideVideo = safeHref(item.video_landscape);
-    const player = h('video', {controls: true, preload: 'none', playsinline: true, poster, width: String(width), height: String(height),
-      ...(height > width ? {style: `aspect-ratio:${width}/${height};max-height:82vh;max-height:82svh;background:var(--paper)`} : {}),
-      'aria-label': (item.title || item.id) + 'の解説動画'},
-      h('source', {src: video, type}),
-      h('a', {href: video}, '動画を開く'));
+    const portraitVideo = safeHref(item.video_portrait);
+    const player = window.SY.media.create(item);
     const frame = h('div', {class: 'video-frame'}, player);
-    const fail = () => {
-      if (!player.isConnected) return;
-      player.replaceWith(h('p', {class: 'video-fallback'}, 'このページでは動画を再生できませんでした。下の「動画を大きく見る」から直接開けます。'));
-    };
-    player.addEventListener('error', fail);
-    $('source', player).addEventListener('error', fail);
     const [noteLead, noteRest] = splitLead(extras.videoNote || '使い方の解説動画', 50);
     return h('section', {class: 'article-video', id: 'video', 'aria-label': '解説動画'},
       h('figure', {},
         frame,
         h('figcaption', {},
+          h('p', {class: 'video-note'}, '画面幅に合わせて縦横を切り替え、無音で自動再生します。音声がある動画は操作で音を出せます。'),
           h('p', {class: 'video-note'}, noteLead),
           noteRest ? h('details', {class: 'more-text'}, h('summary', {}, '動画の説明をすべて読む'), h('p', {}, noteRest)) : null,
           h('p', {class: 'video-links'},
             h('a', {href: video}, '動画を大きく見る'),
-            h('a', {href: video, download: ''}, 'MP4を保存'),
             wideVideo ? h('a', {href: wideVideo}, '横向き版を見る') : null,
-            extras.videoSource ? h('a', {href: extras.videoSource}, '映像のソースを開く') : null))));
+            portraitVideo ? h('a', {href: portraitVideo}, '縦向き版を見る') : null,
+            extras.videoSource ? h('a', {href: extras.videoSource}, '映像のソースを開く') : null))),
+      window.SY.videoShare.create(item));
   }
 
   function briefSample(sample, demo) {
@@ -334,7 +315,7 @@
       h('h3', {class: 'sample-title'}, sample.label || sample.id || ''),
       h('div', {class: 'sample-part'}, h('p', {class: 'sample-label'}, '入力'), sampleValue(sample.input, '入力')),
       h('div', {class: 'sample-part is-output'}, h('p', {class: 'sample-label'}, '結果'), sampleValue(sample.output, '結果')),
-      demo && sample.id ? h('a', {class: 'sample-link', href: demo + '#' + encodeURIComponent(sample.id)}, 'この作例をデモで開く') : null);
+      demo && sample.id ? h('a', {class: 'sample-link', href: demo + '#' + encodeURIComponent(sample.id)}, 'この結果をデモで開く') : null);
   }
 
   async function renderCase(item) {
@@ -351,7 +332,7 @@
     const samplesUrl = safeHref(item.samples);
     const hasRequest = typeof item.request === 'string' && item.request.trim();
     const skillTitle = skillName(item);
-    document.title = (item.title || item.id) + '｜Studio Yebisu';
+    document.title = (item.title || item.id) + '｜Yaoyorozu-AI Toolbox';
 
     let samples = [];
     if (samplesUrl) {
@@ -361,24 +342,26 @@
       } catch (_) { samples = []; }
     }
 
-    const [lead, rest] = splitLead(item.summary);
+    const entry = item.catalog_entry || {};
+    const description = entry.summary || item.summary;
+    const overview = entry.tagline;
     const head = h('header', {class: 'article-head'},
       crumbs(item.category),
       h('p', {class: 'card-meta'},
         h('span', {class: 'card-cat'}, categoryLabel(item.category)),
-        skillTitle ? h('span', {}, skillTitle) : null,
-        h('span', {}, '制作した作例')),
-      h('h1', {class: 'article-title'}, lineNodes(titleLines(item), 'tl')),
-      lead ? h('p', {class: 'article-lead'}, lead) : null,
-      rest ? h('details', {class: 'more-text'}, h('summary', {}, '概要の続きを読む'), h('p', {}, rest)) : null,
+        entry.kind ? h('span', {}, entry.kind) : null),
+      h('h1', {class: 'article-title article-tool-name'}, skillTitle || item.title || item.id),
+      overview ? h('p', {class: 'article-overview'}, overview) : null,
+      description ? h('p', {class: 'article-lead'}, description) : null,
       demo || hasRequest ? h('div', {class: 'actions'},
         demo ? h('a', {class: 'btn btn-ink', href: demo}, 'デモを開く') : null,
         hasRequest ? h('a', {class: 'btn btn-line', href: '#prompt'}, '依頼文を見る') : null) : null,
       facts([
         ['分野', categoryLabel(item.category)],
-        ['制作モデル', item.model ? MODEL_LABELS[item.model] || item.model : null],
+        ['デモ・動画の制作モデル', item.model ? MODEL_LABELS[item.model] || item.model : null],
         ['状態', item.status ? STATUS_LABELS[item.status] || item.status : null],
-        ['ライセンス', item.license || null],
+        ['デモのコード・素材の条件', item.license || null],
+        ['動画の条件', item.video_license ? item.video_license.label : null],
         ['更新日', item.updated_on || null]
       ]));
 
@@ -394,7 +377,7 @@
 
     if (samples.length) {
       page.add('examples', item.samples_title || (pairs ? '実入力と結果' : samples.length + 'つの依頼と、できたブリーフ'), '入力と結果',
-        h('p', {}, item.samples_intro || (pairs ? '作例で使った入力と、表示する結果です。' : 'どれも依頼の文はそのまま残し、成果物から分野を選んでいます。依頼にない日時や名前は書かず、仮の条件として分けました。')),
+        h('p', {}, item.samples_intro || (pairs ? 'デモで使った入力と、表示する結果です。' : 'どれも依頼の文はそのまま残し、成果物から分野を選んでいます。依頼にない日時や名前は書かず、仮の条件として分けました。')),
         h('ol', {class: 'samples'}, samples.map(sample => pairs ? pairSample(sample, demo) : briefSample(sample, demo))));
     } else if (samplesUrl) {
       page.add('examples', '実入力と結果', '入力と結果',
@@ -431,7 +414,7 @@
       skill && [item.skill_label || 'スキル（SKILL.md）', item.skill_description || 'AIに読ませる手順書', skill],
       extras.skillLicense && ['原典のライセンス', '紹介するスキル・ツールの利用条件', extras.skillLicense],
       samplesUrl && [pairs ? '実入力と結果（JSON）' : samples.length + '件のブリーフ（JSON）', 'デモで表示しているサンプル', samplesUrl],
-      ['この作例の記録（JSON）', '手順・使ったスキル・出典', 'data/cases/' + encodeURIComponent(item.id) + '.json'],
+      ['検証と制作の記録（JSON）', '手順・使ったスキル・出典', 'data/cases/' + encodeURIComponent(item.id) + '.json'],
       extras.videoSource && ['映像のソース', 'ブラウザで開いて再生・確認できます', extras.videoSource]
     ].filter(Boolean);
     page.add('downloads', 'ダウンロード', 'ダウンロード',
@@ -441,10 +424,11 @@
     const sources = (item.sources || []).map(source => [source && source.label, safeHref(source && source.url)]).filter(([, url]) => url);
     page.add('sources', '出典とライセンス', '出典',
       sources.length ? linkList(sources) : null,
-      h('p', {class: 'd-note'}, item.license_note || ((item.license ? 'この作例のスキル・サンプル・映像ソースは ' + item.license + ' License です。' : '') + '外部の原典は、それぞれのライセンスに従います。')));
+      h('p', {class: 'd-note'}, item.license_note || ((item.license ? 'このページのコード・サンプルは ' + item.license + ' License です。' : '') + '外部の原典は、それぞれのライセンスに従います。')),
+      video ? h('p', {class: 'd-note'}, '完成動画はクレジット付きで商用利用・編集・再配布できます。Xの投稿本文には @studio_yebisu の記載が必須です。 ', h('a', {href: 'media-rights.html'}, '動画の利用条件')) : null);
 
     setTabbar([
-      ['作例一覧', './#cases', 'list'],
+      ['ツール一覧', './#cases', 'list'],
       video ? ['動画', '#video', 'cases'] : null,
       demo ? ['デモ', demo, 'demo'] : null,
       hasRequest ? ['依頼文', '#prompt', 'prompt'] : null
@@ -455,7 +439,7 @@
 
   /* ---------- Catalog entry (source guide) ---------- */
 
-  // A catalog entry counts as produced only when a Studio Yebisu case points to it. If cases.json is
+  // A catalog entry counts as produced only when a Yaoyorozu-AI Toolbox case points to it. If cases.json is
   // unreadable, an entry whose guide_url is a case article still links there.
   function caseForEntry(entry, cases) {
     const direct = cases && cases.find(item => item.catalog_entry && item.catalog_entry.id === entry.id);
@@ -467,7 +451,7 @@
   }
 
   function renderEntry(entry, produced) {
-    document.title = (entry.name || entry.id) + '｜Studio Yebisu';
+    document.title = (entry.name || entry.id) + '｜Yaoyorozu-AI Toolbox';
     const skill = String(entry.kind || '').trim() === 'スキル';
     const category = categories[entry.category];
     const caseHref = produced ? 'case.html?id=' + encodeURIComponent(produced.id) : null;
@@ -477,8 +461,8 @@
     if (image) {
       media = h('figure', {class: 'd-media'});
       const el = VIDEO_EXT.test(image)
-        ? h('video', {src: image, controls: true, preload: 'none', playsinline: true, 'aria-label': (entry.name || '') + (produced ? 'の作例動画' : 'の動画')})
-        : h('img', {src: image, alt: (entry.name || '') + (produced ? 'の作例画像' : 'の紹介画像'), decoding: 'async'});
+        ? h('video', {src: image, controls: true, preload: 'none', playsinline: true, 'aria-label': (entry.name || '') + (produced ? 'の解説動画' : 'の動画')})
+        : h('img', {src: image, alt: (entry.name || '') + (produced ? 'の紹介画像' : 'の紹介画像'), decoding: 'async'});
       el.addEventListener('error', () => media.classList.add('is-missing'));
       media.append(el);
     }
@@ -498,12 +482,12 @@
     const links = [
       ['原典', entry.source_url],
       ['使い方の案内', entry.guide_url === caseHref || entry.guide_url === selfPage ? null : entry.guide_url],
-      ['制作した作例の記事', caseHref],
-      [produced ? '作例を開く' : '掲載元の見本', entry.example_url === selfPage ? null : entry.example_url],
+      ['詳しい紹介記事', caseHref],
+      [produced ? 'デモを開く' : '掲載元の見本', entry.example_url === selfPage ? null : entry.example_url],
       ['スキルをダウンロード', entry.skill_download]
     ].map(([label, url]) => [label, safeHref(url)]).filter(([, url]) => url);
 
-    const stage = caseHref ? '作例の記事あり'
+    const stage = caseHref ? '動画・デモあり'
       : sourceOnly ? '紹介のみ'
       : entry.example_url || entry.image ? '掲載元の見本あり' : null;
     const useAnchor = entry.use_case ? '#use' : Array.isArray(entry.workflow) && entry.workflow.length ? '#workflow' : null;
@@ -514,10 +498,11 @@
         h('span', {class: 'entry-kind'}, h('span', {class: 'mark ' + (skill ? 'mark-skill' : 'mark-support'), 'aria-hidden': 'true'}), entry.kind || 'その他'),
         h('span', {}, categoryLabel(entry.category)),
         stage ? h('span', {class: caseHref ? 'entry-case' : 'stage'}, stage) : null),
-      h('h1', {class: 'article-title article-title-entry'}, entry.name || entry.id),
+      h('h1', {class: 'article-title article-title-entry article-tool-name'}, entry.name || entry.id),
+      entry.tagline ? h('p', {class: 'article-overview'}, entry.tagline) : null,
       entry.summary ? h('p', {class: 'article-lead'}, entry.summary) : null,
       h('div', {class: 'actions'},
-        caseHref ? h('a', {class: 'btn btn-ink', href: caseHref}, '作例の記事を読む') : null,
+        caseHref ? h('a', {class: 'btn btn-ink', href: caseHref}, '詳しい紹介を読む') : null,
         h('a', {class: 'btn ' + (caseHref ? 'btn-line' : 'btn-ink'), href: '#prompt'}, '依頼文を見る'),
         source ? h('a', {class: 'btn btn-line', href: source}, '原典を開く') : null),
       entry.verification ? h('p', {class: 'status-note'}, h('strong', {}, '確認状況'), entry.verification) : null);
@@ -536,9 +521,9 @@
         h('div', {}, h('dt', {}, '確認状況'), h('dd', {}, entry.verification || '記載なし')),
         h('div', {}, h('dt', {}, '原典'), h('dd', {}, source ? h('a', {class: 'url', href: source}, displayUrl(source)) : '記載なし')),
         h('div', {}, h('dt', {}, 'ライセンス'), h('dd', {}, license ? h('a', {href: license}, entry.license || 'ライセンスを見る') : (entry.license || '原典で確認してください'))),
-        h('div', {}, h('dt', {}, '作例'), h('dd', {}, caseHref
-          ? h('a', {href: caseHref}, produced.title || 'Studio Yebisuで制作した作例')
-          : sourceOnly ? '紹介のみで、作例・動画は未制作です。' : entry.example_url || entry.image ? '掲載元の作例・見本を参照できます。確認した範囲は上記の記録をご覧ください。' : 'この統合サイトの制作記事は未掲載です。'))),
+        h('div', {}, h('dt', {}, 'デモ・動画'), h('dd', {}, caseHref
+          ? h('a', {href: caseHref}, produced.title || '詳しい紹介とデモ')
+          : sourceOnly ? '紹介のみで、デモ・動画は未制作です。' : entry.example_url || entry.image ? '掲載元のデモ・見本を参照できます。確認した範囲は上記の記録をご覧ください。' : 'この統合サイトの制作記事は未掲載です。'))),
       entry.license_note ? h('p', {class: 'd-note'}, entry.license_note) : null);
     if (links.length) page.add('links', 'リンク', 'リンク', linkList(links));
     if (Array.isArray(entry.tags) && entry.tags.length) page.add('tags', 'タグ', 'タグ', h('ul', {class: 'tags'}, entry.tags.map(tag => h('li', {}, tag))));
@@ -568,11 +553,11 @@
     catalog.then(data => renderFooterCategories(data.categories)).catch(() => {});
 
     if (caseId) {
-      if (!ID_PATTERN.test(caseId)) return showState('作例が見つかりません', 'URLの作例名が正しくありません。作例の一覧かカタログから選び直してください。');
+      if (!ID_PATTERN.test(caseId)) return showState('紹介ページが見つかりません', 'URLの項目名が正しくありません。一覧かカタログから選び直してください。');
       const [found] = await Promise.all([findCase(caseId), catalog.catch(() => null)]);
       if (found.item) return renderCase(found.item);
-      if (found.failed) return showState('作例を読み込めませんでした', '通信状態を確かめてから、もう一度読み込んでください。', {retry: true});
-      return showState('作例が見つかりません', '「' + caseId + '」という作例はまだ掲載されていません。作例の一覧かカタログから選び直してください。');
+      if (found.failed) return showState('紹介ページを読み込めませんでした', '通信状態を確かめてから、もう一度読み込んでください。', {retry: true});
+      return showState('紹介ページが見つかりません', '「' + caseId + '」はまだ掲載されていません。一覧かカタログから選び直してください。');
     }
 
     if (entryId) {
@@ -589,7 +574,7 @@
       return renderEntry(entry, caseForEntry(entry, cases));
     }
 
-    showState('表示する作例が選ばれていません', '作例の一覧かカタログから、見たいものを選んでください。');
+    showState('表示する項目が選ばれていません', '一覧かカタログから、見たいものを選んでください。');
   }
 
   start().catch(() => showState('ページを表示できませんでした', '時間をおいて、もう一度開いてください。', {retry: true}));
