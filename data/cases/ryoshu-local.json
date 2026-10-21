@@ -5,7 +5,7 @@
     "領収書を、完全ローカルで整える。"
   ],
   "category": "documents",
-  "summary": "領収書の画像・PDFをローカルのIndra OCRで読み取り、別のローカルAIが科目候補を作るWindowsアプリです。未確認の帳簿を先に作り、あとから一覧で確認・修正できます。CSV→freee・MFクラウド・弥生などへ取り込む形式で出力します。",
+  "summary": "領収書の画像・PDFをローカルOCRとAIで読み取り、未確認の帳簿を先に作るWindowsアプリです。v1.0.0公開候補では、ファイル・フォルダーの一括取り込み、PDFのページ分割、あとからの一括確認を追加。CSV→Freee、MFクラウド、弥生などに取り込む形式で出力します。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/ryoshu-local/index.html",
@@ -29,14 +29,14 @@
   "demo_note": "画面と原本は架空データの保存済み実物です。Ryoshu本体は別のローカルアプリです。この紹介ページから領収書をアップロードする機能はありません。",
   "request_intro": "Ryoshuを導入するときにAIのコーディングエージェントへ渡す依頼例です。先にモデルの利用条件を確認してください。",
   "request": "Ryoshuの公式README・動作要件・モデル利用条件を読み、Windowsでローカル実行環境を準備してください。初回の依存・モデル取得にはネット接続を使い、領収書を外部OCRやクラウドLLMへ送らないでください。架空PDFを取り込み、未確認の帳簿が先に作られることを確認します。原本・用途・事業割合・支払元・税区分はあとから一覧で確認・修正します。CSVは件数・借貸・取込先形式を確かめて保存してください。",
-  "video_note": "16:9・1920×1080、32秒・30fps・無音。Opus5.5が描画とタイムラインを執筆・修正しました。先に未確認の帳簿を作り、あとで確認する流れです。元の100件の回帰検査は金額・円額未確定97/97（返金3件除外）、日付99/100、店名86/100、暫定科目47/48。推論は今回再実行していません。",
+  "video_note": "16:9・1920×1080、32秒・30fps・無音。Opus5.5が描画とタイムラインを執筆・修正しました。先に未確認の帳簿を作り、あとで確認する流れです。元の100件の回帰検査は金額・円額未確定97/97（返金3件除外）、日付99/100、店名86/100、暫定科目47/48。推論は今回再実行していません。 紹介映像と保存済みアプリ画面はv0.4制作時点です。v1公開候補の画面と追加検査は別の検証記録へ掲載しています。",
   "video_source": "examples/ryoshu-local/video/index.html",
-  "updated_on": "2026-10-21",
+  "updated_on": "2026-10-22",
   "license_note": "ページ・映像ソースのコードはMIT、MP4はサイトのクレジット条件です。Ryoshuのモデル重み等の条件は別です。",
   "steps": [
     {
-      "title": "画像・PDFを読み取る",
-      "body": "初回準備後はIndra OCR1.1.2がローカルで読み取ります。"
+      "title": "画像・PDFをまとめて取り込む",
+      "body": "ファイル・フォルダー選択とドロップに対応。PDFは1つの取引か、1ページずつの領収書かを選び、元のPDFも保存します（v1公開候補）。"
     },
     {
       "title": "別のローカルAIが科目候補を作る",
@@ -44,7 +44,7 @@
     },
     {
       "title": "未確認の帳簿を先に作る",
-      "body": "確認を途中で挟まずSQLiteへ自動保存し、経費帳に並べます。未確定の金額・科目は空欄で残します。"
+      "body": "未確認の帳簿を先に保存します。v1公開候補では検索、100件ずつの表示、停止・再開・失敗分の再試行、一括確認で残った理由の追跡を追加しています。"
     },
     {
       "title": "あとで確認し、CSVを取り込む",
@@ -58,7 +58,8 @@
     "100件は修正にも使った架空の回帰検査です。金額は返金3件を除く97件、暫定科目は48件を分母とし、目視説明や手動補正で自動採点を加点していません。",
     "CSVは架空6件の生成・再読込と借貸を検査した範囲で、実会計サービスのアカウントへの取り込みは未実施です。",
     "アプリはMIT、Indra重みはmodified OpenRAIL-Mで事業規模・資金調達・競合用途等に制限があります。保存データとバックアップは暗号化していません。",
-    "Opus5.5は新しい映像の描画・タイムラインを制作しました。紹介ページ・事実データ・ラッパー・書出し・検証・公開は制作担当が行い、元のRyoshu本体・100件の推論は再生成していません。"
+    "Opus5.5は新しい映像の描画・タイムラインを制作しました。紹介ページ・事実データ・ラッパー・書出し・検証・公開は制作担当が行い、元のRyoshu本体・100件の推論は再生成していません。",
+    "v1.0.0は公開候補です。119件のPython検査、21項目の画面操作を確認。画面検査のOCR・AI値は保存済み結果の再現で、通常のローカルAIを含む100件の再検査は未完了です。"
   ],
   "sources": [
     {
@@ -92,6 +93,10 @@
     {
       "label": "元の100件OCR・AI検証の固定版",
       "url": "https://github.com/studio-yebisu/ryoshu/tree/a163a295f5e87532ef592021cee207adc2a53f6d"
+    },
+    {
+      "label": "v1公開候補の改善・画面・レビュー記録",
+      "url": "https://github.com/studio-yebisu/ryoshu/blob/1025426d5fe7afe262e64dd8bbe637ebada36d47/docs/testing/v1/README.md"
     }
   ],
   "applied_skills": [
@@ -117,10 +122,10 @@
   "catalog_entry": {
     "id": "app-ryoshu",
     "name": "Ryoshu",
-    "tagline": "領収書を完全ローカルで整理し、帳簿・CSVへ",
+    "tagline": "領収書をまとめて帳簿へ整えるローカルWindowsアプリ",
     "category": "documents",
     "kind": "ローカルアプリ",
-    "summary": "領収書の画像・PDFをローカルのIndra OCRで読み取り、別のローカルAIが科目候補を作るWindowsアプリです。未確認の帳簿を先に作り、あとから一覧で確認・修正できます。CSV→freee・MFクラウド・弥生などへ取り込む形式で出力します。",
+    "summary": "領収書の画像・PDFをローカルOCRとAIで読み取り、未確認の帳簿を先に作るWindowsアプリです。v1.0.0公開候補では、ファイル・フォルダーの一括取り込み、PDFのページ分割、あとからの一括確認を追加。CSV→Freee、MFクラウド、弥生などに取り込む形式で出力します。",
     "use_case": "領収書を外部OCR・LLMへ送らず、個人事業の支出を原本と比べて整理したいとき。",
     "tags": [
       "領収書",
@@ -141,22 +146,22 @@
       "初回のネット接続と数GBの保存領域、モデル利用条件の確認"
     ],
     "license": "MIT（コード）／モデルは別条件",
-    "license_url": "https://github.com/studio-yebisu/ryoshu/blob/5b601be1a3fe3ebdb600d0a53c557917652a876d/LICENSE",
+    "license_url": "https://github.com/studio-yebisu/ryoshu/blob/1025426d5fe7afe262e64dd8bbe637ebada36d47/LICENSE",
     "license_note": "Indra重みはmodified OpenRAIL-Mの制限があり、アプリMITとは別です。",
-    "source_url": "https://github.com/studio-yebisu/ryoshu/tree/5b601be1a3fe3ebdb600d0a53c557917652a876d",
+    "source_url": "https://github.com/studio-yebisu/ryoshu/tree/1025426d5fe7afe262e64dd8bbe637ebada36d47",
     "guide_url": "case.html?id=ryoshu-local",
     "example_url": "examples/ryoshu-local/index.html",
     "image": "media/ryoshu-local-wide.webp",
-    "readme_url": "https://github.com/studio-yebisu/ryoshu/blob/5b601be1a3fe3ebdb600d0a53c557917652a876d/README.md",
+    "readme_url": "https://github.com/studio-yebisu/ryoshu/blob/1025426d5fe7afe262e64dd8bbe637ebada36d47/README.md",
     "source_repository": "studio-yebisu/ryoshu",
-    "source_commit": "5b601be1a3fe3ebdb600d0a53c557917652a876d",
+    "source_commit": "1025426d5fe7afe262e64dd8bbe637ebada36d47",
     "source_path": "",
     "source_project": "curated",
-    "source_note": "固定版と保存済み実行記録を使用。100件は架空の回帰データ。今回のOpus制作は映像ソースに限り、アプリや元推論を再生成していません。",
+    "source_note": "v1.0.0公開候補の固定ソースと、元の100件の開発検証を分けて掲載。紹介映像はv0.4時点でOpus5.5が描画・タイムラインを執筆しました。",
     "prompt": "Ryoshuの公式README・動作要件・モデル利用条件を読み、Windowsでローカル実行環境を準備してください。初回の依存・モデル取得にはネット接続を使い、領収書を外部OCRやクラウドLLMへ送らないでください。架空PDFを取り込み、未確認の帳簿が先に作られることを確認します。原本・用途・事業割合・支払元・税区分はあとから一覧で確認・修正します。CSVは件数・借貸・取込先形式を確かめて保存してください。",
     "verification_stage": "runtime-reviewed",
-    "verification": "元の100件のOCR・AI回帰結果を保持。v0.4の帳簿作成・一括確認は71テストと保存済み架空4例の実画面で別に確認。今回の映像修正はOpus5.5が執筆し、推論は再実行していません。",
-    "reviewed_on": "2026-10-21"
+    "verification": "v1候補はPython119件と画面操作21項目を別に確認。画面検査のOCR・AI値は再現データ。通常のAI100件再検査は未完了。元の100件のスコアと手動補正は保持しています。",
+    "reviewed_on": "2026-10-22"
   },
   "video_download_portrait": "media/downloads/ryoshu-local-portrait-credited-ja-v3.mp4",
   "video_download_landscape": "media/downloads/ryoshu-local-landscape-credited-ja-v3.mp4"
