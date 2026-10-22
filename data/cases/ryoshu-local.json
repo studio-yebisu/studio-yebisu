@@ -5,7 +5,7 @@
     "領収書を、完全ローカルで整える。"
   ],
   "category": "documents",
-  "summary": "PDFや画像を入れて開始し、原本画像・読み取った文字と数字・勘定科目を並べて確認するWindowsアプリです。外部AIへ送らずPC内で処理し、CSV→freee、MFクラウド、弥生などへ。v1.1.0では帳簿DB・保存原本・バックアップを暗号化します。",
+  "summary": "領収書をまとめて読み取り、原本・文字数字・科目を見比べてCSVへ。外部AIを使わずPC内で動くWindowsアプリです。汎用・freee・MFクラウド・弥生向けに出力できます。",
   "model": "claude-opus-5-5",
   "status": "published",
   "demo": "examples/ryoshu-local/index.html",
@@ -25,30 +25,30 @@
   "sample_format": "input-output",
   "samples_title": "4件の原本と保存済み候補",
   "samples_intro": "実際の100件検証から4件を抜き出した架空の原本と保存済み結果です。この紹介ページではOCRやAIは実行しません。V070は元の候補と手動補正を分けています。",
-  "demo_description": "PDFを入れて開始し、画像・文字数字・科目を並べて確認してCSVへ。v1.1.0の安全性点検と凍結候補100件の新しい実行結果を案内します。紹介映像と保存済み4例はv0.4の記録です。",
+  "demo_description": "PDFを入れて開始し、画像・文字数字・科目を確認してCSVへ。最新v1.2.0の100件実行と新UIへ案内します。映像と保存済み4例はv0.4の記録です。",
   "demo_note": "画面と原本は架空データの保存済み実物です。Ryoshu本体は別のローカルアプリです。この紹介ページから領収書をアップロードする機能はありません。",
   "request_intro": "Ryoshuを導入するときにAIのコーディングエージェントへ渡す依頼例です。先にモデルの利用条件を確認してください。",
   "request": "RyoshuのREADME・動作要件・モデル利用条件を読み、Windowsで準備してください。Ollamaを導入し、Ryoshu.cmdから固定Pythonと依存・モデルを準備します。復元用パスワードは本人が安全な画面で設定します。PDFをまとめて選択・ドロップして開始し、画像・読み取った文字数字・科目を並べて確認してください。領収書を外部AIへ送らないでください。原本・金額・科目・用途は本人が確認し、税務上の最終判断は税理士へ。CSVの件数・借貸・形式を確かめて保存します。",
-  "video_note": "16:9・1920×1080、32秒・30fps・無音。Opus5.5が描画とタイムラインを執筆・修正しました。映像・保存済み4例はv0.4制作時点です。v1.0.0の実OCR・AI100件の再検証は別の記録へ掲載し、金額・円額未確定97/97（返金3件除外）、日付99/100、店名86/100、暫定科目47/48でした。 その後、公開版v1.0.0の配布ZIPで100枚すべてのOCR・科目判定を新規実行した記録を追加しました。 v1.1.0候補の暗号化・簡素化UIは映像に含めず、別の検証記録で案内します。",
+  "video_note": "16:9・1920×1080、32秒・30fps・無音。Opus5.5が描画とタイムラインを執筆・修正しました。映像・保存済み4例はv0.4制作時点です。v1.0.0の実OCR・AI100件の再検証は別の記録へ掲載し、金額・円額未確定97/97（返金3件除外）、日付99/100、店名86/100、暫定科目47/48でした。 その後、公開版v1.0.0の配布ZIPで100枚すべてのOCR・科目判定を新規実行した記録を追加しました。 v1.1.0候補の暗号化・簡素化UIは映像に含めず、別の検証記録で案内します。 v1.2.0の税額・科目処理と新UIはこの旧映像には含まず、別の記録と実画面で案内します。",
   "video_source": "examples/ryoshu-local/video/index.html",
   "updated_on": "2026-10-22",
   "license_note": "ページ・映像ソースのコードはMIT、MP4はサイトのクレジット条件です。Ryoshuのモデル重み等の条件は別です。",
   "steps": [
     {
       "title": "PDFを入れて、開始",
-      "body": "複数ファイル・フォルダーの選択とドロップに対応。PDFを1取引かページごとの領収書か選べます。"
+      "body": "ファイル・フォルダーの選択とドロップ。開始前にPDFの単位を選べます。"
     },
     {
-      "title": "原本・文字数字・科目を見比べる",
-      "body": "ローカルOCRとQwen3 4Bが候補を作成。原本画像は拡大でき、読み取り内容と科目を並べて確認できます。"
+      "title": "原本・文字数字・科目を比較",
+      "body": "画像はクリックで拡大。読み取り内容と科目候補を並べて確認できます。"
     },
     {
-      "title": "帳簿と原本を暗号化",
-      "body": "v1.1.0はSQLCipherとAES-GCMで保存。通常はWindowsが自動解除し、復元用パスワードでバックアップします。"
+      "title": "必要なところを確認・修正",
+      "body": "金額・科目・用途・事業割合・支払元を本人が確認。税額の単位も原本で照合します。"
     },
     {
       "title": "確認して、CSVへ",
-      "body": "汎用CSVは未確認も保存。本人の確認後はfreee・MFクラウド・弥生向けに出力。税務上の最終判断は税理士へ。"
+      "body": "汎用CSV、freee・MFクラウド・弥生向けに出力。税務上の最終判断は税理士へ。"
     }
   ],
   "limitations": [
@@ -56,24 +56,38 @@
     "Windows11・64bitとOllamaを使用。Python3.12.15は自動準備します。GPU不要、最低RAM未測定。スマホ・LAN共有は対象外です。",
     "支出の経費帳と税込仕訳が対象。売上、口座照合、償却、決算・申告書、返金・外貨の仕訳は対象外です。",
     "100件は改善にも使った架空の回帰データ。金額97件は返金3件を除き円額未確定2件を含み、暫定科目は48件が対象です。",
-    "v1.1.0候補を凍結して100件を新規実行し、その後に安全性・復元・UIを修正。最終配布ZIPでの100件実行とは区別しています。",
+    "v1.2.0の凍結処理系で100件を新規実行。配布ZIPと実画面の検査は別記録であり、同じ開発用データでの回帰検証です。",
+    "税額63件：印字税額51/52、空欄11/11。税額として特定できず空欄1件、誤った数値0件。 返金3件と外貨2件は税額評価から事前に除外。返金3件の税額候補は登録停止のままで、成功件数に含みません。V013は553円が印字されていますが、税額ラベルのOCRが崩れて空欄でした。",
+    "科目等の集計はv1.1.0候補と同じです。AIの摘要には、事業概要を指定した100件のV021で「テスト用の乗車」とするなど、原本にない表現が残ります。摘要も原本で確認してください。",
     "CSV4形式は架空6件・7仕訳行の生成と再読込・借貸一致を確認。実会計サービスへの取り込みと法務審査は未実施です。",
     "v1.1.0ではDB・保存原本・バックアップを暗号化。書き出したCSV・原本は平文です。Windows鍵と復元用パスワードの両方が使えなくなると復元できません。",
-    "Python45依存の既知脆弱性照合は0件。SQLCipher同梱OpenSSL3.6.0には別の残存制約があり、静的到達範囲の評価は脆弱性全体の非該当証明ではありません。詳細を点検結果へ掲載します。",
+    "v1.1.0時点のPython45依存の既知脆弱性照合は0件。SQLCipher同梱OpenSSL3.6.0には別の残存制約があり、静的到達範囲の評価は脆弱性全体の非該当証明ではありません。詳細を点検結果へ掲載します。",
     "アプリはMIT、Indra重みはmodified OpenRAIL-Mで事業規模・資金調達・競合用途等に制限があります。",
     "Opus5.5制作の映像・4例の保存済みデータはv0.4の記録です。今回の案内改訂で映像や100件推論を再生成したものではありません。"
   ],
   "sources": [
     {
+      "label": "v1.2.0の100件・税額・レビュー結果",
+      "url": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/README.md"
+    },
+    {
+      "label": "100件の画像・OCR・科目を並べて見る",
+      "url": "https://studio-yebisu.github.io/ryoshu/docs/testing/v1.2/"
+    },
+    {
+      "label": "v1.2.0のデザインと参照資料",
+      "url": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/DESIGN.md"
+    },
+    {
       "label": "Ryoshu GitHub",
       "url": "https://github.com/studio-yebisu/ryoshu"
     },
     {
-      "label": "v1.1.0候補の100件と安全性の点検",
+      "label": "v1.1.0候補の安全性点検と残る制約（履歴）",
       "url": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/security/README.md"
     },
     {
-      "label": "100件の画像・OCR・科目・期待値を見る",
+      "label": "v1.1.0候補の100件画像・OCR・科目（履歴）",
       "url": "https://studio-yebisu.github.io/ryoshu/docs/testing/security/"
     },
     {
@@ -151,7 +165,7 @@
     "tagline": "外部AIへ送らず、領収書をCSVへ整えるWindowsアプリ",
     "category": "documents",
     "kind": "ローカルアプリ",
-    "summary": "PDFや画像を入れて開始し、原本画像・読み取った文字と数字・勘定科目を並べて確認するWindowsアプリです。外部AIへ送らずPC内で処理し、CSV→freee、MFクラウド、弥生などへ。v1.1.0では帳簿DB・保存原本・バックアップを暗号化します。",
+    "summary": "領収書をまとめて読み取り、原本・文字数字・科目を見比べてCSVへ。外部AIを使わずPC内で動くWindowsアプリです。汎用・freee・MFクラウド・弥生向けに出力できます。",
     "use_case": "領収書を外部OCR・LLMへ送らず、個人事業の支出を原本と比べて整理したいとき。",
     "tags": [
       "領収書",
@@ -172,21 +186,21 @@
       "初回のネット接続と数GBの保存領域、モデル利用条件の確認。"
     ],
     "license": "MIT（コード）／モデルは別条件",
-    "license_url": "https://github.com/studio-yebisu/ryoshu/blob/1fed7ed649a1f54407e38f8ac90289b1519ed39c/LICENSE",
+    "license_url": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/LICENSE",
     "license_note": "Indra重みはmodified OpenRAIL-Mの制限があり、アプリMITとは別です。",
-    "source_url": "https://github.com/studio-yebisu/ryoshu/tree/1fed7ed649a1f54407e38f8ac90289b1519ed39c",
+    "source_url": "https://github.com/studio-yebisu/ryoshu/tree/40dfac8dfd0d819c3979c98caa1d79c0091a22a7",
     "guide_url": "case.html?id=ryoshu-local",
     "example_url": "examples/ryoshu-local/index.html",
     "image": "media/ryoshu-local-wide.webp",
-    "readme_url": "https://github.com/studio-yebisu/ryoshu/blob/1fed7ed649a1f54407e38f8ac90289b1519ed39c/README.md",
+    "readme_url": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/README.md",
     "source_repository": "studio-yebisu/ryoshu",
-    "source_commit": "1fed7ed649a1f54407e38f8ac90289b1519ed39c",
+    "source_commit": "40dfac8dfd0d819c3979c98caa1d79c0091a22a7",
     "source_path": "",
     "source_project": "curated",
-    "source_note": "v1.1.0の最終sourceを固定。凍結候補100件の新規OCR・ローカルAI検証の後に安全性・復元・UIを変更。188Python・28画面・10安全性画面検査は別記。映像と4例はv0.4。",
+    "source_note": "v1.2.0公開sourceを固定。新規100件と237Python・28画面・10安全性画面の範囲を別記。映像・保存済み4例はv0.4。",
     "prompt": "RyoshuのREADME・動作要件・モデル利用条件を読み、Windowsで準備してください。Ollamaを導入し、Ryoshu.cmdから固定Pythonと依存・モデルを準備します。復元用パスワードは本人が安全な画面で設定します。PDFをまとめて選択・ドロップして開始し、画像・読み取った文字数字・科目を並べて確認してください。領収書を外部AIへ送らないでください。原本・金額・科目・用途は本人が確認し、税務上の最終判断は税理士へ。CSVの件数・借貸・形式を確かめて保存します。",
     "verification_stage": "runtime-reviewed",
-    "verification": "凍結候補100件でOCR100/100・モデル100/100、金額97/97（返金3件除外）・日付99/100・科目/保留条件89/100。188Python・28画面・10安全性画面検査成功。実SaaS取込・法務審査は未実施。",
+    "verification": "凍結処理系100件：金額・円額未確定97/97（返金3件除外）、日付99/100、暫定科目47/48、科目/保留条件89/100。237Python・28画面・10安全性画面。実SaaS取込・法務審査は未実施。",
     "reviewed_on": "2026-10-22"
   },
   "video_download_portrait": "media/downloads/ryoshu-local-portrait-credited-ja-v3.mp4",

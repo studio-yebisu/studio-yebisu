@@ -1,23 +1,29 @@
 # Ryoshuをローカルで試す
 
-このページは紹介用の保存済み架空データです。OCR・AIは実行しません。映像と4例はv0.4時点です。実際のアプリは[Ryoshu GitHub](https://github.com/studio-yebisu/ryoshu)から取得します。
+この紹介ページは保存済みの架空データです。OCR・AIは実行しません。映像と4例はv0.4の履歴で、アプリの最新UIはv1.2.0です。
 
-## v1.1.0の使い方
+## はじめる
 
-1. [動作要件](https://github.com/studio-yebisu/ryoshu/blob/main/docs/REQUIREMENTS.md)と[モデルの利用条件](https://github.com/studio-yebisu/ryoshu/blob/main/THIRD_PARTY.md)を確認し、Ollama Windows版を導入します。
-2. [v1.1.0の配布ZIP](https://github.com/studio-yebisu/ryoshu/releases/tag/v1.1.0)を新しいフォルダーへ展開し、`Ryoshu.cmd`を実行します。初回にPython3.12.15・固定依存・OCR重み・約2.5GBのQwenモデルを自動取得します。ネット接続が必要です。
-3. ブラウザーで復元用パスワードを設定します。通常はWindowsが自動で帳簿を開きます。Windowsの鍵とパスワードの両方が使えなくなると復元できないため、安全な場所へ保管します。
-4. PDF・画像をまとめて選択、フォルダー選択、またはドロップして開始します。画像・読み取った文字と数字・科目を並べて確認し、画像はクリックして拡大します。
-5. 原本・金額・科目・用途・事業割合・支払元・税区分を確認し、CSVを保存します。汎用CSV、freee、MFクラウド、弥生に対応。税務上の最終判断は税理士へ確認してください。
+1. [動作要件](https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/REQUIREMENTS.md)と[モデルの利用条件](https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/THIRD_PARTY.md)を確認し、Ollama Windows版を導入します。
+2. [v1.2.0の配布ZIP](https://github.com/studio-yebisu/ryoshu/releases/tag/v1.2.0)を新しいフォルダーへ展開し、`Ryoshu.cmd`を実行します。初回はネット接続でPython・依存・モデルを取得します。
+3. 復元用パスワードを設定します。通常はWindowsが自動で帳簿を開きます。
+4. PDF・画像をまとめて選択またはドロップし、「読み取りを開始」。画像・文字数字・科目を見比べ、画像はクリックで拡大します。
+5. 原本・科目・用途・割合・支払元・税区分を確認し、「CSV出力」で形式と範囲を選んで保存します。税務上の最終判断は税理士へ。
 
-準備後のOCR・科目候補・CSV作成はPC内で行い、外部AIのログイン・APIキーは使いません。DB・保存原本・プレビュー・バックアップは暗号化します。書き出したCSVと原本は暗号化されない通常のファイルです。スマホ・LAN共有は対象外、最低RAMは未測定です。
+準備後は外部AIのアカウント・APIキーを使わずPC内で処理します。DB・原本・プレビュー・バックアップは暗号化。書き出したCSVと原本は通常の平文ファイルです。
 
-[導入手順](https://github.com/studio-yebisu/ryoshu/blob/main/docs/INSTALL.md) / [新しい100件と安全性点検](https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/security/README.md) / [画像・OCR・科目を並べて見る](https://studio-yebisu.github.io/ryoshu/docs/testing/security/) / [100件の画像一覧](https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/gallery.md)
+## 検証
 
-## 検証の範囲
+新規100件：金額・円額未確定97/97（返金3件除外）、日付99/100、暫定科目47/48、科目/保留条件89/100。同じ開発用の架空データであり、未知の実物の精度を示しません。税額の数値一致・空欄の一致・読み取れず保留・誤採用は分けて記録しています。237件のPython、28項目の画面操作、10項目の安全性画面を確認。各会計サービスへの実取込と法務審査は未実施です。
 
-暗号化対応のv1.1.0候補を凍結して架空100件を新規OCR・ローカルAIへ通しました。金額・円額未確定97/97（返金3件除外）、日付99/100、支払先86/100、暫定科目47/48、科目/保留条件89/100。その後の安全性・復元・UIの変更は別の試験です。最終配布ZIPで100件を再実行したという意味ではありません。同じ開発用100件での回帰検証で、未知の実物精度ではありません。
+[最新100件と検証方法](https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/README.md) / [画像・OCR・科目を比較](https://studio-yebisu.github.io/ryoshu/docs/testing/v1.2/) / [安全性の点検と残る制約](https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/security/README.md) / [機械可読の更新記録](app-update.json)
 
-Python188検査と安全性に絞った49検査は成功。最終の画面28項目・安全性画面10項目と再レビューを完了し、公開sourceを固定しました。CSVは架空6件・7行・借貸299,095円の生成/再読込を確認し、各会計サービスへの実取込は未実施です。SQLCipher同梱OpenSSL3.6.0の残る制約は[点検結果](https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/security/README.md)へ記載しています。
+旧版の検証・映像は[確認範囲](VERIFICATION.md)に保持しています。アプリコードとモデル重みの条件は別です。紹介ソースは[MIT](LICENSE)、MP4は[映像利用条件](../../MEDIA-LICENSE.md)です。
 
-アプリコードはMIT、モデル重みは別条件です。紹介ページと映像ソースのコードは[MIT](LICENSE)、MP4はサイトの[映像利用条件](../../MEDIA-LICENSE.md)です。[v1.0.0の100枚検証の履歴](https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/README.md)と[機械可読の更新記録](app-update.json)を保持しています。
+金額97件は非負の円額95件と、外貨で円額未確定の2件。暫定科目48件は提案を期待するケースです。
+
+税額63件：印字税額51/52、空欄11/11。税額として特定できず空欄1件、誤った数値0件。 返金3件と外貨2件は税額評価から事前に除外。返金3件の税額候補は登録停止のままで、成功件数に含みません。V013は553円が印字されていますが、税額ラベルのOCRが崩れて空欄でした。
+
+事業概要が空欄の追加5件でも金額・日付・科目・扱い・税額が一致。手動修正せず、未確認の汎用CSV5行をブラウザーから保存して照合しました。100件の集計には重複加算していません。
+
+科目等の集計はv1.1.0候補と同じです。AIの摘要には、事業概要を指定した100件のV021で「テスト用の乗車」とするなど、原本にない表現が残ります。摘要も原本で確認してください。
