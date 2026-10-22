@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "checked_on": "2026-10-21",
+  "checked_on": "2026-10-22",
   "model": {
     "requested": "claude-opus-5-5",
     "reported": [
@@ -40,15 +40,16 @@
   },
   "upstream": {
     "repository": "https://github.com/studio-yebisu/ryoshu",
-    "commit": "5b601be1a3fe3ebdb600d0a53c557917652a876d"
+    "commit": "168459f1cbabcdaa687c4c8f33deb24f2d928ec5"
   },
   "runtime": {
     "status": "passed",
     "sample_count": 100,
-    "scope": "Original100-case OCR/AI regression retained at a163a295; no new inference. v0.4 workflow verified separately by71 tests and4 saved fictional UI examples.",
-    "source": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/README.md",
-    "new_inference_run": false,
-    "static_sample_count": 4,
+    "scope": "v1: fresh OCR/AI100 at9e06ef6, final catalog policy comparison across100 saved observations with0 differences, fresh3-case final-catalog inference at524776a. Final source includes documentation updates. Same fictional development data, not unseen accuracy. UI26 checks replay observations, not inference. v0.4 film and4 sample observations retained separately.",
+    "source": "https://github.com/studio-yebisu/ryoshu/blob/168459f1cbabcdaa687c4c8f33deb24f2d928ec5/docs/testing/v1/README.md",
+    "new_inference_run": true,
+    "full100_source_commit": "9e06ef6821ba21afa738e3a1120d9e9fef4f3649",
+    "final_catalog_inference_source_commit": "524776a8b937a5b439363fb4a7493f9e253f9a15",
     "metrics": {
       "ocr_completed": {
         "matched": 100,
@@ -83,31 +84,12 @@
         "evaluated": 48
       }
     },
-    "original_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
-    "app_workflow": {
-      "status": "passed",
-      "samples": 4,
-      "scope": "Saved fictional observations replayed; not new OCR/AI inference",
-      "checks": [
-        "default ledger visible before review",
-        "pending CSV default",
-        "later batch review with explicit shared fields",
-        "partial review leaves unknown amount pending",
-        "persistent optional review-first order",
-        "desktop and mobile UI"
-      ],
-      "errors": [],
-      "app_version": "0.4.0",
-      "unit_and_integration_tests": {
-        "passed": 71,
-        "new_workflow_tests": 4
-      },
-      "baseline_ocr_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
-      "ocr_and_model_inference_rerun": false,
-      "baseline_processing_sources_unchanged": true,
-      "public_fixture_hashes_and_original_scores": "passed",
-      "workflow": "Import -> persisted unreviewed ledger -> later review -> accounting CSV. Initial per-receipt review is disabled by default."
-    }
+    "unit_and_integration_tests": {
+      "passed": 130
+    },
+    "browser_checks": 26,
+    "real_windows_launcher": "passed",
+    "original_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d"
   },
   "introduction": {
     "status": "passed",
@@ -219,15 +201,15 @@
     "examples/ryoshu-local/assets/V004.jpg": "65be6602e7d67ffbce00f6ba97af0aea0c58a6fb0ca966c2d4d9a43f0be93006",
     "examples/ryoshu-local/assets/V038.jpg": "b806284c45f6e7af5f537a7e4fa6aedcfe0f100f912306e44071e57672cb368f",
     "examples/ryoshu-local/assets/V070.jpg": "bbfb2fd3d9444424a314fb5de1036e3865ffecb038680f7a301b32b7063d56f2",
-    "examples/ryoshu-local/facts.json": "8974947319d002bc2f4068de07fa4d00856480d51e5e4f6c92e92d183c644acf",
-    "examples/ryoshu-local/index.html": "2432e6e9e64dcbf3208ed326c65fe2da3f27b71dc53466a56b668b5a54bdc9e8",
+    "examples/ryoshu-local/facts.json": "37afbb9daaaf5b78e7383d4b92d9afa51de092de6b355c72c0e8586dac479c09",
+    "examples/ryoshu-local/index.html": "733130a6b4fb22b83b2fb2e3dd5cd489d4b67c8c9ad48e145bf7dc3e34fb57ad",
     "examples/ryoshu-local/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
     "examples/ryoshu-local/samples.json": "4daa246604aa399a8a77327d0bc233148ffd7da7059504bb123d920b021a329c",
-    "examples/ryoshu-local/source.zip": "27fcc58535d1311cbd871ea5c37c374ef85b2fa2adc97ba715ce4858b0526e44",
-    "examples/ryoshu-local/START.md": "c69d76b0ca45d9dd7f54c4dd5cf75cd99648830825bdb01b515117d5ce6bbd43",
+    "examples/ryoshu-local/source.zip": "cfc6e0ba224357932c16aea96aa98ce11905c0b56780ec0d838e6420c5a5842d",
+    "examples/ryoshu-local/START.md": "0d4f4c2264c3139420f0ca94368c962a4fe69ed6f2658fcf76fca21e927201f6",
     "examples/ryoshu-local/styles.css": "137f8940ae8594cc6286de134b2bbc527320a2208b5022f5011e5af8dd11fc28",
     "examples/ryoshu-local/verification.json": "b1501cc257f53be991905280c1bbc31c15685a2d5e3874b9968271a14054aacd",
-    "examples/ryoshu-local/VERIFICATION.md": "d81aec3d090feef7c7d9ae5b588a275049cf49f72ca46a9b9bf7561a8630119b",
+    "examples/ryoshu-local/VERIFICATION.md": "1ef01e0b1fce50be1692e38b6277d8fa3bddab2c539b17cdf665367b6cb0ce02",
     "examples/ryoshu-local/video/assets/ryoshu-app.png": "7624b71ff1c262636115776942f3704411f60764604796b47be28454da64e297",
     "examples/ryoshu-local/video/assets/test-gallery.png": "96f48d4e28c6f069c6d3abdc6867dbccb2398a0fe81cd269c74b73339b0e9e92",
     "examples/ryoshu-local/video/assets/V001.jpg": "482245ae96639d91f29c45aa956aa4906a34462108501f75dcd24b46334e08df",
@@ -248,7 +230,7 @@
     "media/ryoshu-local.webp": "fb69719dabd8ab38af7f3272e706e8ab69d1fafe7a40d4152129e15ba4a1f80e",
     "media/downloads/ryoshu-local-landscape-credited-ja-v3.mp4": "26f7538cc9cd14fd8ceb1955f796632fac0bbeb2fa1aeee841afbc73b3746156",
     "media/downloads/ryoshu-local-portrait-credited-ja-v3.mp4": "a506f2603dad23a578aa3457bd0f27cd9a0b3d06dc81d55d3a3066fae2d8ec53",
-    "examples/ryoshu-local/app-update.json": "7afa412f5e4a9e771937b5e760b7ddf3da521a10808624e50a905de88bc132f7"
+    "examples/ryoshu-local/app-update.json": "11ccdcb6d7a5bf0f20f97255ec019080d4c6c86dda8a2def73f8d7c124c7394b"
   },
   "pre_rebrand_artifacts_sha256": {
     "media/downloads/ryoshu-local-landscape-credited.mp4": "b8e777e60caa46cdc068462b00fc2926665b3958666d5faa552994b257bc6652",
@@ -277,6 +259,106 @@
     }
   ],
   "application_update": {
+    "version": "1.0.0",
+    "status": "released",
+    "source_commit": "168459f1cbabcdaa687c4c8f33deb24f2d928ec5",
+    "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.0.0",
+    "python_tests": 130,
+    "browser_checks": 26,
+    "browser_ocr_ai": "saved_observation_replay",
+    "normal_ai_100_rerun": "completed",
+    "full100_source_commit": "9e06ef6821ba21afa738e3a1120d9e9fef4f3649",
+    "full100_catalog_version": "2026-10-22.1",
+    "final_catalog_version": "2026-10-22.2",
+    "policy_delta_audit": "100 saved actual OCR evidence texts;0 different policy results; not fresh inference",
+    "final_catalog_fresh_inference_spot": {
+      "source_commit": "524776a8b937a5b439363fb4a7493f9e253f9a15",
+      "cases": [
+        "V052",
+        "V053",
+        "V054"
+      ],
+      "passed": 3
+    },
+    "original_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
+    "verification": "https://github.com/studio-yebisu/ryoshu/blob/168459f1cbabcdaa687c4c8f33deb24f2d928ec5/docs/testing/v1/README.md",
+    "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/168459f1cbabcdaa687c4c8f33deb24f2d928ec5/docs/REVIEW-POLICY.md",
+    "scope": "Current v1 app source is separate from the preserved v0.4 film,4 saved examples and original development100 scores. Full100 and final3 inference sources are recorded separately. No legal assessment or real SaaS import."
+  },
+  "historical_application_v0_4": {
+    "upstream": {
+      "repository": "https://github.com/studio-yebisu/ryoshu",
+      "commit": "5b601be1a3fe3ebdb600d0a53c557917652a876d"
+    },
+    "runtime": {
+      "status": "passed",
+      "sample_count": 100,
+      "scope": "Original100-case OCR/AI regression retained at a163a295; no new inference. v0.4 workflow verified separately by71 tests and4 saved fictional UI examples.",
+      "source": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/README.md",
+      "new_inference_run": false,
+      "static_sample_count": 4,
+      "metrics": {
+        "ocr_completed": {
+          "matched": 100,
+          "evaluated": 100
+        },
+        "model_completed": {
+          "matched": 100,
+          "evaluated": 100
+        },
+        "total_exact": {
+          "matched": 97,
+          "evaluated": 97
+        },
+        "date_exact": {
+          "matched": 99,
+          "evaluated": 100
+        },
+        "merchant_exact": {
+          "matched": 86,
+          "evaluated": 100
+        },
+        "account_or_decision_exact": {
+          "matched": 89,
+          "evaluated": 100
+        },
+        "decision_exact": {
+          "matched": 93,
+          "evaluated": 100
+        },
+        "account_exact": {
+          "matched": 47,
+          "evaluated": 48
+        }
+      },
+      "original_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
+      "app_workflow": {
+        "status": "passed",
+        "samples": 4,
+        "scope": "Saved fictional observations replayed; not new OCR/AI inference",
+        "checks": [
+          "default ledger visible before review",
+          "pending CSV default",
+          "later batch review with explicit shared fields",
+          "partial review leaves unknown amount pending",
+          "persistent optional review-first order",
+          "desktop and mobile UI"
+        ],
+        "errors": [],
+        "app_version": "0.4.0",
+        "unit_and_integration_tests": {
+          "passed": 71,
+          "new_workflow_tests": 4
+        },
+        "baseline_ocr_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
+        "ocr_and_model_inference_rerun": false,
+        "baseline_processing_sources_unchanged": true,
+        "public_fixture_hashes_and_original_scores": "passed",
+        "workflow": "Import -> persisted unreviewed ledger -> later review -> accounting CSV. Initial per-receipt review is disabled by default."
+      }
+    }
+  },
+  "historical_candidate_application_update": {
     "version": "1.0.0",
     "status": "candidate_not_released",
     "source_commit": "1025426d5fe7afe262e64dd8bbe637ebada36d47",
@@ -367,5 +449,17 @@
         "url": "https://github.com/studio-yebisu/ryoshu/actions/runs/39670716600"
       }
     ]
+  },
+  "introduction_v1_preview": {
+    "status": "passed",
+    "scope": "Introduction page on HTTP with4 saved sample tabs,desktop/mobile,personal/tax-review wording and original video metadata; not a new video playback or OCR/AI run.",
+    "viewports": [
+      1280,
+      375
+    ],
+    "overflow": false,
+    "page_errors": 0,
+    "failed_resources": 0,
+    "private_record_sha256": "385fbd52c0f98e0dc22a90448264f1d1663504da792d41ac48c742df4b56ded4"
   }
 }

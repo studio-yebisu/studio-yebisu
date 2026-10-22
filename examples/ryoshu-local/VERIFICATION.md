@@ -21,6 +21,12 @@
 
 初回の依存・モデル取得にはネット接続が必要です。準備後のOCR・AI判断・帳簿保存はローカルで動作します。会計ソフトの実アカウントへのCSV取込は未検証です。[詳細](verification.json)
 
-## v1.0.0公開候補の追加記録
+## v1.0.0の追加記録
 
-アプリの改訂は[別の検証ページ](https://github.com/studio-yebisu/ryoshu/blob/1025426d5fe7afe262e64dd8bbe637ebada36d47/docs/testing/v1/README.md)と[app-update.json](app-update.json)で管理します。119件のPython検査・21項目のブラウザー操作を確認していますが、ブラウザー検査のOCR・AI値は保存済み結果の再現です。通常AIの100件再検査は未完了です。上記の映像・v0.4の記録や、元の100件の数値は書き換えていません。
+ファイル・フォルダー・ドロップでの一括取り込み、PDFのページ分割、進捗・停止・再試行、あとからの一括確認、4形式のCSV、検証付きバックアップ復元に対応します。130件のPython検査・26項目の実ブラウザー操作が成功しました。画面検査のOCR・AI値は保存済み結果の再現です。
+
+別に原本100件のOCR・AIを新規実行し、家賃の誤提案を修正して再実行しました。金額・円額未確定97/97（返金3件除外）、日付99/100、店名86/100、暫定科目47/48。全100件のソース、最終科目データでの条件差分照合と3件の新規読取は別々に記録します。元の架空100件は修正にも使った回帰データです。映像と4件の保存済み例はv0.4時点の記録を保持します。
+
+原本・金額・科目・用途は必ず本人が確認し、税務上の最終判断は税理士に確認してください。確認済みは本人の操作で、税理士の承認・法的適合の証明ではありません。アプリの専門家による法務審査は未実施です。
+
+[v1.0.0配布ZIP](https://github.com/studio-yebisu/ryoshu/releases/tag/v1.0.0) / [改善・レビュー・再検証](https://github.com/studio-yebisu/ryoshu/blob/168459f1cbabcdaa687c4c8f33deb24f2d928ec5/docs/testing/v1/README.md) / [確認方針](https://github.com/studio-yebisu/ryoshu/blob/168459f1cbabcdaa687c4c8f33deb24f2d928ec5/docs/REVIEW-POLICY.md) / [機械可読の追加記録](app-update.json)
