@@ -23,4 +23,12 @@
 
 原本・金額・科目・用途は必ず本人が確認し、税務上の最終判断は税理士に確認してください。確認済みは本人の操作で、税理士の承認・法的適合の証明ではありません。アプリの専門家による法務審査は未実施です。
 
-[v1.0.0配布ZIP](https://github.com/studio-yebisu/ryoshu/releases/tag/v1.0.0) / [改善・レビュー・再検証](https://github.com/studio-yebisu/ryoshu/blob/3922cd584050e0f92d21fe56d7e5645a3a4edcbb/docs/testing/v1/README.md) / [確認方針](https://github.com/studio-yebisu/ryoshu/blob/3922cd584050e0f92d21fe56d7e5645a3a4edcbb/docs/REVIEW-POLICY.md) / [機械可読の追加記録](app-update.json)
+[v1.0.0配布ZIP](https://github.com/studio-yebisu/ryoshu/releases/tag/v1.0.0) / [改善・レビュー・再検証](https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/README.md) / [確認方針](https://github.com/studio-yebisu/ryoshu/blob/3922cd584050e0f92d21fe56d7e5645a3a4edcbb/docs/REVIEW-POLICY.md) / [機械可読の追加記録](app-update.json)
+
+## 公開版の100枚通し検証
+
+公開版v1.0.0の配布ZIPを固定し、100枚すべてをOCR・ローカルAIの勘定科目判定まで新規実行しました。保存済みOCR・既存候補は再利用していません。
+
+科目候補47/48、科目・保留条件89/100、日付99/100。金額・円額未確定97/97は返金3件を除き、円額未確定2件も含みます。全100枚を評価しており、科目候補の分母48は提案を期待する件数です。同じ開発用架空データでの回帰検査です。
+
+[全件の実行結果](https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json)
