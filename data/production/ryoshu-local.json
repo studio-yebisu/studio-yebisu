@@ -40,17 +40,23 @@
   },
   "upstream": {
     "repository": "https://github.com/studio-yebisu/ryoshu",
-    "commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72"
+    "commit": "1fed7ed649a1f54407e38f8ac90289b1519ed39c"
   },
   "runtime": {
     "status": "passed",
     "sample_count": 100,
-    "scope": "Fresh OCR and local account-classification inference for all100 PDFs from the public release ZIP. No saved OCR/candidate reuse. Same fictional development fixtures; not unseen accuracy. UI28 uses replay observations. Originalv0.4 film and4 samples retained.",
-    "source": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/README.md",
+    "source": "https://github.com/studio-yebisu/ryoshu/blob/1fed7ed649a1f54407e38f8ac90289b1519ed39c/docs/testing/security/README.md",
+    "scope": "Released local-only application. Fresh100 inference is from the frozen candidate, followed by security/restore/UI/copy changes and final regression checks; not100 from the release ZIP. Film and4 saved samples arev0.4.",
     "new_inference_run": true,
-    "full100_source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
-    "final_catalog_inference_source_commit": "524776a8b937a5b439363fb4a7493f9e253f9a15",
     "metrics": {
+      "ocr_completed": {
+        "matched": 100,
+        "evaluated": 100
+      },
+      "model_completed": {
+        "matched": 100,
+        "evaluated": 100
+      },
       "total_exact": {
         "matched": 97,
         "evaluated": 97
@@ -63,86 +69,25 @@
         "matched": 86,
         "evaluated": 100
       },
-      "account_or_decision_exact": {
-        "matched": 89,
-        "evaluated": 100
+      "account_exact": {
+        "matched": 47,
+        "evaluated": 48
       },
       "decision_exact": {
         "matched": 93,
         "evaluated": 100
       },
-      "account_exact": {
-        "matched": 47,
-        "evaluated": 48
-      },
-      "ocr_completed": {
-        "matched": 100,
-        "evaluated": 100
-      },
-      "model_completed": {
-        "matched": 100,
+      "account_or_decision_exact": {
+        "matched": 89,
         "evaluated": 100
       }
     },
     "unit_and_integration_tests": {
-      "passed": 130
+      "passed": 188
     },
     "browser_checks": 28,
-    "real_windows_launcher": "passed",
-    "original_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
-    "full100_catalog_version": "2026-10-22.2",
-    "source_archive_sha256": "e32519f343e654da21e6bd90686f5ae023e189499783be1b2b7400fc96a40e3c",
-    "release100": {
-      "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
-      "source_tag": "v1.0.0",
-      "catalog_version": "2026-10-22.2",
-      "source_archive_sha256": "e32519f343e654da21e6bd90686f5ae023e189499783be1b2b7400fc96a40e3c",
-      "finished_at": "2026-10-22T02:01:59.253257+00:00",
-      "finished_at_jst": "2026-10-22T11:01:59.253257+09:00",
-      "ocr_reuse": false,
-      "report": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
-      "report_commit": "0b0fb7677475f50a2a8a28e1a7d3da836d454c79",
-      "report_sha256": "389312bb933cec30452d6125d74115b4a12744de93cc961c5c19476cbd266a09",
-      "metrics": {
-        "total_exact": {
-          "matched": 97,
-          "evaluated": 97
-        },
-        "date_exact": {
-          "matched": 99,
-          "evaluated": 100
-        },
-        "merchant_exact": {
-          "matched": 86,
-          "evaluated": 100
-        },
-        "account_or_decision_exact": {
-          "matched": 89,
-          "evaluated": 100
-        },
-        "decision_exact": {
-          "matched": 93,
-          "evaluated": 100
-        },
-        "account_exact": {
-          "matched": 47,
-          "evaluated": 48
-        },
-        "ocr_completed": {
-          "matched": 100,
-          "evaluated": 100
-        },
-        "model_completed": {
-          "matched": 100,
-          "evaluated": 100
-        }
-      },
-      "scope": "Fresh OCR and local account-classification inference for all100 PDFs from the public release ZIP. No saved OCR/candidate reuse. Same fictional development fixtures; not unseen accuracy.",
-      "report_raw": "https://raw.githubusercontent.com/studio-yebisu/ryoshu/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
-      "release_asset": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.0.0/release-100.json",
-      "release_asset_sha256": "80481ddadb4c0eda3c8d2e9c60dadbe54afd0de352875f962c5e8adede16f707",
-      "checksum_scope": "Git raw JSON uses LF; release JSON uses CRLF. Parsed JSON data is identical. Each digest applies to its named URL."
-    }
+    "security_browser_checks": 10,
+    "fresh_inference_source_scope": "frozen candidate; final released source differs only in security/restore/UI/copy; not a release ZIP100 inference run"
   },
   "introduction": {
     "status": "passed",
@@ -254,15 +199,15 @@
     "examples/ryoshu-local/assets/V004.jpg": "65be6602e7d67ffbce00f6ba97af0aea0c58a6fb0ca966c2d4d9a43f0be93006",
     "examples/ryoshu-local/assets/V038.jpg": "b806284c45f6e7af5f537a7e4fa6aedcfe0f100f912306e44071e57672cb368f",
     "examples/ryoshu-local/assets/V070.jpg": "bbfb2fd3d9444424a314fb5de1036e3865ffecb038680f7a301b32b7063d56f2",
-    "examples/ryoshu-local/facts.json": "006ca0db2c7362d95b216f99ee1bbd64447b4df4a243a50d182550139ce6ba7f",
-    "examples/ryoshu-local/index.html": "e1c9d554c114c3f4bed511dddfa5bea7776a10be793f78cab2a1df4ecdbb30f9",
+    "examples/ryoshu-local/facts.json": "5958474743fa6f8f5c394ebc0a602c4ff964001b4bc4be0f0cae8492d133f294",
+    "examples/ryoshu-local/index.html": "fafdc19e5f91e12cfdc20f0850abfe01448287ce835368cd9aa820325601a704",
     "examples/ryoshu-local/LICENSE": "6c3b3961e5dba25451125f285f2709dd212cb225f40d8e37ee1a8d48b1587d64",
     "examples/ryoshu-local/samples.json": "4daa246604aa399a8a77327d0bc233148ffd7da7059504bb123d920b021a329c",
-    "examples/ryoshu-local/source.zip": "f7f7d1e034b98a6d0516fcd0a359f464f56c680d8a153d80bd22fc21d424ea8f",
-    "examples/ryoshu-local/START.md": "e75d08931e85b7953c727fe8423b81d9c2b39ed7abf29be4b2768f43a9a7998a",
+    "examples/ryoshu-local/source.zip": "a899b4528fe9be1fb7efc0ce70404221ab2604cdf6eca81cd81450f38aebaa26",
+    "examples/ryoshu-local/START.md": "d3bd3831b4bb4b0640f30ecce9e0b84367e09fd49b9c60fd78c4658bb45c46c0",
     "examples/ryoshu-local/styles.css": "137f8940ae8594cc6286de134b2bbc527320a2208b5022f5011e5af8dd11fc28",
     "examples/ryoshu-local/verification.json": "b1501cc257f53be991905280c1bbc31c15685a2d5e3874b9968271a14054aacd",
-    "examples/ryoshu-local/VERIFICATION.md": "1641c64a624413cd8fde61c8d4665d7de7a7a31d06c9335a7ee8d9fee28e29d7",
+    "examples/ryoshu-local/VERIFICATION.md": "bacf07dd35b4035b3fcbc02c7028129d58cf0747b1e1dfb3c1db55b2918cae7a",
     "examples/ryoshu-local/video/assets/ryoshu-app.png": "7624b71ff1c262636115776942f3704411f60764604796b47be28454da64e297",
     "examples/ryoshu-local/video/assets/test-gallery.png": "96f48d4e28c6f069c6d3abdc6867dbccb2398a0fe81cd269c74b73339b0e9e92",
     "examples/ryoshu-local/video/assets/V001.jpg": "482245ae96639d91f29c45aa956aa4906a34462108501f75dcd24b46334e08df",
@@ -283,7 +228,7 @@
     "media/ryoshu-local.webp": "fb69719dabd8ab38af7f3272e706e8ab69d1fafe7a40d4152129e15ba4a1f80e",
     "media/downloads/ryoshu-local-landscape-credited-ja-v3.mp4": "26f7538cc9cd14fd8ceb1955f796632fac0bbeb2fa1aeee841afbc73b3746156",
     "media/downloads/ryoshu-local-portrait-credited-ja-v3.mp4": "a506f2603dad23a578aa3457bd0f27cd9a0b3d06dc81d55d3a3066fae2d8ec53",
-    "examples/ryoshu-local/app-update.json": "afdd08d79b2dd598f43f9125e92a8bae4cd6addf29be2661aaa3361003a2e9e4"
+    "examples/ryoshu-local/app-update.json": "1dcd0eb514af0e24c5b91f08e5d33be80a8ddf86fd43ebc7b1705670cdf99cd2"
   },
   "pre_rebrand_artifacts_sha256": {
     "media/downloads/ryoshu-local-landscape-credited.mp4": "b8e777e60caa46cdc068462b00fc2926665b3958666d5faa552994b257bc6652",
@@ -309,50 +254,78 @@
           "composition_record": "data/video-downloads.json"
         }
       }
+    },
+    {
+      "date": "2026-10-22",
+      "kind": "local-security-v1.1-introduction-update",
+      "model_inference": false,
+      "scope": "Introduction copy and links only. Existing Opus v0.4 film, four saved samples, media and non-owned ZIP wrapper entries unchanged. Fresh application100 inference is separately linked.",
+      "zip_entries": 39,
+      "replaced_zip_entries": [
+        "examples/ryoshu-local/facts.json",
+        "examples/ryoshu-local/index.html",
+        "examples/ryoshu-local/START.md",
+        "examples/ryoshu-local/VERIFICATION.md",
+        "examples/ryoshu-local/app-update.json"
+      ],
+      "changes": {
+        "examples/ryoshu-local/START.md": {
+          "before_sha256": "e75d08931e85b7953c727fe8423b81d9c2b39ed7abf29be4b2768f43a9a7998a",
+          "after_sha256": "d3bd3831b4bb4b0640f30ecce9e0b84367e09fd49b9c60fd78c4658bb45c46c0"
+        },
+        "examples/ryoshu-local/VERIFICATION.md": {
+          "before_sha256": "1641c64a624413cd8fde61c8d4665d7de7a7a31d06c9335a7ee8d9fee28e29d7",
+          "after_sha256": "bacf07dd35b4035b3fcbc02c7028129d58cf0747b1e1dfb3c1db55b2918cae7a"
+        },
+        "examples/ryoshu-local/app-update.json": {
+          "before_sha256": "afdd08d79b2dd598f43f9125e92a8bae4cd6addf29be2661aaa3361003a2e9e4",
+          "after_sha256": "1dcd0eb514af0e24c5b91f08e5d33be80a8ddf86fd43ebc7b1705670cdf99cd2"
+        },
+        "examples/ryoshu-local/facts.json": {
+          "before_sha256": "006ca0db2c7362d95b216f99ee1bbd64447b4df4a243a50d182550139ce6ba7f",
+          "after_sha256": "5958474743fa6f8f5c394ebc0a602c4ff964001b4bc4be0f0cae8492d133f294"
+        },
+        "examples/ryoshu-local/index.html": {
+          "before_sha256": "e1c9d554c114c3f4bed511dddfa5bea7776a10be793f78cab2a1df4ecdbb30f9",
+          "after_sha256": "fafdc19e5f91e12cfdc20f0850abfe01448287ce835368cd9aa820325601a704"
+        },
+        "examples/ryoshu-local/source.zip": {
+          "before_sha256": "f7f7d1e034b98a6d0516fcd0a359f464f56c680d8a153d80bd22fc21d424ea8f",
+          "after_sha256": "a899b4528fe9be1fb7efc0ce70404221ab2604cdf6eca81cd81450f38aebaa26"
+        }
+      }
     }
   ],
   "application_update": {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "status": "released",
-    "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
-    "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.0.0",
-    "python_tests": 130,
+    "source_commit": "1fed7ed649a1f54407e38f8ac90289b1519ed39c",
+    "source_pin_status": "verified by parent",
+    "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.1.0",
+    "intended_release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.1.0",
+    "python_tests": 188,
+    "python_test_scope": "Windows unit/API/DPAPI/SQLCipher/AES-GCM; full188 passed; focused49 passed separately",
     "browser_checks": 28,
+    "browser_status": "passed",
     "browser_ocr_ai": "saved_observation_replay",
-    "normal_ai_100_rerun": "completed",
-    "full100_source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
-    "full100_catalog_version": "2026-10-22.2",
-    "final_catalog_version": "2026-10-22.2",
-    "original_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
-    "verification": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/README.md",
-    "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/448d5d201526b030fe3dc9bf5cf7e69e28b58b72/docs/REVIEW-POLICY.md",
-    "scope": "Released v1.0.0 ZIP tested fresh on all100 PDFs through OCR and local account model. Pre-release100/.1 and3-case final-seed spot retained under pre_release_validation. Film and4 saved samples arev0.4. No legal assessment or real SaaS import.",
-    "pre_release_validation": {
-      "full100_source_commit": "9e06ef6821ba21afa738e3a1120d9e9fef4f3649",
-      "full100_catalog_version": "2026-10-22.1",
-      "policy_delta_audit": "100 saved actual OCR evidence texts;0 different policy results; not fresh inference",
-      "final_catalog_fresh_inference_spot": {
-        "source_commit": "524776a8b937a5b439363fb4a7493f9e253f9a15",
-        "cases": [
-          "V052",
-          "V053",
-          "V054"
-        ],
-        "passed": 3
-      }
-    },
-    "release100": {
-      "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
-      "source_tag": "v1.0.0",
-      "catalog_version": "2026-10-22.2",
-      "source_archive_sha256": "e32519f343e654da21e6bd90686f5ae023e189499783be1b2b7400fc96a40e3c",
-      "finished_at": "2026-10-22T02:01:59.253257+00:00",
-      "finished_at_jst": "2026-10-22T11:01:59.253257+09:00",
+    "normal_ai_100_rerun": "completed_frozen_candidate",
+    "frozen_candidate100": {
+      "app_version": "1.1.0 candidate",
+      "status": "completed",
+      "report": "https://github.com/studio-yebisu/ryoshu/blob/1fed7ed649a1f54407e38f8ac90289b1519ed39c/docs/testing/security/results-100.json",
+      "report_sha256": "3207dd2ff7cc3e9ec922b557393c9c117f711f4d3ad27230be79697b7851755b",
+      "fixture_manifest_sha256": "1b9e40688cc730724328923c7f3b5ce1cd7941fb102fdf369dd58968d3b151c7",
+      "finished_at": "2026-10-22T06:25:02.218326+00:00",
       "ocr_reuse": false,
-      "report": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
-      "report_commit": "0b0fb7677475f50a2a8a28e1a7d3da836d454c79",
-      "report_sha256": "389312bb933cec30452d6125d74115b4a12744de93cc961c5c19476cbd266a09",
       "metrics": {
+        "ocr_completed": {
+          "matched": 100,
+          "evaluated": 100
+        },
+        "model_completed": {
+          "matched": 100,
+          "evaluated": 100
+        },
         "total_exact": {
           "matched": 97,
           "evaluated": 97
@@ -365,32 +338,208 @@
           "matched": 86,
           "evaluated": 100
         },
-        "account_or_decision_exact": {
-          "matched": 89,
-          "evaluated": 100
+        "account_exact": {
+          "matched": 47,
+          "evaluated": 48
         },
         "decision_exact": {
           "matched": 93,
           "evaluated": 100
         },
-        "account_exact": {
-          "matched": 47,
-          "evaluated": 48
-        },
-        "ocr_completed": {
-          "matched": 100,
-          "evaluated": 100
-        },
-        "model_completed": {
-          "matched": 100,
+        "account_or_decision_exact": {
+          "matched": 89,
           "evaluated": 100
         }
       },
-      "scope": "Fresh OCR and local account-classification inference for all100 PDFs from the public release ZIP. No saved OCR/candidate reuse. Same fictional development fixtures; not unseen accuracy.",
-      "report_raw": "https://raw.githubusercontent.com/studio-yebisu/ryoshu/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
-      "release_asset": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.0.0/release-100.json",
-      "release_asset_sha256": "80481ddadb4c0eda3c8d2e9c60dadbe54afd0de352875f962c5e8adede16f707",
-      "checksum_scope": "Git raw JSON uses LF; release JSON uses CRLF. Parsed JSON data is identical. Each digest applies to its named URL."
+      "frozen_source_hashes": {
+        "data/account-catalog.json": "c01169a611ba29a505a1deead3149aab976836c7fe81dcdeaecf7bb5f7f7ebbf",
+        "receipt_ledger/accounting.py": "92f5f5c8c683bc6fef085b0c4d8daaefec30a270c536c0fadb6bee86aa262001",
+        "receipt_ledger/backups.py": "ee2e115bc212358e13b57e109f264046d9801ec6f5c1b664a364ef4b9e7ae504",
+        "receipt_ledger/catalog.py": "8e09913b0bb562c9cd8d26bd8fd3c320bd2e183fb34d5e72eab6c026e8509498",
+        "receipt_ledger/config.py": "7795a5fc6be43b43bf2c3ccdf57da3b8d630fba5eefb782d0cf489fcefed9804",
+        "receipt_ledger/database.py": "b33fe8584408f84af741afc24b481f9d48e903bca60ef581c5ace3e261b52169",
+        "receipt_ledger/evidence.py": "f48f4eda2dac9a0cafa58db21f52eca733982344b0f874530c1ef62bb1f9312d",
+        "receipt_ledger/exports.py": "d1b949ab3e45854f3e840a4b2967b2b0d079b6692293bfd0980a73935121d22f",
+        "receipt_ledger/export_history.py": "a4b3637f066efe9e7744bdbb6a56e4e68d58a8d575ab189933acb5114a64c0a8",
+        "receipt_ledger/extraction.py": "ee46d16f966ed257552f7f9b331697e6df158d227dff4e0397c3481c27691705",
+        "receipt_ledger/importing.py": "2bbc18977412f44c5486cea805a543eeb1ae84d58b86789c684015566b0d2303",
+        "receipt_ledger/listing.py": "3afe765a5345731bd4b627408c01e19976e25adcab4af18ed86e420e607c2c1f",
+        "receipt_ledger/ocr_focus.py": "fad178563bc0bc21bf05cb6c77067ddd1eaaac9faa112e2c398f2a33fdeed94e",
+        "receipt_ledger/pdf_runtime.py": "077aa84350ae27bd994c7cf13bed4ae31fc7fe37333a54c6e2c1b6e85c75c400",
+        "receipt_ledger/pipeline.py": "9662048a1ab2f992b5f6de490d852552f41eb00e77358516607f8190f6ccd893",
+        "receipt_ledger/previews.py": "9ef9697dffed89be6d7a1a742410ad3176d2389af3c91367ab777404fbc01a31",
+        "receipt_ledger/privacy.py": "8cd0ce25f13aab75615145a2818d6d062fe344ce97337b7a1edf82ad6a81fc79",
+        "receipt_ledger/protection.py": "78ef03bc789626977e5dec24ab6a2b6a618c98522a80d66817e97e1ea921e847",
+        "receipt_ledger/restore.py": "ecbaa8162fd6bf2aa791595a97783855197426bc562b92e22675d834a7158af5",
+        "receipt_ledger/restore_encrypted.py": "39675cabac870a8707a7a8a5a76877b7e719b2e2d0251a19aa2c4452a5822864",
+        "receipt_ledger/schemas.py": "e5843a2dccf77f644f86576ddeb4e303a301516f9ace9f9d3e0ab2d2b58549b8",
+        "receipt_ledger/semantic.py": "e045a81d0888b0cfb6ea91aa9b4642e10236e70dab813f28d63f940ad79cda59",
+        "receipt_ledger/server.py": "dd6dc9f060235c33c84b2444a04032642b5238fffa2787ac818edfa9c8c71117",
+        "receipt_ledger/session.py": "f9f1a39e2278a7aaa3af997f58440e15bb66d975632d4c699dc25642284e720d",
+        "receipt_ledger/store.py": "f0facf4a580ffdd9386948334bb1ea504d2a5b52aa9e846080630da6ed99af2c",
+        "receipt_ledger/upload_limit.py": "ca83edb1b91d3543153cc6f2373afc91d98279d2b51c78bb959d174939329dfd",
+        "receipt_ledger/workflow.py": "edc06a17f97e20c60bc6d80c0fb86459c920f2c422cd9a73fc03a12adac8f5f0",
+        "receipt_ledger/__init__.py": "5504d4f4e3612dc915fd0fab9d53e9aea2c1ac5f963d11dea587e8a4a449ce2d",
+        "receipt_ledger/__main__.py": "d5c8749477822080a0f1c23808da5c8e151e48a01cb3e33c42c455ca0ffe3849",
+        "web/app.js": "fe67bf841c8337366896ecfabb0cf1d4236aa39a7eaeafd2038fad0c819bd38a",
+        "web/help.html": "fe6a1361bda4842bf23329a278176df440130bb6c27cb93b05852f9ca91f9433",
+        "web/icon.svg": "98a09af37f9a7d8a3b83c74e90773944a627a25b42d55f7faf65f2a329133c54",
+        "web/import.js": "84fac1f3aeb96adc801c17d2f36af7ecd7a971914e0747b2ecf29ceccadce517",
+        "web/index.html": "82e0a1a48ec0db7586b6f9d9ba0055cfc9b6c3b2e02c15b5251c5bcd4523e5a4",
+        "web/security.js": "7fb5ef1ba1df75f3b2cea6b36c597e300e8d709ba6a7da692a0af0f3c82e45eb",
+        "web/style.css": "6c238816ca516a9fe4646d186b7359e24b7f627d4c546bd58cfd2eb79db56cc8",
+        "data/catalog-history/2026-10-21.2.json": "5266354295157ade777241fe103e0d59ac8e546b461ebbc6bf72d019b2bc43a9",
+        "data/catalog-history/2026-10-21.3.json": "df5c1d3b65d6b6e459399eea073adabf6c3833e32ecc7dfe32768409043de63c",
+        "data/catalog-history/2026-10-21.4.json": "547688464ffd395bd29a7bd78f9df4bb336564cdf43fdce07356bcea64240be1",
+        "data/catalog-history/2026-10-21.5.json": "d5bdb076124354705a332f550d59494b78770e71c8d222d6fd691161b29785c6",
+        "data/catalog-history/2026-10-21.6.json": "1ccdb57d243deb904b76f21c6021c23cbbcaff01346e2216f96a09e7e8265679",
+        "data/catalog-history/2026-10-22.1.json": "b4c4f74b8c009599774d954bdf8c06eed13d8b1d4dce3159c07ea16c5b940923"
+      },
+      "scope": "Fresh actual OCR and local Qwen account suggestions for all100 fictional development PDFs from a frozen candidate. Later changes affect security/restore/UI/copy. Not a100-case run from the final release ZIP; not unseen accuracy.",
+      "report_checksum_scope": "Exact public Git blob bytes at the pinned commit; release-asset JSON bytes may use different line endings."
+    },
+    "verification": "https://github.com/studio-yebisu/ryoshu/blob/1fed7ed649a1f54407e38f8ac90289b1519ed39c/docs/testing/security/README.md",
+    "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/1fed7ed649a1f54407e38f8ac90289b1519ed39c/docs/REVIEW-POLICY.md",
+    "local_only": true,
+    "external_ai_integration": false,
+    "smartphone_lan": "not supported",
+    "encryption": {
+      "database": "SQLCipher",
+      "originals_and_previews": "AES-256-GCM",
+      "backup": "password-wrapped AES-256-GCM archive",
+      "key_protection": "Windows user DPAPI",
+      "exported_csv_and_originals": "not encrypted"
+    },
+    "installation": {
+      "manual_prerequisite": "Ollama Windows",
+      "managed_python": "3.12.15",
+      "uv": "0.13.5 pinned ZIP/executable SHA-256 verified"
+    },
+    "ui": "PDF/image drop or file/folder selection -> start -> original image, extracted text/numbers, account suggestions in three columns; image zoom; CSV",
+    "native_dependency_limitation": {
+      "sqlcipher_openssl": "3.6.0",
+      "status": "remaining limitation; static call-scope assessment only",
+      "detail": "https://github.com/studio-yebisu/ryoshu/blob/1fed7ed649a1f54407e38f8ac90289b1519ed39c/docs/testing/security/README.md"
+    },
+    "vendor_account_import": "not tested",
+    "legal_review": "not performed",
+    "historical_v1_0_0": {
+      "version": "1.0.0",
+      "status": "released",
+      "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+      "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.0.0",
+      "python_tests": 130,
+      "browser_checks": 28,
+      "browser_ocr_ai": "saved_observation_replay",
+      "normal_ai_100_rerun": "completed",
+      "full100_source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+      "full100_catalog_version": "2026-10-22.2",
+      "final_catalog_version": "2026-10-22.2",
+      "original_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
+      "verification": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/README.md",
+      "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/448d5d201526b030fe3dc9bf5cf7e69e28b58b72/docs/REVIEW-POLICY.md",
+      "scope": "Released v1.0.0 ZIP tested fresh on all100 PDFs through OCR and local account model. Pre-release100/.1 and3-case final-seed spot retained under pre_release_validation. Film and4 saved samples arev0.4. No legal assessment or real SaaS import.",
+      "pre_release_validation": {
+        "full100_source_commit": "9e06ef6821ba21afa738e3a1120d9e9fef4f3649",
+        "full100_catalog_version": "2026-10-22.1",
+        "policy_delta_audit": "100 saved actual OCR evidence texts;0 different policy results; not fresh inference",
+        "final_catalog_fresh_inference_spot": {
+          "source_commit": "524776a8b937a5b439363fb4a7493f9e253f9a15",
+          "cases": [
+            "V052",
+            "V053",
+            "V054"
+          ],
+          "passed": 3
+        }
+      },
+      "release100": {
+        "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+        "source_tag": "v1.0.0",
+        "catalog_version": "2026-10-22.2",
+        "source_archive_sha256": "e32519f343e654da21e6bd90686f5ae023e189499783be1b2b7400fc96a40e3c",
+        "finished_at": "2026-10-22T02:01:59.253257+00:00",
+        "finished_at_jst": "2026-10-22T11:01:59.253257+09:00",
+        "ocr_reuse": false,
+        "report": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
+        "report_commit": "0b0fb7677475f50a2a8a28e1a7d3da836d454c79",
+        "report_sha256": "389312bb933cec30452d6125d74115b4a12744de93cc961c5c19476cbd266a09",
+        "metrics": {
+          "total_exact": {
+            "matched": 97,
+            "evaluated": 97
+          },
+          "date_exact": {
+            "matched": 99,
+            "evaluated": 100
+          },
+          "merchant_exact": {
+            "matched": 86,
+            "evaluated": 100
+          },
+          "account_or_decision_exact": {
+            "matched": 89,
+            "evaluated": 100
+          },
+          "decision_exact": {
+            "matched": 93,
+            "evaluated": 100
+          },
+          "account_exact": {
+            "matched": 47,
+            "evaluated": 48
+          },
+          "ocr_completed": {
+            "matched": 100,
+            "evaluated": 100
+          },
+          "model_completed": {
+            "matched": 100,
+            "evaluated": 100
+          }
+        },
+        "scope": "Fresh OCR and local account-classification inference for all100 PDFs from the public release ZIP. No saved OCR/candidate reuse. Same fictional development fixtures; not unseen accuracy.",
+        "report_raw": "https://raw.githubusercontent.com/studio-yebisu/ryoshu/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
+        "release_asset": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.0.0/release-100.json",
+        "release_asset_sha256": "80481ddadb4c0eda3c8d2e9c60dadbe54afd0de352875f962c5e8adede16f707",
+        "checksum_scope": "Git raw JSON uses LF; release JSON uses CRLF. Parsed JSON data is identical. Each digest applies to its named URL."
+      }
+    },
+    "scope": "Released local-only application. Fresh100 inference is from the frozen candidate, followed by security/restore/UI/copy changes and final regression checks; not100 from the release ZIP. Film and4 saved samples arev0.4.",
+    "security_browser_checks": 10,
+    "source_archive": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.1.0/Ryoshu-1.1.0-source.zip",
+    "source_archive_sha256": "e75d81caeae584e6deb23acf4552204dc3188ce2fc4760f5df536826b4e9802d",
+    "source_archive_bytes": 32297907,
+    "release_zip_validation": {
+      "status": "passed",
+      "scope": "Exact released main source ZIP; Python/JavaScript/publication/CSV checks. No fresh100 inference from this ZIP.",
+      "python_passed": 188,
+      "javascript_passed": 3,
+      "publication_files": 429,
+      "csv_profiles": 4,
+      "checks": [
+        {
+          "check": "Python regression",
+          "exit_code": 0,
+          "log_sha256": "b0c506125b8daa8e0615e8a04aec335c000aa94ea0f6ad17d47ef9323673d8fb"
+        },
+        {
+          "check": "JavaScript folder traversal",
+          "exit_code": 0,
+          "log_sha256": "aac7bdec4631310a5af95a711bfeae81641d5e0f21c0f719c4116ad230fa3e55"
+        },
+        {
+          "check": "public source and evidence",
+          "exit_code": 0,
+          "log_sha256": "b0b3747a4efa9b39ecdc6fd67eff6c442bfa4b86d05869eef46a7ceb799d0142"
+        },
+        {
+          "check": "CSV4profiles",
+          "exit_code": 0,
+          "log_sha256": "daeb7fb0dc8a593eb7147389d9d6f8f6f310bd4253f4be396b1cbbde0dee48a6"
+        }
+      ],
+      "record": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.1.0/verification.json"
     }
   },
   "historical_application_v0_4": {
@@ -618,5 +767,245 @@
     "browser_checks": 28,
     "real_windows_launcher": "passed",
     "original_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d"
+  },
+  "historical_application_v1_0_0": {
+    "upstream": {
+      "repository": "https://github.com/studio-yebisu/ryoshu",
+      "commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72"
+    },
+    "runtime": {
+      "status": "passed",
+      "sample_count": 100,
+      "scope": "Fresh OCR and local account-classification inference for all100 PDFs from the public release ZIP. No saved OCR/candidate reuse. Same fictional development fixtures; not unseen accuracy. UI28 uses replay observations. Originalv0.4 film and4 samples retained.",
+      "source": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/README.md",
+      "new_inference_run": true,
+      "full100_source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+      "final_catalog_inference_source_commit": "524776a8b937a5b439363fb4a7493f9e253f9a15",
+      "metrics": {
+        "total_exact": {
+          "matched": 97,
+          "evaluated": 97
+        },
+        "date_exact": {
+          "matched": 99,
+          "evaluated": 100
+        },
+        "merchant_exact": {
+          "matched": 86,
+          "evaluated": 100
+        },
+        "account_or_decision_exact": {
+          "matched": 89,
+          "evaluated": 100
+        },
+        "decision_exact": {
+          "matched": 93,
+          "evaluated": 100
+        },
+        "account_exact": {
+          "matched": 47,
+          "evaluated": 48
+        },
+        "ocr_completed": {
+          "matched": 100,
+          "evaluated": 100
+        },
+        "model_completed": {
+          "matched": 100,
+          "evaluated": 100
+        }
+      },
+      "unit_and_integration_tests": {
+        "passed": 130
+      },
+      "browser_checks": 28,
+      "real_windows_launcher": "passed",
+      "original_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
+      "full100_catalog_version": "2026-10-22.2",
+      "source_archive_sha256": "e32519f343e654da21e6bd90686f5ae023e189499783be1b2b7400fc96a40e3c",
+      "release100": {
+        "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+        "source_tag": "v1.0.0",
+        "catalog_version": "2026-10-22.2",
+        "source_archive_sha256": "e32519f343e654da21e6bd90686f5ae023e189499783be1b2b7400fc96a40e3c",
+        "finished_at": "2026-10-22T02:01:59.253257+00:00",
+        "finished_at_jst": "2026-10-22T11:01:59.253257+09:00",
+        "ocr_reuse": false,
+        "report": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
+        "report_commit": "0b0fb7677475f50a2a8a28e1a7d3da836d454c79",
+        "report_sha256": "389312bb933cec30452d6125d74115b4a12744de93cc961c5c19476cbd266a09",
+        "metrics": {
+          "total_exact": {
+            "matched": 97,
+            "evaluated": 97
+          },
+          "date_exact": {
+            "matched": 99,
+            "evaluated": 100
+          },
+          "merchant_exact": {
+            "matched": 86,
+            "evaluated": 100
+          },
+          "account_or_decision_exact": {
+            "matched": 89,
+            "evaluated": 100
+          },
+          "decision_exact": {
+            "matched": 93,
+            "evaluated": 100
+          },
+          "account_exact": {
+            "matched": 47,
+            "evaluated": 48
+          },
+          "ocr_completed": {
+            "matched": 100,
+            "evaluated": 100
+          },
+          "model_completed": {
+            "matched": 100,
+            "evaluated": 100
+          }
+        },
+        "scope": "Fresh OCR and local account-classification inference for all100 PDFs from the public release ZIP. No saved OCR/candidate reuse. Same fictional development fixtures; not unseen accuracy.",
+        "report_raw": "https://raw.githubusercontent.com/studio-yebisu/ryoshu/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
+        "release_asset": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.0.0/release-100.json",
+        "release_asset_sha256": "80481ddadb4c0eda3c8d2e9c60dadbe54afd0de352875f962c5e8adede16f707",
+        "checksum_scope": "Git raw JSON uses LF; release JSON uses CRLF. Parsed JSON data is identical. Each digest applies to its named URL."
+      }
+    },
+    "application_update": {
+      "version": "1.0.0",
+      "status": "released",
+      "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+      "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.0.0",
+      "python_tests": 130,
+      "browser_checks": 28,
+      "browser_ocr_ai": "saved_observation_replay",
+      "normal_ai_100_rerun": "completed",
+      "full100_source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+      "full100_catalog_version": "2026-10-22.2",
+      "final_catalog_version": "2026-10-22.2",
+      "original_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
+      "verification": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/README.md",
+      "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/448d5d201526b030fe3dc9bf5cf7e69e28b58b72/docs/REVIEW-POLICY.md",
+      "scope": "Released v1.0.0 ZIP tested fresh on all100 PDFs through OCR and local account model. Pre-release100/.1 and3-case final-seed spot retained under pre_release_validation. Film and4 saved samples arev0.4. No legal assessment or real SaaS import.",
+      "pre_release_validation": {
+        "full100_source_commit": "9e06ef6821ba21afa738e3a1120d9e9fef4f3649",
+        "full100_catalog_version": "2026-10-22.1",
+        "policy_delta_audit": "100 saved actual OCR evidence texts;0 different policy results; not fresh inference",
+        "final_catalog_fresh_inference_spot": {
+          "source_commit": "524776a8b937a5b439363fb4a7493f9e253f9a15",
+          "cases": [
+            "V052",
+            "V053",
+            "V054"
+          ],
+          "passed": 3
+        }
+      },
+      "release100": {
+        "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+        "source_tag": "v1.0.0",
+        "catalog_version": "2026-10-22.2",
+        "source_archive_sha256": "e32519f343e654da21e6bd90686f5ae023e189499783be1b2b7400fc96a40e3c",
+        "finished_at": "2026-10-22T02:01:59.253257+00:00",
+        "finished_at_jst": "2026-10-22T11:01:59.253257+09:00",
+        "ocr_reuse": false,
+        "report": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
+        "report_commit": "0b0fb7677475f50a2a8a28e1a7d3da836d454c79",
+        "report_sha256": "389312bb933cec30452d6125d74115b4a12744de93cc961c5c19476cbd266a09",
+        "metrics": {
+          "total_exact": {
+            "matched": 97,
+            "evaluated": 97
+          },
+          "date_exact": {
+            "matched": 99,
+            "evaluated": 100
+          },
+          "merchant_exact": {
+            "matched": 86,
+            "evaluated": 100
+          },
+          "account_or_decision_exact": {
+            "matched": 89,
+            "evaluated": 100
+          },
+          "decision_exact": {
+            "matched": 93,
+            "evaluated": 100
+          },
+          "account_exact": {
+            "matched": 47,
+            "evaluated": 48
+          },
+          "ocr_completed": {
+            "matched": 100,
+            "evaluated": 100
+          },
+          "model_completed": {
+            "matched": 100,
+            "evaluated": 100
+          }
+        },
+        "scope": "Fresh OCR and local account-classification inference for all100 PDFs from the public release ZIP. No saved OCR/candidate reuse. Same fictional development fixtures; not unseen accuracy.",
+        "report_raw": "https://raw.githubusercontent.com/studio-yebisu/ryoshu/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
+        "release_asset": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.0.0/release-100.json",
+        "release_asset_sha256": "80481ddadb4c0eda3c8d2e9c60dadbe54afd0de352875f962c5e8adede16f707",
+        "checksum_scope": "Git raw JSON uses LF; release JSON uses CRLF. Parsed JSON data is identical. Each digest applies to its named URL."
+      }
+    }
+  },
+  "local_security_candidate": {
+    "status": "finalized",
+    "upstream_pin": "1fed7ed649a1f54407e38f8ac90289b1519ed39c",
+    "runtime": {
+      "status": "passed",
+      "sample_count": 100,
+      "scope": "Fresh actual OCR and local Qwen account suggestions for all100 fictional development PDFs from a frozen candidate. Later changes affect security/restore/UI/copy. Not a100-case run from the final release ZIP; not unseen accuracy.",
+      "new_inference_run": true,
+      "metrics": {
+        "ocr_completed": {
+          "matched": 100,
+          "evaluated": 100
+        },
+        "model_completed": {
+          "matched": 100,
+          "evaluated": 100
+        },
+        "total_exact": {
+          "matched": 97,
+          "evaluated": 97
+        },
+        "date_exact": {
+          "matched": 99,
+          "evaluated": 100
+        },
+        "merchant_exact": {
+          "matched": 86,
+          "evaluated": 100
+        },
+        "account_exact": {
+          "matched": 47,
+          "evaluated": 48
+        },
+        "decision_exact": {
+          "matched": 93,
+          "evaluated": 100
+        },
+        "account_or_decision_exact": {
+          "matched": 89,
+          "evaluated": 100
+        }
+      }
+    },
+    "source": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/security/README.md",
+    "python_tests": 188,
+    "browser_status": "passed",
+    "film_and_saved_samples": "v0.4 preserved; no new video generation",
+    "browser_checks": 28,
+    "security_browser_checks": 10
   }
 }
