@@ -1,22 +1,25 @@
 {
   "product": "Ryoshu",
-  "subtitle": "領収書OCRとAIによる勘定科目判断アプリ（各種CSV対応）",
-  "commit": "5b601be1a3fe3ebdb600d0a53c557917652a876d",
+  "subtitle": "領収書OCRとAIによる勘定科目候補の作成アプリ（各種CSV対応）",
+  "commit": "3922cd584050e0f92d21fe56d7e5645a3a4edcbb",
   "links": {
     "github": "https://github.com/studio-yebisu/ryoshu",
     "testing": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/README.md",
     "gallery": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/gallery.md",
     "requirements": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/REQUIREMENTS.md",
     "install": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/INSTALL.md",
-    "license": "https://github.com/studio-yebisu/ryoshu/blob/main/THIRD_PARTY.md"
+    "license": "https://github.com/studio-yebisu/ryoshu/blob/main/THIRD_PARTY.md",
+    "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.0.0",
+    "verification_v1": "https://github.com/studio-yebisu/ryoshu/blob/3922cd584050e0f92d21fe56d7e5645a3a4edcbb/docs/testing/v1/README.md",
+    "review_policy": "https://github.com/studio-yebisu/ryoshu/blob/3922cd584050e0f92d21fe56d7e5645a3a4edcbb/docs/REVIEW-POLICY.md"
   },
   "scope": {
     "runtime": "セットアップ後のOCR・AI判断・SQLite帳簿保存はPC内。領収書を外部OCR/LLMへ送らず、クラウド推論フォールバックなし。",
     "setup": "初回の依存・OCR重み・約2.5GBのQwenモデル取得はネット接続が必要。",
     "ocr": "Indra OCR 1.1.2 / CPU",
     "semantic": "OllamaのローカルQwen3 4B、Q4_K_M / CPU・GPU不要",
-    "catalog": "SQLiteに38科目と14確認条件。",
-    "confirmation": "取り込み後にSQLiteへ未確認の帳簿を自動保存するのが既定。本人はあとから原本・金額・科目・用途・割合・支払元・税区分を確認・修正する。汎用CSVは未確認も出力可、会計ソフト向け仕訳CSVは確認済みを出力。",
+    "catalog": "SQLiteに38科目と15確認条件。",
+    "confirmation": "取り込み後にSQLiteへ未確認の帳簿を自動保存するのが既定。本人はあとから原本・金額・科目・用途・割合・支払元・税区分を確認・修正する。汎用CSVは未確認も出力可、会計ソフト向け仕訳CSVは確認済みを出力。 原本・科目・用途は必ず本人が確認し、税務上の最終判断は税理士に確認する。確認済みは本人の操作であり、税理士の承認・法的適合の証明ではない。",
     "csv": [
       "汎用CSV",
       "freee振替伝票",
@@ -342,5 +345,125 @@
   "images_are_fictional": true,
   "recorded_not_live": true,
   "original_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
-  "app_version": "0.4.0"
+  "app_version": "0.4.0",
+  "current_application": {
+    "version": "1.0.0",
+    "status": "candidate_not_released",
+    "source_commit": "1025426d5fe7afe262e64dd8bbe637ebada36d47",
+    "python_tests": 119,
+    "browser_checks": 21,
+    "browser_ocr_ai": "saved_observation_replay",
+    "normal_ai_100_rerun": "pending",
+    "original_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
+    "verification": "https://github.com/studio-yebisu/ryoshu/blob/1025426d5fe7afe262e64dd8bbe637ebada36d47/docs/testing/v1/README.md",
+    "scope": "Current app candidate is separate from the archived v0.4 film and original development100 scores.",
+    "standalone_preview": {
+      "status": "passed",
+      "scope": "Standalone introduction page on local HTTP,4 saved sample tabs,desktop/mobile; original video metadata only,not full playback or new OCR/AI",
+      "results": [
+        {
+          "width": 1280,
+          "overflow": false,
+          "candidate": true,
+          "stats": true,
+          "video": {
+            "width": 1920,
+            "height": 1080,
+            "duration": 32
+          },
+          "links": [
+            "../../index.html",
+            "https://github.com/studio-yebisu/ryoshu",
+            "https://github.com/studio-yebisu/ryoshu",
+            "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/README.md",
+            "video/index.html",
+            "https://github.com/studio-yebisu/ryoshu/blob/1025426d5fe7afe262e64dd8bbe637ebada36d47/docs/testing/v1/README.md",
+            "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/gallery.md",
+            "https://github.com/studio-yebisu/ryoshu/blob/a163a295f5e87532ef592021cee207adc2a53f6d/samples/receipts-100-v2/individual/V070.pdf",
+            "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/README.md",
+            "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/comparison-100.csv",
+            "https://github.com/studio-yebisu/ryoshu/blob/main/docs/REQUIREMENTS.md",
+            "https://github.com/studio-yebisu/ryoshu/blob/main/docs/INSTALL.md",
+            "https://github.com/studio-yebisu/ryoshu/blob/main/THIRD_PARTY.md",
+            "START.md",
+            "source.zip",
+            "../../MEDIA-LICENSE.md"
+          ],
+          "errors": [],
+          "bad": []
+        },
+        {
+          "width": 375,
+          "overflow": false,
+          "candidate": true,
+          "stats": true,
+          "video": {
+            "width": 1920,
+            "height": 1080,
+            "duration": 32
+          },
+          "links": [
+            "../../index.html",
+            "https://github.com/studio-yebisu/ryoshu",
+            "https://github.com/studio-yebisu/ryoshu",
+            "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/README.md",
+            "video/index.html",
+            "https://github.com/studio-yebisu/ryoshu/blob/1025426d5fe7afe262e64dd8bbe637ebada36d47/docs/testing/v1/README.md",
+            "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/gallery.md",
+            "https://github.com/studio-yebisu/ryoshu/blob/a163a295f5e87532ef592021cee207adc2a53f6d/samples/receipts-100-v2/individual/V070.pdf",
+            "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/README.md",
+            "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/comparison-100.csv",
+            "https://github.com/studio-yebisu/ryoshu/blob/main/docs/REQUIREMENTS.md",
+            "https://github.com/studio-yebisu/ryoshu/blob/main/docs/INSTALL.md",
+            "https://github.com/studio-yebisu/ryoshu/blob/main/THIRD_PARTY.md",
+            "START.md",
+            "source.zip",
+            "../../MEDIA-LICENSE.md"
+          ],
+          "errors": [],
+          "bad": []
+        }
+      ]
+    },
+    "github_ci": [
+      {
+        "head_sha": "1025426d5fe7afe262e64dd8bbe637ebada36d47",
+        "status": "success",
+        "url": "https://github.com/studio-yebisu/ryoshu/actions/runs/39670725891"
+      },
+      {
+        "head_sha": "1025426d5fe7afe262e64dd8bbe637ebada36d47",
+        "status": "success",
+        "url": "https://github.com/studio-yebisu/ryoshu/actions/runs/39670716600"
+      }
+    ]
+  },
+  "historical_film_source_commit": "5b601be1a3fe3ebdb600d0a53c557917652a876d",
+  "application_update": {
+    "version": "1.0.0",
+    "status": "released",
+    "source_commit": "3922cd584050e0f92d21fe56d7e5645a3a4edcbb",
+    "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.0.0",
+    "python_tests": 130,
+    "browser_checks": 28,
+    "browser_ocr_ai": "saved_observation_replay",
+    "normal_ai_100_rerun": "completed",
+    "full100_source_commit": "9e06ef6821ba21afa738e3a1120d9e9fef4f3649",
+    "full100_catalog_version": "2026-10-22.1",
+    "final_catalog_version": "2026-10-22.2",
+    "policy_delta_audit": "100 saved actual OCR evidence texts;0 different policy results; not fresh inference",
+    "final_catalog_fresh_inference_spot": {
+      "source_commit": "524776a8b937a5b439363fb4a7493f9e253f9a15",
+      "cases": [
+        "V052",
+        "V053",
+        "V054"
+      ],
+      "passed": 3
+    },
+    "original_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
+    "verification": "https://github.com/studio-yebisu/ryoshu/blob/3922cd584050e0f92d21fe56d7e5645a3a4edcbb/docs/testing/v1/README.md",
+    "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/3922cd584050e0f92d21fe56d7e5645a3a4edcbb/docs/REVIEW-POLICY.md",
+    "scope": "Current v1 app source is separate from the preserved v0.4 film,4 saved examples and original development100 scores. Full100 and final3 inference sources are recorded separately. No legal assessment or real SaaS import."
+  }
 }
