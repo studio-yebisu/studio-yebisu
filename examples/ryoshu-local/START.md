@@ -1,34 +1,23 @@
 # Ryoshuをローカルで試す
 
-このページは保存済みの架空データを紹介します。OCRやAIは実行しません。実際のアプリは[RyoshuのGitHub](https://github.com/studio-yebisu/ryoshu)から取得します。
+このページは紹介用の保存済み架空データです。OCR・AIは実行しません。映像と4例はv0.4時点です。実際のアプリは[Ryoshu GitHub](https://github.com/studio-yebisu/ryoshu)から取得します。
 
-1. [動作要件](https://github.com/studio-yebisu/ryoshu/blob/main/docs/REQUIREMENTS.md)と[モデルの利用条件](https://github.com/studio-yebisu/ryoshu/blob/main/THIRD_PARTY.md)を確認します。
-2. WindowsにPython3.12またはuvとOllamaを用意し、公式ソースのフォルダーで「初回セットアップ.cmd」をダブルクリックします。初回の依存・モデル取得にはネット接続が必要です。
-3. 「Ryoshu.cmd」または「起動.cmd」をダブルクリックし、まず架空PDFで試します。準備後のOCR・AI判断・SQLite帳簿保存はPC内です。GPUは不要です。
-4. 未確認の帳簿が先に作られます。原本、用途、事業割合、支払元、税区分はあとから確認します。CSVは件数・行数・借貸・形式を見て保存します。
+## v1.1.0の使い方
 
-[導入手順](https://github.com/studio-yebisu/ryoshu/blob/main/docs/INSTALL.md) / [100件のテスト画像・検証結果](https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/README.md) / [全100件の画像一覧](https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/gallery.md)
+1. [動作要件](https://github.com/studio-yebisu/ryoshu/blob/main/docs/REQUIREMENTS.md)と[モデルの利用条件](https://github.com/studio-yebisu/ryoshu/blob/main/THIRD_PARTY.md)を確認し、Ollama Windows版を導入します。
+2. [v1.1.0の配布ZIP](https://github.com/studio-yebisu/ryoshu/releases/tag/v1.1.0)を新しいフォルダーへ展開し、`Ryoshu.cmd`を実行します。初回にPython3.12.15・固定依存・OCR重み・約2.5GBのQwenモデルを自動取得します。ネット接続が必要です。
+3. ブラウザーで復元用パスワードを設定します。通常はWindowsが自動で帳簿を開きます。Windowsの鍵とパスワードの両方が使えなくなると復元できないため、安全な場所へ保管します。
+4. PDF・画像をまとめて選択、フォルダー選択、またはドロップして開始します。画像・読み取った文字と数字・科目を並べて確認し、画像はクリックして拡大します。
+5. 原本・金額・科目・用途・事業割合・支払元・税区分を確認し、CSVを保存します。汎用CSV、freee、MFクラウド、弥生に対応。税務上の最終判断は税理士へ確認してください。
 
-アプリコードはMIT、OCR重み等は別条件です。最低RAM・未知の実物領収書の精度・実会計サービスへのCSV取込は確認済みとしていません。100件は修正にも使った架空の回帰データです。
+準備後のOCR・科目候補・CSV作成はPC内で行い、外部AIのログイン・APIキーは使いません。DB・保存原本・プレビュー・バックアップは暗号化します。書き出したCSVと原本は暗号化されない通常のファイルです。スマホ・LAN共有は対象外、最低RAMは未測定です。
 
-この紹介ではアプリ固定版5b601be1a3fe3ebdb600d0a53c557917652a876d（元の100件のOCR・AI検証はa163a295f5e87532ef592021cee207adc2a53f6d）の原本・結果を引き継いでいます。新しい映像の描画・タイムラインはOpus5.5が執筆し、紹介ページ・記事・事実データ・制御ラッパー・書出し・確認・公開は制作担当が行います。今回100件の推論は再実行していません。
+[導入手順](https://github.com/studio-yebisu/ryoshu/blob/main/docs/INSTALL.md) / [新しい100件と安全性点検](https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/security/README.md) / [画像・OCR・科目を並べて見る](https://studio-yebisu.github.io/ryoshu/docs/testing/security/) / [100件の画像一覧](https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/gallery.md)
 
-紹介ページと映像ソースのコードは[MIT](LICENSE)、MP4はサイトの[映像利用条件](../../MEDIA-LICENSE.md)です。
+## 検証の範囲
 
-## v1.0.0の追加記録
+暗号化対応のv1.1.0候補を凍結して架空100件を新規OCR・ローカルAIへ通しました。金額・円額未確定97/97（返金3件除外）、日付99/100、支払先86/100、暫定科目47/48、科目/保留条件89/100。その後の安全性・復元・UIの変更は別の試験です。最終配布ZIPで100件を再実行したという意味ではありません。同じ開発用100件での回帰検証で、未知の実物精度ではありません。
 
-ファイル・フォルダー・ドロップでの一括取り込み、PDFのページ分割、進捗・停止・再試行、あとからの一括確認、4形式のCSV、検証付きバックアップ復元に対応します。130件のPython検査・28項目の実ブラウザー操作が成功しました。画面検査のOCR・AI値は保存済み結果の再現です。
+Python188検査と安全性に絞った49検査は成功。最終の画面28項目・安全性画面10項目と再レビューを完了し、公開sourceを固定しました。CSVは架空6件・7行・借貸299,095円の生成/再読込を確認し、各会計サービスへの実取込は未実施です。SQLCipher同梱OpenSSL3.6.0の残る制約は[点検結果](https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/security/README.md)へ記載しています。
 
-別に原本100件のOCR・AIを新規実行し、家賃の誤提案を修正して再実行しました。金額・円額未確定97/97（返金3件除外）、日付99/100、店名86/100、暫定科目47/48。全100件のソース、最終科目データでの条件差分照合と3件の新規読取は別々に記録します。元の架空100件は修正にも使った回帰データです。映像と4件の保存済み例はv0.4時点の記録を保持します。
-
-原本・金額・科目・用途は必ず本人が確認し、税務上の最終判断は税理士に確認してください。確認済みは本人の操作で、税理士の承認・法的適合の証明ではありません。アプリの専門家による法務審査は未実施です。
-
-[v1.0.0配布ZIP](https://github.com/studio-yebisu/ryoshu/releases/tag/v1.0.0) / [改善・レビュー・再検証](https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/README.md) / [確認方針](https://github.com/studio-yebisu/ryoshu/blob/3922cd584050e0f92d21fe56d7e5645a3a4edcbb/docs/REVIEW-POLICY.md) / [機械可読の追加記録](app-update.json)
-
-## 公開版の100枚通し検証
-
-公開版v1.0.0の配布ZIPを固定し、100枚すべてをOCR・ローカルAIの勘定科目判定まで新規実行しました。保存済みOCR・既存候補は再利用していません。
-
-科目候補47/48、科目・保留条件89/100、日付99/100。金額・円額未確定97/97は返金3件を除き、円額未確定2件も含みます。全100枚を評価しており、科目候補の分母48は提案を期待する件数です。同じ開発用架空データでの回帰検査です。
-
-[全件の実行結果](https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json)
+アプリコードはMIT、モデル重みは別条件です。紹介ページと映像ソースのコードは[MIT](LICENSE)、MP4はサイトの[映像利用条件](../../MEDIA-LICENSE.md)です。[v1.0.0の100枚検証の履歴](https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/README.md)と[機械可読の更新記録](app-update.json)を保持しています。
