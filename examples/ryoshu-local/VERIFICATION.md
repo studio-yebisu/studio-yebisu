@@ -51,3 +51,23 @@ DBはSQLCipher、原本・プレビューはAES-GCM、バックアップはパ�
 188Python検査と49件の安全性に絞った検査は成功。実HTTP18項目とCSV4形式も別に確認しました。最終の画面28項目・安全性画面10項目と再レビューを完了し、公開sourceを固定しました。[最新の検証方法と残る制約](https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/security/README.md) / [全100件JSON](https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/security/results-100.json) / [更新の機械可読記録](app-update.json)
 
 Python45依存の既知脆弱性照合は一致0件ですが、SQLCipherのWindows wheelに含まれるOpenSSL3.6.0には残存制約があります。DB経路の静的な到達範囲の評価であり、脆弱性全体の非該当証明ではありません。旧ZIPは暗号学的な認証を持たず、自己一貫性の検査に限ります。実会計サービスへのCSV取込・法務審査は未実施です。
+
+## v1.2.0の税額・科目・画面整理
+
+明細税額と今回の領収分を区別し、単独の帳票注記を購入内容と分ける処理へ更新。画面は白・藍色で「読み込む」「読み取り結果」「CSV出力」の3主動線へ整理しました。
+
+凍結したv1.2.0処理系に100件を新規HTTP取り込みし、OCRとローカルQwenを実行：金額・円額未確定97/97（返金3件除外）、日付99/100、暫定科目47/48、科目/保留条件89/100。税額は別の範囲で評価し、空欄への保留と異なる値の採用を分けています。未見の実物の精度ではありません。
+
+Python237件、画面28項目、安全性画面10項目。配布ZIPと凍結した処理系の関係は[最終の検証記録](https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/finalization.json)へ記載します。新UIの画像はv1.2.0の実画面。架空100件を新規OCR・ローカルQwenで処理した結果を表示。全件未確認、手動修正なし。旧映像と4例を最新UIの証拠として扱っていません。
+
+[全100件と差異](https://studio-yebisu.github.io/ryoshu/docs/testing/v1.2/) / [レビューと対応](https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/reviews.json) / [v1.2.0](https://github.com/studio-yebisu/ryoshu/releases/tag/v1.2.0)
+
+金額97件は非負の円額95件と、外貨で円額未確定の2件。暫定科目48件は提案を期待するケースです。
+
+税額63件：印字税額51/52、空欄11/11。税額として特定できず空欄1件、誤った数値0件。 返金3件と外貨2件は税額評価から事前に除外。返金3件の税額候補は登録停止のままで、成功件数に含みません。V013は553円が印字されていますが、税額ラベルのOCRが崩れて空欄でした。
+
+事業概要が空欄の追加5件でも金額・日付・科目・扱い・税額が一致。手動修正せず、未確認の汎用CSV5行をブラウザーから保存して照合しました。100件の集計には重複加算していません。
+
+科目等の集計はv1.1.0候補と同じです。AIの摘要には、事業概要を指定した100件のV021で「テスト用の乗車」とするなど、原本にない表現が残ります。摘要も原本で確認してください。
+
+依存ライブラリの点検値はv1.1.0時点の履歴です。SQLCipher wheelのOpenSSL3.6.0の制約は継続し、今回新たに全体監査したとは扱いません。
