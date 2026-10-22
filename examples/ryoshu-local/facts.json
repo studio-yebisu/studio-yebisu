@@ -1,7 +1,7 @@
 {
   "product": "Ryoshu",
   "subtitle": "領収書OCRとAIによる勘定科目候補の作成アプリ（各種CSV対応）",
-  "commit": "3922cd584050e0f92d21fe56d7e5645a3a4edcbb",
+  "commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
   "links": {
     "github": "https://github.com/studio-yebisu/ryoshu",
     "testing": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/README.md",
@@ -10,8 +10,9 @@
     "install": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/INSTALL.md",
     "license": "https://github.com/studio-yebisu/ryoshu/blob/main/THIRD_PARTY.md",
     "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.0.0",
-    "verification_v1": "https://github.com/studio-yebisu/ryoshu/blob/3922cd584050e0f92d21fe56d7e5645a3a4edcbb/docs/testing/v1/README.md",
-    "review_policy": "https://github.com/studio-yebisu/ryoshu/blob/3922cd584050e0f92d21fe56d7e5645a3a4edcbb/docs/REVIEW-POLICY.md"
+    "verification_v1": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/README.md",
+    "review_policy": "https://github.com/studio-yebisu/ryoshu/blob/3922cd584050e0f92d21fe56d7e5645a3a4edcbb/docs/REVIEW-POLICY.md",
+    "release100": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json"
   },
   "scope": {
     "runtime": "セットアップ後のOCR・AI判断・SQLite帳簿保存はPC内。領収書を外部OCR/LLMへ送らず、クラウド推論フォールバックなし。",
@@ -33,14 +34,6 @@
     "csv_test": "別の架空6件を手動確認した4形式・7行、借貸とも299095円。実会計サービス取込は未実施。"
   },
   "metrics": {
-    "ocr_completed": {
-      "matched": 100,
-      "evaluated": 100
-    },
-    "model_completed": {
-      "matched": 100,
-      "evaluated": 100
-    },
     "total_exact": {
       "matched": 97,
       "evaluated": 97
@@ -64,6 +57,14 @@
     "account_exact": {
       "matched": 47,
       "evaluated": 48
+    },
+    "ocr_completed": {
+      "matched": 100,
+      "evaluated": 100
+    },
+    "model_completed": {
+      "matched": 100,
+      "evaluated": 100
     }
   },
   "samples": [
@@ -442,28 +443,126 @@
   "application_update": {
     "version": "1.0.0",
     "status": "released",
-    "source_commit": "3922cd584050e0f92d21fe56d7e5645a3a4edcbb",
+    "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
     "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.0.0",
     "python_tests": 130,
     "browser_checks": 28,
     "browser_ocr_ai": "saved_observation_replay",
     "normal_ai_100_rerun": "completed",
-    "full100_source_commit": "9e06ef6821ba21afa738e3a1120d9e9fef4f3649",
-    "full100_catalog_version": "2026-10-22.1",
+    "full100_source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+    "full100_catalog_version": "2026-10-22.2",
     "final_catalog_version": "2026-10-22.2",
-    "policy_delta_audit": "100 saved actual OCR evidence texts;0 different policy results; not fresh inference",
-    "final_catalog_fresh_inference_spot": {
-      "source_commit": "524776a8b937a5b439363fb4a7493f9e253f9a15",
-      "cases": [
-        "V052",
-        "V053",
-        "V054"
-      ],
-      "passed": 3
-    },
     "original_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
-    "verification": "https://github.com/studio-yebisu/ryoshu/blob/3922cd584050e0f92d21fe56d7e5645a3a4edcbb/docs/testing/v1/README.md",
-    "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/3922cd584050e0f92d21fe56d7e5645a3a4edcbb/docs/REVIEW-POLICY.md",
-    "scope": "Current v1 app source is separate from the preserved v0.4 film,4 saved examples and original development100 scores. Full100 and final3 inference sources are recorded separately. No legal assessment or real SaaS import."
+    "verification": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/README.md",
+    "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/448d5d201526b030fe3dc9bf5cf7e69e28b58b72/docs/REVIEW-POLICY.md",
+    "scope": "Released v1.0.0 ZIP tested fresh on all100 PDFs through OCR and local account model. Pre-release100/.1 and3-case final-seed spot retained under pre_release_validation. Film and4 saved samples arev0.4. No legal assessment or real SaaS import.",
+    "pre_release_validation": {
+      "full100_source_commit": "9e06ef6821ba21afa738e3a1120d9e9fef4f3649",
+      "full100_catalog_version": "2026-10-22.1",
+      "policy_delta_audit": "100 saved actual OCR evidence texts;0 different policy results; not fresh inference",
+      "final_catalog_fresh_inference_spot": {
+        "source_commit": "524776a8b937a5b439363fb4a7493f9e253f9a15",
+        "cases": [
+          "V052",
+          "V053",
+          "V054"
+        ],
+        "passed": 3
+      }
+    },
+    "release100": {
+      "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+      "source_tag": "v1.0.0",
+      "catalog_version": "2026-10-22.2",
+      "source_archive_sha256": "e32519f343e654da21e6bd90686f5ae023e189499783be1b2b7400fc96a40e3c",
+      "finished_at": "2026-10-22T02:01:59.253257+00:00",
+      "finished_at_jst": "2026-10-22T11:01:59.253257+09:00",
+      "ocr_reuse": false,
+      "report": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
+      "report_commit": "0b0fb7677475f50a2a8a28e1a7d3da836d454c79",
+      "report_sha256": "80481ddadb4c0eda3c8d2e9c60dadbe54afd0de352875f962c5e8adede16f707",
+      "metrics": {
+        "total_exact": {
+          "matched": 97,
+          "evaluated": 97
+        },
+        "date_exact": {
+          "matched": 99,
+          "evaluated": 100
+        },
+        "merchant_exact": {
+          "matched": 86,
+          "evaluated": 100
+        },
+        "account_or_decision_exact": {
+          "matched": 89,
+          "evaluated": 100
+        },
+        "decision_exact": {
+          "matched": 93,
+          "evaluated": 100
+        },
+        "account_exact": {
+          "matched": 47,
+          "evaluated": 48
+        },
+        "ocr_completed": {
+          "matched": 100,
+          "evaluated": 100
+        },
+        "model_completed": {
+          "matched": 100,
+          "evaluated": 100
+        }
+      },
+      "scope": "Fresh OCR and local account-classification inference for all100 PDFs from the public release ZIP. No saved OCR/candidate reuse. Same fictional development fixtures; not unseen accuracy."
+    }
+  },
+  "latest_release100": {
+    "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+    "source_tag": "v1.0.0",
+    "catalog_version": "2026-10-22.2",
+    "source_archive_sha256": "e32519f343e654da21e6bd90686f5ae023e189499783be1b2b7400fc96a40e3c",
+    "finished_at": "2026-10-22T02:01:59.253257+00:00",
+    "finished_at_jst": "2026-10-22T11:01:59.253257+09:00",
+    "ocr_reuse": false,
+    "report": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
+    "report_commit": "0b0fb7677475f50a2a8a28e1a7d3da836d454c79",
+    "report_sha256": "80481ddadb4c0eda3c8d2e9c60dadbe54afd0de352875f962c5e8adede16f707",
+    "metrics": {
+      "total_exact": {
+        "matched": 97,
+        "evaluated": 97
+      },
+      "date_exact": {
+        "matched": 99,
+        "evaluated": 100
+      },
+      "merchant_exact": {
+        "matched": 86,
+        "evaluated": 100
+      },
+      "account_or_decision_exact": {
+        "matched": 89,
+        "evaluated": 100
+      },
+      "decision_exact": {
+        "matched": 93,
+        "evaluated": 100
+      },
+      "account_exact": {
+        "matched": 47,
+        "evaluated": 48
+      },
+      "ocr_completed": {
+        "matched": 100,
+        "evaluated": 100
+      },
+      "model_completed": {
+        "matched": 100,
+        "evaluated": 100
+      }
+    },
+    "scope": "Fresh OCR and local account-classification inference for all100 PDFs from the public release ZIP. No saved OCR/candidate reuse. Same fictional development fixtures; not unseen accuracy."
   }
 }
