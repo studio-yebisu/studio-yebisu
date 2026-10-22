@@ -1,28 +1,31 @@
 {
   "product": "Ryoshu",
   "subtitle": "領収書OCRとAIによる勘定科目候補の作成アプリ（各種CSV対応）",
-  "commit": "40dfac8dfd0d819c3979c98caa1d79c0091a22a7",
+  "commit": "e79394d7349efc15aadb2dc02f6fe381596b407d",
   "links": {
     "github": "https://github.com/studio-yebisu/ryoshu",
-    "testing": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/security/README.md",
+    "testing": "https://github.com/studio-yebisu/ryoshu/blob/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/testing/v1.3/README.md",
     "gallery": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/gallery.md",
-    "requirements": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/REQUIREMENTS.md",
-    "install": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/INSTALL.md",
+    "requirements": "https://github.com/studio-yebisu/ryoshu/blob/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/REQUIREMENTS.md",
+    "install": "https://github.com/studio-yebisu/ryoshu/blob/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/INSTALL.md",
     "license": "https://github.com/studio-yebisu/ryoshu/blob/main/THIRD_PARTY.md",
-    "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.2.0",
+    "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.3.0",
     "verification_v1": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/README.md",
-    "review_policy": "https://github.com/studio-yebisu/ryoshu/blob/3922cd584050e0f92d21fe56d7e5645a3a4edcbb/docs/REVIEW-POLICY.md",
+    "review_policy": "https://github.com/studio-yebisu/ryoshu/blob/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/REVIEW-POLICY.md",
     "release100": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
     "verification_security": "https://github.com/studio-yebisu/ryoshu/blob/1fed7ed649a1f54407e38f8ac90289b1519ed39c/docs/testing/security/README.md",
     "security_html": "https://studio-yebisu.github.io/ryoshu/docs/testing/security/",
     "security_html_source": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/testing/security/index.html",
     "security_design": "https://github.com/studio-yebisu/ryoshu/blob/main/docs/SECURITY-DESIGN.md",
     "verification_v12": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/README.md",
-    "latest_testing_html": "https://studio-yebisu.github.io/ryoshu/docs/testing/v1.2/",
-    "design": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/DESIGN.md"
+    "latest_testing_html": "https://studio-yebisu.github.io/ryoshu/docs/testing/v1.3/",
+    "design": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/DESIGN.md",
+    "verification_v13": "https://github.com/studio-yebisu/ryoshu/blob/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/testing/v1.3/README.md",
+    "accounts": "https://github.com/studio-yebisu/ryoshu/blob/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/ACCOUNTS.md",
+    "installation": "https://github.com/studio-yebisu/ryoshu/blob/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/INSTALL.md"
   },
   "scope": {
-    "runtime": "準備後はPC内のOCR・Qwen3で候補を作り、暗号化した帳簿に保存。v1.2.0は税額の範囲と科目保留を修正し、白・藍色の3主動線へ整理。",
+    "runtime": "PC内でOCR・科目候補を作り、暗号化した帳簿へ保存。v1.3はカテゴリーからの科目選択と一覧からの科目変更に対応。",
     "setup": "Ollamaのみ利用者が導入。固定Python3.12.15・依存・OCR重み・約2.5GBのQwenモデルを初回に自動取得。",
     "ocr": "Indra OCR 1.1.2 / CPU",
     "semantic": "OllamaのローカルQwen3 4B、Q4_K_M / CPU・GPU不要",
@@ -373,6 +376,13 @@
     },
     "vendor_account_import": "not tested",
     "legal_review": "not performed",
+    "native_dependency_limitation": {
+      "sqlcipher_openssl": "3.6.0",
+      "status": "remaining limitation; static call-scope assessment only",
+      "detail": "https://github.com/studio-yebisu/ryoshu/blob/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/testing/security/README.md",
+      "historical_evidence_version": "1.1.0",
+      "new_scan_performed": false
+    },
     "historical_v1_0_0": {
       "version": "1.0.0",
       "status": "released",
@@ -454,60 +464,6 @@
         "release_asset_sha256": "80481ddadb4c0eda3c8d2e9c60dadbe54afd0de352875f962c5e8adede16f707",
         "checksum_scope": "Git raw JSON uses LF; release JSON uses CRLF. Parsed JSON data is identical. Each digest applies to its named URL."
       }
-    },
-    "version": "1.2.0",
-    "status": "released",
-    "source_commit": "40dfac8dfd0d819c3979c98caa1d79c0091a22a7",
-    "source_pin_status": "exact published Git commit",
-    "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.2.0",
-    "intended_release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.2.0",
-    "python_tests": 237,
-    "python_test_scope": "Final candidate and exact release ZIP checks; detailed scope linked separately",
-    "browser_checks": 28,
-    "security_browser_checks": 10,
-    "browser_status": "passed",
-    "browser_ocr_ai": "saved_observation_replay; separate fresh100 run",
-    "normal_ai_100_rerun": "completed_frozen_v1.2_runtime",
-    "verification": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/README.md",
-    "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/REVIEW-POLICY.md",
-    "ui": "PDF/image selection or drop -> Start -> original image / text and numbers / account -> CSV. Indigo and cool-gray14px UI; settings under More.",
-    "ui_design": {
-      "design": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/DESIGN.md",
-      "review": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/reviews.json",
-      "scope": "Opus5.5 consultation and source review; implementation and visual/browser validation are separately recorded."
-    },
-    "source_archive": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.2.0/Ryoshu-1.2.0-source.zip",
-    "source_archive_sha256": "51c3958ceb551a9ae5dc0a93fd17c3dfe254f04f19a93ea3e4057e21b05b4d69",
-    "source_archive_bytes": 33488564,
-    "release_zip_validation": {
-      "status": "passed",
-      "checks": [
-        {
-          "check": "Python regression",
-          "exit_code": 0,
-          "log_sha256": "0d5754e3439e7ce980704ec82f29351d7231924146f74488bc096ce26d82fe22"
-        },
-        {
-          "check": "JavaScript folder traversal",
-          "exit_code": 0,
-          "log_sha256": "549d86fd4f2018bb4824eb7836c4b0441f6330817feb89b3e443d1ed9fa3f52d"
-        },
-        {
-          "check": "public source and evidence",
-          "exit_code": 0,
-          "log_sha256": "102032c02fd7bb8e447e8d7e920973a4d90f99aa005a30027c37b08370da11bd"
-        },
-        {
-          "check": "CSV4profiles",
-          "exit_code": 0,
-          "log_sha256": "da499f6f0bacecbb0cc6e8a8e1173f72dcd6d65d528947d2c0092de271647b0d"
-        }
-      ],
-      "python_passed": 237,
-      "javascript_passed": 3,
-      "csv_profiles": 4,
-      "record": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.2.0/verification.json",
-      "scope": "Exact release ZIP verification. Fresh100 source/runtime reconciliation is in the application finalization record."
     },
     "historical_v1_1_0": {
       "version": "1.1.0",
@@ -755,21 +711,759 @@
         "record": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.1.0/verification.json"
       }
     },
-    "native_dependency_limitation": {
-      "sqlcipher_openssl": "3.6.0",
-      "status": "remaining limitation; static call-scope assessment only",
-      "detail": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/security/README.md"
+    "historical_v1_2_0": {
+      "local_only": true,
+      "external_ai_integration": false,
+      "smartphone_lan": "not supported",
+      "encryption": {
+        "database": "SQLCipher",
+        "originals_and_previews": "AES-256-GCM",
+        "backup": "password-wrapped AES-256-GCM archive",
+        "key_protection": "Windows user DPAPI",
+        "exported_csv_and_originals": "not encrypted"
+      },
+      "installation": {
+        "manual_prerequisite": "Ollama Windows",
+        "managed_python": "3.12.15",
+        "uv": "0.13.5 pinned ZIP/executable SHA-256 verified"
+      },
+      "vendor_account_import": "not tested",
+      "legal_review": "not performed",
+      "historical_v1_0_0": {
+        "version": "1.0.0",
+        "status": "released",
+        "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+        "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.0.0",
+        "python_tests": 130,
+        "browser_checks": 28,
+        "browser_ocr_ai": "saved_observation_replay",
+        "normal_ai_100_rerun": "completed",
+        "full100_source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+        "full100_catalog_version": "2026-10-22.2",
+        "final_catalog_version": "2026-10-22.2",
+        "original_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
+        "verification": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/README.md",
+        "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/448d5d201526b030fe3dc9bf5cf7e69e28b58b72/docs/REVIEW-POLICY.md",
+        "scope": "Released v1.0.0 ZIP tested fresh on all100 PDFs through OCR and local account model. Pre-release100/.1 and3-case final-seed spot retained under pre_release_validation. Film and4 saved samples arev0.4. No legal assessment or real SaaS import.",
+        "pre_release_validation": {
+          "full100_source_commit": "9e06ef6821ba21afa738e3a1120d9e9fef4f3649",
+          "full100_catalog_version": "2026-10-22.1",
+          "policy_delta_audit": "100 saved actual OCR evidence texts;0 different policy results; not fresh inference",
+          "final_catalog_fresh_inference_spot": {
+            "source_commit": "524776a8b937a5b439363fb4a7493f9e253f9a15",
+            "cases": [
+              "V052",
+              "V053",
+              "V054"
+            ],
+            "passed": 3
+          }
+        },
+        "release100": {
+          "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+          "source_tag": "v1.0.0",
+          "catalog_version": "2026-10-22.2",
+          "source_archive_sha256": "e32519f343e654da21e6bd90686f5ae023e189499783be1b2b7400fc96a40e3c",
+          "finished_at": "2026-10-22T02:01:59.253257+00:00",
+          "finished_at_jst": "2026-10-22T11:01:59.253257+09:00",
+          "ocr_reuse": false,
+          "report": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
+          "report_commit": "0b0fb7677475f50a2a8a28e1a7d3da836d454c79",
+          "report_sha256": "389312bb933cec30452d6125d74115b4a12744de93cc961c5c19476cbd266a09",
+          "metrics": {
+            "total_exact": {
+              "matched": 97,
+              "evaluated": 97
+            },
+            "date_exact": {
+              "matched": 99,
+              "evaluated": 100
+            },
+            "merchant_exact": {
+              "matched": 86,
+              "evaluated": 100
+            },
+            "account_or_decision_exact": {
+              "matched": 89,
+              "evaluated": 100
+            },
+            "decision_exact": {
+              "matched": 93,
+              "evaluated": 100
+            },
+            "account_exact": {
+              "matched": 47,
+              "evaluated": 48
+            },
+            "ocr_completed": {
+              "matched": 100,
+              "evaluated": 100
+            },
+            "model_completed": {
+              "matched": 100,
+              "evaluated": 100
+            }
+          },
+          "scope": "Fresh OCR and local account-classification inference for all100 PDFs from the public release ZIP. No saved OCR/candidate reuse. Same fictional development fixtures; not unseen accuracy.",
+          "report_raw": "https://raw.githubusercontent.com/studio-yebisu/ryoshu/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
+          "release_asset": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.0.0/release-100.json",
+          "release_asset_sha256": "80481ddadb4c0eda3c8d2e9c60dadbe54afd0de352875f962c5e8adede16f707",
+          "checksum_scope": "Git raw JSON uses LF; release JSON uses CRLF. Parsed JSON data is identical. Each digest applies to its named URL."
+        }
+      },
+      "version": "1.2.0",
+      "status": "released",
+      "source_commit": "40dfac8dfd0d819c3979c98caa1d79c0091a22a7",
+      "source_pin_status": "exact published Git commit",
+      "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.2.0",
+      "intended_release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.2.0",
+      "python_tests": 237,
+      "python_test_scope": "Final candidate and exact release ZIP checks; detailed scope linked separately",
+      "browser_checks": 28,
+      "security_browser_checks": 10,
+      "browser_status": "passed",
+      "browser_ocr_ai": "saved_observation_replay; separate fresh100 run",
+      "normal_ai_100_rerun": "completed_frozen_v1.2_runtime",
+      "verification": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/README.md",
+      "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/REVIEW-POLICY.md",
+      "ui": "PDF/image selection or drop -> Start -> original image / text and numbers / account -> CSV. Indigo and cool-gray14px UI; settings under More.",
+      "ui_design": {
+        "design": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/DESIGN.md",
+        "review": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/reviews.json",
+        "scope": "Opus5.5 consultation and source review; implementation and visual/browser validation are separately recorded."
+      },
+      "source_archive": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.2.0/Ryoshu-1.2.0-source.zip",
+      "source_archive_sha256": "51c3958ceb551a9ae5dc0a93fd17c3dfe254f04f19a93ea3e4057e21b05b4d69",
+      "source_archive_bytes": 33488564,
+      "release_zip_validation": {
+        "status": "passed",
+        "checks": [
+          {
+            "check": "Python regression",
+            "exit_code": 0,
+            "log_sha256": "0d5754e3439e7ce980704ec82f29351d7231924146f74488bc096ce26d82fe22"
+          },
+          {
+            "check": "JavaScript folder traversal",
+            "exit_code": 0,
+            "log_sha256": "549d86fd4f2018bb4824eb7836c4b0441f6330817feb89b3e443d1ed9fa3f52d"
+          },
+          {
+            "check": "public source and evidence",
+            "exit_code": 0,
+            "log_sha256": "102032c02fd7bb8e447e8d7e920973a4d90f99aa005a30027c37b08370da11bd"
+          },
+          {
+            "check": "CSV4profiles",
+            "exit_code": 0,
+            "log_sha256": "da499f6f0bacecbb0cc6e8a8e1173f72dcd6d65d528947d2c0092de271647b0d"
+          }
+        ],
+        "python_passed": 237,
+        "javascript_passed": 3,
+        "csv_profiles": 4,
+        "record": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.2.0/verification.json",
+        "scope": "Exact release ZIP verification. Fresh100 source/runtime reconciliation is in the application finalization record."
+      },
+      "historical_v1_1_0": {
+        "version": "1.1.0",
+        "status": "released",
+        "source_commit": "1fed7ed649a1f54407e38f8ac90289b1519ed39c",
+        "source_pin_status": "verified by parent",
+        "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.1.0",
+        "intended_release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.1.0",
+        "python_tests": 188,
+        "python_test_scope": "Windows unit/API/DPAPI/SQLCipher/AES-GCM; full188 passed; focused49 passed separately",
+        "browser_checks": 28,
+        "browser_status": "passed",
+        "browser_ocr_ai": "saved_observation_replay",
+        "normal_ai_100_rerun": "completed_frozen_candidate",
+        "frozen_candidate100": {
+          "app_version": "1.1.0 candidate",
+          "status": "completed",
+          "report": "https://github.com/studio-yebisu/ryoshu/blob/1fed7ed649a1f54407e38f8ac90289b1519ed39c/docs/testing/security/results-100.json",
+          "report_sha256": "3207dd2ff7cc3e9ec922b557393c9c117f711f4d3ad27230be79697b7851755b",
+          "fixture_manifest_sha256": "1b9e40688cc730724328923c7f3b5ce1cd7941fb102fdf369dd58968d3b151c7",
+          "finished_at": "2026-10-22T06:25:02.218326+00:00",
+          "ocr_reuse": false,
+          "metrics": {
+            "ocr_completed": {
+              "matched": 100,
+              "evaluated": 100
+            },
+            "model_completed": {
+              "matched": 100,
+              "evaluated": 100
+            },
+            "total_exact": {
+              "matched": 97,
+              "evaluated": 97
+            },
+            "date_exact": {
+              "matched": 99,
+              "evaluated": 100
+            },
+            "merchant_exact": {
+              "matched": 86,
+              "evaluated": 100
+            },
+            "account_exact": {
+              "matched": 47,
+              "evaluated": 48
+            },
+            "decision_exact": {
+              "matched": 93,
+              "evaluated": 100
+            },
+            "account_or_decision_exact": {
+              "matched": 89,
+              "evaluated": 100
+            }
+          },
+          "frozen_source_hashes": {
+            "data/account-catalog.json": "c01169a611ba29a505a1deead3149aab976836c7fe81dcdeaecf7bb5f7f7ebbf",
+            "receipt_ledger/accounting.py": "92f5f5c8c683bc6fef085b0c4d8daaefec30a270c536c0fadb6bee86aa262001",
+            "receipt_ledger/backups.py": "ee2e115bc212358e13b57e109f264046d9801ec6f5c1b664a364ef4b9e7ae504",
+            "receipt_ledger/catalog.py": "8e09913b0bb562c9cd8d26bd8fd3c320bd2e183fb34d5e72eab6c026e8509498",
+            "receipt_ledger/config.py": "7795a5fc6be43b43bf2c3ccdf57da3b8d630fba5eefb782d0cf489fcefed9804",
+            "receipt_ledger/database.py": "b33fe8584408f84af741afc24b481f9d48e903bca60ef581c5ace3e261b52169",
+            "receipt_ledger/evidence.py": "f48f4eda2dac9a0cafa58db21f52eca733982344b0f874530c1ef62bb1f9312d",
+            "receipt_ledger/exports.py": "d1b949ab3e45854f3e840a4b2967b2b0d079b6692293bfd0980a73935121d22f",
+            "receipt_ledger/export_history.py": "a4b3637f066efe9e7744bdbb6a56e4e68d58a8d575ab189933acb5114a64c0a8",
+            "receipt_ledger/extraction.py": "ee46d16f966ed257552f7f9b331697e6df158d227dff4e0397c3481c27691705",
+            "receipt_ledger/importing.py": "2bbc18977412f44c5486cea805a543eeb1ae84d58b86789c684015566b0d2303",
+            "receipt_ledger/listing.py": "3afe765a5345731bd4b627408c01e19976e25adcab4af18ed86e420e607c2c1f",
+            "receipt_ledger/ocr_focus.py": "fad178563bc0bc21bf05cb6c77067ddd1eaaac9faa112e2c398f2a33fdeed94e",
+            "receipt_ledger/pdf_runtime.py": "077aa84350ae27bd994c7cf13bed4ae31fc7fe37333a54c6e2c1b6e85c75c400",
+            "receipt_ledger/pipeline.py": "9662048a1ab2f992b5f6de490d852552f41eb00e77358516607f8190f6ccd893",
+            "receipt_ledger/previews.py": "9ef9697dffed89be6d7a1a742410ad3176d2389af3c91367ab777404fbc01a31",
+            "receipt_ledger/privacy.py": "8cd0ce25f13aab75615145a2818d6d062fe344ce97337b7a1edf82ad6a81fc79",
+            "receipt_ledger/protection.py": "78ef03bc789626977e5dec24ab6a2b6a618c98522a80d66817e97e1ea921e847",
+            "receipt_ledger/restore.py": "ecbaa8162fd6bf2aa791595a97783855197426bc562b92e22675d834a7158af5",
+            "receipt_ledger/restore_encrypted.py": "39675cabac870a8707a7a8a5a76877b7e719b2e2d0251a19aa2c4452a5822864",
+            "receipt_ledger/schemas.py": "e5843a2dccf77f644f86576ddeb4e303a301516f9ace9f9d3e0ab2d2b58549b8",
+            "receipt_ledger/semantic.py": "e045a81d0888b0cfb6ea91aa9b4642e10236e70dab813f28d63f940ad79cda59",
+            "receipt_ledger/server.py": "dd6dc9f060235c33c84b2444a04032642b5238fffa2787ac818edfa9c8c71117",
+            "receipt_ledger/session.py": "f9f1a39e2278a7aaa3af997f58440e15bb66d975632d4c699dc25642284e720d",
+            "receipt_ledger/store.py": "f0facf4a580ffdd9386948334bb1ea504d2a5b52aa9e846080630da6ed99af2c",
+            "receipt_ledger/upload_limit.py": "ca83edb1b91d3543153cc6f2373afc91d98279d2b51c78bb959d174939329dfd",
+            "receipt_ledger/workflow.py": "edc06a17f97e20c60bc6d80c0fb86459c920f2c422cd9a73fc03a12adac8f5f0",
+            "receipt_ledger/__init__.py": "5504d4f4e3612dc915fd0fab9d53e9aea2c1ac5f963d11dea587e8a4a449ce2d",
+            "receipt_ledger/__main__.py": "d5c8749477822080a0f1c23808da5c8e151e48a01cb3e33c42c455ca0ffe3849",
+            "web/app.js": "fe67bf841c8337366896ecfabb0cf1d4236aa39a7eaeafd2038fad0c819bd38a",
+            "web/help.html": "fe6a1361bda4842bf23329a278176df440130bb6c27cb93b05852f9ca91f9433",
+            "web/icon.svg": "98a09af37f9a7d8a3b83c74e90773944a627a25b42d55f7faf65f2a329133c54",
+            "web/import.js": "84fac1f3aeb96adc801c17d2f36af7ecd7a971914e0747b2ecf29ceccadce517",
+            "web/index.html": "82e0a1a48ec0db7586b6f9d9ba0055cfc9b6c3b2e02c15b5251c5bcd4523e5a4",
+            "web/security.js": "7fb5ef1ba1df75f3b2cea6b36c597e300e8d709ba6a7da692a0af0f3c82e45eb",
+            "web/style.css": "6c238816ca516a9fe4646d186b7359e24b7f627d4c546bd58cfd2eb79db56cc8",
+            "data/catalog-history/2026-10-21.2.json": "5266354295157ade777241fe103e0d59ac8e546b461ebbc6bf72d019b2bc43a9",
+            "data/catalog-history/2026-10-21.3.json": "df5c1d3b65d6b6e459399eea073adabf6c3833e32ecc7dfe32768409043de63c",
+            "data/catalog-history/2026-10-21.4.json": "547688464ffd395bd29a7bd78f9df4bb336564cdf43fdce07356bcea64240be1",
+            "data/catalog-history/2026-10-21.5.json": "d5bdb076124354705a332f550d59494b78770e71c8d222d6fd691161b29785c6",
+            "data/catalog-history/2026-10-21.6.json": "1ccdb57d243deb904b76f21c6021c23cbbcaff01346e2216f96a09e7e8265679",
+            "data/catalog-history/2026-10-22.1.json": "b4c4f74b8c009599774d954bdf8c06eed13d8b1d4dce3159c07ea16c5b940923"
+          },
+          "scope": "Fresh actual OCR and local Qwen account suggestions for all100 fictional development PDFs from a frozen candidate. Later changes affect security/restore/UI/copy. Not a100-case run from the final release ZIP; not unseen accuracy.",
+          "report_checksum_scope": "Exact public Git blob bytes at the pinned commit; release-asset JSON bytes may use different line endings."
+        },
+        "verification": "https://github.com/studio-yebisu/ryoshu/blob/1fed7ed649a1f54407e38f8ac90289b1519ed39c/docs/testing/security/README.md",
+        "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/1fed7ed649a1f54407e38f8ac90289b1519ed39c/docs/REVIEW-POLICY.md",
+        "local_only": true,
+        "external_ai_integration": false,
+        "smartphone_lan": "not supported",
+        "encryption": {
+          "database": "SQLCipher",
+          "originals_and_previews": "AES-256-GCM",
+          "backup": "password-wrapped AES-256-GCM archive",
+          "key_protection": "Windows user DPAPI",
+          "exported_csv_and_originals": "not encrypted"
+        },
+        "installation": {
+          "manual_prerequisite": "Ollama Windows",
+          "managed_python": "3.12.15",
+          "uv": "0.13.5 pinned ZIP/executable SHA-256 verified"
+        },
+        "ui": "PDF/image drop or file/folder selection -> start -> original image, extracted text/numbers, account suggestions in three columns; image zoom; CSV",
+        "native_dependency_limitation": {
+          "sqlcipher_openssl": "3.6.0",
+          "status": "remaining limitation; static call-scope assessment only",
+          "detail": "https://github.com/studio-yebisu/ryoshu/blob/1fed7ed649a1f54407e38f8ac90289b1519ed39c/docs/testing/security/README.md"
+        },
+        "vendor_account_import": "not tested",
+        "legal_review": "not performed",
+        "historical_v1_0_0": {
+          "version": "1.0.0",
+          "status": "released",
+          "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+          "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.0.0",
+          "python_tests": 130,
+          "browser_checks": 28,
+          "browser_ocr_ai": "saved_observation_replay",
+          "normal_ai_100_rerun": "completed",
+          "full100_source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+          "full100_catalog_version": "2026-10-22.2",
+          "final_catalog_version": "2026-10-22.2",
+          "original_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
+          "verification": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/README.md",
+          "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/448d5d201526b030fe3dc9bf5cf7e69e28b58b72/docs/REVIEW-POLICY.md",
+          "scope": "Released v1.0.0 ZIP tested fresh on all100 PDFs through OCR and local account model. Pre-release100/.1 and3-case final-seed spot retained under pre_release_validation. Film and4 saved samples arev0.4. No legal assessment or real SaaS import.",
+          "pre_release_validation": {
+            "full100_source_commit": "9e06ef6821ba21afa738e3a1120d9e9fef4f3649",
+            "full100_catalog_version": "2026-10-22.1",
+            "policy_delta_audit": "100 saved actual OCR evidence texts;0 different policy results; not fresh inference",
+            "final_catalog_fresh_inference_spot": {
+              "source_commit": "524776a8b937a5b439363fb4a7493f9e253f9a15",
+              "cases": [
+                "V052",
+                "V053",
+                "V054"
+              ],
+              "passed": 3
+            }
+          },
+          "release100": {
+            "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+            "source_tag": "v1.0.0",
+            "catalog_version": "2026-10-22.2",
+            "source_archive_sha256": "e32519f343e654da21e6bd90686f5ae023e189499783be1b2b7400fc96a40e3c",
+            "finished_at": "2026-10-22T02:01:59.253257+00:00",
+            "finished_at_jst": "2026-10-22T11:01:59.253257+09:00",
+            "ocr_reuse": false,
+            "report": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
+            "report_commit": "0b0fb7677475f50a2a8a28e1a7d3da836d454c79",
+            "report_sha256": "389312bb933cec30452d6125d74115b4a12744de93cc961c5c19476cbd266a09",
+            "metrics": {
+              "total_exact": {
+                "matched": 97,
+                "evaluated": 97
+              },
+              "date_exact": {
+                "matched": 99,
+                "evaluated": 100
+              },
+              "merchant_exact": {
+                "matched": 86,
+                "evaluated": 100
+              },
+              "account_or_decision_exact": {
+                "matched": 89,
+                "evaluated": 100
+              },
+              "decision_exact": {
+                "matched": 93,
+                "evaluated": 100
+              },
+              "account_exact": {
+                "matched": 47,
+                "evaluated": 48
+              },
+              "ocr_completed": {
+                "matched": 100,
+                "evaluated": 100
+              },
+              "model_completed": {
+                "matched": 100,
+                "evaluated": 100
+              }
+            },
+            "scope": "Fresh OCR and local account-classification inference for all100 PDFs from the public release ZIP. No saved OCR/candidate reuse. Same fictional development fixtures; not unseen accuracy.",
+            "report_raw": "https://raw.githubusercontent.com/studio-yebisu/ryoshu/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
+            "release_asset": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.0.0/release-100.json",
+            "release_asset_sha256": "80481ddadb4c0eda3c8d2e9c60dadbe54afd0de352875f962c5e8adede16f707",
+            "checksum_scope": "Git raw JSON uses LF; release JSON uses CRLF. Parsed JSON data is identical. Each digest applies to its named URL."
+          }
+        },
+        "scope": "Released local-only application. Fresh100 inference is from the frozen candidate, followed by security/restore/UI/copy changes and final regression checks; not100 from the release ZIP. Film and4 saved samples arev0.4.",
+        "security_browser_checks": 10,
+        "source_archive": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.1.0/Ryoshu-1.1.0-source.zip",
+        "source_archive_sha256": "e75d81caeae584e6deb23acf4552204dc3188ce2fc4760f5df536826b4e9802d",
+        "source_archive_bytes": 32297907,
+        "release_zip_validation": {
+          "status": "passed",
+          "scope": "Exact released main source ZIP; Python/JavaScript/publication/CSV checks. No fresh100 inference from this ZIP.",
+          "python_passed": 188,
+          "javascript_passed": 3,
+          "publication_files": 429,
+          "csv_profiles": 4,
+          "checks": [
+            {
+              "check": "Python regression",
+              "exit_code": 0,
+              "log_sha256": "b0c506125b8daa8e0615e8a04aec335c000aa94ea0f6ad17d47ef9323673d8fb"
+            },
+            {
+              "check": "JavaScript folder traversal",
+              "exit_code": 0,
+              "log_sha256": "aac7bdec4631310a5af95a711bfeae81641d5e0f21c0f719c4116ad230fa3e55"
+            },
+            {
+              "check": "public source and evidence",
+              "exit_code": 0,
+              "log_sha256": "b0b3747a4efa9b39ecdc6fd67eff6c442bfa4b86d05869eef46a7ceb799d0142"
+            },
+            {
+              "check": "CSV4profiles",
+              "exit_code": 0,
+              "log_sha256": "daeb7fb0dc8a593eb7147389d9d6f8f6f310bd4253f4be396b1cbbde0dee48a6"
+            }
+          ],
+          "record": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.1.0/verification.json"
+        }
+      },
+      "native_dependency_limitation": {
+        "sqlcipher_openssl": "3.6.0",
+        "status": "remaining limitation; static call-scope assessment only",
+        "detail": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/security/README.md"
+      },
+      "frozen_candidate100": {
+        "app_version": "1.2.0",
+        "status": "completed",
+        "source_commit": "e47c049f9314a303065aeea4b5c11ca12e249b6d",
+        "report_commit": "40dfac8dfd0d819c3979c98caa1d79c0091a22a7",
+        "report": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/results-100.json",
+        "report_sha256": "228463d3f55b6209a68805d318846b432f19e4d0714369491de9b60998803625",
+        "report_checksum_scope": "Exact canonical Git blob at pinned published commit",
+        "fixture_manifest_sha256": "1b9e40688cc730724328923c7f3b5ce1cd7941fb102fdf369dd58968d3b151c7",
+        "finished_at": "2026-10-22T12:38:35.658585+00:00",
+        "ocr_reuse": false,
+        "metrics": {
+          "ocr_completed": {
+            "matched": 100,
+            "evaluated": 100
+          },
+          "model_completed": {
+            "matched": 100,
+            "evaluated": 100
+          },
+          "total_exact": {
+            "matched": 97,
+            "evaluated": 97
+          },
+          "date_exact": {
+            "matched": 99,
+            "evaluated": 100
+          },
+          "merchant_exact": {
+            "matched": 86,
+            "evaluated": 100
+          },
+          "account_exact": {
+            "matched": 47,
+            "evaluated": 48
+          },
+          "decision_exact": {
+            "matched": 93,
+            "evaluated": 100
+          },
+          "account_or_decision_exact": {
+            "matched": 89,
+            "evaluated": 100
+          }
+        },
+        "tax_scope": {
+          "evaluated": 63,
+          "numeric_expected": 52,
+          "blank_expected": 11,
+          "exact_numeric": 51,
+          "exact_blank": 11,
+          "abstained": [
+            "V013"
+          ],
+          "wrong_value": [],
+          "unreviewed_nonblank": [],
+          "excluded_nonblank": [
+            {
+              "case_id": "V019",
+              "tax_amount": 134,
+              "handling": "block",
+              "scope": "Unsupported refund; excluded in preregistered normal-yen tax expectations, never counted as a tax success."
+            },
+            {
+              "case_id": "V080",
+              "tax_amount": 1350,
+              "handling": "block",
+              "scope": "Unsupported refund; excluded in preregistered normal-yen tax expectations, never counted as a tax success."
+            },
+            {
+              "case_id": "V097",
+              "tax_amount": 3000,
+              "handling": "block",
+              "scope": "Unsupported refund; excluded in preregistered normal-yen tax expectations, never counted as a tax success."
+            }
+          ]
+        },
+        "frozen_source_hashes": {
+          "data/account-catalog.json": "c01169a611ba29a505a1deead3149aab976836c7fe81dcdeaecf7bb5f7f7ebbf",
+          "receipt_ledger/accounting.py": "92f5f5c8c683bc6fef085b0c4d8daaefec30a270c536c0fadb6bee86aa262001",
+          "receipt_ledger/backups.py": "5c128202b68734a95dc300d65520c9b71b6cd7e34275deb93ba1c21f8333f857",
+          "receipt_ledger/catalog.py": "8e09913b0bb562c9cd8d26bd8fd3c320bd2e183fb34d5e72eab6c026e8509498",
+          "receipt_ledger/config.py": "7795a5fc6be43b43bf2c3ccdf57da3b8d630fba5eefb782d0cf489fcefed9804",
+          "receipt_ledger/database.py": "da2c995bc5e5862ee30f0af42d0b2c853a1f6cd291e83f3b82954b4b6c4c1188",
+          "receipt_ledger/evidence.py": "f48f4eda2dac9a0cafa58db21f52eca733982344b0f874530c1ef62bb1f9312d",
+          "receipt_ledger/exports.py": "d1b949ab3e45854f3e840a4b2967b2b0d079b6692293bfd0980a73935121d22f",
+          "receipt_ledger/export_history.py": "a4b3637f066efe9e7744bdbb6a56e4e68d58a8d575ab189933acb5114a64c0a8",
+          "receipt_ledger/extraction.py": "deb04279ea4213e97e2451c652f7e864b5052ac38cd31d97ebe788c89d2d7794",
+          "receipt_ledger/importing.py": "cb5d575fdeaab59d5463ff7eecca5b7e687d096887133aafacd38133cc89fd26",
+          "receipt_ledger/listing.py": "3afe765a5345731bd4b627408c01e19976e25adcab4af18ed86e420e607c2c1f",
+          "receipt_ledger/ocr_focus.py": "fad178563bc0bc21bf05cb6c77067ddd1eaaac9faa112e2c398f2a33fdeed94e",
+          "receipt_ledger/pdf_runtime.py": "077aa84350ae27bd994c7cf13bed4ae31fc7fe37333a54c6e2c1b6e85c75c400",
+          "receipt_ledger/pipeline.py": "cdda304ea14b6540705bfa59f6729c52ad2fbf9386c681be17ddcac000de6b7d",
+          "receipt_ledger/previews.py": "9ef9697dffed89be6d7a1a742410ad3176d2389af3c91367ab777404fbc01a31",
+          "receipt_ledger/privacy.py": "8cd0ce25f13aab75615145a2818d6d062fe344ce97337b7a1edf82ad6a81fc79",
+          "receipt_ledger/protection.py": "9dd5dcfeb17a64e5969133183c2aeb9699047998e5f56a7af78d5a532659ce2f",
+          "receipt_ledger/restore.py": "47d303f12f2a81eea609299e286342718c9aa40c76609600be92090ea4cb2a9e",
+          "receipt_ledger/restore_encrypted.py": "6a2209a4ffdd943596ab2a4f5981fda324d30d8dbaeb64b2add7ab1ee90467c0",
+          "receipt_ledger/schemas.py": "e5843a2dccf77f644f86576ddeb4e303a301516f9ace9f9d3e0ab2d2b58549b8",
+          "receipt_ledger/semantic.py": "30302bbf2435afb816e39244c5729279a4eb02509815ab03ec53cf2ea48a94ee",
+          "receipt_ledger/server.py": "dd6dc9f060235c33c84b2444a04032642b5238fffa2787ac818edfa9c8c71117",
+          "receipt_ledger/session.py": "f9f1a39e2278a7aaa3af997f58440e15bb66d975632d4c699dc25642284e720d",
+          "receipt_ledger/store.py": "f0facf4a580ffdd9386948334bb1ea504d2a5b52aa9e846080630da6ed99af2c",
+          "receipt_ledger/upload_limit.py": "ca83edb1b91d3543153cc6f2373afc91d98279d2b51c78bb959d174939329dfd",
+          "receipt_ledger/workflow.py": "edc06a17f97e20c60bc6d80c0fb86459c920f2c422cd9a73fc03a12adac8f5f0",
+          "receipt_ledger/__init__.py": "125d6c6e920d3be709da65facbfd3b5ba0c297b229461903373ddfa59a47208d",
+          "receipt_ledger/__main__.py": "d5c8749477822080a0f1c23808da5c8e151e48a01cb3e33c42c455ca0ffe3849",
+          "web/app.js": "9e3cdb76767ec7c91d15fb1563cd487752b9dc11454597a14bcf8f72b640e5af",
+          "web/help.html": "2ac767b03c9f02970be99a31f032594435104562b55bfc12861c5ddb33ba16e9",
+          "web/icon.svg": "014390bd9e042d671aa0eb0221ea08e9c261d64e3c28439ac4e908df0df417ac",
+          "web/import.js": "cdf4aa3b3ef55dc86ffdcc27dac5e7dac8a9d6dece169749d44f38c0f9861f65",
+          "web/index.html": "337e2c4cbdf165d602a58cb2c6bedf67c582594b0ee03c066603e466a52b96f3",
+          "web/security.js": "1dec9b8b48faf97422dcb59a09c45bb0e7fada25b8d8f32cd2a8f717c3af9f7b",
+          "web/style.css": "0549ab59105aa1a84c720956e35883507ce5c28a76623e481a51659249cc5d0a",
+          "data/catalog-history/2026-10-21.2.json": "5266354295157ade777241fe103e0d59ac8e546b461ebbc6bf72d019b2bc43a9",
+          "data/catalog-history/2026-10-21.3.json": "df5c1d3b65d6b6e459399eea073adabf6c3833e32ecc7dfe32768409043de63c",
+          "data/catalog-history/2026-10-21.4.json": "547688464ffd395bd29a7bd78f9df4bb336564cdf43fdce07356bcea64240be1",
+          "data/catalog-history/2026-10-21.5.json": "d5bdb076124354705a332f550d59494b78770e71c8d222d6fd691161b29785c6",
+          "data/catalog-history/2026-10-21.6.json": "1ccdb57d243deb904b76f21c6021c23cbbcaff01346e2216f96a09e7e8265679",
+          "data/catalog-history/2026-10-22.1.json": "b4c4f74b8c009599774d954bdf8c06eed13d8b1d4dce3159c07ea16c5b940923"
+        },
+        "scope": "Fresh100 HTTP upload, OCR and local Qwen on frozen runtime. Same development fixtures, not an unseen accuracy estimate. Final source reconciliation is recorded separately."
+      },
+      "application_image": {
+        "url": "https://raw.githubusercontent.com/studio-yebisu/ryoshu/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/screenshots/03-three-column-results.png",
+        "sha256": "c0ce68b395b865d6a159b29ee73ea6d31382d506a5ec9d19506ccdd37f494a4c",
+        "scope": "v1.2.0の実画面。架空100件を新規OCR・ローカルQwenで処理した結果を表示。全件未確認、手動修正なし。"
+      },
+      "additional_default_context5": {
+        "status": "passed",
+        "count": 5,
+        "business_context": "",
+        "manual_correction": false,
+        "confirmed": false,
+        "report": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/default-five.json",
+        "report_sha256": "1eda09e42b0c9c60573a841aa07be570195560a476bbc566ddb7cd97b4ff265c",
+        "csv_rows": 5,
+        "csv_verification": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/default-five-csv-verification.json",
+        "scope": "事業概要が空欄の追加5件でも金額・日付・科目・扱い・税額が一致。手動修正せず、未確認の汎用CSV5行をブラウザーから保存して照合しました。100件の集計には重複加算していません。"
+      },
+      "accuracy_limits": {
+        "amount_scope": "金額97件は非負の円額95件と、外貨で円額未確定の2件。暫定科目48件は提案を期待するケースです。",
+        "tax_scope": "税額63件：印字税額51/52、空欄11/11。税額として特定できず空欄1件、誤った数値0件。",
+        "tax_exclusions": "返金3件と外貨2件は税額評価から事前に除外。返金3件の税額候補は登録停止のままで、成功件数に含みません。V013は553円が印字されていますが、税額ラベルのOCRが崩れて空欄でした。",
+        "ai_summary": "科目等の集計はv1.1.0候補と同じです。AIの摘要には、事業概要を指定した100件のV021で「テスト用の乗車」とするなど、原本にない表現が残ります。摘要も原本で確認してください。"
+      },
+      "scope": "Released local-only1.2 application. Fresh100, browser replay, visible UI review and exact ZIP checks have distinct evidence. Existing film and4saved examples remainv0.4.",
+      "browser_ux_checks": 8,
+      "http_security_checks": 18
+    },
+    "version": "1.3.0",
+    "status": "released",
+    "source_commit": "e79394d7349efc15aadb2dc02f6fe381596b407d",
+    "source_pin_status": "exact published Git commit",
+    "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.3.0",
+    "intended_release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.3.0",
+    "verification": "https://github.com/studio-yebisu/ryoshu/blob/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/testing/v1.3/README.md",
+    "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/REVIEW-POLICY.md",
+    "python_tests": 256,
+    "javascript_tests": 5,
+    "python_test_scope": "Current final source; exact ZIP validation is recorded separately.",
+    "browser_checks": 28,
+    "security_browser_checks": 10,
+    "browser_ux_checks": 8,
+    "browser_account_workflow_checks": 8,
+    "browser_status": "passed",
+    "browser_ocr_ai": "Saved fictional observation replay. Authentication, encryption, HTTP/IO, editing, CSV and backup/restore are real; new100 classification is separate.",
+    "normal_ai_100_rerun": "completed_frozen_v1.3_runtime",
+    "database_schema": 3,
+    "backup_update_note": "v1.3は科目カテゴリーを保存するためDBをスキーマ3へ更新します。更新前に暗号化バックアップを保存してください。更新前の暗号化スナップショットを保存し、既存明細・仕訳・独自科目を保持します。更新したDBは旧アプリで開けません。旧版へ戻す場合は、更新前のバックアップを別の保存先へ復元してください。",
+    "ui": "PDF/image -> explicit Start -> original/text/account. Change account -> category -> account -> Save changes -> review -> CSV.",
+    "source_archive": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.3.0/Ryoshu-1.3.0-source.zip",
+    "source_archive_sha256": "d88c8e28e6296e8e5031331e0a0ee1b327702914f7ed926d96d63561c9d3b218",
+    "source_archive_bytes": 34167868,
+    "release_zip_validation": {
+      "status": "passed",
+      "checks": [
+        {
+          "check": "Python regression",
+          "exit_code": 0,
+          "log_sha256": "e6dbf3622bdbfc18436dfea572adbdb98d822c118fad0bc4b9a1e8d7f878228c"
+        },
+        {
+          "check": "JavaScript folder traversal",
+          "exit_code": 0,
+          "log_sha256": "1e204f73b9f4ba16f551888d4c5a478d56cd347b67fede325d0a39ba161b8ed0"
+        },
+        {
+          "check": "public source and evidence",
+          "exit_code": 0,
+          "log_sha256": "f498b9d0c526b808002f9eb3cf314944d418c89a886fba1c679cfb058165ad47"
+        },
+        {
+          "check": "CSV4profiles",
+          "exit_code": 0,
+          "log_sha256": "6197e195ff5e744feb5aaa2d8e4fcc680cc55896b3945d862157366ada54a70d"
+        }
+      ],
+      "record": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.3.0/verification.json",
+      "scope": "Exact committed source ZIP extracted into a fresh folder, using prepared Python3.12.15 environment. Not a blank-PC installation and not another100-case OCR inference. Real100 and browser results are separately recorded. No model weights or user ledgers included."
+    },
+    "account_selection": {
+      "catalog": {
+        "seed_version": "2026-10-23.1",
+        "total": 74,
+        "expense_and_purchases": 49,
+        "asset": 20,
+        "settlement_and_equity": 5,
+        "selectable": 69,
+        "category_definitions": 14,
+        "selectable_categories": 13,
+        "policies": 15
+      },
+      "category_definitions": [
+        {
+          "id": "supplies",
+          "label": "文具・備品",
+          "description": "文具や日常の事務用品の支出",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "it",
+          "label": "通信・IT",
+          "description": "電話・通信回線・オンラインサービスの支出",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "travel",
+          "label": "交通・車両",
+          "description": "出張・移動・事業用車両に関する支出",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "office",
+          "label": "家賃・設備",
+          "description": "事業所の利用・維持・修繕に関する支出",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "sales",
+          "label": "営業・販売",
+          "description": "営業活動・広告・販売・発送に関する支出",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "learning",
+          "label": "資料・学習",
+          "description": "書籍・取材・研修・研究に関する支出",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "outsourcing",
+          "label": "外注・専門家",
+          "description": "外部への作業委託や専門家への報酬",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "staff",
+          "label": "人件費・福利厚生",
+          "description": "従業員への給与・福利厚生等に関する支出",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "tax_finance",
+          "label": "税金・保険・金融",
+          "description": "事業に関する税・保険・利息・手数料",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "purchases",
+          "label": "仕入・製造",
+          "description": "販売する商品や製造材料の仕入れ",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "agriculture",
+          "label": "農業",
+          "description": "種苗・肥料等の農業に関する支出",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "assets",
+          "label": "資産・開業",
+          "description": "設備・在庫・前払・保証金・開業等の資産候補",
+          "kinds": [
+            "asset"
+          ]
+        },
+        {
+          "id": "other",
+          "label": "その他の経費",
+          "description": "上記のカテゴリーに含まれない事業上の支出",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "settlement",
+          "label": "支払元・事業主",
+          "description": "支払方法から仕訳の相手科目に使う勘定",
+          "kinds": [
+            "cash",
+            "bank",
+            "liability",
+            "equity"
+          ]
+        }
+      ],
+      "catalog_source": "https://github.com/studio-yebisu/ryoshu/blob/e79394d7349efc15aadb2dc02f6fe381596b407d/data/account-catalog.json",
+      "catalog_sha256": "d9a3d96f572112644d97aac916afb61a4aa2d9b2192717b5a6b6f8142d5ec42a",
+      "entrypoint": "読み取り結果 → 科目を変更",
+      "selection": "カテゴリー → 勘定科目 → 変更を保存",
+      "confirmed_change": "保存すると未確認へ戻り、前の仕訳は履歴に保持。CSV前に再確認。",
+      "category_scope": "科目を探す分類。補助科目ではなく、CSVには選んだ科目名を出す。",
+      "migration": "既存の独自科目と初期科目のコードが重なる場合も、既存の科目名を保持。"
     },
     "frozen_candidate100": {
-      "app_version": "1.2.0",
+      "app_version": "1.3.0",
       "status": "completed",
-      "source_commit": "e47c049f9314a303065aeea4b5c11ca12e249b6d",
-      "report_commit": "40dfac8dfd0d819c3979c98caa1d79c0091a22a7",
-      "report": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/results-100.json",
-      "report_sha256": "228463d3f55b6209a68805d318846b432f19e4d0714369491de9b60998803625",
+      "source_commit": "71e2db4d0d27e600e3eead9b792dd1c8c2f0bde6",
+      "report_commit": "e79394d7349efc15aadb2dc02f6fe381596b407d",
+      "report": "https://github.com/studio-yebisu/ryoshu/blob/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/testing/v1.3/results-100.json",
+      "report_sha256": "92b24b3323898006f52a18eb8962c45bf8f45ba015a0751213846531ccf0b811",
       "report_checksum_scope": "Exact canonical Git blob at pinned published commit",
       "fixture_manifest_sha256": "1b9e40688cc730724328923c7f3b5ce1cd7941fb102fdf369dd58968d3b151c7",
-      "finished_at": "2026-10-22T12:38:35.658585+00:00",
+      "finished_at": "2026-10-22T16:19:09.661834+00:00",
       "ocr_reuse": false,
       "metrics": {
         "ocr_completed": {
@@ -793,7 +1487,7 @@
           "evaluated": 100
         },
         "account_exact": {
-          "matched": 47,
+          "matched": 44,
           "evaluated": 48
         },
         "decision_exact": {
@@ -801,7 +1495,7 @@
           "evaluated": 100
         },
         "account_or_decision_exact": {
-          "matched": 89,
+          "matched": 86,
           "evaluated": 100
         }
       },
@@ -837,78 +1531,103 @@
           }
         ]
       },
-      "frozen_source_hashes": {
-        "data/account-catalog.json": "c01169a611ba29a505a1deead3149aab976836c7fe81dcdeaecf7bb5f7f7ebbf",
-        "receipt_ledger/accounting.py": "92f5f5c8c683bc6fef085b0c4d8daaefec30a270c536c0fadb6bee86aa262001",
-        "receipt_ledger/backups.py": "5c128202b68734a95dc300d65520c9b71b6cd7e34275deb93ba1c21f8333f857",
-        "receipt_ledger/catalog.py": "8e09913b0bb562c9cd8d26bd8fd3c320bd2e183fb34d5e72eab6c026e8509498",
-        "receipt_ledger/config.py": "7795a5fc6be43b43bf2c3ccdf57da3b8d630fba5eefb782d0cf489fcefed9804",
-        "receipt_ledger/database.py": "da2c995bc5e5862ee30f0af42d0b2c853a1f6cd291e83f3b82954b4b6c4c1188",
-        "receipt_ledger/evidence.py": "f48f4eda2dac9a0cafa58db21f52eca733982344b0f874530c1ef62bb1f9312d",
-        "receipt_ledger/exports.py": "d1b949ab3e45854f3e840a4b2967b2b0d079b6692293bfd0980a73935121d22f",
-        "receipt_ledger/export_history.py": "a4b3637f066efe9e7744bdbb6a56e4e68d58a8d575ab189933acb5114a64c0a8",
-        "receipt_ledger/extraction.py": "deb04279ea4213e97e2451c652f7e864b5052ac38cd31d97ebe788c89d2d7794",
-        "receipt_ledger/importing.py": "cb5d575fdeaab59d5463ff7eecca5b7e687d096887133aafacd38133cc89fd26",
-        "receipt_ledger/listing.py": "3afe765a5345731bd4b627408c01e19976e25adcab4af18ed86e420e607c2c1f",
-        "receipt_ledger/ocr_focus.py": "fad178563bc0bc21bf05cb6c77067ddd1eaaac9faa112e2c398f2a33fdeed94e",
-        "receipt_ledger/pdf_runtime.py": "077aa84350ae27bd994c7cf13bed4ae31fc7fe37333a54c6e2c1b6e85c75c400",
-        "receipt_ledger/pipeline.py": "cdda304ea14b6540705bfa59f6729c52ad2fbf9386c681be17ddcac000de6b7d",
-        "receipt_ledger/previews.py": "9ef9697dffed89be6d7a1a742410ad3176d2389af3c91367ab777404fbc01a31",
-        "receipt_ledger/privacy.py": "8cd0ce25f13aab75615145a2818d6d062fe344ce97337b7a1edf82ad6a81fc79",
-        "receipt_ledger/protection.py": "9dd5dcfeb17a64e5969133183c2aeb9699047998e5f56a7af78d5a532659ce2f",
-        "receipt_ledger/restore.py": "47d303f12f2a81eea609299e286342718c9aa40c76609600be92090ea4cb2a9e",
-        "receipt_ledger/restore_encrypted.py": "6a2209a4ffdd943596ab2a4f5981fda324d30d8dbaeb64b2add7ab1ee90467c0",
-        "receipt_ledger/schemas.py": "e5843a2dccf77f644f86576ddeb4e303a301516f9ace9f9d3e0ab2d2b58549b8",
-        "receipt_ledger/semantic.py": "30302bbf2435afb816e39244c5729279a4eb02509815ab03ec53cf2ea48a94ee",
-        "receipt_ledger/server.py": "dd6dc9f060235c33c84b2444a04032642b5238fffa2787ac818edfa9c8c71117",
-        "receipt_ledger/session.py": "f9f1a39e2278a7aaa3af997f58440e15bb66d975632d4c699dc25642284e720d",
-        "receipt_ledger/store.py": "f0facf4a580ffdd9386948334bb1ea504d2a5b52aa9e846080630da6ed99af2c",
-        "receipt_ledger/upload_limit.py": "ca83edb1b91d3543153cc6f2373afc91d98279d2b51c78bb959d174939329dfd",
-        "receipt_ledger/workflow.py": "edc06a17f97e20c60bc6d80c0fb86459c920f2c422cd9a73fc03a12adac8f5f0",
-        "receipt_ledger/__init__.py": "125d6c6e920d3be709da65facbfd3b5ba0c297b229461903373ddfa59a47208d",
-        "receipt_ledger/__main__.py": "d5c8749477822080a0f1c23808da5c8e151e48a01cb3e33c42c455ca0ffe3849",
-        "web/app.js": "9e3cdb76767ec7c91d15fb1563cd487752b9dc11454597a14bcf8f72b640e5af",
-        "web/help.html": "2ac767b03c9f02970be99a31f032594435104562b55bfc12861c5ddb33ba16e9",
-        "web/icon.svg": "014390bd9e042d671aa0eb0221ea08e9c261d64e3c28439ac4e908df0df417ac",
-        "web/import.js": "cdf4aa3b3ef55dc86ffdcc27dac5e7dac8a9d6dece169749d44f38c0f9861f65",
-        "web/index.html": "337e2c4cbdf165d602a58cb2c6bedf67c582594b0ee03c066603e466a52b96f3",
-        "web/security.js": "1dec9b8b48faf97422dcb59a09c45bb0e7fada25b8d8f32cd2a8f717c3af9f7b",
-        "web/style.css": "0549ab59105aa1a84c720956e35883507ce5c28a76623e481a51659249cc5d0a",
-        "data/catalog-history/2026-10-21.2.json": "5266354295157ade777241fe103e0d59ac8e546b461ebbc6bf72d019b2bc43a9",
-        "data/catalog-history/2026-10-21.3.json": "df5c1d3b65d6b6e459399eea073adabf6c3833e32ecc7dfe32768409043de63c",
-        "data/catalog-history/2026-10-21.4.json": "547688464ffd395bd29a7bd78f9df4bb336564cdf43fdce07356bcea64240be1",
-        "data/catalog-history/2026-10-21.5.json": "d5bdb076124354705a332f550d59494b78770e71c8d222d6fd691161b29785c6",
-        "data/catalog-history/2026-10-21.6.json": "1ccdb57d243deb904b76f21c6021c23cbbcaff01346e2216f96a09e7e8265679",
-        "data/catalog-history/2026-10-22.1.json": "b4c4f74b8c009599774d954bdf8c06eed13d8b1d4dce3159c07ea16c5b940923"
-      },
-      "scope": "Fresh100 HTTP upload, OCR and local Qwen on frozen runtime. Same development fixtures, not an unseen accuracy estimate. Final source reconciliation is recorded separately."
+      "scope": "Completed fresh100 HTTP/OCR/localQwen only. Same development fixtures; source reconciliation is separate."
     },
     "application_image": {
-      "url": "https://raw.githubusercontent.com/studio-yebisu/ryoshu/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/screenshots/03-three-column-results.png",
-      "sha256": "c0ce68b395b865d6a159b29ee73ea6d31382d506a5ec9d19506ccdd37f494a4c",
-      "scope": "v1.2.0の実画面。架空100件を新規OCR・ローカルQwenで処理した結果を表示。全件未確認、手動修正なし。"
+      "url": "https://raw.githubusercontent.com/studio-yebisu/ryoshu/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/testing/v1.3/screenshots/01-three-column-results.png",
+      "sha256": "7638cd6061ebffcc5ef1225f48ce9d30622df11dbc12a311e8c2f53f4bd82943",
+      "scope": "v1.3.0の実画面。架空100件の新規OCR・ローカルQwenの結果を表示。全件未確認、手動修正なし。"
     },
-    "additional_default_context5": {
-      "status": "passed",
-      "count": 5,
-      "business_context": "",
-      "manual_correction": false,
-      "confirmed": false,
-      "report": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/default-five.json",
-      "report_sha256": "1eda09e42b0c9c60573a841aa07be570195560a476bbc566ddb7cd97b4ff265c",
-      "csv_rows": 5,
-      "csv_verification": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/default-five-csv-verification.json",
-      "scope": "事業概要が空欄の追加5件でも金額・日付・科目・扱い・税額が一致。手動修正せず、未確認の汎用CSV5行をブラウザーから保存して照合しました。100件の集計には重複加算していません。"
+    "account_picker_image": {
+      "url": "https://raw.githubusercontent.com/studio-yebisu/ryoshu/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/testing/v1.3/screenshots/02-account-picker.png",
+      "sha256": "a5998d36a5973ea3f6c9acf1b1d9150fea09f662771689f39eac5d7ac5089aa6",
+      "scope": "同じ実100件の結果から科目変更を開いた実画面。カテゴリーと科目の選択欄を表示し、変更は保存していません。"
     },
-    "accuracy_limits": {
-      "amount_scope": "金額97件は非負の円額95件と、外貨で円額未確定の2件。暫定科目48件は提案を期待するケースです。",
-      "tax_scope": "税額63件：印字税額51/52、空欄11/11。税額として特定できず空欄1件、誤った数値0件。",
-      "tax_exclusions": "返金3件と外貨2件は税額評価から事前に除外。返金3件の税額候補は登録停止のままで、成功件数に含みません。V013は553円が印字されていますが、税額ラベルのOCRが崩れて空欄でした。",
-      "ai_summary": "科目等の集計はv1.1.0候補と同じです。AIの摘要には、事業概要を指定した100件のV021で「テスト用の乗車」とするなど、原本にない表現が残ります。摘要も原本で確認してください。"
+    "review_evidence": {
+      "record": "https://github.com/studio-yebisu/ryoshu/blob/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/testing/v1.3/reviews.json",
+      "scope": "Use the model identities and exact scopes recorded there; no previous review is counted again."
     },
-    "scope": "Released local-only1.2 application. Fresh100, browser replay, visible UI review and exact ZIP checks have distinct evidence. Existing film and4saved examples remainv0.4.",
-    "browser_ux_checks": 8,
-    "http_security_checks": 18
+    "score_policy": "暫定科目はv1.2の47/48から44/48、科目/保留条件は89/100から86/100になりました。新たな不一致のV032・V067・V093は、両版とも候補が外注工賃です。旧版では外注費をその別名として照合しましたが、今回は別々の正式科目に分離したため、不一致を保持しています。他の一致判定の状態は同じです。V050の賃借料→リース料は、どちらの版も許容候補と一致しました。元の期待値は変更せず、説明による加点もしていません。",
+    "taxonomy_comparison": {
+      "baseline_version": "1.2.0",
+      "baseline_source_commit": "40dfac8dfd0d819c3979c98caa1d79c0091a22a7",
+      "baseline_report": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/results-100.json",
+      "changed_checks": [
+        {
+          "case_id": "V032",
+          "changed_checks": {
+            "account_exact": [
+              true,
+              false
+            ],
+            "account_or_decision_exact": [
+              true,
+              false
+            ]
+          },
+          "previous_account": "外注工賃",
+          "current_account": "外注工賃",
+          "acceptable_accounts": [
+            "外注費"
+          ]
+        },
+        {
+          "case_id": "V067",
+          "changed_checks": {
+            "account_exact": [
+              true,
+              false
+            ],
+            "account_or_decision_exact": [
+              true,
+              false
+            ]
+          },
+          "previous_account": "外注工賃",
+          "current_account": "外注工賃",
+          "acceptable_accounts": [
+            "賃借料",
+            "外注費"
+          ]
+        },
+        {
+          "case_id": "V093",
+          "changed_checks": {
+            "account_exact": [
+              true,
+              false
+            ],
+            "account_or_decision_exact": [
+              true,
+              false
+            ]
+          },
+          "previous_account": "外注工賃",
+          "current_account": "外注工賃",
+          "acceptable_accounts": [
+            "外注費",
+            "広告宣伝費",
+            "支払手数料"
+          ]
+        }
+      ],
+      "other_matching_states_unchanged": true,
+      "matched_rename": {
+        "case_id": "V050",
+        "before": "賃借料",
+        "after": "リース料",
+        "matched_in_both": true
+      },
+      "scope": "暫定科目はv1.2の47/48から44/48、科目/保留条件は89/100から86/100になりました。新たな不一致のV032・V067・V093は、両版とも候補が外注工賃です。旧版では外注費をその別名として照合しましたが、今回は別々の正式科目に分離したため、不一致を保持しています。他の一致判定の状態は同じです。V050の賃借料→リース料は、どちらの版も許容候補と一致しました。元の期待値は変更せず、説明による加点もしていません。",
+      "baseline_report_sha256": "228463d3f55b6209a68805d318846b432f19e4d0714369491de9b60998803625"
+    },
+    "scope": "Released local-only1.3. Completed fresh100, account editing, browser workflows and exact ZIP checks are distinct. Film/four saved examples remainv0.4.",
+    "historical_http_security": {
+      "app_version": "1.2.0",
+      "checks": 18,
+      "record": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/http-security.json",
+      "scope": "Historical only; not rerun for v1.3 and not included in current check counts."
+    }
   },
   "historical_film_source_commit": "5b601be1a3fe3ebdb600d0a53c557917652a876d",
   "application_update": {
@@ -929,6 +1648,13 @@
     },
     "vendor_account_import": "not tested",
     "legal_review": "not performed",
+    "native_dependency_limitation": {
+      "sqlcipher_openssl": "3.6.0",
+      "status": "remaining limitation; static call-scope assessment only",
+      "detail": "https://github.com/studio-yebisu/ryoshu/blob/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/testing/security/README.md",
+      "historical_evidence_version": "1.1.0",
+      "new_scan_performed": false
+    },
     "historical_v1_0_0": {
       "version": "1.0.0",
       "status": "released",
@@ -1010,60 +1736,6 @@
         "release_asset_sha256": "80481ddadb4c0eda3c8d2e9c60dadbe54afd0de352875f962c5e8adede16f707",
         "checksum_scope": "Git raw JSON uses LF; release JSON uses CRLF. Parsed JSON data is identical. Each digest applies to its named URL."
       }
-    },
-    "version": "1.2.0",
-    "status": "released",
-    "source_commit": "40dfac8dfd0d819c3979c98caa1d79c0091a22a7",
-    "source_pin_status": "exact published Git commit",
-    "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.2.0",
-    "intended_release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.2.0",
-    "python_tests": 237,
-    "python_test_scope": "Final candidate and exact release ZIP checks; detailed scope linked separately",
-    "browser_checks": 28,
-    "security_browser_checks": 10,
-    "browser_status": "passed",
-    "browser_ocr_ai": "saved_observation_replay; separate fresh100 run",
-    "normal_ai_100_rerun": "completed_frozen_v1.2_runtime",
-    "verification": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/README.md",
-    "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/REVIEW-POLICY.md",
-    "ui": "PDF/image selection or drop -> Start -> original image / text and numbers / account -> CSV. Indigo and cool-gray14px UI; settings under More.",
-    "ui_design": {
-      "design": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/DESIGN.md",
-      "review": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/reviews.json",
-      "scope": "Opus5.5 consultation and source review; implementation and visual/browser validation are separately recorded."
-    },
-    "source_archive": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.2.0/Ryoshu-1.2.0-source.zip",
-    "source_archive_sha256": "51c3958ceb551a9ae5dc0a93fd17c3dfe254f04f19a93ea3e4057e21b05b4d69",
-    "source_archive_bytes": 33488564,
-    "release_zip_validation": {
-      "status": "passed",
-      "checks": [
-        {
-          "check": "Python regression",
-          "exit_code": 0,
-          "log_sha256": "0d5754e3439e7ce980704ec82f29351d7231924146f74488bc096ce26d82fe22"
-        },
-        {
-          "check": "JavaScript folder traversal",
-          "exit_code": 0,
-          "log_sha256": "549d86fd4f2018bb4824eb7836c4b0441f6330817feb89b3e443d1ed9fa3f52d"
-        },
-        {
-          "check": "public source and evidence",
-          "exit_code": 0,
-          "log_sha256": "102032c02fd7bb8e447e8d7e920973a4d90f99aa005a30027c37b08370da11bd"
-        },
-        {
-          "check": "CSV4profiles",
-          "exit_code": 0,
-          "log_sha256": "da499f6f0bacecbb0cc6e8a8e1173f72dcd6d65d528947d2c0092de271647b0d"
-        }
-      ],
-      "python_passed": 237,
-      "javascript_passed": 3,
-      "csv_profiles": 4,
-      "record": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.2.0/verification.json",
-      "scope": "Exact release ZIP verification. Fresh100 source/runtime reconciliation is in the application finalization record."
     },
     "historical_v1_1_0": {
       "version": "1.1.0",
@@ -1311,21 +1983,759 @@
         "record": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.1.0/verification.json"
       }
     },
-    "native_dependency_limitation": {
-      "sqlcipher_openssl": "3.6.0",
-      "status": "remaining limitation; static call-scope assessment only",
-      "detail": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/security/README.md"
+    "historical_v1_2_0": {
+      "local_only": true,
+      "external_ai_integration": false,
+      "smartphone_lan": "not supported",
+      "encryption": {
+        "database": "SQLCipher",
+        "originals_and_previews": "AES-256-GCM",
+        "backup": "password-wrapped AES-256-GCM archive",
+        "key_protection": "Windows user DPAPI",
+        "exported_csv_and_originals": "not encrypted"
+      },
+      "installation": {
+        "manual_prerequisite": "Ollama Windows",
+        "managed_python": "3.12.15",
+        "uv": "0.13.5 pinned ZIP/executable SHA-256 verified"
+      },
+      "vendor_account_import": "not tested",
+      "legal_review": "not performed",
+      "historical_v1_0_0": {
+        "version": "1.0.0",
+        "status": "released",
+        "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+        "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.0.0",
+        "python_tests": 130,
+        "browser_checks": 28,
+        "browser_ocr_ai": "saved_observation_replay",
+        "normal_ai_100_rerun": "completed",
+        "full100_source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+        "full100_catalog_version": "2026-10-22.2",
+        "final_catalog_version": "2026-10-22.2",
+        "original_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
+        "verification": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/README.md",
+        "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/448d5d201526b030fe3dc9bf5cf7e69e28b58b72/docs/REVIEW-POLICY.md",
+        "scope": "Released v1.0.0 ZIP tested fresh on all100 PDFs through OCR and local account model. Pre-release100/.1 and3-case final-seed spot retained under pre_release_validation. Film and4 saved samples arev0.4. No legal assessment or real SaaS import.",
+        "pre_release_validation": {
+          "full100_source_commit": "9e06ef6821ba21afa738e3a1120d9e9fef4f3649",
+          "full100_catalog_version": "2026-10-22.1",
+          "policy_delta_audit": "100 saved actual OCR evidence texts;0 different policy results; not fresh inference",
+          "final_catalog_fresh_inference_spot": {
+            "source_commit": "524776a8b937a5b439363fb4a7493f9e253f9a15",
+            "cases": [
+              "V052",
+              "V053",
+              "V054"
+            ],
+            "passed": 3
+          }
+        },
+        "release100": {
+          "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+          "source_tag": "v1.0.0",
+          "catalog_version": "2026-10-22.2",
+          "source_archive_sha256": "e32519f343e654da21e6bd90686f5ae023e189499783be1b2b7400fc96a40e3c",
+          "finished_at": "2026-10-22T02:01:59.253257+00:00",
+          "finished_at_jst": "2026-10-22T11:01:59.253257+09:00",
+          "ocr_reuse": false,
+          "report": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
+          "report_commit": "0b0fb7677475f50a2a8a28e1a7d3da836d454c79",
+          "report_sha256": "389312bb933cec30452d6125d74115b4a12744de93cc961c5c19476cbd266a09",
+          "metrics": {
+            "total_exact": {
+              "matched": 97,
+              "evaluated": 97
+            },
+            "date_exact": {
+              "matched": 99,
+              "evaluated": 100
+            },
+            "merchant_exact": {
+              "matched": 86,
+              "evaluated": 100
+            },
+            "account_or_decision_exact": {
+              "matched": 89,
+              "evaluated": 100
+            },
+            "decision_exact": {
+              "matched": 93,
+              "evaluated": 100
+            },
+            "account_exact": {
+              "matched": 47,
+              "evaluated": 48
+            },
+            "ocr_completed": {
+              "matched": 100,
+              "evaluated": 100
+            },
+            "model_completed": {
+              "matched": 100,
+              "evaluated": 100
+            }
+          },
+          "scope": "Fresh OCR and local account-classification inference for all100 PDFs from the public release ZIP. No saved OCR/candidate reuse. Same fictional development fixtures; not unseen accuracy.",
+          "report_raw": "https://raw.githubusercontent.com/studio-yebisu/ryoshu/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
+          "release_asset": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.0.0/release-100.json",
+          "release_asset_sha256": "80481ddadb4c0eda3c8d2e9c60dadbe54afd0de352875f962c5e8adede16f707",
+          "checksum_scope": "Git raw JSON uses LF; release JSON uses CRLF. Parsed JSON data is identical. Each digest applies to its named URL."
+        }
+      },
+      "version": "1.2.0",
+      "status": "released",
+      "source_commit": "40dfac8dfd0d819c3979c98caa1d79c0091a22a7",
+      "source_pin_status": "exact published Git commit",
+      "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.2.0",
+      "intended_release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.2.0",
+      "python_tests": 237,
+      "python_test_scope": "Final candidate and exact release ZIP checks; detailed scope linked separately",
+      "browser_checks": 28,
+      "security_browser_checks": 10,
+      "browser_status": "passed",
+      "browser_ocr_ai": "saved_observation_replay; separate fresh100 run",
+      "normal_ai_100_rerun": "completed_frozen_v1.2_runtime",
+      "verification": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/README.md",
+      "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/REVIEW-POLICY.md",
+      "ui": "PDF/image selection or drop -> Start -> original image / text and numbers / account -> CSV. Indigo and cool-gray14px UI; settings under More.",
+      "ui_design": {
+        "design": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/DESIGN.md",
+        "review": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/reviews.json",
+        "scope": "Opus5.5 consultation and source review; implementation and visual/browser validation are separately recorded."
+      },
+      "source_archive": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.2.0/Ryoshu-1.2.0-source.zip",
+      "source_archive_sha256": "51c3958ceb551a9ae5dc0a93fd17c3dfe254f04f19a93ea3e4057e21b05b4d69",
+      "source_archive_bytes": 33488564,
+      "release_zip_validation": {
+        "status": "passed",
+        "checks": [
+          {
+            "check": "Python regression",
+            "exit_code": 0,
+            "log_sha256": "0d5754e3439e7ce980704ec82f29351d7231924146f74488bc096ce26d82fe22"
+          },
+          {
+            "check": "JavaScript folder traversal",
+            "exit_code": 0,
+            "log_sha256": "549d86fd4f2018bb4824eb7836c4b0441f6330817feb89b3e443d1ed9fa3f52d"
+          },
+          {
+            "check": "public source and evidence",
+            "exit_code": 0,
+            "log_sha256": "102032c02fd7bb8e447e8d7e920973a4d90f99aa005a30027c37b08370da11bd"
+          },
+          {
+            "check": "CSV4profiles",
+            "exit_code": 0,
+            "log_sha256": "da499f6f0bacecbb0cc6e8a8e1173f72dcd6d65d528947d2c0092de271647b0d"
+          }
+        ],
+        "python_passed": 237,
+        "javascript_passed": 3,
+        "csv_profiles": 4,
+        "record": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.2.0/verification.json",
+        "scope": "Exact release ZIP verification. Fresh100 source/runtime reconciliation is in the application finalization record."
+      },
+      "historical_v1_1_0": {
+        "version": "1.1.0",
+        "status": "released",
+        "source_commit": "1fed7ed649a1f54407e38f8ac90289b1519ed39c",
+        "source_pin_status": "verified by parent",
+        "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.1.0",
+        "intended_release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.1.0",
+        "python_tests": 188,
+        "python_test_scope": "Windows unit/API/DPAPI/SQLCipher/AES-GCM; full188 passed; focused49 passed separately",
+        "browser_checks": 28,
+        "browser_status": "passed",
+        "browser_ocr_ai": "saved_observation_replay",
+        "normal_ai_100_rerun": "completed_frozen_candidate",
+        "frozen_candidate100": {
+          "app_version": "1.1.0 candidate",
+          "status": "completed",
+          "report": "https://github.com/studio-yebisu/ryoshu/blob/1fed7ed649a1f54407e38f8ac90289b1519ed39c/docs/testing/security/results-100.json",
+          "report_sha256": "3207dd2ff7cc3e9ec922b557393c9c117f711f4d3ad27230be79697b7851755b",
+          "fixture_manifest_sha256": "1b9e40688cc730724328923c7f3b5ce1cd7941fb102fdf369dd58968d3b151c7",
+          "finished_at": "2026-10-22T06:25:02.218326+00:00",
+          "ocr_reuse": false,
+          "metrics": {
+            "ocr_completed": {
+              "matched": 100,
+              "evaluated": 100
+            },
+            "model_completed": {
+              "matched": 100,
+              "evaluated": 100
+            },
+            "total_exact": {
+              "matched": 97,
+              "evaluated": 97
+            },
+            "date_exact": {
+              "matched": 99,
+              "evaluated": 100
+            },
+            "merchant_exact": {
+              "matched": 86,
+              "evaluated": 100
+            },
+            "account_exact": {
+              "matched": 47,
+              "evaluated": 48
+            },
+            "decision_exact": {
+              "matched": 93,
+              "evaluated": 100
+            },
+            "account_or_decision_exact": {
+              "matched": 89,
+              "evaluated": 100
+            }
+          },
+          "frozen_source_hashes": {
+            "data/account-catalog.json": "c01169a611ba29a505a1deead3149aab976836c7fe81dcdeaecf7bb5f7f7ebbf",
+            "receipt_ledger/accounting.py": "92f5f5c8c683bc6fef085b0c4d8daaefec30a270c536c0fadb6bee86aa262001",
+            "receipt_ledger/backups.py": "ee2e115bc212358e13b57e109f264046d9801ec6f5c1b664a364ef4b9e7ae504",
+            "receipt_ledger/catalog.py": "8e09913b0bb562c9cd8d26bd8fd3c320bd2e183fb34d5e72eab6c026e8509498",
+            "receipt_ledger/config.py": "7795a5fc6be43b43bf2c3ccdf57da3b8d630fba5eefb782d0cf489fcefed9804",
+            "receipt_ledger/database.py": "b33fe8584408f84af741afc24b481f9d48e903bca60ef581c5ace3e261b52169",
+            "receipt_ledger/evidence.py": "f48f4eda2dac9a0cafa58db21f52eca733982344b0f874530c1ef62bb1f9312d",
+            "receipt_ledger/exports.py": "d1b949ab3e45854f3e840a4b2967b2b0d079b6692293bfd0980a73935121d22f",
+            "receipt_ledger/export_history.py": "a4b3637f066efe9e7744bdbb6a56e4e68d58a8d575ab189933acb5114a64c0a8",
+            "receipt_ledger/extraction.py": "ee46d16f966ed257552f7f9b331697e6df158d227dff4e0397c3481c27691705",
+            "receipt_ledger/importing.py": "2bbc18977412f44c5486cea805a543eeb1ae84d58b86789c684015566b0d2303",
+            "receipt_ledger/listing.py": "3afe765a5345731bd4b627408c01e19976e25adcab4af18ed86e420e607c2c1f",
+            "receipt_ledger/ocr_focus.py": "fad178563bc0bc21bf05cb6c77067ddd1eaaac9faa112e2c398f2a33fdeed94e",
+            "receipt_ledger/pdf_runtime.py": "077aa84350ae27bd994c7cf13bed4ae31fc7fe37333a54c6e2c1b6e85c75c400",
+            "receipt_ledger/pipeline.py": "9662048a1ab2f992b5f6de490d852552f41eb00e77358516607f8190f6ccd893",
+            "receipt_ledger/previews.py": "9ef9697dffed89be6d7a1a742410ad3176d2389af3c91367ab777404fbc01a31",
+            "receipt_ledger/privacy.py": "8cd0ce25f13aab75615145a2818d6d062fe344ce97337b7a1edf82ad6a81fc79",
+            "receipt_ledger/protection.py": "78ef03bc789626977e5dec24ab6a2b6a618c98522a80d66817e97e1ea921e847",
+            "receipt_ledger/restore.py": "ecbaa8162fd6bf2aa791595a97783855197426bc562b92e22675d834a7158af5",
+            "receipt_ledger/restore_encrypted.py": "39675cabac870a8707a7a8a5a76877b7e719b2e2d0251a19aa2c4452a5822864",
+            "receipt_ledger/schemas.py": "e5843a2dccf77f644f86576ddeb4e303a301516f9ace9f9d3e0ab2d2b58549b8",
+            "receipt_ledger/semantic.py": "e045a81d0888b0cfb6ea91aa9b4642e10236e70dab813f28d63f940ad79cda59",
+            "receipt_ledger/server.py": "dd6dc9f060235c33c84b2444a04032642b5238fffa2787ac818edfa9c8c71117",
+            "receipt_ledger/session.py": "f9f1a39e2278a7aaa3af997f58440e15bb66d975632d4c699dc25642284e720d",
+            "receipt_ledger/store.py": "f0facf4a580ffdd9386948334bb1ea504d2a5b52aa9e846080630da6ed99af2c",
+            "receipt_ledger/upload_limit.py": "ca83edb1b91d3543153cc6f2373afc91d98279d2b51c78bb959d174939329dfd",
+            "receipt_ledger/workflow.py": "edc06a17f97e20c60bc6d80c0fb86459c920f2c422cd9a73fc03a12adac8f5f0",
+            "receipt_ledger/__init__.py": "5504d4f4e3612dc915fd0fab9d53e9aea2c1ac5f963d11dea587e8a4a449ce2d",
+            "receipt_ledger/__main__.py": "d5c8749477822080a0f1c23808da5c8e151e48a01cb3e33c42c455ca0ffe3849",
+            "web/app.js": "fe67bf841c8337366896ecfabb0cf1d4236aa39a7eaeafd2038fad0c819bd38a",
+            "web/help.html": "fe6a1361bda4842bf23329a278176df440130bb6c27cb93b05852f9ca91f9433",
+            "web/icon.svg": "98a09af37f9a7d8a3b83c74e90773944a627a25b42d55f7faf65f2a329133c54",
+            "web/import.js": "84fac1f3aeb96adc801c17d2f36af7ecd7a971914e0747b2ecf29ceccadce517",
+            "web/index.html": "82e0a1a48ec0db7586b6f9d9ba0055cfc9b6c3b2e02c15b5251c5bcd4523e5a4",
+            "web/security.js": "7fb5ef1ba1df75f3b2cea6b36c597e300e8d709ba6a7da692a0af0f3c82e45eb",
+            "web/style.css": "6c238816ca516a9fe4646d186b7359e24b7f627d4c546bd58cfd2eb79db56cc8",
+            "data/catalog-history/2026-10-21.2.json": "5266354295157ade777241fe103e0d59ac8e546b461ebbc6bf72d019b2bc43a9",
+            "data/catalog-history/2026-10-21.3.json": "df5c1d3b65d6b6e459399eea073adabf6c3833e32ecc7dfe32768409043de63c",
+            "data/catalog-history/2026-10-21.4.json": "547688464ffd395bd29a7bd78f9df4bb336564cdf43fdce07356bcea64240be1",
+            "data/catalog-history/2026-10-21.5.json": "d5bdb076124354705a332f550d59494b78770e71c8d222d6fd691161b29785c6",
+            "data/catalog-history/2026-10-21.6.json": "1ccdb57d243deb904b76f21c6021c23cbbcaff01346e2216f96a09e7e8265679",
+            "data/catalog-history/2026-10-22.1.json": "b4c4f74b8c009599774d954bdf8c06eed13d8b1d4dce3159c07ea16c5b940923"
+          },
+          "scope": "Fresh actual OCR and local Qwen account suggestions for all100 fictional development PDFs from a frozen candidate. Later changes affect security/restore/UI/copy. Not a100-case run from the final release ZIP; not unseen accuracy.",
+          "report_checksum_scope": "Exact public Git blob bytes at the pinned commit; release-asset JSON bytes may use different line endings."
+        },
+        "verification": "https://github.com/studio-yebisu/ryoshu/blob/1fed7ed649a1f54407e38f8ac90289b1519ed39c/docs/testing/security/README.md",
+        "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/1fed7ed649a1f54407e38f8ac90289b1519ed39c/docs/REVIEW-POLICY.md",
+        "local_only": true,
+        "external_ai_integration": false,
+        "smartphone_lan": "not supported",
+        "encryption": {
+          "database": "SQLCipher",
+          "originals_and_previews": "AES-256-GCM",
+          "backup": "password-wrapped AES-256-GCM archive",
+          "key_protection": "Windows user DPAPI",
+          "exported_csv_and_originals": "not encrypted"
+        },
+        "installation": {
+          "manual_prerequisite": "Ollama Windows",
+          "managed_python": "3.12.15",
+          "uv": "0.13.5 pinned ZIP/executable SHA-256 verified"
+        },
+        "ui": "PDF/image drop or file/folder selection -> start -> original image, extracted text/numbers, account suggestions in three columns; image zoom; CSV",
+        "native_dependency_limitation": {
+          "sqlcipher_openssl": "3.6.0",
+          "status": "remaining limitation; static call-scope assessment only",
+          "detail": "https://github.com/studio-yebisu/ryoshu/blob/1fed7ed649a1f54407e38f8ac90289b1519ed39c/docs/testing/security/README.md"
+        },
+        "vendor_account_import": "not tested",
+        "legal_review": "not performed",
+        "historical_v1_0_0": {
+          "version": "1.0.0",
+          "status": "released",
+          "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+          "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.0.0",
+          "python_tests": 130,
+          "browser_checks": 28,
+          "browser_ocr_ai": "saved_observation_replay",
+          "normal_ai_100_rerun": "completed",
+          "full100_source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+          "full100_catalog_version": "2026-10-22.2",
+          "final_catalog_version": "2026-10-22.2",
+          "original_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
+          "verification": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/README.md",
+          "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/448d5d201526b030fe3dc9bf5cf7e69e28b58b72/docs/REVIEW-POLICY.md",
+          "scope": "Released v1.0.0 ZIP tested fresh on all100 PDFs through OCR and local account model. Pre-release100/.1 and3-case final-seed spot retained under pre_release_validation. Film and4 saved samples arev0.4. No legal assessment or real SaaS import.",
+          "pre_release_validation": {
+            "full100_source_commit": "9e06ef6821ba21afa738e3a1120d9e9fef4f3649",
+            "full100_catalog_version": "2026-10-22.1",
+            "policy_delta_audit": "100 saved actual OCR evidence texts;0 different policy results; not fresh inference",
+            "final_catalog_fresh_inference_spot": {
+              "source_commit": "524776a8b937a5b439363fb4a7493f9e253f9a15",
+              "cases": [
+                "V052",
+                "V053",
+                "V054"
+              ],
+              "passed": 3
+            }
+          },
+          "release100": {
+            "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+            "source_tag": "v1.0.0",
+            "catalog_version": "2026-10-22.2",
+            "source_archive_sha256": "e32519f343e654da21e6bd90686f5ae023e189499783be1b2b7400fc96a40e3c",
+            "finished_at": "2026-10-22T02:01:59.253257+00:00",
+            "finished_at_jst": "2026-10-22T11:01:59.253257+09:00",
+            "ocr_reuse": false,
+            "report": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
+            "report_commit": "0b0fb7677475f50a2a8a28e1a7d3da836d454c79",
+            "report_sha256": "389312bb933cec30452d6125d74115b4a12744de93cc961c5c19476cbd266a09",
+            "metrics": {
+              "total_exact": {
+                "matched": 97,
+                "evaluated": 97
+              },
+              "date_exact": {
+                "matched": 99,
+                "evaluated": 100
+              },
+              "merchant_exact": {
+                "matched": 86,
+                "evaluated": 100
+              },
+              "account_or_decision_exact": {
+                "matched": 89,
+                "evaluated": 100
+              },
+              "decision_exact": {
+                "matched": 93,
+                "evaluated": 100
+              },
+              "account_exact": {
+                "matched": 47,
+                "evaluated": 48
+              },
+              "ocr_completed": {
+                "matched": 100,
+                "evaluated": 100
+              },
+              "model_completed": {
+                "matched": 100,
+                "evaluated": 100
+              }
+            },
+            "scope": "Fresh OCR and local account-classification inference for all100 PDFs from the public release ZIP. No saved OCR/candidate reuse. Same fictional development fixtures; not unseen accuracy.",
+            "report_raw": "https://raw.githubusercontent.com/studio-yebisu/ryoshu/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
+            "release_asset": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.0.0/release-100.json",
+            "release_asset_sha256": "80481ddadb4c0eda3c8d2e9c60dadbe54afd0de352875f962c5e8adede16f707",
+            "checksum_scope": "Git raw JSON uses LF; release JSON uses CRLF. Parsed JSON data is identical. Each digest applies to its named URL."
+          }
+        },
+        "scope": "Released local-only application. Fresh100 inference is from the frozen candidate, followed by security/restore/UI/copy changes and final regression checks; not100 from the release ZIP. Film and4 saved samples arev0.4.",
+        "security_browser_checks": 10,
+        "source_archive": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.1.0/Ryoshu-1.1.0-source.zip",
+        "source_archive_sha256": "e75d81caeae584e6deb23acf4552204dc3188ce2fc4760f5df536826b4e9802d",
+        "source_archive_bytes": 32297907,
+        "release_zip_validation": {
+          "status": "passed",
+          "scope": "Exact released main source ZIP; Python/JavaScript/publication/CSV checks. No fresh100 inference from this ZIP.",
+          "python_passed": 188,
+          "javascript_passed": 3,
+          "publication_files": 429,
+          "csv_profiles": 4,
+          "checks": [
+            {
+              "check": "Python regression",
+              "exit_code": 0,
+              "log_sha256": "b0c506125b8daa8e0615e8a04aec335c000aa94ea0f6ad17d47ef9323673d8fb"
+            },
+            {
+              "check": "JavaScript folder traversal",
+              "exit_code": 0,
+              "log_sha256": "aac7bdec4631310a5af95a711bfeae81641d5e0f21c0f719c4116ad230fa3e55"
+            },
+            {
+              "check": "public source and evidence",
+              "exit_code": 0,
+              "log_sha256": "b0b3747a4efa9b39ecdc6fd67eff6c442bfa4b86d05869eef46a7ceb799d0142"
+            },
+            {
+              "check": "CSV4profiles",
+              "exit_code": 0,
+              "log_sha256": "daeb7fb0dc8a593eb7147389d9d6f8f6f310bd4253f4be396b1cbbde0dee48a6"
+            }
+          ],
+          "record": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.1.0/verification.json"
+        }
+      },
+      "native_dependency_limitation": {
+        "sqlcipher_openssl": "3.6.0",
+        "status": "remaining limitation; static call-scope assessment only",
+        "detail": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/security/README.md"
+      },
+      "frozen_candidate100": {
+        "app_version": "1.2.0",
+        "status": "completed",
+        "source_commit": "e47c049f9314a303065aeea4b5c11ca12e249b6d",
+        "report_commit": "40dfac8dfd0d819c3979c98caa1d79c0091a22a7",
+        "report": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/results-100.json",
+        "report_sha256": "228463d3f55b6209a68805d318846b432f19e4d0714369491de9b60998803625",
+        "report_checksum_scope": "Exact canonical Git blob at pinned published commit",
+        "fixture_manifest_sha256": "1b9e40688cc730724328923c7f3b5ce1cd7941fb102fdf369dd58968d3b151c7",
+        "finished_at": "2026-10-22T12:38:35.658585+00:00",
+        "ocr_reuse": false,
+        "metrics": {
+          "ocr_completed": {
+            "matched": 100,
+            "evaluated": 100
+          },
+          "model_completed": {
+            "matched": 100,
+            "evaluated": 100
+          },
+          "total_exact": {
+            "matched": 97,
+            "evaluated": 97
+          },
+          "date_exact": {
+            "matched": 99,
+            "evaluated": 100
+          },
+          "merchant_exact": {
+            "matched": 86,
+            "evaluated": 100
+          },
+          "account_exact": {
+            "matched": 47,
+            "evaluated": 48
+          },
+          "decision_exact": {
+            "matched": 93,
+            "evaluated": 100
+          },
+          "account_or_decision_exact": {
+            "matched": 89,
+            "evaluated": 100
+          }
+        },
+        "tax_scope": {
+          "evaluated": 63,
+          "numeric_expected": 52,
+          "blank_expected": 11,
+          "exact_numeric": 51,
+          "exact_blank": 11,
+          "abstained": [
+            "V013"
+          ],
+          "wrong_value": [],
+          "unreviewed_nonblank": [],
+          "excluded_nonblank": [
+            {
+              "case_id": "V019",
+              "tax_amount": 134,
+              "handling": "block",
+              "scope": "Unsupported refund; excluded in preregistered normal-yen tax expectations, never counted as a tax success."
+            },
+            {
+              "case_id": "V080",
+              "tax_amount": 1350,
+              "handling": "block",
+              "scope": "Unsupported refund; excluded in preregistered normal-yen tax expectations, never counted as a tax success."
+            },
+            {
+              "case_id": "V097",
+              "tax_amount": 3000,
+              "handling": "block",
+              "scope": "Unsupported refund; excluded in preregistered normal-yen tax expectations, never counted as a tax success."
+            }
+          ]
+        },
+        "frozen_source_hashes": {
+          "data/account-catalog.json": "c01169a611ba29a505a1deead3149aab976836c7fe81dcdeaecf7bb5f7f7ebbf",
+          "receipt_ledger/accounting.py": "92f5f5c8c683bc6fef085b0c4d8daaefec30a270c536c0fadb6bee86aa262001",
+          "receipt_ledger/backups.py": "5c128202b68734a95dc300d65520c9b71b6cd7e34275deb93ba1c21f8333f857",
+          "receipt_ledger/catalog.py": "8e09913b0bb562c9cd8d26bd8fd3c320bd2e183fb34d5e72eab6c026e8509498",
+          "receipt_ledger/config.py": "7795a5fc6be43b43bf2c3ccdf57da3b8d630fba5eefb782d0cf489fcefed9804",
+          "receipt_ledger/database.py": "da2c995bc5e5862ee30f0af42d0b2c853a1f6cd291e83f3b82954b4b6c4c1188",
+          "receipt_ledger/evidence.py": "f48f4eda2dac9a0cafa58db21f52eca733982344b0f874530c1ef62bb1f9312d",
+          "receipt_ledger/exports.py": "d1b949ab3e45854f3e840a4b2967b2b0d079b6692293bfd0980a73935121d22f",
+          "receipt_ledger/export_history.py": "a4b3637f066efe9e7744bdbb6a56e4e68d58a8d575ab189933acb5114a64c0a8",
+          "receipt_ledger/extraction.py": "deb04279ea4213e97e2451c652f7e864b5052ac38cd31d97ebe788c89d2d7794",
+          "receipt_ledger/importing.py": "cb5d575fdeaab59d5463ff7eecca5b7e687d096887133aafacd38133cc89fd26",
+          "receipt_ledger/listing.py": "3afe765a5345731bd4b627408c01e19976e25adcab4af18ed86e420e607c2c1f",
+          "receipt_ledger/ocr_focus.py": "fad178563bc0bc21bf05cb6c77067ddd1eaaac9faa112e2c398f2a33fdeed94e",
+          "receipt_ledger/pdf_runtime.py": "077aa84350ae27bd994c7cf13bed4ae31fc7fe37333a54c6e2c1b6e85c75c400",
+          "receipt_ledger/pipeline.py": "cdda304ea14b6540705bfa59f6729c52ad2fbf9386c681be17ddcac000de6b7d",
+          "receipt_ledger/previews.py": "9ef9697dffed89be6d7a1a742410ad3176d2389af3c91367ab777404fbc01a31",
+          "receipt_ledger/privacy.py": "8cd0ce25f13aab75615145a2818d6d062fe344ce97337b7a1edf82ad6a81fc79",
+          "receipt_ledger/protection.py": "9dd5dcfeb17a64e5969133183c2aeb9699047998e5f56a7af78d5a532659ce2f",
+          "receipt_ledger/restore.py": "47d303f12f2a81eea609299e286342718c9aa40c76609600be92090ea4cb2a9e",
+          "receipt_ledger/restore_encrypted.py": "6a2209a4ffdd943596ab2a4f5981fda324d30d8dbaeb64b2add7ab1ee90467c0",
+          "receipt_ledger/schemas.py": "e5843a2dccf77f644f86576ddeb4e303a301516f9ace9f9d3e0ab2d2b58549b8",
+          "receipt_ledger/semantic.py": "30302bbf2435afb816e39244c5729279a4eb02509815ab03ec53cf2ea48a94ee",
+          "receipt_ledger/server.py": "dd6dc9f060235c33c84b2444a04032642b5238fffa2787ac818edfa9c8c71117",
+          "receipt_ledger/session.py": "f9f1a39e2278a7aaa3af997f58440e15bb66d975632d4c699dc25642284e720d",
+          "receipt_ledger/store.py": "f0facf4a580ffdd9386948334bb1ea504d2a5b52aa9e846080630da6ed99af2c",
+          "receipt_ledger/upload_limit.py": "ca83edb1b91d3543153cc6f2373afc91d98279d2b51c78bb959d174939329dfd",
+          "receipt_ledger/workflow.py": "edc06a17f97e20c60bc6d80c0fb86459c920f2c422cd9a73fc03a12adac8f5f0",
+          "receipt_ledger/__init__.py": "125d6c6e920d3be709da65facbfd3b5ba0c297b229461903373ddfa59a47208d",
+          "receipt_ledger/__main__.py": "d5c8749477822080a0f1c23808da5c8e151e48a01cb3e33c42c455ca0ffe3849",
+          "web/app.js": "9e3cdb76767ec7c91d15fb1563cd487752b9dc11454597a14bcf8f72b640e5af",
+          "web/help.html": "2ac767b03c9f02970be99a31f032594435104562b55bfc12861c5ddb33ba16e9",
+          "web/icon.svg": "014390bd9e042d671aa0eb0221ea08e9c261d64e3c28439ac4e908df0df417ac",
+          "web/import.js": "cdf4aa3b3ef55dc86ffdcc27dac5e7dac8a9d6dece169749d44f38c0f9861f65",
+          "web/index.html": "337e2c4cbdf165d602a58cb2c6bedf67c582594b0ee03c066603e466a52b96f3",
+          "web/security.js": "1dec9b8b48faf97422dcb59a09c45bb0e7fada25b8d8f32cd2a8f717c3af9f7b",
+          "web/style.css": "0549ab59105aa1a84c720956e35883507ce5c28a76623e481a51659249cc5d0a",
+          "data/catalog-history/2026-10-21.2.json": "5266354295157ade777241fe103e0d59ac8e546b461ebbc6bf72d019b2bc43a9",
+          "data/catalog-history/2026-10-21.3.json": "df5c1d3b65d6b6e459399eea073adabf6c3833e32ecc7dfe32768409043de63c",
+          "data/catalog-history/2026-10-21.4.json": "547688464ffd395bd29a7bd78f9df4bb336564cdf43fdce07356bcea64240be1",
+          "data/catalog-history/2026-10-21.5.json": "d5bdb076124354705a332f550d59494b78770e71c8d222d6fd691161b29785c6",
+          "data/catalog-history/2026-10-21.6.json": "1ccdb57d243deb904b76f21c6021c23cbbcaff01346e2216f96a09e7e8265679",
+          "data/catalog-history/2026-10-22.1.json": "b4c4f74b8c009599774d954bdf8c06eed13d8b1d4dce3159c07ea16c5b940923"
+        },
+        "scope": "Fresh100 HTTP upload, OCR and local Qwen on frozen runtime. Same development fixtures, not an unseen accuracy estimate. Final source reconciliation is recorded separately."
+      },
+      "application_image": {
+        "url": "https://raw.githubusercontent.com/studio-yebisu/ryoshu/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/screenshots/03-three-column-results.png",
+        "sha256": "c0ce68b395b865d6a159b29ee73ea6d31382d506a5ec9d19506ccdd37f494a4c",
+        "scope": "v1.2.0の実画面。架空100件を新規OCR・ローカルQwenで処理した結果を表示。全件未確認、手動修正なし。"
+      },
+      "additional_default_context5": {
+        "status": "passed",
+        "count": 5,
+        "business_context": "",
+        "manual_correction": false,
+        "confirmed": false,
+        "report": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/default-five.json",
+        "report_sha256": "1eda09e42b0c9c60573a841aa07be570195560a476bbc566ddb7cd97b4ff265c",
+        "csv_rows": 5,
+        "csv_verification": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/default-five-csv-verification.json",
+        "scope": "事業概要が空欄の追加5件でも金額・日付・科目・扱い・税額が一致。手動修正せず、未確認の汎用CSV5行をブラウザーから保存して照合しました。100件の集計には重複加算していません。"
+      },
+      "accuracy_limits": {
+        "amount_scope": "金額97件は非負の円額95件と、外貨で円額未確定の2件。暫定科目48件は提案を期待するケースです。",
+        "tax_scope": "税額63件：印字税額51/52、空欄11/11。税額として特定できず空欄1件、誤った数値0件。",
+        "tax_exclusions": "返金3件と外貨2件は税額評価から事前に除外。返金3件の税額候補は登録停止のままで、成功件数に含みません。V013は553円が印字されていますが、税額ラベルのOCRが崩れて空欄でした。",
+        "ai_summary": "科目等の集計はv1.1.0候補と同じです。AIの摘要には、事業概要を指定した100件のV021で「テスト用の乗車」とするなど、原本にない表現が残ります。摘要も原本で確認してください。"
+      },
+      "scope": "Released local-only1.2 application. Fresh100, browser replay, visible UI review and exact ZIP checks have distinct evidence. Existing film and4saved examples remainv0.4.",
+      "browser_ux_checks": 8,
+      "http_security_checks": 18
+    },
+    "version": "1.3.0",
+    "status": "released",
+    "source_commit": "e79394d7349efc15aadb2dc02f6fe381596b407d",
+    "source_pin_status": "exact published Git commit",
+    "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.3.0",
+    "intended_release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.3.0",
+    "verification": "https://github.com/studio-yebisu/ryoshu/blob/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/testing/v1.3/README.md",
+    "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/REVIEW-POLICY.md",
+    "python_tests": 256,
+    "javascript_tests": 5,
+    "python_test_scope": "Current final source; exact ZIP validation is recorded separately.",
+    "browser_checks": 28,
+    "security_browser_checks": 10,
+    "browser_ux_checks": 8,
+    "browser_account_workflow_checks": 8,
+    "browser_status": "passed",
+    "browser_ocr_ai": "Saved fictional observation replay. Authentication, encryption, HTTP/IO, editing, CSV and backup/restore are real; new100 classification is separate.",
+    "normal_ai_100_rerun": "completed_frozen_v1.3_runtime",
+    "database_schema": 3,
+    "backup_update_note": "v1.3は科目カテゴリーを保存するためDBをスキーマ3へ更新します。更新前に暗号化バックアップを保存してください。更新前の暗号化スナップショットを保存し、既存明細・仕訳・独自科目を保持します。更新したDBは旧アプリで開けません。旧版へ戻す場合は、更新前のバックアップを別の保存先へ復元してください。",
+    "ui": "PDF/image -> explicit Start -> original/text/account. Change account -> category -> account -> Save changes -> review -> CSV.",
+    "source_archive": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.3.0/Ryoshu-1.3.0-source.zip",
+    "source_archive_sha256": "d88c8e28e6296e8e5031331e0a0ee1b327702914f7ed926d96d63561c9d3b218",
+    "source_archive_bytes": 34167868,
+    "release_zip_validation": {
+      "status": "passed",
+      "checks": [
+        {
+          "check": "Python regression",
+          "exit_code": 0,
+          "log_sha256": "e6dbf3622bdbfc18436dfea572adbdb98d822c118fad0bc4b9a1e8d7f878228c"
+        },
+        {
+          "check": "JavaScript folder traversal",
+          "exit_code": 0,
+          "log_sha256": "1e204f73b9f4ba16f551888d4c5a478d56cd347b67fede325d0a39ba161b8ed0"
+        },
+        {
+          "check": "public source and evidence",
+          "exit_code": 0,
+          "log_sha256": "f498b9d0c526b808002f9eb3cf314944d418c89a886fba1c679cfb058165ad47"
+        },
+        {
+          "check": "CSV4profiles",
+          "exit_code": 0,
+          "log_sha256": "6197e195ff5e744feb5aaa2d8e4fcc680cc55896b3945d862157366ada54a70d"
+        }
+      ],
+      "record": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.3.0/verification.json",
+      "scope": "Exact committed source ZIP extracted into a fresh folder, using prepared Python3.12.15 environment. Not a blank-PC installation and not another100-case OCR inference. Real100 and browser results are separately recorded. No model weights or user ledgers included."
+    },
+    "account_selection": {
+      "catalog": {
+        "seed_version": "2026-10-23.1",
+        "total": 74,
+        "expense_and_purchases": 49,
+        "asset": 20,
+        "settlement_and_equity": 5,
+        "selectable": 69,
+        "category_definitions": 14,
+        "selectable_categories": 13,
+        "policies": 15
+      },
+      "category_definitions": [
+        {
+          "id": "supplies",
+          "label": "文具・備品",
+          "description": "文具や日常の事務用品の支出",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "it",
+          "label": "通信・IT",
+          "description": "電話・通信回線・オンラインサービスの支出",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "travel",
+          "label": "交通・車両",
+          "description": "出張・移動・事業用車両に関する支出",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "office",
+          "label": "家賃・設備",
+          "description": "事業所の利用・維持・修繕に関する支出",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "sales",
+          "label": "営業・販売",
+          "description": "営業活動・広告・販売・発送に関する支出",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "learning",
+          "label": "資料・学習",
+          "description": "書籍・取材・研修・研究に関する支出",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "outsourcing",
+          "label": "外注・専門家",
+          "description": "外部への作業委託や専門家への報酬",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "staff",
+          "label": "人件費・福利厚生",
+          "description": "従業員への給与・福利厚生等に関する支出",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "tax_finance",
+          "label": "税金・保険・金融",
+          "description": "事業に関する税・保険・利息・手数料",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "purchases",
+          "label": "仕入・製造",
+          "description": "販売する商品や製造材料の仕入れ",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "agriculture",
+          "label": "農業",
+          "description": "種苗・肥料等の農業に関する支出",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "assets",
+          "label": "資産・開業",
+          "description": "設備・在庫・前払・保証金・開業等の資産候補",
+          "kinds": [
+            "asset"
+          ]
+        },
+        {
+          "id": "other",
+          "label": "その他の経費",
+          "description": "上記のカテゴリーに含まれない事業上の支出",
+          "kinds": [
+            "expense"
+          ]
+        },
+        {
+          "id": "settlement",
+          "label": "支払元・事業主",
+          "description": "支払方法から仕訳の相手科目に使う勘定",
+          "kinds": [
+            "cash",
+            "bank",
+            "liability",
+            "equity"
+          ]
+        }
+      ],
+      "catalog_source": "https://github.com/studio-yebisu/ryoshu/blob/e79394d7349efc15aadb2dc02f6fe381596b407d/data/account-catalog.json",
+      "catalog_sha256": "d9a3d96f572112644d97aac916afb61a4aa2d9b2192717b5a6b6f8142d5ec42a",
+      "entrypoint": "読み取り結果 → 科目を変更",
+      "selection": "カテゴリー → 勘定科目 → 変更を保存",
+      "confirmed_change": "保存すると未確認へ戻り、前の仕訳は履歴に保持。CSV前に再確認。",
+      "category_scope": "科目を探す分類。補助科目ではなく、CSVには選んだ科目名を出す。",
+      "migration": "既存の独自科目と初期科目のコードが重なる場合も、既存の科目名を保持。"
     },
     "frozen_candidate100": {
-      "app_version": "1.2.0",
+      "app_version": "1.3.0",
       "status": "completed",
-      "source_commit": "e47c049f9314a303065aeea4b5c11ca12e249b6d",
-      "report_commit": "40dfac8dfd0d819c3979c98caa1d79c0091a22a7",
-      "report": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/results-100.json",
-      "report_sha256": "228463d3f55b6209a68805d318846b432f19e4d0714369491de9b60998803625",
+      "source_commit": "71e2db4d0d27e600e3eead9b792dd1c8c2f0bde6",
+      "report_commit": "e79394d7349efc15aadb2dc02f6fe381596b407d",
+      "report": "https://github.com/studio-yebisu/ryoshu/blob/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/testing/v1.3/results-100.json",
+      "report_sha256": "92b24b3323898006f52a18eb8962c45bf8f45ba015a0751213846531ccf0b811",
       "report_checksum_scope": "Exact canonical Git blob at pinned published commit",
       "fixture_manifest_sha256": "1b9e40688cc730724328923c7f3b5ce1cd7941fb102fdf369dd58968d3b151c7",
-      "finished_at": "2026-10-22T12:38:35.658585+00:00",
+      "finished_at": "2026-10-22T16:19:09.661834+00:00",
       "ocr_reuse": false,
       "metrics": {
         "ocr_completed": {
@@ -1349,7 +2759,7 @@
           "evaluated": 100
         },
         "account_exact": {
-          "matched": 47,
+          "matched": 44,
           "evaluated": 48
         },
         "decision_exact": {
@@ -1357,7 +2767,7 @@
           "evaluated": 100
         },
         "account_or_decision_exact": {
-          "matched": 89,
+          "matched": 86,
           "evaluated": 100
         }
       },
@@ -1393,78 +2803,103 @@
           }
         ]
       },
-      "frozen_source_hashes": {
-        "data/account-catalog.json": "c01169a611ba29a505a1deead3149aab976836c7fe81dcdeaecf7bb5f7f7ebbf",
-        "receipt_ledger/accounting.py": "92f5f5c8c683bc6fef085b0c4d8daaefec30a270c536c0fadb6bee86aa262001",
-        "receipt_ledger/backups.py": "5c128202b68734a95dc300d65520c9b71b6cd7e34275deb93ba1c21f8333f857",
-        "receipt_ledger/catalog.py": "8e09913b0bb562c9cd8d26bd8fd3c320bd2e183fb34d5e72eab6c026e8509498",
-        "receipt_ledger/config.py": "7795a5fc6be43b43bf2c3ccdf57da3b8d630fba5eefb782d0cf489fcefed9804",
-        "receipt_ledger/database.py": "da2c995bc5e5862ee30f0af42d0b2c853a1f6cd291e83f3b82954b4b6c4c1188",
-        "receipt_ledger/evidence.py": "f48f4eda2dac9a0cafa58db21f52eca733982344b0f874530c1ef62bb1f9312d",
-        "receipt_ledger/exports.py": "d1b949ab3e45854f3e840a4b2967b2b0d079b6692293bfd0980a73935121d22f",
-        "receipt_ledger/export_history.py": "a4b3637f066efe9e7744bdbb6a56e4e68d58a8d575ab189933acb5114a64c0a8",
-        "receipt_ledger/extraction.py": "deb04279ea4213e97e2451c652f7e864b5052ac38cd31d97ebe788c89d2d7794",
-        "receipt_ledger/importing.py": "cb5d575fdeaab59d5463ff7eecca5b7e687d096887133aafacd38133cc89fd26",
-        "receipt_ledger/listing.py": "3afe765a5345731bd4b627408c01e19976e25adcab4af18ed86e420e607c2c1f",
-        "receipt_ledger/ocr_focus.py": "fad178563bc0bc21bf05cb6c77067ddd1eaaac9faa112e2c398f2a33fdeed94e",
-        "receipt_ledger/pdf_runtime.py": "077aa84350ae27bd994c7cf13bed4ae31fc7fe37333a54c6e2c1b6e85c75c400",
-        "receipt_ledger/pipeline.py": "cdda304ea14b6540705bfa59f6729c52ad2fbf9386c681be17ddcac000de6b7d",
-        "receipt_ledger/previews.py": "9ef9697dffed89be6d7a1a742410ad3176d2389af3c91367ab777404fbc01a31",
-        "receipt_ledger/privacy.py": "8cd0ce25f13aab75615145a2818d6d062fe344ce97337b7a1edf82ad6a81fc79",
-        "receipt_ledger/protection.py": "9dd5dcfeb17a64e5969133183c2aeb9699047998e5f56a7af78d5a532659ce2f",
-        "receipt_ledger/restore.py": "47d303f12f2a81eea609299e286342718c9aa40c76609600be92090ea4cb2a9e",
-        "receipt_ledger/restore_encrypted.py": "6a2209a4ffdd943596ab2a4f5981fda324d30d8dbaeb64b2add7ab1ee90467c0",
-        "receipt_ledger/schemas.py": "e5843a2dccf77f644f86576ddeb4e303a301516f9ace9f9d3e0ab2d2b58549b8",
-        "receipt_ledger/semantic.py": "30302bbf2435afb816e39244c5729279a4eb02509815ab03ec53cf2ea48a94ee",
-        "receipt_ledger/server.py": "dd6dc9f060235c33c84b2444a04032642b5238fffa2787ac818edfa9c8c71117",
-        "receipt_ledger/session.py": "f9f1a39e2278a7aaa3af997f58440e15bb66d975632d4c699dc25642284e720d",
-        "receipt_ledger/store.py": "f0facf4a580ffdd9386948334bb1ea504d2a5b52aa9e846080630da6ed99af2c",
-        "receipt_ledger/upload_limit.py": "ca83edb1b91d3543153cc6f2373afc91d98279d2b51c78bb959d174939329dfd",
-        "receipt_ledger/workflow.py": "edc06a17f97e20c60bc6d80c0fb86459c920f2c422cd9a73fc03a12adac8f5f0",
-        "receipt_ledger/__init__.py": "125d6c6e920d3be709da65facbfd3b5ba0c297b229461903373ddfa59a47208d",
-        "receipt_ledger/__main__.py": "d5c8749477822080a0f1c23808da5c8e151e48a01cb3e33c42c455ca0ffe3849",
-        "web/app.js": "9e3cdb76767ec7c91d15fb1563cd487752b9dc11454597a14bcf8f72b640e5af",
-        "web/help.html": "2ac767b03c9f02970be99a31f032594435104562b55bfc12861c5ddb33ba16e9",
-        "web/icon.svg": "014390bd9e042d671aa0eb0221ea08e9c261d64e3c28439ac4e908df0df417ac",
-        "web/import.js": "cdf4aa3b3ef55dc86ffdcc27dac5e7dac8a9d6dece169749d44f38c0f9861f65",
-        "web/index.html": "337e2c4cbdf165d602a58cb2c6bedf67c582594b0ee03c066603e466a52b96f3",
-        "web/security.js": "1dec9b8b48faf97422dcb59a09c45bb0e7fada25b8d8f32cd2a8f717c3af9f7b",
-        "web/style.css": "0549ab59105aa1a84c720956e35883507ce5c28a76623e481a51659249cc5d0a",
-        "data/catalog-history/2026-10-21.2.json": "5266354295157ade777241fe103e0d59ac8e546b461ebbc6bf72d019b2bc43a9",
-        "data/catalog-history/2026-10-21.3.json": "df5c1d3b65d6b6e459399eea073adabf6c3833e32ecc7dfe32768409043de63c",
-        "data/catalog-history/2026-10-21.4.json": "547688464ffd395bd29a7bd78f9df4bb336564cdf43fdce07356bcea64240be1",
-        "data/catalog-history/2026-10-21.5.json": "d5bdb076124354705a332f550d59494b78770e71c8d222d6fd691161b29785c6",
-        "data/catalog-history/2026-10-21.6.json": "1ccdb57d243deb904b76f21c6021c23cbbcaff01346e2216f96a09e7e8265679",
-        "data/catalog-history/2026-10-22.1.json": "b4c4f74b8c009599774d954bdf8c06eed13d8b1d4dce3159c07ea16c5b940923"
-      },
-      "scope": "Fresh100 HTTP upload, OCR and local Qwen on frozen runtime. Same development fixtures, not an unseen accuracy estimate. Final source reconciliation is recorded separately."
+      "scope": "Completed fresh100 HTTP/OCR/localQwen only. Same development fixtures; source reconciliation is separate."
     },
     "application_image": {
-      "url": "https://raw.githubusercontent.com/studio-yebisu/ryoshu/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/screenshots/03-three-column-results.png",
-      "sha256": "c0ce68b395b865d6a159b29ee73ea6d31382d506a5ec9d19506ccdd37f494a4c",
-      "scope": "v1.2.0の実画面。架空100件を新規OCR・ローカルQwenで処理した結果を表示。全件未確認、手動修正なし。"
+      "url": "https://raw.githubusercontent.com/studio-yebisu/ryoshu/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/testing/v1.3/screenshots/01-three-column-results.png",
+      "sha256": "7638cd6061ebffcc5ef1225f48ce9d30622df11dbc12a311e8c2f53f4bd82943",
+      "scope": "v1.3.0の実画面。架空100件の新規OCR・ローカルQwenの結果を表示。全件未確認、手動修正なし。"
     },
-    "additional_default_context5": {
-      "status": "passed",
-      "count": 5,
-      "business_context": "",
-      "manual_correction": false,
-      "confirmed": false,
-      "report": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/default-five.json",
-      "report_sha256": "1eda09e42b0c9c60573a841aa07be570195560a476bbc566ddb7cd97b4ff265c",
-      "csv_rows": 5,
-      "csv_verification": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/default-five-csv-verification.json",
-      "scope": "事業概要が空欄の追加5件でも金額・日付・科目・扱い・税額が一致。手動修正せず、未確認の汎用CSV5行をブラウザーから保存して照合しました。100件の集計には重複加算していません。"
+    "account_picker_image": {
+      "url": "https://raw.githubusercontent.com/studio-yebisu/ryoshu/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/testing/v1.3/screenshots/02-account-picker.png",
+      "sha256": "a5998d36a5973ea3f6c9acf1b1d9150fea09f662771689f39eac5d7ac5089aa6",
+      "scope": "同じ実100件の結果から科目変更を開いた実画面。カテゴリーと科目の選択欄を表示し、変更は保存していません。"
     },
-    "accuracy_limits": {
-      "amount_scope": "金額97件は非負の円額95件と、外貨で円額未確定の2件。暫定科目48件は提案を期待するケースです。",
-      "tax_scope": "税額63件：印字税額51/52、空欄11/11。税額として特定できず空欄1件、誤った数値0件。",
-      "tax_exclusions": "返金3件と外貨2件は税額評価から事前に除外。返金3件の税額候補は登録停止のままで、成功件数に含みません。V013は553円が印字されていますが、税額ラベルのOCRが崩れて空欄でした。",
-      "ai_summary": "科目等の集計はv1.1.0候補と同じです。AIの摘要には、事業概要を指定した100件のV021で「テスト用の乗車」とするなど、原本にない表現が残ります。摘要も原本で確認してください。"
+    "review_evidence": {
+      "record": "https://github.com/studio-yebisu/ryoshu/blob/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/testing/v1.3/reviews.json",
+      "scope": "Use the model identities and exact scopes recorded there; no previous review is counted again."
     },
-    "scope": "Released local-only1.2 application. Fresh100, browser replay, visible UI review and exact ZIP checks have distinct evidence. Existing film and4saved examples remainv0.4.",
-    "browser_ux_checks": 8,
-    "http_security_checks": 18
+    "score_policy": "暫定科目はv1.2の47/48から44/48、科目/保留条件は89/100から86/100になりました。新たな不一致のV032・V067・V093は、両版とも候補が外注工賃です。旧版では外注費をその別名として照合しましたが、今回は別々の正式科目に分離したため、不一致を保持しています。他の一致判定の状態は同じです。V050の賃借料→リース料は、どちらの版も許容候補と一致しました。元の期待値は変更せず、説明による加点もしていません。",
+    "taxonomy_comparison": {
+      "baseline_version": "1.2.0",
+      "baseline_source_commit": "40dfac8dfd0d819c3979c98caa1d79c0091a22a7",
+      "baseline_report": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/results-100.json",
+      "changed_checks": [
+        {
+          "case_id": "V032",
+          "changed_checks": {
+            "account_exact": [
+              true,
+              false
+            ],
+            "account_or_decision_exact": [
+              true,
+              false
+            ]
+          },
+          "previous_account": "外注工賃",
+          "current_account": "外注工賃",
+          "acceptable_accounts": [
+            "外注費"
+          ]
+        },
+        {
+          "case_id": "V067",
+          "changed_checks": {
+            "account_exact": [
+              true,
+              false
+            ],
+            "account_or_decision_exact": [
+              true,
+              false
+            ]
+          },
+          "previous_account": "外注工賃",
+          "current_account": "外注工賃",
+          "acceptable_accounts": [
+            "賃借料",
+            "外注費"
+          ]
+        },
+        {
+          "case_id": "V093",
+          "changed_checks": {
+            "account_exact": [
+              true,
+              false
+            ],
+            "account_or_decision_exact": [
+              true,
+              false
+            ]
+          },
+          "previous_account": "外注工賃",
+          "current_account": "外注工賃",
+          "acceptable_accounts": [
+            "外注費",
+            "広告宣伝費",
+            "支払手数料"
+          ]
+        }
+      ],
+      "other_matching_states_unchanged": true,
+      "matched_rename": {
+        "case_id": "V050",
+        "before": "賃借料",
+        "after": "リース料",
+        "matched_in_both": true
+      },
+      "scope": "暫定科目はv1.2の47/48から44/48、科目/保留条件は89/100から86/100になりました。新たな不一致のV032・V067・V093は、両版とも候補が外注工賃です。旧版では外注費をその別名として照合しましたが、今回は別々の正式科目に分離したため、不一致を保持しています。他の一致判定の状態は同じです。V050の賃借料→リース料は、どちらの版も許容候補と一致しました。元の期待値は変更せず、説明による加点もしていません。",
+      "baseline_report_sha256": "228463d3f55b6209a68805d318846b432f19e4d0714369491de9b60998803625"
+    },
+    "scope": "Released local-only1.3. Completed fresh100, account editing, browser workflows and exact ZIP checks are distinct. Film/four saved examples remainv0.4.",
+    "historical_http_security": {
+      "app_version": "1.2.0",
+      "checks": 18,
+      "record": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/http-security.json",
+      "scope": "Historical only; not rerun for v1.3 and not included in current check counts."
+    }
   },
   "latest_release100": {
     "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
@@ -1692,15 +3127,15 @@
     ]
   },
   "latest_frozen_candidate100": {
-    "app_version": "1.2.0",
+    "app_version": "1.3.0",
     "status": "completed",
-    "source_commit": "e47c049f9314a303065aeea4b5c11ca12e249b6d",
-    "report_commit": "40dfac8dfd0d819c3979c98caa1d79c0091a22a7",
-    "report": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/results-100.json",
-    "report_sha256": "228463d3f55b6209a68805d318846b432f19e4d0714369491de9b60998803625",
+    "source_commit": "71e2db4d0d27e600e3eead9b792dd1c8c2f0bde6",
+    "report_commit": "e79394d7349efc15aadb2dc02f6fe381596b407d",
+    "report": "https://github.com/studio-yebisu/ryoshu/blob/e79394d7349efc15aadb2dc02f6fe381596b407d/docs/testing/v1.3/results-100.json",
+    "report_sha256": "92b24b3323898006f52a18eb8962c45bf8f45ba015a0751213846531ccf0b811",
     "report_checksum_scope": "Exact canonical Git blob at pinned published commit",
     "fixture_manifest_sha256": "1b9e40688cc730724328923c7f3b5ce1cd7941fb102fdf369dd58968d3b151c7",
-    "finished_at": "2026-10-22T12:38:35.658585+00:00",
+    "finished_at": "2026-10-22T16:19:09.661834+00:00",
     "ocr_reuse": false,
     "metrics": {
       "ocr_completed": {
@@ -1724,7 +3159,7 @@
         "evaluated": 100
       },
       "account_exact": {
-        "matched": 47,
+        "matched": 44,
         "evaluated": 48
       },
       "decision_exact": {
@@ -1732,7 +3167,7 @@
         "evaluated": 100
       },
       "account_or_decision_exact": {
-        "matched": 89,
+        "matched": 86,
         "evaluated": 100
       }
     },
@@ -1768,51 +3203,7 @@
         }
       ]
     },
-    "frozen_source_hashes": {
-      "data/account-catalog.json": "c01169a611ba29a505a1deead3149aab976836c7fe81dcdeaecf7bb5f7f7ebbf",
-      "receipt_ledger/accounting.py": "92f5f5c8c683bc6fef085b0c4d8daaefec30a270c536c0fadb6bee86aa262001",
-      "receipt_ledger/backups.py": "5c128202b68734a95dc300d65520c9b71b6cd7e34275deb93ba1c21f8333f857",
-      "receipt_ledger/catalog.py": "8e09913b0bb562c9cd8d26bd8fd3c320bd2e183fb34d5e72eab6c026e8509498",
-      "receipt_ledger/config.py": "7795a5fc6be43b43bf2c3ccdf57da3b8d630fba5eefb782d0cf489fcefed9804",
-      "receipt_ledger/database.py": "da2c995bc5e5862ee30f0af42d0b2c853a1f6cd291e83f3b82954b4b6c4c1188",
-      "receipt_ledger/evidence.py": "f48f4eda2dac9a0cafa58db21f52eca733982344b0f874530c1ef62bb1f9312d",
-      "receipt_ledger/exports.py": "d1b949ab3e45854f3e840a4b2967b2b0d079b6692293bfd0980a73935121d22f",
-      "receipt_ledger/export_history.py": "a4b3637f066efe9e7744bdbb6a56e4e68d58a8d575ab189933acb5114a64c0a8",
-      "receipt_ledger/extraction.py": "deb04279ea4213e97e2451c652f7e864b5052ac38cd31d97ebe788c89d2d7794",
-      "receipt_ledger/importing.py": "cb5d575fdeaab59d5463ff7eecca5b7e687d096887133aafacd38133cc89fd26",
-      "receipt_ledger/listing.py": "3afe765a5345731bd4b627408c01e19976e25adcab4af18ed86e420e607c2c1f",
-      "receipt_ledger/ocr_focus.py": "fad178563bc0bc21bf05cb6c77067ddd1eaaac9faa112e2c398f2a33fdeed94e",
-      "receipt_ledger/pdf_runtime.py": "077aa84350ae27bd994c7cf13bed4ae31fc7fe37333a54c6e2c1b6e85c75c400",
-      "receipt_ledger/pipeline.py": "cdda304ea14b6540705bfa59f6729c52ad2fbf9386c681be17ddcac000de6b7d",
-      "receipt_ledger/previews.py": "9ef9697dffed89be6d7a1a742410ad3176d2389af3c91367ab777404fbc01a31",
-      "receipt_ledger/privacy.py": "8cd0ce25f13aab75615145a2818d6d062fe344ce97337b7a1edf82ad6a81fc79",
-      "receipt_ledger/protection.py": "9dd5dcfeb17a64e5969133183c2aeb9699047998e5f56a7af78d5a532659ce2f",
-      "receipt_ledger/restore.py": "47d303f12f2a81eea609299e286342718c9aa40c76609600be92090ea4cb2a9e",
-      "receipt_ledger/restore_encrypted.py": "6a2209a4ffdd943596ab2a4f5981fda324d30d8dbaeb64b2add7ab1ee90467c0",
-      "receipt_ledger/schemas.py": "e5843a2dccf77f644f86576ddeb4e303a301516f9ace9f9d3e0ab2d2b58549b8",
-      "receipt_ledger/semantic.py": "30302bbf2435afb816e39244c5729279a4eb02509815ab03ec53cf2ea48a94ee",
-      "receipt_ledger/server.py": "dd6dc9f060235c33c84b2444a04032642b5238fffa2787ac818edfa9c8c71117",
-      "receipt_ledger/session.py": "f9f1a39e2278a7aaa3af997f58440e15bb66d975632d4c699dc25642284e720d",
-      "receipt_ledger/store.py": "f0facf4a580ffdd9386948334bb1ea504d2a5b52aa9e846080630da6ed99af2c",
-      "receipt_ledger/upload_limit.py": "ca83edb1b91d3543153cc6f2373afc91d98279d2b51c78bb959d174939329dfd",
-      "receipt_ledger/workflow.py": "edc06a17f97e20c60bc6d80c0fb86459c920f2c422cd9a73fc03a12adac8f5f0",
-      "receipt_ledger/__init__.py": "125d6c6e920d3be709da65facbfd3b5ba0c297b229461903373ddfa59a47208d",
-      "receipt_ledger/__main__.py": "d5c8749477822080a0f1c23808da5c8e151e48a01cb3e33c42c455ca0ffe3849",
-      "web/app.js": "9e3cdb76767ec7c91d15fb1563cd487752b9dc11454597a14bcf8f72b640e5af",
-      "web/help.html": "2ac767b03c9f02970be99a31f032594435104562b55bfc12861c5ddb33ba16e9",
-      "web/icon.svg": "014390bd9e042d671aa0eb0221ea08e9c261d64e3c28439ac4e908df0df417ac",
-      "web/import.js": "cdf4aa3b3ef55dc86ffdcc27dac5e7dac8a9d6dece169749d44f38c0f9861f65",
-      "web/index.html": "337e2c4cbdf165d602a58cb2c6bedf67c582594b0ee03c066603e466a52b96f3",
-      "web/security.js": "1dec9b8b48faf97422dcb59a09c45bb0e7fada25b8d8f32cd2a8f717c3af9f7b",
-      "web/style.css": "0549ab59105aa1a84c720956e35883507ce5c28a76623e481a51659249cc5d0a",
-      "data/catalog-history/2026-10-21.2.json": "5266354295157ade777241fe103e0d59ac8e546b461ebbc6bf72d019b2bc43a9",
-      "data/catalog-history/2026-10-21.3.json": "df5c1d3b65d6b6e459399eea073adabf6c3833e32ecc7dfe32768409043de63c",
-      "data/catalog-history/2026-10-21.4.json": "547688464ffd395bd29a7bd78f9df4bb336564cdf43fdce07356bcea64240be1",
-      "data/catalog-history/2026-10-21.5.json": "d5bdb076124354705a332f550d59494b78770e71c8d222d6fd691161b29785c6",
-      "data/catalog-history/2026-10-21.6.json": "1ccdb57d243deb904b76f21c6021c23cbbcaff01346e2216f96a09e7e8265679",
-      "data/catalog-history/2026-10-22.1.json": "b4c4f74b8c009599774d954bdf8c06eed13d8b1d4dce3159c07ea16c5b940923"
-    },
-    "scope": "Fresh100 HTTP upload, OCR and local Qwen on frozen runtime. Same development fixtures, not an unseen accuracy estimate. Final source reconciliation is recorded separately."
+    "scope": "Completed fresh100 HTTP/OCR/localQwen only. Same development fixtures; source reconciliation is separate."
   },
   "historical_application_v1_1_0": {
     "version": "1.1.0",
@@ -2059,5 +3450,560 @@
       ],
       "record": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.1.0/verification.json"
     }
+  },
+  "historical_application_v1_2_0": {
+    "local_only": true,
+    "external_ai_integration": false,
+    "smartphone_lan": "not supported",
+    "encryption": {
+      "database": "SQLCipher",
+      "originals_and_previews": "AES-256-GCM",
+      "backup": "password-wrapped AES-256-GCM archive",
+      "key_protection": "Windows user DPAPI",
+      "exported_csv_and_originals": "not encrypted"
+    },
+    "installation": {
+      "manual_prerequisite": "Ollama Windows",
+      "managed_python": "3.12.15",
+      "uv": "0.13.5 pinned ZIP/executable SHA-256 verified"
+    },
+    "vendor_account_import": "not tested",
+    "legal_review": "not performed",
+    "historical_v1_0_0": {
+      "version": "1.0.0",
+      "status": "released",
+      "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+      "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.0.0",
+      "python_tests": 130,
+      "browser_checks": 28,
+      "browser_ocr_ai": "saved_observation_replay",
+      "normal_ai_100_rerun": "completed",
+      "full100_source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+      "full100_catalog_version": "2026-10-22.2",
+      "final_catalog_version": "2026-10-22.2",
+      "original_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
+      "verification": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/README.md",
+      "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/448d5d201526b030fe3dc9bf5cf7e69e28b58b72/docs/REVIEW-POLICY.md",
+      "scope": "Released v1.0.0 ZIP tested fresh on all100 PDFs through OCR and local account model. Pre-release100/.1 and3-case final-seed spot retained under pre_release_validation. Film and4 saved samples arev0.4. No legal assessment or real SaaS import.",
+      "pre_release_validation": {
+        "full100_source_commit": "9e06ef6821ba21afa738e3a1120d9e9fef4f3649",
+        "full100_catalog_version": "2026-10-22.1",
+        "policy_delta_audit": "100 saved actual OCR evidence texts;0 different policy results; not fresh inference",
+        "final_catalog_fresh_inference_spot": {
+          "source_commit": "524776a8b937a5b439363fb4a7493f9e253f9a15",
+          "cases": [
+            "V052",
+            "V053",
+            "V054"
+          ],
+          "passed": 3
+        }
+      },
+      "release100": {
+        "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+        "source_tag": "v1.0.0",
+        "catalog_version": "2026-10-22.2",
+        "source_archive_sha256": "e32519f343e654da21e6bd90686f5ae023e189499783be1b2b7400fc96a40e3c",
+        "finished_at": "2026-10-22T02:01:59.253257+00:00",
+        "finished_at_jst": "2026-10-22T11:01:59.253257+09:00",
+        "ocr_reuse": false,
+        "report": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
+        "report_commit": "0b0fb7677475f50a2a8a28e1a7d3da836d454c79",
+        "report_sha256": "389312bb933cec30452d6125d74115b4a12744de93cc961c5c19476cbd266a09",
+        "metrics": {
+          "total_exact": {
+            "matched": 97,
+            "evaluated": 97
+          },
+          "date_exact": {
+            "matched": 99,
+            "evaluated": 100
+          },
+          "merchant_exact": {
+            "matched": 86,
+            "evaluated": 100
+          },
+          "account_or_decision_exact": {
+            "matched": 89,
+            "evaluated": 100
+          },
+          "decision_exact": {
+            "matched": 93,
+            "evaluated": 100
+          },
+          "account_exact": {
+            "matched": 47,
+            "evaluated": 48
+          },
+          "ocr_completed": {
+            "matched": 100,
+            "evaluated": 100
+          },
+          "model_completed": {
+            "matched": 100,
+            "evaluated": 100
+          }
+        },
+        "scope": "Fresh OCR and local account-classification inference for all100 PDFs from the public release ZIP. No saved OCR/candidate reuse. Same fictional development fixtures; not unseen accuracy.",
+        "report_raw": "https://raw.githubusercontent.com/studio-yebisu/ryoshu/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
+        "release_asset": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.0.0/release-100.json",
+        "release_asset_sha256": "80481ddadb4c0eda3c8d2e9c60dadbe54afd0de352875f962c5e8adede16f707",
+        "checksum_scope": "Git raw JSON uses LF; release JSON uses CRLF. Parsed JSON data is identical. Each digest applies to its named URL."
+      }
+    },
+    "version": "1.2.0",
+    "status": "released",
+    "source_commit": "40dfac8dfd0d819c3979c98caa1d79c0091a22a7",
+    "source_pin_status": "exact published Git commit",
+    "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.2.0",
+    "intended_release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.2.0",
+    "python_tests": 237,
+    "python_test_scope": "Final candidate and exact release ZIP checks; detailed scope linked separately",
+    "browser_checks": 28,
+    "security_browser_checks": 10,
+    "browser_status": "passed",
+    "browser_ocr_ai": "saved_observation_replay; separate fresh100 run",
+    "normal_ai_100_rerun": "completed_frozen_v1.2_runtime",
+    "verification": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/README.md",
+    "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/REVIEW-POLICY.md",
+    "ui": "PDF/image selection or drop -> Start -> original image / text and numbers / account -> CSV. Indigo and cool-gray14px UI; settings under More.",
+    "ui_design": {
+      "design": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/DESIGN.md",
+      "review": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/reviews.json",
+      "scope": "Opus5.5 consultation and source review; implementation and visual/browser validation are separately recorded."
+    },
+    "source_archive": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.2.0/Ryoshu-1.2.0-source.zip",
+    "source_archive_sha256": "51c3958ceb551a9ae5dc0a93fd17c3dfe254f04f19a93ea3e4057e21b05b4d69",
+    "source_archive_bytes": 33488564,
+    "release_zip_validation": {
+      "status": "passed",
+      "checks": [
+        {
+          "check": "Python regression",
+          "exit_code": 0,
+          "log_sha256": "0d5754e3439e7ce980704ec82f29351d7231924146f74488bc096ce26d82fe22"
+        },
+        {
+          "check": "JavaScript folder traversal",
+          "exit_code": 0,
+          "log_sha256": "549d86fd4f2018bb4824eb7836c4b0441f6330817feb89b3e443d1ed9fa3f52d"
+        },
+        {
+          "check": "public source and evidence",
+          "exit_code": 0,
+          "log_sha256": "102032c02fd7bb8e447e8d7e920973a4d90f99aa005a30027c37b08370da11bd"
+        },
+        {
+          "check": "CSV4profiles",
+          "exit_code": 0,
+          "log_sha256": "da499f6f0bacecbb0cc6e8a8e1173f72dcd6d65d528947d2c0092de271647b0d"
+        }
+      ],
+      "python_passed": 237,
+      "javascript_passed": 3,
+      "csv_profiles": 4,
+      "record": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.2.0/verification.json",
+      "scope": "Exact release ZIP verification. Fresh100 source/runtime reconciliation is in the application finalization record."
+    },
+    "historical_v1_1_0": {
+      "version": "1.1.0",
+      "status": "released",
+      "source_commit": "1fed7ed649a1f54407e38f8ac90289b1519ed39c",
+      "source_pin_status": "verified by parent",
+      "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.1.0",
+      "intended_release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.1.0",
+      "python_tests": 188,
+      "python_test_scope": "Windows unit/API/DPAPI/SQLCipher/AES-GCM; full188 passed; focused49 passed separately",
+      "browser_checks": 28,
+      "browser_status": "passed",
+      "browser_ocr_ai": "saved_observation_replay",
+      "normal_ai_100_rerun": "completed_frozen_candidate",
+      "frozen_candidate100": {
+        "app_version": "1.1.0 candidate",
+        "status": "completed",
+        "report": "https://github.com/studio-yebisu/ryoshu/blob/1fed7ed649a1f54407e38f8ac90289b1519ed39c/docs/testing/security/results-100.json",
+        "report_sha256": "3207dd2ff7cc3e9ec922b557393c9c117f711f4d3ad27230be79697b7851755b",
+        "fixture_manifest_sha256": "1b9e40688cc730724328923c7f3b5ce1cd7941fb102fdf369dd58968d3b151c7",
+        "finished_at": "2026-10-22T06:25:02.218326+00:00",
+        "ocr_reuse": false,
+        "metrics": {
+          "ocr_completed": {
+            "matched": 100,
+            "evaluated": 100
+          },
+          "model_completed": {
+            "matched": 100,
+            "evaluated": 100
+          },
+          "total_exact": {
+            "matched": 97,
+            "evaluated": 97
+          },
+          "date_exact": {
+            "matched": 99,
+            "evaluated": 100
+          },
+          "merchant_exact": {
+            "matched": 86,
+            "evaluated": 100
+          },
+          "account_exact": {
+            "matched": 47,
+            "evaluated": 48
+          },
+          "decision_exact": {
+            "matched": 93,
+            "evaluated": 100
+          },
+          "account_or_decision_exact": {
+            "matched": 89,
+            "evaluated": 100
+          }
+        },
+        "frozen_source_hashes": {
+          "data/account-catalog.json": "c01169a611ba29a505a1deead3149aab976836c7fe81dcdeaecf7bb5f7f7ebbf",
+          "receipt_ledger/accounting.py": "92f5f5c8c683bc6fef085b0c4d8daaefec30a270c536c0fadb6bee86aa262001",
+          "receipt_ledger/backups.py": "ee2e115bc212358e13b57e109f264046d9801ec6f5c1b664a364ef4b9e7ae504",
+          "receipt_ledger/catalog.py": "8e09913b0bb562c9cd8d26bd8fd3c320bd2e183fb34d5e72eab6c026e8509498",
+          "receipt_ledger/config.py": "7795a5fc6be43b43bf2c3ccdf57da3b8d630fba5eefb782d0cf489fcefed9804",
+          "receipt_ledger/database.py": "b33fe8584408f84af741afc24b481f9d48e903bca60ef581c5ace3e261b52169",
+          "receipt_ledger/evidence.py": "f48f4eda2dac9a0cafa58db21f52eca733982344b0f874530c1ef62bb1f9312d",
+          "receipt_ledger/exports.py": "d1b949ab3e45854f3e840a4b2967b2b0d079b6692293bfd0980a73935121d22f",
+          "receipt_ledger/export_history.py": "a4b3637f066efe9e7744bdbb6a56e4e68d58a8d575ab189933acb5114a64c0a8",
+          "receipt_ledger/extraction.py": "ee46d16f966ed257552f7f9b331697e6df158d227dff4e0397c3481c27691705",
+          "receipt_ledger/importing.py": "2bbc18977412f44c5486cea805a543eeb1ae84d58b86789c684015566b0d2303",
+          "receipt_ledger/listing.py": "3afe765a5345731bd4b627408c01e19976e25adcab4af18ed86e420e607c2c1f",
+          "receipt_ledger/ocr_focus.py": "fad178563bc0bc21bf05cb6c77067ddd1eaaac9faa112e2c398f2a33fdeed94e",
+          "receipt_ledger/pdf_runtime.py": "077aa84350ae27bd994c7cf13bed4ae31fc7fe37333a54c6e2c1b6e85c75c400",
+          "receipt_ledger/pipeline.py": "9662048a1ab2f992b5f6de490d852552f41eb00e77358516607f8190f6ccd893",
+          "receipt_ledger/previews.py": "9ef9697dffed89be6d7a1a742410ad3176d2389af3c91367ab777404fbc01a31",
+          "receipt_ledger/privacy.py": "8cd0ce25f13aab75615145a2818d6d062fe344ce97337b7a1edf82ad6a81fc79",
+          "receipt_ledger/protection.py": "78ef03bc789626977e5dec24ab6a2b6a618c98522a80d66817e97e1ea921e847",
+          "receipt_ledger/restore.py": "ecbaa8162fd6bf2aa791595a97783855197426bc562b92e22675d834a7158af5",
+          "receipt_ledger/restore_encrypted.py": "39675cabac870a8707a7a8a5a76877b7e719b2e2d0251a19aa2c4452a5822864",
+          "receipt_ledger/schemas.py": "e5843a2dccf77f644f86576ddeb4e303a301516f9ace9f9d3e0ab2d2b58549b8",
+          "receipt_ledger/semantic.py": "e045a81d0888b0cfb6ea91aa9b4642e10236e70dab813f28d63f940ad79cda59",
+          "receipt_ledger/server.py": "dd6dc9f060235c33c84b2444a04032642b5238fffa2787ac818edfa9c8c71117",
+          "receipt_ledger/session.py": "f9f1a39e2278a7aaa3af997f58440e15bb66d975632d4c699dc25642284e720d",
+          "receipt_ledger/store.py": "f0facf4a580ffdd9386948334bb1ea504d2a5b52aa9e846080630da6ed99af2c",
+          "receipt_ledger/upload_limit.py": "ca83edb1b91d3543153cc6f2373afc91d98279d2b51c78bb959d174939329dfd",
+          "receipt_ledger/workflow.py": "edc06a17f97e20c60bc6d80c0fb86459c920f2c422cd9a73fc03a12adac8f5f0",
+          "receipt_ledger/__init__.py": "5504d4f4e3612dc915fd0fab9d53e9aea2c1ac5f963d11dea587e8a4a449ce2d",
+          "receipt_ledger/__main__.py": "d5c8749477822080a0f1c23808da5c8e151e48a01cb3e33c42c455ca0ffe3849",
+          "web/app.js": "fe67bf841c8337366896ecfabb0cf1d4236aa39a7eaeafd2038fad0c819bd38a",
+          "web/help.html": "fe6a1361bda4842bf23329a278176df440130bb6c27cb93b05852f9ca91f9433",
+          "web/icon.svg": "98a09af37f9a7d8a3b83c74e90773944a627a25b42d55f7faf65f2a329133c54",
+          "web/import.js": "84fac1f3aeb96adc801c17d2f36af7ecd7a971914e0747b2ecf29ceccadce517",
+          "web/index.html": "82e0a1a48ec0db7586b6f9d9ba0055cfc9b6c3b2e02c15b5251c5bcd4523e5a4",
+          "web/security.js": "7fb5ef1ba1df75f3b2cea6b36c597e300e8d709ba6a7da692a0af0f3c82e45eb",
+          "web/style.css": "6c238816ca516a9fe4646d186b7359e24b7f627d4c546bd58cfd2eb79db56cc8",
+          "data/catalog-history/2026-10-21.2.json": "5266354295157ade777241fe103e0d59ac8e546b461ebbc6bf72d019b2bc43a9",
+          "data/catalog-history/2026-10-21.3.json": "df5c1d3b65d6b6e459399eea073adabf6c3833e32ecc7dfe32768409043de63c",
+          "data/catalog-history/2026-10-21.4.json": "547688464ffd395bd29a7bd78f9df4bb336564cdf43fdce07356bcea64240be1",
+          "data/catalog-history/2026-10-21.5.json": "d5bdb076124354705a332f550d59494b78770e71c8d222d6fd691161b29785c6",
+          "data/catalog-history/2026-10-21.6.json": "1ccdb57d243deb904b76f21c6021c23cbbcaff01346e2216f96a09e7e8265679",
+          "data/catalog-history/2026-10-22.1.json": "b4c4f74b8c009599774d954bdf8c06eed13d8b1d4dce3159c07ea16c5b940923"
+        },
+        "scope": "Fresh actual OCR and local Qwen account suggestions for all100 fictional development PDFs from a frozen candidate. Later changes affect security/restore/UI/copy. Not a100-case run from the final release ZIP; not unseen accuracy.",
+        "report_checksum_scope": "Exact public Git blob bytes at the pinned commit; release-asset JSON bytes may use different line endings."
+      },
+      "verification": "https://github.com/studio-yebisu/ryoshu/blob/1fed7ed649a1f54407e38f8ac90289b1519ed39c/docs/testing/security/README.md",
+      "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/1fed7ed649a1f54407e38f8ac90289b1519ed39c/docs/REVIEW-POLICY.md",
+      "local_only": true,
+      "external_ai_integration": false,
+      "smartphone_lan": "not supported",
+      "encryption": {
+        "database": "SQLCipher",
+        "originals_and_previews": "AES-256-GCM",
+        "backup": "password-wrapped AES-256-GCM archive",
+        "key_protection": "Windows user DPAPI",
+        "exported_csv_and_originals": "not encrypted"
+      },
+      "installation": {
+        "manual_prerequisite": "Ollama Windows",
+        "managed_python": "3.12.15",
+        "uv": "0.13.5 pinned ZIP/executable SHA-256 verified"
+      },
+      "ui": "PDF/image drop or file/folder selection -> start -> original image, extracted text/numbers, account suggestions in three columns; image zoom; CSV",
+      "native_dependency_limitation": {
+        "sqlcipher_openssl": "3.6.0",
+        "status": "remaining limitation; static call-scope assessment only",
+        "detail": "https://github.com/studio-yebisu/ryoshu/blob/1fed7ed649a1f54407e38f8ac90289b1519ed39c/docs/testing/security/README.md"
+      },
+      "vendor_account_import": "not tested",
+      "legal_review": "not performed",
+      "historical_v1_0_0": {
+        "version": "1.0.0",
+        "status": "released",
+        "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+        "release": "https://github.com/studio-yebisu/ryoshu/releases/tag/v1.0.0",
+        "python_tests": 130,
+        "browser_checks": 28,
+        "browser_ocr_ai": "saved_observation_replay",
+        "normal_ai_100_rerun": "completed",
+        "full100_source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+        "full100_catalog_version": "2026-10-22.2",
+        "final_catalog_version": "2026-10-22.2",
+        "original_audit_commit": "a163a295f5e87532ef592021cee207adc2a53f6d",
+        "verification": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/README.md",
+        "personal_review_policy": "https://github.com/studio-yebisu/ryoshu/blob/448d5d201526b030fe3dc9bf5cf7e69e28b58b72/docs/REVIEW-POLICY.md",
+        "scope": "Released v1.0.0 ZIP tested fresh on all100 PDFs through OCR and local account model. Pre-release100/.1 and3-case final-seed spot retained under pre_release_validation. Film and4 saved samples arev0.4. No legal assessment or real SaaS import.",
+        "pre_release_validation": {
+          "full100_source_commit": "9e06ef6821ba21afa738e3a1120d9e9fef4f3649",
+          "full100_catalog_version": "2026-10-22.1",
+          "policy_delta_audit": "100 saved actual OCR evidence texts;0 different policy results; not fresh inference",
+          "final_catalog_fresh_inference_spot": {
+            "source_commit": "524776a8b937a5b439363fb4a7493f9e253f9a15",
+            "cases": [
+              "V052",
+              "V053",
+              "V054"
+            ],
+            "passed": 3
+          }
+        },
+        "release100": {
+          "source_commit": "448d5d201526b030fe3dc9bf5cf7e69e28b58b72",
+          "source_tag": "v1.0.0",
+          "catalog_version": "2026-10-22.2",
+          "source_archive_sha256": "e32519f343e654da21e6bd90686f5ae023e189499783be1b2b7400fc96a40e3c",
+          "finished_at": "2026-10-22T02:01:59.253257+00:00",
+          "finished_at_jst": "2026-10-22T11:01:59.253257+09:00",
+          "ocr_reuse": false,
+          "report": "https://github.com/studio-yebisu/ryoshu/blob/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
+          "report_commit": "0b0fb7677475f50a2a8a28e1a7d3da836d454c79",
+          "report_sha256": "389312bb933cec30452d6125d74115b4a12744de93cc961c5c19476cbd266a09",
+          "metrics": {
+            "total_exact": {
+              "matched": 97,
+              "evaluated": 97
+            },
+            "date_exact": {
+              "matched": 99,
+              "evaluated": 100
+            },
+            "merchant_exact": {
+              "matched": 86,
+              "evaluated": 100
+            },
+            "account_or_decision_exact": {
+              "matched": 89,
+              "evaluated": 100
+            },
+            "decision_exact": {
+              "matched": 93,
+              "evaluated": 100
+            },
+            "account_exact": {
+              "matched": 47,
+              "evaluated": 48
+            },
+            "ocr_completed": {
+              "matched": 100,
+              "evaluated": 100
+            },
+            "model_completed": {
+              "matched": 100,
+              "evaluated": 100
+            }
+          },
+          "scope": "Fresh OCR and local account-classification inference for all100 PDFs from the public release ZIP. No saved OCR/candidate reuse. Same fictional development fixtures; not unseen accuracy.",
+          "report_raw": "https://raw.githubusercontent.com/studio-yebisu/ryoshu/0b0fb7677475f50a2a8a28e1a7d3da836d454c79/docs/testing/v1/release-100.json",
+          "release_asset": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.0.0/release-100.json",
+          "release_asset_sha256": "80481ddadb4c0eda3c8d2e9c60dadbe54afd0de352875f962c5e8adede16f707",
+          "checksum_scope": "Git raw JSON uses LF; release JSON uses CRLF. Parsed JSON data is identical. Each digest applies to its named URL."
+        }
+      },
+      "scope": "Released local-only application. Fresh100 inference is from the frozen candidate, followed by security/restore/UI/copy changes and final regression checks; not100 from the release ZIP. Film and4 saved samples arev0.4.",
+      "security_browser_checks": 10,
+      "source_archive": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.1.0/Ryoshu-1.1.0-source.zip",
+      "source_archive_sha256": "e75d81caeae584e6deb23acf4552204dc3188ce2fc4760f5df536826b4e9802d",
+      "source_archive_bytes": 32297907,
+      "release_zip_validation": {
+        "status": "passed",
+        "scope": "Exact released main source ZIP; Python/JavaScript/publication/CSV checks. No fresh100 inference from this ZIP.",
+        "python_passed": 188,
+        "javascript_passed": 3,
+        "publication_files": 429,
+        "csv_profiles": 4,
+        "checks": [
+          {
+            "check": "Python regression",
+            "exit_code": 0,
+            "log_sha256": "b0c506125b8daa8e0615e8a04aec335c000aa94ea0f6ad17d47ef9323673d8fb"
+          },
+          {
+            "check": "JavaScript folder traversal",
+            "exit_code": 0,
+            "log_sha256": "aac7bdec4631310a5af95a711bfeae81641d5e0f21c0f719c4116ad230fa3e55"
+          },
+          {
+            "check": "public source and evidence",
+            "exit_code": 0,
+            "log_sha256": "b0b3747a4efa9b39ecdc6fd67eff6c442bfa4b86d05869eef46a7ceb799d0142"
+          },
+          {
+            "check": "CSV4profiles",
+            "exit_code": 0,
+            "log_sha256": "daeb7fb0dc8a593eb7147389d9d6f8f6f310bd4253f4be396b1cbbde0dee48a6"
+          }
+        ],
+        "record": "https://github.com/studio-yebisu/ryoshu/releases/download/v1.1.0/verification.json"
+      }
+    },
+    "native_dependency_limitation": {
+      "sqlcipher_openssl": "3.6.0",
+      "status": "remaining limitation; static call-scope assessment only",
+      "detail": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/security/README.md"
+    },
+    "frozen_candidate100": {
+      "app_version": "1.2.0",
+      "status": "completed",
+      "source_commit": "e47c049f9314a303065aeea4b5c11ca12e249b6d",
+      "report_commit": "40dfac8dfd0d819c3979c98caa1d79c0091a22a7",
+      "report": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/results-100.json",
+      "report_sha256": "228463d3f55b6209a68805d318846b432f19e4d0714369491de9b60998803625",
+      "report_checksum_scope": "Exact canonical Git blob at pinned published commit",
+      "fixture_manifest_sha256": "1b9e40688cc730724328923c7f3b5ce1cd7941fb102fdf369dd58968d3b151c7",
+      "finished_at": "2026-10-22T12:38:35.658585+00:00",
+      "ocr_reuse": false,
+      "metrics": {
+        "ocr_completed": {
+          "matched": 100,
+          "evaluated": 100
+        },
+        "model_completed": {
+          "matched": 100,
+          "evaluated": 100
+        },
+        "total_exact": {
+          "matched": 97,
+          "evaluated": 97
+        },
+        "date_exact": {
+          "matched": 99,
+          "evaluated": 100
+        },
+        "merchant_exact": {
+          "matched": 86,
+          "evaluated": 100
+        },
+        "account_exact": {
+          "matched": 47,
+          "evaluated": 48
+        },
+        "decision_exact": {
+          "matched": 93,
+          "evaluated": 100
+        },
+        "account_or_decision_exact": {
+          "matched": 89,
+          "evaluated": 100
+        }
+      },
+      "tax_scope": {
+        "evaluated": 63,
+        "numeric_expected": 52,
+        "blank_expected": 11,
+        "exact_numeric": 51,
+        "exact_blank": 11,
+        "abstained": [
+          "V013"
+        ],
+        "wrong_value": [],
+        "unreviewed_nonblank": [],
+        "excluded_nonblank": [
+          {
+            "case_id": "V019",
+            "tax_amount": 134,
+            "handling": "block",
+            "scope": "Unsupported refund; excluded in preregistered normal-yen tax expectations, never counted as a tax success."
+          },
+          {
+            "case_id": "V080",
+            "tax_amount": 1350,
+            "handling": "block",
+            "scope": "Unsupported refund; excluded in preregistered normal-yen tax expectations, never counted as a tax success."
+          },
+          {
+            "case_id": "V097",
+            "tax_amount": 3000,
+            "handling": "block",
+            "scope": "Unsupported refund; excluded in preregistered normal-yen tax expectations, never counted as a tax success."
+          }
+        ]
+      },
+      "frozen_source_hashes": {
+        "data/account-catalog.json": "c01169a611ba29a505a1deead3149aab976836c7fe81dcdeaecf7bb5f7f7ebbf",
+        "receipt_ledger/accounting.py": "92f5f5c8c683bc6fef085b0c4d8daaefec30a270c536c0fadb6bee86aa262001",
+        "receipt_ledger/backups.py": "5c128202b68734a95dc300d65520c9b71b6cd7e34275deb93ba1c21f8333f857",
+        "receipt_ledger/catalog.py": "8e09913b0bb562c9cd8d26bd8fd3c320bd2e183fb34d5e72eab6c026e8509498",
+        "receipt_ledger/config.py": "7795a5fc6be43b43bf2c3ccdf57da3b8d630fba5eefb782d0cf489fcefed9804",
+        "receipt_ledger/database.py": "da2c995bc5e5862ee30f0af42d0b2c853a1f6cd291e83f3b82954b4b6c4c1188",
+        "receipt_ledger/evidence.py": "f48f4eda2dac9a0cafa58db21f52eca733982344b0f874530c1ef62bb1f9312d",
+        "receipt_ledger/exports.py": "d1b949ab3e45854f3e840a4b2967b2b0d079b6692293bfd0980a73935121d22f",
+        "receipt_ledger/export_history.py": "a4b3637f066efe9e7744bdbb6a56e4e68d58a8d575ab189933acb5114a64c0a8",
+        "receipt_ledger/extraction.py": "deb04279ea4213e97e2451c652f7e864b5052ac38cd31d97ebe788c89d2d7794",
+        "receipt_ledger/importing.py": "cb5d575fdeaab59d5463ff7eecca5b7e687d096887133aafacd38133cc89fd26",
+        "receipt_ledger/listing.py": "3afe765a5345731bd4b627408c01e19976e25adcab4af18ed86e420e607c2c1f",
+        "receipt_ledger/ocr_focus.py": "fad178563bc0bc21bf05cb6c77067ddd1eaaac9faa112e2c398f2a33fdeed94e",
+        "receipt_ledger/pdf_runtime.py": "077aa84350ae27bd994c7cf13bed4ae31fc7fe37333a54c6e2c1b6e85c75c400",
+        "receipt_ledger/pipeline.py": "cdda304ea14b6540705bfa59f6729c52ad2fbf9386c681be17ddcac000de6b7d",
+        "receipt_ledger/previews.py": "9ef9697dffed89be6d7a1a742410ad3176d2389af3c91367ab777404fbc01a31",
+        "receipt_ledger/privacy.py": "8cd0ce25f13aab75615145a2818d6d062fe344ce97337b7a1edf82ad6a81fc79",
+        "receipt_ledger/protection.py": "9dd5dcfeb17a64e5969133183c2aeb9699047998e5f56a7af78d5a532659ce2f",
+        "receipt_ledger/restore.py": "47d303f12f2a81eea609299e286342718c9aa40c76609600be92090ea4cb2a9e",
+        "receipt_ledger/restore_encrypted.py": "6a2209a4ffdd943596ab2a4f5981fda324d30d8dbaeb64b2add7ab1ee90467c0",
+        "receipt_ledger/schemas.py": "e5843a2dccf77f644f86576ddeb4e303a301516f9ace9f9d3e0ab2d2b58549b8",
+        "receipt_ledger/semantic.py": "30302bbf2435afb816e39244c5729279a4eb02509815ab03ec53cf2ea48a94ee",
+        "receipt_ledger/server.py": "dd6dc9f060235c33c84b2444a04032642b5238fffa2787ac818edfa9c8c71117",
+        "receipt_ledger/session.py": "f9f1a39e2278a7aaa3af997f58440e15bb66d975632d4c699dc25642284e720d",
+        "receipt_ledger/store.py": "f0facf4a580ffdd9386948334bb1ea504d2a5b52aa9e846080630da6ed99af2c",
+        "receipt_ledger/upload_limit.py": "ca83edb1b91d3543153cc6f2373afc91d98279d2b51c78bb959d174939329dfd",
+        "receipt_ledger/workflow.py": "edc06a17f97e20c60bc6d80c0fb86459c920f2c422cd9a73fc03a12adac8f5f0",
+        "receipt_ledger/__init__.py": "125d6c6e920d3be709da65facbfd3b5ba0c297b229461903373ddfa59a47208d",
+        "receipt_ledger/__main__.py": "d5c8749477822080a0f1c23808da5c8e151e48a01cb3e33c42c455ca0ffe3849",
+        "web/app.js": "9e3cdb76767ec7c91d15fb1563cd487752b9dc11454597a14bcf8f72b640e5af",
+        "web/help.html": "2ac767b03c9f02970be99a31f032594435104562b55bfc12861c5ddb33ba16e9",
+        "web/icon.svg": "014390bd9e042d671aa0eb0221ea08e9c261d64e3c28439ac4e908df0df417ac",
+        "web/import.js": "cdf4aa3b3ef55dc86ffdcc27dac5e7dac8a9d6dece169749d44f38c0f9861f65",
+        "web/index.html": "337e2c4cbdf165d602a58cb2c6bedf67c582594b0ee03c066603e466a52b96f3",
+        "web/security.js": "1dec9b8b48faf97422dcb59a09c45bb0e7fada25b8d8f32cd2a8f717c3af9f7b",
+        "web/style.css": "0549ab59105aa1a84c720956e35883507ce5c28a76623e481a51659249cc5d0a",
+        "data/catalog-history/2026-10-21.2.json": "5266354295157ade777241fe103e0d59ac8e546b461ebbc6bf72d019b2bc43a9",
+        "data/catalog-history/2026-10-21.3.json": "df5c1d3b65d6b6e459399eea073adabf6c3833e32ecc7dfe32768409043de63c",
+        "data/catalog-history/2026-10-21.4.json": "547688464ffd395bd29a7bd78f9df4bb336564cdf43fdce07356bcea64240be1",
+        "data/catalog-history/2026-10-21.5.json": "d5bdb076124354705a332f550d59494b78770e71c8d222d6fd691161b29785c6",
+        "data/catalog-history/2026-10-21.6.json": "1ccdb57d243deb904b76f21c6021c23cbbcaff01346e2216f96a09e7e8265679",
+        "data/catalog-history/2026-10-22.1.json": "b4c4f74b8c009599774d954bdf8c06eed13d8b1d4dce3159c07ea16c5b940923"
+      },
+      "scope": "Fresh100 HTTP upload, OCR and local Qwen on frozen runtime. Same development fixtures, not an unseen accuracy estimate. Final source reconciliation is recorded separately."
+    },
+    "application_image": {
+      "url": "https://raw.githubusercontent.com/studio-yebisu/ryoshu/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/screenshots/03-three-column-results.png",
+      "sha256": "c0ce68b395b865d6a159b29ee73ea6d31382d506a5ec9d19506ccdd37f494a4c",
+      "scope": "v1.2.0の実画面。架空100件を新規OCR・ローカルQwenで処理した結果を表示。全件未確認、手動修正なし。"
+    },
+    "additional_default_context5": {
+      "status": "passed",
+      "count": 5,
+      "business_context": "",
+      "manual_correction": false,
+      "confirmed": false,
+      "report": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/default-five.json",
+      "report_sha256": "1eda09e42b0c9c60573a841aa07be570195560a476bbc566ddb7cd97b4ff265c",
+      "csv_rows": 5,
+      "csv_verification": "https://github.com/studio-yebisu/ryoshu/blob/40dfac8dfd0d819c3979c98caa1d79c0091a22a7/docs/testing/v1.2/default-five-csv-verification.json",
+      "scope": "事業概要が空欄の追加5件でも金額・日付・科目・扱い・税額が一致。手動修正せず、未確認の汎用CSV5行をブラウザーから保存して照合しました。100件の集計には重複加算していません。"
+    },
+    "accuracy_limits": {
+      "amount_scope": "金額97件は非負の円額95件と、外貨で円額未確定の2件。暫定科目48件は提案を期待するケースです。",
+      "tax_scope": "税額63件：印字税額51/52、空欄11/11。税額として特定できず空欄1件、誤った数値0件。",
+      "tax_exclusions": "返金3件と外貨2件は税額評価から事前に除外。返金3件の税額候補は登録停止のままで、成功件数に含みません。V013は553円が印字されていますが、税額ラベルのOCRが崩れて空欄でした。",
+      "ai_summary": "科目等の集計はv1.1.0候補と同じです。AIの摘要には、事業概要を指定した100件のV021で「テスト用の乗車」とするなど、原本にない表現が残ります。摘要も原本で確認してください。"
+    },
+    "scope": "Released local-only1.2 application. Fresh100, browser replay, visible UI review and exact ZIP checks have distinct evidence. Existing film and4saved examples remainv0.4.",
+    "browser_ux_checks": 8,
+    "http_security_checks": 18
   }
 }
