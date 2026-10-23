@@ -1,5 +1,5 @@
 {
-  "updated_on": "2026-10-15",
+  "updated_on": "2026-10-24",
   "entries": [
     {
       "id": "resource-better-design",
@@ -1484,6 +1484,45 @@
       "verification_stage": "source-reviewed",
       "verification": "2026-10-15に原典とライセンスを確認。紹介段階であり、この掲載項目の実行・作例制作・解説動画は未検証。",
       "reviewed_on": "2026-10-15"
+    },
+    {
+      "id": "resource-earshot",
+      "name": "earshot",
+      "tagline": "コードで効果音を作り、長さやタイミング、音量を測定で確かめるツール",
+      "category": "audio",
+      "kind": "ツール",
+      "summary": "252音をコードとして収めた音バンクから効果音をWAVに書き出し、長さや音程、whoosh系では音量のピーク位置も指定できる。書き出した音は、クリップや途切れた余韻などを測定で監査する。ローカルモデルによる音の説明・検索や、録音を合成コードへ近似するfitもある。",
+      "use_case": "コードで作る動画やUIに、UI音・whoosh・ヒット音などを、場面の長さや切り替えのタイミングに合わせて用意したいとき。",
+      "tags": [
+        "音声",
+        "効果音",
+        "ツール"
+      ],
+      "workflow": [
+        "sfx listで、用途に合う音のIDと長さ・ピーク位置を調べる",
+        "sfx renderで長さ・音程・seed、whoosh系ではピーク位置を指定し、WAVを書き出す",
+        "監査結果と長さを確認し、人が試聴して採否を決める"
+      ],
+      "requirements": [
+        "Python 3.10以上とffmpeg・ffprobe。CPUのみで動き、GPUは使わない",
+        "音の説明・検索を使う場合は、初回にCLAP・ASTのモデル（約1.1GB）を取得",
+        "任意のGemini機能を使う場合のみ、自分のAPIキーと音声アップロードへの同意"
+      ],
+      "license": "MIT",
+      "license_url": "https://github.com/Leonxlnx/earshot/blob/591fa3e028032e6dce56620a20e932e35667e8d8/LICENSE",
+      "license_note": "コードはMIT。音の説明・検索で使うモデルは作者の条件で配布され、CLAPはApache-2.0、ASTはBSD-3-Clauseです。任意のGemini機能は別途APIの条件に従い、音声をアップロードします。fitで録音を合成コードへ変換しても、元の録音の利用条件は残ります。",
+      "source_url": "https://github.com/Leonxlnx/earshot/tree/591fa3e028032e6dce56620a20e932e35667e8d8",
+      "guide_url": "case.html?entry=resource-earshot",
+      "readme_url": "https://github.com/Leonxlnx/earshot/blob/591fa3e028032e6dce56620a20e932e35667e8d8/README.md",
+      "source_repository": "Leonxlnx/earshot",
+      "source_commit": "591fa3e028032e6dce56620a20e932e35667e8d8",
+      "source_path": "",
+      "source_project": "curated",
+      "source_note": "公開リポジトリのREADME、効果音バンクの解説（docs/SFX.md）と利用条件を確認し、用途と最初の試し方を日本語で整理しました。原典はv0.4.0のコミットへ固定しています。",
+      "prompt": "earshot v0.4.0 の原典（https://github.com/Leonxlnx/earshot/tree/591fa3e028032e6dce56620a20e932e35667e8d8）を読んで、次を進めてください。\nこの作業はGPUも有料APIも使いません。モデルを読み込まない音バンク（earshot sfx）だけを使い、CLAP・ASTのモデル取得やGemini機能は使わないでください。\n1. 固定版のコミットを取得し、READMEの手順でCPU向けのPython環境を作り、earshot doctor で導入を確認してください。\n2. 新しい空の出力フォルダーを作り、既存のファイルを上書きしないでください。\n3. earshot sfx list で候補を確かめ、UI popに ui_pop/soft、whooshに whoosh_fast/crisp（--dur 0.8 --apex 0.32）、hitに cut_hit/punch を1個ずつWAVへ書き出してください。別の音を選ぶ場合は理由を残してください。\n4. 各WAVのサンプルレート・ビット深度・長さと、whooshのピーク位置を確認し、earshot sfx check の結果を記録してください。\n5. 監査は測定による確認で、音の良し悪しは判定しません。3つのWAVを試聴用に渡し、聴感の判断は人に任せてください。\n入力、出力、実行した検証、未確認の点を記録してください。",
+      "verification_stage": "source-reviewed",
+      "verification": "2026-10-24にv0.4.0の原典とライセンスを確認。CPUのみ・オフラインの環境で252音のバンクを読み込み、ui_pop/soft、whoosh_fast/crisp、pluck/kalimba、cut_hit/punch、shutter/dslrの5音を書き出して、48kHz/24bit PCM、無音でないこと、DSP監査の通過を確認。whoosh_fast/crispは長さ0.8秒、音量ピーク0.32秒の指定どおりに出力された。人による試聴、252音全体の監査、fitの精度、モデルを使う機能は未検証。掲載用の作例・解説動画は未制作。",
+      "reviewed_on": "2026-10-24"
     }
   ]
 }

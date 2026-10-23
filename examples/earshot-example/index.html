@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="earshotで実生成した9種類の効果音と、図形の動きに音を合わせた30秒のモーショングラフィックス。">
+  <title>earshot — 音を、コードで。</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top"><a href="../../index.html">八百万図AIツールボックス <span>↗</span></a><span>EARSHOT / SOUND STUDY 001</span></header>
+  <main>
+    <section class="hero" aria-labelledby="title">
+      <p class="eyebrow">CODE → SOUND → MOTION</p>
+      <h1 id="title">音を、<br class="mobile">コードで<span class="period">。</span></h1>
+      <div class="hero-bottom"><p>現れる。通り抜ける。着地する。<br>図形の動きに、コードから生まれた音を。</p><p class="edition">9 SOUNDS<br>20 CUES · 30 SECONDS</p></div>
+    </section>
+    <section class="film-section" aria-labelledby="film-title">
+      <div class="section-head"><h2 id="film-title"><span>01</span> SHAPE / SOUND</h2><p>再生すると、earshotで作った実音が鳴ります。</p></div>
+      <div class="film-frame"><iframe id="film" src="video/index.html" title="30秒のモーショングラフィックスと効果音" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
+      <div class="film-caption"><span>ART & MOTION: OPUS 5.5</span><span>REAL SFX: EARSHOT v0.4.0</span></div>
+    </section>
+    <section class="samples-section" aria-labelledby="samples-title">
+      <div class="section-head"><h2 id="samples-title"><span>02</span> 音をひとつずつ</h2><p>映像に使った9音を、再生・保存できます。</p></div>
+      <p id="sample-status" role="status" aria-live="polite">音の一覧を読み込み中…</p>
+      <div id="samples" class="samples"></div>
+    </section>
+    <section class="notes-section">
+      <div><p class="eyebrow">MADE WITH EARSHOT</p><h2>素材を選ぶ。<br>動きに合わせる。</h2></div>
+      <div class="notes-copy"><p>earshotは、252種類の音バンクから効果音をコードで作るツールです。長さや音程、対応する音では音量のピーク位置も変えられます。</p><p>この30秒では9音を実際に書き出し、鳴り始めやピークを図形の合図に合わせました。BGMとナレーションは使っていません。</p><div class="links"><a href="assets/soundtrack.wav" download>30秒のWAVを保存 ↗</a><a href="source.zip" download>編集ソースを保存 ↗</a><a href="https://github.com/Leonxlnx/earshot/tree/591fa3e028032e6dce56620a20e932e35667e8d8" target="_blank" rel="noopener noreferrer">earshotの原典 ↗</a></div></div>
+    </section>
+    <details class="evidence"><summary>このデモについて</summary><p>ブラウザーでは保存済みの実音を再生し、時刻表から図形を描きます。earshotやAIモデルをブラウザーで実行するものではありません。9音をCPU・オフラインで生成し、48kHz/24bit WAV、非無音、DSP監査を確認しました。252音全体やfit機能の精度は検証していません。</p><p>図形と動きのコードはOpus 5.5、実音・同期・再生画面・書き出しはCodexが担当。耳で聴いた印象や作品への採用は、再生して判断してください。</p><p><a href="README.md">再現手順</a> · <a href="input/sound-design.json">音と動きの設計</a> · <a href="assets/render-report.json">実生成の記録</a> · <a href="third-party/earshot-LICENSE">earshotのMITライセンス</a></p></details>
+  </main>
+  <footer><a href="../../case.html?id=earshot-example">紹介記事へ ↗</a><span>made by studio_yebisu</span></footer>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{
+  "title": "earshot — SHAPE / SOUND",
+  "duration": 30,
+  "fps": 30,
+  "sample_rate": 48000,
+  "version": "0.4.0",
+  "source_commit": "591fa3e028032e6dce56620a20e932e35667e8d8",
+  "sounds": [
+    {"key": "pop-soft", "id": "ui_pop/soft", "label": "丸いポップ", "params": {}},
+    {"key": "pop-step", "id": "ui_pop/step", "label": "少し高いポップ", "params": {}},
+    {"key": "pop-wide", "id": "ui_pop/wide", "label": "広がるポップ", "params": {}},
+    {"key": "whoosh", "id": "whoosh_fast/crisp", "label": "通り抜ける音", "params": {"dur": 0.8, "apex": 0.32}},
+    {"key": "hit", "id": "cut_hit/punch", "label": "着地の打撃音", "params": {}},
+    {"key": "shutter", "id": "shutter/dslr", "label": "シャッター", "params": {}},
+    {"key": "note-e", "id": "pluck/kalimba", "label": "カリンバ E5", "params": {"pitch": "E5"}},
+    {"key": "note-g", "id": "pluck/kalimba", "label": "カリンバ G5", "params": {"pitch": "G5"}},
+    {"key": "note-b", "id": "pluck/kalimba", "label": "カリンバ B5", "params": {"pitch": "B5"}}
+  ],
+  "chapters": [
+    {"start": 0, "end": 5, "key": "pop", "title": "POP", "caption": "現れる音"},
+    {"start": 5, "end": 10, "key": "whoosh", "title": "WHOOSH", "caption": "通り抜ける音"},
+    {"start": 10, "end": 15, "key": "hit", "title": "HIT", "caption": "着地する音"},
+    {"start": 15, "end": 20, "key": "shutter", "title": "SHUTTER", "caption": "切り取る音"},
+    {"start": 20, "end": 25, "key": "pitch", "title": "PITCH", "caption": "音程を変える"},
+    {"start": 25, "end": 30, "key": "finale", "title": "earshot", "caption": "音を、コードで。"}
+  ],
+  "events": [
+    {"time": 0.8, "sound": "pop-soft", "sync": "onset"},
+    {"time": 1.4, "sound": "pop-step", "sync": "onset"},
+    {"time": 2.0, "sound": "pop-wide", "sync": "onset"},
+    {"time": 3.4, "sound": "pop-soft", "sync": "onset"},
+    {"time": 5.8, "sound": "whoosh", "sync": "peak"},
+    {"time": 7.3, "sound": "whoosh", "sync": "peak"},
+    {"time": 8.8, "sound": "whoosh", "sync": "peak"},
+    {"time": 10.65, "sound": "hit", "sync": "peak"},
+    {"time": 12.9, "sound": "hit", "sync": "peak"},
+    {"time": 15.65, "sound": "shutter", "sync": "onset"},
+    {"time": 17.1, "sound": "shutter", "sync": "onset"},
+    {"time": 18.55, "sound": "shutter", "sync": "onset"},
+    {"time": 20.6, "sound": "note-e", "sync": "onset"},
+    {"time": 21.25, "sound": "note-g", "sync": "onset"},
+    {"time": 21.9, "sound": "note-b", "sync": "onset"},
+    {"time": 25.7, "sound": "whoosh", "sync": "peak"},
+    {"time": 26.1, "sound": "hit", "sync": "peak"},
+    {"time": 26.9, "sound": "pop-soft", "sync": "onset"},
+    {"time": 27.25, "sound": "pop-step", "sync": "onset"},
+    {"time": 27.6, "sound": "pop-wide", "sync": "onset"}
+  ]
+}

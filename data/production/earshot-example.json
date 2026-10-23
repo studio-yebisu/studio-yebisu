@@ -1,0 +1,204 @@
+{
+  "id": "earshot-example",
+  "verified_at": "2026-10-23T16:03:57.005105+00:00",
+  "model": {
+    "requested": "claude-opus-5-5",
+    "reported": [
+      "claude-opus-5-5"
+    ],
+    "scope": "Opus authored the catalog introduction and video/art.js, the Canvas motion-graphics artwork. Codex authored the HTML player, timing engine and listening interface; generated the earshot SFX, audio timing and case metadata; rendered, verified and integrated the result.",
+    "receipts": [
+      {
+        "phase": "Japanese catalog copy",
+        "receipt_sha256": "aff7ff6ed98d835b66e5477af27095da6e747360b768d9ae2dfd5d39e4cc8f36",
+        "execution_sha256": "f35df8466812a031cc8d3f3a5956bfc07210f6e0e19fcc5246b4bca1fe3303e5",
+        "prompt_sha256": "13bafcb0a6d6684f064c0a39176cefb2c2b0ac78bc33f4180d9235eb0f06adaa"
+      },
+      {
+        "phase": "Canvas motion-graphics artwork",
+        "receipt_sha256": "459f21d9843e0999db84b0887e8272e8c32080f0bc655bfe46f6bfcff6c72876",
+        "execution_sha256": "e07ec2a0d74a67e6ed56d3974d35fe2a70afe5f31ada274baa9d54ffac3815f4",
+        "prompt_sha256": "87cd71ae770f9079557a93f8a843a4cb6f00b6552f2424da080f9d3c52f9ed68"
+      }
+    ],
+    "receipt_published": false
+  },
+  "upstream": {
+    "repository": "Leonxlnx/earshot",
+    "version": "v0.4.0",
+    "commit": "591fa3e028032e6dce56620a20e932e35667e8d8",
+    "license": "MIT"
+  },
+  "runtime": {
+    "status": "passed",
+    "sample_count": 9,
+    "cue_count": 20,
+    "duration_seconds": 30.0,
+    "offline": true,
+    "bank_count": 252,
+    "sample_format": "48kHz / 24-bit PCM WAV",
+    "maximum_audio_placement_error_ms": 0.008333,
+    "meaning_of_placement_error": "Rounding of measured onset/peak when placing the WAV; does not measure human audiovisual perception or display latency.",
+    "all_nine_dsp_audits_passed": true,
+    "local_analysis_models_loaded_offline": true,
+    "mcp_generation_checked": true,
+    "renders": {
+      "wide": {
+        "video": {
+          "file": "video.mp4",
+          "sha256": "22ae23583f32975c23c7cdc04f831d1216ca6d211e96a1d948de3a17a41e8d0a",
+          "width": 1280,
+          "height": 720,
+          "fps": 30,
+          "frameCount": 900,
+          "duration": 30,
+          "hasAudio": true
+        },
+        "audio": {
+          "kind": "supplied_track",
+          "filename": "soundtrack.wav",
+          "sha256": "f268b2dbd7832d28da9c6ab902c7ddc56812cd0f53ff2f38078fdb93fe022729",
+          "targetLufs": -16,
+          "measured": {
+            "input_i": "-15.79",
+            "input_tp": "-0.88",
+            "input_lra": "10.30",
+            "input_thresh": "-27.90",
+            "output_i": "-15.58",
+            "output_tp": "-1.50",
+            "output_lra": "8.10",
+            "output_thresh": "-27.75",
+            "normalization_type": "dynamic",
+            "target_offset": "-0.42"
+          },
+          "listeningReview": "not_performed_by_renderer"
+        },
+        "determinism": {
+          "frame": 540,
+          "seconds": 18,
+          "first": "bc5272323ff55925f2cb89d273c1fa72682c90047b199b9a26d76f924e4ffe8e",
+          "afterOtherTimes": "bc5272323ff55925f2cb89d273c1fa72682c90047b199b9a26d76f924e4ffe8e",
+          "freshPage": "bc5272323ff55925f2cb89d273c1fa72682c90047b199b9a26d76f924e4ffe8e",
+          "match": true
+        }
+      },
+      "portrait": {
+        "video": {
+          "file": "video.mp4",
+          "sha256": "91f9d812e43ba93cc3935e591b7d8c5172fb1d5f92d6dd2a12f5cb5623fec309",
+          "width": 720,
+          "height": 1280,
+          "fps": 30,
+          "frameCount": 900,
+          "duration": 30,
+          "hasAudio": true
+        },
+        "audio": {
+          "kind": "supplied_track",
+          "filename": "soundtrack.wav",
+          "sha256": "f268b2dbd7832d28da9c6ab902c7ddc56812cd0f53ff2f38078fdb93fe022729",
+          "targetLufs": -16,
+          "measured": {
+            "input_i": "-15.79",
+            "input_tp": "-0.88",
+            "input_lra": "10.30",
+            "input_thresh": "-27.90",
+            "output_i": "-15.58",
+            "output_tp": "-1.50",
+            "output_lra": "8.10",
+            "output_thresh": "-27.75",
+            "normalization_type": "dynamic",
+            "target_offset": "-0.42"
+          },
+          "listeningReview": "not_performed_by_renderer"
+        },
+        "determinism": {
+          "frame": 540,
+          "seconds": 18,
+          "first": "89327948353d0d97d907371d746947792092d0e6a5174706d825bc0d005913f5",
+          "afterOtherTimes": "89327948353d0d97d907371d746947792092d0e6a5174706d825bc0d005913f5",
+          "freshPage": "89327948353d0d97d907371d746947792092d0e6a5174706d825bc0d005913f5",
+          "match": true
+        }
+      }
+    },
+    "browser_qa": {
+      "status": "passed",
+      "checks": [
+        {
+          "viewport": "desktop",
+          "width": 1280,
+          "horizontal_overflow": false,
+          "sample_count": 9,
+          "sounds_downloadable": true,
+          "audio_waits_for_gesture": true,
+          "play_seek_mute_stop": true,
+          "sample_film_exclusion": true,
+          "reduced_motion_pauses": true
+        },
+        {
+          "viewport": "mobile",
+          "width": 390,
+          "horizontal_overflow": false,
+          "sample_count": 9,
+          "sounds_downloadable": true,
+          "audio_waits_for_gesture": true,
+          "play_seek_mute_stop": true,
+          "sample_film_exclusion": true,
+          "reduced_motion_pauses": true
+        }
+      ],
+      "mp4_playback": {
+        "duration": 30,
+        "width": 1280,
+        "height": 720,
+        "currentTime": 0.40865
+      },
+      "console_and_http_errors": [],
+      "auditory_review": "not-performed"
+    }
+  },
+  "visual_review": {
+    "status": "reviewed-by-codex",
+    "scope": "Representative and consecutive frames in both orientations, browser playback and generated MP4 playback."
+  },
+  "auditory_review": "not-performed; user listening remains necessary for subjective sound quality",
+  "limitations": [
+    "Nine bank presets and twenty cues were exercised; the full 252-sound bank was not audited.",
+    "The fit reconstruction feature was not exercised.",
+    "No claim of human listening approval or production adoption."
+  ],
+  "artifacts_sha256": {
+    "examples/earshot-example/app.js": "ace5954bc28705952ee06fc67d8627538bd082263ca1b175623d06d9ee9071dc",
+    "examples/earshot-example/assets/render-report.json": "979a9aa8fc0f89e90aff853a90ccb9b0e1ad4da84289edbc476ccaa715c04b3b",
+    "examples/earshot-example/assets/sfx/hit.wav": "d466602596cdfde766fd65d09d1126b20ee14514a08ab281f6c743bc0a16e91a",
+    "examples/earshot-example/assets/sfx/note-b.wav": "e15c5330620384a770da5960b643b6f2aa2b9b3e7b48246d770964c79000cd75",
+    "examples/earshot-example/assets/sfx/note-e.wav": "1c93d08b10e4854d41d228f25dffbe5b452e8dcae0a020bfde6715262607fd3f",
+    "examples/earshot-example/assets/sfx/note-g.wav": "019f5638b21c896965ea111a3cac4f96133dacf1c4879821daeb5c50fda4430d",
+    "examples/earshot-example/assets/sfx/pop-soft.wav": "0dbacb18d72e1c0071398be81591ac20f0007315f1798c952116c9f10bb0e6f1",
+    "examples/earshot-example/assets/sfx/pop-step.wav": "8429e857e641c45dd919ee0da156268a4e12f215a6c4bd6f6d51128fa8f3c08c",
+    "examples/earshot-example/assets/sfx/pop-wide.wav": "5cc761b7fa92007c56279227aafb66200dfd186abf4403c72edb45d46c6b4c2d",
+    "examples/earshot-example/assets/sfx/shutter.wav": "eb870d038e219e298576060b1321bbcc495062d02433bf62e6ac40f2c0cf000f",
+    "examples/earshot-example/assets/sfx/whoosh.wav": "0ca2359eadb6e5038cfc52c02cb13add29f3c47e59d2cba22d5d34040216966d",
+    "examples/earshot-example/assets/soundtrack.wav": "f268b2dbd7832d28da9c6ab902c7ddc56812cd0f53ff2f38078fdb93fe022729",
+    "examples/earshot-example/index.html": "e1463f2c70a75aa294db9dd09b7d03aef4e88416f169642dc2a1d95d4331307e",
+    "examples/earshot-example/input/sound-design.json": "f51dd13e6c9a2da5c554b15540334a703b79762a05c63a87e1da61aad6274511",
+    "examples/earshot-example/LICENSE": "b9983d3664ba1f525f0f39874b6579fafce25636f8b7b1e7cfcae8c32c6745eb",
+    "examples/earshot-example/README.md": "51a8c750a84fcbbd4b4f4c87ddcc5bb0ecb820bbf43a595bf50fe8bf6d451b2d",
+    "examples/earshot-example/render_audio.py": "4afeaf2c0473108db3f856c0eac43d78dd7a3d7926430dff72397b2df75d13a0",
+    "examples/earshot-example/samples.json": "3266c49bfa1f4e18bbb5f29dfe23bce4c9a102845f50151fe6d5c4f13eb3b9cf",
+    "examples/earshot-example/source.zip": "59add8f7cf90c803939fabddc4b660ee8f1f01d04480de156f6c620347d3e830",
+    "examples/earshot-example/style.css": "fd845b71c2f6092a28cf128c30aac364bd568a3036000b4d1df8a010ceaaed5a",
+    "examples/earshot-example/third-party/earshot-LICENSE": "d9177365c7471d18ecd623ce7b8849e26ab8d7e7fea13e1fcbda62397ecb9db8",
+    "examples/earshot-example/video/art.js": "764e1f178f38f8a0f2d3458c964de68b3238b8051f745b750bfa68b0907864ce",
+    "examples/earshot-example/video/engine.js": "918d8b1c38eb5b36dc6e4076389979694a2ae7a22c21ac0d2774d05b6a6b049c",
+    "examples/earshot-example/video/index.html": "571bf4df0e8eab80cbd0fd8c1830f4ee10d4267929feae0a5b528d81ef55cae7",
+    "examples/earshot-example/video/timeline.json": "b3019a4aaa278976e0ba4aa45c8efa79af04a86fc5bff4bb78b4441bfdf6f12f",
+    "media/downloads/earshot-example-landscape-credited-ja-v3.mp4": "58697dccc1a3c3f53e9ef164ba7497d825c89071ec2aa0e02da0061a9bf2ce0a",
+    "media/downloads/earshot-example-portrait-credited-ja-v3.mp4": "d094c887bf4e7f6f236cbf5b5594f8a9b562df69166fdc7ea0935ba17d99b12a",
+    "media/earshot-example-wide.mp4": "22ae23583f32975c23c7cdc04f831d1216ca6d211e96a1d948de3a17a41e8d0a",
+    "media/earshot-example-wide.webp": "30408f43cf8b909c2be90e241ed86c7c157cc8b5e6da616d9cc95a2a6e1f1d27",
+    "media/earshot-example.mp4": "91f9d812e43ba93cc3935e591b7d8c5172fb1d5f92d6dd2a12f5cb5623fec309",
+    "media/earshot-example.webp": "57c20ad090b0254496a13209807593ec531aa9bddcd2e1ebcee853bcb3b2afdb"
+  }
+}
