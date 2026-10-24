@@ -1523,6 +1523,128 @@
       "verification_stage": "source-reviewed",
       "verification": "2026-10-24にv0.4.0の原典とライセンスを確認。CPUのみ・オフラインの環境で252音のバンクを読み込み、ui_pop/soft、whoosh_fast/crisp、pluck/kalimba、cut_hit/punch、shutter/dslrの5音を書き出して、48kHz/24bit PCM、無音でないこと、DSP監査の通過を確認。whoosh_fast/crispは長さ0.8秒、音量ピーク0.32秒の指定どおりに出力された。人による試聴、252音全体の監査、fitの精度、モデルを使う機能は未検証。掲載用の作例・解説動画は未制作。",
       "reviewed_on": "2026-10-24"
+    },
+    {
+      "id": "resource-tanstack-ai",
+      "name": "TanStack AI",
+      "tagline": "今あるアプリに、チャットやAIの道具を組み込む。",
+      "category": "development",
+      "kind": "ライブラリ",
+      "summary": "ストリーミングチャット、ツール呼び出し、構造化出力、音声・画像生成などをアプリへ組み込むTypeScript SDK。モデル提供元のアダプターと、React・Vue・Solid・SvelteなどのUI向けパッケージを選んで使う。",
+      "use_case": "既存の編集画面や社内ツールに、AIとの会話やデータ検索、画像生成の操作を加えたいとき。",
+      "tags": [
+        "TypeScript",
+        "アプリ開発",
+        "チャット",
+        "ツール呼び出し",
+        "ライブラリ"
+      ],
+      "workflow": [
+        "使うUIとモデル接続先を決め、core・アダプター・必要なUI向けパッケージを選ぶ",
+        "サーバー側のchat()とUI側のストリーム表示をつなぎ、小さな読み取り用ツールを1つ定義する",
+        "応答の表示、ツールの入出力、エラー時の挙動を確認する。長く動く会話用のharnessとCLIは実験段階なので、core 1.0と区別する"
+      ],
+      "requirements": [
+        "TypeScriptの開発環境。確認したcore 1.0.0のNode.js要件は18以上で、採用するUI・実行環境の要件も確認する",
+        "利用するモデルの接続先。クラウドを使う場合はAPI認証と利用料が別途必要。ローカル向けのOllamaアダプターもある"
+      ],
+      "license": "MIT",
+      "license_url": "https://github.com/TanStack/ai/blob/98055ca01af9e449d039f61e380b0d3c158acbb1/LICENSE",
+      "license_note": "SDKのコードはMIT。接続先のモデル・API・クラウドの利用条件と料金は別です。core 1.0の安定化は、実験段階の@tanstack/ai-harnessと@tanstack/ai-harness-cliのAPI安定性を保証しません。",
+      "source_url": "https://github.com/TanStack/ai/tree/98055ca01af9e449d039f61e380b0d3c158acbb1",
+      "guide_url": "case.html?entry=resource-tanstack-ai",
+      "readme_url": "https://github.com/TanStack/ai/blob/98055ca01af9e449d039f61e380b0d3c158acbb1/README.md",
+      "source_repository": "TanStack/ai",
+      "source_commit": "98055ca01af9e449d039f61e380b0d3c158acbb1",
+      "source_note": "README、core 1.0.0のpackage.jsonとAPI公開コード、導入概要、harnessの実験段階に関する説明、MITライセンスを確認しました。原典は確認時のコミットへ固定しています。",
+      "prompt": "TanStack AI の固定版原典（https://github.com/TanStack/ai/tree/98055ca01af9e449d039f61e380b0d3c158acbb1）を読み、今あるWebアプリに小さなチャット機能を追加してください。\n1. 既存のUIとサーバー構成、利用可能なモデル接続先を確認し、core・アダプター・UI向けパッケージの構成を決めてください。\n2. ストリーミング応答と、架空の商品3件から名前を検索する読み取り専用ツールを1つ実装してください。入力と出力の型も定義してください。\n3. APIキーが必要な接続はサーバー側で扱い、鍵が未設定ならモックで画面を確認し、モデルとの実接続は未確認と記録してください。新しい課金や認証は始めないでください。\n4. 応答表示、ツール呼び出し、失敗時の表示を確認してください。core 1.0を入口とし、実験段階のharnessやCLIは今回の必須構成に含めないでください。\n入力、出力、使用版、実行した検証、未確認の点を記録してください。",
+      "source_path": "",
+      "source_project": "curated",
+      "verification_stage": "source-reviewed",
+      "verification": "2026-10-24に原典と利用条件を確認。紹介段階であり、この掲載項目の導入・実行・作例制作・解説動画は未検証。",
+      "reviewed_on": "2026-10-24"
+    },
+    {
+      "id": "resource-scenario-3d-collection",
+      "name": "Scenario 3D Collection",
+      "tagline": "入力と生成設定をたどれる、1,342件の3D素材集。",
+      "category": "3d",
+      "kind": "データセット",
+      "summary": "AIで生成された1,342件の3D作例と1,500点の出力ファイルを公開した素材集。GLBやBlender形式などに、参照入力・プロンプト・生成設定・SHA-256のメタデータが付く。プレビューや入力素材を含む全体は約39GB。",
+      "use_case": "ゲームや3D制作の試作素材を探したいとき、または生成設定と3Dの出力を対にして調べたいとき。",
+      "tags": [
+        "3D素材",
+        "GLB",
+        "Blender",
+        "生成設定",
+        "データセット"
+      ],
+      "workflow": [
+        "プレビューとメタデータから用途に合う1件を選び、入力・設定・出力形式を確認する",
+        "必要な出力ファイルだけを取得し、メタデータのSHA-256と照合する",
+        "Blenderやゲームエンジンで形状・テクスチャ・縮尺を確認し、使用時はScenarioへのクレジットとCC BY 4.0のリンクを付ける"
+      ],
+      "requirements": [
+        "GLBなどを開ける3Dビューアー、Blender、またはゲームエンジン",
+        "選んだ素材を保存する空き容量。全体取得は約39GBなので、最初は必要なファイルだけを選ぶ",
+        "メタデータをコードで読む場合はPythonとdatasets等の環境"
+      ],
+      "license": "CC BY 4.0",
+      "license_url": "https://huggingface.co/datasets/scenario-labs/3d-collection/blob/55b4c002b4c1529fc48da3dff98516c3069bfa3f/LICENSE",
+      "license_note": "このコレクションは、別記がある場合を除きCC BY 4.0で、Scenarioへのクレジットが必要です。共有・改変・商用利用の際はライセンスへのリンクと変更表示などの条件に従ってください。別公開のHunyuan版393件はこの収録範囲に含まず、別の利用条件が適用されます。",
+      "source_url": "https://huggingface.co/datasets/scenario-labs/3d-collection/tree/55b4c002b4c1529fc48da3dff98516c3069bfa3f",
+      "guide_url": "case.html?entry=resource-scenario-3d-collection",
+      "readme_url": "https://huggingface.co/datasets/scenario-labs/3d-collection/blob/55b4c002b4c1529fc48da3dff98516c3069bfa3f/README.md",
+      "source_repository": "scenario-labs/3d-collection",
+      "source_commit": "55b4c002b4c1529fc48da3dff98516c3069bfa3f",
+      "source_note": "配布元Hugging FaceのREADME、ファイル一覧、メタデータの説明、LICENSEを確認しました。形式ごとの件数と構造検査の結果は配布元の報告で、当サイトによる3D素材の品質検証ではありません。配布元はBlenderシーン1件で参照テクスチャ2点の欠落も報告しています。原典は確認時のリビジョンへ固定しています。",
+      "prompt": "Scenario 3D Collection の固定版（https://huggingface.co/datasets/scenario-labs/3d-collection/tree/55b4c002b4c1529fc48da3dff98516c3069bfa3f）から、小さな3D試作に使うGLB素材を1件選んでください。\n1. READMEとLICENSEを読み、メタデータから候補のプロンプト・入力・設定・出力形式を確認してください。全約39GBの一括取得はせず、必要なメタデータと選んだ素材だけを扱ってください。\n2. 選んだ出力ファイルを新しいフォルダーへ取得し、メタデータのSHA-256と照合してください。原典のリビジョンとファイルパスを残してください。\n3. 既存の3DビューアーやBlenderで、形状、テクスチャ、縮尺を確認してください。Blenderを使う場合はファイル内スクリプトの自動実行を無効にしてください。閲覧できない場合は未確認として記録してください。\n4. Scenarioへのクレジット、CC BY 4.0へのリンク、変更した場合の表示を添えてください。別公開のHunyuan版は混ぜないでください。\n選定理由、入力・設定、取得ファイル、実行した検証、未確認の点を記録してください。",
+      "source_path": "",
+      "source_project": "curated",
+      "verification_stage": "source-reviewed",
+      "verification": "2026-10-24に配布元のREADME、ファイル一覧、メタデータの説明とLICENSEを確認。素材本体の取得・3D表示・画質やゲーム用途での品質確認、当サイトの作例・解説動画は未実施。",
+      "reviewed_on": "2026-10-24"
+    },
+    {
+      "id": "resource-hatchzip",
+      "name": "HatchZip",
+      "tagline": "展開済みの部分から元アーカイブを縮め、空き容量をやりくりする。",
+      "category": "development",
+      "kind": "ツール",
+      "summary": "ZIP・7z・tarなどを展開しながら元アーカイブを段階的に削り、保存場所の使用量を抑える解凍ツール。元アーカイブは消費される。事前のcheckで、そのファイルと保存先に必要な空き容量を確認できる。",
+      "use_case": "大きな3D素材や制作データをダウンロードしたあと、アーカイブと展開後のファイルを同時に置く空き容量が足りないとき。",
+      "tags": [
+        "大容量素材",
+        "解凍",
+        "ディスク容量",
+        "Windows",
+        "ツール"
+      ],
+      "workflow": [
+        "再取得できる小さなアーカイブの検証用コピーを用意し、hatchzip list・test・checkで内容、整合性、必要容量を確認する",
+        "空の出力先へコピーを展開する。元アーカイブは展開とともに削られるため、保持する原本には実行しない",
+        "出力を元の検証データと照合する。中断した場合は進捗ファイルを残し、同じコマンドで再開する"
+      ],
+      "requirements": [
+        "Windows・macOS・Linux向けのHatchZip。GUIとCLIがある",
+        "checkが示す空き容量。ZIP・tarの大きな1ファイルや7zの大きなsolidブロックによって、削減できる量は変わる",
+        "空または新規の出力先。別ドライブへの展開では、元の削除で展開先の容量は増えない"
+      ],
+      "license": "MIT OR Apache-2.0",
+      "license_url": "https://github.com/xevrion/hatchzip/blob/d8a4edbc9ec8ef84540e42408916a409a7d3c21b/LICENSE-MIT",
+      "license_note": "コードはMITまたはApache-2.0を選択できます。リンク先はMITの原文です。展開する素材自体の権利や利用条件は別です。",
+      "source_url": "https://github.com/xevrion/hatchzip/tree/d8a4edbc9ec8ef84540e42408916a409a7d3c21b",
+      "guide_url": "case.html?entry=resource-hatchzip",
+      "readme_url": "https://github.com/xevrion/hatchzip/blob/d8a4edbc9ec8ef84540e42408916a409a7d3c21b/README.md",
+      "source_repository": "xevrion/hatchzip",
+      "source_commit": "d8a4edbc9ec8ef84540e42408916a409a7d3c21b",
+      "source_note": "README、容量計画と途中再開の設計説明、CLIのcheck・extract等の分岐、MITライセンスを確認しました。配布元の速度・省容量・復旧試験の数値は当サイトの実測ではありません。原典は確認時のコミットへ固定しています。",
+      "prompt": "HatchZip の固定版原典（https://github.com/xevrion/hatchzip/tree/d8a4edbc9ec8ef84540e42408916a409a7d3c21b）を読み、省容量での展開を小さな使い捨てデータで試す手順を準備してください。\n1. このツールは展開中に元アーカイブを削ります。実際の制作素材・唯一の原本には実行せず、新規フォルダーに架空の小さなファイルを作り、通常のZIPと検証用コピーを用意してください。\n2. list・test・checkでコピーの内容、チェックサム、空き容量の計画を確認してください。検査が通るまでは展開しないでください。\n3. 検証用コピーだけを新しい空の出力先に展開し、展開前の各ファイルとSHA-256で照合してください。インストールが未実施なら、その状態と手順を記録してください。\n4. 必要容量はZIPの最大ファイルや7zのsolidブロックなどで変わり、常に追加容量ゼロになるわけではないことを結果に添えてください。中断時の進捗ファイルは完了するまで残してください。\n入力、使用版、展開前後の容量、出力の照合結果、未確認の点を記録してください。",
+      "source_path": "",
+      "source_project": "curated",
+      "verification_stage": "source-reviewed",
+      "verification": "2026-10-24に原典と利用条件を確認。紹介段階であり、この掲載項目の導入・実行・作例制作・解説動画は未検証。",
+      "reviewed_on": "2026-10-24"
     }
   ]
 }
