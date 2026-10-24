@@ -216,7 +216,7 @@
       if (s.v === null) ctx.globalAlpha = 0.62;
       panel(s.x, sy, sw, sh, 8 * u, PAPER, s.v !== null ? BLUE : RULE, s.v !== null ? 2 : 1.5);
       text(s.name, s.x + 10 * u, sy + 13 * u, 14 * u, INK, 'left', 800, MONO);
-      text(s.type, s.x + sw - 10 * u, sy + 13 * u, 11 * u, MUTED, 'right', 600, MONO);
+      text(s.type, s.x + sw - 10 * u, sy + (L.tall ? 13 : 32) * u, 11 * u, MUTED, 'right', 600, MONO);
       if (s.v !== null) text(s.v, s.x + 10 * u, sy + sh - 15 * u, 20 * u, BLUE, 'left', 700, MONO);
       else text('—', s.x + 10 * u, sy + sh - 15 * u, 18 * u, MUTED, 'left', 700, MONO);
       ctx.restore();
