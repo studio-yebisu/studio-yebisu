@@ -1,0 +1,302 @@
+{
+  "format": "input-output",
+  "connection": "live model run, recorded output replay",
+  "model": "claude-opus-5-5",
+  "products": [
+    {
+      "id": "mug-blue",
+      "name": "青いマグカップ",
+      "price": 1800,
+      "color": "blue"
+    },
+    {
+      "id": "mug-red",
+      "name": "赤いマグカップ",
+      "price": 2200,
+      "color": "red"
+    },
+    {
+      "id": "tumbler-steel",
+      "name": "ステンレスタンブラー",
+      "price": 3200,
+      "color": "silver"
+    }
+  ],
+  "samples": [
+    {
+      "id": "blue-mug",
+      "label": "青いマグを探す",
+      "input": "青いマグカップを探しています。get_productsをquery=\"blue\"で実際に呼び出し、取得した名前と価格を日本語で短く答えてください。",
+      "output": "query=\"blue\"で検索すると、「青いマグカップ」が1件見つかりました。価格は1,800円です。",
+      "tool_calls": [
+        {
+          "input": {
+            "query": "blue"
+          },
+          "output": {
+            "products": [
+              {
+                "id": "mug-blue",
+                "name": "青いマグカップ",
+                "price": 1800,
+                "color": "blue"
+              }
+            ]
+          }
+        }
+      ],
+      "products": [
+        {
+          "id": "mug-blue",
+          "name": "青いマグカップ",
+          "price": 1800,
+          "color": "blue"
+        }
+      ],
+      "events": [
+        {
+          "seconds": 1.0230511,
+          "type": "RUN_STARTED"
+        },
+        {
+          "seconds": 2.7811624999999998,
+          "type": "TOOL_CALL_START",
+          "toolCallId": "toolu_01DcXNk46qgdv9xAN2eEMLT2",
+          "toolCallName": "get_products"
+        },
+        {
+          "seconds": 2.7813325,
+          "type": "TOOL_CALL_ARGS",
+          "toolCallId": "toolu_01DcXNk46qgdv9xAN2eEMLT2",
+          "delta": ""
+        },
+        {
+          "seconds": 2.8765108,
+          "type": "TOOL_CALL_ARGS",
+          "toolCallId": "toolu_01DcXNk46qgdv9xAN2eEMLT2",
+          "delta": "{\"query\": \"blue"
+        },
+        {
+          "seconds": 3.0268692,
+          "type": "TOOL_CALL_ARGS",
+          "toolCallId": "toolu_01DcXNk46qgdv9xAN2eEMLT2",
+          "delta": "\"}"
+        },
+        {
+          "seconds": 3.0342757000000002,
+          "type": "TOOL_CALL_END",
+          "toolCallId": "toolu_01DcXNk46qgdv9xAN2eEMLT2"
+        },
+        {
+          "seconds": 3.0434036,
+          "type": "TOOL_CALL_RESULT",
+          "toolCallId": "toolu_01DcXNk46qgdv9xAN2eEMLT2",
+          "messageId": "claude-code-1792840353049-18v1t-0",
+          "content": "{\"products\":[{\"id\":\"mug-blue\",\"name\":\"青いマグカップ\",\"price\":1800,\"color\":\"blue\"}]}"
+        },
+        {
+          "seconds": 5.317142,
+          "type": "TEXT_MESSAGE_START",
+          "messageId": "msg_011CgLxoxCi6n39kCYDwNBYn",
+          "role": "assistant"
+        },
+        {
+          "seconds": 5.3174834,
+          "type": "TEXT_MESSAGE_CONTENT",
+          "messageId": "msg_011CgLxoxCi6n39kCYDwNBYn",
+          "delta": "query=\"blue\"で検"
+        },
+        {
+          "seconds": 5.3176065,
+          "type": "TEXT_MESSAGE_CONTENT",
+          "messageId": "msg_011CgLxoxCi6n39kCYDwNBYn",
+          "delta": "索すると、「青いマ"
+        },
+        {
+          "seconds": 5.317671499999999,
+          "type": "TEXT_MESSAGE_CONTENT",
+          "messageId": "msg_011CgLxoxCi6n39kCYDwNBYn",
+          "delta": "グカップ」が1件"
+        },
+        {
+          "seconds": 5.3178194,
+          "type": "TEXT_MESSAGE_CONTENT",
+          "messageId": "msg_011CgLxoxCi6n39kCYDwNBYn",
+          "delta": "見つかりました。価"
+        },
+        {
+          "seconds": 5.3179699000000005,
+          "type": "TEXT_MESSAGE_CONTENT",
+          "messageId": "msg_011CgLxoxCi6n39kCYDwNBYn",
+          "delta": "格は1,800円です。"
+        },
+        {
+          "seconds": 5.3198392000000005,
+          "type": "TEXT_MESSAGE_END",
+          "messageId": "msg_011CgLxoxCi6n39kCYDwNBYn"
+        },
+        {
+          "seconds": 6.094148199999999,
+          "type": "RUN_FINISHED"
+        }
+      ],
+      "recorded_duration_seconds": 6.096449
+    },
+    {
+      "id": "budget",
+      "label": "予算内を探す",
+      "input": "予算は2500円です。get_productsをquery=\"all\", maxPrice=2500で実際に呼び出し、予算内の商品名と価格を日本語で短く教えてください。",
+      "output": "予算2500円以内の商品は、青いマグカップ（1,800円）と赤いマグカップ（2,200円）の2点でした。",
+      "tool_calls": [
+        {
+          "input": {
+            "query": "all",
+            "maxPrice": 2500
+          },
+          "output": {
+            "products": [
+              {
+                "id": "mug-blue",
+                "name": "青いマグカップ",
+                "price": 1800,
+                "color": "blue"
+              },
+              {
+                "id": "mug-red",
+                "name": "赤いマグカップ",
+                "price": 2200,
+                "color": "red"
+              }
+            ]
+          }
+        }
+      ],
+      "products": [
+        {
+          "id": "mug-blue",
+          "name": "青いマグカップ",
+          "price": 1800,
+          "color": "blue"
+        },
+        {
+          "id": "mug-red",
+          "name": "赤いマグカップ",
+          "price": 2200,
+          "color": "red"
+        }
+      ],
+      "events": [
+        {
+          "seconds": 1.0245349000000006,
+          "type": "RUN_STARTED"
+        },
+        {
+          "seconds": 2.927182100000001,
+          "type": "TOOL_CALL_START",
+          "toolCallId": "toolu_01KRkHeLmX8xfcqKvZXqCzdS",
+          "toolCallName": "get_products"
+        },
+        {
+          "seconds": 2.9272557999999997,
+          "type": "TOOL_CALL_ARGS",
+          "toolCallId": "toolu_01KRkHeLmX8xfcqKvZXqCzdS",
+          "delta": ""
+        },
+        {
+          "seconds": 3.0234682999999993,
+          "type": "TOOL_CALL_ARGS",
+          "toolCallId": "toolu_01KRkHeLmX8xfcqKvZXqCzdS",
+          "delta": "{\"query\": \"all"
+        },
+        {
+          "seconds": 3.1729723000000005,
+          "type": "TOOL_CALL_ARGS",
+          "toolCallId": "toolu_01KRkHeLmX8xfcqKvZXqCzdS",
+          "delta": "\", \"maxPrice\": 2500"
+        },
+        {
+          "seconds": 3.3016714999999994,
+          "type": "TOOL_CALL_ARGS",
+          "toolCallId": "toolu_01KRkHeLmX8xfcqKvZXqCzdS",
+          "delta": "}"
+        },
+        {
+          "seconds": 3.3097548,
+          "type": "TOOL_CALL_END",
+          "toolCallId": "toolu_01KRkHeLmX8xfcqKvZXqCzdS"
+        },
+        {
+          "seconds": 3.318753600000001,
+          "type": "TOOL_CALL_RESULT",
+          "toolCallId": "toolu_01KRkHeLmX8xfcqKvZXqCzdS",
+          "messageId": "claude-code-1792840359131-201wd6-0",
+          "content": "{\"products\":[{\"id\":\"mug-blue\",\"name\":\"青いマグカップ\",\"price\":1800,\"color\":\"blue\"},{\"id\":\"mug-red\",\"name\":\"赤いマグカップ\",\"price\":2200,\"color\":\"red\"}]}"
+        },
+        {
+          "seconds": 4.894044500000001,
+          "type": "TEXT_MESSAGE_START",
+          "messageId": "msg_011CgLxpRPatLSTTgeb88Zrq",
+          "role": "assistant"
+        },
+        {
+          "seconds": 4.8943383,
+          "type": "TEXT_MESSAGE_CONTENT",
+          "messageId": "msg_011CgLxpRPatLSTTgeb88Zrq",
+          "delta": "予算2500円以内の"
+        },
+        {
+          "seconds": 4.894530700000001,
+          "type": "TEXT_MESSAGE_CONTENT",
+          "messageId": "msg_011CgLxpRPatLSTTgeb88Zrq",
+          "delta": "商品は、青いマグ"
+        },
+        {
+          "seconds": 4.8947339,
+          "type": "TEXT_MESSAGE_CONTENT",
+          "messageId": "msg_011CgLxpRPatLSTTgeb88Zrq",
+          "delta": "カップ（1,"
+        },
+        {
+          "seconds": 4.8950333,
+          "type": "TEXT_MESSAGE_CONTENT",
+          "messageId": "msg_011CgLxpRPatLSTTgeb88Zrq",
+          "delta": "800円）と赤いマ"
+        },
+        {
+          "seconds": 4.895144600000001,
+          "type": "TEXT_MESSAGE_CONTENT",
+          "messageId": "msg_011CgLxpRPatLSTTgeb88Zrq",
+          "delta": "グカップ（2,200"
+        },
+        {
+          "seconds": 4.8952399,
+          "type": "TEXT_MESSAGE_CONTENT",
+          "messageId": "msg_011CgLxpRPatLSTTgeb88Zrq",
+          "delta": "円）の2点"
+        },
+        {
+          "seconds": 4.895414799999999,
+          "type": "TEXT_MESSAGE_CONTENT",
+          "messageId": "msg_011CgLxpRPatLSTTgeb88Zrq",
+          "delta": "で"
+        },
+        {
+          "seconds": 4.8956032,
+          "type": "TEXT_MESSAGE_CONTENT",
+          "messageId": "msg_011CgLxpRPatLSTTgeb88Zrq",
+          "delta": "した。"
+        },
+        {
+          "seconds": 4.897622200000001,
+          "type": "TEXT_MESSAGE_END",
+          "messageId": "msg_011CgLxpRPatLSTTgeb88Zrq"
+        },
+        {
+          "seconds": 5.680376300000001,
+          "type": "RUN_FINISHED"
+        }
+      ],
+      "recorded_duration_seconds": 5.681159700000001
+    }
+  ]
+}

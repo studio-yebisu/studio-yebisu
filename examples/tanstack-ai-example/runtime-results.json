@@ -1,0 +1,82 @@
+{
+  "sdk": "@tanstack/ai",
+  "version": "1.0.0",
+  "model": "claude-opus-5-5",
+  "adapter": "@tanstack/ai-claude-code@1.0.0",
+  "connection": "Existing Claude Code host login; no API key injected",
+  "node": "v24.18.0",
+  "scope": "Live model inference and real read-only TanStack server tool execution. Public page replays recorded output; it does not run a model in the browser.",
+  "products": [
+    {
+      "id": "mug-blue",
+      "name": "青いマグカップ",
+      "price": 1800,
+      "color": "blue"
+    },
+    {
+      "id": "mug-red",
+      "name": "赤いマグカップ",
+      "price": 2200,
+      "color": "red"
+    },
+    {
+      "id": "tumbler-steel",
+      "name": "ステンレスタンブラー",
+      "price": 3200,
+      "color": "silver"
+    }
+  ],
+  "samples": [
+    {
+      "id": "blue-mug",
+      "tool_calls": [
+        {
+          "input": {
+            "query": "blue"
+          },
+          "output": {
+            "products": [
+              {
+                "id": "mug-blue",
+                "name": "青いマグカップ",
+                "price": 1800,
+                "color": "blue"
+              }
+            ]
+          }
+        }
+      ],
+      "output": "query=\"blue\"で検索すると、「青いマグカップ」が1件見つかりました。価格は1,800円です。",
+      "recorded_duration_seconds": 6.096449
+    },
+    {
+      "id": "budget",
+      "tool_calls": [
+        {
+          "input": {
+            "query": "all",
+            "maxPrice": 2500
+          },
+          "output": {
+            "products": [
+              {
+                "id": "mug-blue",
+                "name": "青いマグカップ",
+                "price": 1800,
+                "color": "blue"
+              },
+              {
+                "id": "mug-red",
+                "name": "赤いマグカップ",
+                "price": 2200,
+                "color": "red"
+              }
+            ]
+          }
+        }
+      ],
+      "output": "予算2500円以内の商品は、青いマグカップ（1,800円）と赤いマグカップ（2,200円）の2点でした。",
+      "recorded_duration_seconds": 5.681159700000001
+    }
+  ]
+}
