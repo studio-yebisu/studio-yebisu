@@ -1,0 +1,107 @@
+/* Scenario 3D Collection 作例 — warm paper / ink. System fonts only, no external assets. */
+:root {
+  --paper: #f2eee3;
+  --paper-deep: #e7e1d0;
+  --field: #fbf9f3;
+  --ink: #17150f;
+  --ink-soft: #4f4a3f;
+  --muted: #6b6455;
+  --rule: rgba(23, 21, 15, 0.2);
+  --accent: #ff4f00;
+  --blue: #2749c9;
+  --lime: #cbef3a;
+  --mincho: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "BIZ UDPMincho", "Noto Serif JP", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", "YuGothic", Meiryo, "Noto Sans JP", system-ui, sans-serif;
+  --mono: "Cascadia Mono", Consolas, "Courier New", monospace;
+  --pad: max(1.25rem, env(safe-area-inset-left));
+  --pad-r: max(1.25rem, env(safe-area-inset-right));
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: 1rem; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font-family: var(--sans); font-size: 1rem; line-height: 1.75;
+  line-break: strict; overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, p, ol, ul, dl, dd, figure, pre { margin: 0; }
+ol, ul { padding: 0; list-style: none; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
+code, pre { font-family: var(--mono); font-size: 0.88em; }
+code { padding: 0 0.3em; background: var(--paper-deep); overflow-wrap: anywhere; }
+button { font: inherit; color: inherit; cursor: pointer; }
+img { display: block; max-width: 100%; }
+:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; box-shadow: 0 0 0 5px var(--lime); }
+
+.masthead, main { padding-left: max(var(--pad), calc((100% - 68rem) / 2)); padding-right: max(var(--pad-r), calc((100% - 68rem) / 2)); }
+.masthead { padding-top: 2rem; padding-bottom: 1.75rem; border-bottom: 2px solid var(--ink); }
+.kicker { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; margin-bottom: 1.1rem; }
+.kicker a { text-decoration: none; border-bottom: 1px solid var(--rule); }
+.kicker span { margin: 0 0.5em; color: var(--muted); }
+.kicker a:last-child { border-bottom-color: var(--accent); }
+.masthead h1 { font-family: var(--mincho); font-size: clamp(1.7rem, 5.4vw, 2.7rem); line-height: 1.3; font-weight: 700; }
+.identity { margin-top: 0.9rem; max-width: 48em; color: var(--ink-soft); font-size: 0.92rem; }
+.identity strong { color: var(--accent); }
+
+.workbench { display: grid; gap: 1.1rem; padding-top: 1.75rem; }
+.panel { border: 1.5px solid var(--ink); border-radius: 14px; background: var(--field); }
+.panel-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.6rem 1rem; padding: 1rem 1.1rem 0.8rem; }
+.panel h2 { font-family: var(--mincho); font-size: 1.25rem; font-weight: 700; }
+.panel h2::before { content: ""; display: inline-block; width: 0.55em; height: 0.55em; margin-right: 0.5em; background: var(--accent); }
+.model-switch { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.model-switch button, .viewer-tools button {
+  min-height: 2.4rem; padding: 0.35rem 0.9rem; border: 1px solid var(--ink); background: transparent;
+  font-size: 0.83rem; font-weight: 700; border-radius: 999px;
+}
+.model-switch button[aria-pressed="true"], .viewer-tools button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.model-switch button[disabled], .viewer-tools button[disabled] { opacity: 0.45; cursor: default; }
+
+.viewer-frame { position: relative; margin: 0 1.1rem; border: 1.5px solid var(--ink); border-radius: 10px; overflow: hidden; background: var(--paper); }
+#stage { display: block; width: 100%; height: 62svh; min-height: 320px; touch-action: none; }
+.viewer-hint { position: absolute; right: 0.7rem; bottom: 0.55rem; font-size: 0.68rem; color: var(--muted); background: rgba(251, 249, 243, 0.85); padding: 0.1rem 0.5rem; border-radius: 999px; pointer-events: none; }
+.fallback { position: absolute; inset: 0; display: grid; grid-template-rows: 1fr auto; background: var(--paper); }
+.fallback[hidden] { display: none !important; }
+.fallback img { width: 100%; height: 100%; object-fit: contain; }
+.fallback figcaption { font-size: 0.72rem; color: var(--muted); padding: 0.5rem 0.8rem; background: var(--paper-deep); }
+.viewer-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; padding: 0.85rem 1.1rem 1rem; }
+.statusline { flex-basis: 100%; font-size: 0.8rem; color: var(--muted); }
+
+.record { padding: 1rem 1.1rem 1.1rem; align-self: start; }
+.record-label { font-family: var(--mincho); font-size: 1.5rem; font-weight: 700; margin: 0.2rem 0 0.7rem; }
+.rows { display: grid; grid-template-columns: minmax(6.5rem, auto) 1fr; gap: 0.5rem 1rem; font-size: 0.88rem; }
+.rows dt { font-weight: 800; }
+.rows dd { color: var(--ink-soft); min-width: 0; margin: 0; }
+.prompt { font-size: 0.8rem; color: var(--muted); line-height: 1.65; }
+.chip { display: inline-block; font-family: var(--mono); font-size: 0.72rem; font-weight: 700; border: 1px solid var(--ink); border-radius: 999px; padding: 0.1rem 0.6rem; background: var(--paper); }
+.chip-alt { border-color: var(--accent); color: var(--accent); }
+.thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; margin-top: 0.9rem; }
+.thumbs figure { margin: 0; }
+.thumbs img { width: 100%; aspect-ratio: 1; object-fit: cover; border: 1px solid var(--rule); border-radius: 8px; background: var(--paper); }
+.thumbs figcaption { font-size: 0.68rem; color: var(--muted); text-align: center; margin-top: 0.25rem; }
+
+.details { margin-top: 2.4rem; display: grid; gap: 0.6rem; }
+.details > details { border: 1.5px solid var(--ink); border-radius: 10px; background: var(--field); }
+.details summary { cursor: pointer; padding: 0.85rem 1.1rem; font-weight: 800; list-style-position: inside; }
+.details summary::marker { color: var(--accent); }
+.details details { padding: 0 1.1rem 1.1rem; }
+.small { font-size: 0.84rem; color: var(--ink-soft); }
+.links li { margin: 0.35rem 0; }
+.limits li { margin: 0.4rem 0; padding-left: 1.1rem; position: relative; }
+.limits li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 0.5rem; height: 1.5px; background: var(--accent); }
+
+.colophon { margin-top: 3rem; padding: 1.4rem 0 2.2rem; border-top: 2px solid var(--ink); font-size: 0.82rem; color: var(--muted); display: grid; gap: 0.5rem; }
+.colophon a { color: var(--ink); }
+.colophon strong { color: var(--ink); }
+
+@media (min-width: 900px) {
+  .workbench { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: start; }
+  #stage { height: 64vh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto; }
+}
+
+/* A square phone viewport keeps the complete model and its controls together. */
+@media (max-width: 700px) {
+  #stage { height: auto; min-height: 0; aspect-ratio: 1; }
+}
