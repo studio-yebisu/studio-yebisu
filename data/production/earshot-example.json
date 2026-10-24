@@ -1,24 +1,19 @@
 {
   "id": "earshot-example",
-  "verified_at": "2026-10-23T16:14:04.620350+00:00",
+  "revision": 2,
+  "verified_at": "2026-10-24T00:00:18.744246+00:00",
   "model": {
     "requested": "claude-opus-5-5",
     "reported": [
       "claude-opus-5-5"
     ],
-    "scope": "Opus authored the catalog introduction and video/art.js, the Canvas motion-graphics artwork. Codex authored the HTML player, timing engine and listening interface; generated the earshot SFX, audio timing and case metadata; rendered, verified and integrated the result.",
+    "scope": "Opus authored the replacement Canvas artwork and motion from a brief based on Codex analysis of the original author film. Codex authored direction, cue plan, sound rendering, original score, player, site, export and integration.",
     "receipts": [
       {
-        "phase": "Japanese catalog copy",
-        "receipt_sha256": "aff7ff6ed98d835b66e5477af27095da6e747360b768d9ae2dfd5d39e4cc8f36",
-        "execution_sha256": "f35df8466812a031cc8d3f3a5956bfc07210f6e0e19fcc5246b4bca1fe3303e5",
-        "prompt_sha256": "13bafcb0a6d6684f064c0a39176cefb2c2b0ac78bc33f4180d9235eb0f06adaa"
-      },
-      {
-        "phase": "Canvas motion-graphics artwork",
-        "receipt_sha256": "459f21d9843e0999db84b0887e8272e8c32080f0bc655bfe46f6bfcff6c72876",
-        "execution_sha256": "e07ec2a0d74a67e6ed56d3974d35fe2a70afe5f31ada274baa9d54ffac3815f4",
-        "prompt_sha256": "87cd71ae770f9079557a93f8a843a4cb6f00b6552f2424da080f9d3c52f9ed68"
+        "phase": "V2 art / motion",
+        "receipt_sha256": "1bf595058bb6778e4173353756872e58ef61d8ad0d6807a28036abe95ab73fcc",
+        "execution_sha256": "4b6a8abaf281885308113ef54e4d7ec8a7e67c6612cfd77e24051b9de6b5501d",
+        "prompt_sha256": "8a4ed029b8d08c76f564b3c3667dcd1b80609c8619a8b01cce6395b260b70cae"
       }
     ],
     "receipt_published": false
@@ -31,176 +26,191 @@
   },
   "runtime": {
     "status": "passed",
-    "sample_count": 9,
-    "cue_count": 20,
-    "duration_seconds": 30.0,
+    "sample_count": 16,
+    "cue_count": 53,
+    "duration_seconds": 30,
     "offline": true,
     "bank_count": 252,
     "sample_format": "48kHz / 24-bit PCM WAV",
     "maximum_audio_placement_error_ms": 0.008333,
-    "meaning_of_placement_error": "Rounding of measured onset/peak when placing the WAV; does not measure human audiovisual perception or display latency.",
-    "all_nine_dsp_audits_passed": true,
-    "local_analysis_models_loaded_offline": true,
-    "mcp_generation_checked": true,
+    "meaning_of_placement_error": "Rounding of measured WAV onset/peak placement, not perceived audiovisual latency.",
+    "all_sfx_dsp_audits_passed": true,
+    "score": {
+      "bpm": 128,
+      "beat_seconds": 0.46875,
+      "beats": 64,
+      "credit": "Original score by Studio Yebisu: earshot percussion + procedural synthesis."
+    },
     "renders": {
       "wide": {
         "video": {
           "file": "video.mp4",
-          "sha256": "22ae23583f32975c23c7cdc04f831d1216ca6d211e96a1d948de3a17a41e8d0a",
+          "sha256": "02e359b289c21affb86198457ef7b6f6d0ec3f915f53cfadbfbfa120a38bffa6",
           "width": 1280,
           "height": 720,
-          "fps": 30,
-          "frameCount": 900,
+          "fps": 60,
+          "frameCount": 1800,
           "duration": 30,
           "hasAudio": true
         },
         "audio": {
           "kind": "supplied_track",
           "filename": "soundtrack.wav",
-          "sha256": "f268b2dbd7832d28da9c6ab902c7ddc56812cd0f53ff2f38078fdb93fe022729",
+          "sha256": "7af2a9c0a2c9cb2ec93b4c4a8d6051a12e617a6e623365db545415ecb36cd860",
           "targetLufs": -16,
           "measured": {
-            "input_i": "-15.79",
-            "input_tp": "-0.88",
-            "input_lra": "10.30",
-            "input_thresh": "-27.90",
-            "output_i": "-15.58",
+            "input_i": "-16.17",
+            "input_tp": "-1.37",
+            "input_lra": "2.00",
+            "input_thresh": "-26.43",
+            "output_i": "-16.06",
             "output_tp": "-1.50",
-            "output_lra": "8.10",
-            "output_thresh": "-27.75",
+            "output_lra": "1.90",
+            "output_thresh": "-26.32",
             "normalization_type": "dynamic",
-            "target_offset": "-0.42"
+            "target_offset": "0.06"
           },
           "listeningReview": "not_performed_by_renderer"
         },
         "determinism": {
-          "frame": 540,
+          "frame": 1080,
           "seconds": 18,
-          "first": "bc5272323ff55925f2cb89d273c1fa72682c90047b199b9a26d76f924e4ffe8e",
-          "afterOtherTimes": "bc5272323ff55925f2cb89d273c1fa72682c90047b199b9a26d76f924e4ffe8e",
-          "freshPage": "bc5272323ff55925f2cb89d273c1fa72682c90047b199b9a26d76f924e4ffe8e",
+          "first": "687c80f7335b30d3f0f7b3d1040f0af064ac74fc22bd71c7ffa98262e24e3533",
+          "afterOtherTimes": "687c80f7335b30d3f0f7b3d1040f0af064ac74fc22bd71c7ffa98262e24e3533",
+          "freshPage": "687c80f7335b30d3f0f7b3d1040f0af064ac74fc22bd71c7ffa98262e24e3533",
           "match": true
         }
       },
       "portrait": {
         "video": {
           "file": "video.mp4",
-          "sha256": "91f9d812e43ba93cc3935e591b7d8c5172fb1d5f92d6dd2a12f5cb5623fec309",
+          "sha256": "a721c0b67e2bb7af58135d30cb931037b8bbacea8cd98afc5ad3acaed1051c84",
           "width": 720,
           "height": 1280,
-          "fps": 30,
-          "frameCount": 900,
+          "fps": 60,
+          "frameCount": 1800,
           "duration": 30,
           "hasAudio": true
         },
         "audio": {
           "kind": "supplied_track",
           "filename": "soundtrack.wav",
-          "sha256": "f268b2dbd7832d28da9c6ab902c7ddc56812cd0f53ff2f38078fdb93fe022729",
+          "sha256": "7af2a9c0a2c9cb2ec93b4c4a8d6051a12e617a6e623365db545415ecb36cd860",
           "targetLufs": -16,
           "measured": {
-            "input_i": "-15.79",
-            "input_tp": "-0.88",
-            "input_lra": "10.30",
-            "input_thresh": "-27.90",
-            "output_i": "-15.58",
+            "input_i": "-16.17",
+            "input_tp": "-1.37",
+            "input_lra": "2.00",
+            "input_thresh": "-26.43",
+            "output_i": "-16.06",
             "output_tp": "-1.50",
-            "output_lra": "8.10",
-            "output_thresh": "-27.75",
+            "output_lra": "1.90",
+            "output_thresh": "-26.32",
             "normalization_type": "dynamic",
-            "target_offset": "-0.42"
+            "target_offset": "0.06"
           },
           "listeningReview": "not_performed_by_renderer"
         },
         "determinism": {
-          "frame": 540,
+          "frame": 1080,
           "seconds": 18,
-          "first": "89327948353d0d97d907371d746947792092d0e6a5174706d825bc0d005913f5",
-          "afterOtherTimes": "89327948353d0d97d907371d746947792092d0e6a5174706d825bc0d005913f5",
-          "freshPage": "89327948353d0d97d907371d746947792092d0e6a5174706d825bc0d005913f5",
+          "first": "a276b2f7fbf9c8ff720aba252d9075c444ae0bd92109ec3a829695addb987da4",
+          "afterOtherTimes": "a276b2f7fbf9c8ff720aba252d9075c444ae0bd92109ec3a829695addb987da4",
+          "freshPage": "a276b2f7fbf9c8ff720aba252d9075c444ae0bd92109ec3a829695addb987da4",
           "match": true
         }
       }
     },
     "browser_qa": {
       "status": "passed",
-      "checks": [
-        {
-          "viewport": "desktop",
-          "width": 1280,
-          "horizontal_overflow": false,
-          "sample_count": 9,
-          "sounds_downloadable": true,
-          "sample_deep_links": true,
-          "audio_waits_for_gesture": true,
-          "play_seek_mute_stop": true,
-          "sample_film_exclusion": true,
-          "reduced_motion_pauses": true
-        },
-        {
-          "viewport": "mobile",
-          "width": 390,
-          "horizontal_overflow": false,
-          "sample_count": 9,
-          "sounds_downloadable": true,
-          "sample_deep_links": true,
-          "audio_waits_for_gesture": true,
-          "play_seek_mute_stop": true,
-          "sample_film_exclusion": true,
-          "reduced_motion_pauses": true
-        }
+      "scope": [
+        "16 generated sound cards and versioned downloads loaded",
+        "Individual Bloom playback entered playing state",
+        "Starting film stopped individual sample",
+        "Seek to 20.63 seconds before playback succeeded after loading a local AAC Blob",
+        "Encoded 1280x720 MP4 played to 30.0 seconds without media error",
+        "Both native orientations rendered at 60fps with deterministic frames"
       ],
-      "mp4_playback": {
-        "duration": 30,
-        "width": 1280,
-        "height": 720,
-        "currentTime": 0.407827
-      },
-      "console_and_http_errors": [],
-      "auditory_review": "not-performed"
+      "auditory_review": "not-performed-by-agent",
+      "user_preview_feedback": "positive"
     }
   },
   "visual_review": {
     "status": "reviewed-by-codex",
-    "scope": "Representative and consecutive frames in both orientations, browser playback and generated MP4 playback."
+    "scope": "Representative and consecutive frames in both native orientations; live Canvas playback; revised MP4 preview shown to user. No explanatory captions. Original author film was studied privately for composition and timing. Encoded MP4 playback to its end was checked in the browser.",
+    "corrections": [
+      "Fixed nested RGB color interpolation that had made the waveform scene invisible. Increased rounded-quad subdivision for smooth close-up edges."
+    ],
+    "user_preview_feedback": "Positive response to the revised MP4 preview.",
+    "agent_listening": "not-performed"
   },
-  "auditory_review": "not-performed; user listening remains necessary for subjective sound quality",
+  "auditory_review": "not-performed",
   "limitations": [
-    "Nine bank presets and twenty cues were exercised; the full 252-sound bank was not audited.",
-    "The fit reconstruction feature was not exercised.",
-    "No claim of human listening approval or production adoption."
+    "Subjective listening has not been verified.",
+    "The full 252-sound bank and fit reconstruction were not audited."
   ],
   "artifacts_sha256": {
-    "examples/earshot-example/app.js": "30614e32ba01a99736760ba374d8c462e9f8de0562f1a86eb49e5d875a6e8bdf",
-    "examples/earshot-example/assets/render-report.json": "979a9aa8fc0f89e90aff853a90ccb9b0e1ad4da84289edbc476ccaa715c04b3b",
+    "examples/earshot-example/app.js": "a44016f0a8058b19b80f4f56bb7fba447b48ddb772c60390088fd570f561f425",
+    "examples/earshot-example/assets/bank-report.json": "efb73269f32c7f949c3f5c10502e3205d57d3e68e07df14a6aab3b9bfff210ad",
+    "examples/earshot-example/assets/playback.m4a": "817c07bb41b5c521235d77f3bf3e819aca2fa13a8f9b11e3b7d823c668f6425a",
+    "examples/earshot-example/assets/render-report.json": "d0580f5d7cee64a665e042740ed1c40aecda4140563b4493576424583e9f4f67",
+    "examples/earshot-example/assets/sfx/bell.json": "fcdda4aeeb564fb7165a04f00985706658b15789b6c586b956f440f8f0a80403",
+    "examples/earshot-example/assets/sfx/bell.wav": "04ec6c3320bc9923cc6af8f21a3e09740c291050c8946bababc348048afd459b",
+    "examples/earshot-example/assets/sfx/click.json": "f6947f4917e50f45a79324dbefc5aea22c82b109b695d8f6e3b08d8f31d69893",
+    "examples/earshot-example/assets/sfx/click.wav": "e291ba8860c30b2d0fef5bf05d0d84021723958b494b975f4dbe8d8ea1817e45",
+    "examples/earshot-example/assets/sfx/drop.json": "db8a8e38ab51a93fc71814ff7c5db13a2b27c372d0f9fd1df7e9be7e9385a4c3",
+    "examples/earshot-example/assets/sfx/drop.wav": "9031a8e0b829f4dc20a786faa4e281b45bd617c52249d66aadd1153572b805af",
+    "examples/earshot-example/assets/sfx/glitch.json": "116f9aabe70c519f8dea83239b378b90bbf5a764ddbaa02028cf5cdf13b476df",
+    "examples/earshot-example/assets/sfx/glitch.wav": "9a43c1d46b6c1c72e3adc88e435b22d8e17f517ba648be160d81dbe249e44439",
+    "examples/earshot-example/assets/sfx/hit.json": "c98b39153f5eddd8b0abb0bf16b18a07a926606a54282000863274f17683de6d",
     "examples/earshot-example/assets/sfx/hit.wav": "d466602596cdfde766fd65d09d1126b20ee14514a08ab281f6c743bc0a16e91a",
+    "examples/earshot-example/assets/sfx/knock.json": "e577744cc5ef2a3b0b665a1e7cda80d2275f9b1281490be2dd8d9308cd963ce7",
+    "examples/earshot-example/assets/sfx/knock.wav": "9d4a89ffd31a6e0a1d6d7c2d882ad909b495e1d8eb9f69fdd802ab02d87e8e3a",
     "examples/earshot-example/assets/sfx/note-b.wav": "e15c5330620384a770da5960b643b6f2aa2b9b3e7b48246d770964c79000cd75",
     "examples/earshot-example/assets/sfx/note-e.wav": "1c93d08b10e4854d41d228f25dffbe5b452e8dcae0a020bfde6715262607fd3f",
     "examples/earshot-example/assets/sfx/note-g.wav": "019f5638b21c896965ea111a3cac4f96133dacf1c4879821daeb5c50fda4430d",
+    "examples/earshot-example/assets/sfx/pluck.json": "53e08a6a52022d3695b2b8237c3f35907be7088032d2d141a277e395fea9c7b4",
+    "examples/earshot-example/assets/sfx/pluck.wav": "037f53afc8f4616f42ec8aff5197e3aaa0cf1afbd26329e1805df974a6718ec1",
+    "examples/earshot-example/assets/sfx/pop-low.json": "0507cd8e9109076ca3fedf7330d359ab7e88d3dcb4b714540b24d00e61a567f0",
+    "examples/earshot-example/assets/sfx/pop-low.wav": "3c562a82285d3ecb2d50582c5e604f6dcaf644742d45ade22c4fb8f9a69c9084",
     "examples/earshot-example/assets/sfx/pop-soft.wav": "0dbacb18d72e1c0071398be81591ac20f0007315f1798c952116c9f10bb0e6f1",
     "examples/earshot-example/assets/sfx/pop-step.wav": "8429e857e641c45dd919ee0da156268a4e12f215a6c4bd6f6d51128fa8f3c08c",
+    "examples/earshot-example/assets/sfx/pop-tight.json": "ccd1a6f96a7fc31368a5060bb2a9bc3a9cac25e163983077562d00acc4277ecf",
+    "examples/earshot-example/assets/sfx/pop-tight.wav": "dbd1b45100ca4f261bc2d2202c273aa300ddec052f02e5e8005718505db89781",
     "examples/earshot-example/assets/sfx/pop-wide.wav": "5cc761b7fa92007c56279227aafb66200dfd186abf4403c72edb45d46c6b4c2d",
+    "examples/earshot-example/assets/sfx/pop.json": "f7b491c24d6987b284342a9a0e62397d3b1889e5d0a206f435ff5c9949c7d668",
+    "examples/earshot-example/assets/sfx/pop.wav": "c4d044ab20815bf0dc2002607da3fe0f84a337bb08a94ca12368b96f7ffcc326",
+    "examples/earshot-example/assets/sfx/riser.json": "2e56fe3e416e972ccf26429b04b649bde8174c0efc0c81cb9c851a5a2aac1763",
+    "examples/earshot-example/assets/sfx/riser.wav": "2cb8a4b1d8b5fde9b5cec361b5de2fdd1dd3b44a44d49651afd176d8a6224b0c",
+    "examples/earshot-example/assets/sfx/shutter.json": "5532ba4d503ed3f1dd978986c3a06616b06dd5eace9e59fcbed49bd6c4794fe8",
     "examples/earshot-example/assets/sfx/shutter.wav": "eb870d038e219e298576060b1321bbcc495062d02433bf62e6ac40f2c0cf000f",
-    "examples/earshot-example/assets/sfx/whoosh.wav": "0ca2359eadb6e5038cfc52c02cb13add29f3c47e59d2cba22d5d34040216966d",
-    "examples/earshot-example/assets/soundtrack.wav": "f268b2dbd7832d28da9c6ab902c7ddc56812cd0f53ff2f38078fdb93fe022729",
-    "examples/earshot-example/index.html": "e1463f2c70a75aa294db9dd09b7d03aef4e88416f169642dc2a1d95d4331307e",
-    "examples/earshot-example/input/sound-design.json": "f51dd13e6c9a2da5c554b15540334a703b79762a05c63a87e1da61aad6274511",
+    "examples/earshot-example/assets/sfx/sting.json": "2676d06704be5028fa50634e1bc814cc8d6ad17bd6b798f5dd0bec9b0a6c4181",
+    "examples/earshot-example/assets/sfx/sting.wav": "668042d2e18cd9e64da5449260fd5b0ede4fc5cfa89b86c65718df474b9d04dc",
+    "examples/earshot-example/assets/sfx/sweep.json": "4df03fe1d2a60d3690ad3953596e206b4f9dfa9ee65639cbd4da8722781d72ba",
+    "examples/earshot-example/assets/sfx/sweep.wav": "4b0bf8805cab8a15c46603d762e0fec3dbe0ee6f1064b02684921eaa71d5f35b",
+    "examples/earshot-example/assets/sfx/tick.json": "99183ba0965b29340d643cea8ad14f698d94850579a768622dd181fc4cd630fb",
+    "examples/earshot-example/assets/sfx/tick.wav": "00fd7262778076ef722fd55bbcb2e445898b9de8514fb748a17cfab8b5cd392b",
+    "examples/earshot-example/assets/sfx/whoosh.json": "0ce0ce548c1e6c3e67ff95c1fc2267b848d12f1f0d577944c37e48921b6facd7",
+    "examples/earshot-example/assets/sfx/whoosh.wav": "79177efb80c423d0c3df7ffd96ca97ac69d2c98e2cf7a30821909643e8757df9",
+    "examples/earshot-example/assets/soundtrack.wav": "7af2a9c0a2c9cb2ec93b4c4a8d6051a12e617a6e623365db545415ecb36cd860",
+    "examples/earshot-example/index.html": "afc4c0ea237f3d6c9bf3032a186748408d54ac4a626f1b96f978380bc200a661",
+    "examples/earshot-example/input/sound-design.json": "fa93ff52a32335c91733acbd238b278a24d6af4dd85e470c8f4fb5c36f3cf3bc",
     "examples/earshot-example/LICENSE": "b9983d3664ba1f525f0f39874b6579fafce25636f8b7b1e7cfcae8c32c6745eb",
-    "examples/earshot-example/README.md": "51a8c750a84fcbbd4b4f4c87ddcc5bb0ecb820bbf43a595bf50fe8bf6d451b2d",
-    "examples/earshot-example/render_audio.py": "4afeaf2c0473108db3f856c0eac43d78dd7a3d7926430dff72397b2df75d13a0",
-    "examples/earshot-example/samples.json": "3266c49bfa1f4e18bbb5f29dfe23bce4c9a102845f50151fe6d5c4f13eb3b9cf",
-    "examples/earshot-example/source.zip": "4e1ccfa63ab60a8e848eb7c2e10241692ffe959d8a0b42a7f7b413d5eca3eba9",
-    "examples/earshot-example/style.css": "fd845b71c2f6092a28cf128c30aac364bd568a3036000b4d1df8a010ceaaed5a",
+    "examples/earshot-example/README.md": "dfaf6f82cd5a4cf2a812cb3e5a4b3d6589065cc605d1249cf73430b3ea3db533",
+    "examples/earshot-example/render_audio.py": "7c6e896484fd486c3d1f9dc09cb607dd86a53a0273c083653a8d2da7160e953f",
+    "examples/earshot-example/samples.json": "d8cd3ae6a0b13e738f9e40a02fc29bf37fdcb9d399a8dcd45117b1b6c8943f7e",
+    "examples/earshot-example/source.zip": "7d89f62fba2c179af39a9aae6144f8697b16aca4ea653e35be00a8548446cfb4",
+    "examples/earshot-example/style.css": "079c9d30b8c85eebd3fded4dec9acd23ae04f29cf560f544a60d812895dbca11",
     "examples/earshot-example/third-party/earshot-LICENSE": "d9177365c7471d18ecd623ce7b8849e26ab8d7e7fea13e1fcbda62397ecb9db8",
-    "examples/earshot-example/video/art.js": "764e1f178f38f8a0f2d3458c964de68b3238b8051f745b750bfa68b0907864ce",
-    "examples/earshot-example/video/engine.js": "918d8b1c38eb5b36dc6e4076389979694a2ae7a22c21ac0d2774d05b6a6b049c",
-    "examples/earshot-example/video/index.html": "571bf4df0e8eab80cbd0fd8c1830f4ee10d4267929feae0a5b528d81ef55cae7",
-    "examples/earshot-example/video/timeline.json": "b3019a4aaa278976e0ba4aa45c8efa79af04a86fc5bff4bb78b4441bfdf6f12f",
-    "media/downloads/earshot-example-landscape-credited-ja-v3.mp4": "58697dccc1a3c3f53e9ef164ba7497d825c89071ec2aa0e02da0061a9bf2ce0a",
-    "media/downloads/earshot-example-portrait-credited-ja-v3.mp4": "d094c887bf4e7f6f236cbf5b5594f8a9b562df69166fdc7ea0935ba17d99b12a",
-    "media/earshot-example-wide.mp4": "22ae23583f32975c23c7cdc04f831d1216ca6d211e96a1d948de3a17a41e8d0a",
-    "media/earshot-example-wide.webp": "30408f43cf8b909c2be90e241ed86c7c157cc8b5e6da616d9cc95a2a6e1f1d27",
-    "media/earshot-example.mp4": "91f9d812e43ba93cc3935e591b7d8c5172fb1d5f92d6dd2a12f5cb5623fec309",
-    "media/earshot-example.webp": "57c20ad090b0254496a13209807593ec531aa9bddcd2e1ebcee853bcb3b2afdb"
+    "examples/earshot-example/video/art.js": "4141576ee0ddd280518d402f2ece9782e0d54c6187e535f0e847d678d8f6f370",
+    "examples/earshot-example/video/engine.js": "963c3fe29bc489f53be4811bd574a223d9632cd7a8ab782ab4834da9ffb87d3b",
+    "examples/earshot-example/video/index.html": "2dfd7aa3d19e9ffe82488b73efb84a63ba0e640305ee1f53e75c33e5760ef637",
+    "examples/earshot-example/video/timeline.json": "8f1f01e5066533c33464c897f7e331ae75ad694fd7dc1c7125ce2c80d7ada92f",
+    "media/downloads/earshot-example-landscape-credited-ja-v3.mp4": "3fbc5d02801493c0b11c845794167afc7a175c777fb46bd50655e0d2a87a88c3",
+    "media/downloads/earshot-example-portrait-credited-ja-v3.mp4": "15d9ad041dfcb2016f2edabb06b44928e3edc8b3fc30803dc6037dc1d23a51a3",
+    "media/earshot-example-wide.mp4": "02e359b289c21affb86198457ef7b6f6d0ec3f915f53cfadbfbfa120a38bffa6",
+    "media/earshot-example-wide.webp": "41ce91721fb9367d08f99608b9c4f356a91c51996df22339036fb7af616a97ca",
+    "media/earshot-example.mp4": "a721c0b67e2bb7af58135d30cb931037b8bbacea8cd98afc5ad3acaed1051c84",
+    "media/earshot-example.webp": "c3afa7e3132fec7ae81255d96cbb58d93407a184a6f90c3251b1fa0c2afca608"
   }
 }

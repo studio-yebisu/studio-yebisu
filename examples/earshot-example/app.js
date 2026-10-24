@@ -11,19 +11,19 @@
     active = null;
   };
   function el(tag, className, text) {const node = document.createElement(tag); if (className) node.className = className; if (text) node.textContent = text; return node;}
-  fetch('video/timeline.json').then(r => {if (!r.ok) throw new Error(); return r.json();}).then(data => {
+  fetch('video/timeline.json?v=2').then(r => {if (!r.ok) throw new Error(); return r.json();}).then(data => {
     for (const [i, row] of data.sounds.entries()) {
       const card = el('article', 'sound'); card.id = row.key;
       const meta = el('div', 'sound-meta'); meta.append(el('span', '', String(i + 1).padStart(2, '0')), el('span', '', row.duration.toFixed(3) + ' SEC'));
       const heading = el('h3', '', row.label), id = el('p', 'sound-id', row.id);
       const actions = el('div', 'sound-actions'), button = el('button', 'sound-play', '▶');
       button.type = 'button'; button.setAttribute('aria-label', row.label + 'を再生'); button.setAttribute('aria-pressed', 'false'); button.dataset.sound = row.key;
-      const download = el('a', '', 'WAVを保存 ↗'); download.href = row.file; download.download = row.key + '.wav';
+      const download = el('a', '', 'WAVを保存 ↗'); download.href = row.file + '?v=2'; download.download = row.key + '.wav';
       button.addEventListener('click', async () => {
         if (active?.button === button && !audio.paused) {stop(); status.textContent = '停止しました。'; return;}
         stop(); const mine = ticket;
         film.contentWindow.postMessage({type: 'earshot-pause-film'}, location.origin);
-        active = {button, card}; audio.src = row.file; audio.currentTime = 0;
+        active = {button, card}; audio.src = row.file + '?v=2'; audio.currentTime = 0;
         try {
           await audio.play(); if (mine !== ticket) return;
           button.textContent = 'Ⅱ'; button.setAttribute('aria-pressed', 'true'); card.classList.add('is-playing');

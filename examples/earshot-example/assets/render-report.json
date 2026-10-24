@@ -1,41 +1,49 @@
 {
   "status": "passed",
-  "generated_at": "2026-10-23T15:25:18.234170+00:00",
+  "revision": 2,
+  "generated_at": "2026-10-24T00:00:18.217474+00:00",
   "version": "0.4.0",
   "source_commit": "591fa3e028032e6dce56620a20e932e35667e8d8",
   "offline": true,
-  "bank_count": 252,
-  "sample_count": 9,
-  "cue_count": 20,
-  "duration": 30.0,
+  "sample_count": 16,
+  "cue_count": 53,
+  "duration": 30,
   "sample_rate": 48000,
   "channels": 2,
   "subtype": "PCM_24",
-  "mix_peak_dbfs": -5.999548054591407,
-  "mix_scale": 1.0,
+  "bpm": 128,
+  "mix_peak_dbfs": -1.493,
   "maximum_sync_error_ms": 0.008333,
   "auditory_review": "not-performed",
-  "no_recordings_or_music_used": true,
+  "external_recordings_used": false,
+  "music": {
+    "bpm": 128,
+    "beat_seconds": 0.46875,
+    "beats": 64,
+    "credit": "Original score by Studio Yebisu: earshot percussion + procedural synthesis."
+  },
   "samples": [
     {
-      "key": "pop-soft",
+      "key": "pop",
       "id": "ui_pop/soft",
-      "label": "丸いポップ",
-      "params": {},
-      "file": "assets/sfx/pop-soft.wav",
-      "duration": 0.18045833333333333,
-      "render_seconds": 0.8918,
-      "sha256": "0dbacb18d72e1c0071398be81591ac20f0007315f1798c952116c9f10bb0e6f1",
+      "label": "Pop",
+      "params": {
+        "seed": 104
+      },
+      "file": "assets/sfx/pop.wav",
+      "duration": 0.180625,
+      "render_seconds": 0.0186,
+      "sha256": "c4d044ab20815bf0dc2002607da3fe0f84a337bb08a94ca12368b96f7ffcc326",
       "meta": {
         "id": "ui_pop/soft",
-        "seed": 1,
+        "seed": 104,
         "sr": 48000,
         "onset_s": 0.0025,
-        "peak_s": 0.0415,
+        "peak_s": 0.0315,
         "end_s": 0.157,
-        "dur_s": 0.1805,
+        "dur_s": 0.1806,
         "peak_db": -6.0,
-        "lufs_m_max": -20.37,
+        "lufs_m_max": -20.93,
         "edits": {},
         "checks": {
           "ok": true,
@@ -47,24 +55,24 @@
             "edge_db": -240.0,
             "clip_runs": 0,
             "overs": 0,
-            "dc_db": -130.2,
-            "ring_z": 4.1,
+            "dc_db": -136.3,
+            "ring_z": 6.5,
             "trunc_db": null,
             "silence_ms": 0.0,
             "bump_db": 0.0,
-            "attack_ms": 6.5,
+            "attack_ms": 6.25,
             "t40_ms": 110.0,
-            "crest_db": 8.2,
-            "res_db": 19.5,
+            "crest_db": 8.7,
+            "res_db": 22.8,
             "res_hz": 1115,
             "peak_dbfs": -6.0,
-            "live_ms": 126.25
+            "live_ms": 124.75
           },
           "glide": {
-            "tonal_share": 0.36,
-            "rise_st": 0.0,
-            "from_s": null,
-            "to_s": null
+            "tonal_share": 0.68,
+            "rise_st": 0.3,
+            "from_s": 0.071,
+            "to_s": 0.081
           },
           "layers": {
             "attacks": [
@@ -83,30 +91,30 @@
         "ok": true,
         "warnings": [],
         "notes": [],
-        "summary": "pop-soft.wav: clean",
+        "summary": "pop.wav: clean",
         "measures": {
           "clicks": 0,
           "edge_db": -240.0,
           "clip_runs": 0,
           "overs": 0,
-          "dc_db": -134.3,
-          "ring_z": 4.1,
+          "dc_db": -131.5,
+          "ring_z": 6.5,
           "trunc_db": null,
           "silence_ms": 0.0,
           "bump_db": 0.0,
-          "attack_ms": 6.5,
+          "attack_ms": 6.25,
           "t40_ms": 110.0,
-          "crest_db": 8.2,
-          "res_db": 19.5,
+          "crest_db": 8.7,
+          "res_db": 22.8,
           "res_hz": 1115,
           "peak_dbfs": -6.0,
-          "live_ms": 126.25
+          "live_ms": 124.75
         },
         "glide": {
-          "tonal_share": 0.36,
-          "rise_st": 0.0,
-          "from_s": null,
-          "to_s": null
+          "tonal_share": 0.68,
+          "rise_st": 0.3,
+          "from_s": 0.071,
+          "to_s": 0.081
         },
         "layers": {
           "attacks": [
@@ -117,135 +125,31 @@
         },
         "context": {
           "category": "ui_pop",
-          "sound": "pop-soft.wav"
-        },
-        "file": "assets/sfx/pop-soft.wav"
-      }
-    },
-    {
-      "key": "pop-step",
-      "id": "ui_pop/step",
-      "label": "少し高いポップ",
-      "params": {},
-      "file": "assets/sfx/pop-step.wav",
-      "duration": 0.187125,
-      "render_seconds": 0.0158,
-      "sha256": "8429e857e641c45dd919ee0da156268a4e12f215a6c4bd6f6d51128fa8f3c08c",
-      "meta": {
-        "id": "ui_pop/step",
-        "seed": 1,
-        "sr": 48000,
-        "onset_s": 0.0025,
-        "peak_s": 0.0445,
-        "end_s": 0.163,
-        "dur_s": 0.1871,
-        "peak_db": -6.0,
-        "lufs_m_max": -20.94,
-        "edits": {},
-        "checks": {
-          "ok": true,
-          "warnings": [],
-          "notes": [],
-          "summary": "ui_pop/step: clean",
-          "measures": {
-            "clicks": 0,
-            "edge_db": -240.0,
-            "clip_runs": 0,
-            "overs": 0,
-            "dc_db": -120.1,
-            "ring_z": 4.6,
-            "trunc_db": null,
-            "silence_ms": 0.0,
-            "bump_db": 0.0,
-            "attack_ms": 20.75,
-            "t40_ms": 110.0,
-            "crest_db": 8.3,
-            "res_db": 19.5,
-            "res_hz": 1446,
-            "peak_dbfs": -6.0,
-            "live_ms": 127.5
-          },
-          "glide": {
-            "tonal_share": 0.43,
-            "rise_st": 0.0,
-            "from_s": null,
-            "to_s": null
-          },
-          "layers": {
-            "attacks": [
-              0.043
-            ],
-            "count": 1,
-            "pre_swell_ms": 0.0
-          },
-          "context": {
-            "category": "ui_pop",
-            "sound": "ui_pop/step"
-          }
+          "sound": "pop.wav"
         }
-      },
-      "check": {
-        "ok": true,
-        "warnings": [],
-        "notes": [],
-        "summary": "pop-step.wav: clean",
-        "measures": {
-          "clicks": 0,
-          "edge_db": -240.0,
-          "clip_runs": 0,
-          "overs": 0,
-          "dc_db": -119.1,
-          "ring_z": 4.6,
-          "trunc_db": null,
-          "silence_ms": 0.0,
-          "bump_db": 0.0,
-          "attack_ms": 20.75,
-          "t40_ms": 110.0,
-          "crest_db": 8.3,
-          "res_db": 19.5,
-          "res_hz": 1446,
-          "peak_dbfs": -6.0,
-          "live_ms": 127.5
-        },
-        "glide": {
-          "tonal_share": 0.43,
-          "rise_st": 0.0,
-          "from_s": null,
-          "to_s": null
-        },
-        "layers": {
-          "attacks": [
-            0.043
-          ],
-          "count": 1,
-          "pre_swell_ms": 0.0
-        },
-        "context": {
-          "category": "ui_pop",
-          "sound": "pop-step.wav"
-        },
-        "file": "assets/sfx/pop-step.wav"
       }
     },
     {
-      "key": "pop-wide",
+      "key": "pop-low",
       "id": "ui_pop/wide",
-      "label": "広がるポップ",
-      "params": {},
-      "file": "assets/sfx/pop-wide.wav",
-      "duration": 0.19039583333333332,
-      "render_seconds": 0.0162,
-      "sha256": "5cc761b7fa92007c56279227aafb66200dfd186abf4403c72edb45d46c6b4c2d",
+      "label": "Low pop",
+      "params": {
+        "seed": 104
+      },
+      "file": "assets/sfx/pop-low.wav",
+      "duration": 0.185125,
+      "render_seconds": 0.0122,
+      "sha256": "3c562a82285d3ecb2d50582c5e604f6dcaf644742d45ade22c4fb8f9a69c9084",
       "meta": {
         "id": "ui_pop/wide",
-        "seed": 1,
+        "seed": 104,
         "sr": 48000,
         "onset_s": 0.0,
-        "peak_s": 0.0445,
-        "end_s": 0.143,
-        "dur_s": 0.1904,
+        "peak_s": 0.0385,
+        "end_s": 0.151,
+        "dur_s": 0.1851,
         "peak_db": -6.0,
-        "lufs_m_max": -20.95,
+        "lufs_m_max": -20.14,
         "edits": {},
         "checks": {
           "ok": true,
@@ -257,24 +161,24 @@
             "edge_db": -240.0,
             "clip_runs": 0,
             "overs": 0,
-            "dc_db": -118.9,
-            "ring_z": 6.2,
+            "dc_db": -116.6,
+            "ring_z": 4.8,
             "trunc_db": null,
             "silence_ms": 0.0,
             "bump_db": 0.0,
-            "attack_ms": 7.0,
+            "attack_ms": 10.25,
             "t40_ms": 100.0,
-            "crest_db": 9.5,
-            "res_db": 29.0,
+            "crest_db": 7.5,
+            "res_db": 28.9,
             "res_hz": 2810,
             "peak_dbfs": -6.0,
-            "live_ms": 123.25
+            "live_ms": 119.75
           },
           "glide": {
-            "tonal_share": 1.0,
-            "rise_st": 0.3,
-            "from_s": 0.016,
-            "to_s": 0.031
+            "tonal_share": 0.86,
+            "rise_st": 1.4,
+            "from_s": 0.036,
+            "to_s": 0.116
           },
           "layers": {
             "attacks": [
@@ -293,30 +197,30 @@
         "ok": true,
         "warnings": [],
         "notes": [],
-        "summary": "pop-wide.wav: clean",
+        "summary": "pop-low.wav: clean",
         "measures": {
           "clicks": 0,
           "edge_db": -240.0,
           "clip_runs": 0,
           "overs": 0,
-          "dc_db": -118.1,
-          "ring_z": 6.2,
+          "dc_db": -117.5,
+          "ring_z": 4.8,
           "trunc_db": null,
           "silence_ms": 0.0,
           "bump_db": 0.0,
-          "attack_ms": 7.0,
+          "attack_ms": 10.25,
           "t40_ms": 100.0,
-          "crest_db": 9.5,
-          "res_db": 29.0,
+          "crest_db": 7.5,
+          "res_db": 28.9,
           "res_hz": 2810,
           "peak_dbfs": -6.0,
-          "live_ms": 123.25
+          "live_ms": 119.75
         },
         "glide": {
-          "tonal_share": 1.0,
-          "rise_st": 0.3,
-          "from_s": 0.016,
-          "to_s": 0.031
+          "tonal_share": 0.86,
+          "rise_st": 1.4,
+          "from_s": 0.036,
+          "to_s": 0.116
         },
         "layers": {
           "attacks": [
@@ -327,91 +231,71 @@
         },
         "context": {
           "category": "ui_pop",
-          "sound": "pop-wide.wav"
-        },
-        "file": "assets/sfx/pop-wide.wav"
+          "sound": "pop-low.wav"
+        }
       }
     },
     {
-      "key": "whoosh",
-      "id": "whoosh_fast/crisp",
-      "label": "通り抜ける音",
+      "key": "pop-tight",
+      "id": "ui_pop/step",
+      "label": "Tight pop",
       "params": {
-        "dur": 0.8,
-        "apex": 0.32
+        "seed": 104
       },
-      "file": "assets/sfx/whoosh.wav",
-      "duration": 0.8,
-      "render_seconds": 0.3818,
-      "sha256": "0ca2359eadb6e5038cfc52c02cb13add29f3c47e59d2cba22d5d34040216966d",
+      "file": "assets/sfx/pop-tight.wav",
+      "duration": 0.18464583333333334,
+      "render_seconds": 0.0087,
+      "sha256": "dbd1b45100ca4f261bc2d2202c273aa300ddec052f02e5e8005718505db89781",
       "meta": {
-        "id": "whoosh_fast/crisp",
-        "seed": 420116625,
+        "id": "ui_pop/step",
+        "seed": 104,
         "sr": 48000,
-        "onset_s": 0.053,
-        "peak_s": 0.3205,
-        "end_s": 0.65,
-        "dur_s": 0.8,
+        "onset_s": 0.0025,
+        "peak_s": 0.0375,
+        "end_s": 0.162,
+        "dur_s": 0.1846,
         "peak_db": -6.0,
-        "lufs_m_max": -22.63,
-        "edits": {
-          "apex": {
-            "target": 0.32,
-            "measured": 0.3205,
-            "err_ms": 0.5,
-            "search_err_ms": -4.5,
-            "rise": 0.27769,
-            "renders": 3,
-            "fit": "head pad 5.0 ms",
-            "ok": true
-          },
-          "dur": {
-            "target": 0.8,
-            "method": "shape",
-            "post_scale": 0.5186,
-            "renders": 3,
-            "fit": "trim 21 ms (fade 150 ms)"
-          }
-        },
+        "lufs_m_max": -21.03,
+        "edits": {},
         "checks": {
           "ok": true,
           "warnings": [],
           "notes": [],
-          "summary": "whoosh_fast/crisp: clean",
+          "summary": "ui_pop/step: clean",
           "measures": {
             "clicks": 0,
             "edge_db": -240.0,
             "clip_runs": 0,
             "overs": 0,
-            "dc_db": -117.6,
-            "ring_z": 3.3,
+            "dc_db": -135.9,
+            "ring_z": 5.5,
             "trunc_db": null,
             "silence_ms": 0.0,
-            "bump_db": 0.4,
-            "attack_ms": 8.0,
-            "t40_ms": 230.0,
-            "crest_db": 10.8,
-            "res_db": 5.7,
-            "res_hz": 4032,
+            "bump_db": 0.0,
+            "attack_ms": 12.5,
+            "t40_ms": 120.0,
+            "crest_db": 8.5,
+            "res_db": 18.1,
+            "res_hz": 1467,
             "peak_dbfs": -6.0,
-            "live_ms": 450.25
+            "live_ms": 133.0
           },
           "glide": {
-            "tonal_share": 0.42,
-            "rise_st": 0.0,
-            "from_s": null,
-            "to_s": null
+            "tonal_share": 0.83,
+            "rise_st": 0.6,
+            "from_s": 0.096,
+            "to_s": 0.121
           },
           "layers": {
             "attacks": [
-              0.323
+              0.033
             ],
             "count": 1,
-            "pre_swell_ms": 255.0
+            "pre_swell_ms": 0.0
           },
           "context": {
-            "category": "whoosh_fast",
-            "sound": "whoosh_fast/crisp"
+            "category": "ui_pop",
+            "sound": "ui_pop/step"
           }
         }
       },
@@ -419,53 +303,372 @@
         "ok": true,
         "warnings": [],
         "notes": [],
-        "summary": "whoosh.wav: clean",
+        "summary": "pop-tight.wav: clean",
         "measures": {
           "clicks": 0,
           "edge_db": -240.0,
           "clip_runs": 0,
           "overs": 0,
-          "dc_db": -116.9,
-          "ring_z": 3.3,
+          "dc_db": -131.2,
+          "ring_z": 5.5,
           "trunc_db": null,
           "silence_ms": 0.0,
-          "bump_db": 0.4,
-          "attack_ms": 8.0,
-          "t40_ms": 230.0,
-          "crest_db": 10.8,
-          "res_db": 5.7,
-          "res_hz": 4032,
+          "bump_db": 0.0,
+          "attack_ms": 12.5,
+          "t40_ms": 120.0,
+          "crest_db": 8.5,
+          "res_db": 18.1,
+          "res_hz": 1467,
           "peak_dbfs": -6.0,
-          "live_ms": 450.25
+          "live_ms": 133.0
         },
         "glide": {
-          "tonal_share": 0.42,
+          "tonal_share": 0.83,
+          "rise_st": 0.6,
+          "from_s": 0.096,
+          "to_s": 0.121
+        },
+        "layers": {
+          "attacks": [
+            0.033
+          ],
+          "count": 1,
+          "pre_swell_ms": 0.0
+        },
+        "context": {
+          "category": "ui_pop",
+          "sound": "pop-tight.wav"
+        }
+      }
+    },
+    {
+      "key": "tick",
+      "id": "pro_hover_tick/ping",
+      "label": "Tick",
+      "params": {
+        "seed": 2094108523
+      },
+      "file": "assets/sfx/tick.wav",
+      "duration": 0.038875,
+      "render_seconds": 0.004,
+      "sha256": "00fd7262778076ef722fd55bbcb2e445898b9de8514fb748a17cfab8b5cd392b",
+      "meta": {
+        "id": "pro_hover_tick/ping",
+        "seed": 2094108523,
+        "sr": 48000,
+        "onset_s": 0.0012,
+        "peak_s": 0.0045,
+        "end_s": 0.038,
+        "dur_s": 0.0389,
+        "peak_db": -6.0,
+        "lufs_m_max": -36.99,
+        "edits": {},
+        "checks": {
+          "ok": true,
+          "warnings": [],
+          "notes": [],
+          "summary": "pro_hover_tick/ping: clean",
+          "measures": {
+            "clicks": 0,
+            "edge_db": -240.0,
+            "clip_runs": 0,
+            "overs": 0,
+            "dc_db": -73.7,
+            "ring_z": null,
+            "trunc_db": null,
+            "silence_ms": 0.0,
+            "bump_db": 0.0,
+            "attack_ms": 0.25,
+            "t40_ms": null,
+            "crest_db": 23.3,
+            "res_db": 3.6,
+            "res_hz": 2691,
+            "peak_dbfs": -6.0,
+            "live_ms": 18.75
+          },
+          "glide": {
+            "tonal_share": 0.5,
+            "rise_st": 0.0,
+            "from_s": null,
+            "to_s": null
+          },
+          "layers": {
+            "attacks": [
+              0.013
+            ],
+            "count": 1,
+            "pre_swell_ms": 0.0
+          },
+          "context": {
+            "category": "pro_hover_tick",
+            "sound": "pro_hover_tick/ping"
+          }
+        }
+      },
+      "check": {
+        "ok": true,
+        "warnings": [],
+        "notes": [],
+        "summary": "tick.wav: clean",
+        "measures": {
+          "clicks": 0,
+          "edge_db": -240.0,
+          "clip_runs": 0,
+          "overs": 0,
+          "dc_db": -73.7,
+          "ring_z": null,
+          "trunc_db": null,
+          "silence_ms": 0.0,
+          "bump_db": 0.0,
+          "attack_ms": 0.25,
+          "t40_ms": null,
+          "crest_db": 23.3,
+          "res_db": 3.6,
+          "res_hz": 2691,
+          "peak_dbfs": -6.0,
+          "live_ms": 18.75
+        },
+        "glide": {
+          "tonal_share": 0.5,
           "rise_st": 0.0,
           "from_s": null,
           "to_s": null
         },
         "layers": {
           "attacks": [
-            0.323
+            0.013
           ],
           "count": 1,
-          "pre_swell_ms": 255.0
+          "pre_swell_ms": 0.0
         },
         "context": {
-          "category": "whoosh_fast",
-          "sound": "whoosh.wav"
+          "category": "pro_hover_tick",
+          "sound": "tick.wav"
+        }
+      }
+    },
+    {
+      "key": "click",
+      "id": "fit/click/floss_lid",
+      "label": "Click",
+      "params": {
+        "seed": 0
+      },
+      "file": "assets/sfx/click.wav",
+      "duration": 0.13202083333333334,
+      "render_seconds": 0.0071,
+      "sha256": "e291ba8860c30b2d0fef5bf05d0d84021723958b494b975f4dbe8d8ea1817e45",
+      "meta": {
+        "id": "fit/click/floss_lid",
+        "seed": 0,
+        "sr": 48000,
+        "onset_s": 0.004,
+        "peak_s": 0.0075,
+        "end_s": 0.069,
+        "dur_s": 0.132,
+        "peak_db": -6.0,
+        "lufs_m_max": -30.2,
+        "edits": {},
+        "checks": {
+          "ok": true,
+          "warnings": [],
+          "notes": [],
+          "summary": "fit/click/floss_lid: clean",
+          "measures": {
+            "clicks": 0,
+            "edge_db": -87.1,
+            "clip_runs": 0,
+            "overs": 0,
+            "dc_db": -117.6,
+            "ring_z": null,
+            "trunc_db": null,
+            "silence_ms": 0.0,
+            "bump_db": 0.0,
+            "attack_ms": 0.75,
+            "t40_ms": 60.0,
+            "crest_db": 17.5,
+            "res_db": 9.1,
+            "res_hz": 2892,
+            "peak_dbfs": -6.0,
+            "live_ms": 49.5
+          },
+          "glide": {
+            "tonal_share": 0.2,
+            "rise_st": 0.0,
+            "from_s": null,
+            "to_s": null
+          },
+          "layers": {
+            "attacks": [
+              0.018
+            ],
+            "count": 1,
+            "pre_swell_ms": 0.0
+          },
+          "context": {
+            "category": "fit",
+            "sound": "fit/click/floss_lid"
+          }
+        }
+      },
+      "check": {
+        "ok": true,
+        "warnings": [],
+        "notes": [],
+        "summary": "click.wav: clean",
+        "measures": {
+          "clicks": 0,
+          "edge_db": -87.1,
+          "clip_runs": 0,
+          "overs": 0,
+          "dc_db": -116.9,
+          "ring_z": null,
+          "trunc_db": null,
+          "silence_ms": 0.0,
+          "bump_db": 0.0,
+          "attack_ms": 0.75,
+          "t40_ms": 60.0,
+          "crest_db": 17.5,
+          "res_db": 9.1,
+          "res_hz": 2892,
+          "peak_dbfs": -6.0,
+          "live_ms": 49.5
         },
-        "file": "assets/sfx/whoosh.wav"
+        "glide": {
+          "tonal_share": 0.2,
+          "rise_st": 0.0,
+          "from_s": null,
+          "to_s": null
+        },
+        "layers": {
+          "attacks": [
+            0.018
+          ],
+          "count": 1,
+          "pre_swell_ms": 0.0
+        },
+        "context": {
+          "category": "fit",
+          "sound": "click.wav"
+        }
+      }
+    },
+    {
+      "key": "knock",
+      "id": "knock/wood",
+      "label": "Knock",
+      "params": {
+        "seed": 1
+      },
+      "file": "assets/sfx/knock.wav",
+      "duration": 0.153625,
+      "render_seconds": 0.0079,
+      "sha256": "9d4a89ffd31a6e0a1d6d7c2d882ad909b495e1d8eb9f69fdd802ab02d87e8e3a",
+      "meta": {
+        "id": "knock/wood",
+        "seed": 1,
+        "sr": 48000,
+        "onset_s": 0.0122,
+        "peak_s": 0.0155,
+        "end_s": 0.13,
+        "dur_s": 0.1536,
+        "peak_db": -6.0,
+        "lufs_m_max": -27.85,
+        "edits": {},
+        "checks": {
+          "ok": true,
+          "warnings": [],
+          "notes": [],
+          "summary": "knock/wood: clean",
+          "measures": {
+            "clicks": 0,
+            "edge_db": -240.0,
+            "clip_runs": 0,
+            "overs": 0,
+            "dc_db": -122.3,
+            "ring_z": 5.4,
+            "trunc_db": null,
+            "silence_ms": 0.0,
+            "bump_db": 0.0,
+            "attack_ms": 1.0,
+            "t40_ms": 100.0,
+            "crest_db": 15.1,
+            "res_db": 4.5,
+            "res_hz": 1165,
+            "peak_dbfs": -6.0,
+            "live_ms": 77.75
+          },
+          "glide": {
+            "tonal_share": 0.4,
+            "rise_st": 0.0,
+            "from_s": null,
+            "to_s": null
+          },
+          "layers": {
+            "attacks": [
+              0.022
+            ],
+            "count": 1,
+            "pre_swell_ms": 0.0
+          },
+          "context": {
+            "category": "knock",
+            "sound": "knock/wood"
+          }
+        }
+      },
+      "check": {
+        "ok": true,
+        "warnings": [],
+        "notes": [],
+        "summary": "knock.wav: clean",
+        "measures": {
+          "clicks": 0,
+          "edge_db": -240.0,
+          "clip_runs": 0,
+          "overs": 0,
+          "dc_db": -123.8,
+          "ring_z": 5.4,
+          "trunc_db": null,
+          "silence_ms": 0.0,
+          "bump_db": 0.0,
+          "attack_ms": 1.0,
+          "t40_ms": 100.0,
+          "crest_db": 15.1,
+          "res_db": 4.5,
+          "res_hz": 1165,
+          "peak_dbfs": -6.0,
+          "live_ms": 77.75
+        },
+        "glide": {
+          "tonal_share": 0.4,
+          "rise_st": 0.0,
+          "from_s": null,
+          "to_s": null
+        },
+        "layers": {
+          "attacks": [
+            0.022
+          ],
+          "count": 1,
+          "pre_swell_ms": 0.0
+        },
+        "context": {
+          "category": "knock",
+          "sound": "knock.wav"
+        }
       }
     },
     {
       "key": "hit",
       "id": "cut_hit/punch",
-      "label": "着地の打撃音",
-      "params": {},
+      "label": "Hit",
+      "params": {
+        "seed": 4103
+      },
       "file": "assets/sfx/hit.wav",
       "duration": 0.28229166666666666,
-      "render_seconds": 0.0267,
+      "render_seconds": 0.0119,
       "sha256": "d466602596cdfde766fd65d09d1126b20ee14514a08ab281f6c743bc0a16e91a",
       "meta": {
         "id": "cut_hit/punch",
@@ -559,18 +762,613 @@
         "context": {
           "category": "cut_hit",
           "sound": "hit.wav"
+        }
+      }
+    },
+    {
+      "key": "drop",
+      "id": "cut_hit/kick",
+      "label": "Drop",
+      "params": {
+        "seed": 4102
+      },
+      "file": "assets/sfx/drop.wav",
+      "duration": 0.325,
+      "render_seconds": 0.0137,
+      "sha256": "9031a8e0b829f4dc20a786faa4e281b45bd617c52249d66aadd1153572b805af",
+      "meta": {
+        "id": "cut_hit/kick",
+        "seed": 4102,
+        "sr": 48000,
+        "onset_s": 0.0,
+        "peak_s": 0.0135,
+        "end_s": 0.243,
+        "dur_s": 0.325,
+        "peak_db": -6.0,
+        "lufs_m_max": -21.29,
+        "edits": {},
+        "checks": {
+          "ok": true,
+          "warnings": [],
+          "notes": [],
+          "summary": "cut_hit/kick: clean",
+          "measures": {
+            "clicks": 0,
+            "edge_db": -240.0,
+            "clip_runs": 0,
+            "overs": 0,
+            "dc_db": -90.0,
+            "ring_z": 3.4,
+            "trunc_db": null,
+            "silence_ms": 0.0,
+            "bump_db": 0.0,
+            "attack_ms": 2.5,
+            "t40_ms": 190.0,
+            "crest_db": 9.0,
+            "res_db": 2.9,
+            "res_hz": 456,
+            "peak_dbfs": -6.0,
+            "live_ms": 165.0
+          },
+          "glide": {
+            "tonal_share": 0.72,
+            "rise_st": 0.0,
+            "from_s": null,
+            "to_s": null
+          },
+          "layers": {
+            "attacks": [
+              0.013
+            ],
+            "count": 1,
+            "pre_swell_ms": 0.0
+          },
+          "context": {
+            "category": "cut_hit",
+            "sound": "cut_hit/kick"
+          }
+        }
+      },
+      "check": {
+        "ok": true,
+        "warnings": [],
+        "notes": [],
+        "summary": "drop.wav: clean",
+        "measures": {
+          "clicks": 0,
+          "edge_db": -240.0,
+          "clip_runs": 0,
+          "overs": 0,
+          "dc_db": -90.0,
+          "ring_z": 3.4,
+          "trunc_db": null,
+          "silence_ms": 0.0,
+          "bump_db": 0.0,
+          "attack_ms": 2.5,
+          "t40_ms": 190.0,
+          "crest_db": 9.0,
+          "res_db": 2.9,
+          "res_hz": 456,
+          "peak_dbfs": -6.0,
+          "live_ms": 165.0
         },
-        "file": "assets/sfx/hit.wav"
+        "glide": {
+          "tonal_share": 0.72,
+          "rise_st": 0.0,
+          "from_s": null,
+          "to_s": null
+        },
+        "layers": {
+          "attacks": [
+            0.013
+          ],
+          "count": 1,
+          "pre_swell_ms": 0.0
+        },
+        "context": {
+          "category": "cut_hit",
+          "sound": "drop.wav"
+        }
+      }
+    },
+    {
+      "key": "whoosh",
+      "id": "whoosh_fast/crisp",
+      "label": "Whoosh",
+      "params": {
+        "dur": 0.5,
+        "apex": 0.23,
+        "seed": 420116625
+      },
+      "file": "assets/sfx/whoosh.wav",
+      "duration": 0.5,
+      "render_seconds": 0.0192,
+      "sha256": "79177efb80c423d0c3df7ffd96ca97ac69d2c98e2cf7a30821909643e8757df9",
+      "meta": {
+        "id": "whoosh_fast/crisp",
+        "seed": 420116625,
+        "sr": 48000,
+        "onset_s": 0.003,
+        "peak_s": 0.2305,
+        "end_s": 0.442,
+        "dur_s": 0.5,
+        "peak_db": -6.0,
+        "lufs_m_max": -21.88,
+        "edits": {
+          "apex": {
+            "target": 0.23,
+            "measured": 0.2305,
+            "err_ms": 0.5,
+            "search_err_ms": 7.5,
+            "rise": 0.20323,
+            "renders": 3,
+            "fit": "head trim 7.0 ms",
+            "ok": true
+          },
+          "dur": {
+            "target": 0.5,
+            "method": "shape",
+            "post_scale": 0.15,
+            "renders": 3,
+            "fit": "trim 189 ms (fade 125 ms)"
+          }
+        },
+        "checks": {
+          "ok": true,
+          "warnings": [],
+          "notes": [],
+          "summary": "whoosh_fast/crisp: clean",
+          "measures": {
+            "clicks": 0,
+            "edge_db": -240.0,
+            "clip_runs": 0,
+            "overs": 0,
+            "dc_db": -99.1,
+            "ring_z": 5.7,
+            "trunc_db": null,
+            "silence_ms": 0.0,
+            "bump_db": 0.3,
+            "attack_ms": 13.75,
+            "t40_ms": 200.0,
+            "crest_db": 10.1,
+            "res_db": 6.4,
+            "res_hz": 2468,
+            "peak_dbfs": -6.0,
+            "live_ms": 352.75
+          },
+          "glide": {
+            "tonal_share": 0.56,
+            "rise_st": 4.1,
+            "from_s": 0.086,
+            "to_s": 0.111
+          },
+          "layers": {
+            "attacks": [
+              0.228
+            ],
+            "count": 1,
+            "pre_swell_ms": 175.0
+          },
+          "context": {
+            "category": "whoosh_fast",
+            "sound": "whoosh_fast/crisp"
+          }
+        }
+      },
+      "check": {
+        "ok": true,
+        "warnings": [],
+        "notes": [],
+        "summary": "whoosh.wav: clean",
+        "measures": {
+          "clicks": 0,
+          "edge_db": -240.0,
+          "clip_runs": 0,
+          "overs": 0,
+          "dc_db": -99.2,
+          "ring_z": 5.7,
+          "trunc_db": null,
+          "silence_ms": 0.0,
+          "bump_db": 0.3,
+          "attack_ms": 13.75,
+          "t40_ms": 200.0,
+          "crest_db": 10.1,
+          "res_db": 6.4,
+          "res_hz": 2468,
+          "peak_dbfs": -6.0,
+          "live_ms": 352.75
+        },
+        "glide": {
+          "tonal_share": 0.56,
+          "rise_st": 4.1,
+          "from_s": 0.086,
+          "to_s": 0.111
+        },
+        "layers": {
+          "attacks": [
+            0.228
+          ],
+          "count": 1,
+          "pre_swell_ms": 175.0
+        },
+        "context": {
+          "category": "whoosh_fast",
+          "sound": "whoosh.wav"
+        }
+      }
+    },
+    {
+      "key": "sweep",
+      "id": "whoosh_big/thump",
+      "label": "Sweep",
+      "params": {
+        "dur": 0.8,
+        "apex": 0.26,
+        "seed": 4201
+      },
+      "file": "assets/sfx/sweep.wav",
+      "duration": 0.8,
+      "render_seconds": 0.0298,
+      "sha256": "4b0bf8805cab8a15c46603d762e0fec3dbe0ee6f1064b02684921eaa71d5f35b",
+      "meta": {
+        "id": "whoosh_big/thump",
+        "seed": 4201,
+        "sr": 48000,
+        "onset_s": 0.0148,
+        "peak_s": 0.2605,
+        "end_s": 0.767,
+        "dur_s": 0.8,
+        "peak_db": -6.0,
+        "lufs_m_max": -18.35,
+        "edits": {
+          "apex": {
+            "target": 0.26,
+            "measured": 0.2605,
+            "err_ms": 0.5,
+            "search_err_ms": 45.5,
+            "rise": 0.2108,
+            "renders": 3,
+            "fit": "head trim 45.0 ms",
+            "ok": true
+          },
+          "dur": {
+            "target": 0.8,
+            "method": "shape",
+            "post_scale": 0.6413,
+            "renders": 3,
+            "fit": "pad 10 ms"
+          }
+        },
+        "checks": {
+          "ok": true,
+          "warnings": [],
+          "notes": [],
+          "summary": "whoosh_big/thump: clean",
+          "measures": {
+            "clicks": 0,
+            "edge_db": -240.0,
+            "clip_runs": 0,
+            "overs": 0,
+            "dc_db": -63.3,
+            "ring_z": 4.1,
+            "trunc_db": null,
+            "silence_ms": 0.0,
+            "bump_db": 4.3,
+            "attack_ms": 16.0,
+            "t40_ms": 460.0,
+            "crest_db": 9.4,
+            "res_db": 3.4,
+            "res_hz": 3294,
+            "peak_dbfs": -6.0,
+            "live_ms": 575.5
+          },
+          "glide": {
+            "tonal_share": 0.91,
+            "rise_st": 0.0,
+            "from_s": null,
+            "to_s": null
+          },
+          "layers": {
+            "attacks": [
+              0.263
+            ],
+            "count": 1,
+            "pre_swell_ms": 120.0
+          },
+          "context": {
+            "category": "whoosh_big",
+            "sound": "whoosh_big/thump"
+          }
+        }
+      },
+      "check": {
+        "ok": true,
+        "warnings": [],
+        "notes": [],
+        "summary": "sweep.wav: clean",
+        "measures": {
+          "clicks": 0,
+          "edge_db": -240.0,
+          "clip_runs": 0,
+          "overs": 0,
+          "dc_db": -63.3,
+          "ring_z": 4.1,
+          "trunc_db": null,
+          "silence_ms": 0.0,
+          "bump_db": 4.3,
+          "attack_ms": 16.0,
+          "t40_ms": 460.0,
+          "crest_db": 9.4,
+          "res_db": 3.4,
+          "res_hz": 3294,
+          "peak_dbfs": -6.0,
+          "live_ms": 575.5
+        },
+        "glide": {
+          "tonal_share": 0.91,
+          "rise_st": 0.0,
+          "from_s": null,
+          "to_s": null
+        },
+        "layers": {
+          "attacks": [
+            0.263
+          ],
+          "count": 1,
+          "pre_swell_ms": 120.0
+        },
+        "context": {
+          "category": "whoosh_big",
+          "sound": "sweep.wav"
+        }
+      }
+    },
+    {
+      "key": "riser",
+      "id": "riser/dark",
+      "label": "Riser",
+      "params": {
+        "dur": 0.75,
+        "seed": 4401
+      },
+      "file": "assets/sfx/riser.wav",
+      "duration": 0.75,
+      "render_seconds": 0.027,
+      "sha256": "2cb8a4b1d8b5fde9b5cec361b5de2fdd1dd3b44a44d49651afd176d8a6224b0c",
+      "meta": {
+        "id": "riser/dark",
+        "seed": 4401,
+        "sr": 48000,
+        "onset_s": 0.1342,
+        "peak_s": 0.5345,
+        "end_s": 0.74,
+        "dur_s": 0.75,
+        "peak_db": -6.0,
+        "lufs_m_max": -23.93,
+        "edits": {
+          "dur": {
+            "target": 0.75,
+            "method": "param",
+            "param": "length",
+            "value": 0.53886,
+            "renders": 2,
+            "fit": "exact"
+          }
+        },
+        "checks": {
+          "ok": true,
+          "warnings": [],
+          "notes": [],
+          "summary": "riser/dark: clean",
+          "measures": {
+            "clicks": 0,
+            "edge_db": -240.0,
+            "clip_runs": 0,
+            "overs": 0,
+            "dc_db": -114.6,
+            "ring_z": 3.2,
+            "trunc_db": null,
+            "silence_ms": 0.0,
+            "bump_db": 0.0,
+            "attack_ms": 0.75,
+            "t40_ms": 170.0,
+            "crest_db": 13.7,
+            "res_db": 4.6,
+            "res_hz": 4090,
+            "peak_dbfs": -6.0,
+            "live_ms": 541.5
+          },
+          "glide": {
+            "tonal_share": 0.52,
+            "rise_st": 0.0,
+            "from_s": null,
+            "to_s": null
+          },
+          "layers": {
+            "attacks": [
+              0.378,
+              0.537
+            ],
+            "count": 2,
+            "pre_swell_ms": 255.0
+          },
+          "context": {
+            "category": "riser",
+            "sound": "riser/dark"
+          }
+        }
+      },
+      "check": {
+        "ok": true,
+        "warnings": [],
+        "notes": [],
+        "summary": "riser.wav: clean",
+        "measures": {
+          "clicks": 0,
+          "edge_db": -240.0,
+          "clip_runs": 0,
+          "overs": 0,
+          "dc_db": -114.1,
+          "ring_z": 3.2,
+          "trunc_db": null,
+          "silence_ms": 0.0,
+          "bump_db": 0.0,
+          "attack_ms": 0.75,
+          "t40_ms": 170.0,
+          "crest_db": 13.7,
+          "res_db": 4.6,
+          "res_hz": 4090,
+          "peak_dbfs": -6.0,
+          "live_ms": 541.5
+        },
+        "glide": {
+          "tonal_share": 0.52,
+          "rise_st": 0.0,
+          "from_s": null,
+          "to_s": null
+        },
+        "layers": {
+          "attacks": [
+            0.378,
+            0.537
+          ],
+          "count": 2,
+          "pre_swell_ms": 255.0
+        },
+        "context": {
+          "category": "riser",
+          "sound": "riser.wav"
+        }
+      }
+    },
+    {
+      "key": "glitch",
+      "id": "pro_glitch/framelock",
+      "label": "Glitch",
+      "params": {
+        "dur": 0.42,
+        "seed": 87989972
+      },
+      "file": "assets/sfx/glitch.wav",
+      "duration": 0.42,
+      "render_seconds": 0.0155,
+      "sha256": "9a43c1d46b6c1c72e3adc88e435b22d8e17f517ba648be160d81dbe249e44439",
+      "meta": {
+        "id": "pro_glitch/framelock",
+        "seed": 87989972,
+        "sr": 48000,
+        "onset_s": 0.0105,
+        "peak_s": 0.3525,
+        "end_s": 0.415,
+        "dur_s": 0.42,
+        "peak_db": -6.0,
+        "lufs_m_max": -21.4,
+        "edits": {
+          "dur": {
+            "target": 0.42,
+            "method": "param",
+            "param": "dur",
+            "value": 0.39032,
+            "renders": 2,
+            "fit": "exact"
+          }
+        },
+        "checks": {
+          "ok": true,
+          "warnings": [],
+          "notes": [],
+          "summary": "pro_glitch/framelock: clean",
+          "measures": {
+            "clicks": 0,
+            "edge_db": -240.0,
+            "clip_runs": 0,
+            "overs": 0,
+            "dc_db": -65.8,
+            "ring_z": null,
+            "trunc_db": null,
+            "silence_ms": 0.0,
+            "bump_db": 0.0,
+            "attack_ms": 0.75,
+            "t40_ms": 60.0,
+            "crest_db": 9.9,
+            "res_db": 7.7,
+            "res_hz": 3247,
+            "peak_dbfs": -6.0,
+            "live_ms": 211.25
+          },
+          "glide": {
+            "tonal_share": 0.63,
+            "rise_st": 0.0,
+            "from_s": 0.386,
+            "to_s": 0.391
+          },
+          "layers": {
+            "attacks": [
+              0.292,
+              0.362
+            ],
+            "count": 2,
+            "pre_swell_ms": 195.0
+          },
+          "context": {
+            "category": "pro_glitch",
+            "sound": "pro_glitch/framelock"
+          }
+        }
+      },
+      "check": {
+        "ok": true,
+        "warnings": [],
+        "notes": [],
+        "summary": "glitch.wav: clean",
+        "measures": {
+          "clicks": 0,
+          "edge_db": -240.0,
+          "clip_runs": 0,
+          "overs": 0,
+          "dc_db": -65.8,
+          "ring_z": null,
+          "trunc_db": null,
+          "silence_ms": 0.0,
+          "bump_db": 0.0,
+          "attack_ms": 0.75,
+          "t40_ms": 60.0,
+          "crest_db": 9.9,
+          "res_db": 7.7,
+          "res_hz": 3247,
+          "peak_dbfs": -6.0,
+          "live_ms": 211.25
+        },
+        "glide": {
+          "tonal_share": 0.63,
+          "rise_st": 0.0,
+          "from_s": 0.386,
+          "to_s": 0.391
+        },
+        "layers": {
+          "attacks": [
+            0.292,
+            0.362
+          ],
+          "count": 2,
+          "pre_swell_ms": 195.0
+        },
+        "context": {
+          "category": "pro_glitch",
+          "sound": "glitch.wav"
+        }
       }
     },
     {
       "key": "shutter",
       "id": "shutter/dslr",
-      "label": "シャッター",
-      "params": {},
+      "label": "Shutter",
+      "params": {
+        "seed": 1
+      },
       "file": "assets/sfx/shutter.wav",
       "duration": 0.24177083333333332,
-      "render_seconds": 0.0466,
+      "render_seconds": 0.0103,
       "sha256": "eb870d038e219e298576060b1321bbcc495062d02433bf62e6ac40f2c0cf000f",
       "meta": {
         "id": "shutter/dslr",
@@ -664,43 +1462,43 @@
         "context": {
           "category": "shutter",
           "sound": "shutter.wav"
-        },
-        "file": "assets/sfx/shutter.wav"
+        }
       }
     },
     {
-      "key": "note-e",
-      "id": "pluck/kalimba",
-      "label": "カリンバ E5",
+      "key": "bell",
+      "id": "mallet/glock",
+      "label": "Bell",
       "params": {
-        "pitch": "E5"
+        "pitch": "C5",
+        "seed": 1
       },
-      "file": "assets/sfx/note-e.wav",
-      "duration": 3.0,
-      "render_seconds": 0.3472,
-      "sha256": "1c93d08b10e4854d41d228f25dffbe5b452e8dcae0a020bfde6715262607fd3f",
+      "file": "assets/sfx/bell.wav",
+      "duration": 0.4528333333333333,
+      "render_seconds": 0.017,
+      "sha256": "04ec6c3320bc9923cc6af8f21a3e09740c291050c8946bababc348048afd459b",
       "meta": {
-        "id": "pluck/kalimba",
-        "seed": 8001,
+        "id": "mallet/glock",
+        "seed": 1,
         "sr": 48000,
-        "onset_s": 0.0032,
-        "peak_s": 0.0125,
-        "end_s": 1.782,
-        "dur_s": 3.0,
+        "onset_s": 0.0,
+        "peak_s": 0.0115,
+        "end_s": 0.366,
+        "dur_s": 0.4528,
         "peak_db": -6.0,
-        "lufs_m_max": -16.45,
+        "lufs_m_max": -19.55,
         "edits": {
           "pitch": {
-            "target_hz": 659.255,
-            "note": "E5",
-            "native_hz": 523.25,
-            "semitones": 4.0,
+            "target_hz": 523.251,
+            "note": "C5",
+            "native_hz": 1274.0,
+            "semitones": -15.41,
             "param": "f0",
             "params": {
-              "f0": 659.255
+              "f0": 523.251
             },
-            "measured_hz": 659.21,
-            "cents_off": 0,
+            "measured_hz": 525.42,
+            "cents_off": 7,
             "ok": true
           }
         },
@@ -708,30 +1506,30 @@
           "ok": true,
           "warnings": [],
           "notes": [],
-          "summary": "pluck/kalimba: clean",
+          "summary": "mallet/glock: clean",
           "measures": {
             "clicks": 0,
             "edge_db": -240.0,
             "clip_runs": 0,
             "overs": 0,
-            "dc_db": -119.9,
-            "ring_z": 2.6,
+            "dc_db": -133.4,
+            "ring_z": 4.2,
             "trunc_db": null,
             "silence_ms": 0.0,
             "bump_db": 0.0,
-            "attack_ms": 9.0,
-            "t40_ms": 1420.0,
-            "crest_db": 8.3,
-            "res_db": 42.7,
-            "res_hz": 3294,
+            "attack_ms": 8.0,
+            "t40_ms": 290.0,
+            "crest_db": 7.8,
+            "res_db": 44.8,
+            "res_hz": 2810,
             "peak_dbfs": -6.0,
-            "live_ms": 1239.0
+            "live_ms": 270.25
           },
           "glide": {
-            "tonal_share": 1.0,
+            "tonal_share": 0.85,
             "rise_st": 0.2,
             "from_s": 0.011,
-            "to_s": 0.031
+            "to_s": 0.036
           },
           "layers": {
             "attacks": [
@@ -741,8 +1539,8 @@
             "pre_swell_ms": 0.0
           },
           "context": {
-            "category": "pluck",
-            "sound": "pluck/kalimba"
+            "category": "mallet",
+            "sound": "mallet/glock"
           }
         }
       },
@@ -750,30 +1548,30 @@
         "ok": true,
         "warnings": [],
         "notes": [],
-        "summary": "note-e.wav: clean",
+        "summary": "bell.wav: clean",
         "measures": {
           "clicks": 0,
           "edge_db": -240.0,
           "clip_runs": 0,
           "overs": 0,
-          "dc_db": -121.0,
-          "ring_z": 2.6,
+          "dc_db": -129.4,
+          "ring_z": 4.2,
           "trunc_db": null,
           "silence_ms": 0.0,
           "bump_db": 0.0,
-          "attack_ms": 9.0,
-          "t40_ms": 1420.0,
-          "crest_db": 8.3,
-          "res_db": 42.7,
-          "res_hz": 3294,
+          "attack_ms": 8.0,
+          "t40_ms": 290.0,
+          "crest_db": 7.8,
+          "res_db": 44.8,
+          "res_hz": 2810,
           "peak_dbfs": -6.0,
-          "live_ms": 1239.0
+          "live_ms": 270.25
         },
         "glide": {
-          "tonal_share": 1.0,
+          "tonal_share": 0.85,
           "rise_st": 0.2,
           "from_s": 0.011,
-          "to_s": 0.031
+          "to_s": 0.036
         },
         "layers": {
           "attacks": [
@@ -783,45 +1581,45 @@
           "pre_swell_ms": 0.0
         },
         "context": {
-          "category": "pluck",
-          "sound": "note-e.wav"
-        },
-        "file": "assets/sfx/note-e.wav"
+          "category": "mallet",
+          "sound": "bell.wav"
+        }
       }
     },
     {
-      "key": "note-g",
-      "id": "pluck/kalimba",
-      "label": "カリンバ G5",
+      "key": "pluck",
+      "id": "mallet/marimba",
+      "label": "Pluck",
       "params": {
-        "pitch": "G5"
+        "pitch": "F4",
+        "seed": 1
       },
-      "file": "assets/sfx/note-g.wav",
-      "duration": 3.0,
-      "render_seconds": 0.3281,
-      "sha256": "019f5638b21c896965ea111a3cac4f96133dacf1c4879821daeb5c50fda4430d",
+      "file": "assets/sfx/pluck.wav",
+      "duration": 0.6199166666666667,
+      "render_seconds": 0.0235,
+      "sha256": "037f53afc8f4616f42ec8aff5197e3aaa0cf1afbd26329e1805df974a6718ec1",
       "meta": {
-        "id": "pluck/kalimba",
-        "seed": 8001,
+        "id": "mallet/marimba",
+        "seed": 1,
         "sr": 48000,
-        "onset_s": 0.0032,
-        "peak_s": 0.0115,
-        "end_s": 1.631,
-        "dur_s": 3.0,
+        "onset_s": 0.0,
+        "peak_s": 0.0345,
+        "end_s": 0.396,
+        "dur_s": 0.6199,
         "peak_db": -6.0,
-        "lufs_m_max": -16.6,
+        "lufs_m_max": -17.28,
         "edits": {
           "pitch": {
-            "target_hz": 783.991,
-            "note": "G5",
-            "native_hz": 523.25,
-            "semitones": 7.0,
+            "target_hz": 349.228,
+            "note": "F4",
+            "native_hz": 392.0,
+            "semitones": -2.0,
             "param": "f0",
             "params": {
-              "f0": 783.991
+              "f0": 349.228
             },
-            "measured_hz": 783.97,
-            "cents_off": 0,
+            "measured_hz": 346.39,
+            "cents_off": -14,
             "ok": true
           }
         },
@@ -829,41 +1627,41 @@
           "ok": true,
           "warnings": [],
           "notes": [],
-          "summary": "pluck/kalimba: clean",
+          "summary": "mallet/marimba: clean",
           "measures": {
             "clicks": 0,
             "edge_db": -240.0,
             "clip_runs": 0,
             "overs": 0,
-            "dc_db": -119.9,
-            "ring_z": 2.4,
+            "dc_db": -141.0,
+            "ring_z": 2.9,
             "trunc_db": null,
             "silence_ms": 0.0,
-            "bump_db": 0.0,
-            "attack_ms": 8.75,
-            "t40_ms": 1300.0,
-            "crest_db": 8.5,
-            "res_db": 41.9,
-            "res_hz": 3917,
+            "bump_db": 3.5,
+            "attack_ms": 3.5,
+            "t40_ms": 300.0,
+            "crest_db": 4.9,
+            "res_db": 54.2,
+            "res_hz": 3440,
             "peak_dbfs": -6.0,
-            "live_ms": 1171.0
+            "live_ms": 281.75
           },
           "glide": {
             "tonal_share": 1.0,
-            "rise_st": 0.1,
-            "from_s": 0.011,
-            "to_s": 0.031
+            "rise_st": 0.3,
+            "from_s": 0.071,
+            "to_s": 0.151
           },
           "layers": {
             "attacks": [
-              0.018
+              0.037
             ],
             "count": 1,
             "pre_swell_ms": 0.0
           },
           "context": {
-            "category": "pluck",
-            "sound": "pluck/kalimba"
+            "category": "mallet",
+            "sound": "mallet/marimba"
           }
         }
       },
@@ -871,120 +1669,113 @@
         "ok": true,
         "warnings": [],
         "notes": [],
-        "summary": "note-g.wav: clean",
+        "summary": "pluck.wav: clean",
         "measures": {
           "clicks": 0,
           "edge_db": -240.0,
           "clip_runs": 0,
           "overs": 0,
-          "dc_db": -121.0,
-          "ring_z": 2.4,
+          "dc_db": -146.1,
+          "ring_z": 2.9,
           "trunc_db": null,
           "silence_ms": 0.0,
-          "bump_db": 0.0,
-          "attack_ms": 8.75,
-          "t40_ms": 1300.0,
-          "crest_db": 8.5,
-          "res_db": 41.9,
-          "res_hz": 3917,
+          "bump_db": 3.5,
+          "attack_ms": 3.5,
+          "t40_ms": 300.0,
+          "crest_db": 4.9,
+          "res_db": 54.2,
+          "res_hz": 3440,
           "peak_dbfs": -6.0,
-          "live_ms": 1171.0
+          "live_ms": 281.75
         },
         "glide": {
           "tonal_share": 1.0,
-          "rise_st": 0.1,
-          "from_s": 0.011,
-          "to_s": 0.031
+          "rise_st": 0.3,
+          "from_s": 0.071,
+          "to_s": 0.151
         },
         "layers": {
           "attacks": [
-            0.018
+            0.037
           ],
           "count": 1,
           "pre_swell_ms": 0.0
         },
         "context": {
-          "category": "pluck",
-          "sound": "note-g.wav"
-        },
-        "file": "assets/sfx/note-g.wav"
+          "category": "mallet",
+          "sound": "pluck.wav"
+        }
       }
     },
     {
-      "key": "note-b",
-      "id": "pluck/kalimba",
-      "label": "カリンバ B5",
+      "key": "sting",
+      "id": "logo_sting/soft_bloom",
+      "label": "Bloom",
       "params": {
-        "pitch": "B5"
+        "dur": 1.65,
+        "seed": 0
       },
-      "file": "assets/sfx/note-b.wav",
-      "duration": 3.0,
-      "render_seconds": 0.4353,
-      "sha256": "e15c5330620384a770da5960b643b6f2aa2b9b3e7b48246d770964c79000cd75",
+      "file": "assets/sfx/sting.wav",
+      "duration": 1.65,
+      "render_seconds": 0.076,
+      "sha256": "668042d2e18cd9e64da5449260fd5b0ede4fc5cfa89b86c65718df474b9d04dc",
       "meta": {
-        "id": "pluck/kalimba",
-        "seed": 8001,
+        "id": "logo_sting/soft_bloom",
+        "seed": 0,
         "sr": 48000,
-        "onset_s": 0.0032,
-        "peak_s": 0.0125,
-        "end_s": 1.515,
-        "dur_s": 3.0,
+        "onset_s": 0.1393,
+        "peak_s": 0.2985,
+        "end_s": 1.415,
+        "dur_s": 1.65,
         "peak_db": -6.0,
-        "lufs_m_max": -14.68,
+        "lufs_m_max": -15.06,
         "edits": {
-          "pitch": {
-            "target_hz": 987.767,
-            "note": "B5",
-            "native_hz": 523.25,
-            "semitones": 11.0,
-            "param": "f0",
-            "params": {
-              "f0": 987.767
-            },
-            "measured_hz": 987.76,
-            "cents_off": 0,
-            "ok": true
+          "dur": {
+            "target": 1.65,
+            "method": "trim",
+            "renders": 1,
+            "fit": "trim 200 ms"
           }
         },
         "checks": {
           "ok": true,
           "warnings": [],
           "notes": [],
-          "summary": "pluck/kalimba: clean",
+          "summary": "logo_sting/soft_bloom: clean",
           "measures": {
             "clicks": 0,
             "edge_db": -240.0,
             "clip_runs": 0,
             "overs": 0,
-            "dc_db": -118.3,
-            "ring_z": 2.0,
+            "dc_db": -190.2,
+            "ring_z": 13.5,
             "trunc_db": null,
             "silence_ms": 0.0,
-            "bump_db": 0.1,
-            "attack_ms": 9.0,
-            "t40_ms": 1200.0,
-            "crest_db": 7.1,
-            "res_db": 29.5,
-            "res_hz": 1987,
+            "bump_db": 0.4,
+            "attack_ms": 43.25,
+            "t40_ms": 760.0,
+            "crest_db": 6.1,
+            "res_db": 34.8,
+            "res_hz": 2730,
             "peak_dbfs": -6.0,
-            "live_ms": 1156.5
+            "live_ms": 954.5
           },
           "glide": {
-            "tonal_share": 1.0,
-            "rise_st": 0.1,
-            "from_s": 0.011,
-            "to_s": 0.021
+            "tonal_share": 0.18,
+            "rise_st": 0.0,
+            "from_s": null,
+            "to_s": null
           },
           "layers": {
             "attacks": [
-              0.022
+              0.297
             ],
             "count": 1,
-            "pre_swell_ms": 0.0
+            "pre_swell_ms": 100.0
           },
           "context": {
-            "category": "pluck",
-            "sound": "pluck/kalimba"
+            "category": "logo_sting",
+            "sound": "logo_sting/soft_bloom"
           }
         }
       },
@@ -992,45 +1783,45 @@
         "ok": true,
         "warnings": [],
         "notes": [],
-        "summary": "note-b.wav: clean",
+        "summary": "sting.wav: clean",
         "measures": {
           "clicks": 0,
           "edge_db": -240.0,
           "clip_runs": 0,
           "overs": 0,
-          "dc_db": -119.2,
-          "ring_z": 2.0,
+          "dc_db": -138.5,
+          "ring_z": 13.5,
           "trunc_db": null,
           "silence_ms": 0.0,
-          "bump_db": 0.1,
-          "attack_ms": 9.0,
-          "t40_ms": 1200.0,
-          "crest_db": 7.1,
-          "res_db": 29.5,
-          "res_hz": 1987,
+          "bump_db": 0.4,
+          "attack_ms": 43.25,
+          "t40_ms": 760.0,
+          "crest_db": 6.1,
+          "res_db": 34.8,
+          "res_hz": 2730,
           "peak_dbfs": -6.0,
-          "live_ms": 1156.5
+          "live_ms": 954.5
         },
         "glide": {
-          "tonal_share": 1.0,
-          "rise_st": 0.1,
-          "from_s": 0.011,
-          "to_s": 0.021
+          "tonal_share": 0.18,
+          "rise_st": 0.0,
+          "from_s": null,
+          "to_s": null
         },
         "layers": {
           "attacks": [
-            0.022
+            0.297
           ],
           "count": 1,
-          "pre_swell_ms": 0.0
+          "pre_swell_ms": 100.0
         },
         "context": {
-          "category": "pluck",
-          "sound": "note-b.wav"
-        },
-        "file": "assets/sfx/note-b.wav"
+          "category": "logo_sting",
+          "sound": "sting.wav"
+        }
       }
     }
   ],
-  "soundtrack_sha256": "f268b2dbd7832d28da9c6ab902c7ddc56812cd0f53ff2f38078fdb93fe022729"
+  "soundtrack_sha256": "7af2a9c0a2c9cb2ec93b4c4a8d6051a12e617a6e623365db545415ecb36cd860",
+  "browser_audio_sha256": "817c07bb41b5c521235d77f3bf3e819aca2fa13a8f9b11e3b7d823c668f6425a"
 }

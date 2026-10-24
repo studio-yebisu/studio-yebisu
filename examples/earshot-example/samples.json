@@ -2,120 +2,236 @@
   "format": "input-output",
   "samples": [
     {
-      "id": "pop-soft",
-      "label": "丸いポップ",
-      "input": "earshot v0.4.0 / sfx_render('ui_pop/soft', peak_db=-6.0, **{})",
-      "output": "48kHz・24bit WAV / 0.1805秒 / DSP監査: clean。試聴デモから再生できます。",
+      "id": "pop",
+      "label": "Pop",
+      "input": "earshot 0.4.0 / ui_pop/soft / {\"seed\": 104}",
+      "output": "0.181秒・48kHz/24bit WAV",
       "sound_id": "ui_pop/soft",
-      "params": {},
-      "audio": "assets/sfx/pop-soft.wav",
-      "duration_seconds": 0.18045833333333333,
-      "sha256": "0dbacb18d72e1c0071398be81591ac20f0007315f1798c952116c9f10bb0e6f1",
-      "checks_passed": true
-    },
-    {
-      "id": "pop-step",
-      "label": "少し高いポップ",
-      "input": "earshot v0.4.0 / sfx_render('ui_pop/step', peak_db=-6.0, **{})",
-      "output": "48kHz・24bit WAV / 0.1871秒 / DSP監査: clean。試聴デモから再生できます。",
-      "sound_id": "ui_pop/step",
-      "params": {},
-      "audio": "assets/sfx/pop-step.wav",
-      "duration_seconds": 0.187125,
-      "sha256": "8429e857e641c45dd919ee0da156268a4e12f215a6c4bd6f6d51128fa8f3c08c",
-      "checks_passed": true
-    },
-    {
-      "id": "pop-wide",
-      "label": "広がるポップ",
-      "input": "earshot v0.4.0 / sfx_render('ui_pop/wide', peak_db=-6.0, **{})",
-      "output": "48kHz・24bit WAV / 0.1904秒 / DSP監査: clean。試聴デモから再生できます。",
-      "sound_id": "ui_pop/wide",
-      "params": {},
-      "audio": "assets/sfx/pop-wide.wav",
-      "duration_seconds": 0.19039583333333332,
-      "sha256": "5cc761b7fa92007c56279227aafb66200dfd186abf4403c72edb45d46c6b4c2d",
-      "checks_passed": true
-    },
-    {
-      "id": "whoosh",
-      "label": "通り抜ける音",
-      "input": "earshot v0.4.0 / sfx_render('whoosh_fast/crisp', peak_db=-6.0, **{'dur': 0.8, 'apex': 0.32})",
-      "output": "48kHz・24bit WAV / 0.8000秒 / DSP監査: clean。試聴デモから再生できます。",
-      "sound_id": "whoosh_fast/crisp",
       "params": {
-        "dur": 0.8,
-        "apex": 0.32
+        "seed": 104
       },
-      "audio": "assets/sfx/whoosh.wav",
-      "duration_seconds": 0.8,
-      "sha256": "0ca2359eadb6e5038cfc52c02cb13add29f3c47e59d2cba22d5d34040216966d",
+      "audio": "assets/sfx/pop.wav",
+      "duration_seconds": 0.180625,
+      "sha256": "c4d044ab20815bf0dc2002607da3fe0f84a337bb08a94ca12368b96f7ffcc326",
+      "checks_passed": true
+    },
+    {
+      "id": "pop-low",
+      "label": "Low pop",
+      "input": "earshot 0.4.0 / ui_pop/wide / {\"seed\": 104}",
+      "output": "0.185秒・48kHz/24bit WAV",
+      "sound_id": "ui_pop/wide",
+      "params": {
+        "seed": 104
+      },
+      "audio": "assets/sfx/pop-low.wav",
+      "duration_seconds": 0.185125,
+      "sha256": "3c562a82285d3ecb2d50582c5e604f6dcaf644742d45ade22c4fb8f9a69c9084",
+      "checks_passed": true
+    },
+    {
+      "id": "pop-tight",
+      "label": "Tight pop",
+      "input": "earshot 0.4.0 / ui_pop/step / {\"seed\": 104}",
+      "output": "0.185秒・48kHz/24bit WAV",
+      "sound_id": "ui_pop/step",
+      "params": {
+        "seed": 104
+      },
+      "audio": "assets/sfx/pop-tight.wav",
+      "duration_seconds": 0.18464583333333334,
+      "sha256": "dbd1b45100ca4f261bc2d2202c273aa300ddec052f02e5e8005718505db89781",
+      "checks_passed": true
+    },
+    {
+      "id": "tick",
+      "label": "Tick",
+      "input": "earshot 0.4.0 / pro_hover_tick/ping / {\"seed\": 2094108523}",
+      "output": "0.039秒・48kHz/24bit WAV",
+      "sound_id": "pro_hover_tick/ping",
+      "params": {
+        "seed": 2094108523
+      },
+      "audio": "assets/sfx/tick.wav",
+      "duration_seconds": 0.038875,
+      "sha256": "00fd7262778076ef722fd55bbcb2e445898b9de8514fb748a17cfab8b5cd392b",
+      "checks_passed": true
+    },
+    {
+      "id": "click",
+      "label": "Click",
+      "input": "earshot 0.4.0 / fit/click/floss_lid / {\"seed\": 0}",
+      "output": "0.132秒・48kHz/24bit WAV",
+      "sound_id": "fit/click/floss_lid",
+      "params": {
+        "seed": 0
+      },
+      "audio": "assets/sfx/click.wav",
+      "duration_seconds": 0.13202083333333334,
+      "sha256": "e291ba8860c30b2d0fef5bf05d0d84021723958b494b975f4dbe8d8ea1817e45",
+      "checks_passed": true
+    },
+    {
+      "id": "knock",
+      "label": "Knock",
+      "input": "earshot 0.4.0 / knock/wood / {\"seed\": 1}",
+      "output": "0.154秒・48kHz/24bit WAV",
+      "sound_id": "knock/wood",
+      "params": {
+        "seed": 1
+      },
+      "audio": "assets/sfx/knock.wav",
+      "duration_seconds": 0.153625,
+      "sha256": "9d4a89ffd31a6e0a1d6d7c2d882ad909b495e1d8eb9f69fdd802ab02d87e8e3a",
       "checks_passed": true
     },
     {
       "id": "hit",
-      "label": "着地の打撃音",
-      "input": "earshot v0.4.0 / sfx_render('cut_hit/punch', peak_db=-6.0, **{})",
-      "output": "48kHz・24bit WAV / 0.2823秒 / DSP監査: clean。試聴デモから再生できます。",
+      "label": "Hit",
+      "input": "earshot 0.4.0 / cut_hit/punch / {\"seed\": 4103}",
+      "output": "0.282秒・48kHz/24bit WAV",
       "sound_id": "cut_hit/punch",
-      "params": {},
+      "params": {
+        "seed": 4103
+      },
       "audio": "assets/sfx/hit.wav",
       "duration_seconds": 0.28229166666666666,
       "sha256": "d466602596cdfde766fd65d09d1126b20ee14514a08ab281f6c743bc0a16e91a",
       "checks_passed": true
     },
     {
+      "id": "drop",
+      "label": "Drop",
+      "input": "earshot 0.4.0 / cut_hit/kick / {\"seed\": 4102}",
+      "output": "0.325秒・48kHz/24bit WAV",
+      "sound_id": "cut_hit/kick",
+      "params": {
+        "seed": 4102
+      },
+      "audio": "assets/sfx/drop.wav",
+      "duration_seconds": 0.325,
+      "sha256": "9031a8e0b829f4dc20a786faa4e281b45bd617c52249d66aadd1153572b805af",
+      "checks_passed": true
+    },
+    {
+      "id": "whoosh",
+      "label": "Whoosh",
+      "input": "earshot 0.4.0 / whoosh_fast/crisp / {\"dur\": 0.5, \"apex\": 0.23, \"seed\": 420116625}",
+      "output": "0.500秒・48kHz/24bit WAV",
+      "sound_id": "whoosh_fast/crisp",
+      "params": {
+        "dur": 0.5,
+        "apex": 0.23,
+        "seed": 420116625
+      },
+      "audio": "assets/sfx/whoosh.wav",
+      "duration_seconds": 0.5,
+      "sha256": "79177efb80c423d0c3df7ffd96ca97ac69d2c98e2cf7a30821909643e8757df9",
+      "checks_passed": true
+    },
+    {
+      "id": "sweep",
+      "label": "Sweep",
+      "input": "earshot 0.4.0 / whoosh_big/thump / {\"dur\": 0.8, \"apex\": 0.26, \"seed\": 4201}",
+      "output": "0.800秒・48kHz/24bit WAV",
+      "sound_id": "whoosh_big/thump",
+      "params": {
+        "dur": 0.8,
+        "apex": 0.26,
+        "seed": 4201
+      },
+      "audio": "assets/sfx/sweep.wav",
+      "duration_seconds": 0.8,
+      "sha256": "4b0bf8805cab8a15c46603d762e0fec3dbe0ee6f1064b02684921eaa71d5f35b",
+      "checks_passed": true
+    },
+    {
+      "id": "riser",
+      "label": "Riser",
+      "input": "earshot 0.4.0 / riser/dark / {\"dur\": 0.75, \"seed\": 4401}",
+      "output": "0.750秒・48kHz/24bit WAV",
+      "sound_id": "riser/dark",
+      "params": {
+        "dur": 0.75,
+        "seed": 4401
+      },
+      "audio": "assets/sfx/riser.wav",
+      "duration_seconds": 0.75,
+      "sha256": "2cb8a4b1d8b5fde9b5cec361b5de2fdd1dd3b44a44d49651afd176d8a6224b0c",
+      "checks_passed": true
+    },
+    {
+      "id": "glitch",
+      "label": "Glitch",
+      "input": "earshot 0.4.0 / pro_glitch/framelock / {\"dur\": 0.42, \"seed\": 87989972}",
+      "output": "0.420秒・48kHz/24bit WAV",
+      "sound_id": "pro_glitch/framelock",
+      "params": {
+        "dur": 0.42,
+        "seed": 87989972
+      },
+      "audio": "assets/sfx/glitch.wav",
+      "duration_seconds": 0.42,
+      "sha256": "9a43c1d46b6c1c72e3adc88e435b22d8e17f517ba648be160d81dbe249e44439",
+      "checks_passed": true
+    },
+    {
       "id": "shutter",
-      "label": "シャッター",
-      "input": "earshot v0.4.0 / sfx_render('shutter/dslr', peak_db=-6.0, **{})",
-      "output": "48kHz・24bit WAV / 0.2418秒 / DSP監査: clean。試聴デモから再生できます。",
+      "label": "Shutter",
+      "input": "earshot 0.4.0 / shutter/dslr / {\"seed\": 1}",
+      "output": "0.242秒・48kHz/24bit WAV",
       "sound_id": "shutter/dslr",
-      "params": {},
+      "params": {
+        "seed": 1
+      },
       "audio": "assets/sfx/shutter.wav",
       "duration_seconds": 0.24177083333333332,
       "sha256": "eb870d038e219e298576060b1321bbcc495062d02433bf62e6ac40f2c0cf000f",
       "checks_passed": true
     },
     {
-      "id": "note-e",
-      "label": "カリンバ E5",
-      "input": "earshot v0.4.0 / sfx_render('pluck/kalimba', peak_db=-6.0, **{'pitch': 'E5'})",
-      "output": "48kHz・24bit WAV / 3.0000秒 / DSP監査: clean。試聴デモから再生できます。",
-      "sound_id": "pluck/kalimba",
+      "id": "bell",
+      "label": "Bell",
+      "input": "earshot 0.4.0 / mallet/glock / {\"pitch\": \"C5\", \"seed\": 1}",
+      "output": "0.453秒・48kHz/24bit WAV",
+      "sound_id": "mallet/glock",
       "params": {
-        "pitch": "E5"
+        "pitch": "C5",
+        "seed": 1
       },
-      "audio": "assets/sfx/note-e.wav",
-      "duration_seconds": 3.0,
-      "sha256": "1c93d08b10e4854d41d228f25dffbe5b452e8dcae0a020bfde6715262607fd3f",
+      "audio": "assets/sfx/bell.wav",
+      "duration_seconds": 0.4528333333333333,
+      "sha256": "04ec6c3320bc9923cc6af8f21a3e09740c291050c8946bababc348048afd459b",
       "checks_passed": true
     },
     {
-      "id": "note-g",
-      "label": "カリンバ G5",
-      "input": "earshot v0.4.0 / sfx_render('pluck/kalimba', peak_db=-6.0, **{'pitch': 'G5'})",
-      "output": "48kHz・24bit WAV / 3.0000秒 / DSP監査: clean。試聴デモから再生できます。",
-      "sound_id": "pluck/kalimba",
+      "id": "pluck",
+      "label": "Pluck",
+      "input": "earshot 0.4.0 / mallet/marimba / {\"pitch\": \"F4\", \"seed\": 1}",
+      "output": "0.620秒・48kHz/24bit WAV",
+      "sound_id": "mallet/marimba",
       "params": {
-        "pitch": "G5"
+        "pitch": "F4",
+        "seed": 1
       },
-      "audio": "assets/sfx/note-g.wav",
-      "duration_seconds": 3.0,
-      "sha256": "019f5638b21c896965ea111a3cac4f96133dacf1c4879821daeb5c50fda4430d",
+      "audio": "assets/sfx/pluck.wav",
+      "duration_seconds": 0.6199166666666667,
+      "sha256": "037f53afc8f4616f42ec8aff5197e3aaa0cf1afbd26329e1805df974a6718ec1",
       "checks_passed": true
     },
     {
-      "id": "note-b",
-      "label": "カリンバ B5",
-      "input": "earshot v0.4.0 / sfx_render('pluck/kalimba', peak_db=-6.0, **{'pitch': 'B5'})",
-      "output": "48kHz・24bit WAV / 3.0000秒 / DSP監査: clean。試聴デモから再生できます。",
-      "sound_id": "pluck/kalimba",
+      "id": "sting",
+      "label": "Bloom",
+      "input": "earshot 0.4.0 / logo_sting/soft_bloom / {\"dur\": 1.65, \"seed\": 0}",
+      "output": "1.650秒・48kHz/24bit WAV",
+      "sound_id": "logo_sting/soft_bloom",
       "params": {
-        "pitch": "B5"
+        "dur": 1.65,
+        "seed": 0
       },
-      "audio": "assets/sfx/note-b.wav",
-      "duration_seconds": 3.0,
-      "sha256": "e15c5330620384a770da5960b643b6f2aa2b9b3e7b48246d770964c79000cd75",
+      "audio": "assets/sfx/sting.wav",
+      "duration_seconds": 1.65,
+      "sha256": "668042d2e18cd9e64da5449260fd5b0ede4fc5cfa89b86c65718df474b9d04dc",
       "checks_passed": true
     }
   ]

@@ -1,38 +1,56 @@
-# earshot — SHAPE / SOUND
+# earshot / sound in motion
 
-earshot v0.4.0の音バンクから実生成した9音と、その音に合わせた30秒のモーショングラフィックスです。
-POP / WHOOSH / HIT / SHUTTER / PITCH / FINALE の6章を、同じ20の合図で描画・再生します。
+30秒のモーションリール。earshot v0.4.0の16音と、オリジナルの128 BPMスコア。
+映像・音源・編集ソースを収録しています。
 
-## 試す
+## 再生
 
-このフォルダーで `python -m http.server 8326 --bind 127.0.0.1` を実行し、`http://127.0.0.1:8326/` を開きます。
-再生ボタンで映像と実音を同時再生。下の9音は個別に再生・WAV保存できます。
-ブラウザー内でearshotやAIモデルを実行するものではありません。
+このフォルダーをHTTPで配信し、`index.html`を開きます。映像のPlayを押すと音が出ます。
+ブラウザーは保存済みAAC音源と描画コードを使います。生成原本と音源のダウンロードはWAVです。
 
-## 再現
-
-1. [earshot固定版](https://github.com/Leonxlnx/earshot/tree/591fa3e028032e6dce56620a20e932e35667e8d8)をCPU向けPython環境に導入します。
-2. 新しい作業フォルダーへ `input/sound-design.json` と `render_audio.py` をコピーします。
-3. `EARSHOT_OFFLINE=1` を設定し、その専用Pythonで `render_audio.py` を実行します。既存のassetsがある場合は上書きせず停止します。
-4. [Motion Reel](https://github.com/studio-yebisu/motion-reel)のレンダラーで `video/` を描画し、`--audio assets/soundtrack.wav` を渡します。
-
-```text
-node <motion-reel>/scripts/render.mjs --project video --out <new-output> --width 1280 --height 720 --fps 30 --video --audio assets/soundtrack.wav
+```powershell
+python -m http.server 8326 --bind 127.0.0.1
 ```
 
-縦版は `--width 720 --height 1280`。映像は `window.seek(seconds)` で任意順に描けます。
+## 音源の再生成
 
-## 分担と確認範囲
+Python 3.11、earshot 0.4.0、NumPy、SciPy、soundfile、ffmpegが必要です。
+earshotの固定版は `591fa3e028032e6dce56620a20e932e35667e8d8`。
+既存の音源を保持したコピーで、`assets`のない新しい出力先を用意して実行してください。
 
-- Opus 5.5: 図形と動きのコード `video/art.js`、カタログ紹介文。
-- Codex: 実音の生成、音の配置、プレーヤーと試聴画面、書き出し、検証、掲載。
-- 実音: 48kHz・24bit WAV。9音の非無音・形式・DSP監査、E5/G5/B5の音程、whooshの0.8秒とピーク位置0.32秒を確認。
-- `assets/render-report.json` は実音の生成記録、`input/sound-design.json` は入力、`video/timeline.json` は共有する合図です。
-- 映像の描画・MP4・画面操作の確認は掲載側の制作記録を参照。人による聴感評価や本番採用を示すものではありません。252音全体とfit機能は未検証です。
+```powershell
+$env:EARSHOT_OFFLINE='1'
+python render_audio.py
+```
 
-## 出典と条件
+`video/timeline.json`が映像と効果音の合図を共有します。WAVの実測onset/peakを配置し、
+生成音のエンベロープを同JSONのwaveformsへ保存します。16の効果音はearshotのバンクから生成。
+ブラウザー用音源は `ffmpeg -i assets/soundtrack.wav -c:a aac -b:a 192k -movflags +faststart assets/playback.m4a` で作成します。
+スコアはearshotの打楽器と、この作例のPythonで合成したベース・和音・短いモチーフです。
+外部録音・外部の楽曲・ナレーションは含みません。
 
-earshot v0.4.0 / commit `591fa3e028032e6dce56620a20e932e35667e8d8`。
-コードはMIT、Copyright (c) 2026 Leon Lin。`third-party/earshot-LICENSE` を保持しています。
-この作例の音はコードの音バンクから作り、外部録音、BGM、ナレーションは使っていません。
-映像・試聴画面の編集コードは同梱LICENSE、完成した掲載動画はサイトの動画利用条件に従います。
+## 映像の書き出し
+
+`video/index.html`は`window.seek(seconds)`による決定的な描画に対応します。
+Motion Reelのレンダラーで縦横を別配置で出力できます。
+
+```powershell
+node render.mjs --project video --out out-wide --width 1280 --height 720 --fps 60 --video --audio assets/soundtrack.wav
+node render.mjs --project video --out out-portrait --width 720 --height 1280 --fps 60 --video --audio assets/soundtrack.wav
+```
+
+`render.mjs`は[Motion Reel](https://github.com/studio-yebisu/motion-reel)のレンダラーです。
+
+## Credits
+
+- Art / motion: Claude Opus 5.5
+- Direction / cues / sound / original score / player / export: Codex + earshot / Studio Yebisu
+- earshot: Leon Lin, MIT ([fixed source](https://github.com/Leonxlnx/earshot/tree/591fa3e028032e6dce56620a20e932e35667e8d8))
+- Click preset: fit/click/floss_lid, derived in earshot from “Plastic Clicks.flac” by qubodup, CC0 1.0 ([source](https://freesound.org/people/qubodup/sounds/167829/)). Original recording is not included.
+- Motion reference: [earshot 0.4 original launch film](https://github.com/Leonxlnx/earshot/releases/tag/v0.4.0)
+
+本家映像は構成と動きの参考にしました。本家の映像・音楽・ロゴ素材は同梱していません。
+この作例のコードはMIT。書き出し動画の再利用条件は八百万図AIツールボックスの動画利用条件を参照してください。
+
+形式・非無音・各SFXのDSP検査・配置誤差は`assets/render-report.json`に記録。
+これらは聴感評価ではありません。フィット機能の精度と252音すべての検証は対象外です。

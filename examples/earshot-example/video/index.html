@@ -3,21 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>earshot — SHAPE / SOUND</title>
+  <title>earshot — sound in motion</title>
   <style>
-    *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#f2eee3;color:#25241f;font-family:Arial,Meiryo,sans-serif}canvas{display:block;width:100%;height:100%}.controls{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;padding:9px 13px;border:1px solid #25241f33;border-radius:32px;background:#f2eee3ed;max-width:calc(100% - 20px);font-size:12px;backdrop-filter:blur(8px)}button{border:0;border-radius:20px;background:#25241f;color:#f2eee3;padding:8px 13px;cursor:pointer;font:inherit;white-space:nowrap}button:focus-visible,input:focus-visible{outline:3px solid #6b8a00;outline-offset:3px}input{accent-color:#25241f;width:140px;min-width:55px}output{font-variant-numeric:tabular-nums;white-space:nowrap}.message{position:fixed;inset:45% 5% auto;text-align:center;font-size:16px}.controls[hidden],.message[hidden]{display:none}@media(max-width:500px){.controls{gap:6px;padding:6px 9px}input{width:90px}button{padding:8px 10px}}
+    *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0b0e12;color:#f6f8fc;font-family:Arial,Meiryo,sans-serif}canvas{display:block;width:100%;height:100%}.controls{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);display:flex;align-items:center;gap:12px;padding:8px 12px;border:1px solid #ffffff30;border-radius:5px;background:#0b0e12dc;max-width:calc(100% - 24px);font-size:11px;backdrop-filter:blur(8px)}button{border:0;border-radius:3px;background:#f6f8fc;color:#0b0e12;padding:8px 13px;cursor:pointer;font:inherit;white-space:nowrap}button:focus-visible,input:focus-visible{outline:2px solid #7293ff;outline-offset:3px}input{accent-color:#7293ff;width:140px;min-width:55px}output{font-variant-numeric:tabular-nums;white-space:nowrap;color:#9ca8ba}.message{position:fixed;inset:45% 5% auto;text-align:center;font-size:16px}.controls[hidden],.message[hidden]{display:none}@media(max-width:500px){.controls{gap:8px;padding:7px 10px;bottom:14px}input{width:85px}button{padding:8px 10px}}
   </style>
 </head>
 <body>
-  <canvas id="scene" aria-label="earshotで生成した効果音に合わせて、円が現れ、移動し、着地し、共鳴する30秒の映像"></canvas>
+  <canvas id="scene" aria-label="earshotの効果音とオリジナルスコアで動く30秒のモーションリール"></canvas>
   <p class="message" id="message" role="status">読み込み中…</p>
   <div class="controls" id="controls" hidden>
-    <button type="button" id="play" aria-pressed="false">音付きで再生</button>
+    <button type="button" id="play" aria-pressed="false">▶ Play</button>
     <input id="scrub" type="range" min="0" max="30" step="0.01" value="0" aria-label="映像の時刻">
     <output id="time">0.0 / 30</output>
     <button type="button" id="mute" aria-pressed="false" aria-label="音を消す">音あり</button>
   </div>
-  <script src="art.js"></script>
-  <script src="engine.js"></script>
+  <script src="art.js?v=2"></script>
+  <script src="engine.js?v=2"></script>
 </body>
 </html>

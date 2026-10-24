@@ -2,7 +2,7 @@
   "id": "earshot-example",
   "title": "earshot",
   "title_lines": [
-    "コードで作る効果音を、図形の動きに合わせる"
+    "音で動く、30秒。"
   ],
   "category": "audio",
   "summary": "252音をコードとして収めた音バンクから効果音をWAVに書き出し、長さや音程、whoosh系では音量のピーク位置も指定できる。書き出した音は、クリップや途切れた余韻などを測定で監査する。ローカルモデルによる音の説明・検索や、録音を合成コードへ近似するfitもある。",
@@ -13,38 +13,38 @@
   "poster": "media/earshot-example.webp",
   "skill": "examples/earshot-example/render_audio.py",
   "skill_label": "実音を作って配置するPythonソース",
-  "skill_description": "earshotの固定版のバンクから9音を書き出し、実測した鳴り始めやピーク位置を20の合図に合わせ、30秒のWAVを合成するソースです。",
+  "skill_description": "earshotの16音を生成し、53の合図に配置。128 BPMのオリジナルスコアと30秒のWAVへまとめるPythonソースです。",
   "samples": "examples/earshot-example/samples.json",
   "sample_format": "input-output",
-  "samples_title": "実際に書き出した9種類の効果音",
-  "samples_intro": "ポップ3音、whoosh、ヒット、シャッター、音程を変えたカリンバ3音です。各入力と実出力を残し、試聴デモでは音を一つずつ再生・保存できます。",
-  "demo_description": "30秒で「現れる・通り抜ける・着地する・切り取る・共鳴する」を図形と音で見せます。映像の再生・停止・シークと、9音の個別試聴ができます。",
+  "samples_title": "映像に使った16音",
+  "samples_intro": "ポップ、クリック、ヒット、whoosh、グリッチ、シャッター、ベルなど。デモで再生・保存できます。",
+  "demo_description": "音で形が立ち上がり、カメラが走る30秒のモーションリール。横・縦で構図を変えています。",
   "demo_note": "ブラウザーでは保存済みの実音を再生し、時刻表から図形を描きます。earshot本体やAIモデルはブラウザーで動かしません。",
   "request_intro": "コードで作る短い動画に、場面に合う効果音を用意したいときの依頼文です。",
-  "request": "earshot v0.4.0の固定版（591fa3e028032e6dce56620a20e932e35667e8d8）を読み、30秒のモーショングラフィックスとSFXデモを作ってください。UI pop、whoosh、hit、shutter、音程を変えたkalimbaをコードからWAVへ書き出し、鳴り始めや音量ピークを図形の合図に合わせます。BGM・ナレーション・有料APIは使わず、縦横それぞれの配置で描画してください。実音の試聴画面、編集ソース、再現手順、実行して確認したことを残してください。",
-  "video_note": "30秒・30fps。縦720×1280、横1280×720を同じ時刻表から別配置で描きます。音はearshotで実生成した9音・20cueのみ。BGMとナレーションは使っていません。",
+  "request": "earshot v0.4.0を使い、30秒のSFXとモーショングラフィックスを作ってください。本家のリリース映像を構成の参考に、形が次の場面につながる動きと奥行き、音のアクセントで見せてください。説明テロップとナレーションは付けません。効果音はバンクから生成し、オリジナルスコアと組み合わせ、縦横それぞれの映像・音源・編集ソースを残してください。",
+  "video_note": "30秒・60fps。横1280×720、縦720×1280。earshotの16音・53cueと、この作例のオリジナルスコア。",
   "video_source": "examples/earshot-example/video/index.html",
   "skill_license": "examples/earshot-example/third-party/earshot-LICENSE",
-  "license_note": "映像の編集コードはMIT。earshotのコードはLeon LinのMITライセンスです。この作例の音はコードによる音バンクから生成し、外部録音やBGMは使っていません。",
+  "license_note": "編集コードはMIT。earshotはLeon LinのMITライセンスです。SFXはバンクから生成し、スコアはこの作例のオリジナルです。本家の映像・音楽・ロゴ素材は含みません。",
   "applied_skills": [
     {
       "name": "Motion Reel",
       "source": "https://github.com/studio-yebisu/motion-reel",
-      "applied": "Opus 5.5が時刻表に沿う図形と動きのコードvideo/art.jsを執筆。Codexが音・時刻表・再生エンジン・試聴画面を統合し、任意時刻の描画、縦横の別配置、実SFXとの同期、フレーム確認とMP4書き出しに適用。"
+      "applied": "Codexが本家の連続フレームを分析し、構成と音の合図を設計。Opus 5.5が映像コードを再制作。earshotの実音・オリジナルスコアを統合し、60fpsで縦横を個別に描画しました。"
     }
   ],
   "steps": [
     {
-      "title": "音をコードから作る",
-      "body": "v0.4.0の音バンクから9音を48kHz・24bit WAVで生成。whooshの長さ・ピーク位置と、kalimbaの3音程を指定しました。"
+      "title": "SFX",
+      "body": "earshotの16音をCPUで生成。音の長さ・音程・whooshのピークを調整。"
     },
     {
-      "title": "動きと合図を共有する",
-      "body": "30秒の時刻表を音と映像で共有。ポップは鳴り始め、whooshとヒットは音量ピークを合図へ合わせています。"
+      "title": "Motion",
+      "body": "図形、波形、奥行きのあるカメラを連続した動きへ。"
     },
     {
-      "title": "図形と音を再生する",
-      "body": "図形のモーフと実音を同時に再生し、縦横の動画と、1音ずつ聴けるデモを用意しました。"
+      "title": "Film",
+      "body": "オリジナルスコアと合成し、縦横の30秒映像を書き出し。"
     }
   ],
   "catalog_entry": {
@@ -80,10 +80,10 @@
     "source_commit": "591fa3e028032e6dce56620a20e932e35667e8d8",
     "source_path": "",
     "source_project": "curated",
-    "source_note": "公開リポジトリのREADME、効果音バンクの解説（docs/SFX.md）と利用条件を確認し、用途と最初の試し方を日本語で整理しました。原典はv0.4.0のコミットへ固定しています。 この作例はバンクの9音と20の合図を実行したものです。",
+    "source_note": "README、docs/SFX.mdとMITライセンスを確認。原典はv0.4.0の固定コミットです。作例は16音を生成した30秒のリールです。",
     "prompt": "earshot v0.4.0 の原典（https://github.com/Leonxlnx/earshot/tree/591fa3e028032e6dce56620a20e932e35667e8d8）を読んで、次を進めてください。\nこの作業はGPUも有料APIも使いません。モデルを読み込まない音バンク（earshot sfx）だけを使い、CLAP・ASTのモデル取得やGemini機能は使わないでください。\n1. 固定版のコミットを取得し、READMEの手順でCPU向けのPython環境を作り、earshot doctor で導入を確認してください。\n2. 新しい空の出力フォルダーを作り、既存のファイルを上書きしないでください。\n3. earshot sfx list で候補を確かめ、UI popに ui_pop/soft、whooshに whoosh_fast/crisp（--dur 0.8 --apex 0.32）、hitに cut_hit/punch を1個ずつWAVへ書き出してください。別の音を選ぶ場合は理由を残してください。\n4. 各WAVのサンプルレート・ビット深度・長さと、whooshのピーク位置を確認し、earshot sfx check の結果を記録してください。\n5. 監査は測定による確認で、音の良し悪しは判定しません。3つのWAVを試聴用に渡し、聴感の判断は人に任せてください。\n入力、出力、実行した検証、未確認の点を記録してください。",
     "verification_stage": "runtime-reviewed",
-    "verification": "2026-10-24、固定版v0.4.0をCPU環境で実行。9種類のSFXを48kHz/24bitで生成し、20か所へ配置した30秒の映像・試聴デモを制作。各音の非無音・形式・DSP監査、合図との配置を確認。CLAP/ASTのオフライン読込とMCP経由の生成も確認。人による聴感評価、252音全体、fitの再現精度は未確認。",
+    "verification": "2026-10-24、固定版v0.4.0で16種類のSFXを48kHz/24bitで生成し、53か所へ配置。形式・非無音・DSP監査と、縦横60fpsの描画を確認。聴感評価、252音全体、fitの精度は未確認。",
     "reviewed_on": "2026-10-24",
     "example_url": "examples/earshot-example/index.html",
     "image": "media/earshot-example.webp"

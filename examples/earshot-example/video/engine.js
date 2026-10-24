@@ -8,7 +8,7 @@
   let W = override.width || even(innerWidth), H = override.height || even(innerHeight);
   let timeline, lastTime = 0, raf = 0, audio;
   canvas.width = W; canvas.height = H;
-  window.motionConfig = {duration: 30, fps: override.fps || 30, width: W, height: H, posterTime: 27.9, audioEvents: []};
+  window.motionConfig = {duration: 30, fps: override.fps || 60, width: W, height: H, posterTime: 28.8, audioEvents: []};
   const paint = t => {
     lastTime = Math.max(0, Math.min(30, Number(t) || 0));
     if (typeof ctx.reset === 'function') ctx.reset();
@@ -17,7 +17,7 @@
     window.drawEarshot(ctx, lastTime, W, H, timeline);
   };
   window.motionReady = Promise.all([
-    fetch('timeline.json').then(r => {if (!r.ok) throw new Error('時刻表を読み込めませんでした'); return r.json();}),
+    fetch('timeline.json?v=2').then(r => {if (!r.ok) throw new Error('時刻表を読み込めませんでした'); return r.json();}),
     document.fonts.ready
   ]).then(([data]) => {
     if (typeof window.drawEarshot !== 'function') throw new Error('映像を読み込めませんでした');
@@ -33,8 +33,21 @@
 
   const play = document.getElementById('play'), scrub = document.getElementById('scrub');
   const time = document.getElementById('time'), mute = document.getElementById('mute');
-  audio = new Audio('../assets/soundtrack.wav');
-  audio.preload = 'metadata'; audio.volume = 0.75;
+  audio = new Audio();
+  audio.preload = 'auto'; audio.volume = 0.75;
+  let audioReady;
+  function prepareAudio() {
+    if (!audioReady) audioReady = fetch('../assets/playback.m4a?v=2').then(async response => {
+      if (!response.ok) throw new Error('音源を読み込めませんでした');
+      const url = URL.createObjectURL(await response.blob());
+      await new Promise((resolve, reject) => {
+        audio.addEventListener('loadedmetadata', resolve, {once: true});
+        audio.addEventListener('error', () => reject(new Error('音源を再生できませんでした')), {once: true});
+        audio.src = url; audio.load();
+      });
+    }).catch(error => {audioReady = undefined; throw error;});
+    return audioReady;
+  }
   window.earshotAudio = audio;
   function drawCurrent() {
     paint(audio.currentTime); scrub.value = String(audio.currentTime);
@@ -42,7 +55,7 @@
   }
   function stop() {
     audio.pause(); cancelAnimationFrame(raf);
-    play.textContent = '音付きで再生'; play.setAttribute('aria-pressed', 'false');
+    play.textContent = '▶ Play'; play.setAttribute('aria-pressed', 'false');
   }
   window.pauseEarshot = stop;
   function tick() {drawCurrent(); if (!audio.paused) raf = requestAnimationFrame(tick);}
@@ -50,16 +63,20 @@
     if (!audio.paused) return stop();
     try {
       await window.motionReady;
+      await prepareAudio();
       if (audio.ended || audio.currentTime >= 29.99) audio.currentTime = 0;
       message.hidden = true;
       await audio.play();
       parent.postMessage({type: 'earshot-film-play'}, location.origin);
-      play.textContent = '一時停止'; play.setAttribute('aria-pressed', 'true');
+      play.textContent = 'Ⅱ Pause'; play.setAttribute('aria-pressed', 'true');
       cancelAnimationFrame(raf); tick();
     } catch (error) {stop(); fail(error);}
   });
   scrub.addEventListener('input', async () => {
-    stop(); await window.motionReady; audio.currentTime = Number(scrub.value); drawCurrent();
+    const requested = Number(scrub.value);
+    stop();
+    try {await window.motionReady; await prepareAudio(); audio.currentTime = requested; drawCurrent();}
+    catch (error) {fail(error);}
   });
   mute.addEventListener('click', () => {
     audio.muted = !audio.muted;
@@ -79,5 +96,5 @@
     if (timeline) paint(lastTime);
   });
   matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', stop);
-  window.motionReady.then(() => {controls.hidden = false;});
+  window.motionReady.then(prepareAudio).then(() => {controls.hidden = false;}).catch(fail);
 })();

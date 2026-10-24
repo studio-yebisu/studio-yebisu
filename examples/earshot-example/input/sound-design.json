@@ -1,49 +1,573 @@
 {
-  "title": "earshot — SHAPE / SOUND",
-  "duration": 30,
-  "fps": 30,
-  "sample_rate": 48000,
   "version": "0.4.0",
   "source_commit": "591fa3e028032e6dce56620a20e932e35667e8d8",
+  "duration": 30,
+  "sample_rate": 48000,
+  "fps": 30,
+  "bpm": 128,
   "sounds": [
-    {"key": "pop-soft", "id": "ui_pop/soft", "label": "丸いポップ", "params": {}},
-    {"key": "pop-step", "id": "ui_pop/step", "label": "少し高いポップ", "params": {}},
-    {"key": "pop-wide", "id": "ui_pop/wide", "label": "広がるポップ", "params": {}},
-    {"key": "whoosh", "id": "whoosh_fast/crisp", "label": "通り抜ける音", "params": {"dur": 0.8, "apex": 0.32}},
-    {"key": "hit", "id": "cut_hit/punch", "label": "着地の打撃音", "params": {}},
-    {"key": "shutter", "id": "shutter/dslr", "label": "シャッター", "params": {}},
-    {"key": "note-e", "id": "pluck/kalimba", "label": "カリンバ E5", "params": {"pitch": "E5"}},
-    {"key": "note-g", "id": "pluck/kalimba", "label": "カリンバ G5", "params": {"pitch": "G5"}},
-    {"key": "note-b", "id": "pluck/kalimba", "label": "カリンバ B5", "params": {"pitch": "B5"}}
-  ],
-  "chapters": [
-    {"start": 0, "end": 5, "key": "pop", "title": "POP", "caption": "現れる音"},
-    {"start": 5, "end": 10, "key": "whoosh", "title": "WHOOSH", "caption": "通り抜ける音"},
-    {"start": 10, "end": 15, "key": "hit", "title": "HIT", "caption": "着地する音"},
-    {"start": 15, "end": 20, "key": "shutter", "title": "SHUTTER", "caption": "切り取る音"},
-    {"start": 20, "end": 25, "key": "pitch", "title": "PITCH", "caption": "音程を変える"},
-    {"start": 25, "end": 30, "key": "finale", "title": "earshot", "caption": "音を、コードで。"}
+    {
+      "key": "pop",
+      "id": "ui_pop/soft",
+      "label": "Pop",
+      "params": {
+        "seed": 104
+      }
+    },
+    {
+      "key": "pop-low",
+      "id": "ui_pop/wide",
+      "label": "Low pop",
+      "params": {
+        "seed": 104
+      }
+    },
+    {
+      "key": "pop-tight",
+      "id": "ui_pop/step",
+      "label": "Tight pop",
+      "params": {
+        "seed": 104
+      }
+    },
+    {
+      "key": "tick",
+      "id": "pro_hover_tick/ping",
+      "label": "Tick",
+      "params": {
+        "seed": 2094108523
+      }
+    },
+    {
+      "key": "click",
+      "id": "fit/click/floss_lid",
+      "label": "Click",
+      "params": {
+        "seed": 0
+      }
+    },
+    {
+      "key": "knock",
+      "id": "knock/wood",
+      "label": "Knock",
+      "params": {
+        "seed": 1
+      }
+    },
+    {
+      "key": "hit",
+      "id": "cut_hit/punch",
+      "label": "Hit",
+      "params": {
+        "seed": 4103
+      }
+    },
+    {
+      "key": "drop",
+      "id": "cut_hit/kick",
+      "label": "Drop",
+      "params": {
+        "seed": 4102
+      }
+    },
+    {
+      "key": "whoosh",
+      "id": "whoosh_fast/crisp",
+      "label": "Whoosh",
+      "params": {
+        "dur": 0.5,
+        "apex": 0.23,
+        "seed": 420116625
+      }
+    },
+    {
+      "key": "sweep",
+      "id": "whoosh_big/thump",
+      "label": "Sweep",
+      "params": {
+        "dur": 0.8,
+        "apex": 0.26,
+        "seed": 4201
+      }
+    },
+    {
+      "key": "riser",
+      "id": "riser/dark",
+      "label": "Riser",
+      "params": {
+        "dur": 0.75,
+        "seed": 4401
+      }
+    },
+    {
+      "key": "glitch",
+      "id": "pro_glitch/framelock",
+      "label": "Glitch",
+      "params": {
+        "dur": 0.42,
+        "seed": 87989972
+      }
+    },
+    {
+      "key": "shutter",
+      "id": "shutter/dslr",
+      "label": "Shutter",
+      "params": {
+        "seed": 1
+      }
+    },
+    {
+      "key": "bell",
+      "id": "mallet/glock",
+      "label": "Bell",
+      "params": {
+        "pitch": "C5",
+        "seed": 1
+      }
+    },
+    {
+      "key": "pluck",
+      "id": "mallet/marimba",
+      "label": "Pluck",
+      "params": {
+        "pitch": "F4",
+        "seed": 1
+      }
+    },
+    {
+      "key": "sting",
+      "id": "logo_sting/soft_bloom",
+      "label": "Bloom",
+      "params": {
+        "dur": 1.65,
+        "seed": 0
+      }
+    }
   ],
   "events": [
-    {"time": 0.8, "sound": "pop-soft", "sync": "onset"},
-    {"time": 1.4, "sound": "pop-step", "sync": "onset"},
-    {"time": 2.0, "sound": "pop-wide", "sync": "onset"},
-    {"time": 3.4, "sound": "pop-soft", "sync": "onset"},
-    {"time": 5.8, "sound": "whoosh", "sync": "peak"},
-    {"time": 7.3, "sound": "whoosh", "sync": "peak"},
-    {"time": 8.8, "sound": "whoosh", "sync": "peak"},
-    {"time": 10.65, "sound": "hit", "sync": "peak"},
-    {"time": 12.9, "sound": "hit", "sync": "peak"},
-    {"time": 15.65, "sound": "shutter", "sync": "onset"},
-    {"time": 17.1, "sound": "shutter", "sync": "onset"},
-    {"time": 18.55, "sound": "shutter", "sync": "onset"},
-    {"time": 20.6, "sound": "note-e", "sync": "onset"},
-    {"time": 21.25, "sound": "note-g", "sync": "onset"},
-    {"time": 21.9, "sound": "note-b", "sync": "onset"},
-    {"time": 25.7, "sound": "whoosh", "sync": "peak"},
-    {"time": 26.1, "sound": "hit", "sync": "peak"},
-    {"time": 26.9, "sound": "pop-soft", "sync": "onset"},
-    {"time": 27.25, "sound": "pop-step", "sync": "onset"},
-    {"time": 27.6, "sound": "pop-wide", "sync": "onset"}
+    {
+      "time": 0.05,
+      "sound": "pop",
+      "sync": "onset",
+      "action": "opening bars",
+      "gain_db": -7,
+      "pan": -0.18
+    },
+    {
+      "time": 0.46875,
+      "sound": "pop",
+      "sync": "onset",
+      "action": "opening bars",
+      "gain_db": -7,
+      "pan": 0.0
+    },
+    {
+      "time": 0.9375,
+      "sound": "pop",
+      "sync": "onset",
+      "action": "opening bars",
+      "gain_db": -7,
+      "pan": 0.18
+    },
+    {
+      "time": 1.40625,
+      "sound": "pop",
+      "sync": "onset",
+      "action": "opening bars",
+      "gain_db": -7,
+      "pan": -0.18
+    },
+    {
+      "time": 1.875,
+      "sound": "sweep",
+      "sync": "peak",
+      "action": "camera traverse",
+      "gain_db": -8,
+      "pan": -0.18
+    },
+    {
+      "time": 2.34375,
+      "sound": "click",
+      "sync": "onset",
+      "action": "rack selects",
+      "gain_db": -13,
+      "pan": -0.18
+    },
+    {
+      "time": 2.8125,
+      "sound": "click",
+      "sync": "onset",
+      "action": "rack selects",
+      "gain_db": -13,
+      "pan": 0.0
+    },
+    {
+      "time": 3.75,
+      "sound": "sweep",
+      "sync": "peak",
+      "action": "camera traverse",
+      "gain_db": -8,
+      "pan": 0.0
+    },
+    {
+      "time": 4.21875,
+      "sound": "click",
+      "sync": "onset",
+      "action": "rack selects",
+      "gain_db": -13,
+      "pan": 0.18
+    },
+    {
+      "time": 4.6875,
+      "sound": "click",
+      "sync": "onset",
+      "action": "rack selects",
+      "gain_db": -13,
+      "pan": -0.18
+    },
+    {
+      "time": 5.15625,
+      "sound": "click",
+      "sync": "onset",
+      "action": "rack selects",
+      "gain_db": -13,
+      "pan": 0.0
+    },
+    {
+      "time": 6.5625,
+      "sound": "sweep",
+      "sync": "peak",
+      "action": "camera traverse",
+      "gain_db": -8,
+      "pan": 0.18
+    },
+    {
+      "time": 6.8,
+      "sound": "hit",
+      "sync": "onset",
+      "action": "geometric contact",
+      "gain_db": -7,
+      "pan": -0.18
+    },
+    {
+      "time": 7.5,
+      "sound": "hit",
+      "sync": "onset",
+      "action": "geometric contact",
+      "gain_db": -7,
+      "pan": 0.0
+    },
+    {
+      "time": 7.734375,
+      "sound": "tick",
+      "sync": "onset",
+      "action": "small contact",
+      "gain_db": -12,
+      "pan": -0.18
+    },
+    {
+      "time": 8.2,
+      "sound": "hit",
+      "sync": "onset",
+      "action": "geometric contact",
+      "gain_db": -7,
+      "pan": 0.18
+    },
+    {
+      "time": 8.4375,
+      "sound": "tick",
+      "sync": "onset",
+      "action": "small contact",
+      "gain_db": -12,
+      "pan": 0.0
+    },
+    {
+      "time": 9.1,
+      "sound": "hit",
+      "sync": "onset",
+      "action": "geometric contact",
+      "gain_db": -7,
+      "pan": -0.18
+    },
+    {
+      "time": 9.375,
+      "sound": "tick",
+      "sync": "onset",
+      "action": "small contact",
+      "gain_db": -12,
+      "pan": 0.18
+    },
+    {
+      "time": 10.3125,
+      "sound": "whoosh",
+      "sync": "peak",
+      "action": "crossing planes",
+      "gain_db": -8,
+      "pan": -0.18
+    },
+    {
+      "time": 11.25,
+      "sound": "glitch",
+      "sync": "onset",
+      "action": "wavefield split",
+      "gain_db": -10,
+      "pan": -0.18
+    },
+    {
+      "time": 12.1875,
+      "sound": "whoosh",
+      "sync": "peak",
+      "action": "crossing planes",
+      "gain_db": -8,
+      "pan": 0.0
+    },
+    {
+      "time": 12.65625,
+      "sound": "bell",
+      "sync": "onset",
+      "action": "resonance",
+      "gain_db": -13,
+      "pan": -0.18
+    },
+    {
+      "time": 13.125,
+      "sound": "bell",
+      "sync": "onset",
+      "action": "resonance",
+      "gain_db": -13,
+      "pan": 0.0
+    },
+    {
+      "time": 13.59375,
+      "sound": "bell",
+      "sync": "onset",
+      "action": "resonance",
+      "gain_db": -13,
+      "pan": 0.18
+    },
+    {
+      "time": 14.8,
+      "sound": "sweep",
+      "sync": "peak",
+      "action": "contrast transition",
+      "gain_db": -8,
+      "pan": -0.18
+    },
+    {
+      "time": 15.05,
+      "sound": "shutter",
+      "sync": "onset",
+      "action": "shape snap",
+      "gain_db": -9,
+      "pan": -0.18
+    },
+    {
+      "time": 15.9375,
+      "sound": "pluck",
+      "sync": "onset",
+      "action": "solid response",
+      "gain_db": -9,
+      "pan": -0.18
+    },
+    {
+      "time": 16.4,
+      "sound": "shutter",
+      "sync": "onset",
+      "action": "shape snap",
+      "gain_db": -9,
+      "pan": 0.0
+    },
+    {
+      "time": 17.1,
+      "sound": "shutter",
+      "sync": "onset",
+      "action": "shape snap",
+      "gain_db": -9,
+      "pan": 0.18
+    },
+    {
+      "time": 17.8125,
+      "sound": "pluck",
+      "sync": "onset",
+      "action": "solid response",
+      "gain_db": -9,
+      "pan": 0.0
+    },
+    {
+      "time": 18.75,
+      "sound": "pop-low",
+      "sync": "onset",
+      "action": "stack lands",
+      "gain_db": -8,
+      "pan": -0.18
+    },
+    {
+      "time": 19.21875,
+      "sound": "pop-tight",
+      "sync": "onset",
+      "action": "stack resolves",
+      "gain_db": -8,
+      "pan": -0.18
+    },
+    {
+      "time": 19.6875,
+      "sound": "pop-low",
+      "sync": "onset",
+      "action": "stack lands",
+      "gain_db": -8,
+      "pan": 0.0
+    },
+    {
+      "time": 20.15625,
+      "sound": "pop-tight",
+      "sync": "onset",
+      "action": "stack resolves",
+      "gain_db": -8,
+      "pan": 0.0
+    },
+    {
+      "time": 20.625,
+      "sound": "hit",
+      "sync": "onset",
+      "action": "macro stack",
+      "gain_db": -7,
+      "pan": -0.18
+    },
+    {
+      "time": 21,
+      "sound": "knock",
+      "sync": "onset",
+      "action": "stack run",
+      "gain_db": -13,
+      "pan": -0.18
+    },
+    {
+      "time": 21.14,
+      "sound": "knock",
+      "sync": "onset",
+      "action": "stack run",
+      "gain_db": -13,
+      "pan": 0.0
+    },
+    {
+      "time": 21.28,
+      "sound": "knock",
+      "sync": "onset",
+      "action": "stack run",
+      "gain_db": -13,
+      "pan": 0.18
+    },
+    {
+      "time": 21.5625,
+      "sound": "whoosh",
+      "sync": "peak",
+      "action": "stack camera",
+      "gain_db": -8,
+      "pan": -0.18
+    },
+    {
+      "time": 22.5,
+      "sound": "hit",
+      "sync": "onset",
+      "action": "macro stack",
+      "gain_db": -7,
+      "pan": 0.0
+    },
+    {
+      "time": 23.1,
+      "sound": "click",
+      "sync": "onset",
+      "action": "pattern lock",
+      "gain_db": -13,
+      "pan": -0.18
+    },
+    {
+      "time": 23.24,
+      "sound": "click",
+      "sync": "onset",
+      "action": "pattern lock",
+      "gain_db": -13,
+      "pan": 0.0
+    },
+    {
+      "time": 23.4375,
+      "sound": "whoosh",
+      "sync": "peak",
+      "action": "stack camera",
+      "gain_db": -8,
+      "pan": 0.0
+    },
+    {
+      "time": 24.375,
+      "sound": "whoosh",
+      "sync": "peak",
+      "action": "stack camera",
+      "gain_db": -8,
+      "pan": 0.18
+    },
+    {
+      "time": 25.8,
+      "sound": "riser",
+      "sync": "peak",
+      "action": "pullback builds",
+      "gain_db": -7,
+      "pan": -0.18
+    },
+    {
+      "time": 26.25,
+      "sound": "sweep",
+      "sync": "peak",
+      "action": "recombine",
+      "gain_db": -8,
+      "pan": -0.18
+    },
+    {
+      "time": 26.71875,
+      "sound": "click",
+      "sync": "onset",
+      "action": "mark assembles",
+      "gain_db": -12,
+      "pan": -0.18
+    },
+    {
+      "time": 26.953125,
+      "sound": "click",
+      "sync": "onset",
+      "action": "mark assembles",
+      "gain_db": -12,
+      "pan": 0.0
+    },
+    {
+      "time": 27.1875,
+      "sound": "click",
+      "sync": "onset",
+      "action": "mark assembles",
+      "gain_db": -12,
+      "pan": 0.18
+    },
+    {
+      "time": 27.65,
+      "sound": "hit",
+      "sync": "onset",
+      "action": "stop accent",
+      "gain_db": -9,
+      "pan": -0.18
+    },
+    {
+      "time": 28.125,
+      "sound": "sting",
+      "sync": "onset",
+      "action": "earshot mark",
+      "gain_db": -10,
+      "pan": -0.18
+    },
+    {
+      "time": 28.125,
+      "sound": "drop",
+      "sync": "onset",
+      "action": "earshot downbeat",
+      "gain_db": -14,
+      "pan": -0.18
+    }
   ]
 }
